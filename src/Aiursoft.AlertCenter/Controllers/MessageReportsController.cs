@@ -42,6 +42,7 @@ public class MessageReportsController(TemplateDbContext db, IAlertDispatcher dis
             ContextJson = request.Context?.ToString(Formatting.None)
         };
         db.ReportedMessages.Add(message);
+        await dispatcher.DispatchAsync(message, cancellationToken);
         try
         {
             await db.SaveChangesAsync(cancellationToken);
@@ -49,12 +50,11 @@ public class MessageReportsController(TemplateDbContext db, IAlertDispatcher dis
         catch (DbUpdateException)
         {
             // 并发重复上报以已落库记录为准，其他数据库错误继续向上传递。
-            db.Entry(message).State = EntityState.Detached;
+            db.ChangeTracker.Clear();
             existing = await FindExisting(applicationId, request.ReportId, cancellationToken);
             if (existing == null) throw;
             return Ok(Receipt(existing, true));
         }
-        await dispatcher.DispatchAsync(message, cancellationToken);
         return StatusCode(StatusCodes.Status201Created, Receipt(message, false));
     }
 

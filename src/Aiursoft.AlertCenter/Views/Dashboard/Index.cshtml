@@ -4,5 +4,6 @@
     <p>创建接入应用 → 使用 API Key 上报 → 查看消息详情</p>
     <a asp-controller="Alerts" asp-action="Index" class="btn btn-primary me-2">查看告警</a>
     <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-primary">接入应用</a>
-    <p class="text-muted mt-3 mb-0">请使用管理员账号访问。当前 Demo 支持接收和存储，外部推送尚未启用。</p>
+    <a asp-controller="Push" asp-action="Index" class="btn btn-outline-primary">推送中心</a>
+    <p class="text-muted mt-3 mb-0">管理员可配置 Webhook 和站内通知，为接入应用关联推送渠道。</p>
 </div></div>

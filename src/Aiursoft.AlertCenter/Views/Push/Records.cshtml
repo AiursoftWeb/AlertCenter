@@ -1,0 +1,30 @@
+@model Aiursoft.AlertCenter.Models.PushViewModel
+@using Aiursoft.AlertCenter.Entities
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h1 class="h3 mb-1">推送记录</h1><p class="text-muted mb-0">查看投递进度和失败原因 · 时间均为 UTC</p></div><a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" asp-route-page="@Model.Page" class="btn btn-outline-secondary">刷新</a></div>
+<partial name="_Navigation" />
+<div class="card"><div class="card-body"><form asp-action="Records" method="get" class="row g-3 align-items-end">
+    <div class="col-sm-5"><label for="filter-channel" class="form-label">推送渠道</label><select id="filter-channel" name="channelId" class="form-select"><option value="">全部渠道</option>@foreach (var channel in Model.Channels) { <option value="@channel.Id" selected="@(Model.ChannelId == channel.Id)">@channel.Name</option> }</select></div>
+    <div class="col-sm-5"><label for="filter-status" class="form-label">投递状态</label><select id="filter-status" name="status" class="form-select"><option value="">全部状态</option><option value="pending" selected="@(Model.Status == PushDelivery.Pending)">等待投递</option><option value="sending" selected="@(Model.Status == PushDelivery.Sending)">投递中</option><option value="succeeded" selected="@(Model.Status == PushDelivery.Succeeded)">投递成功</option><option value="failed" selected="@(Model.Status == PushDelivery.Failed)">投递失败</option></select></div>
+    <div class="col-sm-2"><button class="btn btn-primary w-100">筛选</button></div>
+</form></div></div>
+<div class="card">
+@if (Model.Deliveries.Count == 0)
+{
+    <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="history" aria-hidden="true"></i></div><h2 class="h5">暂无推送记录</h2><p class="text-muted mb-0">测试渠道或上报关联应用的告警后，投递记录会显示在这里。</p></div>
+}
+else
+{
+    <div class="table-responsive"><table class="table table-hover align-middle mb-0">
+        <thead><tr><th class="ps-4">消息</th><th>渠道</th><th>状态</th><th>次数</th><th class="pe-4">创建时间 (UTC)</th></tr></thead><tbody>
+        @foreach (var delivery in Model.Deliveries)
+        {
+            <tr><td class="ps-4"><a asp-action="Delivery" asp-route-id="@delivery.Id" class="fw-semibold text-decoration-none">@(delivery.Message?.Title ?? "渠道测试通知")</a><small class="d-block text-muted">@(delivery.Message?.Application.Name ?? "手动测试")</small></td><td>@delivery.Channel.Name</td><td><partial name="_DeliveryStatus" model="delivery.Status" /></td><td>@delivery.Attempts</td><td class="text-nowrap text-muted pe-4">@delivery.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</td></tr>
+        }
+        </tbody>
+    </table></div>
+    <div class="card-body border-top d-flex justify-content-between align-items-center"><small class="text-muted">第 @Model.Page 页</small><nav class="d-flex gap-2" aria-label="推送记录分页">
+        @if (Model.Page > 1) { <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a> }
+        @if (Model.HasNextPage) { <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a> }
+    </nav></div>
+}
+</div>

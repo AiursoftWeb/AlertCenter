@@ -1,0 +1,28 @@
+@model Aiursoft.AlertCenter.Models.PushViewModel
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div><h1 class="h3 mb-1">应用推送设置</h1><p class="text-muted mb-0">@Model.Application!.Name · 选择接收此应用新告警的渠道。</p></div>
+    <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-secondary">返回接入应用</a>
+</div>
+<partial name="_Navigation" />
+<form asp-action="SaveBindings" method="post">
+    <input type="hidden" name="id" value="@Model.Application.Id" />
+    <div class="card"><div class="card-header"><h2 class="card-title mb-0">关联推送渠道</h2></div><div class="card-body pt-0">
+    @if (Model.Channels.Count == 0)
+    {
+        <div class="text-center py-4"><div class="stat mx-auto mb-3"><i data-lucide="send" aria-hidden="true"></i></div><p class="text-muted">还没有配置推送渠道。</p><a asp-action="Create" class="btn btn-primary">添加渠道</a></div>
+    }
+    else
+    {
+        <div class="row">@foreach (var channel in Model.Channels)
+        {
+            var type = Model.ChannelTypes.FirstOrDefault(item => item.Key == channel.Type);
+            <div class="col-md-6 mb-3"><label class="border rounded p-3 d-flex gap-3 h-100" for="channel-@channel.Id">
+                <input type="checkbox" class="form-check-input flex-shrink-0" id="channel-@channel.Id" name="channelIds" value="@channel.Id" checked="@Model.SelectedChannelIds.Contains(channel.Id)" />
+                <span><strong class="d-block">@channel.Name</strong><small class="text-muted">@(type?.Name ?? channel.Type) · @(channel.IsEnabled ? "已启用" : "已停用，暂不接收新告警")</small></span>
+            </label></div>
+        }</div>
+        <p class="text-muted">仅对保存后的新告警生效，不补发历史消息。停用的渠道会保留关联，但不会新增投递任务。</p>
+        <button class="btn btn-primary">保存关联</button>
+    }
+    </div></div>
+</form>

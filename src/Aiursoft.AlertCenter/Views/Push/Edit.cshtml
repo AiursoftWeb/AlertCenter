@@ -1,0 +1,37 @@
+@model Aiursoft.AlertCenter.Models.PushChannelEditViewModel
+@{ var selectedType = Model.ChannelTypes.FirstOrDefault(type => type.Key == Model.Type); }
+<div class="d-flex justify-content-between align-items-center mb-4"><h1 class="h3 mb-0">@(Model.Id.HasValue ? "编辑推送渠道" : "添加推送渠道")</h1><a asp-action="Index" class="btn btn-outline-secondary">返回渠道列表</a></div>
+<partial name="_Navigation" />
+@if (!Model.Id.HasValue)
+{
+    <h2 class="h5 mb-3">选择渠道类型</h2>
+    <div class="row">
+    @foreach (var type in Model.ChannelTypes)
+    {
+        <div class="col-md-6 col-xl-4 d-flex"><a asp-action="Create" asp-route-type="@type.Key" class="card flex-fill text-decoration-none @(Model.Type == type.Key ? "border border-primary" : "")" aria-current="@(Model.Type == type.Key ? "true" : "false")">
+            <div class="card-body"><div class="d-flex align-items-center gap-3 mb-3"><div class="stat"><i data-lucide="@type.Icon" aria-hidden="true"></i></div><h3 class="h5 mb-0">@type.Name</h3></div><p class="text-muted mb-0">@type.Description</p></div>
+        </a></div>
+    }
+    </div>
+}
+@if (selectedType != null)
+{
+    <div class="row"><div class="col-lg-8"><div class="card">
+        <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="@selectedType.Icon" aria-hidden="true"></i>@selectedType.Name 配置</h2></div>
+        <div class="card-body pt-0"><form asp-action="Save" method="post">
+            <input asp-for="Id" type="hidden" /><input asp-for="Type" type="hidden" />
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+            <div class="mb-3"><label asp-for="Name" class="form-label">渠道名称</label><input asp-for="Name" required maxlength="100" class="form-control" placeholder="例如：研发团队通知" /></div>
+            @if (selectedType.RequiresEndpoint)
+            {
+                <div class="mb-3"><label asp-for="Endpoint" class="form-label">Webhook 接收地址</label><input asp-for="Endpoint" type="url" required maxlength="2048" class="form-control" placeholder="https://example.com/webhook" aria-describedby="endpoint-hint" /><small class="text-muted" id="endpoint-hint">接收端需支持 HTTP POST JSON，返回 2xx 表示成功。请求超时为 10 秒，不跟随重定向。</small></div>
+            }
+            else
+            {
+                <div class="border rounded p-3 mb-3"><h3 class="h6">接收范围：所有管理员</h3><p class="text-muted mb-0">发送时为每位管理员创建站内通知，在“站内通知”中查看并独立标记已读。无需外部地址。</p></div>
+            }
+            <div class="form-check form-switch mb-4"><input asp-for="IsEnabled" class="form-check-input" /><label asp-for="IsEnabled" class="form-check-label">启用渠道</label></div>
+            <div class="d-flex gap-2"><button class="btn btn-primary">保存渠道</button><a asp-action="Index" class="btn btn-outline-secondary">取消</a></div>
+        </form></div>
+    </div></div></div>
+}

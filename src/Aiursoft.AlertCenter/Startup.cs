@@ -11,6 +11,7 @@ using Aiursoft.AlertCenter.MySql;
 using Aiursoft.AlertCenter.Services.Authentication;
 using Aiursoft.AlertCenter.Services.BackgroundJobs;
 using Aiursoft.AlertCenter.Sqlite;
+using Aiursoft.AlertCenter.Services;
 using Aiursoft.UiStack;
 using Aiursoft.UiStack.Layout;
 using Aiursoft.UiStack.Navigation;
@@ -53,7 +54,13 @@ public class Startup : IWebStartup
         // Services
         services.AddMemoryCache();
         services.AddHttpClient();
-        services.AddScoped<Aiursoft.AlertCenter.Services.IAlertDispatcher, Aiursoft.AlertCenter.Services.NullAlertDispatcher>();
+        services.AddScoped<IAlertDispatcher, QueuedAlertDispatcher>();
+        services.AddScoped<INotificationChannelAdapter, WebhookChannelAdapter>();
+        services.AddScoped<INotificationChannelAdapter, InAppChannelAdapter>();
+        services.AddScoped<PushDeliveryProcessor>();
+        services.AddHttpClient("PushWebhook", client => client.Timeout = TimeSpan.FromSeconds(10))
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { AllowAutoRedirect = false, UseCookies = false });
+        services.AddHostedService<PushDeliveryWorker>();
         services.AddAssemblyDependencies(typeof(Startup).Assembly);
         services.AddSingleton<NavigationState<Startup>>();
 

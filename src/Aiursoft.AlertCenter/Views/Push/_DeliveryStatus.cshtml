@@ -1,0 +1,12 @@
+@model string
+@using Aiursoft.AlertCenter.Entities
+@{
+    var (color, label) = Model switch
+    {
+        PushDelivery.Pending => ("secondary", "等待投递"),
+        PushDelivery.Sending => ("primary", "投递中"),
+        PushDelivery.Succeeded => ("success", "投递成功"),
+        _ => ("danger", "投递失败")
+    };
+}
+<span class="badge bg-@color">@label</span>

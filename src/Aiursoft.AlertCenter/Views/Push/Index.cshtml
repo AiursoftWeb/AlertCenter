@@ -1,0 +1,63 @@
+@model Aiursoft.AlertCenter.Models.PushViewModel
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div><h1 class="h3 mb-1">推送中心</h1><p class="text-muted mb-0">连接不同通知渠道，让告警抵达需要的人和系统。</p></div>
+    <a asp-action="Create" class="btn btn-primary"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加渠道</a>
+</div>
+<partial name="_Navigation" />
+<div class="row">
+@foreach (var type in Model.ChannelTypes)
+{
+    <div class="col-md-6 col-xl-4 d-flex">
+        <div class="card flex-fill"><div class="card-body">
+            <div class="d-flex align-items-center gap-3 mb-3"><div class="stat"><i data-lucide="@type.Icon" aria-hidden="true"></i></div><h2 class="h5 mb-0">@type.Name</h2></div>
+            <p class="text-muted">@type.Description</p>
+            <a asp-action="Create" asp-route-type="@type.Key" class="btn btn-outline-primary btn-sm">添加 @type.Name</a>
+        </div></div>
+    </div>
+}
+</div>
+<div class="card">
+    <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <h2 class="card-title mb-0">已配置渠道 <span class="badge bg-secondary ms-2">@Model.Channels.Count</span></h2>
+        <a asp-controller="Alerts" asp-action="Applications" class="btn btn-sm btn-outline-secondary">关联接入应用</a>
+    </div>
+    @if (Model.Channels.Count == 0)
+    {
+        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="send" aria-hidden="true"></i></div><h3 class="h5">还没有推送渠道</h3><p class="text-muted mb-0">先选择一种渠道，配置并测试后，再关联接入应用。</p></div>
+    }
+    else
+    {
+        <div class="table-responsive"><table class="table table-hover align-middle mb-0">
+            <thead><tr><th class="ps-4">渠道名称</th><th>类型</th><th>状态</th><th class="text-end pe-4">操作</th></tr></thead>
+            <tbody>@foreach (var channel in Model.Channels)
+            {
+                var type = Model.ChannelTypes.FirstOrDefault(item => item.Key == channel.Type);
+                <tr><td class="ps-4"><a asp-action="Edit" asp-route-id="@channel.Id" class="fw-semibold text-decoration-none">@channel.Name</a></td>
+                    <td><i class="align-middle me-1" data-lucide="@(type?.Icon ?? "plug")" aria-hidden="true"></i>@(type?.Name ?? channel.Type)</td>
+                    <td><span class="badge @(channel.IsEnabled ? "bg-success" : "bg-secondary")">@(channel.IsEnabled ? "已启用" : "已停用")</span></td>
+                    <td class="pe-4"><div class="d-flex justify-content-end flex-wrap gap-2">
+                        <a asp-action="Edit" asp-route-id="@channel.Id" class="btn btn-sm btn-outline-primary">编辑</a>
+                        <form asp-action="Test" method="post"><input type="hidden" name="id" value="@channel.Id" /><button class="btn btn-sm btn-outline-primary" disabled="@(!channel.IsEnabled)" title="发送测试消息并查看投递结果">测试</button></form>
+                        <a asp-action="Records" asp-route-channelId="@channel.Id" class="btn btn-sm btn-outline-secondary">记录</a>
+                        <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@channel.Id" /><input type="hidden" name="enabled" value="@((!channel.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary">@(channel.IsEnabled ? "停用" : "启用")</button></form>
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-channel" data-channel-id="@channel.Id" data-channel-name="@channel.Name">删除</button>
+                    </div></td>
+                </tr>
+            }</tbody>
+        </table></div>
+    }
+</div>
+<div class="modal fade" id="delete-channel" tabindex="-1" aria-labelledby="delete-channel-title" aria-describedby="delete-channel-description" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+        <div class="modal-header"><h2 class="modal-title h5" id="delete-channel-title">删除推送渠道</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button></div>
+        <div class="modal-body"><p>确定删除 <strong id="delete-channel-name"></strong>？</p><p id="delete-channel-description" class="text-danger mb-0">关联配置、投递记录和对应站内通知将一并删除，无法恢复。已发送到外部的消息无法撤回。</p></div>
+        <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button><form asp-action="Delete" method="post"><input id="delete-channel-id" name="id" type="hidden" /><button id="delete-channel-confirm" class="btn btn-danger" disabled>确认删除</button></form></div>
+    </div></div>
+</div>
+<script>
+    document.getElementById('delete-channel').addEventListener('show.bs.modal', function (event) {
+        document.getElementById('delete-channel-name').textContent = event.relatedTarget?.dataset.channelName ?? '';
+        document.getElementById('delete-channel-id').value = event.relatedTarget?.dataset.channelId ?? '';
+        document.getElementById('delete-channel-confirm').disabled = !event.relatedTarget?.dataset.channelId;
+    });
+</script>

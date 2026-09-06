@@ -1,4 +1,5 @@
 using Aiursoft.AlertCenter.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Services;
 
@@ -10,13 +11,30 @@ public sealed record NotificationDeliveryResult(bool Succeeded, string? Provider
 
 public interface INotificationChannelAdapter
 {
-    string ChannelKey { get; }
-    Task<NotificationDeliveryResult> DeliverAsync(NotificationDelivery delivery, CancellationToken cancellationToken = default);
+    ChannelTypeDefinition Definition { get; }
+    Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default);
 }
+
+public sealed record ChannelTypeDefinition(string Key, string Name, string Description, string Icon, bool RequiresEndpoint);
 
 public interface IAlertDispatcher
 {
     Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default);
+}
+
+public class QueuedAlertDispatcher(TemplateDbContext db) : IAlertDispatcher
+{
+    public async Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default)
+    {
+        var channelIds = await db.ApplicationPushChannels.AsNoTracking()
+            .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled)
+            .Select(link => link.ChannelId).ToListAsync(cancellationToken);
+        // 由调用方与告警一起保存，确保消息和待投递记录同时提交。
+        db.PushDeliveries.AddRange(channelIds.Select(id => new PushDelivery
+        {
+            ChannelId = id, MessageId = message.Id, Message = message
+        }));
+    }
 }
 
 public class NullAlertDispatcher(ILogger<NullAlertDispatcher> logger) : IAlertDispatcher

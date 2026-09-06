@@ -12,6 +12,10 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<SourceApplication> SourceApplications => Set<SourceApplication>();
     public DbSet<ReportedMessage> ReportedMessages => Set<ReportedMessage>();
+    public DbSet<PushChannel> PushChannels => Set<PushChannel>();
+    public DbSet<ApplicationPushChannel> ApplicationPushChannels => Set<ApplicationPushChannel>();
+    public DbSet<PushDelivery> PushDeliveries => Set<PushDelivery>();
+    public DbSet<InAppNotification> InAppNotifications => Set<InAppNotification>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -20,6 +24,23 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<ReportedMessage>().HasIndex(m => m.ReceivedAtUtc);
         builder.Entity<ReportedMessage>().HasOne(m => m.Application).WithMany()
             .HasForeignKey(m => m.ApplicationId).OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<ApplicationPushChannel>().HasKey(link => new { link.ApplicationId, link.ChannelId });
+        builder.Entity<ApplicationPushChannel>().HasOne(link => link.Application).WithMany()
+            .HasForeignKey(link => link.ApplicationId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<ApplicationPushChannel>().HasOne(link => link.Channel).WithMany()
+            .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushDelivery>().HasOne(delivery => delivery.Channel).WithMany()
+            .HasForeignKey(delivery => delivery.ChannelId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushDelivery>().HasOne(delivery => delivery.Message).WithMany()
+            .HasForeignKey(delivery => delivery.MessageId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.MessageId, delivery.ChannelId }).IsUnique();
+        builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.Status, delivery.CreatedAtUtc });
+        builder.Entity<InAppNotification>().HasOne(notification => notification.Delivery).WithMany()
+            .HasForeignKey(notification => notification.DeliveryId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<InAppNotification>().HasOne(notification => notification.User).WithMany()
+            .HasForeignKey(notification => notification.UserId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<InAppNotification>().HasIndex(notification => new { notification.DeliveryId, notification.UserId }).IsUnique();
+        builder.Entity<InAppNotification>().HasIndex(notification => new { notification.UserId, notification.CreatedAtUtc });
     }
 
     public virtual  Task MigrateAsync(CancellationToken cancellationToken) =>

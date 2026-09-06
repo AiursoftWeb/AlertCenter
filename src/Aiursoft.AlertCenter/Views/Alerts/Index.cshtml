@@ -4,7 +4,7 @@
     <a asp-action="Applications" class="btn btn-primary"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>接入应用</a>
 </div>
 @await Html.PartialAsync("_NoticeDialog", new Aiursoft.AlertCenter.Models.NoticeDialogViewModel(
-    "delivery-notice", "通知能力说明", "消息接收和存储已启用。外部通知渠道尚未启用，当前可在此查看已上报的消息。", OpenOnLoad: false))
+    "delivery-notice", "通知能力说明", "在推送中心配置 Webhook 或站内通知，再到接入应用的推送设置中关联渠道。新告警保存后会自动投递，失败可在推送记录中手动重试。", OpenOnLoad: false))
 <div class="card">
     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
         <h2 class="card-title mb-0">消息记录</h2><small class="text-muted">按接收时间倒序 · UTC</small>

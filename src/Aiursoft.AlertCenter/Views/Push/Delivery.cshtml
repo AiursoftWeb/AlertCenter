@@ -1,0 +1,31 @@
+@model Aiursoft.AlertCenter.Models.PushViewModel
+@using Aiursoft.AlertCenter.Entities
+@{ var delivery = Model.Delivery!; }
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"><h1 class="h3 mb-0">投递详情</h1><a asp-action="Records" class="btn btn-outline-secondary">返回推送记录</a></div>
+<partial name="_Navigation" />
+<div class="card"><div class="card-header d-flex justify-content-between align-items-center"><h2 class="card-title mb-0">@(delivery.Message?.Title ?? "渠道测试通知")</h2><partial name="_DeliveryStatus" model="delivery.Status" /></div>
+    <div class="card-body pt-0">
+        <dl class="row">
+            <dt class="col-sm-3 text-muted">目标渠道</dt><dd class="col-sm-9">@delivery.Channel.Name · @(Model.ChannelTypes.FirstOrDefault(type => type.Key == delivery.Channel.Type)?.Name ?? delivery.Channel.Type)</dd>
+            <dt class="col-sm-3 text-muted">来源应用</dt><dd class="col-sm-9">@(delivery.Message?.Application.Name ?? "手动测试")</dd>
+            <dt class="col-sm-3 text-muted">创建时间 (UTC)</dt><dd class="col-sm-9">@delivery.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+            <dt class="col-sm-3 text-muted">最近尝试 (UTC)</dt><dd class="col-sm-9">@(delivery.AttemptedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "尚未发送")</dd>
+            <dt class="col-sm-3 text-muted">完成时间 (UTC)</dt><dd class="col-sm-9">@(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "—")</dd>
+            <dt class="col-sm-3 text-muted">尝试次数</dt><dd class="col-sm-9">@delivery.Attempts</dd>
+            <dt class="col-sm-3 text-muted">投递 ID</dt><dd class="col-sm-9 text-break"><code>@delivery.Id</code></dd>
+        </dl>
+        @if (delivery.Status == PushDelivery.Failed)
+        {
+            <div class="border rounded p-3 mb-3"><h3 class="h6 text-danger">投递失败</h3><p class="mb-0 text-break">@delivery.Error</p></div>
+            <p class="text-muted">重试使用当前渠道配置。超时或中断时接收端可能已收到消息，请核实后再重试。</p>
+            <form asp-action="Retry" method="post" class="d-inline"><input type="hidden" name="id" value="@delivery.Id" /><button class="btn btn-primary" disabled="@(!delivery.Channel.IsEnabled)">重新投递</button></form>
+            @if (!delivery.Channel.IsEnabled) { <span class="text-muted ms-2">请先启用渠道。</span> }
+        }
+        @if (delivery.Status is PushDelivery.Pending or PushDelivery.Sending)
+        {
+            <p class="text-muted">正在等待后台投递，稍后刷新查看结果。</p><a asp-action="Delivery" asp-route-id="@delivery.Id" class="btn btn-primary">刷新状态</a>
+        }
+        @if (delivery.MessageId.HasValue) { <a asp-controller="Alerts" asp-action="Details" asp-route-id="@delivery.MessageId" class="btn btn-outline-secondary">查看原始告警</a> }
+        @if (delivery.Channel.Type == "inapp" && delivery.Status == PushDelivery.Succeeded) { <a asp-action="Inbox" class="btn btn-outline-primary">查看站内通知</a> }
+    </div>
+</div>
