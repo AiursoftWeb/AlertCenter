@@ -1,15 +1,39 @@
 @model Aiursoft.AlertCenter.Models.AlertsViewModel
 @using Newtonsoft.Json.Linq
-@{ var message = Model.Message!; }
-<a asp-action="Index" class="btn btn-outline-primary mb-3">返回消息列表</a>
-<div class="card"><div class="card-body">
-    <span class="badge bg-primary mb-3">@message.Level</span><h1 class="h3">@message.Title</h1>
-    <dl class="row mt-4">
-        <dt class="col-sm-3">来源应用</dt><dd class="col-sm-9">@message.Application.Name</dd>
-        <dt class="col-sm-3">发生时间 (UTC)</dt><dd class="col-sm-9">@message.OccurredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
-        <dt class="col-sm-3">接收时间 (UTC)</dt><dd class="col-sm-9">@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
-        <dt class="col-sm-3">Report ID</dt><dd class="col-sm-9"><code>@message.ReportId</code></dd>
-    </dl>
-    <h2 class="h5">消息内容</h2><pre class="bg-light p-3 text-wrap">@(message.Content ?? "无")</pre>
-    <h2 class="h5">业务上下文</h2><pre class="bg-light p-3"><code>@(message.ContextJson == null ? "无" : JToken.Parse(message.ContextJson).ToString())</code></pre>
-</div></div>
+@{
+    var message = Model.Message!;
+    var color = message.Level switch { "sev1" => "danger", "sev2" => "warning", "sev3" => "primary", _ => "secondary" };
+}
+<a asp-action="Index" class="btn btn-outline-secondary mb-4"><i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回消息列表</a>
+<div class="d-flex align-items-start gap-3 mb-4">
+    <span class="badge bg-@color mt-1">@message.Level</span>
+    <div class="text-break"><h1 class="h3 mb-1">@message.Title</h1><p class="text-muted mb-0">@message.Application.Name</p></div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <section class="card">
+            <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="align-left" aria-hidden="true"></i>消息内容</h2></div>
+            <div class="card-body pt-0"><div class="text-break" style="white-space: pre-wrap;">@(message.Content ?? "无")</div></div>
+        </section>
+        <section class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="braces" aria-hidden="true"></i>业务上下文</h2>
+                <span class="badge bg-secondary">JSON</span>
+            </div>
+            <div class="card-body pt-0"><pre class="border rounded p-3 mb-0"><code>@(message.ContextJson == null ? "无" : JToken.Parse(message.ContextJson).ToString())</code></pre></div>
+        </section>
+    </div>
+    <div class="col-lg-4">
+        <section class="card">
+            <div class="card-header"><h2 class="card-title mb-0">事件信息</h2></div>
+            <div class="card-body pt-0">
+                <dl class="mb-0">
+                    <dt class="text-muted fw-normal mb-1">来源应用</dt><dd class="mb-3">@message.Application.Name</dd>
+                    <dt class="text-muted fw-normal mb-1">发生时间 (UTC)</dt><dd class="mb-3">@message.OccurredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                    <dt class="text-muted fw-normal mb-1">接收时间 (UTC)</dt><dd class="mb-3">@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                    <dt class="text-muted fw-normal mb-1">Report ID</dt><dd class="mb-0 text-break"><code>@message.ReportId</code></dd>
+                </dl>
+            </div>
+        </section>
+    </div>
+</div>

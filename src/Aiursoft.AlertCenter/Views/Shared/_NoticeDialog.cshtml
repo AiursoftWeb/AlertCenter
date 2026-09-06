@@ -1,0 +1,32 @@
+@model Aiursoft.AlertCenter.Models.NoticeDialogViewModel
+<button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#@Model.Id">
+    <i class="align-middle me-1" data-lucide="info" aria-hidden="true"></i> @Model.Title
+</button>
+<div class="modal fade" id="@Model.Id" tabindex="-1" aria-labelledby="@(Model.Id)-title" aria-describedby="@(Model.Id)-message" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="@(Model.Id)-title">@Model.Title</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
+            </div>
+            <div class="modal-body">
+                <p id="@(Model.Id)-message" class="mb-0">@Model.Message</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">@Localizer["Close"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.OpenOnLoad)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dialog = document.getElementById('@Model.Id');
+            dialog.addEventListener('hidden.bs.modal', function () {
+                dialog.previousElementSibling.focus();
+            });
+            bootstrap.Modal.getOrCreateInstance(dialog).show();
+        });
+    </script>
+}

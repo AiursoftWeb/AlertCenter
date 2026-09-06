@@ -102,9 +102,9 @@
 }
 else
 {
-    <div class="alert alert-info mb-4">
-        @Localizer["No background jobs are registered. Add jobs using services.AddBackgroundJob<TJob>() in Startup.cs."]
-    </div>
+    @await Html.PartialAsync("_NoticeDialog", new Aiursoft.AlertCenter.Models.NoticeDialogViewModel(
+        "page-notice", Localizer["Background Jobs"].Value,
+        Localizer["No background jobs are registered. Add jobs using services.AddBackgroundJob<TJob>() in Startup.cs."].Value, OpenOnLoad: false))
 }
 
 @* ── Execution History ────────────────────────────────────────────────────── *@

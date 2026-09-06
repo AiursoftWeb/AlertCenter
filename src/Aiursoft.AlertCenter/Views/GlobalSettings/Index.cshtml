@@ -132,9 +132,9 @@
 
 @if (ViewData.ModelState.Any(m => m.Value != null && m.Value.Errors.Any()))
 {
-    <div class="alert alert-danger mt-3">
-        <div asp-validation-summary="All"></div>
-    </div>
+    @await Html.PartialAsync("_NoticeDialog", new Aiursoft.AlertCenter.Models.NoticeDialogViewModel(
+        "page-notice", Localizer["Validation errors"].Value,
+        string.Join(" ", ViewData.ModelState.Values.SelectMany(value => value.Errors).Select(error => error.ErrorMessage)), OpenOnLoad: true))
 }
 
 @* ReSharper disable once Razor.SectionNotResolved *@

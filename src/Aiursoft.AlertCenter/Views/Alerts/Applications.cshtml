@@ -1,5 +1,8 @@
 @model Aiursoft.AlertCenter.Models.AlertsViewModel
-<div class="d-flex justify-content-between mb-4"><h1 class="h3">接入应用</h1><a asp-action="Index" class="btn btn-outline-primary">查看消息</a></div>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div><h1 class="h3 mb-1">接入应用</h1><p class="text-muted mb-0">为业务系统创建独立密钥，管理消息上报权限。</p></div>
+    <a asp-action="Index" class="btn btn-outline-primary"><i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>查看消息</a>
+</div>
 @if (Model.ApiKey != null)
 {
     <section class="card" aria-labelledby="api-key-heading">
@@ -25,25 +28,48 @@
         </div>
     </section>
 }
-<div class="card"><div class="card-body">
-    <h2 class="h5">创建应用</h2>
-    <form asp-action="CreateApplication" method="post" class="d-flex gap-2">
-        <label for="name" class="visually-hidden">应用名称</label><input id="name" name="Name" required maxlength="100" placeholder="例如：订单服务" class="form-control" />
-        <button class="btn btn-primary text-nowrap" type="submit">创建应用</button>
-    </form><div asp-validation-summary="All" class="text-danger"></div>
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="plus-circle" aria-hidden="true"></i>创建应用</h2></div>
+    <div class="card-body pt-0">
+    <form asp-action="CreateApplication" method="post">
+        <label for="name" class="form-label">应用名称</label>
+        <div class="row g-2">
+            <div class="col-sm"><input id="name" name="Name" required maxlength="100" placeholder="例如：订单服务" class="form-control" aria-describedby="name-hint" /></div>
+            <div class="col-sm-auto"><button class="btn btn-primary w-100" type="submit">创建应用</button></div>
+        </div>
+        <small id="name-hint" class="text-muted d-block mt-2">使用容易识别的名称，便于在告警中区分来源。</small>
+        <div asp-validation-summary="All" class="text-danger mt-2"></div>
+    </form>
 </div></div>
-<div class="card"><div class="card-body table-responsive"><table class="table">
-    <thead><tr><th>名称</th><th>应用 ID</th><th>状态</th><th>操作</th></tr></thead><tbody>
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="card-title mb-0">已接入应用</h2><span class="badge bg-secondary">@Model.Applications.Count</span>
+    </div>
+    @if (Model.Applications.Count == 0)
+    {
+        <div class="card-body text-center py-4">
+            <div class="stat mx-auto mb-3"><i data-lucide="app-window" aria-hidden="true"></i></div>
+            <h3 class="h5">还没有接入应用</h3><p class="text-muted mb-0">在上方创建应用，获取专属 API Key。</p>
+        </div>
+    }
+    else
+    {
+    <div class="table-responsive"><table class="table table-hover align-middle mb-0">
+    <thead><tr><th class="ps-4">名称</th><th>应用 ID</th><th>状态</th><th class="text-end pe-4">操作</th></tr></thead><tbody>
     @foreach (var application in Model.Applications)
     {
-        <tr><td>@application.Name</td><td><code>@application.Id</code></td><td>@(application.IsEnabled ? "已启用" : "已停用")</td><td>
+        <tr><td class="ps-4 fw-semibold">@application.Name</td><td><code class="text-muted">@application.Id</code></td><td><span class="badge @(application.IsEnabled ? "bg-success" : "bg-secondary")">@(application.IsEnabled ? "已启用" : "已停用")</span></td><td class="text-end pe-4">
             <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@application.Id" /><input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary" type="submit">@(application.IsEnabled ? "停用" : "启用")</button></form>
         </td></tr>
     }
     </tbody>
-</table></div></div>
-<div class="card"><div class="card-body"><h2 class="h5">发送第一条消息</h2><p>将下方 YOUR_API_KEY 替换为刚刚保存的密钥，在终端执行。相同 reportId 重复发送只保留一条记录。</p>
-<pre class="bg-light p-3"><code>curl -i '@(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.PathBase)/api/v1/messages' \
+</table></div>
+    }
+</div>
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="terminal" aria-hidden="true"></i>发送第一条消息</h2></div>
+    <div class="card-body pt-0"><p class="text-muted">将下方 <code>YOUR_API_KEY</code> 替换为刚刚保存的密钥，在终端执行。相同 <code>reportId</code> 重复发送只保留一条记录。</p>
+<pre class="border rounded p-3 mb-0"><code>curl -i '@(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.PathBase)/api/v1/messages' \
   -H 'Authorization: Bearer YOUR_API_KEY' \
   -H 'Content-Type: application/json' \
   --data '{"reportId":"@Guid.NewGuid()","title":"订单支付超时","content":"下游渠道未在 5 秒内响应","level":"sev1","occurredAtUtc":"@DateTime.UtcNow.ToString("O")","context":{"orderId":"ORDER-1001","traceId":"demo-trace"}}'</code></pre>
