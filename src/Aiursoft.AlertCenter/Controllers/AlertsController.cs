@@ -58,6 +58,19 @@ public class AlertsController(TemplateDbContext db) : Controller
         return RedirectToAction(nameof(Applications));
     }
 
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteApplication(Guid id, CancellationToken cancellationToken)
+    {
+        await using var transaction = await db.Database.BeginTransactionAsync(cancellationToken);
+        // 在同一事务中批量删除历史消息和应用，避免部分删除或逐条加载消息。
+        await db.ReportedMessages.Where(message => message.ApplicationId == id)
+            .ExecuteDeleteAsync(cancellationToken);
+        var deleted = await db.SourceApplications.Where(application => application.Id == id)
+            .ExecuteDeleteAsync(cancellationToken);
+        await transaction.CommitAsync(cancellationToken);
+        return deleted == 0 ? NotFound() : RedirectToAction(nameof(Applications));
+    }
+
     public async Task<IActionResult> Details(Guid id)
     {
         var message = await db.ReportedMessages.AsNoTracking().Include(m => m.Application)

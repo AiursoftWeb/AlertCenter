@@ -59,13 +59,45 @@
     @foreach (var application in Model.Applications)
     {
         <tr><td class="ps-4 fw-semibold">@application.Name</td><td><code class="text-muted">@application.Id</code></td><td><span class="badge @(application.IsEnabled ? "bg-success" : "bg-secondary")">@(application.IsEnabled ? "已启用" : "已停用")</span></td><td class="text-end pe-4">
-            <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@application.Id" /><input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary" type="submit">@(application.IsEnabled ? "停用" : "启用")</button></form>
+            <div class="d-flex justify-content-end gap-2">
+                <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@application.Id" /><input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary text-nowrap" type="submit">@(application.IsEnabled ? "停用" : "启用")</button></form>
+                <button type="button" class="btn btn-sm btn-outline-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#delete-application" data-application-id="@application.Id" data-application-name="@application.Name">删除</button>
+            </div>
         </td></tr>
     }
     </tbody>
 </table></div>
     }
 </div>
+<div class="modal fade" id="delete-application" tabindex="-1" aria-labelledby="delete-application-title" aria-describedby="delete-application-description" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="delete-application-title">删除接入应用</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+            </div>
+            <div class="modal-body">
+                <p>确定删除应用 <strong id="delete-application-name" class="text-break"></strong>？</p>
+                <p id="delete-application-description" class="text-danger mb-0">该应用的全部历史告警将一并删除，API Key 将立即失效。此操作无法恢复。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                <form asp-action="DeleteApplication" method="post">
+                    <input type="hidden" id="delete-application-id" name="id" />
+                    <button type="submit" class="btn btn-danger" id="confirm-delete-application" disabled>删除应用及历史告警</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('delete-application').addEventListener('show.bs.modal', function (event) {
+        const trigger = event.relatedTarget;
+        document.getElementById('delete-application-id').value = trigger?.dataset.applicationId ?? '';
+        document.getElementById('delete-application-name').textContent = trigger?.dataset.applicationName ?? '';
+        document.getElementById('confirm-delete-application').disabled = !trigger?.dataset.applicationId;
+    });
+</script>
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="terminal" aria-hidden="true"></i>发送第一条消息</h2></div>
     <div class="card-body pt-0"><p class="text-muted">将下方 <code>YOUR_API_KEY</code> 替换为刚刚保存的密钥，在终端执行。相同 <code>reportId</code> 重复发送只保留一条记录。</p>
