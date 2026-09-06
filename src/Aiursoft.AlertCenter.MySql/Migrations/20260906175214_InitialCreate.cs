@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -8,8 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Aiursoft.AlertCenter.MySql.Migrations
 {
     /// <inheritdoc />
-    [ExcludeFromCodeCoverage]
-    public partial class Init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,6 +40,11 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    DisplayName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AvatarRelativePath = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreationTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
@@ -68,6 +71,39 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "GlobalSettings",
+                columns: table => new
+                {
+                    Key = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Value = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GlobalSettings", x => x.Key);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SourceApplications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SecretHash = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IsEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    CreatedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SourceApplications", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -198,6 +234,36 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "ReportedMessages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ApplicationId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ReportId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Title = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Content = table.Column<string>(type: "varchar(4000)", maxLength: 4000, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Level = table.Column<string>(type: "varchar(4)", maxLength: 4, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OccurredAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ReceivedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ContextJson = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReportedMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReportedMessages_SourceApplications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "SourceApplications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -234,6 +300,17 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReportedMessages_ApplicationId_ReportId",
+                table: "ReportedMessages",
+                columns: new[] { "ApplicationId", "ReportId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReportedMessages_ReceivedAtUtc",
+                table: "ReportedMessages",
+                column: "ReceivedAtUtc");
         }
 
         /// <inheritdoc />
@@ -255,10 +332,19 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "GlobalSettings");
+
+            migrationBuilder.DropTable(
+                name: "ReportedMessages");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "SourceApplications");
         }
     }
 }

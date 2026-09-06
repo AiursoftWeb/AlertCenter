@@ -52,6 +52,15 @@ public class AlertDemoTests : TestBase
         if (_databasePath != null) File.Delete(_databasePath);
     }
 
+    [TestMethod]
+    public async Task FreshDatabaseHasNoApplicationsOrMessages()
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(0, await db.SourceApplications.CountAsync());
+        Assert.AreEqual(0, await db.ReportedMessages.CountAsync());
+    }
+
     private async Task<string> CreateApplication()
     {
         await LoginAsAdmin();

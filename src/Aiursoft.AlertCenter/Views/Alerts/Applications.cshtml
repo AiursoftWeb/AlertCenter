@@ -2,12 +2,28 @@
 <div class="d-flex justify-content-between mb-4"><h1 class="h3">接入应用</h1><a asp-action="Index" class="btn btn-outline-primary">查看消息</a></div>
 @if (Model.ApiKey != null)
 {
-    <div class="alert alert-warning">
-        <h2 class="h5">应用已创建，请保存 API Key</h2><p>密钥仅本次显示，离开此页面后无法再次查看。</p>
-        <input id="api-key" class="form-control mb-2" readonly value="@Model.ApiKey" aria-label="API Key" />
-        <button type="button" class="btn btn-dark" id="copy-key">复制密钥</button>
-        <span id="copy-status" role="status"></span>
-    </div>
+    <section class="card" aria-labelledby="api-key-heading">
+        <div class="card-header d-flex align-items-center gap-3">
+            <div class="stat flex-shrink-0"><i data-lucide="key-round" aria-hidden="true"></i></div>
+            <div>
+                <h2 id="api-key-heading" class="card-title mb-1">应用已创建</h2>
+                <p class="text-muted mb-0">保存接入密钥，即可开始上报告警。</p>
+            </div>
+        </div>
+        <div class="card-body pt-0">
+            <label for="api-key" class="form-label">API Key</label>
+            <div class="input-group">
+                <input id="api-key" class="form-control font-monospace" readonly value="@Model.ApiKey" aria-describedby="api-key-hint" spellcheck="false" />
+                <button type="button" class="btn btn-primary" id="copy-key">
+                    <i class="align-middle me-1" data-lucide="copy" aria-hidden="true"></i>复制密钥
+                </button>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between gap-2 mt-2">
+                <small id="api-key-hint" class="text-muted">密钥仅显示一次，请在离开此页面前妥善保存。</small>
+                <small id="copy-status" class="text-primary" role="status"></small>
+            </div>
+        </div>
+    </section>
 }
 <div class="card"><div class="card-body">
     <h2 class="h5">创建应用</h2>
