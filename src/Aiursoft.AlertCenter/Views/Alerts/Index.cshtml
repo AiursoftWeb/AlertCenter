@@ -1,0 +1,28 @@
+@model Aiursoft.AlertCenter.Models.AlertsViewModel
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div><h1 class="h3">告警消息</h1><p class="text-muted mb-0">业务系统上报的事件记录 · 时间均为 UTC</p></div>
+    <a asp-action="Applications" class="btn btn-primary">接入应用</a>
+</div>
+<div class="alert alert-info">Demo 已支持消息接收和存储，外部通知渠道尚未启用。</div>
+<div class="card"><div class="card-body">
+@if (Model.Messages.Count == 0)
+{
+    <div class="text-center py-5"><h2 class="h4">还没有告警消息</h2><p>先创建接入应用，再按照页面示例发送第一条消息。</p><a asp-action="Applications" class="btn btn-primary">创建应用</a></div>
+}
+else
+{
+    <div class="table-responsive"><table class="table table-hover">
+        <thead><tr><th>级别</th><th>标题</th><th>来源应用</th><th>接收时间 (UTC)</th></tr></thead>
+        <tbody>@foreach (var message in Model.Messages)
+        {
+            var color = message.Level switch { "sev1" => "danger", "sev2" => "warning", "sev3" => "primary", _ => "secondary" };
+            <tr><td><span class="badge bg-@color">@message.Level</span></td><td><a asp-action="Details" asp-route-id="@message.Id">@message.Title</a></td><td>@message.Application.Name</td><td>@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</td></tr>
+        }</tbody>
+    </table></div>
+    <div class="d-flex gap-3 align-items-center">
+        @if (Model.Page > 1) { <a asp-action="Index" asp-route-page="@(Model.Page - 1)" class="btn btn-outline-primary">上一页</a> }
+        <span>第 @Model.Page 页</span>
+        @if (Model.HasNextPage) { <a asp-action="Index" asp-route-page="@(Model.Page + 1)" class="btn btn-outline-primary">下一页</a> }
+    </div>
+}
+</div></div>

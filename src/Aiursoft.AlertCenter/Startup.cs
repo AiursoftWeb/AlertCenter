@@ -53,6 +53,7 @@ public class Startup : IWebStartup
         // Services
         services.AddMemoryCache();
         services.AddHttpClient();
+        services.AddScoped<Aiursoft.AlertCenter.Services.IAlertDispatcher, Aiursoft.AlertCenter.Services.NullAlertDispatcher>();
         services.AddAssemblyDependencies(typeof(Startup).Assembly);
         services.AddSingleton<NavigationState<Startup>>();
 
@@ -86,6 +87,21 @@ public class Startup : IWebStartup
     public void Configure(WebApplication app)
     {
         app.UseExceptionHandler("/Error/Code500");
+        app.Use(async (context, next) =>
+        {
+            try
+            {
+                await next(context);
+            }
+            catch (BadHttpRequestException exception) when (
+                exception.StatusCode == StatusCodes.Status413PayloadTooLarge &&
+                context.Request.Path.Equals("/api/v1/messages", StringComparison.OrdinalIgnoreCase))
+            {
+                // 保留上报接口的 413 语义，避免模板异常页将请求体超限转换成 500。
+                context.Response.StatusCode = StatusCodes.Status413PayloadTooLarge;
+                await context.Response.WriteAsJsonAsync(new { error = "Request body exceeds 64 KiB." });
+            }
+        });
         app.UseStatusCodePagesWithReExecute("/Error/Code{0}");
         app.UseUIStack();
         app.UseStaticFiles();

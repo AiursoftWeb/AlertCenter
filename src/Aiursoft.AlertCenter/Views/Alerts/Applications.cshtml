@@ -1,0 +1,49 @@
+@model Aiursoft.AlertCenter.Models.AlertsViewModel
+<div class="d-flex justify-content-between mb-4"><h1 class="h3">接入应用</h1><a asp-action="Index" class="btn btn-outline-primary">查看消息</a></div>
+@if (Model.ApiKey != null)
+{
+    <div class="alert alert-warning">
+        <h2 class="h5">应用已创建，请保存 API Key</h2><p>密钥仅本次显示，离开此页面后无法再次查看。</p>
+        <input id="api-key" class="form-control mb-2" readonly value="@Model.ApiKey" aria-label="API Key" />
+        <button type="button" class="btn btn-dark" id="copy-key">复制密钥</button>
+        <span id="copy-status" role="status"></span>
+    </div>
+}
+<div class="card"><div class="card-body">
+    <h2 class="h5">创建应用</h2>
+    <form asp-action="CreateApplication" method="post" class="d-flex gap-2">
+        <label for="name" class="visually-hidden">应用名称</label><input id="name" name="Name" required maxlength="100" placeholder="例如：订单服务" class="form-control" />
+        <button class="btn btn-primary text-nowrap" type="submit">创建应用</button>
+    </form><div asp-validation-summary="All" class="text-danger"></div>
+</div></div>
+<div class="card"><div class="card-body table-responsive"><table class="table">
+    <thead><tr><th>名称</th><th>应用 ID</th><th>状态</th><th>操作</th></tr></thead><tbody>
+    @foreach (var application in Model.Applications)
+    {
+        <tr><td>@application.Name</td><td><code>@application.Id</code></td><td>@(application.IsEnabled ? "已启用" : "已停用")</td><td>
+            <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@application.Id" /><input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary" type="submit">@(application.IsEnabled ? "停用" : "启用")</button></form>
+        </td></tr>
+    }
+    </tbody>
+</table></div></div>
+<div class="card"><div class="card-body"><h2 class="h5">发送第一条消息</h2><p>将下方 YOUR_API_KEY 替换为刚刚保存的密钥，在终端执行。相同 reportId 重复发送只保留一条记录。</p>
+<pre class="bg-light p-3"><code>curl -i '@(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.PathBase)/api/v1/messages' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -H 'Content-Type: application/json' \
+  --data '{"reportId":"@Guid.NewGuid()","title":"订单支付超时","content":"下游渠道未在 5 秒内响应","level":"sev1","occurredAtUtc":"@DateTime.UtcNow.ToString("O")","context":{"orderId":"ORDER-1001","traceId":"demo-trace"}}'</code></pre>
+</div></div>
+@if (Model.ApiKey != null)
+{
+    <script>
+        document.getElementById('copy-key').addEventListener('click', async function () {
+            const input = document.getElementById('api-key');
+            try {
+                await navigator.clipboard.writeText(input.value);
+                document.getElementById('copy-status').textContent = '已复制';
+            } catch {
+                input.select();
+                document.getElementById('copy-status').textContent = '请按 Ctrl+C 复制选中的密钥';
+            }
+        });
+    </script>
+}

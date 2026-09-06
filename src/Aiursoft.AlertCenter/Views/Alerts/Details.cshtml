@@ -1,0 +1,15 @@
+@model Aiursoft.AlertCenter.Models.AlertsViewModel
+@using Newtonsoft.Json.Linq
+@{ var message = Model.Message!; }
+<a asp-action="Index" class="btn btn-outline-primary mb-3">返回消息列表</a>
+<div class="card"><div class="card-body">
+    <span class="badge bg-primary mb-3">@message.Level</span><h1 class="h3">@message.Title</h1>
+    <dl class="row mt-4">
+        <dt class="col-sm-3">来源应用</dt><dd class="col-sm-9">@message.Application.Name</dd>
+        <dt class="col-sm-3">发生时间 (UTC)</dt><dd class="col-sm-9">@message.OccurredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+        <dt class="col-sm-3">接收时间 (UTC)</dt><dd class="col-sm-9">@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+        <dt class="col-sm-3">Report ID</dt><dd class="col-sm-9"><code>@message.ReportId</code></dd>
+    </dl>
+    <h2 class="h5">消息内容</h2><pre class="bg-light p-3 text-wrap">@(message.Content ?? "无")</pre>
+    <h2 class="h5">业务上下文</h2><pre class="bg-light p-3"><code>@(message.ContextJson == null ? "无" : JToken.Parse(message.ContextJson).ToString())</code></pre>
+</div></div>
