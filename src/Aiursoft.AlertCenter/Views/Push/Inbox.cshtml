@@ -3,7 +3,6 @@
     <div><h1 class="h3 mb-1">站内通知 <span class="badge bg-primary">@Model.UnreadCount 未读</span></h1><p class="text-muted mb-0">你的通知收件箱 · 已读状态仅对你生效</p></div>
     <form asp-action="MarkAllRead" method="post"><button class="btn btn-outline-primary" disabled="@(Model.UnreadCount == 0)">全部标为已读</button></form>
 </div>
-<partial name="_Navigation" />
 <div class="d-flex gap-2 mb-3"><a asp-action="Inbox" class="btn btn-sm @(Model.UnreadOnly ? "btn-outline-secondary" : "btn-primary")">全部通知</a><a asp-action="Inbox" asp-route-unreadOnly="true" class="btn btn-sm @(Model.UnreadOnly ? "btn-primary" : "btn-outline-secondary")">仅看未读</a><a asp-action="Inbox" asp-route-unreadOnly="@Model.UnreadOnly" asp-route-page="@Model.Page" class="btn btn-sm btn-outline-secondary ms-auto">刷新</a></div>
 <div class="card">
     @if (Model.Notifications.Count == 0)

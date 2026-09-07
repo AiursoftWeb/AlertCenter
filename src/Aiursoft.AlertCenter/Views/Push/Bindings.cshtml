@@ -3,7 +3,6 @@
     <div><h1 class="h3 mb-1">应用推送设置</h1><p class="text-muted mb-0">@Model.Application!.Name · 选择接收此应用新告警的渠道。</p></div>
     <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-secondary">返回接入应用</a>
 </div>
-<partial name="_Navigation" />
 <form asp-action="SaveBindings" method="post">
     <input type="hidden" name="id" value="@Model.Application.Id" />
     <div class="card"><div class="card-header"><h2 class="card-title mb-0">关联推送渠道</h2></div><div class="card-body pt-0">

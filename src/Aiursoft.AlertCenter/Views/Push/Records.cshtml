@@ -1,7 +1,6 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using Aiursoft.AlertCenter.Entities
 <div class="d-flex justify-content-between align-items-center mb-4"><div><h1 class="h3 mb-1">推送记录</h1><p class="text-muted mb-0">查看投递进度和失败原因 · 时间均为 UTC</p></div><a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" asp-route-page="@Model.Page" class="btn btn-outline-secondary">刷新</a></div>
-<partial name="_Navigation" />
 <div class="card"><div class="card-body"><form asp-action="Records" method="get" class="row g-3 align-items-end">
     <div class="col-sm-5"><label for="filter-channel" class="form-label">推送渠道</label><select id="filter-channel" name="channelId" class="form-select"><option value="">全部渠道</option>@foreach (var channel in Model.Channels) { <option value="@channel.Id" selected="@(Model.ChannelId == channel.Id)">@channel.Name</option> }</select></div>
     <div class="col-sm-5"><label for="filter-status" class="form-label">投递状态</label><select id="filter-status" name="status" class="form-select"><option value="">全部状态</option><option value="pending" selected="@(Model.Status == PushDelivery.Pending)">等待投递</option><option value="sending" selected="@(Model.Status == PushDelivery.Sending)">投递中</option><option value="succeeded" selected="@(Model.Status == PushDelivery.Succeeded)">投递成功</option><option value="failed" selected="@(Model.Status == PushDelivery.Failed)">投递失败</option></select></div>

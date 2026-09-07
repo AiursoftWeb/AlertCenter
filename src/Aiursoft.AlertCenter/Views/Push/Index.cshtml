@@ -3,7 +3,6 @@
     <div><h1 class="h3 mb-1">推送中心</h1><p class="text-muted mb-0">连接不同通知渠道，让告警抵达需要的人和系统。</p></div>
     <a asp-action="Create" class="btn btn-primary"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加渠道</a>
 </div>
-<partial name="_Navigation" />
 <div class="row">
 @foreach (var type in Model.ChannelTypes)
 {

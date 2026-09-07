@@ -2,7 +2,6 @@
 @using Aiursoft.AlertCenter.Entities
 @{ var delivery = Model.Delivery!; }
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"><h1 class="h3 mb-0">投递详情</h1><a asp-action="Records" class="btn btn-outline-secondary">返回推送记录</a></div>
-<partial name="_Navigation" />
 <div class="card"><div class="card-header d-flex justify-content-between align-items-center"><h2 class="card-title mb-0">@(delivery.Message?.Title ?? "渠道测试通知")</h2><partial name="_DeliveryStatus" model="delivery.Status" /></div>
     <div class="card-body pt-0">
         <dl class="row">

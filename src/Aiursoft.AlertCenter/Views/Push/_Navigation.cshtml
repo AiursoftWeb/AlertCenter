@@ -1,6 +1,0 @@
-@{ var action = ViewContext.RouteData.Values["action"]?.ToString(); }
-<nav class="nav nav-pills gap-2 mb-4" aria-label="推送中心导航">
-    <a asp-action="Index" class="nav-link @(action is "Index" or "Create" or "Edit" or "Bindings" ? "active" : "")"><i class="align-middle me-1" data-lucide="radio" aria-hidden="true"></i>推送渠道</a>
-    <a asp-action="Records" class="nav-link @(action is "Records" or "Delivery" ? "active" : "")"><i class="align-middle me-1" data-lucide="history" aria-hidden="true"></i>推送记录</a>
-    <a asp-action="Inbox" class="nav-link @(action == "Inbox" ? "active" : "")"><i class="align-middle me-1" data-lucide="bell" aria-hidden="true"></i>站内通知</a>
-</nav>
