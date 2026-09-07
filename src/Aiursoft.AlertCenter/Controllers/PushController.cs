@@ -17,7 +17,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     private List<ChannelTypeDefinition> Types => adapters.Select(adapter => adapter.Definition).ToList();
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 1,
+        CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
         LinkText = "推送渠道", LinkOrder = 0)]
     public async Task<IActionResult> Index() => this.StackView(new PushViewModel
     {
@@ -125,7 +125,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 1,
+        CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
         LinkText = "推送记录", LinkOrder = 1)]
     public async Task<IActionResult> Records(int page = 1, Guid? channelId = null, string? status = null)
     {
@@ -168,7 +168,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 1,
+        CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
         LinkText = "站内通知", LinkOrder = 2)]
     public async Task<IActionResult> Inbox(int page = 1, bool unreadOnly = false)
     {

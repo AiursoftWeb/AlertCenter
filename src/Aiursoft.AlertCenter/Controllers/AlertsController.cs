@@ -15,7 +15,7 @@ namespace Aiursoft.AlertCenter.Controllers;
 public class AlertsController(TemplateDbContext db) : Controller
 {
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 0,
+        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "消息列表", LinkOrder = 0)]
     public async Task<IActionResult> Index(int page = 1)
     {
@@ -30,7 +30,7 @@ public class AlertsController(TemplateDbContext db) : Controller
     }
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 0,
+        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "接入应用", LinkOrder = 1)]
     public async Task<IActionResult> Applications() => this.StackView(await ApplicationsModel());
 

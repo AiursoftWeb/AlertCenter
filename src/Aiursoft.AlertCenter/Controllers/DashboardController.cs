@@ -14,7 +14,7 @@ public class DashboardController : Controller
         NavGroupOrder = 1,
         CascadedLinksGroupName = "Home",
         CascadedLinksIcon = "home",
-        CascadedLinksOrder = 1,
+        CascadedLinksOrder = 0,
         LinkText = "Index",
         LinkOrder = 1)]
     public IActionResult Index()
