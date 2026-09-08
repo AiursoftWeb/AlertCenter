@@ -272,7 +272,7 @@ public class PushCenterTests
         await Report(application, Guid.NewGuid());
         var id = await _db.PushDeliveries.Select(delivery => delivery.Id).SingleAsync();
         await _processor.ProcessAsync(id, CancellationToken.None);
-        await new AlertsController(_db).DeleteApplication(application.Id, CancellationToken.None);
+        await new AlertsController(_db).DeleteApplication(application.Id, application.Name, CancellationToken.None);
         Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
         Assert.AreEqual(0, await _db.InAppNotifications.CountAsync());
         Assert.AreEqual(0, await _db.ApplicationPushChannels.CountAsync());

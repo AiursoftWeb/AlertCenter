@@ -65,9 +65,18 @@ public class AlertsController(TemplateDbContext db) : Controller
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteApplication(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> DeleteApplication(Guid id, string? confirmationName, CancellationToken cancellationToken)
     {
         await using var transaction = await db.Database.BeginTransactionAsync(cancellationToken);
+        var applicationName = await db.SourceApplications.AsNoTracking()
+            .Where(application => application.Id == id)
+            .Select(application => application.Name).SingleOrDefaultAsync(cancellationToken);
+        if (applicationName == null) return NotFound();
+        if (!ModelState.IsValid || string.IsNullOrEmpty(confirmationName) ||
+            !string.Equals(applicationName, confirmationName, StringComparison.Ordinal))
+        {
+            return BadRequest("请输入完全一致的应用名称以确认删除。");
+        }
         // 在同一事务中批量删除历史消息和应用，避免部分删除或逐条加载消息。
         await db.ReportedMessages.Where(message => message.ApplicationId == id)
             .ExecuteDeleteAsync(cancellationToken);

@@ -186,6 +186,49 @@ public class AlertDemoTests : TestBase
     }
 
     [TestMethod]
+    public async Task DeleteApplicationRequiresExactNameConfirmation()
+    {
+        var key = await CreateApplication();
+        var applicationId = key.Split('.')[0];
+        using var report = await Report(key, Guid.NewGuid());
+        Assert.AreEqual(HttpStatusCode.Created, report.StatusCode);
+        var html = await Http.GetStringAsync("/Alerts/Applications");
+        Assert.Contains("id=\"delete-application-form\"", html);
+        Assert.Contains("name=\"confirmationName\"", html);
+        Assert.Contains("id=\"confirm-delete-application\" disabled", html);
+        Assert.Contains("user-select: text", html);
+
+        foreach (var confirmationName in new string?[] { null, "", "demo orders", "Demo Orders " })
+        {
+            var data = new Dictionary<string, string> { ["id"] = applicationId };
+            if (confirmationName != null) data["confirmationName"] = confirmationName;
+            using var rejected = await PostForm("/Alerts/DeleteApplication", data, "/Alerts/Applications");
+            Assert.AreEqual(HttpStatusCode.BadRequest, rejected.StatusCode);
+            using var scope = Server!.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.AreEqual(1, await db.SourceApplications.CountAsync());
+            Assert.AreEqual(1, await db.ReportedMessages.CountAsync());
+        }
+
+        using var missingToken = await PostForm("/Alerts/DeleteApplication", new()
+        {
+            ["id"] = applicationId, ["confirmationName"] = "Demo Orders"
+        }, includeToken: false);
+        Assert.AreEqual(HttpStatusCode.BadRequest, missingToken.StatusCode);
+        using var deleted = await PostForm("/Alerts/DeleteApplication", new()
+        {
+            ["id"] = applicationId, ["confirmationName"] = "Demo Orders"
+        }, "/Alerts/Applications");
+        AssertRedirect(deleted, "/Alerts/Applications");
+        using var finalScope = Server!.Services.CreateScope();
+        var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(0, await finalDb.SourceApplications.CountAsync());
+        Assert.AreEqual(0, await finalDb.ReportedMessages.CountAsync());
+        using var rejectedReport = await Report(key, Guid.NewGuid());
+        Assert.AreEqual(HttpStatusCode.Unauthorized, rejectedReport.StatusCode);
+    }
+
+    [TestMethod]
     public async Task ConcurrentDuplicatesPersistOnlyOnce()
     {
         var key = await CreateApplication();

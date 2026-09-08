@@ -27,11 +27,12 @@ public class ApplicationDeletionTests
     public async Task Cleanup() => await _db.DisposeAsync();
 
     [TestMethod]
-    [DataRow(0)]
-    [DataRow(2)]
-    public async Task DeleteRemovesOnlySelectedApplicationAndItsMessages(int messageCount)
+    [DataRow(0, "Delete this application")]
+    [DataRow(2, "Delete this application")]
+    [DataRow(1, "订单服务 <Orders> & \"通知\"")]
+    public async Task DeleteRemovesOnlySelectedApplicationAndItsMessages(int messageCount, string name)
     {
-        var application = new SourceApplication { Name = "Delete this application" };
+        var application = new SourceApplication { Name = name };
         var other = new SourceApplication { Name = "Keep this application" };
         _db.SourceApplications.AddRange(application, other);
         for (var index = 0; index < messageCount; index++)
@@ -43,13 +44,13 @@ public class ApplicationDeletionTests
         _db.ChangeTracker.Clear();
 
         var controller = new AlertsController(_db);
-        var result = await controller.DeleteApplication(application.Id, CancellationToken.None);
+        var result = await controller.DeleteApplication(application.Id, application.Name, CancellationToken.None);
 
         Assert.IsInstanceOfType<RedirectToActionResult>(result);
         Assert.AreEqual(nameof(AlertsController.Applications), ((RedirectToActionResult)result).ActionName);
         Assert.AreEqual(other.Id, (await _db.SourceApplications.SingleAsync()).Id);
         Assert.AreEqual(other.Id, (await _db.ReportedMessages.SingleAsync()).ApplicationId);
-        Assert.IsInstanceOfType<NotFoundResult>(await controller.DeleteApplication(application.Id, CancellationToken.None));
+        Assert.IsInstanceOfType<NotFoundResult>(await controller.DeleteApplication(application.Id, application.Name, CancellationToken.None));
 
         var reports = new MessageReportsController(_db, new NullAlertDispatcher(NullLogger<NullAlertDispatcher>.Instance))
         {
@@ -70,11 +71,35 @@ public class ApplicationDeletionTests
         _db.ReportedMessages.Add(Message(application.Id));
         await _db.SaveChangesAsync();
 
-        var result = await new AlertsController(_db).DeleteApplication(Guid.NewGuid(), CancellationToken.None);
+        var result = await new AlertsController(_db).DeleteApplication(Guid.NewGuid(), application.Name, CancellationToken.None);
 
         Assert.IsInstanceOfType<NotFoundResult>(result);
         Assert.AreEqual(1, await _db.SourceApplications.CountAsync());
         Assert.AreEqual(1, await _db.ReportedMessages.CountAsync());
+    }
+
+    [TestMethod]
+    [DataRow(null)]
+    [DataRow("")]
+    [DataRow(" ")]
+    [DataRow("delete this application")]
+    [DataRow("Delete this application ")]
+    [DataRow(" Delete this application")]
+    [DataRow("Delete this")]
+    [DataRow("Another application")]
+    public async Task IncorrectConfirmationPreservesApplicationAndMessages(string? confirmationName)
+    {
+        var application = new SourceApplication { Name = "Delete this application" };
+        _db.SourceApplications.Add(application);
+        _db.ReportedMessages.Add(Message(application.Id));
+        await _db.SaveChangesAsync();
+
+        var result = await new AlertsController(_db)
+            .DeleteApplication(application.Id, confirmationName, CancellationToken.None);
+
+        Assert.IsInstanceOfType<BadRequestObjectResult>(result);
+        Assert.AreEqual(application.Id, (await _db.SourceApplications.SingleAsync()).Id);
+        Assert.AreEqual(application.Id, (await _db.ReportedMessages.SingleAsync()).ApplicationId);
     }
 
     [TestMethod]
@@ -91,7 +116,7 @@ public class ApplicationDeletionTests
             """);
 
         await Assert.ThrowsAsync<Microsoft.Data.Sqlite.SqliteException>(() =>
-            new AlertsController(_db).DeleteApplication(application.Id, CancellationToken.None));
+            new AlertsController(_db).DeleteApplication(application.Id, application.Name, CancellationToken.None));
 
         Assert.AreEqual(1, await _db.SourceApplications.CountAsync());
         Assert.AreEqual(1, await _db.ReportedMessages.CountAsync());

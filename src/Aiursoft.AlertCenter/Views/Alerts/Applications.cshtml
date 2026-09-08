@@ -1,4 +1,12 @@
 @model Aiursoft.AlertCenter.Models.AlertsViewModel
+@section styles {
+    <style>
+        #delete-application, #delete-application * {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+    </style>
+}
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div><h1 class="h3 mb-1">接入应用</h1><p class="text-muted mb-0">为业务系统创建独立密钥，管理消息上报权限。</p></div>
     <a asp-action="Index" class="btn btn-outline-primary"><i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>查看消息</a>
@@ -72,32 +80,56 @@
 </div>
 <div class="modal fade" id="delete-application" tabindex="-1" aria-labelledby="delete-application-title" aria-describedby="delete-application-description" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <form asp-action="DeleteApplication" method="post" class="modal-content" id="delete-application-form">
             <div class="modal-header">
                 <h2 class="modal-title h5" id="delete-application-title">删除接入应用</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
             </div>
             <div class="modal-body">
                 <p>确定删除应用 <strong id="delete-application-name" class="text-break"></strong>？</p>
-                <p id="delete-application-description" class="text-danger mb-0">该应用的全部历史告警、关联投递记录和站内通知将一并删除，API Key 将立即失效。此操作无法恢复。</p>
+                <p id="delete-application-description" class="text-danger">该应用的全部历史告警、关联投递记录和站内通知将一并删除，API Key 将立即失效。此操作无法恢复。</p>
+                <label for="delete-application-confirmation" class="form-label">请输入应用名称以确认删除</label>
+                <input id="delete-application-confirmation" name="confirmationName" class="form-control" required maxlength="100" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="delete-application-confirmation-hint" />
+                <small id="delete-application-confirmation-hint" class="text-muted d-block mt-2">名称必须完全一致（区分大小写）。可选中并复制上方的应用名称。</small>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                <form asp-action="DeleteApplication" method="post">
-                    <input type="hidden" id="delete-application-id" name="id" />
-                    <button type="submit" class="btn btn-danger" id="confirm-delete-application" disabled>删除应用及历史告警</button>
-                </form>
+                <input type="hidden" id="delete-application-id" name="id" />
+                <button type="submit" class="btn btn-danger" id="confirm-delete-application" disabled>删除应用及历史告警</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <script>
-    document.getElementById('delete-application').addEventListener('show.bs.modal', function (event) {
-        const trigger = event.relatedTarget;
-        document.getElementById('delete-application-id').value = trigger?.dataset.applicationId ?? '';
-        document.getElementById('delete-application-name').textContent = trigger?.dataset.applicationName ?? '';
-        document.getElementById('confirm-delete-application').disabled = !trigger?.dataset.applicationId;
-    });
+    (() => {
+        const modal = document.getElementById('delete-application');
+        const form = document.getElementById('delete-application-form');
+        const applicationId = document.getElementById('delete-application-id');
+        const applicationName = document.getElementById('delete-application-name');
+        const confirmation = document.getElementById('delete-application-confirmation');
+        const submit = document.getElementById('confirm-delete-application');
+        const updateConfirmation = () => {
+            const matches = Boolean(applicationId.value) && confirmation.value.length > 0 &&
+                confirmation.value === applicationName.textContent;
+            confirmation.setCustomValidity(matches ? '' : '请输入完全一致的应用名称以确认删除。');
+            submit.disabled = !matches;
+            return matches;
+        };
+        modal.addEventListener('show.bs.modal', event => {
+            applicationId.value = event.relatedTarget?.dataset.applicationId ?? '';
+            applicationName.textContent = event.relatedTarget?.dataset.applicationName ?? '';
+            confirmation.value = '';
+            updateConfirmation();
+        });
+        modal.addEventListener('shown.bs.modal', () => confirmation.focus());
+        confirmation.addEventListener('input', updateConfirmation);
+        form.addEventListener('submit', event => {
+            if (!updateConfirmation()) {
+                event.preventDefault();
+                confirmation.reportValidity();
+            }
+        });
+    })();
 </script>
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="terminal" aria-hidden="true"></i>发送第一条消息</h2></div>
