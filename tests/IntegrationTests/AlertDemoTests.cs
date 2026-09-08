@@ -34,7 +34,9 @@ public class AlertDemoTests : TestBase
     [TestInitialize]
     public override async Task CreateServer()
     {
-        Server = await AppAsync<AlertDemoStartup>([], port: Port);
+        var webRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
+            "../../../../src/Aiursoft.AlertCenter/wwwroot"));
+        Server = await AppAsync<AlertDemoStartup>(["--webroot", webRoot], port: Port);
         using (var scope = Server.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -155,6 +157,114 @@ public class AlertDemoTests : TestBase
         Assert.AreEqual(1, await db.ReportedMessages.CountAsync());
         var application = await db.SourceApplications.SingleAsync();
         Assert.AreNotEqual(key.Split('.')[1], application.SecretHash);
+    }
+
+    private async Task<InAppNotification> CreateInboxNotification(ReportedMessage? message = null)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var user = await db.Users.SingleAsync(item => item.Email == "admin@default.com");
+        var notification = new InAppNotification
+        {
+            UserId = user.Id,
+            Delivery = new PushDelivery
+            {
+                Channel = new PushChannel { Name = new string('C', 100), Type = "inapp" },
+                Message = message,
+                Status = PushDelivery.Succeeded
+            }
+        };
+        db.InAppNotifications.Add(notification);
+        await db.SaveChangesAsync();
+        return notification;
+    }
+
+    [TestMethod]
+    [DataRow("\n")]
+    [DataRow("")]
+    public async Task InboxLimitsLongNotificationsAndLinksToFullDetails(string separator)
+    {
+        await LoginAsAdmin();
+        var content = "<script>alert('unsafe')</script>" +
+            string.Join(separator, Enumerable.Repeat(new string('x', 40), 70)) + "Full content tail";
+        var message = new ReportedMessage
+        {
+            Application = new SourceApplication { Name = "Inbox application" },
+            ReportId = Guid.NewGuid(),
+            Title = new string('T', 200),
+            Content = content,
+            ContextJson = "{\"detail\":\"Full context\"}",
+            OccurredAtUtc = DateTime.UtcNow
+        };
+        var notification = await CreateInboxNotification(message);
+
+        var inbox = await Http.GetStringAsync("/Push/Inbox");
+        Assert.Contains("/styles/inbox.css?v=", inbox);
+        Assert.Contains("inbox-notification-title", inbox);
+        Assert.Contains("inbox-notification-preview", inbox);
+        Assert.Contains("inbox-notification-channel", inbox);
+        Assert.Contains($"href=\"/Alerts/Details/{message.Id}\"", inbox);
+        Assert.Contains("&lt;script&gt;", inbox);
+        Assert.DoesNotContain("<script>alert", inbox);
+        Assert.DoesNotContain("Full context", inbox);
+
+        var css = await Http.GetStringAsync("/styles/inbox.css");
+        Assert.Contains("-webkit-line-clamp: 2;", css);
+        Assert.Contains("-webkit-line-clamp: 3;", css);
+        Assert.Contains("max-height: 2.8em;", css);
+        Assert.Contains("max-height: 4.5em;", css);
+        Assert.Contains("overflow-wrap: anywhere;", css);
+
+        var details = await Http.GetStringAsync($"/Alerts/Details/{message.Id}");
+        Assert.Contains(message.Title, details);
+        Assert.Contains(content, WebUtility.HtmlDecode(details));
+        Assert.Contains("Full context", details);
+        Assert.DoesNotContain("inbox-notification-preview", details);
+        Assert.DoesNotContain("/styles/inbox.css", details);
+        Assert.DoesNotContain("<script>alert", details);
+
+        var markRead = await PostForm("/Push/MarkRead", new() { ["id"] = notification.Id.ToString() }, "/Push/Inbox");
+        AssertRedirect(markRead, "/Push/Inbox");
+        var unread = await Http.GetStringAsync("/Push/Inbox?unreadOnly=true");
+        Assert.DoesNotContain($"/Alerts/Details/{message.Id}", unread);
+        Assert.Contains($"/Alerts/Details/{message.Id}", await Http.GetStringAsync("/Push/Inbox"));
+    }
+
+    [TestMethod]
+    [DataRow(null)]
+    [DataRow("")]
+    [DataRow("Short notification")]
+    public async Task InboxSupportsEmptyAndShortContent(string? content)
+    {
+        await LoginAsAdmin();
+        var message = new ReportedMessage
+        {
+            Application = new SourceApplication { Name = "Inbox application" },
+            ReportId = Guid.NewGuid(),
+            Title = "Short alert",
+            Content = content,
+            OccurredAtUtc = DateTime.UtcNow
+        };
+        await CreateInboxNotification(message);
+
+        var inbox = await Http.GetStringAsync("/Push/Inbox");
+        Assert.Contains(message.Title, inbox);
+        Assert.Contains($"href=\"/Alerts/Details/{message.Id}\"", inbox);
+        if (!string.IsNullOrEmpty(content)) Assert.Contains(content, inbox);
+    }
+
+    [TestMethod]
+    public async Task InboxTestNotificationLinksToDeliveryDetails()
+    {
+        await LoginAsAdmin();
+        var notification = await CreateInboxNotification();
+
+        var inbox = await Http.GetStringAsync("/Push/Inbox");
+        Assert.Contains("inbox-notification-preview", inbox);
+        Assert.Contains($"href=\"/Push/Delivery/{notification.DeliveryId}\"", inbox);
+        var details = await Http.GetStringAsync($"/Push/Delivery/{notification.DeliveryId}");
+        Assert.Contains(notification.Delivery.Channel.Name, details);
+        Assert.Contains(notification.DeliveryId.ToString(), details);
     }
 
     [TestMethod]

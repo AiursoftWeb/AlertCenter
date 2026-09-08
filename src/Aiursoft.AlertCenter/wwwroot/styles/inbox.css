@@ -1,0 +1,38 @@
+.inbox-notification {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.inbox-notification-title,
+.inbox-notification-preview {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+}
+
+.inbox-notification-title {
+    flex: 1 1 16rem;
+    min-width: 0;
+    line-height: 1.4;
+    max-height: 2.8em;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.inbox-notification-preview {
+    white-space: pre-wrap;
+    line-height: 1.5;
+    max-height: 4.5em;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+}
+
+.inbox-notification-channel {
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 10rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

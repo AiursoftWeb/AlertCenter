@@ -1,4 +1,7 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
+@section styles {
+    <link rel="stylesheet" href="~/styles/inbox.css" asp-append-version="true" />
+}
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div><h1 class="h3 mb-1">站内通知 <span class="badge bg-primary">@Model.UnreadCount 未读</span></h1><p class="text-muted mb-0">你的通知收件箱 · 已读状态仅对你生效</p></div>
     <form asp-action="MarkAllRead" method="post"><button class="btn btn-outline-primary" disabled="@(Model.UnreadCount == 0)">全部标为已读</button></form>
@@ -14,14 +17,21 @@
         <div class="list-group list-group-flush">@foreach (var notification in Model.Notifications)
         {
             var message = notification.Delivery.Message;
-            <div class="list-group-item p-4">
-                <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2"><h2 class="h5 mb-0 text-break">@if (notification.ReadAtUtc == null) { <span class="badge bg-primary me-2">未读</span> }@(message?.Title ?? "渠道测试通知")</h2><small class="text-muted">@notification.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</small></div>
-                <p class="text-muted text-break mb-3" style="white-space: pre-wrap;">@(message == null ? "这是一条推送渠道测试消息。" : message.Content)</p>
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2"><small class="text-muted">@notification.Delivery.Channel.Name</small><div class="d-flex gap-2">
-                    @if (message != null) { <a asp-controller="Alerts" asp-action="Details" asp-route-id="@message.Id" class="btn btn-sm btn-outline-secondary">查看告警</a> }
-                    @if (notification.ReadAtUtc == null) { <form asp-action="MarkRead" method="post"><input type="hidden" name="id" value="@notification.Id" /><button class="btn btn-sm btn-outline-primary">标为已读</button></form> }
-                    else { <span class="text-muted small align-self-center">已读</span> }
-                </div></div>
+            <div class="list-group-item p-4 inbox-notification">
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
+                    <h2 class="h5 mb-0 inbox-notification-title">@if (notification.ReadAtUtc == null) { <span class="badge bg-primary me-2">未读</span> }@(message?.Title ?? "渠道测试通知")</h2>
+                    <small class="text-muted text-nowrap">@notification.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</small>
+                </div>
+                <p class="text-muted mb-3 inbox-notification-preview">@(message == null ? "这是一条推送渠道测试消息。" : message.Content)</p>
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <small class="text-muted inbox-notification-channel">@notification.Delivery.Channel.Name</small>
+                    <div class="d-flex flex-wrap gap-2 flex-shrink-0">
+                        @if (message != null) { <a asp-controller="Alerts" asp-action="Details" asp-route-id="@message.Id" class="btn btn-sm btn-outline-secondary">查看详情</a> }
+                        else { <a asp-action="Delivery" asp-route-id="@notification.DeliveryId" class="btn btn-sm btn-outline-secondary">查看详情</a> }
+                        @if (notification.ReadAtUtc == null) { <form asp-action="MarkRead" method="post"><input type="hidden" name="id" value="@notification.Id" /><button class="btn btn-sm btn-outline-primary">标为已读</button></form> }
+                        else { <span class="text-muted small align-self-center">已读</span> }
+                    </div>
+                </div>
             </div>
         }</div>
         <div class="card-body border-top d-flex justify-content-between align-items-center"><small class="text-muted">第 @Model.Page 页</small><nav class="d-flex gap-2" aria-label="站内通知分页">
