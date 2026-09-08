@@ -83,6 +83,41 @@ public partial class AlertDemoTests
     }
 
     [TestMethod]
+    public async Task InboxStatusLinksExposeAllNotificationsAndPreserveSearchFilters()
+    {
+        var items = await SeedInboxFilters();
+        static string StatusLink(string html, string status) => Regex.Match(html,
+            $"<a[^>]*id=\"inbox-status-{status}\"[^>]*>[^<]*</a>").Value;
+        static string Href(string link) => WebUtility.HtmlDecode(Regex.Match(link, "href=\"([^\"]+)\"").Groups[1].Value);
+
+        var html = await Http.GetStringAsync("/Push/Inbox");
+        Assert.Contains("aria-current=\"page\"", StatusLink(html, "unread"));
+        var allLink = StatusLink(html, "all");
+        Assert.Contains("全部通知", WebUtility.HtmlDecode(allLink));
+        html = await Http.GetStringAsync(Href(allLink));
+        Assert.AreEqual(8, InboxMessageIds(html).Length);
+        Assert.Contains(items[2].Delivery.Message!.Id, InboxMessageIds(html));
+        Assert.Contains("aria-current=\"page\"", StatusLink(html, "all"));
+
+        var query = $"keyword=needle&applicationId={items[0].Delivery.Message!.ApplicationId}" +
+            $"&channelId={items[0].Delivery.ChannelId}&level=sev2&fromDate=2026-09-08&toDate=2026-09-08";
+        html = await Http.GetStringAsync("/Push/Inbox?" + query + "&page=2");
+        Assert.AreEqual(0, InboxMessageIds(html).Length);
+        foreach (var status in new[] { "all", "read", "unread" })
+        {
+            var link = Href(StatusLink(html, status));
+            var parameters = QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, link).Query);
+            Assert.AreEqual(status, parameters["readStatus"].ToString());
+            Assert.IsFalse(parameters.ContainsKey("page"));
+            foreach (var parameter in QueryHelpers.ParseQuery("?" + query))
+                Assert.AreEqual(parameter.Value.ToString(), parameters[parameter.Key].ToString());
+            var result = await Http.GetStringAsync(link);
+            CollectionAssert.AreEqual(status == "unread" ? Array.Empty<Guid>() : new[] { items[2].Delivery.Message!.Id }, InboxMessageIds(result));
+            Assert.Contains("aria-current=\"page\"", StatusLink(result, status));
+        }
+    }
+
+    [TestMethod]
     public async Task InboxCombinesFiltersWithInclusiveUtcDatesAndLiteralKeywords()
     {
         var items = await SeedInboxFilters();

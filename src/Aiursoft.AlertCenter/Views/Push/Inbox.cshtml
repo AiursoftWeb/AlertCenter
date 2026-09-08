@@ -16,6 +16,15 @@
         <small id="mark-all-hint" class="text-muted d-block mt-2">处理我的全部未读通知，不受当前筛选和分页限制。</small>
     </div>
 </div>
+<nav class="d-flex flex-wrap gap-2 mb-3" aria-label="通知阅读状态">
+    @foreach (var status in new[] { (Value: "unread", Label: "仅看未读"), (Value: "all", Label: "全部通知"), (Value: "read", Label: "仅看已读") })
+    {
+        var statusRoutes = filter.ToRouteValues(1);
+        statusRoutes["readStatus"] = status.Value;
+        var selected = filter.ReadStatus == status.Value;
+        <a id="inbox-status-@status.Value" asp-action="Inbox" asp-all-route-data="statusRoutes" class="btn @(selected ? "btn-primary" : "btn-outline-secondary")" aria-current="@(selected ? "page" : null)">@status.Label</a>
+    }
+</nav>
 <div class="card"><div class="card-body">
     <form asp-action="Inbox" method="get" class="row g-3 align-items-end" id="inbox-filters">
         <div class="col-md-6 col-xl-4"><label for="filter-keyword" class="form-label">关键词</label><input id="filter-keyword" name="keyword" value="@filter.Keyword" maxlength="200" class="form-control" placeholder="搜索标题或正文" /></div>

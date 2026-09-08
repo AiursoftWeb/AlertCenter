@@ -27,7 +27,9 @@ No SDK changes are required: clients continue reporting the alert's `level`.
 
 ## Inbox search
 
-**站内通知** opens with unread notifications by default. Combine title/body keyword search,
+**站内通知** opens with unread notifications by default. Use the visible **仅看未读 / 全部通知 / 仅看已读**
+links above the search form to switch scope, retaining other filters and returning to page one.
+Combine title/body keyword search,
 read status (unread/read/all), source application, severity, notification channel, and inclusive
 UTC receipt-date filters. Filtering happens in the database before the 20-item pagination.
 Application and channel choices come from your own notification history; test notifications
