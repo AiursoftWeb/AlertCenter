@@ -27,7 +27,11 @@ public class QueuedAlertDispatcher(TemplateDbContext db) : IAlertDispatcher
     public async Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default)
     {
         var channelIds = await db.ApplicationPushChannels.AsNoTracking()
-            .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled)
+            .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled &&
+                ((message.Level == "sev1" && link.ReceiveSev1) ||
+                 (message.Level == "sev2" && link.ReceiveSev2) ||
+                 (message.Level == "sev3" && link.ReceiveSev3) ||
+                 (message.Level == "sev4" && link.ReceiveSev4)))
             .Select(link => link.ChannelId).ToListAsync(cancellationToken);
         // 由调用方与告警一起保存，确保消息和待投递记录同时提交。
         db.PushDeliveries.AddRange(channelIds.Select(id => new PushDelivery

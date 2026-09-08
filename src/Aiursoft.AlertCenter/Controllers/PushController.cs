@@ -87,26 +87,49 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var application = await db.SourceApplications.FindAsync(id);
         if (application == null) return NotFound();
+        var bindings = await db.ApplicationPushChannels.AsNoTracking()
+            .Where(link => link.ApplicationId == id).ToListAsync();
         return this.StackView(new PushViewModel
         {
             Application = application, ChannelTypes = Types,
             Channels = await db.PushChannels.AsNoTracking().OrderBy(channel => channel.Name).ToListAsync(),
-            SelectedChannelIds = (await db.ApplicationPushChannels.Where(link => link.ApplicationId == id)
-                .Select(link => link.ChannelId).ToListAsync()).ToHashSet()
+            Bindings = new ApplicationPushBindingsRequest
+            {
+                Sev1ChannelIds = bindings.Where(link => link.ReceiveSev1).Select(link => link.ChannelId).ToArray(),
+                Sev2ChannelIds = bindings.Where(link => link.ReceiveSev2).Select(link => link.ChannelId).ToArray(),
+                Sev3ChannelIds = bindings.Where(link => link.ReceiveSev3).Select(link => link.ChannelId).ToArray(),
+                Sev4ChannelIds = bindings.Where(link => link.ReceiveSev4).Select(link => link.ChannelId).ToArray()
+            }
         });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> SaveBindings(Guid id, Guid[] channelIds)
+    public async Task<IActionResult> SaveBindings(Guid id, ApplicationPushBindingsRequest bindings)
     {
         if (!await db.SourceApplications.AnyAsync(application => application.Id == id)) return NotFound();
-        var selected = channelIds.ToHashSet();
+        if (!ModelState.IsValid) return BadRequest("渠道配置无效，请刷新页面后重试。");
+        var sev1 = bindings.Sev1ChannelIds.ToHashSet();
+        var sev2 = bindings.Sev2ChannelIds.ToHashSet();
+        var sev3 = bindings.Sev3ChannelIds.ToHashSet();
+        var sev4 = bindings.Sev4ChannelIds.ToHashSet();
+        var selected = sev1.Concat(sev2).Concat(sev3).Concat(sev4).ToHashSet();
         if (await db.PushChannels.CountAsync(channel => selected.Contains(channel.Id)) != selected.Count)
             return BadRequest("所选渠道已不存在，请刷新页面后重试。");
-        var existing = await db.ApplicationPushChannels.Where(link => link.ApplicationId == id).ToListAsync();
-        db.ApplicationPushChannels.RemoveRange(existing.Where(link => !selected.Contains(link.ChannelId)));
-        db.ApplicationPushChannels.AddRange(selected.Except(existing.Select(link => link.ChannelId))
-            .Select(channelId => new ApplicationPushChannel { ApplicationId = id, ChannelId = channelId }));
+        var existing = await db.ApplicationPushChannels.Where(link => link.ApplicationId == id)
+            .ToDictionaryAsync(link => link.ChannelId);
+        db.ApplicationPushChannels.RemoveRange(existing.Values.Where(link => !selected.Contains(link.ChannelId)));
+        foreach (var channelId in selected)
+        {
+            if (!existing.TryGetValue(channelId, out var link))
+            {
+                link = new ApplicationPushChannel { ApplicationId = id, ChannelId = channelId };
+                db.ApplicationPushChannels.Add(link);
+            }
+            link.ReceiveSev1 = sev1.Contains(channelId);
+            link.ReceiveSev2 = sev2.Contains(channelId);
+            link.ReceiveSev3 = sev3.Contains(channelId);
+            link.ReceiveSev4 = sev4.Contains(channelId);
+        }
         await db.SaveChangesAsync();
         return RedirectToAction(nameof(Bindings), new { id });
     }

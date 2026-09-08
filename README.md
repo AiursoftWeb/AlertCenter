@@ -13,6 +13,18 @@ AlertCenter is a sample project.
 
 Default user name is `admin@default.com` and default password is `Admin@123456!`.
 
+## Severity-based notification channels
+
+In **接入应用 → 推送设置**, select channels independently for each severity:
+`sev1` (严重), `sev2` (错误), `sev3` (警告), and `sev4` (信息).
+Each level can target multiple channels. Leaving a level unselected still saves its alerts but creates no notification deliveries.
+Matching is exact; selecting `sev2` does not implicitly include `sev1`.
+
+Disabled channels retain their selections but do not receive new deliveries.
+Changes apply only to new alerts, not historical messages or existing delivery tasks.
+SQLite and MySQL migrations preserve existing bindings by enabling all four levels.
+No SDK changes are required: clients continue reporting the alert's `level`.
+
 ## Projects using Aiursoft AlertCenter
 
 * [Stathub](https://github.com/aiursoftweb/stathub)

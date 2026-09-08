@@ -1,6 +1,16 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
+@using Aiursoft.AlertCenter.Models
+@{
+    var levels = new[]
+    {
+        (Field: nameof(ApplicationPushBindingsRequest.Sev1ChannelIds), Level: "sev1", Label: "严重", Color: "danger", Selected: Model.Bindings.Sev1ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev2ChannelIds), Level: "sev2", Label: "错误", Color: "warning", Selected: Model.Bindings.Sev2ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev3ChannelIds), Level: "sev3", Label: "警告", Color: "primary", Selected: Model.Bindings.Sev3ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev4ChannelIds), Level: "sev4", Label: "信息", Color: "secondary", Selected: Model.Bindings.Sev4ChannelIds.ToHashSet())
+    };
+}
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <div><h1 class="h3 mb-1">应用推送设置</h1><p class="text-muted mb-0">@Model.Application!.Name · 选择接收此应用新告警的渠道。</p></div>
+    <div><h1 class="h3 mb-1">应用推送设置</h1><p class="text-muted mb-0">@Model.Application!.Name · 按告警级别选择接收渠道。</p></div>
     <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-secondary">返回接入应用</a>
 </div>
 <form asp-action="SaveBindings" method="post">
@@ -12,15 +22,30 @@
     }
     else
     {
-        <div class="row">@foreach (var channel in Model.Channels)
-        {
-            var type = Model.ChannelTypes.FirstOrDefault(item => item.Key == channel.Type);
-            <div class="col-md-6 mb-3"><label class="border rounded p-3 d-flex gap-3 h-100" for="channel-@channel.Id">
-                <input type="checkbox" class="form-check-input flex-shrink-0" id="channel-@channel.Id" name="channelIds" value="@channel.Id" checked="@Model.SelectedChannelIds.Contains(channel.Id)" />
-                <span><strong class="d-block">@channel.Name</strong><small class="text-muted">@(type?.Name ?? channel.Type) · @(channel.IsEnabled ? "已启用" : "已停用，暂不接收新告警")</small></span>
-            </label></div>
-        }</div>
-        <p class="text-muted">仅对保存后的新告警生效，不补发历史消息。停用的渠道会保留关联，但不会新增投递任务。</p>
+        <p id="binding-hint" class="text-muted">每个级别可选择多个渠道；未选择渠道的级别只保存告警，不推送。仅匹配勾选的级别，不自动包含其他级别。</p>
+        <div class="table-responsive mb-3">
+            <table class="table align-middle mb-0" aria-describedby="binding-hint">
+                <thead><tr><th scope="col">推送渠道</th>@foreach (var level in levels)
+                {
+                    <th scope="col" class="text-center text-nowrap"><span class="badge bg-@level.Color">@level.Level</span><span class="d-block mt-1">@level.Label</span></th>
+                }</tr></thead>
+                <tbody>@foreach (var channel in Model.Channels)
+                {
+                    var type = Model.ChannelTypes.FirstOrDefault(item => item.Key == channel.Type);
+                    <tr>
+                        <th scope="row"><strong class="d-block text-break">@channel.Name</strong><small class="text-muted fw-normal">@(type?.Name ?? channel.Type) · @(channel.IsEnabled ? "已启用" : "已停用，暂不接收新告警")</small></th>
+                        @foreach (var level in levels)
+                        {
+                            <td class="text-center"><label class="p-2" for="channel-@channel.Id-@level.Level">
+                                <input type="checkbox" class="form-check-input m-0" id="channel-@channel.Id-@level.Level" name="@level.Field" value="@channel.Id" checked="@level.Selected.Contains(channel.Id)" />
+                                <span class="visually-hidden">@channel.Name · @level.Level @level.Label</span>
+                            </label></td>
+                        }
+                    </tr>
+                }</tbody>
+            </table>
+        </div>
+        <p class="text-muted">仅对保存后的新告警生效，不补发历史消息，也不改变已有投递任务。停用的渠道会保留级别配置，但不会新增投递任务。</p>
         <button class="btn btn-primary">保存关联</button>
     }
     </div></div>

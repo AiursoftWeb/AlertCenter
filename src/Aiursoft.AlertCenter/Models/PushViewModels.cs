@@ -13,7 +13,7 @@ public class PushViewModel : UiStackLayoutViewModel
     public List<PushDelivery> Deliveries { get; set; } = [];
     public List<InAppNotification> Notifications { get; set; } = [];
     public SourceApplication? Application { get; set; }
-    public HashSet<Guid> SelectedChannelIds { get; set; } = [];
+    public ApplicationPushBindingsRequest Bindings { get; set; } = new();
     public PushDelivery? Delivery { get; set; }
     public int Page { get; set; } = 1;
     public bool HasNextPage { get; set; }
@@ -21,6 +21,14 @@ public class PushViewModel : UiStackLayoutViewModel
     public bool UnreadOnly { get; set; }
     public Guid? ChannelId { get; set; }
     public string? Status { get; set; }
+}
+
+public class ApplicationPushBindingsRequest
+{
+    public Guid[] Sev1ChannelIds { get; set; } = [];
+    public Guid[] Sev2ChannelIds { get; set; } = [];
+    public Guid[] Sev3ChannelIds { get; set; } = [];
+    public Guid[] Sev4ChannelIds { get; set; } = [];
 }
 
 public class PushChannelEditViewModel : UiStackLayoutViewModel

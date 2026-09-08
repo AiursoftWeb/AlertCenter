@@ -84,7 +84,14 @@ public class PushCenterTests
         await _db.SaveChangesAsync();
     }
 
-    private async Task<IActionResult> Report(SourceApplication application, Guid reportId)
+    private Task<IActionResult> BindAllLevels(Guid applicationId, params Guid[] channelIds) =>
+        Controller().SaveBindings(applicationId, new ApplicationPushBindingsRequest
+        {
+            Sev1ChannelIds = channelIds, Sev2ChannelIds = channelIds,
+            Sev3ChannelIds = channelIds, Sev4ChannelIds = channelIds
+        });
+
+    private async Task<IActionResult> Report(SourceApplication application, Guid reportId, string level = "sev3")
     {
         _db.ChangeTracker.Clear();
         var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db))
@@ -94,7 +101,7 @@ public class PushCenterTests
         controller.Request.Headers.Authorization = $"Bearer {application.Id}.{Secret}";
         return await controller.Report(new ReportMessageRequest
         {
-            ReportId = reportId, Title = "<script>unsafe</script>", Content = null,
+            ReportId = reportId, Title = "<script>unsafe</script>", Content = null, Level = level,
             OccurredAtUtc = DateTimeOffset.UtcNow, Context = Newtonsoft.Json.Linq.JObject.Parse("{\"orderId\":123}")
         }, CancellationToken.None);
     }
@@ -115,7 +122,7 @@ public class PushCenterTests
         var webhook = await Channel();
         var inbox = await Channel("inapp");
         var disabled = await Channel(enabled: false);
-        await Controller().SaveBindings(application.Id, [webhook.Id, inbox.Id, disabled.Id]);
+        await BindAllLevels(application.Id, webhook.Id, inbox.Id, disabled.Id);
         var reportId = Guid.NewGuid();
 
         var first = (ObjectResult)await Report(application, reportId);
@@ -145,11 +152,116 @@ public class PushCenterTests
     }
 
     [TestMethod]
+    [DataRow("sev1")]
+    [DataRow("sev2")]
+    [DataRow("sev3")]
+    [DataRow("sev4")]
+    public async Task ReportsRouteOnlyToExactSeverityAndMultipleSelectedChannels(string level)
+    {
+        var application = await Application();
+        var otherApplication = await Application();
+        var first = await Channel();
+        var second = await Channel("inapp");
+        var wrongLevel = await Channel();
+        var disabled = await Channel(enabled: false);
+        var otherApplicationChannel = await Channel();
+        Guid[] matching = [first.Id, second.Id, disabled.Id, first.Id];
+        await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest
+        {
+            Sev1ChannelIds = level == "sev1" ? matching : [wrongLevel.Id],
+            Sev2ChannelIds = level == "sev2" ? matching : [wrongLevel.Id],
+            Sev3ChannelIds = level == "sev3" ? matching : [wrongLevel.Id],
+            Sev4ChannelIds = level == "sev4" ? matching : [wrongLevel.Id]
+        });
+        await BindAllLevels(otherApplication.Id, otherApplicationChannel.Id);
+        _db.ChangeTracker.Clear();
+        var saved = await _db.ApplicationPushChannels.SingleAsync(link => link.ApplicationId == application.Id && link.ChannelId == first.Id);
+        Assert.AreEqual(level == "sev1", saved.ReceiveSev1);
+        Assert.AreEqual(level == "sev2", saved.ReceiveSev2);
+        Assert.AreEqual(level == "sev3", saved.ReceiveSev3);
+        Assert.AreEqual(level == "sev4", saved.ReceiveSev4);
+
+        var reportId = Guid.NewGuid();
+        Assert.AreEqual(201, ((ObjectResult)await Report(application, reportId, level)).StatusCode);
+        CollectionAssert.AreEquivalent(new[] { first.Id, second.Id },
+            await _db.PushDeliveries.Select(delivery => delivery.ChannelId).ToArrayAsync());
+        Assert.AreEqual(level, (await _db.ReportedMessages.SingleAsync()).Level);
+        Assert.IsInstanceOfType<OkObjectResult>(await Report(application, reportId, level));
+        Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task BindingChangesAffectOnlyNewAlertsAndPreserveOtherApplications()
+    {
+        var application = await Application();
+        var otherApplication = await Application();
+        var channel = await Channel();
+        await BindAllLevels(application.Id, channel.Id);
+        await BindAllLevels(otherApplication.Id, channel.Id);
+        var reportId = Guid.NewGuid();
+        await Report(application, reportId, "sev1");
+        var pending = await _db.PushDeliveries.AsNoTracking().SingleAsync();
+
+        await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest { Sev2ChannelIds = [channel.Id] });
+        Assert.IsInstanceOfType<OkObjectResult>(await Report(application, reportId, "sev2"));
+        await Report(application, Guid.NewGuid(), "sev1");
+        Assert.AreEqual(2, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(pending.Id, (await _db.PushDeliveries.SingleAsync()).Id);
+        Assert.AreEqual(PushDelivery.Pending, (await _db.PushDeliveries.SingleAsync()).Status);
+        await Report(application, Guid.NewGuid(), "sev2");
+        Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
+
+        await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest());
+        await Report(application, Guid.NewGuid(), "sev2");
+        Assert.AreEqual(4, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
+        var remaining = await _db.ApplicationPushChannels.SingleAsync();
+        Assert.AreEqual(otherApplication.Id, remaining.ApplicationId);
+        Assert.IsTrue(remaining.ReceiveSev1 && remaining.ReceiveSev2 && remaining.ReceiveSev3 && remaining.ReceiveSev4);
+    }
+
+    [TestMethod]
+    public async Task InvalidSeverityBindingsDoNotPartiallyUpdateSelections()
+    {
+        var application = await Application();
+        var channel = await Channel();
+        await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest { Sev4ChannelIds = [channel.Id] });
+        var result = await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest
+        {
+            Sev1ChannelIds = [channel.Id], Sev2ChannelIds = [Guid.NewGuid()]
+        });
+        Assert.IsInstanceOfType<BadRequestObjectResult>(result);
+        var controller = Controller();
+        controller.ModelState.AddModelError("Sev1ChannelIds", "Invalid channel ID");
+        Assert.IsInstanceOfType<BadRequestObjectResult>(await controller.SaveBindings(application.Id, new ApplicationPushBindingsRequest()));
+        _db.ChangeTracker.Clear();
+        var saved = await _db.ApplicationPushChannels.SingleAsync();
+        Assert.IsFalse(saved.ReceiveSev1 || saved.ReceiveSev2 || saved.ReceiveSev3);
+        Assert.IsTrue(saved.ReceiveSev4);
+        Assert.IsInstanceOfType<NotFoundResult>(await Controller().SaveBindings(Guid.NewGuid(), new ApplicationPushBindingsRequest()));
+    }
+
+    [TestMethod]
+    public async Task DisabledChannelRetainsSeveritySelectionWhenReenabled()
+    {
+        var application = await Application();
+        var channel = await Channel(enabled: false);
+        await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest { Sev4ChannelIds = [channel.Id] });
+        await Report(application, Guid.NewGuid(), "sev4");
+        Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
+        await Controller().SetEnabled(channel.Id, true);
+        await Report(application, Guid.NewGuid(), "sev1");
+        Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
+        await Report(application, Guid.NewGuid(), "sev4");
+        Assert.AreEqual(channel.Id, (await _db.PushDeliveries.SingleAsync()).ChannelId);
+    }
+
+    [TestMethod]
     public async Task FailedDeliveryDoesNotLoseAlertAndRetriesOnlyOnRequest()
     {
         var application = await Application();
         var channel = await Channel();
-        await Controller().SaveBindings(application.Id, [channel.Id]);
+        await BindAllLevels(application.Id, channel.Id);
         _http.StatusCode = HttpStatusCode.BadGateway;
         Assert.AreEqual(201, ((ObjectResult)await Report(application, Guid.NewGuid())).StatusCode);
         var id = await _db.PushDeliveries.Select(delivery => delivery.Id).SingleAsync();
@@ -207,7 +319,7 @@ public class PushCenterTests
     {
         var application = await Application();
         var channel = await Channel();
-        await Controller().SaveBindings(application.Id, [channel.Id]);
+        await BindAllLevels(application.Id, channel.Id);
         await Report(application, Guid.NewGuid());
         await Controller().SetEnabled(channel.Id, false);
         var delivery = await _db.PushDeliveries.SingleAsync();
@@ -230,16 +342,16 @@ public class PushCenterTests
         var channel = await _db.PushChannels.SingleAsync();
         Assert.IsNull(channel.Endpoint);
         var other = await Channel();
-        await Controller().SaveBindings(application.Id, [channel.Id, other.Id, other.Id]);
+        await BindAllLevels(application.Id, channel.Id, other.Id, other.Id);
         Assert.AreEqual(2, await _db.ApplicationPushChannels.CountAsync());
-        Assert.IsInstanceOfType<BadRequestObjectResult>(await Controller().SaveBindings(application.Id, [Guid.NewGuid()]));
+        Assert.IsInstanceOfType<BadRequestObjectResult>(await BindAllLevels(application.Id, Guid.NewGuid()));
         Assert.AreEqual(2, await _db.ApplicationPushChannels.CountAsync());
-        await Controller().SaveBindings(application.Id, [channel.Id]);
+        await BindAllLevels(application.Id, channel.Id);
         Assert.AreEqual(channel.Id, (await _db.ApplicationPushChannels.SingleAsync()).ChannelId);
         await Controller().Save(new PushChannelEditViewModel { Id = channel.Id, Name = "Renamed", Type = "inapp", IsEnabled = false });
         Assert.AreEqual("Renamed", channel.Name);
         Assert.IsFalse(channel.IsEnabled);
-        await Controller().SaveBindings(application.Id, []);
+        await BindAllLevels(application.Id);
         Assert.AreEqual(0, await _db.ApplicationPushChannels.CountAsync());
         Assert.AreEqual(2, await _db.PushChannels.CountAsync());
     }
@@ -251,7 +363,7 @@ public class PushCenterTests
         var application = await Application();
         var channel = await Channel("inapp");
         var other = await Channel();
-        await Controller().SaveBindings(application.Id, [channel.Id, other.Id]);
+        await BindAllLevels(application.Id, channel.Id, other.Id);
         await Report(application, Guid.NewGuid());
         var delivery = await _db.PushDeliveries.SingleAsync(item => item.ChannelId == channel.Id);
         await _processor.ProcessAsync(delivery.Id, CancellationToken.None);
@@ -268,7 +380,7 @@ public class PushCenterTests
         await AddAdministrators();
         var application = await Application();
         var channel = await Channel("inapp");
-        await Controller().SaveBindings(application.Id, [channel.Id]);
+        await BindAllLevels(application.Id, channel.Id);
         await Report(application, Guid.NewGuid());
         var id = await _db.PushDeliveries.Select(delivery => delivery.Id).SingleAsync();
         await _processor.ProcessAsync(id, CancellationToken.None);
@@ -284,7 +396,7 @@ public class PushCenterTests
     {
         var application = await Application();
         var channel = await Channel();
-        await Controller().SaveBindings(application.Id, [channel.Id]);
+        await BindAllLevels(application.Id, channel.Id);
         await _db.Database.ExecuteSqlRawAsync("""
             CREATE TRIGGER RejectPushInsert BEFORE INSERT ON PushDeliveries
             BEGIN SELECT RAISE(ABORT, 'Queue insert rejected'); END;

@@ -352,6 +352,90 @@ public class AlertDemoTests : TestBase
     }
 
     [TestMethod]
+    public async Task SeverityBindingsRoundTripAndRejectInvalidRequests()
+    {
+        var key = await CreateApplication();
+        var applicationId = Guid.Parse(key.Split('.')[0]);
+        Guid firstId;
+        Guid secondId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var first = new PushChannel { Name = "<script>alert('unsafe')</script>", Type = "inapp" };
+            var second = new PushChannel { Name = "Disabled channel", Type = "inapp", IsEnabled = false };
+            db.PushChannels.AddRange(first, second);
+            await db.SaveChangesAsync();
+            firstId = first.Id;
+            secondId = second.Id;
+        }
+        var url = $"/Push/Bindings/{applicationId}";
+        var token = await GetAntiCsrfToken(url);
+        using var saved = await Http.PostAsync("/Push/SaveBindings", new FormUrlEncodedContent(new[]
+        {
+            new KeyValuePair<string, string>("id", applicationId.ToString()),
+            new("__RequestVerificationToken", token),
+            new("Sev1ChannelIds", firstId.ToString()),
+            new("Sev1ChannelIds", secondId.ToString()),
+            new("Sev1ChannelIds", firstId.ToString()),
+            new("Sev2ChannelIds", secondId.ToString()),
+            new("Sev4ChannelIds", firstId.ToString())
+        }));
+        AssertRedirect(saved, url);
+        var html = await Http.GetStringAsync(url);
+        Assert.Contains("&lt;script&gt;", html);
+        Assert.DoesNotContain("<script>alert('unsafe')</script>", html);
+        foreach (var channelId in new[] { firstId, secondId })
+        {
+            for (var level = 1; level <= 4; level++)
+            {
+                var input = Regex.Match(html, $"<input[^>]*id=\"channel-{channelId}-sev{level}\"[^>]*>").Value;
+                Assert.IsFalse(string.IsNullOrEmpty(input));
+                var expected = level == 1 || (channelId == secondId && level == 2) || (channelId == firstId && level == 4);
+                Assert.AreEqual(expected, input.Contains("checked=\"checked\""), input);
+            }
+        }
+        using var invalidId = await PostForm("/Push/SaveBindings", new()
+        {
+            ["id"] = applicationId.ToString(), ["Sev1ChannelIds"] = "not-a-guid"
+        }, url);
+        Assert.AreEqual(HttpStatusCode.BadRequest, invalidId.StatusCode);
+        using var unknownId = await PostForm("/Push/SaveBindings", new()
+        {
+            ["id"] = applicationId.ToString(), ["Sev2ChannelIds"] = Guid.NewGuid().ToString()
+        }, url);
+        Assert.AreEqual(HttpStatusCode.BadRequest, unknownId.StatusCode);
+        using var missingToken = await PostForm("/Push/SaveBindings", new()
+        {
+            ["id"] = applicationId.ToString()
+        }, includeToken: false);
+        Assert.AreEqual(HttpStatusCode.BadRequest, missingToken.StatusCode);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var bindings = await db.ApplicationPushChannels.Where(link => link.ApplicationId == applicationId).ToListAsync();
+            Assert.AreEqual(2, bindings.Count);
+            Assert.IsTrue(bindings.Single(link => link.ChannelId == firstId).ReceiveSev4);
+            Assert.IsTrue(bindings.Single(link => link.ChannelId == secondId).ReceiveSev2);
+        }
+        using var noChannel = await Report(key, Guid.NewGuid(), level: "sev3");
+        Assert.AreEqual(HttpStatusCode.Created, noChannel.StatusCode);
+        using var twoSelected = await Report(key, Guid.NewGuid(), level: "sev1");
+        Assert.AreEqual(HttpStatusCode.Created, twoSelected.StatusCode);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.AreEqual(2, await db.ReportedMessages.CountAsync());
+            Assert.AreEqual(firstId, (await db.PushDeliveries.SingleAsync()).ChannelId);
+        }
+        using var cleared = await PostForm("/Push/SaveBindings", new() { ["id"] = applicationId.ToString() }, url);
+        AssertRedirect(cleared, url);
+        using var finalScope = Server!.Services.CreateScope();
+        var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(0, await finalDb.ApplicationPushChannels.CountAsync());
+        Assert.AreEqual(1, await finalDb.PushDeliveries.CountAsync());
+    }
+
+    [TestMethod]
     public async Task OrdinaryUsersCannotManageAlerts()
     {
         await RegisterAndLoginAsync();
