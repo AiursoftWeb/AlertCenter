@@ -25,6 +25,18 @@ Changes apply only to new alerts, not historical messages or existing delivery t
 SQLite and MySQL migrations preserve existing bindings by enabling all four levels.
 No SDK changes are required: clients continue reporting the alert's `level`.
 
+## Inbox search
+
+**站内通知** opens with unread notifications by default. Combine title/body keyword search,
+read status (unread/read/all), source application, severity, notification channel, and inclusive
+UTC receipt-date filters. Filtering happens in the database before the 20-item pagination.
+Application and channel choices come from your own notification history; test notifications
+have no source application or severity. Search covers the full title/body, not only the preview.
+
+Pagination, refresh, and read actions preserve the filters; submitting a new search starts at page one.
+**我的全部通知标为已读** always marks all of your unread notifications, including those outside
+the current filters and page, without changing another user's read state.
+
 ## Projects using Aiursoft AlertCenter
 
 * [Stathub](https://github.com/aiursoftweb/stathub)

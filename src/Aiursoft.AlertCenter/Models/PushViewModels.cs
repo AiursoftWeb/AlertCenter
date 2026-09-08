@@ -18,7 +18,8 @@ public class PushViewModel : UiStackLayoutViewModel
     public int Page { get; set; } = 1;
     public bool HasNextPage { get; set; }
     public int UnreadCount { get; set; }
-    public bool UnreadOnly { get; set; }
+    public InboxFilter InboxFilter { get; set; } = new();
+    public List<SourceApplication> Applications { get; set; } = [];
     public Guid? ChannelId { get; set; }
     public string? Status { get; set; }
 }

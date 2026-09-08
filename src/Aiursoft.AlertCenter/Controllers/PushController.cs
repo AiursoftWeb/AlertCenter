@@ -193,44 +193,90 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
         LinkText = "站内通知", LinkOrder = 2)]
-    public async Task<IActionResult> Inbox(int page = 1, bool unreadOnly = false)
+    public async Task<IActionResult> Inbox([FromQuery] InboxFilter filter)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return Unauthorized();
-        page = Math.Clamp(page, 1, 1000000);
-        var query = db.InAppNotifications.AsNoTracking().Where(notification => notification.UserId == userId);
-        var unread = await query.CountAsync(notification => notification.ReadAtUtc == null);
-        if (unreadOnly) query = query.Where(notification => notification.ReadAtUtc == null);
-        var notifications = await query.Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Message)
+        filter.Normalize();
+        var ownNotifications = db.InAppNotifications.AsNoTracking().Where(notification => notification.UserId == userId);
+        var model = new PushViewModel
+        {
+            InboxFilter = filter, Page = filter.Page,
+            UnreadCount = await ownNotifications.CountAsync(notification => notification.ReadAtUtc == null),
+            Applications = await db.SourceApplications.AsNoTracking().Where(application => ownNotifications.Any(
+                    notification => notification.Delivery.Message != null && notification.Delivery.Message.ApplicationId == application.Id))
+                .OrderBy(application => application.Name).ToListAsync(),
+            Channels = await db.PushChannels.AsNoTracking().Where(channel => ownNotifications.Any(
+                    notification => notification.Delivery.ChannelId == channel.Id))
+                .OrderBy(channel => channel.Name).ToListAsync()
+        };
+        if (!ModelState.IsValid) return this.StackView(model);
+        var query = FilterInbox(ownNotifications, filter);
+        var notifications = await query.Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Message)!
+            .ThenInclude(message => message!.Application)
             .Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Channel)
             .OrderByDescending(notification => notification.CreatedAtUtc).ThenByDescending(notification => notification.Id)
-            .Skip((page - 1) * 20).Take(21).ToListAsync();
-        return this.StackView(new PushViewModel
+            .Skip((filter.Page - 1) * 20).Take(21).ToListAsync();
+        model.Notifications = notifications.Take(20).ToList();
+        model.HasNextPage = notifications.Count > 20;
+        return this.StackView(model);
+    }
+
+    private static IQueryable<InAppNotification> FilterInbox(IQueryable<InAppNotification> query, InboxFilter filter)
+    {
+        if (filter.ReadStatus == "unread") query = query.Where(notification => notification.ReadAtUtc == null);
+        if (filter.ReadStatus == "read") query = query.Where(notification => notification.ReadAtUtc != null);
+        if (filter.ApplicationId.HasValue)
+            query = query.Where(notification => notification.Delivery.Message != null &&
+                notification.Delivery.Message.ApplicationId == filter.ApplicationId.Value);
+        if (filter.ChannelId.HasValue)
+            query = query.Where(notification => notification.Delivery.ChannelId == filter.ChannelId.Value);
+        if (filter.Level != null)
+            query = query.Where(notification => notification.Delivery.Message != null && notification.Delivery.Message.Level == filter.Level);
+        if (filter.Keyword != null)
         {
-            Notifications = notifications.Take(20).ToList(), Page = page, HasNextPage = notifications.Count > 20,
-            UnreadCount = unread, UnreadOnly = unreadOnly
-        });
+            var keyword = filter.Keyword.ToLowerInvariant();
+            query = query.Where(notification => notification.Delivery.Message == null
+                ? "渠道测试通知".Contains(keyword) || "这是一条推送渠道测试消息。".Contains(keyword)
+                : notification.Delivery.Message.Title.ToLower().Contains(keyword) ||
+                  (notification.Delivery.Message.Content != null && notification.Delivery.Message.Content.ToLower().Contains(keyword)));
+        }
+        if (filter.FromDate.HasValue)
+        {
+            var start = filter.FromDate.Value.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+            query = query.Where(notification => notification.CreatedAtUtc >= start);
+        }
+        if (filter.ToDate.HasValue && filter.ToDate.Value < DateOnly.MaxValue)
+        {
+            var end = filter.ToDate.Value.AddDays(1).ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+            query = query.Where(notification => notification.CreatedAtUtc < end);
+        }
+        return query;
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> MarkRead(Guid id)
+    public async Task<IActionResult> MarkRead(Guid id, [FromQuery] InboxFilter filter)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return Unauthorized();
+        if (!ModelState.IsValid) return BadRequest("筛选条件无效，请刷新页面后重试。");
+        filter.Normalize();
         var notification = await db.InAppNotifications.SingleOrDefaultAsync(item => item.Id == id && item.UserId == userId);
         if (notification == null) return NotFound();
         notification.ReadAtUtc ??= DateTime.UtcNow;
         await db.SaveChangesAsync();
-        return RedirectToAction(nameof(Inbox));
+        return RedirectToAction(nameof(Inbox), new RouteValueDictionary(filter.ToRouteValues()));
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> MarkAllRead()
+    public async Task<IActionResult> MarkAllRead([FromQuery] InboxFilter filter)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return Unauthorized();
+        if (!ModelState.IsValid) return BadRequest("筛选条件无效，请刷新页面后重试。");
+        filter.Normalize();
         await db.InAppNotifications.Where(notification => notification.UserId == userId && notification.ReadAtUtc == null)
             .ExecuteUpdateAsync(setters => setters.SetProperty(notification => notification.ReadAtUtc, DateTime.UtcNow));
-        return RedirectToAction(nameof(Inbox));
+        return RedirectToAction(nameof(Inbox), new RouteValueDictionary(filter.ToRouteValues()));
     }
 }

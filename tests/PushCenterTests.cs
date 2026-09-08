@@ -292,14 +292,14 @@ public class PushCenterTests
         Assert.IsInstanceOfType<RedirectToActionResult>(await Controller().Test(channel.Id, CancellationToken.None));
         var first = await _db.InAppNotifications.SingleAsync(notification => notification.UserId == "admin-one");
         var second = await _db.InAppNotifications.SingleAsync(notification => notification.UserId == "admin-two");
-        Assert.IsInstanceOfType<NotFoundResult>(await Controller().MarkRead(second.Id));
-        await Controller().MarkRead(first.Id);
+        Assert.IsInstanceOfType<NotFoundResult>(await Controller().MarkRead(second.Id, new InboxFilter()));
+        await Controller().MarkRead(first.Id, new InboxFilter());
         var readAt = first.ReadAtUtc;
         Assert.IsNotNull(readAt);
-        await Controller().MarkRead(first.Id);
+        await Controller().MarkRead(first.Id, new InboxFilter());
         Assert.AreEqual(readAt, first.ReadAtUtc);
         Assert.IsNull(second.ReadAtUtc);
-        await Controller("admin-two").MarkAllRead();
+        await Controller("admin-two").MarkAllRead(new InboxFilter());
         Assert.AreEqual(0, await _db.InAppNotifications.CountAsync(notification => notification.ReadAtUtc == null));
     }
 

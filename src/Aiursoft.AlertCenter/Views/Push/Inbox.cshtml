@@ -1,16 +1,52 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
+@using System.Globalization
+@{
+    var filter = Model.InboxFilter;
+    var routes = filter.ToRouteValues();
+    var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.ChannelId.HasValue ||
+        filter.Level != null || filter.FromDate.HasValue || filter.ToDate.HasValue;
+}
 @section styles {
     <link rel="stylesheet" href="~/styles/inbox.css" asp-append-version="true" />
 }
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div><h1 class="h3 mb-1">站内通知 <span class="badge bg-primary">@Model.UnreadCount 未读</span></h1><p class="text-muted mb-0">你的通知收件箱 · 已读状态仅对你生效</p></div>
-    <form asp-action="MarkAllRead" method="post"><button class="btn btn-outline-primary" disabled="@(Model.UnreadCount == 0)">全部标为已读</button></form>
+    <div class="text-sm-end">
+        <form asp-action="MarkAllRead" asp-all-route-data="routes" method="post"><button class="btn btn-outline-primary" disabled="@(Model.UnreadCount == 0 || !ViewData.ModelState.IsValid)" aria-describedby="mark-all-hint">我的全部通知标为已读</button></form>
+        <small id="mark-all-hint" class="text-muted d-block mt-2">处理我的全部未读通知，不受当前筛选和分页限制。</small>
+    </div>
 </div>
-<div class="d-flex gap-2 mb-3"><a asp-action="Inbox" class="btn btn-sm @(Model.UnreadOnly ? "btn-outline-secondary" : "btn-primary")">全部通知</a><a asp-action="Inbox" asp-route-unreadOnly="true" class="btn btn-sm @(Model.UnreadOnly ? "btn-primary" : "btn-outline-secondary")">仅看未读</a><a asp-action="Inbox" asp-route-unreadOnly="@Model.UnreadOnly" asp-route-page="@Model.Page" class="btn btn-sm btn-outline-secondary ms-auto">刷新</a></div>
+<div class="card"><div class="card-body">
+    <form asp-action="Inbox" method="get" class="row g-3 align-items-end" id="inbox-filters">
+        <div class="col-md-6 col-xl-4"><label for="filter-keyword" class="form-label">关键词</label><input id="filter-keyword" name="keyword" value="@filter.Keyword" maxlength="200" class="form-control" placeholder="搜索标题或正文" /></div>
+        <div class="col-sm-6 col-xl-2"><label for="filter-read-status" class="form-label">阅读状态</label><select id="filter-read-status" name="readStatus" class="form-select">
+            <option value="unread" selected="@(filter.ReadStatus == "unread")">未读</option><option value="read" selected="@(filter.ReadStatus == "read")">已读</option><option value="all" selected="@(filter.ReadStatus == "all")">全部</option>
+        </select></div>
+        <div class="col-sm-6 col-xl-3"><label for="filter-application" class="form-label">来源应用</label><select id="filter-application" name="applicationId" class="form-select"><option value="">全部应用</option>
+            @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value)) { <option value="@filter.ApplicationId" selected>所选应用暂无通知</option> }
+            @foreach (var application in Model.Applications) { <option value="@application.Id" selected="@(filter.ApplicationId == application.Id)">@application.Name</option> }
+        </select></div>
+        <div class="col-sm-6 col-xl-3"><label for="filter-level" class="form-label">告警级别</label><select id="filter-level" name="level" class="form-select"><option value="">全部级别（含渠道测试）</option>
+            <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重</option><option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误</option><option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告</option><option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息</option>
+        </select></div>
+        <div class="col-sm-6 col-xl-4"><label for="filter-channel" class="form-label">通知渠道</label><select id="filter-channel" name="channelId" class="form-select"><option value="">全部渠道</option>
+            @if (filter.ChannelId.HasValue && Model.Channels.All(channel => channel.Id != filter.ChannelId.Value)) { <option value="@filter.ChannelId" selected>所选渠道暂无通知</option> }
+            @foreach (var channel in Model.Channels) { <option value="@channel.Id" selected="@(filter.ChannelId == channel.Id)">@channel.Name</option> }
+        </select></div>
+        <div class="col-sm-6 col-xl-3"><label for="filter-from-date" class="form-label">接收开始日期（UTC）</label><input id="filter-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
+        <div class="col-sm-6 col-xl-3"><label for="filter-to-date" class="form-label">接收结束日期（UTC，含当日）</label><input id="filter-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
+        <div class="col-xl-2 d-flex gap-2"><button class="btn btn-primary flex-grow-1">检索</button><a asp-action="Inbox" class="btn btn-outline-secondary text-nowrap">重置</a></div>
+        <div asp-validation-summary="All" class="text-danger mb-0"></div>
+    </form>
+</div></div>
+<div class="d-flex justify-content-between align-items-center gap-2 mb-3"><small class="text-muted">按接收时间倒序 · 每页 20 条</small><a asp-action="Inbox" asp-all-route-data="routes" class="btn btn-sm btn-outline-secondary">刷新</a></div>
 <div class="card">
     @if (Model.Notifications.Count == 0)
     {
-        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="bell" aria-hidden="true"></i></div><h2 class="h5">@(Model.UnreadOnly ? "没有未读通知" : "暂时没有通知")</h2><p class="text-muted mb-0">站内渠道收到的告警和测试消息会显示在这里。</p></div>
+        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="bell" aria-hidden="true"></i></div>
+            <h2 class="h5">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters || Model.Page > 1 ? "当前筛选或分页下没有通知" : filter.ReadStatus == "unread" ? "没有未读通知" : filter.ReadStatus == "read" ? "没有已读通知" : "暂时没有通知")</h2>
+            <p class="text-muted mb-0">可调整筛选条件查看其他通知。</p>
+        </div>
     }
     else
     {
@@ -22,21 +58,29 @@
                     <h2 class="h5 mb-0 inbox-notification-title">@if (notification.ReadAtUtc == null) { <span class="badge bg-primary me-2">未读</span> }@(message?.Title ?? "渠道测试通知")</h2>
                     <small class="text-muted text-nowrap">@notification.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</small>
                 </div>
+                @if (message != null)
+                {
+                    var color = message.Level switch { "sev1" => "danger", "sev2" => "warning", "sev3" => "primary", _ => "secondary" };
+                    <div class="d-flex align-items-center gap-2 mb-2"><span class="badge bg-@color">@message.Level</span><span class="text-muted inbox-notification-channel">@message.Application.Name</span></div>
+                }
                 <p class="text-muted mb-3 inbox-notification-preview">@(message == null ? "这是一条推送渠道测试消息。" : message.Content)</p>
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
                     <small class="text-muted inbox-notification-channel">@notification.Delivery.Channel.Name</small>
                     <div class="d-flex flex-wrap gap-2 flex-shrink-0">
                         @if (message != null) { <a asp-controller="Alerts" asp-action="Details" asp-route-id="@message.Id" class="btn btn-sm btn-outline-secondary">查看详情</a> }
                         else { <a asp-action="Delivery" asp-route-id="@notification.DeliveryId" class="btn btn-sm btn-outline-secondary">查看详情</a> }
-                        @if (notification.ReadAtUtc == null) { <form asp-action="MarkRead" method="post"><input type="hidden" name="id" value="@notification.Id" /><button class="btn btn-sm btn-outline-primary">标为已读</button></form> }
+                        @if (notification.ReadAtUtc == null) { <form asp-action="MarkRead" asp-all-route-data="routes" method="post"><input type="hidden" name="id" value="@notification.Id" /><button class="btn btn-sm btn-outline-primary">标为已读</button></form> }
                         else { <span class="text-muted small align-self-center">已读</span> }
                     </div>
                 </div>
             </div>
         }</div>
+    }
+    @if (ViewData.ModelState.IsValid && (Model.Notifications.Count > 0 || Model.Page > 1))
+    {
         <div class="card-body border-top d-flex justify-content-between align-items-center"><small class="text-muted">第 @Model.Page 页</small><nav class="d-flex gap-2" aria-label="站内通知分页">
-            @if (Model.Page > 1) { <a asp-action="Inbox" asp-route-unreadOnly="@Model.UnreadOnly" asp-route-page="@(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a> }
-            @if (Model.HasNextPage) { <a asp-action="Inbox" asp-route-unreadOnly="@Model.UnreadOnly" asp-route-page="@(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a> }
+            @if (Model.Page > 1) { <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a> }
+            @if (Model.HasNextPage) { <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a> }
         </nav></div>
     }
 </div>

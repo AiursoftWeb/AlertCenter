@@ -27,7 +27,7 @@ public class AlertDemoStartup : IWebStartup
 }
 
 [TestClass]
-public class AlertDemoTests : TestBase
+public partial class AlertDemoTests : TestBase
 {
     private string? _databasePath;
 
@@ -311,7 +311,7 @@ public class AlertDemoTests : TestBase
         AssertRedirect(markRead, "/Push/Inbox");
         var unread = await Http.GetStringAsync("/Push/Inbox?unreadOnly=true");
         Assert.DoesNotContain($"/Alerts/Details/{message.Id}", unread);
-        Assert.Contains($"/Alerts/Details/{message.Id}", await Http.GetStringAsync("/Push/Inbox"));
+        Assert.Contains($"/Alerts/Details/{message.Id}", await Http.GetStringAsync("/Push/Inbox?readStatus=all"));
     }
 
     [TestMethod]
