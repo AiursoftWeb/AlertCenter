@@ -66,7 +66,10 @@ public class AlertDemoTests : TestBase
     private async Task<string> CreateApplication()
     {
         await LoginAsAdmin();
-        var response = await PostForm("/Alerts/CreateApplication", new() { ["Name"] = "Demo Orders" }, "/Alerts/Applications");
+        using var created = await PostForm("/Alerts/CreateApplication", new() { ["Name"] = "Demo Orders" }, "/Alerts/Applications");
+        AssertRedirect(created, "/Alerts/Applications");
+        Assert.IsTrue(created.Headers.CacheControl?.NoStore);
+        using var response = await Http.GetAsync(created.Headers.Location);
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         Assert.IsTrue(response.Headers.CacheControl?.NoStore);
         var html = await response.Content.ReadAsStringAsync();
@@ -89,6 +92,44 @@ public class AlertDemoTests : TestBase
         };
         if (key != null) request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", key);
         return Http.SendAsync(request);
+    }
+
+    [TestMethod]
+    public async Task RefreshAfterCreationDoesNotCreateAnotherApplicationOrRevealKeyAgain()
+    {
+        var key = await CreateApplication();
+        var applicationId = Guid.Parse(key.Split('.')[0]);
+        for (var refresh = 0; refresh < 3; refresh++)
+        {
+            using var response = await Http.GetAsync("/Alerts/Applications");
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsTrue(response.Headers.CacheControl?.NoStore);
+            var html = await response.Content.ReadAsStringAsync();
+            Assert.Contains("Demo Orders", html);
+            Assert.DoesNotContain(key, html);
+            Assert.DoesNotContain("id=\"api-key\"", html);
+        }
+
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(1, await db.SourceApplications.CountAsync());
+        Assert.AreEqual(applicationId, (await db.SourceApplications.SingleAsync()).Id);
+        using var report = await Report(key, Guid.NewGuid());
+        Assert.AreEqual(HttpStatusCode.Created, report.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task InvalidApplicationCreationStillShowsValidationWithoutCreatingData()
+    {
+        await LoginAsAdmin();
+        using var response = await PostForm("/Alerts/CreateApplication", new() { ["Name"] = " " }, "/Alerts/Applications");
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var html = await response.Content.ReadAsStringAsync();
+        Assert.Contains("validation-summary-errors", html);
+        Assert.DoesNotContain("id=\"api-key\"", html);
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(0, await db.SourceApplications.CountAsync());
     }
 
     [TestMethod]

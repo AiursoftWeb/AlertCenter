@@ -14,6 +14,8 @@ namespace Aiursoft.AlertCenter.Controllers;
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
 public class AlertsController(TemplateDbContext db) : Controller
 {
+    private const string CreatedApplicationApiKey = "CreatedApplicationApiKey";
+
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "消息列表", LinkOrder = 0)]
@@ -32,7 +34,12 @@ public class AlertsController(TemplateDbContext db) : Controller
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "接入应用", LinkOrder = 1)]
-    public async Task<IActionResult> Applications() => this.StackView(await ApplicationsModel());
+    public async Task<IActionResult> Applications()
+    {
+        var model = await ApplicationsModel();
+        model.ApiKey = TempData[CreatedApplicationApiKey] as string;
+        return this.StackView(model);
+    }
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateApplication(CreateApplicationRequest request)
@@ -43,9 +50,8 @@ public class AlertsController(TemplateDbContext db) : Controller
         application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, secret);
         db.SourceApplications.Add(application);
         await db.SaveChangesAsync();
-        var model = await ApplicationsModel();
-        model.ApiKey = $"{application.Id}.{secret}";
-        return this.StackView(model, "Applications");
+        TempData[CreatedApplicationApiKey] = $"{application.Id}.{secret}";
+        return RedirectToAction(nameof(Applications));
     }
 
     [HttpPost, ValidateAntiForgeryToken]
