@@ -97,8 +97,29 @@
                 return Array.from(recipientList.querySelectorAll('input')).some(input => input.name === (kind === 'user' ? 'RecipientUserIds' : 'RecipientRoleIds') && input.value === id);
             }
 
-            function refreshIcons() {
-                if (window.lucide) window.lucide.createIcons();
+            function createIcon(name, className) {
+                const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                icon.setAttribute('class', 'lucide ' + className);
+                icon.setAttribute('width', '18');
+                icon.setAttribute('height', '18');
+                icon.setAttribute('viewBox', '0 0 24 24');
+                icon.setAttribute('fill', 'none');
+                icon.setAttribute('stroke', 'currentColor');
+                icon.setAttribute('stroke-width', '2');
+                icon.setAttribute('stroke-linecap', 'round');
+                icon.setAttribute('stroke-linejoin', 'round');
+                icon.setAttribute('aria-hidden', 'true');
+                const paths = name === 'user'
+                    ? ['M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2', 'M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8']
+                    : name === 'users'
+                        ? ['M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2', 'M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8', 'M22 21v-2a4 4 0 0 0-3-3.87', 'M16 3.13a4 4 0 0 1 0 7.75']
+                        : ['M18 6 6 18', 'm6 6 12 12'];
+                paths.forEach(pathData => {
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', pathData);
+                    icon.appendChild(path);
+                });
+                return icon;
             }
 
             function addRecipient(kind, id, name, userName) {
@@ -109,11 +130,7 @@
 
                 const details = document.createElement('div');
                 details.className = 'd-flex align-items-center gap-2 min-w-0';
-                const icon = document.createElement('i');
-                icon.className = kind === 'user' ? 'align-middle text-info' : 'align-middle text-primary';
-                icon.dataset.lucide = kind === 'user' ? 'user' : 'users';
-                icon.setAttribute('aria-hidden', 'true');
-                details.appendChild(icon);
+                details.appendChild(createIcon(kind === 'user' ? 'user' : 'users', kind === 'user' ? 'align-middle text-info' : 'align-middle text-primary'));
                 const text = document.createElement('div');
                 text.className = 'text-truncate';
                 const title = document.createElement(kind === 'user' ? 'strong' : 'span');
@@ -138,11 +155,10 @@
                 remove.type = 'button';
                 remove.className = 'btn btn-sm btn-outline-danger remove-recipient';
                 remove.setAttribute('aria-label', '移除 ' + name);
-                remove.innerHTML = '<i class="align-middle" data-lucide="x" aria-hidden="true"></i>';
+                remove.appendChild(createIcon('x', 'align-middle'));
                 item.appendChild(remove);
                 recipientList.appendChild(item);
                 updateEmptyState();
-                refreshIcons();
                 return true;
             }
 
