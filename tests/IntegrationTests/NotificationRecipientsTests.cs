@@ -27,7 +27,12 @@ public class NotificationRecipientsTests : TestBase
         Guid channelId;
         using (var scope = Server!.Services.CreateScope())
             channelId = await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().PushChannels.Where(channel => channel.Name == "Targeted").Select(channel => channel.Id).SingleAsync();
-        foreach (var targets in new[] { new Dictionary<string, string>(), new() { ["RecipientUserIds"] = "missing-user" }, new() { ["RecipientUserIds"] = userId, ["RecipientRoleIds"] = "missing-role" } })
+        foreach (var (targets, shouldRedisplayUser) in new[]
+                 {
+                     (new Dictionary<string, string>(), false),
+                     (new Dictionary<string, string> { ["RecipientUserIds"] = "missing-user" }, false),
+                     (new Dictionary<string, string> { ["RecipientUserIds"] = userId, ["RecipientRoleIds"] = "missing-role" }, true)
+                 })
         {
             targets["Id"] = channelId.ToString();
             targets["Name"] = "Must not save";
@@ -36,12 +41,25 @@ public class NotificationRecipientsTests : TestBase
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             var html = await response.Content.ReadAsStringAsync();
             Assert.Contains("validation-summary-errors", html);
-            Assert.Contains(userId, html);
+            if (shouldRedisplayUser) Assert.Contains(userId, html);
             using var scope = Server!.Services.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             Assert.AreEqual("Targeted", (await db.PushChannels.SingleAsync(channel => channel.Id == channelId)).Name);
             Assert.AreEqual(userId, (await db.PushChannelUsers.SingleAsync(link => link.ChannelId == channelId)).UserId);
         }
+    }
+
+    [TestMethod]
+    public async Task RecipientSearchFindsUsersForPushManagers()
+    {
+        await LoginAsAdmin();
+        var response = await Http.GetAsync("/Push/SearchRecipients?query=adm");
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        Assert.Contains("admin", json);
+
+        var shortQuery = await Http.GetStringAsync("/Push/SearchRecipients?query=a");
+        Assert.Contains("\"users\":[]", shortQuery);
     }
 
     [TestMethod]

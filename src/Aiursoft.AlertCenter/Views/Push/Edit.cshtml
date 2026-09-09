@@ -17,7 +17,7 @@
 {
     <div class="row"><div class="col-lg-8"><div class="card">
         <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="@selectedType.Icon" aria-hidden="true"></i>@selectedType.Name 配置</h2></div>
-        <div class="card-body pt-0"><form asp-action="Save" method="post">
+        <div class="card-body pt-0"><form asp-action="Save" method="post" id="push-channel-form">
             <input asp-for="Id" type="hidden" /><input asp-for="Type" type="hidden" />
             <div asp-validation-summary="All" class="text-danger mb-3"></div>
             <div class="mb-3"><label asp-for="Name" class="form-label">渠道名称</label><input asp-for="Name" required maxlength="100" class="form-control" placeholder="例如：研发团队通知" /></div>
@@ -31,11 +31,210 @@
             }
             @if (Model.Type == "inapp")
             {
-                <div class="mb-3"><label asp-for="RecipientUserIds" class="form-label">接收用户</label><select asp-for="RecipientUserIds" asp-items="Model.AvailableUsers" class="form-select" size="8" aria-describedby="recipients-hint"></select></div>
-                <div class="mb-3"><label asp-for="RecipientRoleIds" class="form-label">接收用户组（角色）</label><select asp-for="RecipientRoleIds" asp-items="Model.AvailableRoles" class="form-select" size="5" aria-describedby="recipients-hint"></select><small id="recipients-hint" class="text-muted">按住 Ctrl / Command 可多选。请至少选择一个用户或用户组；空组不会产生通知。</small></div>
+                <div class="mb-4">
+                    <h3 class="h6 mb-3">添加接收人</h3>
+                    <div class="btn-group w-100 mb-3" role="group" aria-label="接收人类型">
+                        <input type="radio" class="btn-check" name="recipientType" id="recipient-type-role" value="role" checked />
+                        <label class="btn btn-outline-primary" for="recipient-type-role"><i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>用户组</label>
+                        <input type="radio" class="btn-check" name="recipientType" id="recipient-type-user" value="user" />
+                        <label class="btn btn-outline-primary" for="recipient-type-user"><i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>指定用户</label>
+                    </div>
+                    <div id="recipient-role-selection">
+                        <label for="recipient-role-select" class="form-label">选择用户组</label>
+                        <div class="input-group"><select id="recipient-role-select" class="form-select"><option value="">请选择用户组…</option>@foreach (var role in Model.AvailableRoles) { <option value="@role.Value">@role.Text</option> }</select><button type="button" class="btn btn-primary" id="add-role-recipient"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加</button></div>
+                    </div>
+                    <div id="recipient-user-selection" class="d-none">
+                        <label for="recipient-user-search" class="form-label">搜索用户</label>
+                        <div class="position-relative"><input id="recipient-user-search" type="search" class="form-control" placeholder="输入至少两个字符以搜索用户…" autocomplete="off" aria-autocomplete="list" aria-controls="recipient-user-results" /><div id="recipient-user-results" class="position-absolute w-100 bg-white border rounded shadow-sm d-none" role="listbox" style="z-index: 1000; max-height: 300px; overflow-y: auto;"></div></div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-2"><h3 class="h6 mb-0">已选接收人</h3><span class="text-muted small">可分别移除用户或用户组</span></div>
+                    <p id="recipients-empty" class="text-muted mb-0 @(Model.SelectedUsers.Count + Model.SelectedRoles.Count > 0 ? "d-none" : "")">尚未添加接收人。</p>
+                    <div id="recipient-list" class="list-group">
+                        @foreach (var user in Model.SelectedUsers)
+                        {
+                            <div class="list-group-item d-flex align-items-center justify-content-between gap-3" data-recipient-kind="user"><div class="d-flex align-items-center gap-2 min-w-0"><i class="align-middle text-info" data-lucide="user" aria-hidden="true"></i><div class="text-truncate"><strong class="d-block text-truncate">@user.Name</strong><small class="text-muted">@user.UserName</small></div></div><input type="hidden" name="RecipientUserIds" value="@user.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-recipient"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @user.Name</span></button></div>
+                        }
+                        @foreach (var role in Model.SelectedRoles)
+                        {
+                            <div class="list-group-item d-flex align-items-center justify-content-between gap-3" data-recipient-kind="role"><div class="d-flex align-items-center gap-2 min-w-0"><i class="align-middle text-primary" data-lucide="users" aria-hidden="true"></i><strong class="text-truncate">@role.Name</strong></div><input type="hidden" name="RecipientRoleIds" value="@role.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-recipient"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @role.Name</span></button></div>
+                        }
+                    </div>
+                    <small class="text-muted">请至少添加一个用户或用户组；空组不会产生通知。</small>
+                </div>
             }
             <div class="form-check form-switch mb-4"><input asp-for="IsEnabled" class="form-check-input" /><label asp-for="IsEnabled" class="form-check-label">启用渠道</label></div>
             <div class="d-flex gap-2"><button class="btn btn-primary">保存渠道</button><a asp-action="Index" class="btn btn-outline-secondary">取消</a></div>
         </form></div>
     </div></div></div>
+}
+
+@if (Model.Type == "inapp")
+{
+    @section scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const roleType = document.getElementById('recipient-type-role');
+            const userType = document.getElementById('recipient-type-user');
+            const roleSelection = document.getElementById('recipient-role-selection');
+            const userSelection = document.getElementById('recipient-user-selection');
+            const roleSelect = document.getElementById('recipient-role-select');
+            const addRoleButton = document.getElementById('add-role-recipient');
+            const userSearch = document.getElementById('recipient-user-search');
+            const userResults = document.getElementById('recipient-user-results');
+            const recipientList = document.getElementById('recipient-list');
+            const recipientsEmpty = document.getElementById('recipients-empty');
+            const searchUrl = '@Url.Action("SearchRecipients", "Push")';
+            let searchTimeout;
+            let searchRequest = 0;
+
+            function updateEmptyState() {
+                recipientsEmpty.classList.toggle('d-none', recipientList.children.length > 0);
+            }
+
+            function hasRecipient(kind, id) {
+                return Array.from(recipientList.querySelectorAll('input')).some(input => input.name === (kind === 'user' ? 'RecipientUserIds' : 'RecipientRoleIds') && input.value === id);
+            }
+
+            function refreshIcons() {
+                if (window.lucide) window.lucide.createIcons();
+            }
+
+            function addRecipient(kind, id, name, userName) {
+                if (!id || hasRecipient(kind, id)) return false;
+                const item = document.createElement('div');
+                item.className = 'list-group-item d-flex align-items-center justify-content-between gap-3';
+                item.dataset.recipientKind = kind;
+
+                const details = document.createElement('div');
+                details.className = 'd-flex align-items-center gap-2 min-w-0';
+                const icon = document.createElement('i');
+                icon.className = kind === 'user' ? 'align-middle text-info' : 'align-middle text-primary';
+                icon.dataset.lucide = kind === 'user' ? 'user' : 'users';
+                icon.setAttribute('aria-hidden', 'true');
+                details.appendChild(icon);
+                const text = document.createElement('div');
+                text.className = 'text-truncate';
+                const title = document.createElement(kind === 'user' ? 'strong' : 'span');
+                title.className = kind === 'user' ? 'd-block text-truncate' : 'fw-bold text-truncate';
+                title.textContent = name;
+                text.appendChild(title);
+                if (userName) {
+                    const subtitle = document.createElement('small');
+                    subtitle.className = 'text-muted';
+                    subtitle.textContent = userName;
+                    text.appendChild(subtitle);
+                }
+                details.appendChild(text);
+                item.appendChild(details);
+
+                const hidden = document.createElement('input');
+                hidden.type = 'hidden';
+                hidden.name = kind === 'user' ? 'RecipientUserIds' : 'RecipientRoleIds';
+                hidden.value = id;
+                item.appendChild(hidden);
+                const remove = document.createElement('button');
+                remove.type = 'button';
+                remove.className = 'btn btn-sm btn-outline-danger remove-recipient';
+                remove.setAttribute('aria-label', '移除 ' + name);
+                remove.innerHTML = '<i class="align-middle" data-lucide="x" aria-hidden="true"></i>';
+                item.appendChild(remove);
+                recipientList.appendChild(item);
+                updateEmptyState();
+                refreshIcons();
+                return true;
+            }
+
+            function showRoleSelection() {
+                roleSelection.classList.remove('d-none');
+                userSelection.classList.add('d-none');
+                searchRequest++;
+                userResults.classList.add('d-none');
+            }
+
+            function showUserSelection() {
+                userSelection.classList.remove('d-none');
+                roleSelection.classList.add('d-none');
+                userSearch.focus();
+            }
+
+            roleType.addEventListener('change', showRoleSelection);
+            userType.addEventListener('change', showUserSelection);
+            addRoleButton.addEventListener('click', function () {
+                const option = roleSelect.options[roleSelect.selectedIndex];
+                if (!option.value) {
+                    roleSelect.focus();
+                    return;
+                }
+                if (addRecipient('role', option.value, option.textContent)) roleSelect.value = '';
+            });
+            recipientList.addEventListener('click', function (event) {
+                const button = event.target.closest('.remove-recipient');
+                if (!button) return;
+                button.closest('.list-group-item').remove();
+                updateEmptyState();
+            });
+
+            function clearResults() {
+                userResults.innerHTML = '';
+                userResults.classList.add('d-none');
+            }
+
+            function appendUserResult(user) {
+                const result = document.createElement('button');
+                result.type = 'button';
+                result.className = 'list-group-item list-group-item-action text-start';
+                result.setAttribute('role', 'option');
+                const name = document.createElement('strong');
+                name.className = 'd-block';
+                name.textContent = user.displayName;
+                const username = document.createElement('small');
+                username.className = 'text-muted';
+                username.textContent = user.userName;
+                result.append(name, username);
+                result.addEventListener('click', function () {
+                    if (addRecipient('user', user.id, user.displayName, user.userName)) userSearch.value = '';
+                    clearResults();
+                });
+                userResults.appendChild(result);
+            }
+
+            userSearch.addEventListener('input', function () {
+                const query = userSearch.value.trim();
+                clearTimeout(searchTimeout);
+                if (query.length < 2) {
+                    clearResults();
+                    return;
+                }
+                searchTimeout = setTimeout(async function () {
+                    const request = ++searchRequest;
+                    try {
+                        const response = await fetch(searchUrl + '?query=' + encodeURIComponent(query));
+                        if (!response.ok || request !== searchRequest) return;
+                        const data = await response.json();
+                        userResults.innerHTML = '';
+                        if (data.users.length === 0) {
+                            const empty = document.createElement('div');
+                            empty.className = 'p-3 text-muted';
+                            empty.textContent = '没有找到匹配的用户。';
+                            userResults.appendChild(empty);
+                        } else {
+                            data.users.forEach(appendUserResult);
+                        }
+                        userResults.classList.remove('d-none');
+                    } catch {
+                        if (request === searchRequest) clearResults();
+                    }
+                }, 250);
+            });
+            userSearch.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') event.preventDefault();
+            });
+            document.addEventListener('click', function (event) {
+                if (!userSearch.contains(event.target) && !userResults.contains(event.target)) clearResults();
+            });
+        });
+    </script>
+    }
 }

@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Authorization;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
@@ -102,12 +101,44 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         return RedirectToAction(nameof(Index));
     }
 
+    [HttpGet]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
+    public async Task<IActionResult> SearchRecipients(string query, int page = 1, int pageSize = 10)
+    {
+        if (string.IsNullOrWhiteSpace(query) || query.Trim().Length < 2)
+            return Json(new { users = Array.Empty<object>(), totalCount = 0, page = 1, pageSize = 10, totalPages = 0 });
+
+        page = Math.Max(page, 1);
+        pageSize = Math.Clamp(pageSize, 1, 20);
+        var normalizedQuery = query.Trim();
+        var users = db.Users.AsNoTracking().Where(user =>
+            user.UserName!.Contains(normalizedQuery) || user.DisplayName.Contains(normalizedQuery));
+        var totalCount = await users.CountAsync();
+        var results = await users.OrderBy(user => user.UserName).Skip((page - 1) * pageSize).Take(pageSize)
+            .Select(user => new { id = user.Id, displayName = user.DisplayName, userName = user.UserName })
+            .ToListAsync();
+        return Json(new
+        {
+            users = results,
+            totalCount,
+            page,
+            pageSize,
+            totalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+        });
+    }
+
     private async Task PopulateRecipients(PushChannelEditViewModel model)
     {
-        model.AvailableUsers = await db.Users.AsNoTracking().OrderBy(user => user.UserName)
-            .Select(user => new SelectListItem(user.DisplayName + " (" + user.UserName + ")", user.Id)).ToListAsync();
         model.AvailableRoles = await db.Roles.AsNoTracking().OrderBy(role => role.Name)
-            .Select(role => new SelectListItem(role.Name, role.Id)).ToListAsync();
+            .Select(role => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(role.Name, role.Id)).ToListAsync();
+        model.SelectedUsers = await db.Users.AsNoTracking().Where(user => model.RecipientUserIds.Contains(user.Id))
+            .OrderBy(user => user.UserName).Select(user => new RecipientSelection
+            {
+                Id = user.Id, Name = user.DisplayName, UserName = user.UserName
+            }).ToListAsync();
+        model.SelectedRoles = await db.Roles.AsNoTracking().Where(role => model.RecipientRoleIds.Contains(role.Id))
+            .OrderBy(role => role.Name).Select(role => new RecipientSelection { Id = role.Id, Name = role.Name! })
+            .ToListAsync();
     }
 
     public async Task<IActionResult> Notification(Guid id)
