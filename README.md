@@ -13,6 +13,17 @@ AlertCenter is a sample project.
 
 Default user name is `admin@default.com` and default password is `Admin@123456!`.
 
+## Resetting an application API key
+
+Administrators can select **接入应用 → 重置密钥** and confirm the reset. The old key becomes
+invalid immediately, with no grace period; update every reporting client to use the new key.
+The new key is shown only once, with a copy button. Save it before refreshing or leaving the page;
+if it is lost, reset it again. Only its password hash is stored in the database.
+
+Resetting preserves the application ID, name, enabled/disabled state, historical messages,
+channel bindings, delivery records, and inbox notifications. A disabled application remains unable
+to report until it is explicitly enabled. Resetting does not resend historical messages.
+
 ## Severity-based notification channels
 
 In **接入应用 → 推送设置**, select channels independently for each severity:

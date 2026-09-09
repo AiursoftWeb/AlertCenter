@@ -15,6 +15,7 @@ namespace Aiursoft.AlertCenter.Controllers;
 public class AlertsController(TemplateDbContext db) : Controller
 {
     private const string CreatedApplicationApiKey = "CreatedApplicationApiKey";
+    private const string ApiKeyWasReset = "ApiKeyWasReset";
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
@@ -38,6 +39,7 @@ public class AlertsController(TemplateDbContext db) : Controller
     {
         var model = await ApplicationsModel();
         model.ApiKey = TempData[CreatedApplicationApiKey] as string;
+        model.ApiKeyWasReset = TempData[ApiKeyWasReset] is true;
         return this.StackView(model);
     }
 
@@ -51,6 +53,21 @@ public class AlertsController(TemplateDbContext db) : Controller
         db.SourceApplications.Add(application);
         await db.SaveChangesAsync();
         TempData[CreatedApplicationApiKey] = $"{application.Id}.{secret}";
+        TempData[ApiKeyWasReset] = false;
+        return RedirectToAction(nameof(Applications));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> ResetApiKey(Guid id, CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid || id == Guid.Empty) return BadRequest("请选择有效的应用。");
+        var application = await db.SourceApplications.SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (application == null) return NotFound();
+        var secret = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
+        application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, secret);
+        await db.SaveChangesAsync(cancellationToken);
+        TempData[CreatedApplicationApiKey] = $"{application.Id}.{secret}";
+        TempData[ApiKeyWasReset] = true;
         return RedirectToAction(nameof(Applications));
     }
 

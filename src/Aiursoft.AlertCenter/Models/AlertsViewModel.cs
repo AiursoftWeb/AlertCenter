@@ -11,6 +11,7 @@ public class AlertsViewModel : UiStackLayoutViewModel
     public List<ReportedMessage> Messages { get; set; } = [];
     public ReportedMessage? Message { get; set; }
     public string? ApiKey { get; set; }
+    public bool ApiKeyWasReset { get; set; }
     public int Page { get; set; } = 1;
     public bool HasNextPage { get; set; }
 }

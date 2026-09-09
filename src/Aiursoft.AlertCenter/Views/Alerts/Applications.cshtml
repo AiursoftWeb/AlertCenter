@@ -17,8 +17,8 @@
         <div class="card-header d-flex align-items-center gap-3">
             <div class="stat flex-shrink-0"><i data-lucide="key-round" aria-hidden="true"></i></div>
             <div>
-                <h2 id="api-key-heading" class="card-title mb-1">应用已创建</h2>
-                <p class="text-muted mb-0">保存接入密钥，即可开始上报告警。</p>
+                <h2 id="api-key-heading" class="card-title mb-1">@(Model.ApiKeyWasReset ? "API Key 已重置" : "应用已创建")</h2>
+                <p class="text-muted mb-0">@(Model.ApiKeyWasReset ? "旧密钥已立即失效，请保存新密钥并更新所有上报客户端。应用启停状态保持不变。" : "保存接入密钥，即可开始上报告警。")</p>
             </div>
         </div>
         <div class="card-body pt-0">
@@ -70,6 +70,7 @@
             <div class="d-flex justify-content-end gap-2">
                 <a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">推送设置</a>
                 <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@application.Id" /><input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary text-nowrap" type="submit">@(application.IsEnabled ? "停用" : "启用")</button></form>
+                <button type="button" class="btn btn-sm btn-outline-warning text-nowrap" data-bs-toggle="modal" data-bs-target="#reset-api-key" data-application-id="@application.Id" data-application-name="@application.Name">重置密钥</button>
                 <button type="button" class="btn btn-sm btn-outline-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#delete-application" data-application-id="@application.Id" data-application-name="@application.Name">删除</button>
             </div>
         </td></tr>
@@ -78,6 +79,47 @@
 </table></div>
     }
 </div>
+<div class="modal fade" id="reset-api-key" tabindex="-1" aria-labelledby="reset-api-key-title" aria-describedby="reset-api-key-description" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form asp-action="ResetApiKey" method="post" class="modal-content" id="reset-api-key-form">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="reset-api-key-title">重置 API Key</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+            </div>
+            <div class="modal-body">
+                <p>确定重置应用 <strong id="reset-api-key-name" class="text-break"></strong> 的 API Key？</p>
+                <p id="reset-api-key-description" class="text-danger">旧密钥将立即失效，所有上报客户端都需要更新。新密钥仅显示一次，请及时保存。</p>
+                <p class="mb-0">应用 ID、历史消息、推送配置和启停状态保持不变，不会重新发送历史消息。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                <input type="hidden" id="reset-api-key-id" name="id" />
+                <button type="submit" class="btn btn-warning" id="confirm-reset-api-key" disabled>确认重置密钥</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    (() => {
+        const modal = document.getElementById('reset-api-key');
+        const form = document.getElementById('reset-api-key-form');
+        const applicationId = document.getElementById('reset-api-key-id');
+        const applicationName = document.getElementById('reset-api-key-name');
+        const submit = document.getElementById('confirm-reset-api-key');
+        modal.addEventListener('show.bs.modal', event => {
+            applicationId.value = event.relatedTarget?.dataset.applicationId ?? '';
+            applicationName.textContent = event.relatedTarget?.dataset.applicationName ?? '';
+            submit.disabled = !applicationId.value;
+        });
+        form.addEventListener('submit', event => {
+            if (!applicationId.value || submit.disabled) {
+                event.preventDefault();
+                return;
+            }
+            submit.disabled = true;
+        });
+    })();
+</script>
 <div class="modal fade" id="delete-application" tabindex="-1" aria-labelledby="delete-application-title" aria-describedby="delete-application-description" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <form asp-action="DeleteApplication" method="post" class="modal-content" id="delete-application-form">
