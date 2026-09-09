@@ -301,3 +301,14 @@ The Docker image copies this file to `/data/appsettings.json` on its first start
   "AllowedHosts": "*"
 }
 ```
+
+### 站内通知接收范围
+
+在“推送中心 → 推送渠道”新建或编辑站内通知渠道，可同时选择多个接收用户和用户组（RBAC 角色）。
+按投递时的组成员合并去重，每位接收人独立管理已读状态。修改配置不会撤回历史通知。
+至少选择一个用户或用户组；没有实际接收人时投递失败，不会自动群发给管理员。
+已有站内渠道升级后需要配置接收范围。
+
+所有登录用户均可访问自己的站内通知及详情；管理渠道、接收范围、应用绑定和投递记录需要
+`CanManagePush` 权限，可通过角色分配，Administrators 在启动时自动获得该权限。
+SQLite 和 MySQL 均通过新增 migration 创建接收用户及接收组关联表。

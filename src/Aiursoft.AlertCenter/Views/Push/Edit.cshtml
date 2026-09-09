@@ -27,7 +27,12 @@
             }
             else
             {
-                <div class="border rounded p-3 mb-3"><h3 class="h6">接收范围：所有管理员</h3><p class="text-muted mb-0">发送时为每位管理员创建站内通知，在“站内通知”中查看并独立标记已读。无需外部地址。</p></div>
+                <div class="border rounded p-3 mb-3"><h3 class="h6">接收范围</h3><p class="text-muted mb-0">可同时选择多个用户和用户组（角色），重复接收人仅收到一条通知。按投递时的组成员发送；修改范围仅影响后续投递，已发送通知保留。</p></div>
+            }
+            @if (Model.Type == "inapp")
+            {
+                <div class="mb-3"><label asp-for="RecipientUserIds" class="form-label">接收用户</label><select asp-for="RecipientUserIds" asp-items="Model.AvailableUsers" class="form-select" size="8" aria-describedby="recipients-hint"></select></div>
+                <div class="mb-3"><label asp-for="RecipientRoleIds" class="form-label">接收用户组（角色）</label><select asp-for="RecipientRoleIds" asp-items="Model.AvailableRoles" class="form-select" size="5" aria-describedby="recipients-hint"></select><small id="recipients-hint" class="text-muted">按住 Ctrl / Command 可多选。请至少选择一个用户或用户组；空组不会产生通知。</small></div>
             }
             <div class="form-check form-switch mb-4"><input asp-for="IsEnabled" class="form-check-input" /><label asp-for="IsEnabled" class="form-check-label">启用渠道</label></div>
             <div class="d-flex gap-2"><button class="btn btn-primary">保存渠道</button><a asp-action="Index" class="btn btn-outline-secondary">取消</a></div>

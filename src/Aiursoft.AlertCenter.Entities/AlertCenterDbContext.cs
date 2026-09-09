@@ -17,9 +17,22 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<PushDelivery> PushDeliveries => Set<PushDelivery>();
     public DbSet<InAppNotification> InAppNotifications => Set<InAppNotification>();
 
+    public DbSet<PushChannelUser> PushChannelUsers => Set<PushChannelUser>();
+    public DbSet<PushChannelRole> PushChannelRoles => Set<PushChannelRole>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.Entity<PushChannelRole>().HasKey(link => new { link.ChannelId, link.RoleId });
+        builder.Entity<PushChannelRole>().HasOne(link => link.Channel).WithMany()
+            .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushChannelRole>().HasOne(link => link.Role).WithMany()
+            .HasForeignKey(link => link.RoleId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushChannelUser>().HasKey(link => new { link.ChannelId, link.UserId });
+        builder.Entity<PushChannelUser>().HasOne(link => link.Channel).WithMany()
+            .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushChannelUser>().HasOne(link => link.User).WithMany()
+            .HasForeignKey(link => link.UserId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<ReportedMessage>().HasIndex(m => new { m.ApplicationId, m.ReportId }).IsUnique();
         builder.Entity<ReportedMessage>().HasIndex(m => m.ReceivedAtUtc);
         builder.Entity<ReportedMessage>().HasOne(m => m.Application).WithMany()

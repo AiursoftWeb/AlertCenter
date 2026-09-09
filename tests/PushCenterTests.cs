@@ -68,6 +68,11 @@ public class PushCenterTests
             IsEnabled = enabled
         };
         _db.PushChannels.Add(channel);
+        if (type == "inapp")
+        {
+            var role = await _db.Roles.SingleOrDefaultAsync(role => role.NormalizedName == "ADMINISTRATORS");
+            if (role != null) _db.PushChannelRoles.Add(new PushChannelRole { Channel = channel, RoleId = role.Id });
+        }
         await _db.SaveChangesAsync();
         return channel;
     }
@@ -304,13 +309,13 @@ public class PushCenterTests
     }
 
     [TestMethod]
-    public async Task InAppDeliveryWithoutAdministratorsFailsClearly()
+    public async Task InAppDeliveryWithoutRecipientsFailsClearly()
     {
         var channel = await Channel("inapp");
         await Controller().Test(channel.Id, CancellationToken.None);
         var delivery = await _db.PushDeliveries.SingleAsync();
         Assert.AreEqual(PushDelivery.Failed, delivery.Status);
-        Assert.Contains("管理员", delivery.Error!);
+        Assert.Contains("接收", delivery.Error!);
         Assert.AreEqual(0, await _db.InAppNotifications.CountAsync());
     }
 
@@ -337,8 +342,9 @@ public class PushCenterTests
     [TestMethod]
     public async Task ChannelCrudAndBindingsPreserveUnselectedChannels()
     {
+        await AddAdministrators();
         var application = await Application();
-        await Controller().Save(new PushChannelEditViewModel { Name = "通知", Type = "inapp", Endpoint = "ignored" });
+        await Controller().Save(new PushChannelEditViewModel { Name = "通知", Type = "inapp", Endpoint = "ignored", RecipientUserIds = ["ordinary-user"] });
         var channel = await _db.PushChannels.SingleAsync();
         Assert.IsNull(channel.Endpoint);
         var other = await Channel();
@@ -348,7 +354,7 @@ public class PushCenterTests
         Assert.AreEqual(2, await _db.ApplicationPushChannels.CountAsync());
         await BindAllLevels(application.Id, channel.Id);
         Assert.AreEqual(channel.Id, (await _db.ApplicationPushChannels.SingleAsync()).ChannelId);
-        await Controller().Save(new PushChannelEditViewModel { Id = channel.Id, Name = "Renamed", Type = "inapp", IsEnabled = false });
+        await Controller().Save(new PushChannelEditViewModel { Id = channel.Id, Name = "Renamed", Type = "inapp", IsEnabled = false, RecipientUserIds = ["ordinary-user"] });
         Assert.AreEqual("Renamed", channel.Name);
         Assert.IsFalse(channel.IsEnabled);
         await BindAllLevels(application.Id);
@@ -426,6 +432,64 @@ public class PushCenterTests
         var delivery = await _db.PushDeliveries.SingleAsync();
         Assert.AreEqual(PushDelivery.Failed, delivery.Status);
         Assert.DoesNotContain(channel.Endpoint!, delivery.Error!);
+    }
+
+    [TestMethod]
+    public async Task RecipientsCombineUsersAndGroupsAndFollowMembershipChanges()
+    {
+        await AddAdministrators();
+        var role = await _db.Roles.SingleAsync();
+        var otherRole = new IdentityRole("Support");
+        _db.Roles.Add(otherRole);
+        _db.UserRoles.Add(new IdentityUserRole<string> { UserId = "admin-one", RoleId = otherRole.Id });
+        await _db.SaveChangesAsync();
+        var model = new PushChannelEditViewModel
+        {
+            Name = "Targeted", Type = "inapp", RecipientUserIds = ["ordinary-user", "admin-one", "admin-one"],
+            RecipientRoleIds = [role.Id, otherRole.Id, role.Id]
+        };
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller().Save(model));
+        var channel = await _db.PushChannels.SingleAsync();
+        Assert.AreEqual(2, await _db.PushChannelUsers.CountAsync());
+        Assert.AreEqual(2, await _db.PushChannelRoles.CountAsync());
+        await Controller().Test(channel.Id, CancellationToken.None);
+        Assert.AreEqual(3, await _db.InAppNotifications.CountAsync());
+        var delivery = await _db.PushDeliveries.SingleAsync();
+        await new InAppChannelAdapter(_db).DeliverAsync(delivery);
+        await _db.SaveChangesAsync();
+        Assert.AreEqual(3, await _db.InAppNotifications.CountAsync());
+        var own = await _db.InAppNotifications.SingleAsync(item => item.UserId == "ordinary-user");
+        Assert.IsInstanceOfType<NotFoundResult>(await Controller("admin-one").Notification(own.Id));
+
+        model.Id = channel.Id;
+        model.RecipientUserIds = [];
+        model.RecipientRoleIds = [otherRole.Id];
+        await Controller().Save(model);
+        _db.UserRoles.Remove(await _db.UserRoles.SingleAsync(link => link.RoleId == otherRole.Id));
+        _db.UserRoles.Add(new IdentityUserRole<string> { UserId = "ordinary-user", RoleId = otherRole.Id });
+        await _db.SaveChangesAsync();
+        await Controller().Test(channel.Id, CancellationToken.None);
+        Assert.AreEqual(4, await _db.InAppNotifications.CountAsync());
+        Assert.AreEqual("ordinary-user", (await _db.InAppNotifications.SingleAsync(item => item.DeliveryId != delivery.Id)).UserId);
+        await Controller().Delete(channel.Id);
+        Assert.AreEqual(0, await _db.PushChannelUsers.CountAsync());
+        Assert.AreEqual(0, await _db.PushChannelRoles.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task EmptyGroupFailsWithoutFallingBackToAdministrators()
+    {
+        await AddAdministrators();
+        var role = new IdentityRole("Empty");
+        _db.Roles.Add(role);
+        await _db.SaveChangesAsync();
+        await Controller().Save(new PushChannelEditViewModel { Name = "Empty", Type = "inapp", RecipientRoleIds = [role.Id] });
+        await Controller().Test((await _db.PushChannels.SingleAsync()).Id, CancellationToken.None);
+        Assert.AreEqual(PushDelivery.Failed, (await _db.PushDeliveries.SingleAsync()).Status);
+        Assert.AreEqual(0, await _db.InAppNotifications.CountAsync());
+        _db.Roles.Remove(role);
+        await _db.SaveChangesAsync();
+        Assert.AreEqual(0, await _db.PushChannelRoles.CountAsync());
     }
 
     private sealed class FakeClientFactory(HttpMessageHandler handler) : IHttpClientFactory

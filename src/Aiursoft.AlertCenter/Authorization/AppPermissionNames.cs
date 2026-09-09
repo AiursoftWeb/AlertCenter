@@ -5,6 +5,8 @@ namespace Aiursoft.AlertCenter.Authorization;
 /// </summary>
 public static class AppPermissionNames
 {
+    public const string CanManagePush = nameof(CanManagePush);
+
     // User Management
     public const string CanReadUsers = nameof(CanReadUsers);
     public const string CanDeleteUsers = nameof(CanDeleteUsers);

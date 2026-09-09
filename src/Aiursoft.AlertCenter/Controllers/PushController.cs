@@ -1,4 +1,6 @@
 using System.Security.Claims;
+using Aiursoft.AlertCenter.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
@@ -9,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
-[Authorize(Roles = "Administrators")]
+[Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
 public class PushController(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters,
     PushDeliveryProcessor processor) : Controller
@@ -19,6 +21,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
         LinkText = "推送渠道", LinkOrder = 0)]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Index() => this.StackView(new PushViewModel
     {
         ChannelTypes = Types,
@@ -26,27 +29,51 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     });
 
     [HttpGet]
-    public IActionResult Create(string? type) => this.StackView(new PushChannelEditViewModel
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
+    public async Task<IActionResult> Create(string? type)
     {
-        Type = Types.Any(item => item.Key == type) ? type! : string.Empty, ChannelTypes = Types
-    }, "Edit");
+        var model = new PushChannelEditViewModel
+        {
+            Type = Types.Any(item => item.Key == type) ? type! : string.Empty, ChannelTypes = Types
+        };
+        await PopulateRecipients(model);
+        return this.StackView(model, "Edit");
+    }
 
     [HttpGet]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Edit(Guid id)
     {
         var channel = await db.PushChannels.FindAsync(id);
         if (channel == null) return NotFound();
-        return this.StackView(new PushChannelEditViewModel
+        var model = new PushChannelEditViewModel
         {
             Id = channel.Id, Name = channel.Name, Type = channel.Type, Endpoint = channel.Endpoint,
-            IsEnabled = channel.IsEnabled, ChannelTypes = Types
-        });
+            IsEnabled = channel.IsEnabled, ChannelTypes = Types,
+            RecipientUserIds = await db.PushChannelUsers.Where(link => link.ChannelId == id).Select(link => link.UserId).ToArrayAsync(),
+            RecipientRoleIds = await db.PushChannelRoles.Where(link => link.ChannelId == id).Select(link => link.RoleId).ToArrayAsync()
+        };
+        await PopulateRecipients(model);
+        return this.StackView(model);
     }
 
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Save(PushChannelEditViewModel model)
     {
         model.ChannelTypes = Types;
+        await PopulateRecipients(model);
+        model.RecipientUserIds = model.RecipientUserIds.Distinct().ToArray();
+        model.RecipientRoleIds = model.RecipientRoleIds.Distinct().ToArray();
+        if (model.Type == "inapp")
+        {
+            if (model.RecipientUserIds.Length + model.RecipientRoleIds.Length == 0)
+                ModelState.AddModelError(nameof(model.RecipientUserIds), "请至少选择一个接收用户或用户组。");
+            if (await db.Users.CountAsync(user => model.RecipientUserIds.Contains(user.Id)) != model.RecipientUserIds.Length)
+                ModelState.AddModelError(nameof(model.RecipientUserIds), "所选用户不存在，请重新选择。");
+            if (await db.Roles.CountAsync(role => model.RecipientRoleIds.Contains(role.Id)) != model.RecipientRoleIds.Length)
+                ModelState.AddModelError(nameof(model.RecipientRoleIds), "所选用户组不存在，请重新选择。");
+        }
         var type = Types.SingleOrDefault(item => item.Key == model.Type);
         if (type == null) ModelState.AddModelError(nameof(model.Type), "请选择可用的渠道类型。");
         if (type?.RequiresEndpoint == true && !WebhookChannelAdapter.IsValidEndpoint(model.Endpoint?.Trim()))
@@ -61,11 +88,40 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         channel.Endpoint = type!.RequiresEndpoint ? model.Endpoint!.Trim() : null;
         channel.IsEnabled = model.IsEnabled;
         if (!model.Id.HasValue) db.PushChannels.Add(channel);
+        var users = await db.PushChannelUsers.Where(link => link.ChannelId == channel.Id).ToListAsync();
+        var roles = await db.PushChannelRoles.Where(link => link.ChannelId == channel.Id).ToListAsync();
+        var selectedUsers = model.Type == "inapp" ? model.RecipientUserIds : [];
+        var selectedRoles = model.Type == "inapp" ? model.RecipientRoleIds : [];
+        db.PushChannelUsers.RemoveRange(users.Where(link => !selectedUsers.Contains(link.UserId)));
+        db.PushChannelRoles.RemoveRange(roles.Where(link => !selectedRoles.Contains(link.RoleId)));
+        db.PushChannelUsers.AddRange(selectedUsers.Except(users.Select(link => link.UserId))
+            .Select(id => new PushChannelUser { Channel = channel, UserId = id }));
+        db.PushChannelRoles.AddRange(selectedRoles.Except(roles.Select(link => link.RoleId))
+            .Select(id => new PushChannelRole { Channel = channel, RoleId = id }));
         await db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
+    private async Task PopulateRecipients(PushChannelEditViewModel model)
+    {
+        model.AvailableUsers = await db.Users.AsNoTracking().OrderBy(user => user.UserName)
+            .Select(user => new SelectListItem(user.DisplayName + " (" + user.UserName + ")", user.Id)).ToListAsync();
+        model.AvailableRoles = await db.Roles.AsNoTracking().OrderBy(role => role.Name)
+            .Select(role => new SelectListItem(role.Name, role.Id)).ToListAsync();
+    }
+
+    public async Task<IActionResult> Notification(Guid id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var notification = await db.InAppNotifications.AsNoTracking()
+            .Include(item => item.Delivery).ThenInclude(delivery => delivery.Message)!.ThenInclude(message => message!.Application)
+            .SingleOrDefaultAsync(item => item.Id == id && item.UserId == userId);
+        if (notification == null) return NotFound();
+        return this.StackView(new PushViewModel { Notifications = [notification] });
+    }
+
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> SetEnabled(Guid id, bool enabled)
     {
         var channel = await db.PushChannels.FindAsync(id);
@@ -76,6 +132,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Delete(Guid id)
     {
         var deleted = await db.PushChannels.Where(channel => channel.Id == id).ExecuteDeleteAsync();
@@ -83,6 +140,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [HttpGet]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Bindings(Guid id)
     {
         var application = await db.SourceApplications.FindAsync(id);
@@ -104,6 +162,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> SaveBindings(Guid id, ApplicationPushBindingsRequest bindings)
     {
         if (!await db.SourceApplications.AnyAsync(application => application.Id == id)) return NotFound();
@@ -135,6 +194,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Test(Guid id, CancellationToken cancellationToken)
     {
         var channel = await db.PushChannels.FindAsync(id);
@@ -150,6 +210,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
         LinkText = "推送记录", LinkOrder = 1)]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Records(int page = 1, Guid? channelId = null, string? status = null)
     {
         page = Math.Clamp(page, 1, 1000000);
@@ -169,6 +230,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         });
     }
 
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Delivery(Guid id)
     {
         var delivery = await db.PushDeliveries.AsNoTracking().Include(item => item.Channel).Include(item => item.Message)!
@@ -178,6 +240,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Retry(Guid id)
     {
         if (!await db.PushDeliveries.AnyAsync(delivery => delivery.Id == id)) return NotFound();

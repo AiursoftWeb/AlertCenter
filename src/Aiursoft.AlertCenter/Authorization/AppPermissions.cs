@@ -25,6 +25,9 @@ public class AppPermissions
         var localizer = new FakeLocalizer();
         List<PermissionDescriptor> allPermission =
         [
+            new(AppPermissionNames.CanManagePush,
+                localizer["Manage Push Channels"],
+                localizer["Allows configuring push channels and recipients, application bindings, and delivery records."]),
             new(AppPermissionNames.CanReadUsers,
                 localizer["Read Users"],
                 localizer["Allows viewing the list of all users."]),
