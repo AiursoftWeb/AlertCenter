@@ -45,7 +45,7 @@
                     </div>
                     <div id="recipient-user-selection" class="d-none">
                         <label for="recipient-user-search" class="form-label">搜索用户</label>
-                        <div class="position-relative"><input id="recipient-user-search" type="search" class="form-control" placeholder="输入至少两个字符以搜索用户…" autocomplete="off" aria-autocomplete="list" aria-controls="recipient-user-results" /><div id="recipient-user-results" class="position-absolute w-100 bg-white border rounded shadow-sm d-none" role="listbox" style="z-index: 1000; max-height: 300px; overflow-y: auto;"></div></div>
+                        <div class="position-relative"><input id="recipient-user-search" type="search" class="form-control" placeholder="输入用户名或显示名称以搜索…" autocomplete="off" aria-autocomplete="list" aria-controls="recipient-user-results" /><div id="recipient-user-results" class="position-absolute w-100 bg-white border rounded shadow-sm d-none" role="listbox" style="z-index: 1000; max-height: 300px; overflow-y: auto;"></div></div>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -219,7 +219,7 @@
             userSearch.addEventListener('input', function () {
                 const query = userSearch.value.trim();
                 clearTimeout(searchTimeout);
-                if (query.length < 2) {
+                if (!query) {
                     clearResults();
                     return;
                 }

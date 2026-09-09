@@ -105,7 +105,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> SearchRecipients(string query, int page = 1, int pageSize = 10)
     {
-        if (string.IsNullOrWhiteSpace(query) || query.Trim().Length < 2)
+        if (string.IsNullOrWhiteSpace(query))
             return Json(new { users = Array.Empty<object>(), totalCount = 0, page = 1, pageSize = 10, totalPages = 0 });
 
         page = Math.Max(page, 1);

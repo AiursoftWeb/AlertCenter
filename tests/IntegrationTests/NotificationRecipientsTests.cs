@@ -58,8 +58,11 @@ public class NotificationRecipientsTests : TestBase
         var json = await response.Content.ReadAsStringAsync();
         Assert.Contains("admin", json);
 
-        var shortQuery = await Http.GetStringAsync("/Push/SearchRecipients?query=a");
-        Assert.Contains("\"users\":[]", shortQuery);
+        var singleCharacterQuery = await Http.GetStringAsync("/Push/SearchRecipients?query=a");
+        Assert.Contains("admin", singleCharacterQuery);
+
+        var emptyQuery = await Http.GetStringAsync("/Push/SearchRecipients");
+        Assert.Contains("\"users\":[]", emptyQuery);
     }
 
     [TestMethod]
