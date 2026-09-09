@@ -36,7 +36,7 @@
                     <td><span class="badge @(channel.IsEnabled ? "bg-success" : "bg-secondary")">@(channel.IsEnabled ? "已启用" : "已停用")</span></td>
                     <td class="pe-4"><div class="d-flex justify-content-end flex-wrap gap-2">
                         <a asp-action="Edit" asp-route-id="@channel.Id" class="btn btn-sm btn-outline-primary">编辑</a>
-                        <form asp-action="Test" method="post"><input type="hidden" name="id" value="@channel.Id" /><button class="btn btn-sm btn-outline-primary" disabled="@(!channel.IsEnabled)" title="发送测试消息并查看投递结果">测试</button></form>
+                        <button type="button" class="btn btn-sm btn-outline-primary" disabled="@(!channel.IsEnabled)" title="发送测试消息并查看投递结果" data-bs-toggle="modal" data-bs-target="#test-channel" data-channel-id="@channel.Id" data-channel-name="@channel.Name">测试</button>
                         <a asp-action="Records" asp-route-channelId="@channel.Id" class="btn btn-sm btn-outline-secondary">记录</a>
                         <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@channel.Id" /><input type="hidden" name="enabled" value="@((!channel.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary">@(channel.IsEnabled ? "停用" : "启用")</button></form>
                         <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-channel" data-channel-id="@channel.Id" data-channel-name="@channel.Name">删除</button>
@@ -46,6 +46,13 @@
         </table></div>
     }
 </div>
+<div class="modal fade" id="test-channel" tabindex="-1" aria-labelledby="test-channel-title" aria-describedby="test-channel-description" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+        <div class="modal-header"><h2 class="modal-title h5" id="test-channel-title">发送测试消息</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button></div>
+        <div class="modal-body"><p>确定向 <strong id="test-channel-name"></strong> 发送测试消息？</p><p id="test-channel-description" class="text-muted mb-0">这将立即向该渠道发送一条测试通知。</p></div>
+        <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button><form asp-action="Test" method="post"><input id="test-channel-id" name="id" type="hidden" /><button id="test-channel-confirm" class="btn btn-primary" disabled>确认发送</button></form></div>
+    </div></div>
+</div>
 <div class="modal fade" id="delete-channel" tabindex="-1" aria-labelledby="delete-channel-title" aria-describedby="delete-channel-description" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
         <div class="modal-header"><h2 class="modal-title h5" id="delete-channel-title">删除推送渠道</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button></div>
@@ -54,6 +61,12 @@
     </div></div>
 </div>
 <script>
+    document.getElementById('test-channel').addEventListener('show.bs.modal', function (event) {
+        document.getElementById('test-channel-name').textContent = event.relatedTarget?.dataset.channelName ?? '';
+        document.getElementById('test-channel-id').value = event.relatedTarget?.dataset.channelId ?? '';
+        document.getElementById('test-channel-confirm').disabled = !event.relatedTarget?.dataset.channelId;
+    });
+
     document.getElementById('delete-channel').addEventListener('show.bs.modal', function (event) {
         document.getElementById('delete-channel-name').textContent = event.relatedTarget?.dataset.channelName ?? '';
         document.getElementById('delete-channel-id').value = event.relatedTarget?.dataset.channelId ?? '';
