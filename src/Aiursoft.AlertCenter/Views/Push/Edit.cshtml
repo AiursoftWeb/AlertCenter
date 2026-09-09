@@ -45,7 +45,8 @@
                     </div>
                     <div id="recipient-user-selection" class="d-none">
                         <label for="recipient-user-search" class="form-label">搜索用户</label>
-                        <div class="position-relative"><input id="recipient-user-search" type="search" class="form-control" placeholder="输入用户名或显示名称以搜索…" autocomplete="off" aria-autocomplete="list" aria-controls="recipient-user-results" /><div id="recipient-user-results" class="position-absolute w-100 bg-white border rounded shadow-sm d-none" role="listbox" style="z-index: 1000; max-height: 300px; overflow-y: auto;"></div></div>
+                        <div class="position-relative"><div class="input-group"><input id="recipient-user-search" type="search" class="form-control" placeholder="输入用户名或显示名称以搜索…" autocomplete="off" aria-autocomplete="list" aria-controls="recipient-user-results" /><button type="button" class="btn btn-primary" id="add-user-recipient" disabled><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加</button></div><div id="recipient-user-results" class="position-absolute w-100 bg-white border rounded shadow-sm d-none" role="listbox" style="z-index: 1000; max-height: 300px; overflow-y: auto;"></div></div>
+                        <div id="selected-user-preview" class="card border-primary-subtle mt-3 d-none"><div class="card-body d-flex align-items-center gap-3 py-3"><span id="selected-user-avatar" class="d-inline-flex align-items-center justify-content-center flex-shrink-0 rounded-circle bg-primary-subtle text-primary fw-semibold" style="width: 40px; height: 40px;"></span><div class="flex-grow-1 min-w-0"><strong id="selected-user-name" class="d-block text-truncate"></strong><small id="selected-user-username" class="d-block text-muted text-truncate"></small><small id="selected-user-id" class="d-block text-muted text-truncate"></small></div><span class="badge bg-primary-subtle text-primary border border-primary-subtle flex-shrink-0">已选择</span></div></div>
                     </div>
                 </div>
                 <div class="mb-4">
@@ -82,9 +83,16 @@
             const roleSelect = document.getElementById('recipient-role-select');
             const addRoleButton = document.getElementById('add-role-recipient');
             const userSearch = document.getElementById('recipient-user-search');
+            const addUserButton = document.getElementById('add-user-recipient');
             const userResults = document.getElementById('recipient-user-results');
+            const selectedUserPreview = document.getElementById('selected-user-preview');
+            const selectedUserAvatar = document.getElementById('selected-user-avatar');
+            const selectedUserName = document.getElementById('selected-user-name');
+            const selectedUserUsername = document.getElementById('selected-user-username');
+            const selectedUserId = document.getElementById('selected-user-id');
             const recipientList = document.getElementById('recipient-list');
             const recipientsEmpty = document.getElementById('recipients-empty');
+            let selectedUser;
             const searchUrl = '@Url.Action("SearchRecipients", "Push")';
             let searchTimeout;
             let searchRequest = 0;
@@ -185,12 +193,40 @@
                 }
                 if (addRecipient('role', option.value, option.textContent)) roleSelect.value = '';
             });
+            addUserButton.addEventListener('click', function () {
+                if (!selectedUser) {
+                    userSearch.focus();
+                    return;
+                }
+                if (addRecipient('user', selectedUser.id, selectedUser.displayName, selectedUser.userName)) {
+                    userSearch.value = '';
+                    clearSelectedUser();
+                }
+            });
             recipientList.addEventListener('click', function (event) {
                 const button = event.target.closest('.remove-recipient');
                 if (!button) return;
                 button.closest('.list-group-item').remove();
                 updateEmptyState();
             });
+
+            function clearSelectedUser() {
+                selectedUser = undefined;
+                addUserButton.disabled = true;
+                selectedUserPreview.classList.add('d-none');
+            }
+
+            function selectUser(user) {
+                selectedUser = user;
+                addUserButton.disabled = hasRecipient('user', user.id);
+                userSearch.value = '';
+                selectedUserAvatar.textContent = Array.from(user.displayName.trim())[0] || '?';
+                selectedUserName.textContent = user.displayName;
+                selectedUserUsername.textContent = user.userName;
+                selectedUserId.textContent = 'ID: ' + user.id;
+                selectedUserPreview.classList.remove('d-none');
+                clearResults();
+            }
 
             function clearResults() {
                 userResults.innerHTML = '';
@@ -202,7 +238,7 @@
                 result.type = 'button';
                 result.className = 'list-group-item list-group-item-action d-flex align-items-center gap-3 px-3 py-2 text-start';
                 result.setAttribute('role', 'option');
-                result.setAttribute('aria-label', '添加用户 ' + user.displayName);
+                result.setAttribute('aria-label', '选择用户 ' + user.displayName);
 
                 const avatar = document.createElement('span');
                 avatar.className = 'd-inline-flex align-items-center justify-content-center flex-shrink-0 rounded-circle bg-primary-subtle text-primary fw-semibold';
@@ -220,18 +256,18 @@
                 username.textContent = user.userName;
                 details.append(name, username);
 
-                const add = document.createElement('span');
-                add.className = 'badge bg-primary-subtle text-primary border border-primary-subtle flex-shrink-0';
-                add.textContent = '添加';
-                result.append(avatar, details, add);
+                const select = document.createElement('span');
+                select.className = 'badge bg-primary-subtle text-primary border border-primary-subtle flex-shrink-0';
+                select.textContent = '选择';
+                result.append(avatar, details, select);
                 result.addEventListener('click', function () {
-                    if (addRecipient('user', user.id, user.displayName, user.userName)) userSearch.value = '';
-                    clearResults();
+                    selectUser(user);
                 });
                 userResults.appendChild(result);
             }
 
             userSearch.addEventListener('input', function () {
+                clearSelectedUser();
                 const query = userSearch.value.trim();
                 clearTimeout(searchTimeout);
                 if (!query) {
