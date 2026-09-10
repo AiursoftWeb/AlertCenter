@@ -9,7 +9,10 @@
 }
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div><h1 class="h3 mb-1">接入应用</h1><p class="text-muted mb-0">为业务系统创建独立密钥，管理消息上报权限。</p></div>
-    <a asp-action="Index" class="btn btn-outline-primary"><i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>查看消息</a>
+    <div class="d-flex flex-wrap gap-2">
+        <a asp-action="GettingStarted" class="btn btn-primary"><i class="align-middle me-1" data-lucide="book-open" aria-hidden="true"></i>接入指南</a>
+        <a asp-action="Index" class="btn btn-outline-primary"><i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>查看消息</a>
+    </div>
 </div>
 @if (Model.ApiKey != null)
 {
@@ -30,7 +33,7 @@
                 </button>
             </div>
             <div class="d-flex flex-wrap justify-content-between gap-2 mt-2">
-                <small id="api-key-hint" class="text-muted">密钥仅显示一次，请在刷新或离开此页面前妥善保存。</small>
+                <small id="api-key-hint" class="text-muted">密钥仅显示一次，请在刷新或离开此页面前妥善保存。<a asp-action="GettingStarted">查看接入指南，发送第一条消息</a></small>
                 <small id="copy-status" class="text-primary" role="status"></small>
             </div>
         </div>
@@ -50,14 +53,20 @@
     </form>
 </div></div>
 <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
         <h2 class="card-title mb-0">已接入应用</h2><span class="badge bg-secondary">@Model.Applications.Count</span>
+    </div>
+    <div class="card-body border-bottom">
+        <form asp-action="Applications" method="get" class="row g-2 align-items-end">
+            <div class="col-md-6 col-lg-5"><label for="application-keyword" class="form-label">查找应用</label><input id="application-keyword" name="keyword" value="@Model.ApplicationSearchKeyword" maxlength="100" class="form-control" placeholder="按应用名称搜索" autocomplete="off" /></div>
+            <div class="col-md-auto d-flex gap-2"><button type="submit" class="btn btn-primary">查找</button>@if (Model.ApplicationSearchKeyword != null) { <a asp-action="Applications" class="btn btn-outline-secondary">清除</a> }</div>
+        </form>
     </div>
     @if (Model.Applications.Count == 0)
     {
         <div class="card-body text-center py-4">
             <div class="stat mx-auto mb-3"><i data-lucide="app-window" aria-hidden="true"></i></div>
-            <h3 class="h5">还没有接入应用</h3><p class="text-muted mb-0">在上方创建应用，获取专属 API Key。</p>
+            <h3 class="h5">@(Model.ApplicationSearchKeyword == null ? "还没有接入应用" : "没有找到匹配的应用")</h3><p class="text-muted mb-0">@(Model.ApplicationSearchKeyword == null ? "在上方创建应用，获取专属 API Key。" : "请修改搜索关键词，或清除搜索后查看全部应用。")</p>
         </div>
     }
     else
@@ -173,14 +182,6 @@
         });
     })();
 </script>
-<div class="card">
-    <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="terminal" aria-hidden="true"></i>发送第一条消息</h2></div>
-    <div class="card-body pt-0"><p class="text-muted">将下方 <code>YOUR_API_KEY</code> 替换为刚刚保存的密钥，在终端执行。相同 <code>reportId</code> 重复发送只保留一条记录。</p>
-<pre class="border rounded p-3 mb-0"><code>curl -i '@(Context.Request.Scheme)://@(Context.Request.Host)@(Context.Request.PathBase)/api/v1/messages' \
-  -H 'Authorization: Bearer YOUR_API_KEY' \
-  -H 'Content-Type: application/json' \
-  --data '{"reportId":"@Guid.NewGuid()","title":"订单支付超时","content":"下游渠道未在 5 秒内响应","level":"sev1","occurredAtUtc":"@DateTime.UtcNow.ToString("O")","context":{"orderId":"ORDER-1001","traceId":"demo-trace"}}'</code></pre>
-</div></div>
 @if (Model.ApiKey != null)
 {
     <script>

@@ -12,6 +12,7 @@ public class AlertsViewModel : UiStackLayoutViewModel
     public ReportedMessage? Message { get; set; }
     public string? ApiKey { get; set; }
     public bool ApiKeyWasReset { get; set; }
+    public string? ApplicationSearchKeyword { get; set; }
     public int Page { get; set; } = 1;
     public bool HasNextPage { get; set; }
 }

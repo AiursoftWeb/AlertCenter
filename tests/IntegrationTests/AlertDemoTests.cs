@@ -95,6 +95,38 @@ public partial class AlertDemoTests : TestBase
     }
 
     [TestMethod]
+    public async Task ApplicationSearchAndGettingStartedGuideAreAvailable()
+    {
+        await LoginAsAdmin();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.SourceApplications.AddRange(
+                new SourceApplication { Name = "Orders service" },
+                new SourceApplication { Name = "Inventory service" });
+            await db.SaveChangesAsync();
+        }
+
+        using var applications = await Http.GetAsync("/Alerts/Applications?keyword=%20Orders%20");
+        Assert.AreEqual(HttpStatusCode.OK, applications.StatusCode);
+        var applicationsHtml = await applications.Content.ReadAsStringAsync();
+        Assert.Contains("id=\"application-keyword\"", applicationsHtml);
+        Assert.Contains("value=\"Orders\"", applicationsHtml);
+        Assert.Contains("Orders service", applicationsHtml);
+        Assert.DoesNotContain("Inventory service", applicationsHtml);
+        Assert.Contains("/Alerts/GettingStarted", applicationsHtml);
+        Assert.DoesNotContain("Authorization: Bearer YOUR_API_KEY", applicationsHtml);
+
+        using var guide = await Http.GetAsync("/Alerts/GettingStarted");
+        Assert.AreEqual(HttpStatusCode.OK, guide.StatusCode);
+        Assert.IsTrue(guide.Headers.CacheControl?.NoStore);
+        var guideHtml = await guide.Content.ReadAsStringAsync();
+        Assert.Contains("Authorization: Bearer YOUR_API_KEY", guideHtml);
+        Assert.Contains("/api/v1/messages", guideHtml);
+        Assert.Contains("reportId", guideHtml);
+    }
+
+    [TestMethod]
     public async Task RefreshAfterCreationDoesNotCreateAnotherApplicationOrRevealKeyAgain()
     {
         var key = await CreateApplication();

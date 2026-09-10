@@ -35,13 +35,19 @@ public class AlertsController(TemplateDbContext db) : Controller
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "接入应用", LinkOrder = 1)]
-    public async Task<IActionResult> Applications()
+    public async Task<IActionResult> Applications(string? keyword)
     {
-        var model = await ApplicationsModel();
+        keyword = string.IsNullOrWhiteSpace(keyword) ? null : keyword.Trim();
+        var model = await ApplicationsModel(keyword);
         model.ApiKey = TempData[CreatedApplicationApiKey] as string;
         model.ApiKeyWasReset = TempData[ApiKeyWasReset] is true;
         return this.StackView(model);
     }
+
+    [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
+        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
+        LinkText = "接入指南", LinkOrder = 2)]
+    public IActionResult GettingStarted() => this.StackView(new AlertsViewModel { PageTitle = "接入指南" });
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateApplication(CreateApplicationRequest request)
@@ -111,8 +117,14 @@ public class AlertsController(TemplateDbContext db) : Controller
         return this.StackView(new AlertsViewModel { Message = message });
     }
 
-    private async Task<AlertsViewModel> ApplicationsModel() => new()
+    private async Task<AlertsViewModel> ApplicationsModel(string? keyword = null)
     {
-        Applications = await db.SourceApplications.AsNoTracking().OrderByDescending(a => a.CreatedAtUtc).ToListAsync()
-    };
+        var applications = db.SourceApplications.AsNoTracking();
+        if (!string.IsNullOrEmpty(keyword)) applications = applications.Where(application => application.Name.Contains(keyword));
+        return new AlertsViewModel
+        {
+            Applications = await applications.OrderByDescending(application => application.CreatedAtUtc).ToListAsync(),
+            ApplicationSearchKeyword = keyword
+        };
+    }
 }

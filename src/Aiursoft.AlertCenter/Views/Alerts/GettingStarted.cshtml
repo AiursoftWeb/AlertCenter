@@ -1,0 +1,52 @@
+@model Aiursoft.AlertCenter.Models.AlertsViewModel
+@{
+    var endpoint = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}/api/v1/messages";
+}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div><h1 class="h3 mb-1">接入指南</h1><p class="text-muted mb-0">创建应用、保存 API Key，并将业务告警上报到 AlertCenter。</p></div>
+    <a asp-action="Applications" class="btn btn-outline-primary"><i class="align-middle me-1" data-lucide="app-window" aria-hidden="true"></i>管理接入应用</a>
+</div>
+<div class="card mb-4">
+    <div class="card-header"><h2 class="card-title mb-0">1. 创建应用并保存 API Key</h2></div>
+    <div class="card-body pt-0">
+        <p class="mb-2">在<strong>接入应用</strong>页面创建一个业务应用。每个应用拥有独立 API Key，用于识别消息来源并控制上报权限。</p>
+        <p class="text-muted mb-0">API Key 只在创建或重置后显示一次。请立即保存到应用的密钥管理服务或安全的环境变量中；不要提交到源码、日志或前端代码。</p>
+    </div>
+</div>
+<div class="card mb-4">
+    <div class="card-header"><h2 class="card-title mb-0">2. 发送第一条消息</h2></div>
+    <div class="card-body pt-0">
+        <p class="text-muted">将 <code>YOUR_API_KEY</code> 替换为上一步保存的值，然后在终端运行以下命令。</p>
+        <pre class="border rounded p-3 mb-0"><code>curl -i '@endpoint' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -H 'Content-Type: application/json' \
+  --data '{"reportId":"@Guid.NewGuid()","title":"订单支付超时","content":"下游渠道未在 5 秒内响应","level":"sev1","occurredAtUtc":"@DateTime.UtcNow.ToString("O")","context":{"orderId":"ORDER-1001","traceId":"demo-trace"}}'</code></pre>
+    </div>
+</div>
+<div class="card mb-4">
+    <div class="card-header"><h2 class="card-title mb-0">3. 请求字段</h2></div>
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead><tr><th class="ps-4">字段</th><th>必填</th><th>说明</th></tr></thead>
+            <tbody>
+                <tr><td class="ps-4"><code>reportId</code></td><td>是</td><td>消息的唯一 UUID。同一应用重复提交相同值不会创建新消息。</td></tr>
+                <tr><td class="ps-4"><code>title</code></td><td>是</td><td>告警标题，最多 200 个字符。</td></tr>
+                <tr><td class="ps-4"><code>content</code></td><td>否</td><td>告警正文，最多 4,000 个字符。</td></tr>
+                <tr><td class="ps-4"><code>level</code></td><td>是</td><td><code>sev1</code>（严重）、<code>sev2</code>（错误）、<code>sev3</code>（警告）或 <code>sev4</code>（信息）。</td></tr>
+                <tr><td class="ps-4"><code>occurredAtUtc</code></td><td>是</td><td>告警发生时间，使用 ISO 8601 UTC 时间，例如 <code>2026-09-09T18:27:10Z</code>。</td></tr>
+                <tr><td class="ps-4"><code>context</code></td><td>否</td><td>JSON 对象，可附加订单号、追踪 ID 等上下文信息。</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0">4. 验证与后续配置</h2></div>
+    <div class="card-body pt-0">
+        <ul class="mb-3">
+            <li>成功创建会返回 <code>201 Created</code> 和消息回执；重复上报会返回 <code>200 OK</code>，回执中的 <code>duplicate</code> 为 <code>true</code>。</li>
+            <li>凭据缺失、无效或应用已停用时会返回 <code>401 Unauthorized</code>；字段不合法时会返回 <code>400 Bad Request</code>。</li>
+            <li>请求正文最大为 64 KB。请避免将完整日志或敏感信息直接放入告警正文和上下文。</li>
+        </ul>
+        <p class="mb-0">返回<strong>接入应用</strong>可为每个应用配置推送渠道；创建的消息可在<strong>消息列表</strong>中查看。</p>
+    </div>
+</div>
