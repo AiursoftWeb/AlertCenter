@@ -55,7 +55,10 @@ public class Startup : IWebStartup
         services.AddMemoryCache();
         services.AddHttpClient();
         services.AddSingleton<WebhookConfigurationProtector>();
+        services.Configure<EmailSettings>(configuration.GetSection("Email"));
+        services.AddScoped<IEmailSender, SmtpEmailSender>();
         services.AddScoped<IAlertDispatcher, QueuedAlertDispatcher>();
+        services.AddScoped<INotificationChannelAdapter, EmailChannelAdapter>();
         services.AddScoped<INotificationChannelAdapter, WebhookChannelAdapter>();
         services.AddScoped<INotificationChannelAdapter, InAppChannelAdapter>();
         services.AddScoped<PushDeliveryProcessor>();

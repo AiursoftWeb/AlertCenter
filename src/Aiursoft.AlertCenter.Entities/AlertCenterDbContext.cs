@@ -25,6 +25,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         base.OnModelCreating(builder);
         builder.Entity<PushChannel>().Property(channel => channel.WebhookHeadersProtected).HasColumnType("text");
         builder.Entity<PushChannel>().Property(channel => channel.WebhookPayloadTemplate).HasColumnType("text");
+        builder.Entity<PushChannel>().Property(channel => channel.EmailRecipients).HasColumnType("text");
         builder.Entity<PushChannelRole>().HasKey(link => new { link.ChannelId, link.RoleId });
         builder.Entity<PushChannelRole>().HasOne(link => link.Channel).WithMany()
             .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);

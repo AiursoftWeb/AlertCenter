@@ -1,5 +1,6 @@
 using System.Net;
 using System.Security.Claims;
+using Aiursoft.AlertCenter.Configuration;
 using System.Text.Json;
 using Aiursoft.AlertCenter.Controllers;
 using Aiursoft.AlertCenter.Entities;
@@ -19,6 +20,7 @@ public class PushCenterTests
 {
     private SqliteContext _db = null!;
     private FakeWebhookHandler _http = null!;
+    private FakeEmailSender _email = null!;
     private INotificationChannelAdapter[] _adapters = [];
     private PushDeliveryProcessor _processor = null!;
     private WebhookConfigurationProtector _webhookConfigurationProtector = null!;
@@ -36,7 +38,8 @@ public class PushCenterTests
             {
                 ["Webhook:HeaderProtectionKey"] = Convert.ToBase64String(new byte[32])
             }).Build());
-        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector), new InAppChannelAdapter(_db)];
+        _email = new FakeEmailSender();
+        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector), new InAppChannelAdapter(_db), new EmailChannelAdapter(_email)];
         _processor = new PushDeliveryProcessor(_db, _adapters, NullLogger<PushDeliveryProcessor>.Instance);
     }
 
@@ -72,7 +75,7 @@ public class PushCenterTests
         var channel = new PushChannel
         {
             Type = type, Name = type + " test", Endpoint = type == "webhook" ? "https://receiver.example/hook" : null,
-            IsEnabled = enabled
+            EmailRecipients = type == "email" ? "oncall@example.com" : null, IsEnabled = enabled
         };
         _db.PushChannels.Add(channel);
         if (type == "inapp")
@@ -475,6 +478,40 @@ public class PushCenterTests
     }
 
     [TestMethod]
+    public async Task EmailRecipientsAreValidatedPersistedAndDelivered()
+    {
+        var model = new PushChannelEditViewModel
+        {
+            Name = "On-call email", Type = "email",
+            EmailRecipients = "oncall@example.com; TEAM@example.com\noncall@example.com"
+        };
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller().Save(model));
+        var channel = await _db.PushChannels.SingleAsync();
+        Assert.AreEqual(model.EmailRecipients, channel.EmailRecipients);
+
+        await Controller().Test(channel.Id, CancellationToken.None);
+        var delivery = await _db.PushDeliveries.SingleAsync();
+        Assert.AreEqual(PushDelivery.Succeeded, delivery.Status, delivery.Error);
+        var sent = _email.Messages.Single();
+        CollectionAssert.AreEquivalent(new[] { "oncall@example.com", "TEAM@example.com" }, sent.Recipients.ToArray());
+        StringAssert.StartsWith(sent.Subject, "[AlertCenter][sev3]");
+        StringAssert.Contains(sent.Body, "渠道测试通知");
+        StringAssert.Contains(sent.Body, delivery.Id.ToString());
+
+        Assert.IsFalse(EmailChannelAdapter.TryParseRecipients("", out _, out _));
+        Assert.IsFalse(EmailChannelAdapter.TryParseRecipients("not-an-email", out _, out _));
+    }
+
+    [TestMethod]
+    public void EmailSettingsRequireCompleteSmtpConfiguration()
+    {
+        Assert.IsFalse(new EmailSettings { Host = "smtp.example.com", Port = 587, From = "sender@example.com", UserName = "user" }
+            .TryValidate(out _));
+        Assert.IsFalse(new EmailSettings { Host = "smtp.example.com", Port = 0, From = "sender@example.com" }.TryValidate(out _));
+        Assert.IsTrue(new EmailSettings { Host = "smtp.example.com", Port = 587, From = "sender@example.com" }.TryValidate(out _));
+    }
+
+    [TestMethod]
     public async Task RecipientsCombineUsersAndGroupsAndFollowMembershipChanges()
     {
         await AddAdministrators();
@@ -530,6 +567,17 @@ public class PushCenterTests
         _db.Roles.Remove(role);
         await _db.SaveChangesAsync();
         Assert.AreEqual(0, await _db.PushChannelRoles.CountAsync());
+    }
+
+    private sealed class FakeEmailSender : IEmailSender
+    {
+        public List<EmailMessage> Messages { get; } = [];
+
+        public Task SendAsync(EmailMessage message, CancellationToken cancellationToken = default)
+        {
+            Messages.Add(message);
+            return Task.CompletedTask;
+        }
     }
 
     private sealed class FakeClientFactory(HttpMessageHandler handler) : IHttpClientFactory

@@ -36,6 +36,25 @@ Changes apply only to new alerts, not historical messages or existing delivery t
 SQLite and MySQL migrations preserve existing bindings by enabling all four levels.
 No SDK changes are required: clients continue reporting the alert's `level`.
 
+## Email notification channels
+
+Email channels use a global SMTP configuration and store only their recipient addresses. Each channel accepts up to 50 recipients, separated by newlines, commas, or semicolons. Messages are sent as UTF-8 plain text; the subject includes the alert severity and title. A channel test sends a test email to its configured recipients.
+
+Configure SMTP through protected environment variables rather than `appsettings.json`. STARTTLS is required by default; set `Email__RequireTls=false` only for a trusted SMTP server that does not support it:
+
+```bash
+docker run \
+  -e Email__Host='smtp.example.com' \
+  -e Email__Port='587' \
+  -e Email__UserName='alertcenter@example.com' \
+  -e Email__Password='YOUR_SMTP_PASSWORD' \
+  -e Email__From='alertcenter@example.com' \
+  -e Email__RequireTls='true' \
+  aiursoft/alertCenter
+```
+
+`Email__UserName` and `Email__Password` must either both be set or both be empty, for SMTP servers that permit unauthenticated relay. SMTP timeouts are 10 seconds. Delivery errors do not expose SMTP hostnames, account names, recipients, or server responses.
+
 ## Webhook request format
 
 Webhook channels send an HTTP `POST` with `Content-Type: application/json` and an `Idempotency-Key`

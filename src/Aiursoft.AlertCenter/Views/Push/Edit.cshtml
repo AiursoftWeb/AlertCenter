@@ -50,6 +50,11 @@
                     </div>
                 </details>
             }
+            else if (Model.Type == "email")
+            {
+                <div class="border rounded p-3 mb-3"><h3 class="h6">SMTP 配置</h3><p class="text-muted mb-0">邮件服务器使用全局 <code>Email</code> 配置。请通过 <code>Email__Password</code> 环境变量提供密码，勿将密码写入渠道配置或源代码。</p></div>
+                <div class="mb-4"><label asp-for="EmailRecipients" class="form-label">收件人邮箱</label><textarea asp-for="EmailRecipients" required class="form-control font-monospace" rows="4" maxlength="8000" spellcheck="false" placeholder="oncall@example.com&#10;team@example.com" aria-describedby="email-recipients-hint"></textarea><small class="text-muted" id="email-recipients-hint">每行一个邮箱，也可用英文逗号或分号分隔；最多 50 个。邮件以纯文本发送。</small></div>
+            }
             else
             {
                 <div class="border rounded p-3 mb-3"><h3 class="h6">接收范围</h3><p class="text-muted mb-0">可同时选择多个用户和用户组（角色），重复接收人仅收到一条通知。按投递时的组成员发送；修改范围仅影响后续投递，已发送通知保留。</p></div>

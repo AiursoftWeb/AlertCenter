@@ -45,13 +45,14 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var channel = await db.PushChannels.FindAsync(id);
         if (channel == null) return NotFound();
-        if (!webhookConfigurationProtector.TryUnprotect(channel.WebhookHeadersProtected, out var webhookHeadersJson))
+        string? webhookHeadersJson = null;
+        if (channel.Type == "webhook" && !webhookConfigurationProtector.TryUnprotect(channel.WebhookHeadersProtected, out webhookHeadersJson))
             return BadRequest("无法读取已保存的 Webhook 请求头。请检查数据保护密钥后重试。");
         var model = new PushChannelEditViewModel
         {
             Id = channel.Id, Name = channel.Name, Type = channel.Type, Endpoint = channel.Endpoint,
             WebhookHeadersJson = webhookHeadersJson, WebhookPayloadTemplate = channel.WebhookPayloadTemplate,
-            IsEnabled = channel.IsEnabled, ChannelTypes = Types,
+            EmailRecipients = channel.EmailRecipients, IsEnabled = channel.IsEnabled, ChannelTypes = Types,
             RecipientUserIds = await db.PushChannelUsers.Where(link => link.ChannelId == id).Select(link => link.UserId).ToArrayAsync(),
             RecipientRoleIds = await db.PushChannelRoles.Where(link => link.ChannelId == id).Select(link => link.RoleId).ToArrayAsync()
         };
@@ -89,6 +90,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             if (!string.IsNullOrWhiteSpace(model.WebhookHeadersJson) && !webhookConfigurationProtector.IsAvailable)
                 ModelState.AddModelError(nameof(model.WebhookHeadersJson), "自定义请求头需要配置 Webhook:HeaderProtectionKey。请通过受保护的环境变量提供该密钥。");
         }
+        if (model.Type == "email" && !EmailChannelAdapter.TryParseRecipients(model.EmailRecipients, out _, out var recipientsError))
+            ModelState.AddModelError(nameof(model.EmailRecipients), recipientsError!);
         var channel = model.Id.HasValue ? await db.PushChannels.FindAsync(model.Id.Value) : new PushChannel();
         if (channel == null) return NotFound();
         if (model.Id.HasValue && channel.Type != model.Type)
@@ -97,10 +100,12 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         channel.Name = model.Name.Trim();
         channel.Type = model.Type;
         channel.Endpoint = type!.RequiresEndpoint ? model.Endpoint!.Trim() : null;
-        if (!webhookConfigurationProtector.TryProtect(NullIfWhiteSpace(model.WebhookHeadersJson), out var protectedHeaders))
+        string? protectedHeaders = null;
+        if (type.RequiresEndpoint && !webhookConfigurationProtector.TryProtect(NullIfWhiteSpace(model.WebhookHeadersJson), out protectedHeaders))
             return BadRequest("无法保护 Webhook 自定义请求头。请检查 Webhook:HeaderProtectionKey 配置。");
         channel.WebhookHeadersProtected = type.RequiresEndpoint ? protectedHeaders : null;
         channel.WebhookPayloadTemplate = type.RequiresEndpoint ? NullIfWhiteSpace(model.WebhookPayloadTemplate) : null;
+        channel.EmailRecipients = model.Type == "email" ? NullIfWhiteSpace(model.EmailRecipients) : null;
         channel.IsEnabled = model.IsEnabled;
         if (!model.Id.HasValue) db.PushChannels.Add(channel);
         var users = await db.PushChannelUsers.Where(link => link.ChannelId == channel.Id).ToListAsync();

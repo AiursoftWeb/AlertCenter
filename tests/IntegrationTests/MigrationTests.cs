@@ -66,6 +66,26 @@ public class MigrationTests
     }
 
     [TestMethod]
+    public async Task EmailRecipientsMigrationPreservesExistingChannels()
+    {
+        await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await context.Database.OpenConnectionAsync();
+        await context.GetService<IMigrator>().MigrateAsync("20260910144921_AddWebhookCustomization");
+        var channelId = Guid.NewGuid();
+        await context.Database.ExecuteSqlInterpolatedAsync($"""
+            INSERT INTO PushChannels (Id, Name, Type, IsEnabled, CreatedAtUtc)
+            VALUES ({channelId}, {"Existing channel"}, {"inapp"}, {true}, {DateTime.UtcNow});
+            """);
+
+        await context.Database.MigrateAsync();
+        context.ChangeTracker.Clear();
+        var channel = await context.PushChannels.SingleAsync();
+        Assert.AreEqual(channelId, channel.Id);
+        Assert.IsNull(channel.EmailRecipients);
+    }
+
+    [TestMethod]
     public void TestMySqlMigrations()
     {
         var options = new DbContextOptionsBuilder<MySqlContext>()

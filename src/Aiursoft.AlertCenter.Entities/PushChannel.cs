@@ -10,6 +10,7 @@ public class PushChannel
     [MaxLength(2048)] public string? Endpoint { get; set; }
     public string? WebhookHeadersProtected { get; set; }
     public string? WebhookPayloadTemplate { get; set; }
+    [MaxLength(8000)] public string? EmailRecipients { get; set; }
     public bool IsEnabled { get; set; } = true;
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
 }
