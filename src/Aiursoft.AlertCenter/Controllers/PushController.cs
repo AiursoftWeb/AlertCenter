@@ -166,7 +166,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             .Include(item => item.Delivery).ThenInclude(delivery => delivery.Message)!.ThenInclude(message => message!.Application)
             .SingleOrDefaultAsync(item => item.Id == id && item.UserId == userId);
         if (notification == null) return NotFound();
-        return this.StackView(new PushViewModel { Notifications = [notification] });
+        return this.StackView(new PushViewModel { PageTitle = "站内通知详情", Notifications = [notification] });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -367,7 +367,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> MarkRead(Guid id, [FromQuery] InboxFilter filter)
+    public async Task<IActionResult> MarkRead(Guid id, [FromQuery] InboxFilter filter, bool returnToNotification = false)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return Unauthorized();
@@ -377,7 +377,9 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (notification == null) return NotFound();
         notification.ReadAtUtc ??= DateTime.UtcNow;
         await db.SaveChangesAsync();
-        return RedirectToAction(nameof(Inbox), new RouteValueDictionary(filter.ToRouteValues()));
+        return returnToNotification
+            ? RedirectToAction(nameof(Notification), new { id })
+            : RedirectToAction(nameof(Inbox), new RouteValueDictionary(filter.ToRouteValues()));
     }
 
     [HttpPost, ValidateAntiForgeryToken]

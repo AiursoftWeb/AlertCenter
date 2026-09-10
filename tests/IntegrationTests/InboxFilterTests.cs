@@ -59,27 +59,29 @@ public partial class AlertDemoTests
         return items;
     }
 
-    private static Guid[] InboxMessageIds(string html) => Regex.Matches(html, "href=\"/Alerts/Details/([a-fA-F0-9-]+)\"")
+    private static Guid[] InboxNotificationIds(string html) => Regex.Matches(html, "href=\"/Push/Notification/([a-fA-F0-9-]+)\"")
         .Select(match => Guid.Parse(match.Groups[1].Value)).ToArray();
+
+    private static Guid[] InboxMessageIds(string html) => InboxNotificationIds(html);
 
     [TestMethod]
     public async Task InboxDefaultsToUnreadAndSupportsReadStatusAndLegacyLinks()
     {
         var items = await SeedInboxFilters();
         var html = await Http.GetStringAsync("/Push/Inbox");
-        CollectionAssert.AreEquivalent(items.Where((_, index) => index != 2 && index != 8 && index != 9)
-            .Select(item => item.Delivery.Message!.Id).ToArray(), InboxMessageIds(html));
-        Assert.Contains($"/Push/Delivery/{items[9].DeliveryId}", html);
+        CollectionAssert.AreEquivalent(items.Where((_, index) => index != 2 && index != 8)
+            .Select(item => item.Id).ToArray(), InboxNotificationIds(html));
+        Assert.Contains($"/Push/Notification/{items[9].Id}", html);
         Assert.DoesNotContain("Other reader private", html);
         Assert.Contains("8 未读", WebUtility.HtmlDecode(html));
         Assert.AreEqual(0, InboxMessageIds(await Http.GetStringAsync(
             $"/Push/Inbox?applicationId={items[8].Delivery.Message!.ApplicationId}&channelId={items[8].Delivery.ChannelId}")).Length);
-        CollectionAssert.AreEqual(new[] { items[2].Delivery.Message!.Id },
-            InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?readStatus=read")));
-        Assert.AreEqual(8, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?readStatus=all")).Length);
-        Assert.AreEqual(8, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?unreadOnly=false")).Length);
-        Assert.AreEqual(7, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?unreadOnly=true")).Length);
-        Assert.AreEqual(8, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?unreadOnly=true&readStatus=all")).Length);
+        CollectionAssert.AreEqual(new[] { items[2].Id },
+            InboxNotificationIds(await Http.GetStringAsync("/Push/Inbox?readStatus=read")));
+        Assert.AreEqual(9, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?readStatus=all")).Length);
+        Assert.AreEqual(9, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?unreadOnly=false")).Length);
+        Assert.AreEqual(8, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?unreadOnly=true")).Length);
+        Assert.AreEqual(9, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?unreadOnly=true&readStatus=all")).Length);
     }
 
     [TestMethod]
@@ -95,8 +97,8 @@ public partial class AlertDemoTests
         var allLink = StatusLink(html, "all");
         Assert.Contains("全部通知", WebUtility.HtmlDecode(allLink));
         html = await Http.GetStringAsync(Href(allLink));
-        Assert.AreEqual(8, InboxMessageIds(html).Length);
-        Assert.Contains(items[2].Delivery.Message!.Id, InboxMessageIds(html));
+        Assert.AreEqual(9, InboxMessageIds(html).Length);
+        Assert.Contains(items[2].Id, InboxMessageIds(html));
         Assert.Contains("aria-current=\"page\"", StatusLink(html, "all"));
 
         var query = $"keyword=needle&applicationId={items[0].Delivery.Message!.ApplicationId}" +
@@ -112,7 +114,7 @@ public partial class AlertDemoTests
             foreach (var parameter in QueryHelpers.ParseQuery("?" + query))
                 Assert.AreEqual(parameter.Value.ToString(), parameters[parameter.Key].ToString());
             var result = await Http.GetStringAsync(link);
-            CollectionAssert.AreEqual(status == "unread" ? Array.Empty<Guid>() : new[] { items[2].Delivery.Message!.Id }, InboxMessageIds(result));
+            CollectionAssert.AreEqual(status == "unread" ? Array.Empty<Guid>() : new[] { items[2].Id }, InboxMessageIds(result));
             Assert.Contains("aria-current=\"page\"", StatusLink(result, status));
         }
     }
@@ -123,20 +125,20 @@ public partial class AlertDemoTests
         var items = await SeedInboxFilters();
         var url = $"/Push/Inbox?keyword=NeEdLe&applicationId={items[0].Delivery.Message!.ApplicationId}" +
             $"&channelId={items[0].Delivery.ChannelId}&level=sev1&fromDate=2026-09-08&toDate=2026-09-08";
-        CollectionAssert.AreEquivalent(new[] { items[0].Delivery.Message!.Id, items[1].Delivery.Message!.Id },
+        CollectionAssert.AreEquivalent(new[] { items[0].Id, items[1].Id },
             InboxMessageIds(await Http.GetStringAsync(url)));
-        CollectionAssert.AreEqual(new[] { items[1].Delivery.Message!.Id },
+        CollectionAssert.AreEqual(new[] { items[1].Id },
             InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?keyword=" + Uri.EscapeDataString("50%_"))));
         var escaped = await Http.GetStringAsync("/Push/Inbox?keyword=" + Uri.EscapeDataString("<script>"));
-        CollectionAssert.AreEqual(new[] { items[1].Delivery.Message!.Id }, InboxMessageIds(escaped));
+        CollectionAssert.AreEqual(new[] { items[1].Id }, InboxMessageIds(escaped));
         Assert.Contains("&lt;script&gt;", escaped);
         Assert.DoesNotContain("value=\"<script>\"", escaped);
         var test = await Http.GetStringAsync("/Push/Inbox?keyword=" + Uri.EscapeDataString("渠道测试通知"));
-        Assert.AreEqual(0, InboxMessageIds(test).Length);
-        Assert.Contains($"/Push/Delivery/{items[9].DeliveryId}", test);
-        Assert.DoesNotContain($"/Push/Delivery/{items[9].DeliveryId}", await Http.GetStringAsync("/Push/Inbox?level=sev3"));
+        Assert.AreEqual(1, InboxMessageIds(test).Length);
+        Assert.Contains($"/Push/Notification/{items[9].Id}", test);
+        Assert.DoesNotContain($"/Push/Notification/{items[9].Id}", await Http.GetStringAsync("/Push/Inbox?level=sev3"));
         Assert.AreEqual(0, InboxMessageIds(await Http.GetStringAsync($"/Push/Inbox?applicationId={Guid.NewGuid()}")).Length);
-        Assert.AreEqual(7, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?toDate=9999-12-31")).Length);
+        Assert.AreEqual(8, InboxMessageIds(await Http.GetStringAsync("/Push/Inbox?toDate=9999-12-31")).Length);
         Assert.AreEqual(0, InboxMessageIds(await Http.GetStringAsync($"/Push/Inbox?channelId={Guid.NewGuid()}")).Length);
         var tooLong = await Http.GetStringAsync("/Push/Inbox?keyword=" + new string('a', 201));
         Assert.Contains("validation-summary-errors", tooLong);
