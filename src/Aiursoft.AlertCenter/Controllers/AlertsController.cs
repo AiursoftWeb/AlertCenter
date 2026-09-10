@@ -20,16 +20,50 @@ public class AlertsController(TemplateDbContext db) : Controller
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "消息列表", LinkOrder = 0)]
-    public async Task<IActionResult> Index(int page = 1)
+    public async Task<IActionResult> Index([FromQuery] AlertFilter filter)
     {
-        page = Math.Clamp(page, 1, 1000000);
-        var messages = await db.ReportedMessages.AsNoTracking().Include(m => m.Application)
-            .OrderByDescending(m => m.ReceivedAtUtc).ThenByDescending(m => m.Id)
-            .Skip((page - 1) * 20).Take(21).ToListAsync();
-        return this.StackView(new AlertsViewModel
+        filter.Normalize();
+        var model = new AlertsViewModel
         {
-            Messages = messages.Take(20).ToList(), Page = page, HasNextPage = messages.Count > 20
-        });
+            AlertFilter = filter,
+            Page = filter.Page,
+            Applications = await db.SourceApplications.AsNoTracking().Where(application =>
+                db.ReportedMessages.Any(message => message.ApplicationId == application.Id))
+                .OrderBy(application => application.Name).ToListAsync()
+        };
+        if (!ModelState.IsValid) return this.StackView(model);
+        var query = FilterMessages(db.ReportedMessages.AsNoTracking(), filter);
+        var messages = await query.Include(message => message.Application)
+            .OrderByDescending(message => message.ReceivedAtUtc).ThenByDescending(message => message.Id)
+            .Skip((filter.Page - 1) * 20).Take(21).ToListAsync();
+        model.Messages = messages.Take(20).ToList();
+        model.HasNextPage = messages.Count > 20;
+        return this.StackView(model);
+    }
+
+    private static IQueryable<ReportedMessage> FilterMessages(IQueryable<ReportedMessage> query, AlertFilter filter)
+    {
+        if (filter.ApplicationId.HasValue)
+            query = query.Where(message => message.ApplicationId == filter.ApplicationId.Value);
+        if (filter.Level != null)
+            query = query.Where(message => message.Level == filter.Level);
+        if (filter.Keyword != null)
+        {
+            var keyword = filter.Keyword.ToLowerInvariant();
+            query = query.Where(message => message.Title.ToLower().Contains(keyword) ||
+                (message.Content != null && message.Content.ToLower().Contains(keyword)));
+        }
+        if (filter.FromDate.HasValue)
+        {
+            var start = filter.FromDate.Value.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+            query = query.Where(message => message.ReceivedAtUtc >= start);
+        }
+        if (filter.ToDate.HasValue && filter.ToDate.Value < DateOnly.MaxValue)
+        {
+            var end = filter.ToDate.Value.AddDays(1).ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+            query = query.Where(message => message.ReceivedAtUtc < end);
+        }
+        return query;
     }
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,

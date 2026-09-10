@@ -1,21 +1,43 @@
 @model Aiursoft.AlertCenter.Models.AlertsViewModel
+@using System.Globalization
+@{
+    var filter = Model.AlertFilter;
+    var routes = filter.ToRouteValues();
+    var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Level != null ||
+        filter.FromDate.HasValue || filter.ToDate.HasValue;
+}
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div><h1 class="h3 mb-1">告警消息</h1><p class="text-muted mb-0">集中查看业务事件，快速定位问题现场。</p></div>
     <a asp-action="Applications" class="btn btn-primary"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>接入应用</a>
 </div>
 @await Html.PartialAsync("_NoticeDialog", new Aiursoft.AlertCenter.Models.NoticeDialogViewModel(
     "delivery-notice", "通知能力说明", "在推送中心配置 Webhook 或站内通知，再到接入应用的推送设置中关联渠道。新告警保存后会自动投递，失败可在推送记录中手动重试。", OpenOnLoad: false))
+<div class="card mb-3"><div class="card-body">
+    <form asp-action="Index" method="get" class="row g-3 align-items-end" id="alert-filters">
+        <div class="col-md-6 col-xl-4"><label for="filter-keyword" class="form-label">关键词</label><input id="filter-keyword" name="keyword" value="@filter.Keyword" maxlength="200" class="form-control" placeholder="搜索标题或正文" /></div>
+        <div class="col-sm-6 col-xl-3"><label for="filter-application" class="form-label">来源应用</label><select id="filter-application" name="applicationId" class="form-select"><option value="">全部应用</option>
+            @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value)) { <option value="@filter.ApplicationId" selected>所选应用暂无消息</option> }
+            @foreach (var application in Model.Applications) { <option value="@application.Id" selected="@(filter.ApplicationId == application.Id)">@application.Name</option> }
+        </select></div>
+        <div class="col-sm-6 col-xl-2"><label for="filter-level" class="form-label">告警级别</label><select id="filter-level" name="level" class="form-select"><option value="">全部级别</option>
+            <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重</option><option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误</option><option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告</option><option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息</option>
+        </select></div>
+        <div class="col-sm-6 col-xl-3"><label for="filter-from-date" class="form-label">接收开始日期（UTC）</label><input id="filter-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
+        <div class="col-sm-6 col-xl-3"><label for="filter-to-date" class="form-label">接收结束日期（UTC，含当日）</label><input id="filter-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
+        <div class="col-xl-2 d-flex gap-2"><button class="btn btn-primary flex-grow-1">检索</button><a asp-action="Index" class="btn btn-outline-secondary text-nowrap">重置</a></div>
+        <div asp-validation-summary="All" class="text-danger mb-0"></div>
+    </form>
+</div></div>
+<div class="d-flex justify-content-between align-items-center gap-2 mb-3"><small class="text-muted">按接收时间倒序 · 每页 20 条 · UTC</small><a asp-action="Index" asp-all-route-data="routes" class="btn btn-sm btn-outline-secondary">刷新</a></div>
 <div class="card">
-    <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
-        <h2 class="card-title mb-0">消息记录</h2><small class="text-muted">按接收时间倒序 · UTC</small>
-    </div>
+    <div class="card-header"><h2 class="card-title mb-0">消息记录</h2></div>
     @if (Model.Messages.Count == 0)
     {
         <div class="card-body text-center py-5">
             <div class="stat mx-auto mb-3"><i data-lucide="inbox" aria-hidden="true"></i></div>
-            <h2 class="h4">还没有告警消息</h2>
-            <p class="text-muted mb-4">创建接入应用，使用 API Key 发送第一条消息。</p>
-            <a asp-action="Applications" class="btn btn-primary">创建应用</a>
+            <h2 class="h4">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters || Model.Page > 1 ? "当前筛选或分页下没有告警消息" : "还没有告警消息")</h2>
+            @if (hasFilters || Model.Page > 1) { <p class="text-muted mb-0">可调整筛选条件查看其他告警消息。</p> }
+            else { <p class="text-muted mb-4">创建接入应用，使用 API Key 发送第一条消息。</p><a asp-action="Applications" class="btn btn-primary">创建应用</a> }
         </div>
     }
     else
@@ -37,17 +59,14 @@
                 </tbody>
             </table>
         </div>
+    }
+    @if (ViewData.ModelState.IsValid && (Model.Messages.Count > 0 || Model.Page > 1))
+    {
         <div class="card-body border-top d-flex flex-wrap justify-content-between align-items-center gap-3">
             <small class="text-muted">第 @Model.Page 页 · 本页 @Model.Messages.Count 条</small>
             <nav aria-label="消息分页" class="d-flex gap-2">
-                @if (Model.Page > 1)
-                {
-                    <a asp-action="Index" asp-route-page="@(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a>
-                }
-                @if (Model.HasNextPage)
-                {
-                    <a asp-action="Index" asp-route-page="@(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a>
-                }
+                @if (Model.Page > 1) { <a asp-action="Index" asp-all-route-data="filter.ToRouteValues(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a> }
+                @if (Model.HasNextPage) { <a asp-action="Index" asp-all-route-data="filter.ToRouteValues(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a> }
             </nav>
         </div>
     }

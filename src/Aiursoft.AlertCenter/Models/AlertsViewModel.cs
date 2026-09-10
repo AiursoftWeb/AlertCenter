@@ -13,6 +13,7 @@ public class AlertsViewModel : UiStackLayoutViewModel
     public string? ApiKey { get; set; }
     public bool ApiKeyWasReset { get; set; }
     public string? ApplicationSearchKeyword { get; set; }
+    public AlertFilter AlertFilter { get; set; } = new();
     public int Page { get; set; } = 1;
     public bool HasNextPage { get; set; }
 }
