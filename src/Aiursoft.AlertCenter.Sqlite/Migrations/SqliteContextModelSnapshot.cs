@@ -120,6 +120,12 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("WebhookHeadersProtected")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WebhookPayloadTemplate")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("PushChannels");

@@ -7,6 +7,7 @@ using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -20,6 +21,7 @@ public class PushCenterTests
     private FakeWebhookHandler _http = null!;
     private INotificationChannelAdapter[] _adapters = [];
     private PushDeliveryProcessor _processor = null!;
+    private WebhookConfigurationProtector _webhookConfigurationProtector = null!;
     private const string Secret = "push-tests-secret";
 
     [TestInitialize]
@@ -29,7 +31,12 @@ public class PushCenterTests
         await _db.Database.OpenConnectionAsync();
         await _db.Database.MigrateAsync();
         _http = new FakeWebhookHandler();
-        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http)), new InAppChannelAdapter(_db)];
+        _webhookConfigurationProtector = new WebhookConfigurationProtector(new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Webhook:HeaderProtectionKey"] = Convert.ToBase64String(new byte[32])
+            }).Build());
+        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector), new InAppChannelAdapter(_db)];
         _processor = new PushDeliveryProcessor(_db, _adapters, NullLogger<PushDeliveryProcessor>.Instance);
     }
 
@@ -40,7 +47,7 @@ public class PushCenterTests
         _http.Dispose();
     }
 
-    private PushController Controller(string userId = "admin-one") => new(_db, _adapters, _processor)
+    private PushController Controller(string userId = "admin-one") => new(_db, _adapters, _processor, _webhookConfigurationProtector)
     {
         ControllerContext = new ControllerContext
         {
@@ -435,6 +442,39 @@ public class PushCenterTests
     }
 
     [TestMethod]
+    public async Task CustomWebhookHeadersAndPayloadAreValidatedProtectedAndDelivered()
+    {
+        var headers = "{\"Authorization\":\"Bearer token\",\"X-Source\":\"alert-center\"}";
+        var template = "{\"event\":\"alert\",\"subject\":\"{{title}}\",\"data\":\"{{context}}\",\"testMessageId\":\"{{messageId}}\"}";
+        var model = new PushChannelEditViewModel
+        {
+            Name = "Custom webhook", Type = "webhook", Endpoint = "https://receiver.example/hook",
+            WebhookHeadersJson = headers, WebhookPayloadTemplate = template
+        };
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller().Save(model));
+        var channel = await _db.PushChannels.SingleAsync();
+        Assert.IsNotNull(channel.WebhookHeadersProtected);
+        Assert.DoesNotContain("Bearer token", channel.WebhookHeadersProtected!);
+        Assert.AreEqual(template, channel.WebhookPayloadTemplate);
+        Assert.IsTrue(_webhookConfigurationProtector.TryUnprotect(channel.WebhookHeadersProtected, out var savedHeaders));
+        Assert.AreEqual(headers, savedHeaders);
+        await Controller().Test(channel.Id, CancellationToken.None);
+        var delivery = await _db.PushDeliveries.SingleAsync();
+        Assert.AreEqual(PushDelivery.Succeeded, delivery.Status, delivery.Error);
+        var request = _http.Requests.Single();
+        using var payload = JsonDocument.Parse(request.Json);
+        Assert.AreEqual("alert", payload.RootElement.GetProperty("event").GetString());
+        Assert.AreEqual("渠道测试通知", payload.RootElement.GetProperty("subject").GetString());
+        Assert.AreEqual(JsonValueKind.Null, payload.RootElement.GetProperty("testMessageId").ValueKind);
+        Assert.AreEqual("Bearer token", request.Headers["Authorization"]);
+        Assert.AreEqual("alert-center", request.Headers["X-Source"]);
+
+        Assert.IsFalse(WebhookChannelAdapter.TryValidateCustomHeaders("{\"Idempotency-Key\":\"override\"}", out _));
+        Assert.IsFalse(WebhookChannelAdapter.TryValidatePayloadTemplate("{\"title\":\"prefix {{title}}\"}", out _));
+        Assert.IsFalse(WebhookChannelAdapter.TryValidatePayloadTemplate("[\"{{title}}\"]", out _));
+    }
+
+    [TestMethod]
     public async Task RecipientsCombineUsersAndGroupsAndFollowMembershipChanges()
     {
         await AddAdministrators();
@@ -501,13 +541,14 @@ public class PushCenterTests
     {
         public HttpStatusCode StatusCode { get; set; } = HttpStatusCode.OK;
         public bool ThrowNetworkError { get; set; }
-        public List<(string Json, string IdempotencyKey)> Requests { get; } = [];
+        public List<(string Json, string IdempotencyKey, Dictionary<string, string> Headers)> Requests { get; } = [];
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             Assert.AreEqual(HttpMethod.Post, request.Method);
             Assert.AreEqual("application/json", request.Content!.Headers.ContentType!.MediaType);
-            Requests.Add((await request.Content.ReadAsStringAsync(cancellationToken), request.Headers.GetValues("Idempotency-Key").Single()));
+            Requests.Add((await request.Content.ReadAsStringAsync(cancellationToken), request.Headers.GetValues("Idempotency-Key").Single(),
+                request.Headers.ToDictionary(header => header.Key, header => header.Value.Single(), StringComparer.OrdinalIgnoreCase)));
             if (ThrowNetworkError) throw new HttpRequestException("Sensitive endpoint must not appear in the delivery error.");
             return new HttpResponseMessage(StatusCode);
         }

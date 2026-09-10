@@ -54,6 +54,7 @@ public class Startup : IWebStartup
         // Services
         services.AddMemoryCache();
         services.AddHttpClient();
+        services.AddSingleton<WebhookConfigurationProtector>();
         services.AddScoped<IAlertDispatcher, QueuedAlertDispatcher>();
         services.AddScoped<INotificationChannelAdapter, WebhookChannelAdapter>();
         services.AddScoped<INotificationChannelAdapter, InAppChannelAdapter>();

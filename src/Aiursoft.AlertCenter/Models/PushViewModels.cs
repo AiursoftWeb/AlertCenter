@@ -51,6 +51,8 @@ public class PushChannelEditViewModel : UiStackLayoutViewModel
     [Required, StringLength(100)] public string Name { get; set; } = string.Empty;
     [Required, StringLength(40)] public string Type { get; set; } = string.Empty;
     [StringLength(2048)] public string? Endpoint { get; set; }
+    [StringLength(8000)] public string? WebhookHeadersJson { get; set; }
+    [StringLength(16000)] public string? WebhookPayloadTemplate { get; set; }
     public bool IsEnabled { get; set; } = true;
     public List<ChannelTypeDefinition> ChannelTypes { get; set; } = [];
 }

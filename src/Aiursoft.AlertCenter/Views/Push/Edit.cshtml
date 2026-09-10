@@ -23,7 +23,32 @@
             <div class="mb-3"><label asp-for="Name" class="form-label">渠道名称</label><input asp-for="Name" required maxlength="100" class="form-control" placeholder="例如：研发团队通知" /></div>
             @if (selectedType.RequiresEndpoint)
             {
-                <div class="mb-3"><label asp-for="Endpoint" class="form-label">Webhook 接收地址</label><input asp-for="Endpoint" type="url" required maxlength="2048" class="form-control" placeholder="https://example.com/webhook" aria-describedby="endpoint-hint" /><small class="text-muted" id="endpoint-hint">接收端需支持 HTTP POST JSON，返回 2xx 表示成功。请求超时为 10 秒，不跟随重定向。</small></div>
+                <div class="mb-4"><label asp-for="Endpoint" class="form-label">Webhook 接收地址</label><input asp-for="Endpoint" type="url" required maxlength="2048" class="form-control" placeholder="https://example.com/webhook" aria-describedby="endpoint-hint" /><small class="text-muted" id="endpoint-hint">接收端需支持 HTTP POST JSON，返回 2xx 表示成功。请求超时为 10 秒，不跟随重定向。</small></div>
+                <div class="card border mb-4">
+                    <div class="card-header"><h3 class="h6 mb-0">系统发送的请求格式</h3></div>
+                    <div class="card-body">
+                        <dl class="row small mb-3"><dt class="col-sm-3">请求方法</dt><dd class="col-sm-9"><code>POST</code></dd><dt class="col-sm-3">请求头</dt><dd class="col-sm-9 mb-0"><code>Content-Type: application/json</code><br /><code>Idempotency-Key: &lt;deliveryId&gt;</code></dd></dl>
+                        <p class="small text-muted mb-2">默认请求体：</p>
+                        <pre class="bg-body-tertiary border rounded p-3 small mb-2"><code>{
+  "deliveryId": "&lt;GUID&gt;",
+  "messageId": "&lt;GUID 或 null&gt;",
+  "title": "告警标题",
+  "content": "告警正文或 null",
+  "level": "sev1 | sev2 | sev3 | sev4",
+  "occurredAtUtc": "2026-09-10T14:26:50.0000000Z",
+  "context": { }
+}</code></pre>
+                        <p class="small text-muted mb-0">每次投递的 <code>deliveryId</code> 固定不变，可配合 <code>Idempotency-Key</code> 去重；测试消息的 <code>messageId</code> 为 <code>null</code>。</p>
+                    </div>
+                </div>
+                <details class="card border mb-4">
+                    <summary class="card-header"><span class="h3 h6 mb-0">自定义请求（可选）</span></summary>
+                    <div class="card-body">
+                        <p class="text-muted small">留空时使用系统默认请求体。只能添加额外请求头；系统管理的 <code>Content-Type</code>、<code>Content-Length</code> 和 <code>Idempotency-Key</code> 不可覆盖。自定义请求头会加密保存。</p>
+                        <div class="mb-3"><label asp-for="WebhookHeadersJson" class="form-label">额外请求头（JSON 对象）</label><textarea asp-for="WebhookHeadersJson" class="form-control font-monospace" rows="4" maxlength="8000" spellcheck="false" placeholder="{&#10;  &quot;Authorization&quot;: &quot;Bearer &lt;token&gt;&quot;,&#10;  &quot;X-Source&quot;: &quot;alert-center&quot;&#10;}"></textarea><small class="text-muted">请求头名称最长 128 个字符；值必须为非空字符串。</small></div>
+                        <div><label asp-for="WebhookPayloadTemplate" class="form-label">请求体模板（JSON 对象）</label><textarea asp-for="WebhookPayloadTemplate" class="form-control font-monospace" rows="10" maxlength="16000" spellcheck="false" placeholder="{&#10;  &quot;event&quot;: &quot;alert&quot;,&#10;  &quot;title&quot;: &quot;{{title}}&quot;,&#10;  &quot;severity&quot;: &quot;{{level}}&quot;,&#10;  &quot;data&quot;: &quot;{{context}}&quot;&#10;}"></textarea><small class="text-muted d-block mt-2">占位符必须独占一个 JSON 字符串值：<code>{{deliveryId}}</code>、<code>{{messageId}}</code>、<code>{{title}}</code>、<code>{{content}}</code>、<code>{{level}}</code>、<code>{{occurredAtUtc}}</code>、<code>{{context}}</code>。<code>{{context}}</code> 会保留原始 JSON 类型。</small></div>
+                    </div>
+                </details>
             }
             else
             {

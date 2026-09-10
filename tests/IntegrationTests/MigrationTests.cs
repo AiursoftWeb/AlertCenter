@@ -32,33 +32,37 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
         await context.GetService<IMigrator>().MigrateAsync("20260906192508_AddPushCenter");
-        var application = new SourceApplication { Name = "Existing application" };
-        var channel = new PushChannel { Name = "Existing channel", Type = "inapp" };
-        var disabled = new PushChannel { Name = "Disabled channel", Type = "inapp", IsEnabled = false };
-        var message = new ReportedMessage
-        {
-            Application = application, ReportId = Guid.NewGuid(), Title = "Existing alert", OccurredAtUtc = DateTime.UtcNow
-        };
-        var delivery = new PushDelivery { Channel = channel, Message = message };
-        context.PushChannels.Add(disabled);
-        context.PushDeliveries.Add(delivery);
-        await context.SaveChangesAsync();
+        var applicationId = Guid.NewGuid();
+        var channelId = Guid.NewGuid();
+        var disabledChannelId = Guid.NewGuid();
+        var messageId = Guid.NewGuid();
+        var deliveryId = Guid.NewGuid();
+        var now = DateTime.UtcNow;
         await context.Database.ExecuteSqlInterpolatedAsync($"""
+            INSERT INTO SourceApplications (Id, Name, SecretHash, IsEnabled, CreatedAtUtc)
+            VALUES ({applicationId}, {"Existing application"}, {"hash"}, {true}, {now});
+            INSERT INTO PushChannels (Id, Name, Type, IsEnabled, CreatedAtUtc)
+            VALUES ({channelId}, {"Existing channel"}, {"inapp"}, {true}, {now}),
+                   ({disabledChannelId}, {"Disabled channel"}, {"inapp"}, {false}, {now});
+            INSERT INTO ReportedMessages (Id, ApplicationId, ReportId, Title, Content, ContextJson, Level, OccurredAtUtc, ReceivedAtUtc)
+            VALUES ({messageId}, {applicationId}, {Guid.NewGuid()}, {"Existing alert"}, {null}, {null}, {"sev3"}, {now}, {now});
+            INSERT INTO PushDeliveries (Id, ChannelId, MessageId, Status, Attempts, CreatedAtUtc)
+            VALUES ({deliveryId}, {channelId}, {messageId}, {PushDelivery.Pending}, {0}, {now});
             INSERT INTO ApplicationPushChannels (ApplicationId, ChannelId)
-            VALUES ({application.Id}, {channel.Id}), ({application.Id}, {disabled.Id});
+            VALUES ({applicationId}, {channelId}), ({applicationId}, {disabledChannelId});
             """);
 
         await context.Database.MigrateAsync();
         context.ChangeTracker.Clear();
         var bindings = await context.ApplicationPushChannels.ToListAsync();
         Assert.AreEqual(2, bindings.Count);
-        Assert.IsTrue(bindings.All(link => link.ApplicationId == application.Id &&
+        Assert.IsTrue(bindings.All(link => link.ApplicationId == applicationId &&
             link.ReceiveSev1 && link.ReceiveSev2 && link.ReceiveSev3 && link.ReceiveSev4));
-        CollectionAssert.AreEquivalent(new[] { channel.Id, disabled.Id }, bindings.Select(link => link.ChannelId).ToArray());
-        Assert.AreEqual(message.Id, (await context.ReportedMessages.SingleAsync()).Id);
-        Assert.AreEqual(delivery.Id, (await context.PushDeliveries.SingleAsync()).Id);
+        CollectionAssert.AreEquivalent(new[] { channelId, disabledChannelId }, bindings.Select(link => link.ChannelId).ToArray());
+        Assert.AreEqual(messageId, (await context.ReportedMessages.SingleAsync()).Id);
+        Assert.AreEqual(deliveryId, (await context.PushDeliveries.SingleAsync()).Id);
         Assert.AreEqual(PushDelivery.Pending, (await context.PushDeliveries.SingleAsync()).Status);
-        Assert.IsFalse((await context.PushChannels.SingleAsync(item => item.Id == disabled.Id)).IsEnabled);
+        Assert.IsFalse((await context.PushChannels.SingleAsync(item => item.Id == disabledChannelId)).IsEnabled);
     }
 
     [TestMethod]

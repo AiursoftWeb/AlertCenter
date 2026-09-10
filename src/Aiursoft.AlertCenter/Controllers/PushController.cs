@@ -13,7 +13,7 @@ namespace Aiursoft.AlertCenter.Controllers;
 [Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
 public class PushController(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters,
-    PushDeliveryProcessor processor) : Controller
+    PushDeliveryProcessor processor, WebhookConfigurationProtector webhookConfigurationProtector) : Controller
 {
     private List<ChannelTypeDefinition> Types => adapters.Select(adapter => adapter.Definition).ToList();
 
@@ -45,9 +45,12 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var channel = await db.PushChannels.FindAsync(id);
         if (channel == null) return NotFound();
+        if (!webhookConfigurationProtector.TryUnprotect(channel.WebhookHeadersProtected, out var webhookHeadersJson))
+            return BadRequest("无法读取已保存的 Webhook 请求头。请检查数据保护密钥后重试。");
         var model = new PushChannelEditViewModel
         {
             Id = channel.Id, Name = channel.Name, Type = channel.Type, Endpoint = channel.Endpoint,
+            WebhookHeadersJson = webhookHeadersJson, WebhookPayloadTemplate = channel.WebhookPayloadTemplate,
             IsEnabled = channel.IsEnabled, ChannelTypes = Types,
             RecipientUserIds = await db.PushChannelUsers.Where(link => link.ChannelId == id).Select(link => link.UserId).ToArrayAsync(),
             RecipientRoleIds = await db.PushChannelRoles.Where(link => link.ChannelId == id).Select(link => link.RoleId).ToArrayAsync()
@@ -75,8 +78,17 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         }
         var type = Types.SingleOrDefault(item => item.Key == model.Type);
         if (type == null) ModelState.AddModelError(nameof(model.Type), "请选择可用的渠道类型。");
-        if (type?.RequiresEndpoint == true && !WebhookChannelAdapter.IsValidEndpoint(model.Endpoint?.Trim()))
-            ModelState.AddModelError(nameof(model.Endpoint), "请输入有效的 HTTP 或 HTTPS 地址，不支持用户名、密码或 URL 片段。");
+        if (type?.RequiresEndpoint == true)
+        {
+            if (!WebhookChannelAdapter.IsValidEndpoint(model.Endpoint?.Trim()))
+                ModelState.AddModelError(nameof(model.Endpoint), "请输入有效的 HTTP 或 HTTPS 地址，不支持用户名、密码或 URL 片段。");
+            if (!WebhookChannelAdapter.TryValidateCustomHeaders(model.WebhookHeadersJson, out var headersError))
+                ModelState.AddModelError(nameof(model.WebhookHeadersJson), headersError!);
+            if (!WebhookChannelAdapter.TryValidatePayloadTemplate(model.WebhookPayloadTemplate, out var payloadError))
+                ModelState.AddModelError(nameof(model.WebhookPayloadTemplate), payloadError!);
+            if (!string.IsNullOrWhiteSpace(model.WebhookHeadersJson) && !webhookConfigurationProtector.IsAvailable)
+                ModelState.AddModelError(nameof(model.WebhookHeadersJson), "自定义请求头需要配置 Webhook:HeaderProtectionKey。请通过受保护的环境变量提供该密钥。");
+        }
         var channel = model.Id.HasValue ? await db.PushChannels.FindAsync(model.Id.Value) : new PushChannel();
         if (channel == null) return NotFound();
         if (model.Id.HasValue && channel.Type != model.Type)
@@ -85,6 +97,10 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         channel.Name = model.Name.Trim();
         channel.Type = model.Type;
         channel.Endpoint = type!.RequiresEndpoint ? model.Endpoint!.Trim() : null;
+        if (!webhookConfigurationProtector.TryProtect(NullIfWhiteSpace(model.WebhookHeadersJson), out var protectedHeaders))
+            return BadRequest("无法保护 Webhook 自定义请求头。请检查 Webhook:HeaderProtectionKey 配置。");
+        channel.WebhookHeadersProtected = type.RequiresEndpoint ? protectedHeaders : null;
+        channel.WebhookPayloadTemplate = type.RequiresEndpoint ? NullIfWhiteSpace(model.WebhookPayloadTemplate) : null;
         channel.IsEnabled = model.IsEnabled;
         if (!model.Id.HasValue) db.PushChannels.Add(channel);
         var users = await db.PushChannelUsers.Where(link => link.ChannelId == channel.Id).ToListAsync();
@@ -126,6 +142,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             totalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
         });
     }
+
+    private static string? NullIfWhiteSpace(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 
     private async Task PopulateRecipients(PushChannelEditViewModel model)
     {

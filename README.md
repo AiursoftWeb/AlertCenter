@@ -36,6 +36,27 @@ Changes apply only to new alerts, not historical messages or existing delivery t
 SQLite and MySQL migrations preserve existing bindings by enabling all four levels.
 No SDK changes are required: clients continue reporting the alert's `level`.
 
+## Webhook request format
+
+Webhook channels send an HTTP `POST` with `Content-Type: application/json` and an `Idempotency-Key`
+header containing the delivery ID. A `2xx` response succeeds; requests time out after 10 seconds and
+redirects are not followed. The channel configuration screen shows the default JSON format and supports
+optional custom JSON headers (except transport and system-managed headers) and a JSON body template.
+Custom header values are encrypted at rest. To enable custom request headers, configure
+`Webhook__HeaderProtectionKey` as a **Base64-encoded value that decodes to exactly 32 bytes** (an AES-256 key).
+Generate a key with `openssl rand -base64 32`, then provide it through a protected environment variable; for example:
+
+```bash
+docker run -e Webhook__HeaderProtectionKey='YOUR_GENERATED_BASE64_KEY' aiursoft/alertCenter
+```
+
+Do not place this key in `appsettings.json`, source control, or the persistent data volume. Keep the same key for
+the lifetime of existing channel configurations: losing or changing it makes saved custom headers unreadable, so
+those headers must be entered and saved again. Without the key, Webhook channels can still use the default request
+and custom request-body templates, but cannot save custom request headers. Templates use complete-string placeholders
+such as `{{title}}` and `{{context}}`; the screen lists all available placeholders. Leaving the template empty retains
+the documented default payload.
+
 ## Inbox search
 
 **站内通知** opens with unread notifications by default. Use the visible **仅看未读 / 全部通知 / 仅看已读**

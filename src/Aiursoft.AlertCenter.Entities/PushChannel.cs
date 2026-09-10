@@ -8,6 +8,8 @@ public class PushChannel
     [MaxLength(100)] public string Name { get; set; } = string.Empty;
     [MaxLength(40)] public string Type { get; set; } = string.Empty;
     [MaxLength(2048)] public string? Endpoint { get; set; }
+    public string? WebhookHeadersProtected { get; set; }
+    public string? WebhookPayloadTemplate { get; set; }
     public bool IsEnabled { get; set; } = true;
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
 }

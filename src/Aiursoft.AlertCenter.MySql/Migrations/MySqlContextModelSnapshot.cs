@@ -125,6 +125,12 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("varchar(40)");
 
+                    b.Property<string>("WebhookHeadersProtected")
+                        .HasColumnType("text");
+
+                    b.Property<string>("WebhookPayloadTemplate")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("PushChannels");
