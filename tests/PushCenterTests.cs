@@ -319,6 +319,31 @@ public class PushCenterTests
     }
 
     [TestMethod]
+    public async Task CustomTestMessageIsPersistedAndDeliveredThroughWebhook()
+    {
+        var channel = await Channel();
+        const string content = "请检查自定义测试消息。";
+
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller().Test(channel.Id, CancellationToken.None, "  " + content + "  "));
+
+        var delivery = await _db.PushDeliveries.SingleAsync();
+        Assert.AreEqual(content, delivery.TestContent);
+        Assert.AreEqual(PushDelivery.Succeeded, delivery.Status, delivery.Error);
+        using var payload = JsonDocument.Parse(_http.Requests.Single().Json);
+        Assert.AreEqual(content, payload.RootElement.GetProperty("content").GetString());
+    }
+
+    [TestMethod]
+    public async Task TestMessageContentMustBePresentAndWithinLimit()
+    {
+        var channel = await Channel();
+
+        Assert.IsInstanceOfType<BadRequestObjectResult>(await Controller().Test(channel.Id, CancellationToken.None, " \r\n "));
+        Assert.IsInstanceOfType<BadRequestObjectResult>(await Controller().Test(channel.Id, CancellationToken.None, new string('x', 4001)));
+        Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
+    }
+
+    [TestMethod]
     public async Task InAppDeliveryWithoutRecipientsFailsClearly()
     {
         var channel = await Channel("inapp");
@@ -489,13 +514,15 @@ public class PushCenterTests
         var channel = await _db.PushChannels.SingleAsync();
         Assert.AreEqual(model.EmailRecipients, channel.EmailRecipients);
 
-        await Controller().Test(channel.Id, CancellationToken.None);
+        const string content = "请检查邮件测试内容。";
+        await Controller().Test(channel.Id, CancellationToken.None, content);
         var delivery = await _db.PushDeliveries.SingleAsync();
+        Assert.AreEqual(content, delivery.TestContent);
         Assert.AreEqual(PushDelivery.Succeeded, delivery.Status, delivery.Error);
         var sent = _email.Messages.Single();
         CollectionAssert.AreEquivalent(new[] { "oncall@example.com", "TEAM@example.com" }, sent.Recipients.ToArray());
         StringAssert.StartsWith(sent.Subject, "[AlertCenter][sev3]");
-        StringAssert.Contains(sent.Body, "渠道测试通知");
+        StringAssert.Contains(sent.Body, content);
         StringAssert.Contains(sent.Body, delivery.Id.ToString());
 
         Assert.IsFalse(EmailChannelAdapter.TryParseRecipients("", out _, out _));

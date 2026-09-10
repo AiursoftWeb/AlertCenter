@@ -13,6 +13,10 @@
             <dt class="col-sm-3 text-muted">尝试次数</dt><dd class="col-sm-9">@delivery.Attempts</dd>
             <dt class="col-sm-3 text-muted">投递 ID</dt><dd class="col-sm-9 text-break"><code>@delivery.Id</code></dd>
         </dl>
+        @if (delivery.Message == null)
+        {
+            <div class="border rounded p-3 mb-3"><h3 class="h6">消息内容</h3><p class="mb-0 text-break" style="white-space: pre-wrap;">@(delivery.TestContent ?? PushDelivery.DefaultTestContent)</p></div>
+        }
         @if (delivery.Status == PushDelivery.Failed)
         {
             <div class="border rounded p-3 mb-3"><h3 class="h6 text-danger">投递失败</h3><p class="mb-0 text-break">@delivery.Error</p></div>

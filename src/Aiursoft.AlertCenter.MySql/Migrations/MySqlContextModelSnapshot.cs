@@ -203,6 +203,10 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
+                    b.Property<string>("TestContent")
+                        .HasMaxLength(4000)
+                        .HasColumnType("varchar(4000)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ChannelId");

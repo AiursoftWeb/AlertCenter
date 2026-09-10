@@ -1,4 +1,5 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
+@using Aiursoft.AlertCenter.Entities
 @{
     var notification = Model.Notifications.Single();
     var message = notification.Delivery.Message;
@@ -19,5 +20,5 @@
 </div>
 <h1 class="h3 text-break">@(message?.Title ?? "渠道测试通知")</h1>
 @if (message != null) { <p class="text-muted">@message.Application.Name · @message.Level</p> }
-<div class="card"><div class="card-body text-break" style="white-space: pre-wrap;">@(message == null ? "这是一条推送渠道测试消息。" : message.Content ?? "无")</div></div>
+<div class="card"><div class="card-body text-break" style="white-space: pre-wrap;">@(message == null ? notification.Delivery.TestContent ?? PushDelivery.DefaultTestContent : message.Content ?? "无")</div></div>
 @if (message?.ContextJson != null) { <div class="card"><div class="card-header">业务上下文</div><div class="card-body"><pre><code>@message.ContextJson</code></pre></div></div> }

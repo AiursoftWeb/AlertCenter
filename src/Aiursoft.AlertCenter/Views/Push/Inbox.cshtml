@@ -72,7 +72,7 @@
                     var color = message.Level switch { "sev1" => "danger", "sev2" => "warning", "sev3" => "primary", _ => "secondary" };
                     <div class="d-flex align-items-center gap-2 mb-2"><span class="badge bg-@color">@message.Level</span><span class="text-muted inbox-notification-channel">@message.Application.Name</span></div>
                 }
-                <p class="text-muted mb-3 inbox-notification-preview">@(message == null ? "这是一条推送渠道测试消息。" : message.Content)</p>
+                <p class="text-muted mb-3 inbox-notification-preview">@(message == null ? notification.Delivery.TestContent ?? Aiursoft.AlertCenter.Entities.PushDelivery.DefaultTestContent : message.Content)</p>
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
                     <small class="text-muted inbox-notification-channel">@notification.Delivery.Channel.Name</small>
                     <div class="d-flex flex-wrap gap-2 flex-shrink-0">

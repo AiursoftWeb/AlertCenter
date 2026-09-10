@@ -249,12 +249,16 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
 
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Policy = AppPermissionNames.CanManagePush)]
-    public async Task<IActionResult> Test(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Test(Guid id, CancellationToken cancellationToken, [FromForm] string? content = null)
     {
+        content ??= PushDelivery.DefaultTestContent;
+        content = content.Trim();
+        if (content.Length == 0 || content.Length > 4000)
+            return BadRequest("测试消息内容不能为空，且不能超过 4000 个字符。");
         var channel = await db.PushChannels.FindAsync(id);
         if (channel == null) return NotFound();
         if (!channel.IsEnabled) return BadRequest("请先启用渠道。");
-        var delivery = new PushDelivery { ChannelId = id };
+        var delivery = new PushDelivery { ChannelId = id, TestContent = content };
         db.PushDeliveries.Add(delivery);
         await db.SaveChangesAsync(cancellationToken);
         await processor.ProcessAsync(delivery.Id, cancellationToken);
@@ -354,7 +358,9 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         {
             var keyword = filter.Keyword.ToLowerInvariant();
             query = query.Where(notification => notification.Delivery.Message == null
-                ? "渠道测试通知".Contains(keyword) || "这是一条推送渠道测试消息。".Contains(keyword)
+                ? "渠道测试通知".Contains(keyword) ||
+                  (notification.Delivery.TestContent != null && notification.Delivery.TestContent.ToLower().Contains(keyword)) ||
+                  (notification.Delivery.TestContent == null && PushDelivery.DefaultTestContent.Contains(keyword))
                 : notification.Delivery.Message.Title.ToLower().Contains(keyword) ||
                   (notification.Delivery.Message.Content != null && notification.Delivery.Message.Content.ToLower().Contains(keyword)));
         }

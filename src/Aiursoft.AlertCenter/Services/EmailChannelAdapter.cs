@@ -133,7 +133,7 @@ public class EmailChannelAdapter(IEmailSender sender) : INotificationChannelAdap
         var title = message?.Title ?? "渠道测试通知";
         var subject = $"[AlertCenter][{message?.Level ?? "sev3"}] {SanitizeSubject(title)}";
         var body = new StringBuilder()
-            .AppendLine(message == null ? "这是一条推送渠道测试邮件。" : "检测到一条新的告警。")
+            .AppendLine(message == null ? delivery.TestContent ?? PushDelivery.DefaultTestContent : "检测到一条新的告警。")
             .AppendLine()
             .AppendLine($"标题：{title}")
             .AppendLine($"级别：{message?.Level ?? "sev3"}")

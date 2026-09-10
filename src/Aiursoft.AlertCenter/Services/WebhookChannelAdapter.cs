@@ -171,7 +171,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
                 ["{{deliveryId}}"] = JsonValue.Create(delivery.Id.ToString()),
                 ["{{messageId}}"] = delivery.MessageId.HasValue ? JsonValue.Create(delivery.MessageId.Value.ToString()) : null,
                 ["{{title}}"] = JsonValue.Create(message?.Title ?? "渠道测试通知"),
-                ["{{content}}"] = message == null ? JsonValue.Create("这是一条推送渠道测试消息。") : JsonValue.Create(message.Content),
+                ["{{content}}"] = message == null ? JsonValue.Create(delivery.TestContent ?? PushDelivery.DefaultTestContent) : JsonValue.Create(message.Content),
                 ["{{level}}"] = JsonValue.Create(message?.Level ?? "sev3"),
                 ["{{occurredAtUtc}}"] = JsonValue.Create(message?.OccurredAtUtc ?? delivery.CreatedAtUtc),
                 ["{{context}}"] = context
