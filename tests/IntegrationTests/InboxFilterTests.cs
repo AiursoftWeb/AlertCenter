@@ -204,7 +204,13 @@ public partial class AlertDemoTests
         var query = $"keyword=needle&readStatus=all&applicationId={first.Delivery.Message!.ApplicationId}" +
             $"&channelId={first.Delivery.ChannelId}&level=sev1&fromDate=2026-09-08&toDate=2026-09-08";
         var html = await Http.GetStringAsync("/Push/Inbox?" + query);
+        Assert.Contains("id=\"inbox-page-jump\"", html);
         Assert.AreEqual(20, InboxMessageIds(html).Length);
+        var pageJump = WebUtility.HtmlDecode(Regex.Match(html, "<form id=\"inbox-page-jump-form\"[^>]*action=\"([^\"]+)\"").Groups[1].Value);
+        Assert.IsFalse(string.IsNullOrEmpty(pageJump));
+        var pageJumpParameters = QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, pageJump).Query);
+        foreach (var parameter in QueryHelpers.ParseQuery("?" + query)) Assert.AreEqual(parameter.Value.ToString(), pageJumpParameters[parameter.Key].ToString());
+        Assert.IsFalse(pageJumpParameters.ContainsKey("page"));
         var next = WebUtility.HtmlDecode(Regex.Match(html, "href=\"([^\"]+)\"[^>]*>下一页</a>").Groups[1].Value);
         Assert.IsFalse(string.IsNullOrEmpty(next));
         var nextQuery = QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, next).Query);

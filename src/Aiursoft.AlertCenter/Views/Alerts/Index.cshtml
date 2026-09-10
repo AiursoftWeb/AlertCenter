@@ -64,8 +64,13 @@
     {
         <div class="card-body border-top d-flex flex-wrap justify-content-between align-items-center gap-3">
             <small class="text-muted">第 @Model.Page 页 · 本页 @Model.Messages.Count 条</small>
-            <nav aria-label="消息分页" class="d-flex gap-2">
+            <nav aria-label="消息分页" class="d-flex flex-wrap align-items-center gap-2">
                 @if (Model.Page > 1) { <a asp-action="Index" asp-all-route-data="filter.ToRouteValues(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a> }
+                <form id="alert-page-jump-form" asp-action="Index" asp-all-route-data="filter.ToRouteValues(1)" method="get" class="d-flex align-items-center gap-1">
+                    <label for="alert-page-jump" class="visually-hidden">跳转到页码</label><span class="small text-muted">跳至</span>
+                    <input id="alert-page-jump" name="page" type="number" value="@Model.Page" min="1" max="1000000" step="1" class="form-control form-control-sm" style="width: 5rem" required />
+                    <span class="small text-muted">页</span><button type="submit" class="btn btn-sm btn-outline-secondary">跳转</button>
+                </form>
                 @if (Model.HasNextPage) { <a asp-action="Index" asp-all-route-data="filter.ToRouteValues(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a> }
             </nav>
         </div>
