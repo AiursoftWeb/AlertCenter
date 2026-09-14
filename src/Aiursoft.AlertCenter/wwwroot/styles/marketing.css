@@ -175,3 +175,97 @@
     line-height: 1.2;
     margin-top: 4px;
 }
+
+.legacy-home-template {
+    display: none;
+}
+
+.alert-center-preview {
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.alert-center-preview .card-header {
+    background: rgba(13, 110, 253, 0.05);
+}
+
+.alert-center-status-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: #198754;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.15);
+}
+
+.alert-center-message {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+}
+
+.alert-center-message:last-child {
+    margin-bottom: 0;
+}
+
+.alert-center-message-icon {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: 0 0 2.25rem;
+    border-radius: 0.65rem;
+}
+
+.alert-center-message strong {
+    font-size: 0.9rem;
+}
+
+.alert-center-message span,
+.alert-center-message p {
+    color: #6c757d;
+    font-size: 0.75rem;
+}
+
+.alert-center-message-critical {
+    background: rgba(220, 53, 69, 0.06);
+    border-color: rgba(220, 53, 69, 0.16);
+}
+
+.alert-center-message-critical .alert-center-message-icon {
+    color: #dc3545;
+    background: rgba(220, 53, 69, 0.12);
+}
+
+.alert-center-message-warning {
+    background: rgba(255, 193, 7, 0.08);
+    border-color: rgba(255, 193, 7, 0.2);
+}
+
+.alert-center-message-warning .alert-center-message-icon {
+    color: #a87300;
+    background: rgba(255, 193, 7, 0.16);
+}
+
+.alert-center-message-info {
+    background: rgba(13, 110, 253, 0.05);
+    border-color: rgba(13, 110, 253, 0.14);
+}
+
+.alert-center-message-info .alert-center-message-icon {
+    color: #0d6efd;
+    background: rgba(13, 110, 253, 0.12);
+}
+
+.alert-center-bar {
+    height: 0.5rem;
+    border-radius: 999px;
+}
+
+.alert-center-cta {
+    background-image: radial-gradient(circle at top, rgba(13, 110, 253, 0.28), transparent 45%);
+}

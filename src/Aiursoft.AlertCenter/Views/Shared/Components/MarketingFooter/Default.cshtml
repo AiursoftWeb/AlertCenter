@@ -7,9 +7,7 @@
                 <div class="mb-3">
                     <img src="@Model.LogoUrl" alt="logo" style="width: 24px; height: 24px;" loading="lazy" />
                 </div>
-                <p class="text-white-50">
-                    @Localizer["Aiursoft Template - A modern, feature-rich, and highly extensible foundation for your next web application."]
-                </p>
+                <p class="text-white-50">AlertCenter 是面向业务系统的集中告警与通知平台，帮助团队快速发现、分级处置并可靠投递生产环境异常。</p>
                 <div class="dropdown mt-3 mb-3">
                     @{
                         var currentCulture = ViewContext.HttpContext.Features
@@ -32,37 +30,23 @@
             <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
                 <h4 class="text-light fs-5">@Localizer["Resources"]</h4>
                 <ul class="list-unstyled ps-0 mb-0 mt-3">
-                    <li class="mt-2">
-                        <a href="https://template-docs.aiursoft.com/en/Tutorial/before.html" class="text-white-50">@Localizer["Get Started"]</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="https://template-docs.aiursoft.com/" class="text-white-50">@Localizer["Documentation"]</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="https://github.com/aiursoftweb/template/discussions" class="text-white-50">@Localizer["Community"]</a>
-                    </li>
+                    <li class="mt-2"><a asp-controller="Alerts" asp-action="GettingStarted" class="text-white-50">接入指南</a></li>
+                    <li class="mt-2"><a asp-controller="Alerts" asp-action="Applications" class="text-white-50">接入应用</a></li>
+                    <li class="mt-2"><a asp-controller="Push" asp-action="Inbox" class="text-white-50">站内通知</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
                 <h4 class="text-light fs-5">@Localizer["Project"]</h4>
                 <ul class="list-unstyled ps-0 mb-0 mt-3">
-                    <li class="mt-2">
-                        <a href="https://github.com/aiursoftweb/template" class="text-white-50">@Localizer["Source Code"]</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="https://github.com/aiursoftweb/template/issues" class="text-white-50">@Localizer["Report an Issue"]</a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="https://github.com/aiursoftweb/template/pulls" class="text-white-50">@Localizer["Contributions"]</a>
-                    </li>
+                    <li class="mt-2"><a href="https://github.com/aiursoftweb/alertCenter" class="text-white-50">@Localizer["Source Code"]</a></li>
+                    <li class="mt-2"><a href="https://github.com/aiursoftweb/alertCenter/issues" class="text-white-50">@Localizer["Report an Issue"]</a></li>
+                    <li class="mt-2"><a href="https://github.com/aiursoftweb/alertCenter/pulls" class="text-white-50">@Localizer["Contributions"]</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
                 <h4 class="text-light fs-5">@Localizer["Legal"]</h4>
                 <ul class="list-unstyled ps-0 mb-0 mt-3">
-                    <li class="mt-2">
-                        <a href="https://github.com/aiursoftweb/template/blob/main/LICENSE" class="text-white-50">@Localizer["Licence"]</a>
-                    </li>
+                    <li class="mt-2"><a href="https://github.com/aiursoftweb/alertCenter/blob/master/LICENSE" class="text-white-50">@Localizer["Licence"]</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">

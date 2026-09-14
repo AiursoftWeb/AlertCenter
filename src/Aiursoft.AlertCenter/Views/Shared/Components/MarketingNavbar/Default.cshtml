@@ -8,20 +8,20 @@
         </a>
         <ul class="navbar-nav ms-auto">
             <li class="nav-item d-none d-md-inline-block">
-                <a class="nav-link active text-lg px-lg-3" href="https://template-docs.aiursoft.com/">@Localizer["Documentation"]</a>
+                <a asp-controller="Alerts" asp-action="GettingStarted" class="nav-link active text-lg px-lg-3">接入指南</a>
             </li>
             <li class="nav-item d-none d-md-inline-block">
-                <a class="nav-link active text-lg px-lg-3" href="https://github.com/aiursoftweb/template">@Localizer["Source Code"]</a>
+                <a asp-controller="Alerts" asp-action="Applications" class="nav-link active text-lg px-lg-3">接入应用</a>
             </li>
             <li class="nav-item d-none d-md-inline-block">
-                <a class="nav-link active text-lg px-lg-3" href="https://github.com/aiursoftweb/template/discussions">@Localizer["Community"]</a>
+                <a asp-controller="Push" asp-action="Index" class="nav-link active text-lg px-lg-3">推送中心</a>
             </li>
         </ul>
         <a asp-controller="Dashboard" asp-action="Index" class="btn btn-lg btn-primary btn-pill my-2 my-sm-0 ms-3">
-            <i class="align-middle" data-lucide="rocket"></i> @Localizer["Try the dashboard"]
+            <i class="align-middle" data-lucide="layout-dashboard"></i> 进入控制台
         </a>
-        <a href="https://github.com/aiursoftweb/template" target="_blank" rel="noreferer" class="btn btn-lg btn-outline-light btn-pill my-2 my-sm-0 ms-3">
-            <i class="fa-brands fa-github me-1"></i> @Localizer["GitHub"]
+        <a href="https://github.com/aiursoftweb/alertCenter" target="_blank" rel="noreferrer" class="btn btn-lg btn-outline-light btn-pill my-2 my-sm-0 ms-3">
+            <i class="fa-brands fa-github me-1"></i> GitHub
         </a>
     </div>
 </nav>
