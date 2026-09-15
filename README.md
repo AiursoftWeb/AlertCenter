@@ -1,4 +1,4 @@
-# AlertCenter - A sample project
+# AlertCenter
 
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aiursoftweb/alertCenter/blob/master/LICENSE)
 [![Pipeline stat](https://gitlab.aiursoft.com/aiursoft/alertCenter/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/aiursoft/alertCenter/-/pipelines)
@@ -7,13 +7,60 @@
 [![Website](https://img.shields.io/website?url=https%3A%2F%2FalertCenter.aiursoft.com)](https://alertCenter.aiursoft.com)
 [![Docker](https://img.shields.io/docker/pulls/aiursoft/alertCenter.svg)](https://hub.docker.com/r/aiursoft/alertCenter)
 
-AlertCenter is a sample project.
+AlertCenter is a centralized alert-management and notification platform. Business systems report structured alerts through one HTTP API; AlertCenter stores them, routes them by severity, and delivers them through Webhook, email, or in-app notification channels.
 
 ![screenshot](./screenshot.png)
 
 Default user name is `admin@default.com` and default password is `Admin@123456!`.
 
-## Resetting an application API key
+## Try
+
+Try a running AlertCenter instance [here](https://alertCenter.aiursoft.com).
+
+## What is AlertCenter?
+
+AlertCenter provides:
+
+- Independent API keys for every reporting application.
+- Structured, idempotent alert reporting through a standard HTTP API.
+- Four severity levels (`sev1` through `sev4`) with independently configurable routing.
+- Webhook, SMTP email, and targeted in-app notification channels.
+- Message history, notification inboxes, and delivery records for tracking alert handling.
+- Self-hosted deployment with SQLite by default and MySQL support for production deployments.
+
+## Reporting alerts
+
+Create an application in **接入应用** and save the displayed API Key. It is shown only when created or reset. Send alerts to `POST /api/v1/messages` using that key as a bearer token:
+
+```bash
+curl -i 'https://alertcenter.example.com/api/v1/messages' \
+  -H 'Authorization: Bearer YOUR_API_KEY' \
+  -H 'Content-Type: application/json' \
+  --data '{
+    "reportId":"0c561d22-5b71-4a4f-9c13-c824e273a8aa",
+    "title":"Order payment timed out",
+    "content":"The downstream provider did not respond within 5 seconds.",
+    "level":"sev1",
+    "occurredAtUtc":"2026-09-14T14:28:13Z",
+    "context":{"orderId":"ORDER-1001","traceId":"demo-trace"}
+  }'
+```
+
+`reportId`, `title`, `level`, and `occurredAtUtc` are required. The title is limited to 200 characters, content to 4,000 characters, and the entire request body to 64 KB. Repeating the same `reportId` for an application is idempotent: the original message is retained and the response has `duplicate: true`. A successful new report returns `201 Created`; authentication failures return `401 Unauthorized`; invalid fields return `400 Bad Request`.
+
+## Notification channels
+
+### In-app notifications and inbox search
+
+In **推送中心 → 推送渠道**, an in-app channel can target multiple users and RBAC roles. Recipients are deduplicated when a notification is delivered, and every user manages their own read state. At least one user or role must be selected; a channel with no resolved recipients fails rather than notifying administrators implicitly. Updating recipients does not retract historical notifications. Existing in-app channels need a recipient scope after upgrading.
+
+All signed-in users can access their own inbox and notification details. Managing channels, recipients, application bindings, and delivery records requires the `CanManagePush` permission, which the Administrators role receives at startup.
+
+**站内通知** opens with unread notifications by default. Use **仅看未读 / 全部通知 / 仅看已读** to change scope, retaining other filters and returning to page one. Combine title/body keywords, read status, source application, severity, notification channel, and inclusive UTC receipt-date filters. Filtering happens before the 20-item pagination; application and channel options come from the signed-in user's notification history. Test notifications have no source application or severity.
+
+Pagination, refresh, and read actions preserve the selected filters. **我的全部通知标为已读** marks every unread notification for the current user, including notifications outside the current filters and page.
+
+### Resetting an application API key
 
 Administrators can select **接入应用 → 重置密钥** and confirm the reset. The old key becomes
 invalid immediately, with no grace period; update every reporting client to use the new key.
@@ -24,7 +71,7 @@ Resetting preserves the application ID, name, enabled/disabled state, historical
 channel bindings, delivery records, and inbox notifications. A disabled application remains unable
 to report until it is explicitly enabled. Resetting does not resend historical messages.
 
-## Severity-based notification channels
+### Severity-based notification channels
 
 In **接入应用 → 推送设置**, select channels independently for each severity:
 `sev1` (严重), `sev2` (错误), `sev3` (警告), and `sev4` (信息).
@@ -36,7 +83,7 @@ Changes apply only to new alerts, not historical messages or existing delivery t
 SQLite and MySQL migrations preserve existing bindings by enabling all four levels.
 No SDK changes are required: clients continue reporting the alert's `level`.
 
-## Email notification channels
+### Email notification channels
 
 Email channels use a global SMTP configuration and store only their recipient addresses. Each channel accepts up to 50 recipients, separated by newlines, commas, or semicolons. Messages are sent as UTF-8 plain text; the subject includes the alert severity and title. A channel test sends a test email to its configured recipients.
 
@@ -55,7 +102,7 @@ docker run \
 
 `Email__UserName` and `Email__Password` must either both be set or both be empty, for SMTP servers that permit unauthenticated relay. SMTP timeouts are 10 seconds. Delivery errors do not expose SMTP hostnames, account names, recipients, or server responses.
 
-## Webhook request format
+### Webhook request format
 
 Webhook channels send an HTTP `POST` with `Content-Type: application/json` and an `Idempotency-Key`
 header containing the delivery ID. A `2xx` response succeeds; requests time out after 10 seconds and
@@ -75,20 +122,6 @@ those headers must be entered and saved again. Without the key, Webhook channels
 and custom request-body templates, but cannot save custom request headers. Templates use complete-string placeholders
 such as `{{title}}` and `{{context}}`; the screen lists all available placeholders. Leaving the template empty retains
 the documented default payload.
-
-## Inbox search
-
-**站内通知** opens with unread notifications by default. Use the visible **仅看未读 / 全部通知 / 仅看已读**
-links above the search form to switch scope, retaining other filters and returning to page one.
-Combine title/body keyword search,
-read status (unread/read/all), source application, severity, notification channel, and inclusive
-UTC receipt-date filters. Filtering happens in the database before the 20-item pagination.
-Application and channel choices come from your own notification history; test notifications
-have no source application or severity. Search covers the full title/body, not only the preview.
-
-Pagination, refresh, and read actions preserve the filters; submitting a new search starts at page one.
-**我的全部通知标为已读** always marks all of your unread notifications, including those outside
-the current filters and page, without changing another user's read state.
 
 ## Projects using Aiursoft AlertCenter
 
@@ -116,13 +149,9 @@ the current filters and page, without changing another user's read state.
 * [MoongladeV2](https://github.com/aiursoftweb/moongladev2)
 * [DocsViewer](https://github.com/aiursoftweb/docsviewer)
 
-## Try
-
-Try a running AlertCenter [here](https://alertCenter.aiursoft.com).
-
 ## Run in Ubuntu
 
-The following script will install\update this app on your Ubuntu server. Supports Ubuntu 25.04.
+The following script will install or update this app on your Ubuntu server. Supports Ubuntu 25.04.
 
 On your Ubuntu server, run the following command:
 
@@ -130,7 +159,7 @@ On your Ubuntu server, run the following command:
 curl -sL https://github.com/aiursoftweb/alertCenter/raw/master/install.sh | sudo bash
 ```
 
-Of course it is suggested that append a custom port number to the command:
+You can append a custom port number to the command:
 
 ```bash
 curl -sL https://github.com/aiursoftweb/alertCenter/raw/master/install.sh | sudo bash -s 8080
@@ -157,8 +186,8 @@ Runtime data under `/var/lib/aiursoft-alertCenter/` is user data and intentional
 Requirements about how to run
 
 1. Install [.NET 10 SDK](http://dot.net/) and [Node.js](https://nodejs.org/).
-2. Execute `npm install` at `wwwroot` folder to install the dependencies.
-3. Execute `dotnet run` to run the app.
+2. Execute `npm install` at `src/Aiursoft.AlertCenter/wwwroot` to install the dependencies.
+3. Execute `dotnet run --project src/Aiursoft.AlertCenter/Aiursoft.AlertCenter.csproj` to run the app.
 4. Use your browser to view [http://localhost:5000](http://localhost:5000).
 
 ## Run in Microsoft Visual Studio
@@ -183,25 +212,27 @@ That will start a web server at `http://localhost:5000` and you can test the app
 
 The docker image has the following context:
 
-| Properties  | Value                           |
-|-------------|---------------------------------|
-| Image       | aiursoft/alertCenter               |
-| Ports       | 5000                            |
-| Binary path | /app                            |
-| Data path   | /data                           |
-| Config path | /data/appsettings.json          |
+| Properties  | Value                         |
+|-------------|-------------------------------|
+| Image       | aiursoft/alertCenter          |
+| Ports       | 5000                          |
+| Binary path | /app                          |
+| Data path   | /data                         |
+| Config path | /data/appsettings.json        |
 
 ## How to contribute
 
 There are many ways to contribute to the project: logging bugs, submitting pull requests, reporting issues, and creating suggestions.
 
-Even if you with push rights on the repository, you should create a personal fork and create feature branches there when you need them. This keeps the main repository clean and your workflow cruft out of sight.
+Even if you have push rights on the repository, you should create a personal fork and create feature branches there when you need them. This keeps the main repository clean and your workflow cruft out of sight.
 
 We're also interested in your feedback on the future of this project. You can submit a suggestion or feature request through the issue tracker. To make this process more effective, we're asking that these include more information to help define them more clearly.
 
 ## Configuration Guide
 
 The defaults run as a standalone application with SQLite, local accounts, local file storage, and no ClickHouse server. Change a setting only after preparing the dependency named in its comment.
+
+For SMTP and Webhook secret configuration, see [Email notification channels](#email-notification-channels) and [Webhook request format](#webhook-request-format). Configure secrets with protected environment variables rather than this file.
 
 The Docker image copies this file to `/data/appsettings.json` on its first start and keeps that copy on later starts. Mount `/data` as a persistent volume. To override a value without editing the file, use an environment variable with double underscores, such as `Storage__Path` or `AppSettings__OIDC__ClientSecret`.
 
@@ -341,14 +372,3 @@ The Docker image copies this file to `/data/appsettings.json` on its first start
   "AllowedHosts": "*"
 }
 ```
-
-### 站内通知接收范围
-
-在“推送中心 → 推送渠道”新建或编辑站内通知渠道，可同时选择多个接收用户和用户组（RBAC 角色）。
-按投递时的组成员合并去重，每位接收人独立管理已读状态。修改配置不会撤回历史通知。
-至少选择一个用户或用户组；没有实际接收人时投递失败，不会自动群发给管理员。
-已有站内渠道升级后需要配置接收范围。
-
-所有登录用户均可访问自己的站内通知及详情；管理渠道、接收范围、应用绑定和投递记录需要
-`CanManagePush` 权限，可通过角色分配，Administrators 在启动时自动获得该权限。
-SQLite 和 MySQL 均通过新增 migration 创建接收用户及接收组关联表。
