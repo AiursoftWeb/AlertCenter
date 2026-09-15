@@ -9,33 +9,37 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
-[Authorize(Roles = "Administrators")]
+[Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-public class IncidentsController(TemplateDbContext db) : Controller
+public class IncidentsController(TemplateDbContext db, IApplicationAccessService applicationAccess) : Controller
 {
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "事故处置", LinkOrder = 1)]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
+        var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
         var incidents = await db.Incidents.AsNoTracking().Include(incident => incident.Application)
+            .Where(incident => accessibleIds.Contains(incident.ApplicationId))
             .OrderBy(incident => incident.Status == Incident.Resolved)
-            .ThenByDescending(incident => incident.TriggeredAtUtc).ToListAsync();
+            .ThenByDescending(incident => incident.TriggeredAtUtc).ToListAsync(cancellationToken);
         return this.StackView(new IncidentsViewModel { Incidents = incidents });
     }
 
-    public async Task<IActionResult> Details(Guid id)
+    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
     {
         var incident = await db.Incidents.AsNoTracking().Include(item => item.Application)
-            .SingleOrDefaultAsync(item => item.Id == id);
+            .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (incident == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, cancellationToken: cancellationToken)) return Forbid();
         return this.StackView(new IncidentsViewModel
         {
             Incident = incident,
             TimelineEntries = await db.IncidentTimelineEntries.AsNoTracking().Include(entry => entry.Actor)
-                .Where(entry => entry.IncidentId == id).OrderByDescending(entry => entry.CreatedAtUtc).ToListAsync(),
+                .Where(entry => entry.IncidentId == id).OrderByDescending(entry => entry.CreatedAtUtc).ToListAsync(cancellationToken),
             Messages = await db.ReportedMessages.AsNoTracking().Where(message => message.IncidentId == id)
-                .OrderByDescending(message => message.ReceivedAtUtc).Take(50).ToListAsync()
+                .OrderByDescending(message => message.ReceivedAtUtc).Take(50).ToListAsync(cancellationToken),
+            CanManage = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, requireManage: true, cancellationToken)
         });
     }
 
@@ -45,6 +49,7 @@ public class IncidentsController(TemplateDbContext db) : Controller
         if (!ModelState.IsValid) return BadRequest("请填写有效的事故信息。");
         var message = await db.ReportedMessages.SingleOrDefaultAsync(item => item.Id == request.MessageId, cancellationToken);
         if (message == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, message.ApplicationId, requireManage: true, cancellationToken)) return Forbid();
         if (message.IncidentId.HasValue) return RedirectToAction(nameof(Details), new { id = message.IncidentId });
         var incident = new Incident
         {
@@ -65,6 +70,7 @@ public class IncidentsController(TemplateDbContext db) : Controller
     {
         var incident = await db.Incidents.SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
         if (incident == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, requireManage: true, cancellationToken)) return Forbid();
         if (incident.Status == Incident.Resolved) return BadRequest("已解决的事故不能确认处理。");
         if (incident.Status == Incident.Acknowledged) return RedirectToAction(nameof(Details), new { id = incident.Id });
         incident.Status = Incident.Acknowledged;
@@ -80,6 +86,7 @@ public class IncidentsController(TemplateDbContext db) : Controller
         if (!ModelState.IsValid || string.IsNullOrWhiteSpace(request.Note)) return BadRequest("处理进展不能为空。");
         var incident = await db.Incidents.SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
         if (incident == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, requireManage: true, cancellationToken)) return Forbid();
         if (incident.Status == Incident.Resolved) return BadRequest("已解决的事故不能添加处理进展。");
         db.IncidentTimelineEntries.Add(CreateTimelineEntry(incident, IncidentTimelineEntry.Updated, request.Note));
         await db.SaveChangesAsync(cancellationToken);
@@ -91,6 +98,7 @@ public class IncidentsController(TemplateDbContext db) : Controller
     {
         var incident = await db.Incidents.SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
         if (incident == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, requireManage: true, cancellationToken)) return Forbid();
         if (incident.Status == Incident.Resolved) return RedirectToAction(nameof(Details), new { id = incident.Id });
         incident.Status = Incident.Resolved;
         incident.ResolvedAtUtc = DateTime.UtcNow;

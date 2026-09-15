@@ -1,0 +1,14 @@
+@model Aiursoft.AlertCenter.Models.ApplicationAccessViewModel
+@{
+    var viewUsers = Model.UserAccesses.Where(access => !access.CanManage).Select(access => access.UserId).ToHashSet();
+    var manageUsers = Model.UserAccesses.Where(access => access.CanManage).Select(access => access.UserId).ToHashSet();
+    var viewRoles = Model.RoleAccesses.Where(access => !access.CanManage).Select(access => access.RoleId).ToHashSet();
+    var manageRoles = Model.RoleAccesses.Where(access => access.CanManage).Select(access => access.RoleId).ToHashSet();
+}
+<a asp-action="Applications" class="btn btn-outline-secondary mb-4"><i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回接入应用</a>
+<div class="mb-4"><h1 class="h3 mb-1">应用访问权限</h1><p class="text-muted mb-0">@Model.Application.Name · 授予用户或角色查看、管理该应用告警、事故、推送设置和投递记录的权限。</p></div>
+<div class="alert alert-info"><strong>Administrators</strong> 始终拥有全部应用的管理权限，无需在此单独授权。角色授权会自动继承给该角色的全部成员；直接用户授权与角色授权取权限更高者。</div>
+<form asp-action="SaveAccess" method="post"><input type="hidden" name="applicationId" value="@Model.Application.Id" />
+<div class="row g-4"><div class="col-lg-6"><section class="card h-100"><div class="card-header"><h2 class="card-title mb-0">用户授权</h2></div><div class="card-body pt-0"><label for="manage-users" class="form-label">可管理</label><select id="manage-users" name="manageUserIds" class="form-select" multiple size="8">@foreach (var user in Model.Users) { <option value="@user.Value" selected="@manageUsers.Contains(user.Value!)">@user.Text</option> }</select><p class="form-text">可查看，并可编辑应用设置、推送设置和 Incident。</p><label for="view-users" class="form-label mt-3">仅查看</label><select id="view-users" name="viewUserIds" class="form-select" multiple size="8">@foreach (var user in Model.Users) { <option value="@user.Value" selected="@viewUsers.Contains(user.Value!)">@user.Text</option> }</select><p class="form-text mb-0">可查看告警、Incident 和关联投递记录，不能修改。</p></div></section></div>
+<div class="col-lg-6"><section class="card h-100"><div class="card-header"><h2 class="card-title mb-0">角色授权</h2></div><div class="card-body pt-0"><label for="manage-roles" class="form-label">可管理</label><select id="manage-roles" name="manageRoleIds" class="form-select" multiple size="8">@foreach (var role in Model.Roles) { <option value="@role.Value" selected="@manageRoles.Contains(role.Value!)">@role.Text</option> }</select><p class="form-text">角色成员可查看并管理该应用。</p><label for="view-roles" class="form-label mt-3">仅查看</label><select id="view-roles" name="viewRoleIds" class="form-select" multiple size="8">@foreach (var role in Model.Roles) { <option value="@role.Value" selected="@viewRoles.Contains(role.Value!)">@role.Text</option> }</select><p class="form-text mb-0">角色成员只读访问该应用。</p></div></section></div></div>
+<div class="mt-4"><button class="btn btn-primary">保存权限</button></div></form>

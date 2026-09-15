@@ -22,6 +22,9 @@ public class PushViewModel : UiStackLayoutViewModel
     public List<SourceApplication> Applications { get; set; } = [];
     public Guid? ChannelId { get; set; }
     public string? Status { get; set; }
+    public Guid? ApplicationId { get; set; }
+    public bool IsAdministrator { get; set; }
+    public HashSet<Guid> ManageableApplicationIds { get; set; } = [];
 }
 
 public class ApplicationPushBindingsRequest

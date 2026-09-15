@@ -11,6 +11,7 @@ public class IncidentsViewModel : UiStackLayoutViewModel
     public Incident? Incident { get; set; }
     public List<IncidentTimelineEntry> TimelineEntries { get; set; } = [];
     public List<ReportedMessage> Messages { get; set; } = [];
+    public bool CanManage { get; set; }
 }
 
 public class TriggerIncidentRequest

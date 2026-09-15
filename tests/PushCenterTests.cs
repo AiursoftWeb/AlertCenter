@@ -50,13 +50,13 @@ public class PushCenterTests
         _http.Dispose();
     }
 
-    private PushController Controller(string userId = "admin-one") => new(_db, _adapters, _processor, _webhookConfigurationProtector)
+    private PushController Controller(string userId = "admin-one") => new(_db, _adapters, _processor, _webhookConfigurationProtector, new ApplicationAccessService(_db))
     {
         ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, userId)], "test"))
+                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, userId), new Claim(ClaimTypes.Role, "Administrators")], "test"))
             }
         }
     };
@@ -425,7 +425,16 @@ public class PushCenterTests
         await Report(application, Guid.NewGuid());
         var id = await _db.PushDeliveries.Select(delivery => delivery.Id).SingleAsync();
         await _processor.ProcessAsync(id, CancellationToken.None);
-        await new AlertsController(_db).DeleteApplication(application.Id, application.Name, CancellationToken.None);
+        await new AlertsController(_db, new ApplicationAccessService(_db))
+        {
+            ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext
+                {
+                    User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
+                }
+            }
+        }.DeleteApplication(application.Id, application.Name, CancellationToken.None);
         Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
         Assert.AreEqual(0, await _db.InAppNotifications.CountAsync());
         Assert.AreEqual(0, await _db.ApplicationPushChannels.CountAsync());

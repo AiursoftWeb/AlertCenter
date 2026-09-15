@@ -14,6 +14,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<ReportedMessage> ReportedMessages => Set<ReportedMessage>();
     public DbSet<Incident> Incidents => Set<Incident>();
     public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
+    public DbSet<ApplicationUserAccess> ApplicationUserAccesses => Set<ApplicationUserAccess>();
+    public DbSet<ApplicationRoleAccess> ApplicationRoleAccesses => Set<ApplicationRoleAccess>();
     public DbSet<PushChannel> PushChannels => Set<PushChannel>();
     public DbSet<ApplicationPushChannel> ApplicationPushChannels => Set<ApplicationPushChannel>();
     public DbSet<PushDelivery> PushDeliveries => Set<PushDelivery>();
@@ -53,6 +55,16 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<IncidentTimelineEntry>().HasOne(entry => entry.Actor).WithMany()
             .HasForeignKey(entry => entry.ActorId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<IncidentTimelineEntry>().HasIndex(entry => new { entry.IncidentId, entry.CreatedAtUtc });
+        builder.Entity<ApplicationUserAccess>().HasKey(access => new { access.ApplicationId, access.UserId });
+        builder.Entity<ApplicationUserAccess>().HasOne(access => access.Application).WithMany()
+            .HasForeignKey(access => access.ApplicationId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<ApplicationUserAccess>().HasOne(access => access.User).WithMany()
+            .HasForeignKey(access => access.UserId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<ApplicationRoleAccess>().HasKey(access => new { access.ApplicationId, access.RoleId });
+        builder.Entity<ApplicationRoleAccess>().HasOne(access => access.Application).WithMany()
+            .HasForeignKey(access => access.ApplicationId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<ApplicationRoleAccess>().HasOne(access => access.Role).WithMany()
+            .HasForeignKey(access => access.RoleId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<ApplicationPushChannel>().HasKey(link => new { link.ApplicationId, link.ChannelId });
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev1).HasDefaultValue(true);
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev2).HasDefaultValue(true);

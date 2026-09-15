@@ -52,6 +52,42 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.ToTable("ApplicationPushChannels");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationRoleAccess", b =>
+                {
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("CanManage")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ApplicationId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("ApplicationRoleAccesses");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationUserAccess", b =>
+                {
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("CanManage")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ApplicationId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ApplicationUserAccesses");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.GlobalSetting", b =>
                 {
                     b.Property<string>("Key")
@@ -606,6 +642,44 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Channel");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationRoleAccess", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationUserAccess", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.InAppNotification", b =>

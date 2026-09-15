@@ -13,7 +13,8 @@ namespace Aiursoft.AlertCenter.Controllers;
 [Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
 public class PushController(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters,
-    PushDeliveryProcessor processor, WebhookConfigurationProtector webhookConfigurationProtector) : Controller
+    PushDeliveryProcessor processor, WebhookConfigurationProtector webhookConfigurationProtector,
+    IApplicationAccessService applicationAccess) : Controller
 {
     private List<ChannelTypeDefinition> Types => adapters.Select(adapter => adapter.Definition).ToList();
 
@@ -194,17 +195,17 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [HttpGet]
-    [Authorize(Policy = AppPermissionNames.CanManagePush)]
-    public async Task<IActionResult> Bindings(Guid id)
+    public async Task<IActionResult> Bindings(Guid id, CancellationToken cancellationToken)
     {
-        var application = await db.SourceApplications.FindAsync(id);
+        var application = await db.SourceApplications.FindAsync([id], cancellationToken);
         if (application == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
         var bindings = await db.ApplicationPushChannels.AsNoTracking()
-            .Where(link => link.ApplicationId == id).ToListAsync();
+            .Where(link => link.ApplicationId == id).ToListAsync(cancellationToken);
         return this.StackView(new PushViewModel
         {
             Application = application, ChannelTypes = Types,
-            Channels = await db.PushChannels.AsNoTracking().OrderBy(channel => channel.Name).ToListAsync(),
+            Channels = await db.PushChannels.AsNoTracking().OrderBy(channel => channel.Name).ToListAsync(cancellationToken),
             Bindings = new ApplicationPushBindingsRequest
             {
                 Sev1ChannelIds = bindings.Where(link => link.ReceiveSev1).Select(link => link.ChannelId).ToArray(),
@@ -216,10 +217,10 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Policy = AppPermissionNames.CanManagePush)]
-    public async Task<IActionResult> SaveBindings(Guid id, ApplicationPushBindingsRequest bindings)
+    public async Task<IActionResult> SaveBindings(Guid id, ApplicationPushBindingsRequest bindings, CancellationToken cancellationToken = default)
     {
-        if (!await db.SourceApplications.AnyAsync(application => application.Id == id)) return NotFound();
+        if (!await db.SourceApplications.AnyAsync(application => application.Id == id, cancellationToken)) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
         if (!ModelState.IsValid) return BadRequest("渠道配置无效，请刷新页面后重试。");
         var sev1 = bindings.Sev1ChannelIds.ToHashSet();
         var sev2 = bindings.Sev2ChannelIds.ToHashSet();
@@ -243,7 +244,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             link.ReceiveSev3 = sev3.Contains(channelId);
             link.ReceiveSev4 = sev4.Contains(channelId);
         }
-        await db.SaveChangesAsync();
+        await db.SaveChangesAsync(cancellationToken);
         return RedirectToAction(nameof(Bindings), new { id });
     }
 
@@ -268,11 +269,13 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
         LinkText = "推送记录", LinkOrder = 1)]
-    [Authorize(Policy = AppPermissionNames.CanManagePush)]
-    public async Task<IActionResult> Records(int page = 1, Guid? channelId = null, string? status = null)
+    public async Task<IActionResult> Records(int page = 1, Guid? channelId = null, string? status = null,
+        CancellationToken cancellationToken = default)
     {
         page = Math.Clamp(page, 1, 1000000);
-        var query = db.PushDeliveries.AsNoTracking().AsQueryable();
+        var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
+        var query = db.PushDeliveries.AsNoTracking().Where(delivery => delivery.Message != null &&
+            accessibleIds.Contains(delivery.Message.ApplicationId));
         if (channelId.HasValue) query = query.Where(delivery => delivery.ChannelId == channelId);
         if (status is PushDelivery.Pending or PushDelivery.Sending or PushDelivery.Succeeded or PushDelivery.Failed)
             query = query.Where(delivery => delivery.Status == status);
@@ -288,20 +291,22 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         });
     }
 
-    [Authorize(Policy = AppPermissionNames.CanManagePush)]
-    public async Task<IActionResult> Delivery(Guid id)
+    public async Task<IActionResult> Delivery(Guid id, CancellationToken cancellationToken)
     {
         var delivery = await db.PushDeliveries.AsNoTracking().Include(item => item.Channel).Include(item => item.Message)!
-            .ThenInclude(message => message!.Application).SingleOrDefaultAsync(item => item.Id == id);
+            .ThenInclude(message => message!.Application).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return NotFound();
+        if (delivery.Message == null || !await applicationAccess.CanAccessAsync(User, delivery.Message.ApplicationId, cancellationToken: cancellationToken)) return Forbid();
         return this.StackView(new PushViewModel { Delivery = delivery, ChannelTypes = Types });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Policy = AppPermissionNames.CanManagePush)]
-    public async Task<IActionResult> Retry(Guid id)
+    public async Task<IActionResult> Retry(Guid id, CancellationToken cancellationToken = default)
     {
-        if (!await db.PushDeliveries.AnyAsync(delivery => delivery.Id == id)) return NotFound();
+        var applicationId = await db.PushDeliveries.Where(delivery => delivery.Id == id && delivery.MessageId != null)
+            .Select(delivery => delivery.Message!.ApplicationId).SingleOrDefaultAsync(cancellationToken);
+        if (applicationId == Guid.Empty) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, applicationId, requireManage: true, cancellationToken)) return Forbid();
         var updated = await db.PushDeliveries.Where(delivery => delivery.Id == id &&
                 delivery.Status == PushDelivery.Failed && delivery.Channel.IsEnabled)
             .ExecuteUpdateAsync(setters => setters.SetProperty(delivery => delivery.Status, PushDelivery.Pending)

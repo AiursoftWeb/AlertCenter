@@ -50,6 +50,10 @@ curl -i 'https://alertcenter.example.com/api/v1/messages' \
 
 `reportId`, `title`, `level`, and `occurredAtUtc` are required. The optional `incidentKey` is limited to 200 characters and should remain stable for every report of one fault. The title is limited to 200 characters, content to 4,000 characters, and the entire request body to 64 KB. Repeating the same `reportId` for an application is idempotent: the original message is retained and the response has `duplicate: true`. A successful new report returns `201 Created`; authentication failures return `401 Unauthorized`; invalid fields return `400 Bad Request`.
 
+## Application access control
+
+Administrators always have full access to every application. In **接入应用 → 访问权限**, an administrator can grant either users or roles **view** or **manage** access for a single application. Role grants are inherited by every role member; if a user has multiple grants, manage access takes precedence over view access. View access permits only that application’s alerts, incidents, and related delivery records. Manage access also permits application settings, API-key reset, enable/disable, push bindings, and Incident actions. Creating applications and editing application access grants remain administrator-only.
+
 ## Incident response and alert suppression
 
 Administrators can open an alert and **trigger an incident**, then record timeline updates, **acknowledge handling**, and resolve it. An acknowledged incident retains every matching report but automatically archives subsequent reports without creating new notification deliveries. Delivery tasks created before acknowledgement remain unchanged.

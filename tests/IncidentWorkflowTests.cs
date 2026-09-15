@@ -32,13 +32,13 @@ public class IncidentWorkflowTests
     [TestCleanup]
     public async Task Cleanup() => await _db.DisposeAsync();
 
-    private IncidentsController IncidentController() => new(_db)
+    private IncidentsController IncidentController() => new(_db, new ApplicationAccessService(_db))
     {
         ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, "admin")], "test"))
+                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, "admin"), new Claim(ClaimTypes.Role, "Administrators")], "test"))
             }
         }
     };

@@ -10,16 +10,16 @@
 <a asp-action="Index" class="btn btn-outline-secondary mb-4"><i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回事故列表</a>
 <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
     <div><div class="d-flex gap-2 align-items-center mb-1"><span class="badge bg-@statusColor">@statusText</span><span class="text-muted">@incident.Application.Name</span></div><h1 class="h3 mb-1 text-break">@incident.Title</h1><p class="text-muted mb-0 text-break">匹配：@(incident.IncidentKey == null ? $"应用 + 标题 + 级别（{incident.AlertTitle} · {incident.AlertLevel}）" : $"incidentKey: {incident.IncidentKey}")</p></div>
-    @if (incident.Status == Incident.Triggered)
+    @if (Model.CanManage && incident.Status == Incident.Triggered)
     {
         <form asp-action="Acknowledge" method="post" class="d-flex flex-wrap gap-2"><input type="hidden" name="incidentId" value="@incident.Id" /><input name="note" maxlength="4000" class="form-control" style="max-width: 22rem" placeholder="确认说明（可选）" /><button class="btn btn-warning"><i class="align-middle me-1" data-lucide="user-check" aria-hidden="true"></i>确认处理中</button></form>
     }
-    @if (isActive)
+    @if (Model.CanManage && isActive)
     {
         <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#resolve-incident"><i class="align-middle me-1" data-lucide="check-circle" aria-hidden="true"></i>解决事故</button>
     }
 </div>
-@if (isActive)
+@if (Model.CanManage && isActive)
 {
     <div class="card mb-4"><div class="card-header"><h2 class="card-title mb-0">记录处理进展</h2></div><div class="card-body pt-0"><form asp-action="AddNote" method="post" class="d-flex flex-column gap-2"><input type="hidden" name="incidentId" value="@incident.Id" /><textarea class="form-control" name="note" maxlength="4000" rows="3" required placeholder="记录排查、缓解或修复进展"></textarea><div><button class="btn btn-outline-primary">添加进展</button></div></form></div></div>
 }
@@ -32,7 +32,7 @@
     @if (Model.Messages.Count == 0) { <div class="list-group-item text-muted">暂无关联告警。</div> }
     @foreach (var message in Model.Messages) { <a asp-controller="Alerts" asp-action="Details" asp-route-id="@message.Id" class="list-group-item list-group-item-action"><span class="badge bg-@(message.Level == "sev1" ? "danger" : message.Level == "sev2" ? "warning" : message.Level == "sev3" ? "primary" : "secondary") me-1">@message.Level</span><span class="text-break">@message.Title</span><small class="d-block text-muted mt-1">@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC@(message.IsArchived ? " · 已归档" : "")</small></a> }
 </div></section></div></div>
-@if (isActive)
+@if (Model.CanManage && isActive)
 {
     <div class="modal fade" id="resolve-incident" tabindex="-1" aria-labelledby="resolve-incident-title" aria-hidden="true"><div class="modal-dialog"><form asp-action="Resolve" method="post" class="modal-content"><input type="hidden" name="incidentId" value="@incident.Id" /><div class="modal-header"><h2 class="modal-title h5" id="resolve-incident-title">解决事故</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button></div><div class="modal-body"><label for="resolve-note" class="form-label">解决说明（可选）</label><textarea id="resolve-note" name="note" maxlength="4000" rows="4" class="form-control" placeholder="例如：已发布修复并确认服务恢复。"></textarea></div><div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button><button class="btn btn-success">确认解决</button></div></form></div></div>
 }

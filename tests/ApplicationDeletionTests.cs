@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Aiursoft.AlertCenter.Controllers;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
@@ -43,7 +44,7 @@ public class ApplicationDeletionTests
         await _db.SaveChangesAsync();
         _db.ChangeTracker.Clear();
 
-        var controller = new AlertsController(_db);
+        var controller = AdminController();
         var result = await controller.DeleteApplication(application.Id, application.Name, CancellationToken.None);
 
         Assert.IsInstanceOfType<RedirectToActionResult>(result);
@@ -71,7 +72,7 @@ public class ApplicationDeletionTests
         _db.ReportedMessages.Add(Message(application.Id));
         await _db.SaveChangesAsync();
 
-        var result = await new AlertsController(_db).DeleteApplication(Guid.NewGuid(), application.Name, CancellationToken.None);
+        var result = await AdminController().DeleteApplication(Guid.NewGuid(), application.Name, CancellationToken.None);
 
         Assert.IsInstanceOfType<NotFoundResult>(result);
         Assert.AreEqual(1, await _db.SourceApplications.CountAsync());
@@ -94,7 +95,7 @@ public class ApplicationDeletionTests
         _db.ReportedMessages.Add(Message(application.Id));
         await _db.SaveChangesAsync();
 
-        var result = await new AlertsController(_db)
+        var result = await AdminController()
             .DeleteApplication(application.Id, confirmationName, CancellationToken.None);
 
         Assert.IsInstanceOfType<BadRequestObjectResult>(result);
@@ -116,11 +117,22 @@ public class ApplicationDeletionTests
             """);
 
         await Assert.ThrowsAsync<Microsoft.Data.Sqlite.SqliteException>(() =>
-            new AlertsController(_db).DeleteApplication(application.Id, application.Name, CancellationToken.None));
+            AdminController().DeleteApplication(application.Id, application.Name, CancellationToken.None));
 
         Assert.AreEqual(1, await _db.SourceApplications.CountAsync());
         Assert.AreEqual(1, await _db.ReportedMessages.CountAsync());
     }
+
+    private AlertsController AdminController() => new(_db, new ApplicationAccessService(_db))
+    {
+        ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext
+            {
+                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
+            }
+        }
+    };
 
     private static ReportedMessage Message(Guid applicationId) => new()
     {

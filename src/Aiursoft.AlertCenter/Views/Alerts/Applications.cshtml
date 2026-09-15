@@ -39,6 +39,8 @@
         </div>
     </section>
 }
+@if (Model.IsAdministrator)
+{
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="plus-circle" aria-hidden="true"></i>创建应用</h2></div>
     <div class="card-body pt-0">
@@ -52,6 +54,7 @@
         <div asp-validation-summary="All" class="text-danger mt-2"></div>
     </form>
 </div></div>
+}
 <div class="card">
     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
         <h2 class="card-title mb-0">已接入应用</h2><span class="badge bg-secondary">@Model.Applications.Count</span>
@@ -77,10 +80,14 @@
     {
         <tr><td class="ps-4 fw-semibold">@application.Name</td><td><code class="text-muted">@application.Id</code></td><td><span class="badge @(application.IsEnabled ? "bg-success" : "bg-secondary")">@(application.IsEnabled ? "已启用" : "已停用")</span></td><td class="text-end pe-4">
             <div class="d-flex justify-content-end gap-2">
-                <a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">推送设置</a>
-                <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@application.Id" /><input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary text-nowrap" type="submit">@(application.IsEnabled ? "停用" : "启用")</button></form>
-                <button type="button" class="btn btn-sm btn-outline-warning text-nowrap" data-bs-toggle="modal" data-bs-target="#reset-api-key" data-application-id="@application.Id" data-application-name="@application.Name">重置密钥</button>
-                <button type="button" class="btn btn-sm btn-outline-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#delete-application" data-application-id="@application.Id" data-application-name="@application.Name">删除</button>
+                @if (Model.ManageableApplicationIds.Contains(application.Id))
+                {
+                    <a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">推送设置</a>
+                    <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@application.Id" /><input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary text-nowrap" type="submit">@(application.IsEnabled ? "停用" : "启用")</button></form>
+                    <button type="button" class="btn btn-sm btn-outline-warning text-nowrap" data-bs-toggle="modal" data-bs-target="#reset-api-key" data-application-id="@application.Id" data-application-name="@application.Name">重置密钥</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#delete-application" data-application-id="@application.Id" data-application-name="@application.Name">删除</button>
+                }
+                @if (Model.IsAdministrator) { <a asp-action="Access" asp-route-id="@application.Id" class="btn btn-sm btn-outline-secondary text-nowrap">访问权限</a> }
             </div>
         </td></tr>
     }
