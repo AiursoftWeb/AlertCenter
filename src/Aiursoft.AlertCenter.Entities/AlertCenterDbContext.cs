@@ -12,6 +12,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<SourceApplication> SourceApplications => Set<SourceApplication>();
     public DbSet<ReportedMessage> ReportedMessages => Set<ReportedMessage>();
+    public DbSet<Incident> Incidents => Set<Incident>();
+    public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
     public DbSet<PushChannel> PushChannels => Set<PushChannel>();
     public DbSet<ApplicationPushChannel> ApplicationPushChannels => Set<ApplicationPushChannel>();
     public DbSet<PushDelivery> PushDeliveries => Set<PushDelivery>();
@@ -40,6 +42,17 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<ReportedMessage>().HasIndex(m => m.ReceivedAtUtc);
         builder.Entity<ReportedMessage>().HasOne(m => m.Application).WithMany()
             .HasForeignKey(m => m.ApplicationId).OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<ReportedMessage>().HasOne(m => m.Incident).WithMany(incident => incident.Messages)
+            .HasForeignKey(m => m.IncidentId).OnDelete(DeleteBehavior.SetNull);
+        builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.IncidentKey });
+        builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.AlertTitle, incident.AlertLevel, incident.Status });
+        builder.Entity<Incident>().HasOne(incident => incident.Application).WithMany()
+            .HasForeignKey(incident => incident.ApplicationId).OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<IncidentTimelineEntry>().HasOne(entry => entry.Incident).WithMany(incident => incident.TimelineEntries)
+            .HasForeignKey(entry => entry.IncidentId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<IncidentTimelineEntry>().HasOne(entry => entry.Actor).WithMany()
+            .HasForeignKey(entry => entry.ActorId).OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<IncidentTimelineEntry>().HasIndex(entry => new { entry.IncidentId, entry.CreatedAtUtc });
         builder.Entity<ApplicationPushChannel>().HasKey(link => new { link.ApplicationId, link.ChannelId });
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev1).HasDefaultValue(true);
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev2).HasDefaultValue(true);

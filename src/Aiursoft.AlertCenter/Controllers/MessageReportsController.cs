@@ -38,8 +38,8 @@ public class MessageReportsController(TemplateDbContext db, IAlertDispatcher dis
         var message = new ReportedMessage
         {
             ApplicationId = applicationId, ReportId = request.ReportId, Title = request.Title,
-            Content = request.Content, Level = request.Level, OccurredAtUtc = request.OccurredAtUtc.UtcDateTime,
-            ContextJson = request.Context?.ToString(Formatting.None)
+            Content = request.Content, Level = request.Level, IncidentKey = string.IsNullOrWhiteSpace(request.IncidentKey) ? null : request.IncidentKey.Trim(),
+            OccurredAtUtc = request.OccurredAtUtc.UtcDateTime, ContextJson = request.Context?.ToString(Formatting.None)
         };
         db.ReportedMessages.Add(message);
         await dispatcher.DispatchAsync(message, cancellationToken);
@@ -64,6 +64,7 @@ public class MessageReportsController(TemplateDbContext db, IAlertDispatcher dis
 
     private static object Receipt(ReportedMessage message, bool duplicate) => new
     {
-        id = message.Id, reportId = message.ReportId, receivedAtUtc = message.ReceivedAtUtc, duplicate
+        id = message.Id, reportId = message.ReportId, receivedAtUtc = message.ReceivedAtUtc,
+        incidentId = message.IncidentId, archived = message.IsArchived, duplicate
     };
 }

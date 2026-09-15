@@ -33,7 +33,7 @@ public class AlertsController(TemplateDbContext db) : Controller
         };
         if (!ModelState.IsValid) return this.StackView(model);
         var query = FilterMessages(db.ReportedMessages.AsNoTracking(), filter);
-        var messages = await query.Include(message => message.Application)
+        var messages = await query.Include(message => message.Application).Include(message => message.Incident)
             .OrderByDescending(message => message.ReceivedAtUtc).ThenByDescending(message => message.Id)
             .Skip((filter.Page - 1) * 20).Take(21).ToListAsync();
         model.Messages = messages.Take(20).ToList();
@@ -135,6 +135,8 @@ public class AlertsController(TemplateDbContext db) : Controller
             return BadRequest("请输入完全一致的应用名称以确认删除。");
         }
         // 在同一事务中批量删除历史消息和应用，避免部分删除或逐条加载消息。
+        await db.Incidents.Where(incident => incident.ApplicationId == id)
+            .ExecuteDeleteAsync(cancellationToken);
         await db.ReportedMessages.Where(message => message.ApplicationId == id)
             .ExecuteDeleteAsync(cancellationToken);
         var deleted = await db.SourceApplications.Where(application => application.Id == id)
@@ -145,7 +147,7 @@ public class AlertsController(TemplateDbContext db) : Controller
 
     public async Task<IActionResult> Details(Guid id)
     {
-        var message = await db.ReportedMessages.AsNoTracking().Include(m => m.Application)
+        var message = await db.ReportedMessages.AsNoTracking().Include(m => m.Application).Include(m => m.Incident)
             .SingleOrDefaultAsync(m => m.Id == id);
         if (message == null) return NotFound();
         return this.StackView(new AlertsViewModel { Message = message });

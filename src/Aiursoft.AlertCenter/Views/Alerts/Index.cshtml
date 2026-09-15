@@ -53,6 +53,7 @@
                         <td class="ps-4"><span class="badge bg-@color">@message.Level</span></td>
                         <td class="text-break"><a asp-action="Details" asp-route-id="@message.Id" class="fw-semibold text-decoration-none">@message.Title</a></td>
                         <td>@message.Application.Name</td>
+                        <td>@if (message.Incident == null) { <span class="text-muted">未关联</span> } else if (message.IsArchived) { <span class="badge bg-secondary">已归档</span> } else { <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="badge text-bg-@(message.Incident.Status == "resolved" ? "success" : message.Incident.Status == "acknowledged" ? "warning" : "danger") text-decoration-none">@(message.Incident.Status == "resolved" ? "已解决" : message.Incident.Status == "acknowledged" ? "处理中" : "已触发")</a> }</td>
                         <td class="text-muted text-nowrap pe-4">@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</td>
                     </tr>
                 }

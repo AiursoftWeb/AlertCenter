@@ -20,7 +20,7 @@
         <pre class="border rounded p-3 mb-0"><code>curl -i '@endpoint' \
   -H 'Authorization: Bearer YOUR_API_KEY' \
   -H 'Content-Type: application/json' \
-  --data '{"reportId":"@Guid.NewGuid()","title":"订单支付超时","content":"下游渠道未在 5 秒内响应","level":"sev1","occurredAtUtc":"@DateTime.UtcNow.ToString("O")","context":{"orderId":"ORDER-1001","traceId":"demo-trace"}}'</code></pre>
+  --data '{"reportId":"@Guid.NewGuid()","incidentKey":"payment-timeout","title":"订单支付超时","content":"下游渠道未在 5 秒内响应","level":"sev1","occurredAtUtc":"@DateTime.UtcNow.ToString("O")","context":{"orderId":"ORDER-1001","traceId":"demo-trace"}}'</code></pre>
     </div>
 </div>
 <div class="card mb-4">
@@ -33,6 +33,7 @@
                 <tr><td class="ps-4"><code>title</code></td><td>是</td><td>告警标题，最多 200 个字符。</td></tr>
                 <tr><td class="ps-4"><code>content</code></td><td>否</td><td>告警正文，最多 4,000 个字符。</td></tr>
                 <tr><td class="ps-4"><code>level</code></td><td>是</td><td><code>sev1</code>（严重）、<code>sev2</code>（错误）、<code>sev3</code>（警告）或 <code>sev4</code>（信息）。</td></tr>
+                <tr><td class="ps-4"><code>incidentKey</code></td><td>否</td><td>同一故障使用稳定且一致的值（最多 200 字符）。事故确认处理后，带有相同值的新告警会自动归档且不发送通知；未提供时按应用、标题和级别匹配。</td></tr>
                 <tr><td class="ps-4"><code>occurredAtUtc</code></td><td>是</td><td>告警发生时间，使用 ISO 8601 UTC 时间，例如 <code>2026-09-09T18:27:10Z</code>。</td></tr>
                 <tr><td class="ps-4"><code>context</code></td><td>否</td><td>JSON 对象，可附加订单号、追踪 ID 等上下文信息。</td></tr>
             </tbody>

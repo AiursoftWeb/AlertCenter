@@ -25,6 +25,7 @@ AlertCenter provides:
 - Structured, idempotent alert reporting through a standard HTTP API.
 - Four severity levels (`sev1` through `sev4`) with independently configurable routing.
 - Webhook, SMTP email, and targeted in-app notification channels.
+- Incident workflow with trigger, acknowledgement, resolution, and a timestamped handling timeline.
 - Message history, notification inboxes, and delivery records for tracking alert handling.
 - Self-hosted deployment with SQLite by default and MySQL support for production deployments.
 
@@ -38,6 +39,7 @@ curl -i 'https://alertcenter.example.com/api/v1/messages' \
   -H 'Content-Type: application/json' \
   --data '{
     "reportId":"0c561d22-5b71-4a4f-9c13-c824e273a8aa",
+    "incidentKey":"payment-provider-timeout",
     "title":"Order payment timed out",
     "content":"The downstream provider did not respond within 5 seconds.",
     "level":"sev1",
@@ -46,7 +48,13 @@ curl -i 'https://alertcenter.example.com/api/v1/messages' \
   }'
 ```
 
-`reportId`, `title`, `level`, and `occurredAtUtc` are required. The title is limited to 200 characters, content to 4,000 characters, and the entire request body to 64 KB. Repeating the same `reportId` for an application is idempotent: the original message is retained and the response has `duplicate: true`. A successful new report returns `201 Created`; authentication failures return `401 Unauthorized`; invalid fields return `400 Bad Request`.
+`reportId`, `title`, `level`, and `occurredAtUtc` are required. The optional `incidentKey` is limited to 200 characters and should remain stable for every report of one fault. The title is limited to 200 characters, content to 4,000 characters, and the entire request body to 64 KB. Repeating the same `reportId` for an application is idempotent: the original message is retained and the response has `duplicate: true`. A successful new report returns `201 Created`; authentication failures return `401 Unauthorized`; invalid fields return `400 Bad Request`.
+
+## Incident response and alert suppression
+
+Administrators can open an alert and **trigger an incident**, then record timeline updates, **acknowledge handling**, and resolve it. An acknowledged incident retains every matching report but automatically archives subsequent reports without creating new notification deliveries. Delivery tasks created before acknowledgement remain unchanged.
+
+Reports match an active incident by the same application and `incidentKey`. If no key is supplied, matching falls back to application, alert title, and severity. A resolved incident no longer matches new reports, so notifications resume normally. The incident page records the actor, action, optional note, and UTC time for triggering, acknowledgement, updates, and resolution.
 
 ## Notification channels
 

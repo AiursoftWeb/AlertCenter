@@ -4,7 +4,10 @@
     var message = Model.Message!;
     var color = message.Level switch { "sev1" => "danger", "sev2" => "warning", "sev3" => "primary", _ => "secondary" };
 }
-<a asp-action="Index" class="btn btn-outline-secondary mb-4"><i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回消息列表</a>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"><a asp-action="Index" class="btn btn-outline-secondary"><i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回消息列表</a>
+    @if (message.Incident != null) { <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="btn btn-outline-primary">查看关联事故</a> }
+    else { <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#trigger-incident"><i class="align-middle me-1" data-lucide="siren" aria-hidden="true"></i>触发事故</button> }
+</div>
 <div class="d-flex align-items-start gap-3 mb-4">
     <span class="badge bg-@color mt-1">@message.Level</span>
     <div class="text-break"><h1 class="h3 mb-1">@message.Title</h1><p class="text-muted mb-0">@message.Application.Name</p></div>
@@ -31,9 +34,15 @@
                     <dt class="text-muted fw-normal mb-1">来源应用</dt><dd class="mb-3">@message.Application.Name</dd>
                     <dt class="text-muted fw-normal mb-1">发生时间 (UTC)</dt><dd class="mb-3">@message.OccurredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
                     <dt class="text-muted fw-normal mb-1">接收时间 (UTC)</dt><dd class="mb-3">@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                    <dt class="text-muted fw-normal mb-1">归档状态</dt><dd class="mb-3">@(message.IsArchived ? "已自动归档（事故处理中）" : "正常")</dd>
+                    @if (message.IncidentKey != null) { <dt class="text-muted fw-normal mb-1">Incident Key</dt><dd class="mb-3 text-break"><code>@message.IncidentKey</code></dd> }
                     <dt class="text-muted fw-normal mb-1">Report ID</dt><dd class="mb-0 text-break"><code>@message.ReportId</code></dd>
                 </dl>
             </div>
         </section>
     </div>
 </div>
+@if (message.Incident == null)
+{
+    <div class="modal fade" id="trigger-incident" tabindex="-1" aria-labelledby="trigger-incident-title" aria-hidden="true"><div class="modal-dialog"><form asp-controller="Incidents" asp-action="Trigger" method="post" class="modal-content"><input type="hidden" name="messageId" value="@message.Id" /><div class="modal-header"><h2 class="modal-title h5" id="trigger-incident-title">触发事故</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button></div><div class="modal-body"><div class="mb-3"><label for="incident-title" class="form-label">事故标题</label><input id="incident-title" class="form-control" name="title" maxlength="200" value="@message.Title" required /></div><div><label for="incident-note" class="form-label">触发说明（可选）</label><textarea id="incident-note" class="form-control" name="note" rows="3" maxlength="4000"></textarea></div><p class="form-text mb-0 mt-2">@(message.IncidentKey == null ? "后续同一应用、标题和级别的告警会关联此事故。" : "后续携带相同 incidentKey 的告警会关联此事故。")</p></div><div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button><button class="btn btn-danger">触发事故</button></div></form></div></div>
+}

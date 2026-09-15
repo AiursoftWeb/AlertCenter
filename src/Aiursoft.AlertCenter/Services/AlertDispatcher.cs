@@ -22,10 +22,20 @@ public interface IAlertDispatcher
     Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default);
 }
 
-public class QueuedAlertDispatcher(TemplateDbContext db) : IAlertDispatcher
+public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incidentMatcher) : IAlertDispatcher
 {
     public async Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default)
     {
+        var incident = await incidentMatcher.FindActiveIncidentAsync(message, cancellationToken);
+        if (incident != null)
+        {
+            message.IncidentId = incident.Id;
+            if (incident.Status == Incident.Acknowledged)
+            {
+                message.IsArchived = true;
+                return;
+            }
+        }
         var channelIds = await db.ApplicationPushChannels.AsNoTracking()
             .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled &&
                 ((message.Level == "sev1" && link.ReceiveSev1) ||

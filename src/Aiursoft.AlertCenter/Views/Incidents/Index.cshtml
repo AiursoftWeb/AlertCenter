@@ -1,0 +1,27 @@
+@model Aiursoft.AlertCenter.Models.IncidentsViewModel
+@using Aiursoft.AlertCenter.Entities
+@{
+    var active = Model.Incidents.Count(incident => incident.Status != Incident.Resolved);
+    string StatusText(string status) => status switch { Incident.Triggered => "已触发", Incident.Acknowledged => "处理中", _ => "已解决" };
+    string StatusColor(string status) => status switch { Incident.Triggered => "danger", Incident.Acknowledged => "warning", _ => "success" };
+}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div><h1 class="h3 mb-1">事故处置</h1><p class="text-muted mb-0">跟踪触发、确认、处理进展和解决过程；确认处理后匹配的新告警会自动归档且不再通知。</p></div>
+    <span class="badge bg-@(active == 0 ? "success" : "danger")">@(active == 0 ? "无进行中事故" : $"{active} 个进行中")</span>
+</div>
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0">事故列表</h2></div>
+    @if (Model.Incidents.Count == 0)
+    {
+        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="shield-check" aria-hidden="true"></i></div><h2 class="h4">尚无事故</h2><p class="text-muted mb-0">在告警详情中触发事故，开始记录处置过程。</p></div>
+    }
+    else
+    {
+        <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th class="ps-4">状态</th><th>事故</th><th>来源应用</th><th>匹配规则</th><th class="pe-4 text-nowrap">触发时间 (UTC)</th></tr></thead><tbody>
+        @foreach (var incident in Model.Incidents)
+        {
+            <tr><td class="ps-4"><span class="badge bg-@StatusColor(incident.Status)">@StatusText(incident.Status)</span></td><td class="text-break"><a asp-action="Details" asp-route-id="@incident.Id" class="fw-semibold text-decoration-none">@incident.Title</a><small class="d-block text-muted text-break">@incident.AlertTitle · @incident.AlertLevel</small></td><td>@incident.Application.Name</td><td class="text-break">@(incident.IncidentKey == null ? "应用 + 标题 + 级别" : $"incidentKey: {incident.IncidentKey}")</td><td class="pe-4 text-muted text-nowrap">@incident.TriggeredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</td></tr>
+        }
+        </tbody></table></div>
+    }
+</div>

@@ -94,6 +94,92 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.ToTable("InAppNotifications");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.Incident", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("AcknowledgedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AlertLevel")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AlertTitle")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IncidentKey")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ResolvedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("TriggeredAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId", "IncidentKey");
+
+                    b.HasIndex("ApplicationId", "AlertTitle", "AlertLevel", "Status");
+
+                    b.ToTable("Incidents");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ActorId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("IncidentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActorId");
+
+                    b.HasIndex("IncidentId", "CreatedAtUtc");
+
+                    b.ToTable("IncidentTimelineEntries");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -230,6 +316,16 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<string>("ContextJson")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("IncidentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IncidentKey")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Level")
                         .IsRequired()
                         .HasMaxLength(4)
@@ -250,6 +346,8 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IncidentId");
 
                     b.HasIndex("ReceivedAtUtc");
 
@@ -529,6 +627,36 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.Incident", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "Actor")
+                        .WithMany()
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
+                        .WithMany("TimelineEntries")
+                        .HasForeignKey("IncidentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Actor");
+
+                    b.Navigation("Incident");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelRole", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.PushChannel", "Channel")
@@ -593,7 +721,14 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
+                        .WithMany("Messages")
+                        .HasForeignKey("IncidentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("Application");
+
+                    b.Navigation("Incident");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -645,6 +780,13 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.Incident", b =>
+                {
+                    b.Navigation("Messages");
+
+                    b.Navigation("TimelineEntries");
                 });
 #pragma warning restore 612, 618
         }
