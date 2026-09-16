@@ -7,9 +7,11 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 public class IncidentSearchTests : TestBase
 {
     [TestMethod]
-    public async Task SearchMatchesIncidentAndApplicationFields()
+    public async Task SearchFiltersByIncidentAndApplicationFields()
     {
         await LoginAsAdmin();
+        Guid ordersId;
+        Guid billingId;
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -19,23 +21,33 @@ public class IncidentSearchTests : TestBase
                 new Incident
                 {
                     Application = orders, Title = "Payment outage", IncidentKey = "payments-2026",
-                    AlertTitle = "Provider unavailable", AlertLevel = "sev1"
+                    AlertTitle = "Provider unavailable", AlertLevel = "sev1", Status = Incident.Triggered,
+                    TriggeredAtUtc = new DateTime(2026, 9, 10, 12, 0, 0, DateTimeKind.Utc)
                 },
                 new Incident
                 {
-                    Application = billing, Title = "Invoice delay", AlertTitle = "Queue backlog", AlertLevel = "sev3"
+                    Application = billing, Title = "Invoice delay", AlertTitle = "Queue backlog", AlertLevel = "sev3",
+                    Status = Incident.Resolved, TriggeredAtUtc = new DateTime(2026, 9, 12, 12, 0, 0, DateTimeKind.Utc)
                 });
             await db.SaveChangesAsync();
+            ordersId = orders.Id;
+            billingId = billing.Id;
         }
 
-        foreach (var keyword in new[] { "payment outage", "provider unavailable", "orders", "payments-2026" })
+        foreach (var query in new[]
+                 {
+                     "keyword=payment%20outage", "keyword=provider%20unavailable", "keyword=orders", "keyword=payments-2026",
+                     "applicationId=" + ordersId, "status=triggered", "level=sev1", "fromDate=2026-09-10&toDate=2026-09-10"
+                 })
         {
-            var html = await Http.GetStringAsync("/Incidents/Index?keyword=" + Uri.EscapeDataString(keyword));
+            var html = await Http.GetStringAsync("/Incidents/Index?" + query);
             Assert.Contains("Payment outage", html);
             Assert.DoesNotContain("Invoice delay", html);
-            Assert.Contains("value=\"" + keyword + "\"", html);
         }
 
+        var resolved = await Http.GetStringAsync("/Incidents/Index?applicationId=" + billingId + "&status=resolved&level=sev3");
+        Assert.Contains("Invoice delay", resolved);
+        Assert.DoesNotContain("Payment outage", resolved);
         var noMatch = await Http.GetStringAsync("/Incidents/Index?keyword=missing");
         Assert.Contains("name=\"keyword\" value=\"missing\"", noMatch);
         Assert.DoesNotContain("Payment outage", noMatch);

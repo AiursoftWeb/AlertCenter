@@ -16,25 +16,52 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "事故处置", LinkOrder = 1)]
-    public async Task<IActionResult> Index(string? keyword, CancellationToken cancellationToken)
+    public async Task<IActionResult> Index([FromQuery] IncidentFilter filter, CancellationToken cancellationToken)
     {
-        keyword = string.IsNullOrWhiteSpace(keyword) ? null : keyword.Trim();
+        filter.Normalize();
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
-        var incidents = db.Incidents.AsNoTracking().Include(incident => incident.Application)
+        var accessibleIncidents = db.Incidents.AsNoTracking().Include(incident => incident.Application)
             .Where(incident => accessibleIds.Contains(incident.ApplicationId));
-        if (keyword != null)
+        var model = new IncidentsViewModel
         {
-            var normalizedKeyword = keyword.ToLowerInvariant();
-            incidents = incidents.Where(incident => incident.Title.ToLower().Contains(normalizedKeyword) ||
-                incident.AlertTitle.ToLower().Contains(normalizedKeyword) || incident.Application.Name.ToLower().Contains(normalizedKeyword) ||
-                (incident.IncidentKey != null && incident.IncidentKey.ToLower().Contains(normalizedKeyword)));
+            Filter = filter,
+            ActiveCount = await accessibleIncidents.CountAsync(incident => incident.Status != Incident.Resolved, cancellationToken),
+            Applications = await db.SourceApplications.AsNoTracking().Where(application => accessibleIds.Contains(application.Id))
+                .OrderBy(application => application.Name).ToListAsync(cancellationToken)
+        };
+        if (!ModelState.IsValid) return this.StackView(model);
+        model.Incidents = await FilterIncidents(accessibleIncidents, filter)
+            .OrderBy(incident => incident.Status == Incident.Resolved).ThenByDescending(incident => incident.TriggeredAtUtc)
+            .ToListAsync(cancellationToken);
+        return this.StackView(model);
+    }
+
+    private static IQueryable<Incident> FilterIncidents(IQueryable<Incident> incidents, IncidentFilter filter)
+    {
+        if (filter.ApplicationId.HasValue)
+            incidents = incidents.Where(incident => incident.ApplicationId == filter.ApplicationId.Value);
+        if (filter.Status is Incident.Triggered or Incident.Acknowledged or Incident.Resolved)
+            incidents = incidents.Where(incident => incident.Status == filter.Status);
+        if (filter.Level != null)
+            incidents = incidents.Where(incident => incident.AlertLevel == filter.Level);
+        if (filter.Keyword != null)
+        {
+            var keyword = filter.Keyword.ToLowerInvariant();
+            incidents = incidents.Where(incident => incident.Title.ToLower().Contains(keyword) ||
+                incident.AlertTitle.ToLower().Contains(keyword) || incident.Application.Name.ToLower().Contains(keyword) ||
+                (incident.IncidentKey != null && incident.IncidentKey.ToLower().Contains(keyword)));
         }
-        return this.StackView(new IncidentsViewModel
+        if (filter.FromDate.HasValue)
         {
-            Keyword = keyword,
-            Incidents = await incidents.OrderBy(incident => incident.Status == Incident.Resolved)
-                .ThenByDescending(incident => incident.TriggeredAtUtc).ToListAsync(cancellationToken)
-        });
+            var start = filter.FromDate.Value.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+            incidents = incidents.Where(incident => incident.TriggeredAtUtc >= start);
+        }
+        if (filter.ToDate.HasValue && filter.ToDate.Value < DateOnly.MaxValue)
+        {
+            var end = filter.ToDate.Value.AddDays(1).ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+            incidents = incidents.Where(incident => incident.TriggeredAtUtc < end);
+        }
+        return incidents;
     }
 
     public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)

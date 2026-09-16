@@ -1,23 +1,35 @@
 @model Aiursoft.AlertCenter.Models.IncidentsViewModel
 @using Aiursoft.AlertCenter.Entities
+@using System.Globalization
 @{
-    var active = Model.Incidents.Count(incident => incident.Status != Incident.Resolved);
+    var filter = Model.Filter;
+    var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Status != "all" || filter.Level != null ||
+        filter.FromDate.HasValue || filter.ToDate.HasValue;
     string StatusText(string status) => status switch { Incident.Triggered => "已触发", Incident.Acknowledged => "处理中", _ => "已解决" };
     string StatusColor(string status) => status switch { Incident.Triggered => "danger", Incident.Acknowledged => "warning", _ => "success" };
 }
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div><h1 class="h3 mb-1">事故处置</h1><p class="text-muted mb-0">跟踪触发、确认、处理进展和解决过程；确认处理后匹配的新告警会自动归档且不再通知。</p></div>
-    <span class="badge bg-@(active == 0 ? "success" : "danger")">@(active == 0 ? "无进行中事故" : $"{active} 个进行中")</span>
+    <span class="badge bg-@(Model.ActiveCount == 0 ? "success" : "danger")">@(Model.ActiveCount == 0 ? "无进行中事故" : $"{Model.ActiveCount} 个进行中")</span>
 </div>
 <div class="card mb-4"><div class="card-body"><form asp-action="Index" method="get" class="row g-3 align-items-end">
-    <div class="col-md-10"><label for="incident-keyword" class="form-label">搜索事故</label><input id="incident-keyword" name="keyword" value="@Model.Keyword" class="form-control" maxlength="200" placeholder="搜索事故名称、告警标题、应用或 incidentKey" /></div>
-    <div class="col-md-2 d-flex gap-2"><button class="btn btn-primary flex-grow-1">搜索</button>@if (!string.IsNullOrEmpty(Model.Keyword)) { <a asp-action="Index" class="btn btn-outline-secondary">清除</a> }</div>
+    <div class="col-md-6 col-xl-4"><label for="incident-keyword" class="form-label">关键词</label><input id="incident-keyword" name="keyword" value="@filter.Keyword" class="form-control" maxlength="200" placeholder="搜索事故、告警、应用或 incidentKey" /></div>
+    <div class="col-sm-6 col-xl-2"><label for="incident-application" class="form-label">来源应用</label><select id="incident-application" name="applicationId" class="form-select"><option value="">全部应用</option>
+        @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value)) { <option value="@filter.ApplicationId" selected>所选应用不可访问</option> }
+        @foreach (var application in Model.Applications) { <option value="@application.Id" selected="@(filter.ApplicationId == application.Id)">@application.Name</option> }
+    </select></div>
+    <div class="col-sm-6 col-xl-2"><label for="incident-status" class="form-label">事故状态</label><select id="incident-status" name="status" class="form-select"><option value="all" selected="@(filter.Status == "all")">全部状态</option><option value="triggered" selected="@(filter.Status == Incident.Triggered)">已触发</option><option value="acknowledged" selected="@(filter.Status == Incident.Acknowledged)">处理中</option><option value="resolved" selected="@(filter.Status == Incident.Resolved)">已解决</option></select></div>
+    <div class="col-sm-6 col-xl-2"><label for="incident-level" class="form-label">告警级别</label><select id="incident-level" name="level" class="form-select"><option value="">全部级别</option><option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重</option><option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误</option><option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告</option><option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息</option></select></div>
+    <div class="col-sm-6 col-xl-3"><label for="incident-from-date" class="form-label">触发开始日期（UTC）</label><input id="incident-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
+    <div class="col-sm-6 col-xl-3"><label for="incident-to-date" class="form-label">触发结束日期（UTC，含当日）</label><input id="incident-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
+    <div class="col-xl-2 d-flex gap-2"><button class="btn btn-primary flex-grow-1">检索</button><a asp-action="Index" class="btn btn-outline-secondary text-nowrap">重置</a></div>
+    <div asp-validation-summary="All" class="text-danger mb-0"></div>
 </form></div></div>
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">事故列表</h2></div>
     @if (Model.Incidents.Count == 0)
     {
-        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="shield-check" aria-hidden="true"></i></div><h2 class="h4">@(string.IsNullOrEmpty(Model.Keyword) ? "尚无事故" : "没有匹配的事故")</h2><p class="text-muted mb-0">@(string.IsNullOrEmpty(Model.Keyword) ? "在告警详情中触发事故，开始记录处置过程。" : "请调整搜索条件后重试。")</p></div>
+        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="shield-check" aria-hidden="true"></i></div><h2 class="h4">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters ? "没有匹配的事故" : "尚无事故")</h2><p class="text-muted mb-0">@(hasFilters ? "请调整筛选条件后重试。" : "在告警详情中触发事故，开始记录处置过程。")</p></div>
     }
     else
     {
