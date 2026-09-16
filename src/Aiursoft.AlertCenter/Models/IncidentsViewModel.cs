@@ -7,6 +7,7 @@ namespace Aiursoft.AlertCenter.Models;
 public class IncidentsViewModel : UiStackLayoutViewModel
 {
     public IncidentsViewModel() => PageTitle = "事故处置";
+    public string? Keyword { get; set; }
     public List<Incident> Incidents { get; set; } = [];
     public Incident? Incident { get; set; }
     public List<IncidentTimelineEntry> TimelineEntries { get; set; } = [];

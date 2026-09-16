@@ -9,11 +9,15 @@
     <div><h1 class="h3 mb-1">事故处置</h1><p class="text-muted mb-0">跟踪触发、确认、处理进展和解决过程；确认处理后匹配的新告警会自动归档且不再通知。</p></div>
     <span class="badge bg-@(active == 0 ? "success" : "danger")">@(active == 0 ? "无进行中事故" : $"{active} 个进行中")</span>
 </div>
+<div class="card mb-4"><div class="card-body"><form asp-action="Index" method="get" class="row g-3 align-items-end">
+    <div class="col-md-10"><label for="incident-keyword" class="form-label">搜索事故</label><input id="incident-keyword" name="keyword" value="@Model.Keyword" class="form-control" maxlength="200" placeholder="搜索事故名称、告警标题、应用或 incidentKey" /></div>
+    <div class="col-md-2 d-flex gap-2"><button class="btn btn-primary flex-grow-1">搜索</button>@if (!string.IsNullOrEmpty(Model.Keyword)) { <a asp-action="Index" class="btn btn-outline-secondary">清除</a> }</div>
+</form></div></div>
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">事故列表</h2></div>
     @if (Model.Incidents.Count == 0)
     {
-        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="shield-check" aria-hidden="true"></i></div><h2 class="h4">尚无事故</h2><p class="text-muted mb-0">在告警详情中触发事故，开始记录处置过程。</p></div>
+        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="shield-check" aria-hidden="true"></i></div><h2 class="h4">@(string.IsNullOrEmpty(Model.Keyword) ? "尚无事故" : "没有匹配的事故")</h2><p class="text-muted mb-0">@(string.IsNullOrEmpty(Model.Keyword) ? "在告警详情中触发事故，开始记录处置过程。" : "请调整搜索条件后重试。")</p></div>
     }
     else
     {

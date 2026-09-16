@@ -16,14 +16,25 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "事故处置", LinkOrder = 1)]
-    public async Task<IActionResult> Index(CancellationToken cancellationToken)
+    public async Task<IActionResult> Index(string? keyword, CancellationToken cancellationToken)
     {
+        keyword = string.IsNullOrWhiteSpace(keyword) ? null : keyword.Trim();
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
-        var incidents = await db.Incidents.AsNoTracking().Include(incident => incident.Application)
-            .Where(incident => accessibleIds.Contains(incident.ApplicationId))
-            .OrderBy(incident => incident.Status == Incident.Resolved)
-            .ThenByDescending(incident => incident.TriggeredAtUtc).ToListAsync(cancellationToken);
-        return this.StackView(new IncidentsViewModel { Incidents = incidents });
+        var incidents = db.Incidents.AsNoTracking().Include(incident => incident.Application)
+            .Where(incident => accessibleIds.Contains(incident.ApplicationId));
+        if (keyword != null)
+        {
+            var normalizedKeyword = keyword.ToLowerInvariant();
+            incidents = incidents.Where(incident => incident.Title.ToLower().Contains(normalizedKeyword) ||
+                incident.AlertTitle.ToLower().Contains(normalizedKeyword) || incident.Application.Name.ToLower().Contains(normalizedKeyword) ||
+                (incident.IncidentKey != null && incident.IncidentKey.ToLower().Contains(normalizedKeyword)));
+        }
+        return this.StackView(new IncidentsViewModel
+        {
+            Keyword = keyword,
+            Incidents = await incidents.OrderBy(incident => incident.Status == Incident.Resolved)
+                .ThenByDescending(incident => incident.TriggeredAtUtc).ToListAsync(cancellationToken)
+        });
     }
 
     public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
