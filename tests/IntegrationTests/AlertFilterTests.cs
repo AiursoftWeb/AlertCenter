@@ -76,6 +76,8 @@ public partial class AlertDemoTests
         Assert.Contains("id=\"filter-from-date\"", html);
         Assert.Contains("id=\"filter-to-date\"", html);
         Assert.Contains("id=\"alert-page-jump\"", html);
+        Assert.Contains("<th>关联事故</th>", html);
+        Assert.Contains("<th class=\"text-nowrap pe-4\">接收时间 (UTC)</th>", html);
         Assert.AreEqual(20, AlertMessageIds(html).Length);
         var pageJump = WebUtility.HtmlDecode(Regex.Match(html, "<form id=\"alert-page-jump-form\"[^>]*action=\"([^\"]+)\"").Groups[1].Value);
         Assert.IsFalse(string.IsNullOrEmpty(pageJump));

@@ -1,14 +1,27 @@
 @model Aiursoft.AlertCenter.Models.AlertsViewModel
+@using Aiursoft.AlertCenter.Entities
 @using System.Globalization
 @{
     var filter = Model.AlertFilter;
     var routes = filter.ToRouteValues();
     var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Level != null ||
         filter.FromDate.HasValue || filter.ToDate.HasValue;
+    string IncidentStatusText(string status) => status switch
+    {
+        Incident.Triggered => "已触发",
+        Incident.Acknowledged => "处理中",
+        _ => "已解决"
+    };
+    string IncidentStatusColor(string status) => status switch
+    {
+        Incident.Triggered => "danger",
+        Incident.Acknowledged => "warning",
+        _ => "success"
+    };
 }
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <div><h1 class="h3 mb-1">告警消息</h1><p class="text-muted mb-0">集中查看业务事件，快速定位问题现场。</p></div>
-    <a asp-action="Applications" class="btn btn-primary"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>接入应用</a>
+    <div><h1 class="h3 mb-1">告警消息</h1><p class="text-muted mb-0">集中查看业务事件、来源与关联事故，快速定位问题现场。</p></div>
+    <div class="d-flex flex-wrap gap-2"><a asp-action="GettingStarted" class="btn btn-outline-primary"><i class="align-middle me-1" data-lucide="book-open" aria-hidden="true"></i>接入指南</a><a asp-action="Applications" class="btn btn-primary"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>接入应用</a></div>
 </div>
 @await Html.PartialAsync("_NoticeDialog", new Aiursoft.AlertCenter.Models.NoticeDialogViewModel(
     "delivery-notice", "通知能力说明", "在推送中心配置 Webhook 或站内通知，再到接入应用的推送设置中关联渠道。新告警保存后会自动投递，失败可在推送记录中手动重试。", OpenOnLoad: false))
@@ -28,9 +41,11 @@
         <div asp-validation-summary="All" class="text-danger mb-0"></div>
     </form>
 </div></div>
-<div class="d-flex justify-content-between align-items-center gap-2 mb-3"><small class="text-muted">按接收时间倒序 · 每页 20 条 · UTC</small><a asp-action="Index" asp-all-route-data="routes" class="btn btn-sm btn-outline-secondary">刷新</a></div>
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">消息记录</h2></div>
+    <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div><h2 class="card-title mb-1">消息记录</h2><small class="text-muted">按接收时间倒序 · 每页 20 条 · UTC</small></div>
+        <a asp-action="Index" asp-all-route-data="routes" class="btn btn-sm btn-outline-secondary"><i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>刷新</a>
+    </div>
     @if (Model.Messages.Count == 0)
     {
         <div class="card-body text-center py-5">
@@ -44,16 +59,16 @@
     {
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-                <thead><tr><th class="ps-4">级别</th><th>标题</th><th>来源应用</th><th class="text-nowrap pe-4">接收时间 (UTC)</th></tr></thead>
+                <thead><tr><th class="ps-4">级别</th><th>消息</th><th>来源应用</th><th>关联事故</th><th class="text-nowrap pe-4">接收时间 (UTC)</th></tr></thead>
                 <tbody>
                 @foreach (var message in Model.Messages)
                 {
                     var color = message.Level switch { "sev1" => "danger", "sev2" => "warning", "sev3" => "primary", _ => "secondary" };
                     <tr>
                         <td class="ps-4"><span class="badge bg-@color">@message.Level</span></td>
-                        <td class="text-break"><a asp-action="Details" asp-route-id="@message.Id" class="fw-semibold text-decoration-none">@message.Title</a></td>
-                        <td>@message.Application.Name</td>
-                        <td>@if (message.Incident == null) { <span class="text-muted">未关联</span> } else if (message.IsArchived) { <span class="badge bg-secondary">已归档</span> } else { <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="badge text-bg-@(message.Incident.Status == "resolved" ? "success" : message.Incident.Status == "acknowledged" ? "warning" : "danger") text-decoration-none">@(message.Incident.Status == "resolved" ? "已解决" : message.Incident.Status == "acknowledged" ? "处理中" : "已触发")</a> }</td>
+                        <td class="text-break"><a asp-action="Details" asp-route-id="@message.Id" class="fw-semibold text-decoration-none">@message.Title</a>@if (!string.IsNullOrWhiteSpace(message.Content)) { <small class="d-block text-muted text-truncate" style="max-width: 28rem">@message.Content</small> }</td>
+                        <td class="text-break"><span class="d-block">@message.Application.Name</span>@if (message.IncidentKey != null) { <small class="d-block text-muted text-truncate" style="max-width: 14rem"><code>@message.IncidentKey</code></small> }</td>
+                        <td class="text-nowrap">@if (message.Incident == null) { <span class="text-muted">未关联</span> } else if (message.IsArchived) { <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="badge text-bg-secondary text-decoration-none">已归档</a> } else { <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="badge text-bg-@IncidentStatusColor(message.Incident.Status) text-decoration-none">@IncidentStatusText(message.Incident.Status)</a> }</td>
                         <td class="text-muted text-nowrap pe-4">@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</td>
                     </tr>
                 }
