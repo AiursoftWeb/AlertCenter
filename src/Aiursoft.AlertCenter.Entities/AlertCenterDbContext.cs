@@ -19,6 +19,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<PushChannel> PushChannels => Set<PushChannel>();
     public DbSet<ApplicationPushChannel> ApplicationPushChannels => Set<ApplicationPushChannel>();
     public DbSet<PushDelivery> PushDeliveries => Set<PushDelivery>();
+    public DbSet<PushDeliveryRecipient> PushDeliveryRecipients => Set<PushDeliveryRecipient>();
     public DbSet<InAppNotification> InAppNotifications => Set<InAppNotification>();
 
     public DbSet<PushChannelUser> PushChannelUsers => Set<PushChannelUser>();
@@ -47,6 +48,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<ReportedMessage>().HasOne(m => m.Incident).WithMany(incident => incident.Messages)
             .HasForeignKey(m => m.IncidentId).OnDelete(DeleteBehavior.SetNull);
         builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.IncidentKey });
+        builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.ActiveMatchKey }).IsUnique();
         builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.AlertTitle, incident.AlertLevel, incident.Status });
         builder.Entity<Incident>().HasOne(incident => incident.Application).WithMany()
             .HasForeignKey(incident => incident.ApplicationId).OnDelete(DeleteBehavior.Restrict);
@@ -80,6 +82,11 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(delivery => delivery.MessageId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.MessageId, delivery.ChannelId }).IsUnique();
         builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.Status, delivery.CreatedAtUtc });
+        builder.Entity<PushDeliveryRecipient>().HasKey(recipient => new { recipient.DeliveryId, recipient.UserId });
+        builder.Entity<PushDeliveryRecipient>().HasOne(recipient => recipient.Delivery).WithMany()
+            .HasForeignKey(recipient => recipient.DeliveryId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushDeliveryRecipient>().HasOne(recipient => recipient.User).WithMany()
+            .HasForeignKey(recipient => recipient.UserId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<InAppNotification>().HasOne(notification => notification.Delivery).WithMany()
             .HasForeignKey(notification => notification.DeliveryId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<InAppNotification>().HasOne(notification => notification.User).WithMany()

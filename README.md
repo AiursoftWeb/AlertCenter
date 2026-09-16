@@ -91,7 +91,7 @@ Each level can target multiple channels. Leaving a level unselected still saves 
 Matching is exact; selecting `sev2` does not implicitly include `sev1`.
 
 Disabled channels retain their selections but do not receive new deliveries.
-Changes apply only to new alerts, not historical messages or existing delivery tasks.
+Changes apply only to new alerts, not historical messages or existing delivery tasks. In-app recipients are snapshotted when a delivery is queued, so later channel or role-membership changes cannot alter that delivery.
 SQLite and MySQL migrations preserve existing bindings by enabling all four levels.
 No SDK changes are required: clients continue reporting the alert's `level`.
 

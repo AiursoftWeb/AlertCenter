@@ -144,6 +144,10 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<DateTime?>("AcknowledgedAtUtc")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("ActiveMatchKey")
+                        .HasMaxLength(220)
+                        .HasColumnType("varchar(220)");
+
                     b.Property<string>("AlertLevel")
                         .IsRequired()
                         .HasMaxLength(4)
@@ -178,6 +182,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId", "ActiveMatchKey")
+                        .IsUnique();
 
                     b.HasIndex("ApplicationId", "IncidentKey");
 
@@ -339,6 +346,21 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasIndex("Status", "CreatedAtUtc");
 
                     b.ToTable("PushDeliveries");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushDeliveryRecipient", b =>
+                {
+                    b.Property<Guid>("DeliveryId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("DeliveryId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PushDeliveryRecipients");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ReportedMessage", b =>
@@ -794,6 +816,25 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Channel");
 
                     b.Navigation("Message");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushDeliveryRecipient", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.PushDelivery", "Delivery")
+                        .WithMany()
+                        .HasForeignKey("DeliveryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Delivery");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ReportedMessage", b =>

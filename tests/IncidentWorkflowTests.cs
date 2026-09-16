@@ -122,6 +122,70 @@ public class IncidentWorkflowTests
     }
 
     [TestMethod]
+    public async Task TriggerReusesExistingIncidentWithSameMatchKey()
+    {
+        var application = await CreateApplication();
+        var first = await Report(application, "Payment provider unavailable", "sev1", "payment-provider");
+        var second = await Report(application, "Payment provider unavailable", "sev1", "payment-provider");
+
+        var controller = IncidentController();
+        var firstTrigger = await controller.Trigger(new TriggerIncidentRequest
+        {
+            MessageId = first.Id, Title = "Payment provider outage"
+        }, CancellationToken.None);
+        var secondTrigger = await controller.Trigger(new TriggerIncidentRequest
+        {
+            MessageId = second.Id, Title = "Payment provider outage"
+        }, CancellationToken.None);
+
+        Assert.IsInstanceOfType<RedirectToActionResult>(firstTrigger);
+        Assert.IsInstanceOfType<RedirectToActionResult>(secondTrigger);
+        Assert.AreEqual(1, await _db.Incidents.CountAsync());
+        var incidentId = await _db.Incidents.Select(incident => incident.Id).SingleAsync();
+        CollectionAssert.AreEquivalent(new[] { first.Id, second.Id }, await _db.ReportedMessages
+            .Where(message => message.IncidentId == incidentId).Select(message => message.Id).ToArrayAsync());
+        Assert.AreEqual(1, await _db.IncidentTimelineEntries.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task ActiveIncidentMatchKeyIsUniquePerApplication()
+    {
+        var application = await CreateApplication();
+        const string matchKey = "key:payment-provider";
+        _db.Incidents.Add(new Incident
+        {
+            ApplicationId = application.Id, Title = "First outage", IncidentKey = "payment-provider",
+            ActiveMatchKey = matchKey, AlertTitle = "Payment provider unavailable", AlertLevel = "sev1"
+        });
+        await _db.SaveChangesAsync();
+        _db.Incidents.Add(new Incident
+        {
+            ApplicationId = application.Id, Title = "Second outage", IncidentKey = "payment-provider",
+            ActiveMatchKey = matchKey, AlertTitle = "Payment provider unavailable", AlertLevel = "sev1"
+        });
+
+        await Assert.ThrowsAsync<DbUpdateException>(() => _db.SaveChangesAsync());
+    }
+
+    [TestMethod]
+    public async Task ResolvedIncidentReleasesMatchKeyForANewIncident()
+    {
+        var application = await CreateApplication();
+        var first = await Report(application, "Payment provider unavailable", "sev1", "payment-provider");
+        var controller = IncidentController();
+        await controller.Trigger(new TriggerIncidentRequest { MessageId = first.Id, Title = "First outage" }, CancellationToken.None);
+        var firstIncident = await _db.Incidents.SingleAsync();
+        await controller.Resolve(new IncidentNoteRequest { IncidentId = firstIncident.Id }, CancellationToken.None);
+
+        var second = await Report(application, "Payment provider unavailable", "sev1", "payment-provider");
+        await controller.Trigger(new TriggerIncidentRequest { MessageId = second.Id, Title = "Second outage" }, CancellationToken.None);
+
+        Assert.AreEqual(2, await _db.Incidents.CountAsync());
+        Assert.AreEqual(Incident.Resolved, (await _db.Incidents.SingleAsync(incident => incident.Id == firstIncident.Id)).Status);
+        Assert.AreNotEqual(firstIncident.Id, (await _db.ReportedMessages.SingleAsync(message => message.Id == second.Id)).IncidentId);
+    }
+
+    [TestMethod]
     public async Task IncidentWithoutKeyMatchesOnlySameApplicationTitleAndLevel()
     {
         var application = await CreateApplication();

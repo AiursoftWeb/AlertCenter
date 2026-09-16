@@ -261,6 +261,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (!channel.IsEnabled) return BadRequest("请先启用渠道。");
         var delivery = new PushDelivery { ChannelId = id, TestContent = content };
         db.PushDeliveries.Add(delivery);
+        if (channel.Type == "inapp") await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
         await db.SaveChangesAsync(cancellationToken);
         await processor.ProcessAsync(delivery.Id, cancellationToken);
         return RedirectToAction(nameof(Delivery), new { id = delivery.Id });

@@ -66,6 +66,31 @@ public class MigrationTests
     }
 
     [TestMethod]
+    public async Task ActiveIncidentMigrationKeepsOnlyTheNewestDuplicateMatchActive()
+    {
+        await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await context.Database.OpenConnectionAsync();
+        await context.GetService<IMigrator>().MigrateAsync("20260915171818_AddApplicationAccess");
+        var applicationId = Guid.NewGuid();
+        var olderIncidentId = Guid.NewGuid();
+        var newerIncidentId = Guid.NewGuid();
+        var now = DateTime.UtcNow;
+        await context.Database.ExecuteSqlInterpolatedAsync($"""
+            INSERT INTO SourceApplications (Id, Name, SecretHash, IsEnabled, CreatedAtUtc)
+            VALUES ({applicationId}, {"Existing application"}, {"hash"}, {true}, {now});
+            INSERT INTO Incidents (Id, ApplicationId, Title, IncidentKey, AlertTitle, AlertLevel, Status, TriggeredAtUtc)
+            VALUES ({olderIncidentId}, {applicationId}, {"Older outage"}, {"payment-provider"}, {"Payment failed"}, {"sev1"}, {Incident.Triggered}, {now.AddMinutes(-1)}),
+                   ({newerIncidentId}, {applicationId}, {"Newer outage"}, {"payment-provider"}, {"Payment failed"}, {"sev1"}, {Incident.Acknowledged}, {now});
+            """);
+
+        await context.Database.MigrateAsync();
+        context.ChangeTracker.Clear();
+        Assert.IsNull((await context.Incidents.SingleAsync(incident => incident.Id == olderIncidentId)).ActiveMatchKey);
+        Assert.AreEqual("key:payment-provider", (await context.Incidents.SingleAsync(incident => incident.Id == newerIncidentId)).ActiveMatchKey);
+    }
+
+    [TestMethod]
     public async Task EmailRecipientsMigrationPreservesExistingChannels()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()

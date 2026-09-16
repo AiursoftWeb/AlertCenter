@@ -51,17 +51,9 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         if (message == null) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, message.ApplicationId, requireManage: true, cancellationToken)) return Forbid();
         if (message.IncidentId.HasValue) return RedirectToAction(nameof(Details), new { id = message.IncidentId });
-        var incident = new Incident
-        {
-            ApplicationId = message.ApplicationId,
-            Title = request.Title.Trim(),
-            IncidentKey = message.IncidentKey,
-            AlertTitle = message.Title,
-            AlertLevel = message.Level
-        };
-        message.Incident = incident;
-        db.IncidentTimelineEntries.Add(CreateTimelineEntry(incident, IncidentTimelineEntry.Triggered, request.Note));
-        await db.SaveChangesAsync(cancellationToken);
+        var incident = await FindOrCreateIncidentAsync(message, request, cancellationToken);
+        await db.ReportedMessages.Where(item => item.Id == message.Id && item.IncidentId == null)
+            .ExecuteUpdateAsync(setters => setters.SetProperty(item => item.IncidentId, incident.Id), cancellationToken);
         return RedirectToAction(nameof(Details), new { id = incident.Id });
     }
 
@@ -101,10 +93,48 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, requireManage: true, cancellationToken)) return Forbid();
         if (incident.Status == Incident.Resolved) return RedirectToAction(nameof(Details), new { id = incident.Id });
         incident.Status = Incident.Resolved;
+        incident.ActiveMatchKey = null;
         incident.ResolvedAtUtc = DateTime.UtcNow;
         db.IncidentTimelineEntries.Add(CreateTimelineEntry(incident, IncidentTimelineEntry.Resolved, request.Note));
         await db.SaveChangesAsync(cancellationToken);
         return RedirectToAction(nameof(Details), new { id = incident.Id });
+    }
+
+    private async Task<Incident> FindOrCreateIncidentAsync(ReportedMessage message, TriggerIncidentRequest request,
+        CancellationToken cancellationToken)
+    {
+        var activeMatchKey = IncidentMatcher.GetActiveMatchKey(message);
+        var existing = await db.Incidents.OrderByDescending(incident => incident.TriggeredAtUtc).FirstOrDefaultAsync(incident =>
+            incident.ApplicationId == message.ApplicationId && incident.Status != Incident.Resolved &&
+            (incident.ActiveMatchKey == activeMatchKey ||
+             (incident.ActiveMatchKey == null &&
+              (string.IsNullOrWhiteSpace(message.IncidentKey)
+                  ? incident.IncidentKey == null && incident.AlertTitle == message.Title && incident.AlertLevel == message.Level
+                  : incident.IncidentKey == message.IncidentKey))), cancellationToken);
+        if (existing != null) return existing;
+
+        var incident = new Incident
+        {
+            ApplicationId = message.ApplicationId,
+            Title = request.Title.Trim(),
+            IncidentKey = message.IncidentKey,
+            ActiveMatchKey = activeMatchKey,
+            AlertTitle = message.Title,
+            AlertLevel = message.Level
+        };
+        db.Incidents.Add(incident);
+        db.IncidentTimelineEntries.Add(CreateTimelineEntry(incident, IncidentTimelineEntry.Triggered, request.Note));
+        try
+        {
+            await db.SaveChangesAsync(cancellationToken);
+            return incident;
+        }
+        catch (DbUpdateException)
+        {
+            db.ChangeTracker.Clear();
+            return await db.Incidents.SingleAsync(item => item.ApplicationId == message.ApplicationId &&
+                item.ActiveMatchKey == activeMatchKey, cancellationToken);
+        }
     }
 
     private IncidentTimelineEntry CreateTimelineEntry(Incident incident, string type, string? note) => new()

@@ -36,18 +36,24 @@ public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incide
                 return;
             }
         }
-        var channelIds = await db.ApplicationPushChannels.AsNoTracking()
+        var channels = await db.ApplicationPushChannels.AsNoTracking()
             .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled &&
                 ((message.Level == "sev1" && link.ReceiveSev1) ||
                  (message.Level == "sev2" && link.ReceiveSev2) ||
                  (message.Level == "sev3" && link.ReceiveSev3) ||
                  (message.Level == "sev4" && link.ReceiveSev4)))
-            .Select(link => link.ChannelId).ToListAsync(cancellationToken);
-        // 由调用方与告警一起保存，确保消息和待投递记录同时提交。
-        db.PushDeliveries.AddRange(channelIds.Select(id => new PushDelivery
+            .Select(link => new { link.ChannelId, link.Channel.Type }).ToListAsync(cancellationToken);
+        // 由调用方与告警一起保存，确保消息、待投递记录和站内通知收件人快照同时提交。
+        foreach (var channel in channels)
         {
-            ChannelId = id, MessageId = message.Id, Message = message
-        }));
+            var delivery = new PushDelivery
+            {
+                ChannelId = channel.ChannelId, MessageId = message.Id, Message = message
+            };
+            db.PushDeliveries.Add(delivery);
+            if (channel.Type != "inapp") continue;
+            await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
+        }
     }
 }
 

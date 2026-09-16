@@ -13,6 +13,7 @@ public class Incident
     public SourceApplication Application { get; set; } = null!;
     [Required, MaxLength(200)] public string Title { get; set; } = string.Empty;
     [MaxLength(200)] public string? IncidentKey { get; set; }
+    [MaxLength(220)] public string? ActiveMatchKey { get; set; }
     [Required, MaxLength(200)] public string AlertTitle { get; set; } = string.Empty;
     [Required, MaxLength(4)] public string AlertLevel { get; set; } = "sev3";
     [Required, MaxLength(20)] public string Status { get; set; } = Triggered;

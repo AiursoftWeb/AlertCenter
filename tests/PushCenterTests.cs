@@ -355,6 +355,30 @@ public class PushCenterTests
     }
 
     [TestMethod]
+    public async Task QueuedInAppDeliveryUsesRecipientsSnapshot()
+    {
+        await AddAdministrators();
+        var application = await Application();
+        var channel = await Channel("inapp");
+        await BindAllLevels(application.Id, channel.Id);
+
+        await Report(application, Guid.NewGuid());
+        var delivery = await _db.PushDeliveries.SingleAsync();
+        CollectionAssert.AreEquivalent(new[] { "admin-one", "admin-two" },
+            await _db.PushDeliveryRecipients.Where(recipient => recipient.DeliveryId == delivery.Id)
+                .Select(recipient => recipient.UserId).ToArrayAsync());
+
+        _db.PushChannelRoles.RemoveRange(await _db.PushChannelRoles.Where(link => link.ChannelId == channel.Id).ToListAsync());
+        _db.PushChannelUsers.Add(new PushChannelUser { ChannelId = channel.Id, UserId = "ordinary-user" });
+        await _db.SaveChangesAsync();
+
+        await _processor.ProcessAsync(delivery.Id, CancellationToken.None);
+        CollectionAssert.AreEquivalent(new[] { "admin-one", "admin-two" },
+            await _db.InAppNotifications.Where(notification => notification.DeliveryId == delivery.Id)
+                .Select(notification => notification.UserId).ToArrayAsync());
+    }
+
+    [TestMethod]
     public async Task DisabledChannelDoesNotSendAndCanBeRetriedAfterEnabling()
     {
         var application = await Application();

@@ -10,13 +10,8 @@ public class InAppChannelAdapter(TemplateDbContext db) : INotificationChannelAda
 
     public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
     {
-        var directUsers = db.PushChannelUsers.Where(link => link.ChannelId == delivery.ChannelId)
-            .Select(link => link.UserId);
-        var groupUsers = from membership in db.UserRoles
-            join target in db.PushChannelRoles on membership.RoleId equals target.RoleId
-            where target.ChannelId == delivery.ChannelId
-            select membership.UserId;
-        var recipients = await directUsers.Union(groupUsers).ToListAsync(cancellationToken);
+        var recipients = await db.PushDeliveryRecipients.Where(recipient => recipient.DeliveryId == delivery.Id)
+            .Select(recipient => recipient.UserId).ToListAsync(cancellationToken);
         if (recipients.Count == 0) return new(false, ErrorMessage: "没有可接收站内通知的用户，请配置接收用户或用户组。");
         var existing = await db.InAppNotifications.Where(notification => notification.DeliveryId == delivery.Id)
             .Select(notification => notification.UserId).ToListAsync(cancellationToken);
