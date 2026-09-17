@@ -146,6 +146,8 @@ public class NotificationRecipientsTests : TestBase
         var edit = await Http.GetStringAsync("/Push/Create?type=inapp");
         Assert.Contains("RecipientUserIds", edit);
         Assert.Contains("RecipientRoleIds", edit);
+        Assert.Contains("validation-summary-valid", edit);
+        Assert.Contains("d-none", edit);
         Assert.Contains("binding-access-list", edit);
         Assert.Contains("binding-access-role", edit);
         Assert.Contains("binding-access-user", edit);

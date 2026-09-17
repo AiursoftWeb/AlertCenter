@@ -66,7 +66,7 @@
                     <form asp-action="Save" method="post" id="push-channel-form">
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="Type" type="hidden" />
-                        <div asp-validation-summary="All" class="alert alert-danger py-2 px-3 small mb-3"></div>
+                        <div asp-validation-summary="All" class="alert alert-danger py-2 px-3 small mb-3 @(ViewData.ModelState.IsValid ? "d-none" : "")"></div>
 
                         <div class="mb-4">
                             <label asp-for="Name" class="form-label small fw-medium">渠道名称</label>
