@@ -275,6 +275,29 @@
                             </div>
                         }
 
+                        <div class="card border mb-4">
+                            <div class="card-header bg-transparent py-2">
+                                <h3 class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="link"></i>应用绑定授权</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted small">只有下列用户或用户组中的成员，才能在自己可管理的应用中看到并绑定此渠道。收件人不会自动获得此权限，渠道配置与测试仍仅限推送渠道管理员。</p>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label asp-for="BindingUserIds" class="form-label small fw-medium">允许绑定的用户</label>
+                                        <select asp-for="BindingUserIds" asp-items="Model.AvailableUsers" multiple class="form-select" size="6"></select>
+                                        <small class="text-muted d-block mt-2">按住 Ctrl 或 Command 可选择多个用户。</small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="BindingRoleIds" class="form-label small fw-medium">允许绑定的用户组</label>
+                                        <select asp-for="BindingRoleIds" asp-items="Model.AvailableRoles" multiple class="form-select" size="6"></select>
+                                        <small class="text-muted d-block mt-2">用户组成员会动态获得绑定权限。</small>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="BindingUserIds" class="text-danger small"></span>
+                                <span asp-validation-for="BindingRoleIds" class="text-danger small"></span>
+                            </div>
+                        </div>
+
                         <div class="form-check form-switch mb-4">
                             <input asp-for="IsEnabled" class="form-check-input" />
                             <label asp-for="IsEnabled" class="form-check-label fw-medium">立即启用该推送渠道</label>

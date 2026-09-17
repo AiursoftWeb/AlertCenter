@@ -66,7 +66,9 @@ Reports match an active incident by the same application and `incidentKey`. If n
 
 In **推送中心 → 推送渠道**, an in-app channel can target multiple users and RBAC roles. Recipients are deduplicated when a notification is delivered, and every user manages their own read state. At least one user or role must be selected; a channel with no resolved recipients fails rather than notifying administrators implicitly. Updating recipients does not retract historical notifications. Existing in-app channels need a recipient scope after upgrading.
 
-All signed-in users can access their own inbox and notification details. Managing channels, recipients, application bindings, and delivery records requires the `CanManagePush` permission, which the Administrators role receives at startup.
+All signed-in users can access their own inbox and notification details. `CanManagePush` controls creating, editing, testing, enabling, deleting, and viewing sensitive configuration for channels; the Administrators role receives it at startup.
+
+A channel has two independent access lists. Its **recipient list** controls who receives in-app notifications (or the fixed SMTP addresses for an email channel). Its **binding access list** controls which users and roles can see and bind that channel while managing an application. Recipients do not automatically receive binding access, and a binding-access grant does not expose recipient addresses, Webhook endpoints or headers, channel tests, or channel editing. A binding user must also have application manage access. Administrators and users with `CanManagePush` can bind any channel. Existing channels are intentionally private after upgrading until a channel manager grants binding access.
 
 **站内通知** opens with unread notifications by default. Use **仅看未读 / 全部通知 / 仅看已读** to change scope, retaining other filters and returning to page one. Combine title/body keywords, read status, source application, severity, notification channel, and inclusive UTC receipt-date filters. Filtering happens before the 20-item pagination; application and channel options come from the signed-in user's notification history. Test notifications have no source application or severity.
 
@@ -86,7 +88,7 @@ to report until it is explicitly enabled. Resetting does not resend historical m
 ### Severity-based notification channels
 
 In **接入应用 → 推送设置**, select channels independently for each severity:
-`sev1` (严重), `sev2` (错误), `sev3` (警告), and `sev4` (信息).
+`sev1` (严重), `sev2` (错误), `sev3` (警告), and `sev4` (信息). The page shows only channels for which the current application manager has binding access.
 Each level can target multiple channels. Leaving a level unselected still saves its alerts but creates no notification deliveries.
 Matching is exact; selecting `sev2` does not implicitly include `sev1`.
 

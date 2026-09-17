@@ -14,7 +14,7 @@ namespace Aiursoft.AlertCenter.Controllers;
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
 public class PushController(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters,
     PushDeliveryProcessor processor, WebhookConfigurationProtector webhookConfigurationProtector,
-    IApplicationAccessService applicationAccess) : Controller
+    IApplicationAccessService applicationAccess, IPushChannelAccessService channelAccess) : Controller
 {
     private List<ChannelTypeDefinition> Types => adapters.Select(adapter => adapter.Definition).ToList();
 
@@ -55,7 +55,9 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             WebhookHeadersJson = webhookHeadersJson, WebhookPayloadTemplate = channel.WebhookPayloadTemplate,
             EmailRecipients = channel.EmailRecipients, IsEnabled = channel.IsEnabled, ChannelTypes = Types,
             RecipientUserIds = await db.PushChannelUsers.Where(link => link.ChannelId == id).Select(link => link.UserId).ToArrayAsync(),
-            RecipientRoleIds = await db.PushChannelRoles.Where(link => link.ChannelId == id).Select(link => link.RoleId).ToArrayAsync()
+            RecipientRoleIds = await db.PushChannelRoles.Where(link => link.ChannelId == id).Select(link => link.RoleId).ToArrayAsync(),
+            BindingUserIds = await db.PushChannelBindingUsers.Where(link => link.ChannelId == id).Select(link => link.UserId).ToArrayAsync(),
+            BindingRoleIds = await db.PushChannelBindingRoles.Where(link => link.ChannelId == id).Select(link => link.RoleId).ToArrayAsync()
         };
         await PopulateRecipients(model);
         return this.StackView(model);
@@ -69,15 +71,18 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         await PopulateRecipients(model);
         model.RecipientUserIds = model.RecipientUserIds.Distinct().ToArray();
         model.RecipientRoleIds = model.RecipientRoleIds.Distinct().ToArray();
-        if (model.Type == "inapp")
-        {
-            if (model.RecipientUserIds.Length + model.RecipientRoleIds.Length == 0)
-                ModelState.AddModelError(nameof(model.RecipientUserIds), "请至少选择一个接收用户或用户组。");
-            if (await db.Users.CountAsync(user => model.RecipientUserIds.Contains(user.Id)) != model.RecipientUserIds.Length)
-                ModelState.AddModelError(nameof(model.RecipientUserIds), "所选用户不存在，请重新选择。");
-            if (await db.Roles.CountAsync(role => model.RecipientRoleIds.Contains(role.Id)) != model.RecipientRoleIds.Length)
-                ModelState.AddModelError(nameof(model.RecipientRoleIds), "所选用户组不存在，请重新选择。");
-        }
+        model.BindingUserIds = model.BindingUserIds.Distinct().ToArray();
+        model.BindingRoleIds = model.BindingRoleIds.Distinct().ToArray();
+        if (await db.Users.CountAsync(user => model.BindingUserIds.Contains(user.Id)) != model.BindingUserIds.Length)
+            ModelState.AddModelError(nameof(model.BindingUserIds), "所选可绑定用户不存在，请重新选择。");
+        if (await db.Roles.CountAsync(role => model.BindingRoleIds.Contains(role.Id)) != model.BindingRoleIds.Length)
+            ModelState.AddModelError(nameof(model.BindingRoleIds), "所选可绑定用户组不存在，请重新选择。");
+        if (await db.Users.CountAsync(user => model.RecipientUserIds.Contains(user.Id)) != model.RecipientUserIds.Length)
+            ModelState.AddModelError(nameof(model.RecipientUserIds), "所选接收用户不存在，请重新选择。");
+        if (await db.Roles.CountAsync(role => model.RecipientRoleIds.Contains(role.Id)) != model.RecipientRoleIds.Length)
+            ModelState.AddModelError(nameof(model.RecipientRoleIds), "所选接收用户组不存在，请重新选择。");
+        if (model.Type == "inapp" && model.RecipientUserIds.Length + model.RecipientRoleIds.Length == 0)
+            ModelState.AddModelError(nameof(model.RecipientUserIds), "请至少选择一个接收用户或用户组。");
         var type = Types.SingleOrDefault(item => item.Key == model.Type);
         if (type == null) ModelState.AddModelError(nameof(model.Type), "请选择可用的渠道类型。");
         if (type?.RequiresEndpoint == true)
@@ -119,6 +124,14 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             .Select(id => new PushChannelUser { Channel = channel, UserId = id }));
         db.PushChannelRoles.AddRange(selectedRoles.Except(roles.Select(link => link.RoleId))
             .Select(id => new PushChannelRole { Channel = channel, RoleId = id }));
+        var bindingUsers = await db.PushChannelBindingUsers.Where(link => link.ChannelId == channel.Id).ToListAsync();
+        var bindingRoles = await db.PushChannelBindingRoles.Where(link => link.ChannelId == channel.Id).ToListAsync();
+        db.PushChannelBindingUsers.RemoveRange(bindingUsers.Where(link => !model.BindingUserIds.Contains(link.UserId)));
+        db.PushChannelBindingRoles.RemoveRange(bindingRoles.Where(link => !model.BindingRoleIds.Contains(link.RoleId)));
+        db.PushChannelBindingUsers.AddRange(model.BindingUserIds.Except(bindingUsers.Select(link => link.UserId))
+            .Select(id => new PushChannelBindingUser { Channel = channel, UserId = id }));
+        db.PushChannelBindingRoles.AddRange(model.BindingRoleIds.Except(bindingRoles.Select(link => link.RoleId))
+            .Select(id => new PushChannelBindingRole { Channel = channel, RoleId = id }));
         await db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
@@ -151,16 +164,39 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
 
     private static string? NullIfWhiteSpace(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 
+    private async Task<List<PushChannel>> GetVisibleChannelsAsync(bool canManagePush, CancellationToken cancellationToken)
+    {
+        if (canManagePush)
+        {
+            return await db.PushChannels.AsNoTracking().OrderBy(channel => channel.Name).ToListAsync(cancellationToken);
+        }
+
+        var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
+        return await db.PushChannels.AsNoTracking().Where(channel => bindableChannelIds.Contains(channel.Id))
+            .OrderBy(channel => channel.Name).ToListAsync(cancellationToken);
+    }
+
     private async Task PopulateRecipients(PushChannelEditViewModel model)
     {
         model.AvailableRoles = await db.Roles.AsNoTracking().OrderBy(role => role.Name)
             .Select(role => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(role.Name, role.Id)).ToListAsync();
+        model.AvailableUsers = await db.Users.AsNoTracking().OrderBy(user => user.UserName)
+            .Select(user => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(
+                $"{user.DisplayName} ({user.UserName})", user.Id)).ToListAsync();
         model.SelectedUsers = await db.Users.AsNoTracking().Where(user => model.RecipientUserIds.Contains(user.Id))
             .OrderBy(user => user.UserName).Select(user => new RecipientSelection
             {
                 Id = user.Id, Name = user.DisplayName, UserName = user.UserName
             }).ToListAsync();
         model.SelectedRoles = await db.Roles.AsNoTracking().Where(role => model.RecipientRoleIds.Contains(role.Id))
+            .OrderBy(role => role.Name).Select(role => new RecipientSelection { Id = role.Id, Name = role.Name! })
+            .ToListAsync();
+        model.SelectedBindingUsers = await db.Users.AsNoTracking().Where(user => model.BindingUserIds.Contains(user.Id))
+            .OrderBy(user => user.UserName).Select(user => new RecipientSelection
+            {
+                Id = user.Id, Name = user.DisplayName, UserName = user.UserName
+            }).ToListAsync();
+        model.SelectedBindingRoles = await db.Roles.AsNoTracking().Where(role => model.BindingRoleIds.Contains(role.Id))
             .OrderBy(role => role.Name).Select(role => new RecipientSelection { Id = role.Id, Name = role.Name! })
             .ToListAsync();
     }
@@ -200,12 +236,14 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var application = await db.SourceApplications.FindAsync([id], cancellationToken);
         if (application == null) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
+        var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
         var bindings = await db.ApplicationPushChannels.AsNoTracking()
-            .Where(link => link.ApplicationId == id).ToListAsync(cancellationToken);
+            .Where(link => link.ApplicationId == id && bindableChannelIds.Contains(link.ChannelId)).ToListAsync(cancellationToken);
         return this.StackView(new PushViewModel
         {
             Application = application, ChannelTypes = Types,
-            Channels = await db.PushChannels.AsNoTracking().OrderBy(channel => channel.Name).ToListAsync(cancellationToken),
+            Channels = await db.PushChannels.AsNoTracking().Where(channel => bindableChannelIds.Contains(channel.Id))
+                .OrderBy(channel => channel.Name).ToListAsync(cancellationToken),
             Bindings = new ApplicationPushBindingsRequest
             {
                 Sev1ChannelIds = bindings.Where(link => link.ReceiveSev1).Select(link => link.ChannelId).ToArray(),
@@ -229,7 +267,11 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var selected = sev1.Concat(sev2).Concat(sev3).Concat(sev4).ToHashSet();
         if (await db.PushChannels.CountAsync(channel => selected.Contains(channel.Id)) != selected.Count)
             return BadRequest("所选渠道已不存在，请刷新页面后重试。");
-        var existing = await db.ApplicationPushChannels.Where(link => link.ApplicationId == id)
+        var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
+        if (selected.Any(channelId => !bindableChannelIds.Contains(channelId)))
+            return Forbid();
+        var existing = await db.ApplicationPushChannels.Where(link =>
+                link.ApplicationId == id && bindableChannelIds.Contains(link.ChannelId))
             .ToDictionaryAsync(link => link.ChannelId);
         db.ApplicationPushChannels.RemoveRange(existing.Values.Where(link => !selected.Contains(link.ChannelId)));
         foreach (var channelId in selected)
@@ -274,10 +316,17 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         CancellationToken cancellationToken = default)
     {
         page = Math.Clamp(page, 1, 1000000);
+        var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush) ||
+                            applicationAccess.IsAdministrator(User);
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
         var query = db.PushDeliveries.AsNoTracking().Where(delivery => delivery.Message != null &&
-            accessibleIds.Contains(delivery.Message.ApplicationId));
+            (canManagePush || accessibleIds.Contains(delivery.Message.ApplicationId)));
         if (channelId.HasValue) query = query.Where(delivery => delivery.ChannelId == channelId);
+        if (!canManagePush)
+        {
+            var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
+            query = query.Where(delivery => bindableChannelIds.Contains(delivery.ChannelId));
+        }
         if (status is PushDelivery.Pending or PushDelivery.Sending or PushDelivery.Succeeded or PushDelivery.Failed)
             query = query.Where(delivery => delivery.Status == status);
         else status = null;
@@ -288,7 +337,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         {
             Deliveries = deliveries.Take(20).ToList(), Page = page, HasNextPage = deliveries.Count > 20,
             ChannelId = channelId, Status = status, ChannelTypes = Types,
-            Channels = await db.PushChannels.AsNoTracking().OrderBy(channel => channel.Name).ToListAsync()
+            Channels = await GetVisibleChannelsAsync(canManagePush, cancellationToken)
         });
     }
 
@@ -297,11 +346,21 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var delivery = await db.PushDeliveries.AsNoTracking().Include(item => item.Channel).Include(item => item.Message)!
             .ThenInclude(message => message!.Application).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return NotFound();
-        if (delivery.Message == null || !await applicationAccess.CanAccessAsync(User, delivery.Message.ApplicationId, cancellationToken: cancellationToken)) return Forbid();
-        return this.StackView(new PushViewModel { Delivery = delivery, ChannelTypes = Types });
+        var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush) ||
+                            applicationAccess.IsAdministrator(User);
+        if (delivery.Message == null || (!canManagePush && !await applicationAccess.CanAccessAsync(
+                User, delivery.Message.ApplicationId, cancellationToken: cancellationToken))) return Forbid();
+        if (!canManagePush && !await channelAccess.CanBindAsync(User, delivery.ChannelId, cancellationToken)) return Forbid();
+        return this.StackView(new PushViewModel
+        {
+            Delivery = delivery,
+            ChannelTypes = Types,
+            IsAdministrator = canManagePush
+        });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Retry(Guid id, CancellationToken cancellationToken = default)
     {
         var applicationId = await db.PushDeliveries.Where(delivery => delivery.Id == id && delivery.MessageId != null)

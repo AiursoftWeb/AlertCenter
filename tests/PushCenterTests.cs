@@ -24,6 +24,7 @@ public class PushCenterTests
     private INotificationChannelAdapter[] _adapters = [];
     private PushDeliveryProcessor _processor = null!;
     private WebhookConfigurationProtector _webhookConfigurationProtector = null!;
+    private IPushChannelAccessService _channelAccess = null!;
     private const string Secret = "push-tests-secret";
 
     [TestInitialize]
@@ -41,6 +42,7 @@ public class PushCenterTests
         _email = new FakeEmailSender();
         _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector), new InAppChannelAdapter(_db), new EmailChannelAdapter(_email)];
         _processor = new PushDeliveryProcessor(_db, _adapters, NullLogger<PushDeliveryProcessor>.Instance);
+        _channelAccess = new PushChannelAccessService(_db, new ApplicationAccessService(_db));
     }
 
     [TestCleanup]
@@ -50,13 +52,17 @@ public class PushCenterTests
         _http.Dispose();
     }
 
-    private PushController Controller(string userId = "admin-one") => new(_db, _adapters, _processor, _webhookConfigurationProtector, new ApplicationAccessService(_db))
+    private PushController Controller(string userId = "admin-one", bool administrator = true) => new(_db, _adapters, _processor, _webhookConfigurationProtector, new ApplicationAccessService(_db), _channelAccess)
     {
         ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, userId), new Claim(ClaimTypes.Role, "Administrators")], "test"))
+                User = new ClaimsPrincipal(new ClaimsIdentity(
+                    administrator
+                        ? [new Claim(ClaimTypes.NameIdentifier, userId), new Claim(ClaimTypes.Role, "Administrators")]
+                        : [new Claim(ClaimTypes.NameIdentifier, userId)],
+                    "test"))
             }
         }
     };
@@ -399,6 +405,34 @@ public class PushCenterTests
     }
 
     [TestMethod]
+    public async Task ApplicationManagerCanBindOnlyGrantedChannels()
+    {
+        await AddAdministrators();
+        var application = await Application();
+        var granted = await Channel();
+        var forbidden = await Channel();
+        _db.ApplicationUserAccesses.Add(new ApplicationUserAccess
+        {
+            ApplicationId = application.Id,
+            UserId = "ordinary-user",
+            CanManage = true
+        });
+        _db.PushChannelBindingUsers.Add(new PushChannelBindingUser
+        {
+            ChannelId = granted.Id,
+            UserId = "ordinary-user"
+        });
+        await _db.SaveChangesAsync();
+
+        var manager = Controller("ordinary-user", administrator: false);
+        Assert.IsInstanceOfType<RedirectToActionResult>(await manager.SaveBindings(application.Id,
+            new ApplicationPushBindingsRequest { Sev1ChannelIds = [granted.Id] }));
+        Assert.IsInstanceOfType<ForbidResult>(await manager.SaveBindings(application.Id,
+            new ApplicationPushBindingsRequest { Sev1ChannelIds = [forbidden.Id] }));
+        Assert.AreEqual(granted.Id, (await _db.ApplicationPushChannels.SingleAsync()).ChannelId);
+    }
+
+    [TestMethod]
     public async Task ChannelCrudAndBindingsPreserveUnselectedChannels()
     {
         await AddAdministrators();
@@ -611,6 +645,8 @@ public class PushCenterTests
         await Controller().Delete(channel.Id);
         Assert.AreEqual(0, await _db.PushChannelUsers.CountAsync());
         Assert.AreEqual(0, await _db.PushChannelRoles.CountAsync());
+        Assert.AreEqual(0, await _db.PushChannelBindingUsers.CountAsync());
+        Assert.AreEqual(0, await _db.PushChannelBindingRoles.CountAsync());
     }
 
     [TestMethod]

@@ -47,9 +47,14 @@ public class PushChannelEditViewModel : UiStackLayoutViewModel
     public PushChannelEditViewModel() { PageTitle = "配置推送渠道"; }
     public string[] RecipientUserIds { get; set; } = [];
     public string[] RecipientRoleIds { get; set; } = [];
+    public string[] BindingUserIds { get; set; } = [];
+    public string[] BindingRoleIds { get; set; } = [];
     public List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> AvailableRoles { get; set; } = [];
+    public List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> AvailableUsers { get; set; } = [];
     public List<RecipientSelection> SelectedUsers { get; set; } = [];
     public List<RecipientSelection> SelectedRoles { get; set; } = [];
+    public List<RecipientSelection> SelectedBindingUsers { get; set; } = [];
+    public List<RecipientSelection> SelectedBindingRoles { get; set; } = [];
     public Guid? Id { get; set; }
     [Required, StringLength(100)] public string Name { get; set; } = string.Empty;
     [Required, StringLength(40)] public string Type { get; set; } = string.Empty;

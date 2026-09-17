@@ -399,6 +399,11 @@ public partial class AlertDemoTests : TestBase
             var second = new PushChannel { Name = "Disabled channel", Type = "inapp", IsEnabled = false };
             db.PushChannels.AddRange(first, second);
             await db.SaveChangesAsync();
+            var adminUserId = await db.Users.Where(user => user.UserName == "admin").Select(user => user.Id).SingleAsync();
+            db.PushChannelBindingUsers.AddRange(
+                new PushChannelBindingUser { ChannelId = first.Id, UserId = adminUserId },
+                new PushChannelBindingUser { ChannelId = second.Id, UserId = adminUserId });
+            await db.SaveChangesAsync();
             firstId = first.Id;
             secondId = second.Id;
         }
@@ -474,7 +479,7 @@ public partial class AlertDemoTests : TestBase
     {
         await RegisterAndLoginAsync();
         var response = await Http.GetAsync("/Alerts/Applications");
-        Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
-        Assert.Contains("Code403", response.Headers.Location!.OriginalString);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        Assert.DoesNotContain("Demo Orders", await response.Content.ReadAsStringAsync());
     }
 }

@@ -113,12 +113,14 @@ public class NotificationRecipientsTests : TestBase
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/Push/Notification/{otherId}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await PostForm("/Push/MarkRead", new() { ["id"] = otherId.ToString() }, "/Push/Inbox")).StatusCode);
         AssertRedirect(await PostForm("/Push/MarkRead", new() { ["id"] = ownId.ToString() }, "/Push/Inbox"), "/Push/Inbox", exact: false);
-        foreach (var url in new[] { "/Push", "/Push/Create?type=inapp", "/Push/Records", $"/Push/Delivery/{Guid.NewGuid()}" })
+        foreach (var url in new[] { "/Push", "/Push/Create?type=inapp" })
         {
             var response = await Http.GetAsync(url);
             Assert.AreEqual(HttpStatusCode.Found, response.StatusCode);
             Assert.Contains("/Error/Code403", response.Headers.Location!.ToString());
         }
+        Assert.AreEqual(HttpStatusCode.OK, (await Http.GetAsync("/Push/Records")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/Push/Delivery/{Guid.NewGuid()}")).StatusCode);
         var denied = await PostForm("/Push/Save", new() { ["Name"] = "Forbidden", ["Type"] = "inapp" }, "/Push/Inbox");
         Assert.Contains("/Error/Code403", denied.Headers.Location!.ToString());
     }
@@ -151,5 +153,7 @@ public class NotificationRecipientsTests : TestBase
         using var finalScope = Server!.Services.CreateScope();
         var db = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(userId, (await db.PushChannelUsers.SingleAsync(link => link.UserId == userId && link.Channel.Name == "Personal channel")).UserId);
+        Assert.AreEqual(0, await db.PushChannelBindingUsers.CountAsync());
+        Assert.AreEqual(0, await db.PushChannelBindingRoles.CountAsync());
     }
 }

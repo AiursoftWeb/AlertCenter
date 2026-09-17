@@ -24,6 +24,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
 
     public DbSet<PushChannelUser> PushChannelUsers => Set<PushChannelUser>();
     public DbSet<PushChannelRole> PushChannelRoles => Set<PushChannelRole>();
+    public DbSet<PushChannelBindingUser> PushChannelBindingUsers => Set<PushChannelBindingUser>();
+    public DbSet<PushChannelBindingRole> PushChannelBindingRoles => Set<PushChannelBindingRole>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -40,6 +42,16 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<PushChannelUser>().HasOne(link => link.Channel).WithMany()
             .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<PushChannelUser>().HasOne(link => link.User).WithMany()
+            .HasForeignKey(link => link.UserId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushChannelBindingRole>().HasKey(link => new { link.ChannelId, link.RoleId });
+        builder.Entity<PushChannelBindingRole>().HasOne(link => link.Channel).WithMany()
+            .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushChannelBindingRole>().HasOne(link => link.Role).WithMany()
+            .HasForeignKey(link => link.RoleId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushChannelBindingUser>().HasKey(link => new { link.ChannelId, link.UserId });
+        builder.Entity<PushChannelBindingUser>().HasOne(link => link.Channel).WithMany()
+            .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushChannelBindingUser>().HasOne(link => link.User).WithMany()
             .HasForeignKey(link => link.UserId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<ReportedMessage>().HasIndex(m => new { m.ApplicationId, m.ReportId }).IsUnique();
         builder.Entity<ReportedMessage>().HasIndex(m => m.ReceivedAtUtc);

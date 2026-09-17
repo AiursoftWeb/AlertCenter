@@ -55,18 +55,21 @@
                 <small class="text-muted d-block">重新投递将使用当前最新的渠道配置。超时或中断时目标端可能已接收，请在核实后重试。</small>
             </div>
         </div>
-        <div class="flex-shrink-0 align-self-stretch align-self-md-center text-end">
-            <form asp-action="Retry" method="post" class="d-inline">
-                <input type="hidden" name="id" value="@delivery.Id" />
-                <button class="btn btn-danger" disabled="@(!delivery.Channel.IsEnabled)">
-                    <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>重新投递
-                </button>
-            </form>
-            @if (!delivery.Channel.IsEnabled)
-            {
-                <small class="text-danger d-block mt-1">请先启用目标渠道</small>
-            }
-        </div>
+        @if (Model.IsAdministrator)
+        {
+            <div class="flex-shrink-0 align-self-stretch align-self-md-center text-end">
+                <form asp-action="Retry" method="post" class="d-inline">
+                    <input type="hidden" name="id" value="@delivery.Id" />
+                    <button class="btn btn-danger" disabled="@(!delivery.Channel.IsEnabled)">
+                        <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>重新投递
+                    </button>
+                </form>
+                @if (!delivery.Channel.IsEnabled)
+                {
+                    <small class="text-danger d-block mt-1">请先启用目标渠道</small>
+                }
+            </div>
+        }
     </div>
 }
 else if (delivery.Status == PushDelivery.Succeeded)
@@ -242,11 +245,14 @@ else
                     <span class="text-muted small">来源接入应用</span>
                     <span class="fw-semibold small">@(delivery.Message?.Application.Name ?? "手动测试")</span>
                 </div>
-                <div class="mt-3">
-                    <a asp-action="Edit" asp-route-id="@delivery.Channel.Id" class="btn btn-outline-secondary btn-sm w-100">
-                        <i class="align-middle me-1" data-lucide="sliders" aria-hidden="true"></i>查看或修改渠道配置
-                    </a>
-                </div>
+                @if (Model.IsAdministrator)
+                {
+                    <div class="mt-3">
+                        <a asp-action="Edit" asp-route-id="@delivery.Channel.Id" class="btn btn-outline-secondary btn-sm w-100">
+                            <i class="align-middle me-1" data-lucide="sliders" aria-hidden="true"></i>查看或修改渠道配置
+                        </a>
+                    </div>
+                }
             </div>
         </div>
 

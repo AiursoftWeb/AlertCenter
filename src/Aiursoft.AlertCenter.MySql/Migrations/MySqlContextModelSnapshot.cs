@@ -269,6 +269,36 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.ToTable("PushChannels");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingRole", b =>
+                {
+                    b.Property<Guid>("ChannelId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("ChannelId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("PushChannelBindingRoles");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingUser", b =>
+                {
+                    b.Property<Guid>("ChannelId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("ChannelId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PushChannelBindingUsers");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelRole", b =>
                 {
                     b.Property<Guid>("ChannelId")
@@ -760,6 +790,44 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Actor");
 
                     b.Navigation("Incident");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingRole", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.PushChannel", "Channel")
+                        .WithMany()
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Channel");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingUser", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.PushChannel", "Channel")
+                        .WithMany()
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Channel");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelRole", b =>
