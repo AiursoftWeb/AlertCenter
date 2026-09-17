@@ -6,6 +6,7 @@
 
 @{
     var selectedType = Model.ChannelTypes.FirstOrDefault(type => type.Key == Model.Type);
+    var bindingAccessCount = Model.SelectedBindingUsers.Count + Model.SelectedBindingRoles.Count;
 }
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
@@ -275,28 +276,77 @@
                             </div>
                         }
 
-                        <div class="card border mb-4">
-                            <div class="card-header bg-transparent py-2">
-                                <h3 class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="link"></i>应用绑定授权</h3>
+                        <section class="card border mb-4" aria-labelledby="binding-access-heading">
+                            <div class="card-header bg-transparent d-flex align-items-center justify-content-between py-2">
+                                <h3 id="binding-access-heading" class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="link"></i>应用绑定授权</h3>
+                                <span id="binding-access-count" class="badge bg-secondary-subtle text-secondary border">@bindingAccessCount</span>
                             </div>
                             <div class="card-body">
-                                <p class="text-muted small">只有下列用户或用户组中的成员，才能在自己可管理的应用中看到并绑定此渠道。收件人不会自动获得此权限，渠道配置与测试仍仅限推送渠道管理员。</p>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <label asp-for="BindingUserIds" class="form-label small fw-medium">允许绑定的用户</label>
-                                        <select asp-for="BindingUserIds" asp-items="Model.AvailableUsers" multiple class="form-select" size="6"></select>
-                                        <small class="text-muted d-block mt-2">按住 Ctrl 或 Command 可选择多个用户。</small>
+                                <p class="text-muted small">仅下列用户或用户组成员可在其可管理的应用中看到并绑定此渠道。该授权不提供收件人、Webhook 或测试配置访问权。</p>
+                                <div class="row g-3 align-items-end">
+                                    <div class="col-md-3">
+                                        <label class="form-label small fw-medium d-block">授权类型</label>
+                                        <div class="btn-group w-100" role="group">
+                                            <input type="radio" class="btn-check" name="binding-access-kind" id="binding-access-role" value="role" checked />
+                                            <label class="btn btn-outline-primary" for="binding-access-role"><i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>用户组</label>
+                                            <input type="radio" class="btn-check" name="binding-access-kind" id="binding-access-user" value="user" />
+                                            <label class="btn btn-outline-primary" for="binding-access-user"><i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>指定用户</label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label asp-for="BindingRoleIds" class="form-label small fw-medium">允许绑定的用户组</label>
-                                        <select asp-for="BindingRoleIds" asp-items="Model.AvailableRoles" multiple class="form-select" size="6"></select>
-                                        <small class="text-muted d-block mt-2">用户组成员会动态获得绑定权限。</small>
+                                    <div class="col-md-7">
+                                        <label for="binding-access-role-select" class="form-label small fw-medium" id="binding-access-subject-label">选择用户组</label>
+                                        <select id="binding-access-role-select" class="form-select">
+                                            <option value="">请选择用户组…</option>
+                                            @foreach (var role in Model.AvailableRoles)
+                                            {
+                                                <option value="@role.Value">@role.Text</option>
+                                            }
+                                        </select>
+                                        <select id="binding-access-user-select" class="form-select d-none">
+                                            <option value="">请选择用户…</option>
+                                            @foreach (var user in Model.AvailableUsers)
+                                            {
+                                                <option value="@user.Value">@user.Text</option>
+                                            }
+                                        </select>
                                     </div>
+                                    <div class="col-md-2">
+                                        <button type="button" id="add-binding-access" class="btn btn-primary w-100"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body border-top pt-0">
+                                <div id="binding-access-empty" class="ac-empty-state py-4 @(bindingAccessCount > 0 ? "d-none" : "")">
+                                    <div class="ac-empty-icon" style="width: 48px; height: 48px;"><i data-lucide="link" aria-hidden="true"></i></div>
+                                    <h4 class="h6 text-muted">尚未授予应用绑定权限</h4>
+                                    <p class="text-muted small mb-0">除推送渠道管理员外，当前没有用户可以绑定此渠道。</p>
+                                </div>
+                                <div id="binding-access-list" class="list-group list-group-flush">
+                                    @foreach (var role in Model.SelectedBindingRoles)
+                                    {
+                                        <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3" data-kind="role" data-id="@role.Id">
+                                            <div class="d-flex align-items-center gap-3 min-w-0">
+                                                <div class="ac-stat-icon icon-primary" style="width: 40px; height: 40px;"><i data-lucide="users" aria-hidden="true"></i></div>
+                                                <div class="text-truncate"><strong class="d-block text-truncate">@role.Name</strong><small class="text-muted">用户组 · 成员动态继承绑定权限</small></div>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2"><input type="hidden" name="BindingRoleIds" value="@role.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-binding-access" title="移除权限"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @role.Name</span></button></div>
+                                        </div>
+                                    }
+                                    @foreach (var user in Model.SelectedBindingUsers)
+                                    {
+                                        <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3" data-kind="user" data-id="@user.Id">
+                                            <div class="d-flex align-items-center gap-3 min-w-0">
+                                                <div class="ac-stat-icon icon-indigo" style="width: 40px; height: 40px;"><i data-lucide="user" aria-hidden="true"></i></div>
+                                                <div class="text-truncate"><strong class="d-block text-truncate">@user.Name</strong><small class="text-muted">@user.UserName · 指定个人用户</small></div>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2"><input type="hidden" name="BindingUserIds" value="@user.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-binding-access" title="移除权限"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @user.Name</span></button></div>
+                                        </div>
+                                    }
                                 </div>
                                 <span asp-validation-for="BindingUserIds" class="text-danger small"></span>
                                 <span asp-validation-for="BindingRoleIds" class="text-danger small"></span>
                             </div>
-                        </div>
+                        </section>
 
                         <div class="form-check form-switch mb-4">
                             <input asp-for="IsEnabled" class="form-check-input" />
@@ -329,11 +379,101 @@
     }
 </script>
 
-@if (Model.Type == "inapp")
-{
-    @section scripts {
+@section scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const bindingRoleType = document.getElementById('binding-access-role');
+            const bindingUserType = document.getElementById('binding-access-user');
+            const bindingRoleSelect = document.getElementById('binding-access-role-select');
+            const bindingUserSelect = document.getElementById('binding-access-user-select');
+            const bindingSubjectLabel = document.getElementById('binding-access-subject-label');
+            const bindingList = document.getElementById('binding-access-list');
+            const bindingEmpty = document.getElementById('binding-access-empty');
+            const bindingCount = document.getElementById('binding-access-count');
+
+            function selectedBindingKind() { return bindingRoleType.checked ? 'role' : 'user'; }
+            function updateBindingSubject() {
+                const isRole = selectedBindingKind() === 'role';
+                bindingRoleSelect.classList.toggle('d-none', !isRole);
+                bindingUserSelect.classList.toggle('d-none', isRole);
+                bindingSubjectLabel.textContent = isRole ? '选择用户组' : '选择用户';
+            }
+            function updateBindingEmptyState() {
+                const count = bindingList.children.length;
+                bindingEmpty.classList.toggle('d-none', count > 0);
+                bindingCount.textContent = count;
+            }
+            function createBindingIcon(name, iconClass) {
+                const icon = document.createElement('i');
+                icon.dataset.lucide = name;
+                icon.className = `align-middle ${iconClass}`;
+                icon.setAttribute('aria-hidden', 'true');
+                return icon;
+            }
+
+            bindingRoleType.addEventListener('change', updateBindingSubject);
+            bindingUserType.addEventListener('change', updateBindingSubject);
+            document.getElementById('add-binding-access').addEventListener('click', function () {
+                const kind = selectedBindingKind();
+                const select = kind === 'role' ? bindingRoleSelect : bindingUserSelect;
+                const option = select.options[select.selectedIndex];
+                if (!option.value) {
+                    select.focus();
+                    return;
+                }
+                const existing = Array.from(bindingList.children).find(item => item.dataset.kind === kind && item.dataset.id === option.value);
+                if (existing) existing.remove();
+
+                const item = document.createElement('div');
+                item.className = 'list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3';
+                item.dataset.kind = kind;
+                item.dataset.id = option.value;
+                const details = document.createElement('div');
+                details.className = 'd-flex align-items-center gap-3 min-w-0';
+                const iconContainer = document.createElement('div');
+                iconContainer.className = `ac-stat-icon ${kind === 'role' ? 'icon-primary' : 'icon-indigo'}`;
+                iconContainer.style.width = '40px';
+                iconContainer.style.height = '40px';
+                iconContainer.appendChild(createBindingIcon(kind === 'role' ? 'users' : 'user', ''));
+                const text = document.createElement('div');
+                text.className = 'text-truncate';
+                const name = document.createElement('strong');
+                name.className = 'd-block text-truncate';
+                name.textContent = option.textContent;
+                const subtitle = document.createElement('small');
+                subtitle.className = 'text-muted';
+                subtitle.textContent = kind === 'role' ? '用户组 · 成员动态继承绑定权限' : '指定个人用户';
+                text.append(name, subtitle);
+                details.append(iconContainer, text);
+                const controls = document.createElement('div');
+                controls.className = 'd-flex align-items-center gap-2';
+                const hidden = document.createElement('input');
+                hidden.type = 'hidden';
+                hidden.name = kind === 'role' ? 'BindingRoleIds' : 'BindingUserIds';
+                hidden.value = option.value;
+                const remove = document.createElement('button');
+                remove.type = 'button';
+                remove.className = 'btn btn-sm btn-outline-danger remove-binding-access';
+                remove.title = '移除权限';
+                remove.setAttribute('aria-label', `移除 ${option.textContent}`);
+                remove.appendChild(createBindingIcon('x', 'align-middle'));
+                controls.append(hidden, remove);
+                item.append(details, controls);
+                bindingList.appendChild(item);
+                select.value = '';
+                if (window.lucide) lucide.createIcons({ nodes: [item] });
+                updateBindingEmptyState();
+            });
+            bindingList.addEventListener('click', function (event) {
+                const button = event.target.closest('.remove-binding-access');
+                if (!button) return;
+                button.closest('.list-group-item').remove();
+                updateBindingEmptyState();
+            });
+
+@if (Model.Type == "inapp")
+{
+<text>
             const roleType = document.getElementById('recipient-type-role');
             const userType = document.getElementById('recipient-type-user');
             const roleSelection = document.getElementById('recipient-role-selection');
@@ -559,7 +699,8 @@
             document.addEventListener('click', function (event) {
                 if (!userSearch.contains(event.target) && !userResults.contains(event.target)) clearResults();
             });
-        });
+</text>
+}
+            });
     </script>
-    }
 }

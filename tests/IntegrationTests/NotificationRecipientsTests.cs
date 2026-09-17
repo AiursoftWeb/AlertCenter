@@ -146,6 +146,10 @@ public class NotificationRecipientsTests : TestBase
         var edit = await Http.GetStringAsync("/Push/Create?type=inapp");
         Assert.Contains("RecipientUserIds", edit);
         Assert.Contains("RecipientRoleIds", edit);
+        Assert.Contains("binding-access-list", edit);
+        Assert.Contains("binding-access-role", edit);
+        Assert.Contains("binding-access-user", edit);
+        Assert.DoesNotContain("multiple class=\"form-select\"", edit);
         AssertRedirect(await PostForm("/Push/Save", new()
         {
             ["Name"] = "Personal channel", ["Type"] = "inapp", ["RecipientUserIds"] = userId, ["IsEnabled"] = "true"
