@@ -1,53 +1,341 @@
 @model Aiursoft.AlertCenter.Models.AlertsViewModel
+
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
 @{
     var endpoint = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}/api/v1/messages";
 }
+
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <div><h1 class="h3 mb-1">接入指南</h1><p class="text-muted mb-0">创建应用、保存 API Key，并将业务告警上报到 AlertCenter。</p></div>
-    <a asp-action="Applications" class="btn btn-outline-primary"><i class="align-middle me-1" data-lucide="app-window" aria-hidden="true"></i>管理接入应用</a>
+    <div>
+        <h1 class="h3 mb-1">开发者接入指南</h1>
+        <p class="text-muted mb-0">从应用创建、密钥鉴权到首条告警上报，4 步建立稳定的系统告警通道。</p>
+    </div>
+    <a asp-action="Applications" class="btn btn-primary">
+        <i class="align-middle me-1" data-lucide="app-window" aria-hidden="true"></i>管理接入应用
+    </a>
 </div>
+
+<!-- Step 1 Card -->
 <div class="card mb-4">
-    <div class="card-header"><h2 class="card-title mb-0">1. 创建应用并保存 API Key</h2></div>
+    <div class="card-header d-flex align-items-center gap-3">
+        <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.9rem;">1</span>
+        <h2 class="card-title mb-0">创建接入应用并获取 API Key</h2>
+    </div>
     <div class="card-body pt-0">
-        <p class="mb-2">在<strong>接入应用</strong>页面创建一个业务应用。每个应用拥有独立 API Key，用于识别消息来源并控制上报权限。</p>
-        <p class="text-muted mb-0">API Key 只在创建或重置后显示一次。请立即保存到应用的密钥管理服务或安全的环境变量中；不要提交到源码、日志或前端代码。</p>
+        <p class="mb-2">每个业务系统通过<strong>独立的 API Key</strong> 进行请求鉴权。中心通过 <code>&lt;applicationId&gt;.&lt;secret&gt;</code> 结构快速定位应用并校验哈希，保障来源隔离与安全性。</p>
+        <div class="alert alert-warning py-2 px-3 small mb-3">
+            <i class="align-middle me-1" data-lucide="shield-alert"></i>
+            <strong>防泄漏提示</strong>：API Key 仅在创建或重置成功瞬间显示一次。请立即配置在生产环境的环境变量（如 <code>ALERTCENTER_API_KEY</code>）或密钥管理中心（KMS），严禁硬编码至前端、日志或代码仓库。
+        </div>
+        <a asp-action="Applications" class="btn btn-sm btn-outline-primary">
+            <i class="align-middle me-1" data-lucide="plus"></i>前往创建应用并获取凭据 &rarr;
+        </a>
     </div>
 </div>
+
+<!-- Step 2 Card: Multi-language Code Snippets -->
 <div class="card mb-4">
-    <div class="card-header"><h2 class="card-title mb-0">2. 发送第一条消息</h2></div>
+    <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.9rem;">2</span>
+            <h2 class="card-title mb-0">发送第一条告警消息</h2>
+        </div>
+        <!-- Language Switcher Tabs -->
+        <ul class="nav nav-pills card-header-pills" id="code-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active py-1 px-3" id="tab-curl" data-bs-toggle="pill" data-bs-target="#panel-curl" type="button" role="tab">cURL</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link py-1 px-3" id="tab-dotnet" data-bs-toggle="pill" data-bs-target="#panel-dotnet" type="button" role="tab">.NET C# SDK</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link py-1 px-3" id="tab-go" data-bs-toggle="pill" data-bs-target="#panel-go" type="button" role="tab">Go SDK</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link py-1 px-3" id="tab-python" data-bs-toggle="pill" data-bs-target="#panel-python" type="button" role="tab">Python</button>
+            </li>
+        </ul>
+    </div>
     <div class="card-body pt-0">
-        <p class="text-muted">将 <code>YOUR_API_KEY</code> 替换为上一步保存的值，然后在终端运行以下命令。</p>
-        <pre class="border rounded p-3 mb-0"><code>curl -i '@endpoint' \
+        <p class="text-muted small mb-3">将示例代码中的 <code>YOUR_API_KEY</code> 替换为上一步生成的应用密钥即可直接发送测试。</p>
+
+        <div class="tab-content" id="code-tab-content">
+            <!-- cURL Tab -->
+            <div class="tab-pane fade show active" id="panel-curl" role="tabpanel">
+                <div class="ac-code-container">
+                    <div class="ac-code-header">
+                        <span>bash / zsh</span>
+                        <button type="button" class="ac-copy-btn" onclick="copyCode('code-curl', this)">
+                            <i class="align-middle" data-lucide="copy"></i>复制代码
+                        </button>
+                    </div>
+                    <pre class="ac-code-pre" id="code-curl"><code>curl -i '@endpoint' \
   -H 'Authorization: Bearer YOUR_API_KEY' \
   -H 'Content-Type: application/json' \
-  --data '{"reportId":"@Guid.NewGuid()","incidentKey":"payment-timeout","title":"订单支付超时","content":"下游渠道未在 5 秒内响应","level":"sev1","occurredAtUtc":"@DateTime.UtcNow.ToString("O")","context":{"orderId":"ORDER-1001","traceId":"demo-trace"}}'</code></pre>
+  --data '{
+    "reportId": "@Guid.NewGuid()",
+    "incidentKey": "order-payment-timeout",
+    "title": "订单支付响应超时",
+    "content": "第三方渠道未在 5000ms 内返回交易状态，进入轮询兜底流程。",
+    "level": "sev1",
+    "occurredAtUtc": "@DateTime.UtcNow.ToString("O")",
+    "context": {
+      "orderId": "ORD-202609-8839",
+      "channel": "alipay",
+      "retryCount": 3
+    }
+  }'</code></pre>
+                </div>
+            </div>
+
+            <!-- .NET Tab -->
+            <div class="tab-pane fade" id="panel-dotnet" role="tabpanel">
+                <div class="ac-code-container">
+                    <div class="ac-code-header">
+                        <span>C# (.NET 8/9/10)</span>
+                        <button type="button" class="ac-copy-btn" onclick="copyCode('code-dotnet', this)">
+                            <i class="align-middle" data-lucide="copy"></i>复制代码
+                        </button>
+                    </div>
+                    <pre class="ac-code-pre" id="code-dotnet"><code>// 1. 安装 NuGet 包: Aiursoft.AlertCenterSdk
+// 2. 在 Program.cs 中注册服务
+builder.Services.AddAlertCenter(
+    endpointUrl: "@endpoint",
+    apiKey: builder.Configuration["AlertCenter:ApiKey"]!);
+
+// 3. 注入 IAlertClient 并上报
+public class OrderService(IAlertClient alertClient)
+{
+    public async Task ProcessPaymentAsync(string orderId)
+    {
+        try {
+            // ... 业务处理
+        } catch (Exception ex) {
+            await alertClient.ReportAsync(
+                title: "订单支付异常",
+                content: ex.Message,
+                level: AlertSeverity.Sev1,
+                incidentKey: "order-payment-timeout",
+                context: new { OrderId = orderId, TraceId = Activity.Current?.Id });
+            throw;
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Go Tab -->
+            <div class="tab-pane fade" id="panel-go" role="tabpanel">
+                <div class="ac-code-container">
+                    <div class="ac-code-header">
+                        <span>Go 1.22+</span>
+                        <button type="button" class="ac-copy-btn" onclick="copyCode('code-go', this)">
+                            <i class="align-middle" data-lucide="copy"></i>复制代码
+                        </button>
+                    </div>
+                    <pre class="ac-code-pre" id="code-go"><code>package main
+
+import (
+    "context"
+    "time"
+    "github.com/google/uuid"
+    "alertcenter" // alertcenter-go SDK
+)
+
+func main() {
+    client := alertcenter.NewClient("@endpoint", "YOUR_API_KEY")
+    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+    defer cancel()
+
+    receipt, err := client.Report(ctx, &alertcenter.ReportMessage{
+        ReportID:      uuid.New().String(),
+        Title:         "数据库从库只读复制延迟超标",
+        Content:       "从库同步延迟超过 120 秒，已触发读写分离保护。",
+        Level:         alertcenter.SeveritySev2,
+        OccurredAtUTC: time.Now().UTC(),
+        Context: map[string]any{
+            "replica": "db-slave-02",
+            "lagSeconds": 145,
+        },
+    })
+    _ = receipt
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Python Tab -->
+            <div class="tab-pane fade" id="panel-python" role="tabpanel">
+                <div class="ac-code-container">
+                    <div class="ac-code-header">
+                        <span>Python 3.10+ (requests)</span>
+                        <button type="button" class="ac-copy-btn" onclick="copyCode('code-python', this)">
+                            <i class="align-middle" data-lucide="copy"></i>复制代码
+                        </button>
+                    </div>
+                    <pre class="ac-code-pre" id="code-python"><code>import uuid
+from datetime import datetime, timezone
+import requests
+
+payload = {
+    "reportId": str(uuid.uuid4()),
+    "title": "Celery 任务队列积压严重",
+    "content": "待处理队列任务数超过 10,000 条，执行速率低于预期。",
+    "level": "sev2",
+    "occurredAtUtc": datetime.now(timezone.utc).isoformat(),
+    "context": {
+        "queueName": "high_priority",
+        "pendingTasks": 12450
+    }
+}
+
+response = requests.post(
+    "@endpoint",
+    json=payload,
+    headers={"Authorization": "Bearer YOUR_API_KEY"}
+)
+print(response.status_code, response.json())</code></pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- Step 3 Card: API Parameters Specification -->
 <div class="card mb-4">
-    <div class="card-header"><h2 class="card-title mb-0">3. 请求字段</h2></div>
+    <div class="card-header d-flex align-items-center gap-3">
+        <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.9rem;">3</span>
+        <h2 class="card-title mb-0">HTTP 上报请求字段规范</h2>
+    </div>
     <div class="table-responsive">
         <table class="table align-middle mb-0">
-            <thead><tr><th class="ps-4">字段</th><th>必填</th><th>说明</th></tr></thead>
+            <thead>
+                <tr>
+                    <th class="ps-4">字段名称</th>
+                    <th>类型</th>
+                    <th>必填</th>
+                    <th>规则与约束</th>
+                    <th class="pe-4">说明</th>
+                </tr>
+            </thead>
             <tbody>
-                <tr><td class="ps-4"><code>reportId</code></td><td>是</td><td>消息的唯一 UUID。同一应用重复提交相同值不会创建新消息。</td></tr>
-                <tr><td class="ps-4"><code>title</code></td><td>是</td><td>告警标题，最多 200 个字符。</td></tr>
-                <tr><td class="ps-4"><code>content</code></td><td>否</td><td>告警正文，最多 4,000 个字符。</td></tr>
-                <tr><td class="ps-4"><code>level</code></td><td>是</td><td><code>sev1</code>（严重）、<code>sev2</code>（错误）、<code>sev3</code>（警告）或 <code>sev4</code>（信息）。</td></tr>
-                <tr><td class="ps-4"><code>incidentKey</code></td><td>否</td><td>同一故障使用稳定且一致的值（最多 200 字符）。事故确认处理后，带有相同值的新告警会自动归档且不发送通知；未提供时按应用、标题和级别匹配。</td></tr>
-                <tr><td class="ps-4"><code>occurredAtUtc</code></td><td>是</td><td>告警发生时间，使用 ISO 8601 UTC 时间，例如 <code>2026-09-09T18:27:10Z</code>。</td></tr>
-                <tr><td class="ps-4"><code>context</code></td><td>否</td><td>JSON 对象，可附加订单号、追踪 ID 等上下文信息。</td></tr>
+                <tr>
+                    <td class="ps-4"><code>reportId</code></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary font-monospace">UUID / GUID</span></td>
+                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">必填</span></td>
+                    <td>标准 UUID 格式</td>
+                    <td class="pe-4">客户端全局唯一的上报 ID。中心使用 <code>(ApplicationId, ReportId)</code> 保证严格并发幂等性；重试请沿用相同 ID。</td>
+                </tr>
+                <tr>
+                    <td class="ps-4"><code>title</code></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
+                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">必填</span></td>
+                    <td>1 ~ 200 字符</td>
+                    <td class="pe-4">告警摘要标题。简明概括故障现象，例如“订单支付渠道响应超时”。</td>
+                </tr>
+                <tr>
+                    <td class="ps-4"><code>content</code></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary">可选</span></td>
+                    <td>最多 4,000 字符</td>
+                    <td class="pe-4">告警正文详情。支持排查指引、异常堆栈或诊断摘要。展示层自动转义 HTML，杜绝 XSS 注入。</td>
+                </tr>
+                <tr>
+                    <td class="ps-4"><code>level</code></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
+                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">必填</span></td>
+                    <td><code>sev1</code>, <code>sev2</code>, <code>sev3</code>, <code>sev4</code></td>
+                    <td class="pe-4">严重级别：<code>sev1</code>（严重阻断）、<code>sev2</code>（关键错误）、<code>sev3</code>（预警提示）、<code>sev4</code>（普通信息）。中心按此级别执行路由推送。</td>
+                </tr>
+                <tr>
+                    <td class="ps-4"><code>incidentKey</code></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary">可选</span></td>
+                    <td>最多 200 字符</td>
+                    <td class="pe-4">故障收敛标识。同一持续性故障使用稳定且相同的 key。当事故由运维人员确认进入处置后，带有相同 key 的新告警会自动归档且抑制重复打扰。</td>
+                </tr>
+                <tr>
+                    <td class="ps-4"><code>occurredAtUtc</code></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary font-monospace">ISO 8601</span></td>
+                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">必填</span></td>
+                    <td>带时区偏移或 Z 标识</td>
+                    <td class="pe-4">业务实际发生时间，例如 <code>2026-09-17T08:30:00Z</code>。中心可根据此字段测算上报与投递网络延迟。</td>
+                </tr>
+                <tr>
+                    <td class="ps-4"><code>context</code></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary font-monospace">Object</span></td>
+                    <td><span class="badge bg-secondary-subtle text-secondary">可选</span></td>
+                    <td>JSON 对象，最大 64 KiB</td>
+                    <td class="pe-4">结构化业务上下文。建议附带 <code>traceId</code>、<code>userId</code>、<code>orderId</code> 或环境变量，便于在详情页一键定位排查。</td>
+                </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<!-- Step 4 Card: Status & Best Practices -->
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">4. 验证与后续配置</h2></div>
+    <div class="card-header d-flex align-items-center gap-3">
+        <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.9rem;">4</span>
+        <h2 class="card-title mb-0">HTTP 响应状态码与最佳工程实践</h2>
+    </div>
     <div class="card-body pt-0">
-        <ul class="mb-3">
-            <li>成功创建会返回 <code>201 Created</code> 和消息回执；重复上报会返回 <code>200 OK</code>，回执中的 <code>duplicate</code> 为 <code>true</code>。</li>
-            <li>凭据缺失、无效或应用已停用时会返回 <code>401 Unauthorized</code>；字段不合法时会返回 <code>400 Bad Request</code>。</li>
-            <li>请求正文最大为 64 KB。请避免将完整日志或敏感信息直接放入告警正文和上下文。</li>
-        </ul>
-        <p class="mb-0">返回<strong>接入应用</strong>可为每个应用配置推送渠道；创建的消息可在<strong>消息列表</strong>中查看。</p>
+        <div class="row g-3 mb-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="p-3 bg-body-tertiary rounded h-100">
+                    <strong class="d-block text-success mb-1">201 Created</strong>
+                    <p class="small text-muted mb-0">首次保存成功，返回生成的主键 ID，<code>duplicate: false</code>。已异步触发推送调度。</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="p-3 bg-body-tertiary rounded h-100">
+                    <strong class="d-block text-info mb-1">200 OK (幂等)</strong>
+                    <p class="small text-muted mb-0">相同 ReportId 重复上报，<code>duplicate: true</code>。保留首次记录，不重复触发推送。</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="p-3 bg-body-tertiary rounded h-100">
+                    <strong class="d-block text-warning mb-1">401 / 403 鉴权失败</strong>
+                    <p class="small text-muted mb-0">Bearer 凭据缺失、密钥不匹配或应用处于停用状态。请检查应用设置。</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="p-3 bg-body-tertiary rounded h-100">
+                    <strong class="d-block text-danger mb-1">400 / 413 参数错误</strong>
+                    <p class="small text-muted mb-0">必填项缺失、level 格式错误或请求体超过 64 KiB 限制。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+            <a asp-action="Index" class="btn btn-primary">
+                <i class="align-middle me-1" data-lucide="list"></i>查看消息列表
+            </a>
+            <a asp-controller="Push" asp-action="Index" class="btn btn-outline-primary">
+                <i class="align-middle me-1" data-lucide="sliders"></i>配置推送中心渠道
+            </a>
+        </div>
     </div>
 </div>
+
+@section scripts {
+    <script>
+        async function copyCode(elementId, btn) {
+            const code = document.getElementById(elementId)?.innerText;
+            if (!code) return;
+            try {
+                await navigator.clipboard.writeText(code);
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i class="align-middle me-1" data-lucide="check"></i>已复制';
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    if (window.lucide) lucide.createIcons({ nodes: [btn] });
+                }, 2000);
+            } catch {
+                // ignore
+            }
+        }
+    </script>
+}

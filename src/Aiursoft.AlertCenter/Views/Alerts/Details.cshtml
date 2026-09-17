@@ -1,48 +1,274 @@
 @model Aiursoft.AlertCenter.Models.AlertsViewModel
 @using Newtonsoft.Json.Linq
+
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
 @{
     var message = Model.Message!;
-    var color = message.Level switch { "sev1" => "danger", "sev2" => "warning", "sev3" => "primary", _ => "secondary" };
+    var badgeClass = message.Level switch
+    {
+        "sev1" => "ac-badge-sev1",
+        "sev2" => "ac-badge-sev2",
+        "sev3" => "ac-badge-sev3",
+        _ => "ac-badge-sev4"
+    };
+
+    var latency = message.ReceivedAtUtc - message.OccurredAtUtc;
+    var latencyText = latency.TotalSeconds >= 0
+        ? (latency.TotalSeconds < 1 ? $"{latency.TotalMilliseconds:F0}ms" : $"{latency.TotalSeconds:F1}s")
+        : "—";
+
+    string formattedJson = "无";
+    if (!string.IsNullOrWhiteSpace(message.ContextJson))
+    {
+        try
+        {
+            formattedJson = JToken.Parse(message.ContextJson).ToString(Newtonsoft.Json.Formatting.Indented);
+        }
+        catch
+        {
+            formattedJson = message.ContextJson;
+        }
+    }
 }
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"><a asp-action="Index" class="btn btn-outline-secondary"><i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回消息列表</a>
-    @if (message.Incident != null) { <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="btn btn-outline-primary">查看关联事故</a> }
-    else if (Model.ManageableApplicationIds.Contains(message.ApplicationId)) { <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#trigger-incident"><i class="align-middle me-1" data-lucide="siren" aria-hidden="true"></i>触发事故</button> }
+
+<!-- Top Action Bar -->
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回消息列表
+    </a>
+    <div class="d-flex gap-2">
+        @if (message.Incident != null)
+        {
+            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="btn btn-outline-primary">
+                <i class="align-middle me-1" data-lucide="siren" aria-hidden="true"></i>查看关联事故
+            </a>
+        }
+        else if (Model.ManageableApplicationIds.Contains(message.ApplicationId))
+        {
+            <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#trigger-incident">
+                <i class="align-middle me-1" data-lucide="siren" aria-hidden="true"></i>触发事故响应
+            </button>
+        }
+    </div>
 </div>
-<div class="d-flex align-items-start gap-3 mb-4">
-    <span class="badge bg-@color mt-1">@message.Level</span>
-    <div class="text-break"><h1 class="h3 mb-1">@message.Title</h1><p class="text-muted mb-0">@message.Application.Name</p></div>
+
+<!-- Alert Headline Banner -->
+<div class="card mb-4 border-start border-4 @(message.Level == "sev1" ? "border-danger" : message.Level == "sev2" ? "border-warning" : "border-primary")">
+    <div class="card-body">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <span class="badge @badgeClass text-uppercase fs-6">@message.Level</span>
+            <span class="badge bg-secondary-subtle text-secondary border">@message.Application.Name</span>
+            @if (message.IsArchived)
+            {
+                <span class="badge bg-secondary-subtle text-secondary border">
+                    <i class="align-middle me-1" data-lucide="archive"></i>已归档
+                </span>
+            }
+            <span class="text-muted small ms-auto">
+                <i class="align-middle me-1" data-lucide="clock"></i>传输延迟: @latencyText
+            </span>
+        </div>
+        <h1 class="h3 mb-1 text-break fw-bold">@message.Title</h1>
+        <p class="text-muted small mb-0">接收时间: @message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC · Report ID: <code class="text-muted">@message.ReportId</code></p>
+    </div>
 </div>
-<div class="row">
+
+<div class="row g-4">
+    <!-- Left Column: Content and Context -->
     <div class="col-lg-8">
-        <section class="card">
-            <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="align-left" aria-hidden="true"></i>消息内容</h2></div>
-            <div class="card-body pt-0"><div class="text-break" style="white-space: pre-wrap;">@(message.Content ?? "无")</div></div>
-        </section>
-        <section class="card">
+        <!-- Message Content Card -->
+        <section class="card mb-4" aria-labelledby="content-heading">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="braces" aria-hidden="true"></i>业务上下文</h2>
-                <span class="badge bg-secondary">JSON</span>
+                <h2 id="content-heading" class="card-title mb-0">
+                    <i class="align-middle me-2" data-lucide="align-left" aria-hidden="true"></i>告警正文
+                </h2>
+                @if (!string.IsNullOrWhiteSpace(message.Content))
+                {
+                    <button type="button" class="btn btn-sm btn-outline-secondary" id="copy-content-btn">
+                        <i class="align-middle me-1" data-lucide="copy"></i>复制正文
+                    </button>
+                }
             </div>
-            <div class="card-body pt-0"><pre class="border rounded p-3 mb-0"><code>@(message.ContextJson == null ? "无" : JToken.Parse(message.ContextJson).ToString())</code></pre></div>
+            <div class="card-body pt-0">
+                <div class="p-3 bg-body-tertiary rounded text-break" style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.6;" id="message-content-text">@(message.Content ?? "（该告警未包含详细正文内容）")</div>
+            </div>
+        </section>
+
+        <!-- Business Context JSON Card -->
+        <section class="card" aria-labelledby="context-heading">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 id="context-heading" class="card-title mb-0">
+                    <i class="align-middle me-2" data-lucide="braces" aria-hidden="true"></i>业务上下文
+                </h2>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-secondary-subtle text-secondary">JSON Object</span>
+                    @if (message.ContextJson != null)
+                    {
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="copy-json-btn">
+                            <i class="align-middle me-1" data-lucide="copy"></i>复制 JSON
+                        </button>
+                    }
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="ac-code-container">
+                    <div class="ac-code-header">
+                        <span>Payload Context</span>
+                        <span class="text-muted small">@(message.ContextJson != null ? $"{message.ContextJson.Length} bytes" : "empty")</span>
+                    </div>
+                    <pre class="ac-code-pre" id="context-json-code"><code>@formattedJson</code></pre>
+                </div>
+            </div>
         </section>
     </div>
+
+    <!-- Right Column: Metadata Sidebar -->
     <div class="col-lg-4">
-        <section class="card">
-            <div class="card-header"><h2 class="card-title mb-0">事件信息</h2></div>
+        <section class="card mb-4" aria-labelledby="meta-heading">
+            <div class="card-header">
+                <h2 id="meta-heading" class="card-title mb-0">
+                    <i class="align-middle me-2" data-lucide="info" aria-hidden="true"></i>事件元数据
+                </h2>
+            </div>
             <div class="card-body pt-0">
                 <dl class="mb-0">
-                    <dt class="text-muted fw-normal mb-1">来源应用</dt><dd class="mb-3">@message.Application.Name</dd>
-                    <dt class="text-muted fw-normal mb-1">发生时间 (UTC)</dt><dd class="mb-3">@message.OccurredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
-                    <dt class="text-muted fw-normal mb-1">接收时间 (UTC)</dt><dd class="mb-3">@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
-                    <dt class="text-muted fw-normal mb-1">归档状态</dt><dd class="mb-3">@(message.IsArchived ? "已自动归档（事故处理中）" : "正常")</dd>
-                    @if (message.IncidentKey != null) { <dt class="text-muted fw-normal mb-1">Incident Key</dt><dd class="mb-3 text-break"><code>@message.IncidentKey</code></dd> }
-                    <dt class="text-muted fw-normal mb-1">Report ID</dt><dd class="mb-0 text-break"><code>@message.ReportId</code></dd>
+                    <dt class="text-muted small fw-medium mb-1">来源应用</dt>
+                    <dd class="mb-3 d-flex align-items-center justify-content-between">
+                        <span class="fw-semibold">@message.Application.Name</span>
+                        <a asp-action="Index" asp-route-applicationId="@message.ApplicationId" class="small text-primary text-decoration-none">
+                            查看该应用全部告警 <i class="align-middle" data-lucide="chevron-right"></i>
+                        </a>
+                    </dd>
+
+                    <dt class="text-muted small fw-medium mb-1">业务发生时间 (Occurred)</dt>
+                    <dd class="mb-3">
+                        <i class="align-middle me-1 text-muted" data-lucide="calendar"></i>@message.OccurredAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+                    </dd>
+
+                    <dt class="text-muted small fw-medium mb-1">中心接收时间 (Received)</dt>
+                    <dd class="mb-3">
+                        <i class="align-middle me-1 text-muted" data-lucide="clock"></i>@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+                    </dd>
+
+                    <dt class="text-muted small fw-medium mb-1">传输耗时 (Latency)</dt>
+                    <dd class="mb-3">
+                        <span class="badge bg-body-secondary text-body border">@latencyText</span>
+                    </dd>
+
+                    <dt class="text-muted small fw-medium mb-1">归档状态</dt>
+                    <dd class="mb-3">
+                        @if (message.IsArchived)
+                        {
+                            <span class="badge bg-secondary-subtle text-secondary border">已自动归档（关联事故处理中）</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success-subtle text-success border">正常活跃</span>
+                        }
+                    </dd>
+
+                    @if (message.IncidentKey != null)
+                    {
+                        <dt class="text-muted small fw-medium mb-1">Incident Key</dt>
+                        <dd class="mb-3 text-break">
+                            <code class="p-1 rounded bg-body-tertiary">@message.IncidentKey</code>
+                        </dd>
+                    }
+
+                    <dt class="text-muted small fw-medium mb-1">Report ID (幂等键)</dt>
+                    <dd class="mb-0 text-break d-flex align-items-center justify-content-between">
+                        <code class="small text-muted font-monospace" id="report-id-val">@message.ReportId</code>
+                        <button type="button" class="btn btn-sm btn-link text-muted p-0 ms-2" id="copy-report-id" title="复制 Report ID">
+                            <i class="align-middle" data-lucide="copy"></i>
+                        </button>
+                    </dd>
                 </dl>
             </div>
         </section>
+
+        <!-- Push Routing Quick Link -->
+        @if (Model.ManageableApplicationIds.Contains(message.ApplicationId))
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="h6 mb-2">应用推送设置</h3>
+                    <p class="small text-muted mb-3">为该应用关联推送渠道，或配置不同严重级别的投递目标。</p>
+                    <a asp-controller="Push" asp-action="Bindings" asp-route-id="@message.ApplicationId" class="btn btn-outline-primary btn-sm w-100">
+                        <i class="align-middle me-1" data-lucide="sliders"></i>配置该应用的推送渠道
+                    </a>
+                </div>
+            </div>
+        }
     </div>
 </div>
+
 @if (message.Incident == null && Model.ManageableApplicationIds.Contains(message.ApplicationId))
 {
-    <div class="modal fade" id="trigger-incident" tabindex="-1" aria-labelledby="trigger-incident-title" aria-hidden="true"><div class="modal-dialog"><form asp-controller="Incidents" asp-action="Trigger" method="post" class="modal-content"><input type="hidden" name="messageId" value="@message.Id" /><div class="modal-header"><h2 class="modal-title h5" id="trigger-incident-title">触发事故</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button></div><div class="modal-body"><div class="mb-3"><label for="incident-title" class="form-label">事故标题</label><input id="incident-title" class="form-control" name="title" maxlength="200" value="@message.Title" required /></div><div><label for="incident-note" class="form-label">触发说明（可选）</label><textarea id="incident-note" class="form-control" name="note" rows="3" maxlength="4000"></textarea></div><p class="form-text mb-0 mt-2">@(message.IncidentKey == null ? "后续同一应用、标题和级别的告警会关联此事故。" : "后续携带相同 incidentKey 的告警会关联此事故。")</p></div><div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button><button class="btn btn-danger">触发事故</button></div></form></div></div>
+    <div class="modal fade" id="trigger-incident" tabindex="-1" aria-labelledby="trigger-incident-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form asp-controller="Incidents" asp-action="Trigger" method="post" class="modal-content">
+                <input type="hidden" name="messageId" value="@message.Id" />
+                <div class="modal-header">
+                    <h2 class="modal-title h5 d-flex align-items-center gap-2" id="trigger-incident-title">
+                        <i class="align-middle text-danger" data-lucide="siren"></i>触发事故响应
+                    </h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="incident-title" class="form-label fw-medium">事故标题</label>
+                        <input id="incident-title" class="form-control" name="title" maxlength="200" value="@message.Title" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="incident-note" class="form-label fw-medium">触发说明（可选）</label>
+                        <textarea id="incident-note" class="form-control" name="note" rows="3" maxlength="4000" placeholder="记录问题起因、影响范围或初步排查思路…"></textarea>
+                    </div>
+                    <div class="alert alert-info py-2 px-3 small mb-0">
+                        <i class="align-middle me-1" data-lucide="info"></i>
+                        @(message.IncidentKey == null
+                            ? "后续来自同一应用、相同标题与严重级别的告警将自动归档并关联至此事故。"
+                            : "后续携带相同 incidentKey 的告警将自动归档并关联至此事故。")
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="align-middle me-1" data-lucide="siren"></i>确认触发事故
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script>
+        function setupCopy(buttonId, textSelector, isCodeTag = false) {
+            const btn = document.getElementById(buttonId);
+            if (!btn) return;
+            btn.addEventListener('click', async function () {
+                const el = document.querySelector(textSelector);
+                if (!el) return;
+                const text = isCodeTag ? el.innerText : el.textContent;
+                try {
+                    await navigator.clipboard.writeText(text);
+                    const original = this.innerHTML;
+                    this.innerHTML = '<i class="align-middle me-1" data-lucide="check"></i>已复制';
+                    setTimeout(() => {
+                        this.innerHTML = original;
+                        if (window.lucide) lucide.createIcons({ nodes: [this] });
+                    }, 2000);
+                } catch {
+                    // ignore
+                }
+            });
+        }
+
+        setupCopy('copy-content-btn', '#message-content-text');
+        setupCopy('copy-json-btn', '#context-json-code', true);
+        setupCopy('copy-report-id', '#report-id-val');
+    </script>
 }

@@ -3,22 +3,101 @@
 @{
     var notification = Model.Notifications.Single();
     var message = notification.Delivery.Message;
+    ViewData["Title"] = $"通知详情 - {message?.Title ?? "渠道测试通知"}";
+    var isUnread = notification.ReadAtUtc == null;
+    var levelBadge = message?.Level switch
+    {
+        "sev1" => "ac-badge-sev1",
+        "sev2" => "ac-badge-sev2",
+        "sev3" => "ac-badge-sev3",
+        "sev4" => "ac-badge-sev4",
+        _ => null
+    };
 }
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <a asp-action="Inbox" class="btn btn-outline-secondary"><i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回站内通知</a>
-    @if (notification.ReadAtUtc == null)
-    {
-        <form asp-action="MarkRead" asp-route-returnToNotification="true" method="post">
-            <input type="hidden" name="id" value="@notification.Id" />
-            <button class="btn btn-outline-primary">标为已读</button>
-        </form>
-    }
-    else
-    {
-        <span class="text-muted">已读</span>
-    }
+    <div class="d-flex align-items-center gap-2">
+        <a asp-action="Inbox" class="btn btn-outline-secondary">
+            <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回站内通知
+        </a>
+        @if (isUnread)
+        {
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">未读通知</span>
+        }
+        else
+        {
+            <span class="badge bg-light text-muted border">已读</span>
+        }
+    </div>
+    <div class="d-flex align-items-center gap-2">
+        @if (isUnread)
+        {
+            <form asp-action="MarkRead" asp-route-returnToNotification="true" method="post">
+                <input type="hidden" name="id" value="@notification.Id" />
+                <button class="btn btn-outline-primary">
+                    <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>标为已读
+                </button>
+            </form>
+        }
+        @if (message != null)
+        {
+            <a asp-controller="Alerts" asp-action="Details" asp-route-id="@message.Id" class="btn btn-outline-secondary">
+                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>查看原始告警
+            </a>
+        }
+    </div>
 </div>
-<h1 class="h3 text-break">@(message?.Title ?? "渠道测试通知")</h1>
-@if (message != null) { <p class="text-muted">@message.Application.Name · @message.Level</p> }
-<div class="card"><div class="card-body text-break" style="white-space: pre-wrap;">@(message == null ? notification.Delivery.TestContent ?? PushDelivery.DefaultTestContent : message.Content ?? "无")</div></div>
-@if (message?.ContextJson != null) { <div class="card"><div class="card-header">业务上下文</div><div class="card-body"><pre><code>@message.ContextJson</code></pre></div></div> }
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-transparent py-4 border-bottom">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            @if (levelBadge != null)
+            {
+                <span class="badge @levelBadge font-monospace">@message!.Level</span>
+            }
+            @if (message != null)
+            {
+                <span class="badge bg-secondary-subtle text-secondary font-monospace">@message.Application.Name</span>
+            }
+            <span class="text-muted small ms-auto font-monospace">
+                <i data-lucide="clock" style="width: 13px; height: 13px;" class="align-middle me-1" aria-hidden="true"></i>
+                @notification.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+            </span>
+        </div>
+        <h1 class="h3 mb-1 text-break">@(message?.Title ?? "渠道测试通知")</h1>
+        <small class="text-muted">
+            @(notification.Delivery.Channel != null ? $"通过站内通知渠道 {notification.Delivery.Channel.Name} 派发" : "站内通知派发")
+            @if (notification.ReadAtUtc != null)
+            {
+                <span> · 已于 @notification.ReadAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") UTC 阅读</span>
+            }
+        </small>
+    </div>
+    <div class="card-body py-4">
+        <h2 class="h6 text-uppercase text-muted fw-semibold mb-3">通知正文内容</h2>
+        <div class="p-3 rounded-3 bg-light border text-break font-monospace small" style="white-space: pre-wrap; line-height: 1.6;">
+            @(message == null ? notification.Delivery.TestContent ?? PushDelivery.DefaultTestContent : message.Content ?? "无正文内容")
+        </div>
+    </div>
+</div>
+
+@if (message?.ContextJson != null)
+{
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="ac-code-container">
+            <div class="ac-code-header">
+                <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="braces" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
+                    <span class="fw-semibold">业务上下文 (Context JSON)</span>
+                </div>
+                <button type="button" class="ac-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('notification-context-code').innerText); this.innerHTML = '<i data-lucide=\'check\' style=\'width:12px;height:12px;\'></i> 已复制';">
+                    <i data-lucide="copy" style="width: 12px; height: 12px;" aria-hidden="true"></i>复制 JSON
+                </button>
+            </div>
+            <pre class="ac-code-pre"><code id="notification-context-code">@message.ContextJson</code></pre>
+        </div>
+    </div>
+}

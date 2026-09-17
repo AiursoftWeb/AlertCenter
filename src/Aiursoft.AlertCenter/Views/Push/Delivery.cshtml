@@ -1,34 +1,288 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using Aiursoft.AlertCenter.Entities
-@{ var delivery = Model.Delivery!; }
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"><h1 class="h3 mb-0">投递详情</h1><a asp-action="Records" class="btn btn-outline-secondary">返回推送记录</a></div>
-<div class="card"><div class="card-header d-flex justify-content-between align-items-center"><h2 class="card-title mb-0">@(delivery.Message?.Title ?? "渠道测试通知")</h2><partial name="_DeliveryStatus" model="delivery.Status" /></div>
-    <div class="card-body pt-0">
-        <dl class="row">
-            <dt class="col-sm-3 text-muted">目标渠道</dt><dd class="col-sm-9">@delivery.Channel.Name · @(Model.ChannelTypes.FirstOrDefault(type => type.Key == delivery.Channel.Type)?.Name ?? delivery.Channel.Type)</dd>
-            <dt class="col-sm-3 text-muted">来源应用</dt><dd class="col-sm-9">@(delivery.Message?.Application.Name ?? "手动测试")</dd>
-            <dt class="col-sm-3 text-muted">创建时间 (UTC)</dt><dd class="col-sm-9">@delivery.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</dd>
-            <dt class="col-sm-3 text-muted">最近尝试 (UTC)</dt><dd class="col-sm-9">@(delivery.AttemptedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "尚未发送")</dd>
-            <dt class="col-sm-3 text-muted">完成时间 (UTC)</dt><dd class="col-sm-9">@(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "—")</dd>
-            <dt class="col-sm-3 text-muted">尝试次数</dt><dd class="col-sm-9">@delivery.Attempts</dd>
-            <dt class="col-sm-3 text-muted">投递 ID</dt><dd class="col-sm-9 text-break"><code>@delivery.Id</code></dd>
-        </dl>
-        @if (delivery.Message == null)
+@{
+    var delivery = Model.Delivery!;
+    ViewData["Title"] = $"投递详情 - {delivery.Message?.Title ?? "渠道测试"}";
+    var channelType = Model.ChannelTypes.FirstOrDefault(type => type.Key == delivery.Channel.Type);
+    var latency = delivery.CompletedAtUtc.HasValue && delivery.AttemptedAtUtc.HasValue
+        ? (delivery.CompletedAtUtc.Value - delivery.AttemptedAtUtc.Value).TotalMilliseconds
+        : (double?)null;
+}
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div class="d-flex align-items-center gap-3">
+        <a asp-action="Records" class="btn btn-outline-secondary">
+            <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回推送记录
+        </a>
+        <div>
+            <div class="d-flex align-items-center gap-2">
+                <h1 class="h3 mb-0">投递详情</h1>
+                <partial name="_DeliveryStatus" model="delivery.Status" />
+            </div>
+            <p class="text-muted mb-0 small">投递 ID: <code class="text-secondary">@delivery.Id</code></p>
+        </div>
+    </div>
+    <div class="d-flex gap-2">
+        @if (delivery.MessageId.HasValue)
         {
-            <div class="border rounded p-3 mb-3"><h3 class="h6">消息内容</h3><p class="mb-0 text-break" style="white-space: pre-wrap;">@(delivery.TestContent ?? PushDelivery.DefaultTestContent)</p></div>
+            <a asp-controller="Alerts" asp-action="Details" asp-route-id="@delivery.MessageId" class="btn btn-outline-secondary">
+                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>查看原始告警
+            </a>
         }
-        @if (delivery.Status == PushDelivery.Failed)
+        @if (delivery.Channel.Type == "inapp" && delivery.Status == PushDelivery.Succeeded)
         {
-            <div class="border rounded p-3 mb-3"><h3 class="h6 text-danger">投递失败</h3><p class="mb-0 text-break">@delivery.Error</p></div>
-            <p class="text-muted">重试使用当前渠道配置。超时或中断时接收端可能已收到消息，请核实后再重试。</p>
-            <form asp-action="Retry" method="post" class="d-inline"><input type="hidden" name="id" value="@delivery.Id" /><button class="btn btn-primary" disabled="@(!delivery.Channel.IsEnabled)">重新投递</button></form>
-            @if (!delivery.Channel.IsEnabled) { <span class="text-muted ms-2">请先启用渠道。</span> }
+            <a asp-action="Inbox" class="btn btn-outline-primary">
+                <i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>查看站内通知
+            </a>
         }
-        @if (delivery.Status is PushDelivery.Pending or PushDelivery.Sending)
-        {
-            <p class="text-muted">正在等待后台投递，稍后刷新查看结果。</p><a asp-action="Delivery" asp-route-id="@delivery.Id" class="btn btn-primary">刷新状态</a>
-        }
-        @if (delivery.MessageId.HasValue) { <a asp-controller="Alerts" asp-action="Details" asp-route-id="@delivery.MessageId" class="btn btn-outline-secondary">查看原始告警</a> }
-        @if (delivery.Channel.Type == "inapp" && delivery.Status == PushDelivery.Succeeded) { <a asp-action="Inbox" class="btn btn-outline-primary">查看站内通知</a> }
+    </div>
+</div>
+
+<!-- Status Callouts -->
+@if (delivery.Status == PushDelivery.Failed)
+{
+    <div class="alert alert-danger shadow-sm border-0 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
+        <div class="d-flex align-items-start gap-3">
+            <div class="rounded-circle bg-danger-subtle text-danger p-2 flex-shrink-0 mt-1">
+                <i data-lucide="alert-triangle" style="width: 24px; height: 24px;" aria-hidden="true"></i>
+            </div>
+            <div>
+                <h2 class="h5 alert-heading mb-1 text-danger">投递失败</h2>
+                <div class="text-break font-monospace small mb-2 text-danger-emphasis">@delivery.Error</div>
+                <small class="text-muted d-block">重新投递将使用当前最新的渠道配置。超时或中断时目标端可能已接收，请在核实后重试。</small>
+            </div>
+        </div>
+        <div class="flex-shrink-0 align-self-stretch align-self-md-center text-end">
+            <form asp-action="Retry" method="post" class="d-inline">
+                <input type="hidden" name="id" value="@delivery.Id" />
+                <button class="btn btn-danger" disabled="@(!delivery.Channel.IsEnabled)">
+                    <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>重新投递
+                </button>
+            </form>
+            @if (!delivery.Channel.IsEnabled)
+            {
+                <small class="text-danger d-block mt-1">请先启用目标渠道</small>
+            }
+        </div>
+    </div>
+}
+else if (delivery.Status == PushDelivery.Succeeded)
+{
+    <div class="alert alert-success shadow-sm border-0 d-flex align-items-center gap-3 mb-4 py-3">
+        <div class="rounded-circle bg-success-subtle text-success p-2 flex-shrink-0">
+            <i data-lucide="check-circle-2" style="width: 22px; height: 22px;" aria-hidden="true"></i>
+        </div>
+        <div class="flex-grow-1">
+            <strong class="text-success-emphasis d-block">投递成功完成</strong>
+            <small class="text-muted">
+                耗时: @(latency.HasValue ? $"{latency.Value:N0} ms" : "即时完成") · 尝试次数: @delivery.Attempts
+            </small>
+        </div>
+        <div class="text-muted small font-monospace d-none d-md-block">
+            完成于 @(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "—") UTC
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-primary shadow-sm border-0 d-flex align-items-center justify-content-between gap-3 mb-4 py-3">
+        <div class="d-flex align-items-center gap-3">
+            <div class="spinner-border spinner-border-sm text-primary flex-shrink-0" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div>
+                <strong class="text-primary-emphasis d-block">正在后台派发投递</strong>
+                <small class="text-muted">异步任务排队中，请稍后刷新状态</small>
+            </div>
+        </div>
+        <a asp-action="Delivery" asp-route-id="@delivery.Id" class="btn btn-sm btn-primary">
+            <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>刷新状态
+        </a>
+    </div>
+}
+
+<div class="row g-4">
+    <!-- Left Column: Payload & Execution Lifecycle -->
+    <div class="col-lg-8">
+        <!-- Message Payload Card -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center py-3">
+                <h2 class="card-title h5 mb-0">
+                    <i data-lucide="message-square" style="width: 18px; height: 18px;" class="text-primary me-2" aria-hidden="true"></i>
+                    投递内容
+                </h2>
+                @if (delivery.Message != null)
+                {
+                    var levelBadge = delivery.Message.Level switch
+                    {
+                        "sev1" => "ac-badge-sev1",
+                        "sev2" => "ac-badge-sev2",
+                        "sev3" => "ac-badge-sev3",
+                        _ => "ac-badge-sev4"
+                    };
+                    <span class="badge @levelBadge font-monospace">@delivery.Message.Level</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary-subtle text-secondary">手动测试消息</span>
+                }
+            </div>
+            <div class="card-body">
+                <h3 class="h5 mb-3 text-break">@(delivery.Message?.Title ?? "渠道测试通知")</h3>
+                <div class="p-3 rounded-3 bg-light border text-break font-monospace small" style="white-space: pre-wrap; line-height: 1.6;">
+                    @(delivery.Message == null ? delivery.TestContent ?? PushDelivery.DefaultTestContent : delivery.Message.Content)
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline Lifecycle Card -->
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-transparent py-3">
+                <h2 class="card-title h5 mb-0">
+                    <i data-lucide="clock" style="width: 18px; height: 18px;" class="text-primary me-2" aria-hidden="true"></i>
+                    派发时间线 (UTC)
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="ac-timeline">
+                    <!-- Step 1: Created -->
+                    <div class="ac-timeline-item">
+                        <div class="ac-timeline-badge">
+                            <i data-lucide="plus" style="width: 16px; height: 16px;" class="text-muted" aria-hidden="true"></i>
+                        </div>
+                        <div class="ac-timeline-content">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong>投递任务已创建</strong>
+                                <small class="text-muted font-monospace">@delivery.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</small>
+                            </div>
+                            <small class="text-muted d-block mt-1">进入投递调度队列</small>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Attempted -->
+                    <div class="ac-timeline-item">
+                        <div class="ac-timeline-badge">
+                            <i data-lucide="send" style="width: 16px; height: 16px;" class="text-primary" aria-hidden="true"></i>
+                        </div>
+                        <div class="ac-timeline-content">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong>发起派发请求</strong>
+                                <small class="text-muted font-monospace">@(delivery.AttemptedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "等待派发")</small>
+                            </div>
+                            <small class="text-muted d-block mt-1">已累计尝试 @delivery.Attempts 次</small>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Finished -->
+                    <div class="ac-timeline-item">
+                        <div class="ac-timeline-badge @(delivery.Status == PushDelivery.Succeeded ? "badge-resolved" : delivery.Status == PushDelivery.Failed ? "badge-triggered" : "")">
+                            @if (delivery.Status == PushDelivery.Succeeded)
+                            {
+                                <i data-lucide="check" style="width: 16px; height: 16px;" class="text-success" aria-hidden="true"></i>
+                            }
+                            else if (delivery.Status == PushDelivery.Failed)
+                            {
+                                <i data-lucide="x" style="width: 16px; height: 16px;" class="text-danger" aria-hidden="true"></i>
+                            }
+                            else
+                            {
+                                <i data-lucide="loader" style="width: 16px; height: 16px;" class="text-primary" aria-hidden="true"></i>
+                            }
+                        </div>
+                        <div class="ac-timeline-content">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong>
+                                    @(delivery.Status == PushDelivery.Succeeded ? "投递成功完成" : delivery.Status == PushDelivery.Failed ? "投递最终失败" : "执行中...")
+                                </strong>
+                                <small class="text-muted font-monospace">@(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "未完成")</small>
+                            </div>
+                            @if (delivery.Status == PushDelivery.Failed && !string.IsNullOrEmpty(delivery.Error))
+                            {
+                                <div class="text-danger small mt-1 font-monospace text-break">@delivery.Error</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Meta & Channel Card -->
+    <div class="col-lg-4">
+        <!-- Channel Card -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-transparent py-3">
+                <h2 class="card-title h5 mb-0">目标渠道</h2>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="rounded-3 p-2 bg-light border text-primary">
+                        <i data-lucide="@(delivery.Channel.Type == "webhook" ? "webhook" : delivery.Channel.Type == "email" ? "mail" : "bell")" style="width: 22px; height: 22px;" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h3 class="h6 mb-0">@delivery.Channel.Name</h3>
+                        <small class="text-muted">@(channelType?.Name ?? delivery.Channel.Type)</small>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2 border-top">
+                    <span class="text-muted small">渠道启用状态</span>
+                    @if (delivery.Channel.IsEnabled)
+                    {
+                        <span class="badge bg-success-subtle text-success">已启用</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger-subtle text-danger">已停用</span>
+                    }
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2 border-top">
+                    <span class="text-muted small">来源接入应用</span>
+                    <span class="fw-semibold small">@(delivery.Message?.Application.Name ?? "手动测试")</span>
+                </div>
+                <div class="mt-3">
+                    <a asp-action="Edit" asp-route-id="@delivery.Channel.Id" class="btn btn-outline-secondary btn-sm w-100">
+                        <i class="align-middle me-1" data-lucide="sliders" aria-hidden="true"></i>查看或修改渠道配置
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Metadata Card -->
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-transparent py-3">
+                <h2 class="card-title h5 mb-0">任务元数据</h2>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush small">
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                        <span class="text-muted">投递 ID</span>
+                        <div class="d-flex align-items-center gap-1">
+                            <code class="text-break">@delivery.Id.ToString().Substring(0, 8)...</code>
+                            <button type="button" class="btn btn-sm btn-link p-0 text-muted" onclick="navigator.clipboard.writeText('@delivery.Id')" title="复制完整 ID">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                        <span class="text-muted">派发尝试次数</span>
+                        <span class="badge bg-secondary-subtle text-secondary font-monospace">@delivery.Attempts 次</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                        <span class="text-muted">创建时间 (UTC)</span>
+                        <span class="font-monospace">@delivery.CreatedAtUtc.ToString("HH:mm:ss")</span>
+                    </li>
+                    @if (delivery.CompletedAtUtc.HasValue)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                            <span class="text-muted">完成时间 (UTC)</span>
+                            <span class="font-monospace">@delivery.CompletedAtUtc.Value.ToString("HH:mm:ss")</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

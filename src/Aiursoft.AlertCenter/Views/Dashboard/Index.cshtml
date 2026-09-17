@@ -1,9 +1,405 @@
-<div class="card"><div class="card-body p-5">
-    <h1>AlertCenter 告警中心</h1>
-    <p class="lead">集中接收业务系统的告警消息，快速查看问题现场。</p>
-    <p>创建接入应用 → 使用 API Key 上报 → 查看消息详情</p>
-    <a asp-controller="Alerts" asp-action="Index" class="btn btn-primary me-2">查看告警</a>
-    <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-primary">接入应用</a>
-    <a asp-controller="Push" asp-action="Index" class="btn btn-outline-primary">推送中心</a>
-    <p class="text-muted mt-3 mb-0">管理员可配置 Webhook 和站内通知，为接入应用关联推送渠道。</p>
-</div></div>
+@model Aiursoft.AlertCenter.Models.DashboardViewModels.IndexViewModel
+@using Aiursoft.AlertCenter.Entities
+
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
+@{
+    var deliverySuccessRate = Model.TotalDeliveries > 0
+        ? (int)Math.Round((double)Model.SuccessfulDeliveries / Model.TotalDeliveries * 100)
+        : 100;
+    var endpoint = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}/api/v1/messages";
+}
+
+<!-- Cockpit Header -->
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="ac-status-dot dot-success ac-pulse"></span>
+            <h1 class="h3 mb-0">监控仪表盘</h1>
+        </div>
+        <p class="text-muted mb-0">AlertCenter 告警与运维中心 · 全局态势与闭环跟踪</p>
+    </div>
+    <div class="d-flex flex-wrap align-items-center gap-2">
+        <span class="badge bg-body-secondary text-body border px-3 py-2">
+            <i class="align-middle me-1" data-lucide="clock"></i><span id="utc-clock">@DateTime.UtcNow.ToString("HH:mm:ss") UTC</span>
+        </span>
+        <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-outline-primary">
+            <i class="align-middle me-1" data-lucide="book-open"></i>接入指南
+        </a>
+        <a asp-controller="Alerts" asp-action="Applications" class="btn btn-primary">
+            <i class="align-middle me-1" data-lucide="plus"></i>接入应用
+        </a>
+    </div>
+</div>
+
+<!-- KPI Metrics Grid -->
+<div class="row g-3 mb-4">
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card ac-stat-card h-100 mb-0">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="text-muted small fw-medium">接入应用</span>
+                    <div class="ac-stat-icon icon-primary">
+                        <i data-lucide="app-window"></i>
+                    </div>
+                </div>
+                <div class="d-flex align-items-baseline justify-content-between">
+                    <h2 class="h1 mb-0 fw-bold">@Model.TotalApplications</h2>
+                    <a asp-controller="Alerts" asp-action="Applications" class="small text-primary text-decoration-none">管理应用 <i class="align-middle" data-lucide="chevron-right"></i></a>
+                </div>
+                <div class="mt-2 text-muted small">
+                    <span>独立 API Key 鉴权</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card ac-stat-card h-100 mb-0">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="text-muted small fw-medium">告警消息总数</span>
+                    <div class="ac-stat-icon icon-indigo">
+                        <i data-lucide="bell"></i>
+                    </div>
+                </div>
+                <div class="d-flex align-items-baseline justify-content-between">
+                    <h2 class="h1 mb-0 fw-bold">@Model.TotalMessages</h2>
+                    <a asp-controller="Alerts" asp-action="Index" class="small text-primary text-decoration-none">全部记录 <i class="align-middle" data-lucide="chevron-right"></i></a>
+                </div>
+                <div class="mt-2 text-muted small">
+                    <span class="text-danger fw-semibold">@Model.Sev1Count</span> 严重 · <span class="text-warning fw-semibold">@Model.Sev2Count</span> 错误
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card ac-stat-card h-100 mb-0">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="text-muted small fw-medium">进行中事故</span>
+                    <div class="ac-stat-icon @(Model.ActiveIncidents > 0 ? "icon-danger" : "icon-success")">
+                        <i data-lucide="@(Model.ActiveIncidents > 0 ? "siren" : "shield-check")"></i>
+                    </div>
+                </div>
+                <div class="d-flex align-items-baseline justify-content-between">
+                    <h2 class="h1 mb-0 fw-bold @(Model.ActiveIncidents > 0 ? "text-danger" : "text-success")">@Model.ActiveIncidents</h2>
+                    <a asp-controller="Incidents" asp-action="Index" class="small text-primary text-decoration-none">事故响应 <i class="align-middle" data-lucide="chevron-right"></i></a>
+                </div>
+                <div class="mt-2 text-muted small">
+                    @if (Model.ActiveIncidents > 0)
+                    {
+                        <span class="text-danger"><i class="align-middle me-1" data-lucide="alert-triangle"></i>需立即处理</span>
+                    }
+                    else
+                    {
+                        <span class="text-success"><i class="align-middle me-1" data-lucide="check-circle-2"></i>当前无未解决事故</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card ac-stat-card h-100 mb-0">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="text-muted small fw-medium">推送成功率</span>
+                    <div class="ac-stat-icon icon-success">
+                        <i data-lucide="send"></i>
+                    </div>
+                </div>
+                <div class="d-flex align-items-baseline justify-content-between">
+                    <h2 class="h1 mb-0 fw-bold">@(Model.TotalDeliveries > 0 ? $"{deliverySuccessRate}%" : "100%")</h2>
+                    <a asp-controller="Push" asp-action="Records" class="small text-primary text-decoration-none">投递记录 <i class="align-middle" data-lucide="chevron-right"></i></a>
+                </div>
+                <div class="mt-2 text-muted small">
+                    <span>@Model.ChannelsCount 个可用渠道 · @Model.TotalDeliveries 次投递</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Severity Quick Filter Pills -->
+<div class="card mb-4">
+    <div class="card-body py-3">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-muted small fw-semibold text-uppercase me-2"><i class="align-middle me-1" data-lucide="layers"></i>级别透视:</span>
+                <a asp-controller="Alerts" asp-action="Index" class="btn btn-sm btn-outline-secondary">全部 (@Model.TotalMessages)</a>
+                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev1" class="btn btn-sm ac-badge-sev1">
+                    <span class="ac-status-dot dot-danger"></span>sev1 严重 (@Model.Sev1Count)
+                </a>
+                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev2" class="btn btn-sm ac-badge-sev2">
+                    <span class="ac-status-dot dot-warning"></span>sev2 错误 (@Model.Sev2Count)
+                </a>
+                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev3" class="btn btn-sm ac-badge-sev3">
+                    <span class="ac-status-dot dot-warning"></span>sev3 警告 (@Model.Sev3Count)
+                </a>
+                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev4" class="btn btn-sm ac-badge-sev4">
+                    <span class="ac-status-dot dot-info"></span>sev4 信息 (@Model.Sev4Count)
+                </a>
+            </div>
+            @if (Model.UnreadNotifications > 0)
+            {
+                <a asp-controller="Push" asp-action="Inbox" class="badge bg-primary text-decoration-none py-2 px-3">
+                    <i class="align-middle me-1" data-lucide="bell"></i>@Model.UnreadNotifications 条待读站内通知
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Left Column: Recent Alerts & Incidents -->
+    <div class="col-lg-8">
+        @if (Model.RecentIncidents.Count > 0)
+        {
+            <div class="card border-danger mb-4">
+                <div class="card-header bg-danger-subtle d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="align-middle text-danger" data-lucide="alert-triangle"></i>
+                        <h2 class="card-title text-danger mb-0">进行中事故需响应</h2>
+                    </div>
+                    <a asp-controller="Incidents" asp-action="Index" class="btn btn-sm btn-danger">查看全部事故</a>
+                </div>
+                <div class="list-group list-group-flush">
+                    @foreach (var incident in Model.RecentIncidents)
+                    {
+                        <a asp-controller="Incidents" asp-action="Details" asp-route-id="@incident.Id" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center gap-3 py-3">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="badge bg-danger">@(incident.Status == Incident.Triggered ? "已触发" : "处理中")</span>
+                                    <strong class="text-break">@incident.Title</strong>
+                                </div>
+                                <small class="text-muted">来源: @incident.Application.Name · 匹配规则: @(incident.IncidentKey ?? incident.AlertTitle)</small>
+                            </div>
+                            <span class="text-muted small text-nowrap">@incident.TriggeredAtUtc.ToString("HH:mm:ss") UTC</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+
+        <!-- Recent Alerts Stream -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="card-title mb-0">实时告警流</h2>
+                    <small class="text-muted">最近上报的业务事件与故障提醒</small>
+                </div>
+                <a asp-controller="Alerts" asp-action="Index" class="btn btn-sm btn-outline-primary">
+                    查看全部消息 <i class="align-middle" data-lucide="arrow-right"></i>
+                </a>
+            </div>
+            @if (Model.RecentMessages.Count == 0)
+            {
+                <div class="card-body ac-empty-state">
+                    <div class="ac-empty-icon">
+                        <i data-lucide="bell-off"></i>
+                    </div>
+                    <h3 class="h5">暂无告警消息</h3>
+                    <p class="text-muted mb-4">通过 API 或 SDK 发送第一条告警，实时告警流将在这里展示。</p>
+                    <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-primary">
+                        <i class="align-middle me-1" data-lucide="rocket"></i>快速开始接入
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th class="ps-3" style="width: 90px;">级别</th>
+                                <th>消息标题</th>
+                                <th>来源应用</th>
+                                <th>关联事故</th>
+                                <th class="text-end pe-3">时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var message in Model.RecentMessages)
+                            {
+                                var rowClass = message.Level switch
+                                {
+                                    "sev1" => "ac-row-sev1",
+                                    "sev2" => "ac-row-sev2",
+                                    "sev3" => "ac-row-sev3",
+                                    _ => "ac-row-sev4"
+                                };
+                                var badgeClass = message.Level switch
+                                {
+                                    "sev1" => "ac-badge-sev1",
+                                    "sev2" => "ac-badge-sev2",
+                                    "sev3" => "ac-badge-sev3",
+                                    _ => "ac-badge-sev4"
+                                };
+                                <tr class="@rowClass">
+                                    <td class="ps-3">
+                                        <span class="badge @badgeClass text-uppercase">@message.Level</span>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Alerts" asp-action="Details" asp-route-id="@message.Id" class="fw-semibold text-decoration-none d-block text-break">
+                                            @message.Title
+                                        </a>
+                                        @if (!string.IsNullOrWhiteSpace(message.Content))
+                                        {
+                                            <small class="text-muted text-truncate d-block" style="max-width: 24rem;">@message.Content</small>
+                                        }
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">@message.Application.Name</span>
+                                    </td>
+                                    <td>
+                                        @if (message.Incident != null)
+                                        {
+                                            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="badge bg-warning-subtle text-warning-emphasis text-decoration-none">
+                                                <i class="align-middle me-1" data-lucide="siren"></i>事故中
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">—</span>
+                                        }
+                                    </td>
+                                    <td class="text-end pe-3 text-muted small text-nowrap">
+                                        @message.ReceivedAtUtc.ToString("MM-dd HH:mm:ss")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Right Column: Quick Start & Workflows -->
+    <div class="col-lg-4">
+        <!-- Quick Report cURL Snippet -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="terminal"></i>快速上报示例</h2>
+                <span class="badge bg-secondary-subtle text-secondary">HTTP POST</span>
+            </div>
+            <div class="card-body pt-0">
+                <p class="small text-muted mb-2">使用 Bearer 鉴权上报测试告警：</p>
+                <div class="ac-code-container mb-3">
+                    <div class="ac-code-header">
+                        <span>cURL</span>
+                        <button type="button" class="ac-copy-btn" id="copy-dashboard-curl">
+                            <i class="align-middle" data-lucide="copy"></i>复制
+                        </button>
+                    </div>
+                    <pre class="ac-code-pre" id="dashboard-curl-code"><code>curl -X POST '@endpoint' \
+  -H 'Authorization: Bearer &lt;YOUR_API_KEY&gt;' \
+  -H 'Content-Type: application/json' \
+  -d '{"reportId":"@Guid.NewGuid()","title":"服务健康检查异常","level":"sev2","occurredAtUtc":"@DateTime.UtcNow.ToString("O")"}'</code></pre>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">支持 .NET SDK / Go / Webhook</small>
+                    <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-sm btn-outline-primary">详细接入文档</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Routing & Destinations -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="route"></i>通知推送中心</h2>
+            </div>
+            <div class="card-body pt-0">
+                <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-body-tertiary rounded">
+                    <div class="ac-stat-icon icon-success">
+                        <i data-lucide="webhook"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <strong class="d-block">Webhook 自动调度</strong>
+                        <small class="text-muted">支持自定义请求头与 JSON 模板</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-body-tertiary rounded">
+                    <div class="ac-stat-icon icon-primary">
+                        <i data-lucide="inbox"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <strong class="d-block">站内通知 Inbox</strong>
+                        <small class="text-muted">直达责任人与用户组协同处置</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-body-tertiary rounded">
+                    <div class="ac-stat-icon icon-warning">
+                        <i data-lucide="mail"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <strong class="d-block">SMTP 邮件通道</strong>
+                        <small class="text-muted">批量派发值班群与关键邮箱</small>
+                    </div>
+                </div>
+                <a asp-controller="Push" asp-action="Index" class="btn btn-outline-secondary w-100">
+                    <i class="align-middle me-1" data-lucide="sliders"></i>配置推送渠道
+                </a>
+            </div>
+        </div>
+
+        <!-- 4-Step Process -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="workflow"></i>运维处置闭环</h2>
+            </div>
+            <div class="card-body pt-0">
+                <ol class="list-unstyled mb-0">
+                    <li class="d-flex gap-3 mb-3">
+                        <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">1</span>
+                        <div><strong>创建应用并获取 Key</strong><p class="text-muted small mb-0">在“接入应用”签发专属凭据。</p></div>
+                    </li>
+                    <li class="d-flex gap-3 mb-3">
+                        <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">2</span>
+                        <div><strong>关联推送渠道</strong><p class="text-muted small mb-0">在应用的推送设置中按 Sev1-Sev4 路由。</p></div>
+                    </li>
+                    <li class="d-flex gap-3 mb-3">
+                        <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">3</span>
+                        <div><strong>消息自动投递与排查</strong><p class="text-muted small mb-0">中心异步投递通知，支持记录回溯与重试。</p></div>
+                    </li>
+                    <li class="d-flex gap-3">
+                        <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">4</span>
+                        <div><strong>事故触发与协同解决</strong><p class="text-muted small mb-0">关联告警记录处置时间线并解决关闭。</p></div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        document.getElementById('copy-dashboard-curl')?.addEventListener('click', async function () {
+            const code = document.getElementById('dashboard-curl-code').innerText;
+            try {
+                await navigator.clipboard.writeText(code);
+                this.innerHTML = '<i class="align-middle" data-lucide="check"></i> 已复制';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="align-middle" data-lucide="copy"></i> 复制';
+                    if (window.lucide) lucide.createIcons({ nodes: [this] });
+                }, 2000);
+            } catch {
+                // fallback
+            }
+        });
+
+        // Update UTC clock every second
+        setInterval(() => {
+            const clock = document.getElementById('utc-clock');
+            if (clock) {
+                const now = new Date();
+                const pad = n => String(n).padStart(2, '0');
+                clock.textContent = `${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}:${pad(now.getUTCSeconds())} UTC`;
+            }
+        }, 1000);
+    </script>
+}

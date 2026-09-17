@@ -1,12 +1,15 @@
 @model string
 @using Aiursoft.AlertCenter.Entities
 @{
-    var (color, label) = Model switch
+    var (pillClass, icon, label) = Model switch
     {
-        PushDelivery.Pending => ("secondary", "等待投递"),
-        PushDelivery.Sending => ("primary", "投递中"),
-        PushDelivery.Succeeded => ("success", "投递成功"),
-        _ => ("danger", "投递失败")
+        PushDelivery.Pending => ("ac-status-pill-pending", "clock", "等待投递"),
+        PushDelivery.Sending => ("ac-status-pill-sending", "loader", "投递中"),
+        PushDelivery.Succeeded => ("ac-status-pill-succeeded", "check-circle-2", "投递成功"),
+        _ => ("ac-status-pill-failed", "alert-circle", "投递失败")
     };
 }
-<span class="badge bg-@color">@label</span>
+<span class="ac-status-pill @pillClass">
+    <i data-lucide="@icon" style="width: 13px; height: 13px;" aria-hidden="true"></i>
+    <span>@label</span>
+</span>

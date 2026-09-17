@@ -2,42 +2,221 @@
 @using Aiursoft.AlertCenter.Entities
 @using System.Globalization
 @{
+    ViewData["Title"] = "事故处置中心";
     var filter = Model.Filter;
     var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Status != "all" || filter.Level != null ||
         filter.FromDate.HasValue || filter.ToDate.HasValue;
-    string StatusText(string status) => status switch { Incident.Triggered => "已触发", Incident.Acknowledged => "处理中", _ => "已解决" };
-    string StatusColor(string status) => status switch { Incident.Triggered => "danger", Incident.Acknowledged => "warning", _ => "success" };
+
+    (string PillClass, string Icon, string Text) StatusInfo(string status) => status switch
+    {
+        Incident.Triggered => ("ac-status-pill-failed", "alert-triangle", "已触发"),
+        Incident.Acknowledged => ("ac-status-pill-sending", "user-check", "处理中"),
+        _ => ("ac-status-pill-succeeded", "check-circle-2", "已解决")
+    };
 }
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <div><h1 class="h3 mb-1">事故处置</h1><p class="text-muted mb-0">跟踪触发、确认、处理进展和解决过程；确认处理后匹配的新告警会自动归档且不再通知。</p></div>
-    <span class="badge bg-@(Model.ActiveCount == 0 ? "success" : "danger")">@(Model.ActiveCount == 0 ? "无进行中事故" : $"{Model.ActiveCount} 个进行中")</span>
+    <div>
+        <div class="d-flex align-items-center gap-2">
+            <h1 class="h3 mb-0">事故处置与应急响应</h1>
+            @if (Model.ActiveCount > 0)
+            {
+                <span class="badge bg-danger text-white px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
+                    <span class="ac-status-dot dot-danger ac-pulse-danger"></span>
+                    <span>@Model.ActiveCount 个进行中事故</span>
+                </span>
+            }
+            else
+            {
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
+                    <span class="ac-status-dot dot-success ac-pulse"></span>
+                    <span>服务运行正常 · 无进行中事故</span>
+                </span>
+            }
+        </div>
+        <p class="text-muted mb-0 small">全流程协同处置：触发、确认跟进、处置进展记录；确认后匹配的新告警将自动归档并抑制重复打扰。</p>
+    </div>
 </div>
-<div class="card mb-4"><div class="card-body"><form asp-action="Index" method="get" class="row g-3 align-items-end">
-    <div class="col-md-6 col-xl-4"><label for="incident-keyword" class="form-label">关键词</label><input id="incident-keyword" name="keyword" value="@filter.Keyword" class="form-control" maxlength="200" placeholder="搜索事故、告警、应用或 incidentKey" /></div>
-    <div class="col-sm-6 col-xl-2"><label for="incident-application" class="form-label">来源应用</label><select id="incident-application" name="applicationId" class="form-select"><option value="">全部应用</option>
-        @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value)) { <option value="@filter.ApplicationId" selected>所选应用不可访问</option> }
-        @foreach (var application in Model.Applications) { <option value="@application.Id" selected="@(filter.ApplicationId == application.Id)">@application.Name</option> }
-    </select></div>
-    <div class="col-sm-6 col-xl-2"><label for="incident-status" class="form-label">事故状态</label><select id="incident-status" name="status" class="form-select"><option value="all" selected="@(filter.Status == "all")">全部状态</option><option value="triggered" selected="@(filter.Status == Incident.Triggered)">已触发</option><option value="acknowledged" selected="@(filter.Status == Incident.Acknowledged)">处理中</option><option value="resolved" selected="@(filter.Status == Incident.Resolved)">已解决</option></select></div>
-    <div class="col-sm-6 col-xl-2"><label for="incident-level" class="form-label">告警级别</label><select id="incident-level" name="level" class="form-select"><option value="">全部级别</option><option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重</option><option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误</option><option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告</option><option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息</option></select></div>
-    <div class="col-sm-6 col-xl-3"><label for="incident-from-date" class="form-label">触发开始日期（UTC）</label><input id="incident-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
-    <div class="col-sm-6 col-xl-3"><label for="incident-to-date" class="form-label">触发结束日期（UTC，含当日）</label><input id="incident-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
-    <div class="col-xl-2 d-flex gap-2"><button class="btn btn-primary flex-grow-1">检索</button><a asp-action="Index" class="btn btn-outline-secondary text-nowrap">重置</a></div>
-    <div asp-validation-summary="All" class="text-danger mb-0"></div>
-</form></div></div>
-<div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">事故列表</h2></div>
+
+<!-- Quick Status Filter Chips -->
+<div class="ac-filter-chips mb-3">
+    <a asp-action="Index" asp-route-status="all" class="ac-chip @(filter.Status == "all" || string.IsNullOrEmpty(filter.Status) ? "active" : "")">
+        <i data-lucide="layers" style="width: 14px; height: 14px;" aria-hidden="true"></i>
+        <span>全部事故</span>
+    </a>
+    <a asp-action="Index" asp-route-status="triggered" class="ac-chip @(filter.Status == Incident.Triggered ? "active" : "")">
+        <i data-lucide="alert-triangle" style="width: 14px; height: 14px;" class="text-danger" aria-hidden="true"></i>
+        <span>待响应 (已触发)</span>
+    </a>
+    <a asp-action="Index" asp-route-status="acknowledged" class="ac-chip @(filter.Status == Incident.Acknowledged ? "active" : "")">
+        <i data-lucide="user-check" style="width: 14px; height: 14px;" class="text-warning" aria-hidden="true"></i>
+        <span>处置中 (已确认)</span>
+    </a>
+    <a asp-action="Index" asp-route-status="resolved" class="ac-chip @(filter.Status == Incident.Resolved ? "active" : "")">
+        <i data-lucide="check-circle-2" style="width: 14px; height: 14px;" class="text-success" aria-hidden="true"></i>
+        <span>已解决</span>
+    </a>
+</div>
+
+<!-- Search & Filter Card -->
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body p-3">
+        <form asp-action="Index" method="get" class="row g-3 align-items-end">
+            <div class="col-md-6 col-xl-4">
+                <label for="incident-keyword" class="form-label small text-muted mb-1">关键词搜索</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light text-muted"><i data-lucide="search" style="width: 15px; height: 15px;" aria-hidden="true"></i></span>
+                    <input id="incident-keyword" name="keyword" value="@filter.Keyword" class="form-control" maxlength="200" placeholder="搜索事故、告警标题、应用或 incidentKey..." />
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-2">
+                <label for="incident-application" class="form-label small text-muted mb-1">来源应用</label>
+                <select id="incident-application" name="applicationId" class="form-select">
+                    <option value="">全部应用</option>
+                    @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value))
+                    {
+                        <option value="@filter.ApplicationId" selected>所选应用不可访问</option>
+                    }
+                    @foreach (var application in Model.Applications)
+                    {
+                        <option value="@application.Id" selected="@(filter.ApplicationId == application.Id)">@application.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-6 col-xl-2">
+                <label for="incident-status" class="form-label small text-muted mb-1">事故状态</label>
+                <select id="incident-status" name="status" class="form-select">
+                    <option value="all" selected="@(filter.Status == "all")">全部状态</option>
+                    <option value="triggered" selected="@(filter.Status == Incident.Triggered)">已触发 (Triggered)</option>
+                    <option value="acknowledged" selected="@(filter.Status == Incident.Acknowledged)">处理中 (Acknowledged)</option>
+                    <option value="resolved" selected="@(filter.Status == Incident.Resolved)">已解决 (Resolved)</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-xl-2">
+                <label for="incident-level" class="form-label small text-muted mb-1">告警级别</label>
+                <select id="incident-level" name="level" class="form-select">
+                    <option value="">全部级别</option>
+                    <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重 (P1)</option>
+                    <option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误 (P2)</option>
+                    <option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告 (P3)</option>
+                    <option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息 (P4)</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <label for="incident-from-date" class="form-label small text-muted mb-1">触发开始日期（UTC）</label>
+                <input id="incident-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <label for="incident-to-date" class="form-label small text-muted mb-1">触发结束日期（UTC，含当日）</label>
+                <input id="incident-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
+            </div>
+            <div class="col-xl-2 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-grow-1">
+                    <i class="align-middle me-1" data-lucide="filter" aria-hidden="true"></i>检索
+                </button>
+                @if (hasFilters)
+                {
+                    <a asp-action="Index" class="btn btn-outline-secondary" title="重置筛选">
+                        <i data-lucide="rotate-ccw" style="width: 15px; height: 15px;" aria-hidden="true"></i>
+                    </a>
+                }
+            </div>
+            <div asp-validation-summary="All" class="text-danger mb-0 small"></div>
+        </form>
+    </div>
+</div>
+
+<!-- Incidents List Card -->
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-transparent d-flex justify-content-between align-items-center py-3">
+        <h2 class="card-title h5 mb-0">事故记录列表</h2>
+        <span class="badge bg-light text-secondary border">共 @Model.Incidents.Count 条</span>
+    </div>
+
     @if (Model.Incidents.Count == 0)
     {
-        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="shield-check" aria-hidden="true"></i></div><h2 class="h4">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters ? "没有匹配的事故" : "尚无事故")</h2><p class="text-muted mb-0">@(hasFilters ? "请调整筛选条件后重试。" : "在告警详情中触发事故，开始记录处置过程。")</p></div>
+        <div class="ac-empty-state">
+            <div class="ac-empty-icon text-success">
+                <i data-lucide="shield-check" aria-hidden="true"></i>
+            </div>
+            <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters ? "没有匹配的事故" : "目前尚无事故记录")</h2>
+            <p class="text-muted mb-3" style="max-width: 26rem; margin-inline: auto;">
+                @(hasFilters ? "请调整筛选条件或重置查看全部记录。" : "当发生线上异常时，在告警详情页中点击“触发事故”，即可在此开启处置流程并协同跟进。")
+            </p>
+            @if (hasFilters)
+            {
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">清除所有筛选</a>
+            }
+        </div>
     }
     else
     {
-        <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th class="ps-4">状态</th><th>事故</th><th>来源应用</th><th>匹配规则</th><th class="pe-4 text-nowrap">触发时间 (UTC)</th></tr></thead><tbody>
-        @foreach (var incident in Model.Incidents)
-        {
-            <tr><td class="ps-4"><span class="badge bg-@StatusColor(incident.Status)">@StatusText(incident.Status)</span></td><td class="text-break"><a asp-action="Details" asp-route-id="@incident.Id" class="fw-semibold text-decoration-none">@incident.Title</a><small class="d-block text-muted text-break">@incident.AlertTitle · @incident.AlertLevel</small></td><td>@incident.Application.Name</td><td class="text-break">@(incident.IncidentKey == null ? "应用 + 标题 + 级别" : $"incidentKey: {incident.IncidentKey}")</td><td class="pe-4 text-muted text-nowrap">@incident.TriggeredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</td></tr>
-        }
-        </tbody></table></div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4 py-3" style="width: 120px;">状态</th>
+                        <th class="py-3" style="min-width: 260px;">事故标题与原始告警</th>
+                        <th class="py-3">来源应用</th>
+                        <th class="py-3">匹配规则 (抑制范围)</th>
+                        <th class="pe-4 py-3 text-end" style="min-width: 160px;">触发时间 (UTC)</th>
+                        <th class="py-3 text-center" style="width: 80px;">进入</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var incident in Model.Incidents)
+                    {
+                        var status = StatusInfo(incident.Status);
+                        var levelBadge = incident.AlertLevel switch
+                        {
+                            "sev1" => "ac-badge-sev1",
+                            "sev2" => "ac-badge-sev2",
+                            "sev3" => "ac-badge-sev3",
+                            _ => "ac-badge-sev4"
+                        };
+                        var rowBorder = incident.Status == Incident.Triggered
+                            ? "border-start border-3 border-danger"
+                            : incident.Status == Incident.Acknowledged
+                                ? "border-start border-3 border-warning"
+                                : "";
+
+                        <tr class="@rowBorder">
+                            <td class="ps-4 py-3">
+                                <span class="ac-status-pill @status.PillClass">
+                                    <i data-lucide="@status.Icon" style="width: 13px; height: 13px;" aria-hidden="true"></i>
+                                    <span>@status.Text</span>
+                                </span>
+                            </td>
+                            <td class="py-3">
+                                <a asp-action="Details" asp-route-id="@incident.Id" class="fw-semibold text-decoration-none text-break d-block">
+                                    @incident.Title
+                                </a>
+                                <small class="text-muted d-flex align-items-center gap-1.5 mt-0.5 text-break">
+                                    <span class="badge @levelBadge font-monospace py-0 px-1.5" style="font-size: 0.725rem;">@incident.AlertLevel</span>
+                                    <span>@incident.AlertTitle</span>
+                                </small>
+                            </td>
+                            <td class="py-3">
+                                <span class="badge bg-secondary-subtle text-secondary font-monospace">@incident.Application.Name</span>
+                            </td>
+                            <td class="py-3">
+                                <code class="text-muted small text-break">@(incident.IncidentKey == null ? "应用 + 标题 + 级别" : $"incidentKey: {incident.IncidentKey}")</code>
+                            </td>
+                            <td class="pe-4 py-3 text-end text-nowrap text-muted small font-monospace">
+                                @incident.TriggeredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")
+                            </td>
+                            <td class="py-3 text-center">
+                                <a asp-action="Details" asp-route-id="@incident.Id" class="btn btn-sm btn-outline-primary" title="进入处置作战室">
+                                    <i data-lucide="chevron-right" style="width: 15px; height: 15px;" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
 </div>

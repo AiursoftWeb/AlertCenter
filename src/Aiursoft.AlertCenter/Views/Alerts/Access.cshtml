@@ -1,34 +1,269 @@
 @model Aiursoft.AlertCenter.Models.ApplicationAccessViewModel
+
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
 @{
     var accessCount = Model.UserAccesses.Count + Model.RoleAccesses.Count;
 }
+
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <div><div class="d-flex align-items-center gap-2 mb-1"><span class="stat"><i data-lucide="shield-check" aria-hidden="true"></i></span><h1 class="h3 mb-0">应用访问权限</h1></div><p class="text-muted mb-0">@Model.Application.Name · 控制谁能查看或管理此应用。</p></div>
-    <a asp-action="Applications" class="btn btn-outline-secondary"><i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回接入应用</a>
+    <div>
+        <div class="d-flex align-items-center gap-2 mb-1">
+            <div class="ac-stat-icon icon-primary" style="width: 36px; height: 36px;">
+                <i data-lucide="shield-check" aria-hidden="true"></i>
+            </div>
+            <h1 class="h3 mb-0">应用访问权限</h1>
+        </div>
+        <p class="text-muted mb-0">@Model.Application.Name · 精确控制团队成员与角色的查看与管理权限。</p>
+    </div>
+    <a asp-action="Applications" class="btn btn-outline-secondary">
+        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回接入应用
+    </a>
 </div>
-<div class="alert alert-info d-flex gap-3 align-items-start mb-4"><i class="align-middle flex-shrink-0" data-lucide="info" aria-hidden="true"></i><div><strong>Administrators 始终拥有完整访问权限。</strong><span class="d-block mt-1">角色授权自动应用到该角色的全部成员；用户获得多条授权时，以管理权限为准。</span></div></div>
-<form asp-action="SaveAccess" method="post" id="application-access-form"><input type="hidden" name="applicationId" value="@Model.Application.Id" />
-    <section class="card mb-4"><div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="user-plus" aria-hidden="true"></i>添加访问权限</h2></div><div class="card-body pt-0"><div class="row g-3 align-items-end">
-        <div class="col-md-3"><label class="form-label d-block">授权对象</label><div class="btn-group w-100" role="group"><input type="radio" class="btn-check" name="access-kind" id="access-role" value="role" checked /><label class="btn btn-outline-primary" for="access-role"><i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>角色</label><input type="radio" class="btn-check" name="access-kind" id="access-user" value="user" /><label class="btn btn-outline-primary" for="access-user"><i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>用户</label></div></div>
-        <div class="col-md-5"><label for="access-role-select" class="form-label" id="access-subject-label">选择角色</label><select id="access-role-select" class="form-select"><option value="">请选择角色…</option>@foreach (var role in Model.Roles) { <option value="@role.Value">@role.Text</option> }</select><select id="access-user-select" class="form-select d-none"><option value="">请选择用户…</option>@foreach (var user in Model.Users) { <option value="@user.Value">@user.Text</option> }</select></div>
-        <div class="col-md-2"><label for="access-level" class="form-label">权限</label><select id="access-level" class="form-select"><option value="view">仅查看</option><option value="manage">可管理</option></select></div>
-        <div class="col-md-2"><button type="button" id="add-access" class="btn btn-primary w-100"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加</button></div>
-    </div><p class="form-text mb-0 mt-3">仅查看可访问告警、事故和投递记录；可管理还可编辑应用设置、推送绑定和事故。</p></div></section>
-    <section class="card"><div class="card-header d-flex justify-content-between align-items-center"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="share-2" aria-hidden="true"></i>已有授权</h2><span id="access-count" class="badge bg-secondary">@accessCount</span></div><div class="card-body pt-0"><p id="access-empty" class="text-center text-muted py-4 mb-0 @(accessCount > 0 ? "d-none" : "")"><i class="align-middle d-block mx-auto mb-2" data-lucide="users-round" style="width: 40px; height: 40px;" aria-hidden="true"></i>尚未授予额外访问权限。</p><div id="access-list" class="list-group list-group-flush">
-        @foreach (var access in Model.RoleAccesses) { <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0" data-kind="role" data-id="@access.RoleId"><div class="d-flex align-items-center gap-3 min-w-0"><span class="stat stat-sm"><i data-lucide="users" aria-hidden="true"></i></span><div class="text-truncate"><strong class="d-block text-truncate">@access.Role.Name</strong><small class="text-muted">角色 · 其成员自动继承</small></div></div><div class="d-flex align-items-center gap-2"><span class="badge @(access.CanManage ? "bg-success" : "bg-secondary")">@(access.CanManage ? "可管理" : "仅查看")</span><input type="hidden" name="@(access.CanManage ? "manageRoleIds" : "viewRoleIds")" value="@access.RoleId" /><button type="button" class="btn btn-sm btn-outline-danger remove-access"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @access.Role.Name</span></button></div></div> }
-        @foreach (var access in Model.UserAccesses) { <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0" data-kind="user" data-id="@access.UserId"><div class="d-flex align-items-center gap-3 min-w-0"><span class="stat stat-sm"><i data-lucide="user" aria-hidden="true"></i></span><div class="text-truncate"><strong class="d-block text-truncate">@access.User.DisplayName</strong><small class="text-muted">@access.User.UserName · 指定用户</small></div></div><div class="d-flex align-items-center gap-2"><span class="badge @(access.CanManage ? "bg-success" : "bg-secondary")">@(access.CanManage ? "可管理" : "仅查看")</span><input type="hidden" name="@(access.CanManage ? "manageUserIds" : "viewUserIds")" value="@access.UserId" /><button type="button" class="btn btn-sm btn-outline-danger remove-access"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @access.User.DisplayName</span></button></div></div> }
-    </div></div><div class="card-footer d-flex justify-content-end gap-2"><a asp-action="Applications" class="btn btn-outline-secondary">取消</a><button class="btn btn-primary"><i class="align-middle me-1" data-lucide="save" aria-hidden="true"></i>保存权限</button></div></section>
+
+<div class="alert alert-info d-flex gap-3 align-items-start mb-4 shadow-sm">
+    <i class="align-middle flex-shrink-0 mt-1" data-lucide="info" aria-hidden="true"></i>
+    <div>
+        <strong>系统 Administrators 默认拥有全部应用的完整管理权限。</strong>
+        <div class="text-muted small mt-1">角色授权将自动覆盖该角色的所有成员；当用户同时拥有直接授权与角色授权时，系统以“可管理”最高权限优先。</div>
+    </div>
+</div>
+
+<form asp-action="SaveAccess" method="post" id="application-access-form">
+    <input type="hidden" name="applicationId" value="@Model.Application.Id" />
+
+    <!-- Add Permission Section -->
+    <section class="card mb-4" aria-labelledby="add-access-heading">
+        <div class="card-header">
+            <h2 id="add-access-heading" class="card-title mb-0">
+                <i class="align-middle me-2 text-primary" data-lucide="user-plus" aria-hidden="true"></i>授予新权限
+            </h2>
+        </div>
+        <div class="card-body pt-0">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label small fw-medium d-block">授权类型</label>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="access-kind" id="access-role" value="role" checked />
+                        <label class="btn btn-outline-primary" for="access-role">
+                            <i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>角色组
+                        </label>
+                        <input type="radio" class="btn-check" name="access-kind" id="access-user" value="user" />
+                        <label class="btn btn-outline-primary" for="access-user">
+                            <i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>指定用户
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <label for="access-role-select" class="form-label small fw-medium" id="access-subject-label">选择角色</label>
+                    <select id="access-role-select" class="form-select">
+                        <option value="">请选择角色…</option>
+                        @foreach (var role in Model.Roles)
+                        {
+                            <option value="@role.Value">@role.Text</option>
+                        }
+                    </select>
+                    <select id="access-user-select" class="form-select d-none">
+                        <option value="">请选择用户…</option>
+                        @foreach (var user in Model.Users)
+                        {
+                            <option value="@user.Value">@user.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label for="access-level" class="form-label small fw-medium">权限级别</label>
+                    <select id="access-level" class="form-select">
+                        <option value="view">仅查看 (View)</option>
+                        <option value="manage">可管理 (Manage)</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="button" id="add-access" class="btn btn-primary w-100">
+                        <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加授权
+                    </button>
+                </div>
+            </div>
+            <p class="form-text text-muted mb-0 mt-3 small">
+                <i class="align-middle me-1" data-lucide="shield"></i><strong>仅查看</strong>：允许浏览该应用的告警消息、关联事故与投递记录；<strong>可管理</strong>：额外允许修改推送绑定、重置密钥和触发处置事故。
+            </p>
+        </div>
+    </section>
+
+    <!-- Granted Permissions List -->
+    <section class="card" aria-labelledby="granted-heading">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 id="granted-heading" class="card-title mb-0">
+                <i class="align-middle me-2 text-primary" data-lucide="shield" aria-hidden="true"></i>已授予权限
+            </h2>
+            <span id="access-count" class="badge bg-secondary-subtle text-secondary border">@accessCount</span>
+        </div>
+        <div class="card-body pt-0">
+            <div id="access-empty" class="ac-empty-state py-4 @(accessCount > 0 ? "d-none" : "")">
+                <div class="ac-empty-icon" style="width: 48px; height: 48px;">
+                    <i data-lucide="users" aria-hidden="true"></i>
+                </div>
+                <h3 class="h6 text-muted">尚未为普通用户或角色授予额外访问权限</h3>
+                <p class="text-muted small mb-0">当前仅系统管理员可访问此应用。</p>
+            </div>
+
+            <div id="access-list" class="list-group list-group-flush">
+                @foreach (var access in Model.RoleAccesses)
+                {
+                    <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3" data-kind="role" data-id="@access.RoleId">
+                        <div class="d-flex align-items-center gap-3 min-w-0">
+                            <div class="ac-stat-icon icon-primary" style="width: 40px; height: 40px;">
+                                <i data-lucide="users" aria-hidden="true"></i>
+                            </div>
+                            <div class="text-truncate">
+                                <strong class="d-block text-truncate">@access.Role.Name</strong>
+                                <small class="text-muted">角色组 · 组内所有成员自动继承权限</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge @(access.CanManage ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border")">
+                                @(access.CanManage ? "可管理" : "仅查看")
+                            </span>
+                            <input type="hidden" name="@(access.CanManage ? "manageRoleIds" : "viewRoleIds")" value="@access.RoleId" />
+                            <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="移除权限">
+                                <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
+                                <span class="visually-hidden">移除 @access.Role.Name</span>
+                            </button>
+                        </div>
+                    </div>
+                }
+
+                @foreach (var access in Model.UserAccesses)
+                {
+                    <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3" data-kind="user" data-id="@access.UserId">
+                        <div class="d-flex align-items-center gap-3 min-w-0">
+                            <div class="ac-stat-icon icon-indigo" style="width: 40px; height: 40px;">
+                                <i data-lucide="user" aria-hidden="true"></i>
+                            </div>
+                            <div class="text-truncate">
+                                <strong class="d-block text-truncate">@access.User.DisplayName</strong>
+                                <small class="text-muted">@access.User.UserName · 指定个人用户</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge @(access.CanManage ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border")">
+                                @(access.CanManage ? "可管理" : "仅查看")
+                            </span>
+                            <input type="hidden" name="@(access.CanManage ? "manageUserIds" : "viewUserIds")" value="@access.UserId" />
+                            <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="移除权限">
+                                <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
+                                <span class="visually-hidden">移除 @access.User.DisplayName</span>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="card-footer bg-transparent d-flex justify-content-end gap-2">
+            <a asp-action="Applications" class="btn btn-outline-secondary">取消</a>
+            <button class="btn btn-primary" type="submit">
+                <i class="align-middle me-1" data-lucide="save" aria-hidden="true"></i>保存权限变更
+            </button>
+        </div>
+    </section>
 </form>
-@section scripts { <script>
+
+@section scripts {
+<script>
     document.addEventListener('DOMContentLoaded', () => {
-        const roleType = document.getElementById('access-role'); const userType = document.getElementById('access-user');
-        const roleSelect = document.getElementById('access-role-select'); const userSelect = document.getElementById('access-user-select');
-        const subjectLabel = document.getElementById('access-subject-label'); const level = document.getElementById('access-level'); const list = document.getElementById('access-list'); const empty = document.getElementById('access-empty'); const count = document.getElementById('access-count');
+        const roleType = document.getElementById('access-role');
+        const userType = document.getElementById('access-user');
+        const roleSelect = document.getElementById('access-role-select');
+        const userSelect = document.getElementById('access-user-select');
+        const subjectLabel = document.getElementById('access-subject-label');
+        const level = document.getElementById('access-level');
+        const list = document.getElementById('access-list');
+        const empty = document.getElementById('access-empty');
+        const count = document.getElementById('access-count');
+
         function selectedKind() { return roleType.checked ? 'role' : 'user'; }
-        function updateSubject() { const role = selectedKind() === 'role'; roleSelect.classList.toggle('d-none', !role); userSelect.classList.toggle('d-none', role); subjectLabel.textContent = role ? '选择角色' : '选择用户'; }
-        function updateEmpty() { const total = list.children.length; empty.classList.toggle('d-none', total > 0); count.textContent = total; }
-        roleType.addEventListener('change', updateSubject); userType.addEventListener('change', updateSubject);
-        document.getElementById('add-access').addEventListener('click', () => { const kind = selectedKind(); const select = kind === 'role' ? roleSelect : userSelect; const option = select.options[select.selectedIndex]; if (!option.value) { select.focus(); return; } const existing = list.querySelector(`[data-kind="${kind}"][data-id="${CSS.escape(option.value)}"]`); if (existing) { existing.querySelector('.remove-access').click(); } const manage = level.value === 'manage'; const item = document.createElement('div'); item.className = 'list-group-item d-flex align-items-center justify-content-between gap-3 px-0'; item.dataset.kind = kind; item.dataset.id = option.value; item.innerHTML = `<div class="d-flex align-items-center gap-3 min-w-0"><span class="stat stat-sm"><i data-lucide="${kind === 'role' ? 'users' : 'user'}" aria-hidden="true"></i></span><div class="text-truncate"><strong class="d-block text-truncate"></strong><small class="text-muted">${kind === 'role' ? '角色 · 其成员自动继承' : '指定用户'}</small></div></div><div class="d-flex align-items-center gap-2"><span class="badge ${manage ? 'bg-success' : 'bg-secondary'}">${manage ? '可管理' : '仅查看'}</span><input type="hidden" name="${manage ? (kind === 'role' ? 'manageRoleIds' : 'manageUserIds') : (kind === 'role' ? 'viewRoleIds' : 'viewUserIds')}" value="${option.value}" /><button type="button" class="btn btn-sm btn-outline-danger remove-access"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除</span></button></div>`; item.querySelector('strong').textContent = option.textContent; list.appendChild(item); select.value = ''; if (window.lucide) lucide.createIcons({ nodes: [item] }); updateEmpty(); });
-        list.addEventListener('click', event => { const button = event.target.closest('.remove-access'); if (!button) return; button.closest('.list-group-item').remove(); updateEmpty(); });
+        function updateSubject() {
+            const isRole = selectedKind() === 'role';
+            roleSelect.classList.toggle('d-none', !isRole);
+            userSelect.classList.toggle('d-none', isRole);
+            subjectLabel.textContent = isRole ? '选择角色' : '选择用户';
+        }
+        function updateEmpty() {
+            const total = list.children.length;
+            empty.classList.toggle('d-none', total > 0);
+            count.textContent = total;
+        }
+
+        roleType.addEventListener('change', updateSubject);
+        userType.addEventListener('change', updateSubject);
+
+        document.getElementById('add-access').addEventListener('click', () => {
+            const kind = selectedKind();
+            const select = kind === 'role' ? roleSelect : userSelect;
+            const option = select.options[select.selectedIndex];
+            if (!option.value) {
+                select.focus();
+                return;
+            }
+
+            const existing = list.querySelector(`[data-kind="${kind}"][data-id="${CSS.escape(option.value)}"]`);
+            if (existing) {
+                existing.querySelector('.remove-access').click();
+            }
+
+            const manage = level.value === 'manage';
+            const item = document.createElement('div');
+            item.className = 'list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3';
+            item.dataset.kind = kind;
+            item.dataset.id = option.value;
+
+            const iconClass = kind === 'role' ? 'icon-primary' : 'icon-indigo';
+            const iconName = kind === 'role' ? 'users' : 'user';
+            const subtitle = kind === 'role' ? '角色组 · 组内所有成员自动继承权限' : '指定个人用户';
+            const badgeClass = manage ? 'bg-success-subtle text-success border border-success-subtle' : 'bg-secondary-subtle text-secondary border';
+            const badgeText = manage ? '可管理' : '仅查看';
+            const fieldName = manage ? (kind === 'role' ? 'manageRoleIds' : 'manageUserIds') : (kind === 'role' ? 'viewRoleIds' : 'viewUserIds');
+
+            item.innerHTML = `
+                <div class="d-flex align-items-center gap-3 min-w-0">
+                    <div class="ac-stat-icon ${iconClass}" style="width: 40px; height: 40px;">
+                        <i data-lucide="${iconName}" aria-hidden="true"></i>
+                    </div>
+                    <div class="text-truncate">
+                        <strong class="d-block text-truncate"></strong>
+                        <small class="text-muted">${subtitle}</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge ${badgeClass}">${badgeText}</span>
+                    <input type="hidden" name="${fieldName}" value="${option.value}" />
+                    <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="移除">
+                        <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
+                        <span class="visually-hidden">移除</span>
+                    </button>
+                </div>`;
+
+            item.querySelector('strong').textContent = option.textContent;
+            list.appendChild(item);
+            select.value = '';
+
+            if (window.lucide) {
+                lucide.createIcons({ nodes: [item] });
+            }
+            updateEmpty();
+        });
+
+        list.addEventListener('click', event => {
+            const button = event.target.closest('.remove-access');
+            if (!button) return;
+            button.closest('.list-group-item').remove();
+            updateEmpty();
+        });
     });
-</script> }
+</script>
+}

@@ -1,52 +1,157 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using Aiursoft.AlertCenter.Models
 @{
+    ViewData["Title"] = $"{Model.Application!.Name} - 推送路由设置";
     var levels = new[]
     {
-        (Field: nameof(ApplicationPushBindingsRequest.Sev1ChannelIds), Level: "sev1", Label: "严重", Color: "danger", Selected: Model.Bindings.Sev1ChannelIds.ToHashSet()),
-        (Field: nameof(ApplicationPushBindingsRequest.Sev2ChannelIds), Level: "sev2", Label: "错误", Color: "warning", Selected: Model.Bindings.Sev2ChannelIds.ToHashSet()),
-        (Field: nameof(ApplicationPushBindingsRequest.Sev3ChannelIds), Level: "sev3", Label: "警告", Color: "primary", Selected: Model.Bindings.Sev3ChannelIds.ToHashSet()),
-        (Field: nameof(ApplicationPushBindingsRequest.Sev4ChannelIds), Level: "sev4", Label: "信息", Color: "secondary", Selected: Model.Bindings.Sev4ChannelIds.ToHashSet())
+        (Field: nameof(ApplicationPushBindingsRequest.Sev1ChannelIds), Level: "sev1", Label: "严重 (P1)", BadgeClass: "ac-badge-sev1", Selected: Model.Bindings.Sev1ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev2ChannelIds), Level: "sev2", Label: "错误 (P2)", BadgeClass: "ac-badge-sev2", Selected: Model.Bindings.Sev2ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev3ChannelIds), Level: "sev3", Label: "警告 (P3)", BadgeClass: "ac-badge-sev3", Selected: Model.Bindings.Sev3ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev4ChannelIds), Level: "sev4", Label: "信息 (P4)", BadgeClass: "ac-badge-sev4", Selected: Model.Bindings.Sev4ChannelIds.ToHashSet())
     };
 }
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <div><h1 class="h3 mb-1">应用推送设置</h1><p class="text-muted mb-0">@Model.Application!.Name · 按告警级别选择接收渠道。</p></div>
-    <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-secondary">返回接入应用</a>
+    <div class="d-flex align-items-center gap-3">
+        <div class="ac-app-avatar" style="width: 44px; height: 44px; font-size: 1.1rem;">
+            @(Model.Application.Name.Length > 0 ? Model.Application.Name[0].ToString().ToUpper() : "A")
+        </div>
+        <div>
+            <div class="d-flex align-items-center gap-2">
+                <h1 class="h3 mb-0">应用推送路由</h1>
+                <span class="badge bg-secondary-subtle text-secondary font-monospace small">@Model.Application.Name</span>
+            </div>
+            <p class="text-muted mb-0 small">按告警级别精确匹配接收渠道 · 矩阵路由引擎</p>
+        </div>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-secondary">
+            <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回接入应用
+        </a>
+    </div>
 </div>
+
 <form asp-action="SaveBindings" method="post">
     <input type="hidden" name="id" value="@Model.Application.Id" />
-    <div class="card"><div class="card-header"><h2 class="card-title mb-0">关联推送渠道</h2></div><div class="card-body pt-0">
-    @if (Model.Channels.Count == 0)
-    {
-        <div class="text-center py-4"><div class="stat mx-auto mb-3"><i data-lucide="send" aria-hidden="true"></i></div><p class="text-muted">还没有配置推送渠道。</p><a asp-action="Create" class="btn btn-primary">添加渠道</a></div>
-    }
-    else
-    {
-        <p id="binding-hint" class="text-muted">每个级别可选择多个渠道；未选择渠道的级别只保存告警，不推送。仅匹配勾选的级别，不自动包含其他级别。</p>
-        <div class="table-responsive mb-3">
-            <table class="table align-middle mb-0" aria-describedby="binding-hint">
-                <thead><tr><th scope="col">推送渠道</th>@foreach (var level in levels)
-                {
-                    <th scope="col" class="text-center text-nowrap"><span class="badge bg-@level.Color">@level.Level</span><span class="d-block mt-1">@level.Label</span></th>
-                }</tr></thead>
-                <tbody>@foreach (var channel in Model.Channels)
-                {
-                    var type = Model.ChannelTypes.FirstOrDefault(item => item.Key == channel.Type);
-                    <tr>
-                        <th scope="row"><strong class="d-block text-break">@channel.Name</strong><small class="text-muted fw-normal">@(type?.Name ?? channel.Type) · @(channel.IsEnabled ? "已启用" : "已停用，暂不接收新告警")</small></th>
-                        @foreach (var level in levels)
-                        {
-                            <td class="text-center"><label class="p-2" for="channel-@channel.Id-@level.Level">
-                                <input type="checkbox" class="form-check-input m-0" id="channel-@channel.Id-@level.Level" name="@level.Field" value="@channel.Id" checked="@level.Selected.Contains(channel.Id)" />
-                                <span class="visually-hidden">@channel.Name · @level.Level @level.Label</span>
-                            </label></td>
-                        }
-                    </tr>
-                }</tbody>
-            </table>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-transparent d-flex justify-content-between align-items-center py-3">
+            <div>
+                <h2 class="card-title h5 mb-0">渠道与级别匹配矩阵</h2>
+                <small id="binding-hint" class="text-muted">每个级别可选择多个渠道；未勾选的级别仅归档告警而不触发推送。严格精确匹配，不向上或向下自动扩展。</small>
+            </div>
+            <span class="badge bg-light text-dark border">共 @Model.Channels.Count 个可用渠道</span>
         </div>
-        <p class="text-muted">仅对保存后的新告警生效，不补发历史消息，也不改变已有投递任务。停用的渠道会保留级别配置，但不会新增投递任务。</p>
-        <button class="btn btn-primary">保存关联</button>
-    }
-    </div></div>
+
+        <div class="card-body p-0">
+            @if (Model.Channels.Count == 0)
+            {
+                <div class="ac-empty-state">
+                    <div class="ac-empty-icon">
+                        <i data-lucide="send" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="h5 mb-2">尚未配置推送渠道</h3>
+                    <p class="text-muted mb-4" style="max-width: 24rem; margin-inline: auto;">
+                        需要先创建 Webhook、邮件或站内通知渠道，才能将应用产生的不同级别告警分发到团队。
+                    </p>
+                    <a asp-action="Create" class="btn btn-primary">
+                        <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>立即添加渠道
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 ac-matrix-table" aria-describedby="binding-hint">
+                        <thead>
+                            <tr class="table-light">
+                                <th scope="col" class="ps-4 py-3" style="min-width: 240px;">
+                                    <span class="text-uppercase text-muted small fw-semibold">推送渠道与类型</span>
+                                </th>
+                                @foreach (var level in levels)
+                                {
+                                    <th scope="col" class="text-center py-3" style="min-width: 140px;">
+                                        <div class="d-inline-flex flex-column align-items-center">
+                                            <span class="badge @level.BadgeClass px-3 py-1 mb-1 font-monospace">@level.Level</span>
+                                            <span class="small text-muted fw-semibold">@level.Label</span>
+                                        </div>
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var channel in Model.Channels)
+                            {
+                                var type = Model.ChannelTypes.FirstOrDefault(item => item.Key == channel.Type);
+                                var icon = channel.Type switch
+                                {
+                                    "webhook" => "webhook",
+                                    "email" => "mail",
+                                    "inapp" => "bell",
+                                    _ => "send"
+                                };
+                                <tr>
+                                    <th scope="row" class="ps-4 py-3 fw-normal">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="rounded-3 p-2 bg-light border text-primary">
+                                                <i data-lucide="@icon" style="width: 20px; height: 20px;" aria-hidden="true"></i>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <strong class="text-break">@channel.Name</strong>
+                                                    @if (channel.IsEnabled)
+                                                    {
+                                                        <span class="ac-status-dot dot-success" title="已启用"></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle small py-0">已停用</span>
+                                                    }
+                                                </div>
+                                                <small class="text-muted">
+                                                    @(type?.Name ?? channel.Type)
+                                                    @if (!channel.IsEnabled)
+                                                    {
+                                                        <span class="text-danger-subtle">· 停用中，暂不派发</span>
+                                                    }
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    @foreach (var level in levels)
+                                    {
+                                        var isChecked = level.Selected.Contains(channel.Id);
+                                        <td class="text-center ac-matrix-cell py-3">
+                                            <label class="d-flex align-items-center justify-content-center p-2 rounded cursor-pointer" for="channel-@channel.Id-@level.Level">
+                                                <input type="checkbox"
+                                                       class="form-check-input ac-matrix-check m-0"
+                                                       id="channel-@channel.Id-@level.Level"
+                                                       name="@level.Field"
+                                                       value="@channel.Id"
+                                                       checked="@isChecked" />
+                                                <span class="visually-hidden">@channel.Name · @level.Level @level.Label</span>
+                                            </label>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-footer bg-light p-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <div class="d-flex align-items-center gap-2 text-muted small">
+                        <i data-lucide="info" class="text-primary" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+                        <span>保存后仅对新上报告警生效。若渠道停用，路由保留但新产生的告警将被跳过。</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="align-middle me-1" data-lucide="save" aria-hidden="true"></i>保存路由配置
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
 </form>

@@ -1,105 +1,310 @@
 @model Aiursoft.AlertCenter.Models.PushChannelEditViewModel
-@{ var selectedType = Model.ChannelTypes.FirstOrDefault(type => type.Key == Model.Type); }
-<div class="d-flex justify-content-between align-items-center mb-4"><h1 class="h3 mb-0">@(Model.Id.HasValue ? "编辑推送渠道" : "添加推送渠道")</h1><a asp-action="Index" class="btn btn-outline-secondary">返回渠道列表</a></div>
+
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
+@{
+    var selectedType = Model.ChannelTypes.FirstOrDefault(type => type.Key == Model.Type);
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">@(Model.Id.HasValue ? "编辑推送渠道" : "添加推送渠道")</h1>
+        <p class="text-muted mb-0">@(Model.Id.HasValue ? $"正在修改渠道“{Model.Name}”的投递参数。" : "选择一种通知渠道类型，并配置接收端地址或目标收件人。")</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回渠道列表
+    </a>
+</div>
+
 @if (!Model.Id.HasValue)
 {
-    <h2 class="h5 mb-3">选择渠道类型</h2>
-    <div class="row">
+    <h2 class="h5 mb-3 fw-semibold">1. 选择渠道类型</h2>
+    <div class="row g-3 mb-4">
     @foreach (var type in Model.ChannelTypes)
     {
-        <div class="col-md-6 col-xl-4 d-flex"><a asp-action="Create" asp-route-type="@type.Key" class="card flex-fill text-decoration-none @(Model.Type == type.Key ? "border border-primary" : "")" aria-current="@(Model.Type == type.Key ? "true" : "false")">
-            <div class="card-body"><div class="d-flex align-items-center gap-3 mb-3"><div class="stat"><i data-lucide="@type.Icon" aria-hidden="true"></i></div><h3 class="h5 mb-0">@type.Name</h3></div><p class="text-muted mb-0">@type.Description</p></div>
-        </a></div>
+        var isSelected = Model.Type == type.Key;
+        var iconClass = type.Key switch
+        {
+            "webhook" => "icon-success",
+            "email" => "icon-warning",
+            "inapp" => "icon-primary",
+            _ => "icon-indigo"
+        };
+        <div class="col-md-6 col-xl-4 d-flex">
+            <a asp-action="Create" asp-route-type="@type.Key" class="card ac-channel-card flex-fill text-decoration-none @(isSelected ? "selected" : "")" aria-current="@(isSelected ? "true" : "false")">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="ac-stat-icon @iconClass">
+                            <i data-lucide="@type.Icon" aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <h3 class="h5 mb-0 fw-semibold text-body">@type.Name</h3>
+                            <span class="badge bg-secondary-subtle text-secondary font-monospace small">@type.Key</span>
+                        </div>
+                    </div>
+                    <p class="text-muted small mb-0" style="line-height: 1.5;">@type.Description</p>
+                </div>
+            </a>
+        </div>
     }
     </div>
 }
+
 @if (selectedType != null)
 {
-    <div class="row"><div class="col-lg-8"><div class="card">
-        <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="@selectedType.Icon" aria-hidden="true"></i>@selectedType.Name 配置</h2></div>
-        <div class="card-body pt-0"><form asp-action="Save" method="post" id="push-channel-form">
-            <input asp-for="Id" type="hidden" /><input asp-for="Type" type="hidden" />
-            <div asp-validation-summary="All" class="text-danger mb-3"></div>
-            <div class="mb-3"><label asp-for="Name" class="form-label">渠道名称</label><input asp-for="Name" required maxlength="100" class="form-control" placeholder="例如：研发团队通知" /></div>
-            @if (selectedType.RequiresEndpoint)
-            {
-                <div class="mb-4"><label asp-for="Endpoint" class="form-label">Webhook 接收地址</label><input asp-for="Endpoint" type="url" required maxlength="2048" class="form-control" placeholder="https://example.com/webhook" aria-describedby="endpoint-hint" /><small class="text-muted" id="endpoint-hint">接收端需支持 HTTP POST JSON，返回 2xx 表示成功。请求超时为 10 秒，不跟随重定向。</small></div>
-                <div class="card border mb-4">
-                    <div class="card-header"><h3 class="h6 mb-0">系统发送的请求格式</h3></div>
-                    <div class="card-body">
-                        <dl class="row small mb-3"><dt class="col-sm-3">请求方法</dt><dd class="col-sm-9"><code>POST</code></dd><dt class="col-sm-3">请求头</dt><dd class="col-sm-9 mb-0"><code>Content-Type: application/json</code><br /><code>Idempotency-Key: &lt;deliveryId&gt;</code></dd></dl>
-                        <p class="small text-muted mb-2">默认请求体：</p>
-                        <pre class="bg-body-tertiary border rounded p-3 small mb-2"><code>{
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex align-items-center gap-2">
+                    <i class="align-middle text-primary" data-lucide="@selectedType.Icon" aria-hidden="true"></i>
+                    <h2 class="card-title mb-0">@selectedType.Name 配置详情</h2>
+                </div>
+                <div class="card-body pt-0">
+                    <form asp-action="Save" method="post" id="push-channel-form">
+                        <input asp-for="Id" type="hidden" />
+                        <input asp-for="Type" type="hidden" />
+                        <div asp-validation-summary="All" class="alert alert-danger py-2 px-3 small mb-3"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label small fw-medium">渠道名称</label>
+                            <input asp-for="Name" required maxlength="100" class="form-control" placeholder="例如：生产值班组、飞书告警机器人、Ops Webhook…" />
+                            <div class="form-text text-muted small">用于在应用推送分级和记录中快速辨识。</div>
+                        </div>
+
+                        @if (selectedType.RequiresEndpoint)
+                        {
+                            <div class="mb-4">
+                                <label asp-for="Endpoint" class="form-label small fw-medium">Webhook 接收地址 (URL)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent text-muted"><i data-lucide="link" class="align-middle"></i></span>
+                                    <input asp-for="Endpoint" type="url" required maxlength="2048" class="form-control" placeholder="https://example.com/api/alert-webhook" aria-describedby="endpoint-hint" />
+                                </div>
+                                <small class="text-muted d-block mt-2" id="endpoint-hint">接收端需支持 HTTP POST JSON，返回 2xx 视为投递成功。系统请求超时为 10 秒，不跟随跨域重定向。</small>
+                            </div>
+
+                            <div class="card border bg-body-tertiary mb-4">
+                                <div class="card-header bg-transparent py-2">
+                                    <h3 class="h6 mb-0 text-muted"><i class="align-middle me-1" data-lucide="file-json"></i>默认请求格式说明</h3>
+                                </div>
+                                <div class="card-body py-2">
+                                    <dl class="row small mb-2">
+                                        <dt class="col-sm-3">Method</dt>
+                                        <dd class="col-sm-9"><code>POST</code></dd>
+                                        <dt class="col-sm-3">Headers</dt>
+                                        <dd class="col-sm-9 mb-0"><code>Content-Type: application/json</code><br /><code>Idempotency-Key: &lt;deliveryId&gt;</code></dd>
+                                    </dl>
+                                    <div class="ac-code-container mb-2">
+                                        <pre class="ac-code-pre py-2 small"><code>{
   "deliveryId": "&lt;GUID&gt;",
   "messageId": "&lt;GUID 或 null&gt;",
   "title": "告警标题",
   "content": "告警正文或 null",
   "level": "sev1 | sev2 | sev3 | sev4",
-  "occurredAtUtc": "2026-09-10T14:26:50.0000000Z",
-  "context": { }
+  "occurredAtUtc": "2026-09-17T08:30:00.0000000Z",
+  "context": { ... }
 }</code></pre>
-                        <p class="small text-muted mb-0">每次投递的 <code>deliveryId</code> 固定不变，可配合 <code>Idempotency-Key</code> 去重；测试消息的 <code>messageId</code> 为 <code>null</code>。</p>
-                    </div>
-                </div>
-                <details class="card border mb-4">
-                    <summary class="card-header"><span class="h3 h6 mb-0">自定义请求（可选）</span></summary>
-                    <div class="card-body">
-                        <p class="text-muted small">留空时使用系统默认请求体。只能添加额外请求头；系统管理的 <code>Content-Type</code>、<code>Content-Length</code> 和 <code>Idempotency-Key</code> 不可覆盖。自定义请求头会加密保存。</p>
-                        <div class="mb-3"><label asp-for="WebhookHeadersJson" class="form-label">额外请求头（JSON 对象）</label><textarea asp-for="WebhookHeadersJson" class="form-control font-monospace" rows="4" maxlength="8000" spellcheck="false" placeholder="{&#10;  &quot;Authorization&quot;: &quot;Bearer &lt;token&gt;&quot;,&#10;  &quot;X-Source&quot;: &quot;alert-center&quot;&#10;}"></textarea><small class="text-muted">请求头名称最长 128 个字符；值必须为非空字符串。</small></div>
-                        <div><label asp-for="WebhookPayloadTemplate" class="form-label">请求体模板（JSON 对象）</label><textarea asp-for="WebhookPayloadTemplate" class="form-control font-monospace" rows="10" maxlength="16000" spellcheck="false" placeholder="{&#10;  &quot;event&quot;: &quot;alert&quot;,&#10;  &quot;title&quot;: &quot;{{title}}&quot;,&#10;  &quot;severity&quot;: &quot;{{level}}&quot;,&#10;  &quot;data&quot;: &quot;{{context}}&quot;&#10;}"></textarea><small class="text-muted d-block mt-2">占位符必须独占一个 JSON 字符串值：<code>{{deliveryId}}</code>、<code>{{messageId}}</code>、<code>{{title}}</code>、<code>{{content}}</code>、<code>{{level}}</code>、<code>{{occurredAtUtc}}</code>、<code>{{context}}</code>。<code>{{context}}</code> 会保留原始 JSON 类型。</small></div>
-                    </div>
-                </details>
-            }
-            else if (Model.Type == "email")
-            {
-                <div class="border rounded p-3 mb-3"><h3 class="h6">SMTP 配置</h3><p class="text-muted mb-0">邮件服务器使用全局 <code>Email</code> 配置。请通过 <code>Email__Password</code> 环境变量提供密码，勿将密码写入渠道配置或源代码。</p></div>
-                <div class="mb-4"><label asp-for="EmailRecipients" class="form-label">收件人邮箱</label><textarea asp-for="EmailRecipients" required class="form-control font-monospace" rows="4" maxlength="8000" spellcheck="false" placeholder="oncall@example.com&#10;team@example.com" aria-describedby="email-recipients-hint"></textarea><small class="text-muted" id="email-recipients-hint">每行一个邮箱，也可用英文逗号或分号分隔；最多 50 个。邮件以纯文本发送。</small></div>
-            }
-            else
-            {
-                <div class="border rounded p-3 mb-3"><h3 class="h6">接收范围</h3><p class="text-muted mb-0">可同时选择多个用户和用户组（角色），重复接收人仅收到一条通知。按投递时的组成员发送；修改范围仅影响后续投递，已发送通知保留。</p></div>
-            }
-            @if (Model.Type == "inapp")
-            {
-                <div class="mb-4">
-                    <h3 class="h6 mb-3">添加接收人</h3>
-                    <div class="btn-group w-100 mb-3" role="group" aria-label="接收人类型">
-                        <input type="radio" class="btn-check" name="recipientType" id="recipient-type-role" value="role" checked />
-                        <label class="btn btn-outline-primary" for="recipient-type-role"><i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>用户组</label>
-                        <input type="radio" class="btn-check" name="recipientType" id="recipient-type-user" value="user" />
-                        <label class="btn btn-outline-primary" for="recipient-type-user"><i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>指定用户</label>
-                    </div>
-                    <div id="recipient-role-selection">
-                        <label for="recipient-role-select" class="form-label">选择用户组</label>
-                        <div class="input-group"><select id="recipient-role-select" class="form-select"><option value="">请选择用户组…</option>@foreach (var role in Model.AvailableRoles) { <option value="@role.Value">@role.Text</option> }</select><button type="button" class="btn btn-primary" id="add-role-recipient"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加</button></div>
-                    </div>
-                    <div id="recipient-user-selection" class="d-none">
-                        <label for="recipient-user-search" class="form-label">搜索用户</label>
-                        <div class="position-relative"><div class="input-group"><input id="recipient-user-search" type="search" class="form-control" placeholder="输入用户名或显示名称以搜索…" autocomplete="off" aria-autocomplete="list" aria-controls="recipient-user-results" /><button type="button" class="btn btn-primary" id="add-user-recipient" disabled><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加</button></div><div id="recipient-user-results" class="position-absolute w-100 bg-white border rounded shadow-sm d-none" role="listbox" style="z-index: 1000; max-height: 300px; overflow-y: auto;"></div></div>
-                        <div id="selected-user-preview" class="card border-primary-subtle mt-3 d-none"><div class="card-body d-flex align-items-center gap-3 py-3"><span id="selected-user-avatar" class="d-inline-flex align-items-center justify-content-center flex-shrink-0 rounded-circle bg-primary-subtle text-primary fw-semibold" style="width: 40px; height: 40px;"></span><div class="flex-grow-1 min-w-0"><strong id="selected-user-name" class="d-block text-truncate"></strong><small id="selected-user-username" class="d-block text-muted text-truncate"></small><small id="selected-user-id" class="d-block text-muted text-truncate"></small></div><span class="badge bg-primary-subtle text-primary border border-primary-subtle flex-shrink-0">已选择</span></div></div>
-                    </div>
-                </div>
-                <div class="mb-4">
-                    <div class="d-flex align-items-center justify-content-between mb-2"><h3 class="h6 mb-0">已选接收人</h3><span class="text-muted small">可分别移除用户或用户组</span></div>
-                    <p id="recipients-empty" class="text-muted mb-0 @(Model.SelectedUsers.Count + Model.SelectedRoles.Count > 0 ? "d-none" : "")">尚未添加接收人。</p>
-                    <div id="recipient-list" class="list-group">
-                        @foreach (var user in Model.SelectedUsers)
-                        {
-                            <div class="list-group-item d-flex align-items-center justify-content-between gap-3" data-recipient-kind="user"><div class="d-flex align-items-center gap-2 min-w-0"><i class="align-middle text-info" data-lucide="user" aria-hidden="true"></i><div class="text-truncate"><strong class="d-block text-truncate">@user.Name</strong><small class="text-muted">@user.UserName</small></div></div><input type="hidden" name="RecipientUserIds" value="@user.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-recipient"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @user.Name</span></button></div>
+                                    </div>
+                                    <p class="small text-muted mb-0">每次投递任务拥有唯一固定 <code>deliveryId</code>，可在接收端使用 <code>Idempotency-Key</code> 幂等去重。</p>
+                                </div>
+                            </div>
+
+                            <details class="card border mb-4">
+                                <summary class="card-header bg-transparent py-2" style="cursor: pointer;">
+                                    <span class="h6 mb-0 fw-semibold text-primary"><i class="align-middle me-1" data-lucide="settings-2"></i>高级自定义请求（自定义请求头与模板）</span>
+                                </summary>
+                                <div class="card-body">
+                                    <p class="text-muted small">留空时系统默认发送标准 JSON。自定义请求头将加密持久化；<code>Content-Type</code> 与 <code>Idempotency-Key</code> 不可覆盖。</p>
+                                    
+                                    <div class="mb-3">
+                                        <label asp-for="WebhookHeadersJson" class="form-label small fw-medium">额外请求头 (JSON 对象)</label>
+                                        <textarea asp-for="WebhookHeadersJson" class="form-control font-monospace" rows="3" maxlength="8000" spellcheck="false" placeholder="{&#10;  &quot;Authorization&quot;: &quot;Bearer &lt;token&gt;&quot;,&#10;  &quot;X-Custom-Header&quot;: &quot;alert-center&quot;&#10;}"></textarea>
+                                        <small class="text-muted">请求头名称最长 128 字符，值须为合法字符串。</small>
+                                    </div>
+
+                                    <div>
+                                        <label asp-for="WebhookPayloadTemplate" class="form-label small fw-medium">请求体模板 (JSON 模板)</label>
+                                        <div class="d-flex flex-wrap gap-1 mb-2">
+                                            <span class="small text-muted align-self-center me-1">点击插入占位符:</span>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{title}}')">{{title}}</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{level}}')">{{level}}</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{content}}')">{{content}}</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{context}}')">{{context}}</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{deliveryId}}')">{{deliveryId}}</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{occurredAtUtc}}')">{{occurredAtUtc}}</button>
+                                        </div>
+                                        <textarea asp-for="WebhookPayloadTemplate" id="webhook-payload-template" class="form-control font-monospace" rows="8" maxlength="16000" spellcheck="false" placeholder="{&#10;  &quot;msgtype&quot;: &quot;text&quot;,&#10;  &quot;text&quot;: {&#10;    &quot;content&quot;: &quot;[{{level}}] {{title}}\n{{content}}&quot;&#10;  }&#10;}"></textarea>
+                                        <small class="text-muted d-block mt-2">占位符必须单独作为 JSON 字符串的值。<code>{{context}}</code> 将解析并保留原始对象类型。</small>
+                                    </div>
+                                </div>
+                            </details>
                         }
-                        @foreach (var role in Model.SelectedRoles)
+                        else if (Model.Type == "email")
                         {
-                            <div class="list-group-item d-flex align-items-center justify-content-between gap-3" data-recipient-kind="role"><div class="d-flex align-items-center gap-2 min-w-0"><i class="align-middle text-primary" data-lucide="users" aria-hidden="true"></i><strong class="text-truncate">@role.Name</strong></div><input type="hidden" name="RecipientRoleIds" value="@role.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-recipient"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @role.Name</span></button></div>
+                            <div class="alert alert-info py-2 px-3 small mb-3">
+                                <i class="align-middle me-1" data-lucide="info"></i>
+                                <strong>全局 SMTP 邮件服务</strong>：系统统一使用全局 Email 服务配置。请通过 <code>Email__Password</code> 环境变量提供认证凭据。
+                            </div>
+                            <div class="mb-4">
+                                <label asp-for="EmailRecipients" class="form-label small fw-medium">收件人邮箱列表</label>
+                                <textarea asp-for="EmailRecipients" required class="form-control font-monospace" rows="4" maxlength="8000" spellcheck="false" placeholder="oncall-team@example.com&#10;incident-manager@example.com" aria-describedby="email-recipients-hint"></textarea>
+                                <small class="text-muted d-block mt-2" id="email-recipients-hint">每行一个邮箱地址，也支持使用英文逗号或分号分隔，最多支持 50 个收件人。</small>
+                            </div>
                         }
-                    </div>
-                    <small class="text-muted">请至少添加一个用户或用户组；空组不会产生通知。</small>
+                        else
+                        {
+                            <div class="alert alert-info py-2 px-3 small mb-3">
+                                <i class="align-middle me-1" data-lucide="info"></i>
+                                <strong>站内通知范围</strong>：支持同时绑定多个用户与用户组（角色）。系统自动去重，每位成员仅产生一条待读通知。
+                            </div>
+                        }
+
+                        @if (Model.Type == "inapp")
+                        {
+                            <div class="card border mb-4">
+                                <div class="card-header bg-transparent py-2">
+                                    <h3 class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="user-plus"></i>添加接收人与用户组</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="btn-group w-100 mb-3" role="group" aria-label="接收人类型">
+                                        <input type="radio" class="btn-check" name="recipientType" id="recipient-type-role" value="role" checked />
+                                        <label class="btn btn-outline-primary" for="recipient-type-role">
+                                            <i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>用户组 (Role)
+                                        </label>
+                                        <input type="radio" class="btn-check" name="recipientType" id="recipient-type-user" value="user" />
+                                        <label class="btn btn-outline-primary" for="recipient-type-user">
+                                            <i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>指定用户 (User)
+                                        </label>
+                                    </div>
+
+                                    <div id="recipient-role-selection">
+                                        <label for="recipient-role-select" class="form-label small fw-medium">选择用户组</label>
+                                        <div class="input-group">
+                                            <select id="recipient-role-select" class="form-select">
+                                                <option value="">请选择用户组…</option>
+                                                @foreach (var role in Model.AvailableRoles)
+                                                {
+                                                    <option value="@role.Value">@role.Text</option>
+                                                }
+                                            </select>
+                                            <button type="button" class="btn btn-primary" id="add-role-recipient">
+                                                <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div id="recipient-user-selection" class="d-none">
+                                        <label for="recipient-user-search" class="form-label small fw-medium">搜索用户</label>
+                                        <div class="position-relative">
+                                            <div class="input-group">
+                                                <span class="input-group-text bg-transparent text-muted"><i data-lucide="search" class="align-middle"></i></span>
+                                                <input id="recipient-user-search" type="search" class="form-control" placeholder="输入用户名或显示名称搜索…" autocomplete="off" aria-autocomplete="list" aria-controls="recipient-user-results" />
+                                                <button type="button" class="btn btn-primary" id="add-user-recipient" disabled>
+                                                    <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加
+                                                </button>
+                                            </div>
+                                            <div id="recipient-user-results" class="position-absolute w-100 bg-white border rounded shadow-sm d-none" role="listbox" style="z-index: 1000; max-height: 280px; overflow-y: auto;"></div>
+                                        </div>
+                                        <div id="selected-user-preview" class="card border-primary-subtle mt-3 d-none">
+                                            <div class="card-body d-flex align-items-center gap-3 py-2">
+                                                <span id="selected-user-avatar" class="d-inline-flex align-items-center justify-content-center flex-shrink-0 rounded-circle bg-primary-subtle text-primary fw-semibold" style="width: 36px; height: 36px;"></span>
+                                                <div class="flex-grow-1 min-w-0">
+                                                    <strong id="selected-user-name" class="d-block text-truncate small"></strong>
+                                                    <small id="selected-user-username" class="d-block text-muted text-truncate"></small>
+                                                    <small id="selected-user-id" class="d-none"></small>
+                                                </div>
+                                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle flex-shrink-0">待添加</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card border mb-4">
+                                <div class="card-header bg-transparent d-flex align-items-center justify-content-between py-2">
+                                    <h3 class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="users"></i>已选接收人列表</h3>
+                                    <span class="text-muted small">点击右侧按钮可移除</span>
+                                </div>
+                                <div class="card-body pt-2">
+                                    <p id="recipients-empty" class="text-muted mb-0 py-3 text-center @(Model.SelectedUsers.Count + Model.SelectedRoles.Count > 0 ? "d-none" : "")">
+                                        尚未添加接收人。请在上方选择角色组或指定用户。
+                                    </p>
+                                    <div id="recipient-list" class="list-group list-group-flush">
+                                        @foreach (var user in Model.SelectedUsers)
+                                        {
+                                            <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-2" data-recipient-kind="user">
+                                                <div class="d-flex align-items-center gap-2 min-w-0">
+                                                    <div class="ac-stat-icon icon-indigo" style="width: 32px; height: 32px; font-size: 1rem;">
+                                                        <i data-lucide="user" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="text-truncate">
+                                                        <strong class="d-block text-truncate small">@user.Name</strong>
+                                                        <small class="text-muted font-monospace">@user.UserName</small>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="RecipientUserIds" value="@user.Id" />
+                                                <button type="button" class="btn btn-sm btn-outline-danger remove-recipient" title="移除 @user.Name">
+                                                    <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
+                                                    <span class="visually-hidden">移除 @user.Name</span>
+                                                </button>
+                                            </div>
+                                        }
+                                        @foreach (var role in Model.SelectedRoles)
+                                        {
+                                            <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-2" data-recipient-kind="role">
+                                                <div class="d-flex align-items-center gap-2 min-w-0">
+                                                    <div class="ac-stat-icon icon-primary" style="width: 32px; height: 32px; font-size: 1rem;">
+                                                        <i data-lucide="users" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="text-truncate">
+                                                        <strong class="text-truncate small">@role.Name</strong>
+                                                        <small class="text-muted d-block">角色组</small>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="RecipientRoleIds" value="@role.Id" />
+                                                <button type="button" class="btn btn-sm btn-outline-danger remove-recipient" title="移除 @role.Name">
+                                                    <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
+                                                    <span class="visually-hidden">移除 @role.Name</span>
+                                                </button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <small class="text-muted d-block mt-2">请至少添加一个用户或用户组；组内无成员时不会产生通知。</small>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-check form-switch mb-4">
+                            <input asp-for="IsEnabled" class="form-check-input" />
+                            <label asp-for="IsEnabled" class="form-check-label fw-medium">立即启用该推送渠道</label>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="align-middle me-1" data-lucide="save"></i>保存渠道配置
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">取消</a>
+                        </div>
+                    </form>
                 </div>
-            }
-            <div class="form-check form-switch mb-4"><input asp-for="IsEnabled" class="form-check-input" /><label asp-for="IsEnabled" class="form-check-label">启用渠道</label></div>
-            <div class="d-flex gap-2"><button class="btn btn-primary">保存渠道</button><a asp-action="Index" class="btn btn-outline-secondary">取消</a></div>
-        </form></div>
-    </div></div></div>
+            </div>
+        </div>
+    </div>
 }
+
+<script>
+    function insertPlaceholder(tag) {
+        const textarea = document.getElementById('webhook-payload-template');
+        if (!textarea) return;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = textarea.value;
+        textarea.value = text.substring(0, start) + tag + text.substring(end);
+        textarea.focus();
+        textarea.selectionStart = textarea.selectionEnd = start + tag.length;
+    }
+</script>
 
 @if (Model.Type == "inapp")
 {
@@ -163,7 +368,7 @@
             function addRecipient(kind, id, name, userName) {
                 if (!id || hasRecipient(kind, id)) return false;
                 const item = document.createElement('div');
-                item.className = 'list-group-item d-flex align-items-center justify-content-between gap-3';
+                item.className = 'list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-2';
                 item.dataset.recipientKind = kind;
 
                 const details = document.createElement('div');
@@ -172,12 +377,12 @@
                 const text = document.createElement('div');
                 text.className = 'text-truncate';
                 const title = document.createElement(kind === 'user' ? 'strong' : 'span');
-                title.className = kind === 'user' ? 'd-block text-truncate' : 'fw-bold text-truncate';
+                title.className = kind === 'user' ? 'd-block text-truncate small' : 'fw-bold text-truncate small';
                 title.textContent = name;
                 text.appendChild(title);
                 if (userName) {
                     const subtitle = document.createElement('small');
-                    subtitle.className = 'text-muted';
+                    subtitle.className = 'text-muted font-monospace';
                     subtitle.textContent = userName;
                     text.appendChild(subtitle);
                 }
@@ -272,17 +477,17 @@
 
                 const avatar = document.createElement('span');
                 avatar.className = 'd-inline-flex align-items-center justify-content-center flex-shrink-0 rounded-circle bg-primary-subtle text-primary fw-semibold';
-                avatar.style.width = '40px';
-                avatar.style.height = '40px';
+                avatar.style.width = '36px';
+                avatar.style.height = '36px';
                 avatar.textContent = Array.from(user.displayName.trim())[0] || '?';
 
                 const details = document.createElement('span');
                 details.className = 'flex-grow-1 min-w-0';
                 const name = document.createElement('strong');
-                name.className = 'd-block text-truncate';
+                name.className = 'd-block text-truncate small';
                 name.textContent = user.displayName;
                 const username = document.createElement('small');
-                username.className = 'd-block text-muted text-truncate';
+                username.className = 'd-block text-muted text-truncate font-monospace';
                 username.textContent = user.userName;
                 details.append(name, username);
 
@@ -313,7 +518,7 @@
                         userResults.innerHTML = '';
                         if (data.users.length === 0) {
                             const empty = document.createElement('div');
-                            empty.className = 'p-3 text-muted';
+                            empty.className = 'p-3 text-muted small text-center';
                             empty.textContent = '没有找到匹配的用户。';
                             userResults.appendChild(empty);
                         } else {

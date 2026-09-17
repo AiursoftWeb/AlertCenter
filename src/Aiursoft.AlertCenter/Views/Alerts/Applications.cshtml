@@ -1,5 +1,7 @@
 @model Aiursoft.AlertCenter.Models.AlertsViewModel
+
 @section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
     <style>
         #delete-application, #delete-application * {
             -webkit-user-select: text;
@@ -7,106 +9,234 @@
         }
     </style>
 }
+
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <div><h1 class="h3 mb-1">接入应用</h1><p class="text-muted mb-0">为业务系统创建独立密钥，管理消息上报权限。</p></div>
+    <div>
+        <h1 class="h3 mb-1">接入应用</h1>
+        <p class="text-muted mb-0">为业务服务分发独立 API 凭据，管理上报权限与推送路由。</p>
+    </div>
     <div class="d-flex flex-wrap gap-2">
-        <a asp-action="GettingStarted" class="btn btn-primary"><i class="align-middle me-1" data-lucide="book-open" aria-hidden="true"></i>接入指南</a>
-        <a asp-action="Index" class="btn btn-outline-primary"><i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>查看消息</a>
+        <a asp-action="GettingStarted" class="btn btn-outline-primary">
+            <i class="align-middle me-1" data-lucide="book-open" aria-hidden="true"></i>接入指南
+        </a>
+        <a asp-action="Index" class="btn btn-primary">
+            <i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>查看全部告警
+        </a>
     </div>
 </div>
+
+<!-- High-Priority API Key One-Time Reveal Banner -->
 @if (Model.ApiKey != null)
 {
-    <section class="card" aria-labelledby="api-key-heading">
-        <div class="card-header d-flex align-items-center gap-3">
-            <div class="stat flex-shrink-0"><i data-lucide="key-round" aria-hidden="true"></i></div>
+    <section class="card border-warning mb-4 shadow-sm" aria-labelledby="api-key-heading">
+        <div class="card-header bg-warning-subtle d-flex align-items-center gap-3 py-3">
+            <div class="ac-stat-icon icon-warning">
+                <i data-lucide="key-round" aria-hidden="true"></i>
+            </div>
             <div>
-                <h2 id="api-key-heading" class="card-title mb-1">@(Model.ApiKeyWasReset ? "API Key 已重置" : "应用已创建")</h2>
-                <p class="text-muted mb-0">@(Model.ApiKeyWasReset ? "旧密钥已立即失效，请保存新密钥并更新所有上报客户端。应用启停状态保持不变。" : "保存接入密钥，即可开始上报告警。")</p>
+                <h2 id="api-key-heading" class="card-title text-warning-emphasis mb-1">
+                    @(Model.ApiKeyWasReset ? "API Key 已重置" : "新应用已创建")
+                </h2>
+                <p class="text-warning-emphasis small mb-0">
+                    @(Model.ApiKeyWasReset
+                        ? "旧密钥已立即失效，所有上报客户端均需更新。新密钥仅显示一次，请立即保存。"
+                        : "凭据仅在本次操作后展示一次。刷新或离开此页面后无法再次查看原始密钥。")
+                </p>
             </div>
         </div>
-        <div class="card-body pt-0">
-            <label for="api-key" class="form-label">API Key</label>
-            <div class="input-group">
-                <input id="api-key" class="form-control font-monospace" readonly value="@Model.ApiKey" aria-describedby="api-key-hint" spellcheck="false" />
+        <div class="card-body">
+            <label for="api-key" class="form-label fw-semibold">应用接入凭据 (API Key)</label>
+            <div class="input-group mb-2">
+                <span class="input-group-text bg-body-tertiary text-muted font-monospace"><i data-lucide="lock" class="align-middle"></i></span>
+                <input id="api-key" class="form-control font-monospace fs-6" readonly value="@Model.ApiKey" aria-describedby="api-key-hint" spellcheck="false" />
                 <button type="button" class="btn btn-primary" id="copy-key">
                     <i class="align-middle me-1" data-lucide="copy" aria-hidden="true"></i>复制密钥
                 </button>
             </div>
-            <div class="d-flex flex-wrap justify-content-between gap-2 mt-2">
-                <small id="api-key-hint" class="text-muted">密钥仅显示一次，请在刷新或离开此页面前妥善保存。<a asp-action="GettingStarted">查看接入指南，发送第一条消息</a></small>
-                <small id="copy-status" class="text-primary" role="status"></small>
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <small id="api-key-hint" class="text-muted">
+                    请将密钥妥善存储在安全的环境变量或密钥服务中。<a asp-action="GettingStarted" class="fw-medium">查看接入指南，发送第一条测试消息 &rarr;</a>
+                </small>
+                <small id="copy-status" class="text-success fw-semibold" role="status"></small>
             </div>
         </div>
     </section>
 }
+
+<!-- Create Application Card (Admin Only) -->
 @if (Model.IsAdministrator)
 {
-<div class="card">
-    <div class="card-header"><h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="plus-circle" aria-hidden="true"></i>创建应用</h2></div>
-    <div class="card-body pt-0">
-    <form asp-action="CreateApplication" method="post">
-        <label for="name" class="form-label">应用名称</label>
-        <div class="row g-2">
-            <div class="col-sm"><input id="name" name="Name" required maxlength="100" placeholder="例如：订单服务" class="form-control" aria-describedby="name-hint" /></div>
-            <div class="col-sm-auto"><button class="btn btn-primary w-100" type="submit">创建应用</button></div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="card-title mb-0">
+                <i class="align-middle me-2 text-primary" data-lucide="plus-circle" aria-hidden="true"></i>新建接入应用
+            </h2>
         </div>
-        <small id="name-hint" class="text-muted d-block mt-2">使用容易识别的名称，便于在告警中区分来源。</small>
-        <div asp-validation-summary="All" class="text-danger mt-2"></div>
-    </form>
-</div></div>
+        <div class="card-body pt-0">
+            <form asp-action="CreateApplication" method="post">
+                <label for="name" class="form-label small fw-medium">应用名称</label>
+                <div class="row g-2">
+                    <div class="col-sm">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent text-muted"><i data-lucide="app-window" class="align-middle"></i></span>
+                            <input id="name" name="Name" required maxlength="100" placeholder="例如：订单支付服务、用户中心、边缘网关…" class="form-control" aria-describedby="name-hint" />
+                        </div>
+                    </div>
+                    <div class="col-sm-auto">
+                        <button class="btn btn-primary w-100" type="submit">
+                            <i class="align-middle me-1" data-lucide="plus"></i>创建应用
+                        </button>
+                    </div>
+                </div>
+                <small id="name-hint" class="text-muted d-block mt-2">使用简明清晰的业务系统名称，系统将自动生成对应的前缀 ID 与随机 Secret。</small>
+                <div asp-validation-summary="All" class="text-danger mt-2"></div>
+            </form>
+        </div>
+    </div>
 }
+
+<!-- Applications Table Card -->
 <div class="card">
     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
-        <h2 class="card-title mb-0">已接入应用</h2><span class="badge bg-secondary">@Model.Applications.Count</span>
+        <div class="d-flex align-items-center gap-2">
+            <h2 class="card-title mb-0">已接入应用</h2>
+            <span class="badge bg-secondary-subtle text-secondary border">@Model.Applications.Count 个应用</span>
+        </div>
     </div>
-    <div class="card-body border-bottom">
+    <div class="card-body border-bottom py-3">
         <form asp-action="Applications" method="get" class="row g-2 align-items-end">
-            <div class="col-md-6 col-lg-5"><label for="application-keyword" class="form-label">查找应用</label><input id="application-keyword" name="keyword" value="@Model.ApplicationSearchKeyword" maxlength="100" class="form-control" placeholder="按应用名称搜索" autocomplete="off" /></div>
-            <div class="col-md-auto d-flex gap-2"><button type="submit" class="btn btn-primary">查找</button>@if (Model.ApplicationSearchKeyword != null) { <a asp-action="Applications" class="btn btn-outline-secondary">清除</a> }</div>
+            <div class="col-md-6 col-lg-5">
+                <label for="application-keyword" class="form-label small fw-medium">查找应用</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent text-muted"><i data-lucide="search" class="align-middle"></i></span>
+                    <input id="application-keyword" name="keyword" value="@Model.ApplicationSearchKeyword" maxlength="100" class="form-control" placeholder="按应用名称过滤…" autocomplete="off" />
+                </div>
+            </div>
+            <div class="col-md-auto d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="align-middle me-1" data-lucide="search"></i>查找
+                </button>
+                @if (Model.ApplicationSearchKeyword != null)
+                {
+                    <a asp-action="Applications" class="btn btn-outline-secondary">
+                        <i class="align-middle me-1" data-lucide="rotate-ccw"></i>清除
+                    </a>
+                }
+            </div>
         </form>
     </div>
+
     @if (Model.Applications.Count == 0)
     {
-        <div class="card-body text-center py-4">
-            <div class="stat mx-auto mb-3"><i data-lucide="app-window" aria-hidden="true"></i></div>
-            <h3 class="h5">@(Model.ApplicationSearchKeyword == null ? "还没有接入应用" : "没有找到匹配的应用")</h3><p class="text-muted mb-0">@(Model.ApplicationSearchKeyword == null ? "在上方创建应用，获取专属 API Key。" : "请修改搜索关键词，或清除搜索后查看全部应用。")</p>
+        <div class="card-body ac-empty-state">
+            <div class="ac-empty-icon">
+                <i data-lucide="app-window" aria-hidden="true"></i>
+            </div>
+            <h3 class="h5">@(Model.ApplicationSearchKeyword == null ? "还没有接入应用" : "没有找到匹配的应用")</h3>
+            <p class="text-muted mb-0">
+                @(Model.ApplicationSearchKeyword == null ? "在上方创建业务应用，签发专属 API Key。" : "请调整搜索关键词，或清除搜索后查看全部应用。")
+            </p>
         </div>
     }
     else
     {
-    <div class="table-responsive"><table class="table table-hover align-middle mb-0">
-    <thead><tr><th class="ps-4">名称</th><th>应用 ID</th><th>状态</th><th class="text-end pe-4">操作</th></tr></thead><tbody>
-    @foreach (var application in Model.Applications)
-    {
-        <tr><td class="ps-4 fw-semibold">@application.Name</td><td><code class="text-muted">@application.Id</code></td><td><span class="badge @(application.IsEnabled ? "bg-success" : "bg-secondary")">@(application.IsEnabled ? "已启用" : "已停用")</span></td><td class="text-end pe-4">
-            <div class="d-flex justify-content-end gap-2">
-                <a asp-action="Index" asp-route-applicationId="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">查看告警</a>
-                @if (Model.ManageableApplicationIds.Contains(application.Id))
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">应用信息</th>
+                        <th>应用 ID</th>
+                        <th>运行状态</th>
+                        <th class="text-end pe-4">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var application in Model.Applications)
                 {
-                    <a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">推送设置</a>
-                    <form asp-action="SetEnabled" method="post"><input type="hidden" name="id" value="@application.Id" /><input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" /><button class="btn btn-sm btn-outline-secondary text-nowrap" type="submit">@(application.IsEnabled ? "停用" : "启用")</button></form>
-                    <button type="button" class="btn btn-sm btn-outline-warning text-nowrap" data-bs-toggle="modal" data-bs-target="#reset-api-key" data-application-id="@application.Id" data-application-name="@application.Name">重置密钥</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#delete-application" data-application-id="@application.Id" data-application-name="@application.Name">删除</button>
+                    var initial = string.IsNullOrWhiteSpace(application.Name) ? "A" : application.Name.Substring(0, 1).ToUpperInvariant();
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="ac-app-avatar">@initial</span>
+                                <div>
+                                    <strong class="d-block text-break">@application.Name</strong>
+                                    <small class="text-muted">创建于: @application.CreatedAtUtc.ToString("yyyy-MM-dd")</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <code class="text-muted font-monospace small">@application.Id</code>
+                        </td>
+                        <td>
+                            @if (application.IsEnabled)
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                    <span class="ac-status-dot dot-success ac-pulse"></span>已启用
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary-subtle text-secondary border">
+                                    <span class="ac-status-dot dot-muted"></span>已停用
+                                </span>
+                            }
+                        </td>
+                        <td class="text-end pe-4">
+                            <div class="d-flex justify-content-end align-items-center flex-wrap gap-2">
+                                <a asp-action="Index" asp-route-applicationId="@application.Id" class="btn btn-sm btn-primary text-nowrap">
+                                    <i class="align-middle me-1" data-lucide="list"></i>查看告警
+                                </a>
+                                @if (Model.ManageableApplicationIds.Contains(application.Id))
+                                {
+                                    <a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">
+                                        <i class="align-middle me-1" data-lucide="sliders"></i>推送设置
+                                    </a>
+                                    <form asp-action="SetEnabled" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@application.Id" />
+                                        <input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" />
+                                        <button class="btn btn-sm btn-outline-secondary text-nowrap" type="submit">
+                                            @(application.IsEnabled ? "停用" : "启用")
+                                        </button>
+                                    </form>
+                                    <button type="button" class="btn btn-sm btn-outline-warning text-nowrap" data-bs-toggle="modal" data-bs-target="#reset-api-key" data-application-id="@application.Id" data-application-name="@application.Name">
+                                        <i class="align-middle me-1" data-lucide="key"></i>重置密钥
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#delete-application" data-application-id="@application.Id" data-application-name="@application.Name">
+                                        <i class="align-middle me-1" data-lucide="trash-2"></i>删除
+                                    </button>
+                                }
+                                @if (Model.IsAdministrator)
+                                {
+                                    <a asp-action="Access" asp-route-id="@application.Id" class="btn btn-sm btn-outline-secondary text-nowrap">
+                                        <i class="align-middle me-1" data-lucide="shield"></i>权限
+                                    </a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
                 }
-                @if (Model.IsAdministrator) { <a asp-action="Access" asp-route-id="@application.Id" class="btn btn-sm btn-outline-secondary text-nowrap">访问权限</a> }
-            </div>
-        </td></tr>
-    }
-    </tbody>
-</table></div>
+                </tbody>
+            </table>
+        </div>
     }
 </div>
+
+<!-- Reset API Key Modal -->
 <div class="modal fade" id="reset-api-key" tabindex="-1" aria-labelledby="reset-api-key-title" aria-describedby="reset-api-key-description" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <form asp-action="ResetApiKey" method="post" class="modal-content" id="reset-api-key-form">
             <div class="modal-header">
-                <h2 class="modal-title h5" id="reset-api-key-title">重置 API Key</h2>
+                <h2 class="modal-title h5 d-flex align-items-center gap-2" id="reset-api-key-title">
+                    <i class="align-middle text-warning" data-lucide="key"></i>重置 API Key
+                </h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
             </div>
             <div class="modal-body">
-                <p>确定重置应用 <strong id="reset-api-key-name" class="text-break"></strong> 的 API Key？</p>
-                <p id="reset-api-key-description" class="text-danger">旧密钥将立即失效，所有上报客户端都需要更新。新密钥仅显示一次，请及时保存。</p>
-                <p class="mb-0">应用 ID、历史消息、推送配置和启停状态保持不变，不会重新发送历史消息。</p>
+                <p>确定为应用 <strong id="reset-api-key-name" class="text-break"></strong> 重置接入密钥？</p>
+                <div class="alert alert-warning py-2 px-3 small" id="reset-api-key-description">
+                    <i class="align-middle me-1" data-lucide="alert-triangle"></i>旧密钥将立即失效，所有上报客户端都需要更新。新密钥仅在页面显示一次。
+                </div>
+                <p class="small text-muted mb-0">应用 ID、历史告警记录、推送渠道绑定与启停状态保持不变。</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
@@ -137,24 +267,32 @@
         });
     })();
 </script>
+
+<!-- Delete Application Modal -->
 <div class="modal fade" id="delete-application" tabindex="-1" aria-labelledby="delete-application-title" aria-describedby="delete-application-description" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <form asp-action="DeleteApplication" method="post" class="modal-content" id="delete-application-form">
             <div class="modal-header">
-                <h2 class="modal-title h5" id="delete-application-title">删除接入应用</h2>
+                <h2 class="modal-title h5 d-flex align-items-center gap-2" id="delete-application-title">
+                    <i class="align-middle text-danger" data-lucide="trash-2"></i>删除接入应用
+                </h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
             </div>
             <div class="modal-body">
                 <p>确定删除应用 <strong id="delete-application-name" class="text-break"></strong>？</p>
-                <p id="delete-application-description" class="text-danger">该应用的全部历史告警、关联投递记录和站内通知将一并删除，API Key 将立即失效。此操作无法恢复。</p>
-                <label for="delete-application-confirmation" class="form-label">请输入应用名称以确认删除</label>
+                <div class="alert alert-danger py-2 px-3 small mb-3" id="delete-application-description">
+                    <i class="align-middle me-1" data-lucide="alert-octagon"></i>此操作不可逆！该应用的全部历史告警、关联投递记录和站内通知将一并删除，API Key 立即失效。
+                </div>
+                <label for="delete-application-confirmation" class="form-label small fw-medium">
+                    请输入应用名称以确认删除:
+                </label>
                 <input id="delete-application-confirmation" name="confirmationName" class="form-control" required maxlength="100" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="delete-application-confirmation-hint" />
-                <small id="delete-application-confirmation-hint" class="text-muted d-block mt-2">名称必须完全一致（区分大小写）。可选中并复制上方的应用名称。</small>
+                <small id="delete-application-confirmation-hint" class="text-muted d-block mt-2">名称必须完全一致（区分大小写）。</small>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
                 <input type="hidden" id="delete-application-id" name="id" />
-                <button type="submit" class="btn btn-danger" id="confirm-delete-application" disabled>删除应用及历史告警</button>
+                <button type="submit" class="btn btn-danger" id="confirm-delete-application" disabled>确认删除应用及全部数据</button>
             </div>
         </form>
     </div>
@@ -190,6 +328,7 @@
         });
     })();
 </script>
+
 @if (Model.ApiKey != null)
 {
     <script>
@@ -197,7 +336,7 @@
             const input = document.getElementById('api-key');
             try {
                 await navigator.clipboard.writeText(input.value);
-                document.getElementById('copy-status').textContent = '已复制';
+                document.getElementById('copy-status').textContent = '已成功复制到剪贴板！';
             } catch {
                 input.select();
                 document.getElementById('copy-status').textContent = '请按 Ctrl+C 复制选中的密钥';

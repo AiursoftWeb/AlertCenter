@@ -1,0 +1,544 @@
+/* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
+
+:root {
+    --ac-sev1: #dc2626;
+    --ac-sev1-bg: rgba(220, 38, 38, 0.1);
+    --ac-sev1-border: rgba(220, 38, 38, 0.25);
+    --ac-sev1-text: #b91c1c;
+
+    --ac-sev2: #ea580c;
+    --ac-sev2-bg: rgba(234, 88, 12, 0.1);
+    --ac-sev2-border: rgba(234, 88, 12, 0.25);
+    --ac-sev2-text: #c2410c;
+
+    --ac-sev3: #d97706;
+    --ac-sev3-bg: rgba(217, 119, 6, 0.1);
+    --ac-sev3-border: rgba(217, 119, 6, 0.25);
+    --ac-sev3-text: #b45309;
+
+    --ac-sev4: #0284c7;
+    --ac-sev4-bg: rgba(2, 132, 199, 0.1);
+    --ac-sev4-border: rgba(2, 132, 199, 0.25);
+    --ac-sev4-text: #0369a1;
+
+    --ac-code-bg: #0f172a;
+    --ac-code-text: #e2e8f0;
+    --ac-code-border: #1e293b;
+}
+
+[data-bs-theme="dark"] {
+    --ac-sev1: #ef4444;
+    --ac-sev1-bg: rgba(239, 68, 68, 0.18);
+    --ac-sev1-border: rgba(239, 68, 68, 0.35);
+    --ac-sev1-text: #fca5a5;
+
+    --ac-sev2: #f97316;
+    --ac-sev2-bg: rgba(249, 115, 22, 0.18);
+    --ac-sev2-border: rgba(249, 115, 22, 0.35);
+    --ac-sev2-text: #fdba74;
+
+    --ac-sev3: #f59e0b;
+    --ac-sev3-bg: rgba(245, 158, 11, 0.18);
+    --ac-sev3-border: rgba(245, 158, 11, 0.35);
+    --ac-sev3-text: #fde68a;
+
+    --ac-sev4: #38bdf8;
+    --ac-sev4-bg: rgba(56, 189, 248, 0.18);
+    --ac-sev4-border: rgba(56, 189, 248, 0.35);
+    --ac-sev4-text: #7dd3fc;
+
+    --ac-code-bg: #0b0f19;
+    --ac-code-text: #f1f5f9;
+    --ac-code-border: #1e293b;
+}
+
+/* ==========================================================================
+   Severity Badges & Pills
+   ========================================================================== */
+.ac-badge-sev1 {
+    background-color: var(--ac-sev1-bg) !important;
+    color: var(--ac-sev1-text) !important;
+    border: 1px solid var(--ac-sev1-border) !important;
+    font-weight: 600;
+}
+
+.ac-badge-sev2 {
+    background-color: var(--ac-sev2-bg) !important;
+    color: var(--ac-sev2-text) !important;
+    border: 1px solid var(--ac-sev2-border) !important;
+    font-weight: 600;
+}
+
+.ac-badge-sev3 {
+    background-color: var(--ac-sev3-bg) !important;
+    color: var(--ac-sev3-text) !important;
+    border: 1px solid var(--ac-sev3-border) !important;
+    font-weight: 600;
+}
+
+.ac-badge-sev4 {
+    background-color: var(--ac-sev4-bg) !important;
+    color: var(--ac-sev4-text) !important;
+    border: 1px solid var(--ac-sev4-border) !important;
+    font-weight: 600;
+}
+
+/* Severity Table Row Border Accents */
+.ac-row-sev1 {
+    border-left: 3.5px solid var(--ac-sev1) !important;
+}
+
+.ac-row-sev2 {
+    border-left: 3.5px solid var(--ac-sev2) !important;
+}
+
+.ac-row-sev3 {
+    border-left: 3.5px solid var(--ac-sev3) !important;
+}
+
+.ac-row-sev4 {
+    border-left: 3.5px solid var(--ac-sev4) !important;
+}
+
+/* Status Indicator Dot */
+.ac-status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.ac-status-dot.dot-success { background-color: #10b981; }
+.ac-status-dot.dot-danger { background-color: #ef4444; }
+.ac-status-dot.dot-warning { background-color: #f59e0b; }
+.ac-status-dot.dot-info { background-color: #3b82f6; }
+.ac-status-dot.dot-muted { background-color: #94a3b8; }
+
+.ac-pulse {
+    box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+    animation: acPulse 2s infinite;
+}
+
+.ac-pulse-danger {
+    box-shadow: 0 0 0 rgba(239, 68, 68, 0.4);
+    animation: acPulseDanger 2s infinite;
+}
+
+@keyframes acPulse {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+@keyframes acPulseDanger {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+/* ==========================================================================
+   Stat & Cockpit Cards
+   ========================================================================== */
+.ac-stat-card {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.ac-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.ac-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+.ac-stat-icon.icon-primary {
+    background: rgba(59, 130, 246, 0.12);
+    color: #3b82f6;
+}
+
+.ac-stat-icon.icon-danger {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+.ac-stat-icon.icon-warning {
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+}
+
+.ac-stat-icon.icon-success {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+}
+
+.ac-stat-icon.icon-indigo {
+    background: rgba(99, 102, 241, 0.12);
+    color: #6366f1;
+}
+
+/* App Initials Avatar */
+.ac-app-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    background: rgba(59, 130, 246, 0.12);
+    color: #2563eb;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Code & JSON Blocks
+   ========================================================================== */
+.ac-code-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--ac-code-bg);
+    border: 1px solid var(--ac-code-border);
+}
+
+.ac-code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--ac-code-border);
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.ac-code-pre {
+    margin: 0;
+    padding: 1rem;
+    color: var(--ac-code-text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.ac-copy-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #cbd5e1;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.775rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.ac-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   Timeline System
+   ========================================================================== */
+.ac-timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-left: 0.5rem;
+}
+
+.ac-timeline::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 15px;
+    width: 2px;
+    background: var(--bs-border-color);
+}
+
+.ac-timeline-item {
+    position: relative;
+    padding-bottom: 1.75rem;
+}
+
+.ac-timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.ac-timeline-badge {
+    position: absolute;
+    left: -2rem;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bs-body-bg);
+    border: 2px solid var(--bs-border-color);
+    z-index: 2;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.ac-timeline-badge.badge-triggered {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.ac-timeline-badge.badge-acknowledged {
+    border-color: #f59e0b;
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.08);
+}
+
+.ac-timeline-badge.badge-updated {
+    border-color: #3b82f6;
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.08);
+}
+
+.ac-timeline-badge.badge-resolved {
+    border-color: #10b981;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.08);
+}
+
+.ac-timeline-content {
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+/* ==========================================================================
+   Filter Bar & Navigation Tabs
+   ========================================================================== */
+.ac-filter-chips {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.ac-chip {
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.825rem;
+    font-weight: 500;
+    border: 1px solid var(--bs-border-color);
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ac-chip:hover {
+    background: var(--bs-tertiary-bg);
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+}
+
+.ac-chip.active {
+    background: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Matrix Matrix Table & Switches
+   ========================================================================== */
+.ac-matrix-table th {
+    vertical-align: middle;
+}
+
+.ac-matrix-cell {
+    transition: background-color 0.15s ease;
+}
+
+.ac-matrix-cell:hover {
+    background-color: var(--bs-tertiary-bg);
+}
+
+.ac-matrix-check {
+    width: 1.4rem;
+    height: 1.4rem;
+    cursor: pointer;
+}
+
+/* Channel Card */
+.ac-channel-card {
+    transition: all 0.2s ease;
+    border: 1px solid var(--bs-border-color);
+}
+
+.ac-channel-card:hover {
+    border-color: var(--bs-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.ac-channel-card.selected {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+/* Empty State Card */
+.ac-empty-state {
+    padding: 3.5rem 1.5rem;
+    text-align: center;
+}
+
+.ac-empty-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--bs-tertiary-bg);
+    color: var(--bs-secondary-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.ac-empty-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+/* ==========================================================================
+   Delivery Status Badges
+   ========================================================================== */
+.ac-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.775rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.ac-status-pill-pending {
+    background-color: rgba(148, 163, 184, 0.15);
+    color: #64748b;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.ac-status-pill-sending {
+    background-color: rgba(59, 130, 246, 0.12);
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.ac-status-pill-succeeded {
+    background-color: rgba(16, 185, 129, 0.12);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.ac-status-pill-failed {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+[data-bs-theme="dark"] .ac-status-pill-pending {
+    background-color: rgba(148, 163, 184, 0.18);
+    color: #94a3b8;
+    border-color: rgba(148, 163, 184, 0.28);
+}
+
+[data-bs-theme="dark"] .ac-status-pill-sending {
+    background-color: rgba(59, 130, 246, 0.18);
+    color: #60a5fa;
+    border-color: rgba(59, 130, 246, 0.35);
+}
+
+[data-bs-theme="dark"] .ac-status-pill-succeeded {
+    background-color: rgba(16, 185, 129, 0.18);
+    color: #34d399;
+    border-color: rgba(16, 185, 129, 0.35);
+}
+
+[data-bs-theme="dark"] .ac-status-pill-failed {
+    background-color: rgba(239, 68, 68, 0.18);
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.35);
+}
+
+/* ==========================================================================
+   Incident War Room Banner & Cards
+   ========================================================================== */
+.ac-incident-banner {
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.ac-incident-banner-triggered {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.02) 100%);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.ac-incident-banner-acknowledged {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.02) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.ac-incident-banner-resolved {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* ==========================================================================
+   Inbox Refinements
+   ========================================================================== */
+.ac-inbox-item {
+    transition: background-color 0.15s ease;
+    border-left: 3.5px solid transparent;
+}
+
+.ac-inbox-item:hover {
+    background-color: var(--bs-tertiary-bg);
+}
+
+.ac-inbox-item.is-unread {
+    background-color: rgba(59, 130, 246, 0.025);
+}
+
+[data-bs-theme="dark"] .ac-inbox-item.is-unread {
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+.ac-inbox-item.ac-row-sev1 { border-left-color: var(--ac-sev1) !important; }
+.ac-inbox-item.ac-row-sev2 { border-left-color: var(--ac-sev2) !important; }
+.ac-inbox-item.ac-row-sev3 { border-left-color: var(--ac-sev3) !important; }
+.ac-inbox-item.ac-row-sev4 { border-left-color: var(--ac-sev4) !important; }
+

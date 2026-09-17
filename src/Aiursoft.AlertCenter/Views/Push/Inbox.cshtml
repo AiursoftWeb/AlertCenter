@@ -1,6 +1,7 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using System.Globalization
 @{
+    ViewData["Title"] = "站内通知收件箱";
     var filter = Model.InboxFilter;
     var routes = filter.ToRouteValues();
     var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.ChannelId.HasValue ||
@@ -8,92 +9,263 @@
 }
 @section styles {
     <link rel="stylesheet" href="~/styles/inbox.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
 }
+
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <div><h1 class="h3 mb-1">站内通知 <span class="badge bg-primary">@Model.UnreadCount 未读</span></h1><p class="text-muted mb-0">你的通知收件箱 · 已读状态仅对你生效</p></div>
+    <div>
+        <div class="d-flex align-items-center gap-2">
+            <h1 class="h3 mb-0">站内通知收件箱</h1>
+            @if (Model.UnreadCount > 0)
+            {
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1">
+                    <span class="ac-status-dot dot-info"></span>@Model.UnreadCount 未读
+                </span>
+            }
+            else
+            {
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1">
+                    <i data-lucide="check" style="width: 12px; height: 12px;" class="align-middle me-1" aria-hidden="true"></i>全部已读
+                </span>
+            }
+        </div>
+        <p class="text-muted mb-0 small">个人的专属告警与通知消息中心 · 独立记录已读状态</p>
+    </div>
     <div class="text-sm-end">
-        <form asp-action="MarkAllRead" asp-all-route-data="routes" method="post"><button class="btn btn-outline-primary" disabled="@(Model.UnreadCount == 0 || !ViewData.ModelState.IsValid)" aria-describedby="mark-all-hint">我的全部通知标为已读</button></form>
-        <small id="mark-all-hint" class="text-muted d-block mt-2">处理我的全部未读通知，不受当前筛选和分页限制。</small>
+        <form asp-action="MarkAllRead" asp-all-route-data="routes" method="post">
+            <button class="btn btn-outline-primary" disabled="@(Model.UnreadCount == 0 || !ViewData.ModelState.IsValid)" aria-describedby="mark-all-hint">
+                <i class="align-middle me-1" data-lucide="check-check" aria-hidden="true"></i>我的全部通知标为已读
+            </button>
+        </form>
+        <small id="mark-all-hint" class="text-muted d-block mt-1">处理我的全部未读通知，不受当前筛选和分页限制。</small>
     </div>
 </div>
-<nav class="d-flex flex-wrap gap-2 mb-3" aria-label="通知阅读状态">
+
+<!-- Status Tabs Bar -->
+<div class="d-flex flex-wrap gap-2 mb-3" aria-label="通知阅读状态">
     @foreach (var status in new[] { (Value: "unread", Label: "仅看未读"), (Value: "all", Label: "全部通知"), (Value: "read", Label: "仅看已读") })
     {
         var statusRoutes = filter.ToRouteValues(1);
         statusRoutes["readStatus"] = status.Value;
         var selected = filter.ReadStatus == status.Value;
-        <a id="inbox-status-@status.Value" asp-action="Inbox" asp-all-route-data="statusRoutes" class="btn @(selected ? "btn-primary" : "btn-outline-secondary")" aria-current="@(selected ? "page" : null)">@status.Label</a>
+        <a id="inbox-status-@status.Value"
+           asp-action="Inbox"
+           asp-all-route-data="statusRoutes"
+           class="btn @(selected ? "btn-primary" : "btn-outline-secondary")"
+           aria-current="@(selected ? "page" : null)">@status.Label</a>
     }
-</nav>
-<div class="card"><div class="card-body">
-    <form asp-action="Inbox" method="get" class="row g-3 align-items-end" id="inbox-filters">
-        <div class="col-md-6 col-xl-4"><label for="filter-keyword" class="form-label">关键词</label><input id="filter-keyword" name="keyword" value="@filter.Keyword" maxlength="200" class="form-control" placeholder="搜索标题或正文" /></div>
-        <div class="col-sm-6 col-xl-2"><label for="filter-read-status" class="form-label">阅读状态</label><select id="filter-read-status" name="readStatus" class="form-select">
-            <option value="unread" selected="@(filter.ReadStatus == "unread")">未读</option><option value="read" selected="@(filter.ReadStatus == "read")">已读</option><option value="all" selected="@(filter.ReadStatus == "all")">全部</option>
-        </select></div>
-        <div class="col-sm-6 col-xl-3"><label for="filter-application" class="form-label">来源应用</label><select id="filter-application" name="applicationId" class="form-select"><option value="">全部应用</option>
-            @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value)) { <option value="@filter.ApplicationId" selected>所选应用暂无通知</option> }
-            @foreach (var application in Model.Applications) { <option value="@application.Id" selected="@(filter.ApplicationId == application.Id)">@application.Name</option> }
-        </select></div>
-        <div class="col-sm-6 col-xl-3"><label for="filter-level" class="form-label">告警级别</label><select id="filter-level" name="level" class="form-select"><option value="">全部级别（含渠道测试）</option>
-            <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重</option><option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误</option><option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告</option><option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息</option>
-        </select></div>
-        <div class="col-sm-6 col-xl-4"><label for="filter-channel" class="form-label">通知渠道</label><select id="filter-channel" name="channelId" class="form-select"><option value="">全部渠道</option>
-            @if (filter.ChannelId.HasValue && Model.Channels.All(channel => channel.Id != filter.ChannelId.Value)) { <option value="@filter.ChannelId" selected>所选渠道暂无通知</option> }
-            @foreach (var channel in Model.Channels) { <option value="@channel.Id" selected="@(filter.ChannelId == channel.Id)">@channel.Name</option> }
-        </select></div>
-        <div class="col-sm-6 col-xl-3"><label for="filter-from-date" class="form-label">接收开始日期（UTC）</label><input id="filter-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
-        <div class="col-sm-6 col-xl-3"><label for="filter-to-date" class="form-label">接收结束日期（UTC，含当日）</label><input id="filter-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" /></div>
-        <div class="col-xl-2 d-flex gap-2"><button class="btn btn-primary flex-grow-1">检索</button><a asp-action="Inbox" class="btn btn-outline-secondary text-nowrap">重置</a></div>
-        <div asp-validation-summary="All" class="text-danger mb-0"></div>
-    </form>
-</div></div>
-<div class="d-flex justify-content-between align-items-center gap-2 mb-3"><small class="text-muted">按接收时间倒序 · 每页 20 条</small><a asp-action="Inbox" asp-all-route-data="routes" class="btn btn-sm btn-outline-secondary">刷新</a></div>
-<div class="card">
+</div>
+
+<!-- Filter Card -->
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body p-3">
+        <form asp-action="Inbox" method="get" class="row g-3 align-items-end" id="inbox-filters">
+            <div class="col-md-6 col-xl-4">
+                <label for="filter-keyword" class="form-label small text-muted mb-1">关键词搜索</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light text-muted"><i data-lucide="search" style="width: 15px; height: 15px;" aria-hidden="true"></i></span>
+                    <input id="filter-keyword" name="keyword" value="@filter.Keyword" maxlength="200" class="form-control" placeholder="搜索标题或正文..." />
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-2">
+                <label for="filter-read-status" class="form-label small text-muted mb-1">阅读状态</label>
+                <select id="filter-read-status" name="readStatus" class="form-select">
+                    <option value="unread" selected="@(filter.ReadStatus == "unread")">未读通知</option>
+                    <option value="read" selected="@(filter.ReadStatus == "read")">已读通知</option>
+                    <option value="all" selected="@(filter.ReadStatus == "all")">全部通知</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <label for="filter-application" class="form-label small text-muted mb-1">来源应用</label>
+                <select id="filter-application" name="applicationId" class="form-select">
+                    <option value="">全部应用</option>
+                    @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value))
+                    {
+                        <option value="@filter.ApplicationId" selected>所选应用暂无通知</option>
+                    }
+                    @foreach (var application in Model.Applications)
+                    {
+                        <option value="@application.Id" selected="@(filter.ApplicationId == application.Id)">@application.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <label for="filter-level" class="form-label small text-muted mb-1">告警级别</label>
+                <select id="filter-level" name="level" class="form-select">
+                    <option value="">全部级别（含测试）</option>
+                    <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重 (P1)</option>
+                    <option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误 (P2)</option>
+                    <option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告 (P3)</option>
+                    <option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息 (P4)</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-xl-4">
+                <label for="filter-channel" class="form-label small text-muted mb-1">通知渠道</label>
+                <select id="filter-channel" name="channelId" class="form-select">
+                    <option value="">全部渠道</option>
+                    @if (filter.ChannelId.HasValue && Model.Channels.All(channel => channel.Id != filter.ChannelId.Value))
+                    {
+                        <option value="@filter.ChannelId" selected>所选渠道暂无通知</option>
+                    }
+                    @foreach (var channel in Model.Channels)
+                    {
+                        <option value="@channel.Id" selected="@(filter.ChannelId == channel.Id)">@channel.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <label for="filter-from-date" class="form-label small text-muted mb-1">接收开始日期（UTC）</label>
+                <input id="filter-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <label for="filter-to-date" class="form-label small text-muted mb-1">接收结束日期（UTC，含当日）</label>
+                <input id="filter-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
+            </div>
+            <div class="col-xl-2 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-grow-1">
+                    <i class="align-middle me-1" data-lucide="search" aria-hidden="true"></i>检索
+                </button>
+                <a asp-action="Inbox" class="btn btn-outline-secondary text-nowrap" title="重置检索条件">
+                    <i data-lucide="rotate-ccw" style="width: 15px; height: 15px;" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div asp-validation-summary="All" class="text-danger mb-0 small"></div>
+        </form>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+    <small class="text-muted">按接收时间倒序 · 每页 20 条</small>
+    <a asp-action="Inbox" asp-all-route-data="routes" class="btn btn-sm btn-outline-secondary">
+        <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>刷新通知
+    </a>
+</div>
+
+<!-- Notifications Card -->
+<div class="card shadow-sm border-0">
     @if (Model.Notifications.Count == 0)
     {
-        <div class="card-body text-center py-5"><div class="stat mx-auto mb-3"><i data-lucide="bell" aria-hidden="true"></i></div>
-            <h2 class="h5">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters || Model.Page > 1 ? "当前筛选或分页下没有通知" : filter.ReadStatus == "unread" ? "没有未读通知" : filter.ReadStatus == "read" ? "没有已读通知" : "暂时没有通知")</h2>
-            <p class="text-muted mb-0">可调整筛选条件查看其他通知。</p>
+        <div class="ac-empty-state">
+            <div class="ac-empty-icon">
+                <i data-lucide="bell-off" aria-hidden="true"></i>
+            </div>
+            <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters || Model.Page > 1 ? "当前筛选或分页下没有通知" : filter.ReadStatus == "unread" ? "没有未读通知" : filter.ReadStatus == "read" ? "没有已读通知" : "暂时没有通知")</h2>
+            <p class="text-muted mb-3" style="max-width: 24rem; margin-inline: auto;">
+                @(hasFilters ? "可调整筛选条件或重置查看其他通知。" : "当系统产生站内渠道绑定的告警时，将直接推送到你的个人收件箱。")
+            </p>
+            @if (hasFilters)
+            {
+                <a asp-action="Inbox" class="btn btn-outline-secondary btn-sm">清除所有筛选</a>
+            }
         </div>
     }
     else
     {
-        <div class="list-group list-group-flush">@foreach (var notification in Model.Notifications)
-        {
-            var message = notification.Delivery.Message;
-            <div class="list-group-item p-4 inbox-notification">
-                <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
-                    <h2 class="h5 mb-0 inbox-notification-title">@if (notification.ReadAtUtc == null) { <span class="badge bg-primary me-2">未读</span> }@(message?.Title ?? "渠道测试通知")</h2>
-                    <small class="text-muted text-nowrap">@notification.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</small>
-                </div>
-                @if (message != null)
+        <div class="list-group list-group-flush">
+            @foreach (var notification in Model.Notifications)
+            {
+                var message = notification.Delivery.Message;
+                var isUnread = notification.ReadAtUtc == null;
+                var levelClass = message?.Level switch
                 {
-                    var color = message.Level switch { "sev1" => "danger", "sev2" => "warning", "sev3" => "primary", _ => "secondary" };
-                    <div class="d-flex align-items-center gap-2 mb-2"><span class="badge bg-@color">@message.Level</span><span class="text-muted inbox-notification-channel">@message.Application.Name</span></div>
-                }
-                <p class="text-muted mb-3 inbox-notification-preview">@(message == null ? notification.Delivery.TestContent ?? Aiursoft.AlertCenter.Entities.PushDelivery.DefaultTestContent : message.Content)</p>
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-                    <small class="text-muted inbox-notification-channel">@notification.Delivery.Channel.Name</small>
-                    <div class="d-flex flex-wrap gap-2 flex-shrink-0">
-                        <a asp-action="Notification" asp-route-id="@notification.Id" class="btn btn-sm btn-outline-secondary">查看详情</a>
-                        @if (notification.ReadAtUtc == null) { <form asp-action="MarkRead" asp-all-route-data="routes" method="post"><input type="hidden" name="id" value="@notification.Id" /><button class="btn btn-sm btn-outline-primary">标为已读</button></form> }
-                        else { <span class="text-muted small align-self-center">已读</span> }
+                    "sev1" => "ac-row-sev1",
+                    "sev2" => "ac-row-sev2",
+                    "sev3" => "ac-row-sev3",
+                    "sev4" => "ac-row-sev4",
+                    _ => ""
+                };
+                var levelBadgeClass = message?.Level switch
+                {
+                    "sev1" => "ac-badge-sev1",
+                    "sev2" => "ac-badge-sev2",
+                    "sev3" => "ac-badge-sev3",
+                    _ => "ac-badge-sev4"
+                };
+
+                <div class="list-group-item p-4 inbox-notification ac-inbox-item @levelClass @(isUnread ? "is-unread" : "")">
+                    <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
+                        <div class="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
+                            @if (isUnread)
+                            {
+                                <span class="badge bg-primary px-2 py-0.5 small flex-shrink-0">未读</span>
+                            }
+                            @if (message != null)
+                            {
+                                <span class="badge @levelBadgeClass font-monospace flex-shrink-0">@message.Level</span>
+                            }
+                            <h2 class="h5 mb-0 inbox-notification-title text-break">
+                                @(message?.Title ?? "渠道测试通知")
+                            </h2>
+                        </div>
+                        <small class="text-muted text-nowrap font-monospace small">
+                            <i data-lucide="clock" style="width: 12px; height: 12px;" class="align-middle me-1" aria-hidden="true"></i>
+                            @notification.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+                        </small>
+                    </div>
+
+                    @if (message != null)
+                    {
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge bg-light text-secondary border small inbox-notification-channel">
+                                <i data-lucide="layers" style="width: 12px; height: 12px;" class="me-1" aria-hidden="true"></i>@message.Application.Name
+                            </span>
+                        </div>
+                    }
+
+                    <p class="text-muted mb-3 inbox-notification-preview font-monospace small" style="line-height: 1.6;">@(message == null ? notification.Delivery.TestContent ?? Aiursoft.AlertCenter.Entities.PushDelivery.DefaultTestContent : message.Content)</p>
+
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-2 border-top">
+                        <small class="text-muted inbox-notification-channel d-flex align-items-center gap-1">
+                            <i data-lucide="bell" style="width: 13px; height: 13px;" aria-hidden="true"></i>
+                            <span>渠道: @notification.Delivery.Channel.Name</span>
+                        </small>
+                        <div class="d-flex flex-wrap align-items-center gap-2 flex-shrink-0">
+                            <a asp-action="Notification" asp-route-id="@notification.Id" class="btn btn-sm btn-outline-secondary">
+                                <i class="align-middle me-1" data-lucide="eye" aria-hidden="true"></i>查看详情
+                            </a>
+                            @if (isUnread)
+                            {
+                                <form asp-action="MarkRead" asp-all-route-data="routes" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@notification.Id" />
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>标为已读
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="badge bg-light text-muted border small align-self-center py-1.5 px-2">
+                                    <i data-lucide="check-check" style="width: 12px; height: 12px;" class="me-1" aria-hidden="true"></i>已读
+                                </span>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-        }</div>
+            }
+        </div>
     }
+
     @if (ViewData.ModelState.IsValid && (Model.Notifications.Count > 0 || Model.Page > 1))
     {
-        <div class="card-body border-top d-flex flex-wrap justify-content-between align-items-center gap-3"><small class="text-muted">第 @Model.Page 页</small><nav class="d-flex flex-wrap align-items-center gap-2" aria-label="站内通知分页">
-            @if (Model.Page > 1) { <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a> }
-            <form id="inbox-page-jump-form" asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(1)" method="get" class="d-flex align-items-center gap-1">
-                <label for="inbox-page-jump" class="visually-hidden">跳转到页码</label><span class="small text-muted">跳至</span>
-                <input id="inbox-page-jump" name="page" type="number" value="@Model.Page" min="1" max="1000000" step="1" class="form-control form-control-sm" style="width: 5rem" required />
-                <span class="small text-muted">页</span><button type="submit" class="btn btn-sm btn-outline-secondary">跳转</button>
-            </form>
-            @if (Model.HasNextPage) { <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a> }
-        </nav></div>
+        <div class="card-footer bg-light border-top p-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <small class="text-muted">当前展示第 <span class="fw-semibold text-dark">@Model.Page</span> 页</small>
+            <nav class="d-flex flex-wrap align-items-center gap-2" aria-label="站内通知分页">
+                @if (Model.Page > 1)
+                {
+                    <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a>
+                }
+                <form id="inbox-page-jump-form" asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(1)" method="get" class="d-flex align-items-center gap-1">
+                    <label for="inbox-page-jump" class="visually-hidden">跳转到页码</label>
+                    <span class="small text-muted">跳至</span>
+                    <input id="inbox-page-jump" name="page" type="number" value="@Model.Page" min="1" max="1000000" step="1" class="form-control form-control-sm text-center" style="width: 4.5rem" required />
+                    <span class="small text-muted">页</span>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">跳转</button>
+                </form>
+                @if (Model.HasNextPage)
+                {
+                    <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a>
+                }
+            </nav>
+        </div>
     }
 </div>
