@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Aiursoft.AlertCenter.Authorization;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models.UsersViewModels;
@@ -139,6 +140,7 @@ public class UsersController(
         if (id == null) return NotFound();
         var user = await userManager.FindByIdAsync(id);
         if (user == null) return NotFound();
+        if (!await CanManageUserAsync(user)) return Forbid();
 
         var userRoles = await userManager.GetRolesAsync(user);
         var allRoles = await roleManager.Roles.ToListAsync();
@@ -173,6 +175,7 @@ public class UsersController(
         }
         var userInDb = await userManager.FindByIdAsync(model.Id);
         if (userInDb == null) return NotFound();
+        if (!await CanManageUserAsync(userInDb)) return Forbid();
 
         userInDb.Email = model.Email;
         userInDb.UserName = model.UserName;
@@ -197,13 +200,17 @@ public class UsersController(
     {
         var userInDb = await userManager.FindByIdAsync(id);
         if (userInDb == null) return NotFound();
+        if (!await CanManageUserAsync(userInDb)) return Forbid();
 
         var userCurrentRoles = await userManager.GetRolesAsync(userInDb);
         var selectedRoles = model
             .AllRoles
             .Where(r => r.IsSelected)
             .Select(r => r.RoleName)
-            .ToArray();
+            .ToHashSet(StringComparer.Ordinal);
+        if (!IsAdministrator() && selectedRoles.Contains(AdministratorsRole)) return Forbid();
+        var existingRoles = await roleManager.Roles.Select(role => role.Name!).ToListAsync();
+        if (selectedRoles.Any(role => !existingRoles.Contains(role, StringComparer.Ordinal))) return BadRequest("所选角色不存在，请刷新页面后重试。");
 
         var rolesToAdd = selectedRoles.Except(userCurrentRoles);
         await userManager.AddToRolesAsync(userInDb, rolesToAdd);
@@ -229,6 +236,7 @@ public class UsersController(
         {
             return NotFound();
         }
+        if (!await CanManageUserAsync(user)) return Forbid();
 
         return this.StackView(new DeleteViewModel
         {
@@ -246,7 +254,18 @@ public class UsersController(
         {
             return NotFound();
         }
+        if (!await CanManageUserAsync(user)) return Forbid();
         await userManager.DeleteAsync(user);
         return RedirectToAction(nameof(Index));
     }
+
+    private const string AdministratorsRole = "Administrators";
+
+    private async Task<bool> CanManageUserAsync(User user)
+    {
+        if (await userManager.IsInRoleAsync(user, AdministratorsRole)) return IsAdministrator();
+        return IsAdministrator() || user.Id != User.FindFirstValue(ClaimTypes.NameIdentifier);
+    }
+
+    private bool IsAdministrator() => User.IsInRole(AdministratorsRole);
 }

@@ -363,10 +363,12 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Retry(Guid id, CancellationToken cancellationToken = default)
     {
-        var applicationId = await db.PushDeliveries.Where(delivery => delivery.Id == id && delivery.MessageId != null)
-            .Select(delivery => delivery.Message!.ApplicationId).SingleOrDefaultAsync(cancellationToken);
-        if (applicationId == Guid.Empty) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, applicationId, requireManage: true, cancellationToken)) return Forbid();
+        var deliveryAccess = await db.PushDeliveries.Where(delivery => delivery.Id == id && delivery.MessageId != null)
+            .Select(delivery => new { delivery.ChannelId, ApplicationId = delivery.Message!.ApplicationId })
+            .SingleOrDefaultAsync(cancellationToken);
+        if (deliveryAccess == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, deliveryAccess.ApplicationId, requireManage: true, cancellationToken) ||
+            !await channelAccess.CanBindAsync(User, deliveryAccess.ChannelId, cancellationToken)) return Forbid();
         var updated = await db.PushDeliveries.Where(delivery => delivery.Id == id &&
                 delivery.Status == PushDelivery.Failed && delivery.Channel.IsEnabled)
             .ExecuteUpdateAsync(setters => setters.SetProperty(delivery => delivery.Status, PushDelivery.Pending)

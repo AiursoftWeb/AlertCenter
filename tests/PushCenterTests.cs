@@ -52,7 +52,7 @@ public class PushCenterTests
         _http.Dispose();
     }
 
-    private PushController Controller(string userId = "admin-one", bool administrator = true) => new(_db, _adapters, _processor, _webhookConfigurationProtector, new ApplicationAccessService(_db), _channelAccess)
+    private PushController Controller(string userId = "admin-one", bool administrator = true, params Claim[] claims) => new(_db, _adapters, _processor, _webhookConfigurationProtector, new ApplicationAccessService(_db), _channelAccess)
     {
         ControllerContext = new ControllerContext
         {
@@ -60,8 +60,8 @@ public class PushCenterTests
             {
                 User = new ClaimsPrincipal(new ClaimsIdentity(
                     administrator
-                        ? [new Claim(ClaimTypes.NameIdentifier, userId), new Claim(ClaimTypes.Role, "Administrators")]
-                        : [new Claim(ClaimTypes.NameIdentifier, userId)],
+                        ? [new Claim(ClaimTypes.NameIdentifier, userId), new Claim(ClaimTypes.Role, "Administrators"), .. claims]
+                        : [new Claim(ClaimTypes.NameIdentifier, userId), .. claims],
                     "test"))
             }
         }
@@ -430,6 +430,68 @@ public class PushCenterTests
         Assert.IsInstanceOfType<ForbidResult>(await manager.SaveBindings(application.Id,
             new ApplicationPushBindingsRequest { Sev1ChannelIds = [forbidden.Id] }));
         Assert.AreEqual(granted.Id, (await _db.ApplicationPushChannels.SingleAsync()).ChannelId);
+    }
+
+    [TestMethod]
+    public async Task ChannelBindingRoleGrantsOnlyItsMembersAccess()
+    {
+        await AddAdministrators();
+        var application = await Application();
+        var channel = await Channel();
+        var role = new IdentityRole("OnCall");
+        _db.Roles.Add(role);
+        _db.UserRoles.Add(new IdentityUserRole<string> { UserId = "ordinary-user", RoleId = role.Id });
+        _db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess
+        {
+            ApplicationId = application.Id,
+            RoleId = role.Id,
+            CanManage = true
+        });
+        _db.PushChannelBindingRoles.Add(new PushChannelBindingRole { ChannelId = channel.Id, RoleId = role.Id });
+        await _db.SaveChangesAsync();
+
+        var member = Controller("ordinary-user", administrator: false);
+        Assert.IsInstanceOfType<RedirectToActionResult>(await member.SaveBindings(application.Id,
+            new ApplicationPushBindingsRequest { Sev2ChannelIds = [channel.Id] }));
+        Assert.IsInstanceOfType<ForbidResult>(await Controller("outsider", administrator: false).SaveBindings(application.Id,
+            new ApplicationPushBindingsRequest { Sev2ChannelIds = [channel.Id] }));
+        var binding = await _db.ApplicationPushChannels.SingleAsync();
+        Assert.IsTrue(binding.ReceiveSev2);
+        Assert.IsFalse(binding.ReceiveSev1 || binding.ReceiveSev3 || binding.ReceiveSev4);
+    }
+
+    [TestMethod]
+    public async Task DeliveryAndRetryRequireBothApplicationAndChannelAccess()
+    {
+        await AddAdministrators();
+        var application = await Application();
+        var otherApplication = await Application();
+        var channel = await Channel();
+        await BindAllLevels(application.Id, channel.Id);
+        await Report(application, Guid.NewGuid());
+        var delivery = await _db.PushDeliveries.SingleAsync();
+        delivery.Status = PushDelivery.Failed;
+        _db.ApplicationUserAccesses.Add(new ApplicationUserAccess
+        {
+            ApplicationId = application.Id,
+            UserId = "ordinary-user",
+            CanManage = true
+        });
+        await _db.SaveChangesAsync();
+
+        var manager = Controller("ordinary-user", administrator: false);
+        Assert.IsInstanceOfType<ForbidResult>(await manager.Delivery(delivery.Id, CancellationToken.None));
+        Assert.IsInstanceOfType<ForbidResult>(await manager.Retry(delivery.Id));
+        Assert.IsInstanceOfType<ForbidResult>(await manager.SaveBindings(otherApplication.Id,
+            new ApplicationPushBindingsRequest { Sev1ChannelIds = [channel.Id] }));
+        Assert.AreEqual(PushDelivery.Failed, (await _db.PushDeliveries.SingleAsync()).Status);
+
+        _db.PushChannelBindingUsers.Add(new PushChannelBindingUser { ChannelId = channel.Id, UserId = "ordinary-user" });
+        await _db.SaveChangesAsync();
+        Assert.IsTrue(await _channelAccess.CanBindAsync(manager.User, channel.Id));
+        Assert.IsInstanceOfType<RedirectToActionResult>(await manager.Retry(delivery.Id));
+        _db.ChangeTracker.Clear();
+        Assert.AreEqual(PushDelivery.Pending, (await _db.PushDeliveries.SingleAsync()).Status);
     }
 
     [TestMethod]
