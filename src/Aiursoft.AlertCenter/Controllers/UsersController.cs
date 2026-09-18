@@ -255,7 +255,15 @@ public class UsersController(
             return NotFound();
         }
         if (!await CanManageUserAsync(user)) return Forbid();
-        await userManager.DeleteAsync(user);
+        var result = await userManager.DeleteAsync(user);
+        if (!result.Succeeded)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return this.StackView(new DeleteViewModel { User = user });
+        }
         return RedirectToAction(nameof(Index));
     }
 

@@ -54,7 +54,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<PushChannelBindingUser>().HasOne(link => link.User).WithMany()
             .HasForeignKey(link => link.UserId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<ReportedMessage>().HasIndex(m => new { m.ApplicationId, m.ReportId }).IsUnique();
-        builder.Entity<ReportedMessage>().HasIndex(m => m.ReceivedAtUtc);
+        builder.Entity<ReportedMessage>().HasIndex(m => new { m.ApplicationId, m.ReceivedAtUtc });
+        builder.Entity<ReportedMessage>().HasIndex(m => new { m.IncidentId, m.ReceivedAtUtc });
         builder.Entity<ReportedMessage>().HasOne(m => m.Application).WithMany()
             .HasForeignKey(m => m.ApplicationId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<ReportedMessage>().HasOne(m => m.Incident).WithMany(incident => incident.Messages)
@@ -67,7 +68,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<IncidentTimelineEntry>().HasOne(entry => entry.Incident).WithMany(incident => incident.TimelineEntries)
             .HasForeignKey(entry => entry.IncidentId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<IncidentTimelineEntry>().HasOne(entry => entry.Actor).WithMany()
-            .HasForeignKey(entry => entry.ActorId).OnDelete(DeleteBehavior.Restrict);
+            .HasForeignKey(entry => entry.ActorId).OnDelete(DeleteBehavior.SetNull);
         builder.Entity<IncidentTimelineEntry>().HasIndex(entry => new { entry.IncidentId, entry.CreatedAtUtc });
         builder.Entity<ApplicationUserAccess>().HasKey(access => new { access.ApplicationId, access.UserId });
         builder.Entity<ApplicationUserAccess>().HasOne(access => access.Application).WithMany()

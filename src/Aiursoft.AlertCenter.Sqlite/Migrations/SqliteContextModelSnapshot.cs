@@ -195,7 +195,6 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ActorId")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("TEXT");
 
@@ -435,12 +434,12 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IncidentId");
-
-                    b.HasIndex("ReceivedAtUtc");
+                    b.HasIndex("ApplicationId", "ReceivedAtUtc");
 
                     b.HasIndex("ApplicationId", "ReportId")
                         .IsUnique();
+
+                    b.HasIndex("IncidentId", "ReceivedAtUtc");
 
                     b.ToTable("ReportedMessages");
                 });
@@ -769,8 +768,7 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.HasOne("Aiursoft.AlertCenter.Entities.User", "Actor")
                         .WithMany()
                         .HasForeignKey("ActorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
                         .WithMany("TimelineEntries")

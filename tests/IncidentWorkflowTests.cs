@@ -122,6 +122,25 @@ public class IncidentWorkflowTests
     }
 
     [TestMethod]
+    public async Task DeletingTimelineActorPreservesTheIncidentHistory()
+    {
+        var application = await CreateApplication();
+        var message = await Report(application, "Payment provider unavailable", "sev1", "payment-provider");
+        await IncidentController().Trigger(new TriggerIncidentRequest
+        {
+            MessageId = message.Id, Title = "Payment provider outage"
+        }, CancellationToken.None);
+
+        _db.Users.Remove(await _db.Users.SingleAsync(user => user.Id == "admin"));
+        await _db.SaveChangesAsync();
+        _db.ChangeTracker.Clear();
+
+        var entry = await _db.IncidentTimelineEntries.Include(item => item.Actor).SingleAsync();
+        Assert.IsNull(entry.ActorId);
+        Assert.IsNull(entry.Actor);
+    }
+
+    [TestMethod]
     public async Task TriggerReusesExistingIncidentWithSameMatchKey()
     {
         var application = await CreateApplication();

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aiursoft.AlertCenter.MySql.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20260910163408_AddEmailRecipients")]
-    partial class AddEmailRecipients
+    [Migration("20260918031544_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,42 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.ToTable("ApplicationPushChannels");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationRoleAccess", b =>
+                {
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<bool>("CanManage")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("ApplicationId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("ApplicationRoleAccesses");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationUserAccess", b =>
+                {
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<bool>("CanManage")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("ApplicationId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ApplicationUserAccesses");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.GlobalSetting", b =>
                 {
                     b.Property<string>("Key")
@@ -102,6 +138,98 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.ToTable("InAppNotifications");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.Incident", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("AcknowledgedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ActiveMatchKey")
+                        .HasMaxLength(220)
+                        .HasColumnType("varchar(220)");
+
+                    b.Property<string>("AlertLevel")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("varchar(4)");
+
+                    b.Property<string>("AlertTitle")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("IncidentKey")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime?>("ResolvedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime>("TriggeredAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId", "ActiveMatchKey")
+                        .IsUnique();
+
+                    b.HasIndex("ApplicationId", "IncidentKey");
+
+                    b.HasIndex("ApplicationId", "AlertTitle", "AlertLevel", "Status");
+
+                    b.ToTable("Incidents");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("ActorId")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("IncidentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(4000)
+                        .HasColumnType("varchar(4000)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActorId");
+
+                    b.HasIndex("IncidentId", "CreatedAtUtc");
+
+                    b.ToTable("IncidentTimelineEntries");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -141,6 +269,36 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PushChannels");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingRole", b =>
+                {
+                    b.Property<Guid>("ChannelId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("ChannelId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("PushChannelBindingRoles");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingUser", b =>
+                {
+                    b.Property<Guid>("ChannelId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("ChannelId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PushChannelBindingUsers");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelRole", b =>
@@ -206,6 +364,10 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
+                    b.Property<string>("TestContent")
+                        .HasMaxLength(4000)
+                        .HasColumnType("varchar(4000)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ChannelId");
@@ -216,6 +378,21 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasIndex("Status", "CreatedAtUtc");
 
                     b.ToTable("PushDeliveries");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushDeliveryRecipient", b =>
+                {
+                    b.Property<Guid>("DeliveryId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("DeliveryId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PushDeliveryRecipients");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ReportedMessage", b =>
@@ -233,6 +410,16 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.Property<string>("ContextJson")
                         .HasColumnType("longtext");
+
+                    b.Property<Guid?>("IncidentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("IncidentKey")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Level")
                         .IsRequired()
@@ -255,10 +442,12 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReceivedAtUtc");
+                    b.HasIndex("ApplicationId", "ReceivedAtUtc");
 
                     b.HasIndex("ApplicationId", "ReportId")
                         .IsUnique();
+
+                    b.HasIndex("IncidentId", "ReceivedAtUtc");
 
                     b.ToTable("ReportedMessages");
                 });
@@ -518,6 +707,44 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Channel");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationRoleAccess", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationUserAccess", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.InAppNotification", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.PushDelivery", "Delivery")
@@ -533,6 +760,73 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .IsRequired();
 
                     b.Navigation("Delivery");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.Incident", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "Actor")
+                        .WithMany()
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
+                        .WithMany("TimelineEntries")
+                        .HasForeignKey("IncidentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Actor");
+
+                    b.Navigation("Incident");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingRole", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.PushChannel", "Channel")
+                        .WithMany()
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Channel");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingUser", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.PushChannel", "Channel")
+                        .WithMany()
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Channel");
 
                     b.Navigation("User");
                 });
@@ -593,6 +887,25 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Message");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushDeliveryRecipient", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.PushDelivery", "Delivery")
+                        .WithMany()
+                        .HasForeignKey("DeliveryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Delivery");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ReportedMessage", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
@@ -601,7 +914,14 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
+                        .WithMany("Messages")
+                        .HasForeignKey("IncidentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("Application");
+
+                    b.Navigation("Incident");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -653,6 +973,13 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.Incident", b =>
+                {
+                    b.Navigation("Messages");
+
+                    b.Navigation("TimelineEntries");
                 });
 #pragma warning restore 612, 618
         }

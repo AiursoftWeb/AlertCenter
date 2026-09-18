@@ -200,7 +200,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("ActorId")
-                        .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("varchar(450)");
 
@@ -440,12 +439,12 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IncidentId");
-
-                    b.HasIndex("ReceivedAtUtc");
+                    b.HasIndex("ApplicationId", "ReceivedAtUtc");
 
                     b.HasIndex("ApplicationId", "ReportId")
                         .IsUnique();
+
+                    b.HasIndex("IncidentId", "ReceivedAtUtc");
 
                     b.ToTable("ReportedMessages");
                 });
@@ -778,8 +777,7 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasOne("Aiursoft.AlertCenter.Entities.User", "Actor")
                         .WithMany()
                         .HasForeignKey("ActorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
                         .WithMany("TimelineEntries")

@@ -14,7 +14,7 @@ public class IncidentTimelineEntry
     public Incident Incident { get; set; } = null!;
     [Required, MaxLength(20)] public string Type { get; set; } = Triggered;
     [MaxLength(4000)] public string? Note { get; set; }
-    [Required, MaxLength(450)] public string ActorId { get; set; } = string.Empty;
-    public User Actor { get; set; } = null!;
+    [MaxLength(450)] public string? ActorId { get; set; }
+    public User? Actor { get; set; }
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
 }
