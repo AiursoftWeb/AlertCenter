@@ -93,6 +93,7 @@
                 <label for="filter-level" class="form-label small text-muted mb-1">告警级别</label>
                 <select id="filter-level" name="level" class="form-select">
                     <option value="">全部级别（含测试）</option>
+                    <option value="sev0" selected="@(filter.Level == "sev0")">sev0 · DEADLY (P0)</option>
                     <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重 (P1)</option>
                     <option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误 (P2)</option>
                     <option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告 (P3)</option>
@@ -168,6 +169,7 @@
                 var isUnread = notification.ReadAtUtc == null;
                 var levelClass = message?.Level switch
                 {
+                    "sev0" => "ac-row-sev0",
                     "sev1" => "ac-row-sev1",
                     "sev2" => "ac-row-sev2",
                     "sev3" => "ac-row-sev3",
@@ -176,6 +178,7 @@
                 };
                 var levelBadgeClass = message?.Level switch
                 {
+                    "sev0" => "ac-badge-sev0",
                     "sev1" => "ac-badge-sev1",
                     "sev2" => "ac-badge-sev2",
                     "sev3" => "ac-badge-sev3",

@@ -108,8 +108,8 @@ public class PushCenterTests
     private Task<IActionResult> BindAllLevels(Guid applicationId, params Guid[] channelIds) =>
         Controller().SaveBindings(applicationId, new ApplicationPushBindingsRequest
         {
-            Sev1ChannelIds = channelIds, Sev2ChannelIds = channelIds,
-            Sev3ChannelIds = channelIds, Sev4ChannelIds = channelIds
+            Sev0ChannelIds = channelIds, Sev1ChannelIds = channelIds,
+            Sev2ChannelIds = channelIds, Sev3ChannelIds = channelIds, Sev4ChannelIds = channelIds
         });
 
     private async Task<IActionResult> Report(SourceApplication application, Guid reportId, string level = "sev3")
@@ -173,6 +173,7 @@ public class PushCenterTests
     }
 
     [TestMethod]
+    [DataRow("sev0")]
     [DataRow("sev1")]
     [DataRow("sev2")]
     [DataRow("sev3")]
@@ -189,6 +190,7 @@ public class PushCenterTests
         Guid[] matching = [first.Id, second.Id, disabled.Id, first.Id];
         await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest
         {
+            Sev0ChannelIds = level == "sev0" ? matching : [wrongLevel.Id],
             Sev1ChannelIds = level == "sev1" ? matching : [wrongLevel.Id],
             Sev2ChannelIds = level == "sev2" ? matching : [wrongLevel.Id],
             Sev3ChannelIds = level == "sev3" ? matching : [wrongLevel.Id],
@@ -197,6 +199,7 @@ public class PushCenterTests
         await BindAllLevels(otherApplication.Id, otherApplicationChannel.Id);
         _db.ChangeTracker.Clear();
         var saved = await _db.ApplicationPushChannels.SingleAsync(link => link.ApplicationId == application.Id && link.ChannelId == first.Id);
+        Assert.AreEqual(level == "sev0", saved.ReceiveSev0);
         Assert.AreEqual(level == "sev1", saved.ReceiveSev1);
         Assert.AreEqual(level == "sev2", saved.ReceiveSev2);
         Assert.AreEqual(level == "sev3", saved.ReceiveSev3);
@@ -238,7 +241,7 @@ public class PushCenterTests
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
         var remaining = await _db.ApplicationPushChannels.SingleAsync();
         Assert.AreEqual(otherApplication.Id, remaining.ApplicationId);
-        Assert.IsTrue(remaining.ReceiveSev1 && remaining.ReceiveSev2 && remaining.ReceiveSev3 && remaining.ReceiveSev4);
+        Assert.IsTrue(remaining.ReceiveSev0 && remaining.ReceiveSev1 && remaining.ReceiveSev2 && remaining.ReceiveSev3 && remaining.ReceiveSev4);
     }
 
     [TestMethod]
@@ -257,7 +260,7 @@ public class PushCenterTests
         Assert.IsInstanceOfType<BadRequestObjectResult>(await controller.SaveBindings(application.Id, new ApplicationPushBindingsRequest()));
         _db.ChangeTracker.Clear();
         var saved = await _db.ApplicationPushChannels.SingleAsync();
-        Assert.IsFalse(saved.ReceiveSev1 || saved.ReceiveSev2 || saved.ReceiveSev3);
+        Assert.IsFalse(saved.ReceiveSev0 || saved.ReceiveSev1 || saved.ReceiveSev2 || saved.ReceiveSev3);
         Assert.IsTrue(saved.ReceiveSev4);
         Assert.IsInstanceOfType<NotFoundResult>(await Controller().SaveBindings(Guid.NewGuid(), new ApplicationPushBindingsRequest()));
     }

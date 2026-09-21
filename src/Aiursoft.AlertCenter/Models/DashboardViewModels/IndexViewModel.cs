@@ -17,6 +17,7 @@ public class IndexViewModel : UiStackLayoutViewModel
     public int SuccessfulDeliveries { get; set; }
     public int UnreadNotifications { get; set; }
     public int ChannelsCount { get; set; }
+    public int Sev0Count { get; set; }
     public int Sev1Count { get; set; }
     public int Sev2Count { get; set; }
     public int Sev3Count { get; set; }

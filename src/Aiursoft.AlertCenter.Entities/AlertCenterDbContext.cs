@@ -81,6 +81,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<ApplicationRoleAccess>().HasOne(access => access.Role).WithMany()
             .HasForeignKey(access => access.RoleId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<ApplicationPushChannel>().HasKey(link => new { link.ApplicationId, link.ChannelId });
+        builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev0).HasDefaultValue(true);
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev1).HasDefaultValue(true);
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev2).HasDefaultValue(true);
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev3).HasDefaultValue(true);

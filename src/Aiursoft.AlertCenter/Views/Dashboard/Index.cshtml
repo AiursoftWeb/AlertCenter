@@ -70,7 +70,7 @@
                     <a asp-controller="Alerts" asp-action="Index" class="small text-primary text-decoration-none">全部记录 <i class="align-middle" data-lucide="chevron-right"></i></a>
                 </div>
                 <div class="mt-2 text-muted small">
-                    <span class="text-danger fw-semibold">@Model.Sev1Count</span> 严重 · <span class="text-warning fw-semibold">@Model.Sev2Count</span> 错误
+                    <span class="fw-semibold" style="color: var(--ac-sev0);">@Model.Sev0Count</span> DEADLY · <span class="text-danger fw-semibold">@Model.Sev1Count</span> 严重 · <span class="text-warning fw-semibold">@Model.Sev2Count</span> 错误
                 </div>
             </div>
         </div>
@@ -131,6 +131,9 @@
             <div class="d-flex align-items-center gap-2">
                 <span class="text-muted small fw-semibold text-uppercase me-2"><i class="align-middle me-1" data-lucide="layers"></i>级别透视:</span>
                 <a asp-controller="Alerts" asp-action="Index" class="btn btn-sm btn-outline-secondary">全部 (@Model.TotalMessages)</a>
+                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev0" class="btn btn-sm ac-badge-sev0">
+                    <span class="ac-status-dot dot-deadly"></span>sev0 DEADLY (@Model.Sev0Count)
+                </a>
                 <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev1" class="btn btn-sm ac-badge-sev1">
                     <span class="ac-status-dot dot-danger"></span>sev1 严重 (@Model.Sev1Count)
                 </a>
@@ -227,6 +230,7 @@
                             {
                                 var rowClass = message.Level switch
                                 {
+                                    "sev0" => "ac-row-sev0",
                                     "sev1" => "ac-row-sev1",
                                     "sev2" => "ac-row-sev2",
                                     "sev3" => "ac-row-sev3",
@@ -234,6 +238,7 @@
                                 };
                                 var badgeClass = message.Level switch
                                 {
+                                    "sev0" => "ac-badge-sev0",
                                     "sev1" => "ac-badge-sev1",
                                     "sev2" => "ac-badge-sev2",
                                     "sev3" => "ac-badge-sev3",
@@ -360,7 +365,7 @@
                     </li>
                     <li class="d-flex gap-3 mb-3">
                         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">2</span>
-                        <div><strong>关联推送渠道</strong><p class="text-muted small mb-0">在应用的推送设置中按 Sev1-Sev4 路由。</p></div>
+                        <div><strong>关联推送渠道</strong><p class="text-muted small mb-0">在应用的推送设置中按 Sev0-Sev4 路由。</p></div>
                     </li>
                     <li class="d-flex gap-3 mb-3">
                         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">3</span>

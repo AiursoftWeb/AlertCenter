@@ -66,7 +66,7 @@ public partial class AlertDemoTests
             db.ApplicationPushChannels.Add(new ApplicationPushChannel
             {
                 ApplicationId = applicationId, Channel = channel,
-                ReceiveSev1 = true, ReceiveSev2 = false, ReceiveSev3 = false, ReceiveSev4 = true
+                ReceiveSev0 = true, ReceiveSev1 = true, ReceiveSev2 = false, ReceiveSev3 = false, ReceiveSev4 = true
             });
             await db.SaveChangesAsync();
         }
@@ -92,7 +92,7 @@ public partial class AlertDemoTests
             var binding = await db.ApplicationPushChannels.SingleAsync();
             Assert.AreEqual(applicationId, binding.ApplicationId);
             Assert.AreEqual(channel.Id, binding.ChannelId);
-            Assert.IsTrue(binding.ReceiveSev1 && binding.ReceiveSev4);
+            Assert.IsTrue(binding.ReceiveSev0 && binding.ReceiveSev1 && binding.ReceiveSev4);
             Assert.IsFalse(binding.ReceiveSev2 || binding.ReceiveSev3);
             var savedDelivery = await db.PushDeliveries.SingleAsync();
             Assert.AreEqual(delivery.Id, savedDelivery.Id);

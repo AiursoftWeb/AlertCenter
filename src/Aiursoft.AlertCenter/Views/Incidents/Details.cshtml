@@ -45,7 +45,7 @@
                     <span>@statusText</span>
                 </span>
                 <span class="badge bg-secondary-subtle text-secondary font-monospace">@incident.Application.Name</span>
-                <span class="badge @(incident.AlertLevel == "sev1" ? "ac-badge-sev1" : incident.AlertLevel == "sev2" ? "ac-badge-sev2" : "ac-badge-sev3") font-monospace">@incident.AlertLevel</span>
+                <span class="badge @(incident.AlertLevel == "sev0" ? "ac-badge-sev0" : incident.AlertLevel == "sev1" ? "ac-badge-sev1" : incident.AlertLevel == "sev2" ? "ac-badge-sev2" : incident.AlertLevel == "sev3" ? "ac-badge-sev3" : "ac-badge-sev4") font-monospace">@incident.AlertLevel</span>
             </div>
             <h1 class="h3 mb-2 text-break fw-bold">@incident.Title</h1>
             <div class="text-muted small text-break d-flex align-items-center gap-2">
@@ -175,6 +175,7 @@
                 {
                     var levelBadge = message.Level switch
                     {
+                        "sev0" => "ac-badge-sev0",
                         "sev1" => "ac-badge-sev1",
                         "sev2" => "ac-badge-sev2",
                         "sev3" => "ac-badge-sev3",

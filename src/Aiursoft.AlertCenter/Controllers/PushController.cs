@@ -246,6 +246,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
                 .OrderBy(channel => channel.Name).ToListAsync(cancellationToken),
             Bindings = new ApplicationPushBindingsRequest
             {
+                Sev0ChannelIds = bindings.Where(link => link.ReceiveSev0).Select(link => link.ChannelId).ToArray(),
                 Sev1ChannelIds = bindings.Where(link => link.ReceiveSev1).Select(link => link.ChannelId).ToArray(),
                 Sev2ChannelIds = bindings.Where(link => link.ReceiveSev2).Select(link => link.ChannelId).ToArray(),
                 Sev3ChannelIds = bindings.Where(link => link.ReceiveSev3).Select(link => link.ChannelId).ToArray(),
@@ -260,11 +261,12 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (!await db.SourceApplications.AnyAsync(application => application.Id == id, cancellationToken)) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
         if (!ModelState.IsValid) return BadRequest("渠道配置无效，请刷新页面后重试。");
+        var sev0 = bindings.Sev0ChannelIds.ToHashSet();
         var sev1 = bindings.Sev1ChannelIds.ToHashSet();
         var sev2 = bindings.Sev2ChannelIds.ToHashSet();
         var sev3 = bindings.Sev3ChannelIds.ToHashSet();
         var sev4 = bindings.Sev4ChannelIds.ToHashSet();
-        var selected = sev1.Concat(sev2).Concat(sev3).Concat(sev4).ToHashSet();
+        var selected = sev0.Concat(sev1).Concat(sev2).Concat(sev3).Concat(sev4).ToHashSet();
         if (await db.PushChannels.CountAsync(channel => selected.Contains(channel.Id)) != selected.Count)
             return BadRequest("所选渠道已不存在，请刷新页面后重试。");
         var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
@@ -281,6 +283,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
                 link = new ApplicationPushChannel { ApplicationId = id, ChannelId = channelId };
                 db.ApplicationPushChannels.Add(link);
             }
+            link.ReceiveSev0 = sev0.Contains(channelId);
             link.ReceiveSev1 = sev1.Contains(channelId);
             link.ReceiveSev2 = sev2.Contains(channelId);
             link.ReceiveSev3 = sev3.Contains(channelId);

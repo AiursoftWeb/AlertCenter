@@ -9,6 +9,7 @@
     var message = Model.Message!;
     var badgeClass = message.Level switch
     {
+        "sev0" => "ac-badge-sev0",
         "sev1" => "ac-badge-sev1",
         "sev2" => "ac-badge-sev2",
         "sev3" => "ac-badge-sev3",
@@ -56,7 +57,7 @@
 </div>
 
 <!-- Alert Headline Banner -->
-<div class="card mb-4 border-start border-4 @(message.Level == "sev1" ? "border-danger" : message.Level == "sev2" ? "border-warning" : "border-primary")">
+<div class="card mb-4 border-start border-4 @(message.Level == "sev0" || message.Level == "sev1" ? "border-danger" : message.Level == "sev2" ? "border-warning" : "border-primary")">
     <div class="card-body">
         <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
             <span class="badge @badgeClass text-uppercase fs-6">@message.Level</span>

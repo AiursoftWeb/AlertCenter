@@ -25,6 +25,11 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<Guid>("ChannelId")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("ReceiveSev0")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(true);
+
                     b.Property<bool>("ReceiveSev1")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")

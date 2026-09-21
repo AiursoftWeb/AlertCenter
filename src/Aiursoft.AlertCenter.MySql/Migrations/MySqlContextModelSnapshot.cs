@@ -30,6 +30,11 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<Guid>("ChannelId")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("ReceiveSev0")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
+
                     b.Property<bool>("ReceiveSev1")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")

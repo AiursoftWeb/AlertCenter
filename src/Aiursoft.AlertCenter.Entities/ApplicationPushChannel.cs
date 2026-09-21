@@ -6,6 +6,7 @@ public class ApplicationPushChannel
     public SourceApplication Application { get; set; } = null!;
     public Guid ChannelId { get; set; }
     public PushChannel Channel { get; set; } = null!;
+    public bool ReceiveSev0 { get; set; } = true;
     public bool ReceiveSev1 { get; set; } = true;
     public bool ReceiveSev2 { get; set; } = true;
     public bool ReceiveSev3 { get; set; } = true;

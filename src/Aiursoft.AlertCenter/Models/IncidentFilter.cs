@@ -9,7 +9,7 @@ public class IncidentFilter : IValidatableObject
     public Guid? ApplicationId { get; set; }
     [RegularExpression("^(triggered|acknowledged|resolved|all)$", ErrorMessage = "请选择有效的事故状态。")]
     public string? Status { get; set; }
-    [RegularExpression("^sev[1-4]$", ErrorMessage = "请选择有效的告警级别。")]
+    [RegularExpression("^sev[0-4]$", ErrorMessage = "请选择有效的告警级别。")]
     public string? Level { get; set; }
     public DateOnly? FromDate { get; set; }
     public DateOnly? ToDate { get; set; }

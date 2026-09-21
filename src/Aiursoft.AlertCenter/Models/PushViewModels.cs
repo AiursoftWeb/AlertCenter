@@ -29,6 +29,7 @@ public class PushViewModel : UiStackLayoutViewModel
 
 public class ApplicationPushBindingsRequest
 {
+    public Guid[] Sev0ChannelIds { get; set; } = [];
     public Guid[] Sev1ChannelIds { get; set; } = [];
     public Guid[] Sev2ChannelIds { get; set; } = [];
     public Guid[] Sev3ChannelIds { get; set; } = [];

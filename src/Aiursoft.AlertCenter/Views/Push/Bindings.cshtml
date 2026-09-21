@@ -4,6 +4,7 @@
     ViewData["Title"] = $"{Model.Application!.Name} - 推送路由设置";
     var levels = new[]
     {
+        (Field: nameof(ApplicationPushBindingsRequest.Sev0ChannelIds), Level: "sev0", Label: "DEADLY (P0)", BadgeClass: "ac-badge-sev0", Selected: Model.Bindings.Sev0ChannelIds.ToHashSet()),
         (Field: nameof(ApplicationPushBindingsRequest.Sev1ChannelIds), Level: "sev1", Label: "严重 (P1)", BadgeClass: "ac-badge-sev1", Selected: Model.Bindings.Sev1ChannelIds.ToHashSet()),
         (Field: nameof(ApplicationPushBindingsRequest.Sev2ChannelIds), Level: "sev2", Label: "错误 (P2)", BadgeClass: "ac-badge-sev2", Selected: Model.Bindings.Sev2ChannelIds.ToHashSet()),
         (Field: nameof(ApplicationPushBindingsRequest.Sev3ChannelIds), Level: "sev3", Label: "警告 (P3)", BadgeClass: "ac-badge-sev3", Selected: Model.Bindings.Sev3ChannelIds.ToHashSet()),

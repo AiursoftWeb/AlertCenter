@@ -1,6 +1,11 @@
 /* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
 
 :root {
+    --ac-sev0: #9f1239;
+    --ac-sev0-bg: rgba(159, 18, 57, 0.1);
+    --ac-sev0-border: rgba(159, 18, 57, 0.25);
+    --ac-sev0-text: #881337;
+
     --ac-sev1: #dc2626;
     --ac-sev1-bg: rgba(220, 38, 38, 0.1);
     --ac-sev1-border: rgba(220, 38, 38, 0.25);
@@ -27,6 +32,11 @@
 }
 
 [data-bs-theme="dark"] {
+    --ac-sev0: #fb7185;
+    --ac-sev0-bg: rgba(251, 113, 133, 0.18);
+    --ac-sev0-border: rgba(251, 113, 133, 0.35);
+    --ac-sev0-text: #fda4af;
+
     --ac-sev1: #ef4444;
     --ac-sev1-bg: rgba(239, 68, 68, 0.18);
     --ac-sev1-border: rgba(239, 68, 68, 0.35);
@@ -55,6 +65,13 @@
 /* ==========================================================================
    Severity Badges & Pills
    ========================================================================== */
+.ac-badge-sev0 {
+    background-color: var(--ac-sev0-bg) !important;
+    color: var(--ac-sev0-text) !important;
+    border: 1px solid var(--ac-sev0-border) !important;
+    font-weight: 600;
+}
+
 .ac-badge-sev1 {
     background-color: var(--ac-sev1-bg) !important;
     color: var(--ac-sev1-text) !important;
@@ -84,6 +101,10 @@
 }
 
 /* Severity Table Row Border Accents */
+.ac-row-sev0 {
+    border-left: 3.5px solid var(--ac-sev0) !important;
+}
+
 .ac-row-sev1 {
     border-left: 3.5px solid var(--ac-sev1) !important;
 }
@@ -111,6 +132,7 @@
 }
 
 .ac-status-dot.dot-success { background-color: #10b981; }
+.ac-status-dot.dot-deadly { background-color: var(--ac-sev0); }
 .ac-status-dot.dot-danger { background-color: #ef4444; }
 .ac-status-dot.dot-warning { background-color: #f59e0b; }
 .ac-status-dot.dot-info { background-color: #3b82f6; }
@@ -537,6 +559,7 @@
     background-color: rgba(59, 130, 246, 0.05);
 }
 
+.ac-inbox-item.ac-row-sev0 { border-left-color: var(--ac-sev0) !important; }
 .ac-inbox-item.ac-row-sev1 { border-left-color: var(--ac-sev1) !important; }
 .ac-inbox-item.ac-row-sev2 { border-left-color: var(--ac-sev2) !important; }
 .ac-inbox-item.ac-row-sev3 { border-left-color: var(--ac-sev3) !important; }

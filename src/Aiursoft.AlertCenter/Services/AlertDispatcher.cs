@@ -38,7 +38,8 @@ public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incide
         }
         var channels = await db.ApplicationPushChannels.AsNoTracking()
             .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled &&
-                ((message.Level == "sev1" && link.ReceiveSev1) ||
+                ((message.Level == "sev0" && link.ReceiveSev0) ||
+                 (message.Level == "sev1" && link.ReceiveSev1) ||
                  (message.Level == "sev2" && link.ReceiveSev2) ||
                  (message.Level == "sev3" && link.ReceiveSev3) ||
                  (message.Level == "sev4" && link.ReceiveSev4)))

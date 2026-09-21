@@ -36,6 +36,7 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
 
             var messagesQuery = db.ReportedMessages.AsNoTracking().Where(m => accessibleIds.Contains(m.ApplicationId));
             model.TotalMessages = await messagesQuery.CountAsync(cancellationToken);
+            model.Sev0Count = await messagesQuery.CountAsync(m => m.Level == "sev0", cancellationToken);
             model.Sev1Count = await messagesQuery.CountAsync(m => m.Level == "sev1", cancellationToken);
             model.Sev2Count = await messagesQuery.CountAsync(m => m.Level == "sev2", cancellationToken);
             model.Sev3Count = await messagesQuery.CountAsync(m => m.Level == "sev3", cancellationToken);

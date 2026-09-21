@@ -201,6 +201,7 @@ public partial class AlertDemoTests : TestBase
         Assert.AreEqual(HttpStatusCode.Unauthorized, (await Report(null, Guid.NewGuid())).StatusCode);
         var key = await CreateApplication();
         Assert.AreEqual(HttpStatusCode.Unauthorized, (await Report(key + "bad", Guid.NewGuid())).StatusCode);
+        Assert.AreEqual(HttpStatusCode.Created, (await Report(key, Guid.NewGuid(), level: "sev0")).StatusCode);
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Report(key, Guid.NewGuid(), level: "sev5")).StatusCode);
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Report(key, Guid.Empty)).StatusCode);
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Report(key, Guid.NewGuid(), title: " ")).StatusCode);
@@ -413,6 +414,8 @@ public partial class AlertDemoTests : TestBase
         {
             new KeyValuePair<string, string>("id", applicationId.ToString()),
             new("__RequestVerificationToken", token),
+            new("Sev0ChannelIds", firstId.ToString()),
+            new("Sev0ChannelIds", secondId.ToString()),
             new("Sev1ChannelIds", firstId.ToString()),
             new("Sev1ChannelIds", secondId.ToString()),
             new("Sev1ChannelIds", firstId.ToString()),
@@ -425,11 +428,11 @@ public partial class AlertDemoTests : TestBase
         Assert.DoesNotContain("<script>alert('unsafe')</script>", html);
         foreach (var channelId in new[] { firstId, secondId })
         {
-            for (var level = 1; level <= 4; level++)
+            for (var level = 0; level <= 4; level++)
             {
                 var input = Regex.Match(html, $"<input[^>]*id=\"channel-{channelId}-sev{level}\"[^>]*>").Value;
                 Assert.IsFalse(string.IsNullOrEmpty(input));
-                var expected = level == 1 || (channelId == secondId && level == 2) || (channelId == firstId && level == 4);
+                var expected = level is 0 or 1 || (channelId == secondId && level == 2) || (channelId == firstId && level == 4);
                 Assert.AreEqual(expected, input.Contains("checked=\"checked\""), input);
             }
         }
@@ -453,6 +456,7 @@ public partial class AlertDemoTests : TestBase
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var bindings = await db.ApplicationPushChannels.Where(link => link.ApplicationId == applicationId).ToListAsync();
             Assert.AreEqual(2, bindings.Count);
+            Assert.IsTrue(bindings.All(link => link.ReceiveSev0));
             Assert.IsTrue(bindings.Single(link => link.ChannelId == firstId).ReceiveSev4);
             Assert.IsTrue(bindings.Single(link => link.ChannelId == secondId).ReceiveSev2);
         }

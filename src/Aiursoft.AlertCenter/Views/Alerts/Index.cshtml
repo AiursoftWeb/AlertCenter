@@ -60,6 +60,8 @@
             @{
                 var allRoutes = filter.ToRouteValues(1);
                 allRoutes.Remove("level");
+                var sev0Routes = filter.ToRouteValues(1);
+                sev0Routes["level"] = "sev0";
                 var sev1Routes = filter.ToRouteValues(1);
                 sev1Routes["level"] = "sev1";
                 var sev2Routes = filter.ToRouteValues(1);
@@ -70,6 +72,9 @@
                 sev4Routes["level"] = "sev4";
             }
             <a asp-action="Index" asp-all-route-data="allRoutes" class="ac-chip @(filter.Level == null ? "active" : "")">全部级别</a>
+            <a asp-action="Index" asp-all-route-data="sev0Routes" class="ac-chip @(filter.Level == "sev0" ? "active" : "")">
+                <span class="ac-status-dot dot-deadly"></span>sev0 DEADLY
+            </a>
             <a asp-action="Index" asp-all-route-data="sev1Routes" class="ac-chip @(filter.Level == "sev1" ? "active" : "")">
                 <span class="ac-status-dot dot-danger"></span>sev1 严重
             </a>
@@ -110,6 +115,7 @@
                 <label for="filter-level" class="form-label small fw-medium">指定级别</label>
                 <select id="filter-level" name="level" class="form-select">
                     <option value="">全部级别</option>
+                    <option value="sev0" selected="@(filter.Level == "sev0")">sev0 · DEADLY (P0)</option>
                     <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重</option>
                     <option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误</option>
                     <option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告</option>
@@ -188,6 +194,7 @@
                 {
                     var rowClass = message.Level switch
                     {
+                        "sev0" => "ac-row-sev0",
                         "sev1" => "ac-row-sev1",
                         "sev2" => "ac-row-sev2",
                         "sev3" => "ac-row-sev3",
@@ -195,6 +202,7 @@
                     };
                     var badgeClass = message.Level switch
                     {
+                        "sev0" => "ac-badge-sev0",
                         "sev1" => "ac-badge-sev1",
                         "sev2" => "ac-badge-sev2",
                         "sev3" => "ac-badge-sev3",
