@@ -6,6 +6,7 @@ namespace Aiursoft.AlertCenter.Services;
 public interface IIncidentMatcher
 {
     Task<Incident?> FindActiveIncidentAsync(ReportedMessage message, CancellationToken cancellationToken = default);
+    Task<Incident> FindOrCreateActiveIncidentAsync(ReportedMessage message, CancellationToken cancellationToken = default);
 }
 
 public sealed class IncidentMatcher(TemplateDbContext db) : IIncidentMatcher
@@ -23,6 +24,30 @@ public sealed class IncidentMatcher(TemplateDbContext db) : IIncidentMatcher
         return await active.OrderByDescending(incident => incident.TriggeredAtUtc).FirstOrDefaultAsync(incident =>
             incident.ActiveMatchKey == null && incident.IncidentKey == null && incident.AlertTitle == message.Title &&
             incident.AlertLevel == message.Level, cancellationToken);
+    }
+
+    public async Task<Incident> FindOrCreateActiveIncidentAsync(ReportedMessage message,
+        CancellationToken cancellationToken = default)
+    {
+        var incident = await FindActiveIncidentAsync(message, cancellationToken);
+        if (incident != null) return incident;
+
+        incident = new Incident
+        {
+            ApplicationId = message.ApplicationId,
+            Title = message.Title,
+            IncidentKey = message.IncidentKey,
+            ActiveMatchKey = GetActiveMatchKey(message),
+            AlertTitle = message.Title,
+            AlertLevel = message.Level
+        };
+        db.Incidents.Add(incident);
+        db.IncidentTimelineEntries.Add(new IncidentTimelineEntry
+        {
+            Incident = incident,
+            Type = IncidentTimelineEntry.Triggered
+        });
+        return incident;
     }
 
     public static string GetActiveMatchKey(ReportedMessage message) => string.IsNullOrWhiteSpace(message.IncidentKey)

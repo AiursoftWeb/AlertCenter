@@ -26,15 +26,12 @@ public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incide
 {
     public async Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default)
     {
-        var incident = await incidentMatcher.FindActiveIncidentAsync(message, cancellationToken);
-        if (incident != null)
+        var incident = await incidentMatcher.FindOrCreateActiveIncidentAsync(message, cancellationToken);
+        message.IncidentId = incident.Id;
+        if (incident.Status == Incident.Acknowledged)
         {
-            message.IncidentId = incident.Id;
-            if (incident.Status == Incident.Acknowledged)
-            {
-                message.IsArchived = true;
-                return;
-            }
+            message.IsArchived = true;
+            return;
         }
         var channels = await db.ApplicationPushChannels.AsNoTracking()
             .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled &&

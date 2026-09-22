@@ -25,7 +25,7 @@ AlertCenter provides:
 - Structured, idempotent alert reporting through a standard HTTP API.
 - Five severity levels (`sev0` DEADLY through `sev4`) with independently configurable routing.
 - Webhook, SMTP email, and targeted in-app notification channels.
-- Incident workflow with trigger, acknowledgement, resolution, and a timestamped handling timeline.
+- Automatically created incidents with acknowledgement, resolution, and a timestamped handling timeline.
 - Message history, notification inboxes, and delivery records for tracking alert handling.
 - Self-hosted deployment with SQLite by default and MySQL support for production deployments.
 
@@ -48,7 +48,9 @@ curl -i 'https://alertcenter.example.com/api/v1/messages' \
   }'
 ```
 
-`reportId`, `title`, `level`, and `occurredAtUtc` are required. The optional `incidentKey` is limited to 200 characters and should remain stable for every report of one fault. The title is limited to 200 characters, content to 4,000 characters, and the entire request body to 64 KB. Repeating the same `reportId` for an application is idempotent: the original message is retained and the response has `duplicate: true`. A successful new report returns `201 Created`; authentication failures return `401 Unauthorized`; invalid fields return `400 Bad Request`.
+`reportId`, `title`, `level`, and `occurredAtUtc` are required. The optional `incidentKey` is limited to 200 characters and can group matching reports into the same automatically created incident. Without it, AlertCenter groups reports by application, title, and severity. The title is limited to 200 characters, content to 4,000 characters, and the entire request body to 64 KB. Repeating the same `reportId` for an application is idempotent: the original message is retained and the response has `duplicate: true`. A successful new report returns `201 Created`; authentication failures return `401 Unauthorized`; invalid fields return `400 Bad Request`.
+
+AlertCenter does not rate-limit reports or suppress notifications before acknowledgement. Reporting applications **must rate-limit at the source** and report only actionable alerts; use stable `reportId` values when retrying the same report. `incidentKey` is a correlation aid, not a substitute for caller-side rate limiting.
 
 ## Application access control
 
@@ -56,9 +58,9 @@ Administrators always have full access to every application. In **接入应用 �
 
 ## Incident response and alert suppression
 
-Administrators can open an alert and **trigger an incident**, then record timeline updates, **acknowledge handling**, and resolve it. An acknowledged incident retains every matching report but automatically archives subsequent reports without creating new notification deliveries. Delivery tasks created before acknowledgement remain unchanged.
+Every new alert automatically creates or joins an active incident. The first report sets the incident title and creates a system timeline entry; operators can then record updates, **acknowledge handling**, and resolve it. An acknowledged incident retains every matching report but automatically archives subsequent reports without creating new notification deliveries. Delivery tasks created before acknowledgement remain unchanged.
 
-Reports match an active incident by the same application and `incidentKey`. If no key is supplied, matching falls back to application, alert title, and severity. A resolved incident no longer matches new reports, so notifications resume normally. The incident page records the actor, action, optional note, and UTC time for triggering, acknowledgement, updates, and resolution.
+Reports match an active incident by the same application and `incidentKey`. If no key is supplied, matching falls back to application, alert title, and severity. A resolved incident no longer matches new reports; the next matching report opens a new incident and notifications resume. The incident page records automatic creation, the actor for operator actions, optional notes, and UTC times.
 
 ## Notification channels
 

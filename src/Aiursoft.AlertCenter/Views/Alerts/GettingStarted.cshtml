@@ -254,7 +254,7 @@ print(response.status_code, response.json())</code></pre>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
                     <td><span class="badge bg-secondary-subtle text-secondary">可选</span></td>
                     <td>最多 200 字符</td>
-                    <td class="pe-4">故障收敛标识。同一持续性故障使用稳定且相同的 key。当事故由运维人员确认进入处置后，带有相同 key 的新告警会自动归档且抑制重复打扰。</td>
+                    <td class="pe-4">故障关联标识。同一持续性故障可使用稳定且相同的 key，使新告警自动归入同一事故。该字段不代替调用方限频；请在源系统仅上报需要处理的告警。</td>
                 </tr>
                 <tr>
                     <td class="ps-4"><code>occurredAtUtc</code></td>
@@ -307,6 +307,11 @@ print(response.status_code, response.json())</code></pre>
                     <p class="small text-muted mb-0">必填项缺失、level 格式错误或请求体超过 64 KiB 限制。</p>
                 </div>
             </div>
+        </div>
+
+        <div class="alert alert-info small mb-4">
+            <i class="align-middle me-1" data-lucide="gauge"></i>
+            AlertCenter 不在事故确认前抑制重复通知。请由调用方限频，并仅上报需要人工处理的告警；<code>incidentKey</code> 仅用于事故关联。
         </div>
 
         <div class="d-flex flex-wrap gap-2">

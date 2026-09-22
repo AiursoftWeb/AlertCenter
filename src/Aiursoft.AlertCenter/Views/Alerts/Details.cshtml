@@ -40,20 +40,12 @@
     <a asp-action="Index" class="btn btn-outline-secondary">
         <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回消息列表
     </a>
-    <div class="d-flex gap-2">
-        @if (message.Incident != null)
-        {
-            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="btn btn-outline-primary">
-                <i class="align-middle me-1" data-lucide="siren" aria-hidden="true"></i>查看关联事故
-            </a>
-        }
-        else if (Model.ManageableApplicationIds.Contains(message.ApplicationId))
-        {
-            <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#trigger-incident">
-                <i class="align-middle me-1" data-lucide="siren" aria-hidden="true"></i>触发事故响应
-            </button>
-        }
-    </div>
+    @if (message.Incident != null)
+    {
+        <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="btn btn-outline-primary">
+            <i class="align-middle me-1" data-lucide="siren" aria-hidden="true"></i>查看关联事故
+        </a>
+    }
 </div>
 
 <!-- Alert Headline Banner -->
@@ -205,45 +197,6 @@
         }
     </div>
 </div>
-
-@if (message.Incident == null && Model.ManageableApplicationIds.Contains(message.ApplicationId))
-{
-    <div class="modal fade" id="trigger-incident" tabindex="-1" aria-labelledby="trigger-incident-title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <form asp-controller="Incidents" asp-action="Trigger" method="post" class="modal-content">
-                <input type="hidden" name="messageId" value="@message.Id" />
-                <div class="modal-header">
-                    <h2 class="modal-title h5 d-flex align-items-center gap-2" id="trigger-incident-title">
-                        <i class="align-middle text-danger" data-lucide="siren"></i>触发事故响应
-                    </h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="incident-title" class="form-label fw-medium">事故标题</label>
-                        <input id="incident-title" class="form-control" name="title" maxlength="200" value="@message.Title" required />
-                    </div>
-                    <div class="mb-3">
-                        <label for="incident-note" class="form-label fw-medium">触发说明（可选）</label>
-                        <textarea id="incident-note" class="form-control" name="note" rows="3" maxlength="4000" placeholder="记录问题起因、影响范围或初步排查思路…"></textarea>
-                    </div>
-                    <div class="alert alert-info py-2 px-3 small mb-0">
-                        <i class="align-middle me-1" data-lucide="info"></i>
-                        @(message.IncidentKey == null
-                            ? "后续来自同一应用、相同标题与严重级别的告警将自动归档并关联至此事故。"
-                            : "后续携带相同 incidentKey 的告警将自动归档并关联至此事故。")
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-danger">
-                        <i class="align-middle me-1" data-lucide="siren"></i>确认触发事故
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-}
 
 @section scripts {
     <script>

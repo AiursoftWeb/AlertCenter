@@ -145,7 +145,7 @@
             </div>
             <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters ? "没有匹配的事故" : "目前尚无事故记录")</h2>
             <p class="text-muted mb-3" style="max-width: 26rem; margin-inline: auto;">
-                @(hasFilters ? "请调整筛选条件或重置查看全部记录。" : "当发生线上异常时，在告警详情页中点击“触发事故”，即可在此开启处置流程并协同跟进。")
+                @(hasFilters ? "请调整筛选条件或重置查看全部记录。" : "每条新告警都会自动创建或关联事故；在此集中确认、记录进展并解决问题。")
             </p>
             @if (hasFilters)
             {

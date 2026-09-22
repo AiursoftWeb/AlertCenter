@@ -35,12 +35,16 @@ public class MessageReportsController(TemplateDbContext db, IAlertDispatcher dis
 
         var existing = await FindExisting(applicationId, request.ReportId, cancellationToken);
         if (existing != null) return Ok(Receipt(existing, true));
-        var message = new ReportedMessage
+
+        ReportedMessage CreateMessage() => new()
         {
             ApplicationId = applicationId, ReportId = request.ReportId, Title = request.Title,
-            Content = request.Content, Level = request.Level, IncidentKey = string.IsNullOrWhiteSpace(request.IncidentKey) ? null : request.IncidentKey.Trim(),
+            Content = request.Content, Level = request.Level,
+            IncidentKey = string.IsNullOrWhiteSpace(request.IncidentKey) ? null : request.IncidentKey.Trim(),
             OccurredAtUtc = request.OccurredAtUtc.UtcDateTime, ContextJson = request.Context?.ToString(Formatting.None)
         };
+
+        var message = CreateMessage();
         db.ReportedMessages.Add(message);
         await dispatcher.DispatchAsync(message, cancellationToken);
         try
@@ -49,11 +53,28 @@ public class MessageReportsController(TemplateDbContext db, IAlertDispatcher dis
         }
         catch (DbUpdateException)
         {
-            // 并发重复上报以已落库记录为准，其他数据库错误继续向上传递。
             db.ChangeTracker.Clear();
             existing = await FindExisting(applicationId, request.ReportId, cancellationToken);
-            if (existing == null) throw;
-            return Ok(Receipt(existing, true));
+            if (existing != null) return Ok(Receipt(existing, true));
+            var activeMatchKey = IncidentMatcher.GetActiveMatchKey(message);
+            var incidentExists = await db.Incidents.AsNoTracking().AnyAsync(incident =>
+                incident.ApplicationId == applicationId && incident.ActiveMatchKey == activeMatchKey, cancellationToken);
+            if (!incidentExists) throw;
+
+            message = CreateMessage();
+            db.ReportedMessages.Add(message);
+            await dispatcher.DispatchAsync(message, cancellationToken);
+            try
+            {
+                await db.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateException)
+            {
+                db.ChangeTracker.Clear();
+                existing = await FindExisting(applicationId, request.ReportId, cancellationToken);
+                if (existing == null) throw;
+                return Ok(Receipt(existing, true));
+            }
         }
         return StatusCode(StatusCodes.Status201Created, Receipt(message, false));
     }

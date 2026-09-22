@@ -17,13 +17,6 @@ public class IncidentsViewModel : UiStackLayoutViewModel
     public bool CanManage { get; set; }
 }
 
-public class TriggerIncidentRequest
-{
-    [Required] public Guid MessageId { get; set; }
-    [Required, StringLength(200)] public string Title { get; set; } = string.Empty;
-    [StringLength(4000)] public string? Note { get; set; }
-}
-
 public class IncidentNoteRequest
 {
     [Required] public Guid IncidentId { get; set; }
