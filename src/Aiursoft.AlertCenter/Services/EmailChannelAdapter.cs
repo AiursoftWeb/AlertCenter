@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public sealed record EmailMessage(IReadOnlyList<string> Recipients, string Subject, string Body);
+public sealed record EmailMessage(string Recipient, IReadOnlyList<string> CcRecipients, string Subject, string Body);
 
 public interface IEmailSender
 {
@@ -29,7 +29,8 @@ public sealed class SmtpEmailSender(IOptions<EmailSettings> options) : IEmailSen
             BodyEncoding = Encoding.UTF8,
             IsBodyHtml = false
         };
-        foreach (var recipient in message.Recipients) mail.To.Add(recipient);
+        mail.To.Add(message.Recipient);
+        foreach (var recipient in message.CcRecipients) mail.CC.Add(recipient);
         using var client = new SmtpClient(settings.Host, settings.Port)
         {
             EnableSsl = settings.RequireTls,
@@ -51,58 +52,71 @@ public class EmailChannelAdapter(IEmailSender sender) : INotificationChannelAdap
     public ChannelTypeDefinition Definition { get; } = new("email", "邮件（SMTP）",
         "通过全局 SMTP 服务器向指定邮箱发送纯文本告警。", "mail", false);
 
-    public static bool TryParseRecipients(string? value, out List<string> recipients, out string? error)
+    public static bool TryParseRecipient(string? value, out string recipient, out string? error)
     {
-        recipients = [];
+        recipient = string.Empty;
         error = null;
         if (string.IsNullOrWhiteSpace(value))
         {
-            error = "请至少填写一个收件人邮箱。";
+            error = "请填写收件人邮箱。";
             return false;
         }
-        foreach (var item in value.Split([';', ',', '\r', '\n'], StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+        if (!TryParseAddress(value.Trim(), out recipient))
         {
-            if (item.Length > 320 || item.Any(char.IsControl))
-            {
-                error = "收件人邮箱格式无效。";
-                return false;
-            }
-            try
-            {
-                var address = new MailAddress(item);
-                if (!string.Equals(address.Address, item, StringComparison.OrdinalIgnoreCase))
-                {
-                    error = "收件人必须是单独的邮箱地址，不支持显示名称。";
-                    return false;
-                }
-                if (!recipients.Contains(address.Address, StringComparer.OrdinalIgnoreCase)) recipients.Add(address.Address);
-            }
-            catch (FormatException)
-            {
-                error = "收件人邮箱格式无效。";
-                return false;
-            }
-        }
-        if (recipients.Count == 0)
-        {
-            error = "请至少填写一个收件人邮箱。";
-            return false;
-        }
-        if (recipients.Count > MaximumRecipients)
-        {
-            error = $"每个邮件渠道最多支持 {MaximumRecipients} 个收件人。";
+            error = "收件人邮箱格式无效，且不支持显示名称。";
             return false;
         }
         return true;
     }
 
-    public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
+    public static bool TryParseCcRecipients(string? value, out List<string> recipients, out string? error)
     {
-        if (!TryParseRecipients(delivery.Channel.EmailRecipients, out var recipients, out _))
-            return new(false, ErrorMessage: "邮件渠道收件人配置无效，请检查渠道配置。");
+        recipients = [];
+        error = null;
+        if (string.IsNullOrWhiteSpace(value)) return true;
+        foreach (var item in value.Split([';', ',', '\r', '\n'], StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+        {
+            if (!TryParseAddress(item, out var address))
+            {
+                error = "抄送邮箱格式无效，且不支持显示名称。";
+                return false;
+            }
+            if (!recipients.Contains(address, StringComparer.OrdinalIgnoreCase)) recipients.Add(address);
+        }
+        if (recipients.Count > MaximumRecipients)
+        {
+            error = $"每个邮件渠道最多支持 {MaximumRecipients} 个抄送人。";
+            return false;
+        }
+        return true;
+    }
+
+    private static bool TryParseAddress(string value, out string address)
+    {
+        address = string.Empty;
+        if (value.Length > 320 || value.Any(char.IsControl)) return false;
         try
         {
-            await sender.SendAsync(CreateMessage(delivery, recipients), cancellationToken);
+            var parsedAddress = new MailAddress(value);
+            if (!string.Equals(parsedAddress.Address, value, StringComparison.OrdinalIgnoreCase)) return false;
+            address = parsedAddress.Address;
+            return true;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
+    }
+
+    public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
+    {
+        if (!TryParseRecipient(delivery.Channel.EmailRecipient, out var recipient, out _) ||
+            !TryParseCcRecipients(delivery.Channel.EmailCcRecipients, out var ccRecipients, out _) ||
+            ccRecipients.Contains(recipient, StringComparer.OrdinalIgnoreCase))
+            return new(false, ErrorMessage: "邮件渠道收件人或抄送人配置无效，请检查渠道配置。");
+        try
+        {
+            await sender.SendAsync(CreateMessage(delivery, recipient, ccRecipients), cancellationToken);
             return new(true);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -127,7 +141,7 @@ public class EmailChannelAdapter(IEmailSender sender) : INotificationChannelAdap
         }
     }
 
-    private static EmailMessage CreateMessage(PushDelivery delivery, IReadOnlyList<string> recipients)
+    private static EmailMessage CreateMessage(PushDelivery delivery, string recipient, IReadOnlyList<string> ccRecipients)
     {
         var message = delivery.Message;
         var title = message?.Title ?? "渠道测试通知";
@@ -141,7 +155,7 @@ public class EmailChannelAdapter(IEmailSender sender) : INotificationChannelAdap
             .AppendLine($"投递 ID：{delivery.Id}");
         if (message?.Content is not null) body.AppendLine().AppendLine("内容：").AppendLine(message.Content);
         if (!string.IsNullOrWhiteSpace(message?.ContextJson)) body.AppendLine().AppendLine("上下文：").AppendLine(message.ContextJson);
-        return new(recipients, subject, body.ToString());
+        return new(recipient, ccRecipients, subject, body.ToString());
     }
 
     private static string SanitizeSubject(string value) => value.Replace('\r', ' ').Replace('\n', ' ');

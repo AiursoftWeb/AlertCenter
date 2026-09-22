@@ -53,7 +53,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         {
             Id = channel.Id, Name = channel.Name, Type = channel.Type, Endpoint = channel.Endpoint,
             WebhookHeadersJson = webhookHeadersJson, WebhookPayloadTemplate = channel.WebhookPayloadTemplate,
-            EmailRecipients = channel.EmailRecipients, IsEnabled = channel.IsEnabled, ChannelTypes = Types,
+            EmailRecipient = channel.EmailRecipient, EmailCcRecipients = channel.EmailCcRecipients,
+            IsEnabled = channel.IsEnabled, ChannelTypes = Types,
             RecipientUserIds = await db.PushChannelUsers.Where(link => link.ChannelId == id).Select(link => link.UserId).ToArrayAsync(),
             RecipientRoleIds = await db.PushChannelRoles.Where(link => link.ChannelId == id).Select(link => link.RoleId).ToArrayAsync(),
             BindingUserIds = await db.PushChannelBindingUsers.Where(link => link.ChannelId == id).Select(link => link.UserId).ToArrayAsync(),
@@ -96,8 +97,17 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             if (!string.IsNullOrWhiteSpace(model.WebhookHeadersJson) && !webhookConfigurationProtector.IsAvailable)
                 ModelState.AddModelError(nameof(model.WebhookHeadersJson), "自定义请求头需要配置 Webhook:HeaderProtectionKey。请通过受保护的环境变量提供该密钥。");
         }
-        if (model.Type == "email" && !EmailChannelAdapter.TryParseRecipients(model.EmailRecipients, out _, out var recipientsError))
-            ModelState.AddModelError(nameof(model.EmailRecipients), recipientsError!);
+        string? emailRecipient = null;
+        List<string>? emailCcRecipients = null;
+        if (model.Type == "email")
+        {
+            if (!EmailChannelAdapter.TryParseRecipient(model.EmailRecipient, out emailRecipient, out var recipientError))
+                ModelState.AddModelError(nameof(model.EmailRecipient), recipientError!);
+            if (!EmailChannelAdapter.TryParseCcRecipients(model.EmailCcRecipients, out emailCcRecipients, out var ccRecipientsError))
+                ModelState.AddModelError(nameof(model.EmailCcRecipients), ccRecipientsError!);
+            else if (!string.IsNullOrEmpty(emailRecipient) && emailCcRecipients.Contains(emailRecipient, StringComparer.OrdinalIgnoreCase))
+                ModelState.AddModelError(nameof(model.EmailCcRecipients), "收件人无需重复添加到抄送列表。");
+        }
         var channel = model.Id.HasValue ? await db.PushChannels.FindAsync(model.Id.Value) : new PushChannel();
         if (channel == null) return NotFound();
         if (model.Id.HasValue && channel.Type != model.Type)
@@ -111,7 +121,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             return BadRequest("无法保护 Webhook 自定义请求头。请检查 Webhook:HeaderProtectionKey 配置。");
         channel.WebhookHeadersProtected = type.RequiresEndpoint ? protectedHeaders : null;
         channel.WebhookPayloadTemplate = type.RequiresEndpoint ? NullIfWhiteSpace(model.WebhookPayloadTemplate) : null;
-        channel.EmailRecipients = model.Type == "email" ? NullIfWhiteSpace(model.EmailRecipients) : null;
+        channel.EmailRecipient = emailRecipient ?? string.Empty;
+        channel.EmailCcRecipients = emailCcRecipients?.Count > 0 ? string.Join(Environment.NewLine, emailCcRecipients) : null;
         channel.IsEnabled = model.IsEnabled;
         if (!model.Id.HasValue) db.PushChannels.Add(channel);
         var users = await db.PushChannelUsers.Where(link => link.ChannelId == channel.Id).ToListAsync();

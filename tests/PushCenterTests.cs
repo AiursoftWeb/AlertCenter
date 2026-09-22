@@ -81,7 +81,7 @@ public class PushCenterTests
         var channel = new PushChannel
         {
             Type = type, Name = type + " test", Endpoint = type == "webhook" ? "https://receiver.example/hook" : null,
-            EmailRecipients = type == "email" ? "oncall@example.com" : null, IsEnabled = enabled
+            EmailRecipient = type == "email" ? "oncall@example.com" : string.Empty, IsEnabled = enabled
         };
         _db.PushChannels.Add(channel);
         if (type == "inapp")
@@ -635,16 +635,17 @@ public class PushCenterTests
     }
 
     [TestMethod]
-    public async Task EmailRecipientsAreValidatedPersistedAndDelivered()
+    public async Task EmailRecipientAndCcRecipientsAreValidatedPersistedAndDelivered()
     {
         var model = new PushChannelEditViewModel
         {
-            Name = "On-call email", Type = "email",
-            EmailRecipients = "oncall@example.com; TEAM@example.com\noncall@example.com"
+            Name = "On-call email", Type = "email", EmailRecipient = "oncall@example.com",
+            EmailCcRecipients = "manager@example.com; TEAM@example.com\nmanager@example.com"
         };
         Assert.IsInstanceOfType<RedirectToActionResult>(await Controller().Save(model));
         var channel = await _db.PushChannels.SingleAsync();
-        Assert.AreEqual(model.EmailRecipients, channel.EmailRecipients);
+        Assert.AreEqual("oncall@example.com", channel.EmailRecipient);
+        Assert.AreEqual("manager@example.com\nTEAM@example.com", channel.EmailCcRecipients);
 
         const string content = "请检查邮件测试内容。";
         await Controller().Test(channel.Id, CancellationToken.None, content);
@@ -652,13 +653,27 @@ public class PushCenterTests
         Assert.AreEqual(content, delivery.TestContent);
         Assert.AreEqual(PushDelivery.Succeeded, delivery.Status, delivery.Error);
         var sent = _email.Messages.Single();
-        CollectionAssert.AreEquivalent(new[] { "oncall@example.com", "TEAM@example.com" }, sent.Recipients.ToArray());
+        Assert.AreEqual("oncall@example.com", sent.Recipient);
+        CollectionAssert.AreEquivalent(new[] { "manager@example.com", "TEAM@example.com" }, sent.CcRecipients.ToArray());
         StringAssert.StartsWith(sent.Subject, "[AlertCenter][sev3]");
         StringAssert.Contains(sent.Body, content);
         StringAssert.Contains(sent.Body, delivery.Id.ToString());
 
-        Assert.IsFalse(EmailChannelAdapter.TryParseRecipients("", out _, out _));
-        Assert.IsFalse(EmailChannelAdapter.TryParseRecipients("not-an-email", out _, out _));
+        Assert.IsFalse(EmailChannelAdapter.TryParseRecipient("", out _, out _));
+        Assert.IsFalse(EmailChannelAdapter.TryParseRecipient("not-an-email", out _, out _));
+        Assert.IsFalse(EmailChannelAdapter.TryParseCcRecipients("not-an-email", out _, out _));
+
+        var duplicateChannel = new PushChannel
+        {
+            Name = "Duplicate email", Type = "email", EmailRecipient = "oncall@example.com",
+            EmailCcRecipients = "ONCALL@example.com"
+        };
+        _db.PushChannels.Add(duplicateChannel);
+        await _db.SaveChangesAsync();
+        await Controller().Test(duplicateChannel.Id, CancellationToken.None);
+        Assert.AreEqual(PushDelivery.Failed, (await _db.PushDeliveries.SingleAsync(delivery => delivery.ChannelId == duplicateChannel.Id)).Status);
+        Assert.IsTrue(EmailChannelAdapter.TryParseCcRecipients("", out var emptyCcRecipients, out _));
+        Assert.AreEqual(0, emptyCcRecipients.Count);
     }
 
     [TestMethod]

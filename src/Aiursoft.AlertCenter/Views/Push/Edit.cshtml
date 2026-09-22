@@ -148,9 +148,41 @@
                                 <strong>全局 SMTP 邮件服务</strong>：系统统一使用全局 Email 服务配置。请通过 <code>Email__Password</code> 环境变量提供认证凭据。
                             </div>
                             <div class="mb-4">
-                                <label asp-for="EmailRecipients" class="form-label small fw-medium">收件人邮箱列表</label>
-                                <textarea asp-for="EmailRecipients" required class="form-control font-monospace" rows="4" maxlength="8000" spellcheck="false" placeholder="oncall-team@example.com&#10;incident-manager@example.com" aria-describedby="email-recipients-hint"></textarea>
-                                <small class="text-muted d-block mt-2" id="email-recipients-hint">每行一个邮箱地址，也支持使用英文逗号或分号分隔，最多支持 50 个收件人。</small>
+                                <label asp-for="EmailRecipient" class="form-label small fw-medium">收件人邮箱</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent text-muted"><i data-lucide="mail" class="align-middle" aria-hidden="true"></i></span>
+                                    <input asp-for="EmailRecipient" type="email" required maxlength="320" class="form-control font-monospace" placeholder="oncall-team@example.com" aria-describedby="email-recipient-hint" />
+                                </div>
+                                <small class="text-muted d-block mt-2" id="email-recipient-hint">邮件会直接发送给此邮箱地址。</small>
+                            </div>
+
+                            <div class="card border mb-4" aria-labelledby="email-cc-heading">
+                                <div class="card-header bg-transparent py-2">
+                                    <h3 id="email-cc-heading" class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="users-round" aria-hidden="true"></i>抄送列表</h3>
+                                </div>
+                                <div class="card-body">
+                                    <label asp-for="EmailCcRecipients" class="form-label small fw-medium">批量输入抄送邮箱</label>
+                                    <textarea asp-for="EmailCcRecipients" id="email-cc-input" class="form-control font-monospace" rows="4" maxlength="8000" spellcheck="false" placeholder="manager@example.com&#10;incident-team@example.com" aria-describedby="email-cc-hint"></textarea>
+                                    <small class="text-muted d-block mt-2" id="email-cc-hint">每行一个邮箱地址，也支持使用英文逗号或分号分隔，最多支持 50 个抄送人。</small>
+                                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" id="parse-email-cc">
+                                            <i class="align-middle me-1" data-lucide="list-checks" aria-hidden="true"></i>解析为列表
+                                        </button>
+                                        <div class="input-group input-group-sm" style="max-width: 22rem;">
+                                            <input id="add-email-cc" type="email" maxlength="320" class="form-control font-monospace" placeholder="补充一个邮箱地址" aria-label="补充一个抄送邮箱地址" />
+                                            <button type="button" class="btn btn-primary" id="add-email-cc-button"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top pt-3">
+                                    <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                                        <span class="small fw-medium">已解析的抄送人</span>
+                                        <span id="email-cc-count" class="badge bg-secondary-subtle text-secondary border">0</span>
+                                    </div>
+                                    <p id="email-cc-empty" class="text-muted small mb-0">尚未添加抄送人。</p>
+                                    <div id="email-cc-list" class="d-flex flex-wrap gap-2" aria-live="polite"></div>
+                                    <span asp-validation-for="EmailCcRecipients" class="text-danger small d-block mt-2"></span>
+                                </div>
                             </div>
                         }
                         else
@@ -470,6 +502,86 @@
                 button.closest('.list-group-item').remove();
                 updateBindingEmptyState();
             });
+
+@if (Model.Type == "email")
+{
+<text>
+            const emailCcInput = document.getElementById('email-cc-input');
+            const parseEmailCcButton = document.getElementById('parse-email-cc');
+            const addEmailCcInput = document.getElementById('add-email-cc');
+            const addEmailCcButton = document.getElementById('add-email-cc-button');
+            const emailCcList = document.getElementById('email-cc-list');
+            const emailCcEmpty = document.getElementById('email-cc-empty');
+            const emailCcCount = document.getElementById('email-cc-count');
+
+            function normalizeEmail(address) {
+                const trimmed = address.trim();
+                if (!trimmed || trimmed.length > 320 || /[\r\n,;]/.test(trimmed)) return null;
+                const input = document.createElement('input');
+                input.type = 'email';
+                input.value = trimmed;
+                return input.checkValidity() ? trimmed : null;
+            }
+
+            function ccAddresses() {
+                return emailCcInput.value.split(/[;,\r\n]+/).map(address => address.trim()).filter(Boolean);
+            }
+
+            function renderCcAddresses(addresses) {
+                const uniqueAddresses = [...new Map(addresses.map(address => [address.toLowerCase(), address])).values()];
+                emailCcInput.value = uniqueAddresses.join('\n');
+                emailCcList.replaceChildren();
+                uniqueAddresses.forEach(function (address) {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge text-bg-light border d-inline-flex align-items-center gap-1 py-2 ps-2';
+                    const text = document.createElement('span');
+                    text.className = 'font-monospace fw-normal';
+                    text.textContent = address;
+                    const remove = document.createElement('button');
+                    remove.type = 'button';
+                    remove.className = 'btn-close btn-close-sm';
+                    remove.setAttribute('aria-label', `移除 ${address}`);
+                    remove.addEventListener('click', function () {
+                        renderCcAddresses(ccAddresses().filter(item => item.toLowerCase() !== address.toLowerCase()));
+                    });
+                    badge.append(text, remove);
+                    emailCcList.appendChild(badge);
+                });
+                emailCcEmpty.classList.toggle('d-none', uniqueAddresses.length > 0);
+                emailCcCount.textContent = uniqueAddresses.length;
+            }
+
+            function parseCcAddresses() {
+                const addresses = ccAddresses();
+                if (addresses.some(address => !normalizeEmail(address))) {
+                    emailCcInput.setCustomValidity('请检查抄送邮箱格式。');
+                    emailCcInput.reportValidity();
+                    return;
+                }
+                emailCcInput.setCustomValidity('');
+                renderCcAddresses(addresses);
+            }
+
+            parseEmailCcButton.addEventListener('click', parseCcAddresses);
+            addEmailCcButton.addEventListener('click', function () {
+                const address = normalizeEmail(addEmailCcInput.value);
+                if (!address) {
+                    addEmailCcInput.focus();
+                    return;
+                }
+                renderCcAddresses([...ccAddresses(), address]);
+                addEmailCcInput.value = '';
+            });
+            addEmailCcInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    addEmailCcButton.click();
+                }
+            });
+            emailCcInput.addEventListener('blur', parseCcAddresses);
+            parseCcAddresses();
+</text>
+}
 
 @if (Model.Type == "inapp")
 {

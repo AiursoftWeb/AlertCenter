@@ -241,9 +241,14 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("EmailRecipients")
+                    b.Property<string>("EmailCcRecipients")
                         .HasMaxLength(8000)
                         .HasColumnType("text");
+
+                    b.Property<string>("EmailRecipient")
+                        .IsRequired()
+                        .HasMaxLength(320)
+                        .HasColumnType("varchar(320)");
 
                     b.Property<string>("Endpoint")
                         .HasMaxLength(2048)

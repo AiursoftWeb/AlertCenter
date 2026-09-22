@@ -236,9 +236,14 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EmailRecipients")
+                    b.Property<string>("EmailCcRecipients")
                         .HasMaxLength(8000)
                         .HasColumnType("text");
+
+                    b.Property<string>("EmailRecipient")
+                        .IsRequired()
+                        .HasMaxLength(320)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Endpoint")
                         .HasMaxLength(2048)
