@@ -17,6 +17,41 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.11");
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.AlertRoutingFailure", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("MessageId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ReasonCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MessageId")
+                        .IsUnique();
+
+                    b.HasIndex("ApplicationId", "CreatedAtUtc");
+
+                    b.ToTable("AlertRoutingFailures");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationPushChannel", b =>
                 {
                     b.Property<Guid>("ApplicationId")
@@ -165,6 +200,27 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("OceDisplayName")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OceEmail")
+                        .HasMaxLength(320)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("OceNotifiedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OceUserId")
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("OnCallGroupId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("OnCallShiftId")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("ResolvedAtUtc")
                         .HasColumnType("TEXT");
 
@@ -187,6 +243,8 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .IsUnique();
 
                     b.HasIndex("ApplicationId", "IncidentKey");
+
+                    b.HasIndex("OnCallGroupId", "OceUserId");
 
                     b.HasIndex("ApplicationId", "AlertTitle", "AlertLevel", "Status");
 
@@ -615,6 +673,10 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("SystemKey")
+                        .HasMaxLength(40)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(40)
@@ -627,6 +689,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SystemKey")
+                        .IsUnique();
 
                     b.ToTable("PushChannels");
                 });
@@ -746,6 +811,15 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DisplayName")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(320)
                         .HasColumnType("TEXT");
 
                     b.HasKey("DeliveryId", "UserId");
@@ -829,12 +903,17 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("OnCallGroupId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SecretHash")
                         .IsRequired()
                         .HasMaxLength(512)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OnCallGroupId");
 
                     b.ToTable("SourceApplications");
                 });
@@ -1042,6 +1121,25 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.AlertRoutingFailure", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.ReportedMessage", "Message")
+                        .WithMany("RoutingFailures")
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+
+                    b.Navigation("Message");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationPushChannel", b =>
@@ -1491,6 +1589,16 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Incident");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SourceApplication", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "OnCallGroup")
+                        .WithMany()
+                        .HasForeignKey("OnCallGroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("OnCallGroup");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1547,6 +1655,11 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Messages");
 
                     b.Navigation("TimelineEntries");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ReportedMessage", b =>
+                {
+                    b.Navigation("RoutingFailures");
                 });
 #pragma warning restore 612, 618
         }

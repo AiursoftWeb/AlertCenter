@@ -16,7 +16,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     PushDeliveryProcessor processor, WebhookConfigurationProtector webhookConfigurationProtector,
     IApplicationAccessService applicationAccess, IPushChannelAccessService channelAccess) : Controller
 {
-    private List<ChannelTypeDefinition> Types => adapters.Select(adapter => adapter.Definition).ToList();
+    private List<ChannelTypeDefinition> Types => adapters.Where(adapter => adapter.Definition.Key != "oce-inapp")
+        .Select(adapter => adapter.Definition).ToList();
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
@@ -25,7 +26,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     public async Task<IActionResult> Index() => this.StackView(new PushViewModel
     {
         ChannelTypes = Types,
-        Channels = await db.PushChannels.AsNoTracking().OrderByDescending(channel => channel.CreatedAtUtc).ToListAsync()
+        Channels = await db.PushChannels.AsNoTracking().Where(channel => channel.SystemKey == null)
+            .OrderByDescending(channel => channel.CreatedAtUtc).ToListAsync()
     });
 
     [HttpGet]
@@ -45,7 +47,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     public async Task<IActionResult> Edit(Guid id)
     {
         var channel = await db.PushChannels.FindAsync(id);
-        if (channel == null) return NotFound();
+        if (channel == null || channel.SystemKey != null) return NotFound();
         string? webhookHeadersJson = null;
         if (channel.Type == "webhook" && !webhookConfigurationProtector.TryUnprotect(channel.WebhookHeadersProtected, out webhookHeadersJson))
             return BadRequest("无法读取已保存的 Webhook 请求头。请检查数据保护密钥后重试。");
@@ -109,7 +111,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
                 ModelState.AddModelError(nameof(model.EmailCcRecipients), "收件人无需重复添加到抄送列表。");
         }
         var channel = model.Id.HasValue ? await db.PushChannels.FindAsync(model.Id.Value) : new PushChannel();
-        if (channel == null) return NotFound();
+        if (channel == null || channel.SystemKey != null) return NotFound();
         if (model.Id.HasValue && channel.Type != model.Type)
             ModelState.AddModelError(nameof(model.Type), "已有渠道不能更改类型，请创建新的渠道。");
         if (!ModelState.IsValid) return this.StackView(model, "Edit");
@@ -179,11 +181,12 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         if (canManagePush)
         {
-            return await db.PushChannels.AsNoTracking().OrderBy(channel => channel.Name).ToListAsync(cancellationToken);
+            return await db.PushChannels.AsNoTracking().Where(channel => channel.SystemKey == null)
+                .OrderBy(channel => channel.Name).ToListAsync(cancellationToken);
         }
 
         var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
-        return await db.PushChannels.AsNoTracking().Where(channel => bindableChannelIds.Contains(channel.Id))
+        return await db.PushChannels.AsNoTracking().Where(channel => channel.SystemKey == null && bindableChannelIds.Contains(channel.Id))
             .OrderBy(channel => channel.Name).ToListAsync(cancellationToken);
     }
 
@@ -228,6 +231,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var channel = await db.PushChannels.FindAsync(id);
         if (channel == null) return NotFound();
+        if (channel.SystemKey != null) return BadRequest("系统渠道不能手动启用、停用或修改。");
         channel.IsEnabled = enabled;
         await db.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
@@ -237,7 +241,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var deleted = await db.PushChannels.Where(channel => channel.Id == id).ExecuteDeleteAsync();
+        var deleted = await db.PushChannels.Where(channel => channel.Id == id && channel.SystemKey == null).ExecuteDeleteAsync();
         return deleted == 0 ? NotFound() : RedirectToAction(nameof(Index));
     }
 
@@ -253,7 +257,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         return this.StackView(new PushViewModel
         {
             Application = application, ChannelTypes = Types,
-            Channels = await db.PushChannels.AsNoTracking().Where(channel => bindableChannelIds.Contains(channel.Id))
+            Channels = await db.PushChannels.AsNoTracking().Where(channel => channel.SystemKey == null && bindableChannelIds.Contains(channel.Id))
                 .OrderBy(channel => channel.Name).ToListAsync(cancellationToken),
             Bindings = new ApplicationPushBindingsRequest
             {
@@ -278,7 +282,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var sev3 = bindings.Sev3ChannelIds.ToHashSet();
         var sev4 = bindings.Sev4ChannelIds.ToHashSet();
         var selected = sev0.Concat(sev1).Concat(sev2).Concat(sev3).Concat(sev4).ToHashSet();
-        if (await db.PushChannels.CountAsync(channel => selected.Contains(channel.Id)) != selected.Count)
+        if (await db.PushChannels.CountAsync(channel => channel.SystemKey == null && selected.Contains(channel.Id)) != selected.Count)
             return BadRequest("所选渠道已不存在，请刷新页面后重试。");
         var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
         if (selected.Any(channelId => !bindableChannelIds.Contains(channelId)))
@@ -314,6 +318,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             return BadRequest("测试消息内容不能为空，且不能超过 4000 个字符。");
         var channel = await db.PushChannels.FindAsync(id);
         if (channel == null) return NotFound();
+        if (channel.SystemKey != null) return BadRequest("系统渠道不支持手动测试。");
         if (!channel.IsEnabled) return BadRequest("请先启用渠道。");
         var delivery = new PushDelivery { ChannelId = id, TestContent = content };
         db.PushDeliveries.Add(delivery);

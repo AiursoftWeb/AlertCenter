@@ -13,7 +13,7 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <h1 class="h3 mb-1">接入应用</h1>
-        <p class="text-muted mb-0">为业务服务分发独立 API 凭据，管理上报权限与推送路由。</p>
+        <p class="text-muted mb-0">为业务服务分发独立 API 凭据，管理上报权限、值班组与推送路由。</p>
     </div>
     <div class="d-flex flex-wrap gap-2">
         <a asp-action="GettingStarted" class="btn btn-outline-primary">
@@ -82,13 +82,25 @@
                             <input id="name" name="Name" required maxlength="100" placeholder="例如：订单支付服务、用户中心、边缘网关…" class="form-control" aria-describedby="name-hint" />
                         </div>
                     </div>
+                    @if (Model.OnCallGroups.Count > 0)
+                    {
+                        <div class="col-sm-4">
+                            <select name="OnCallGroupId" required class="form-select" aria-label="值班组">
+                                <option value="">选择值班组</option>
+                                @foreach (var group in Model.OnCallGroups)
+                                {
+                                    <option value="@group.Id">@group.Name</option>
+                                }
+                            </select>
+                        </div>
+                    }
                     <div class="col-sm-auto">
                         <button class="btn btn-primary w-100" type="submit">
                             <i class="align-middle me-1" data-lucide="plus"></i>创建应用
                         </button>
                     </div>
                 </div>
-                <small id="name-hint" class="text-muted d-block mt-2">使用简明清晰的业务系统名称，系统将自动生成对应的前缀 ID 与随机 Secret。</small>
+                <small id="name-hint" class="text-muted d-block mt-2">使用简明清晰的业务系统名称；配置值班组后，新应用必须指定唯一值班组。系统将自动生成对应的前缀 ID 与随机 Secret。</small>
                 <div asp-validation-summary="All" class="text-danger mt-2"></div>
             </form>
         </div>
@@ -103,6 +115,12 @@
             <span class="badge bg-secondary-subtle text-secondary border">@Model.Applications.Count 个应用</span>
         </div>
     </div>
+    @if (Model.IsAdministrator && Model.OnCallGroups.Count == 0)
+    {
+        <div class="alert alert-warning border-0 rounded-0 mb-0">
+            <i class="align-middle me-1" data-lucide="triangle-alert" aria-hidden="true"></i>请先在 <a asp-controller="OnCall" asp-action="Manage" asp-route-id="00000000-0000-0000-0000-000000000000" class="alert-link">值班管理</a> 创建值班组，再为每个应用绑定唯一值班组。
+        </div>
+    }
     <div class="card-body border-bottom py-3">
         <form asp-action="Applications" method="get" class="row g-2 align-items-end">
             <div class="col-md-6 col-lg-5">
@@ -146,6 +164,7 @@
                     <tr>
                         <th class="ps-4">应用信息</th>
                         <th>应用 ID</th>
+                        <th>值班组</th>
                         <th>运行状态</th>
                         <th class="text-end pe-4">操作</th>
                     </tr>
@@ -166,6 +185,30 @@
                         </td>
                         <td>
                             <code class="text-muted font-monospace small">@application.Id</code>
+                        </td>
+                        <td>
+                            @if (Model.IsAdministrator)
+                            {
+                                <form asp-action="SaveOnCallBinding" method="post" class="d-flex gap-1">
+                                    <input type="hidden" name="applicationId" value="@application.Id" />
+                                    <select name="onCallGroupId" class="form-select form-select-sm" required aria-label="@application.Name 的值班组">
+                                        <option value="">选择值班组</option>
+                                        @foreach (var group in Model.OnCallGroups)
+                                        {
+                                            <option value="@group.Id" selected="@(application.OnCallGroupId == group.Id)">@group.Name</option>
+                                        }
+                                    </select>
+                                    <button class="btn btn-sm btn-outline-primary" title="保存值班组">保存</button>
+                                </form>
+                            }
+                            else if (application.OnCallGroupId.HasValue)
+                            {
+                                <span class="badge bg-secondary-subtle text-secondary">已绑定</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger-subtle text-danger">未绑定</span>
+                            }
                         </td>
                         <td>
                             @if (application.IsEnabled)

@@ -22,7 +22,8 @@ public interface IAlertDispatcher
     Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default);
 }
 
-public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incidentMatcher) : IAlertDispatcher
+public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incidentMatcher,
+    IOnCallScheduleService onCallScheduleService) : IAlertDispatcher
 {
     public async Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default)
     {
@@ -33,6 +34,46 @@ public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incide
             message.IsArchived = true;
             return;
         }
+
+        var application = await db.SourceApplications.AsNoTracking().SingleAsync(item => item.Id == message.ApplicationId,
+            cancellationToken);
+        if (!application.OnCallGroupId.HasValue && await db.OnCallGroups.AnyAsync(cancellationToken))
+        {
+            AddRoutingFailure(message, AlertRoutingFailure.MissingOnCallGroup, "应用尚未绑定值班组，无法确定当班工程师。");
+            return;
+        }
+        if (application.OnCallGroupId.HasValue)
+        {
+            var oce = await onCallScheduleService.GetOnCallEngineerAsync(application.OnCallGroupId.Value, DateTime.UtcNow,
+                cancellationToken);
+            if (oce == null)
+            {
+                AddRoutingFailure(message, AlertRoutingFailure.MissingOce, "应用的值班组在当前时刻没有有效 OCE，告警未生成通知。");
+                return;
+            }
+
+            if (incident.OceUserId == null)
+            {
+                incident.OnCallGroupId = oce.GroupId;
+                incident.OnCallShiftId = oce.ShiftId;
+                incident.OceUserId = oce.UserId;
+                incident.OceDisplayName = oce.DisplayName;
+                incident.OceEmail = oce.Email;
+                incident.OceNotifiedAtUtc = DateTime.UtcNow;
+            }
+            var channel = await GetOceInAppChannelAsync(cancellationToken);
+            var delivery = new PushDelivery
+            {
+                Channel = channel, MessageId = message.Id, Message = message
+            };
+            db.PushDeliveries.Add(delivery);
+            db.PushDeliveryRecipients.Add(new PushDeliveryRecipient
+            {
+                Delivery = delivery, UserId = oce.UserId, DisplayName = oce.DisplayName, Email = oce.Email
+            });
+            return;
+        }
+
         var channels = await db.ApplicationPushChannels.AsNoTracking()
             .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled &&
                 ((message.Level == "sev0" && link.ReceiveSev0) ||
@@ -41,7 +82,6 @@ public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incide
                  (message.Level == "sev3" && link.ReceiveSev3) ||
                  (message.Level == "sev4" && link.ReceiveSev4)))
             .Select(link => new { link.ChannelId, link.Channel.Type }).ToListAsync(cancellationToken);
-        // 由调用方与告警一起保存，确保消息、待投递记录和站内通知收件人快照同时提交。
         foreach (var channel in channels)
         {
             var delivery = new PushDelivery
@@ -49,10 +89,27 @@ public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incide
                 ChannelId = channel.ChannelId, MessageId = message.Id, Message = message
             };
             db.PushDeliveries.Add(delivery);
-            if (channel.Type != "inapp") continue;
-            await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
+            if (channel.Type == "inapp") await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
         }
     }
+
+    private async Task<PushChannel> GetOceInAppChannelAsync(CancellationToken cancellationToken)
+    {
+        var channel = await db.PushChannels.SingleOrDefaultAsync(item => item.SystemKey == "oce-inapp", cancellationToken);
+        if (channel != null) return channel;
+        channel = new PushChannel
+        {
+            Name = "当班工程师站内通知", Type = "oce-inapp", SystemKey = "oce-inapp", IsEnabled = true
+        };
+        db.PushChannels.Add(channel);
+        return channel;
+    }
+
+    private void AddRoutingFailure(ReportedMessage message, string reasonCode, string reason) =>
+        db.AlertRoutingFailures.Add(new AlertRoutingFailure
+        {
+            ApplicationId = message.ApplicationId, Message = message, ReasonCode = reasonCode, Reason = reason
+        });
 }
 
 public class NullAlertDispatcher(ILogger<NullAlertDispatcher> logger) : IAlertDispatcher

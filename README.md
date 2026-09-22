@@ -59,7 +59,13 @@ Each on-call group owns an IANA or operating-system time-zone ID and stores all 
 
 Use **告警中心 → 值班** to view the current OCE, group-local daily schedule, your leave form, and your assigned-shift handovers. Administrators use **管理值班** to create groups and members, define templates, publish a date range, arrange temporary coverage, review leave and handover requests, and settle coverage debt. Leave approval is blocked until every affected scheduled interval is covered. Confirming a handover creates the coverage override and a traceable debt; only a later compatible override performed by the owing engineer can settle it.
 
-Before publishing or accepting temporary coverage, AlertCenter verifies continuous coverage throughout the requested UTC range, no overlapping shifts, a maximum eight-hour shift duration, and at least sixteen continuous hours of rest between effective shifts for every engineer. Temporary coverage must remain inside its original published shift and cannot overlap another override for that shift. The OCE lookup is boundary-safe (`start <= instant < end`) and gives a valid temporary coverage record precedence over the original shift. This phase does not yet bind applications or change notification recipients.
+Before publishing or accepting temporary coverage, AlertCenter verifies continuous coverage throughout the requested UTC range, no overlapping shifts, a maximum eight-hour shift duration, and at least sixteen continuous hours of rest between effective shifts for every engineer. Temporary coverage must remain inside its original published shift and cannot overlap another override for that shift. The OCE lookup is boundary-safe (`start <= instant < end`) and gives a valid temporary coverage record precedence over the original shift.
+
+## Application on-call routing
+
+After at least one on-call group exists, administrators must bind every new application to exactly one group in **接入应用**. Existing unbound applications show a clear binding selector. Each new alert still creates or joins its incident, but AlertCenter resolves the current OCE at ingestion time and snapshots the on-call group, shift, user ID, display name, email, and notification time on the incident and delivery recipient. It then sends one system-managed in-app notification only to that snapshotted user; later schedule changes cannot rewrite the historical recipient.
+
+If a bound group has no current OCE, AlertCenter creates no delivery and records the routing failure on the alert detail page. During the transition before any on-call group exists, existing static severity-channel routing remains active so administrators can configure the first group without losing alert delivery. The system-managed OCE channel is not available for manual binding, testing, editing, or deletion.
 
 ## Application access control
 

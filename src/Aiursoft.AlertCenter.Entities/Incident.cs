@@ -17,6 +17,12 @@ public class Incident
     [Required, MaxLength(200)] public string AlertTitle { get; set; } = string.Empty;
     [Required, MaxLength(4)] public string AlertLevel { get; set; } = "sev3";
     [Required, MaxLength(20)] public string Status { get; set; } = Triggered;
+    public Guid? OnCallGroupId { get; set; }
+    public Guid? OnCallShiftId { get; set; }
+    [MaxLength(255)] public string? OceUserId { get; set; }
+    [MaxLength(320)] public string? OceEmail { get; set; }
+    [MaxLength(100)] public string? OceDisplayName { get; set; }
+    public DateTime? OceNotifiedAtUtc { get; set; }
     public DateTime TriggeredAtUtc { get; set; } = DateTime.UtcNow;
     public DateTime? AcknowledgedAtUtc { get; set; }
     public DateTime? ResolvedAtUtc { get; set; }

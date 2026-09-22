@@ -48,6 +48,16 @@
     }
 </div>
 
+@if (Model.RoutingFailure != null)
+{
+    <div class="alert alert-danger mb-4">
+        <div class="d-flex align-items-start gap-2">
+            <i data-lucide="triangle-alert" class="mt-1" aria-hidden="true"></i>
+            <div><strong>未通知当班工程师</strong><div class="small mt-1">@Model.RoutingFailure.Reason</div></div>
+        </div>
+    </div>
+}
+
 <!-- Alert Headline Banner -->
 <div class="card mb-4 border-start border-4 @(message.Level == "sev0" || message.Level == "sev1" ? "border-danger" : message.Level == "sev2" ? "border-warning" : "border-primary")">
     <div class="card-body">

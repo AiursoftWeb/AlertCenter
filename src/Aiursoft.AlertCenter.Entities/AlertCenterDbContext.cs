@@ -12,6 +12,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<SourceApplication> SourceApplications => Set<SourceApplication>();
     public DbSet<ReportedMessage> ReportedMessages => Set<ReportedMessage>();
+    public DbSet<AlertRoutingFailure> AlertRoutingFailures => Set<AlertRoutingFailure>();
     public DbSet<Incident> Incidents => Set<Incident>();
     public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
     public DbSet<ApplicationUserAccess> ApplicationUserAccesses => Set<ApplicationUserAccess>();
@@ -42,6 +43,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<PushChannel>().Property(channel => channel.WebhookHeadersProtected).HasColumnType("text");
         builder.Entity<PushChannel>().Property(channel => channel.WebhookPayloadTemplate).HasColumnType("text");
         builder.Entity<PushChannel>().Property(channel => channel.EmailCcRecipients).HasColumnType("text");
+        builder.Entity<PushChannel>().HasIndex(channel => channel.SystemKey).IsUnique();
         builder.Entity<PushChannelRole>().HasKey(link => new { link.ChannelId, link.RoleId });
         builder.Entity<PushChannelRole>().HasOne(link => link.Channel).WithMany()
             .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);
@@ -69,9 +71,19 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(m => m.ApplicationId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<ReportedMessage>().HasOne(m => m.Incident).WithMany(incident => incident.Messages)
             .HasForeignKey(m => m.IncidentId).OnDelete(DeleteBehavior.SetNull);
+        builder.Entity<AlertRoutingFailure>().HasIndex(failure => failure.MessageId).IsUnique();
+        builder.Entity<AlertRoutingFailure>().HasIndex(failure => new { failure.ApplicationId, failure.CreatedAtUtc });
+        builder.Entity<AlertRoutingFailure>().HasOne(failure => failure.Application).WithMany()
+            .HasForeignKey(failure => failure.ApplicationId).OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<AlertRoutingFailure>().HasOne(failure => failure.Message).WithMany(message => message.RoutingFailures)
+            .HasForeignKey(failure => failure.MessageId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<SourceApplication>().HasOne(application => application.OnCallGroup).WithMany()
+            .HasForeignKey(application => application.OnCallGroupId).OnDelete(DeleteBehavior.SetNull);
+        builder.Entity<SourceApplication>().HasIndex(application => application.OnCallGroupId);
         builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.IncidentKey });
         builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.ActiveMatchKey }).IsUnique();
         builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.AlertTitle, incident.AlertLevel, incident.Status });
+        builder.Entity<Incident>().HasIndex(incident => new { incident.OnCallGroupId, incident.OceUserId });
         builder.Entity<Incident>().HasOne(incident => incident.Application).WithMany()
             .HasForeignKey(incident => incident.ApplicationId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<IncidentTimelineEntry>().HasOne(entry => entry.Incident).WithMany(incident => incident.TimelineEntries)
