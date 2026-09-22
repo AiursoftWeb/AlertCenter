@@ -26,6 +26,7 @@ AlertCenter provides:
 - Five severity levels (`sev0` DEADLY through `sev4`) with independently configurable routing.
 - Webhook, SMTP email, and targeted in-app notification channels.
 - Automatically created incidents with acknowledgement, resolution, and a timestamped handling timeline.
+- On-call group, shift-template, rotation, handover, leave, coverage-override, and coverage-debt persistence with UTC schedules and group-local time zones.
 - Message history, notification inboxes, and delivery records for tracking alert handling.
 - Self-hosted deployment with SQLite by default and MySQL support for production deployments.
 
@@ -51,6 +52,12 @@ curl -i 'https://alertcenter.example.com/api/v1/messages' \
 `reportId`, `title`, `level`, and `occurredAtUtc` are required. The optional `incidentKey` is limited to 200 characters and can group matching reports into the same automatically created incident. Without it, AlertCenter groups reports by application, title, and severity. The title is limited to 200 characters, content to 4,000 characters, and the entire request body to 64 KB. Repeating the same `reportId` for an application is idempotent: the original message is retained and the response has `duplicate: true`. A successful new report returns `201 Created`; authentication failures return `401 Unauthorized`; invalid fields return `400 Bad Request`.
 
 AlertCenter does not rate-limit reports or suppress notifications before acknowledgement. Reporting applications **must rate-limit at the source** and report only actionable alerts; use stable `reportId` values when retrying the same report. `incidentKey` is a correlation aid, not a substitute for caller-side rate limiting.
+
+## On-call schedule foundation
+
+Each on-call group owns an IANA or operating-system time-zone ID and stores all published shifts, temporary coverage, leave windows, handovers, and coverage-debt records in UTC. Shift templates accept daily local start times and rotate only among group members. Generation rejects invalid time zones, non-members, empty rotations, invalid daylight-saving local times, and shifts whose UTC duration exceeds eight hours.
+
+Before publishing, AlertCenter verifies continuous coverage throughout the requested UTC range, no overlapping shifts, a maximum eight-hour shift duration, and at least sixteen continuous hours of rest between effective shifts for every engineer. Temporary coverage must remain inside its original published shift and cannot overlap another override for that shift. The OCE lookup is boundary-safe (`start <= instant < end`) and gives a valid temporary coverage record precedence over the original shift. The scheduling service is registered for subsequent management UI and alert-delivery integration; this foundation does not yet bind applications or change notification recipients.
 
 ## Application access control
 
