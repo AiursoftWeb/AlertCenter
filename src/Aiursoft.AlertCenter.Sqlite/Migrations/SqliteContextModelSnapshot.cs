@@ -241,6 +241,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("DurationMinutes")
+                        .HasColumnType("INTEGER");
+
                     b.Property<Guid>("GroupId")
                         .HasColumnType("TEXT");
 
@@ -335,6 +338,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("EndsAtUtc")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Note")
                         .HasMaxLength(1000)
                         .HasColumnType("TEXT");
@@ -359,6 +365,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("ShiftId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartsAtUtc")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Status")

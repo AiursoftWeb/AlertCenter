@@ -1,0 +1,138 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@using Aiursoft.AlertCenter.Entities
+@{
+    ViewData["Title"] = "管理值班";
+    var group = Model.Group;
+    var timeZone = group == null ? TimeZoneInfo.Utc : TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+    DateTime Local(DateTime utc) => TimeZoneInfo.ConvertTimeFromUtc(utc, timeZone);
+}
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">管理值班</h1>
+        <p class="text-muted mb-0">配置值班组、轮转模板、发布日程，以及处理请假、交接和补班。</p>
+    </div>
+    <a asp-action="Index" asp-route-groupId="@group?.Id" class="btn btn-outline-secondary"><i class="align-middle me-1" data-lucide="arrow-left"></i>返回值班概览</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-xl-3">
+        <section class="card mb-4">
+            <div class="card-header bg-transparent"><h2 class="card-title h6 mb-0">值班组</h2></div>
+            <div class="list-group list-group-flush">
+                @foreach (var item in Model.Groups)
+                {
+                    <a asp-action="Manage" asp-route-id="@item.Id" class="list-group-item list-group-item-action @(group?.Id == item.Id ? "active" : "")">
+                        <strong class="d-block">@item.Name</strong><small>@item.TimeZoneId</small>
+                    </a>
+                }
+            </div>
+            <div class="card-body border-top">
+                <form asp-action="SaveGroup" method="post" class="vstack gap-2">
+                    <label class="form-label small fw-medium mb-0">新值班组</label>
+                    <input name="name" required maxlength="100" class="form-control form-control-sm" placeholder="例如：生产值班" />
+                    <input name="timeZoneId" required maxlength="100" value="UTC" class="form-control form-control-sm font-monospace" placeholder="Asia/Shanghai" />
+                    <button class="btn btn-sm btn-primary">创建值班组</button>
+                </form>
+            </div>
+        </section>
+        @if (group != null)
+        {
+            <section class="card">
+                <div class="card-header bg-transparent"><h2 class="card-title h6 mb-0">组配置</h2></div>
+                <div class="card-body">
+                    <form asp-action="SaveGroup" method="post" class="vstack gap-2">
+                        <input type="hidden" name="id" value="@group.Id" />
+                        <label class="form-label small mb-0">名称</label><input name="name" required maxlength="100" value="@group.Name" class="form-control form-control-sm" />
+                        <label class="form-label small mb-0">时区</label><input name="timeZoneId" required maxlength="100" value="@group.TimeZoneId" class="form-control form-control-sm font-monospace" />
+                        <button class="btn btn-sm btn-outline-primary">保存配置</button>
+                    </form>
+                </div>
+            </section>
+        }
+    </div>
+
+    <div class="col-xl-9">
+        @if (group == null)
+        {
+            <div class="card ac-empty-state"><div class="ac-empty-icon"><i data-lucide="calendar-plus"></i></div><h2 class="h5">创建或选择值班组</h2><p class="text-muted mb-0">值班组是成员、模板与已发布排班的边界。</p></div>
+        }
+        else
+        {
+            <div class="alert alert-info small"><i class="align-middle me-1" data-lucide="info"></i>此组使用 <strong>@group.TimeZoneId</strong>。界面输入和展示采用本地时间，系统以 UTC 保存并校验。</div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <section class="card h-100">
+                        <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">成员</h2></div>
+                        <div class="card-body">
+                            <form asp-action="AddMember" method="post" class="input-group mb-3">
+                                <input type="hidden" name="groupId" value="@group.Id" />
+                                <select name="userId" class="form-select" required><option value="">选择用户</option>@foreach (var user in Model.Users){<option value="@user.Value">@user.Text</option>}</select>
+                                <button class="btn btn-primary">添加</button>
+                            </form>
+                            <div class="list-group list-group-flush">
+                                @foreach (var member in Model.Members)
+                                {
+                                    <div class="list-group-item px-0 d-flex justify-content-between align-items-center"><span>@member.User.DisplayName <small class="text-muted">@member.User.Email</small></span><form asp-action="RemoveMember" method="post"><input type="hidden" name="groupId" value="@group.Id" /><input type="hidden" name="userId" value="@member.UserId" /><button class="btn btn-sm btn-outline-danger">移除</button></form></div>
+                                }
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-lg-6">
+                    <section class="card h-100">
+                        <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">发布日程</h2></div>
+                        <div class="card-body">
+                            <form asp-action="Publish" method="post" class="row g-3">
+                                <input type="hidden" name="groupId" value="@group.Id" />
+                                <div class="col-sm-6"><label class="form-label small">开始日期</label><input name="startDate" type="date" value="@Local(DateTime.UtcNow).ToString("yyyy-MM-dd")" class="form-control" required /></div>
+                                <div class="col-sm-6"><label class="form-label small">结束日期</label><input name="endDate" type="date" value="@Local(DateTime.UtcNow).AddDays(6).ToString("yyyy-MM-dd")" class="form-control" required /></div>
+                                <div class="col-12"><button class="btn btn-primary w-100">生成并发布日常轮转</button></div>
+                            </form>
+                            <p class="small text-muted mt-3 mb-0">发布前检查连续覆盖、班次重叠、最长 8 小时及每位工程师至少 16 小时连续休息。</p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-12">
+                    <section class="card">
+                        <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">轮转模板</h2></div>
+                        <div class="card-body">
+                            <form asp-action="SaveTemplate" method="post" class="row g-3 border-bottom pb-4 mb-3">
+                                <input type="hidden" name="groupId" value="@group.Id" />
+                                <div class="col-md-3"><label class="form-label small">模板名称</label><input name="name" maxlength="100" required class="form-control" placeholder="早班" /></div>
+                                <div class="col-md-2"><label class="form-label small">开始分钟</label><input name="startMinuteOfDay" type="number" min="0" max="1439" value="0" required class="form-control" /><small class="text-muted">00:00 = 0</small></div>
+                                <div class="col-md-2"><label class="form-label small">时长（分钟）</label><input name="durationMinutes" type="number" min="1" max="480" value="480" required class="form-control" /></div>
+                                <div class="col-md-4"><label class="form-label small">轮转成员</label><select name="userIds" multiple required class="form-select" size="3">@foreach (var member in Model.Members){<option value="@member.UserId">@member.User.DisplayName</option>}</select></div>
+                                <div class="col-md-1 d-flex align-items-end"><button class="btn btn-primary w-100">保存</button></div>
+                            </form>
+                            @if (Model.Templates.Count == 0) { <p class="text-muted mb-0">尚无模板。使用覆盖完整本地一天的模板后才能发布日常轮转。</p> }
+                            else { <div class="table-responsive"><table class="table align-middle mb-0"><thead><tr><th>模板</th><th>本地时段</th><th>轮转顺序</th><th></th></tr></thead><tbody>@foreach (var template in Model.Templates){var members = Model.TemplateMembers.Where(item => item.TemplateId == template.Id).OrderBy(item => item.RotationOrder).ToList();<tr><td>@template.Name</td><td><code>@TimeOnly.FromTimeSpan(TimeSpan.FromMinutes(template.StartMinuteOfDay)).ToString("HH:mm") + @template.DurationMinutes 分钟</code></td><td>@string.Join(" → ", members.Select(item => item.User.DisplayName))</td><td class="text-end"><form asp-action="DeleteTemplate" method="post"><input type="hidden" name="id" value="@template.Id" /><button class="btn btn-sm btn-outline-danger">删除</button></form></td></tr>}</tbody></table></div>}
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-12">
+                    <section class="card">
+                        <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">未来已发布班次与临时覆盖</h2></div>
+                        <div class="card-body">
+                            @if (Model.Shifts.Count == 0) { <p class="text-muted">未来 14 天暂无已发布班次。</p> }
+                            else { <div class="table-responsive"><table class="table table-sm align-middle"><thead><tr><th>工程师</th><th>本地时段</th><th>临时覆盖</th><th></th></tr></thead><tbody>@foreach (var shift in Model.Shifts){var overrideItem = Model.Overrides.SingleOrDefault(item => item.OriginalShiftId == shift.Id);<tr><td>@shift.User.DisplayName</td><td><code>@Local(shift.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(shift.EndsAtUtc).ToString("MM-dd HH:mm")</code></td><td>@if(overrideItem != null){<span>@overrideItem.CoveringUser.DisplayName · @overrideItem.Reason</span>}else{<span class="text-muted">无</span>}</td><td class="text-end"><button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#override-@shift.Id">安排代班</button></td></tr><tr class="collapse" id="override-@shift.Id"><td colspan="4"><form asp-action="CreateOverride" method="post" class="row g-2"><input type="hidden" name="originalShiftId" value="@shift.Id" /><div class="col-md-3"><select name="coveringUserId" class="form-select form-select-sm" required><option value="">代班工程师</option>@foreach(var member in Model.Members){<option value="@member.UserId">@member.User.DisplayName</option>}</select></div><div class="col-md-3"><input name="startsAtLocal" type="datetime-local" value="@Local(shift.StartsAtUtc).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required /></div><div class="col-md-3"><input name="endsAtLocal" type="datetime-local" value="@Local(shift.EndsAtUtc).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required /></div><div class="col-md-2"><input name="reason" maxlength="1000" class="form-control form-control-sm" placeholder="代班原因" required /></div><div class="col-md-1"><button class="btn btn-sm btn-primary">保存</button></div></form></td></tr>}</tbody></table></div> }
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-lg-6">
+                    <section class="card h-100"><div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">请假</h2></div><div class="card-body"><form asp-action="RequestLeave" method="post" class="row g-2 mb-3"><input type="hidden" name="groupId" value="@group.Id" /><div class="col-12"><select name="userId" class="form-select form-select-sm" required><option value="">请假工程师</option>@foreach(var member in Model.Members){<option value="@member.UserId">@member.User.DisplayName</option>}</select></div><div class="col-6"><input name="startsAtLocal" type="datetime-local" class="form-control form-control-sm" required /></div><div class="col-6"><input name="endsAtLocal" type="datetime-local" class="form-control form-control-sm" required /></div><div class="col-9"><input name="reason" maxlength="1000" class="form-control form-control-sm" placeholder="请假原因" required /></div><div class="col-3"><button class="btn btn-sm btn-primary w-100">提交</button></div></form><div class="list-group list-group-flush">@foreach(var leave in Model.LeaveRequests){<div class="list-group-item px-0"><strong>@leave.User.DisplayName</strong> <span class="badge bg-secondary-subtle text-secondary">@leave.Status</span><div class="small text-muted">@Local(leave.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(leave.EndsAtUtc).ToString("MM-dd HH:mm") · @leave.Reason</div>@if(leave.Status == OnCallLeaveRequest.Pending){<form asp-action="ReviewLeave" method="post" class="mt-2"><input type="hidden" name="id" value="@leave.Id" /><button name="approve" value="true" class="btn btn-sm btn-success">批准</button><button name="approve" value="false" class="btn btn-sm btn-outline-danger">拒绝</button></form>}</div>}</div></div></section>
+                </div>
+
+                <div class="col-lg-6">
+                    <section class="card h-100"><div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">交接与补班债务</h2></div><div class="card-body"><p class="small text-muted">成员可在值班概览中对本人班次提交交接；接班人确认后自动建立补班债务。</p><div class="list-group list-group-flush">@foreach(var handover in Model.HandoverRequests){<div class="list-group-item px-0"><strong>@handover.RequestedByUser.DisplayName → @handover.ReceivingUser.DisplayName</strong> <span class="badge bg-secondary-subtle text-secondary">@handover.Status</span><div class="small text-muted">@Local(handover.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(handover.EndsAtUtc).ToString("MM-dd HH:mm")</div>@if(handover.Status == OnCallHandoverRequest.Pending){<form asp-action="ReviewHandover" method="post" class="mt-2"><input type="hidden" name="id" value="@handover.Id"/><button name="confirm" value="true" class="btn btn-sm btn-success">确认接班</button><button name="confirm" value="false" class="btn btn-sm btn-outline-danger">拒绝</button></form>}</div>}</div><hr/><h3 class="h6">补班债务</h3><div class="list-group list-group-flush">@foreach(var debt in Model.CoverageDebts){<div class="list-group-item px-0"><strong>@debt.OwingUser.DisplayName 欠 @debt.CoveringUser.DisplayName</strong><div class="small text-muted">@debt.DurationMinutes 分钟 · @(debt.SettledAtUtc.HasValue ? "已偿还" : "待偿还")</div>@if(!debt.SettledAtUtc.HasValue){<form asp-action="SettleDebt" method="post" class="input-group input-group-sm mt-2"><input type="hidden" name="debtId" value="@debt.Id"/><select name="settlementOverrideId" class="form-select" required><option value="">选择欠班人承担的代班</option>@foreach(var item in Model.Overrides.Where(item => item.CoveringUserId == debt.OwingUserId)){<option value="@item.Id">@Local(item.StartsAtUtc).ToString("MM-dd HH:mm") · @item.Reason</option>}</select><button class="btn btn-outline-primary">偿还</button></form>}</div>}</div></div></section>
+                </div>
+            </div>
+        }
+    </div>
+</div>

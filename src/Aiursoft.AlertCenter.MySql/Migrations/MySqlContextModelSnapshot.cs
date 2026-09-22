@@ -246,6 +246,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("DurationMinutes")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("GroupId")
                         .HasColumnType("char(36)");
 
@@ -340,6 +343,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("EndsAtUtc")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Note")
                         .HasMaxLength(1000)
                         .HasColumnType("varchar(1000)");
@@ -365,6 +371,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.Property<Guid>("ShiftId")
                         .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("StartsAtUtc")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Status")
                         .IsRequired()

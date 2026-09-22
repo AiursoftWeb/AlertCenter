@@ -13,6 +13,7 @@ public class OnCallCoverageDebt
     public User OwingUser { get; set; } = null!;
     [Required, MaxLength(450)] public string CoveringUserId { get; set; } = string.Empty;
     public User CoveringUser { get; set; } = null!;
+    public int DurationMinutes { get; set; }
     public Guid? SettlementOverrideId { get; set; }
     public OnCallShiftOverride? SettlementOverride { get; set; }
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;

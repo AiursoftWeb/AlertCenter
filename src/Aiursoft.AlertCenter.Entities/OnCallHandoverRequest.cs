@@ -16,6 +16,8 @@ public class OnCallHandoverRequest
     public User RequestedByUser { get; set; } = null!;
     [Required, MaxLength(450)] public string ReceivingUserId { get; set; } = string.Empty;
     public User ReceivingUser { get; set; } = null!;
+    public DateTime StartsAtUtc { get; set; }
+    public DateTime EndsAtUtc { get; set; }
     [Required, MaxLength(20)] public string Status { get; set; } = Pending;
     [MaxLength(1000)] public string? Note { get; set; }
     public DateTime RequestedAtUtc { get; set; } = DateTime.UtcNow;

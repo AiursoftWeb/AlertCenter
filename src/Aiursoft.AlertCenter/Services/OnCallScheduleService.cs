@@ -20,6 +20,8 @@ public interface IOnCallScheduleService
         DateTime coverageStartUtc, DateTime coverageEndUtc, CancellationToken cancellationToken = default);
     Task<OnCallScheduleValidationResult> ValidatePublishedScheduleAsync(Guid groupId, DateTime coverageStartUtc,
         DateTime coverageEndUtc, CancellationToken cancellationToken = default);
+    Task<OnCallScheduleValidationResult> AddOverrideAsync(OnCallShiftOverride overrideItem,
+        CancellationToken cancellationToken = default);
     Task<OnCallEngineer?> GetOnCallEngineerAsync(Guid groupId, DateTime atUtc,
         CancellationToken cancellationToken = default);
 }
@@ -48,14 +50,15 @@ public sealed class OnCallScheduleService(TemplateDbContext db) : IOnCallSchedul
         var shifts = new List<OnCallShift>();
         for (var date = startDate; date <= endDate; date = date.AddDays(1))
         {
-            foreach (var template in templates)
+            for (var templateIndex = 0; templateIndex < templates.Count; templateIndex++)
             {
+                var template = templates[templateIndex];
                 ValidateTemplate(template);
                 var rotation = members.Where(item => item.TemplateId == template.Id).ToList();
                 if (rotation.Count == 0) throw new InvalidOperationException($"班次模板“{template.Name}”尚未配置轮转成员。");
                 if (rotation.Any(item => !groupMemberIds.Contains(item.UserId)))
                     throw new InvalidOperationException($"班次模板“{template.Name}”包含非值班组成员。");
-                var user = rotation[Math.Abs(date.DayNumber) % rotation.Count];
+                var user = rotation[Math.Abs(date.DayNumber * templates.Count + templateIndex) % rotation.Count];
                 var localStart = date.ToDateTime(TimeOnly.MinValue).AddMinutes(template.StartMinuteOfDay);
                 var localEnd = localStart.AddMinutes(template.DurationMinutes);
                 if (timeZone.IsInvalidTime(localStart) || timeZone.IsInvalidTime(localEnd))
@@ -108,6 +111,26 @@ public sealed class OnCallScheduleService(TemplateDbContext db) : IOnCallSchedul
         var memberIds = await db.OnCallGroupMembers.AsNoTracking().Where(item => item.GroupId == groupId)
             .Select(item => item.UserId).ToListAsync(cancellationToken);
         return Validate(groupId, shifts, overrides, memberIds, coverageStartUtc, coverageEndUtc);
+    }
+
+    public async Task<OnCallScheduleValidationResult> AddOverrideAsync(OnCallShiftOverride overrideItem,
+        CancellationToken cancellationToken = default)
+    {
+        var originalShift = await db.OnCallShifts.AsNoTracking().SingleOrDefaultAsync(item => item.Id == overrideItem.OriginalShiftId,
+            cancellationToken);
+        if (originalShift == null) return new(["原始班次不存在。"]);
+        if (originalShift.GroupId != overrideItem.GroupId) return new(["临时覆盖必须属于原始班次的值班组。"]);
+        var shifts = await db.OnCallShifts.AsNoTracking().Where(item => item.GroupId == overrideItem.GroupId).ToListAsync(cancellationToken);
+        var overrides = await db.OnCallShiftOverrides.AsNoTracking().Where(item => item.GroupId == overrideItem.GroupId)
+            .ToListAsync(cancellationToken);
+        overrides.Add(overrideItem);
+        var members = await db.OnCallGroupMembers.AsNoTracking().Where(item => item.GroupId == overrideItem.GroupId)
+            .Select(item => item.UserId).ToListAsync(cancellationToken);
+        var validation = Validate(overrideItem.GroupId, shifts, overrides, members, originalShift.StartsAtUtc, originalShift.EndsAtUtc);
+        if (!validation.IsValid) return validation;
+        db.OnCallShiftOverrides.Add(overrideItem);
+        await db.SaveChangesAsync(cancellationToken);
+        return validation;
     }
 
     public async Task<OnCallEngineer?> GetOnCallEngineerAsync(Guid groupId, DateTime atUtc,

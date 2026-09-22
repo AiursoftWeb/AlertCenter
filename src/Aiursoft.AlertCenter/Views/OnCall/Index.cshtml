@@ -1,0 +1,171 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    ViewData["Title"] = "值班";
+    var group = Model.Group;
+    var timeZone = group == null ? TimeZoneInfo.Utc : TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+    var localNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
+    DateTime Local(DateTime utc) => TimeZoneInfo.ConvertTimeFromUtc(utc, timeZone);
+}
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">值班</h1>
+        <p class="text-muted mb-0">查看当前 OCE、今日班次和未来排班。所有排班以组时区显示。</p>
+    </div>
+    @if (User.IsInRole("Administrators"))
+    {
+        <a asp-action="Manage" asp-route-id="@group?.Id" class="btn btn-primary @(group == null ? "disabled" : "")">
+            <i class="align-middle me-1" data-lucide="settings-2" aria-hidden="true"></i>管理值班
+        </a>
+    }
+</div>
+
+@if (Model.Groups.Count == 0)
+{
+    <div class="card ac-empty-state">
+        <div class="ac-empty-icon"><i data-lucide="calendar-clock" aria-hidden="true"></i></div>
+        <h2 class="h5">尚未创建值班组</h2>
+        <p class="text-muted mb-3">管理员创建值班组、添加成员并发布排班后，此处将显示当班工程师。</p>
+        @if (User.IsInRole("Administrators"))
+        {
+            <a asp-action="Manage" asp-route-id="00000000-0000-0000-0000-000000000000" class="btn btn-primary">创建第一个值班组</a>
+        }
+    </div>
+}
+else if (group != null)
+{
+    <form asp-action="Index" method="get" class="card mb-4">
+        <div class="card-body row g-3 align-items-end">
+            <div class="col-md-5">
+                <label for="groupId" class="form-label small fw-medium">值班组</label>
+                <select id="groupId" name="groupId" class="form-select" onchange="this.form.submit()">
+                    @foreach (var item in Model.Groups)
+                    {
+                        <option value="@item.Id" selected="@(item.Id == group.Id)">@item.Name · @item.TimeZoneId</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="date" class="form-label small fw-medium">查看日期（@group.TimeZoneId）</label>
+                <input id="date" name="date" type="date" value="@localNow.ToString("yyyy-MM-dd")" class="form-control" />
+            </div>
+            <div class="col-md-auto"><button class="btn btn-outline-primary">查看日程</button></div>
+        </div>
+    </form>
+
+    <div class="row g-4 mb-4">
+        <div class="col-lg-5">
+            <section class="card h-100">
+                <div class="card-header bg-transparent d-flex align-items-center gap-2">
+                    <i class="align-middle text-primary" data-lucide="radio-tower" aria-hidden="true"></i>
+                    <h2 class="card-title h5 mb-0">当前 OCE</h2>
+                </div>
+                <div class="card-body">
+                    @if (Model.CurrentEngineer != null)
+                    {
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="ac-app-avatar">@Model.CurrentEngineer.DisplayName[..1].ToUpperInvariant()</div>
+                            <div>
+                                <strong class="d-block">@Model.CurrentEngineer.DisplayName</strong>
+                                <span class="text-muted small font-monospace">@(Model.CurrentEngineer.Email ?? "未配置邮箱")</span>
+                                @if (Model.CurrentEngineer.IsOverride)
+                                {
+                                    <span class="badge bg-warning-subtle text-warning-emphasis border ms-2">临时覆盖</span>
+                                }
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="small text-muted">班次：@TimeZoneInfo.ConvertTimeFromUtc(Model.CurrentEngineer.StartsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("MM-dd HH:mm") – @TimeZoneInfo.ConvertTimeFromUtc(Model.CurrentEngineer.EndsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("MM-dd HH:mm")</div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger mb-0"><i class="align-middle me-1" data-lucide="triangle-alert"></i>当前没有可用 OCE。请检查已发布排班。</div>
+                    }
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-7">
+            <section class="card h-100">
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                    <h2 class="card-title h5 mb-0">今日班次</h2>
+                    <span class="badge bg-secondary-subtle text-secondary border">@group.TimeZoneId</span>
+                </div>
+                <div class="list-group list-group-flush">
+                    @if (Model.Shifts.Count == 0)
+                    {
+                        <div class="list-group-item text-muted py-4 text-center">所选日期没有已发布班次。</div>
+                    }
+                    @foreach (var shift in Model.Shifts)
+                    {
+                        var overrides = Model.Overrides.Where(item => item.OriginalShiftId == shift.Id).ToList();
+                        <div class="list-group-item py-3">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                                <div><strong>@shift.User.DisplayName</strong><span class="text-muted ms-2 small">原班次</span></div>
+                                <code>@TimeZoneInfo.ConvertTimeFromUtc(shift.StartsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm") – @TimeZoneInfo.ConvertTimeFromUtc(shift.EndsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm")</code>
+                            </div>
+                            @foreach (var item in overrides)
+                            {
+                                <div class="small text-warning-emphasis mt-2"><i class="align-middle me-1" data-lucide="replace"></i>@item.CoveringUser.DisplayName 覆盖 @TimeZoneInfo.ConvertTimeFromUtc(item.StartsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm") – @TimeZoneInfo.ConvertTimeFromUtc(item.EndsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm")：@item.Reason</div>
+                            }
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <section class="card h-100">
+                <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">申请请假</h2></div>
+                <div class="card-body">
+                    <form asp-action="RequestLeave" method="post" class="row g-3">
+                        <input type="hidden" name="groupId" value="@group.Id" />
+                        <input type="hidden" name="userId" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value" />
+                        <div class="col-md-6"><label class="form-label small">开始时间（@group.TimeZoneId）</label><input name="startsAtLocal" type="datetime-local" class="form-control" required /></div>
+                        <div class="col-md-6"><label class="form-label small">结束时间（@group.TimeZoneId）</label><input name="endsAtLocal" type="datetime-local" class="form-control" required /></div>
+                        <div class="col-12"><label class="form-label small">原因</label><input name="reason" maxlength="1000" class="form-control" required /></div>
+                        <div class="col-12"><button class="btn btn-outline-primary">提交请假申请</button></div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-6">
+            <section class="card h-100">
+                <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">我的班次交接</h2></div>
+                <div class="card-body">
+                    @{ var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value; var myShifts = Model.Shifts.Where(item => item.UserId == currentUserId).ToList(); }
+                    @if (myShifts.Count == 0)
+                    {
+                        <p class="text-muted mb-0">所选日期没有分配给你的班次。</p>
+                    }
+                    @foreach (var shift in myShifts)
+                    {
+                        <form asp-action="RequestHandover" method="post" class="border rounded p-3 mb-3">
+                            <input type="hidden" name="shiftId" value="@shift.Id" />
+                            <div class="small text-muted mb-2">@Local(shift.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(shift.EndsAtUtc).ToString("MM-dd HH:mm")</div>
+                            <div class="row g-2">
+                                <div class="col-md-4"><select name="receivingUserId" class="form-select form-select-sm" required><option value="">选择接班人</option>@foreach (var member in Model.Members.Where(item => item.UserId != shift.UserId)){<option value="@member.UserId">@member.User.DisplayName</option>}</select></div>
+                                <div class="col-md-4"><input name="startsAtLocal" type="datetime-local" value="@Local(shift.StartsAtUtc).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required /></div>
+                                <div class="col-md-4"><input name="endsAtLocal" type="datetime-local" value="@Local(shift.EndsAtUtc).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required /></div>
+                                <div class="col-md-9"><input name="note" maxlength="1000" class="form-control form-control-sm" placeholder="交接说明（可选）" /></div>
+                                <div class="col-md-3"><button class="btn btn-sm btn-outline-primary w-100">发起交接</button></div>
+                            </div>
+                        </form>
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <section class="card mt-4">
+        <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">最近待处理事项</h2></div>
+        <div class="card-body row g-3">
+            <div class="col-md-6"><strong>待确认交接</strong><div class="text-muted small mt-1">@Model.HandoverRequests.Count(item => item.Status == Aiursoft.AlertCenter.Entities.OnCallHandoverRequest.Pending) 个</div></div>
+            <div class="col-md-6"><strong>待审批请假</strong><div class="text-muted small mt-1">@Model.LeaveRequests.Count(item => item.Status == Aiursoft.AlertCenter.Entities.OnCallLeaveRequest.Pending) 个</div></div>
+        </div>
+    </section>
+}
