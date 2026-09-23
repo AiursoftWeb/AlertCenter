@@ -6,6 +6,7 @@ using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests;
@@ -69,7 +70,7 @@ public class OnCallControllerTests
         Assert.IsInstanceOfType<RedirectToActionResult>(leave);
         var leaveRequest = await _db.OnCallLeaveRequests.SingleAsync();
         var rejectedApproval = await _controller.ReviewLeave(new OnCallLeaveReviewRequest { Id = leaveRequest.Id, Approve = true }, default);
-        Assert.IsInstanceOfType<BadRequestObjectResult>(rejectedApproval);
+        Assert.IsInstanceOfType<RedirectToActionResult>(rejectedApproval);
 
         var shift = await _db.OnCallShifts.SingleAsync();
         var handover = await _controller.RequestHandover(new OnCallHandoverRequestModel
@@ -121,12 +122,19 @@ public class OnCallControllerTests
         await _db.SaveChangesAsync();
     }
 
+    private sealed class TestTempDataProvider : ITempDataProvider
+    {
+        public IDictionary<string, object> LoadTempData(HttpContext context) => new Dictionary<string, object>();
+        public void SaveTempData(HttpContext context, IDictionary<string, object> values) { }
+    }
+
     private OnCallController Controller(string userId, params string[] roles)
     {
         var claims = new List<Claim> { new(ClaimTypes.NameIdentifier, userId) };
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
         return new OnCallController(_db, new OnCallScheduleService(_db), new ApplicationAccessService(_db))
         {
+            TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider()),
             ControllerContext = new ControllerContext
             {
                 HttpContext = new DefaultHttpContext

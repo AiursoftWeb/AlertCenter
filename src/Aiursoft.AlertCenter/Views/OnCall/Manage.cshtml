@@ -5,6 +5,7 @@
     var group = Model.Group;
     var timeZone = group == null ? TimeZoneInfo.Utc : TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
     DateTime Local(DateTime utc) => TimeZoneInfo.ConvertTimeFromUtc(utc, timeZone);
+    var groupForm = Model.GroupForm;
 }
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
@@ -17,6 +18,14 @@
     </div>
     <a asp-action="Index" asp-route-groupId="@group?.Id" class="btn btn-outline-secondary"><i class="align-middle me-1" data-lucide="arrow-left"></i>返回值班概览</a>
 </div>
+
+@if (!string.IsNullOrEmpty(Model.OperationError))
+{
+    <div class="alert alert-danger d-flex align-items-start gap-2 mb-4" role="alert">
+        <i data-lucide="circle-alert" class="flex-shrink-0 mt-1" aria-hidden="true"></i>
+        <div><strong>操作未完成</strong><div>@Model.OperationError</div></div>
+    </div>
+}
 
 <div class="row g-4">
     <div class="col-xl-3">
@@ -32,9 +41,22 @@
             </div>
             <div class="card-body border-top">
                 <form asp-action="SaveGroup" method="post" class="vstack gap-2">
-                    <label class="form-label small fw-medium mb-0">新值班组</label>
-                    <input name="name" required maxlength="100" class="form-control form-control-sm" placeholder="例如：生产值班" />
-                    <input name="timeZoneId" required maxlength="100" value="UTC" class="form-control form-control-sm font-monospace" placeholder="Asia/Shanghai" />
+                    @if (!Model.EditingGroupForm && !ViewData.ModelState.IsValid)
+                    {
+                        <div asp-validation-summary="All" class="alert alert-danger small mb-1" role="alert"></div>
+                    }
+                    <label for="create-group-name" class="form-label small fw-medium mb-0">新值班组</label>
+                    <input id="create-group-name" name="GroupForm.Name" value="@(Model.EditingGroupForm ? "" : groupForm.Name)" required maxlength="100" class="form-control form-control-sm" placeholder="例如：生产值班" />
+                    @if (!Model.EditingGroupForm) { <span asp-validation-for="GroupForm.Name" class="text-danger small"></span> }
+                    <label for="create-time-zone" class="form-label small fw-medium mb-0">时区</label>
+                    <select name="GroupForm.TimeZoneId" id="create-time-zone" class="form-select form-select-sm js-time-zone" required aria-describedby="create-time-zone-help">
+                        @foreach (var zone in Model.TimeZones)
+                        {
+                            <option value="@zone.Id" selected="@(!Model.EditingGroupForm && groupForm.TimeZoneId == zone.Id)">@zone.DisplayName (@zone.Id)</option>
+                        }
+                    </select>
+                    <small id="create-time-zone-help" class="text-muted">可按城市或时区 ID 搜索。</small>
+                    @if (!Model.EditingGroupForm) { <span asp-validation-for="GroupForm.TimeZoneId" class="text-danger small"></span> }
                     <button class="btn btn-sm btn-primary">创建值班组</button>
                 </form>
             </div>
@@ -45,9 +67,23 @@
                 <div class="card-header bg-transparent"><h2 class="card-title h6 mb-0">组配置</h2></div>
                 <div class="card-body">
                     <form asp-action="SaveGroup" method="post" class="vstack gap-2">
-                        <input type="hidden" name="id" value="@group.Id" />
-                        <label class="form-label small mb-0">名称</label><input name="name" required maxlength="100" value="@group.Name" class="form-control form-control-sm" />
-                        <label class="form-label small mb-0">时区</label><input name="timeZoneId" required maxlength="100" value="@group.TimeZoneId" class="form-control form-control-sm font-monospace" />
+                        <input type="hidden" name="GroupForm.Id" value="@group.Id" />
+                        @if (Model.EditingGroupForm && !ViewData.ModelState.IsValid)
+                        {
+                            <div asp-validation-summary="All" class="alert alert-danger small mb-1" role="alert"></div>
+                        }
+                        <label for="edit-group-name" class="form-label small mb-0">名称</label>
+                        <input id="edit-group-name" name="GroupForm.Name" required maxlength="100" value="@(Model.EditingGroupForm ? groupForm.Name : group.Name)" class="form-control form-control-sm" />
+                        @if (Model.EditingGroupForm) { <span asp-validation-for="GroupForm.Name" class="text-danger small"></span> }
+                        <label for="edit-time-zone" class="form-label small mb-0">时区</label>
+                        <select id="edit-time-zone" name="GroupForm.TimeZoneId" class="form-select form-select-sm js-time-zone" required aria-describedby="edit-time-zone-help">
+                            @foreach (var zone in Model.TimeZones)
+                            {
+                                <option value="@zone.Id" selected="@((Model.EditingGroupForm ? groupForm.TimeZoneId : group.TimeZoneId) == zone.Id)">@zone.DisplayName (@zone.Id)</option>
+                            }
+                        </select>
+                        <small id="edit-time-zone-help" class="text-muted">更改时区不会改变已发布班次的 UTC 时间。</small>
+                        @if (Model.EditingGroupForm) { <span asp-validation-for="GroupForm.TimeZoneId" class="text-danger small"></span> }
                         <button class="btn btn-sm btn-outline-primary">保存配置</button>
                     </form>
                 </div>
@@ -136,3 +172,13 @@
         }
     </div>
 </div>
+
+@section scripts {
+    <script>
+        document.querySelectorAll('.js-time-zone').forEach(select => {
+            if (window.jQuery?.fn.select2) {
+                window.jQuery(select).select2({ width: '100%', placeholder: '搜索城市或时区' });
+            }
+        });
+    </script>
+}

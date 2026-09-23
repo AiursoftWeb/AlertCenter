@@ -23,6 +23,14 @@
     }
 </div>
 
+@if (!string.IsNullOrEmpty(Model.OperationError))
+{
+    <div class="alert alert-danger d-flex align-items-start gap-2 mb-4" role="alert">
+        <i data-lucide="circle-alert" class="flex-shrink-0 mt-1" aria-hidden="true"></i>
+        <div><strong>操作未完成</strong><div>@Model.OperationError</div></div>
+    </div>
+}
+
 @if (Model.Groups.Count == 0)
 {
     <div class="card ac-empty-state">

@@ -11,6 +11,8 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public OnCallViewModel() => PageTitle = "值班";
     public List<OnCallGroup> Groups { get; set; } = [];
     public OnCallGroup? Group { get; set; }
+    public OnCallGroupRequest GroupForm { get; set; } = new();
+    public bool EditingGroupForm { get; set; }
     public List<OnCallGroupMember> Members { get; set; } = [];
     public List<OnCallShiftTemplate> Templates { get; set; } = [];
     public List<OnCallShiftTemplateMember> TemplateMembers { get; set; } = [];
@@ -20,6 +22,8 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public List<OnCallHandoverRequest> HandoverRequests { get; set; } = [];
     public List<OnCallCoverageDebt> CoverageDebts { get; set; } = [];
     public List<SelectListItem> Users { get; set; } = [];
+    public IReadOnlyList<TimeZoneInfo> TimeZones { get; set; } = TimeZoneInfo.GetSystemTimeZones();
+    public string? OperationError { get; set; }
     public OnCallEngineer? CurrentEngineer { get; set; }
     public DateTime DisplayStartUtc { get; set; }
     public DateTime DisplayEndUtc { get; set; }
