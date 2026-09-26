@@ -3,42 +3,121 @@
     ViewData["Title"] = "成员管理";
     var group = Model.Group;
     var templateNames = Model.Templates.ToDictionary(item => item.Id, item => item.Name);
+    string GetInitial(string? name) => string.IsNullOrWhiteSpace(name) ? "?" : name[..1].ToUpperInvariant();
 }
-@section styles { <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" /> }
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
 <partial name="_AdminNavigation" model="Model" />
+
 @if (group != null)
 {
+    <!-- Add Member Section -->
     <section class="card shadow-sm border-0 mb-4">
-        <div class="card-header bg-transparent"><h2 class="h5 mb-0">添加成员</h2></div>
-        <div class="card-body"><form asp-action="AddMember" method="post" class="row g-2 align-items-end">
-            <input type="hidden" name="groupId" value="@group.Id" />
-            <div class="col-sm-9"><label class="form-label" for="member-user">选择用户</label><select id="member-user" name="userId" class="form-select" required><option value="">选择用户</option>@foreach (var user in Model.Users) { <option value="@user.Value">@user.Text</option> }</select></div>
-            <div class="col-sm-3"><button class="btn btn-primary w-100">添加成员</button></div>
-        </form></div>
+        <div class="card-header bg-transparent border-bottom py-3">
+            <h2 class="h5 mb-0 d-flex align-items-center gap-2">
+                <i data-lucide="user-plus" class="text-primary" style="width: 18px; height: 18px;"></i>
+                <span>添加成员</span>
+            </h2>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="AddMember" method="post" class="row g-2 align-items-end">
+                <input type="hidden" name="groupId" value="@group.Id" />
+                <div class="col-sm-9">
+                    <label class="form-label small fw-medium text-muted mb-1" for="member-user">选择用户</label>
+                    <select id="member-user" name="userId" class="form-select" required>
+                        <option value="">选择用户</option>
+                        @foreach (var user in Model.Users)
+                        {
+                            <option value="@user.Value">@user.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <button class="btn btn-primary w-100 d-inline-flex align-items-center justify-content-center gap-1.5" style="height: 38px;">
+                        <i data-lucide="user-plus" style="width: 15px; height: 15px;"></i>
+                        <span>添加成员</span>
+                    </button>
+                </div>
+            </form>
+        </div>
     </section>
+
+    <!-- Members Directory Table -->
     <section class="card shadow-sm border-0">
-        <div class="card-header bg-transparent"><h2 class="h5 mb-0">成员 (@Model.Members.Count)</h2></div>
+        <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
+            <h2 class="h5 mb-0 d-flex align-items-center gap-2">
+                <i data-lucide="users" class="text-primary" style="width: 18px; height: 18px;"></i>
+                <span>成员 (@Model.Members.Count)</span>
+            </h2>
+        </div>
         <div class="card-body p-0">
             @if (Model.Members.Count == 0)
             {
-                <p class="p-4 text-muted mb-0">此值班组暂无成员。</p>
+                <div class="p-5 text-center text-muted">
+                    <div class="ac-empty-icon mb-2">
+                        <i data-lucide="users" style="width: 28px; height: 28px;"></i>
+                    </div>
+                    <p class="mb-0">此值班组暂无成员。</p>
+                    <small class="text-muted">请在上方选择用户添加。</small>
+                </div>
             }
             else
             {
-                <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>工程师</th><th>电子邮箱</th><th>参与轮转模板</th><th class="text-end">操作</th></tr></thead><tbody>
-                    @foreach (var member in Model.Members)
-                    {
-                        var assigned = Model.TemplateMembers.Where(item => item.UserId == member.UserId && templateNames.ContainsKey(item.TemplateId)).Select(item => templateNames[item.TemplateId]).Distinct().ToList();
-                        <tr>
-                            <td><strong>@(member.User?.DisplayName ?? "未知")</strong></td>
-                            <td class="text-muted">@(member.User?.Email ?? "未配置邮箱")</td>
-                            <td>@(assigned.Count == 0 ? "未参与轮转" : string.Join("、", assigned))</td>
-                            <td class="text-end"><form asp-action="RemoveMember" method="post" onsubmit="return confirm('确定移除此成员吗？');"><input type="hidden" name="groupId" value="@group.Id" /><input type="hidden" name="userId" value="@member.UserId" /><button class="btn btn-sm btn-outline-danger">移除</button></form></td>
-                        </tr>
-                    }
-                </tbody></table></div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 card-table">
+                        <thead class="table-light">
+                            <tr>
+                                <th>工程师</th>
+                                <th>电子邮箱</th>
+                                <th>参与轮转模板</th>
+                                <th class="text-end">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var member in Model.Members)
+                            {
+                                var assigned = Model.TemplateMembers.Where(item => item.UserId == member.UserId && templateNames.ContainsKey(item.TemplateId)).Select(item => templateNames[item.TemplateId]).Distinct().ToList();
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="ac-app-avatar" style="width: 32px; height: 32px; font-size: 0.8rem;">@GetInitial(member.User?.DisplayName)</span>
+                                            <strong>@(member.User?.DisplayName ?? "未知")</strong>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted font-monospace small">@(member.User?.Email ?? "未配置邮箱")</td>
+                                    <td>
+                                        @if (assigned.Count == 0)
+                                        {
+                                            <span class="text-muted small">未参与轮转</span>
+                                        }
+                                        else
+                                        {
+                                            <div class="d-flex flex-wrap gap-1">
+                                                @foreach (var name in assigned)
+                                                {
+                                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle small">@name</span>
+                                                }
+                                            </div>
+                                        }
+                                    </td>
+                                    <td class="text-end">
+                                        <form asp-action="RemoveMember" method="post" class="d-inline" onsubmit="return confirm('确定移除此成员吗？');">
+                                            <input type="hidden" name="groupId" value="@group.Id" />
+                                            <input type="hidden" name="userId" value="@member.UserId" />
+                                            <button class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1">
+                                                <i data-lucide="user-minus" style="width: 13px; height: 13px;"></i>
+                                                <span>移除</span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             }
         </div>
     </section>
-    <p class="text-muted small mt-3">在 <a asp-action="Templates" asp-route-id="@group.Id">轮转模板</a> 中设置成员轮转顺序；参与模板的成员须先删除相应模板才能移除。</p>
+    <p class="text-muted small mt-3">在 <a asp-action="Templates" asp-route-id="@group.Id" class="fw-semibold">轮转模板</a> 中设置成员轮转顺序；参与模板的成员须先删除相应模板才能移除。</p>
 }

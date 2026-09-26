@@ -2,47 +2,187 @@
 @{
     ViewData["Title"] = "轮转模板";
     var group = Model.Group;
+    string GetInitial(string? name) => string.IsNullOrWhiteSpace(name) ? "?" : name[..1].ToUpperInvariant();
 }
-@section styles { <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" /> }
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
 <partial name="_AdminNavigation" model="Model" />
+
 @if (group != null)
 {
+    <!-- Create Template Section -->
     <section class="card shadow-sm border-0 mb-4">
-        <div class="card-header bg-transparent"><h2 class="h5 mb-0">新建轮转模板</h2></div>
-        <div class="card-body">
-            <p class="small text-muted">每日所有模板须连续覆盖本地 24 小时（1440 分钟），每个班次最长 480 分钟。请先在 <a asp-action="Members" asp-route-id="@group.Id">成员管理</a> 中添加工程师。</p>
+        <div class="card-header bg-transparent border-bottom py-3">
+            <h2 class="h5 mb-0 d-flex align-items-center gap-2">
+                <i data-lucide="plus-circle" class="text-primary" style="width: 18px; height: 18px;"></i>
+                <span>新建轮转模板</span>
+            </h2>
+        </div>
+        <div class="card-body p-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <p class="small text-muted mb-0">每日所有模板须连续覆盖本地 24 小时（1440 分钟），每个班次最长 480 分钟。请先在 <a asp-action="Members" asp-route-id="@group.Id" class="fw-semibold">成员管理</a> 中添加工程师。</p>
+                <div class="d-flex align-items-center gap-1">
+                    <span class="small text-muted me-1">常用班次预设：</span>
+                    <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 small" onclick="setTemplatePreset('早班', 0, 480)">早班 (00:00 - 08:00)</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 small" onclick="setTemplatePreset('中班', 480, 480)">中班 (08:00 - 16:00)</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 small" onclick="setTemplatePreset('晚班', 960, 480)">晚班 (16:00 - 24:00)</button>
+                </div>
+            </div>
             <form asp-action="SaveTemplate" method="post" class="row g-3 align-items-start">
                 <input type="hidden" name="groupId" value="@group.Id" />
-                <div class="col-md-3"><label for="template-name" class="form-label">模板名称</label><input id="template-name" name="name" maxlength="100" class="form-control" required placeholder="例如：早班" /></div>
-                <div class="col-md-2"><label for="template-start" class="form-label">开始分钟</label><input id="template-start" name="startMinuteOfDay" type="number" min="0" max="1439" value="0" class="form-control" required /><small class="text-muted">00:00 = 0，08:00 = 480</small></div>
-                <div class="col-md-2"><label for="template-duration" class="form-label">时长（分钟）</label><input id="template-duration" name="durationMinutes" type="number" min="1" max="480" value="480" class="form-control" required /></div>
-                <div class="col-md-3"><label for="template-members" class="form-label">轮转成员</label><select id="template-members" name="userIds" multiple size="4" class="form-select" required>@foreach (var member in Model.Members) { <option value="@member.UserId">@member.User.DisplayName</option> }</select><small class="text-muted">按住 Ctrl/Cmd 多选；选择顺序决定轮转顺序。</small></div>
-                <div class="col-md-2 align-self-center"><button class="btn btn-primary w-100">保存模板</button></div>
+                <div class="col-md-3">
+                    <label for="template-name" class="form-label small fw-medium text-muted mb-1">模板名称</label>
+                    <input id="template-name" name="name" maxlength="100" class="form-control" required placeholder="例如：早班" />
+                </div>
+                <div class="col-md-2">
+                    <label for="template-start" class="form-label small fw-medium text-muted mb-1">开始分钟</label>
+                    <input id="template-start" name="startMinuteOfDay" type="number" min="0" max="1439" value="0" class="form-control" required oninput="updateTimeHint()" />
+                    <small id="start-minute-hint" class="text-muted d-block mt-1 font-monospace" style="font-size: 0.75rem;">00:00 = 0，08:00 = 480</small>
+                </div>
+                <div class="col-md-2">
+                    <label for="template-duration" class="form-label small fw-medium text-muted mb-1">时长（分钟）</label>
+                    <input id="template-duration" name="durationMinutes" type="number" min="1" max="480" value="480" class="form-control" required oninput="updateTimeHint()" />
+                    <small id="duration-minute-hint" class="text-muted d-block mt-1 font-monospace" style="font-size: 0.75rem;">480 分钟 (8 小时)</small>
+                </div>
+                <div class="col-md-3">
+                    <label for="template-members" class="form-label small fw-medium text-muted mb-1">轮转成员</label>
+                    <select id="template-members" name="userIds" multiple size="4" class="form-select" required>
+                        @foreach (var member in Model.Members)
+                        {
+                            <option value="@member.UserId">@member.User.DisplayName</option>
+                        }
+                    </select>
+                    <small class="text-muted d-block mt-1" style="font-size: 0.75rem;">按住 Ctrl/Cmd 多选；选择顺序决定轮转顺序。</small>
+                </div>
+                <div class="col-md-2 align-self-center pt-md-3">
+                    <button class="btn btn-primary w-100 d-inline-flex align-items-center justify-content-center gap-1.5" style="height: 38px;">
+                        <i data-lucide="check" style="width: 15px; height: 15px;"></i>
+                        <span>保存模板</span>
+                    </button>
+                </div>
             </form>
         </div>
     </section>
+
+    <!-- Configured Templates Table -->
     <section class="card shadow-sm border-0">
-        <div class="card-header bg-transparent"><h2 class="h5 mb-0">已配置模板 (@Model.Templates.Count)</h2></div>
+        <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
+            <h2 class="h5 mb-0 d-flex align-items-center gap-2">
+                <i data-lucide="layers" class="text-primary" style="width: 18px; height: 18px;"></i>
+                <span>已配置模板 (@Model.Templates.Count)</span>
+            </h2>
+        </div>
         <div class="card-body p-0">
             @if (Model.Templates.Count == 0)
             {
-                <p class="p-4 text-muted mb-0">尚无轮转模板。</p>
+                <div class="p-5 text-center text-muted">
+                    <div class="ac-empty-icon mb-2">
+                        <i data-lucide="layers" style="width: 28px; height: 28px;"></i>
+                    </div>
+                    <p class="mb-0">尚无轮转模板。</p>
+                    <small class="text-muted">请在上方使用预设班次或自定义时段创建每日轮转模板。</small>
+                </div>
             }
             else
             {
-                <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>模板</th><th>本地时段</th><th>轮转顺序</th><th class="text-end">操作</th></tr></thead><tbody>
-                    @foreach (var template in Model.Templates)
-                    {
-                        var members = Model.TemplateMembers.Where(item => item.TemplateId == template.Id).OrderBy(item => item.RotationOrder).ToList();
-                        <tr>
-                            <td><strong>@template.Name</strong></td>
-                            <td><code>@TimeOnly.FromTimeSpan(TimeSpan.FromMinutes(template.StartMinuteOfDay)).ToString("HH:mm") + @template.DurationMinutes 分钟</code></td>
-                            <td>@(members.Count == 0 ? "未配置成员" : string.Join(" → ", members.Select(item => item.User.DisplayName)))</td>
-                            <td class="text-end"><form asp-action="DeleteTemplate" method="post" onsubmit="return confirm('确定删除模板吗？');"><input type="hidden" name="id" value="@template.Id" /><button class="btn btn-sm btn-outline-danger">删除</button></form></td>
-                        </tr>
-                    }
-                </tbody></table></div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 card-table">
+                        <thead class="table-light">
+                            <tr>
+                                <th>模板</th>
+                                <th>本地时段</th>
+                                <th>轮转顺序</th>
+                                <th class="text-end">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var template in Model.Templates)
+                            {
+                                var members = Model.TemplateMembers.Where(item => item.TemplateId == template.Id).OrderBy(item => item.RotationOrder).ToList();
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="ac-app-avatar" style="width: 28px; height: 28px; font-size: 0.75rem;">
+                                                <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                                            </div>
+                                            <strong class="text-primary">@template.Name</strong>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="ac-time-chip">
+                                            <code>@TimeOnly.FromTimeSpan(TimeSpan.FromMinutes(template.StartMinuteOfDay)).ToString("HH:mm") + @template.DurationMinutes 分钟</code>
+                                        </span>
+                                        <span class="badge bg-light text-muted border ms-1">@Math.Round(template.DurationMinutes / 60.0, 1) 小时</span>
+                                    </td>
+                                    <td>
+                                        @if (members.Count == 0)
+                                        {
+                                            <span class="text-muted small">未配置成员</span>
+                                        }
+                                        else
+                                        {
+                                            <div class="ac-rotation-flow">
+                                                @for (int i = 0; i < members.Count; i++)
+                                                {
+                                                    <span class="ac-rotation-member">
+                                                        <span class="ac-app-avatar" style="width: 20px; height: 20px; font-size: 0.65rem;">@GetInitial(members[i].User.DisplayName)</span>
+                                                        <span>@members[i].User.DisplayName</span>
+                                                    </span>
+                                                    @if (i < members.Count - 1)
+                                                    {
+                                                        <span class="ac-rotation-arrow"><i data-lucide="arrow-right" style="width: 12px; height: 12px;"></i></span>
+                                                    }
+                                                }
+                                            </div>
+                                        }
+                                    </td>
+                                    <td class="text-end">
+                                        <form asp-action="DeleteTemplate" method="post" class="d-inline" onsubmit="return confirm('确定删除模板吗？');">
+                                            <input type="hidden" name="id" value="@template.Id" />
+                                            <button class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1">
+                                                <i data-lucide="trash-2" style="width: 13px; height: 13px;"></i>
+                                                <span>删除</span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             }
         </div>
     </section>
+}
+
+@section scripts {
+    <script>
+        function setTemplatePreset(name, startMinute, duration) {
+            const nameInput = document.getElementById('template-name');
+            const startInput = document.getElementById('template-start');
+            const durationInput = document.getElementById('template-duration');
+            if (nameInput) nameInput.value = name;
+            if (startInput) startInput.value = startMinute;
+            if (durationInput) durationInput.value = duration;
+            updateTimeHint();
+        }
+
+        function updateTimeHint() {
+            const startInput = document.getElementById('template-start');
+            const durationInput = document.getElementById('template-duration');
+            const startHint = document.getElementById('start-minute-hint');
+            const durationHint = document.getElementById('duration-minute-hint');
+            if (startInput && startHint) {
+                const val = parseInt(startInput.value) || 0;
+                const hours = Math.floor(val / 60) % 24;
+                const mins = val % 60;
+                startHint.textContent = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')} (00:00 = 0，08:00 = 480)`;
+            }
+            if (durationInput && durationHint) {
+                const val = parseInt(durationInput.value) || 0;
+                durationHint.textContent = `${val} 分钟 (${(val / 60).toFixed(1)} 小时)`;
+            }
+        }
+    </script>
 }

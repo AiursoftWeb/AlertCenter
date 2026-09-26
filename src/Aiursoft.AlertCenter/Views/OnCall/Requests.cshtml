@@ -5,61 +5,185 @@
     var group = Model.Group;
     var zone = group == null ? TimeZoneInfo.Utc : TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
     DateTime Local(DateTime utc) => TimeZoneInfo.ConvertTimeFromUtc(utc, zone);
+    string GetInitial(string? name) => string.IsNullOrWhiteSpace(name) ? "?" : name[..1].ToUpperInvariant();
 }
-@section styles { <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" /> }
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
 <partial name="_AdminNavigation" model="Model" />
+
 @if (group != null)
 {
+    <!-- Admin Submit Leave Request Section -->
     <section class="card shadow-sm border-0 mb-4">
-        <div class="card-header bg-transparent"><h2 class="h5 mb-0">代提交请假</h2></div>
-        <div class="card-body">
+        <div class="card-header bg-transparent border-bottom py-3">
+            <h2 class="h5 mb-0 d-flex align-items-center gap-2">
+                <i data-lucide="calendar-plus" class="text-primary" style="width: 18px; height: 18px;"></i>
+                <span>代提交请假</span>
+            </h2>
+        </div>
+        <div class="card-body p-4">
             <form asp-action="RequestLeave" method="post" class="row g-3 align-items-end">
                 <input type="hidden" name="groupId" value="@group.Id" />
-                <div class="col-lg-3"><label for="leave-user" class="form-label">请假工程师</label><select id="leave-user" name="userId" class="form-select" required><option value="">选择成员</option>@foreach (var member in Model.Members) { <option value="@member.UserId">@member.User.DisplayName</option> }</select></div>
-                <div class="col-lg-2 col-sm-6"><label for="leave-start" class="form-label">开始 (@group.TimeZoneId)</label><input id="leave-start" name="startsAtLocal" type="datetime-local" class="form-control" required /></div>
-                <div class="col-lg-2 col-sm-6"><label for="leave-end" class="form-label">结束 (@group.TimeZoneId)</label><input id="leave-end" name="endsAtLocal" type="datetime-local" class="form-control" required /></div>
-                <div class="col-lg-3"><label for="leave-reason" class="form-label">原因</label><input id="leave-reason" name="reason" maxlength="1000" class="form-control" required /></div>
-                <div class="col-lg-2"><button class="btn btn-primary w-100">提交申请</button></div>
+                <div class="col-lg-3">
+                    <label for="leave-user" class="form-label small fw-medium text-muted mb-1">请假工程师</label>
+                    <select id="leave-user" name="userId" class="form-select" required>
+                        <option value="">选择成员</option>
+                        @foreach (var member in Model.Members)
+                        {
+                            <option value="@member.UserId">@member.User.DisplayName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <label for="leave-start" class="form-label small fw-medium text-muted mb-1">开始 (@group.TimeZoneId)</label>
+                    <input id="leave-start" name="startsAtLocal" type="datetime-local" class="form-control" required />
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <label for="leave-end" class="form-label small fw-medium text-muted mb-1">结束 (@group.TimeZoneId)</label>
+                    <input id="leave-end" name="endsAtLocal" type="datetime-local" class="form-control" required />
+                </div>
+                <div class="col-lg-3">
+                    <label for="leave-reason" class="form-label small fw-medium text-muted mb-1">原因</label>
+                    <input id="leave-reason" name="reason" maxlength="1000" class="form-control" placeholder="填写请假原因" required />
+                </div>
+                <div class="col-lg-2">
+                    <button class="btn btn-primary w-100 d-inline-flex align-items-center justify-content-center gap-1.5" style="height: 38px;">
+                        <i data-lucide="send" style="width: 15px; height: 15px;"></i>
+                        <span>提交申请</span>
+                    </button>
+                </div>
             </form>
-            <p class="small text-muted mt-3 mb-0">批准前，请先在 <a asp-action="Schedule" asp-route-id="@group.Id">排班与覆盖</a> 为请假时段内的本人班次安排完整代班。</p>
+            <div class="p-3 bg-light rounded-3 border mt-3 small text-muted">
+                <i data-lucide="info" style="width: 14px; height: 14px;" class="me-1 text-primary"></i>
+                <span>批准前，请先在 <a asp-action="Schedule" asp-route-id="@group.Id" class="fw-semibold">排班与覆盖</a> 为请假时段内的本人班次安排完整代班。</span>
+            </div>
         </div>
     </section>
+
+    <!-- Requests Review Section -->
     <div class="row g-4">
-        <div class="col-lg-6"><section class="card shadow-sm border-0 h-100">
-            <div class="card-header bg-transparent d-flex justify-content-between align-items-center"><h2 class="h5 mb-0">待审批请假</h2><span class="badge bg-secondary-subtle text-secondary">@Model.PendingLeaveCount 待审批</span></div>
-            <div class="card-body">
-                @if (Model.LeaveRequests.Count == 0) { <p class="text-muted">暂无待审批请假申请。</p> }
-                @foreach (var leave in Model.LeaveRequests)
-                {
-                    <div class="border-bottom py-3">
-                        <div class="d-flex justify-content-between gap-2"><strong>@(leave.User?.DisplayName ?? "未知")</strong><span class="badge bg-secondary-subtle text-secondary">@leave.Status</span></div>
-                        <div class="small text-muted">@Local(leave.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(leave.EndsAtUtc).ToString("MM-dd HH:mm") · @leave.Reason</div>
-                        @if (leave.Status == OnCallLeaveRequest.Pending)
-                        {
-                            <form asp-action="ReviewLeave" method="post" class="d-flex gap-2 mt-2"><input type="hidden" name="id" value="@leave.Id" /><button name="approve" value="true" class="btn btn-sm btn-success">批准</button><button name="approve" value="false" class="btn btn-sm btn-outline-danger">拒绝</button></form>
-                        }
-                    </div>
-                }
-            </div>
-        </section></div>
-        <div class="col-lg-6"><section class="card shadow-sm border-0 h-100">
-            <div class="card-header bg-transparent d-flex justify-content-between align-items-center"><h2 class="h5 mb-0">待确认交接</h2><span class="badge bg-secondary-subtle text-secondary">@Model.PendingHandoverCount 待确认</span></div>
-            <div class="card-body">
-                <p class="small text-muted">成员可在值班概览中对本人班次申请交接；接班人确认后将生成 <a asp-action="Debts" asp-route-id="@group.Id">补班债务</a>。</p>
-                @if (Model.HandoverRequests.Count == 0) { <p class="text-muted">暂无待确认的交接申请。</p> }
-                @foreach (var handover in Model.HandoverRequests)
-                {
-                    <div class="border-bottom py-3">
-                        <div class="d-flex justify-content-between gap-2"><strong>@(handover.RequestedByUser?.DisplayName ?? "未知") → @(handover.ReceivingUser?.DisplayName ?? "未知")</strong><span class="badge bg-secondary-subtle text-secondary">@handover.Status</span></div>
-                        <div class="small text-muted">@Local(handover.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(handover.EndsAtUtc).ToString("MM-dd HH:mm")</div>
-                        @if (!string.IsNullOrWhiteSpace(handover.Note)) { <div class="small text-muted">说明：@handover.Note</div> }
-                        @if (handover.Status == OnCallHandoverRequest.Pending)
-                        {
-                            <form asp-action="ReviewHandover" method="post" class="d-flex gap-2 mt-2"><input type="hidden" name="id" value="@handover.Id" /><button name="confirm" value="true" class="btn btn-sm btn-success">确认接班</button><button name="confirm" value="false" class="btn btn-sm btn-outline-danger">拒绝</button></form>
-                        }
-                    </div>
-                }
-            </div>
-        </section></div>
+        <!-- Leave Requests Column -->
+        <div class="col-lg-6">
+            <section class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
+                    <h2 class="h5 mb-0 d-flex align-items-center gap-2">
+                        <i data-lucide="calendar-x-2" class="text-primary" style="width: 18px; height: 18px;"></i>
+                        <span>待审批请假</span>
+                    </h2>
+                    <span class="badge @(Model.PendingLeaveCount > 0 ? "bg-danger text-white" : "bg-secondary-subtle text-secondary") border">
+                        @Model.PendingLeaveCount 待审批
+                    </span>
+                </div>
+                <div class="card-body p-4">
+                    @if (Model.LeaveRequests.Count == 0)
+                    {
+                        <div class="p-4 text-center text-muted">
+                            <p class="mb-0">暂无待审批请假申请。</p>
+                        </div>
+                    }
+                    @foreach (var leave in Model.LeaveRequests)
+                    {
+                        <div class="card border mb-3 shadow-none">
+                            <div class="card-body p-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="ac-app-avatar" style="width: 28px; height: 28px; font-size: 0.75rem;">@GetInitial(leave.User?.DisplayName)</span>
+                                        <strong>@(leave.User?.DisplayName ?? "未知")</strong>
+                                    </div>
+                                    @if (leave.Status == OnCallLeaveRequest.Pending)
+                                    {
+                                        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">@leave.Status</span>
+                                    }
+                                    else if (leave.Status == OnCallLeaveRequest.Approved)
+                                    {
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle">@leave.Status</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary-subtle text-secondary border">@leave.Status</span>
+                                    }
+                                </div>
+                                <div class="small text-muted mt-1">
+                                    <i data-lucide="clock" style="width: 12px; height: 12px;" class="me-1"></i>
+                                    @Local(leave.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(leave.EndsAtUtc).ToString("MM-dd HH:mm") · @leave.Reason
+                                </div>
+                                @if (leave.Status == OnCallLeaveRequest.Pending)
+                                {
+                                    <form asp-action="ReviewLeave" method="post" class="d-flex gap-2 mt-3 pt-2 border-top">
+                                        <input type="hidden" name="id" value="@leave.Id" />
+                                        <button name="approve" value="true" class="btn btn-sm btn-success d-inline-flex align-items-center gap-1">
+                                            <i data-lucide="check" style="width: 13px; height: 13px;"></i>
+                                            <span>批准</span>
+                                        </button>
+                                        <button name="approve" value="false" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1">
+                                            <i data-lucide="x" style="width: 13px; height: 13px;"></i>
+                                            <span>拒绝</span>
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
+
+        <!-- Handover Requests Column -->
+        <div class="col-lg-6">
+            <section class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
+                    <h2 class="h5 mb-0 d-flex align-items-center gap-2">
+                        <i data-lucide="arrow-left-right" class="text-primary" style="width: 18px; height: 18px;"></i>
+                        <span>待确认交接</span>
+                    </h2>
+                    <span class="badge @(Model.PendingHandoverCount > 0 ? "bg-danger text-white" : "bg-secondary-subtle text-secondary") border">
+                        @Model.PendingHandoverCount 待确认
+                    </span>
+                </div>
+                <div class="card-body p-4">
+                    <p class="small text-muted mb-3">成员可在值班概览中对本人班次申请交接；接班人确认后将生成 <a asp-action="Debts" asp-route-id="@group.Id" class="fw-semibold">补班债务</a>。</p>
+                    @if (Model.HandoverRequests.Count == 0)
+                    {
+                        <div class="p-4 text-center text-muted">
+                            <p class="mb-0">暂无待确认的交接申请。</p>
+                        </div>
+                    }
+                    @foreach (var handover in Model.HandoverRequests)
+                    {
+                        <div class="card border mb-3 shadow-none">
+                            <div class="card-body p-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <div class="fw-bold">@(handover.RequestedByUser?.DisplayName ?? "未知") → @(handover.ReceivingUser?.DisplayName ?? "未知")</div>
+                                    <span class="badge bg-secondary-subtle text-secondary border">@handover.Status</span>
+                                </div>
+                                <div class="small text-muted">
+                                    <i data-lucide="clock" style="width: 12px; height: 12px;" class="me-1"></i>
+                                    @Local(handover.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(handover.EndsAtUtc).ToString("MM-dd HH:mm")
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(handover.Note))
+                                {
+                                    <div class="small text-muted mt-1 p-2 bg-light rounded border">说明：@handover.Note</div>
+                                }
+                                @if (handover.Status == OnCallHandoverRequest.Pending)
+                                {
+                                    <form asp-action="ReviewHandover" method="post" class="d-flex gap-2 mt-3 pt-2 border-top">
+                                        <input type="hidden" name="id" value="@handover.Id" />
+                                        <button name="confirm" value="true" class="btn btn-sm btn-success d-inline-flex align-items-center gap-1">
+                                            <i data-lucide="check" style="width: 13px; height: 13px;"></i>
+                                            <span>确认接班</span>
+                                        </button>
+                                        <button name="confirm" value="false" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1">
+                                            <i data-lucide="x" style="width: 13px; height: 13px;"></i>
+                                            <span>拒绝</span>
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </section>
+        </div>
     </div>
 }

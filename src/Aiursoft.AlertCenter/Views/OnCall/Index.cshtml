@@ -5,6 +5,7 @@
     var timeZone = group == null ? TimeZoneInfo.Utc : TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
     var localNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
     DateTime Local(DateTime utc) => TimeZoneInfo.ConvertTimeFromUtc(utc, timeZone);
+    string GetInitial(string? name) => string.IsNullOrWhiteSpace(name) ? "?" : name[..1].ToUpperInvariant();
 }
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
@@ -12,43 +13,59 @@
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h1 class="h3 mb-1">值班</h1>
-        <p class="text-muted mb-0">查看当前 OCE、今日班次和未来排班。所有排班以组时区显示。</p>
+        <div class="d-flex align-items-center gap-2 mb-1">
+            <h1 class="h3 mb-0">值班中心</h1>
+            @if (group != null)
+            {
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1 fs-6 fw-normal d-inline-flex align-items-center gap-1">
+                    <i data-lucide="shield-check" style="width: 14px; height: 14px;"></i>
+                    <span>@group.Name</span>
+                </span>
+            }
+        </div>
+        <p class="text-muted mb-0 small">查看当前 OCE、今日班次和未来排班。所有排班以组时区显示。</p>
     </div>
     @if (User.IsInRole("Administrators"))
     {
-        <a asp-action="Manage" asp-route-id="@group?.Id" class="btn btn-primary">
-            <i class="align-middle me-1" data-lucide="settings-2" aria-hidden="true"></i>管理值班
+        <a asp-action="Manage" asp-route-id="@group?.Id" class="btn btn-primary d-inline-flex align-items-center gap-1.5">
+            <i class="align-middle me-1" data-lucide="settings-2" aria-hidden="true" style="width: 16px; height: 16px;"></i>
+            <span>管理值班</span>
         </a>
     }
 </div>
 
 @if (!string.IsNullOrEmpty(Model.OperationError))
 {
-    <div class="alert alert-danger d-flex align-items-start gap-2 mb-4" role="alert">
-        <i data-lucide="circle-alert" class="flex-shrink-0 mt-1" aria-hidden="true"></i>
-        <div><strong>操作未完成</strong><div>@Model.OperationError</div></div>
+    <div class="alert alert-danger d-flex align-items-start gap-2.5 mb-4 shadow-sm border-0 border-start border-danger border-4" role="alert">
+        <i data-lucide="circle-alert" class="flex-shrink-0 text-danger mt-1" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+        <div>
+            <strong class="d-block mb-0.5">操作未完成</strong>
+            <div class="small">@Model.OperationError</div>
+        </div>
     </div>
 }
 
 @if (Model.Groups.Count == 0)
 {
-    <div class="card ac-empty-state">
-        <div class="ac-empty-icon"><i data-lucide="calendar-clock" aria-hidden="true"></i></div>
-        <h2 class="h5">尚未创建值班组</h2>
+    <div class="card ac-empty-state shadow-sm border-0">
+        <div class="ac-empty-icon mb-3"><i data-lucide="calendar-clock" aria-hidden="true" style="width: 32px; height: 32px;"></i></div>
+        <h2 class="h5 fw-bold">尚未创建值班组</h2>
         <p class="text-muted mb-3">管理员创建值班组、添加成员并发布排班后，此处将显示当班工程师。</p>
         @if (User.IsInRole("Administrators"))
         {
-            <a asp-action="Manage" asp-route-id="00000000-0000-0000-0000-000000000000" class="btn btn-primary">创建第一个值班组</a>
+            <a asp-action="Manage" asp-route-id="00000000-0000-0000-0000-000000000000" class="btn btn-primary d-inline-flex align-items-center gap-1.5">
+                <i data-lucide="plus" style="width: 15px; height: 15px;"></i>
+                <span>创建第一个值班组</span>
+            </a>
         }
     </div>
 }
 else if (group != null)
 {
-    <form asp-action="Index" method="get" class="card mb-4">
-        <div class="card-body row g-3 align-items-end">
+    <form asp-action="Index" method="get" class="card shadow-sm border-0 mb-4 bg-light-subtle">
+        <div class="card-body p-3 row g-3 align-items-end">
             <div class="col-md-5">
-                <label for="groupId" class="form-label small fw-medium">值班组</label>
+                <label for="groupId" class="form-label small fw-semibold text-muted mb-1">值班组</label>
                 <select id="groupId" name="groupId" class="form-select" onchange="this.form.submit()">
                     @foreach (var item in Model.Groups)
                     {
@@ -57,66 +74,98 @@ else if (group != null)
                 </select>
             </div>
             <div class="col-md-4">
-                <label for="date" class="form-label small fw-medium">查看日期（@group.TimeZoneId）</label>
+                <label for="date" class="form-label small fw-semibold text-muted mb-1">查看日期（@group.TimeZoneId）</label>
                 <input id="date" name="date" type="date" value="@Local(Model.DisplayStartUtc).ToString("yyyy-MM-dd")" class="form-control" />
             </div>
-            <div class="col-md-auto"><button class="btn btn-outline-primary">查看日程</button></div>
+            <div class="col-md-auto">
+                <button class="btn btn-outline-primary d-inline-flex align-items-center gap-1.5">
+                    <i data-lucide="search" style="width: 14px; height: 14px;"></i>
+                    <span>查看日程</span>
+                </button>
+            </div>
         </div>
     </form>
 
     <div class="row g-4 mb-4">
+        <!-- Current OCE Card -->
         <div class="col-lg-5">
-            <section class="card h-100">
-                <div class="card-header bg-transparent d-flex align-items-center gap-2">
-                    <i class="align-middle text-primary" data-lucide="radio-tower" aria-hidden="true"></i>
+            <section class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-transparent border-bottom py-3 d-flex align-items-center gap-2">
+                    <i class="align-middle text-primary" data-lucide="radio-tower" aria-hidden="true" style="width: 18px; height: 18px;"></i>
                     <h2 class="card-title h5 mb-0">当前 OCE</h2>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     @if (Model.CurrentEngineer != null)
                     {
                         <div class="d-flex align-items-center gap-3">
-                            <div class="ac-app-avatar">@Model.CurrentEngineer.DisplayName[..1].ToUpperInvariant()</div>
+                            <div class="ac-app-avatar" style="width: 44px; height: 44px; font-size: 1.1rem;">@GetInitial(Model.CurrentEngineer.DisplayName)</div>
                             <div>
-                                <strong class="d-block">@Model.CurrentEngineer.DisplayName</strong>
+                                <strong class="d-block fs-5">@Model.CurrentEngineer.DisplayName</strong>
                                 <span class="text-muted small font-monospace">@(Model.CurrentEngineer.Email ?? "未配置邮箱")</span>
                                 @if (Model.CurrentEngineer.IsOverride)
                                 {
-                                    <span class="badge bg-warning-subtle text-warning-emphasis border ms-2">临时覆盖</span>
+                                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle ms-2">临时覆盖</span>
                                 }
                             </div>
                         </div>
-                        <hr />
-                        <div class="small text-muted">班次：@TimeZoneInfo.ConvertTimeFromUtc(Model.CurrentEngineer.StartsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("MM-dd HH:mm") – @TimeZoneInfo.ConvertTimeFromUtc(Model.CurrentEngineer.EndsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("MM-dd HH:mm")</div>
+                        <hr class="my-3" />
+                        <div class="small text-muted d-flex align-items-center gap-1.5">
+                            <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                            <span>班次：@TimeZoneInfo.ConvertTimeFromUtc(Model.CurrentEngineer.StartsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("MM-dd HH:mm") – @TimeZoneInfo.ConvertTimeFromUtc(Model.CurrentEngineer.EndsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("MM-dd HH:mm")</span>
+                        </div>
                     }
                     else
                     {
-                        <div class="alert alert-danger mb-0"><i class="align-middle me-1" data-lucide="triangle-alert"></i>当前没有可用 OCE。请检查已发布排班。</div>
+                        <div class="alert alert-danger mb-0 d-flex align-items-center gap-2 border-0 shadow-sm" role="alert">
+                            <i class="align-middle text-danger flex-shrink-0" data-lucide="triangle-alert" style="width: 18px; height: 18px;"></i>
+                            <span>当前没有可用 OCE。请检查已发布排班。</span>
+                        </div>
                     }
                 </div>
             </section>
         </div>
+
+        <!-- Today Shifts Card -->
         <div class="col-lg-7">
-            <section class="card h-100">
-                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-                    <h2 class="card-title h5 mb-0">今日班次</h2>
-                    <span class="badge bg-secondary-subtle text-secondary border">@group.TimeZoneId</span>
+            <section class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
+                    <h2 class="card-title h5 mb-0 d-flex align-items-center gap-2">
+                        <i data-lucide="calendar" class="text-primary" style="width: 18px; height: 18px;"></i>
+                        <span>今日班次</span>
+                    </h2>
+                    <span class="badge bg-secondary-subtle text-secondary border font-monospace">@group.TimeZoneId</span>
                 </div>
                 <div class="list-group list-group-flush">
                     @if (Model.Shifts.Count == 0)
                     {
-                        <div class="list-group-item text-muted py-4 text-center">所选日期没有已发布班次。</div>
+                        <div class="list-group-item text-muted py-5 text-center">
+                            <div class="ac-empty-icon mb-2" style="width: 48px; height: 48px;">
+                                <i data-lucide="calendar-off" style="width: 22px; height: 22px;"></i>
+                            </div>
+                            <p class="mb-0">所选日期没有已发布班次。</p>
+                        </div>
                     }
                     @foreach (var shift in Model.Shifts)
                     {
                         var overrides = Model.Overrides.Where(item => item.OriginalShiftId == shift.Id).ToList();
-                        <div class="list-group-item py-3">
+                        <div class="list-group-item py-3 px-4">
                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-                                <div><strong>@shift.User.DisplayName</strong><span class="text-muted ms-2 small">原班次</span></div>
-                                <code>@TimeZoneInfo.ConvertTimeFromUtc(shift.StartsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm") – @TimeZoneInfo.ConvertTimeFromUtc(shift.EndsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm")</code>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="ac-app-avatar" style="width: 28px; height: 28px; font-size: 0.75rem;">@GetInitial(shift.User?.DisplayName)</span>
+                                    <strong>@(shift.User?.DisplayName ?? "未知")</strong>
+                                    <span class="badge bg-light text-muted border small">原班次</span>
+                                </div>
+                                <span class="ac-time-chip">
+                                    <i data-lucide="clock" style="width: 12px; height: 12px;" class="text-muted"></i>
+                                    <code>@TimeZoneInfo.ConvertTimeFromUtc(shift.StartsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm") – @TimeZoneInfo.ConvertTimeFromUtc(shift.EndsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm")</code>
+                                </span>
                             </div>
                             @foreach (var item in overrides)
                             {
-                                <div class="small text-warning-emphasis mt-2"><i class="align-middle me-1" data-lucide="replace"></i>@item.CoveringUser.DisplayName 覆盖 @TimeZoneInfo.ConvertTimeFromUtc(item.StartsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm") – @TimeZoneInfo.ConvertTimeFromUtc(item.EndsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm")：@item.Reason</div>
+                                <div class="small text-warning-emphasis mt-2 p-2 bg-warning-subtle rounded border border-warning-subtle d-flex align-items-center gap-1.5">
+                                    <i class="align-middle" data-lucide="replace" style="width: 14px; height: 14px;"></i>
+                                    <span><strong>@(item.CoveringUser?.DisplayName ?? "未知")</strong> 覆盖 @TimeZoneInfo.ConvertTimeFromUtc(item.StartsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm") – @TimeZoneInfo.ConvertTimeFromUtc(item.EndsAtUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("HH:mm")：@item.Reason</span>
+                                </div>
                             }
                         </div>
                     }
@@ -125,42 +174,96 @@ else if (group != null)
         </div>
     </div>
 
+    <!-- Request Leave & Handover Section -->
     <div class="row g-4">
         <div class="col-lg-6">
-            <section class="card h-100">
-                <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">申请请假</h2></div>
-                <div class="card-body">
+            <section class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-transparent border-bottom py-3">
+                    <h2 class="card-title h5 mb-0 d-flex align-items-center gap-2">
+                        <i data-lucide="calendar-x-2" class="text-primary" style="width: 18px; height: 18px;"></i>
+                        <span>申请请假</span>
+                    </h2>
+                </div>
+                <div class="card-body p-4">
                     <form asp-action="RequestLeave" method="post" class="row g-3">
                         <input type="hidden" name="groupId" value="@group.Id" />
                         <input type="hidden" name="userId" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value" />
-                        <div class="col-md-6"><label class="form-label small">开始时间（@group.TimeZoneId）</label><input name="startsAtLocal" type="datetime-local" class="form-control" required /></div>
-                        <div class="col-md-6"><label class="form-label small">结束时间（@group.TimeZoneId）</label><input name="endsAtLocal" type="datetime-local" class="form-control" required /></div>
-                        <div class="col-12"><label class="form-label small">原因</label><input name="reason" maxlength="1000" class="form-control" required /></div>
-                        <div class="col-12"><button class="btn btn-outline-primary">提交请假申请</button></div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-medium text-muted mb-1">开始时间（@group.TimeZoneId）</label>
+                            <input name="startsAtLocal" type="datetime-local" class="form-control" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-medium text-muted mb-1">结束时间（@group.TimeZoneId）</label>
+                            <input name="endsAtLocal" type="datetime-local" class="form-control" required />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-medium text-muted mb-1">原因</label>
+                            <input name="reason" maxlength="1000" class="form-control" placeholder="说明请假原因" required />
+                        </div>
+                        <div class="col-12 pt-2">
+                            <button class="btn btn-outline-primary d-inline-flex align-items-center gap-1.5">
+                                <i data-lucide="send" style="width: 14px; height: 14px;"></i>
+                                <span>提交请假申请</span>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </section>
         </div>
         <div class="col-lg-6">
-            <section class="card h-100">
-                <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">我的班次交接</h2></div>
-                <div class="card-body">
+            <section class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-transparent border-bottom py-3">
+                    <h2 class="card-title h5 mb-0 d-flex align-items-center gap-2">
+                        <i data-lucide="arrow-left-right" class="text-primary" style="width: 18px; height: 18px;"></i>
+                        <span>我的班次交接</span>
+                    </h2>
+                </div>
+                <div class="card-body p-4">
                     @{ var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value; var myShifts = Model.Shifts.Where(item => item.UserId == currentUserId).ToList(); }
                     @if (myShifts.Count == 0)
                     {
-                        <p class="text-muted mb-0">所选日期没有分配给你的班次。</p>
+                        <div class="p-4 text-center text-muted">
+                            <p class="mb-0">所选日期没有分配给你的班次。</p>
+                        </div>
                     }
                     @foreach (var shift in myShifts)
                     {
-                        <form asp-action="RequestHandover" method="post" class="border rounded p-3 mb-3">
-                            <input type="hidden" name="shiftId" value="@shift.Id" />
-                            <div class="small text-muted mb-2">@Local(shift.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(shift.EndsAtUtc).ToString("MM-dd HH:mm")</div>
-                            <div class="row g-2">
-                                <div class="col-md-4"><select name="receivingUserId" class="form-select form-select-sm" required><option value="">选择接班人</option>@foreach (var member in Model.Members.Where(item => item.UserId != shift.UserId)){<option value="@member.UserId">@member.User.DisplayName</option>}</select></div>
-                                <div class="col-md-4"><input name="startsAtLocal" type="datetime-local" value="@Local(shift.StartsAtUtc).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required /></div>
-                                <div class="col-md-4"><input name="endsAtLocal" type="datetime-local" value="@Local(shift.EndsAtUtc).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required /></div>
-                                <div class="col-md-9"><input name="note" maxlength="1000" class="form-control form-control-sm" placeholder="交接说明（可选）" /></div>
-                                <div class="col-md-3"><button class="btn btn-sm btn-outline-primary w-100">发起交接</button></div>
+                        <form asp-action="RequestHandover" method="post" class="card border mb-3 shadow-none">
+                            <div class="card-body p-3">
+                                <input type="hidden" name="shiftId" value="@shift.Id" />
+                                <div class="small fw-semibold text-muted mb-2 d-flex align-items-center gap-1">
+                                    <i data-lucide="clock" style="width: 13px; height: 13px;"></i>
+                                    <span>@Local(shift.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(shift.EndsAtUtc).ToString("MM-dd HH:mm")</span>
+                                </div>
+                                <div class="row g-2 align-items-end">
+                                    <div class="col-md-4">
+                                        <label class="form-label small text-muted mb-1">选择接班人</label>
+                                        <select name="receivingUserId" class="form-select form-select-sm" required>
+                                            <option value="">选择接班人</option>
+                                            @foreach (var member in Model.Members.Where(item => item.UserId != shift.UserId))
+                                            {
+                                                <option value="@member.UserId">@member.User.DisplayName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <label class="form-label small text-muted mb-1">开始时间</label>
+                                        <input name="startsAtLocal" type="datetime-local" value="@Local(shift.StartsAtUtc).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required />
+                                    </div>
+                                    <div class="col-md-4 col-sm-6">
+                                        <label class="form-label small text-muted mb-1">结束时间</label>
+                                        <input name="endsAtLocal" type="datetime-local" value="@Local(shift.EndsAtUtc).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required />
+                                    </div>
+                                    <div class="col-md-9 mt-2">
+                                        <input name="note" maxlength="1000" class="form-control form-control-sm" placeholder="交接说明（可选）" />
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <button class="btn btn-sm btn-outline-primary w-100 d-inline-flex align-items-center justify-content-center gap-1">
+                                            <i data-lucide="send" style="width: 13px; height: 13px;"></i>
+                                            <span>发起交接</span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     }
@@ -169,31 +272,60 @@ else if (group != null)
         </div>
     </div>
 
-    <section class="card mt-4">
-        <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">待我确认的交接</h2></div>
-        <div class="card-body">
+    <!-- Incoming Handovers Pending My Confirmation Section -->
+    <section class="card shadow-sm border-0 mt-4">
+        <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
+            <h2 class="card-title h5 mb-0 d-flex align-items-center gap-2">
+                <i data-lucide="bell" class="text-primary" style="width: 18px; height: 18px;"></i>
+                <span>待我确认的交接</span>
+            </h2>
+            @if (Model.IncomingHandovers.Count > 0)
+            {
+                <span class="badge bg-danger rounded-pill">@Model.IncomingHandovers.Count 笔待确认</span>
+            }
+        </div>
+        <div class="card-body p-4">
             @if (Model.IncomingHandovers.Count == 0)
             {
                 <p class="text-muted mb-0">暂无待确认的交接申请。</p>
             }
             @foreach (var handover in Model.IncomingHandovers)
             {
-                <div class="border rounded p-3 mb-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
-                    <div>
-                        <strong>@(handover.RequestedByUser?.DisplayName ?? "未知") → 你</strong>
-                        <div class="small text-muted">@Local(handover.StartsAtUtc).ToString("yyyy-MM-dd HH:mm") – @Local(handover.EndsAtUtc).ToString("yyyy-MM-dd HH:mm")</div>
-                        @if (!string.IsNullOrWhiteSpace(handover.Note)) { <div class="small">@handover.Note</div> }
+                <div class="card border mb-2 shadow-none">
+                    <div class="card-body p-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
+                        <div>
+                            <div class="fw-bold fs-6">@(handover.RequestedByUser?.DisplayName ?? "未知") → 你</div>
+                            <div class="small text-muted font-monospace mt-0.5">
+                                <i data-lucide="clock" style="width: 12px; height: 12px;" class="me-1"></i>
+                                @Local(handover.StartsAtUtc).ToString("yyyy-MM-dd HH:mm") – @Local(handover.EndsAtUtc).ToString("yyyy-MM-dd HH:mm")
+                            </div>
+                            @if (!string.IsNullOrWhiteSpace(handover.Note))
+                            {
+                                <div class="small text-muted mt-1 p-2 bg-light rounded border">说明：@handover.Note</div>
+                            }
+                        </div>
+                        <form asp-action="ReviewHandover" method="post" class="d-flex gap-2">
+                            <input type="hidden" name="id" value="@handover.Id" />
+                            <button name="confirm" value="true" class="btn btn-sm btn-success d-inline-flex align-items-center gap-1">
+                                <i data-lucide="check" style="width: 13px; height: 13px;"></i>
+                                <span>确认接班</span>
+                            </button>
+                            <button name="confirm" value="false" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1">
+                                <i data-lucide="x" style="width: 13px; height: 13px;"></i>
+                                <span>拒绝</span>
+                            </button>
+                        </form>
                     </div>
-                    <form asp-action="ReviewHandover" method="post" class="d-flex gap-2">
-                        <input type="hidden" name="id" value="@handover.Id" />
-                        <button name="confirm" value="true" class="btn btn-sm btn-success">确认接班</button>
-                        <button name="confirm" value="false" class="btn btn-sm btn-outline-danger">拒绝</button>
-                    </form>
                 </div>
             }
             @if (User.IsInRole("Administrators"))
             {
-                <a asp-action="Requests" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary mt-2">查看全部待审申请（请假 @Model.PendingLeaveCount、交接 @Model.PendingHandoverCount）</a>
+                <div class="mt-3 pt-2 border-top">
+                    <a asp-action="Requests" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1">
+                        <i data-lucide="external-link" style="width: 13px; height: 13px;"></i>
+                        <span>查看全部待审申请（请假 @Model.PendingLeaveCount、交接 @Model.PendingHandoverCount）</span>
+                    </a>
+                </div>
             }
         </div>
     </section>
