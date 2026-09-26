@@ -86,6 +86,33 @@ else if (group != null)
         </div>
     </form>
 
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card ac-stat-card h-100 mb-0 shadow-sm border-0">
+                <div class="card-body p-3">
+                    <span class="text-muted small">团队与轮转</span>
+                    <strong class="d-block">@Model.Members.Count 位成员 · @Model.Templates.Count 个模板</strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card ac-stat-card h-100 mb-0 shadow-sm border-0">
+                <div class="card-body p-3">
+                    <span class="text-muted small">待处理申请</span>
+                    <strong class="d-block">@(Model.PendingLeaveCount + Model.PendingHandoverCount) 笔</strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card ac-stat-card h-100 mb-0 shadow-sm border-0">
+                <div class="card-body p-3">
+                    <span class="text-muted small">待偿还补班债务</span>
+                    <strong class="d-block">@Model.UnsettledDebtCount 笔</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row g-4 mb-4">
         <!-- Current OCE Card -->
         <div class="col-lg-5">

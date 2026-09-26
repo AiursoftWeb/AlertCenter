@@ -14,17 +14,18 @@ namespace Aiursoft.AlertCenter.Controllers;
 public class OnCallController(TemplateDbContext db, IOnCallScheduleService scheduleService,
     IApplicationAccessService applicationAccess) : Controller
 {
+    public const string SelectedGroupCookie = "AlertCenter.OnCallGroup";
+
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "值班中心", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
         LinkText = "值班概览", LinkOrder = 0)]
     public async Task<IActionResult> Index(Guid? groupId, DateOnly? date, CancellationToken cancellationToken)
     {
         var groups = await db.OnCallGroups.AsNoTracking().OrderBy(item => item.Name).ToListAsync(cancellationToken);
-        var selectedGroup = groupId.HasValue
-            ? groups.SingleOrDefault(item => item.Id == groupId.Value)
-            : groups.FirstOrDefault();
-        if (groupId.HasValue && selectedGroup == null) return NotFound();
+        var selectedGroup = SelectGroup(groups, groupId, out var invalidGroup);
+        if (invalidGroup) return NotFound();
         if (selectedGroup == null) return this.StackView(new OnCallViewModel { Groups = groups });
+        RememberGroup(selectedGroup);
         var timeZone = GetTimeZone(selectedGroup.TimeZoneId);
         var selectedDate = date ?? DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone));
         var (startUtc, endUtc) = GetUtcDateRange(selectedDate, selectedDate.AddDays(1), timeZone);
@@ -49,8 +50,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleService sched
         var groups = await db.OnCallGroups.AsNoTracking().OrderBy(item => item.Name).ToListAsync(cancellationToken);
         if (id == Guid.Empty || groups.Count == 0)
             return this.StackView(new OnCallViewModel { Groups = groups, OperationError = TempData["OnCallError"] as string });
-        var group = id.HasValue ? groups.SingleOrDefault(item => item.Id == id.Value) : groups[0];
-        if (group == null) return NotFound();
+        var group = SelectGroup(groups, id, out var invalidGroup);
+        if (invalidGroup || group == null) return NotFound();
+        RememberGroup(group);
         var model = await BuildManageModel(group, groups, cancellationToken);
         model.OperationError = TempData["OnCallError"] as string;
         return this.StackView(model);
@@ -87,15 +89,27 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleService sched
         LinkText = "补班债务", LinkOrder = 5)]
     public Task<IActionResult> Debts(Guid? id, CancellationToken cancellationToken) => ManagePage(id, nameof(Debts), cancellationToken);
 
+    private OnCallGroup? SelectGroup(List<OnCallGroup> groups, Guid? id, out bool invalidGroup)
+    {
+        var group = id.HasValue ? groups.SingleOrDefault(item => item.Id == id.Value) : null;
+        invalidGroup = id.HasValue && group == null;
+        if (id.HasValue) return group;
+        if (Guid.TryParse(Request.Cookies[SelectedGroupCookie], out var savedId))
+            group = groups.SingleOrDefault(item => item.Id == savedId);
+        return group ?? groups.FirstOrDefault();
+    }
+
+    private void RememberGroup(OnCallGroup group) => Response.Cookies.Append(SelectedGroupCookie, group.Id.ToString(),
+        new CookieOptions { HttpOnly = true, IsEssential = true, SameSite = SameSiteMode.Lax, Secure = Request.IsHttps });
+
     private async Task<IActionResult> ManagePage(Guid? id, string view, CancellationToken cancellationToken, DateOnly? date = null)
     {
         if (!applicationAccess.IsAdministrator(User)) return Forbid();
         var groups = await db.OnCallGroups.AsNoTracking().OrderBy(item => item.Name).ToListAsync(cancellationToken);
-        var group = id.HasValue && id != Guid.Empty
-            ? groups.SingleOrDefault(item => item.Id == id.Value)
-            : groups.FirstOrDefault();
-        if (id.HasValue && id != Guid.Empty && group == null) return NotFound();
+        var group = SelectGroup(groups, id, out var invalidGroup);
+        if (invalidGroup) return NotFound();
         if (group == null) return RedirectToAction(nameof(Manage));
+        RememberGroup(group);
         var model = await BuildManageModel(group, groups, cancellationToken);
         if (view == nameof(Schedule))
         {

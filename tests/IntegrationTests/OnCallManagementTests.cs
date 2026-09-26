@@ -83,6 +83,43 @@ public class OnCallManagementTests : TestBase
     }
 
     [TestMethod]
+    public async Task SidebarNavigationKeepsSelectedGroupWithoutDuplicateTabs()
+    {
+        await LoginAsAdmin();
+        var first = new OnCallGroup { Name = "Alpha", TimeZoneId = "UTC" };
+        var selected = new OnCallGroup { Name = "Beta", TimeZoneId = "UTC" };
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.OnCallGroups.AddRange(first, selected);
+            await db.SaveChangesAsync();
+        }
+
+        var page = await Http.GetStringAsync($"/OnCall/Members/{selected.Id}");
+        Assert.Contains("/OnCall/Index", page);
+        Assert.Contains("/OnCall/Schedule", page);
+        Assert.Contains("/OnCall/Templates", page);
+        Assert.DoesNotContain("aria-label=\"值班组管理\"", page);
+        Assert.DoesNotContain("ac-nav-tabs", page);
+        Assert.Contains("Beta", page);
+        Assert.Contains("<li class=\"sidebar-item active\">\n                    <a class=\"sidebar-link\" href=\"/OnCall/Members\">", page);
+
+        foreach (var action in new[] { "Schedule", "Templates", "Requests", "Debts", "Manage" })
+        {
+            page = await Http.GetStringAsync($"/OnCall/{action}");
+            Assert.Contains("Beta", page);
+            Assert.Contains($"value=\"{selected.Id}\" selected=\"selected\"", page);
+        }
+        page = await Http.GetStringAsync("/OnCall/Index");
+        Assert.Contains($"value=\"{selected.Id}\" selected=\"selected\"", page);
+
+        page = await Http.GetStringAsync($"/OnCall/Templates/{first.Id}");
+        Assert.Contains($"value=\"{first.Id}\" selected=\"selected\"", page);
+        page = await Http.GetStringAsync("/OnCall/Members");
+        Assert.Contains($"value=\"{first.Id}\" selected=\"selected\"", page);
+    }
+
+    [TestMethod]
     public async Task TemplateCreationReturnsToItsPageAndMembersShowAssignedTemplate()
     {
         await LoginAsAdmin();

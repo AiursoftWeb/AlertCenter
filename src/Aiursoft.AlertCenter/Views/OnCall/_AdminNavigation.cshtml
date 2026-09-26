@@ -1,27 +1,13 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
-@using Aiursoft.AlertCenter.Entities
 @{
     var group = Model.Group;
     var action = ViewContext.RouteData.Values["action"]?.ToString() ?? "Manage";
-    var selectionAction = Model.Group == null ? "Manage" : action;
-    var timeZone = group == null ? TimeZoneInfo.Utc : TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
-    DateTime Local(DateTime utc) => TimeZoneInfo.ConvertTimeFromUtc(utc, timeZone);
-    var pages = new (string Action, string Label, string Icon)[]
-    {
-        ("Manage", "值班组配置", "settings"),
-        ("Members", "成员管理", "users"),
-        ("Templates", "轮转模板", "repeat"),
-        ("Schedule", "排班与覆盖", "calendar-check"),
-        ("Requests", "请假与交接", "git-pull-request"),
-        ("Debts", "补班债务", "scale")
-    };
-    var currentIcon = pages.FirstOrDefault(p => p.Action == action).Icon ?? "calendar-cog";
+    var selectionAction = group == null ? "Manage" : action;
 }
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <div class="d-flex align-items-center gap-2 mb-1">
-            <i data-lucide="@currentIcon" class="text-primary" style="width: 24px; height: 24px;"></i>
             <h1 class="h3 mb-0">@ViewData["Title"]</h1>
             @if (group != null)
             {
@@ -31,13 +17,10 @@
                 </span>
             }
         </div>
-        <p class="text-muted mb-0 small">@(group != null ? $"正在管理 {group.Name} 值班组的各项配置与运营流程" : "选择或创建值班组后开始管理值班")</p>
-    </div>
-    <div class="d-flex align-items-center gap-2">
-        <a asp-action="Index" asp-route-groupId="@group?.Id" class="btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1.5">
-            <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i>
-            <span>返回值班概览</span>
-        </a>
+        @if (group == null)
+        {
+            <p class="text-muted mb-0 small">选择或创建值班组后开始管理值班</p>
+        }
     </div>
 </div>
 
@@ -76,145 +59,15 @@
         </form>
         @if (group != null)
         {
-            <div class="d-flex flex-wrap align-items-center gap-2 small">
-                <span class="badge bg-light text-muted border font-monospace d-inline-flex align-items-center gap-1">
-                    <i data-lucide="globe" style="width: 12px; height: 12px;"></i>
-                    <span>@group.TimeZoneId</span>
-                </span>
-                @if (action != "Manage")
-                {
-                    <a asp-action="Manage" asp-route-id="@group?.Id" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1">
-                        <i data-lucide="settings-2" style="width: 13px; height: 13px;"></i>
-                        <span>管理值班组</span>
-                    </a>
-                }
-            </div>
+            <span class="badge bg-light text-muted border font-monospace d-inline-flex align-items-center gap-1">
+                <i data-lucide="globe" style="width: 12px; height: 12px;"></i>
+                <span>@group.TimeZoneId</span>
+            </span>
         }
     </div>
 </div>
 
 @if (group != null)
 {
-    <!-- Group Quick Metrics Cockpit -->
-    <div class="row g-3 mb-4">
-        <div class="col-sm-6 col-xl-3">
-            <div class="card ac-stat-card h-100 mb-0 shadow-sm border-0">
-                <div class="card-body p-3 d-flex align-items-center gap-3">
-                    <div class="ac-stat-icon icon-primary">
-                        <i data-lucide="radio-tower" style="width: 20px; height: 20px;"></i>
-                    </div>
-                    <div class="overflow-hidden">
-                        <span class="text-muted small d-block text-truncate">当前当班工程师 (OCE)</span>
-                        <strong class="fs-6 text-truncate d-block">@(Model.CurrentEngineer?.DisplayName ?? "暂无当班")</strong>
-                        <div class="small mt-0.5">
-                            @if (Model.CurrentEngineer != null)
-                            {
-                                @if (Model.CurrentEngineer.IsOverride)
-                                {
-                                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-1.5 py-0.5" style="font-size: 0.7rem;">临时代班覆盖中</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-success-subtle text-success border border-success-subtle px-1.5 py-0.5" style="font-size: 0.7rem;">正常当班中</span>
-                                }
-                            }
-                            else
-                            {
-                                <span class="text-danger small" style="font-size: 0.7rem;">需发布有效排班</span>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="card ac-stat-card h-100 mb-0 shadow-sm border-0">
-                <div class="card-body p-3 d-flex align-items-center gap-3">
-                    <div class="ac-stat-icon icon-indigo">
-                        <i data-lucide="globe" style="width: 20px; height: 20px;"></i>
-                    </div>
-                    <div class="overflow-hidden">
-                        <span class="text-muted small d-block text-truncate">基准时区</span>
-                        <strong class="fs-6 text-truncate d-block font-monospace">@group.TimeZoneId</strong>
-                        <div class="text-muted small mt-0.5 text-truncate font-monospace" style="font-size: 0.75rem;">
-                            本地 @Local(DateTime.UtcNow).ToString("yyyy-MM-dd HH:mm")
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="card ac-stat-card h-100 mb-0 shadow-sm border-0">
-                <div class="card-body p-3 d-flex align-items-center gap-3">
-                    <div class="ac-stat-icon icon-success">
-                        <i data-lucide="users" style="width: 20px; height: 20px;"></i>
-                    </div>
-                    <div class="overflow-hidden">
-                        <span class="text-muted small d-block text-truncate">团队与轮转</span>
-                        <strong class="fs-6 text-truncate d-block">@Model.Members.Count 位成员</strong>
-                        <div class="text-muted small mt-0.5 text-truncate" style="font-size: 0.75rem;">
-                            已配置 @Model.Templates.Count 个轮转模板
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="card ac-stat-card h-100 mb-0 shadow-sm border-0">
-                <div class="card-body p-3 d-flex align-items-center gap-3">
-                    <div class="ac-stat-icon @(Model.PendingLeaveCount + Model.PendingHandoverCount > 0 ? "icon-danger" : "icon-warning")">
-                        <i data-lucide="git-pull-request" style="width: 20px; height: 20px;"></i>
-                    </div>
-                    <div class="overflow-hidden">
-                        <span class="text-muted small d-block text-truncate">待审工单与债务</span>
-                        <strong class="fs-6 text-truncate d-block">
-                            @if (Model.PendingLeaveCount + Model.PendingHandoverCount > 0)
-                            {
-                                <span class="text-danger">@(Model.PendingLeaveCount + Model.PendingHandoverCount) 笔待审</span>
-                            }
-                            else
-                            {
-                                <span>0 笔待审</span>
-                            }
-                        </strong>
-                        <div class="text-muted small mt-0.5 text-truncate" style="font-size: 0.75rem;">
-                            @Model.UnsettledDebtCount 笔待偿还补班债务
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Center Navigation Tabs -->
-    <nav aria-label="值班组管理" class="mb-4">
-        <div class="nav ac-nav-tabs flex-wrap">
-            @foreach (var item in pages)
-            {
-                <a asp-action="@item.Action" asp-route-id="@group.Id" class="nav-link d-inline-flex align-items-center gap-2 @(action == item.Action ? "active" : "")" aria-current="@(action == item.Action ? "page" : null)">
-                    <i data-lucide="@item.Icon" style="width: 16px; height: 16px;"></i>
-                    <span>@item.Label</span>
-                    @if (item.Action == "Requests" && Model.PendingLeaveCount + Model.PendingHandoverCount > 0)
-                    {
-                        <span class="badge bg-danger rounded-pill ms-1">@(Model.PendingLeaveCount + Model.PendingHandoverCount) 待处理</span>
-                    }
-                    @if (item.Action == "Debts" && Model.UnsettledDebtCount > 0)
-                    {
-                        <span class="badge bg-danger rounded-pill ms-1">@Model.UnsettledDebtCount 待偿还</span>
-                    }
-                </a>
-            }
-        </div>
-    </nav>
-    <div class="alert alert-info small d-flex align-items-center gap-2 mb-4 py-2 border-0 shadow-sm" role="alert">
-        <i data-lucide="info" style="width: 15px; height: 15px;" class="flex-shrink-0 text-info"></i>
-        <span>时间按 <strong>@group.TimeZoneId</strong> 显示和输入；系统以 UTC 保存。</span>
-    </div>
-}
-else if (action != "Manage")
-{
-    <div class="alert alert-info d-flex align-items-center gap-2 mb-4 shadow-sm border-0">
-        <i data-lucide="info" style="width: 16px; height: 16px;" class="text-info flex-shrink-0"></i>
-        <span>请先选择值班组，或前往 <a asp-action="Manage" class="alert-link fw-semibold">值班组配置</a> 创建新组。</span>
-    </div>
+    <p class="text-muted small mb-4">时间按 @group.TimeZoneId 显示和输入；系统以 UTC 保存。</p>
 }
