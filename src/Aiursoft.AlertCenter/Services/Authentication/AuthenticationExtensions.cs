@@ -94,6 +94,7 @@ public static class AuthenticationExtensions
 
         services.AddAuthorization(options =>
         {
+            options.AddPolicy("CanManageOnCall", policy => policy.RequireRole("Administrators"));
             foreach (var permission in AppPermissions.GetAllPermissions())
             {
                 options.AddPolicy(

@@ -18,15 +18,21 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public List<OnCallShiftTemplateMember> TemplateMembers { get; set; } = [];
     public List<OnCallShift> Shifts { get; set; } = [];
     public List<OnCallShiftOverride> Overrides { get; set; } = [];
+    public List<OnCallShiftOverride> SettlementOverrides { get; set; } = [];
     public List<OnCallLeaveRequest> LeaveRequests { get; set; } = [];
     public List<OnCallHandoverRequest> HandoverRequests { get; set; } = [];
+    public List<OnCallHandoverRequest> IncomingHandovers { get; set; } = [];
     public List<OnCallCoverageDebt> CoverageDebts { get; set; } = [];
+    public int PendingLeaveCount { get; set; }
+    public int PendingHandoverCount { get; set; }
+    public int UnsettledDebtCount { get; set; }
     public List<SelectListItem> Users { get; set; } = [];
     public IReadOnlyList<TimeZoneInfo> TimeZones { get; set; } = TimeZoneInfo.GetSystemTimeZones();
     public string? OperationError { get; set; }
     public OnCallEngineer? CurrentEngineer { get; set; }
     public DateTime DisplayStartUtc { get; set; }
     public DateTime DisplayEndUtc { get; set; }
+    public DateOnly SuggestedPublishDate { get; set; }
 }
 
 public class OnCallGroupRequest

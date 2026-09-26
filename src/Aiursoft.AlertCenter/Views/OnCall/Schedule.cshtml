@@ -1,0 +1,91 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    ViewData["Title"] = "排班与覆盖";
+    var group = Model.Group;
+    var zone = group == null ? TimeZoneInfo.Utc : TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+    DateTime Local(DateTime utc) => TimeZoneInfo.ConvertTimeFromUtc(utc, zone);
+}
+@section styles { <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" /> }
+<partial name="_AdminNavigation" model="Model" />
+@if (group != null)
+{
+    <section class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-transparent"><h2 class="h5 mb-0">发布日程</h2></div>
+        <div class="card-body">
+            <form asp-action="Publish" method="post" class="row g-3 align-items-end">
+                <input type="hidden" name="groupId" value="@group.Id" />
+                <div class="col-sm-4"><label for="publish-start" class="form-label">开始日期</label><input id="publish-start" name="startDate" type="date" value="@Model.SuggestedPublishDate.ToString("yyyy-MM-dd")" class="form-control" required /></div>
+                <div class="col-sm-4"><label for="publish-end" class="form-label">结束日期</label><input id="publish-end" name="endDate" type="date" value="@Model.SuggestedPublishDate.AddDays(6).ToString("yyyy-MM-dd")" class="form-control" required /></div>
+                <div class="col-sm-4"><button class="btn btn-primary w-100">生成并发布日常轮转</button></div>
+            </form>
+            <p class="small text-muted mt-3 mb-0">先配置覆盖本地全天的 <a asp-action="Templates" asp-route-id="@group.Id">轮转模板</a>。发布前校验连续覆盖、班次重叠、最长 8 小时及至少 16 小时连续休息。</p>
+        </div>
+    </section>
+    <section class="card shadow-sm border-0">
+        <div class="card-header bg-transparent d-flex flex-wrap justify-content-between align-items-center gap-2"><h2 class="h5 mb-0">已发布班次与临时覆盖</h2><span class="badge bg-secondary-subtle text-secondary">@Local(Model.DisplayStartUtc).ToString("yyyy-MM-dd") – @Local(Model.DisplayEndUtc).AddDays(-1).ToString("yyyy-MM-dd") · @Model.Shifts.Count 个班次</span></div>
+        <div class="card-body">
+            <form asp-action="Schedule" method="get" class="d-flex flex-wrap align-items-end gap-2 mb-4">
+                <input type="hidden" name="id" value="@group.Id" />
+                <div><label for="schedule-start" class="form-label">起始日期（展示连续14天）</label><input id="schedule-start" name="date" type="date" value="@Local(Model.DisplayStartUtc).ToString("yyyy-MM-dd")" class="form-control" required /></div>
+                <button class="btn btn-outline-primary">查看班次</button>
+            </form>
+            @if (Model.Shifts.Count == 0)
+            {
+                <p class="text-muted mb-0">此日期范围暂无已发布班次。可以选择其他日期，或先配置模板并发布日程。</p>
+            }
+            else
+            {
+                @foreach (var shift in Model.Shifts)
+                {
+                    var overrides = Model.Overrides.Where(item => item.OriginalShiftId == shift.Id).OrderBy(item => item.StartsAtUtc).ToList();
+                    var nextStart = shift.StartsAtUtc;
+                    var nextEnd = shift.EndsAtUtc;
+                    foreach (var item in overrides)
+                    {
+                        if (item.StartsAtUtc > nextStart)
+                        {
+                            nextEnd = item.StartsAtUtc;
+                            break;
+                        }
+                        if (item.EndsAtUtc > nextStart) nextStart = item.EndsAtUtc;
+                    }
+                    <div class="border rounded p-3 mb-3">
+                        <div class="d-flex flex-wrap justify-content-between gap-2 mb-2">
+                            <strong>@(shift.User?.DisplayName ?? "未知")</strong>
+                            <span class="ac-time-chip"><code>@Local(shift.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(shift.EndsAtUtc).ToString("MM-dd HH:mm")</code></span>
+                        </div>
+                        @if (overrides.Count == 0)
+                        {
+                            <p class="small text-muted mb-2">暂无代班覆盖</p>
+                        }
+                        else
+                        {
+                            <ul class="list-unstyled small mb-3">
+                                @foreach (var item in overrides)
+                                {
+                                    <li class="mb-1"><span class="badge bg-warning-subtle text-warning-emphasis">@item.CoveringUser.DisplayName</span> @Local(item.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(item.EndsAtUtc).ToString("MM-dd HH:mm") · @item.Reason</li>
+                                }
+                            </ul>
+                        }
+                        <p class="small text-muted mb-2">可对同一班次分段安排多位代班；时间须位于尚未覆盖的时段内。</p>
+                        @if (nextStart >= shift.EndsAtUtc)
+                        {
+                            <p class="small text-success mb-0">此班次已全部安排代班。</p>
+                        }
+                        else
+                        {
+                        <form asp-action="CreateOverride" method="post" class="row g-2 align-items-end">
+                            <input type="hidden" name="originalShiftId" value="@shift.Id" />
+                            <div class="col-lg-3"><label class="form-label small" for="cover-@shift.Id">代班工程师</label><select id="cover-@shift.Id" name="coveringUserId" class="form-select form-select-sm" required><option value="">选择成员</option>@foreach (var member in Model.Members) { <option value="@member.UserId">@member.User.DisplayName</option> }</select></div>
+                            <div class="col-lg-2 col-sm-6"><label class="form-label small" for="start-@shift.Id">开始 (@group.TimeZoneId)</label><input id="start-@shift.Id" name="startsAtLocal" type="datetime-local" value="@Local(nextStart).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required /></div>
+                            <div class="col-lg-2 col-sm-6"><label class="form-label small" for="end-@shift.Id">结束 (@group.TimeZoneId)</label><input id="end-@shift.Id" name="endsAtLocal" type="datetime-local" value="@Local(nextEnd).ToString("yyyy-MM-ddTHH:mm")" class="form-control form-control-sm" required /></div>
+                            <div class="col-lg-3"><label class="form-label small" for="reason-@shift.Id">代班原因</label><input id="reason-@shift.Id" name="reason" maxlength="1000" class="form-control form-control-sm" required /></div>
+                            <div class="col-lg-2"><button class="btn btn-sm btn-outline-primary w-100">安排代班</button></div>
+                        </form>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </section>
+}

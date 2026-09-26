@@ -1,0 +1,39 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    ViewData["Title"] = "补班债务";
+    var group = Model.Group;
+    var zone = group == null ? TimeZoneInfo.Utc : TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+    DateTime Local(DateTime utc) => TimeZoneInfo.ConvertTimeFromUtc(utc, zone);
+}
+@section styles { <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" /> }
+<partial name="_AdminNavigation" model="Model" />
+@if (group != null)
+{
+    <section class="card shadow-sm border-0">
+        <div class="card-header bg-transparent d-flex justify-content-between align-items-center"><h2 class="h5 mb-0">补班债务</h2><span class="badge bg-secondary-subtle text-secondary">@Model.UnsettledDebtCount 待偿还</span></div>
+        <div class="card-body">
+            <p class="small text-muted">确认交接或安排临时覆盖后产生补班债务。欠班工程师在同一值班组承担足够时长的代班后，可使用对应覆盖记录偿还。</p>
+            @if (Model.CoverageDebts.Count == 0)
+            {
+                <p class="text-muted">暂无待偿还补班债务。</p>
+            }
+            @foreach (var debt in Model.CoverageDebts)
+            {
+                var eligible = Model.SettlementOverrides.Where(item => item.CoveringUserId == debt.OwingUserId && (item.EndsAtUtc - item.StartsAtUtc).TotalMinutes >= debt.DurationMinutes).ToList();
+                <div class="border rounded p-3 mb-3">
+                    <div class="d-flex flex-wrap justify-content-between gap-2"><strong>@(debt.OwingUser?.DisplayName ?? "未知") 欠 @(debt.CoveringUser?.DisplayName ?? "未知")</strong><span class="badge @(debt.SettledAtUtc.HasValue ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger")">@(debt.SettledAtUtc.HasValue ? "已偿还" : "待偿还")</span></div>
+                    <div class="text-muted small">@debt.DurationMinutes 分钟</div>
+                    @if (!debt.SettledAtUtc.HasValue)
+                    {
+                        <form asp-action="SettleDebt" method="post" class="row g-2 align-items-end mt-1">
+                            <input type="hidden" name="debtId" value="@debt.Id" />
+                            <div class="col-md-9"><label class="form-label small" for="settlement-@debt.Id">欠班人承担的代班 (@group.TimeZoneId)</label><select id="settlement-@debt.Id" name="settlementOverrideId" class="form-select" required><option value="">选择足够时长的代班记录</option>@foreach (var item in eligible) { <option value="@item.Id">@Local(item.StartsAtUtc).ToString("MM-dd HH:mm") – @Local(item.EndsAtUtc).ToString("MM-dd HH:mm") · @item.Reason</option> }</select></div>
+                            <div class="col-md-3"><button class="btn btn-outline-primary w-100" disabled="@(eligible.Count == 0)">偿还债务</button></div>
+                        </form>
+                        @if (eligible.Count == 0) { <p class="small text-muted mt-2 mb-0">暂无足够时长的代班记录。可在 <a asp-action="Schedule" asp-route-id="@group.Id">排班与覆盖</a> 安排代班。</p> }
+                    }
+                </div>
+            }
+        </div>
+    </section>
+}

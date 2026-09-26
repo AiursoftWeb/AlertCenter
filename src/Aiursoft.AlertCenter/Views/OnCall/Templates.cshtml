@@ -1,0 +1,48 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    ViewData["Title"] = "轮转模板";
+    var group = Model.Group;
+}
+@section styles { <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" /> }
+<partial name="_AdminNavigation" model="Model" />
+@if (group != null)
+{
+    <section class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-transparent"><h2 class="h5 mb-0">新建轮转模板</h2></div>
+        <div class="card-body">
+            <p class="small text-muted">每日所有模板须连续覆盖本地 24 小时（1440 分钟），每个班次最长 480 分钟。请先在 <a asp-action="Members" asp-route-id="@group.Id">成员管理</a> 中添加工程师。</p>
+            <form asp-action="SaveTemplate" method="post" class="row g-3 align-items-start">
+                <input type="hidden" name="groupId" value="@group.Id" />
+                <div class="col-md-3"><label for="template-name" class="form-label">模板名称</label><input id="template-name" name="name" maxlength="100" class="form-control" required placeholder="例如：早班" /></div>
+                <div class="col-md-2"><label for="template-start" class="form-label">开始分钟</label><input id="template-start" name="startMinuteOfDay" type="number" min="0" max="1439" value="0" class="form-control" required /><small class="text-muted">00:00 = 0，08:00 = 480</small></div>
+                <div class="col-md-2"><label for="template-duration" class="form-label">时长（分钟）</label><input id="template-duration" name="durationMinutes" type="number" min="1" max="480" value="480" class="form-control" required /></div>
+                <div class="col-md-3"><label for="template-members" class="form-label">轮转成员</label><select id="template-members" name="userIds" multiple size="4" class="form-select" required>@foreach (var member in Model.Members) { <option value="@member.UserId">@member.User.DisplayName</option> }</select><small class="text-muted">按住 Ctrl/Cmd 多选；选择顺序决定轮转顺序。</small></div>
+                <div class="col-md-2 align-self-center"><button class="btn btn-primary w-100">保存模板</button></div>
+            </form>
+        </div>
+    </section>
+    <section class="card shadow-sm border-0">
+        <div class="card-header bg-transparent"><h2 class="h5 mb-0">已配置模板 (@Model.Templates.Count)</h2></div>
+        <div class="card-body p-0">
+            @if (Model.Templates.Count == 0)
+            {
+                <p class="p-4 text-muted mb-0">尚无轮转模板。</p>
+            }
+            else
+            {
+                <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>模板</th><th>本地时段</th><th>轮转顺序</th><th class="text-end">操作</th></tr></thead><tbody>
+                    @foreach (var template in Model.Templates)
+                    {
+                        var members = Model.TemplateMembers.Where(item => item.TemplateId == template.Id).OrderBy(item => item.RotationOrder).ToList();
+                        <tr>
+                            <td><strong>@template.Name</strong></td>
+                            <td><code>@TimeOnly.FromTimeSpan(TimeSpan.FromMinutes(template.StartMinuteOfDay)).ToString("HH:mm") + @template.DurationMinutes 分钟</code></td>
+                            <td>@(members.Count == 0 ? "未配置成员" : string.Join(" → ", members.Select(item => item.User.DisplayName)))</td>
+                            <td class="text-end"><form asp-action="DeleteTemplate" method="post" onsubmit="return confirm('确定删除模板吗？');"><input type="hidden" name="id" value="@template.Id" /><button class="btn btn-sm btn-outline-danger">删除</button></form></td>
+                        </tr>
+                    }
+                </tbody></table></div>
+            }
+        </div>
+    </section>
+}

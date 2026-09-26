@@ -17,7 +17,7 @@
     </div>
     @if (User.IsInRole("Administrators"))
     {
-        <a asp-action="Manage" asp-route-id="@group?.Id" class="btn btn-primary @(group == null ? "disabled" : "")">
+        <a asp-action="Manage" asp-route-id="@group?.Id" class="btn btn-primary">
             <i class="align-middle me-1" data-lucide="settings-2" aria-hidden="true"></i>管理值班
         </a>
     }
@@ -58,7 +58,7 @@ else if (group != null)
             </div>
             <div class="col-md-4">
                 <label for="date" class="form-label small fw-medium">查看日期（@group.TimeZoneId）</label>
-                <input id="date" name="date" type="date" value="@localNow.ToString("yyyy-MM-dd")" class="form-control" />
+                <input id="date" name="date" type="date" value="@Local(Model.DisplayStartUtc).ToString("yyyy-MM-dd")" class="form-control" />
             </div>
             <div class="col-md-auto"><button class="btn btn-outline-primary">查看日程</button></div>
         </div>
@@ -170,10 +170,31 @@ else if (group != null)
     </div>
 
     <section class="card mt-4">
-        <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">最近待处理事项</h2></div>
-        <div class="card-body row g-3">
-            <div class="col-md-6"><strong>待确认交接</strong><div class="text-muted small mt-1">@Model.HandoverRequests.Count(item => item.Status == Aiursoft.AlertCenter.Entities.OnCallHandoverRequest.Pending) 个</div></div>
-            <div class="col-md-6"><strong>待审批请假</strong><div class="text-muted small mt-1">@Model.LeaveRequests.Count(item => item.Status == Aiursoft.AlertCenter.Entities.OnCallLeaveRequest.Pending) 个</div></div>
+        <div class="card-header bg-transparent"><h2 class="card-title h5 mb-0">待我确认的交接</h2></div>
+        <div class="card-body">
+            @if (Model.IncomingHandovers.Count == 0)
+            {
+                <p class="text-muted mb-0">暂无待确认的交接申请。</p>
+            }
+            @foreach (var handover in Model.IncomingHandovers)
+            {
+                <div class="border rounded p-3 mb-2 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <div>
+                        <strong>@(handover.RequestedByUser?.DisplayName ?? "未知") → 你</strong>
+                        <div class="small text-muted">@Local(handover.StartsAtUtc).ToString("yyyy-MM-dd HH:mm") – @Local(handover.EndsAtUtc).ToString("yyyy-MM-dd HH:mm")</div>
+                        @if (!string.IsNullOrWhiteSpace(handover.Note)) { <div class="small">@handover.Note</div> }
+                    </div>
+                    <form asp-action="ReviewHandover" method="post" class="d-flex gap-2">
+                        <input type="hidden" name="id" value="@handover.Id" />
+                        <button name="confirm" value="true" class="btn btn-sm btn-success">确认接班</button>
+                        <button name="confirm" value="false" class="btn btn-sm btn-outline-danger">拒绝</button>
+                    </form>
+                </div>
+            }
+            @if (User.IsInRole("Administrators"))
+            {
+                <a asp-action="Requests" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary mt-2">查看全部待审申请（请假 @Model.PendingLeaveCount、交接 @Model.PendingHandoverCount）</a>
+            }
         </div>
     </section>
 }

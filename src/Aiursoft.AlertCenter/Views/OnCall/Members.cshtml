@@ -1,0 +1,44 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    ViewData["Title"] = "成员管理";
+    var group = Model.Group;
+    var templateNames = Model.Templates.ToDictionary(item => item.Id, item => item.Name);
+}
+@section styles { <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" /> }
+<partial name="_AdminNavigation" model="Model" />
+@if (group != null)
+{
+    <section class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-transparent"><h2 class="h5 mb-0">添加成员</h2></div>
+        <div class="card-body"><form asp-action="AddMember" method="post" class="row g-2 align-items-end">
+            <input type="hidden" name="groupId" value="@group.Id" />
+            <div class="col-sm-9"><label class="form-label" for="member-user">选择用户</label><select id="member-user" name="userId" class="form-select" required><option value="">选择用户</option>@foreach (var user in Model.Users) { <option value="@user.Value">@user.Text</option> }</select></div>
+            <div class="col-sm-3"><button class="btn btn-primary w-100">添加成员</button></div>
+        </form></div>
+    </section>
+    <section class="card shadow-sm border-0">
+        <div class="card-header bg-transparent"><h2 class="h5 mb-0">成员 (@Model.Members.Count)</h2></div>
+        <div class="card-body p-0">
+            @if (Model.Members.Count == 0)
+            {
+                <p class="p-4 text-muted mb-0">此值班组暂无成员。</p>
+            }
+            else
+            {
+                <div class="table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>工程师</th><th>电子邮箱</th><th>参与轮转模板</th><th class="text-end">操作</th></tr></thead><tbody>
+                    @foreach (var member in Model.Members)
+                    {
+                        var assigned = Model.TemplateMembers.Where(item => item.UserId == member.UserId && templateNames.ContainsKey(item.TemplateId)).Select(item => templateNames[item.TemplateId]).Distinct().ToList();
+                        <tr>
+                            <td><strong>@(member.User?.DisplayName ?? "未知")</strong></td>
+                            <td class="text-muted">@(member.User?.Email ?? "未配置邮箱")</td>
+                            <td>@(assigned.Count == 0 ? "未参与轮转" : string.Join("、", assigned))</td>
+                            <td class="text-end"><form asp-action="RemoveMember" method="post" onsubmit="return confirm('确定移除此成员吗？');"><input type="hidden" name="groupId" value="@group.Id" /><input type="hidden" name="userId" value="@member.UserId" /><button class="btn btn-sm btn-outline-danger">移除</button></form></td>
+                        </tr>
+                    }
+                </tbody></table></div>
+            }
+        </div>
+    </section>
+    <p class="text-muted small mt-3">在 <a asp-action="Templates" asp-route-id="@group.Id">轮转模板</a> 中设置成员轮转顺序；参与模板的成员须先删除相应模板才能移除。</p>
+}

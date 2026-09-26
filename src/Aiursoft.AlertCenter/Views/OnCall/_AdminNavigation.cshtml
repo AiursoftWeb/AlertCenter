@@ -1,0 +1,73 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    var group = Model.Group;
+    var action = ViewContext.RouteData.Values["action"]?.ToString() ?? "Manage";
+    var selectionAction = Model.Group == null ? "Manage" : action;
+    var pages = new (string Action, string Label, string Icon)[]
+    {
+        ("Manage", "值班组配置", "settings"),
+        ("Members", "成员管理", "users"),
+        ("Templates", "轮转模板", "repeat"),
+        ("Schedule", "排班与覆盖", "calendar-check"),
+        ("Requests", "请假与交接", "git-pull-request"),
+        ("Debts", "补班债务", "scale")
+    };
+}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">@ViewData["Title"]</h1>
+        <p class="text-muted mb-0 small">@(group?.Name ?? "选择或创建值班组后开始管理")</p>
+    </div>
+    <a asp-action="Index" asp-route-groupId="@group?.Id" class="btn btn-outline-secondary btn-sm">返回值班概览</a>
+</div>
+@if (!string.IsNullOrEmpty(Model.OperationError))
+{
+    <div class="alert alert-danger" role="alert">@Model.OperationError</div>
+}
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body d-flex flex-wrap align-items-end gap-3">
+        <form asp-action="@selectionAction" method="get" class="d-flex flex-wrap align-items-end gap-2">
+            <div>
+                <label for="admin-group-picker" class="form-label small mb-1">值班组</label>
+                <select id="admin-group-picker" name="id" class="form-select" required>
+                    <option value="">选择值班组</option>
+                    @foreach (var item in Model.Groups)
+                    {
+                        <option value="@item.Id" selected="@(group?.Id == item.Id)">@item.Name (@item.TimeZoneId)</option>
+                    }
+                </select>
+            </div>
+            <button class="btn btn-outline-primary">切换</button>
+        </form>
+        @if (action != "Manage")
+        {
+            <a asp-action="Manage" asp-route-id="@group?.Id" class="btn btn-outline-secondary">管理值班组</a>
+        }
+    </div>
+</div>
+@if (group != null)
+{
+    <nav aria-label="值班组管理" class="mb-4">
+        <div class="nav ac-nav-tabs flex-wrap">
+            @foreach (var item in pages)
+            {
+                <a asp-action="@item.Action" asp-route-id="@group.Id" class="nav-link d-inline-flex align-items-center gap-2 @(action == item.Action ? "active" : "")" aria-current="@(action == item.Action ? "page" : null)">
+                    <i data-lucide="@item.Icon" style="width: 16px; height: 16px;"></i>@item.Label
+                    @if (item.Action == "Requests" && Model.PendingLeaveCount + Model.PendingHandoverCount > 0)
+                    {
+                        <span class="badge bg-danger rounded-pill">@(Model.PendingLeaveCount + Model.PendingHandoverCount) 待处理</span>
+                    }
+                    @if (item.Action == "Debts" && Model.UnsettledDebtCount > 0)
+                    {
+                        <span class="badge bg-danger rounded-pill">@Model.UnsettledDebtCount 待偿还</span>
+                    }
+                </a>
+            }
+        </div>
+    </nav>
+    <p class="text-muted small mb-4">时间按 @group.TimeZoneId 显示和输入；系统以 UTC 保存。</p>
+}
+else if (action != "Manage")
+{
+    <div class="alert alert-info">请先选择值班组，或前往 <a asp-action="Manage">值班组配置</a> 创建新组。</div>
+}
