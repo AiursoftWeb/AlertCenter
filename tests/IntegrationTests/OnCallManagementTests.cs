@@ -120,6 +120,53 @@ public class OnCallManagementTests : TestBase
     }
 
     [TestMethod]
+    public async Task DefaultTemplateButtonRequiresMembersAndDoesNotReplaceExistingTemplates()
+    {
+        await LoginAsAdmin();
+        var group = new OnCallGroup { Name = "Operations", TimeZoneId = "UTC" };
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.OnCallGroups.Add(group);
+            await db.SaveChangesAsync();
+        }
+        var templatesUrl = $"/OnCall/Templates/{group.Id}";
+        var page = await Http.GetStringAsync(templatesUrl);
+        Assert.Contains("默认三班方案", page);
+        Assert.Contains("disabled=\"disabled\"", page);
+        using var rejected = await PostForm("/OnCall/ApplyDefaultTemplates", new() { ["groupId"] = group.Id.ToString() }, templatesUrl);
+        AssertRedirect(rejected, templatesUrl);
+        Assert.Contains("至少需要 3 名", WebUtility.HtmlDecode(await Http.GetStringAsync(templatesUrl)));
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var adminId = await db.Users.Where(user => user.Email == "admin@default.com")
+                .Select(user => user.Id).SingleAsync();
+            foreach (var userId in new[] { adminId, "other1", "other2" })
+            {
+                if (userId != adminId)
+                    db.Users.Add(new User { Id = userId, UserName = userId, NormalizedUserName = userId.ToUpperInvariant(), DisplayName = userId });
+                db.OnCallGroupMembers.Add(new OnCallGroupMember { GroupId = group.Id, UserId = userId });
+            }
+            await db.SaveChangesAsync();
+        }
+        using var applied = await PostForm("/OnCall/ApplyDefaultTemplates", new() { ["groupId"] = group.Id.ToString() }, templatesUrl);
+        AssertRedirect(applied, templatesUrl);
+        page = await Http.GetStringAsync(templatesUrl);
+        Assert.Contains("早班", page);
+        Assert.DoesNotContain("应用默认方案", page);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.AreEqual(3, await db.OnCallShiftTemplates.CountAsync());
+            Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+        }
+        using var repeated = await PostForm("/OnCall/ApplyDefaultTemplates", new() { ["groupId"] = group.Id.ToString() }, templatesUrl);
+        AssertRedirect(repeated, templatesUrl);
+        Assert.Contains("已有轮转模板", WebUtility.HtmlDecode(await Http.GetStringAsync(templatesUrl)));
+    }
+
+    [TestMethod]
     public async Task TemplateCreationReturnsToItsPageAndMembersShowAssignedTemplate()
     {
         await LoginAsAdmin();

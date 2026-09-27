@@ -220,6 +220,37 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleService sched
     }
 
     [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> ApplyDefaultTemplates(Guid groupId, CancellationToken cancellationToken)
+    {
+        if (!applicationAccess.IsAdministrator(User)) return Forbid();
+        if (!await db.OnCallGroups.AnyAsync(item => item.Id == groupId, cancellationToken)) return NotFound();
+        if (await db.OnCallShiftTemplates.AnyAsync(item => item.GroupId == groupId, cancellationToken))
+            return ManageError(groupId, "该值班组已有轮转模板；默认方案仅适用于尚未配置模板的值班组。", nameof(Templates));
+        var userIds = await db.OnCallGroupMembers.AsNoTracking().Where(item => item.GroupId == groupId)
+            .OrderBy(item => item.User.DisplayName).ThenBy(item => item.UserId)
+            .Select(item => item.UserId).ToListAsync(cancellationToken);
+        if (userIds.Count < 3)
+            return ManageError(groupId, "默认三班方案至少需要 3 名值班组成员。", nameof(Templates));
+
+        foreach (var (name, start) in new[] { ("早班", 0), ("中班", 480), ("晚班", 960) })
+        {
+            var template = new OnCallShiftTemplate
+            {
+                GroupId = groupId, Name = name, StartMinuteOfDay = start, DurationMinutes = 480
+            };
+            db.OnCallShiftTemplates.Add(template);
+            var shiftIndex = start / 480;
+            db.OnCallShiftTemplateMembers.AddRange(userIds.Where((_, index) => index % 3 == shiftIndex)
+                .Select((userId, index) => new OnCallShiftTemplateMember
+                {
+                    Template = template, UserId = userId, RotationOrder = index
+                }));
+        }
+        await db.SaveChangesAsync(cancellationToken);
+        return RedirectToAction(nameof(Templates), new { id = groupId });
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> SaveTemplate(OnCallTemplateRequest request, CancellationToken cancellationToken)
     {
         if (!applicationAccess.IsAdministrator(User)) return Forbid();

@@ -11,6 +11,26 @@
 
 @if (group != null)
 {
+    @if (Model.Templates.Count == 0)
+    {
+        <section class="card shadow-sm border-0 mb-4">
+            <div class="card-body p-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div>
+                    <h2 class="h5 mb-1">默认三班方案</h2>
+                    <p class="small text-muted mb-0">按值班组本地时间创建 00:00–08:00、08:00–16:00、16:00–24:00 三个班次，所有现有成员按班次分组，各班次内按天轮转（不会跨班次轮转）。至少需要 3 名成员；创建模板后仍需手动发布排班。</p>
+                </div>
+                <form asp-action="ApplyDefaultTemplates" method="post">
+                    <input type="hidden" name="groupId" value="@group.Id" />
+                    <button class="btn btn-primary" disabled="@(Model.Members.Count < 3)">应用默认方案</button>
+                </form>
+                @if (Model.Members.Count < 3)
+                {
+                    <small class="text-muted">请先在 <a asp-action="Members" asp-route-id="@group.Id">成员管理</a> 中添加至少 3 名成员。</small>
+                }
+            </div>
+        </section>
+    }
+
     <!-- Create Template Section -->
     <section class="card shadow-sm border-0 mb-4">
         <div class="card-header bg-transparent border-bottom py-3">

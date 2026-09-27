@@ -58,7 +58,7 @@ public sealed class OnCallScheduleService(TemplateDbContext db) : IOnCallSchedul
                 if (rotation.Count == 0) throw new InvalidOperationException($"班次模板“{template.Name}”尚未配置轮转成员。");
                 if (rotation.Any(item => !groupMemberIds.Contains(item.UserId)))
                     throw new InvalidOperationException($"班次模板“{template.Name}”包含非值班组成员。");
-                var user = rotation[Math.Abs(date.DayNumber * templates.Count + templateIndex) % rotation.Count];
+                var user = rotation[(date.DayNumber + templateIndex) % rotation.Count];
                 var localStart = date.ToDateTime(TimeOnly.MinValue).AddMinutes(template.StartMinuteOfDay);
                 var localEnd = localStart.AddMinutes(template.DurationMinutes);
                 if (timeZone.IsInvalidTime(localStart) || timeZone.IsInvalidTime(localEnd))

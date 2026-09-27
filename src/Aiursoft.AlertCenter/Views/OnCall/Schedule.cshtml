@@ -52,7 +52,7 @@
                     <i data-lucide="shield-check" class="text-success" style="width: 15px; height: 15px;"></i>
                     <span>排班发布须知</span>
                 </div>
-                <p class="small text-muted mb-0">先配置覆盖本地全天的 <a asp-action="Templates" asp-route-id="@group.Id" class="fw-semibold">轮转模板</a>。发布前校验连续覆盖、班次重叠、最长 8 小时及至少 16 小时连续休息。</p>
+                <p class="small text-muted mb-0">先在 <a asp-action="Templates" asp-route-id="@group.Id" class="fw-semibold">轮转模板</a> 中应用默认三班方案或自定义覆盖本地全天的班次。发布前校验连续覆盖、班次重叠、最长 8 小时及至少 16 小时连续休息。</p>
             </div>
         </div>
     </section>

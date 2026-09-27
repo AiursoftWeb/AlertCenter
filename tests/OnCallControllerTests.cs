@@ -59,6 +59,86 @@ public class OnCallControllerTests
     }
 
     [TestMethod]
+    public async Task DefaultTemplatesRequireThreeMembersAndPublishWithoutOverwritingCustomTemplates()
+    {
+        var group = new OnCallGroup { Name = "Operations", TimeZoneId = "UTC" };
+        _db.OnCallGroups.Add(group);
+        await _db.SaveChangesAsync();
+
+        var insufficient = await _controller.ApplyDefaultTemplates(group.Id, default);
+        Assert.IsInstanceOfType<RedirectToActionResult>(insufficient);
+        Assert.Contains("至少需要 3 名", _controller.TempData["OnCallError"] as string ?? string.Empty);
+        Assert.AreEqual(0, await _db.OnCallShiftTemplates.CountAsync());
+
+        foreach (var userId in new[] { "one", "two", "three" })
+        {
+            await AddUser(userId, userId);
+            _db.OnCallGroupMembers.Add(new OnCallGroupMember { GroupId = group.Id, UserId = userId });
+        }
+        await _db.SaveChangesAsync();
+        var applied = await _controller.ApplyDefaultTemplates(group.Id, default);
+        Assert.IsInstanceOfType<RedirectToActionResult>(applied);
+        var templates = await _db.OnCallShiftTemplates.OrderBy(item => item.StartMinuteOfDay).ToListAsync();
+        CollectionAssert.AreEqual(new[] { "早班", "中班", "晚班" }, templates.Select(item => item.Name).ToArray());
+        CollectionAssert.AreEqual(new[] { 0, 480, 960 }, templates.Select(item => item.StartMinuteOfDay).ToArray());
+        foreach (var template in templates)
+        {
+            Assert.AreEqual(480, template.DurationMinutes);
+            var users = await _db.OnCallShiftTemplateMembers.Where(item => item.TemplateId == template.Id)
+                .OrderBy(item => item.RotationOrder).Select(item => item.UserId).ToListAsync();
+            CollectionAssert.AreEqual(new[] { new[] { "one" }, new[] { "three" }, new[] { "two" } }[templates.IndexOf(template)], users);
+        }
+        Assert.AreEqual(0, await _db.OnCallShifts.CountAsync());
+
+        var date = new DateOnly(2026, 9, 23);
+        await _controller.Publish(new OnCallPublishRequest { GroupId = group.Id, StartDate = date, EndDate = date.AddDays(1) }, default);
+        Assert.AreEqual(6, await _db.OnCallShifts.CountAsync());
+
+        await _controller.ApplyDefaultTemplates(group.Id, default);
+        Assert.Contains("已有轮转模板", _controller.TempData["OnCallError"] as string ?? string.Empty);
+        Assert.AreEqual(3, await _db.OnCallShiftTemplates.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task DefaultTemplatesRotateExtraMembersWithinEachShift()
+    {
+        var group = new OnCallGroup { Name = "Operations", TimeZoneId = "UTC" };
+        _db.OnCallGroups.Add(group);
+        for (var index = 0; index < 6; index++)
+        {
+            var userId = $"user{index}";
+            await AddUser(userId, userId);
+            _db.OnCallGroupMembers.Add(new OnCallGroupMember { Group = group, UserId = userId });
+        }
+        await _db.SaveChangesAsync();
+        await _controller.ApplyDefaultTemplates(group.Id, default);
+
+        var date = new DateOnly(2026, 9, 23);
+        var shifts = await new OnCallScheduleService(_db).GenerateDailyRotationAsync(group.Id, date, date.AddDays(1));
+        Assert.AreEqual(6, shifts.Count);
+        foreach (var startMinute in new[] { 0, 480, 960 })
+        {
+            var templateId = await _db.OnCallShiftTemplates.Where(item => item.GroupId == group.Id && item.StartMinuteOfDay == startMinute)
+                .Select(item => item.Id).SingleAsync();
+            Assert.AreEqual(2, shifts.Where(item => item.TemplateId == templateId).Select(item => item.UserId).Distinct().Count());
+        }
+        var result = await new OnCallScheduleService(_db).PublishAsync(group.Id, shifts,
+            new DateTime(2026, 9, 23, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 9, 25, 0, 0, 0, DateTimeKind.Utc));
+        Assert.IsTrue(result.IsValid, string.Join(" ", result.Errors));
+    }
+
+    [TestMethod]
+    public async Task DefaultTemplatesCannotBeAppliedByRegularUsers()
+    {
+        var group = new OnCallGroup { Name = "Operations", TimeZoneId = "UTC" };
+        _db.OnCallGroups.Add(group);
+        await _db.SaveChangesAsync();
+        _controller = Controller("other");
+        Assert.IsInstanceOfType<ForbidResult>(await _controller.ApplyDefaultTemplates(group.Id, default));
+        Assert.AreEqual(0, await _db.OnCallShiftTemplates.CountAsync());
+    }
+
+    [TestMethod]
     public async Task LeaveApprovalRequiresCompleteCoverageAndConfirmedHandoverCreatesDebt()
     {
         var group = await CreateGroupWithShiftAsync();

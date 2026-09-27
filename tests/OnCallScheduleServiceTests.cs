@@ -140,6 +140,22 @@ public class OnCallScheduleServiceTests
     }
 
     [TestMethod]
+    public async Task DailyRotationAdvancesWhenRotationHasThreeMembers()
+    {
+        var group = await AddGroupAsync();
+        foreach (var userId in new[] { "one", "two", "three" }) await AddUserAsync(userId, userId);
+        var template = new OnCallShiftTemplate { GroupId = group.Id, Name = "Morning", DurationMinutes = 480 };
+        _db.OnCallShiftTemplates.Add(template);
+        _db.OnCallShiftTemplateMembers.AddRange(new[] { "one", "two", "three" }
+            .Select((userId, index) => new OnCallShiftTemplateMember
+            { Template = template, UserId = userId, RotationOrder = index }));
+        await _db.SaveChangesAsync();
+
+        var shifts = await _service.GenerateDailyRotationAsync(group.Id, new DateOnly(2026, 9, 23), new DateOnly(2026, 9, 25));
+        Assert.AreEqual(3, shifts.Select(item => item.UserId).Distinct().Count());
+    }
+
+    [TestMethod]
     public async Task PublishValidatesBeforePersistingAndStoresUtcSchedule()
     {
         var group = await AddGroupAsync();
