@@ -123,7 +123,6 @@ public class ViewModelArgsInjector(
         };
 
         var currentViewingController = context.GetRouteValue("controller")?.ToString();
-        var currentViewingAction = context.GetRouteValue("action")?.ToString();
         var navGroupsForView = new List<NavGroup>();
 
         foreach (var groupDef in navigationState.NavMap)
@@ -150,9 +149,7 @@ public class ViewModelArgsInjector(
                         linksForView.Add(new CascadedLink
                         {
                             Href = linkDef.Href,
-                            Text = localizer[linkDef.Text],
-                            IsActive = string.Equals(linkDef.Href, $"/{currentViewingController}/{currentViewingAction}",
-                                StringComparison.OrdinalIgnoreCase)
+                            Text = localizer[linkDef.Text]
                         });
                     }
                 }

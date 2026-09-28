@@ -58,14 +58,12 @@ public class Startup : IWebStartup
         services.Configure<EmailSettings>(configuration.GetSection("Email"));
         services.AddScoped<IEmailSender, SmtpEmailSender>();
         services.AddScoped<IIncidentMatcher, IncidentMatcher>();
-        services.AddScoped<IOnCallScheduleService, OnCallScheduleService>();
         services.AddScoped<IApplicationAccessService, ApplicationAccessService>();
         services.AddScoped<IPushChannelAccessService, PushChannelAccessService>();
         services.AddScoped<IAlertDispatcher, QueuedAlertDispatcher>();
         services.AddScoped<INotificationChannelAdapter, EmailChannelAdapter>();
         services.AddScoped<INotificationChannelAdapter, WebhookChannelAdapter>();
         services.AddScoped<INotificationChannelAdapter, InAppChannelAdapter>();
-        services.AddScoped<INotificationChannelAdapter, OceInAppChannelAdapter>();
         services.AddScoped<PushDeliveryProcessor>();
         services.AddHttpClient("PushWebhook", client => client.Timeout = TimeSpan.FromSeconds(10))
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { AllowAutoRedirect = false, UseCookies = false });

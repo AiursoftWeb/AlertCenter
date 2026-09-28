@@ -26,7 +26,6 @@ AlertCenter provides:
 - Five severity levels (`sev0` DEADLY through `sev4`) with independently configurable routing.
 - Webhook, SMTP email, and targeted in-app notification channels.
 - Automatically created incidents with acknowledgement, resolution, and a timestamped handling timeline.
-- On-call group, shift-template, rotation, handover, leave, coverage-override, and coverage-debt persistence with UTC schedules and group-local time zones.
 - Message history, notification inboxes, and delivery records for tracking alert handling.
 - Self-hosted deployment with SQLite by default and MySQL support for production deployments.
 
@@ -52,20 +51,6 @@ curl -i 'https://alertcenter.example.com/api/v1/messages' \
 `reportId`, `title`, `level`, and `occurredAtUtc` are required. The optional `incidentKey` is limited to 200 characters and can group matching reports into the same automatically created incident. Without it, AlertCenter groups reports by application, title, and severity. The title is limited to 200 characters, content to 4,000 characters, and the entire request body to 64 KB. Repeating the same `reportId` for an application is idempotent: the original message is retained and the response has `duplicate: true`. A successful new report returns `201 Created`; authentication failures return `401 Unauthorized`; invalid fields return `400 Bad Request`.
 
 AlertCenter does not rate-limit reports or suppress notifications before acknowledgement. Reporting applications **must rate-limit at the source** and report only actionable alerts; use stable `reportId` values when retrying the same report. `incidentKey` is a correlation aid, not a substitute for caller-side rate limiting.
-
-## On-call schedule foundation
-
-Each on-call group owns an IANA or operating-system time-zone ID and stores all published shifts, temporary coverage, leave windows, handovers, and coverage-debt records in UTC. Shift templates accept daily local start times and rotate only among group members. Generation rejects invalid time zones, non-members, empty rotations, invalid daylight-saving local times, and shifts whose UTC duration exceeds eight hours.
-
-Use **值班中心 → 值班概览** to view the current OCE, group-local daily schedule and team/request/debt counts, request leave or handover for your shifts, and confirm or decline incoming handovers (including requests outside the selected day). Administrators use the left sidebar as the single navigation for the separate **值班中心** pages: **值班组配置**, **成员管理**, **轮转模板**, **排班与代班**, **请假与交接**, and **补班债务**. The group selector on each page remembers the last selected group across sidebar navigation; an explicit group in a URL takes precedence. Create a group and add members. With at least three members and no existing templates, administrators can apply the default three-shift plan from **轮转模板**: local 00:00–08:00, 08:00–16:00, and 16:00–24:00, with members divided between shifts and rotated daily within each shift. This creates templates only; choose a date range and publish manually from **排班与代班**. Custom templates remain available and the default plan does not replace existing templates. Review leave and handover requests and settle coverage debts on their respective pages. Forms return to the relevant page after submission and show validation errors there. The schedule page can display any 14-day window for previously published shifts and defaults new publishing to the next unpublished local date. Group time zones are selected from a searchable list of system-supported zones; validation and scheduling errors appear in the relevant management or overview page instead of a plain-text response. Leave approval is blocked until every affected scheduled interval is covered. Confirming a handover creates the coverage override and a traceable debt; only a later compatible override performed by the owing engineer can settle it.
-
-Before publishing or accepting temporary coverage, AlertCenter verifies continuous coverage throughout the requested UTC range, no overlapping shifts, a maximum eight-hour shift duration, and at least sixteen continuous hours of rest between effective shifts for every engineer. Temporary coverage must remain inside its original published shift and cannot overlap another override for that shift. The OCE lookup is boundary-safe (`start <= instant < end`) and gives a valid temporary coverage record precedence over the original shift.
-
-## Application on-call routing
-
-After at least one on-call group exists, administrators must bind every new application to exactly one group in **接入应用**. Existing unbound applications show a clear binding selector. Each new alert still creates or joins its incident, but AlertCenter resolves the current OCE at ingestion time and snapshots the on-call group, shift, user ID, display name, email, and notification time on the incident and delivery recipient. It then sends one system-managed in-app notification only to that snapshotted user; later schedule changes cannot rewrite the historical recipient.
-
-If a bound group has no current OCE, AlertCenter creates no delivery and records the routing failure on the alert detail page. During the transition before any on-call group exists, existing static severity-channel routing remains active so administrators can configure the first group without losing alert delivery. The system-managed OCE channel is not available for manual binding, testing, editing, or deletion.
 
 ## Application access control
 

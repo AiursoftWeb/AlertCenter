@@ -115,7 +115,7 @@ public class PushCenterTests
     private async Task<IActionResult> Report(SourceApplication application, Guid reportId, string level = "sev3")
     {
         _db.ChangeTracker.Clear();
-        var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db), new OnCallScheduleService(_db)))
+        var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db)))
         {
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() }
         };

@@ -58,7 +58,7 @@ public class IncidentWorkflowTests
     private async Task<ReportedMessage> Report(SourceApplication application, string title, string level, string? incidentKey)
     {
         _db.ChangeTracker.Clear();
-        var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db), new OnCallScheduleService(_db)))
+        var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db)))
         {
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() }
         };

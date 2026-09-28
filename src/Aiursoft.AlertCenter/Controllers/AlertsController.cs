@@ -91,35 +91,14 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
     public async Task<IActionResult> CreateApplication(CreateApplicationRequest request, CancellationToken cancellationToken)
     {
         if (!applicationAccess.IsAdministrator(User)) return Forbid();
-        var onCallGroupsConfigured = await db.OnCallGroups.AnyAsync(cancellationToken);
-        if (onCallGroupsConfigured && (!request.OnCallGroupId.HasValue ||
-            !await db.OnCallGroups.AnyAsync(group => group.Id == request.OnCallGroupId.Value, cancellationToken)))
-            ModelState.AddModelError(nameof(request.OnCallGroupId), "请为新应用选择有效的值班组。");
         if (!ModelState.IsValid) return this.StackView(await ApplicationsModel(cancellationToken: cancellationToken), "Applications");
-        var application = new SourceApplication
-        {
-            Name = request.Name.Trim(), OnCallGroupId = onCallGroupsConfigured ? request.OnCallGroupId : null
-        };
+        var application = new SourceApplication { Name = request.Name.Trim() };
         var secret = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
         application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, secret);
         db.SourceApplications.Add(application);
         await db.SaveChangesAsync();
         TempData[CreatedApplicationApiKey] = $"{application.Id}.{secret}";
         TempData[ApiKeyWasReset] = false;
-        return RedirectToAction(nameof(Applications));
-    }
-
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> SaveOnCallBinding(ApplicationOnCallBindingRequest request, CancellationToken cancellationToken)
-    {
-        if (!applicationAccess.IsAdministrator(User)) return Forbid();
-        var application = await db.SourceApplications.SingleOrDefaultAsync(item => item.Id == request.ApplicationId, cancellationToken);
-        if (application == null) return NotFound();
-        if (!request.OnCallGroupId.HasValue || request.OnCallGroupId == Guid.Empty ||
-            !await db.OnCallGroups.AnyAsync(group => group.Id == request.OnCallGroupId.Value, cancellationToken))
-            return BadRequest("请选择有效的值班组。每个应用必须绑定一个值班组。");
-        application.OnCallGroupId = request.OnCallGroupId.Value;
-        await db.SaveChangesAsync(cancellationToken);
         return RedirectToAction(nameof(Applications));
     }
 
@@ -183,7 +162,6 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         return this.StackView(new AlertsViewModel
         {
             Message = message,
-            RoutingFailure = await db.AlertRoutingFailures.AsNoTracking().SingleOrDefaultAsync(item => item.MessageId == id, cancellationToken),
             IsAdministrator = applicationAccess.IsAdministrator(User),
             ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, true, cancellationToken)).ToHashSet()
         });
@@ -248,9 +226,6 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         return new AlertsViewModel
         {
             Applications = await applications.OrderByDescending(application => application.CreatedAtUtc).ToListAsync(cancellationToken),
-            OnCallGroups = applicationAccess.IsAdministrator(User)
-                ? await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken)
-                : [],
             ApplicationSearchKeyword = keyword,
             IsAdministrator = applicationAccess.IsAdministrator(User),
             ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, true, cancellationToken)).ToHashSet()

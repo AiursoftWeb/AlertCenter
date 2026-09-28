@@ -22,41 +22,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.AlertRoutingFailure", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("ApplicationId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("MessageId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
-
-                    b.Property<string>("ReasonCode")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MessageId")
-                        .IsUnique();
-
-                    b.HasIndex("ApplicationId", "CreatedAtUtc");
-
-                    b.ToTable("AlertRoutingFailures");
-                });
-
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationPushChannel", b =>
                 {
                     b.Property<Guid>("ApplicationId")
@@ -205,27 +170,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("OceDisplayName")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("OceEmail")
-                        .HasMaxLength(320)
-                        .HasColumnType("varchar(320)");
-
-                    b.Property<DateTime?>("OceNotifiedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("OceUserId")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<Guid?>("OnCallGroupId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("OnCallShiftId")
-                        .HasColumnType("char(36)");
-
                     b.Property<DateTime?>("ResolvedAtUtc")
                         .HasColumnType("datetime(6)");
 
@@ -248,8 +192,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .IsUnique();
 
                     b.HasIndex("ApplicationId", "IncidentKey");
-
-                    b.HasIndex("OnCallGroupId", "OceUserId");
 
                     b.HasIndex("ApplicationId", "AlertTitle", "AlertLevel", "Status");
 
@@ -290,364 +232,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.ToTable("IncidentTimelineEntries");
                 });
 
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallCoverageDebt", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("CoveringUserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("DurationMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("OriginOverrideId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("OwingUserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.Property<DateTime?>("SettledAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("SettlementOverrideId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoveringUserId");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("OriginOverrideId")
-                        .IsUnique();
-
-                    b.HasIndex("OwingUserId");
-
-                    b.HasIndex("SettlementOverrideId")
-                        .IsUnique();
-
-                    b.ToTable("OnCallCoverageDebts");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("TimeZoneId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("OnCallGroups");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroupMember", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("JoinedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("GroupId", "UserId")
-                        .IsUnique();
-
-                    b.ToTable("OnCallGroupMembers");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallHandoverRequest", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("EndsAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Note")
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
-
-                    b.Property<Guid?>("OverrideId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("ReceivingUserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.Property<DateTime>("RequestedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("RequestedByUserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.Property<DateTime?>("RespondedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("ShiftId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("StartsAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OverrideId");
-
-                    b.HasIndex("ReceivingUserId");
-
-                    b.HasIndex("RequestedByUserId");
-
-                    b.HasIndex("ShiftId", "Status");
-
-                    b.ToTable("OnCallHandoverRequests");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallLeaveRequest", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("EndsAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
-
-                    b.Property<DateTime?>("ReviewedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("ReviewedByUserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.Property<DateTime>("StartsAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<DateTime>("SubmittedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReviewedByUserId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("GroupId", "UserId", "StartsAtUtc", "EndsAtUtc");
-
-                    b.ToTable("OnCallLeaveRequests");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("EndsAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("PublishedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("StartsAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("TemplateId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TemplateId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("GroupId", "StartsAtUtc", "EndsAtUtc");
-
-                    b.ToTable("OnCallShifts");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftOverride", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("CoveringUserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("CreatedByUserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.Property<DateTime>("EndsAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("OriginalShiftId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)");
-
-                    b.Property<DateTime>("StartsAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CoveringUserId");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("OriginalShiftId");
-
-                    b.HasIndex("GroupId", "StartsAtUtc", "EndsAtUtc");
-
-                    b.ToTable("OnCallShiftOverrides");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftTemplate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("DurationMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<int>("StartMinuteOfDay")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId", "Name")
-                        .IsUnique();
-
-                    b.ToTable("OnCallShiftTemplates");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftTemplateMember", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<int>("RotationOrder")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("TemplateId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("varchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("TemplateId", "RotationOrder")
-                        .IsUnique();
-
-                    b.HasIndex("TemplateId", "UserId")
-                        .IsUnique();
-
-                    b.ToTable("OnCallShiftTemplateMembers");
-                });
-
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -678,10 +262,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("SystemKey")
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)");
-
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(40)
@@ -694,9 +274,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SystemKey")
-                        .IsUnique();
 
                     b.ToTable("PushChannels");
                 });
@@ -816,16 +393,7 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("UserId")
-                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
-
-                    b.Property<string>("DisplayName")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(320)
-                        .HasColumnType("varchar(320)");
 
                     b.HasKey("DeliveryId", "UserId");
 
@@ -908,17 +476,12 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<Guid?>("OnCallGroupId")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("SecretHash")
                         .IsRequired()
                         .HasMaxLength(512)
                         .HasColumnType("varchar(512)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OnCallGroupId");
 
                     b.ToTable("SourceApplications");
                 });
@@ -1132,25 +695,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.AlertRoutingFailure", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.ReportedMessage", "Message")
-                        .WithMany("RoutingFailures")
-                        .HasForeignKey("MessageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Application");
-
-                    b.Navigation("Message");
-                });
-
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationPushChannel", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
@@ -1254,217 +798,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Actor");
 
                     b.Navigation("Incident");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallCoverageDebt", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "CoveringUser")
-                        .WithMany()
-                        .HasForeignKey("CoveringUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallShiftOverride", "OriginOverride")
-                        .WithMany()
-                        .HasForeignKey("OriginOverrideId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "OwingUser")
-                        .WithMany()
-                        .HasForeignKey("OwingUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallShiftOverride", "SettlementOverride")
-                        .WithMany()
-                        .HasForeignKey("SettlementOverrideId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("CoveringUser");
-
-                    b.Navigation("Group");
-
-                    b.Navigation("OriginOverride");
-
-                    b.Navigation("OwingUser");
-
-                    b.Navigation("SettlementOverride");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroupMember", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallHandoverRequest", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallShiftOverride", "Override")
-                        .WithMany()
-                        .HasForeignKey("OverrideId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "ReceivingUser")
-                        .WithMany()
-                        .HasForeignKey("ReceivingUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "RequestedByUser")
-                        .WithMany()
-                        .HasForeignKey("RequestedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallShift", "Shift")
-                        .WithMany()
-                        .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Override");
-
-                    b.Navigation("ReceivingUser");
-
-                    b.Navigation("RequestedByUser");
-
-                    b.Navigation("Shift");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallLeaveRequest", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "ReviewedByUser")
-                        .WithMany()
-                        .HasForeignKey("ReviewedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("ReviewedByUser");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallShiftTemplate", "Template")
-                        .WithMany()
-                        .HasForeignKey("TemplateId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("Template");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftOverride", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "CoveringUser")
-                        .WithMany()
-                        .HasForeignKey("CoveringUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallShift", "OriginalShift")
-                        .WithMany()
-                        .HasForeignKey("OriginalShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CoveringUser");
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("Group");
-
-                    b.Navigation("OriginalShift");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftTemplate", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftTemplateMember", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallShiftTemplate", "Template")
-                        .WithMany()
-                        .HasForeignKey("TemplateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Template");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingRole", b =>
@@ -1598,16 +931,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Incident");
                 });
 
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SourceApplication", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "OnCallGroup")
-                        .WithMany()
-                        .HasForeignKey("OnCallGroupId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("OnCallGroup");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1664,11 +987,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Messages");
 
                     b.Navigation("TimelineEntries");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ReportedMessage", b =>
-                {
-                    b.Navigation("RoutingFailures");
                 });
 #pragma warning restore 612, 618
         }

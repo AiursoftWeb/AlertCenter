@@ -8,10 +8,8 @@ public class AlertsViewModel : UiStackLayoutViewModel
 {
     public AlertsViewModel() { PageTitle = "告警中心"; }
     public List<SourceApplication> Applications { get; set; } = [];
-    public List<OnCallGroup> OnCallGroups { get; set; } = [];
     public List<ReportedMessage> Messages { get; set; } = [];
     public ReportedMessage? Message { get; set; }
-    public AlertRoutingFailure? RoutingFailure { get; set; }
     public string? ApiKey { get; set; }
     public bool ApiKeyWasReset { get; set; }
     public string? ApplicationSearchKeyword { get; set; }
@@ -25,11 +23,4 @@ public class AlertsViewModel : UiStackLayoutViewModel
 public class CreateApplicationRequest
 {
     [Required, StringLength(100)] public string Name { get; set; } = string.Empty;
-    public Guid? OnCallGroupId { get; set; }
-}
-
-public class ApplicationOnCallBindingRequest
-{
-    [Required] public Guid ApplicationId { get; set; }
-    [Required] public Guid? OnCallGroupId { get; set; }
 }

@@ -18,5 +18,4 @@ public class ReportedMessage
     public DateTime OccurredAtUtc { get; set; }
     public DateTime ReceivedAtUtc { get; set; } = DateTime.UtcNow;
     public string? ContextJson { get; set; }
-    public ICollection<AlertRoutingFailure> RoutingFailures { get; set; } = [];
 }
