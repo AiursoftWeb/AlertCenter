@@ -58,6 +58,7 @@ public class Startup : IWebStartup
         services.Configure<EmailSettings>(configuration.GetSection("Email"));
         services.AddScoped<IEmailSender, SmtpEmailSender>();
         services.AddScoped<IIncidentMatcher, IncidentMatcher>();
+        services.AddSingleton<IOnCallScheduleGenerator, OnCallScheduleGenerator>();
         services.AddScoped<IApplicationAccessService, ApplicationAccessService>();
         services.AddScoped<IPushChannelAccessService, PushChannelAccessService>();
         services.AddScoped<IAlertDispatcher, QueuedAlertDispatcher>();

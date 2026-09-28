@@ -1,0 +1,158 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+
+<h1 class="h3 mb-2">自动排班</h1>
+<p class="text-muted">根据已保存的规则，从当前班次起预览未来约七天；若起点尚未到来，则从起点开始。修改规则后预览会重新生成，不会保存班次或影响告警路由。</p>
+
+@if (Model.IsAdministrator)
+{
+    <div class="card mb-4">
+        <div class="card-header"><h2 class="card-title mb-0">创建团队</h2></div>
+        <div class="card-body">
+            <form asp-action="CreateGroup" method="post" class="row g-3">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="col-md-5">
+                    <label asp-for="GroupInput.Name" class="form-label">团队名称</label>
+                    <input asp-for="GroupInput.Name" class="form-control" maxlength="100" required />
+                </div>
+                <div class="col-md-5">
+                    <label asp-for="GroupInput.TimeZoneId" class="form-label">时区 ID</label>
+                    <input asp-for="GroupInput.TimeZoneId" class="form-control" maxlength="100" required placeholder="Asia/Shanghai" />
+                    <div class="form-text">使用系统支持的时区 ID；排班锚点仍以 UTC 保存。</div>
+                </div>
+                <div class="col-md-2 align-self-end"><button type="submit" class="btn btn-primary">创建团队</button></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header"><h2 class="card-title mb-0">@(Model.EditingRuleId.HasValue ? "编辑规则" : "创建规则")</h2></div>
+        <div class="card-body">
+            @if (Model.Groups.Count == 0)
+            {
+                <p class="text-muted mb-0">请先创建团队，再设置值班规则。</p>
+            }
+            else
+            {
+                <form asp-action="SaveRule" method="post">
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                    <input asp-for="RuleInput.Id" type="hidden" />
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label asp-for="RuleInput.GroupId" class="form-label">团队</label>
+                            <select asp-for="RuleInput.GroupId" class="form-select" required>
+                                <option value="">请选择</option>
+                                @foreach (var group in Model.Groups)
+                                {
+                                    <option value="@group.Id">@group.Name (@group.TimeZoneId)</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="RuleInput.Name" class="form-label">规则名称</label>
+                            <input asp-for="RuleInput.Name" class="form-control" maxlength="100" required />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="RuleInput.ShiftHours" class="form-label">每班时长（小时）</label>
+                            <input asp-for="RuleInput.ShiftHours" type="number" min="1" max="24" class="form-control" required />
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="RuleInput.RestHours" class="form-label">最短休息（小时）</label>
+                            <input asp-for="RuleInput.RestHours" type="number" min="0" max="168" class="form-control" required />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="anchor-utc" class="form-label">排班起点（UTC）</label>
+                            <input id="anchor-utc" name="RuleInput.AnchorUtc" type="datetime-local" class="form-control" required value="@Model.RuleInput.AnchorUtc?.ToString("yyyy-MM-ddTHH:mm")" />
+                            <div class="form-text">按 UTC 填写，不会根据团队时区自动换算。</div>
+                        </div>
+                    </div>
+                    <h3 class="h6">成员及轮换顺序</h3>
+                    <p class="text-muted small">勾选员工并填写互不重复的正整数顺序。轮换按顺序循环，休息时长由团队人数保证。</p>
+                    @if (Model.Staff.Count == 0)
+                    {
+                        <p class="text-warning">尚无员工，请先创建用户。</p>
+                    }
+                    <div class="row g-2 mb-3">
+                        @for (var i = 0; i < Model.Staff.Count; i++)
+                        {
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="border rounded p-2">
+                                    <input asp-for="RuleInput.Members[i].UserId" type="hidden" />
+                                    <label class="form-check-label">
+                                        <input asp-for="RuleInput.Members[i].Selected" class="form-check-input me-1" />
+                                        @Model.Staff[i].DisplayName (@Model.Staff[i].UserName)
+                                    </label>
+                                    <label asp-for="RuleInput.Members[i].RotationOrder" class="visually-hidden">轮换顺序：@Model.Staff[i].DisplayName</label>
+                                    <input asp-for="RuleInput.Members[i].RotationOrder" type="number" min="1" class="form-control form-control-sm mt-2" aria-label="@Model.Staff[i].DisplayName 的轮换顺序" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <button type="submit" class="btn btn-primary" disabled="@(Model.Staff.Count == 0)">保存规则</button>
+                    @if (Model.EditingRuleId.HasValue)
+                    {
+                        <a asp-action="Index" asp-route-ruleId="@Model.EditingRuleId" class="btn btn-outline-secondary ms-2">取消编辑</a>
+                    }
+                </form>
+            }
+        </div>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0">七天值班预览</h2></div>
+    <div class="card-body">
+        @if (Model.Rules.Count == 0)
+        {
+            <p class="text-muted mb-0">目前没有已保存的规则。</p>
+        }
+        else
+        {
+            <form asp-action="Index" method="get" class="row g-2 align-items-end mb-3">
+                <div class="col-md-8">
+                    <label for="rule-id" class="form-label">已保存规则</label>
+                    <select id="rule-id" name="ruleId" class="form-select">
+                        @foreach (var rule in Model.Rules)
+                        {
+                            <option value="@rule.Id" selected="@(Model.SelectedRuleId == rule.Id)">@rule.Group.Name / @rule.Name (@rule.Group.TimeZoneId)</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4"><button type="submit" class="btn btn-outline-primary">查看预览</button></div>
+            </form>
+            var selected = Model.Rules.SingleOrDefault(rule => rule.Id == Model.SelectedRuleId);
+            if (selected != null)
+            {
+                <p class="small text-muted">规则锚点：@selected.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC；预览首班：@Model.Preview.FirstOrDefault()?.StartsAtUtc.ToString("yyyy-MM-dd HH:mm") UTC；每班 @selected.ShiftHours 小时；最短休息 @selected.RestHours 小时；团队时区：@selected.Group.TimeZoneId。最后一班可能跨越七天边界。</p>
+                @if (Model.IsAdministrator)
+                {
+                    <a asp-action="Index" asp-route-ruleId="@selected.Id" asp-route-editRuleId="@selected.Id" class="btn btn-sm btn-outline-secondary mb-3">编辑此规则</a>
+                }
+                @if (Model.PreviewError != null)
+                {
+                    <div class="alert alert-warning">@Model.PreviewError</div>
+                }
+                else
+                {
+                    var zone = TimeZoneInfo.FindSystemTimeZoneById(selected.Group.TimeZoneId);
+                    var staffNames = Model.Staff.ToDictionary(user => user.Id, user => user.DisplayName);
+                    <div class="table-responsive">
+                        <table class="table table-striped align-middle">
+                            <thead><tr><th>值班员工</th><th>开始（团队本地时间）</th><th>结束（团队本地时间）</th><th>开始（UTC）</th></tr></thead>
+                            <tbody>
+                            @foreach (var shift in Model.Preview)
+                            {
+                                <tr>
+                                    <td>@staffNames.GetValueOrDefault(shift.UserId, "已删除的员工")</td>
+                                    <td>@TimeZoneInfo.ConvertTimeFromUtc(shift.StartsAtUtc, zone).ToString("yyyy-MM-dd HH:mm")</td>
+                                    <td>@TimeZoneInfo.ConvertTimeFromUtc(shift.EndsAtUtc, zone).ToString("yyyy-MM-dd HH:mm")</td>
+                                    <td>@shift.StartsAtUtc.ToString("yyyy-MM-dd HH:mm")</td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

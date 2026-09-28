@@ -52,6 +52,12 @@ curl -i 'https://alertcenter.example.com/api/v1/messages' \
 
 AlertCenter does not rate-limit reports or suppress notifications before acknowledgement. Reporting applications **must rate-limit at the source** and report only actionable alerts; use stable `reportId` values when retrying the same report. `incidentKey` is a correlation aid, not a substitute for caller-side rate limiting.
 
+## Automatic on-call schedule demo
+
+In **告警中心 → 自动排班**, an administrator can create teams with their own time zones and save multiple named scheduling rules per team. Each rule chooses employees and their rotation order, a UTC start time, shift length (1–24 hours, default 8), and minimum rest (0–168 hours, default 16). The system generates a continuous, rotating preview of roughly the next seven days and rejects rules with too few employees to satisfy the chosen rest period. Displayed shift times use the team's time zone; schedule boundaries are calculated in UTC so daylight-saving transitions do not create coverage gaps.
+
+This is a **preview only**: shifts are not published or stored, no individual shift overrides or leave requests are supported, and reporting applications and notifications still use the existing routing behavior. Editing a rule regenerates its preview; it does not modify past alerts.
+
 ## Application access control
 
 Administrators always have full access to every application. In **接入应用 → 访问权限**, an administrator can grant either users or roles **view** or **manage** access for a single application. Role grants are inherited by every role member; if a user has multiple grants, manage access takes precedence over view access. View access permits only that application’s alerts, incidents, and related delivery records. Manage access also permits application settings, API-key reset, enable/disable, push bindings, and Incident actions. Creating applications and editing application access grants remain administrator-only.

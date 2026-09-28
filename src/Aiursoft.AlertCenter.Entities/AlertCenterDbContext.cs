@@ -14,6 +14,9 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<ReportedMessage> ReportedMessages => Set<ReportedMessage>();
     public DbSet<Incident> Incidents => Set<Incident>();
     public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
+    public DbSet<OnCallGroup> OnCallGroups => Set<OnCallGroup>();
+    public DbSet<OnCallRule> OnCallRules => Set<OnCallRule>();
+    public DbSet<OnCallRuleMember> OnCallRuleMembers => Set<OnCallRuleMember>();
     public DbSet<ApplicationUserAccess> ApplicationUserAccesses => Set<ApplicationUserAccess>();
     public DbSet<ApplicationRoleAccess> ApplicationRoleAccesses => Set<ApplicationRoleAccess>();
     public DbSet<PushChannel> PushChannels => Set<PushChannel>();
@@ -70,6 +73,15 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<IncidentTimelineEntry>().HasOne(entry => entry.Actor).WithMany()
             .HasForeignKey(entry => entry.ActorId).OnDelete(DeleteBehavior.SetNull);
         builder.Entity<IncidentTimelineEntry>().HasIndex(entry => new { entry.IncidentId, entry.CreatedAtUtc });
+        builder.Entity<OnCallRule>().HasOne(rule => rule.Group).WithMany(group => group.Rules)
+            .HasForeignKey(rule => rule.GroupId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<OnCallRule>().HasIndex(rule => new { rule.GroupId, rule.Name }).IsUnique();
+        builder.Entity<OnCallRuleMember>().HasKey(member => new { member.RuleId, member.UserId });
+        builder.Entity<OnCallRuleMember>().HasOne(member => member.Rule).WithMany(rule => rule.Members)
+            .HasForeignKey(member => member.RuleId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<OnCallRuleMember>().HasOne(member => member.User).WithMany()
+            .HasForeignKey(member => member.UserId).OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<OnCallRuleMember>().HasIndex(member => new { member.RuleId, member.RotationOrder }).IsUnique();
         builder.Entity<ApplicationUserAccess>().HasKey(access => new { access.ApplicationId, access.UserId });
         builder.Entity<ApplicationUserAccess>().HasOne(access => access.Application).WithMany()
             .HasForeignKey(access => access.ApplicationId).OnDelete(DeleteBehavior.Cascade);
