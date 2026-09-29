@@ -83,7 +83,7 @@
         status.textContent = '正在查找员工…';
         try {
             const url = new URL(searchUrl, window.location.origin);
-            url.searchParams.set('query', search.value.trim());
+            url.searchParams.set('query', role.value ? '' : search.value.trim());
             url.searchParams.set('roleId', role.value);
             url.searchParams.set('page', page);
             const response = await fetch(url, { credentials: 'same-origin' });
@@ -99,11 +99,16 @@
         }
     }
 
-    document.getElementById('oncall-search-button').addEventListener('click', () => { page = 1; load(); });
+    function searchByName() {
+        role.value = '';
+        page = 1;
+        load();
+    }
+    document.getElementById('oncall-search-button').addEventListener('click', searchByName);
     search.addEventListener('keydown', event => {
-        if (event.key === 'Enter') { event.preventDefault(); page = 1; load(); }
+        if (event.key === 'Enter') { event.preventDefault(); searchByName(); }
     });
-    role.addEventListener('change', () => { page = 1; load(); });
+    role.addEventListener('change', () => { search.value = ''; page = 1; load(); });
     prev.addEventListener('click', () => { if (page > 1) { page--; load(); } });
     next.addEventListener('click', () => { if (hasMore) { page++; load(); } });
     form.addEventListener('submit', event => {

@@ -183,7 +183,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         var users = db.Users.AsNoTracking().AsQueryable();
         if (!string.IsNullOrWhiteSpace(roleId))
             users = users.Where(user => db.UserRoles.Any(link => link.RoleId == roleId && link.UserId == user.Id));
-        if (!string.IsNullOrWhiteSpace(query))
+        if (string.IsNullOrWhiteSpace(roleId) && !string.IsNullOrWhiteSpace(query))
             users = users.Where(user => user.UserName!.Contains(query) || user.DisplayName.Contains(query));
         var matches = await users.OrderBy(user => user.DisplayName).ThenBy(user => user.Id)
             .Skip((page - 1) * pageSize).Take(pageSize + 1)

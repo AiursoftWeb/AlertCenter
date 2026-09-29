@@ -84,8 +84,9 @@ public class OnCallControllerTests
         Assert.AreEqual(20, firstUsers.Length);
         Assert.IsTrue((bool)first.Value.GetType().GetProperty("hasMore")!.GetValue(first.Value)!);
         Assert.IsFalse(firstUsers.Any(user => (string)user.GetType().GetProperty("id")!.GetValue(user)! == "outsider"));
-        var second = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers(null, role.Id, 2));
+        var second = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers("user-00", role.Id, 2));
         Assert.AreEqual(5, ((IEnumerable<object>)second.Value!.GetType().GetProperty("users")!.GetValue(second.Value)!).Count());
+        Assert.IsFalse((bool)second.Value.GetType().GetProperty("hasMore")!.GetValue(second.Value)!);
         var match = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers("user-24", null, 1));
         Assert.AreEqual(1, ((IEnumerable<object>)match.Value!.GetType().GetProperty("users")!.GetValue(match.Value)!).Count());
     }

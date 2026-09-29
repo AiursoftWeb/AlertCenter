@@ -66,14 +66,14 @@
                         </div>
                     </div>
                     <h3 class="h6">轮换成员</h3>
-                    <p class="text-muted small">搜索员工或按角色分页查看，勾选后加入轮换；搜索和翻页不会清除已选成员。下方成员顺序即轮换顺序。</p>
+                    <p class="text-muted small">输入姓名/账号后查找，或直接选择角色自动分页列出该角色全部员工；两种方式独立使用，翻页不会清除已选成员。下方成员顺序即轮换顺序。</p>
                     <div class="row g-2 mb-2">
                         <div class="col-md-5">
                             <label for="oncall-user-search" class="form-label">搜索员工</label>
                             <input id="oncall-user-search" type="search" maxlength="100" class="form-control" placeholder="姓名或账号" autocomplete="off" />
                         </div>
                         <div class="col-md-5">
-                            <label for="oncall-role" class="form-label">按角色筛选</label>
+                            <label for="oncall-role" class="form-label">按角色浏览全部员工</label>
                             <select id="oncall-role" class="form-select">
                                 <option value="">全部角色</option>
                                 @foreach (var role in Model.Roles)
@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-md-2 align-self-end"><button id="oncall-search-button" type="button" class="btn btn-outline-primary w-100">查找</button></div>
                     </div>
-                    <div id="oncall-search-status" class="small text-muted mb-2" role="status">输入关键词或选择角色以查找员工。</div>
+                    <div id="oncall-search-status" class="small text-muted mb-2" role="status">输入关键词查找，或选角色立即浏览该角色全部员工。</div>
                     <div id="oncall-search-results" class="list-group mb-2"></div>
                     <div class="d-flex gap-2 mb-3">
                         <button type="button" id="oncall-prev" class="btn btn-sm btn-outline-secondary" disabled>上一页</button>
