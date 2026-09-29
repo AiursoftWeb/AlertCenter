@@ -34,11 +34,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 ShiftHours = editRule.ShiftHours,
                 RestHours = editRule.RestHours,
                 AnchorUtc = editRule.AnchorUtc,
-                Members = editRule.Members.OrderBy(member => member.RotationOrder)
-                    .Select(member => new OnCallMemberInput
-                    {
-                        UserId = member.UserId, Selected = true, RotationOrder = member.RotationOrder + 1
-                    }).ToList()
+                UserIds = editRule.Members.OrderBy(member => member.RotationOrder)
+                    .Select(member => member.UserId).ToList()
             };
         }
         else
@@ -47,8 +44,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             model.RuleInput.AnchorUtc = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0, DateTimeKind.Utc);
         }
         model.SelectedRuleId = ruleId ?? editRuleId ?? model.Rules.FirstOrDefault()?.Id;
-        PrepareMembers(model);
-        PopulatePreview(model);
+        await PopulateSelectedUsers(model, cancellationToken);
+        await PopulatePreview(model, cancellationToken);
         return this.StackView(model);
     }
 
@@ -66,9 +63,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         {
             var model = await LoadModel(cancellationToken);
             model.GroupInput = request;
-            PrepareMembers(model);
             model.SelectedRuleId = model.Rules.FirstOrDefault()?.Id;
-            PopulatePreview(model);
+            await PopulatePreview(model, cancellationToken);
             return this.StackView(model, "Index");
         }
         db.OnCallGroups.Add(new OnCallGroup { Name = request.Name, TimeZoneId = request.TimeZoneId });
@@ -82,7 +78,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         CancellationToken cancellationToken)
     {
         request.Name = request.Name?.Trim() ?? string.Empty;
-        request.Members ??= [];
+        request.UserIds ??= [];
         if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", "请输入规则名称。");
         if (request.GroupId == null || request.GroupId == Guid.Empty ||
             !await db.OnCallGroups.AnyAsync(group => group.Id == request.GroupId, cancellationToken))
@@ -90,21 +86,14 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         if (request.AnchorUtc is not { } anchor || anchor.Kind == DateTimeKind.Local ||
             anchor < DateTime.MinValue.AddDays(7) || anchor > DateTime.MaxValue.AddDays(-7))
             ModelState.AddModelError("RuleInput.AnchorUtc", "请选择有效的 UTC 开始时间（需距离日期边界至少七天）。");
-        var knownIds = await db.Users.Select(user => user.Id).ToListAsync(cancellationToken);
-        if (request.Members.Count != knownIds.Count ||
-            request.Members.Select(member => member.UserId).Distinct(StringComparer.Ordinal).Count() != knownIds.Count ||
-            request.Members.Any(member => !knownIds.Contains(member.UserId)))
-            ModelState.AddModelError("RuleInput.Members", "员工列表已变化，请刷新后重新选择。");
-        var selectedMembers = request.Members.Where(member => member.Selected).ToList();
-        if (selectedMembers.Count == 0) ModelState.AddModelError("RuleInput.Members", "请至少选择一名员工。");
-        if (selectedMembers.Any(member => string.IsNullOrWhiteSpace(member.UserId)) ||
-            selectedMembers.Select(member => member.UserId).Distinct(StringComparer.Ordinal).Count() != selectedMembers.Count ||
-            selectedMembers.Any(member => member.RotationOrder < 1) ||
-            selectedMembers.Select(member => member.RotationOrder).Distinct().Count() != selectedMembers.Count)
-            ModelState.AddModelError("RuleInput.Members", "轮换顺序必须是每位员工唯一的正整数。");
+        if (request.UserIds.Count == 0) ModelState.AddModelError("RuleInput.UserIds", "请至少选择一名员工。");
+        if (request.UserIds.Count > 200 || request.UserIds.Any(string.IsNullOrWhiteSpace) ||
+            request.UserIds.Distinct(StringComparer.Ordinal).Count() != request.UserIds.Count ||
+            await db.Users.CountAsync(user => request.UserIds.Contains(user.Id), cancellationToken) != request.UserIds.Count)
+            ModelState.AddModelError("RuleInput.UserIds", "所选员工不存在、重复或超过 200 人，请重新选择。");
         if (request.ShiftHours is >= 1 and <= 24 && request.RestHours is >= 0 and <= 168 &&
-            selectedMembers.Count < 1 + (int)Math.Ceiling((double)request.RestHours / request.ShiftHours))
-            ModelState.AddModelError("RuleInput.Members",
+            request.UserIds.Count < 1 + (int)Math.Ceiling((double)request.RestHours / request.ShiftHours))
+            ModelState.AddModelError("RuleInput.UserIds",
                 $"班次 {request.ShiftHours} 小时、至少休息 {request.RestHours} 小时需要至少 {1 + (int)Math.Ceiling((double)request.RestHours / request.ShiftHours)} 名员工。请增加员工或调整时间。");
         OnCallRule? rule = null;
         if (request.Id.HasValue)
@@ -123,11 +112,11 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             model.RuleInput = request;
             model.EditingRuleId = request.Id;
             model.SelectedRuleId = request.Id;
-            PrepareMembers(model);
-            PopulatePreview(model);
+            await PopulateSelectedUsers(model, cancellationToken);
+            await PopulatePreview(model, cancellationToken);
             return this.StackView(model, "Index");
         }
-        var orderedUserIds = selectedMembers.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToList();
+        var orderedUserIds = request.UserIds;
         if (rule == null)
         {
             rule = new OnCallRule();
@@ -173,26 +162,50 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         Groups = await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken),
         Rules = await db.OnCallRules.AsNoTracking().Include(rule => rule.Group).Include(rule => rule.Members)
             .OrderBy(rule => rule.Group.Name).ThenBy(rule => rule.Name).ToListAsync(cancellationToken),
-        Staff = await db.Users.AsNoTracking().OrderBy(user => user.DisplayName).ThenBy(user => user.Id)
+        Roles = await db.Roles.AsNoTracking().OrderBy(role => role.Name)
+            .Select(role => new SelectListItem { Value = role.Id, Text = role.Name ?? role.Id })
             .ToListAsync(cancellationToken)
     };
 
-    private static void PrepareMembers(OnCallViewModel model)
+    [HttpGet]
+    [Authorize(Roles = "Administrators")]
+    public async Task<IActionResult> SearchUsers(string? query, string? roleId, int page = 1,
+        CancellationToken cancellationToken = default)
     {
-        var byId = model.RuleInput.Members.GroupBy(member => member.UserId)
-            .ToDictionary(group => group.Key, group => group.First());
-        model.RuleInput.Members = model.Staff.Select((user, index) =>
-            byId.GetValueOrDefault(user.Id) ?? new OnCallMemberInput
-            {
-                UserId = user.Id, RotationOrder = index + 1
-            }).ToList();
+        query = query?.Trim();
+        if (query?.Length > 100 || page < 1 || page > 10000) return BadRequest();
+        if (!string.IsNullOrWhiteSpace(roleId) &&
+            !await db.Roles.AnyAsync(role => role.Id == roleId, cancellationToken)) return BadRequest();
+        if (string.IsNullOrWhiteSpace(query) && string.IsNullOrWhiteSpace(roleId))
+            return Json(new { users = Array.Empty<object>(), hasMore = false });
+
+        const int pageSize = 20;
+        var users = db.Users.AsNoTracking().AsQueryable();
+        if (!string.IsNullOrWhiteSpace(roleId))
+            users = users.Where(user => db.UserRoles.Any(link => link.RoleId == roleId && link.UserId == user.Id));
+        if (!string.IsNullOrWhiteSpace(query))
+            users = users.Where(user => user.UserName!.Contains(query) || user.DisplayName.Contains(query));
+        var matches = await users.OrderBy(user => user.DisplayName).ThenBy(user => user.Id)
+            .Skip((page - 1) * pageSize).Take(pageSize + 1)
+            .Select(user => new { id = user.Id, name = user.DisplayName, username = user.UserName })
+            .ToListAsync(cancellationToken);
+        return Json(new { users = matches.Take(pageSize), hasMore = matches.Count > pageSize });
     }
 
-    private void PopulatePreview(OnCallViewModel model)
+    private async Task PopulateSelectedUsers(OnCallViewModel model, CancellationToken cancellationToken)
+    {
+        var ids = model.RuleInput.UserIds.Distinct().ToArray();
+        model.SelectedUsers = await db.Users.AsNoTracking().Where(user => ids.Contains(user.Id))
+            .ToListAsync(cancellationToken);
+    }
+
+    private async Task PopulatePreview(OnCallViewModel model, CancellationToken cancellationToken)
     {
         var rule = model.Rules.SingleOrDefault(item => item.Id == model.SelectedRuleId);
         if (rule == null) return;
         var userIds = rule.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToList();
+        model.PreviewUsers = await db.Users.AsNoTracking().Where(user => userIds.Contains(user.Id))
+            .ToListAsync(cancellationToken);
         try
         {
             rule.AnchorUtc = DateTime.SpecifyKind(rule.AnchorUtc, DateTimeKind.Utc);

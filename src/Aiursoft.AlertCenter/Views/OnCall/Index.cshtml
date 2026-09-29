@@ -33,7 +33,7 @@
             }
             else
             {
-                <form asp-action="SaveRule" method="post">
+                <form asp-action="SaveRule" method="post" id="oncall-rule-form" data-search-url="@Url.Action("SearchUsers", "OnCall")">
                     <div asp-validation-summary="All" class="text-danger mb-3"></div>
                     <input asp-for="RuleInput.Id" type="hidden" />
                     <div class="row g-3 mb-3">
@@ -65,29 +65,47 @@
                             <div class="form-text">按 UTC 填写，不会根据团队时区自动换算。</div>
                         </div>
                     </div>
-                    <h3 class="h6">成员及轮换顺序</h3>
-                    <p class="text-muted small">勾选员工并填写互不重复的正整数顺序。轮换按顺序循环，休息时长由团队人数保证。</p>
-                    @if (Model.Staff.Count == 0)
-                    {
-                        <p class="text-warning">尚无员工，请先创建用户。</p>
-                    }
-                    <div class="row g-2 mb-3">
-                        @for (var i = 0; i < Model.Staff.Count; i++)
-                        {
-                            <div class="col-sm-6 col-lg-4">
-                                <div class="border rounded p-2">
-                                    <input asp-for="RuleInput.Members[i].UserId" type="hidden" />
-                                    <label class="form-check-label">
-                                        <input asp-for="RuleInput.Members[i].Selected" class="form-check-input me-1" />
-                                        @Model.Staff[i].DisplayName (@Model.Staff[i].UserName)
-                                    </label>
-                                    <label asp-for="RuleInput.Members[i].RotationOrder" class="visually-hidden">轮换顺序：@Model.Staff[i].DisplayName</label>
-                                    <input asp-for="RuleInput.Members[i].RotationOrder" type="number" min="1" class="form-control form-control-sm mt-2" aria-label="@Model.Staff[i].DisplayName 的轮换顺序" />
-                                </div>
-                            </div>
-                        }
+                    <h3 class="h6">轮换成员</h3>
+                    <p class="text-muted small">搜索员工或按角色分页查看，勾选后加入轮换；搜索和翻页不会清除已选成员。下方成员顺序即轮换顺序。</p>
+                    <div class="row g-2 mb-2">
+                        <div class="col-md-5">
+                            <label for="oncall-user-search" class="form-label">搜索员工</label>
+                            <input id="oncall-user-search" type="search" maxlength="100" class="form-control" placeholder="姓名或账号" autocomplete="off" />
+                        </div>
+                        <div class="col-md-5">
+                            <label for="oncall-role" class="form-label">按角色筛选</label>
+                            <select id="oncall-role" class="form-select">
+                                <option value="">全部角色</option>
+                                @foreach (var role in Model.Roles)
+                                {
+                                    <option value="@role.Value">@role.Text</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-2 align-self-end"><button id="oncall-search-button" type="button" class="btn btn-outline-primary w-100">查找</button></div>
                     </div>
-                    <button type="submit" class="btn btn-primary" disabled="@(Model.Staff.Count == 0)">保存规则</button>
+                    <div id="oncall-search-status" class="small text-muted mb-2" role="status">输入关键词或选择角色以查找员工。</div>
+                    <div id="oncall-search-results" class="list-group mb-2"></div>
+                    <div class="d-flex gap-2 mb-3">
+                        <button type="button" id="oncall-prev" class="btn btn-sm btn-outline-secondary" disabled>上一页</button>
+                        <span id="oncall-page" class="small align-self-center"></span>
+                        <button type="button" id="oncall-next" class="btn btn-sm btn-outline-secondary" disabled>下一页</button>
+                    </div>
+                    <h4 class="h6">已选成员（最多 200 人）</h4>
+                    <ol id="oncall-selected" class="list-group list-group-numbered mb-3">
+                        @foreach (var userId in Model.RuleInput.UserIds)
+                        {
+                            var user = Model.SelectedUsers.FirstOrDefault(item => item.Id == userId);
+                            if (user != null)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center" data-user-id="@user.Id" data-name="@user.DisplayName" data-username="@user.UserName">
+                                    <span>@user.DisplayName (@user.UserName)</span>
+                                    <button type="button" class="btn btn-sm btn-outline-danger oncall-remove">移除</button>
+                                </li>
+                            }
+                        }
+                    </ol>
+                    <button type="submit" class="btn btn-primary">保存规则</button>
                     @if (Model.EditingRuleId.HasValue)
                     {
                         <a asp-action="Index" asp-route-ruleId="@Model.EditingRuleId" class="btn btn-outline-secondary ms-2">取消编辑</a>
@@ -134,7 +152,7 @@
                 else
                 {
                     var zone = TimeZoneInfo.FindSystemTimeZoneById(selected.Group.TimeZoneId);
-                    var staffNames = Model.Staff.ToDictionary(user => user.Id, user => user.DisplayName);
+                    var staffNames = Model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
                     <div class="table-responsive">
                         <table class="table table-striped align-middle">
                             <thead><tr><th>值班员工</th><th>开始（团队本地时间）</th><th>结束（团队本地时间）</th><th>开始（UTC）</th></tr></thead>
@@ -156,3 +174,7 @@
         }
     </div>
 </div>
+
+@section scripts {
+    <script src="~/scripts/oncall-member-search.js" asp-append-version="true"></script>
+}

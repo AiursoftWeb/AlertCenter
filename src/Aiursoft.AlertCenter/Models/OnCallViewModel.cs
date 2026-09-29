@@ -13,8 +13,10 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public bool IsAdministrator { get; set; }
     public List<OnCallGroup> Groups { get; set; } = [];
     public List<SelectListItem> TimeZones { get; set; } = [];
+    public List<SelectListItem> Roles { get; set; } = [];
     public List<OnCallRule> Rules { get; set; } = [];
-    public List<User> Staff { get; set; } = [];
+    public List<User> SelectedUsers { get; set; } = [];
+    public List<User> PreviewUsers { get; set; } = [];
     public Guid? SelectedRuleId { get; set; }
     public Guid? EditingRuleId { get; set; }
     public IReadOnlyList<GeneratedOnCallShift> Preview { get; set; } = [];
@@ -45,12 +47,5 @@ public class SaveOnCallRuleRequest
     public int RestHours { get; set; } = 16;
     [Required(ErrorMessage = "请选择 UTC 开始时间。")]
     public DateTime? AnchorUtc { get; set; }
-    public List<OnCallMemberInput> Members { get; set; } = [];
-}
-
-public class OnCallMemberInput
-{
-    public string UserId { get; set; } = string.Empty;
-    public bool Selected { get; set; }
-    public int RotationOrder { get; set; }
+    public List<string> UserIds { get; set; } = [];
 }
