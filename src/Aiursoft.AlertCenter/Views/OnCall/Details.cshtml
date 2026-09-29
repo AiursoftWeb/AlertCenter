@@ -2,6 +2,9 @@
 @{
     var rule = Model.Rules.Single(item => item.Id == Model.SelectedRuleId);
 }
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
@@ -37,26 +40,97 @@
         {
             <div class="alert alert-warning">@Model.PreviewError</div>
         }
+        else if (Model.Preview.Count == 0)
+        {
+            <p class="text-muted mb-0">暂无可展示的值班班次。</p>
+        }
         else
         {
-            var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
             var staffNames = Model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
-            <p class="small text-muted">首班：@Model.Preview.FirstOrDefault()?.StartsAtUtc.ToString("yyyy-MM-dd HH:mm") UTC；最后一班可能跨越七天边界。</p>
-            <div class="table-responsive">
-                <table class="table table-striped align-middle">
-                    <thead><tr><th>值班员工</th><th>开始（团队本地时间）</th><th>结束（团队本地时间）</th><th>开始（UTC）</th></tr></thead>
-                    <tbody>
-                    @foreach (var shift in Model.Preview)
-                    {
-                        <tr>
-                            <td>@staffNames.GetValueOrDefault(shift.UserId, "已删除的员工")</td>
-                            <td>@TimeZoneInfo.ConvertTimeFromUtc(shift.StartsAtUtc, zone).ToString("yyyy-MM-dd HH:mm")</td>
-                            <td>@TimeZoneInfo.ConvertTimeFromUtc(shift.EndsAtUtc, zone).ToString("yyyy-MM-dd HH:mm")</td>
-                            <td>@shift.StartsAtUtc.ToString("yyyy-MM-dd HH:mm")</td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
+            var totalHours = Model.Preview.Sum(shift => (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours);
+            var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
+            var now = DateTime.UtcNow;
+            var today = DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(now, zone));
+            var currentShift = Model.Preview.FirstOrDefault(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc);
+            var staffLegend = Model.PreviewDays.SelectMany(day => day.Segments).DistinctBy(segment => segment.UserId).ToList();
+            <div class="alert alert-primary d-flex flex-wrap align-items-center gap-2">
+                @if (currentShift != null)
+                {
+                    <span class="badge bg-primary">当前值班</span>
+                    <strong>@staffNames.GetValueOrDefault(currentShift.UserId, "已删除的员工")</strong>
+                    <span>本班至 @TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
+                }
+                else
+                {
+                    <span class="badge bg-primary">即将开始</span>
+                    <strong>@staffNames.GetValueOrDefault(Model.Preview[0].UserId, "已删除的员工")</strong>
+                    <span>首班于 @TimeZoneInfo.ConvertTimeFromUtc(Model.Preview[0].StartsAtUtc, zone).ToString("MM-dd HH:mm") 开始</span>
+                }
+                <span class="small">（@rule.Group.TimeZoneId，状态以页面加载时为准）</span>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">预览班次</div><strong class="fs-4">@Model.Preview.Count</strong></div></div></div>
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">参与员工</div><strong class="fs-4">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></div></div></div>
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">连续覆盖</div><strong class="fs-4">@totalHours.ToString("0") 小时</strong></div></div></div>
+            </div>
+            <p class="small text-muted">按团队时区 @rule.Group.TimeZoneId 展示。色带长度表示当天预览范围内的值班时长；跨天班次分段显示，最后一班可能跨越第七天。</p>
+            <ul class="list-unstyled d-flex flex-wrap gap-3 mb-4" aria-label="值班员工图例">
+                @foreach (var staff in staffLegend)
+                {
+                    <li class="d-flex align-items-center gap-2 small">
+                        <span class="ac-oncall-dot ac-oncall-color-@staff.ColorIndex" aria-hidden="true"></span>
+                        <span>@staffNames.GetValueOrDefault(staff.UserId, "已删除的员工")</span>
+                    </li>
+                }
+            </ul>
+            <div class="row g-3">
+                @foreach (var day in Model.PreviewDays)
+                {
+                    var dayHours = day.Segments.Sum(segment => segment.Duration.TotalHours);
+                    var isToday = day.Date == today;
+                    <div class="col-12 col-xl-6">
+                        <section class="card border @(isToday ? "border-primary" : "") h-100 mb-0" aria-label="@day.Date.ToString("yyyy-MM-dd") 值班">
+                            <div class="card-header d-flex flex-wrap gap-2 justify-content-between align-items-center">
+                                <h3 class="card-title h6 mb-0">
+                                    @day.Date.ToString("MM月dd日 dddd", System.Globalization.CultureInfo.GetCultureInfo("zh-CN"))
+                                    @if (isToday)
+                                    {
+                                        <span class="badge bg-primary ms-1">今天</span>
+                                    }
+                                </h3>
+                                <span class="badge bg-secondary-subtle text-secondary border">@dayHours.ToString("0.##") 小时</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between small text-muted mb-1">
+                                    <span>@day.Segments[0].LocalStart.ToString("HH:mm")</span>
+                                    <span>@(DateOnly.FromDateTime(day.Segments[^1].LocalEnd.DateTime) > day.Date ? "次日 " : "")@day.Segments[^1].LocalEnd.ToString("HH:mm")</span>
+                                </div>
+                                <div class="ac-oncall-track mb-3" aria-hidden="true">
+                                    @foreach (var segment in day.Segments)
+                                    {
+                                        <div class="ac-oncall-block ac-oncall-color-@segment.ColorIndex" style="flex-grow: @segment.Duration.Ticks"></div>
+                                    }
+                                </div>
+                                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                                    @foreach (var segment in day.Segments)
+                                    {
+                                        var isCurrent = segment.StartsAtUtc <= now && now < segment.EndsAtUtc;
+                                        <li class="ac-oncall-segment d-flex flex-wrap align-items-center gap-2 small @(isCurrent ? "bg-primary-subtle" : "")">
+                                            <span class="ac-oncall-dot ac-oncall-color-@segment.ColorIndex" aria-hidden="true"></span>
+                                            <strong>@staffNames.GetValueOrDefault(segment.UserId, "已删除的员工")</strong>
+                                            @if (isCurrent)
+                                            {
+                                                <span class="badge bg-primary">值班中</span>
+                                            }
+                                            <span class="text-muted">@segment.LocalStart.ToString("HH:mm zzz") → @(DateOnly.FromDateTime(segment.LocalEnd.DateTime) > day.Date ? "次日 " : "")@segment.LocalEnd.ToString("HH:mm zzz")</span>
+                                            <span class="badge bg-body-secondary text-body">@segment.Duration.TotalHours.ToString("0.##") 小时</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+                }
             </div>
         }
     </div>

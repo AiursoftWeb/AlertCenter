@@ -220,7 +220,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             var startUtc = rule.AnchorUtc.AddTicks(offset * duration.Ticks);
             var count = (int)Math.Ceiling(168.0 / rule.ShiftHours);
             model.Preview = generator.Generate(rule, userIds, startUtc, count);
-            _ = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
+            var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
+            model.PreviewDays = OnCallPreviewTimeline.Build(model.Preview, zone);
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or TimeZoneNotFoundException or InvalidTimeZoneException or OverflowException)
         {

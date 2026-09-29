@@ -18,7 +18,7 @@ public class OnCallRulePagesTests : TestBase
             var group = new OnCallGroup { Name = "Platform", TimeZoneId = "UTC" };
             var rule = new OnCallRule
             {
-                Group = group, Name = "Day shift", AnchorUtc = new DateTime(2026, 9, 28, 0, 0, 0, DateTimeKind.Utc),
+                Group = group, Name = "Day shift", AnchorUtc = DateTime.UtcNow.Date.AddDays(-1),
                 RestHours = 0, Members = [new OnCallRuleMember { UserId = member.Id, RotationOrder = 0 }]
             };
             db.OnCallRules.Add(rule);
@@ -41,9 +41,14 @@ public class OnCallRulePagesTests : TestBase
         Assert.Contains("Day shift", edit);
         Assert.DoesNotContain("七天值班预览", edit);
 
-        var details = await Http.GetStringAsync($"/OnCall/Details/{ruleId}");
+        var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{ruleId}"));
         Assert.Contains("Day shift", details);
         Assert.Contains("七天值班预览", details);
+        Assert.Contains("当前值班", details);
+        Assert.Contains("值班员工图例", details);
+        Assert.Contains("ac-oncall-track", details);
+        Assert.Contains("次日", details);
+        Assert.DoesNotContain("无法生成预览", details);
         Assert.DoesNotContain("id=\"oncall-rule-form\"", details);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Details/{Guid.NewGuid()}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Edit/{Guid.NewGuid()}")).StatusCode);

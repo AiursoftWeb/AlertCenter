@@ -1,5 +1,42 @@
 /* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
 
+.ac-oncall-track {
+    display: flex;
+    height: 0.85rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--bs-tertiary-bg);
+}
+
+.ac-oncall-block {
+    flex-basis: 0;
+    min-width: 1px;
+    border-right: 2px solid var(--bs-body-bg);
+}
+
+.ac-oncall-block:last-child {
+    border-right: 0;
+}
+
+.ac-oncall-segment {
+    padding: 0.5rem;
+    border-radius: var(--bs-border-radius);
+    overflow-wrap: anywhere;
+}
+
+.ac-oncall-dot {
+    display: inline-block;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 50%;
+    flex: 0 0 auto;
+}
+
+.ac-oncall-color-0 { background: var(--bs-primary); }
+.ac-oncall-color-1 { background: var(--bs-success); }
+.ac-oncall-color-2 { background: var(--bs-warning); }
+.ac-oncall-color-3 { background: var(--bs-info); }
+
 :root {
     --ac-sev0: #9f1239;
     --ac-sev0-bg: rgba(159, 18, 57, 0.1);
@@ -564,4 +601,3 @@
 .ac-inbox-item.ac-row-sev2 { border-left-color: var(--ac-sev2) !important; }
 .ac-inbox-item.ac-row-sev3 { border-left-color: var(--ac-sev3) !important; }
 .ac-inbox-item.ac-row-sev4 { border-left-color: var(--ac-sev4) !important; }
-

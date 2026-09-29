@@ -19,6 +19,7 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public List<User> PreviewUsers { get; set; } = [];
     public Guid? SelectedRuleId { get; set; }
     public IReadOnlyList<GeneratedOnCallShift> Preview { get; set; } = [];
+    public IReadOnlyList<OnCallPreviewDay> PreviewDays { get; set; } = [];
     public string? PreviewError { get; set; }
     public CreateOnCallGroupRequest GroupInput { get; set; } = new();
     public SaveOnCallRuleRequest RuleInput { get; set; } = new();
