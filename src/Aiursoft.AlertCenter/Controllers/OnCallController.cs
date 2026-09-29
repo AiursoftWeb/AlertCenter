@@ -5,6 +5,7 @@ using Aiursoft.UiStack.Navigation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
@@ -59,13 +60,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         request.Name = request.Name?.Trim() ?? string.Empty;
         request.TimeZoneId = request.TimeZoneId?.Trim() ?? string.Empty;
         if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("GroupInput.Name", "请输入团队名称。");
-        if (string.IsNullOrWhiteSpace(request.TimeZoneId)) ModelState.AddModelError("GroupInput.TimeZoneId", "请输入时区 ID。");
-        if (!string.IsNullOrWhiteSpace(request.TimeZoneId))
-        {
-            try { _ = TimeZoneInfo.FindSystemTimeZoneById(request.TimeZoneId); }
-            catch (TimeZoneNotFoundException) { ModelState.AddModelError("GroupInput.TimeZoneId", "找不到该时区，请输入有效的系统时区 ID（例如 Asia/Shanghai）。"); }
-            catch (InvalidTimeZoneException) { ModelState.AddModelError("GroupInput.TimeZoneId", "该时区数据无效，请换用其他时区 ID。"); }
-        }
+        if (!TimeZoneInfo.GetSystemTimeZones().Any(zone => zone.Id == request.TimeZoneId))
+            ModelState.AddModelError("GroupInput.TimeZoneId", "请选择列表中的有效时区。");
         if (!ModelState.IsValid)
         {
             var model = await LoadModel(cancellationToken);
@@ -169,6 +165,11 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     private async Task<OnCallViewModel> LoadModel(CancellationToken cancellationToken) => new()
     {
         IsAdministrator = User.IsInRole("Administrators"),
+        TimeZones = TimeZoneInfo.GetSystemTimeZones().Select(zone => new SelectListItem
+        {
+            Value = zone.Id,
+            Text = $"{zone.DisplayName} ({zone.Id})"
+        }).ToList(),
         Groups = await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken),
         Rules = await db.OnCallRules.AsNoTracking().Include(rule => rule.Group).Include(rule => rule.Members)
             .OrderBy(rule => rule.Group.Name).ThenBy(rule => rule.Name).ToListAsync(cancellationToken),

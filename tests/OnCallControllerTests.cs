@@ -62,6 +62,32 @@ public class OnCallControllerTests
     }
 
     [TestMethod]
+    public async Task GroupCreationRejectsTimeZonesNotListedBySystem()
+    {
+        await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await db.Database.OpenConnectionAsync();
+        await db.Database.MigrateAsync();
+        var controller = new OnCallController(db, new OnCallScheduleGenerator())
+        {
+            ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext
+            {
+                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
+            } }
+        };
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.CreateGroup(
+            new CreateOnCallGroupRequest { Name = "Operations", TimeZoneId = "UTC" }, CancellationToken.None));
+        Assert.AreEqual("UTC", (await db.OnCallGroups.SingleAsync()).TimeZoneId);
+
+        using var provider = new ServiceCollection().BuildServiceProvider();
+        controller.HttpContext.RequestServices = provider;
+        await Assert.ThrowsAsync<InvalidOperationException>(() => controller.CreateGroup(
+            new CreateOnCallGroupRequest { Name = "Other", TimeZoneId = "Not/A-Time-Zone" }, CancellationToken.None));
+        Assert.IsFalse(controller.ModelState.IsValid);
+        Assert.AreEqual(1, await db.OnCallGroups.CountAsync());
+    }
+
+    [TestMethod]
     public async Task RejectsTamperedMemberIdsWithoutChangingRule()
     {
         await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()

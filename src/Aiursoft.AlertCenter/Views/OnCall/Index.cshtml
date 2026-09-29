@@ -15,9 +15,9 @@
                     <input asp-for="GroupInput.Name" class="form-control" maxlength="100" required />
                 </div>
                 <div class="col-md-5">
-                    <label asp-for="GroupInput.TimeZoneId" class="form-label">时区 ID</label>
-                    <input asp-for="GroupInput.TimeZoneId" class="form-control" maxlength="100" required placeholder="Asia/Shanghai" />
-                    <div class="form-text">使用系统支持的时区 ID；排班锚点仍以 UTC 保存。</div>
+                    <label asp-for="GroupInput.TimeZoneId" class="form-label">时区</label>
+                    <select asp-for="GroupInput.TimeZoneId" asp-items="Model.TimeZones" class="form-select" required></select>
+                    <div class="form-text">选择团队所在时区；排班锚点仍以 UTC 保存。</div>
                 </div>
                 <div class="col-md-2 align-self-end"><button type="submit" class="btn btn-primary">创建团队</button></div>
             </form>

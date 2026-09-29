@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Services;
 using Aiursoft.UiStack.Layout;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Aiursoft.AlertCenter.Models;
 
@@ -11,6 +12,7 @@ public class OnCallViewModel : UiStackLayoutViewModel
 
     public bool IsAdministrator { get; set; }
     public List<OnCallGroup> Groups { get; set; } = [];
+    public List<SelectListItem> TimeZones { get; set; } = [];
     public List<OnCallRule> Rules { get; set; } = [];
     public List<User> Staff { get; set; } = [];
     public Guid? SelectedRuleId { get; set; }
@@ -26,7 +28,7 @@ public class CreateOnCallGroupRequest
     [Required(ErrorMessage = "请输入团队名称。"), StringLength(100, ErrorMessage = "团队名称不能超过 100 个字符。")]
     public string Name { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "请输入时区 ID。"), StringLength(100, ErrorMessage = "时区 ID 不能超过 100 个字符。")]
+    [Required(ErrorMessage = "请选择时区。"), StringLength(100, ErrorMessage = "时区 ID 不能超过 100 个字符。")]
     public string TimeZoneId { get; set; } = "UTC";
 }
 
