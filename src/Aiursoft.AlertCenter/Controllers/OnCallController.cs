@@ -16,35 +16,45 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "自动排班", LinkOrder = 4)]
-    public async Task<IActionResult> Index(Guid? ruleId, Guid? editRuleId, CancellationToken cancellationToken)
+    public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
+        this.StackView(await LoadModel(cancellationToken));
+
+    [Authorize(Roles = "Administrators")]
+    public async Task<IActionResult> Create(CancellationToken cancellationToken)
     {
         var model = await LoadModel(cancellationToken);
-        if (ruleId.HasValue && model.Rules.All(rule => rule.Id != ruleId.Value)) return NotFound();
-        if (editRuleId.HasValue)
+        if (model.Groups.Count == 0) return RedirectToAction(nameof(Index));
+        var now = DateTime.UtcNow;
+        model.RuleInput.AnchorUtc = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0, DateTimeKind.Utc);
+        return this.StackView(model);
+    }
+
+    [Authorize(Roles = "Administrators")]
+    public async Task<IActionResult> Edit(Guid id, CancellationToken cancellationToken)
+    {
+        var model = await LoadModel(cancellationToken);
+        var rule = model.Rules.SingleOrDefault(item => item.Id == id);
+        if (rule == null) return NotFound();
+        model.RuleInput = new SaveOnCallRuleRequest
         {
-            if (!model.IsAdministrator) return Forbid();
-            var editRule = model.Rules.SingleOrDefault(rule => rule.Id == editRuleId.Value);
-            if (editRule == null) return NotFound();
-            model.EditingRuleId = editRule.Id;
-            model.RuleInput = new SaveOnCallRuleRequest
-            {
-                Id = editRule.Id,
-                GroupId = editRule.GroupId,
-                Name = editRule.Name,
-                ShiftHours = editRule.ShiftHours,
-                RestHours = editRule.RestHours,
-                AnchorUtc = editRule.AnchorUtc,
-                UserIds = editRule.Members.OrderBy(member => member.RotationOrder)
-                    .Select(member => member.UserId).ToList()
-            };
-        }
-        else
-        {
-            var now = DateTime.UtcNow;
-            model.RuleInput.AnchorUtc = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0, DateTimeKind.Utc);
-        }
-        model.SelectedRuleId = ruleId ?? editRuleId ?? model.Rules.FirstOrDefault()?.Id;
+            Id = rule.Id,
+            GroupId = rule.GroupId,
+            Name = rule.Name,
+            ShiftHours = rule.ShiftHours,
+            RestHours = rule.RestHours,
+            AnchorUtc = rule.AnchorUtc,
+            UserIds = rule.Members.OrderBy(member => member.RotationOrder)
+                .Select(member => member.UserId).ToList()
+        };
         await PopulateSelectedUsers(model, cancellationToken);
+        return this.StackView(model);
+    }
+
+    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
+    {
+        var model = await LoadModel(cancellationToken);
+        if (model.Rules.All(rule => rule.Id != id)) return NotFound();
+        model.SelectedRuleId = id;
         await PopulatePreview(model, cancellationToken);
         return this.StackView(model);
     }
@@ -63,8 +73,6 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         {
             var model = await LoadModel(cancellationToken);
             model.GroupInput = request;
-            model.SelectedRuleId = model.Rules.FirstOrDefault()?.Id;
-            await PopulatePreview(model, cancellationToken);
             return this.StackView(model, "Index");
         }
         db.OnCallGroups.Add(new OnCallGroup { Name = request.Name, TimeZoneId = request.TimeZoneId });
@@ -110,11 +118,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         {
             var model = await LoadModel(cancellationToken);
             model.RuleInput = request;
-            model.EditingRuleId = request.Id;
-            model.SelectedRuleId = request.Id;
             await PopulateSelectedUsers(model, cancellationToken);
-            await PopulatePreview(model, cancellationToken);
-            return this.StackView(model, "Index");
+            return this.StackView(model, request.Id.HasValue ? "Edit" : "Create");
         }
         var orderedUserIds = request.UserIds;
         if (rule == null)
@@ -142,7 +147,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             AddMembers(rule, orderedUserIds);
             await db.SaveChangesAsync(cancellationToken);
         }
-        return RedirectToAction(nameof(Index), new { ruleId = rule.Id });
+        return RedirectToAction(nameof(Details), new { id = rule.Id });
     }
 
     private static void AddMembers(OnCallRule rule, IReadOnlyList<string> orderedUserIds)

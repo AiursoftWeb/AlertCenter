@@ -1,0 +1,63 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    var rule = Model.Rules.Single(item => item.Id == Model.SelectedRuleId);
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h3 mb-1">@rule.Name</h1>
+        <p class="text-muted mb-0">@rule.Group.Name (@rule.Group.TimeZoneId) · 从当前班次预览未来约七天，班次仅作预览，不影响告警路由。</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Index" class="btn btn-outline-secondary">返回规则列表</a>
+        @if (Model.IsAdministrator)
+        {
+            <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">编辑规则</a>
+        }
+    </div>
+</div>
+<div class="card mb-4">
+    <div class="card-header"><h2 class="card-title mb-0">规则配置</h2></div>
+    <div class="card-body">
+        <p>每班 @rule.ShiftHours 小时 · 最短休息 @rule.RestHours 小时 · 锚点 @rule.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        <h3 class="h6">轮换成员</h3>
+        <ol class="mb-0">
+            @foreach (var member in rule.Members.OrderBy(item => item.RotationOrder))
+            {
+                var user = Model.PreviewUsers.FirstOrDefault(item => item.Id == member.UserId);
+                <li>@(user?.DisplayName ?? "已删除的员工") (@(user?.UserName ?? member.UserId))</li>
+            }
+        </ol>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0">七天值班预览</h2></div>
+    <div class="card-body">
+        @if (Model.PreviewError != null)
+        {
+            <div class="alert alert-warning">@Model.PreviewError</div>
+        }
+        else
+        {
+            var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
+            var staffNames = Model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
+            <p class="small text-muted">首班：@Model.Preview.FirstOrDefault()?.StartsAtUtc.ToString("yyyy-MM-dd HH:mm") UTC；最后一班可能跨越七天边界。</p>
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead><tr><th>值班员工</th><th>开始（团队本地时间）</th><th>结束（团队本地时间）</th><th>开始（UTC）</th></tr></thead>
+                    <tbody>
+                    @foreach (var shift in Model.Preview)
+                    {
+                        <tr>
+                            <td>@staffNames.GetValueOrDefault(shift.UserId, "已删除的员工")</td>
+                            <td>@TimeZoneInfo.ConvertTimeFromUtc(shift.StartsAtUtc, zone).ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@TimeZoneInfo.ConvertTimeFromUtc(shift.EndsAtUtc, zone).ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@shift.StartsAtUtc.ToString("yyyy-MM-dd HH:mm")</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

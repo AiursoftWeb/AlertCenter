@@ -8,7 +8,7 @@ namespace Aiursoft.AlertCenter.Models;
 
 public class OnCallViewModel : UiStackLayoutViewModel
 {
-    public OnCallViewModel() { PageTitle = "自动排班预览"; }
+    public OnCallViewModel() { PageTitle = "自动排班规则"; }
 
     public bool IsAdministrator { get; set; }
     public List<OnCallGroup> Groups { get; set; } = [];
@@ -18,7 +18,6 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public List<User> SelectedUsers { get; set; } = [];
     public List<User> PreviewUsers { get; set; } = [];
     public Guid? SelectedRuleId { get; set; }
-    public Guid? EditingRuleId { get; set; }
     public IReadOnlyList<GeneratedOnCallShift> Preview { get; set; } = [];
     public string? PreviewError { get; set; }
     public CreateOnCallGroupRequest GroupInput { get; set; } = new();

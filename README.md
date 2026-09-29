@@ -56,7 +56,7 @@ AlertCenter does not rate-limit reports or suppress notifications before acknowl
 
 In **告警中心 → 自动排班**, an administrator can create teams by selecting a system-supported time zone from a dropdown and save multiple named scheduling rules per team. Each rule chooses employees and their rotation order using paged name/account search or selecting a role to immediately browse all of its members page by page (instead of loading every account), a UTC start time, shift length (1–24 hours, default 8), and minimum rest (0–168 hours, default 16). Selected employees stay selected across searches and pages. The system generates a continuous, rotating preview of roughly the next seven days and rejects rules with too few employees to satisfy the chosen rest period. Displayed shift times use the team's time zone; schedule boundaries are calculated in UTC so daylight-saving transitions do not create coverage gaps.
 
-This is a **preview only**: shifts are not published or stored, no individual shift overrides or leave requests are supported, and reporting applications and notifications still use the existing routing behavior. Editing a rule regenerates its preview; it does not modify past alerts.
+This is a **preview only**: shifts are not published or stored, no individual shift overrides or leave requests are supported, and reporting applications and notifications still use the existing routing behavior. The rule list, creation form, editor, and read-only detail/preview each have their own page. Editing a rule regenerates its preview; it does not modify past alerts.
 
 ## Application access control
 

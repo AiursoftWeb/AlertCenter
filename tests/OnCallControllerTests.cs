@@ -42,16 +42,20 @@ public class OnCallControllerTests
             GroupId = group.Id, Name = "Regular", AnchorUtc = anchor,
             UserIds = ["b", "a", "c"]
         };
-        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, CancellationToken.None));
+        var created = Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, CancellationToken.None));
+        Assert.AreEqual(nameof(OnCallController.Details), created.ActionName);
         db.ChangeTracker.Clear();
         var rule = await db.OnCallRules.Include(item => item.Members).SingleAsync();
         CollectionAssert.AreEqual(new[] { "b", "a", "c" },
             rule.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray());
+        var missing = await controller.Details(Guid.NewGuid(), CancellationToken.None);
+        Assert.IsInstanceOfType<NotFoundResult>(missing);
         request.Id = rule.Id;
         request.ShiftHours = 4;
         request.RestHours = 8;
         request.UserIds = ["a", "b", "c"];
-        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, CancellationToken.None));
+        var edited = Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, CancellationToken.None));
+        Assert.AreEqual(nameof(OnCallController.Details), edited.ActionName);
         db.ChangeTracker.Clear();
         rule = await db.OnCallRules.Include(item => item.Members).SingleAsync();
         Assert.AreEqual(4, rule.ShiftHours);

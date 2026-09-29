@@ -1,0 +1,15 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">编辑排班规则</h1>
+    <a asp-action="Details" asp-route-id="@Model.RuleInput.Id" class="btn btn-outline-secondary">返回规则详情</a>
+</div>
+<div class="card">
+    <div class="card-body">
+        <partial name="_RuleForm" model="Model" />
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/scripts/oncall-member-search.js" asp-append-version="true"></script>
+}
