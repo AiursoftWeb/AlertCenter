@@ -1,27 +1,126 @@
 /* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
 
-.ac-oncall-track {
-    display: flex;
-    height: 0.85rem;
-    overflow: hidden;
-    border-radius: 999px;
-    background: var(--bs-tertiary-bg);
+.ac-gantt-scroll {
+    overflow-x: auto;
 }
 
-.ac-oncall-block {
-    flex-basis: 0;
-    min-width: 1px;
-    border-right: 2px solid var(--bs-body-bg);
+.ac-gantt {
+    --ac-gantt-name-width: 10rem;
+    position: relative;
+    min-width: calc(var(--ac-gantt-name-width) + 1120px);
 }
 
-.ac-oncall-block:last-child {
-    border-right: 0;
+.ac-gantt-row {
+    display: grid;
+    grid-template-columns: var(--ac-gantt-name-width) minmax(0, 1fr);
+    border-bottom: 1px solid var(--bs-border-color);
 }
 
-.ac-oncall-segment {
-    padding: 0.5rem;
-    border-radius: var(--bs-border-radius);
+.ac-gantt-row:last-child {
+    border-bottom: 0;
+}
+
+.ac-gantt-name {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    padding: 1rem;
+    background: var(--bs-body-bg);
+    border-right: 1px solid var(--bs-border-color);
     overflow-wrap: anywhere;
+}
+
+.ac-gantt-axis {
+    position: relative;
+    height: 5.5rem;
+    overflow: hidden;
+}
+
+.ac-gantt-date {
+    position: absolute;
+    top: 1.5rem;
+    padding: 0 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ac-gantt-tick {
+    position: absolute;
+    bottom: 0.5rem;
+    padding-left: 0.25rem;
+    white-space: nowrap;
+}
+
+.ac-gantt-grid {
+    position: absolute;
+    inset: 0 0 0 var(--ac-gantt-name-width);
+    pointer-events: none;
+}
+
+.ac-gantt-day,
+.ac-gantt-grid-tick {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-left: 1px solid var(--bs-border-color);
+}
+
+.ac-gantt-grid-tick {
+    top: 4rem;
+    border-left-style: dashed;
+    opacity: 0.5;
+}
+
+.ac-gantt-now {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    border-left: 2px solid var(--bs-danger);
+}
+
+.ac-gantt-now span {
+    display: block;
+    padding: 0 0.25rem;
+    color: #fff;
+    background: var(--bs-danger);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.ac-gantt-lane {
+    position: relative;
+    min-height: 4.5rem;
+}
+
+.ac-gantt-shift {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2rem;
+    padding: 0;
+    border: 1px solid var(--bs-body-bg);
+    border-radius: var(--bs-border-radius-sm);
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.ac-gantt-shift.ac-oncall-color-2,
+.ac-gantt-shift.ac-oncall-color-3 {
+    color: #111;
+}
+
+.ac-gantt-current,
+.ac-gantt-shift:hover,
+.ac-gantt-shift:focus-visible {
+    outline: 2px solid var(--bs-body-color);
+    outline-offset: 1px;
+    z-index: 1;
 }
 
 .ac-oncall-dot {

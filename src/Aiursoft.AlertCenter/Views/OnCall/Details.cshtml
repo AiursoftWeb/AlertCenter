@@ -5,13 +5,16 @@
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
 }
+@section scripts {
+    <script src="~/scripts/oncall-gantt.js" asp-append-version="true"></script>
+}
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
         <h1 class="h3 mb-1">@rule.Name</h1>
         <p class="text-muted mb-0">@rule.Group.Name (@rule.Group.TimeZoneId) · 从当前班次预览未来约七天，班次仅作预览，不影响告警路由。</p>
     </div>
-    <div class="d-flex gap-2">
+    <div class="d-flex flex-shrink-0 gap-2">
         <a asp-action="Index" class="btn btn-outline-secondary">返回规则列表</a>
         @if (Model.IsAdministrator)
         {
@@ -50,9 +53,7 @@
             var totalHours = Model.Preview.Sum(shift => (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours);
             var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
             var now = DateTime.UtcNow;
-            var today = DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(now, zone));
             var currentShift = Model.Preview.FirstOrDefault(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc);
-            var staffLegend = Model.PreviewDays.SelectMany(day => day.Segments).DistinctBy(segment => segment.UserId).ToList();
             <div class="alert alert-primary d-flex flex-wrap align-items-center gap-2">
                 @if (currentShift != null)
                 {
@@ -73,65 +74,7 @@
                 <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">参与员工</div><strong class="fs-4">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></div></div></div>
                 <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">连续覆盖</div><strong class="fs-4">@totalHours.ToString("0") 小时</strong></div></div></div>
             </div>
-            <p class="small text-muted">按团队时区 @rule.Group.TimeZoneId 展示。色带长度表示当天预览范围内的值班时长；跨天班次分段显示，最后一班可能跨越第七天。</p>
-            <ul class="list-unstyled d-flex flex-wrap gap-3 mb-4" aria-label="值班员工图例">
-                @foreach (var staff in staffLegend)
-                {
-                    <li class="d-flex align-items-center gap-2 small">
-                        <span class="ac-oncall-dot ac-oncall-color-@staff.ColorIndex" aria-hidden="true"></span>
-                        <span>@staffNames.GetValueOrDefault(staff.UserId, "已删除的员工")</span>
-                    </li>
-                }
-            </ul>
-            <div class="row g-3">
-                @foreach (var day in Model.PreviewDays)
-                {
-                    var dayHours = day.Segments.Sum(segment => segment.Duration.TotalHours);
-                    var isToday = day.Date == today;
-                    <div class="col-12 col-xl-6">
-                        <section class="card border @(isToday ? "border-primary" : "") h-100 mb-0" aria-label="@day.Date.ToString("yyyy-MM-dd") 值班">
-                            <div class="card-header d-flex flex-wrap gap-2 justify-content-between align-items-center">
-                                <h3 class="card-title h6 mb-0">
-                                    @day.Date.ToString("MM月dd日 dddd", System.Globalization.CultureInfo.GetCultureInfo("zh-CN"))
-                                    @if (isToday)
-                                    {
-                                        <span class="badge bg-primary ms-1">今天</span>
-                                    }
-                                </h3>
-                                <span class="badge bg-secondary-subtle text-secondary border">@dayHours.ToString("0.##") 小时</span>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between small text-muted mb-1">
-                                    <span>@day.Segments[0].LocalStart.ToString("HH:mm")</span>
-                                    <span>@(DateOnly.FromDateTime(day.Segments[^1].LocalEnd.DateTime) > day.Date ? "次日 " : "")@day.Segments[^1].LocalEnd.ToString("HH:mm")</span>
-                                </div>
-                                <div class="ac-oncall-track mb-3" aria-hidden="true">
-                                    @foreach (var segment in day.Segments)
-                                    {
-                                        <div class="ac-oncall-block ac-oncall-color-@segment.ColorIndex" style="flex-grow: @segment.Duration.Ticks"></div>
-                                    }
-                                </div>
-                                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                                    @foreach (var segment in day.Segments)
-                                    {
-                                        var isCurrent = segment.StartsAtUtc <= now && now < segment.EndsAtUtc;
-                                        <li class="ac-oncall-segment d-flex flex-wrap align-items-center gap-2 small @(isCurrent ? "bg-primary-subtle" : "")">
-                                            <span class="ac-oncall-dot ac-oncall-color-@segment.ColorIndex" aria-hidden="true"></span>
-                                            <strong>@staffNames.GetValueOrDefault(segment.UserId, "已删除的员工")</strong>
-                                            @if (isCurrent)
-                                            {
-                                                <span class="badge bg-primary">值班中</span>
-                                            }
-                                            <span class="text-muted">@segment.LocalStart.ToString("HH:mm zzz") → @(DateOnly.FromDateTime(segment.LocalEnd.DateTime) > day.Date ? "次日 " : "")@segment.LocalEnd.ToString("HH:mm zzz")</span>
-                                            <span class="badge bg-body-secondary text-body">@segment.Duration.TotalHours.ToString("0.##") 小时</span>
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
-                        </section>
-                    </div>
-                }
-            </div>
+            @await Html.PartialAsync("_PreviewGantt", Model)
         }
     </div>
 </div>

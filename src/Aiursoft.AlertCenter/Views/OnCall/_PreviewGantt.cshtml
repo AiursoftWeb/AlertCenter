@@ -1,0 +1,90 @@
+@using System.Globalization
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    var rule = Model.Rules.Single(item => item.Id == Model.SelectedRuleId);
+    var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
+    var start = Model.Preview[0].StartsAtUtc;
+    var end = Model.Preview[^1].EndsAtUtc;
+    var duration = (end - start).TotalHours;
+    var now = DateTime.UtcNow;
+    var today = DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(now, zone));
+    var staffNames = Model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
+    var rows = Model.Preview.GroupBy(shift => shift.UserId).ToList();
+    string Percent(double hours) => (hours / duration * 100).ToString("0.######", CultureInfo.InvariantCulture) + "%";
+    string Position(DateTime time) => Percent((time - start).TotalHours);
+    string LocalTime(DateTime time) => TimeZoneInfo.ConvertTimeFromUtc(time, zone).ToString("yyyy-MM-dd HH:mm");
+}
+<div class="d-flex flex-wrap justify-content-between gap-2 mb-2">
+    <h3 class="h6 mb-0">员工值班时间轴</h3>
+    <span class="small text-muted">@LocalTime(start) → @LocalTime(end) · @rule.Group.TimeZoneId</span>
+</div>
+<p id="oncall-gantt-help" class="small text-muted">横向滚动查看完整排班；悬停、聚焦或点击色块查看班次详情。跨天班次连续显示，最后一班可能跨越第七天。红线表示页面加载时的当前时间。</p>
+<div id="oncall-gantt" class="ac-gantt-scroll border rounded" role="region" aria-label="七天值班甘特图" aria-describedby="oncall-gantt-help" tabindex="0">
+    <div class="ac-gantt">
+        <div class="ac-gantt-grid" aria-hidden="true">
+            @foreach (var day in Model.PreviewDays)
+            {
+                var dayStart = day.Segments[0].StartsAtUtc;
+                var dayEnd = day.Segments[^1].EndsAtUtc;
+                <div class="ac-gantt-day @(day.Date == today ? "bg-primary-subtle" : "")" style="left: @Position(dayStart); width: @Percent((dayEnd - dayStart).TotalHours)"></div>
+            }
+            @for (var tick = start; tick < end; tick = tick.AddHours(6))
+            {
+                <div class="ac-gantt-grid-tick" style="left: @Position(tick)"></div>
+            }
+            @if (start <= now && now < end)
+            {
+                <div class="ac-gantt-now" style="left: @Position(now)"><span>现在</span></div>
+            }
+        </div>
+        <div class="ac-gantt-row">
+            <div class="ac-gantt-name fw-semibold">值班员工<span class="small text-muted d-block">班次 / 总时长</span></div>
+            <div class="ac-gantt-axis">
+                @foreach (var day in Model.PreviewDays)
+                {
+                    var dayStart = day.Segments[0].StartsAtUtc;
+                    var dayEnd = day.Segments[^1].EndsAtUtc;
+                    <div class="ac-gantt-date" style="left: @Position(dayStart); width: @Percent((dayEnd - dayStart).TotalHours)" title="@day.Date.ToString("yyyy-MM-dd")">
+                        <strong>@day.Date.ToString("MM/dd")</strong>
+                        <span class="small text-muted">@(day.Date == today ? "今天" : day.Date.ToString("ddd", CultureInfo.GetCultureInfo("zh-CN")))</span>
+                    </div>
+                }
+                @for (var tick = start; tick < end; tick = tick.AddHours(6))
+                {
+                    <span class="ac-gantt-tick small text-muted" style="left: @Position(tick)">@TimeZoneInfo.ConvertTimeFromUtc(tick, zone).ToString("HH:mm")</span>
+                }
+            </div>
+        </div>
+        @for (var index = 0; index < rows.Count; index++)
+        {
+            var shifts = rows[index];
+            var name = staffNames.GetValueOrDefault(shifts.Key, "已删除的员工");
+            var hours = shifts.Sum(shift => (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours);
+            <div class="ac-gantt-row" role="group" aria-label="@name 的值班班次">
+                <div class="ac-gantt-name">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="ac-oncall-dot ac-oncall-color-@(index % 4)" aria-hidden="true"></span>
+                        <strong>@name</strong>
+                    </div>
+                    <span class="small text-muted">@shifts.Count() 班 / @hours.ToString("0.##") 小时</span>
+                </div>
+                <div class="ac-gantt-lane">
+                    @foreach (var shift in shifts)
+                    {
+                        var isCurrent = shift.StartsAtUtc <= now && now < shift.EndsAtUtc;
+                        var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.StartsAtUtc), zone);
+                        var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.EndsAtUtc), zone);
+                        var shiftHours = (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours;
+                        var details = $"{name} · {localStart:yyyy-MM-dd HH:mm zzz} → {localEnd:yyyy-MM-dd HH:mm zzz} · {shiftHours:0.##} 小时 · {rule.Group.TimeZoneId}";
+                        <button type="button" class="ac-gantt-shift ac-oncall-color-@(index % 4) @(isCurrent ? "ac-gantt-current" : "")"
+                                style="left: @Position(shift.StartsAtUtc); width: @Percent(shiftHours)"
+                                aria-label="@details@(isCurrent ? " · 值班中" : "")" title="@details" aria-describedby="oncall-shift-detail">
+                            <span aria-hidden="true">@(isCurrent ? "值班中" : localStart.ToString("HH:mm"))</span>
+                        </button>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="border rounded bg-body-tertiary p-3 mt-2 small" id="oncall-shift-detail" role="status" aria-live="polite" aria-atomic="true">选择一个班次查看员工、完整起止时间和时长。</div>

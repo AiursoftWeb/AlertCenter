@@ -3,7 +3,7 @@ using Aiursoft.AlertCenter.Services;
 namespace Aiursoft.AlertCenter.Models;
 
 public sealed record OnCallPreviewSegment(string UserId, DateTime StartsAtUtc, DateTime EndsAtUtc,
-    DateTimeOffset LocalStart, DateTimeOffset LocalEnd, int ColorIndex)
+    DateTimeOffset LocalStart, DateTimeOffset LocalEnd)
 {
     public TimeSpan Duration => EndsAtUtc - StartsAtUtc;
 }
@@ -15,9 +15,6 @@ public static class OnCallPreviewTimeline
     public static IReadOnlyList<OnCallPreviewDay> Build(IReadOnlyList<GeneratedOnCallShift> shifts, TimeZoneInfo zone)
     {
         var days = new SortedDictionary<DateOnly, List<OnCallPreviewSegment>>();
-        var colors = shifts.Select(shift => shift.UserId).Distinct(StringComparer.Ordinal)
-            .Select((userId, index) => (userId, index))
-            .ToDictionary(item => item.userId, item => item.index % 4, StringComparer.Ordinal);
         foreach (var shift in shifts)
         {
             var cursor = shift.StartsAtUtc;
@@ -31,7 +28,7 @@ public static class OnCallPreviewTimeline
                     end = FindFirstInstantOnOrAfter(nextDate, cursor, end, zone);
                 var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(end), zone);
                 if (!days.TryGetValue(date, out var segments)) days[date] = segments = [];
-                segments.Add(new OnCallPreviewSegment(shift.UserId, cursor, end, localStart, localEnd, colors[shift.UserId]));
+                segments.Add(new OnCallPreviewSegment(shift.UserId, cursor, end, localStart, localEnd));
                 cursor = end;
             }
         }

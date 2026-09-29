@@ -7,7 +7,7 @@ namespace Aiursoft.AlertCenter.Tests;
 public class OnCallPreviewTimelineTests
 {
     [TestMethod]
-    public void SplitsAtTeamMidnightWithoutLosingTimeOrChangingStaffColor()
+    public void SplitsAtTeamMidnightWithoutLosingTimeOrChangingStaff()
     {
         var start = new DateTime(2026, 9, 28, 12, 0, 0, DateTimeKind.Utc);
         var days = OnCallPreviewTimeline.Build(
@@ -30,9 +30,8 @@ public class OnCallPreviewTimelineTests
         Assert.AreEqual(start.AddHours(24), segments[^1].EndsAtUtc);
         for (var index = 1; index < segments.Count; index++)
             Assert.AreEqual(segments[index - 1].EndsAtUtc, segments[index].StartsAtUtc);
-        Assert.AreEqual(1, segments.Where(segment => segment.UserId == "alice")
-            .Select(segment => segment.ColorIndex).Distinct().Count());
-        Assert.AreNotEqual(segments[0].ColorIndex, segments.Single(segment => segment.UserId == "bob").ColorIndex);
+        CollectionAssert.AreEqual(new[] { "alice", "alice", "bob", "alice" },
+            segments.Select(segment => segment.UserId).ToArray());
     }
 
     [TestMethod]
