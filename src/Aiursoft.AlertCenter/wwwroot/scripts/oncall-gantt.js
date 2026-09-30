@@ -1,12 +1,16 @@
 (() => {
     const chart = document.getElementById('oncall-gantt');
-    const detail = document.getElementById('oncall-shift-detail');
-    if (!chart || !detail) return;
+    const summary = document.getElementById('oncall-shift-summary');
+    const start = document.getElementById('oncall-shift-start');
+    const end = document.getElementById('oncall-shift-end');
+    if (!chart || !summary || !start || !end) return;
 
     function showShift(event) {
         const shift = event.target.closest('.ac-gantt-shift');
         if (!shift) return;
-        detail.textContent = shift.getAttribute('aria-label');
+        summary.textContent = shift.dataset.summary;
+        start.textContent = shift.dataset.start;
+        end.textContent = shift.dataset.end;
     }
 
     chart.addEventListener('pointerover', showShift);
