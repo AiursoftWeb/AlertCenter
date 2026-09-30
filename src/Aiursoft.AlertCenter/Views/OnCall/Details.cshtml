@@ -53,7 +53,7 @@
                 {
                     <a asp-action="Details" asp-route-id="@rule.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(7).ToString("O")" class="btn btn-outline-secondary btn-sm">下一周</a>
                 }
-                <span class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? "已保存" : "未保存 · 自动建议")</span>
+                <span id="oncall-save-state" class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? "已保存" : "未保存 · 自动建议")</span>
             </div>
         }
         @if (Model.PreviewError != null)
@@ -91,15 +91,15 @@
                 <span class="small">（@rule.Group.TimeZoneId，状态以页面加载时为准）</span>
             </div>
             <div class="row g-3 mb-3">
-                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">预览班次</div><strong class="fs-4">@Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count()</strong></div></div></div>
-                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">参与员工</div><strong class="fs-4">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></div></div></div>
-                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">连续覆盖</div><strong class="fs-4">@totalHours.ToString("0") 小时</strong></div></div></div>
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">已覆盖班次</div><strong class="fs-4" data-oncall-stat="shifts">@Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count()</strong></div></div></div>
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">参与员工</div><strong class="fs-4" data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></div></div></div>
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">覆盖时长</div><strong class="fs-4" data-oncall-stat="hours">@totalHours.ToString("0") 小时</strong></div></div></div>
             </div>
-            @await Html.PartialAsync("_PreviewGantt", Model)
             @if (Model.IsAdministrator)
             {
                 @await Html.PartialAsync("_ScheduleEditor", Model)
             }
+            @await Html.PartialAsync("_PreviewGantt", Model)
         }
     </div>
 </div>

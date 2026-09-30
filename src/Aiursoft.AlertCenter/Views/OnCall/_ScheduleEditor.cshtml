@@ -6,21 +6,36 @@
     var slots = Enumerable.Range(0, 21).Select(index => new
     {
         startsAtUtc = Model.WeekStartUtc.AddHours(index * 8),
+        localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(Model.WeekStartUtc.AddHours(index * 8)), zone).ToString("yyyy-MM-dd HH:mm zzz"),
+        localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(Model.WeekStartUtc.AddHours((index + 1) * 8)), zone).ToString("yyyy-MM-dd HH:mm zzz"),
         userIds = Model.Preview.Where(shift => shift.StartsAtUtc == Model.WeekStartUtc.AddHours(index * 8)).Select(shift => shift.UserId).ToArray()
     }).ToList();
 }
-<div id="oncall-schedule" class="mt-4" data-rule-id="@rule.Id" data-version="@rule.ScheduleVersion"
+<div id="oncall-schedule" class="my-3" data-rule-id="@rule.Id" data-version="@rule.ScheduleVersion" data-rest-hours="@rule.RestHours" data-zone="@rule.Group.TimeZoneId"
      data-start="@Model.WeekStartUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)"
      data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()
+    <p class="small mb-2">拖动色块到另一班次可交换人员，拖到空格可移动班次；拖动「交换整周」可交换两人的整周安排。也可先点击选中，再点击目标；Esc 取消。调整立即显示，可连续修改后统一保存。</p>
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+        <button id="oncall-save-schedule" type="button" class="btn btn-primary">保存本周调整</button>
+        <button id="oncall-undo-schedule" type="button" class="btn btn-outline-secondary">撤销上一步</button>
+        <button id="oncall-reset-schedule" type="button" class="btn btn-outline-secondary">还原全部</button>
+        <span id="oncall-edit-count" class="small text-muted" role="status"></span>
+    </div>
+    <p id="oncall-drag-status" class="small text-primary mb-2" role="status" aria-live="polite"></p>
+    <p class="small text-muted mb-2">红色提示本周空班或休息不足，不阻止继续调整。保存时还会校验相邻周和其他规则；交换整周也需满足这些边界约束。</p>
+    <details id="oncall-draft-validation" class="text-danger small mb-2" hidden>
+        <summary id="oncall-draft-summary" role="status" aria-live="polite"></summary>
+        <ul id="oncall-draft-errors" class="mt-2"></ul>
+    </details>
     @if (!Model.ScheduleSaved)
     {
         <p class="small text-muted">自动建议尚未保存。生成时会重新校验相邻排班；已有保存的安排不会被覆盖。</p>
         <button id="oncall-generate" type="button" class="btn btn-primary">生成并保存本周排班</button>
     }
         <details id="oncall-editor">
-            <summary class="fw-semibold mb-3">管理员调整排班</summary>
-            <p class="small text-muted">点击甘特图班次或在下方选择时段，然后增减人员。可手工创建排班或连续修改多个班次，再统一保存；未保存的修改不会改变甘特图。校验包括相邻周和其他规则的已保存班次。</p>
+            <summary class="fw-semibold my-3">按班次增减人员</summary>
+            <p class="small text-muted">选择时段增减同班人员，图表会同步更新。也可使用此表单完成键盘操作。</p>
             <label for="oncall-edit-slot" class="form-label">选择班次</label>
             <select id="oncall-edit-slot" class="form-select mb-3">
                 @for (var index = 0; index < slots.Count; index++)
@@ -44,9 +59,6 @@
                     }
                 </div>
             </fieldset>
-            <button id="oncall-save-schedule" type="button" class="btn btn-primary">保存本周调整</button>
-            <button id="oncall-reset-schedule" type="button" class="btn btn-outline-secondary">撤销未保存调整</button>
-            <span id="oncall-edit-count" class="small text-muted ms-2"></span>
         </details>
     <ul id="oncall-schedule-errors" class="text-danger mt-3" role="alert"></ul>
 </div>

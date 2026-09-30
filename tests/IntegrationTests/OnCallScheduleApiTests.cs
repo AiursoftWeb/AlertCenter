@@ -70,12 +70,31 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
+    public async Task GanttRetainsUnassignedEngineersAsDropTargets()
+    {
+        await LoginAsAdmin();
+        var id = await SeedRule();
+        var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
+        var redundant = draft.Slots[0].UserIds[1];
+        foreach (var slot in draft.Slots) slot.UserIds.Remove(redundant);
+        Assert.IsTrue(draft.Slots.All(slot => slot.UserIds.Count > 0));
+        Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", draft)).StatusCode);
+        var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{id}"));
+        Assert.Contains($"data-user-id=\"{redundant}\"", details);
+        Assert.Contains("0 班 / 0 小时", details);
+        Assert.AreEqual(84, System.Text.RegularExpressions.Regex.Matches(details, "class=\"ac-gantt-cell\"").Count);
+        Assert.Contains("撤销上一步", details);
+    }
+
+    [TestMethod]
     public async Task NonAdministratorCanViewButCannotReadOrModifyAdministratorApi()
     {
         var id = await SeedRule();
         await RegisterAndLoginAsync();
         var details = await Http.GetStringAsync($"/OnCall/Details/{id}");
         Assert.DoesNotContain("id=\"oncall-schedule\"", details);
+        Assert.DoesNotContain("class=\"ac-gantt-cell\"", details);
+        Assert.DoesNotContain("ac-gantt-week\"", details);
         var endpoints = new[] { "GetSchedule", "GenerateSchedule", "SaveSchedule" };
         foreach (var endpoint in endpoints)
         {

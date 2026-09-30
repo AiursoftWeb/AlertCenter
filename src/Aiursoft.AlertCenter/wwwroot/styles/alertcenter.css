@@ -94,6 +94,55 @@
     min-height: 4.5rem;
 }
 
+.ac-gantt-cell {
+    position: absolute;
+    inset-block: 0;
+    padding: 0;
+    border: 0;
+    border-left: 1px dashed var(--bs-border-color);
+    background: transparent;
+}
+
+.ac-gantt-editable .ac-gantt-shift,
+.ac-gantt-week {
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+#oncall-schedule button {
+    touch-action: manipulation;
+}
+
+.ac-gantt-selected,
+.ac-gantt-drop-target {
+    outline: 3px solid var(--bs-primary) !important;
+    outline-offset: -3px;
+    box-shadow: inset 0 0 0 3px var(--bs-body-bg);
+}
+
+.ac-gantt-conflict {
+    border: 2px solid var(--bs-danger) !important;
+}
+
+.ac-gantt-empty {
+    background: repeating-linear-gradient(135deg, transparent, transparent 6px, var(--bs-danger-bg-subtle) 6px, var(--bs-danger-bg-subtle) 12px);
+}
+
+.ac-gantt-dragging { cursor: grabbing; }
+.ac-gantt-dragging * { cursor: grabbing !important; }
+
+.ac-gantt-drag-label {
+    position: fixed;
+    z-index: 1080;
+    pointer-events: none;
+    max-width: 20rem;
+    padding: 0.5rem;
+    border-radius: var(--bs-border-radius);
+    background: var(--bs-primary);
+    color: #fff;
+}
+
 .ac-gantt-shift {
     position: absolute;
     top: 50%;

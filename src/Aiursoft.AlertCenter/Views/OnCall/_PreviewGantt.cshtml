@@ -10,7 +10,7 @@
     var today = DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(now, zone));
     var staffNames = Model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
     var memberOrder = rule.Members.ToDictionary(member => member.UserId, member => member.RotationOrder);
-    var rows = Model.Preview.GroupBy(shift => shift.UserId).OrderBy(group => memberOrder[group.Key]).ToList();
+    var rows = Model.PreviewUsers.OrderBy(user => memberOrder[user.Id]).ToList();
     var selectedShift = Model.Preview.FirstOrDefault(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc) ?? Model.Preview[0];
     var selectedStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(selectedShift.StartsAtUtc), zone);
     var selectedEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(selectedShift.EndsAtUtc), zone);
@@ -61,18 +61,31 @@
         </div>
         @for (var index = 0; index < rows.Count; index++)
         {
-            var shifts = rows[index];
-            var name = staffNames.GetValueOrDefault(shifts.Key, "已删除的员工");
+            var user = rows[index];
+            var shifts = Model.Preview.Where(shift => shift.UserId == user.Id).ToList();
+            var name = user.DisplayName;
             var hours = shifts.Sum(shift => (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours);
-            <div class="ac-gantt-row" role="group" aria-label="@name 的值班班次">
+            <div class="ac-gantt-row" role="group" aria-label="@name 的值班班次" data-user-id="@user.Id" data-name="@name" data-color="@(index % 4)">
                 <div class="ac-gantt-name">
                     <div class="d-flex align-items-center gap-2">
                         <span class="ac-oncall-dot ac-oncall-color-@(index % 4)" aria-hidden="true"></span>
                         <strong>@name</strong>
                     </div>
-                    <span class="small text-muted">@shifts.Count() 班 / @hours.ToString("0.##") 小时</span>
+                    <span class="small text-muted ac-gantt-hours">@shifts.Count 班 / @hours.ToString("0.##") 小时</span>
+                    @if (Model.IsAdministrator)
+                    {
+                        <button type="button" class="btn btn-outline-secondary btn-sm mt-1 ac-gantt-week" aria-label="交换 @name 的整周班次" title="拖到另一位工程师交换整周，也可点击后选择目标员工">交换整周</button>
+                    }
                 </div>
                 <div class="ac-gantt-lane">
+                    @if (Model.IsAdministrator)
+                    {
+                        @for (var slot = 0; slot < 21; slot++)
+                        {
+                            <button type="button" class="ac-gantt-cell" data-slot="@slot" style="left: @Percent(slot * 8); width: @Percent(8)"
+                                    aria-label="@name · @LocalTime(start.AddHours(slot * 8)) · 移动选中班次到此处" tabindex="-1"></button>
+                        }
+                    }
                     @foreach (var shift in shifts)
                     {
                         var isCurrent = shift.StartsAtUtc <= now && now < shift.EndsAtUtc;
