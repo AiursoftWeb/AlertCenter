@@ -262,6 +262,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<DateTime>("AnchorUtc")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<bool>("BalanceShiftTimes")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<Guid>("GroupId")
                         .HasColumnType("char(36)");
 
@@ -272,6 +275,10 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.Property<int>("RestHours")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("ScheduleVersion")
+                        .IsConcurrencyToken()
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("ShiftHours")
                         .HasColumnType("int");
@@ -303,6 +310,44 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .IsUnique();
 
                     b.ToTable("OnCallRuleMembers");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("EndsAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("RuleId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("StartsAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RuleId", "StartsAtUtc")
+                        .IsUnique();
+
+                    b.ToTable("OnCallShifts");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftMember", b =>
+                {
+                    b.Property<Guid>("ShiftId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("ShiftId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OnCallShiftMembers");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannel", b =>
@@ -903,6 +948,36 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallRule", "Rule")
+                        .WithMany()
+                        .HasForeignKey("RuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rule");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftMember", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallShift", "Shift")
+                        .WithMany("Members")
+                        .HasForeignKey("ShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Shift");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushChannelBindingRole", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.PushChannel", "Channel")
@@ -1098,6 +1173,11 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRule", b =>
+                {
+                    b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
                 {
                     b.Navigation("Members");
                 });

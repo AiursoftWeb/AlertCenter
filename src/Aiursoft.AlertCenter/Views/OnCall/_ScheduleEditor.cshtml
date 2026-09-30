@@ -1,0 +1,52 @@
+@using System.Text.Json
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    var rule = Model.Rules.Single(item => item.Id == Model.SelectedRuleId);
+    var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
+    var slots = Enumerable.Range(0, 21).Select(index => new
+    {
+        startsAtUtc = Model.WeekStartUtc.AddHours(index * 8),
+        userIds = Model.Preview.Where(shift => shift.StartsAtUtc == Model.WeekStartUtc.AddHours(index * 8)).Select(shift => shift.UserId).ToArray()
+    }).ToList();
+}
+<div id="oncall-schedule" class="mt-4" data-rule-id="@rule.Id" data-version="@rule.ScheduleVersion"
+     data-start="@Model.WeekStartUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)"
+     data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
+    @Html.AntiForgeryToken()
+    @if (!Model.ScheduleSaved)
+    {
+        <p class="small text-muted">自动建议尚未保存。生成时会重新校验相邻排班；已有保存的安排不会被覆盖。</p>
+        <button id="oncall-generate" type="button" class="btn btn-primary">生成并保存本周排班</button>
+    }
+        <details id="oncall-editor">
+            <summary class="fw-semibold mb-3">管理员调整排班</summary>
+            <p class="small text-muted">点击甘特图班次或在下方选择时段，然后增减人员。可手工创建排班或连续修改多个班次，再统一保存；未保存的修改不会改变甘特图。校验包括相邻周和其他规则的已保存班次。</p>
+            <label for="oncall-edit-slot" class="form-label">选择班次</label>
+            <select id="oncall-edit-slot" class="form-select mb-3">
+                @for (var index = 0; index < slots.Count; index++)
+                {
+                    var local = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc, zone);
+                    var localEnd = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc.AddHours(8), zone);
+                    <option value="@index">@local.ToString("MM-dd HH:mm") → @localEnd.ToString("MM-dd HH:mm") (@rule.Group.TimeZoneId)</option>
+                }
+            </select>
+            <fieldset>
+                <legend class="h6">值班人员（允许多人，至少一人）</legend>
+                <div class="row g-2 mb-3">
+                    @foreach (var user in Model.PreviewUsers)
+                    {
+                        <div class="col-sm-6 col-lg-4">
+                            <label class="d-flex align-items-center gap-2 border rounded p-2">
+                                <input type="checkbox" class="form-check-input m-0 oncall-edit-member" value="@user.Id" />
+                                <span>@user.DisplayName (@user.UserName)</span>
+                            </label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+            <button id="oncall-save-schedule" type="button" class="btn btn-primary">保存本周调整</button>
+            <button id="oncall-reset-schedule" type="button" class="btn btn-outline-secondary">撤销未保存调整</button>
+            <span id="oncall-edit-count" class="small text-muted ms-2"></span>
+        </details>
+    <ul id="oncall-schedule-errors" class="text-danger mt-3" role="alert"></ul>
+</div>

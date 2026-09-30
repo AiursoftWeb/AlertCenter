@@ -31,7 +31,7 @@ public class OnCallRulePersistenceTests
             },
             new OnCallRule
             {
-                Group = group, Name = "Short", AnchorUtc = anchor, ShiftHours = 4, RestHours = 8,
+                Group = group, Name = "Balanced", AnchorUtc = anchor, BalanceShiftTimes = true,
                 Members = [new OnCallRuleMember { UserId = "c", RotationOrder = 0 },
                     new OnCallRuleMember { UserId = "b", RotationOrder = 1 },
                     new OnCallRuleMember { UserId = "a", RotationOrder = 2 }]
@@ -42,6 +42,6 @@ public class OnCallRulePersistenceTests
         Assert.AreEqual(2, rules.Count);
         CollectionAssert.AreEqual(new[] { "b", "a", "c" },
             rules.Single(rule => rule.Name == "Normal").Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray());
-        Assert.AreEqual(4, rules.Single(rule => rule.Name == "Short").ShiftHours);
+        Assert.IsTrue(rules.Single(rule => rule.Name == "Balanced").BalanceShiftTimes);
     }
 }

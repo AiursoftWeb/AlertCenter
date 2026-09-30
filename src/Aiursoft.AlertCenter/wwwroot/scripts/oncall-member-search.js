@@ -112,9 +112,9 @@
     prev.addEventListener('click', () => { if (page > 1) { page--; load(); } });
     next.addEventListener('click', () => { if (hasMore) { page++; load(); } });
     form.addEventListener('submit', event => {
-        if (!selectedUsers.size) {
+        if (selectedUsers.size < 3) {
             event.preventDefault();
-            status.textContent = '请至少选择一名员工。';
+            status.textContent = '请至少选择三名工程师。';
             return;
         }
         form.querySelectorAll('.oncall-member-id').forEach(input => input.remove());

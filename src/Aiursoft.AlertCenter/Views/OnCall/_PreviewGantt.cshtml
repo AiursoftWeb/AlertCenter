@@ -9,7 +9,8 @@
     var now = DateTime.UtcNow;
     var today = DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(now, zone));
     var staffNames = Model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
-    var rows = Model.Preview.GroupBy(shift => shift.UserId).ToList();
+    var memberOrder = rule.Members.ToDictionary(member => member.UserId, member => member.RotationOrder);
+    var rows = Model.Preview.GroupBy(shift => shift.UserId).OrderBy(group => memberOrder[group.Key]).ToList();
     var selectedShift = Model.Preview.FirstOrDefault(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc) ?? Model.Preview[0];
     var selectedStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(selectedShift.StartsAtUtc), zone);
     var selectedEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(selectedShift.EndsAtUtc), zone);
@@ -83,6 +84,7 @@
                                 style="left: @Position(shift.StartsAtUtc); width: @Percent(shiftHours)"
                                 data-summary="@name · @shiftHours.ToString("0.##") 小时 · @rule.Group.TimeZoneId@(isCurrent ? " · 值班中" : "")"
                                 data-start="@localStart.ToString("yyyy-MM-dd HH:mm zzz")" data-end="@localEnd.ToString("yyyy-MM-dd HH:mm zzz")"
+                                data-slot="@((int)((shift.StartsAtUtc - Model.WeekStartUtc).TotalHours / 8))"
                                 aria-label="@details@(isCurrent ? " · 值班中" : "")" title="@details" aria-describedby="oncall-shift-detail">
                             <span class="ac-gantt-time" aria-hidden="true">起 @localStart.ToString("HH:mm")</span>
                             <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">止 @localEnd.ToString("HH:mm")</span>

@@ -17,6 +17,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<OnCallGroup> OnCallGroups => Set<OnCallGroup>();
     public DbSet<OnCallRule> OnCallRules => Set<OnCallRule>();
     public DbSet<OnCallRuleMember> OnCallRuleMembers => Set<OnCallRuleMember>();
+    public DbSet<OnCallShift> OnCallShifts => Set<OnCallShift>();
+    public DbSet<OnCallShiftMember> OnCallShiftMembers => Set<OnCallShiftMember>();
     public DbSet<ApplicationUserAccess> ApplicationUserAccesses => Set<ApplicationUserAccess>();
     public DbSet<ApplicationRoleAccess> ApplicationRoleAccesses => Set<ApplicationRoleAccess>();
     public DbSet<PushChannel> PushChannels => Set<PushChannel>();
@@ -76,6 +78,15 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<OnCallRule>().HasOne(rule => rule.Group).WithMany(group => group.Rules)
             .HasForeignKey(rule => rule.GroupId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<OnCallRule>().HasIndex(rule => new { rule.GroupId, rule.Name }).IsUnique();
+        builder.Entity<OnCallRule>().Property(rule => rule.ScheduleVersion).IsConcurrencyToken();
+        builder.Entity<OnCallShift>().HasOne(shift => shift.Rule).WithMany()
+            .HasForeignKey(shift => shift.RuleId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<OnCallShift>().HasIndex(shift => new { shift.RuleId, shift.StartsAtUtc }).IsUnique();
+        builder.Entity<OnCallShiftMember>().HasKey(member => new { member.ShiftId, member.UserId });
+        builder.Entity<OnCallShiftMember>().HasOne(member => member.Shift).WithMany(shift => shift.Members)
+            .HasForeignKey(member => member.ShiftId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<OnCallShiftMember>().HasOne(member => member.User).WithMany()
+            .HasForeignKey(member => member.UserId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<OnCallRuleMember>().HasKey(member => new { member.RuleId, member.UserId });
         builder.Entity<OnCallRuleMember>().HasOne(member => member.Rule).WithMany(rule => rule.Members)
             .HasForeignKey(member => member.RuleId).OnDelete(DeleteBehavior.Cascade);

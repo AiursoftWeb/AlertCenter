@@ -16,11 +16,16 @@ public class OnCallRulePagesTests : TestBase
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var member = db.Users.First();
+            var second = new User { UserName = "second", DisplayName = "Second" };
+            var third = new User { UserName = "third", DisplayName = "Third" };
+            db.Users.AddRange(second, third);
             var group = new OnCallGroup { Name = "Platform", TimeZoneId = "UTC" };
             var rule = new OnCallRule
             {
                 Group = group, Name = "Day shift", AnchorUtc = DateTime.UtcNow.Date.AddDays(-1),
-                RestHours = 0, Members = [new OnCallRuleMember { UserId = member.Id, RotationOrder = 0 }]
+                Members = [new OnCallRuleMember { UserId = member.Id, RotationOrder = 0 },
+                    new OnCallRuleMember { UserId = second.Id, RotationOrder = 1 },
+                    new OnCallRuleMember { UserId = third.Id, RotationOrder = 2 }]
             };
             db.OnCallRules.Add(rule);
             await db.SaveChangesAsync();
@@ -67,13 +72,15 @@ public class OnCallRulePagesTests : TestBase
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var alice = new User { UserName = "gantt-alice", DisplayName = "Alice" };
             var bob = new User { UserName = "gantt-bob", DisplayName = "Bob" };
-            db.Users.AddRange(alice, bob);
+            var carol = new User { UserName = "gantt-carol", DisplayName = "Carol" };
+            db.Users.AddRange(alice, bob, carol);
             var rule = new OnCallRule
             {
                 Group = new OnCallGroup { Name = "Gantt team", TimeZoneId = "Asia/Shanghai" },
                 Name = "Night rotation", AnchorUtc = anchor, ShiftHours = 8, RestHours = 0,
                 Members = [new OnCallRuleMember { UserId = alice.Id, RotationOrder = 0 },
-                    new OnCallRuleMember { UserId = bob.Id, RotationOrder = 1 }]
+                    new OnCallRuleMember { UserId = bob.Id, RotationOrder = 1 },
+                    new OnCallRuleMember { UserId = carol.Id, RotationOrder = 2 }]
             };
             db.OnCallRules.Add(rule);
             await db.SaveChangesAsync();
@@ -83,7 +90,7 @@ public class OnCallRulePagesTests : TestBase
         var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{ruleId}"));
         Assert.Contains("即将开始", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);
-        Assert.AreEqual(2, Regex.Matches(html, "role=\"group\"").Count);
+        Assert.AreEqual(3, Regex.Matches(html, "role=\"group\"").Count);
         Assert.AreEqual(21, Regex.Matches(html, "class=\"ac-gantt-shift ").Count);
         Assert.Contains($"Alice · {anchor.AddHours(8):yyyy-MM-dd HH:mm} +08:00 → {anchor.AddHours(16):yyyy-MM-dd HH:mm} +08:00 · 8 小时 · Asia/Shanghai", html);
         Assert.Contains("left: 0%; width: 4.761905%", html);

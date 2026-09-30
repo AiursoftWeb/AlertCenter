@@ -20,7 +20,8 @@
         </div>
         <div class="col-md-4">
             <label asp-for="RuleInput.ShiftHours" class="form-label">每班时长（小时）</label>
-            <input asp-for="RuleInput.ShiftHours" type="number" min="1" max="24" class="form-control" required />
+            <input asp-for="RuleInput.ShiftHours" type="number" value="8" class="form-control" readonly />
+            <div class="form-text">固定每天三班，每班至少一人，允许多人同班。</div>
         </div>
         <div class="col-md-4">
             <label asp-for="RuleInput.RestHours" class="form-label">最短休息（小时）</label>
@@ -32,6 +33,12 @@
             <div class="form-text">按 UTC 填写，不会根据团队时区自动换算。</div>
         </div>
     </div>
+    <div class="form-check mb-2">
+        <input asp-for="RuleInput.BalanceShiftTimes" class="form-check-input" />
+        <label asp-for="RuleInput.BalanceShiftTimes" class="form-check-label">尽量均衡早、中、晚班</label>
+    </div>
+    <p class="small text-muted">优先保证覆盖和休息，换班期间可能减少冗余。三人且休息至少 16 小时时无法轮换时段。按实际 8 小时连续排班，夏令时切换时本地时间可能变化。</p>
+    <p class="small text-muted">保存班次后，团队、锚点和休息时长将锁定；调整轮换偏好只影响尚未保存的排班。</p>
     <h3 class="h6">轮换成员</h3>
     <p class="text-muted small">输入姓名/账号后查找，或直接选择角色自动分页列出该角色全部员工；两种方式独立使用，翻页不会清除已选成员。下方成员顺序即轮换顺序。</p>
     <div class="row g-2 mb-2">
@@ -58,7 +65,7 @@
         <span id="oncall-page" class="small align-self-center"></span>
         <button type="button" id="oncall-next" class="btn btn-sm btn-outline-secondary" disabled>下一页</button>
     </div>
-    <h4 class="h6">已选成员（最多 200 人）</h4>
+    <h4 class="h6">已选成员（至少 3 人，最多 200 人）</h4>
     <ol id="oncall-selected" class="list-group list-group-numbered mb-3">
         @foreach (var userId in Model.RuleInput.UserIds)
         {

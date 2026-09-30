@@ -51,14 +51,14 @@ public class OnCallControllerTests
         var missing = await controller.Details(Guid.NewGuid(), CancellationToken.None);
         Assert.IsInstanceOfType<NotFoundResult>(missing);
         request.Id = rule.Id;
-        request.ShiftHours = 4;
-        request.RestHours = 8;
+        request.BalanceShiftTimes = true;
         request.UserIds = ["a", "b", "c"];
         var edited = Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, CancellationToken.None));
         Assert.AreEqual(nameof(OnCallController.Details), edited.ActionName);
         db.ChangeTracker.Clear();
         rule = await db.OnCallRules.Include(item => item.Members).SingleAsync();
-        Assert.AreEqual(4, rule.ShiftHours);
+        Assert.AreEqual(8, rule.ShiftHours);
+        Assert.IsTrue(rule.BalanceShiftTimes);
         CollectionAssert.AreEqual(new[] { "a", "b", "c" },
             rule.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray());
     }

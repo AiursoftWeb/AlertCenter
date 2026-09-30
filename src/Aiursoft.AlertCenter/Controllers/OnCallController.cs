@@ -13,6 +13,7 @@ namespace Aiursoft.AlertCenter.Controllers;
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
 public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator generator) : Controller
 {
+    private readonly OnCallScheduleService schedules = new(db, generator);
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "自动排班", LinkOrder = 4)]
@@ -42,6 +43,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             Name = rule.Name,
             ShiftHours = rule.ShiftHours,
             RestHours = rule.RestHours,
+            BalanceShiftTimes = rule.BalanceShiftTimes,
             AnchorUtc = rule.AnchorUtc,
             UserIds = rule.Members.OrderBy(member => member.RotationOrder)
                 .Select(member => member.UserId).ToList()
@@ -50,13 +52,66 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         return this.StackView(model);
     }
 
-    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken, DateTime? startUtc = null)
     {
         var model = await LoadModel(cancellationToken);
         if (model.Rules.All(rule => rule.Id != id)) return NotFound();
         model.SelectedRuleId = id;
-        await PopulatePreview(model, cancellationToken);
+        await PopulatePreview(model, cancellationToken, startUtc);
         return this.StackView(model);
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrators")]
+    public Task<IActionResult> GenerateSchedule([FromBody] SaveOnCallScheduleRequest request, CancellationToken cancellationToken) =>
+        SaveScheduleCore(request, true, cancellationToken);
+
+    [HttpGet]
+    [Authorize(Roles = "Administrators")]
+    public async Task<IActionResult> GetSchedule(Guid id, DateTime? startUtc, CancellationToken cancellationToken)
+    {
+        var rule = await db.OnCallRules.AsNoTracking().Include(item => item.Group).Include(item => item.Members)
+            .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (rule == null) return NotFound();
+        var model = new OnCallViewModel { SelectedRuleId = id, Rules = [rule] };
+        await PopulatePreview(model, cancellationToken, startUtc);
+        if (model.WeekStartUtc == default) return BadRequest(new { errors = new[] { model.PreviewError } });
+        var assignments = model.Preview.ToLookup(shift => shift.StartsAtUtc);
+        return Json(new
+        {
+            ruleId = id, version = rule.ScheduleVersion, startUtc = model.WeekStartUtc, saved = model.ScheduleSaved,
+            generationError = model.PreviewError,
+            restHours = rule.RestHours, balanceShiftTimes = rule.BalanceShiftTimes,
+            members = model.PreviewUsers.Select(user => new { id = user.Id, displayName = user.DisplayName }),
+            slots = Enumerable.Range(0, 21).Select(index => new
+            {
+                startsAtUtc = model.WeekStartUtc.AddHours(index * 8), endsAtUtc = model.WeekStartUtc.AddHours((index + 1) * 8),
+                userIds = assignments[model.WeekStartUtc.AddHours(index * 8)].Select(shift => shift.UserId)
+            })
+        });
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrators")]
+    public Task<IActionResult> SaveSchedule([FromBody] SaveOnCallScheduleRequest request, CancellationToken cancellationToken) =>
+        SaveScheduleCore(request, false, cancellationToken);
+
+    private async Task<IActionResult> SaveScheduleCore(SaveOnCallScheduleRequest request, bool generate, CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid || request == null) return BadRequest(new { errors = new[] { "排班请求格式不正确。" } });
+        try
+        {
+            var errors = await schedules.Save(request, generate, cancellationToken);
+            return errors.Count == 0 ? Ok() : BadRequest(new { errors });
+        }
+        catch (DbUpdateException)
+        {
+            return Conflict(new { errors = new[] { "排班已发生变化或保存冲突，请刷新页面后重试。" } });
+        }
+        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
+        {
+            return BadRequest(new { errors = new[] { ex.Message } });
+        }
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -85,6 +140,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     public async Task<IActionResult> SaveRule([Bind(Prefix = "RuleInput")] SaveOnCallRuleRequest request,
         CancellationToken cancellationToken)
     {
+        await using var transaction = db.Database.IsRelational()
+            ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, cancellationToken) : null;
         request.Name = request.Name?.Trim() ?? string.Empty;
         request.UserIds ??= [];
         if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", "请输入规则名称。");
@@ -92,23 +149,31 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             !await db.OnCallGroups.AnyAsync(group => group.Id == request.GroupId, cancellationToken))
             ModelState.AddModelError("RuleInput.GroupId", "请选择现有团队。");
         if (request.AnchorUtc is not { } anchor || anchor.Kind == DateTimeKind.Local ||
-            anchor < DateTime.MinValue.AddDays(7) || anchor > DateTime.MaxValue.AddDays(-7))
-            ModelState.AddModelError("RuleInput.AnchorUtc", "请选择有效的 UTC 开始时间（需距离日期边界至少七天）。");
-        if (request.UserIds.Count == 0) ModelState.AddModelError("RuleInput.UserIds", "请至少选择一名员工。");
+            anchor < DateTime.MinValue.AddDays(28) || anchor > DateTime.MaxValue.AddDays(-28))
+            ModelState.AddModelError("RuleInput.AnchorUtc", "请选择有效的 UTC 开始时间（需距离日期边界至少 28 天）。");
+        if (request.ShiftHours != 8) ModelState.AddModelError("RuleInput.ShiftHours", "固定每天三班，每班 8 小时。");
+        if (request.UserIds.Count < 3) ModelState.AddModelError("RuleInput.UserIds", "请至少选择三名工程师。");
         if (request.UserIds.Count > 200 || request.UserIds.Any(string.IsNullOrWhiteSpace) ||
             request.UserIds.Distinct(StringComparer.Ordinal).Count() != request.UserIds.Count ||
             await db.Users.CountAsync(user => request.UserIds.Contains(user.Id), cancellationToken) != request.UserIds.Count)
             ModelState.AddModelError("RuleInput.UserIds", "所选员工不存在、重复或超过 200 人，请重新选择。");
         if (request.ShiftHours is >= 1 and <= 24 && request.RestHours is >= 0 and <= 168 &&
-            request.UserIds.Count < 1 + (int)Math.Ceiling((double)request.RestHours / request.ShiftHours))
+            request.UserIds.Count < Math.Max(3, 1 + (int)Math.Ceiling(request.RestHours / 8.0)))
             ModelState.AddModelError("RuleInput.UserIds",
-                $"班次 {request.ShiftHours} 小时、至少休息 {request.RestHours} 小时需要至少 {1 + (int)Math.Ceiling((double)request.RestHours / request.ShiftHours)} 名员工。请增加员工或调整时间。");
+                $"每天三班、至少休息 {request.RestHours} 小时需要至少 {Math.Max(3, 1 + (int)Math.Ceiling(request.RestHours / 8.0))} 名员工。请增加员工或调整时间。");
         OnCallRule? rule = null;
         if (request.Id.HasValue)
         {
             rule = await db.OnCallRules.Include(item => item.Members)
                 .SingleOrDefaultAsync(item => item.Id == request.Id.Value, cancellationToken);
             if (rule == null) return NotFound();
+            if (await db.OnCallShifts.AnyAsync(shift => shift.RuleId == rule.Id, cancellationToken))
+            {
+                if (rule.GroupId != request.GroupId || rule.AnchorUtc != request.AnchorUtc || rule.RestHours != request.RestHours)
+                    ModelState.AddModelError(string.Empty, "已有保存排班，不能修改团队、锚点或休息时长；请创建新规则。");
+                if (await db.OnCallShiftMembers.AnyAsync(member => member.Shift.RuleId == rule.Id && !request.UserIds.Contains(member.UserId), cancellationToken))
+                    ModelState.AddModelError("RuleInput.UserIds", "不能移除已有保存班次的工程师，请先调整其排班。");
+            }
         }
         if (request.GroupId.HasValue && !string.IsNullOrWhiteSpace(request.Name) &&
             await db.OnCallRules.AnyAsync(item => item.GroupId == request.GroupId &&
@@ -131,22 +196,23 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         rule.Name = request.Name;
         rule.ShiftHours = request.ShiftHours;
         rule.RestHours = request.RestHours;
+        rule.BalanceShiftTimes = request.BalanceShiftTimes;
+        rule.ScheduleVersion = Guid.NewGuid();
         rule.AnchorUtc = DateTime.SpecifyKind(request.AnchorUtc!.Value, DateTimeKind.Utc);
         if (request.Id.HasValue)
         {
-            await using var transaction = await db.Database.BeginTransactionAsync(cancellationToken);
             db.OnCallRuleMembers.RemoveRange(rule.Members);
             await db.SaveChangesAsync(cancellationToken);
             rule.Members.Clear();
             AddMembers(rule, orderedUserIds);
             await db.SaveChangesAsync(cancellationToken);
-            await transaction.CommitAsync(cancellationToken);
         }
         else
         {
             AddMembers(rule, orderedUserIds);
             await db.SaveChangesAsync(cancellationToken);
         }
+        if (transaction != null) await transaction.CommitAsync(cancellationToken);
         return RedirectToAction(nameof(Details), new { id = rule.Id });
     }
 
@@ -204,7 +270,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             .ToListAsync(cancellationToken);
     }
 
-    private async Task PopulatePreview(OnCallViewModel model, CancellationToken cancellationToken)
+    private async Task PopulatePreview(OnCallViewModel model, CancellationToken cancellationToken, DateTime? requestedStart = null)
     {
         var rule = model.Rules.SingleOrDefault(item => item.Id == model.SelectedRuleId);
         if (rule == null) return;
@@ -214,12 +280,17 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         try
         {
             rule.AnchorUtc = DateTime.SpecifyKind(rule.AnchorUtc, DateTimeKind.Utc);
-            var duration = TimeSpan.FromHours(rule.ShiftHours);
-            var now = DateTime.UtcNow;
-            var offset = now > rule.AnchorUtc ? (now - rule.AnchorUtc).Ticks / duration.Ticks : 0;
-            var startUtc = rule.AnchorUtc.AddTicks(offset * duration.Ticks);
-            var count = (int)Math.Ceiling(168.0 / rule.ShiftHours);
-            model.Preview = generator.Generate(rule, userIds, startUtc, count);
+            var startUtc = OnCallScheduleService.WeekStart(rule, requestedStart);
+            model.WeekStartUtc = startUtc;
+            var endUtc = startUtc.AddDays(7);
+            var saved = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
+                .Where(shift => shift.RuleId == rule.Id && shift.StartsAtUtc >= startUtc && shift.StartsAtUtc < endUtc)
+                .OrderBy(shift => shift.StartsAtUtc).ToListAsync(cancellationToken);
+            model.ScheduleSaved = saved.Count == 21;
+            model.Preview = model.ScheduleSaved
+                ? saved.SelectMany(shift => shift.Members.OrderBy(member => member.UserId).Select(member => new GeneratedOnCallShift(member.UserId,
+                    DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), rule.RestHours))).ToList()
+                : generator.Generate(rule, userIds, startUtc, 21, await schedules.Existing(rule.Id, userIds.ToArray(), startUtc, cancellationToken));
             var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
             model.PreviewDays = OnCallPreviewTimeline.Build(model.Preview, zone);
         }

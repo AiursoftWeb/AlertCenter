@@ -10,6 +10,8 @@ public class OnCallRule
     [Required, MaxLength(100)] public string Name { get; set; } = string.Empty;
     public int ShiftHours { get; set; } = 8;
     public int RestHours { get; set; } = 16;
+    public bool BalanceShiftTimes { get; set; }
+    public Guid ScheduleVersion { get; set; } = Guid.NewGuid();
     public DateTime AnchorUtc { get; set; }
     public ICollection<OnCallRuleMember> Members { get; set; } = [];
 }

@@ -7,12 +7,13 @@
 }
 @section scripts {
     <script src="~/scripts/oncall-gantt.js" asp-append-version="true"></script>
+    <script src="~/scripts/oncall-schedule.js" asp-append-version="true"></script>
 }
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
         <h1 class="h3 mb-1">@rule.Name</h1>
-        <p class="text-muted mb-0">@rule.Group.Name (@rule.Group.TimeZoneId) · 从当前班次预览未来约七天，班次仅作预览，不影响告警路由。</p>
+        <p class="text-muted mb-0">@rule.Group.Name (@rule.Group.TimeZoneId) · 每天三班，支持多人同班；保存的排班暂不影响告警路由。</p>
     </div>
     <div class="d-flex flex-shrink-0 gap-2">
         <a asp-action="Index" class="btn btn-outline-secondary">返回规则列表</a>
@@ -26,6 +27,7 @@
     <div class="card-header"><h2 class="card-title mb-0">规则配置</h2></div>
     <div class="card-body">
         <p>每班 @rule.ShiftHours 小时 · 最短休息 @rule.RestHours 小时 · 锚点 @rule.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        <p>时段轮换：@(rule.BalanceShiftTimes ? "尽量均衡早、中、晚班" : "关闭，优先固定时段")</p>
         <h3 class="h6">轮换成员</h3>
         <ol class="mb-0">
             @foreach (var member in rule.Members.OrderBy(item => item.RotationOrder))
@@ -39,9 +41,28 @@
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">七天值班预览</h2></div>
     <div class="card-body">
+        @if (Model.WeekStartUtc != default)
+        {
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                @if (Model.WeekStartUtc > rule.AnchorUtc)
+                {
+                    <a asp-action="Details" asp-route-id="@rule.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(-7).ToString("O")" class="btn btn-outline-secondary btn-sm">上一周</a>
+                }
+                <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-outline-secondary btn-sm">当前周</a>
+                @if (Model.WeekStartUtc < DateTime.MaxValue.AddDays(-35))
+                {
+                    <a asp-action="Details" asp-route-id="@rule.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(7).ToString("O")" class="btn btn-outline-secondary btn-sm">下一周</a>
+                }
+                <span class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? "已保存" : "未保存 · 自动建议")</span>
+            </div>
+        }
         @if (Model.PreviewError != null)
         {
             <div class="alert alert-warning">@Model.PreviewError</div>
+            @if (Model.IsAdministrator && Model.WeekStartUtc != default && Model.PreviewUsers.Count >= 3)
+            {
+                @await Html.PartialAsync("_ScheduleEditor", Model)
+            }
         }
         else if (Model.Preview.Count == 0)
         {
@@ -50,7 +71,7 @@
         else
         {
             var staffNames = Model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
-            var totalHours = Model.Preview.Sum(shift => (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours);
+            var totalHours = Model.Preview.DistinctBy(shift => shift.StartsAtUtc).Sum(shift => (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours);
             var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
             var now = DateTime.UtcNow;
             var currentShift = Model.Preview.FirstOrDefault(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc);
@@ -58,23 +79,27 @@
                 @if (currentShift != null)
                 {
                     <span class="badge bg-primary">当前值班</span>
-                    <strong>@staffNames.GetValueOrDefault(currentShift.UserId, "已删除的员工")</strong>
+                    <strong>@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc == currentShift.StartsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, "已删除的员工")))</strong>
                     <span>本班至 @TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
                 }
                 else
                 {
-                    <span class="badge bg-primary">即将开始</span>
+                    <span class="badge bg-primary">@(Model.Preview[0].StartsAtUtc > now ? "即将开始" : "本周排班")</span>
                     <strong>@staffNames.GetValueOrDefault(Model.Preview[0].UserId, "已删除的员工")</strong>
                     <span>首班于 @TimeZoneInfo.ConvertTimeFromUtc(Model.Preview[0].StartsAtUtc, zone).ToString("MM-dd HH:mm") 开始</span>
                 }
                 <span class="small">（@rule.Group.TimeZoneId，状态以页面加载时为准）</span>
             </div>
             <div class="row g-3 mb-3">
-                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">预览班次</div><strong class="fs-4">@Model.Preview.Count</strong></div></div></div>
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">预览班次</div><strong class="fs-4">@Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count()</strong></div></div></div>
                 <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">参与员工</div><strong class="fs-4">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></div></div></div>
                 <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">连续覆盖</div><strong class="fs-4">@totalHours.ToString("0") 小时</strong></div></div></div>
             </div>
             @await Html.PartialAsync("_PreviewGantt", Model)
+            @if (Model.IsAdministrator)
+            {
+                @await Html.PartialAsync("_ScheduleEditor", Model)
+            }
         }
     </div>
 </div>

@@ -52,11 +52,23 @@ curl -i 'https://alertcenter.example.com/api/v1/messages' \
 
 AlertCenter does not rate-limit reports or suppress notifications before acknowledgement. Reporting applications **must rate-limit at the source** and report only actionable alerts; use stable `reportId` values when retrying the same report. `incidentKey` is a correlation aid, not a substitute for caller-side rate limiting.
 
-## Automatic on-call schedule demo
+## On-call schedules
 
-In **告警中心 → 自动排班**, an administrator can create teams by selecting a system-supported time zone from a dropdown and save multiple named scheduling rules per team. Each rule chooses employees and their rotation order using paged name/account search or selecting a role to immediately browse all of its members page by page (instead of loading every account), a UTC start time, shift length (1–24 hours, default 8), and minimum rest (0–168 hours, default 16). Selected employees stay selected across searches and pages. The system generates a continuous, rotating preview of roughly the next seven days and rejects rules with too few employees to satisfy the chosen rest period. Displayed shift times use the team's time zone; schedule boundaries are calculated in UTC so daylight-saving transitions do not create coverage gaps.
+In **告警中心 → 自动排班**, administrators configure a team time zone, a UTC anchor, at least three engineers, and minimum rest (0–168 hours, default 16). There are always three consecutive eight-hour shifts per 24 hours. Each shift requires at least one engineer and can have several: with the default rest period, four engineers normally produce a 2/1/1 distribution, five produce 2/2/1, and six produce 2/2/2. Longer rest periods may require more than three engineers. Times are displayed in the team time zone; durations and rest are measured in UTC, including daylight-saving transitions.
 
-This is a **preview only**: shifts are not published or stored, no individual shift overrides or leave requests are supported, and reporting applications and notifications still use the existing routing behavior. The rule list, creation form, editor, and read-only detail/preview each have their own page. Editing a rule regenerates its preview; it does not modify past alerts.
+The optional **尽量均衡早、中、晚班** preference uses recent saved assignments to distribute work and vary shift times. Weekly transition windows may reduce redundant staffing to allow sufficient rest. This is a best-effort preference, not a save constraint. Exactly three engineers with sixteen hours of rest cannot rotate time slots while maintaining continuous coverage.
+
+Schedules are saved in seven-day windows aligned to the rule anchor. Administrators can save the automatic suggestion, or click a Gantt bar and adjust its assigned engineers. Several shifts can be edited and saved together, allowing swaps. Manual creation is also available when automatic generation cannot find a feasible schedule. Saving rejects empty shifts, unknown/duplicate engineers, overlaps, and insufficient rest, including adjacent weeks and other rules' saved assignments. Automatic generation never overwrites saved shifts. Concurrent edits to a rule's schedule return a conflict instead of overwriting changes. Once shifts are saved, the team, anchor, and rest period are locked; create another rule to change these, and remove an engineer's saved assignments before removing them from the rule.
+
+Administrator JSON endpoints use the existing login cookie. POST requests require the `RequestVerificationToken` header from the details page's antiforgery field:
+
+| Endpoint | Behavior |
+| --- | --- |
+| `GET /OnCall/GetSchedule?id={ruleId}&startUtc={UTC}` | Returns `ruleId`, `version`, `startUtc`, `saved`, members, and 21 slots with `startsAtUtc`, `endsAtUtc`, and `userIds`. Omit `startUtc` for the current week. If automatic generation fails, `generationError` explains the issue and slots remain available for manual assignment. |
+| `POST /OnCall/GenerateSchedule` | Accepts `{ "ruleId": "...", "version": "...", "startUtc": "...Z" }`; generates and saves an unsaved week. |
+| `POST /OnCall/SaveSchedule` | Accepts the same identifiers plus `slots`: all 21 `{ "startsAtUtc": "...Z", "userIds": ["..."] }` entries. Atomically creates or updates the week. |
+
+Successful writes return 200. Validation failures return 400 with an `errors` array; stale versions/write conflicts return 409. Refresh the schedule after saving to obtain the new version. The SQLite/MySQL migration converts existing rules to eight-hour shifts; rules with fewer than three members must be corrected before generating schedules. Stored schedules currently do not change alert routing. Leave is handled by manually removing/replacing assignees, without a separate leave-approval workflow.
 
 ## Application access control
 
