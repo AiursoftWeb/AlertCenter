@@ -15,6 +15,15 @@
      data-start="@Model.WeekStartUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)"
      data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()
+    @if (Model.Preview.Count > 0)
+    {
+        <div class="btn-group mb-2" role="group" aria-label="排班操作模式">
+            <button type="button" class="btn btn-outline-primary active" data-schedule-mode="move" aria-pressed="true">移动 / 交换</button>
+            <button type="button" class="btn btn-outline-primary" data-schedule-mode="add" aria-pressed="false">添加班次</button>
+            <button type="button" class="btn btn-outline-danger" data-schedule-mode="remove" aria-pressed="false">删除班次</button>
+        </div>
+        <p id="oncall-mode-help" class="small mb-2" role="status">当前为移动 / 交换模式。添加或删除班次时，请先切换上方模式。</p>
+    }
     <p class="small mb-2">拖动色块到另一班次可交换人员，拖到空格可移动班次；拖动「交换整周」可交换两人的整周安排。也可先点击选中，再点击目标；Esc 取消。调整立即显示，可连续修改后统一保存。</p>
     <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
         <button id="oncall-save-schedule" type="button" class="btn btn-primary">保存本周调整</button>

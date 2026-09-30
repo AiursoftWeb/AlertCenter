@@ -90,7 +90,7 @@ public class OnCallRulePagesTests : TestBase
         var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{ruleId}"));
         Assert.Contains("即将开始", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);
-        Assert.AreEqual(3, Regex.Matches(html, "role=\"group\"").Count);
+        Assert.AreEqual(3, Regex.Matches(html, "class=\"ac-gantt-row\" role=\"group\"").Count);
         Assert.AreEqual(21, Regex.Matches(html, "class=\"ac-gantt-shift ").Count);
         Assert.Contains($"Alice · {anchor.AddHours(8):yyyy-MM-dd HH:mm} +08:00 → {anchor.AddHours(16):yyyy-MM-dd HH:mm} +08:00 · 8 小时 · Asia/Shanghai", html);
         Assert.Contains("left: 0%; width: 4.761905%", html);

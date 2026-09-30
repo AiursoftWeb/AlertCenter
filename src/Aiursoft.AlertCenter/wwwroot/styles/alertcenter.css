@@ -114,6 +114,33 @@
     touch-action: manipulation;
 }
 
+.ac-gantt-editable[data-edit-mode="add"] .ac-gantt-cell {
+    cursor: cell;
+    touch-action: manipulation;
+}
+
+.ac-gantt-editable[data-edit-mode="add"] .ac-gantt-shift {
+    cursor: default;
+    touch-action: manipulation;
+}
+
+.ac-gantt-editable[data-edit-mode="add"] .ac-gantt-cell:hover::after,
+.ac-gantt-editable[data-edit-mode="add"] .ac-gantt-cell:focus-visible::after {
+    content: "+";
+    color: var(--bs-primary);
+    font-size: 1.5rem;
+}
+
+.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift {
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:hover,
+.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:focus-visible {
+    outline: 3px solid var(--bs-danger);
+}
+
 .ac-gantt-selected,
 .ac-gantt-drop-target {
     outline: 3px solid var(--bs-primary) !important;

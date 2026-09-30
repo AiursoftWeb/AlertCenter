@@ -84,6 +84,8 @@ public class OnCallScheduleApiTests : TestBase
         Assert.Contains("0 班 / 0 小时", details);
         Assert.AreEqual(84, System.Text.RegularExpressions.Regex.Matches(details, "class=\"ac-gantt-cell\"").Count);
         Assert.Contains("撤销上一步", details);
+        Assert.Contains("data-schedule-mode=\"add\"", details);
+        Assert.Contains("data-schedule-mode=\"remove\"", details);
     }
 
     [TestMethod]
@@ -95,6 +97,7 @@ public class OnCallScheduleApiTests : TestBase
         Assert.DoesNotContain("id=\"oncall-schedule\"", details);
         Assert.DoesNotContain("class=\"ac-gantt-cell\"", details);
         Assert.DoesNotContain("ac-gantt-week\"", details);
+        Assert.DoesNotContain("data-schedule-mode=", details);
         var endpoints = new[] { "GetSchedule", "GenerateSchedule", "SaveSchedule" };
         foreach (var endpoint in endpoints)
         {

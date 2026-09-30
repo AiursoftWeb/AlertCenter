@@ -14,6 +14,8 @@
     const originalBadgeClass = badge?.className;
     const loadedAt = Date.now();
     const history = [];
+    const modeButtons = [...root.querySelectorAll('[data-schedule-mode]')];
+    let mode = 'move';
     let selected = null;
     let pointer = null;
     let suppressClick = false;
@@ -35,6 +37,53 @@
             badge.textContent = dirty ? '未保存 · 调整草稿' : originalBadge;
             badge.className = dirty ? 'badge bg-warning text-dark' : originalBadgeClass;
         }
+        syncMode();
+    }
+
+    function syncMode() {
+        if (!chart) return;
+        chart.dataset.editMode = mode;
+        modeButtons.forEach(button => {
+            const active = button.dataset.scheduleMode === mode;
+            button.classList.toggle('active', active);
+            button.setAttribute('aria-pressed', String(active));
+        });
+        rows.forEach(row => {
+            row.querySelector('.ac-gantt-week').disabled = saving || mode !== 'move';
+            row.querySelectorAll('.ac-gantt-cell').forEach(cell => {
+                const index = Number(cell.dataset.slot);
+                const assigned = slots[index].userIds.includes(row.dataset.userId);
+                cell.tabIndex = mode === 'add' && !assigned ? 0 : -1;
+                cell.setAttribute('aria-label', `${row.dataset.name} · ${slots[index].localStart} · ${mode === 'add' ? '添加值班' : '移动选中班次到此处'}`);
+            });
+        });
+    }
+
+    function setMode(value) {
+        if (saving) return;
+        mode = value;
+        clearSelection();
+        suppressClick = false;
+        const help = document.getElementById('oncall-mode-help');
+        if (help) help.textContent = mode === 'add' ? '添加模式：点击工程师所在行的空格，添加一个 8 小时班次；允许多人同班。'
+            : mode === 'remove' ? '删除模式：点击色块，删除该工程师的本次值班；可撤销，统一保存后生效。'
+            : '当前为移动 / 交换模式。添加或删除班次时，请先切换上方模式。';
+        status.textContent = '';
+        syncMode();
+    }
+    modeButtons.forEach(button => button.addEventListener('click', () => setMode(button.dataset.scheduleMode)));
+
+    function editAssignment(target) {
+        if (target.slot === null || target.week) return;
+        const assigned = slots[target.slot].userIds;
+        const index = assigned.indexOf(target.user);
+        if (mode === 'add' && index !== -1) { status.textContent = '该工程师已在此班次，无需重复添加。'; return; }
+        if (mode === 'remove' && index === -1) { status.textContent = '此格没有需要删除的班次。'; return; }
+        history.push(structuredClone(slots));
+        if (mode === 'add') assigned.push(target.user);
+        else assigned.splice(index, 1);
+        select.value = target.slot;
+        changed(`已${mode === 'add' ? '添加' : '删除'} ${target.name} · ${slots[target.slot].localStart} 的值班；尚未保存，可撤销。`);
     }
 
     function showMessages(container, messages) {
@@ -98,6 +147,7 @@
         const stats = document.querySelectorAll('[data-oncall-stat]');
         const values = { shifts: 21 - empty.length, staff: new Set(slots.flatMap(slot => slot.userIds)).size, hours: `${(21 - empty.length) * 8} 小时` };
         stats.forEach(stat => stat.textContent = values[stat.dataset.oncallStat]);
+        syncMode();
     }
 
     function clearSelection() {
@@ -187,7 +237,8 @@
         if (saving || (suppressClick && event.detail !== 0)) return;
         const target = targetAt(event.target);
         if (!target) return;
-        if (selected) drop(selected, target);
+        if (mode !== 'move') editAssignment(target);
+        else if (selected) drop(selected, target);
         else if (target.occupied || target.week) pick(target);
     });
     const ghost = document.createElement('div');
@@ -196,7 +247,7 @@
     document.body.append(ghost);
     chart?.addEventListener('pointerdown', event => {
         suppressClick = false;
-        if (saving || !event.isPrimary || event.button !== 0) return;
+        if (saving || mode !== 'move' || !event.isPrimary || event.button !== 0) return;
         const source = targetAt(event.target);
         if (!source || (!source.occupied && !source.week)) return;
         pointer = { source, id: event.pointerId, x: event.clientX, y: event.clientY, dragging: false };
@@ -248,6 +299,7 @@
     document.addEventListener('keydown', event => {
         if (event.key !== 'Escape') return;
         if (pointer) endPointer({ pointerId: pointer.id }, true);
+        setMode('move');
         clearSelection();
         status.textContent = '已取消选择。';
     });
