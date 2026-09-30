@@ -52,6 +52,7 @@
                             @if (Model.IsAdministrator)
                             {
                                 <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-secondary">编辑</a>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-oncall-rule" data-rule-id="@rule.Id" data-rule-name="@rule.Name">删除</button>
                             }
                         </td>
                     </tr>
@@ -64,3 +65,40 @@
         <div class="card-body text-muted">目前没有已保存的规则。请先创建团队和规则。</div>
     }
 </div>
+
+@if (Model.IsAdministrator && Model.Rules.Count > 0)
+{
+    <div class="modal fade" id="delete-oncall-rule" tabindex="-1" aria-labelledby="delete-oncall-rule-title" aria-describedby="delete-oncall-rule-description" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form asp-action="DeleteRule" method="post" class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title h5" id="delete-oncall-rule-title">删除排班规则</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <p>确定删除规则 <strong id="delete-oncall-rule-name" class="text-break"></strong>？</p>
+                    <div class="alert alert-danger mb-0" id="delete-oncall-rule-description">该规则的全部已保存班次及成员关联将一并删除，此操作无法恢复。</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <input type="hidden" id="delete-oncall-rule-id" name="id" />
+                    <button type="submit" id="delete-oncall-rule-confirm" class="btn btn-danger" disabled>确认删除</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@section scripts {
+    @if (Model.IsAdministrator && Model.Rules.Count > 0)
+    {
+        <script>
+            document.getElementById('delete-oncall-rule').addEventListener('show.bs.modal', function (event) {
+                const id = event.relatedTarget?.dataset.ruleId ?? '';
+                document.getElementById('delete-oncall-rule-id').value = id;
+                document.getElementById('delete-oncall-rule-name').textContent = event.relatedTarget?.dataset.ruleName ?? '';
+                document.getElementById('delete-oncall-rule-confirm').disabled = !id;
+            });
+        </script>
+    }
+}

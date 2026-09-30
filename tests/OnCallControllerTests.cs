@@ -64,6 +64,40 @@ public class OnCallControllerTests
     }
 
     [TestMethod]
+    public async Task DeleteRuleRemovesPersistedScheduleInSqlite()
+    {
+        await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await db.Database.OpenConnectionAsync();
+        await db.Database.MigrateAsync();
+        var user = new User { Id = "engineer", UserName = "engineer", NormalizedUserName = "ENGINEER", DisplayName = "Engineer" };
+        var rule = new OnCallRule
+        {
+            Group = new OnCallGroup { Name = "Team", TimeZoneId = "UTC" }, Name = "Rotation", AnchorUtc = DateTime.UtcNow.Date,
+            Members = [new OnCallRuleMember { UserId = user.Id, RotationOrder = 0 }]
+        };
+        db.Users.Add(user);
+        db.OnCallShifts.Add(new OnCallShift
+        {
+            Rule = rule, StartsAtUtc = DateTime.UtcNow.Date, EndsAtUtc = DateTime.UtcNow.Date.AddHours(8),
+            Members = [new OnCallShiftMember { UserId = user.Id }]
+        });
+        await db.SaveChangesAsync();
+        db.ChangeTracker.Clear();
+
+        var controller = new OnCallController(db, new OnCallScheduleGenerator());
+        var result = await controller.DeleteRule(rule.Id, CancellationToken.None);
+        Assert.AreEqual(nameof(OnCallController.Index), Assert.IsInstanceOfType<RedirectToActionResult>(result).ActionName);
+        db.ChangeTracker.Clear();
+        Assert.AreEqual(0, await db.OnCallRules.CountAsync());
+        Assert.AreEqual(0, await db.OnCallRuleMembers.CountAsync());
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(0, await db.OnCallShiftMembers.CountAsync());
+        Assert.AreEqual(1, await db.OnCallGroups.CountAsync());
+        Assert.AreEqual(1, await db.Users.CountAsync());
+    }
+
+    [TestMethod]
     public async Task SearchUsersFiltersByRoleAndPaginatesWithoutReturningEveryone()
     {
         await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()

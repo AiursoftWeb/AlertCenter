@@ -216,6 +216,23 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         return RedirectToAction(nameof(Details), new { id = rule.Id });
     }
 
+    [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrators")]
+    public async Task<IActionResult> DeleteRule(Guid id, CancellationToken cancellationToken)
+    {
+        var rule = await db.OnCallRules.Include(item => item.Members)
+            .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (rule == null) return NotFound();
+        var shifts = await db.OnCallShifts.Include(shift => shift.Members)
+            .Where(shift => shift.RuleId == id).ToListAsync(cancellationToken);
+        db.OnCallShiftMembers.RemoveRange(shifts.SelectMany(shift => shift.Members));
+        db.OnCallShifts.RemoveRange(shifts);
+        db.OnCallRuleMembers.RemoveRange(rule.Members);
+        db.OnCallRules.Remove(rule);
+        await db.SaveChangesAsync(cancellationToken);
+        return RedirectToAction(nameof(Index));
+    }
+
     private static void AddMembers(OnCallRule rule, IReadOnlyList<string> orderedUserIds)
     {
         for (var index = 0; index < orderedUserIds.Count; index++)
