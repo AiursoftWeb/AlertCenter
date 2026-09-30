@@ -6,6 +6,7 @@ using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,12 @@ namespace Aiursoft.AlertCenter.Tests;
 [TestClass]
 public class OnCallControllerTests
 {
+    private sealed class TestTempDataProvider : ITempDataProvider
+    {
+        public IDictionary<string, object> LoadTempData(HttpContext context) => new Dictionary<string, object>();
+        public void SaveTempData(HttpContext context, IDictionary<string, object> values) { }
+    }
+
     [TestMethod]
     public async Task AdminSavesAndEditsGeneratedRuleWithOrderedEmployees()
     {
@@ -34,7 +41,8 @@ public class OnCallControllerTests
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext
             {
                 User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
-            } }
+            } },
+            TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider())
         };
         var anchor = new DateTime(2026, 9, 28, 0, 0, 0, DateTimeKind.Utc);
         var request = new SaveOnCallRuleRequest
@@ -85,7 +93,10 @@ public class OnCallControllerTests
         await db.SaveChangesAsync();
         db.ChangeTracker.Clear();
 
-        var controller = new OnCallController(db, new OnCallScheduleGenerator());
+        var controller = new OnCallController(db, new OnCallScheduleGenerator())
+        {
+            TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider())
+        };
         var result = await controller.DeleteRule(rule.Id, CancellationToken.None);
         Assert.AreEqual(nameof(OnCallController.Index), Assert.IsInstanceOfType<RedirectToActionResult>(result).ActionName);
         db.ChangeTracker.Clear();
@@ -141,7 +152,8 @@ public class OnCallControllerTests
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext
             {
                 User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
-            } }
+            } },
+            TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider())
         };
         Assert.IsInstanceOfType<RedirectToActionResult>(await controller.CreateGroup(
             new CreateOnCallGroupRequest { Name = "Operations", TimeZoneId = "UTC" }, CancellationToken.None));

@@ -1,0 +1,63 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+@{
+    var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
+    var rules = Model.Rules.Where(rule => rule.GroupId == group.Id).ToList();
+}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+    <div>
+        <h1 class="h3 mb-1">@group.Name</h1>
+        <p class="text-muted mb-0">时区：@group.TimeZoneId · @rules.Count 条排班规则</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Groups" class="btn btn-outline-secondary">返回团队列表</a>
+        @if (Model.IsAdministrator)
+        {
+            <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-primary">编辑团队</a>
+        }
+    </div>
+</div>
+@if (TempData["OnCallGroupSuccess"] is string message)
+{
+    <div class="alert alert-success" role="status">@message
+        @if (rules.Count == 0 && Model.IsAdministrator)
+        {
+            <a asp-action="Create">创建排班规则</a>
+        }
+    </div>
+}
+<div class="card mb-4">
+    <div class="card-header"><h2 class="card-title mb-0">排班规则</h2></div>
+    <div class="card-body">
+        @if (rules.Count == 0)
+        {
+            <p class="text-muted mb-0">该团队暂无排班规则。</p>
+            @if (Model.IsAdministrator)
+            {
+                <a asp-action="Create">创建排班规则</a>
+            }
+        }
+        else
+        {
+            <ul class="mb-0">
+                @foreach (var rule in rules)
+                {
+                    <li><a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a></li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+@if (Model.IsAdministrator)
+{
+    if (rules.Count > 0)
+    {
+        <div class="alert alert-info">删除该团队前，请先删除其全部排班规则。</div>
+    }
+    else
+    {
+        <form asp-action="DeleteGroup" method="post" onsubmit="return confirm('确定删除该团队？此操作无法恢复。');">
+            <input type="hidden" name="id" value="@group.Id" />
+            <button type="submit" class="btn btn-outline-danger">删除团队</button>
+        </form>
+    }
+}

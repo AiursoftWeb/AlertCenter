@@ -28,7 +28,7 @@ public class OnCallScheduleApiTests : TestBase
     private async Task<HttpResponseMessage> Save(string action, SaveOnCallScheduleRequest payload, string? tokenPath = null)
     {
         using var message = new HttpRequestMessage(HttpMethod.Post, $"/OnCall/{action}") { Content = JsonContent.Create(payload) };
-        message.Headers.Add("RequestVerificationToken", await GetAntiCsrfToken(tokenPath ?? $"/OnCall/Details/{payload.RuleId}"));
+        message.Headers.Add("RequestVerificationToken", await GetAntiCsrfToken(tokenPath ?? $"/OnCall/ScheduleDetails/{payload.RuleId}"));
         return await Http.SendAsync(message);
     }
 
@@ -79,7 +79,7 @@ public class OnCallScheduleApiTests : TestBase
         foreach (var slot in draft.Slots) slot.UserIds.Remove(redundant);
         Assert.IsTrue(draft.Slots.All(slot => slot.UserIds.Count > 0));
         Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", draft)).StatusCode);
-        var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{id}"));
+        var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
         Assert.Contains($"data-user-id=\"{redundant}\"", details);
         Assert.Contains("0 班 / 0 小时", details);
         Assert.AreEqual(84, System.Text.RegularExpressions.Regex.Matches(details, "class=\"ac-gantt-cell\"").Count);
@@ -93,7 +93,7 @@ public class OnCallScheduleApiTests : TestBase
     {
         var id = await SeedRule();
         await RegisterAndLoginAsync();
-        var details = await Http.GetStringAsync($"/OnCall/Details/{id}");
+        var details = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}");
         Assert.DoesNotContain("id=\"oncall-schedule\"", details);
         Assert.DoesNotContain("class=\"ac-gantt-cell\"", details);
         Assert.DoesNotContain("ac-gantt-week\"", details);

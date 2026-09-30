@@ -1,0 +1,22 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+
+<form asp-action="@(Model.SelectedGroupId.HasValue ? "UpdateGroup" : "CreateGroup")" method="post">
+    @if (Model.SelectedGroupId.HasValue)
+    {
+        <input type="hidden" name="id" value="@Model.SelectedGroupId" />
+    }
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    <div class="row g-3 mb-3">
+        <div class="col-md-6">
+            <label asp-for="GroupInput.Name" class="form-label">团队名称</label>
+            <input asp-for="GroupInput.Name" class="form-control" maxlength="100" required />
+        </div>
+        <div class="col-md-6">
+            <label asp-for="GroupInput.TimeZoneId" class="form-label">时区</label>
+            <select asp-for="GroupInput.TimeZoneId" asp-items="Model.TimeZones" class="form-select" required></select>
+            <div class="form-text">排班锚点仍以 UTC 保存，显示时使用团队时区。</div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">保存团队</button>
+    <a asp-action="Groups" class="btn btn-outline-secondary ms-2">取消</a>
+</form>

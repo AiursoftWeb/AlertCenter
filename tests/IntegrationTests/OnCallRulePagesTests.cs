@@ -35,10 +35,15 @@ public class OnCallRulePagesTests : TestBase
         var list = await Http.GetStringAsync("/OnCall/Index");
         Assert.Contains("Day shift", list);
         Assert.Contains($"/OnCall/Details/{ruleId}", list);
+        Assert.DoesNotContain("创建团队</h2>", list);
         Assert.Contains($"data-rule-id=\"{ruleId}\"", list);
         Assert.Contains("该规则的全部已保存班次及成员关联将一并删除", list);
         Assert.Contains("/OnCall/DeleteRule", list);
         Assert.DoesNotContain("id=\"oncall-rule-form\"", list);
+        var scheduleList = await Http.GetStringAsync("/OnCall/Schedule");
+        Assert.Contains($"/OnCall/ScheduleDetails/{ruleId}", scheduleList);
+        Assert.DoesNotContain("创建团队</h2>", scheduleList);
+        Assert.DoesNotContain("id=\"oncall-schedule\"", scheduleList);
 
         var create = await Http.GetStringAsync("/OnCall/Create");
         Assert.Contains("创建排班规则", create);
@@ -53,15 +58,20 @@ public class OnCallRulePagesTests : TestBase
 
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{ruleId}"));
         Assert.Contains("Day shift", details);
-        Assert.Contains("七天值班预览", details);
-        Assert.Contains("当前值班", details);
-        Assert.Contains("七天值班甘特图", details);
-        Assert.Contains("ac-gantt-now", details);
-        Assert.Contains("ac-gantt-current", details);
-        Assert.AreEqual(21, Regex.Matches(details, "class=\"ac-gantt-shift ").Count);
-        Assert.DoesNotContain("无法生成预览", details);
+        Assert.Contains("规则配置", details);
+        Assert.Contains($"/OnCall/ScheduleDetails/{ruleId}", details);
+        Assert.DoesNotContain("七天值班预览", details);
+        var schedule = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{ruleId}"));
+        Assert.Contains("七天值班预览", schedule);
+        Assert.Contains("当前值班", schedule);
+        Assert.Contains("七天值班甘特图", schedule);
+        Assert.Contains("ac-gantt-now", schedule);
+        Assert.Contains("ac-gantt-current", schedule);
+        Assert.AreEqual(21, Regex.Matches(schedule, "class=\"ac-gantt-shift ").Count);
+        Assert.DoesNotContain("无法生成预览", schedule);
         Assert.DoesNotContain("id=\"oncall-rule-form\"", details);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Details/{Guid.NewGuid()}")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/ScheduleDetails/{Guid.NewGuid()}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Edit/{Guid.NewGuid()}")).StatusCode);
     }
 
@@ -166,7 +176,7 @@ public class OnCallRulePagesTests : TestBase
             ruleId = rule.Id;
         }
 
-        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{ruleId}"));
+        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{ruleId}"));
         Assert.Contains("即将开始", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);
         Assert.AreEqual(3, Regex.Matches(html, "class=\"ac-gantt-row\" role=\"group\"").Count);

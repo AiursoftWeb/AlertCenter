@@ -13,10 +13,11 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
         <h1 class="h3 mb-1">@rule.Name</h1>
-        <p class="text-muted mb-0">@rule.Group.Name (@rule.Group.TimeZoneId) · 每天三班，支持多人同班；保存的排班暂不影响告警路由。</p>
+        <p class="text-muted mb-0">@rule.Group.Name (@rule.Group.TimeZoneId) · 每天三班，支持多人同班。</p>
     </div>
     <div class="d-flex flex-shrink-0 gap-2">
-        <a asp-action="Index" class="btn btn-outline-secondary">返回规则列表</a>
+        <a asp-action="Schedule" class="btn btn-outline-secondary">返回排班列表</a>
+        <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-outline-primary">查看规则</a>
         @if (Model.IsAdministrator)
         {
             <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">编辑规则</a>
@@ -46,12 +47,12 @@
             <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
                 @if (Model.WeekStartUtc > rule.AnchorUtc)
                 {
-                    <a asp-action="Details" asp-route-id="@rule.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(-7).ToString("O")" class="btn btn-outline-secondary btn-sm">上一周</a>
+                    <a asp-action="ScheduleDetails" asp-route-id="@rule.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(-7).ToString("O")" class="btn btn-outline-secondary btn-sm">上一周</a>
                 }
-                <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-outline-secondary btn-sm">当前周</a>
+                <a asp-action="ScheduleDetails" asp-route-id="@rule.Id" class="btn btn-outline-secondary btn-sm">当前周</a>
                 @if (Model.WeekStartUtc < DateTime.MaxValue.AddDays(-35))
                 {
-                    <a asp-action="Details" asp-route-id="@rule.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(7).ToString("O")" class="btn btn-outline-secondary btn-sm">下一周</a>
+                    <a asp-action="ScheduleDetails" asp-route-id="@rule.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(7).ToString("O")" class="btn btn-outline-secondary btn-sm">下一周</a>
                 }
                 <span id="oncall-save-state" class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? "已保存" : "未保存 · 自动建议")</span>
             </div>

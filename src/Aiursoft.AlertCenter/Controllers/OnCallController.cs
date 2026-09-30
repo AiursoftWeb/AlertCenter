@@ -15,10 +15,45 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 {
     private readonly OnCallScheduleService schedules = new(db, generator);
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
-        LinkText = "自动排班", LinkOrder = 4)]
+        CascadedLinksGroupName = "值班中心", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
+        LinkText = "排班规则", LinkOrder = 1)]
     public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
         this.StackView(await LoadModel(cancellationToken));
+
+    [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
+        CascadedLinksGroupName = "值班中心", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
+        LinkText = "团队管理", LinkOrder = 0)]
+    public async Task<IActionResult> Groups(CancellationToken cancellationToken) =>
+        this.StackView(await LoadModel(cancellationToken));
+
+    [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
+        CascadedLinksGroupName = "值班中心", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
+        LinkText = "值班排班", LinkOrder = 2)]
+    public async Task<IActionResult> Schedule(CancellationToken cancellationToken) =>
+        this.StackView(await LoadModel(cancellationToken));
+
+    public async Task<IActionResult> GroupDetails(Guid id, CancellationToken cancellationToken)
+    {
+        var model = await LoadModel(cancellationToken);
+        if (model.Groups.All(group => group.Id != id)) return NotFound();
+        model.SelectedGroupId = id;
+        return this.StackView(model);
+    }
+
+    [Authorize(Roles = "Administrators")]
+    public async Task<IActionResult> GroupCreate(CancellationToken cancellationToken) =>
+        this.StackView(await LoadModel(cancellationToken));
+
+    [Authorize(Roles = "Administrators")]
+    public async Task<IActionResult> GroupEdit(Guid id, CancellationToken cancellationToken)
+    {
+        var model = await LoadModel(cancellationToken);
+        var group = model.Groups.SingleOrDefault(item => item.Id == id);
+        if (group == null) return NotFound();
+        model.SelectedGroupId = id;
+        model.GroupInput = new CreateOnCallGroupRequest { Name = group.Name, TimeZoneId = group.TimeZoneId };
+        return this.StackView(model);
+    }
 
     [Authorize(Roles = "Administrators")]
     public async Task<IActionResult> Create(CancellationToken cancellationToken)
@@ -52,13 +87,22 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         return this.StackView(model);
     }
 
-    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken, DateTime? startUtc = null)
+    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
+    {
+        var model = await LoadModel(cancellationToken);
+        if (model.Rules.All(rule => rule.Id != id)) return NotFound();
+        model.SelectedRuleId = id;
+        await PopulateRuleUsers(model, cancellationToken);
+        return this.StackView(model, "RuleDetails");
+    }
+
+    public async Task<IActionResult> ScheduleDetails(Guid id, CancellationToken cancellationToken, DateTime? startUtc = null)
     {
         var model = await LoadModel(cancellationToken);
         if (model.Rules.All(rule => rule.Id != id)) return NotFound();
         model.SelectedRuleId = id;
         await PopulatePreview(model, cancellationToken, startUtc);
-        return this.StackView(model);
+        return this.StackView(model, "Details");
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -117,8 +161,17 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Roles = "Administrators")]
     public async Task<IActionResult> CreateGroup([Bind(Prefix = "GroupInput")] CreateOnCallGroupRequest request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken) => await SaveGroupCore(request, null, cancellationToken);
+
+    [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrators")]
+    public async Task<IActionResult> UpdateGroup(Guid id, [Bind(Prefix = "GroupInput")] CreateOnCallGroupRequest request,
+        CancellationToken cancellationToken) => await SaveGroupCore(request, id, cancellationToken);
+
+    private async Task<IActionResult> SaveGroupCore(CreateOnCallGroupRequest request, Guid? id, CancellationToken cancellationToken)
     {
+        var group = id.HasValue ? await db.OnCallGroups.FindAsync([id.Value], cancellationToken) : null;
+        if (id.HasValue && group == null) return NotFound();
         request.Name = request.Name?.Trim() ?? string.Empty;
         request.TimeZoneId = request.TimeZoneId?.Trim() ?? string.Empty;
         if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("GroupInput.Name", "请输入团队名称。");
@@ -128,11 +181,33 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         {
             var model = await LoadModel(cancellationToken);
             model.GroupInput = request;
-            return this.StackView(model, "Index");
+            model.SelectedGroupId = id;
+            return this.StackView(model, id.HasValue ? "GroupEdit" : "GroupCreate");
         }
-        db.OnCallGroups.Add(new OnCallGroup { Name = request.Name, TimeZoneId = request.TimeZoneId });
+        if (group == null)
+        {
+            group = new OnCallGroup();
+            db.OnCallGroups.Add(group);
+        }
+        group.Name = request.Name;
+        group.TimeZoneId = request.TimeZoneId;
         await db.SaveChangesAsync(cancellationToken);
-        return RedirectToAction(nameof(Index));
+        TempData["OnCallGroupSuccess"] = id.HasValue ? "团队已更新。" : "团队创建成功。接下来可以创建排班规则。";
+        return RedirectToAction(nameof(GroupDetails), new { id = group.Id });
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrators")]
+    public async Task<IActionResult> DeleteGroup(Guid id, CancellationToken cancellationToken)
+    {
+        var group = await db.OnCallGroups.FindAsync([id], cancellationToken);
+        if (group == null) return NotFound();
+        if (await db.OnCallRules.AnyAsync(rule => rule.GroupId == id, cancellationToken))
+            return Conflict("该团队还有排班规则，请先删除规则再删除团队。");
+        db.OnCallGroups.Remove(group);
+        await db.SaveChangesAsync(cancellationToken);
+        TempData["OnCallGroupSuccess"] = "团队已删除。";
+        return RedirectToAction(nameof(Groups));
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -213,6 +288,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             await db.SaveChangesAsync(cancellationToken);
         }
         if (transaction != null) await transaction.CommitAsync(cancellationToken);
+        TempData["OnCallRuleSuccess"] = request.Id.HasValue ? "排班规则已更新。" : "排班规则创建成功。";
         return RedirectToAction(nameof(Details), new { id = rule.Id });
     }
 
@@ -230,6 +306,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         db.OnCallRuleMembers.RemoveRange(rule.Members);
         db.OnCallRules.Remove(rule);
         await db.SaveChangesAsync(cancellationToken);
+        TempData["OnCallRuleSuccess"] = "排班规则已删除。";
         return RedirectToAction(nameof(Index));
     }
 
@@ -287,13 +364,20 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             .ToListAsync(cancellationToken);
     }
 
+    private async Task PopulateRuleUsers(OnCallViewModel model, CancellationToken cancellationToken)
+    {
+        var userIds = model.Rules.Single(rule => rule.Id == model.SelectedRuleId).Members
+            .Select(member => member.UserId).ToArray();
+        model.PreviewUsers = await db.Users.AsNoTracking().Where(user => userIds.Contains(user.Id))
+            .ToListAsync(cancellationToken);
+    }
+
     private async Task PopulatePreview(OnCallViewModel model, CancellationToken cancellationToken, DateTime? requestedStart = null)
     {
         var rule = model.Rules.SingleOrDefault(item => item.Id == model.SelectedRuleId);
         if (rule == null) return;
+        await PopulateRuleUsers(model, cancellationToken);
         var userIds = rule.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToList();
-        model.PreviewUsers = await db.Users.AsNoTracking().Where(user => userIds.Contains(user.Id))
-            .ToListAsync(cancellationToken);
         try
         {
             rule.AnchorUtc = DateTime.SpecifyKind(rule.AnchorUtc, DateTimeKind.Utc);

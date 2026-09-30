@@ -1,0 +1,32 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h3 mb-1">值班排班</h1>
+        <p class="text-muted mb-0">选择规则查看七天班次、生成或手动调整排班。保存的班次暂不影响告警路由。</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">管理排班规则</a>
+</div>
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0">选择排班规则</h2></div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead><tr><th>团队</th><th>规则</th><th>成员数</th><th>操作</th></tr></thead>
+            <tbody>
+                @foreach (var rule in Model.Rules)
+                {
+                    <tr>
+                        <td>@rule.Group.Name (@rule.Group.TimeZoneId)</td>
+                        <td>@rule.Name</td>
+                        <td>@rule.Members.Count</td>
+                        <td><a asp-action="ScheduleDetails" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-primary">查看排班</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if (Model.Rules.Count == 0)
+    {
+        <div class="card-body text-muted">暂无规则，请先在排班规则中创建。</div>
+    }
+</div>

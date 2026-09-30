@@ -2,8 +2,8 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
-        <h1 class="h3 mb-1">自动排班规则</h1>
-        <p class="text-muted mb-0">选择规则查看未来七天的自动排班预览。规则不会发布班次或影响告警路由。</p>
+        <h1 class="h3 mb-1">排班规则</h1>
+        <p class="text-muted mb-0">管理团队轮换规则；前往值班排班查看或调整班次。</p>
     </div>
     @if (Model.IsAdministrator && Model.Groups.Count > 0)
     {
@@ -11,29 +11,15 @@
     }
 </div>
 
-@if (Model.IsAdministrator)
+@if (Model.Groups.Count == 0)
 {
-    <div class="card mb-4">
-        <div class="card-header"><h2 class="card-title mb-0">创建团队</h2></div>
-        <div class="card-body">
-            <form asp-action="CreateGroup" method="post" class="row g-3">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="col-md-5">
-                    <label asp-for="GroupInput.Name" class="form-label">团队名称</label>
-                    <input asp-for="GroupInput.Name" class="form-control" maxlength="100" required />
-                </div>
-                <div class="col-md-5">
-                    <label asp-for="GroupInput.TimeZoneId" class="form-label">时区</label>
-                    <select asp-for="GroupInput.TimeZoneId" asp-items="Model.TimeZones" class="form-select" required></select>
-                    <div class="form-text">选择团队所在时区；排班锚点仍以 UTC 保存。</div>
-                </div>
-                <div class="col-md-2 align-self-end"><button type="submit" class="btn btn-primary">创建团队</button></div>
-            </form>
-        </div>
-    </div>
-
+    <div class="alert alert-info">请先在 <a asp-action="Groups">团队管理</a>创建团队，再添加排班规则。</div>
 }
 
+@if (TempData["OnCallRuleSuccess"] is string message)
+{
+    <div class="alert alert-success" role="status">@message</div>
+}
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">已保存规则</h2></div>
     <div class="table-responsive">
@@ -48,7 +34,7 @@
                         <td>@rule.ShiftHours / @rule.RestHours 小时</td>
                         <td>@rule.Members.Count</td>
                         <td>
-                            <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-primary">查看排班</a>
+                            <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-primary">查看规则</a>
                             @if (Model.IsAdministrator)
                             {
                                 <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-secondary">编辑</a>

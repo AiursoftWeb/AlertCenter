@@ -1,0 +1,39 @@
+@model Aiursoft.AlertCenter.Models.OnCallViewModel
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h3 mb-1">团队管理</h1>
+        <p class="text-muted mb-0">管理值班团队和所在时区；创建团队后可为其添加排班规则。</p>
+    </div>
+    @if (Model.IsAdministrator)
+    {
+        <a asp-action="GroupCreate" class="btn btn-primary">创建团队</a>
+    }
+</div>
+@if (TempData["OnCallGroupSuccess"] is string message)
+{
+    <div class="alert alert-success" role="status">@message</div>
+}
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0">已保存团队</h2></div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead><tr><th>团队</th><th>时区</th><th>规则数</th><th>操作</th></tr></thead>
+            <tbody>
+                @foreach (var group in Model.Groups)
+                {
+                    <tr>
+                        <td>@group.Name</td>
+                        <td>@group.TimeZoneId</td>
+                        <td>@Model.Rules.Count(rule => rule.GroupId == group.Id)</td>
+                        <td><a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary">查看</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if (Model.Groups.Count == 0)
+    {
+        <div class="card-body text-muted">暂无团队，请先创建团队。</div>
+    }
+</div>
