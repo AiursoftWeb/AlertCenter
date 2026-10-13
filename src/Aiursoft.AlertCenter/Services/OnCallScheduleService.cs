@@ -7,6 +7,8 @@ namespace Aiursoft.AlertCenter.Services;
 
 public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerator generator)
 {
+    public List<string> Warnings { get; private set; } = [];
+
     public static DateTime WeekStart(OnCallGroup group, DateTime? requested = null)
     {
         if (requested?.Kind == DateTimeKind.Local) throw new ArgumentException("请使用 UTC 时间指定排班周期。");
@@ -35,6 +37,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
 
     public async Task<List<string>> Save(SaveOnCallScheduleRequest request, bool generate, CancellationToken cancellationToken)
     {
+        Warnings = [];
         await using var transaction = db.Database.IsRelational()
             ? await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, cancellationToken) : null;
         var group = await db.OnCallGroups.Include(item => item.Rule).Include(item => item.Members)
@@ -55,6 +58,9 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
         var restHours = create ? group.Rule?.RestHours ?? 16 : slots[0].RestHours;
         if (restHours is < 0 or > 168 || slots.Any(slot => slot.RestHours != restHours))
             return ["排班的休息时长无效或不一致。"];
+        var minimumStaff = create ? group.Rule?.MinimumStaff ?? 1 : slots[0].MinimumStaff;
+        if (minimumStaff is < 1 or > 200 || slots.Any(slot => slot.MinimumStaff != minimumStaff))
+            return ["排班的最低人数无效或不一致。"];
         var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
         var savedIds = slots.SelectMany(slot => slot.Members.Select(member => member.UserId)).ToArray();
         var allowedIds = ids.Concat(savedIds).Distinct().ToArray();
@@ -87,13 +93,16 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
         }
         var errors = OnCallScheduleValidator.Validate(start, 21, restHours, assignments, existing, names);
         if (errors.Count != 0) return errors;
+        Warnings = OnCallScheduleValidator.StaffingWarnings(start, 21, minimumStaff, assignments);
+        if (generate && Warnings.Count > 0) return Warnings;
         var bySlot = assignments.ToLookup(shift => shift.StartsAtUtc);
         for (var index = 0; index < 21; index++)
         {
             var time = start.AddHours(index * 8);
             var slot = create ? new OnCallShift
             {
-                GroupId = group.Id, StartsAtUtc = time, EndsAtUtc = time.AddHours(8), RestHours = restHours
+                GroupId = group.Id, StartsAtUtc = time, EndsAtUtc = time.AddHours(8), RestHours = restHours,
+                MinimumStaff = minimumStaff
             } : slots[index];
             if (create) db.OnCallShifts.Add(slot);
             var selected = bySlot[time].Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal);

@@ -78,6 +78,76 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
+    public async Task UnderstaffedManualScheduleReturnsWarningsAndSnapshotMetadataWhileEmptySlotsFail()
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.Include(item => item.Rule).SingleAsync(item => item.Id == id);
+            group.Rule!.MinimumStaff = 2;
+            group.Rule.TargetStaff = 2;
+            await db.SaveChangesAsync();
+        }
+        Guid ruleId;
+        using (var scope = Server!.Services.CreateScope())
+            ruleId = (await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallGroups.SingleAsync(group => group.Id == id)).RuleId!.Value;
+        var editPage = await Http.GetStringAsync($"/OnCall/Edit/{ruleId}");
+        foreach (var field in new[] { "MinimumStaff", "TargetStaff" })
+        {
+            var input = System.Text.RegularExpressions.Regex.Match(editPage, $"<input[^>]*name=\"RuleInput.{field}\"[^>]*>").Value;
+            Assert.Contains("value=\"2\"", input);
+        }
+        var metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
+        Assert.AreEqual(2, metadata.GetProperty("minimumStaff").GetInt32());
+        Assert.AreEqual(2, metadata.GetProperty("targetStaff").GetInt32());
+        Assert.IsFalse(metadata.GetProperty("canGenerate").GetBoolean());
+        var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("GenerateSchedule", draft)).StatusCode);
+        var users = metadata.GetProperty("members").EnumerateArray().Select(user => user.GetProperty("id").GetString()!).Take(3).ToArray();
+        for (var index = 0; index < draft.Slots.Count; index++)
+            draft.Slots[index].UserIds = [users[index % 3]];
+        var response = await Save("SaveSchedule", draft);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.AreEqual(21, result.GetProperty("warnings").GetArrayLength());
+        Assert.IsFalse(result.TryGetProperty("errors", out _));
+        metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
+        Assert.IsTrue(metadata.GetProperty("saved").GetBoolean());
+        Assert.AreEqual(21, metadata.GetProperty("warnings").GetArrayLength());
+        CollectionAssert.AreEqual(result.GetProperty("warnings").EnumerateArray().Select(warning => warning.GetString()).ToArray(),
+            metadata.GetProperty("warnings").EnumerateArray().Select(warning => warning.GetString()).ToArray());
+        var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
+        Assert.Contains("data-minimum-staff=\"2\"", details);
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.Include(item => item.Rule).SingleAsync(item => item.Id == id);
+            group.Rule!.MinimumStaff = 1;
+            group.Rule.TargetStaff = null;
+            await db.SaveChangesAsync();
+        }
+        metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
+        Assert.AreEqual(2, metadata.GetProperty("minimumStaff").GetInt32());
+        Assert.AreEqual(System.Text.Json.JsonValueKind.Null, metadata.GetProperty("targetStaff").ValueKind);
+        Assert.AreEqual(21, metadata.GetProperty("warnings").GetArrayLength());
+        draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
+        var version = draft.Version;
+        draft.Slots[0].UserIds.Clear();
+        response = await Save("SaveSchedule", draft);
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.IsTrue(result.GetProperty("errors").EnumerateArray().Any(error => error.GetString()!.Contains("空班")));
+        using var checkScope = Server!.Services.CreateScope();
+        var checkDb = checkScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(version, (await checkDb.OnCallGroups.SingleAsync(group => group.Id == id)).ScheduleVersion);
+        Assert.AreEqual(21, await checkDb.OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
+        Assert.IsTrue(await checkDb.OnCallShifts.Where(shift => shift.GroupId == id).AllAsync(shift => shift.MinimumStaff == 2));
+    }
+
+    [TestMethod]
     public async Task GanttRetainsUnassignedEngineersAsDropTargets()
     {
         await LoginAsAdmin();

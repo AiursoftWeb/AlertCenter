@@ -290,6 +290,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<bool>("BalanceShiftTimes")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("MinimumStaff")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -299,6 +302,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ShiftHours")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("TargetStaff")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -317,6 +323,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
 
                     b.Property<Guid>("GroupId")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("MinimumStaff")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RestHours")
                         .HasColumnType("INTEGER");

@@ -116,6 +116,143 @@ public class OnCallScheduleGeneratorTests
     }
 
     [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public void MinimumTwoReservesTwoPeoplePerSlotAcrossWeeks(bool balanceShiftTimes)
+    {
+        var rule = new OnCallRule { MinimumStaff = 2, BalanceShiftTimes = balanceShiftTimes };
+        var users = new[] { "a", "b", "c", "d", "e", "f" };
+        var history = new List<GeneratedOnCallShift>();
+        for (var week = 0; week < 3; week++)
+        {
+            var start = Anchor.AddDays(week * 7);
+            var shifts = _generator.Generate(rule, Anchor, users, start, 21, history);
+            Assert.AreEqual(42, shifts.Count);
+            Assert.IsTrue(shifts.GroupBy(shift => shift.StartsAtUtc).All(group => group.Count() == 2));
+            Assert.AreEqual(0, OnCallScheduleValidator.Validate(start, 21, 16, shifts, history, users.ToDictionary(id => id)).Count);
+            if (!balanceShiftTimes)
+                for (var slot = 0; slot < 21; slot++)
+                    CollectionAssert.AreEqual(users.Skip(slot % 3 * 2).Take(2).ToArray(),
+                        shifts.Where(shift => shift.StartsAtUtc == start.AddHours(slot * 8)).Select(shift => shift.UserId).ToArray());
+            history.AddRange(shifts);
+        }
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public void TargetThreeWithSixPeopleFallsBackToMinimumTwo(bool balanceShiftTimes)
+    {
+        var rule = new OnCallRule { MinimumStaff = 2, TargetStaff = 3, BalanceShiftTimes = balanceShiftTimes };
+        var users = new[] { "a", "b", "c", "d", "e", "f" };
+        var shifts = _generator.Generate(rule, Anchor, users, Anchor, 42);
+        Assert.IsTrue(shifts.GroupBy(shift => shift.StartsAtUtc).All(group => group.Count() == 2));
+        Assert.AreEqual(0, OnCallScheduleValidator.Validate(Anchor, 42, 16, shifts, [], users.ToDictionary(id => id)).Count);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public void ExplicitTargetOneDoesNotScheduleExcessPeople(bool balanceShiftTimes)
+    {
+        var rule = new OnCallRule { TargetStaff = 1, BalanceShiftTimes = balanceShiftTimes };
+        var users = Enumerable.Range(0, 12).Select(index => $"u{index}").ToArray();
+        var shifts = _generator.Generate(rule, Anchor, users, Anchor, 42);
+        Assert.AreEqual(42, shifts.Count);
+        Assert.IsTrue(shifts.GroupBy(shift => shift.StartsAtUtc).All(group => group.Count() == 1));
+        Assert.AreEqual(0, OnCallScheduleValidator.Validate(Anchor, 42, 16, shifts, [], users.ToDictionary(id => id)).Count);
+    }
+
+    [TestMethod]
+    public void ExplicitTargetIsReachedWhenCoverageAllowsIt()
+    {
+        var users = Enumerable.Range(0, 9).Select(index => $"u{index}").ToArray();
+        var shifts = _generator.Generate(new OnCallRule { MinimumStaff = 2, TargetStaff = 3 }, Anchor, users, Anchor, 21);
+        Assert.AreEqual(63, shifts.Count);
+        Assert.IsTrue(shifts.GroupBy(shift => shift.StartsAtUtc).All(group => group.Count() == 3));
+        Assert.AreEqual(0, OnCallScheduleValidator.Validate(Anchor, 21, 16, shifts, [], users.ToDictionary(id => id)).Count);
+    }
+
+    [TestMethod]
+    [DataRow(0, null)]
+    [DataRow(-1, null)]
+    [DataRow(201, null)]
+    [DataRow(1, 0)]
+    [DataRow(1, -1)]
+    [DataRow(1, 201)]
+    [DataRow(2, 1)]
+    public void RejectsInvalidStaffing(int minimumStaff, int? targetStaff)
+    {
+        Assert.Throws<ArgumentException>(() => _generator.Generate(
+            new OnCallRule { MinimumStaff = minimumStaff, TargetStaff = targetStaff }, Anchor,
+            ["a", "b", "c", "d", "e", "f"], Anchor, 21));
+    }
+
+    [TestMethod]
+    [DataRow(0, 6)]
+    [DataRow(16, 6)]
+    [DataRow(17, 8)]
+    [DataRow(48, 14)]
+    [DataRow(168, 44)]
+    public void MinimumStaffScalesRequiredMembersWithRest(int restHours, int requiredMembers)
+    {
+        var rule = new OnCallRule { MinimumStaff = 2, TargetStaff = 2, RestHours = restHours };
+        var users = Enumerable.Range(0, requiredMembers).Select(index => $"u{index}").ToArray();
+        var error = Assert.Throws<InvalidOperationException>(() => _generator.Generate(rule, Anchor, users[..^1], Anchor, 21));
+        StringAssert.Contains(error.Message, $"至少需要 {requiredMembers} 名员工");
+        var shifts = _generator.Generate(rule, Anchor, users, Anchor, 42);
+        Assert.AreEqual(84, shifts.Count);
+        Assert.AreEqual(0, OnCallScheduleValidator.Validate(Anchor, 42, restHours, shifts, [], users.ToDictionary(id => id)).Count);
+        Assert.IsTrue(shifts.All(shift => shift.RestHours == restHours));
+    }
+
+    [TestMethod]
+    public void StaffingHonorsExistingRestSnapshotsAndDoesNotMutateHistory()
+    {
+        var users = new[] { "a", "b", "c", "d", "e", "f", "g", "h" };
+        var rule = new OnCallRule { MinimumStaff = 2, TargetStaff = 2, RestHours = 0 };
+        var existing = new[]
+        {
+            new GeneratedOnCallShift("a", Anchor.AddHours(-8), Anchor, 24),
+            new GeneratedOnCallShift("b", Anchor.AddHours(16), Anchor.AddHours(24), 16)
+        };
+        var snapshot = existing.ToArray();
+        var shifts = _generator.Generate(rule, Anchor, users, Anchor, 21, existing);
+        Assert.AreEqual(42, shifts.Count);
+        Assert.IsFalse(shifts.Any(shift => shift.UserId == "a" && shift.StartsAtUtc < Anchor.AddHours(24)));
+        Assert.IsFalse(shifts.Any(shift => shift.UserId == "b" && shift.StartsAtUtc < Anchor.AddHours(40)));
+        Assert.AreEqual(0, OnCallScheduleValidator.Validate(Anchor, 21, 0, shifts, existing, users.ToDictionary(id => id)).Count);
+        CollectionAssert.AreEqual(snapshot, existing);
+        Assert.IsTrue(shifts.All(shift => shift.RestHours == 0));
+    }
+
+    [TestMethod]
+    public void RejectsWhenExistingAssignmentsPreventMinimumCoverage()
+    {
+        var users = new[] { "a", "b", "c", "d", "e", "f" };
+        var existing = users.Take(5).Select(id => new GeneratedOnCallShift(id, Anchor.AddHours(-8), Anchor, 16)).ToArray();
+        Assert.Throws<InvalidOperationException>(() => _generator.Generate(
+            new OnCallRule { MinimumStaff = 2, TargetStaff = 2 }, Anchor, users, Anchor, 1, existing));
+    }
+
+    [TestMethod]
+    public void StaffingPreservesUtcSlotBoundariesAndPreviewLimits()
+    {
+        var rule = new OnCallRule { MinimumStaff = 2, TargetStaff = 2 };
+        var users = new[] { "a", "b", "c", "d", "e", "f" };
+        var start = Anchor.AddHours(8);
+        var shifts = _generator.Generate(rule, Anchor, users, start, 168);
+        Assert.AreEqual(336, shifts.Count);
+        Assert.AreEqual(start, shifts[0].StartsAtUtc);
+        Assert.AreEqual(start.AddHours(168 * 8), shifts[^1].EndsAtUtc);
+        Assert.Throws<ArgumentException>(() => _generator.Generate(rule, Anchor, users, Anchor.AddHours(1), 1));
+        Assert.Throws<ArgumentException>(() => _generator.Generate(rule, Anchor, users, Anchor.AddHours(-8), 1));
+        Assert.Throws<ArgumentException>(() => _generator.Generate(rule, Anchor, users, DateTime.SpecifyKind(start, DateTimeKind.Unspecified), 1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => _generator.Generate(rule, Anchor, users, start, 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => _generator.Generate(rule, Anchor, users, start, 169));
+    }
+
+    [TestMethod]
     public void ValidatorRejectsEmptySlotsOverlapAndInsufficientRestAcrossBoundaries()
     {
         var names = new Dictionary<string, string> { ["a"] = "Alice", ["b"] = "Bob" };

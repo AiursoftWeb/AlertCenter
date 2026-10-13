@@ -53,6 +53,11 @@ public class OnCallRulePagesTests : TestBase
         Assert.Contains("创建排班规则", create);
         Assert.Contains("action=\"/OnCall/SaveRule\"", create);
         Assert.Contains("name=\"RuleInput.Name\"", create);
+        Assert.Contains("name=\"RuleInput.MinimumStaff\"", create);
+        Assert.Contains("name=\"RuleInput.TargetStaff\"", create);
+        Assert.Contains("固定时段优先", WebUtility.HtmlDecode(create));
+        Assert.Contains("尽量均衡早、中、晚班", WebUtility.HtmlDecode(create));
+        Assert.Contains("目标人数", WebUtility.HtmlDecode(create));
         Assert.DoesNotContain("七天值班预览", create);
         Assert.DoesNotContain("RuleInput.GroupId", create);
         Assert.DoesNotContain("RuleInput.AnchorUtc", create);

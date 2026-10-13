@@ -57,6 +57,8 @@ public class OnCallControllerTests
         await using var db = await CreateDb();
         var controller = Controller(db);
         var request = new SaveOnCallRuleRequest { Name = " Regular " };
+        Assert.AreEqual(1, request.MinimumStaff);
+        Assert.AreEqual(1, request.TargetStaff);
         var created = Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, default));
         Assert.AreEqual(nameof(OnCallController.Details), created.ActionName);
         var rule = await db.OnCallRules.SingleAsync();
@@ -66,6 +68,8 @@ public class OnCallControllerTests
         request.Id = rule.Id;
         request.BalanceShiftTimes = true;
         request.RestHours = 24;
+        request.MinimumStaff = 2;
+        request.TargetStaff = 3;
         var edited = Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, default));
         Assert.AreEqual(nameof(OnCallController.Details), edited.ActionName);
         db.ChangeTracker.Clear();
@@ -73,6 +77,12 @@ public class OnCallControllerTests
         Assert.AreEqual(8, rule.ShiftHours);
         Assert.AreEqual(24, rule.RestHours);
         Assert.IsTrue(rule.BalanceShiftTimes);
+        Assert.AreEqual(2, rule.MinimumStaff);
+        Assert.AreEqual(3, rule.TargetStaff);
+        request.TargetStaff = null;
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, default));
+        db.ChangeTracker.Clear();
+        Assert.IsNull((await db.OnCallRules.SingleAsync()).TargetStaff);
     }
 
     [TestMethod]
@@ -372,6 +382,38 @@ public class OnCallControllerTests
         Assert.AreEqual("Operations", saved.Name);
         Assert.AreEqual(originalVersion, saved.ScheduleVersion);
         Assert.AreEqual("a", saved.Members.Single().UserId);
+    }
+
+    [TestMethod]
+    [DataRow(0, 1)]
+    [DataRow(201, 201)]
+    [DataRow(1, 0)]
+    [DataRow(1, 201)]
+    [DataRow(2, 1)]
+    public async Task RejectsInvalidStaffingWithoutChangingExistingTemplate(int minimumStaff, int targetStaff)
+    {
+        await using var db = await CreateDb();
+        var rule = new OnCallRule { Name = "Original", MinimumStaff = 2, TargetStaff = 3 };
+        var group = new OnCallGroup { Name = "Bound", Rule = rule };
+        db.OnCallGroups.Add(group);
+        await db.SaveChangesAsync();
+        var version = group.ScheduleVersion;
+        var controller = Controller(db);
+        using var provider = new ServiceCollection().BuildServiceProvider();
+        controller.HttpContext.RequestServices = provider;
+        await Assert.ThrowsAsync<InvalidOperationException>(() => controller.SaveRule(new SaveOnCallRuleRequest
+        {
+            Id = rule.Id, Name = "Tampered", MinimumStaff = minimumStaff, TargetStaff = targetStaff
+        }, default));
+        Assert.IsFalse(controller.ModelState.IsValid);
+        Assert.IsTrue(controller.ModelState.ContainsKey(minimumStaff is < 1 or > 200
+            ? "RuleInput.MinimumStaff" : "RuleInput.TargetStaff"));
+        db.ChangeTracker.Clear();
+        var saved = await db.OnCallRules.SingleAsync();
+        Assert.AreEqual("Original", saved.Name);
+        Assert.AreEqual(2, saved.MinimumStaff);
+        Assert.AreEqual(3, saved.TargetStaff);
+        Assert.AreEqual(version, (await db.OnCallGroups.SingleAsync()).ScheduleVersion);
     }
 
     [TestMethod]

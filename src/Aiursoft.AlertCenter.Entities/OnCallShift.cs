@@ -8,6 +8,7 @@ public class OnCallShift
     public DateTime StartsAtUtc { get; set; }
     public DateTime EndsAtUtc { get; set; }
     public int RestHours { get; set; } = 16;
+    public int MinimumStaff { get; set; } = 1;
     public ICollection<OnCallShiftMember> Members { get; set; } = [];
 }
 

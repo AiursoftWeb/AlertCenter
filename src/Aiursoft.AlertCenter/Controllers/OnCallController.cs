@@ -79,7 +79,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             Name = rule.Name,
             ShiftHours = rule.ShiftHours,
             RestHours = rule.RestHours,
-            BalanceShiftTimes = rule.BalanceShiftTimes
+            BalanceShiftTimes = rule.BalanceShiftTimes,
+            MinimumStaff = rule.MinimumStaff, TargetStaff = rule.TargetStaff
         };
         return this.StackView(model);
     }
@@ -123,6 +124,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             generationError = model.PreviewError,
             restHours = model.ScheduleRestHours, balanceShiftTimes = group.Rule?.BalanceShiftTimes ?? false,
             canGenerate = model.CanGenerateSchedule,
+            minimumStaff = model.ScheduleMinimumStaff, targetStaff = group.Rule?.TargetStaff,
+            warnings = model.StaffingWarnings,
             members = model.PreviewUsers.Select(user => new
             {
                 id = user.Id, displayName = user.DisplayName, departed = group.Members.All(member => member.UserId != user.Id)
@@ -146,7 +149,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         try
         {
             var errors = await schedules.Save(request, generate, cancellationToken);
-            return errors.Count == 0 ? Ok() : BadRequest(new { errors });
+            return errors.Count == 0 ? Ok(new { warnings = schedules.Warnings }) : BadRequest(new { errors });
         }
         catch (DbUpdateException)
         {
@@ -277,6 +280,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", "请输入规则名称。");
         if (request.ShiftHours != 8) ModelState.AddModelError("RuleInput.ShiftHours", "固定每天三班，每班 8 小时。");
         if (request.RestHours is < 0 or > 168) ModelState.AddModelError("RuleInput.RestHours", "最短休息需为 0–168 小时。");
+        if (request.MinimumStaff is < 1 or > 200) ModelState.AddModelError("RuleInput.MinimumStaff", "每班最低人数需为 1–200 人。");
+        if (request.TargetStaff is < 1 or > 200 || request.TargetStaff < request.MinimumStaff)
+            ModelState.AddModelError("RuleInput.TargetStaff", "目标人数不能低于最低人数，且需为 1–200 人；留空表示自动分配。");
         var rule = request.Id.HasValue ? await db.OnCallRules.FindAsync([request.Id.Value], cancellationToken) : null;
         if (request.Id.HasValue && rule == null) return NotFound();
         if (!ModelState.IsValid)
@@ -294,6 +300,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         rule.ShiftHours = request.ShiftHours;
         rule.RestHours = request.RestHours;
         rule.BalanceShiftTimes = request.BalanceShiftTimes;
+        rule.MinimumStaff = request.MinimumStaff;
+        rule.TargetStaff = request.TargetStaff;
         var groups = await db.OnCallGroups.Where(group => group.RuleId == rule.Id).ToListAsync(cancellationToken);
         foreach (var group in groups) group.ScheduleVersion = Guid.NewGuid();
         try
@@ -395,7 +403,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             model.PreviewUsers = await db.Users.AsNoTracking().Where(user => previewIds.Contains(user.Id)).ToListAsync(cancellationToken);
             model.ScheduleSaved = saved.Count > 0;
             model.ScheduleRestHours = saved.Count > 0 ? saved[0].RestHours : group.Rule?.RestHours ?? 16;
-            model.CanGenerateSchedule = group.Rule != null && userIds.Length >= Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0));
+            model.ScheduleMinimumStaff = saved.Count > 0 ? saved[0].MinimumStaff : group.Rule?.MinimumStaff ?? 1;
+            model.CanGenerateSchedule = group.Rule != null && userIds.Length >=
+                Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff;
             var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
             var boundaries = Enumerable.Range(0, 21).Select(index => new GeneratedOnCallShift(string.Empty,
                 startUtc.AddHours(index * 8), startUtc.AddHours((index + 1) * 8))).ToList();
@@ -405,6 +415,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 model.Preview = saved.SelectMany(shift => shift.Members.OrderBy(member => member.UserId)
                     .Select(member => new GeneratedOnCallShift(member.UserId, DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
                         DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), shift.RestHours))).ToList();
+                model.StaffingWarnings = OnCallScheduleValidator.StaffingWarnings(startUtc, 21, model.ScheduleMinimumStaff, model.Preview);
                 var covered = model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count();
                 if (covered < 21) model.PreviewError = $"本周有 {21 - covered} 个空班，请手动补齐值班人员。";
                 return;
@@ -412,7 +423,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             if (!model.CanGenerateSchedule)
             {
                 model.PreviewError = group.Rule == null ? "团队尚未绑定规则，可手动创建排班。"
-                    : "团队人数不足以自动生成排班，可增加成员或手动安排。";
+                    : $"自动生成每班至少 {group.Rule.MinimumStaff} 人、休息 {group.Rule.RestHours} 小时的排班，需要至少 {Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff} 名成员；当前 {userIds.Length} 人，可增加成员或手动安排。";
                 return;
             }
             model.Preview = generator.Generate(group.Rule!, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc),

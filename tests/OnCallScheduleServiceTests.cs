@@ -127,6 +127,55 @@ public class OnCallScheduleServiceTests
     }
 
     [TestMethod]
+    public async Task BelowMinimumManualScheduleSavesWarningsAndKeepsSnapshotAfterTemplateChanges()
+    {
+        rule.MinimumStaff = 2;
+        rule.TargetStaff = 2;
+        await db.SaveChangesAsync();
+        var version = group.ScheduleVersion;
+        await Assert.ThrowsAsync<InvalidOperationException>(() => service.Save(Request(), true, default));
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(version, group.ScheduleVersion);
+
+        var request = Request();
+        request.Slots = Enumerable.Range(0, 21).Select(index => new OnCallSlotRequest
+        {
+            StartsAtUtc = Anchor.AddHours(index * 8), UserIds = [$"u{index % 3}"]
+        }).ToList();
+        Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
+        Assert.AreEqual(21, service.Warnings.Count);
+        Assert.IsTrue(service.Warnings.All(warning => !string.IsNullOrWhiteSpace(warning)));
+        Assert.AreNotEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(21, await db.OnCallShiftMembers.CountAsync());
+        Assert.IsTrue(await db.OnCallShifts.AllAsync(shift => shift.MinimumStaff == 2));
+
+        rule.MinimumStaff = 1;
+        rule.TargetStaff = 1;
+        await db.SaveChangesAsync();
+        Assert.AreEqual(0, (await service.Save(await EditRequest(), false, default)).Count);
+        Assert.AreEqual(21, service.Warnings.Count);
+        var replacement = new OnCallRule { Name = "Replacement", MinimumStaff = 3, TargetStaff = 3 };
+        db.OnCallRules.Add(replacement);
+        await db.SaveChangesAsync();
+        group.Rule = replacement;
+        group.RuleId = replacement.Id;
+        await db.SaveChangesAsync();
+        db.ChangeTracker.Clear();
+        group = await db.OnCallGroups.Include(item => item.Rule).Include(item => item.Members).SingleAsync();
+        Assert.AreEqual(0, (await service.Save(await EditRequest(), false, default)).Count);
+        Assert.AreEqual(21, service.Warnings.Count);
+        Assert.IsTrue(await db.OnCallShifts.AllAsync(shift => shift.MinimumStaff == 2));
+
+        request = await EditRequest();
+        version = group.ScheduleVersion;
+        request.Slots[0].UserIds.Clear();
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("空班")));
+        Assert.AreEqual(0, service.Warnings.Count);
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(21, await db.OnCallShiftMembers.CountAsync());
+    }
+
+    [TestMethod]
     public async Task ManualScheduleWithoutTemplateUsesDefaultRestAndDoesNotRequireThreeMembers()
     {
         group.Rule = null;

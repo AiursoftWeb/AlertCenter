@@ -12,7 +12,7 @@
         userIds = Model.Preview.Where(shift => shift.StartsAtUtc == Model.WeekStartUtc.AddHours(index * 8)).Select(shift => shift.UserId).ToArray()
     }).ToList();
 }
-<div id="oncall-schedule" class="my-3" data-group-id="@group.Id" data-version="@group.ScheduleVersion" data-rest-hours="@Model.ScheduleRestHours" data-zone="@group.TimeZoneId"
+<div id="oncall-schedule" class="my-3" data-group-id="@group.Id" data-version="@group.ScheduleVersion" data-rest-hours="@Model.ScheduleRestHours" data-minimum-staff="@Model.ScheduleMinimumStaff" data-zone="@group.TimeZoneId"
      data-start="@Model.WeekStartUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)"
      data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()
@@ -30,7 +30,7 @@
         <span id="oncall-edit-count" class="small text-muted" role="status"></span>
     </div>
     <p id="oncall-drag-status" class="small text-primary mb-2" role="status" aria-live="polite"></p>
-    <p class="small text-muted mb-2">红色提示本周空班或休息不足，不阻止继续调整。保存时还会校验相邻周和其他团队；交换整周也需满足这些边界约束。已退出成员仅保留已开始和历史班次，不能为其新增班次。</p>
+    <p class="small text-muted mb-2">红色提示本周空班、休息不足或低于最低人数，不阻止继续调整。低于最低人数仍允许手动保存，空班及休息不足不能保存。保存时还会校验相邻周和其他团队；交换整周也需满足这些边界约束。已退出成员仅保留已开始和历史班次，不能为其新增班次。</p>
     <details id="oncall-draft-validation" class="text-danger small mb-2" hidden>
         <summary id="oncall-draft-summary" role="status" aria-live="polite"></summary>
         <ul id="oncall-draft-errors" class="mt-2"></ul>

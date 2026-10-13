@@ -18,9 +18,24 @@
             <input asp-for="RuleInput.RestHours" type="number" min="0" max="168" class="form-control" required />
         </div>
     </div>
-    <div class="form-check mb-2">
-        <input asp-for="RuleInput.BalanceShiftTimes" class="form-check-input" />
-        <label asp-for="RuleInput.BalanceShiftTimes" class="form-check-label">尽量均衡早、中、晚班</label>
+    <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <label asp-for="RuleInput.MinimumStaff" class="form-label">每班最低人数</label>
+            <input asp-for="RuleInput.MinimumStaff" type="number" min="1" max="200" class="form-control" required />
+            <div class="form-text">自动生成必须满足；手动排班人数不足仅警告，空班不能保存。</div>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="RuleInput.TargetStaff" class="form-label">每班目标人数</label>
+            <input asp-for="RuleInput.TargetStaff" type="number" min="1" max="200" class="form-control" />
+            <div class="form-text">不能低于最低人数；在覆盖和休息允许时尽量满足。留空自动分配。</div>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="RuleInput.BalanceShiftTimes" class="form-label">轮换偏好</label>
+            <select asp-for="RuleInput.BalanceShiftTimes" class="form-select">
+                <option value="false">固定时段优先</option>
+                <option value="true">尽量均衡早、中、晚班</option>
+            </select>
+        </div>
     </div>
     <p class="small text-muted">优先保证覆盖和休息，换班期间可能减少冗余。三人且休息至少 16 小时时无法轮换时段。按实际 8 小时连续排班，夏令时切换时本地时间可能变化。</p>
     <p class="small text-muted">这是可供多个团队共用的规则模板。成员、轮换顺序和排班起点由团队管理；修改模板不会重新生成任何已保存班次。</p>

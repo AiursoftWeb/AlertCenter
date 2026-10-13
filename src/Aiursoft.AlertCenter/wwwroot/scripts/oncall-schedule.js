@@ -102,6 +102,11 @@
         const warnings = [];
         const empty = slots.flatMap((slot, index) => slot.userIds.length ? [] : [index]);
         empty.forEach(index => warnings.push(`${slots[index].localStart} 出现空班，请补充人员。`));
+        slots.forEach(slot => {
+            const minimum = Number(root.dataset.minimumStaff || 1);
+            if (slot.userIds.length > 0 && slot.userIds.length < minimum)
+                warnings.push(`${slot.localStart} 仅安排 ${slot.userIds.length} 人，低于最低 ${minimum} 人；仍允许手动保存。`);
+        });
         rows.forEach(row => {
             const assigned = slots.flatMap((slot, index) => slot.userIds.includes(row.dataset.userId) ? [index] : []);
             const conflicts = new Set();

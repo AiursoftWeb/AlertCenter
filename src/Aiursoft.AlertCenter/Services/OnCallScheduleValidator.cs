@@ -2,6 +2,17 @@ namespace Aiursoft.AlertCenter.Services;
 
 public static class OnCallScheduleValidator
 {
+    public static List<string> StaffingWarnings(DateTime start, int count, int minimumStaff,
+        IReadOnlyList<GeneratedOnCallShift> shifts)
+    {
+        var counts = shifts.GroupBy(shift => shift.StartsAtUtc)
+            .ToDictionary(group => group.Key, group => group.Select(shift => shift.UserId).Distinct().Count());
+        return Enumerable.Range(0, count).Select(index => start.AddHours(index * 8))
+            .Where(time => counts.GetValueOrDefault(time) < minimumStaff)
+            .Select(time => $"{time:yyyy-MM-dd HH:mm} UTC 仅安排 {counts.GetValueOrDefault(time)} 人，低于最低 {minimumStaff} 人；人数不足仍允许手动保存，空班除外。")
+            .ToList();
+    }
+
     public static bool CanAssign(string userId, DateTime start, DateTime end, int restHours,
         IEnumerable<GeneratedOnCallShift> existing) => existing.Where(shift => shift.UserId == userId).All(shift =>
         start >= shift.EndsAtUtc

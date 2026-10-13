@@ -9,4 +9,6 @@ public class OnCallRule
     public int ShiftHours { get; set; } = 8;
     public int RestHours { get; set; } = 16;
     public bool BalanceShiftTimes { get; set; }
+    public int MinimumStaff { get; set; } = 1;
+    public int? TargetStaff { get; set; }
 }

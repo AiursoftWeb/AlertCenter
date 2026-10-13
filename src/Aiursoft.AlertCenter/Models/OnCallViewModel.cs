@@ -27,6 +27,8 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public bool GroupHasSavedSchedule { get; set; }
     public bool CanGenerateSchedule { get; set; }
     public int ScheduleRestHours { get; set; } = 16;
+    public int ScheduleMinimumStaff { get; set; } = 1;
+    public List<string> StaffingWarnings { get; set; } = [];
     public CreateOnCallGroupRequest GroupInput { get; set; } = new();
     public SaveOnCallRuleRequest RuleInput { get; set; } = new();
 }
@@ -55,6 +57,10 @@ public class SaveOnCallRuleRequest
     public bool BalanceShiftTimes { get; set; }
     [Range(0, 168, ErrorMessage = "最短休息需为 0–168 小时。")]
     public int RestHours { get; set; } = 16;
+    [Range(1, 200, ErrorMessage = "每班最低人数需为 1–200 人。")]
+    public int MinimumStaff { get; set; } = 1;
+    [Range(1, 200, ErrorMessage = "每班目标人数需为 1–200 人。")]
+    public int? TargetStaff { get; set; } = 1;
 }
 
 public class SaveOnCallScheduleRequest

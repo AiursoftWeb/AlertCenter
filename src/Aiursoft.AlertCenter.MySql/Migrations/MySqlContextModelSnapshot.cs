@@ -295,6 +295,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<bool>("BalanceShiftTimes")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("MinimumStaff")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -304,6 +307,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ShiftHours")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TargetStaff")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -322,6 +328,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.Property<Guid>("GroupId")
                         .HasColumnType("char(36)");
+
+                    b.Property<int>("MinimumStaff")
+                        .HasColumnType("int");
 
                     b.Property<int>("RestHours")
                         .HasColumnType("int");

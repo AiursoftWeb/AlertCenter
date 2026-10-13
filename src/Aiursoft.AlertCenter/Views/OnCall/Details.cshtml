@@ -28,10 +28,10 @@
 <div class="card mb-4">
     <div class="card-header"><h2 class="card-title mb-0">团队配置</h2></div>
     <div class="card-body">
-        <p>每班 @(rule?.ShiftHours ?? 8) 小时 · 本周最短休息 @Model.ScheduleRestHours 小时 · 锚点 @group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        <p>每班 @(rule?.ShiftHours ?? 8) 小时 · 本周最低 @Model.ScheduleMinimumStaff 人 · 本周最短休息 @Model.ScheduleRestHours 小时 · 锚点 @group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
         @if (rule != null)
         {
-            <p>规则模板：<a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a> · 模板最短休息 @rule.RestHours 小时 · 时段轮换：@(rule.BalanceShiftTimes ? "尽量均衡早、中、晚班" : "关闭，优先固定时段")</p>
+            <p>规则模板：<a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a> · 模板最短休息 @rule.RestHours 小时 · 每班最低 @rule.MinimumStaff 人，目标 @(rule.TargetStaff?.ToString() ?? "自动分配") 人 · 时段轮换：@(rule.BalanceShiftTimes ? "尽量均衡早、中、晚班" : "关闭，优先固定时段")</p>
         }
         else
         {
@@ -57,6 +57,13 @@
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">七天值班排班</h2></div>
     <div class="card-body">
+        @if (Model.StaffingWarnings.Count > 0)
+        {
+            <details class="alert alert-warning" open>
+                <summary>人数不足提示（仍允许手动保存，空班除外）</summary>
+                <ul class="mb-0">@foreach (var warning in Model.StaffingWarnings) { <li>@warning</li> }</ul>
+            </details>
+        }
         @if (Model.PreviewError != null)
         {
             <div class="alert alert-warning">@Model.PreviewError</div>

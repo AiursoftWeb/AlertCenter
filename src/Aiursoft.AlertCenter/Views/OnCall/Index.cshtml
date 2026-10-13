@@ -26,7 +26,7 @@
                     var boundGroupCount = Model.Groups.Count(group => group.RuleId == rule.Id);
                     <tr>
                         <td>@rule.Name</td>
-                        <td>@rule.ShiftHours / @rule.RestHours 小时</td>
+                        <td>@rule.ShiftHours / @rule.RestHours 小时<br /><span class="small text-muted">最低 @rule.MinimumStaff 人 · 目标 @(rule.TargetStaff?.ToString() ?? "自动分配") 人</span></td>
                         <td>@boundGroupCount</td>
                         <td>
                             <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-primary">查看规则</a>
