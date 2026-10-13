@@ -1,15 +1,15 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @{
     var rule = Model.Rules.Single(item => item.Id == Model.SelectedRuleId);
+    var groups = Model.Groups.Where(group => group.RuleId == rule.Id).ToList();
 }
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
         <h1 class="h3 mb-1">@rule.Name</h1>
-        <p class="text-muted mb-0">@rule.Group.Name (@rule.Group.TimeZoneId) · 排班规则</p>
+        <p class="text-muted mb-0">可复用排班规则模板 · @groups.Count 个团队使用</p>
     </div>
     <div class="d-flex gap-2">
         <a asp-action="Index" class="btn btn-outline-secondary">返回规则列表</a>
-        <a asp-action="ScheduleDetails" asp-route-id="@rule.Id" class="btn btn-outline-primary">查看值班排班</a>
         @if (Model.IsAdministrator)
         {
             <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">编辑规则</a>
@@ -23,15 +23,22 @@
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">规则配置</h2></div>
     <div class="card-body">
-        <p>每班 @rule.ShiftHours 小时 · 最短休息 @rule.RestHours 小时 · 锚点 @rule.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        <p>每班 @rule.ShiftHours 小时 · 最短休息 @rule.RestHours 小时</p>
         <p>时段轮换：@(rule.BalanceShiftTimes ? "尽量均衡早、中、晚班" : "关闭，优先固定时段")</p>
-        <h3 class="h6">轮换成员</h3>
-        <ol class="mb-0">
-            @foreach (var member in rule.Members.OrderBy(item => item.RotationOrder))
-            {
-                var user = Model.PreviewUsers.FirstOrDefault(item => item.Id == member.UserId);
-                <li>@(user?.DisplayName ?? "已删除的员工") (@(user?.UserName ?? member.UserId))</li>
-            }
-        </ol>
+        <p class="small text-muted">修改模板不会重新生成团队已保存的班次。成员和排班起点由各团队分别管理。</p>
+        <h3 class="h6">使用该模板的团队</h3>
+        @if (groups.Count == 0)
+        {
+            <p class="text-muted mb-0">暂无团队绑定该模板。</p>
+        }
+        else
+        {
+            <ul class="mb-0">
+                @foreach (var group in groups)
+                {
+                    <li><a asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a> (@group.TimeZoneId) · <a asp-action="ScheduleDetails" asp-route-id="@group.Id">查看值班排班</a></li>
+                }
+            </ul>
+        }
     </div>
 </div>

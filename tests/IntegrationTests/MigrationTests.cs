@@ -18,13 +18,13 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(5, context.Database.GetMigrations().Count());
+        Assert.AreEqual(6, context.Database.GetMigrations().Count());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
 
         await context.Database.MigrateAsync();
 
-        Assert.AreEqual(5, (await context.Database.GetAppliedMigrationsAsync()).Count());
+        Assert.AreEqual(6, (await context.Database.GetAppliedMigrationsAsync()).Count());
         Assert.IsTrue(await context.Database.CanConnectAsync());
     }
 
@@ -36,7 +36,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(5, context.Database.GetMigrations().Count());
+        Assert.AreEqual(6, context.Database.GetMigrations().Count());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");
     }

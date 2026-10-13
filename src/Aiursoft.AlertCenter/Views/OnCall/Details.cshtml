@@ -1,6 +1,7 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @{
-    var rule = Model.Rules.Single(item => item.Id == Model.SelectedRuleId);
+    var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
+    var rule = group.Rule;
 }
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
@@ -12,85 +13,96 @@
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
-        <h1 class="h3 mb-1">@rule.Name</h1>
-        <p class="text-muted mb-0">@rule.Group.Name (@rule.Group.TimeZoneId) · 每天三班，支持多人同班。</p>
+        <h1 class="h3 mb-1">@group.Name · 值班排班</h1>
+        <p class="text-muted mb-0">@group.TimeZoneId · 每天三班，支持多人同班。实际班次保存在团队下。</p>
     </div>
-    <div class="d-flex flex-shrink-0 gap-2">
+    <div class="d-flex flex-wrap gap-2">
         <a asp-action="Schedule" class="btn btn-outline-secondary">返回排班列表</a>
-        <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-outline-primary">查看规则</a>
+        <a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-outline-primary">查看团队</a>
         @if (Model.IsAdministrator)
         {
-            <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">编辑规则</a>
+            <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-primary">编辑团队</a>
         }
     </div>
 </div>
 <div class="card mb-4">
-    <div class="card-header"><h2 class="card-title mb-0">规则配置</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">团队配置</h2></div>
     <div class="card-body">
-        <p>每班 @rule.ShiftHours 小时 · 最短休息 @rule.RestHours 小时 · 锚点 @rule.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
-        <p>时段轮换：@(rule.BalanceShiftTimes ? "尽量均衡早、中、晚班" : "关闭，优先固定时段")</p>
-        <h3 class="h6">轮换成员</h3>
-        <ol class="mb-0">
-            @foreach (var member in rule.Members.OrderBy(item => item.RotationOrder))
-            {
-                var user = Model.PreviewUsers.FirstOrDefault(item => item.Id == member.UserId);
-                <li>@(user?.DisplayName ?? "已删除的员工") (@(user?.UserName ?? member.UserId))</li>
-            }
-        </ol>
-    </div>
-</div>
-<div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">七天值班预览</h2></div>
-    <div class="card-body">
-        @if (Model.WeekStartUtc != default)
+        <p>每班 @(rule?.ShiftHours ?? 8) 小时 · 本周最短休息 @Model.ScheduleRestHours 小时 · 锚点 @group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        @if (rule != null)
         {
-            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-                @if (Model.WeekStartUtc > rule.AnchorUtc)
-                {
-                    <a asp-action="ScheduleDetails" asp-route-id="@rule.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(-7).ToString("O")" class="btn btn-outline-secondary btn-sm">上一周</a>
-                }
-                <a asp-action="ScheduleDetails" asp-route-id="@rule.Id" class="btn btn-outline-secondary btn-sm">当前周</a>
-                @if (Model.WeekStartUtc < DateTime.MaxValue.AddDays(-35))
-                {
-                    <a asp-action="ScheduleDetails" asp-route-id="@rule.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(7).ToString("O")" class="btn btn-outline-secondary btn-sm">下一周</a>
-                }
-                <span id="oncall-save-state" class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? "已保存" : "未保存 · 自动建议")</span>
-            </div>
-        }
-        @if (Model.PreviewError != null)
-        {
-            <div class="alert alert-warning">@Model.PreviewError</div>
-            @if (Model.IsAdministrator && Model.WeekStartUtc != default && Model.PreviewUsers.Count >= 3)
-            {
-                @await Html.PartialAsync("_ScheduleEditor", Model)
-            }
-        }
-        else if (Model.Preview.Count == 0)
-        {
-            <p class="text-muted mb-0">暂无可展示的值班班次。</p>
+            <p>规则模板：<a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a> · 模板最短休息 @rule.RestHours 小时 · 时段轮换：@(rule.BalanceShiftTimes ? "尽量均衡早、中、晚班" : "关闭，优先固定时段")</p>
         }
         else
         {
+            <p class="text-muted">未绑定规则模板，可手动排班；新排班默认最短休息 @(rule?.RestHours ?? 16) 小时。</p>
+        }
+        <p class="small text-muted">修改模板、重新绑定模板或增减成员不会重新生成已保存班次。移除成员后，尚未开始的安排会清除，空班需手动补充。</p>
+        <h3 class="h6">轮换成员</h3>
+        @if (group.Members.Count == 0)
+        {
+            <p class="text-muted mb-0">暂无团队成员；请先编辑团队添加成员，再手动填充空班。</p>
+        }
+        else
+        {
+            <ol class="mb-0">
+                @foreach (var member in group.Members.OrderBy(item => item.RotationOrder))
+                {
+                    <li>@(member.User?.DisplayName ?? "已删除的员工") (@(member.User?.UserName ?? member.UserId))</li>
+                }
+            </ol>
+        }
+    </div>
+</div>
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0">七天值班排班</h2></div>
+    <div class="card-body">
+        @if (Model.PreviewError != null)
+        {
+            <div class="alert alert-warning">@Model.PreviewError</div>
+        }
+        @if (Model.WeekStartUtc != default)
+        {
             var staffNames = Model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
             var totalHours = Model.Preview.DistinctBy(shift => shift.StartsAtUtc).Sum(shift => (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours);
-            var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
+            var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
             var now = DateTime.UtcNow;
             var currentShift = Model.Preview.FirstOrDefault(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc);
-            <div class="alert alert-primary d-flex flex-wrap align-items-center gap-2">
-                @if (currentShift != null)
+            var firstShift = Model.Preview.FirstOrDefault();
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                @if (Model.WeekStartUtc > group.AnchorUtc)
                 {
-                    <span class="badge bg-primary">当前值班</span>
-                    <strong>@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc == currentShift.StartsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, "已删除的员工")))</strong>
-                    <span>本班至 @TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
+                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(-7).ToString("O")" class="btn btn-outline-secondary btn-sm">上一周</a>
                 }
-                else
+                <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-outline-secondary btn-sm">当前周</a>
+                @if (Model.WeekStartUtc < DateTime.MaxValue.AddDays(-35))
                 {
-                    <span class="badge bg-primary">@(Model.Preview[0].StartsAtUtc > now ? "即将开始" : "本周排班")</span>
-                    <strong>@staffNames.GetValueOrDefault(Model.Preview[0].UserId, "已删除的员工")</strong>
-                    <span>首班于 @TimeZoneInfo.ConvertTimeFromUtc(Model.Preview[0].StartsAtUtc, zone).ToString("MM-dd HH:mm") 开始</span>
+                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(7).ToString("O")" class="btn btn-outline-secondary btn-sm">下一周</a>
                 }
-                <span class="small">（@rule.Group.TimeZoneId，状态以页面加载时为准）</span>
+                <span id="oncall-save-state" class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? "已保存" : Model.CanGenerateSchedule ? "未保存 · 自动建议" : "未保存 · 手动排班")</span>
             </div>
+            @if (firstShift != null)
+            {
+                <div class="alert alert-primary d-flex flex-wrap align-items-center gap-2">
+                    @if (currentShift != null)
+                    {
+                        <span class="badge bg-primary">当前值班</span>
+                        <strong>@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc == currentShift.StartsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, "已删除的员工")))</strong>
+                        <span>本班至 @TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-primary">@(firstShift.StartsAtUtc > now ? "即将开始" : "本周排班")</span>
+                        <strong>@staffNames.GetValueOrDefault(firstShift.UserId, "已删除的员工")</strong>
+                        <span>首班于 @TimeZoneInfo.ConvertTimeFromUtc(firstShift.StartsAtUtc, zone).ToString("MM-dd HH:mm") 开始</span>
+                    }
+                    <span class="small">（@group.TimeZoneId，状态以页面加载时为准）</span>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">本周暂无已分配班次，可手动补充人员。</p>
+            }
             <div class="row g-3 mb-3">
                 <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">已覆盖班次</div><strong class="fs-4" data-oncall-stat="shifts">@Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count()</strong></div></div></div>
                 <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">参与员工</div><strong class="fs-4" data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></div></div></div>
@@ -101,6 +113,10 @@
                 @await Html.PartialAsync("_ScheduleEditor", Model)
             }
             @await Html.PartialAsync("_PreviewGantt", Model)
+        }
+        else
+        {
+            <p class="text-muted mb-0">暂无有效排班周，请检查团队的排班起点。</p>
         }
     </div>
 </div>

@@ -233,9 +233,19 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("AnchorUtc")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("RuleId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ScheduleVersion")
+                        .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TimeZoneId")
@@ -245,7 +255,30 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RuleId");
+
                     b.ToTable("OnCallGroups");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroupMember", b =>
+                {
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RotationOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("GroupId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("GroupId", "RotationOrder")
+                        .IsUnique();
+
+                    b.ToTable("OnCallGroupMembers");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRule", b =>
@@ -254,14 +287,8 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("AnchorUtc")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("BalanceShiftTimes")
                         .HasColumnType("INTEGER");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -271,40 +298,12 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<int>("RestHours")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("ScheduleVersion")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("ShiftHours")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId", "Name")
-                        .IsUnique();
-
                     b.ToTable("OnCallRules");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRuleMember", b =>
-                {
-                    b.Property<Guid>("RuleId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("RotationOrder")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("RuleId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("RuleId", "RotationOrder")
-                        .IsUnique();
-
-                    b.ToTable("OnCallRuleMembers");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
@@ -316,15 +315,18 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<DateTime>("EndsAtUtc")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("RuleId")
+                    b.Property<Guid>("GroupId")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("RestHours")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("StartsAtUtc")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RuleId", "StartsAtUtc")
+                    b.HasIndex("GroupId", "StartsAtUtc")
                         .IsUnique();
 
                     b.ToTable("OnCallShifts");
@@ -909,22 +911,21 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Incident");
                 });
 
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRule", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
-                        .WithMany("Rules")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRuleMember", b =>
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.OnCallRule", "Rule")
-                        .WithMany("Members")
+                        .WithMany()
                         .HasForeignKey("RuleId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Rule");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroupMember", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
+                        .WithMany("Members")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -934,20 +935,20 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Rule");
+                    b.Navigation("Group");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
                 {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallRule", "Rule")
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
                         .WithMany()
-                        .HasForeignKey("RuleId")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Rule");
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftMember", b =>
@@ -1159,11 +1160,6 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
-                {
-                    b.Navigation("Rules");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRule", b =>
                 {
                     b.Navigation("Members");
                 });

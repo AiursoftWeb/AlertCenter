@@ -238,10 +238,20 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("AnchorUtc")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
+
+                    b.Property<Guid?>("RuleId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ScheduleVersion")
+                        .IsConcurrencyToken()
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("TimeZoneId")
                         .IsRequired()
@@ -250,7 +260,30 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RuleId");
+
                     b.ToTable("OnCallGroups");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroupMember", b =>
+                {
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("RotationOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("GroupId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("GroupId", "RotationOrder")
+                        .IsUnique();
+
+                    b.ToTable("OnCallGroupMembers");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRule", b =>
@@ -259,14 +292,8 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("AnchorUtc")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<bool>("BalanceShiftTimes")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("char(36)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -276,40 +303,12 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<int>("RestHours")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ScheduleVersion")
-                        .IsConcurrencyToken()
-                        .HasColumnType("char(36)");
-
                     b.Property<int>("ShiftHours")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId", "Name")
-                        .IsUnique();
-
                     b.ToTable("OnCallRules");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRuleMember", b =>
-                {
-                    b.Property<Guid>("RuleId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("RotationOrder")
-                        .HasColumnType("int");
-
-                    b.HasKey("RuleId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("RuleId", "RotationOrder")
-                        .IsUnique();
-
-                    b.ToTable("OnCallRuleMembers");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
@@ -321,15 +320,18 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<DateTime>("EndsAtUtc")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("RuleId")
+                    b.Property<Guid>("GroupId")
                         .HasColumnType("char(36)");
+
+                    b.Property<int>("RestHours")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartsAtUtc")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RuleId", "StartsAtUtc")
+                    b.HasIndex("GroupId", "StartsAtUtc")
                         .IsUnique();
 
                     b.ToTable("OnCallShifts");
@@ -918,22 +920,21 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Incident");
                 });
 
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRule", b =>
-                {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
-                        .WithMany("Rules")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRuleMember", b =>
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.OnCallRule", "Rule")
-                        .WithMany("Members")
+                        .WithMany()
                         .HasForeignKey("RuleId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Rule");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroupMember", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
+                        .WithMany("Members")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -943,20 +944,20 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Rule");
+                    b.Navigation("Group");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
                 {
-                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallRule", "Rule")
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
                         .WithMany()
-                        .HasForeignKey("RuleId")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Rule");
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShiftMember", b =>
@@ -1168,11 +1169,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
-                {
-                    b.Navigation("Rules");
-                });
-
-            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRule", b =>
                 {
                     b.Navigation("Members");
                 });

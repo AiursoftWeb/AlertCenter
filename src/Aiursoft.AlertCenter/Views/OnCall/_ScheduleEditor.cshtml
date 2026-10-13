@@ -1,8 +1,9 @@
 @using System.Text.Json
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @{
-    var rule = Model.Rules.Single(item => item.Id == Model.SelectedRuleId);
-    var zone = TimeZoneInfo.FindSystemTimeZoneById(rule.Group.TimeZoneId);
+    var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
+    var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+    var memberIds = group.Members.Select(member => member.UserId).ToHashSet();
     var slots = Enumerable.Range(0, 21).Select(index => new
     {
         startsAtUtc = Model.WeekStartUtc.AddHours(index * 8),
@@ -11,19 +12,16 @@
         userIds = Model.Preview.Where(shift => shift.StartsAtUtc == Model.WeekStartUtc.AddHours(index * 8)).Select(shift => shift.UserId).ToArray()
     }).ToList();
 }
-<div id="oncall-schedule" class="my-3" data-rule-id="@rule.Id" data-version="@rule.ScheduleVersion" data-rest-hours="@rule.RestHours" data-zone="@rule.Group.TimeZoneId"
+<div id="oncall-schedule" class="my-3" data-group-id="@group.Id" data-version="@group.ScheduleVersion" data-rest-hours="@Model.ScheduleRestHours" data-zone="@group.TimeZoneId"
      data-start="@Model.WeekStartUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)"
      data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()
-    @if (Model.Preview.Count > 0)
-    {
-        <div class="btn-group mb-2" role="group" aria-label="排班操作模式">
-            <button type="button" class="btn btn-outline-primary active" data-schedule-mode="move" aria-pressed="true">移动 / 交换</button>
-            <button type="button" class="btn btn-outline-primary" data-schedule-mode="add" aria-pressed="false">添加班次</button>
-            <button type="button" class="btn btn-outline-danger" data-schedule-mode="remove" aria-pressed="false">删除班次</button>
-        </div>
-        <p id="oncall-mode-help" class="small mb-2" role="status">当前为移动 / 交换模式。添加或删除班次时，请先切换上方模式。</p>
-    }
+    <div class="btn-group mb-2" role="group" aria-label="排班操作模式">
+        <button type="button" class="btn btn-outline-primary active" data-schedule-mode="move" aria-pressed="true">移动 / 交换</button>
+        <button type="button" class="btn btn-outline-primary" data-schedule-mode="add" aria-pressed="false">添加班次</button>
+        <button type="button" class="btn btn-outline-danger" data-schedule-mode="remove" aria-pressed="false">删除班次</button>
+    </div>
+    <p id="oncall-mode-help" class="small mb-2" role="status">当前为移动 / 交换模式。添加或删除班次时，请先切换上方模式。</p>
     <p class="small mb-2">拖动色块到另一班次可交换人员，拖到空格可移动班次；拖动「交换整周」可交换两人的整周安排。也可先点击选中，再点击目标；Esc 取消。调整立即显示，可连续修改后统一保存。</p>
     <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
         <button id="oncall-save-schedule" type="button" class="btn btn-primary">保存本周调整</button>
@@ -32,12 +30,12 @@
         <span id="oncall-edit-count" class="small text-muted" role="status"></span>
     </div>
     <p id="oncall-drag-status" class="small text-primary mb-2" role="status" aria-live="polite"></p>
-    <p class="small text-muted mb-2">红色提示本周空班或休息不足，不阻止继续调整。保存时还会校验相邻周和其他规则；交换整周也需满足这些边界约束。</p>
+    <p class="small text-muted mb-2">红色提示本周空班或休息不足，不阻止继续调整。保存时还会校验相邻周和其他团队；交换整周也需满足这些边界约束。已退出成员仅保留已开始和历史班次，不能为其新增班次。</p>
     <details id="oncall-draft-validation" class="text-danger small mb-2" hidden>
         <summary id="oncall-draft-summary" role="status" aria-live="polite"></summary>
         <ul id="oncall-draft-errors" class="mt-2"></ul>
     </details>
-    @if (!Model.ScheduleSaved)
+    @if (Model.CanGenerateSchedule && !Model.ScheduleSaved)
     {
         <p class="small text-muted">自动建议尚未保存。生成时会重新校验相邻排班；已有保存的安排不会被覆盖。</p>
         <button id="oncall-generate" type="button" class="btn btn-primary">生成并保存本周排班</button>
@@ -51,7 +49,7 @@
                 {
                     var local = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc, zone);
                     var localEnd = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc.AddHours(8), zone);
-                    <option value="@index">@local.ToString("MM-dd HH:mm") → @localEnd.ToString("MM-dd HH:mm") (@rule.Group.TimeZoneId)</option>
+                    <option value="@index">@local.ToString("MM-dd HH:mm") → @localEnd.ToString("MM-dd HH:mm") (@group.TimeZoneId)</option>
                 }
             </select>
             <fieldset>
@@ -59,10 +57,11 @@
                 <div class="row g-2 mb-3">
                     @foreach (var user in Model.PreviewUsers)
                     {
+                        var departed = !memberIds.Contains(user.Id);
                         <div class="col-sm-6 col-lg-4">
                             <label class="d-flex align-items-center gap-2 border rounded p-2">
-                                <input type="checkbox" class="form-check-input m-0 oncall-edit-member" value="@user.Id" />
-                                <span>@user.DisplayName (@user.UserName)</span>
+                                <input type="checkbox" class="form-check-input m-0 oncall-edit-member" value="@user.Id" data-departed="@(departed ? "true" : "false")" disabled="@departed" />
+                                <span>@user.DisplayName (@user.UserName)@(departed ? " · 已退出" : "")</span>
                             </label>
                         </div>
                     }

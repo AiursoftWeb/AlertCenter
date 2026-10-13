@@ -25,14 +25,14 @@ public static class OnCallScheduleValidator
         {
             if (!members.TryGetValue(shift.UserId, out var name))
             {
-                errors.Add("包含不属于当前规则的员工。");
+                errors.Add("包含不属于当前团队的员工。");
                 continue;
             }
             if (shift.StartsAtUtc < start || shift.StartsAtUtc >= start.AddHours(count * 8) ||
                 (shift.StartsAtUtc - start).Ticks % TimeSpan.FromHours(8).Ticks != 0 || shift.EndsAtUtc != shift.StartsAtUtc.AddHours(8))
                 errors.Add($"{name} 的班次不在规定的 8 小时时段内。");
             if (!CanAssign(shift.UserId, shift.StartsAtUtc, shift.EndsAtUtc, restHours, accepted))
-                errors.Add($"{name} 在 {shift.StartsAtUtc:yyyy-MM-dd HH:mm} UTC 的班次与其他班次重叠或休息不足（本规则至少 {restHours} 小时，同时满足相邻规则要求）。");
+                errors.Add($"{name} 在 {shift.StartsAtUtc:yyyy-MM-dd HH:mm} UTC 的班次与其他班次重叠或休息不足（本周排班至少 {restHours} 小时，同时满足相邻排班要求）。");
             accepted.Add(shift with { RestHours = restHours });
         }
         return errors.Distinct().ToList();

@@ -13,6 +13,7 @@ public class OnCallRulePagesTests : TestBase
     {
         await LoginAsAdmin();
         Guid ruleId;
+        Guid groupId;
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -20,49 +21,59 @@ public class OnCallRulePagesTests : TestBase
             var second = new User { UserName = "second", DisplayName = "Second" };
             var third = new User { UserName = "third", DisplayName = "Third" };
             db.Users.AddRange(second, third);
-            var group = new OnCallGroup { Name = "Platform", TimeZoneId = "UTC" };
-            var rule = new OnCallRule
+            var rule = new OnCallRule { Name = "Day shift" };
+            var group = new OnCallGroup
             {
-                Group = group, Name = "Day shift", AnchorUtc = DateTime.UtcNow.Date.AddDays(-1),
-                Members = [new OnCallRuleMember { UserId = member.Id, RotationOrder = 0 },
-                    new OnCallRuleMember { UserId = second.Id, RotationOrder = 1 },
-                    new OnCallRuleMember { UserId = third.Id, RotationOrder = 2 }]
+                Name = "Platform", TimeZoneId = "UTC", Rule = rule, AnchorUtc = DateTime.UtcNow.Date.AddDays(-1),
+                Members = [new OnCallGroupMember { UserId = member.Id, RotationOrder = 0 },
+                    new OnCallGroupMember { UserId = second.Id, RotationOrder = 1 },
+                    new OnCallGroupMember { UserId = third.Id, RotationOrder = 2 }]
             };
-            db.OnCallRules.Add(rule);
+            db.OnCallGroups.Add(group);
             await db.SaveChangesAsync();
             ruleId = rule.Id;
+            groupId = group.Id;
         }
         var list = await Http.GetStringAsync("/OnCall/Index");
         Assert.Contains("Day shift", list);
         Assert.Contains($"/OnCall/Details/{ruleId}", list);
         Assert.DoesNotContain("创建团队</h2>", list);
-        Assert.Contains($"data-rule-id=\"{ruleId}\"", list);
-        Assert.Contains("该规则的全部已保存班次及成员关联将一并删除", list);
+        Assert.DoesNotContain($"data-rule-id=\"{ruleId}\"", list);
+        Assert.Contains("已绑定，不能删除", WebUtility.HtmlDecode(list));
+        Assert.Contains("团队已保存的班次和历史记录不会被删除", WebUtility.HtmlDecode(list));
         Assert.Contains("/OnCall/DeleteRule", list);
         Assert.DoesNotContain("id=\"oncall-rule-form\"", list);
         var scheduleList = await Http.GetStringAsync("/OnCall/Schedule");
-        Assert.Contains($"/OnCall/ScheduleDetails/{ruleId}", scheduleList);
+        Assert.Contains($"/OnCall/ScheduleDetails/{groupId}", scheduleList);
+        Assert.DoesNotContain($"/OnCall/ScheduleDetails/{ruleId}", scheduleList);
         Assert.DoesNotContain("创建团队</h2>", scheduleList);
         Assert.DoesNotContain("id=\"oncall-schedule\"", scheduleList);
 
         var create = await Http.GetStringAsync("/OnCall/Create");
         Assert.Contains("创建排班规则", create);
-        Assert.Contains("id=\"oncall-rule-form\"", create);
+        Assert.Contains("action=\"/OnCall/SaveRule\"", create);
+        Assert.Contains("name=\"RuleInput.Name\"", create);
         Assert.DoesNotContain("七天值班预览", create);
+        Assert.DoesNotContain("RuleInput.GroupId", create);
+        Assert.DoesNotContain("RuleInput.AnchorUtc", create);
+        Assert.DoesNotContain("RuleInput.UserIds", create);
+        Assert.DoesNotContain("oncall-member-search.js", create);
 
         var edit = await Http.GetStringAsync($"/OnCall/Edit/{ruleId}");
         Assert.Contains("编辑排班规则", edit);
-        Assert.Contains("id=\"oncall-rule-form\"", edit);
+        Assert.Contains("action=\"/OnCall/SaveRule\"", edit);
+        Assert.Contains("name=\"RuleInput.Id\"", edit);
         Assert.Contains("Day shift", edit);
         Assert.DoesNotContain("七天值班预览", edit);
 
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{ruleId}"));
         Assert.Contains("Day shift", details);
         Assert.Contains("规则配置", details);
-        Assert.Contains($"/OnCall/ScheduleDetails/{ruleId}", details);
+        Assert.Contains($"/OnCall/ScheduleDetails/{groupId}", details);
+        Assert.Contains("使用该模板的团队", details);
         Assert.DoesNotContain("七天值班预览", details);
-        var schedule = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{ruleId}"));
-        Assert.Contains("七天值班预览", schedule);
+        var schedule = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}"));
+        Assert.Contains("七天值班排班", schedule);
         Assert.Contains("当前值班", schedule);
         Assert.Contains("七天值班甘特图", schedule);
         Assert.Contains("ac-gantt-now", schedule);
@@ -73,55 +84,70 @@ public class OnCallRulePagesTests : TestBase
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Details/{Guid.NewGuid()}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/ScheduleDetails/{Guid.NewGuid()}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Edit/{Guid.NewGuid()}")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/ScheduleDetails/{ruleId}")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Details/{groupId}")).StatusCode);
     }
 
     [TestMethod]
-    public async Task AdministratorCanDeleteRuleAndItsSavedScheduleButNotItsGroupOrUsers()
+    public async Task AdministratorCannotDeleteBoundTemplateButCanUnbindAndDeleteWithoutChangingHistory()
     {
         await LoginAsAdmin();
         Guid ruleId;
         Guid groupId;
+        Guid retainedRuleId;
         string userId;
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var user = db.Users.First();
-            var group = new OnCallGroup { Name = "Delete team", TimeZoneId = "UTC" };
-            var rule = new OnCallRule
+            var rule = new OnCallRule { Name = "To delete" };
+            var group = new OnCallGroup
             {
-                Group = group, Name = "To delete", AnchorUtc = DateTime.UtcNow.Date,
-                Members = [new OnCallRuleMember { UserId = user.Id, RotationOrder = 0 }]
+                Name = "Delete team", Rule = rule,
+                Members = [new OnCallGroupMember { UserId = user.Id, RotationOrder = 0 }]
             };
-            var retained = new OnCallRule { Group = group, Name = "Retained", AnchorUtc = DateTime.UtcNow.Date };
-            var shift = new OnCallShift
+            var retained = new OnCallRule { Name = "Retained" };
+            db.OnCallRules.Add(retained);
+            retainedRuleId = retained.Id;
+            db.OnCallShifts.Add(new OnCallShift
             {
-                Rule = rule, StartsAtUtc = DateTime.UtcNow.Date, EndsAtUtc = DateTime.UtcNow.Date.AddHours(8),
+                Group = group, StartsAtUtc = DateTime.UtcNow.Date, EndsAtUtc = DateTime.UtcNow.Date.AddHours(8), RestHours = 24,
                 Members = [new OnCallShiftMember { UserId = user.Id }]
-            };
-            db.OnCallRules.AddRange(rule, retained);
-            db.OnCallShifts.Add(shift);
+            });
             await db.SaveChangesAsync();
             ruleId = rule.Id;
             groupId = group.Id;
             userId = user.Id;
         }
 
-        var noToken = await PostForm("/OnCall/DeleteRule", new() { ["id"] = ruleId.ToString() }, includeToken: false);
-        Assert.AreEqual(HttpStatusCode.BadRequest, noToken.StatusCode);
-        using (var scope = Server!.Services.CreateScope())
-            Assert.IsTrue(await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallRules.AnyAsync(rule => rule.Id == ruleId));
-
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/OnCall/DeleteRule", new() { ["id"] = ruleId.ToString() }, includeToken: false)).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await PostForm("/OnCall/DeleteRule", new() { ["id"] = Guid.NewGuid().ToString() }, "/OnCall/Index")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.Conflict, (await PostForm("/OnCall/DeleteRule", new() { ["id"] = ruleId.ToString() }, "/OnCall/Index")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.Conflict, (await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, "/OnCall/GroupCreate")).StatusCode);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.SingleAsync(item => item.Id == groupId);
+            Assert.IsTrue(await db.OnCallRules.AnyAsync(rule => rule.Id == ruleId));
+            var unbind = new Dictionary<string, string>
+            {
+                ["id"] = groupId.ToString(), ["GroupInput.Name"] = group.Name,
+                ["GroupInput.TimeZoneId"] = group.TimeZoneId, ["GroupInput.AnchorUtc"] = group.AnchorUtc.ToString("O"),
+                ["GroupInput.Version"] = group.ScheduleVersion.ToString(), ["GroupInput.UserIds[0]"] = userId
+            };
+            AssertRedirect(await PostForm("/OnCall/UpdateGroup", unbind, $"/OnCall/GroupEdit/{groupId}"), $"/OnCall/GroupDetails/{groupId}");
+        }
         AssertRedirect(await PostForm("/OnCall/DeleteRule", new() { ["id"] = ruleId.ToString() }, "/OnCall/Index"), "/OnCall");
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             Assert.IsFalse(await db.OnCallRules.AnyAsync(rule => rule.Id == ruleId));
-            Assert.IsFalse(await db.OnCallRuleMembers.AnyAsync(member => member.RuleId == ruleId));
-            Assert.IsFalse(await db.OnCallShifts.AnyAsync(shift => shift.RuleId == ruleId));
-            Assert.IsFalse(await db.OnCallShiftMembers.AnyAsync(member => member.Shift.RuleId == ruleId));
-            Assert.AreEqual(1, await db.OnCallRules.CountAsync(rule => rule.GroupId == groupId));
-            Assert.IsTrue(await db.OnCallGroups.AnyAsync(group => group.Id == groupId));
+            Assert.IsTrue(await db.OnCallRules.AnyAsync(rule => rule.Id == retainedRuleId));
+            Assert.AreEqual(1, await db.OnCallGroupMembers.CountAsync(member => member.GroupId == groupId));
+            Assert.AreEqual(1, await db.OnCallShifts.CountAsync(shift => shift.GroupId == groupId));
+            Assert.AreEqual(1, await db.OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == groupId));
+            Assert.AreEqual(24, (await db.OnCallShifts.SingleAsync(shift => shift.GroupId == groupId)).RestHours);
+            Assert.IsNull((await db.OnCallGroups.SingleAsync(group => group.Id == groupId)).RuleId);
             Assert.IsTrue(await db.Users.AnyAsync(user => user.Id == userId));
         }
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Details/{ruleId}")).StatusCode);
@@ -135,7 +161,7 @@ public class OnCallRulePagesTests : TestBase
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            var rule = new OnCallRule { Group = new OnCallGroup { Name = "Visible", TimeZoneId = "UTC" }, Name = "Protected", AnchorUtc = DateTime.UtcNow.Date };
+            var rule = new OnCallRule { Name = "Protected" };
             db.OnCallRules.Add(rule);
             await db.SaveChangesAsync();
             ruleId = rule.Id;
@@ -154,7 +180,7 @@ public class OnCallRulePagesTests : TestBase
     public async Task GanttKeepsCrossMidnightShiftsContinuousAndGroupsByEmployee()
     {
         await LoginAsAdmin();
-        Guid ruleId;
+        Guid groupId;
         var anchor = DateTime.UtcNow.Date.AddDays(14).AddHours(12);
         using (var scope = Server!.Services.CreateScope())
         {
@@ -163,20 +189,20 @@ public class OnCallRulePagesTests : TestBase
             var bob = new User { UserName = "gantt-bob", DisplayName = "Bob" };
             var carol = new User { UserName = "gantt-carol", DisplayName = "Carol" };
             db.Users.AddRange(alice, bob, carol);
-            var rule = new OnCallRule
+            var group = new OnCallGroup
             {
-                Group = new OnCallGroup { Name = "Gantt team", TimeZoneId = "Asia/Shanghai" },
-                Name = "Night rotation", AnchorUtc = anchor, ShiftHours = 8, RestHours = 0,
-                Members = [new OnCallRuleMember { UserId = alice.Id, RotationOrder = 0 },
-                    new OnCallRuleMember { UserId = bob.Id, RotationOrder = 1 },
-                    new OnCallRuleMember { UserId = carol.Id, RotationOrder = 2 }]
+                Name = "Gantt team", TimeZoneId = "Asia/Shanghai", AnchorUtc = anchor,
+                Rule = new OnCallRule { Name = "Night rotation", ShiftHours = 8, RestHours = 0 },
+                Members = [new OnCallGroupMember { UserId = alice.Id, RotationOrder = 0 },
+                    new OnCallGroupMember { UserId = bob.Id, RotationOrder = 1 },
+                    new OnCallGroupMember { UserId = carol.Id, RotationOrder = 2 }]
             };
-            db.OnCallRules.Add(rule);
+            db.OnCallGroups.Add(group);
             await db.SaveChangesAsync();
-            ruleId = rule.Id;
+            groupId = group.Id;
         }
 
-        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{ruleId}"));
+        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}"));
         Assert.Contains("即将开始", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);
         Assert.AreEqual(3, Regex.Matches(html, "class=\"ac-gantt-row\" role=\"group\"").Count);

@@ -6,18 +6,18 @@ public sealed record GeneratedOnCallShift(string UserId, DateTime StartsAtUtc, D
 
 public interface IOnCallScheduleGenerator
 {
-    IReadOnlyList<GeneratedOnCallShift> Generate(OnCallRule rule, IReadOnlyList<string> orderedUserIds,
+    IReadOnlyList<GeneratedOnCallShift> Generate(OnCallRule rule, DateTime anchorUtc, IReadOnlyList<string> orderedUserIds,
         DateTime startUtc, int shiftCount, IReadOnlyList<GeneratedOnCallShift>? existing = null);
 }
 
 public sealed class OnCallScheduleGenerator : IOnCallScheduleGenerator
 {
-    public IReadOnlyList<GeneratedOnCallShift> Generate(OnCallRule rule, IReadOnlyList<string> orderedUserIds,
+    public IReadOnlyList<GeneratedOnCallShift> Generate(OnCallRule rule, DateTime anchorUtc, IReadOnlyList<string> orderedUserIds,
         DateTime startUtc, int shiftCount, IReadOnlyList<GeneratedOnCallShift>? existing = null)
     {
         if (rule.ShiftHours != 8 || rule.RestHours is < 0 or > 168)
             throw new ArgumentException("固定每天三班，每班 8 小时；最短休息需为 0–168 小时。");
-        if (rule.AnchorUtc.Kind != DateTimeKind.Utc || startUtc.Kind != DateTimeKind.Utc)
+        if (anchorUtc.Kind != DateTimeKind.Utc || startUtc.Kind != DateTimeKind.Utc)
             throw new ArgumentException("排班起点必须是 UTC 时间。");
         if (shiftCount is < 1 or > 168)
             throw new ArgumentOutOfRangeException(nameof(shiftCount), "预览班次数量需为 1–168。");
@@ -28,9 +28,9 @@ public sealed class OnCallScheduleGenerator : IOnCallScheduleGenerator
         if (orderedUserIds.Count < requiredStaff)
             throw new InvalidOperationException($"该规则至少需要 {requiredStaff} 名员工（班次 {rule.ShiftHours} 小时，休息不少于 {rule.RestHours} 小时）。");
         var duration = TimeSpan.FromHours(rule.ShiftHours);
-        if (startUtc < rule.AnchorUtc || (startUtc - rule.AnchorUtc).Ticks % duration.Ticks != 0)
-            throw new ArgumentException("预览起点必须位于规则的班次边界上。");
-        var firstIndex = (startUtc - rule.AnchorUtc).Ticks / duration.Ticks;
+        if (startUtc < anchorUtc || (startUtc - anchorUtc).Ticks % duration.Ticks != 0)
+            throw new ArgumentException("预览起点必须位于团队的班次边界上。");
+        var firstIndex = (startUtc - anchorUtc).Ticks / duration.Ticks;
         var history = orderedUserIds.ToDictionary(id => id,
             id => (existing ?? []).Where(shift => shift.UserId == id).ToList(), StringComparer.Ordinal);
         var result = new List<GeneratedOnCallShift>();
@@ -47,7 +47,7 @@ public sealed class OnCallScheduleGenerator : IOnCallScheduleGenerator
                 .OrderBy(user => rule.BalanceShiftTimes ? 0 : (user.Order % requiredStaff == slot % requiredStaff ? 0 : 1))
                 .ThenBy(user => history[user.Id].Count)
                 .ThenBy(user => rule.BalanceShiftTimes
-                    ? history[user.Id].Count(shift => ((shift.StartsAtUtc - rule.AnchorUtc).Ticks / duration.Ticks % 3 + 3) % 3 == slot % 3) : 0)
+                    ? history[user.Id].Count(shift => ((shift.StartsAtUtc - anchorUtc).Ticks / duration.Ticks % 3 + 3) % 3 == slot % 3) : 0)
                 .ThenBy(user => user.Order).ToList();
             var assigned = 0;
             foreach (var candidate in candidates)

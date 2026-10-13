@@ -25,7 +25,10 @@
     function renderForm() {
         if (!select) return;
         const assigned = new Set(slots[Number(select.value)].userIds);
-        members.forEach(input => input.checked = assigned.has(input.value));
+        members.forEach(input => {
+            input.checked = assigned.has(input.value);
+            input.disabled = saving || input.dataset.departed === 'true';
+        });
         const changed = slots.filter((slot, index) => [...slot.userIds].sort().join(',') !== [...original[index].userIds].sort().join(',')).length;
         dirty = changed > 0;
         const generate = document.getElementById('oncall-generate');
@@ -49,11 +52,12 @@
             button.setAttribute('aria-pressed', String(active));
         });
         rows.forEach(row => {
-            row.querySelector('.ac-gantt-week').disabled = saving || mode !== 'move';
+            const weekButton = row.querySelector('.ac-gantt-week');
+            if (weekButton) weekButton.disabled = saving || mode !== 'move' || row.dataset.departed === 'true';
             row.querySelectorAll('.ac-gantt-cell').forEach(cell => {
                 const index = Number(cell.dataset.slot);
                 const assigned = slots[index].userIds.includes(row.dataset.userId);
-                cell.tabIndex = mode === 'add' && !assigned ? 0 : -1;
+                cell.tabIndex = !saving && mode === 'add' && !assigned && row.dataset.departed !== 'true' ? 0 : -1;
                 cell.setAttribute('aria-label', `${row.dataset.name} · ${slots[index].localStart} · ${mode === 'add' ? '添加值班' : '移动选中班次到此处'}`);
             });
         });
@@ -125,7 +129,7 @@
                 shift.style.left = `${index / 21 * 100}%`;
                 shift.style.width = `${100 / 21}%`;
                 shift.dataset.slot = index;
-                shift.dataset.summary = `${row.dataset.name} · 8 小时 · ${root.dataset.zone}${conflicts.has(index) ? ' · 休息不足' : ''}`;
+                shift.dataset.summary = `${row.dataset.name}${row.dataset.departed === 'true' ? ' · 已退出' : ''} · 8 小时 · ${root.dataset.zone}${conflicts.has(index) ? ' · 休息不足' : ''}`;
                 shift.dataset.start = slot.localStart;
                 shift.dataset.end = slot.localEnd;
                 shift.title = `${shift.dataset.summary} · ${slot.localStart} → ${slot.localEnd}`;
@@ -171,8 +175,14 @@
 
     select?.addEventListener('change', renderForm);
     members.forEach(input => input.addEventListener('change', () => {
+        if (saving || input.dataset.departed === 'true') { renderForm(); return; }
         history.push(structuredClone(slots));
-        slots[Number(select.value)].userIds = members.filter(member => member.checked).map(member => member.value);
+        const assigned = slots[Number(select.value)].userIds;
+        if (input.checked) {
+            if (!assigned.includes(input.value)) assigned.push(input.value);
+        } else {
+            slots[Number(select.value)].userIds = assigned.filter(id => id !== input.value);
+        }
         changed('人员已调整，图表已更新；尚未保存。');
     }));
     document.getElementById('oncall-undo-schedule').addEventListener('click', () => {
@@ -188,7 +198,7 @@
 
     function targetAt(element) {
         const row = element?.closest('[data-user-id]');
-        if (!row || !chart.contains(row)) return null;
+        if (!row || !chart.contains(row) || row.dataset.departed === 'true') return null;
         const item = element.closest('.ac-gantt-shift, .ac-gantt-cell, .ac-gantt-week');
         return { user: row.dataset.userId, name: row.dataset.name, slot: item?.dataset.slot === undefined ? null : Number(item.dataset.slot),
             week: item?.classList.contains('ac-gantt-week'), occupied: item?.classList.contains('ac-gantt-shift'), element: item || row };
@@ -315,7 +325,7 @@
             const response = await fetch(generate ? root.dataset.generateUrl : root.dataset.saveUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', RequestVerificationToken: root.querySelector('input[name="__RequestVerificationToken"]').value },
-                body: JSON.stringify({ ruleId: root.dataset.ruleId, version: root.dataset.version, startUtc: root.dataset.start,
+                body: JSON.stringify({ groupId: root.dataset.groupId, version: root.dataset.version, startUtc: root.dataset.start,
                     slots: slots.map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds })) })
             });
             if (!response.ok) {
@@ -331,7 +341,7 @@
         } finally {
             if (!reloading) {
                 saving = false;
-                root.querySelectorAll('button, input, select').forEach(input => input.disabled = false);
+                root.querySelectorAll('button, input, select').forEach(input => input.disabled = input.dataset.departed === 'true');
                 chart?.querySelectorAll('button').forEach(button => button.disabled = false);
                 renderForm();
             }
@@ -341,4 +351,5 @@
     document.getElementById('oncall-save-schedule')?.addEventListener('click', () => save(false));
     window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
     renderForm();
+    renderChart();
 })();

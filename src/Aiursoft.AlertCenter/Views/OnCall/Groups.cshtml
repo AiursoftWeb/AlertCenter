@@ -3,7 +3,7 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
         <h1 class="h3 mb-1">团队管理</h1>
-        <p class="text-muted mb-0">管理值班团队和所在时区；创建团队后可为其添加排班规则。</p>
+        <p class="text-muted mb-0">管理团队成员、轮换顺序、时区和排班起点；可绑定一个共用规则模板，实际班次由团队保存。</p>
     </div>
     @if (Model.IsAdministrator)
     {
@@ -18,15 +18,19 @@
     <div class="card-header"><h2 class="card-title mb-0">已保存团队</h2></div>
     <div class="table-responsive">
         <table class="table table-hover mb-0">
-            <thead><tr><th>团队</th><th>时区</th><th>规则数</th><th>操作</th></tr></thead>
+            <thead><tr><th>团队</th><th>时区</th><th>成员数</th><th>规则模板</th><th>操作</th></tr></thead>
             <tbody>
                 @foreach (var group in Model.Groups)
                 {
                     <tr>
                         <td>@group.Name</td>
                         <td>@group.TimeZoneId</td>
-                        <td>@Model.Rules.Count(rule => rule.GroupId == group.Id)</td>
-                        <td><a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary">查看</a></td>
+                        <td>@group.Members.Count</td>
+                        <td>@(group.Rule?.Name ?? "未绑定")</td>
+                        <td>
+                            <a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary">查看团队</a>
+                            <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-secondary">查看排班</a>
+                        </td>
                     </tr>
                 }
             </tbody>

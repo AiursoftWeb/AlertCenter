@@ -22,90 +22,143 @@ public class OnCallControllerTests
         public void SaveTempData(HttpContext context, IDictionary<string, object> values) { }
     }
 
-    [TestMethod]
-    public async Task AdminSavesAndEditsGeneratedRuleWithOrderedEmployees()
+    private static async Task<SqliteContext> CreateDb()
     {
-        await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+        var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite("DataSource=:memory:").Options);
         await db.Database.OpenConnectionAsync();
         await db.Database.MigrateAsync();
-        db.Users.AddRange(
-            new User { Id = "a", UserName = "a", NormalizedUserName = "A", DisplayName = "Alice" },
-            new User { Id = "b", UserName = "b", NormalizedUserName = "B", DisplayName = "Bob" },
-            new User { Id = "c", UserName = "c", NormalizedUserName = "C", DisplayName = "Carol" });
-        var group = new OnCallGroup { Name = "Operations" };
-        db.OnCallGroups.Add(group);
+        db.Users.AddRange(new[] { "a", "b", "c" }.Select(id => new User
+        {
+            Id = id, UserName = id, NormalizedUserName = id.ToUpperInvariant(), DisplayName = id
+        }));
         await db.SaveChangesAsync();
-        var controller = new OnCallController(db, new OnCallScheduleGenerator())
+        return db;
+    }
+
+    private static OnCallController Controller(SqliteContext db) => new(db, new OnCallScheduleGenerator())
+    {
+        ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext
         {
-            ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext
-            {
-                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
-            } },
-            TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider())
-        };
-        var anchor = new DateTime(2026, 9, 28, 0, 0, 0, DateTimeKind.Utc);
-        var request = new SaveOnCallRuleRequest
-        {
-            GroupId = group.Id, Name = "Regular", AnchorUtc = anchor,
-            UserIds = ["b", "a", "c"]
-        };
-        var created = Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, CancellationToken.None));
+            User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
+        } },
+        TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider())
+    };
+
+    private static CreateOnCallGroupRequest EditGroup(OnCallGroup group, params string[] userIds) => new()
+    {
+        Name = group.Name, TimeZoneId = group.TimeZoneId, RuleId = group.RuleId,
+        AnchorUtc = group.AnchorUtc, Version = group.ScheduleVersion, UserIds = userIds.ToList()
+    };
+
+    [TestMethod]
+    public async Task AdminCreatesReusableTemplateWithoutAnyTeamAndEditsIt()
+    {
+        await using var db = await CreateDb();
+        var controller = Controller(db);
+        var request = new SaveOnCallRuleRequest { Name = " Regular " };
+        var created = Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, default));
         Assert.AreEqual(nameof(OnCallController.Details), created.ActionName);
-        db.ChangeTracker.Clear();
-        var rule = await db.OnCallRules.Include(item => item.Members).SingleAsync();
-        CollectionAssert.AreEqual(new[] { "b", "a", "c" },
-            rule.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray());
-        var missing = await controller.Details(Guid.NewGuid(), CancellationToken.None);
-        Assert.IsInstanceOfType<NotFoundResult>(missing);
+        var rule = await db.OnCallRules.SingleAsync();
+        Assert.AreEqual("Regular", rule.Name);
+        Assert.AreEqual(0, await db.OnCallGroups.CountAsync());
+        Assert.IsInstanceOfType<NotFoundResult>(await controller.Details(Guid.NewGuid(), default));
         request.Id = rule.Id;
         request.BalanceShiftTimes = true;
-        request.UserIds = ["a", "b", "c"];
-        var edited = Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, CancellationToken.None));
+        request.RestHours = 24;
+        var edited = Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(request, default));
         Assert.AreEqual(nameof(OnCallController.Details), edited.ActionName);
         db.ChangeTracker.Clear();
-        rule = await db.OnCallRules.Include(item => item.Members).SingleAsync();
+        rule = await db.OnCallRules.SingleAsync();
         Assert.AreEqual(8, rule.ShiftHours);
+        Assert.AreEqual(24, rule.RestHours);
         Assert.IsTrue(rule.BalanceShiftTimes);
-        CollectionAssert.AreEqual(new[] { "a", "b", "c" },
-            rule.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray());
     }
 
     [TestMethod]
-    public async Task DeleteRuleRemovesPersistedScheduleInSqlite()
+    public async Task EditingSharedTemplateInvalidatesEveryBoundTeamButPreservesSavedSnapshots()
     {
-        await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
-            .UseSqlite("DataSource=:memory:").Options);
-        await db.Database.OpenConnectionAsync();
-        await db.Database.MigrateAsync();
-        var user = new User { Id = "engineer", UserName = "engineer", NormalizedUserName = "ENGINEER", DisplayName = "Engineer" };
-        var rule = new OnCallRule
+        await using var db = await CreateDb();
+        var rule = new OnCallRule { Name = "Shared" };
+        var first = new OnCallGroup { Name = "First", Rule = rule };
+        var second = new OnCallGroup { Name = "Second", Rule = rule };
+        var unbound = new OnCallGroup { Name = "Manual" };
+        db.OnCallGroups.AddRange(first, second, unbound);
+        var start = DateTime.UtcNow.Date.AddDays(-7);
+        var shift = new OnCallShift
         {
-            Group = new OnCallGroup { Name = "Team", TimeZoneId = "UTC" }, Name = "Rotation", AnchorUtc = DateTime.UtcNow.Date,
-            Members = [new OnCallRuleMember { UserId = user.Id, RotationOrder = 0 }]
+            Group = first, StartsAtUtc = start, EndsAtUtc = start.AddHours(8), RestHours = 16,
+            Members = [new OnCallShiftMember { UserId = "a" }]
         };
-        db.Users.Add(user);
+        db.OnCallShifts.Add(shift);
+        await db.SaveChangesAsync();
+        var versions = new[] { first.ScheduleVersion, second.ScheduleVersion, unbound.ScheduleVersion };
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).SaveRule(new SaveOnCallRuleRequest
+        {
+            Id = rule.Id, Name = "Shared edited", RestHours = 48, BalanceShiftTimes = true
+        }, default));
+        db.ChangeTracker.Clear();
+        var teams = await db.OnCallGroups.ToDictionaryAsync(group => group.Id);
+        Assert.AreNotEqual(versions[0], teams[first.Id].ScheduleVersion);
+        Assert.AreNotEqual(versions[1], teams[second.Id].ScheduleVersion);
+        Assert.AreEqual(versions[2], teams[unbound.Id].ScheduleVersion);
+        var saved = await db.OnCallShifts.Include(item => item.Members).SingleAsync();
+        Assert.AreEqual(shift.Id, saved.Id);
+        Assert.AreEqual(start, saved.StartsAtUtc);
+        Assert.AreEqual(start.AddHours(8), saved.EndsAtUtc);
+        Assert.AreEqual(16, saved.RestHours);
+        CollectionAssert.AreEqual(new[] { "a" }, saved.Members.Select(member => member.UserId).ToArray());
+    }
+
+    [TestMethod]
+    public async Task BoundTemplateCannotBeDeletedAndUnboundDeletionPreservesScheduleHistory()
+    {
+        await using var db = await CreateDb();
+        var rule = new OnCallRule { Name = "Rotation" };
+        var group = new OnCallGroup
+        {
+            Name = "Team", Rule = rule, Members = [new OnCallGroupMember { UserId = "a", RotationOrder = 0 }]
+        };
         db.OnCallShifts.Add(new OnCallShift
         {
-            Rule = rule, StartsAtUtc = DateTime.UtcNow.Date, EndsAtUtc = DateTime.UtcNow.Date.AddHours(8),
-            Members = [new OnCallShiftMember { UserId = user.Id }]
+            Group = group, StartsAtUtc = DateTime.UtcNow.Date, EndsAtUtc = DateTime.UtcNow.Date.AddHours(8),
+            Members = [new OnCallShiftMember { UserId = "a" }]
         });
         await db.SaveChangesAsync();
-        db.ChangeTracker.Clear();
-
-        var controller = new OnCallController(db, new OnCallScheduleGenerator())
-        {
-            TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider())
-        };
-        var result = await controller.DeleteRule(rule.Id, CancellationToken.None);
-        Assert.AreEqual(nameof(OnCallController.Index), Assert.IsInstanceOfType<RedirectToActionResult>(result).ActionName);
+        var controller = Controller(db);
+        Assert.IsInstanceOfType<ConflictObjectResult>(await controller.DeleteRule(rule.Id, default));
+        group.Rule = null;
+        group.RuleId = null;
+        await db.SaveChangesAsync();
+        Assert.AreEqual(nameof(OnCallController.Index),
+            Assert.IsInstanceOfType<RedirectToActionResult>(await controller.DeleteRule(rule.Id, default)).ActionName);
         db.ChangeTracker.Clear();
         Assert.AreEqual(0, await db.OnCallRules.CountAsync());
-        Assert.AreEqual(0, await db.OnCallRuleMembers.CountAsync());
-        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
-        Assert.AreEqual(0, await db.OnCallShiftMembers.CountAsync());
+        Assert.AreEqual(1, await db.OnCallGroupMembers.CountAsync());
+        Assert.AreEqual(1, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(1, await db.OnCallShiftMembers.CountAsync());
         Assert.AreEqual(1, await db.OnCallGroups.CountAsync());
-        Assert.AreEqual(1, await db.Users.CountAsync());
+        Assert.AreEqual(3, await db.Users.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task DeletingUnsavedTeamRemovesMembersButNotItsReusableTemplate()
+    {
+        await using var db = await CreateDb();
+        var rule = new OnCallRule { Name = "Reusable" };
+        var group = new OnCallGroup
+        {
+            Name = "Disposable", Rule = rule, Members = [new OnCallGroupMember { UserId = "a", RotationOrder = 0 }]
+        };
+        db.OnCallGroups.Add(group);
+        await db.SaveChangesAsync();
+        Assert.AreEqual(nameof(OnCallController.Groups),
+            Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).DeleteGroup(group.Id, default)).ActionName);
+        db.ChangeTracker.Clear();
+        Assert.AreEqual(0, await db.OnCallGroups.CountAsync());
+        Assert.AreEqual(0, await db.OnCallGroupMembers.CountAsync());
+        Assert.AreEqual(rule.Id, (await db.OnCallRules.SingleAsync()).Id);
+        Assert.AreEqual(3, await db.Users.CountAsync());
     }
 
     [TestMethod]
@@ -168,32 +221,173 @@ public class OnCallControllerTests
     }
 
     [TestMethod]
-    public async Task RejectsTamperedMemberIdsWithoutChangingRule()
+    public async Task TeamMembershipCanBeEmptyOrBelowGenerationMinimumAndKeepsOrderedEmployees()
     {
-        await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
-            .UseSqlite("DataSource=:memory:").Options);
-        await db.Database.OpenConnectionAsync();
-        await db.Database.MigrateAsync();
-        db.Users.Add(new User { Id = "a", UserName = "a", NormalizedUserName = "A", DisplayName = "Alice" });
-        var group = new OnCallGroup { Name = "Operations" };
-        db.OnCallGroups.Add(group);
+        await using var db = await CreateDb();
+        var controller = Controller(db);
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.CreateGroup(new CreateOnCallGroupRequest
+        {
+            Name = "Operations", UserIds = ["b", "a"]
+        }, default));
+        var group = await db.OnCallGroups.Include(item => item.Members).SingleAsync();
+        CollectionAssert.AreEqual(new[] { "b", "a" },
+            group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray());
+        var oldVersion = group.ScheduleVersion;
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.UpdateGroup(group.Id, EditGroup(group, "a"), default));
+        Assert.AreNotEqual(oldVersion, group.ScheduleVersion);
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.UpdateGroup(group.Id, EditGroup(group), default));
+        db.ChangeTracker.Clear();
+        Assert.AreEqual(0, await db.OnCallGroupMembers.CountAsync());
+        Assert.AreEqual(0, await db.OnCallRules.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task RemovingTeamMembersClearsOnlyFutureAssignmentsAndRetainsEmptySlotsAndHistory()
+    {
+        await using var db = await CreateDb();
+        var now = DateTime.UtcNow;
+        var group = new OnCallGroup
+        {
+            Name = "Operations", AnchorUtc = now.Date.AddDays(-14),
+            Members = [new OnCallGroupMember { UserId = "a", RotationOrder = 0 },
+                new OnCallGroupMember { UserId = "b", RotationOrder = 1 }]
+        };
+        var starts = new[] { now.AddDays(-2), now.AddHours(-1), now.AddDays(1), now.AddDays(2) };
+        var shifts = starts.Select((start, index) => new OnCallShift
+        {
+            Group = group, StartsAtUtc = start, EndsAtUtc = start.AddHours(8), RestHours = 16,
+            Members = index == 3 ? [new OnCallShiftMember { UserId = "a" }, new OnCallShiftMember { UserId = "b" }]
+                : [new OnCallShiftMember { UserId = "a" }]
+        }).ToArray();
+        db.OnCallShifts.AddRange(shifts);
         await db.SaveChangesAsync();
-        var controller = new OnCallController(db, new OnCallScheduleGenerator())
+        var oldVersion = group.ScheduleVersion;
+        var staleRequest = EditGroup(group, "a");
+        var controller = Controller(db);
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.UpdateGroup(group.Id, EditGroup(group, "b"), default));
+        Assert.AreNotEqual(oldVersion, group.ScheduleVersion);
+        Assert.IsInstanceOfType<ConflictObjectResult>(await controller.UpdateGroup(group.Id, staleRequest, default));
+        db.ChangeTracker.Clear();
+        var saved = await db.OnCallShifts.Include(item => item.Members).ToDictionaryAsync(shift => shift.Id);
+        Assert.AreEqual(4, saved.Count);
+        Assert.IsTrue(saved[shifts[0].Id].Members.Any(member => member.UserId == "a"));
+        Assert.IsTrue(saved[shifts[1].Id].Members.Any(member => member.UserId == "a"));
+        Assert.AreEqual(0, saved[shifts[2].Id].Members.Count);
+        CollectionAssert.AreEqual(new[] { "b" }, saved[shifts[3].Id].Members.Select(member => member.UserId).ToArray());
+        foreach (var shift in shifts)
         {
-            ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext
-            {
-                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
-            } }
-        };
-        var request = new SaveOnCallRuleRequest
+            Assert.AreEqual(shift.StartsAtUtc, saved[shift.Id].StartsAtUtc);
+            Assert.AreEqual(shift.EndsAtUtc, saved[shift.Id].EndsAtUtc);
+            Assert.AreEqual(16, saved[shift.Id].RestHours);
+        }
+        Assert.AreEqual("b", (await db.OnCallGroupMembers.SingleAsync()).UserId);
+        Assert.IsInstanceOfType<ConflictObjectResult>(await controller.DeleteGroup(group.Id, default));
+    }
+
+    [TestMethod]
+    public async Task RebindingTemplateWithSavedShiftsDoesNotMutateAssignmentsOrRestSnapshot()
+    {
+        await using var db = await CreateDb();
+        var first = new OnCallRule { Name = "Original", RestHours = 16 };
+        var second = new OnCallRule { Name = "Replacement", RestHours = 48 };
+        var group = new OnCallGroup
         {
-            GroupId = group.Id, Name = "Tampered", ShiftHours = 8, RestHours = 0,
-            AnchorUtc = DateTime.UtcNow,
-            UserIds = ["a", "not-in-staff"]
+            Name = "Operations", Rule = first,
+            Members = [new OnCallGroupMember { UserId = "a", RotationOrder = 0 }]
         };
+        var start = group.AnchorUtc.AddDays(-7);
+        var shift = new OnCallShift
+        {
+            Group = group, StartsAtUtc = start, EndsAtUtc = start.AddHours(8), RestHours = 16,
+            Members = [new OnCallShiftMember { UserId = "a" }]
+        };
+        db.OnCallRules.Add(second);
+        db.OnCallShifts.Add(shift);
+        await db.SaveChangesAsync();
+        var controller = Controller(db);
+        var request = EditGroup(group, "a");
+        request.RuleId = second.Id;
+        var oldVersion = group.ScheduleVersion;
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.UpdateGroup(group.Id, request, default));
+        db.ChangeTracker.Clear();
+        var savedGroup = await db.OnCallGroups.SingleAsync();
+        Assert.AreEqual(second.Id, savedGroup.RuleId);
+        Assert.AreNotEqual(oldVersion, savedGroup.ScheduleVersion);
+        var saved = await db.OnCallShifts.Include(item => item.Members).SingleAsync();
+        Assert.AreEqual(shift.Id, saved.Id);
+        Assert.AreEqual(start, saved.StartsAtUtc);
+        Assert.AreEqual(start.AddHours(8), saved.EndsAtUtc);
+        Assert.AreEqual(16, saved.RestHours);
+        Assert.AreEqual("a", saved.Members.Single().UserId);
+
+        request = EditGroup(savedGroup, "a");
+        request.AnchorUtc = savedGroup.AnchorUtc.AddDays(7);
         using var provider = new ServiceCollection().BuildServiceProvider();
         controller.HttpContext.RequestServices = provider;
-        await Assert.ThrowsAsync<InvalidOperationException>(() => controller.SaveRule(request, CancellationToken.None));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => controller.UpdateGroup(savedGroup.Id, request, default));
+        Assert.IsFalse(controller.ModelState.IsValid);
+        db.ChangeTracker.Clear();
+        Assert.AreEqual(savedGroup.AnchorUtc, (await db.OnCallGroups.SingleAsync()).AnchorUtc);
+    }
+
+    [TestMethod]
+    [DataRow("missing")]
+    [DataRow("duplicate")]
+    [DataRow("blank")]
+    [DataRow("too-many")]
+    public async Task RejectsTamperedMemberIdsWithoutChangingTeam(string invalid)
+    {
+        await using var db = await CreateDb();
+        var group = new OnCallGroup
+        {
+            Name = "Operations", Members = [new OnCallGroupMember { UserId = "a", RotationOrder = 0 }]
+        };
+        db.OnCallGroups.Add(group);
+        await db.SaveChangesAsync();
+        var originalVersion = group.ScheduleVersion;
+        if (invalid == "too-many")
+        {
+            db.Users.AddRange(Enumerable.Range(0, 201).Select(index => new User
+            {
+                Id = $"staff-{index}", UserName = $"staff-{index}", DisplayName = $"Staff {index}"
+            }));
+            await db.SaveChangesAsync();
+        }
+        var controller = Controller(db);
+        var request = EditGroup(group);
+        request.UserIds = invalid switch
+        {
+            "missing" => ["a", "not-in-staff"],
+            "duplicate" => ["a", "a"],
+            "blank" => [" "],
+            _ => Enumerable.Range(0, 201).Select(index => $"staff-{index}").ToList()
+        };
+        request.Name = "Tampered";
+        using var provider = new ServiceCollection().BuildServiceProvider();
+        controller.HttpContext.RequestServices = provider;
+        await Assert.ThrowsAsync<InvalidOperationException>(() => controller.UpdateGroup(group.Id, request, default));
+        Assert.IsFalse(controller.ModelState.IsValid);
+        db.ChangeTracker.Clear();
+        var saved = await db.OnCallGroups.Include(item => item.Members).SingleAsync();
+        Assert.AreEqual("Operations", saved.Name);
+        Assert.AreEqual(originalVersion, saved.ScheduleVersion);
+        Assert.AreEqual("a", saved.Members.Single().UserId);
+    }
+
+    [TestMethod]
+    [DataRow(12, 16)]
+    [DataRow(8, -1)]
+    [DataRow(8, 169)]
+    public async Task RejectsInvalidTemplateDurationAndRestWithoutSaving(int shiftHours, int restHours)
+    {
+        await using var db = await CreateDb();
+        var controller = Controller(db);
+        using var provider = new ServiceCollection().BuildServiceProvider();
+        controller.HttpContext.RequestServices = provider;
+        await Assert.ThrowsAsync<InvalidOperationException>(() => controller.SaveRule(new SaveOnCallRuleRequest
+        {
+            Name = "Invalid", ShiftHours = shiftHours, RestHours = restHours
+        }, default));
         Assert.IsFalse(controller.ModelState.IsValid);
         Assert.AreEqual(0, await db.OnCallRules.CountAsync());
     }

@@ -1,36 +1,21 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 
-<form asp-action="SaveRule" method="post" id="oncall-rule-form" data-search-url="@Url.Action("SearchUsers", "OnCall")">
+<form asp-action="SaveRule" method="post">
     <div asp-validation-summary="All" class="text-danger mb-3"></div>
     <input asp-for="RuleInput.Id" type="hidden" />
     <div class="row g-3 mb-3">
         <div class="col-md-6">
-            <label asp-for="RuleInput.GroupId" class="form-label">团队</label>
-            <select asp-for="RuleInput.GroupId" class="form-select" required>
-                <option value="">请选择</option>
-                @foreach (var group in Model.Groups)
-                {
-                    <option value="@group.Id">@group.Name (@group.TimeZoneId)</option>
-                }
-            </select>
-        </div>
-        <div class="col-md-6">
-            <label asp-for="RuleInput.Name" class="form-label">规则名称</label>
+            <label asp-for="RuleInput.Name" class="form-label">模板名称</label>
             <input asp-for="RuleInput.Name" class="form-control" maxlength="100" required />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label asp-for="RuleInput.ShiftHours" class="form-label">每班时长（小时）</label>
             <input asp-for="RuleInput.ShiftHours" type="number" value="8" class="form-control" readonly />
             <div class="form-text">固定每天三班，每班至少一人，允许多人同班。</div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label asp-for="RuleInput.RestHours" class="form-label">最短休息（小时）</label>
             <input asp-for="RuleInput.RestHours" type="number" min="0" max="168" class="form-control" required />
-        </div>
-        <div class="col-md-4">
-            <label for="anchor-utc" class="form-label">排班起点（UTC）</label>
-            <input id="anchor-utc" name="RuleInput.AnchorUtc" type="datetime-local" class="form-control" required value="@Model.RuleInput.AnchorUtc?.ToString("yyyy-MM-ddTHH:mm")" />
-            <div class="form-text">按 UTC 填写，不会根据团队时区自动换算。</div>
         </div>
     </div>
     <div class="form-check mb-2">
@@ -38,47 +23,7 @@
         <label asp-for="RuleInput.BalanceShiftTimes" class="form-check-label">尽量均衡早、中、晚班</label>
     </div>
     <p class="small text-muted">优先保证覆盖和休息，换班期间可能减少冗余。三人且休息至少 16 小时时无法轮换时段。按实际 8 小时连续排班，夏令时切换时本地时间可能变化。</p>
-    <p class="small text-muted">保存班次后，团队、锚点和休息时长将锁定；调整轮换偏好只影响尚未保存的排班。</p>
-    <h3 class="h6">轮换成员</h3>
-    <p class="text-muted small">输入姓名/账号后查找，或直接选择角色自动分页列出该角色全部员工；两种方式独立使用，翻页不会清除已选成员。下方成员顺序即轮换顺序。</p>
-    <div class="row g-2 mb-2">
-        <div class="col-md-5">
-            <label for="oncall-user-search" class="form-label">搜索员工</label>
-            <input id="oncall-user-search" type="search" maxlength="100" class="form-control" placeholder="姓名或账号" autocomplete="off" />
-        </div>
-        <div class="col-md-5">
-            <label for="oncall-role" class="form-label">按角色浏览全部员工</label>
-            <select id="oncall-role" class="form-select">
-                <option value="">全部角色</option>
-                @foreach (var role in Model.Roles)
-                {
-                    <option value="@role.Value">@role.Text</option>
-                }
-            </select>
-        </div>
-        <div class="col-md-2 align-self-end"><button id="oncall-search-button" type="button" class="btn btn-outline-primary w-100">查找</button></div>
-    </div>
-    <div id="oncall-search-status" class="small text-muted mb-2" role="status">输入关键词查找，或选角色立即浏览该角色全部员工。</div>
-    <div id="oncall-search-results" class="list-group mb-2"></div>
-    <div class="d-flex gap-2 mb-3">
-        <button type="button" id="oncall-prev" class="btn btn-sm btn-outline-secondary" disabled>上一页</button>
-        <span id="oncall-page" class="small align-self-center"></span>
-        <button type="button" id="oncall-next" class="btn btn-sm btn-outline-secondary" disabled>下一页</button>
-    </div>
-    <h4 class="h6">已选成员（至少 3 人，最多 200 人）</h4>
-    <ol id="oncall-selected" class="list-group list-group-numbered mb-3">
-        @foreach (var userId in Model.RuleInput.UserIds)
-        {
-            var user = Model.SelectedUsers.FirstOrDefault(item => item.Id == userId);
-            if (user != null)
-            {
-                <li class="list-group-item d-flex justify-content-between align-items-center" data-user-id="@user.Id" data-name="@user.DisplayName" data-username="@user.UserName">
-                    <span>@user.DisplayName (@user.UserName)</span>
-                    <button type="button" class="btn btn-sm btn-outline-danger oncall-remove">移除</button>
-                </li>
-            }
-        }
-    </ol>
-    <button type="submit" class="btn btn-primary">保存规则</button>
+    <p class="small text-muted">这是可供多个团队共用的规则模板。成员、轮换顺序和排班起点由团队管理；修改模板不会重新生成任何已保存班次。</p>
+    <button type="submit" class="btn btn-primary">保存模板</button>
     <a asp-action="Index" class="btn btn-outline-secondary ms-2">取消</a>
 </form>

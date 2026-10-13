@@ -12,8 +12,8 @@ public class OnCallScheduleGeneratorTests
     [TestMethod]
     public void GeneratesContinuousRotationWithDefaultRest()
     {
-        var rule = new OnCallRule { AnchorUtc = Anchor };
-        var shifts = _generator.Generate(rule, ["alice", "bob", "carol"], Anchor, 21);
+        var rule = new OnCallRule();
+        var shifts = _generator.Generate(rule, Anchor, ["alice", "bob", "carol"], Anchor, 21);
         Assert.AreEqual(21, shifts.Count);
         for (var i = 0; i < shifts.Count; i++)
         {
@@ -21,6 +21,21 @@ public class OnCallScheduleGeneratorTests
             Assert.AreEqual(shifts[i].StartsAtUtc.AddHours(8), shifts[i].EndsAtUtc);
             Assert.AreEqual(new[] { "alice", "bob", "carol" }[i % 3], shifts[i].UserId);
         }
+    }
+
+    [TestMethod]
+    public void SharedTemplateUsesEachTeamsExplicitAnchorAndOrderedMembers()
+    {
+        var rule = new OnCallRule();
+        var first = _generator.Generate(rule, Anchor, ["a", "b", "c"], Anchor, 21);
+        var otherAnchor = Anchor.AddHours(4);
+        var second = _generator.Generate(rule, otherAnchor, ["c", "b", "a"], otherAnchor, 21);
+        Assert.AreEqual(Anchor, first[0].StartsAtUtc);
+        Assert.AreEqual(otherAnchor, second[0].StartsAtUtc);
+        Assert.AreEqual("a", first[0].UserId);
+        Assert.AreEqual("c", second[0].UserId);
+        Assert.IsTrue(first.Concat(second).All(shift => shift.RestHours == 16));
+        Assert.Throws<ArgumentException>(() => _generator.Generate(rule, otherAnchor, ["a", "b", "c"], Anchor, 21));
     }
 
     [TestMethod]
@@ -32,9 +47,9 @@ public class OnCallScheduleGeneratorTests
     [DataRow(200)]
     public void DistributesExtraStaffAcrossThreeShifts(int staffCount)
     {
-        var rule = new OnCallRule { AnchorUtc = Anchor };
+        var rule = new OnCallRule();
         var users = Enumerable.Range(0, staffCount).Select(i => $"staff-{i}").ToArray();
-        var shifts = _generator.Generate(rule, users, Anchor, 21);
+        var shifts = _generator.Generate(rule, Anchor, users, Anchor, 21);
         Assert.AreEqual(21, shifts.Select(shift => shift.StartsAtUtc).Distinct().Count());
         Assert.AreEqual(staffCount * 7, shifts.Count);
         Assert.IsTrue(shifts.GroupBy(shift => shift.UserId).All(group => group.Count() == 7));
@@ -45,19 +60,31 @@ public class OnCallScheduleGeneratorTests
     [TestMethod]
     public void RejectsTooFewPeopleAndInvalidBoundaries()
     {
-        var rule = new OnCallRule { AnchorUtc = Anchor };
-        var error = Assert.Throws<InvalidOperationException>(() => _generator.Generate(rule, ["a", "b"], Anchor, 21));
+        var rule = new OnCallRule();
+        var error = Assert.Throws<InvalidOperationException>(() => _generator.Generate(rule, Anchor, ["a", "b"], Anchor, 21));
         StringAssert.Contains(error.Message, "至少需要 3 名员工");
-        Assert.Throws<ArgumentException>(() => _generator.Generate(rule, ["a", "b", "c"], Anchor.AddHours(1), 1));
-        Assert.Throws<ArgumentException>(() => _generator.Generate(rule, ["a", "a", "c"], Anchor, 1));
-        Assert.Throws<ArgumentException>(() => _generator.Generate(new OnCallRule { AnchorUtc = Anchor, ShiftHours = 0 }, ["a"], Anchor, 1));
+        Assert.Throws<ArgumentException>(() => _generator.Generate(rule, Anchor, ["a", "b", "c"], Anchor.AddHours(1), 1));
+        Assert.Throws<ArgumentException>(() => _generator.Generate(rule, Anchor, ["a", "a", "c"], Anchor, 1));
+        Assert.Throws<ArgumentException>(() => _generator.Generate(new OnCallRule { ShiftHours = 0 }, Anchor, ["a"], Anchor, 1));
+        Assert.Throws<ArgumentException>(() => _generator.Generate(rule, DateTime.SpecifyKind(Anchor, DateTimeKind.Local), ["a", "b", "c"], Anchor, 1));
+    }
+
+    [TestMethod]
+    public void GenerationRequiresEnoughPeopleForTemplatesLongerRest()
+    {
+        var rule = new OnCallRule { RestHours = 48 };
+        var users = Enumerable.Range(0, 7).Select(index => $"u{index}").ToArray();
+        Assert.Throws<InvalidOperationException>(() => _generator.Generate(rule, Anchor, users[..6], Anchor, 21));
+        var shifts = _generator.Generate(rule, Anchor, users, Anchor, 21);
+        Assert.AreEqual(21, shifts.Select(shift => shift.StartsAtUtc).Distinct().Count());
+        Assert.AreEqual(0, OnCallScheduleValidator.Validate(Anchor, 21, 48, shifts, [], users.ToDictionary(id => id)).Count);
     }
 
     [TestMethod]
     public void RejectsSinglePersonEvenWithZeroRestAndNonEightHourShifts()
     {
-        Assert.Throws<InvalidOperationException>(() => _generator.Generate(new OnCallRule { AnchorUtc = Anchor, RestHours = 0 }, ["a"], Anchor, 21));
-        Assert.Throws<ArgumentException>(() => _generator.Generate(new OnCallRule { AnchorUtc = Anchor, ShiftHours = 12 }, ["a", "b", "c"], Anchor, 21));
+        Assert.Throws<InvalidOperationException>(() => _generator.Generate(new OnCallRule { RestHours = 0 }, Anchor, ["a"], Anchor, 21));
+        Assert.Throws<ArgumentException>(() => _generator.Generate(new OnCallRule { ShiftHours = 12 }, Anchor, ["a", "b", "c"], Anchor, 21));
     }
 
     [TestMethod]
@@ -68,13 +95,13 @@ public class OnCallScheduleGeneratorTests
     [DataRow(7)]
     public void OptionalRotationPreservesCoverageAndRestAcrossWeeks(int staffCount)
     {
-        var rule = new OnCallRule { AnchorUtc = Anchor, BalanceShiftTimes = true };
+        var rule = new OnCallRule { BalanceShiftTimes = true };
         var users = Enumerable.Range(0, staffCount).Select(i => $"staff-{i}").ToArray();
         var history = new List<GeneratedOnCallShift>();
         for (var week = 0; week < 8; week++)
         {
             var start = Anchor.AddDays(week * 7);
-            var shifts = _generator.Generate(rule, users, start, 21, history.Where(shift => shift.EndsAtUtc > start.AddDays(-28)).ToList());
+            var shifts = _generator.Generate(rule, Anchor, users, start, 21, history.Where(shift => shift.EndsAtUtc > start.AddDays(-28)).ToList());
             var errors = OnCallScheduleValidator.Validate(start, 21, 16, shifts, history, users.ToDictionary(id => id));
             Assert.AreEqual(0, errors.Count, string.Join("; ", errors));
             history.AddRange(shifts);

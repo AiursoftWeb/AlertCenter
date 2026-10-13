@@ -46,7 +46,8 @@ public class OnCallGroupPagesTests : TestBase
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync(location));
         Assert.Contains("团队创建成功", details);
         Assert.Contains("Operations", details);
-        Assert.Contains("创建排班规则", details);
+        Assert.Contains("未绑定规则模板，仍可手动编辑排班", details);
+        Assert.Contains($"/OnCall/ScheduleDetails/{id}", details);
         Assert.Contains("/OnCall/GroupEdit/", details);
         Assert.DoesNotContain("团队创建成功", await Http.GetStringAsync(location));
         var edit = await Http.GetStringAsync($"/OnCall/GroupEdit/{id}");
@@ -54,29 +55,49 @@ public class OnCallGroupPagesTests : TestBase
         Assert.Contains("Operations", edit);
         Assert.Contains("/scripts/oncall-group-form.js", edit);
         Assert.Contains("selected=\"selected\" value=\"UTC\"", edit);
-        AssertRedirect(await PostForm("/OnCall/UpdateGroup", new()
-        {
-            ["id"] = id.ToString(), ["GroupInput.Name"] = "Ops", ["GroupInput.TimeZoneId"] = "Asia/Shanghai"
-        }, $"/OnCall/GroupEdit/{id}"), location);
-        Assert.Contains("团队已更新", WebUtility.HtmlDecode(await Http.GetStringAsync(location)));
+        Guid version;
+        DateTime anchor;
+        Guid templateId;
+        string memberId;
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var group = await db.OnCallGroups.SingleAsync(item => item.Id == id);
-            Assert.AreEqual("Ops", group.Name);
-            Assert.AreEqual("Asia/Shanghai", group.TimeZoneId);
-            db.OnCallRules.Add(new OnCallRule { GroupId = id, Name = "Week", AnchorUtc = DateTime.UtcNow.Date });
+            version = group.ScheduleVersion;
+            anchor = group.AnchorUtc;
+            memberId = (await db.Users.FirstAsync()).Id;
+            var template = new OnCallRule { Name = "Week" };
+            db.OnCallRules.Add(template);
             await db.SaveChangesAsync();
+            templateId = template.Id;
         }
-        Assert.DoesNotContain("<button type=\"submit\" class=\"btn btn-outline-danger\">删除团队", await Http.GetStringAsync(location));
-        Assert.AreEqual(HttpStatusCode.Conflict, (await PostForm("/OnCall/DeleteGroup", new() { ["id"] = id.ToString() }, "/OnCall/GroupCreate")).StatusCode);
+        var update = new Dictionary<string, string>
+        {
+            ["id"] = id.ToString(), ["GroupInput.Name"] = "Ops", ["GroupInput.TimeZoneId"] = "Asia/Shanghai",
+            ["GroupInput.Version"] = version.ToString(), ["GroupInput.AnchorUtc"] = anchor.ToString("O"),
+            ["GroupInput.RuleId"] = templateId.ToString(), ["GroupInput.UserIds[0]"] = memberId
+        };
+        AssertRedirect(await PostForm("/OnCall/UpdateGroup", update, $"/OnCall/GroupEdit/{id}"), location);
+        Assert.Contains("团队已更新", WebUtility.HtmlDecode(await Http.GetStringAsync(location)));
+        Assert.AreEqual(HttpStatusCode.Conflict, (await PostForm("/OnCall/UpdateGroup", update, $"/OnCall/GroupEdit/{id}")).StatusCode);
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            db.OnCallRules.Remove(await db.OnCallRules.SingleAsync(rule => rule.GroupId == id));
-            await db.SaveChangesAsync();
+            var group = await db.OnCallGroups.Include(item => item.Members).SingleAsync(item => item.Id == id);
+            Assert.AreEqual("Ops", group.Name);
+            Assert.AreEqual("Asia/Shanghai", group.TimeZoneId);
+            Assert.AreEqual(templateId, group.RuleId);
+            Assert.AreEqual(memberId, group.Members.Single().UserId);
+            Assert.AreNotEqual(version, group.ScheduleVersion);
         }
+        Assert.Contains("<button type=\"submit\" class=\"btn btn-outline-danger\">删除团队", await Http.GetStringAsync(location));
         AssertRedirect(await PostForm("/OnCall/DeleteGroup", new() { ["id"] = id.ToString() }, location), "/OnCall/Groups");
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.AreEqual(templateId, (await db.OnCallRules.SingleAsync()).Id);
+            Assert.AreEqual(0, await db.OnCallGroupMembers.CountAsync());
+        }
         Assert.Contains("团队已删除", WebUtility.HtmlDecode(await Http.GetStringAsync("/OnCall/Groups")));
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync(location)).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/GroupEdit/{id}")).StatusCode);

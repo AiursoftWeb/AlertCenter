@@ -1,5 +1,5 @@
 (() => {
-    const form = document.getElementById('oncall-rule-form');
+    const form = document.getElementById('oncall-group-form');
     if (!form) return;
     const search = document.getElementById('oncall-user-search');
     const role = document.getElementById('oncall-role');
@@ -24,6 +24,7 @@
         for (const user of selectedUsers.values()) {
             const item = document.createElement('li');
             item.className = 'list-group-item d-flex justify-content-between align-items-center';
+            item.dataset.userId = user.id;
             const label = document.createElement('span');
             label.textContent = `${user.name} (${user.username || ''})`;
             const remove = document.createElement('button');
@@ -35,7 +36,12 @@
                 renderSelected();
                 renderResults(currentResults);
             });
-            item.append(label, remove);
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'GroupInput.UserIds';
+            input.value = user.id;
+            input.className = 'oncall-member-id';
+            item.append(input, label, remove);
             selected.append(item);
         }
     }
@@ -55,7 +61,7 @@
                 if (checkbox.checked) {
                     if (selectedUsers.size >= 200) {
                         checkbox.checked = false;
-                        status.textContent = '每套规则最多选择 200 名员工。';
+                        status.textContent = '每个团队最多选择 200 名员工。';
                         return;
                     }
                     selectedUsers.set(user.id, user);
@@ -111,21 +117,5 @@
     role.addEventListener('change', () => { search.value = ''; page = 1; load(); });
     prev.addEventListener('click', () => { if (page > 1) { page--; load(); } });
     next.addEventListener('click', () => { if (hasMore) { page++; load(); } });
-    form.addEventListener('submit', event => {
-        if (selectedUsers.size < 3) {
-            event.preventDefault();
-            status.textContent = '请至少选择三名工程师。';
-            return;
-        }
-        form.querySelectorAll('.oncall-member-id').forEach(input => input.remove());
-        for (const user of selectedUsers.values()) {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'RuleInput.UserIds';
-            input.value = user.id;
-            input.className = 'oncall-member-id';
-            form.append(input);
-        }
-    });
     renderSelected();
 })();
