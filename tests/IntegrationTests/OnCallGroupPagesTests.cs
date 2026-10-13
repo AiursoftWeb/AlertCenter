@@ -16,12 +16,21 @@ public class OnCallGroupPagesTests : TestBase
         Assert.Contains("已保存团队", groups);
         var create = await Http.GetStringAsync("/OnCall/GroupCreate");
         Assert.Contains("/OnCall/CreateGroup", create);
+        Assert.Contains("/scripts/oncall-group-form.js", create);
+        Assert.Contains("id=\"GroupInput_TimeZoneId\"", create);
+        Assert.Contains("name=\"GroupInput.TimeZoneId\"", create);
+        Assert.Contains("selected=\"selected\" value=\"UTC\"", create);
+        Assert.Contains("/UIStack/dist/js/app.js", create);
+        Assert.IsTrue(create.IndexOf("/UIStack/dist/js/app.js", StringComparison.Ordinal) <
+            create.IndexOf("/scripts/oncall-group-form.js", StringComparison.Ordinal));
         var invalid = await PostForm("/OnCall/CreateGroup", new()
         {
             ["GroupInput.Name"] = "Bad", ["GroupInput.TimeZoneId"] = "Invalid/Zone"
         }, "/OnCall/GroupCreate");
         Assert.AreEqual(HttpStatusCode.OK, invalid.StatusCode);
-        Assert.Contains("请选择列表中的有效时区", WebUtility.HtmlDecode(await invalid.Content.ReadAsStringAsync()));
+        var invalidPage = WebUtility.HtmlDecode(await invalid.Content.ReadAsStringAsync());
+        Assert.Contains("请选择列表中的有效时区", invalidPage);
+        Assert.Contains("/scripts/oncall-group-form.js", invalidPage);
         Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/OnCall/CreateGroup", new()
         {
             ["GroupInput.Name"] = "Wrong", ["GroupInput.TimeZoneId"] = "UTC"
@@ -43,6 +52,8 @@ public class OnCallGroupPagesTests : TestBase
         var edit = await Http.GetStringAsync($"/OnCall/GroupEdit/{id}");
         Assert.Contains("/OnCall/UpdateGroup", edit);
         Assert.Contains("Operations", edit);
+        Assert.Contains("/scripts/oncall-group-form.js", edit);
+        Assert.Contains("selected=\"selected\" value=\"UTC\"", edit);
         AssertRedirect(await PostForm("/OnCall/UpdateGroup", new()
         {
             ["id"] = id.ToString(), ["GroupInput.Name"] = "Ops", ["GroupInput.TimeZoneId"] = "Asia/Shanghai"

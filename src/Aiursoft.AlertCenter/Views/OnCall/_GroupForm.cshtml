@@ -14,7 +14,7 @@
         <div class="col-md-6">
             <label asp-for="GroupInput.TimeZoneId" class="form-label">时区</label>
             <select asp-for="GroupInput.TimeZoneId" asp-items="Model.TimeZones" class="form-select" required></select>
-            <div class="form-text">排班锚点仍以 UTC 保存，显示时使用团队时区。</div>
+            <div class="form-text">可输入时区名称、城市或 UTC 偏移搜索。排班锚点仍以 UTC 保存，显示时使用团队时区。</div>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">保存团队</button>
