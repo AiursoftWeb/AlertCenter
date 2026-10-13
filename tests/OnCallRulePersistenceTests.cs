@@ -10,62 +10,45 @@ namespace Aiursoft.AlertCenter.Tests;
 public class OnCallRulePersistenceTests
 {
     [TestMethod]
-    public async Task FinalMigrationResetsLegacyOnCallDataAndPreservesUsers()
+    public async Task InitialMigrationCreatesTeamOwnedSchedulesAndCanBeReverted()
     {
         await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite("DataSource=:memory:").Options);
         await db.Database.OpenConnectionAsync();
         var migrator = db.GetService<IMigrator>();
-        await migrator.MigrateAsync("20260930164351_PersistOnCallSchedules");
-        var user = new User { Id = "retained", UserName = "retained", DisplayName = "Retained staff" };
-        db.Users.Add(user);
-        await db.SaveChangesAsync();
-        var groupId = Guid.NewGuid();
-        var ruleId = Guid.NewGuid();
-        var shiftId = Guid.NewGuid();
-        var version = Guid.NewGuid();
-        var anchor = new DateTime(2026, 9, 28, 0, 0, 0, DateTimeKind.Utc);
-        var end = anchor.AddHours(8);
-        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO OnCallGroups (Id, Name, TimeZoneId) VALUES ({groupId}, {"Legacy team"}, {"UTC"})");
-        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO OnCallRules (Id, GroupId, Name, ShiftHours, RestHours, AnchorUtc, BalanceShiftTimes, ScheduleVersion) VALUES ({ruleId}, {groupId}, {"Legacy rule"}, {8}, {16}, {anchor}, {false}, {version})");
-        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO OnCallRuleMembers (RuleId, UserId, RotationOrder) VALUES ({ruleId}, {user.Id}, {0})");
-        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO OnCallShifts (Id, RuleId, StartsAtUtc, EndsAtUtc) VALUES ({shiftId}, {ruleId}, {anchor}, {end})");
-        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO OnCallShiftMembers (ShiftId, UserId) VALUES ({shiftId}, {user.Id})");
-
         await migrator.MigrateAsync();
+        var user = new User { Id = "staff", UserName = "staff", DisplayName = "Staff" };
+        db.Users.Add(user);
+        var anchor = new DateTime(2026, 9, 28, 0, 0, 0, DateTimeKind.Utc);
+        var group = new OnCallGroup
+        {
+            Name = "Team", Rule = new OnCallRule { Name = "Reusable" }, AnchorUtc = anchor,
+            Members = [new OnCallGroupMember { UserId = user.Id, RotationOrder = 0 }]
+        };
+        db.OnCallShifts.Add(new OnCallShift
+        {
+            Group = group, StartsAtUtc = anchor, EndsAtUtc = anchor.AddHours(8), RestHours = 24,
+            Members = [new OnCallShiftMember { UserId = user.Id }]
+        });
+        await db.SaveChangesAsync();
         db.ChangeTracker.Clear();
+        Assert.AreEqual("Staff", (await db.Users.SingleAsync()).DisplayName);
+        Assert.AreEqual(24, (await db.OnCallShifts.SingleAsync()).RestHours);
+        Assert.AreEqual(1, await db.OnCallGroupMembers.CountAsync());
+        Assert.AreEqual(1, await db.OnCallShiftMembers.CountAsync());
+        Assert.AreEqual(0, await db.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM sqlite_master WHERE type = 'table' AND name = 'OnCallRuleMembers'").SingleAsync());
+
+        await migrator.MigrateAsync("0");
+        Assert.AreEqual(0, (await db.Database.GetAppliedMigrationsAsync()).Count());
+        Assert.AreEqual(0, await db.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM sqlite_master WHERE type = 'table' AND name NOT LIKE '__EF%' AND name NOT LIKE 'sqlite_%'").SingleAsync());
+        await migrator.MigrateAsync();
+        Assert.AreEqual(1, (await db.Database.GetAppliedMigrationsAsync()).Count());
         Assert.AreEqual(0, await db.OnCallGroups.CountAsync());
         Assert.AreEqual(0, await db.OnCallRules.CountAsync());
         Assert.AreEqual(0, await db.OnCallGroupMembers.CountAsync());
         Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
         Assert.AreEqual(0, await db.OnCallShiftMembers.CountAsync());
-        Assert.AreEqual("Retained staff", (await db.Users.SingleAsync()).DisplayName);
-        Assert.AreEqual(0, await db.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM sqlite_master WHERE type = 'table' AND name = 'OnCallRuleMembers'").SingleAsync());
-        var group = new OnCallGroup
-        {
-            Name = "Final team", Rule = new OnCallRule { Name = "Reusable" }, AnchorUtc = anchor,
-            Members = [new OnCallGroupMember { UserId = user.Id, RotationOrder = 0 }]
-        };
-        db.OnCallShifts.Add(new OnCallShift
-        {
-            Group = group, StartsAtUtc = anchor, EndsAtUtc = end, RestHours = 24,
-            Members = [new OnCallShiftMember { UserId = user.Id }]
-        });
-        await db.SaveChangesAsync();
-        Assert.AreEqual(24, (await db.OnCallShifts.SingleAsync()).RestHours);
-        Assert.AreEqual(1, await db.OnCallGroupMembers.CountAsync());
-
-        db.ChangeTracker.Clear();
-        await migrator.MigrateAsync("20260930164351_PersistOnCallSchedules");
-        Assert.AreEqual(0, await db.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM OnCallGroups").SingleAsync());
-        Assert.AreEqual(0, await db.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM OnCallRules").SingleAsync());
-        Assert.AreEqual(0, await db.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM OnCallRuleMembers").SingleAsync());
-        Assert.AreEqual(0, await db.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM OnCallShifts").SingleAsync());
-        Assert.AreEqual(0, await db.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM OnCallShiftMembers").SingleAsync());
-        Assert.AreEqual(user.Id, (await db.Users.SingleAsync()).Id);
-        await migrator.MigrateAsync();
-        Assert.AreEqual(0, await db.OnCallGroupMembers.CountAsync());
-        Assert.AreEqual(1, await db.Users.CountAsync());
+        Assert.AreEqual(0, await db.Users.CountAsync());
     }
 
     [TestMethod]

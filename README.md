@@ -58,7 +58,7 @@ In **值班中心 → 团队管理**, administrators manage each team's time zon
 
 **排班规则** manages reusable templates: eight-hour shifts, minimum rest (0–168 hours, default 16), and rotation preferences. A team can bind one template, and multiple teams can share it. Changing a template or a team's binding does not regenerate saved schedules. **值班排班** manages actual shifts owned by the team, independently of templates. Automatic generation requires a bound template and enough members (at least three, and potentially more for longer rest). Manual scheduling does not require a template or a minimum team size, but every shift must be staffed and satisfy overlap/rest constraints; without a template, new manual schedules use sixteen hours of minimum rest. There are three consecutive eight-hour shifts per 24 hours, with at least one engineer per shift and optional redundant staff. Times display in the team time zone; durations and rest are measured in UTC, including daylight-saving transitions.
 
-Templates also configure **每班最低人数** and **每班目标人数** (1–200; target cannot be below minimum). New templates default to one person for both. Leaving the target empty preserves automatic distribution across available staff, including existing templates after migration. Automatic generation must meet the minimum and tries to reach the target without compromising coverage or rest. Its minimum team size is `minimumStaff × max(3, 1 + ceil(restHours / 8))`. Manual schedules below the minimum show warnings but can be saved; empty shifts, overlaps, and rest violations still block saving. Saved weeks retain their minimum-staff snapshot independently of subsequent template changes.
+Templates also configure **每班最低人数** and **每班目标人数** (1–200; target cannot be below minimum). New templates default to one person for both. Leaving the target empty uses automatic distribution across available staff. Automatic generation must meet the minimum and tries to reach the target without compromising coverage or rest. Its minimum team size is `minimumStaff × max(3, 1 + ceil(restHours / 8))`. Manual schedules below the minimum show warnings but can be saved; empty shifts, overlaps, and rest violations still block saving. Saved weeks retain their minimum-staff snapshot independently of subsequent template changes.
 
 **轮换偏好** offers **固定时段优先** or **尽量均衡早、中、晚班**. The latter uses recent saved assignments to distribute work and vary shift times. Weekly transition windows may reduce redundant staffing to allow sufficient rest. This is a best-effort preference, not a save constraint. Exactly three engineers with sixteen hours of rest cannot rotate time slots while maintaining continuous coverage.
 
@@ -74,7 +74,7 @@ Administrator JSON endpoints use the existing login cookie. POST requests requir
 | `POST /OnCall/GenerateSchedule` | Accepts `{ "groupId": "...", "version": "...", "startUtc": "...Z" }`; generates and saves an unsaved team week. |
 | `POST /OnCall/SaveSchedule` | Accepts the same identifiers plus `slots`: all 21 `{ "startsAtUtc": "...Z", "userIds": ["..."] }` entries. Atomically creates or updates the week. |
 
-Successful writes return 200 with a `warnings` array (including below-minimum staffing notices). Validation failures return 400 with an `errors` array; stale versions/write conflicts return 409. Refresh the schedule after saving to obtain the new version. The `TeamOwnedOnCallSchedules` SQLite/MySQL migration resets the old on-call module's teams, rules, member links, and schedules instead of migrating the obsolete model; all other business data is retained. Its rollback also resets on-call data. This is a development-only schema transition: recreate on-call configuration after upgrading. Stored schedules currently do not change alert routing. Leave is handled by manually removing/replacing assignees, without a separate leave-approval workflow.
+Successful writes return 200 with a `warnings` array (including below-minimum staffing notices). Validation failures return 400 with an `errors` array; stale versions/write conflicts return 409. Refresh the schedule after saving to obtain the new version. Stored schedules currently do not change alert routing. Leave is handled by manually removing/replacing assignees, without a separate leave-approval workflow.
 
 ## Application access control
 
@@ -120,7 +120,7 @@ Matching is exact; selecting `sev2` does not implicitly include `sev1`.
 
 Disabled channels retain their selections but do not receive new deliveries.
 Changes apply only to new alerts, not historical messages or existing delivery tasks. In-app recipients are snapshotted when a delivery is queued, so later channel or role-membership changes cannot alter that delivery.
-SQLite and MySQL migrations preserve existing bindings by enabling all five levels.
+New application/channel bindings default to enabling all five levels.
 Existing clients remain compatible for `sev1` through `sev4`; update to a Sev0-capable SDK version before reporting `sev0`.
 
 ### Email notification channels
@@ -267,6 +267,12 @@ There are many ways to contribute to the project: logging bugs, submitting pull 
 Even if you have push rights on the repository, you should create a personal fork and create feature branches there when you need them. This keeps the main repository clean and your workflow cruft out of sight.
 
 We're also interested in your feedback on the future of this project. You can submit a suggestion or feature request through the issue tracker. To make this process more effective, we're asking that these include more information to help define them more clearly.
+
+## Database migrations
+
+SQLite and MySQL each have a single EF Core-generated `InitialCreate` migration that creates the current schema directly. This development baseline replaces the previous migration history and is intended for **empty databases only**. Existing development databases cannot be upgraded using this baseline: back up any data you need, stop the application, and explicitly recreate the database before restarting. Do not just clear `__EFMigrationsHistory` while retaining the old tables.
+
+Generate future migrations for both providers using the EF Core CLI; do not hand-edit migration files or model snapshots. See the [SQLite migration guide](src/Aiursoft.AlertCenter.Sqlite/HOW_TO_ADD_MIGRATIONS.md) and [MySQL migration guide](src/Aiursoft.AlertCenter.MySql/HOW_TO_ADD_MIGRATIONS.md). The application applies pending migrations at startup.
 
 ## Configuration Guide
 

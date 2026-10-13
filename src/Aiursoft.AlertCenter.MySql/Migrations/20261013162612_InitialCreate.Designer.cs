@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aiursoft.AlertCenter.MySql.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20261013160819_OnCallStaffingRequirements")]
-    partial class OnCallStaffingRequirements
+    [Migration("20261013162612_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aiursoft.AlertCenter.Sqlite.Migrations
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20261013160818_OnCallStaffingRequirements")]
-    partial class OnCallStaffingRequirements
+    [Migration("20261013162608_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
