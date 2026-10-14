@@ -23,7 +23,7 @@
 }
 
 @* Form 1: Basic Information. It is self-contained within its own form and card. *@
-<form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" data-action-feedback>
     <div class="card">
         <div class="card-header">
             <h5 class="card-title mb-0"><i class="align-middle me-2" data-lucide="user"></i> @Localizer["Basic Information"]</h5>
@@ -70,7 +70,7 @@
 <div class="mt-4"></div>
 
 @* Form 2: Role Assignments. It is also self-contained. *@
-<form asp-action="ManageRoles" asp-route-id="@Model.Id" method="post">
+<form asp-action="ManageRoles" asp-route-id="@Model.Id" method="post" data-action-feedback>
     <div class="card">
         <div class="card-header">
             <h5 class="card-title mb-0"><i class="align-middle me-2" data-lucide="shield"></i> @Localizer["Assigned Roles"]</h5>

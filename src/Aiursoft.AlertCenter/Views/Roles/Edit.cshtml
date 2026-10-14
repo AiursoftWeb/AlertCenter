@@ -20,7 +20,7 @@
 <div class="row justify-content-center">
     <div class="col-lg-10 col-xl-8">
         @* The form now wraps the entire card to ensure all inputs are submitted correctly. *@
-        <form asp-action="Edit" asp-route-id="@Model.Id">
+        <form asp-action="Edit" asp-route-id="@Model.Id" data-action-feedback>
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title mb-0">@Localizer["Role Details and Permissions"]</h5>

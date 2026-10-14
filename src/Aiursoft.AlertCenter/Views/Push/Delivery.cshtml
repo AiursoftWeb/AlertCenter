@@ -68,7 +68,7 @@
         @if (Model.IsAdministrator)
         {
             <div class="flex-shrink-0 align-self-stretch align-self-md-center text-end">
-                <form asp-action="Retry" method="post" class="d-inline">
+                <form asp-action="Retry" method="post" data-action-feedback class="d-inline">
                     <input type="hidden" name="id" value="@delivery.Id" />
                     <button class="btn btn-danger" disabled="@(!canRetry)">
                         <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>重新投递
@@ -146,9 +146,10 @@ else
             </div>
             <div class="card-body">
                 <h3 class="h5 mb-3 text-break">@(delivery.Message?.Title ?? (incidentEvent != null ? $"事故重开：{incidentEvent.Incident.Title}" : "渠道测试通知"))</h3>
-                <div class="p-3 rounded-3 bg-light border text-break font-monospace small" style="white-space: pre-wrap; line-height: 1.6;">
-                    @(delivery.Message?.Content ?? (incidentEvent != null ? incidentEvent.Note : delivery.Message == null ? delivery.TestContent ?? PushDelivery.DefaultTestContent : null))
-                </div>
+                @{
+                    var payload = delivery.Message?.Content ?? (incidentEvent != null ? incidentEvent.Note : delivery.Message == null ? delivery.TestContent ?? PushDelivery.DefaultTestContent : null);
+                }
+                <div class="ac-prose">@(string.IsNullOrWhiteSpace(payload) ? "无正文内容" : payload)</div>
             </div>
         </div>
 

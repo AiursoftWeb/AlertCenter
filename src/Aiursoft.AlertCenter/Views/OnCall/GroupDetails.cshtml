@@ -79,7 +79,7 @@
     }
     else
     {
-        <form asp-action="DeleteGroup" method="post" onsubmit="return confirm('确定删除该团队？规则模板不会被删除，此操作无法恢复。');">
+        <form asp-action="DeleteGroup" method="post" data-action-feedback onsubmit="return confirm('确定删除该团队？规则模板不会被删除，此操作无法恢复。');">
             <input type="hidden" name="id" value="@group.Id" />
             <button type="submit" class="btn btn-outline-danger">删除团队</button>
         </form>

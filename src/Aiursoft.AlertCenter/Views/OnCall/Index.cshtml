@@ -58,7 +58,7 @@
 {
     <div class="modal fade" id="delete-oncall-rule" tabindex="-1" aria-labelledby="delete-oncall-rule-title" aria-describedby="delete-oncall-rule-description" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <form asp-action="DeleteRule" method="post" class="modal-content">
+            <form asp-action="DeleteRule" method="post" data-action-feedback class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title h5" id="delete-oncall-rule-title">删除排班规则</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
@@ -82,6 +82,7 @@
     {
         <script>
             document.getElementById('delete-oncall-rule').addEventListener('show.bs.modal', function (event) {
+                if (!event.relatedTarget) return;
                 const id = event.relatedTarget?.dataset.ruleId ?? '';
                 document.getElementById('delete-oncall-rule-id').value = id;
                 document.getElementById('delete-oncall-rule-name').textContent = event.relatedTarget?.dataset.ruleName ?? '';

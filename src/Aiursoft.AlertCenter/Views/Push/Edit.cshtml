@@ -63,7 +63,7 @@
                     <h2 class="card-title mb-0">@selectedType.Name 配置详情</h2>
                 </div>
                 <div class="card-body pt-0">
-                    <form asp-action="Save" method="post" id="push-channel-form">
+                    <form asp-action="Save" method="post" data-action-feedback id="push-channel-form">
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="Type" type="hidden" />
                         <div asp-validation-summary="All" class="alert alert-danger py-2 px-3 small mb-3 @(ViewData.ModelState.IsValid ? "d-none" : "")"></div>

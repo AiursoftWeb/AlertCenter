@@ -454,6 +454,23 @@
     flex-shrink: 0;
 }
 
+.ac-prose {
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.ac-prose-note {
+    padding: 0.75rem 1rem;
+    background-color: var(--bs-tertiary-bg);
+    border-inline-start: 3px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius-sm);
+}
+
 /* ==========================================================================
    Code & JSON Blocks
    ========================================================================== */

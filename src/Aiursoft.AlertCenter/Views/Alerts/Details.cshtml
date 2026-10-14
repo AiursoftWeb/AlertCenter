@@ -86,7 +86,7 @@
                 }
             </div>
             <div class="card-body pt-0">
-                <div class="p-3 bg-body-tertiary rounded text-break" style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.6;" id="message-content-text">@(message.Content ?? "（该告警未包含详细正文内容）")</div>
+                <div class="ac-prose" id="message-content-text">@(string.IsNullOrWhiteSpace(message.Content) ? "（该告警未包含详细正文内容）" : message.Content)</div>
             </div>
         </section>
 

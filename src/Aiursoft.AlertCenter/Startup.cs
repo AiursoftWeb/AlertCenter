@@ -87,7 +87,7 @@ public class Startup : IWebStartup
             startDelay: TimeSpan.FromMinutes(5));
 
         // Controllers and localization
-        services.AddControllersWithViews()
+        services.AddControllersWithViews(options => options.Filters.Add<ActionFeedbackFilter>())
             .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;

@@ -1,6 +1,6 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 
-<form asp-action="SaveRule" method="post">
+<form asp-action="SaveRule" method="post" data-action-feedback>
     <div asp-validation-summary="All" class="text-danger mb-3"></div>
     <input asp-for="RuleInput.Id" type="hidden" />
     <div class="row g-3 mb-3">

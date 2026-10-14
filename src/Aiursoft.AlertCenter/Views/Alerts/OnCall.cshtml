@@ -14,7 +14,7 @@
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">值班组（可选）</h2></div>
     <div class="card-body pt-0">
-        <form asp-action="SaveOnCall" method="post">
+        <form asp-action="SaveOnCall" method="post" data-action-feedback>
             <input type="hidden" name="ApplicationId" value="@Model.Application.Id" />
             <div asp-validation-summary="All" class="text-danger mb-3"></div>
             <div class="mb-3">

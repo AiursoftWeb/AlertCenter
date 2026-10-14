@@ -1,0 +1,18 @@
+<div class="modal fade" id="action-feedback" tabindex="-1" aria-labelledby="action-feedback-title" aria-describedby="action-feedback-message" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title h5" id="action-feedback-title">操作未完成</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+            </div>
+            <div class="modal-body">
+                <p id="action-feedback-message" class="mb-0 text-break" style="white-space: pre-line;"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary d-none" id="action-feedback-refresh">刷新页面</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">返回修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/scripts/action-feedback.js" asp-append-version="true" defer></script>

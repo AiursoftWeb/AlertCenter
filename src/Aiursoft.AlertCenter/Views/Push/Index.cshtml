@@ -174,7 +174,7 @@
                 </h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
             </div>
-            <form asp-action="Test" method="post">
+            <form asp-action="Test" method="post" data-action-feedback>
                 <div class="modal-body">
                     <p>确定向渠道 <strong id="test-channel-name" class="text-break"></strong> 发送测试通知？</p>
                     <div class="mb-0">
@@ -229,6 +229,7 @@
 @section scripts {
 <script>
     document.getElementById('test-channel').addEventListener('show.bs.modal', function (event) {
+        if (!event.relatedTarget) return;
         document.getElementById('test-channel-name').textContent = event.relatedTarget?.dataset.channelName ?? '';
         document.getElementById('test-channel-id').value = event.relatedTarget?.dataset.channelId ?? '';
         const content = document.getElementById('test-channel-content');
@@ -237,6 +238,7 @@
     });
 
     document.getElementById('delete-channel').addEventListener('show.bs.modal', function (event) {
+        if (!event.relatedTarget) return;
         document.getElementById('delete-channel-name').textContent = event.relatedTarget?.dataset.channelName ?? '';
         document.getElementById('delete-channel-id').value = event.relatedTarget?.dataset.channelId ?? '';
         document.getElementById('delete-channel-confirm').disabled = !event.relatedTarget?.dataset.channelId;

@@ -1,6 +1,6 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 
-<form asp-action="@(Model.SelectedGroupId.HasValue ? "UpdateGroup" : "CreateGroup")" method="post" id="oncall-group-form" data-search-url="@Url.Action("SearchUsers", "OnCall")">
+<form asp-action="@(Model.SelectedGroupId.HasValue ? "UpdateGroup" : "CreateGroup")" method="post" data-action-feedback id="oncall-group-form" data-search-url="@Url.Action("SearchUsers", "OnCall")">
     @if (Model.SelectedGroupId.HasValue)
     {
         <input type="hidden" name="id" value="@Model.SelectedGroupId" />

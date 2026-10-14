@@ -79,9 +79,10 @@
     </div>
     <div class="card-body py-4">
         <h2 class="h6 text-uppercase text-muted fw-semibold mb-3">通知正文内容</h2>
-        <div class="p-3 rounded-3 bg-light border text-break font-monospace small" style="white-space: pre-wrap; line-height: 1.6;">
-            @(message == null ? notification.Delivery.TestContent ?? PushDelivery.DefaultTestContent : message.Content ?? "无正文内容")
-        </div>
+        @{
+            var body = message == null ? notification.Delivery.TestContent ?? PushDelivery.DefaultTestContent : message.Content;
+        }
+        <div class="ac-prose">@(string.IsNullOrWhiteSpace(body) ? "无正文内容" : body)</div>
     </div>
 </div>
 

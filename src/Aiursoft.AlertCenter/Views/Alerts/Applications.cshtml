@@ -73,7 +73,7 @@
             </h2>
         </div>
         <div class="card-body pt-0">
-            <form asp-action="CreateApplication" method="post">
+            <form asp-action="CreateApplication" method="post" data-action-feedback>
                 <label for="name" class="form-label small fw-medium">应用名称</label>
                 <div class="row g-2">
                     <div class="col-sm">
@@ -249,7 +249,7 @@
 <!-- Reset API Key Modal -->
 <div class="modal fade" id="reset-api-key" tabindex="-1" aria-labelledby="reset-api-key-title" aria-describedby="reset-api-key-description" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form asp-action="ResetApiKey" method="post" class="modal-content" id="reset-api-key-form">
+        <form asp-action="ResetApiKey" method="post" data-action-feedback class="modal-content" id="reset-api-key-form">
             <div class="modal-header">
                 <h2 class="modal-title h5 d-flex align-items-center gap-2" id="reset-api-key-title">
                     <i class="align-middle text-warning" data-lucide="key"></i>重置 API Key
@@ -279,8 +279,9 @@
         const applicationName = document.getElementById('reset-api-key-name');
         const submit = document.getElementById('confirm-reset-api-key');
         modal.addEventListener('show.bs.modal', event => {
-            applicationId.value = event.relatedTarget?.dataset.applicationId ?? '';
-            applicationName.textContent = event.relatedTarget?.dataset.applicationName ?? '';
+            if (!event.relatedTarget) return;
+            applicationId.value = event.relatedTarget.dataset.applicationId ?? '';
+            applicationName.textContent = event.relatedTarget.dataset.applicationName ?? '';
             submit.disabled = !applicationId.value;
         });
         form.addEventListener('submit', event => {
@@ -288,7 +289,7 @@
                 event.preventDefault();
                 return;
             }
-            submit.disabled = true;
+            if (!window.fetch || !window.bootstrap) submit.disabled = true;
         });
     })();
 </script>
@@ -296,7 +297,7 @@
 <!-- Delete Application Modal -->
 <div class="modal fade" id="delete-application" tabindex="-1" aria-labelledby="delete-application-title" aria-describedby="delete-application-description" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form asp-action="DeleteApplication" method="post" class="modal-content" id="delete-application-form">
+        <form asp-action="DeleteApplication" method="post" data-action-feedback class="modal-content" id="delete-application-form">
             <div class="modal-header">
                 <h2 class="modal-title h5 d-flex align-items-center gap-2" id="delete-application-title">
                     <i class="align-middle text-danger" data-lucide="trash-2"></i>删除接入应用
@@ -338,8 +339,9 @@
             return matches;
         };
         modal.addEventListener('show.bs.modal', event => {
-            applicationId.value = event.relatedTarget?.dataset.applicationId ?? '';
-            applicationName.textContent = event.relatedTarget?.dataset.applicationName ?? '';
+            if (!event.relatedTarget) return;
+            applicationId.value = event.relatedTarget.dataset.applicationId ?? '';
+            applicationName.textContent = event.relatedTarget.dataset.applicationName ?? '';
             confirmation.value = '';
             updateConfirmation();
         });
