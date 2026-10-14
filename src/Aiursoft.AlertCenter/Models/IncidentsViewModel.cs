@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Aiursoft.AlertCenter.Entities;
+using Aiursoft.AlertCenter.Services;
 using Aiursoft.UiStack.Layout;
 
 namespace Aiursoft.AlertCenter.Models;
@@ -15,10 +16,18 @@ public class IncidentsViewModel : UiStackLayoutViewModel
     public List<IncidentTimelineEntry> TimelineEntries { get; set; } = [];
     public List<ReportedMessage> Messages { get; set; } = [];
     public bool CanManage { get; set; }
+    public IReadOnlyList<OnCallOce> CurrentOces { get; set; } = [];
+    public string? CurrentOceError { get; set; }
 }
 
 public class IncidentNoteRequest
 {
     [Required] public Guid IncidentId { get; set; }
+    public Guid Version { get; set; }
     [StringLength(4000)] public string? Note { get; set; }
+}
+
+public class IncidentLevelRequest : IncidentNoteRequest
+{
+    [Required, RegularExpression("^sev[0-4]$")] public string Level { get; set; } = string.Empty;
 }

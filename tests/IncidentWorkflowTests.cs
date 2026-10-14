@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 namespace Aiursoft.AlertCenter.Tests;
 
 [TestClass]
-public class IncidentWorkflowTests
+public partial class IncidentWorkflowTests
 {
     private const string Secret = "incident-test-secret";
     private SqliteContext _db = null!;
@@ -81,9 +81,9 @@ public class IncidentWorkflowTests
         var incident = await _db.Incidents.SingleAsync();
         Assert.AreEqual(incident.Id, first.IncidentId);
         Assert.AreEqual("Payment provider unavailable", incident.Title);
-        Assert.AreEqual(Incident.Triggered, incident.Status);
+        Assert.AreEqual(Incident.New, incident.Status);
         var triggeredEntry = await _db.IncidentTimelineEntries.SingleAsync();
-        Assert.AreEqual(IncidentTimelineEntry.Triggered, triggeredEntry.Type);
+        Assert.AreEqual(IncidentTimelineEntry.Created, triggeredEntry.Type);
         Assert.IsNull(triggeredEntry.ActorId);
 
         var beforeAcknowledgement = await Report(application, "Payment provider unavailable", "sev1", "payment-provider");
@@ -93,7 +93,7 @@ public class IncidentWorkflowTests
 
         var acknowledged = await incidentController.Acknowledge(new IncidentNoteRequest
         {
-            IncidentId = incident.Id, Note = "On-call engineer is handling this."
+            IncidentId = incident.Id, Version = incident.Version, Note = "On-call engineer is handling this."
         }, CancellationToken.None);
         Assert.IsInstanceOfType<RedirectToActionResult>(acknowledged);
 
@@ -102,17 +102,22 @@ public class IncidentWorkflowTests
         Assert.IsTrue(archived.IsArchived);
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync(delivery => delivery.Status == PushDelivery.Pending));
+        incident = await _db.Incidents.SingleAsync();
 
         Assert.IsInstanceOfType<RedirectToActionResult>(await incidentController.AddNote(new IncidentNoteRequest
         {
-            IncidentId = incident.Id, Note = "Traffic has been switched to the fallback provider."
+            IncidentId = incident.Id, Version = incident.Version, Note = "Traffic has been switched to the fallback provider."
+        }, CancellationToken.None));
+        Assert.IsInstanceOfType<RedirectToActionResult>(await incidentController.Mitigate(new IncidentNoteRequest
+        {
+            IncidentId = incident.Id, Version = incident.Version, Note = "Fallback provider mitigated the impact."
         }, CancellationToken.None));
         Assert.IsInstanceOfType<RedirectToActionResult>(await incidentController.Resolve(new IncidentNoteRequest
         {
-            IncidentId = incident.Id, Note = "Provider recovered and errors stopped."
+            IncidentId = incident.Id, Version = incident.Version, Note = "Provider recovered and errors stopped."
         }, CancellationToken.None));
         Assert.AreEqual(Incident.Resolved, (await _db.Incidents.SingleAsync()).Status);
-        Assert.AreEqual(4, await _db.IncidentTimelineEntries.CountAsync());
+        Assert.AreEqual(5, await _db.IncidentTimelineEntries.CountAsync());
 
         var afterResolution = await Report(application, "Payment provider unavailable", "sev1", "payment-provider");
         Assert.IsFalse(afterResolution.IsArchived);
@@ -163,7 +168,9 @@ public class IncidentWorkflowTests
         var first = await Report(application, "Payment provider unavailable", "sev1", "payment-provider");
         var controller = IncidentController();
         var firstIncident = await _db.Incidents.SingleAsync();
-        await controller.Resolve(new IncidentNoteRequest { IncidentId = firstIncident.Id }, CancellationToken.None);
+        await controller.Acknowledge(new IncidentNoteRequest { IncidentId = firstIncident.Id, Version = firstIncident.Version }, CancellationToken.None);
+        await controller.Mitigate(new IncidentNoteRequest { IncidentId = firstIncident.Id, Version = firstIncident.Version, Note = "Impact mitigated" }, CancellationToken.None);
+        await controller.Resolve(new IncidentNoteRequest { IncidentId = firstIncident.Id, Version = firstIncident.Version, Note = "Root cause fixed" }, CancellationToken.None);
 
         var second = await Report(application, "Payment provider unavailable", "sev1", "payment-provider");
 
@@ -180,7 +187,7 @@ public class IncidentWorkflowTests
         var first = await Report(application, "Database connection failures", "sev2", null);
         var controller = IncidentController();
         var incident = await _db.Incidents.SingleAsync();
-        await controller.Acknowledge(new IncidentNoteRequest { IncidentId = incident.Id }, CancellationToken.None);
+        await controller.Acknowledge(new IncidentNoteRequest { IncidentId = incident.Id, Version = incident.Version }, CancellationToken.None);
 
         var matching = await Report(application, "Database connection failures", "sev2", null);
         var differentLevel = await Report(application, "Database connection failures", "sev1", null);

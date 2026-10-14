@@ -159,15 +159,20 @@ public class EmailChannelAdapter(IEmailSender sender) : INotificationChannelAdap
     private static EmailMessage CreateMessage(PushDelivery delivery, IReadOnlyList<string> recipients, IReadOnlyList<string> ccRecipients)
     {
         var message = delivery.Message;
-        var title = message?.Title ?? "渠道测试通知";
-        var subject = $"[AlertCenter][{message?.Level ?? "sev3"}] {SanitizeSubject(title)}";
+        var incidentEvent = delivery.IncidentEvent;
+        var title = message?.Title ?? (incidentEvent != null ? $"事故重新打开：{incidentEvent.Incident.Title}" : "渠道测试通知");
+        var level = message?.Level ?? incidentEvent?.NewLevel ?? "sev3";
+        var subject = $"[AlertCenter][{level}] {SanitizeSubject(title)}";
         var body = new StringBuilder()
-            .AppendLine(message == null ? delivery.TestContent ?? PushDelivery.DefaultTestContent : "检测到一条新的告警。")
+            .AppendLine(incidentEvent != null ? "事故已重新打开，请当班工程师响应。" : message == null ? delivery.TestContent ?? PushDelivery.DefaultTestContent : "检测到一条新的告警。")
             .AppendLine()
             .AppendLine($"标题：{title}")
-            .AppendLine($"级别：{message?.Level ?? "sev3"}")
+            .AppendLine($"级别：{level}")
             .AppendLine($"发生时间（UTC）：{message?.OccurredAtUtc ?? delivery.CreatedAtUtc:O}")
             .AppendLine($"投递 ID：{delivery.Id}");
+        if (incidentEvent != null)
+            body.AppendLine($"事故 ID：{incidentEvent.IncidentId}").AppendLine($"操作时间（UTC）：{incidentEvent.CreatedAtUtc:O}")
+                .AppendLine($"重开说明：{incidentEvent.Note ?? "无"}");
         if (message?.Content is not null) body.AppendLine().AppendLine("内容：").AppendLine(message.Content);
         if (!string.IsNullOrWhiteSpace(message?.ContextJson)) body.AppendLine().AppendLine("上下文：").AppendLine(message.ContextJson);
         if (delivery.OnCallEmail is { } snapshot)

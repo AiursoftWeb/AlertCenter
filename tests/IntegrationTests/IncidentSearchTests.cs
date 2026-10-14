@@ -21,7 +21,7 @@ public class IncidentSearchTests : TestBase
                 new Incident
                 {
                     Application = orders, Title = "Payment outage", IncidentKey = "payments-2026",
-                    AlertTitle = "Provider unavailable", AlertLevel = "sev1", Status = Incident.Triggered,
+                    AlertTitle = "Provider unavailable", AlertLevel = "sev1", Status = Incident.New,
                     TriggeredAtUtc = new DateTime(2026, 9, 10, 12, 0, 0, DateTimeKind.Utc)
                 },
                 new Incident
@@ -37,7 +37,7 @@ public class IncidentSearchTests : TestBase
         foreach (var query in new[]
                  {
                      "keyword=payment%20outage", "keyword=provider%20unavailable", "keyword=orders", "keyword=payments-2026",
-                     "applicationId=" + ordersId, "status=triggered", "level=sev1", "fromDate=2026-09-10&toDate=2026-09-10"
+                     "applicationId=" + ordersId, "status=new", "level=sev1", "fromDate=2026-09-10&toDate=2026-09-10"
                  })
         {
             var html = await Http.GetStringAsync("/Incidents/Index?" + query);

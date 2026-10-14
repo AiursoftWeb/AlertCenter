@@ -68,6 +68,9 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(m => m.ApplicationId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<ReportedMessage>().HasOne(m => m.Incident).WithMany(incident => incident.Messages)
             .HasForeignKey(m => m.IncidentId).OnDelete(DeleteBehavior.SetNull);
+        builder.Entity<Incident>().Property(incident => incident.Version).IsConcurrencyToken();
+        builder.Entity<Incident>().HasOne(incident => incident.Owner).WithMany()
+            .HasForeignKey(incident => incident.OwnerId).OnDelete(DeleteBehavior.SetNull);
         builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.IncidentKey });
         builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.ActiveMatchKey }).IsUnique();
         builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.AlertTitle, incident.AlertLevel, incident.Status });
@@ -119,6 +122,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(delivery => delivery.ChannelId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<PushDelivery>().HasOne(delivery => delivery.Message).WithMany()
             .HasForeignKey(delivery => delivery.MessageId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushDelivery>().HasOne(delivery => delivery.IncidentEvent).WithMany()
+            .HasForeignKey(delivery => delivery.IncidentEventId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.MessageId, delivery.ChannelId }).IsUnique();
         builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.Status, delivery.CreatedAtUtc });
         builder.Entity<OnCallEmailSnapshot>().HasKey(snapshot => snapshot.DeliveryId);

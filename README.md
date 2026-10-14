@@ -86,15 +86,28 @@ Administrators always have full access to every application. In **接入应用 �
 
 ## Incident response and alert suppression
 
-Every new alert automatically creates or joins an active incident. The first report sets the incident title and creates a system timeline entry; operators can then record updates, **acknowledge handling**, and resolve it. An acknowledged incident retains every matching report but automatically archives subsequent reports without creating new notification deliveries. Delivery tasks created before acknowledgement remain unchanged.
+Every new alert automatically creates or joins an active incident in `new`. The supported workflow is **new → acked → mitigated → resolved**:
 
-Reports match an active incident by the same application and `incidentKey`. If no key is supplied, matching falls back to application, alert title, and severity. A resolved incident no longer matches new reports; the next matching report opens a new incident and notifications resume. The incident page records automatic creation, the actor for operator actions, optional notes, and UTC times.
+- **Acknowledge**: only from `new`; the acting engineer becomes the owner.
+- **Take ownership**: only from `acked`; transfers ownership to the acting engineer without changing state.
+- **Mitigate**: only from `acked`, with a required reason.
+- **Resolve**: only from `mitigated`, with a required reason; releases the active correlation key.
+- **Reopen**: only from `mitigated` or `resolved`; clears the owner and handling timestamps, returns to `new`, and queues a new built-in email to the current OCEs with a fresh immutable recipient snapshot. Reopening does not fabricate a reported alert or resend custom channels. If another active incident has claimed the same correlation key, reopening returns 409 rather than merging incidents.
+- **Change level**: `sev0`–`sev4` on any unresolved incident, with a required reason. Changes the incident severity only; original reports and the original fallback matching severity remain unchanged.
+
+Only the current OCEs, current owner, application managers or system administrators may operate an incident. OCEs and owners can view the relevant incident and its associated alerts without gaining application settings or unrelated alert access. A role/direct view grant alone does not permit handling. The existing plain-text handling notes remain restricted to handlers while unresolved; independent Markdown comments are not part of this workflow change.
+
+All mutations validate a mandatory incident version. Stale or concurrent edits return 409; invalid states or missing/oversized reasons return 400. Each successful operation atomically saves the new state, owner and severity together with its actor, UTC time, reason and before/after audit values. Reopen also saves its OCE notification in that same transaction. Missing coverage or email creates a visible delivery failure without undoing the reopen; a database write failure rolls back the action and audit together.
+
+Both `acked` and `mitigated` incidents retain matching reports but automatically archive subsequent reports without creating new notification deliveries. Delivery tasks created before acknowledgement remain unchanged. Reopening resumes notifications on future matching reports.
+
+Reports match an active incident by the same application and `incidentKey`. If no key is supplied, matching falls back to application, alert title, and severity. A resolved incident no longer matches new reports; the next matching report opens a new incident and notifications resume. The incident page shows current OCEs, the owner, state-specific actions and the audited timeline. The migration maps legacy `triggered`/`acknowledged` states to `new`/`acked`, and restores the last available acknowledging actor as owner. Rolling back maps `mitigated` to legacy `acknowledged`, removes reopen-specific delivery history and drops new ownership/audit fields; use backups before a downgrade.
 
 ## Notification channels
 
 ### Built-in on-call email
 
-An application bound to a team always queues an on-call email for each new, non-archived alert. This is a system route, not an editable push-channel record: it cannot be disabled or filtered by severity in **推送设置**. Unbinding the team stops future on-call deliveries but does not cancel queued deliveries. The existing acknowledged-incident suppression applies to both built-in and custom routes.
+An application bound to a team always queues an on-call email for each new, non-archived alert and for each successful incident reopen. This is a system route, not an editable push-channel record: it cannot be disabled or filtered by severity in **推送设置**. Unbinding the team stops future on-call deliveries but does not cancel queued deliveries. The acknowledged/mitigated-incident suppression applies to both built-in and custom routes for matching reports; explicit reopen notifications are not suppressed.
 
 **To** contains all current OCEs' registered user email addresses, deduplicated case-insensitively. Administrators configure optional **CC** in **值班中心 → 团队管理 → 编辑团队** using a group mailbox or explicit addresses (up to 50 unique addresses; newline, comma and semicolon separators). CC never automatically expands to all team members, and addresses already in To are removed from CC. No personal channel binding is needed. Both routes use the global SMTP configuration below.
 

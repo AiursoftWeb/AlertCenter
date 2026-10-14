@@ -20,13 +20,16 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
     {
         filter.Normalize();
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
-        var accessibleIncidents = db.Incidents.AsNoTracking().Include(incident => incident.Application)
-            .Where(incident => accessibleIds.Contains(incident.ApplicationId));
+        var oceIds = await new IncidentAccessService(db, applicationAccess).GetOceApplicationIdsAsync(User, DateTime.UtcNow, cancellationToken);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var accessibleIncidents = db.Incidents.AsNoTracking().Include(incident => incident.Application).Include(incident => incident.Owner)
+            .Where(incident => accessibleIds.Contains(incident.ApplicationId) || oceIds.Contains(incident.ApplicationId) ||
+                (userId != null && incident.OwnerId == userId));
         var model = new IncidentsViewModel
         {
             Filter = filter,
             ActiveCount = await accessibleIncidents.CountAsync(incident => incident.Status != Incident.Resolved, cancellationToken),
-            Applications = await db.SourceApplications.AsNoTracking().Where(application => accessibleIds.Contains(application.Id))
+            Applications = await db.SourceApplications.AsNoTracking().Where(application => accessibleIncidents.Any(incident => incident.ApplicationId == application.Id))
                 .OrderBy(application => application.Name).ToListAsync(cancellationToken)
         };
         if (!ModelState.IsValid) return this.StackView(model);
@@ -40,7 +43,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
     {
         if (filter.ApplicationId.HasValue)
             incidents = incidents.Where(incident => incident.ApplicationId == filter.ApplicationId.Value);
-        if (filter.Status is Incident.Triggered or Incident.Acknowledged or Incident.Resolved)
+        if (filter.Status is Incident.New or Incident.Acked or Incident.Mitigated or Incident.Resolved)
             incidents = incidents.Where(incident => incident.Status == filter.Status);
         if (filter.Level != null)
             incidents = incidents.Where(incident => incident.AlertLevel == filter.Level);
@@ -66,10 +69,14 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
 
     public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
     {
-        var incident = await db.Incidents.AsNoTracking().Include(item => item.Application)
+        var incident = await db.Incidents.AsNoTracking().Include(item => item.Application).Include(item => item.Owner)
             .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (incident == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, cancellationToken: cancellationToken)) return Forbid();
+        var now = DateTime.UtcNow;
+        var access = new IncidentAccessService(db, applicationAccess);
+        if (!await access.CanViewAsync(User, incident, now, cancellationToken)) return Forbid();
+        var oce = incident.Application.OnCallGroupId.HasValue
+            ? await new OnCallOceService(db).QueryAsync(incident.Application.OnCallGroupId.Value, now, cancellationToken) : null;
         return this.StackView(new IncidentsViewModel
         {
             Incident = incident,
@@ -77,58 +84,51 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
                 .Where(entry => entry.IncidentId == id).OrderByDescending(entry => entry.CreatedAtUtc).ToListAsync(cancellationToken),
             Messages = await db.ReportedMessages.AsNoTracking().Where(message => message.IncidentId == id)
                 .OrderByDescending(message => message.ReceivedAtUtc).Take(50).ToListAsync(cancellationToken),
-            CanManage = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, requireManage: true, cancellationToken)
+            CanManage = await access.CanManageAsync(User, incident, now, cancellationToken),
+            CurrentOces = oce?.Engineers ?? [],
+            CurrentOceError = oce?.Error
         });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Acknowledge(IncidentNoteRequest request, CancellationToken cancellationToken)
-    {
-        var incident = await db.Incidents.SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
-        if (incident == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, requireManage: true, cancellationToken)) return Forbid();
-        if (incident.Status == Incident.Resolved) return BadRequest("已解决的事故不能确认处理。");
-        if (incident.Status == Incident.Acknowledged) return RedirectToAction(nameof(Details), new { id = incident.Id });
-        incident.Status = Incident.Acknowledged;
-        incident.AcknowledgedAtUtc = DateTime.UtcNow;
-        db.IncidentTimelineEntries.Add(CreateTimelineEntry(incident, IncidentTimelineEntry.Acknowledged, request.Note));
-        await db.SaveChangesAsync(cancellationToken);
-        return RedirectToAction(nameof(Details), new { id = incident.Id });
-    }
+    public Task<IActionResult> Acknowledge(IncidentNoteRequest request, CancellationToken cancellationToken) =>
+        Execute(request, IncidentTimelineEntry.Acked, cancellationToken);
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> AddNote(IncidentNoteRequest request, CancellationToken cancellationToken)
-    {
-        if (!ModelState.IsValid || string.IsNullOrWhiteSpace(request.Note)) return BadRequest("处理进展不能为空。");
-        var incident = await db.Incidents.SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
-        if (incident == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, requireManage: true, cancellationToken)) return Forbid();
-        if (incident.Status == Incident.Resolved) return BadRequest("已解决的事故不能添加处理进展。");
-        db.IncidentTimelineEntries.Add(CreateTimelineEntry(incident, IncidentTimelineEntry.Updated, request.Note));
-        await db.SaveChangesAsync(cancellationToken);
-        return RedirectToAction(nameof(Details), new { id = incident.Id });
-    }
+    public Task<IActionResult> TakeOwnership(IncidentNoteRequest request, CancellationToken cancellationToken) =>
+        Execute(request, IncidentTimelineEntry.OwnershipChanged, cancellationToken);
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Resolve(IncidentNoteRequest request, CancellationToken cancellationToken)
-    {
-        var incident = await db.Incidents.SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
-        if (incident == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, requireManage: true, cancellationToken)) return Forbid();
-        if (incident.Status == Incident.Resolved) return RedirectToAction(nameof(Details), new { id = incident.Id });
-        incident.Status = Incident.Resolved;
-        incident.ActiveMatchKey = null;
-        incident.ResolvedAtUtc = DateTime.UtcNow;
-        db.IncidentTimelineEntries.Add(CreateTimelineEntry(incident, IncidentTimelineEntry.Resolved, request.Note));
-        await db.SaveChangesAsync(cancellationToken);
-        return RedirectToAction(nameof(Details), new { id = incident.Id });
-    }
+    public Task<IActionResult> Mitigate(IncidentNoteRequest request, CancellationToken cancellationToken) =>
+        Execute(request, IncidentTimelineEntry.Mitigated, cancellationToken);
 
-    private IncidentTimelineEntry CreateTimelineEntry(Incident incident, string type, string? note) => new()
+    [HttpPost, ValidateAntiForgeryToken]
+    public Task<IActionResult> Resolve(IncidentNoteRequest request, CancellationToken cancellationToken) =>
+        Execute(request, IncidentTimelineEntry.Resolved, cancellationToken);
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public Task<IActionResult> Reopen(IncidentNoteRequest request, CancellationToken cancellationToken) =>
+        Execute(request, IncidentTimelineEntry.Reopened, cancellationToken);
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public Task<IActionResult> ChangeLevel(IncidentLevelRequest request, CancellationToken cancellationToken) =>
+        Execute(request, IncidentTimelineEntry.LevelChanged, cancellationToken);
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public Task<IActionResult> AddNote(IncidentNoteRequest request, CancellationToken cancellationToken) =>
+        Execute(request, IncidentTimelineEntry.Updated, cancellationToken);
+
+    private async Task<IActionResult> Execute(IncidentNoteRequest request, string action, CancellationToken cancellationToken)
     {
-        Incident = incident,
-        Type = type,
-        Note = string.IsNullOrWhiteSpace(note) ? null : note.Trim(),
-        ActorId = User.FindFirstValue(ClaimTypes.NameIdentifier)!
-    };
+        if (!ModelState.IsValid) return BadRequest("操作参数无效，理由不能超过 4000 个字符，改级须为 sev0 至 sev4。");
+        var result = await new IncidentWorkflowService(db, applicationAccess).ExecuteAsync(User, request, action, cancellationToken);
+        return result.StatusCode switch
+        {
+            200 => RedirectToAction(nameof(Details), new { id = request.IncidentId }),
+            403 => Forbid(),
+            404 => NotFound(),
+            409 => Conflict(result.Error),
+            _ => BadRequest(result.Error)
+        };
+    }
 }

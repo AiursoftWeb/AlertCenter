@@ -220,7 +220,8 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         var message = await db.ReportedMessages.AsNoTracking().Include(m => m.Application).Include(m => m.Incident)
             .SingleOrDefaultAsync(m => m.Id == id, cancellationToken);
         if (message == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, message.ApplicationId, cancellationToken: cancellationToken)) return Forbid();
+        if (!await applicationAccess.CanAccessAsync(User, message.ApplicationId, cancellationToken: cancellationToken) &&
+            (message.Incident == null || !await new IncidentAccessService(db, applicationAccess).CanViewAsync(User, message.Incident, DateTime.UtcNow, cancellationToken))) return Forbid();
         return this.StackView(new AlertsViewModel
         {
             Message = message,

@@ -7,7 +7,7 @@ public class IncidentFilter : IValidatableObject
     [StringLength(200, ErrorMessage = "关键词不能超过 200 个字符。")]
     public string? Keyword { get; set; }
     public Guid? ApplicationId { get; set; }
-    [RegularExpression("^(triggered|acknowledged|resolved|all)$", ErrorMessage = "请选择有效的事故状态。")]
+    [RegularExpression("^(new|acked|mitigated|resolved|all)$", ErrorMessage = "请选择有效的事故状态。")]
     public string? Status { get; set; }
     [RegularExpression("^sev[0-4]$", ErrorMessage = "请选择有效的告警级别。")]
     public string? Level { get; set; }

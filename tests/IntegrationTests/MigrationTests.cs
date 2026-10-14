@@ -21,9 +21,9 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(3, context.Database.GetMigrations().Count());
+        Assert.AreEqual(4, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
-        Assert.EndsWith("_OnCallEmailNotifications", context.Database.GetMigrations().Last());
+        Assert.EndsWith("_IncidentStateMachine", context.Database.GetMigrations().Last());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
 
@@ -108,6 +108,45 @@ public class MigrationTests
     }
 
     [TestMethod]
+    public async Task IncidentMigrationConvertsOldStatesRestoresOwnerAndPreservesMatchSeverity()
+    {
+        await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await context.Database.OpenConnectionAsync();
+        var migrator = context.GetService<IMigrator>();
+        var previous = context.Database.GetMigrations().Single(id => id.EndsWith("_OnCallEmailNotifications"));
+        await migrator.MigrateAsync(previous);
+        var application = new SourceApplication { Name = "Existing" };
+        var owner = new User { Id = "existing-owner", UserName = "owner", DisplayName = "Existing owner" };
+        context.Users.Add(owner);
+        context.SourceApplications.Add(application);
+        await context.SaveChangesAsync();
+        var newId = Guid.NewGuid();
+        var ackedId = Guid.NewGuid();
+        var resolvedId = Guid.NewGuid();
+        var now = DateTime.UtcNow;
+        foreach (var pair in new[] { (newId, "triggered"), (ackedId, "acknowledged"), (resolvedId, "resolved") })
+            await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO Incidents (Id, ApplicationId, Title, AlertTitle, AlertLevel, Status, TriggeredAtUtc) VALUES ({pair.Item1}, {application.Id}, {"Existing outage"}, {"Source"}, {"sev1"}, {pair.Item2}, {now})");
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO IncidentTimelineEntries (Id, IncidentId, Type, ActorId, CreatedAtUtc) VALUES ({Guid.NewGuid()}, {ackedId}, {"acknowledged"}, {owner.Id}, {now})");
+        await context.Database.MigrateAsync();
+        context.ChangeTracker.Clear();
+        var rows = await context.Incidents.ToDictionaryAsync(incident => incident.Id);
+        Assert.AreEqual(Incident.New, rows[newId].Status);
+        Assert.AreEqual(Incident.Acked, rows[ackedId].Status);
+        Assert.AreEqual(Incident.Resolved, rows[resolvedId].Status);
+        Assert.AreEqual(owner.Id, rows[ackedId].OwnerId);
+        Assert.AreEqual("Existing owner", rows[ackedId].OwnerDisplayName);
+        Assert.IsTrue(rows.Values.All(incident => incident.MatchLevel == "sev1" && incident.Version != Guid.Empty));
+        Assert.AreEqual(IncidentTimelineEntry.Acked, (await context.IncidentTimelineEntries.SingleAsync()).Type);
+        await migrator.MigrateAsync(previous);
+        var restored = await context.Database.SqlQueryRaw<string>("SELECT Status AS Value FROM Incidents").ToListAsync();
+        CollectionAssert.AreEquivalent(new[] { "triggered", "acknowledged", "resolved" }, restored);
+        await context.Database.MigrateAsync();
+        context.ChangeTracker.Clear();
+        Assert.AreEqual(owner.Id, (await context.Incidents.SingleAsync(incident => incident.Id == ackedId)).OwnerId);
+    }
+
+    [TestMethod]
     public async Task InitialMigrationPersistsStaffingDefaultsAndExplicitRequirements()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
@@ -157,9 +196,9 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(3, context.Database.GetMigrations().Count());
+        Assert.AreEqual(4, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
-        Assert.EndsWith("_OnCallEmailNotifications", context.Database.GetMigrations().Last());
+        Assert.EndsWith("_IncidentStateMachine", context.Database.GetMigrations().Last());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");
         var script = context.GetService<IMigrator>().GenerateScript();
@@ -175,6 +214,10 @@ public class MigrationTests
         StringAssert.Contains(script, "CREATE TABLE `OnCallEmailSnapshots`");
         StringAssert.Contains(script, "CREATE TABLE `OnCallEmailRecipient`");
         StringAssert.Contains(script, "`EmailCcRecipients`");
+        StringAssert.Contains(script, "FK_Incidents_AspNetUsers_OwnerId");
+        StringAssert.Contains(script, "FK_PushDeliveries_IncidentTimelineEntries_IncidentEventId");
+        StringAssert.Contains(script, "MatchLevel = AlertLevel");
+        StringAssert.Contains(script, "WHEN 'triggered' THEN 'new'");
         Assert.DoesNotContain("OnCallRuleMembers", script);
     }
 }

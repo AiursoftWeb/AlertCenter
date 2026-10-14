@@ -23,7 +23,7 @@ public sealed class IncidentMatcher(TemplateDbContext db) : IIncidentMatcher
                 incident.ActiveMatchKey == null && incident.IncidentKey == message.IncidentKey, cancellationToken);
         return await active.OrderByDescending(incident => incident.TriggeredAtUtc).FirstOrDefaultAsync(incident =>
             incident.ActiveMatchKey == null && incident.IncidentKey == null && incident.AlertTitle == message.Title &&
-            incident.AlertLevel == message.Level, cancellationToken);
+            incident.MatchLevel == message.Level, cancellationToken);
     }
 
     public async Task<Incident> FindOrCreateActiveIncidentAsync(ReportedMessage message,
@@ -39,13 +39,16 @@ public sealed class IncidentMatcher(TemplateDbContext db) : IIncidentMatcher
             IncidentKey = message.IncidentKey,
             ActiveMatchKey = GetActiveMatchKey(message),
             AlertTitle = message.Title,
-            AlertLevel = message.Level
+            AlertLevel = message.Level,
+            MatchLevel = message.Level
         };
         db.Incidents.Add(incident);
         db.IncidentTimelineEntries.Add(new IncidentTimelineEntry
         {
             Incident = incident,
-            Type = IncidentTimelineEntry.Triggered
+            Type = IncidentTimelineEntry.Created,
+            NewStatus = Incident.New,
+            NewLevel = message.Level
         });
         return incident;
     }

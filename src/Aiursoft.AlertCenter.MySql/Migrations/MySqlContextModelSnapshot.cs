@@ -170,6 +170,22 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
+                    b.Property<string>("MatchLevel")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("varchar(4)");
+
+                    b.Property<DateTime?>("MitigatedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("OwnerDisplayName")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("OwnerId")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
                     b.Property<DateTime?>("ResolvedAtUtc")
                         .HasColumnType("datetime(6)");
 
@@ -186,7 +202,13 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<DateTime>("TriggeredAtUtc")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid>("Version")
+                        .IsConcurrencyToken()
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("ApplicationId", "ActiveMatchKey")
                         .IsUnique();
@@ -214,9 +236,41 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<Guid>("IncidentId")
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("NewLevel")
+                        .HasMaxLength(4)
+                        .HasColumnType("varchar(4)");
+
+                    b.Property<string>("NewOwnerId")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
+                    b.Property<string>("NewOwnerName")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("NewStatus")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
                     b.Property<string>("Note")
                         .HasMaxLength(4000)
                         .HasColumnType("varchar(4000)");
+
+                    b.Property<string>("PreviousLevel")
+                        .HasMaxLength(4)
+                        .HasColumnType("varchar(4)");
+
+                    b.Property<string>("PreviousOwnerId")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
+                    b.Property<string>("PreviousOwnerName")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("PreviousStatus")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -557,6 +611,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("varchar(2000)");
 
+                    b.Property<Guid?>("IncidentEventId")
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid?>("MessageId")
                         .HasColumnType("char(36)");
 
@@ -572,6 +629,8 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ChannelId");
+
+                    b.HasIndex("IncidentEventId");
 
                     b.HasIndex("MessageId", "ChannelId")
                         .IsUnique();
@@ -978,7 +1037,14 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("Application");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
@@ -1163,12 +1229,19 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", "IncidentEvent")
+                        .WithMany()
+                        .HasForeignKey("IncidentEventId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Aiursoft.AlertCenter.Entities.ReportedMessage", "Message")
                         .WithMany()
                         .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Channel");
+
+                    b.Navigation("IncidentEvent");
 
                     b.Navigation("Message");
                 });

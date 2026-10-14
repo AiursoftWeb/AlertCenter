@@ -14,16 +14,20 @@
 
     string IncidentStatusText(string status) => status switch
     {
-        Incident.Triggered => "已触发",
-        Incident.Acknowledged => "处理中",
-        _ => "已解决"
+        Incident.New => "待响应",
+        Incident.Acked => "已确认",
+        Incident.Mitigated => "已缓解",
+        Incident.Resolved => "已解决",
+        _ => status
     };
 
     string IncidentStatusBadge(string status) => status switch
     {
-        Incident.Triggered => "bg-danger-subtle text-danger border border-danger-subtle",
-        Incident.Acknowledged => "bg-warning-subtle text-warning-emphasis border border-warning-subtle",
-        _ => "bg-success-subtle text-success border border-success-subtle"
+        Incident.New => "bg-danger-subtle text-danger border border-danger-subtle",
+        Incident.Acked => "bg-warning-subtle text-warning-emphasis border border-warning-subtle",
+        Incident.Mitigated => "bg-info-subtle text-info-emphasis border border-info-subtle",
+        Incident.Resolved => "bg-success-subtle text-success border border-success-subtle",
+        _ => "bg-secondary-subtle text-secondary border"
     };
 }
 
@@ -244,7 +248,7 @@
                             else
                             {
                                 <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="badge @IncidentStatusBadge(message.Incident.Status) text-decoration-none">
-                                    <i class="align-middle me-1" data-lucide="@(message.Incident.Status == Incident.Triggered ? "siren" : "activity")"></i>@IncidentStatusText(message.Incident.Status)
+                                    <i class="align-middle me-1" data-lucide="@(message.Incident.Status == Incident.New ? "siren" : "activity")"></i>@IncidentStatusText(message.Incident.Status)
                                 </a>
                             }
                         </td>

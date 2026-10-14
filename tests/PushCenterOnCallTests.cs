@@ -211,7 +211,7 @@ public partial class PushCenterTests
         await OnCallTeam(application);
         await Report(application, Guid.NewGuid());
         var incident = await _db.Incidents.SingleAsync();
-        incident.Status = Incident.Acknowledged;
+        incident.Status = Incident.Acked;
         await _db.SaveChangesAsync();
         await Report(application, Guid.NewGuid());
         Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());

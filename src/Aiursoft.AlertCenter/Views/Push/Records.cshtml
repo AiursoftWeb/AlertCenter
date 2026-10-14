@@ -132,8 +132,8 @@
                 <tbody>
                     @foreach (var delivery in Model.Deliveries)
                     {
-                        var isTest = delivery.Message == null;
-                        var levelBadge = delivery.Message?.Level switch
+                        var level = delivery.Message?.Level ?? delivery.IncidentEvent?.NewLevel;
+                        var levelBadge = level switch
                         {
                             "sev0" => "ac-badge-sev0",
                             "sev1" => "ac-badge-sev1",
@@ -154,7 +154,7 @@
                                 <div class="d-flex align-items-start gap-2">
                                     @if (levelBadge != null)
                                     {
-                                        <span class="badge @levelBadge font-monospace small mt-0.5">@delivery.Message!.Level</span>
+                                        <span class="badge @levelBadge font-monospace small mt-0.5">@level</span>
                                     }
                                     else
                                     {
@@ -162,11 +162,11 @@
                                     }
                                     <div class="min-w-0">
                                         <a asp-action="Delivery" asp-route-id="@delivery.Id" class="fw-semibold text-decoration-none text-break d-block">
-                                            @(delivery.Message?.Title ?? "渠道测试通知")
+                                            @(delivery.Message?.Title ?? (delivery.IncidentEvent != null ? $"事故重开：{delivery.IncidentEvent.Incident.Title}" : "渠道测试通知"))
                                         </a>
                                         <small class="text-muted d-flex align-items-center gap-1 mt-0.5">
                                             <i data-lucide="layers" style="width: 12px; height: 12px;" aria-hidden="true"></i>
-                                            @(delivery.Message?.Application.Name ?? "手动测试")
+                                            @(delivery.Message?.Application.Name ?? delivery.IncidentEvent?.Incident.Application.Name ?? "手动测试")
                                         </small>
                                     </div>
                                 </div>

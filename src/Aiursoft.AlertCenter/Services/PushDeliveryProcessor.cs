@@ -16,6 +16,7 @@ public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificati
                 .SetProperty(delivery => delivery.Attempts, delivery => delivery.Attempts + 1), cancellationToken);
         if (claimed == 0) return;
         var delivery = await db.PushDeliveries.Include(item => item.Channel).Include(item => item.Message)
+            .Include(item => item.IncidentEvent).ThenInclude(entry => entry!.Incident)
             .Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
             .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return;

@@ -16,6 +16,8 @@ public class PushDelivery
     public OnCallEmailSnapshot? OnCallEmail { get; set; }
     public Guid? MessageId { get; set; }
     public ReportedMessage? Message { get; set; }
+    public Guid? IncidentEventId { get; set; }
+    public IncidentTimelineEntry? IncidentEvent { get; set; }
     [MaxLength(4000)] public string? TestContent { get; set; }
     [MaxLength(20)] public string Status { get; set; } = Pending;
     public int Attempts { get; set; }

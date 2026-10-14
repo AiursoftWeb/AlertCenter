@@ -9,9 +9,11 @@
 
     (string PillClass, string Icon, string Text) StatusInfo(string status) => status switch
     {
-        Incident.Triggered => ("ac-status-pill-failed", "alert-triangle", "已触发"),
-        Incident.Acknowledged => ("ac-status-pill-sending", "user-check", "处理中"),
-        _ => ("ac-status-pill-succeeded", "check-circle-2", "已解决")
+        Incident.New => ("ac-status-pill-failed", "alert-triangle", "待响应"),
+        Incident.Acked => ("ac-status-pill-sending", "user-check", "已确认"),
+        Incident.Mitigated => ("ac-status-pill-sending", "shield-check", "已缓解"),
+        Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", "已解决"),
+        _ => ("ac-status-pill-pending", "circle-help", status)
     };
 }
 @section styles {
@@ -37,7 +39,7 @@
                 </span>
             }
         </div>
-        <p class="text-muted mb-0 small">全流程协同处置：触发、确认跟进、处置进展记录；确认后匹配的新告警将自动归档并抑制重复打扰。</p>
+        <p class="text-muted mb-0 small">全流程协同处置：待响应、确认并认领、缓解、解决；已确认与已缓解期间匹配的新告警将自动归档并抑制重复通知。</p>
     </div>
 </div>
 
@@ -47,13 +49,17 @@
         <i data-lucide="layers" style="width: 14px; height: 14px;" aria-hidden="true"></i>
         <span>全部事故</span>
     </a>
-    <a asp-action="Index" asp-route-status="triggered" class="ac-chip @(filter.Status == Incident.Triggered ? "active" : "")">
+    <a asp-action="Index" asp-route-status="new" class="ac-chip @(filter.Status == Incident.New ? "active" : "")">
         <i data-lucide="alert-triangle" style="width: 14px; height: 14px;" class="text-danger" aria-hidden="true"></i>
-        <span>待响应 (已触发)</span>
+        <span>待响应</span>
     </a>
-    <a asp-action="Index" asp-route-status="acknowledged" class="ac-chip @(filter.Status == Incident.Acknowledged ? "active" : "")">
+    <a asp-action="Index" asp-route-status="acked" class="ac-chip @(filter.Status == Incident.Acked ? "active" : "")">
         <i data-lucide="user-check" style="width: 14px; height: 14px;" class="text-warning" aria-hidden="true"></i>
-        <span>处置中 (已确认)</span>
+        <span>已确认</span>
+    </a>
+    <a asp-action="Index" asp-route-status="mitigated" class="ac-chip @(filter.Status == Incident.Mitigated ? "active" : "")">
+        <i data-lucide="shield-check" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
+        <span>已缓解</span>
     </a>
     <a asp-action="Index" asp-route-status="resolved" class="ac-chip @(filter.Status == Incident.Resolved ? "active" : "")">
         <i data-lucide="check-circle-2" style="width: 14px; height: 14px;" class="text-success" aria-hidden="true"></i>
@@ -90,8 +96,9 @@
                 <label for="incident-status" class="form-label small text-muted mb-1">事故状态</label>
                 <select id="incident-status" name="status" class="form-select">
                     <option value="all" selected="@(filter.Status == "all")">全部状态</option>
-                    <option value="triggered" selected="@(filter.Status == Incident.Triggered)">已触发 (Triggered)</option>
-                    <option value="acknowledged" selected="@(filter.Status == Incident.Acknowledged)">处理中 (Acknowledged)</option>
+                    <option value="new" selected="@(filter.Status == Incident.New)">待响应 (New)</option>
+                    <option value="acked" selected="@(filter.Status == Incident.Acked)">已确认 (Acked)</option>
+                    <option value="mitigated" selected="@(filter.Status == Incident.Mitigated)">已缓解 (Mitigated)</option>
                     <option value="resolved" selected="@(filter.Status == Incident.Resolved)">已解决 (Resolved)</option>
                 </select>
             </div>
@@ -162,6 +169,7 @@
                         <th class="ps-4 py-3" style="width: 120px;">状态</th>
                         <th class="py-3" style="min-width: 260px;">事故标题与原始告警</th>
                         <th class="py-3">来源应用</th>
+                        <th class="py-3">负责人</th>
                         <th class="py-3">匹配规则 (抑制范围)</th>
                         <th class="pe-4 py-3 text-end" style="min-width: 160px;">触发时间 (UTC)</th>
                         <th class="py-3 text-center" style="width: 80px;">进入</th>
@@ -179,11 +187,13 @@
                             "sev3" => "ac-badge-sev3",
                             _ => "ac-badge-sev4"
                         };
-                        var rowBorder = incident.Status == Incident.Triggered
-                            ? "border-start border-3 border-danger"
-                            : incident.Status == Incident.Acknowledged
-                                ? "border-start border-3 border-warning"
-                                : "";
+                        var rowBorder = incident.Status switch
+                        {
+                            Incident.New => "border-start border-3 border-danger",
+                            Incident.Acked => "border-start border-3 border-warning",
+                            Incident.Mitigated => "border-start border-3 border-info",
+                            _ => ""
+                        };
 
                         <tr class="@rowBorder">
                             <td class="ps-4 py-3">
@@ -204,8 +214,11 @@
                             <td class="py-3">
                                 <span class="badge bg-secondary-subtle text-secondary font-monospace">@incident.Application.Name</span>
                             </td>
+                            <td class="py-3 text-break">
+                                @(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? "未分配")
+                            </td>
                             <td class="py-3">
-                                <code class="text-muted small text-break">@(incident.IncidentKey == null ? "应用 + 标题 + 级别" : $"incidentKey: {incident.IncidentKey}")</code>
+                                <code class="text-muted small text-break">@(incident.IncidentKey == null ? $"应用 + 标题 + 原始级别 ({incident.MatchLevel})" : $"incidentKey: {incident.IncidentKey}")</code>
                             </td>
                             <td class="pe-4 py-3 text-end text-nowrap text-muted small font-monospace">
                                 @incident.TriggeredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")

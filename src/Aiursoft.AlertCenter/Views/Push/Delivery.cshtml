@@ -2,7 +2,9 @@
 @using Aiursoft.AlertCenter.Entities
 @{
     var delivery = Model.Delivery!;
-    ViewData["Title"] = $"投递详情 - {delivery.Message?.Title ?? "渠道测试"}";
+    var incidentEvent = delivery.IncidentEvent;
+    var level = delivery.Message?.Level ?? incidentEvent?.NewLevel;
+    ViewData["Title"] = $"投递详情 - {delivery.Message?.Title ?? incidentEvent?.Incident.Title ?? "渠道测试"}";
     var snapshot = delivery.OnCallEmail;
     var typeKey = snapshot != null ? "email" : delivery.Channel?.Type;
     var channelType = Model.ChannelTypes.FirstOrDefault(type => type.Key == typeKey);
@@ -35,6 +37,10 @@
             <a asp-controller="Alerts" asp-action="Details" asp-route-id="@delivery.MessageId" class="btn btn-outline-secondary">
                 <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>查看原始告警
             </a>
+        }
+        @if (incidentEvent != null)
+        {
+            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@incidentEvent.IncidentId" class="btn btn-outline-secondary">查看重开事故</a>
         }
         @if (typeKey == "inapp" && delivery.Status == PushDelivery.Succeeded)
         {
@@ -121,9 +127,9 @@ else
                     <i data-lucide="message-square" style="width: 18px; height: 18px;" class="text-primary me-2" aria-hidden="true"></i>
                     投递内容
                 </h2>
-                @if (delivery.Message != null)
+                @if (level != null)
                 {
-                    var levelBadge = delivery.Message.Level switch
+                    var levelBadge = level switch
                     {
                         "sev0" => "ac-badge-sev0",
                         "sev1" => "ac-badge-sev1",
@@ -131,7 +137,7 @@ else
                         "sev3" => "ac-badge-sev3",
                         _ => "ac-badge-sev4"
                     };
-                    <span class="badge @levelBadge font-monospace">@delivery.Message.Level</span>
+                    <span class="badge @levelBadge font-monospace">@level</span>
                 }
                 else
                 {
@@ -139,9 +145,9 @@ else
                 }
             </div>
             <div class="card-body">
-                <h3 class="h5 mb-3 text-break">@(delivery.Message?.Title ?? "渠道测试通知")</h3>
+                <h3 class="h5 mb-3 text-break">@(delivery.Message?.Title ?? (incidentEvent != null ? $"事故重开：{incidentEvent.Incident.Title}" : "渠道测试通知"))</h3>
                 <div class="p-3 rounded-3 bg-light border text-break font-monospace small" style="white-space: pre-wrap; line-height: 1.6;">
-                    @(delivery.Message == null ? delivery.TestContent ?? PushDelivery.DefaultTestContent : delivery.Message.Content)
+                    @(delivery.Message?.Content ?? (incidentEvent != null ? incidentEvent.Note : delivery.Message == null ? delivery.TestContent ?? PushDelivery.DefaultTestContent : null))
                 </div>
             </div>
         </div>
@@ -248,7 +254,7 @@ else
                 </div>
                 <div class="d-flex justify-content-between align-items-center py-2 border-top">
                     <span class="text-muted small">来源接入应用</span>
-                    <span class="fw-semibold small">@(delivery.Message?.Application.Name ?? "手动测试")</span>
+                    <span class="fw-semibold small">@(delivery.Message?.Application.Name ?? incidentEvent?.Incident.Application.Name ?? "手动测试")</span>
                 </div>
                 @if (snapshot != null)
                 {

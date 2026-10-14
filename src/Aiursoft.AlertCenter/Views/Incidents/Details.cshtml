@@ -5,18 +5,36 @@
     ViewData["Title"] = $"事故作战室 - {incident.Title}";
     var (statusPill, statusIcon, statusText, bannerClass) = incident.Status switch
     {
-        Incident.Triggered => ("ac-status-pill-failed", "alert-triangle", "已触发 (Triggered)", "ac-incident-banner-triggered"),
-        Incident.Acknowledged => ("ac-status-pill-sending", "user-check", "处置中 (Acknowledged)", "ac-incident-banner-acknowledged"),
-        _ => ("ac-status-pill-succeeded", "check-circle-2", "已解决 (Resolved)", "ac-incident-banner-resolved")
+        Incident.New => ("ac-status-pill-failed", "alert-triangle", "待响应 (New)", "ac-incident-banner-triggered"),
+        Incident.Acked => ("ac-status-pill-sending", "user-check", "已确认 (Acked)", "ac-incident-banner-acknowledged"),
+        Incident.Mitigated => ("ac-status-pill-sending", "shield-check", "已缓解 (Mitigated)", "ac-incident-banner-acknowledged"),
+        Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", "已解决 (Resolved)", "ac-incident-banner-resolved"),
+        _ => ("ac-status-pill-pending", "circle-help", incident.Status, "")
     };
     var isActive = incident.Status != Incident.Resolved;
+    var canChangeLevel = Model.CanManage && (incident.Status == Incident.New || incident.Status == Incident.Acked || incident.Status == Incident.Mitigated);
+    var canReopen = Model.CanManage && (incident.Status == Incident.Mitigated || incident.Status == Incident.Resolved);
+
+    string StatusText(string? status) => status switch
+    {
+        Incident.New => "待响应",
+        Incident.Acked => "已确认",
+        Incident.Mitigated => "已缓解",
+        Incident.Resolved => "已解决",
+        _ => status ?? "未设置"
+    };
 
     (string Icon, string BadgeClass, string Text) EntryStyle(string type) => type switch
     {
-        IncidentTimelineEntry.Triggered => ("alert-triangle", "badge-triggered", "自动创建事故"),
-        IncidentTimelineEntry.Acknowledged => ("user-check", "badge-acknowledged", "确认处理中"),
+        IncidentTimelineEntry.Created => ("alert-triangle", "badge-triggered", "自动创建事故"),
+        IncidentTimelineEntry.Acked => ("user-check", "badge-acknowledged", "确认并认领事故"),
+        IncidentTimelineEntry.OwnershipChanged => ("user-round-check", "badge-acknowledged", "接管事故"),
+        IncidentTimelineEntry.Mitigated => ("shield-check", "badge-acknowledged", "缓解事故"),
+        IncidentTimelineEntry.Resolved => ("check-circle", "badge-resolved", "解决事故"),
+        IncidentTimelineEntry.Reopened => ("rotate-ccw", "badge-triggered", "重开事故"),
+        IncidentTimelineEntry.LevelChanged => ("sliders-horizontal", "badge-updated", "调整事故级别"),
         IncidentTimelineEntry.Updated => ("message-square", "badge-updated", "处理进展"),
-        _ => ("check-circle", "badge-resolved", "解决事故")
+        _ => ("activity", "badge-updated", "事故事件")
     };
 }
 @section styles {
@@ -35,6 +53,8 @@
     </div>
 </div>
 
+<div asp-validation-summary="All" class="text-danger mb-3 small"></div>
+
 <!-- Incident Hero War Room Banner -->
 <div class="ac-incident-banner @bannerClass shadow-sm mb-4">
     <div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-4">
@@ -48,29 +68,57 @@
                 <span class="badge @(incident.AlertLevel == "sev0" ? "ac-badge-sev0" : incident.AlertLevel == "sev1" ? "ac-badge-sev1" : incident.AlertLevel == "sev2" ? "ac-badge-sev2" : incident.AlertLevel == "sev3" ? "ac-badge-sev3" : "ac-badge-sev4") font-monospace">@incident.AlertLevel</span>
             </div>
             <h1 class="h3 mb-2 text-break fw-bold">@incident.Title</h1>
+            <p class="text-muted small mb-2 text-break">事故负责人：<strong>@(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? "未分配")</strong></p>
             <div class="text-muted small text-break d-flex align-items-center gap-2">
                 <i data-lucide="fingerprint" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
                 <span>告警匹配抑制规则：</span>
-                <code class="bg-white bg-opacity-50 px-2 py-0.5 rounded border">@(incident.IncidentKey == null ? $"应用 + 标题 + 级别 ({incident.AlertTitle} · {incident.AlertLevel})" : $"incidentKey: {incident.IncidentKey}")</code>
+                <code class="bg-white bg-opacity-50 px-2 py-0.5 rounded border">@(incident.IncidentKey == null ? $"应用 + 标题 + 原始级别 ({incident.AlertTitle} · {incident.MatchLevel})" : $"incidentKey: {incident.IncidentKey}")</code>
             </div>
         </div>
 
         <!-- War Room Action Forms -->
-        <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center gap-2 flex-shrink-0">
-            @if (Model.CanManage && incident.Status == Incident.Triggered)
+        <div class="d-flex flex-wrap align-items-center gap-2">
+            @if (Model.CanManage && incident.Status == Incident.New)
             {
                 <form asp-action="Acknowledge" method="post" class="d-flex flex-wrap gap-2">
                     <input type="hidden" name="incidentId" value="@incident.Id" />
-                    <input name="note" maxlength="4000" class="form-control form-control-sm" style="max-width: 18rem;" placeholder="确认说明（可选）" />
-                    <button class="btn btn-sm btn-warning text-nowrap">
-                        <i class="align-middle me-1" data-lucide="user-check" aria-hidden="true"></i>确认处理中
+                    <input type="hidden" name="version" value="@incident.Version" />
+                    <input name="note" maxlength="4000" class="form-control form-control-sm" style="max-width: 18rem;" placeholder="确认说明（可选）" aria-label="确认说明（可选）" />
+                    <button type="submit" class="btn btn-sm btn-warning text-nowrap">
+                        <i class="align-middle me-1" data-lucide="user-check" aria-hidden="true"></i>确认并认领
                     </button>
                 </form>
             }
-            @if (Model.CanManage && isActive)
+            @if (Model.CanManage && incident.Status == Incident.Acked)
+            {
+                <form asp-action="TakeOwnership" method="post" class="d-flex flex-wrap gap-2">
+                    <input type="hidden" name="incidentId" value="@incident.Id" />
+                    <input type="hidden" name="version" value="@incident.Version" />
+                    <input name="note" maxlength="4000" class="form-control form-control-sm" style="max-width: 18rem;" placeholder="接管说明（可选）" aria-label="接管说明（可选）" />
+                    <button type="submit" class="btn btn-sm btn-outline-warning text-nowrap">
+                        <i class="align-middle me-1" data-lucide="user-round-check" aria-hidden="true"></i>接管事故
+                    </button>
+                </form>
+                <button class="btn btn-sm btn-primary text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#mitigate-incident">
+                    <i class="align-middle me-1" data-lucide="shield-check" aria-hidden="true"></i>缓解事故
+                </button>
+            }
+            @if (Model.CanManage && incident.Status == Incident.Mitigated)
             {
                 <button class="btn btn-sm btn-success text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#resolve-incident">
                     <i class="align-middle me-1" data-lucide="check-circle" aria-hidden="true"></i>解决事故
+                </button>
+            }
+            @if (canChangeLevel)
+            {
+                <button class="btn btn-sm btn-outline-primary text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#change-incident-level">
+                    <i class="align-middle me-1" data-lucide="sliders-horizontal" aria-hidden="true"></i>调整级别
+                </button>
+            }
+            @if (canReopen)
+            {
+                <button class="btn btn-sm btn-outline-danger text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#reopen-incident">
+                    <i class="align-middle me-1" data-lucide="rotate-ccw" aria-hidden="true"></i>重开事故
                 </button>
             }
             @if (!isActive)
@@ -97,6 +145,7 @@
         <div class="card-body pt-0">
             <form asp-action="AddNote" method="post" class="d-flex flex-column gap-3">
                 <input type="hidden" name="incidentId" value="@incident.Id" />
+                <input type="hidden" name="version" value="@incident.Version" />
                 <textarea class="form-control" name="note" maxlength="4000" rows="3" required placeholder="实时记录排查线索、应急缓解措施、影响范围评估或系统恢复进展..."></textarea>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-outline-primary btn-sm px-4">
@@ -132,12 +181,24 @@
                                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-1">
                                     <div class="d-flex align-items-center gap-2">
                                         <strong class="text-dark">@entryStyle.Text</strong>
-                                        <span class="badge bg-light text-secondary border small">@(entry.Actor?.DisplayName ?? (entry.Type == IncidentTimelineEntry.Triggered && entry.ActorId == null ? "系统" : "已删除用户"))</span>
+                                        <span class="badge bg-light text-secondary border small">@(entry.Actor?.DisplayName ?? (entry.Type == IncidentTimelineEntry.Created && entry.ActorId == null ? "系统" : "已删除用户"))</span>
                                     </div>
                                     <small class="text-muted font-monospace small">
                                         @entry.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
                                     </small>
                                 </div>
+                                @if (entry.PreviousStatus != entry.NewStatus && (entry.PreviousStatus != null || entry.NewStatus != null))
+                                {
+                                    <div class="text-muted small mt-1">状态：@StatusText(entry.PreviousStatus) → @StatusText(entry.NewStatus)</div>
+                                }
+                                @if (entry.PreviousOwnerId != entry.NewOwnerId || entry.PreviousOwnerName != entry.NewOwnerName)
+                                {
+                                    <div class="text-muted small mt-1 text-break">负责人：@(entry.PreviousOwnerName ?? entry.PreviousOwnerId ?? "未分配") → @(entry.NewOwnerName ?? entry.NewOwnerId ?? "未分配")</div>
+                                }
+                                @if (entry.PreviousLevel != entry.NewLevel && (entry.PreviousLevel != null || entry.NewLevel != null))
+                                {
+                                    <div class="text-muted small mt-1">级别：@(entry.PreviousLevel ?? "未设置") → @(entry.NewLevel ?? "未设置")</div>
+                                }
                                 @if (!string.IsNullOrEmpty(entry.Note))
                                 {
                                     <div class="mt-2 p-3 bg-light rounded-3 text-break small font-monospace border" style="white-space: pre-wrap; line-height: 1.6;">
@@ -154,6 +215,57 @@
 
     <!-- Right Column: Associated Alerts & Facts -->
     <div class="col-lg-4">
+        <section class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-transparent py-3">
+                <h2 class="card-title h6 mb-0">当前值班 OCE</h2>
+            </div>
+            <div class="card-body pt-0 small">
+                @if (!string.IsNullOrEmpty(Model.CurrentOceError))
+                {
+                    <div class="alert alert-warning mb-0" role="alert">当前值班 OCE 查询失败：@Model.CurrentOceError</div>
+                }
+                else if (Model.CurrentOces.Count == 0)
+                {
+                    <p class="text-muted mb-0">当前无值班 OCE。</p>
+                }
+                else
+                {
+                    <ul class="list-unstyled mb-0">
+                        @foreach (var oce in Model.CurrentOces)
+                        {
+                            <li class="text-break mb-2">
+                                <strong>@oce.DisplayName</strong>
+                                @if (!string.IsNullOrEmpty(oce.Email))
+                                {
+                                    <span class="text-muted">（@oce.Email）</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (incident.AcknowledgedAtUtc.HasValue || incident.MitigatedAtUtc.HasValue || incident.ResolvedAtUtc.HasValue)
+                {
+                    <dl class="mb-0 mt-3 pt-3 border-top text-muted">
+                        @if (incident.AcknowledgedAtUtc.HasValue)
+                        {
+                            <dt>确认时间 (UTC)</dt>
+                            <dd class="font-monospace">@incident.AcknowledgedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                        }
+                        @if (incident.MitigatedAtUtc.HasValue)
+                        {
+                            <dt>缓解时间 (UTC)</dt>
+                            <dd class="font-monospace">@incident.MitigatedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                        }
+                        @if (incident.ResolvedAtUtc.HasValue)
+                        {
+                            <dt>解决时间 (UTC)</dt>
+                            <dd class="font-monospace">@incident.ResolvedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                        }
+                    </dl>
+                }
+            </div>
+        </section>
+
         <!-- Associated Alerts -->
         <section class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
@@ -208,14 +320,14 @@
                     <i data-lucide="shield-check" style="width: 18px; height: 18px;" class="text-primary flex-shrink-0 mt-0.5" aria-hidden="true"></i>
                     <div>
                         <strong class="text-dark d-block mb-0.5">自动归档与通知静默</strong>
-                        事故确认处理中后，所有匹配相同规则的新上报告警将自动打上“已归档”标签，且不会再次向团队发送重复的推送通知。
+                        事故处于“已确认”或“已缓解”状态时，匹配相同规则的新上报告警将自动归档并抑制重复通知。调整事故级别不会改变原始告警的匹配规则。
                     </div>
                 </div>
                 <div class="d-flex align-items-start gap-2">
                     <i data-lucide="rotate-ccw" style="width: 18px; height: 18px;" class="text-success flex-shrink-0 mt-0.5" aria-hidden="true"></i>
                     <div>
                         <strong class="text-dark d-block mb-0.5">闭环恢复</strong>
-                        在事故彻底解决并发布修复后，点击“解决事故”关闭作战室，后续新告警将恢复正常的通知流。
+                        先记录缓解措施，再填写解决原因关闭事故。重开事故将恢复“待响应”、清空负责人、恢复告警通知，并邮件通知当前值班 OCE。
                     </div>
                 </div>
             </div>
@@ -223,13 +335,97 @@
     </div>
 </div>
 
+@if (Model.CanManage && incident.Status == Incident.Acked)
+{
+    <div class="modal fade" id="mitigate-incident" tabindex="-1" aria-labelledby="mitigate-incident-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <form asp-action="Mitigate" method="post" class="modal-content border-0 shadow">
+                <input type="hidden" name="incidentId" value="@incident.Id" />
+                <input type="hidden" name="version" value="@incident.Version" />
+                <div class="modal-header">
+                    <h2 class="modal-title h5 mb-0" id="mitigate-incident-title">缓解事故</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small mb-3">记录已采取的缓解措施。缓解后仍会自动归档匹配告警并抑制重复通知；完成修复后再解决事故。</p>
+                    <label for="mitigate-note" class="form-label small text-muted">缓解原因（必填）</label>
+                    <textarea id="mitigate-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="说明缓解措施、影响范围与恢复情况。"></textarea>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确认缓解事故</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@if (canChangeLevel)
+{
+    <div class="modal fade" id="change-incident-level" tabindex="-1" aria-labelledby="change-incident-level-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <form asp-action="ChangeLevel" method="post" class="modal-content border-0 shadow">
+                <input type="hidden" name="incidentId" value="@incident.Id" />
+                <input type="hidden" name="version" value="@incident.Version" />
+                <div class="modal-header">
+                    <h2 class="modal-title h5 mb-0" id="change-incident-level-title">调整事故级别</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small mb-3">调整当前事故严重程度，不改变原始告警的匹配规则。</p>
+                    <label for="incident-new-level" class="form-label small text-muted">新级别</label>
+                    <select id="incident-new-level" name="level" class="form-select mb-3" required>
+                        <option value="sev0" selected="@(incident.AlertLevel == "sev0")">sev0 · DEADLY (P0)</option>
+                        <option value="sev1" selected="@(incident.AlertLevel == "sev1")">sev1 · 严重 (P1)</option>
+                        <option value="sev2" selected="@(incident.AlertLevel == "sev2")">sev2 · 错误 (P2)</option>
+                        <option value="sev3" selected="@(incident.AlertLevel == "sev3")">sev3 · 警告 (P3)</option>
+                        <option value="sev4" selected="@(incident.AlertLevel == "sev4")">sev4 · 信息 (P4)</option>
+                    </select>
+                    <label for="change-level-note" class="form-label small text-muted">调整原因（必填）</label>
+                    <textarea id="change-level-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="说明影响变化与级别调整依据。"></textarea>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">确认调整级别</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@if (canReopen)
+{
+    <div class="modal fade" id="reopen-incident" tabindex="-1" aria-labelledby="reopen-incident-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <form asp-action="Reopen" method="post" class="modal-content border-0 shadow">
+                <input type="hidden" name="incidentId" value="@incident.Id" />
+                <input type="hidden" name="version" value="@incident.Version" />
+                <div class="modal-header">
+                    <h2 class="modal-title h5 mb-0" id="reopen-incident-title">重开事故</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small mb-3">重开后恢复“待响应”状态并清空负责人，匹配告警恢复通知，同时邮件通知当前值班 OCE。需重新确认并认领事故。</p>
+                    <label for="reopen-note" class="form-label small text-muted">重开说明（可选）</label>
+                    <textarea id="reopen-note" name="note" maxlength="4000" rows="4" class="form-control" placeholder="例如：监控再次发现相同故障，需要重新排查。"></textarea>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-danger">确认重开事故</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
 <!-- Modal: Resolve Incident -->
-@if (Model.CanManage && isActive)
+@if (Model.CanManage && incident.Status == Incident.Mitigated)
 {
     <div class="modal fade" id="resolve-incident" tabindex="-1" aria-labelledby="resolve-incident-title" aria-hidden="true">
         <div class="modal-dialog">
             <form asp-action="Resolve" method="post" class="modal-content border-0 shadow">
                 <input type="hidden" name="incidentId" value="@incident.Id" />
+                <input type="hidden" name="version" value="@incident.Version" />
                 <div class="modal-header">
                     <div class="d-flex align-items-center gap-2">
                         <div class="rounded-circle bg-success-subtle text-success p-1.5">
@@ -243,8 +439,8 @@
                     <p class="text-muted small mb-3">
                         解决事故后，将解除对匹配告警的自动归档与静默机制，后续相同规则的告警将恢复正常推送。
                     </p>
-                    <label for="resolve-note" class="form-label small text-muted">解决说明（可选）</label>
-                    <textarea id="resolve-note" name="note" maxlength="4000" rows="4" class="form-control" placeholder="例如：核心数据库连接池已恢复，服务响应正常，压测验证通过。"></textarea>
+                    <label for="resolve-note" class="form-label small text-muted">解决原因（必填）</label>
+                    <textarea id="resolve-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="例如：核心数据库连接池已恢复，服务响应正常，压测验证通过。"></textarea>
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>

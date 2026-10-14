@@ -28,7 +28,7 @@ public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incide
     {
         var incident = await incidentMatcher.FindOrCreateActiveIncidentAsync(message, cancellationToken);
         message.IncidentId = incident.Id;
-        if (incident.Status == Incident.Acknowledged)
+        if (incident.Status is Incident.Acked or Incident.Mitigated)
         {
             message.IsArchived = true;
             return;

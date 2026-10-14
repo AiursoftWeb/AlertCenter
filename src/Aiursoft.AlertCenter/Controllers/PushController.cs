@@ -334,8 +334,9 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush) ||
                             applicationAccess.IsAdministrator(User);
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
-        var query = db.PushDeliveries.AsNoTracking().Where(delivery => delivery.Message != null &&
-            (canManagePush || accessibleIds.Contains(delivery.Message.ApplicationId)));
+        var query = db.PushDeliveries.AsNoTracking().Where(delivery =>
+            (delivery.Message != null && (canManagePush || accessibleIds.Contains(delivery.Message.ApplicationId))) ||
+            (delivery.IncidentEvent != null && (canManagePush || accessibleIds.Contains(delivery.IncidentEvent.Incident.ApplicationId))));
         if (channelId == Guid.Empty) query = query.Where(delivery => delivery.OnCallEmail != null);
         else if (channelId.HasValue) query = query.Where(delivery => delivery.ChannelId == channelId);
         if (!canManagePush)
@@ -347,7 +348,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (status is PushDelivery.Pending or PushDelivery.Sending or PushDelivery.Succeeded or PushDelivery.Failed)
             query = query.Where(delivery => delivery.Status == status);
         else status = null;
-        var deliveries = await query.Include(delivery => delivery.OnCallEmail)
+        var deliveries = await query.Include(delivery => delivery.IncidentEvent).ThenInclude(entry => entry!.Incident).ThenInclude(incident => incident.Application)
+            .Include(delivery => delivery.OnCallEmail)
             .Include(delivery => delivery.Channel).Include(delivery => delivery.Message)!
             .ThenInclude(message => message!.Application).OrderByDescending(delivery => delivery.CreatedAtUtc)
             .ThenByDescending(delivery => delivery.Id).Skip((page - 1) * 20).Take(21).ToListAsync();
@@ -361,14 +363,16 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
 
     public async Task<IActionResult> Delivery(Guid id, CancellationToken cancellationToken)
     {
-        var delivery = await db.PushDeliveries.AsNoTracking().Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
+        var delivery = await db.PushDeliveries.AsNoTracking().Include(item => item.IncidentEvent).ThenInclude(entry => entry!.Incident).ThenInclude(incident => incident.Application)
+            .Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
             .Include(item => item.Channel).Include(item => item.Message)!
             .ThenInclude(message => message!.Application).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return NotFound();
         var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush) ||
                             applicationAccess.IsAdministrator(User);
-        if (delivery.Message == null || (!canManagePush && !await applicationAccess.CanAccessAsync(
-                User, delivery.Message.ApplicationId, cancellationToken: cancellationToken))) return Forbid();
+        var sourceApplicationId = delivery.Message?.ApplicationId ?? delivery.IncidentEvent?.Incident.ApplicationId;
+        if (!sourceApplicationId.HasValue || (!canManagePush && !await applicationAccess.CanAccessAsync(
+                User, sourceApplicationId.Value, cancellationToken: cancellationToken))) return Forbid();
         if (!canManagePush && delivery.OnCallEmail == null &&
             (!delivery.ChannelId.HasValue || !await channelAccess.CanBindAsync(User, delivery.ChannelId.Value, cancellationToken))) return Forbid();
         return this.StackView(new PushViewModel
@@ -383,8 +387,10 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Retry(Guid id, CancellationToken cancellationToken = default)
     {
-        var deliveryAccess = await db.PushDeliveries.Where(delivery => delivery.Id == id && delivery.MessageId != null)
-            .Select(delivery => new { delivery.ChannelId, BuiltIn = delivery.OnCallEmail != null, ApplicationId = delivery.Message!.ApplicationId })
+        var deliveryAccess = await db.PushDeliveries.Where(delivery => delivery.Id == id &&
+                (delivery.MessageId != null || delivery.IncidentEventId != null))
+            .Select(delivery => new { delivery.ChannelId, BuiltIn = delivery.OnCallEmail != null,
+                ApplicationId = delivery.Message != null ? delivery.Message.ApplicationId : delivery.IncidentEvent!.Incident.ApplicationId })
             .SingleOrDefaultAsync(cancellationToken);
         if (deliveryAccess == null) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, deliveryAccess.ApplicationId, requireManage: true, cancellationToken) ||
