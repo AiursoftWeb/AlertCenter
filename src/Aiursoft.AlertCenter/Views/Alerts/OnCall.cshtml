@@ -1,0 +1,39 @@
+@model Aiursoft.AlertCenter.Models.ApplicationOnCallViewModel
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">应用值班设置</h1>
+        <p class="text-muted mb-0">@Model.Application.Name · 选择、更换或解除值班组绑定。</p>
+    </div>
+    <a asp-action="Applications" class="btn btn-outline-secondary">返回接入应用</a>
+</div>
+@if (TempData["ApplicationOnCallSuccess"] is string message)
+{
+    <div class="alert alert-success" role="status">@message</div>
+}
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0">值班组（可选）</h2></div>
+    <div class="card-body pt-0">
+        <form asp-action="SaveOnCall" method="post">
+            <input type="hidden" name="ApplicationId" value="@Model.Application.Id" />
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+            <div class="mb-3">
+                <label asp-for="OnCallGroupId" class="form-label">值班组</label>
+                <select asp-for="OnCallGroupId" class="form-select" aria-describedby="oncall-group-hint">
+                    <option value="">不绑定值班组</option>
+                    @foreach (var group in Model.Groups)
+                    {
+                        <option value="@group.Id">@group.Name (@group.TimeZoneId)</option>
+                    }
+                </select>
+                <div id="oncall-group-hint" class="form-text">每个应用最多绑定一个值班组，一个组可服务多个应用。选择“不绑定值班组”可解除绑定，仅需接收告警的应用无需配置值班。</div>
+            </div>
+            @if (Model.Groups.Count == 0)
+            {
+                <div class="alert alert-info">暂无值班组，请联系管理员在值班中心创建团队。</div>
+            }
+            <p class="small text-muted">值班组当前班次的所有当班成员均为 OCE。本次绑定暂不改变告警接入、事故创建或推送路由，也不授予应用访问权限。</p>
+            <button type="submit" class="btn btn-primary">保存值班设置</button>
+        </form>
+    </div>
+</div>

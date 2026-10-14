@@ -58,6 +58,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<PushChannelBindingUser>().HasOne(link => link.User).WithMany()
             .HasForeignKey(link => link.UserId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<SourceApplication>().HasOne(application => application.OnCallGroup).WithMany()
+            .HasForeignKey(application => application.OnCallGroupId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<ReportedMessage>().HasIndex(m => new { m.ApplicationId, m.ReportId }).IsUnique();
         builder.Entity<ReportedMessage>().HasIndex(m => new { m.ApplicationId, m.ReceivedAtUtc });
         builder.Entity<ReportedMessage>().HasIndex(m => new { m.IncidentId, m.ReceivedAtUtc });

@@ -605,12 +605,17 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
+                    b.Property<Guid?>("OnCallGroupId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("SecretHash")
                         .IsRequired()
                         .HasMaxLength(512)
                         .HasColumnType("varchar(512)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OnCallGroupId");
 
                     b.ToTable("SourceApplications");
                 });
@@ -1117,6 +1122,16 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Incident");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SourceApplication", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "OnCallGroup")
+                        .WithMany()
+                        .HasForeignKey("OnCallGroupId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("OnCallGroup");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

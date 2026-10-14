@@ -76,6 +76,10 @@ Administrator JSON endpoints use the existing login cookie. POST requests requir
 
 Successful writes return 200 with a `warnings` array (including below-minimum staffing notices). Validation failures return 400 with an `errors` array; stale versions/write conflicts return 409. Refresh the schedule after saving to obtain the new version. Stored schedules currently do not change alert routing. Leave is handled by manually removing/replacing assignees, without a separate leave-approval workflow.
 
+### Optional application binding
+
+Applications may optionally bind one on-call team, and a team can serve multiple applications. Select a team when creating an application, or use **接入应用 → 值班设置** to bind, change, or remove it; administrators and users with application manage access can update the binding. Applications that only need alerts can remain unbound. All engineers assigned to the team's current shift are OCEs. Binding alone does not change alert ingestion, incident creation, notification routing, or application access permissions. A team bound to any application cannot be deleted until those applications are rebound or unbound. Existing applications remain unbound after migration.
+
 ## Application access control
 
 Administrators always have full access to every application. In **接入应用 → 访问权限**, an administrator can grant either users or roles **view** or **manage** access for a single application. Role grants are inherited by every role member; if a user has multiple grants, manage access takes precedence over view access. View access permits only that application’s alerts, incidents, and related delivery records. Manage access also permits application settings, API-key reset, enable/disable, push bindings, and Incident actions. Creating applications and editing application access grants remain administrator-only.

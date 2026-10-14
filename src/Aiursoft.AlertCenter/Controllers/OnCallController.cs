@@ -38,6 +38,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         if (model.Groups.All(group => group.Id != id)) return NotFound();
         model.SelectedGroupId = id;
         model.GroupHasSavedSchedule = await db.OnCallShifts.AnyAsync(shift => shift.GroupId == id, cancellationToken);
+        model.GroupHasBoundApplications = await db.SourceApplications.AnyAsync(application => application.OnCallGroupId == id, cancellationToken);
         return this.StackView(model);
     }
 
@@ -254,6 +255,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         if (group == null) return NotFound();
         if (await db.OnCallShifts.AnyAsync(shift => shift.GroupId == id, cancellationToken))
             return Conflict("该团队有已保存的排班，不能删除团队及其历史记录。");
+        if (await db.SourceApplications.AnyAsync(application => application.OnCallGroupId == id, cancellationToken))
+            return Conflict("该团队已绑定接入应用，请先更换或解除应用的值班组绑定。");
         db.OnCallGroupMembers.RemoveRange(await db.OnCallGroupMembers.Where(member => member.GroupId == id).ToListAsync(cancellationToken));
         db.OnCallGroups.Remove(group);
         try

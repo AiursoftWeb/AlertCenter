@@ -91,16 +91,78 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
     public async Task<IActionResult> CreateApplication(CreateApplicationRequest request, CancellationToken cancellationToken)
     {
         if (!applicationAccess.IsAdministrator(User)) return Forbid();
-        if (!ModelState.IsValid) return this.StackView(await ApplicationsModel(cancellationToken: cancellationToken), "Applications");
-        var application = new SourceApplication { Name = request.Name.Trim() };
+        if (!await OnCallGroupExists(request.OnCallGroupId, cancellationToken))
+            ModelState.AddModelError(nameof(request.OnCallGroupId), "所选值班组不存在，请重新选择。");
+        if (!ModelState.IsValid)
+        {
+            var model = await ApplicationsModel(cancellationToken: cancellationToken);
+            model.ApplicationInput = request;
+            return this.StackView(model, "Applications");
+        }
+        var application = new SourceApplication { Name = request.Name.Trim(), OnCallGroupId = request.OnCallGroupId };
         var secret = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
         application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, secret);
         db.SourceApplications.Add(application);
-        await db.SaveChangesAsync();
+        try
+        {
+            await db.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateException)
+        {
+            if (await OnCallGroupExists(request.OnCallGroupId, cancellationToken)) throw;
+            ModelState.AddModelError(nameof(request.OnCallGroupId), "值班组已被删除，请重新选择。");
+            var model = await ApplicationsModel(cancellationToken: cancellationToken);
+            model.ApplicationInput = request;
+            return this.StackView(model, "Applications");
+        }
         TempData[CreatedApplicationApiKey] = $"{application.Id}.{secret}";
         TempData[ApiKeyWasReset] = false;
         return RedirectToAction(nameof(Applications));
     }
+
+    public async Task<IActionResult> OnCall(Guid id, CancellationToken cancellationToken)
+    {
+        var application = await db.SourceApplications.AsNoTracking().SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (application == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
+        return this.StackView(await OnCallModel(application, application.OnCallGroupId, cancellationToken));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> SaveOnCall(SaveApplicationOnCallRequest request, CancellationToken cancellationToken)
+    {
+        var application = await db.SourceApplications.SingleOrDefaultAsync(item => item.Id == request.ApplicationId, cancellationToken);
+        if (application == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, application.Id, requireManage: true, cancellationToken)) return Forbid();
+        if (!await OnCallGroupExists(request.OnCallGroupId, cancellationToken))
+            ModelState.AddModelError(nameof(request.OnCallGroupId), "所选值班组不存在，请重新选择。");
+        if (!ModelState.IsValid)
+            return this.StackView(await OnCallModel(application, request.OnCallGroupId, cancellationToken), "OnCall");
+        application.OnCallGroupId = request.OnCallGroupId;
+        try
+        {
+            await db.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateException)
+        {
+            if (await OnCallGroupExists(request.OnCallGroupId, cancellationToken)) throw;
+            ModelState.AddModelError(nameof(request.OnCallGroupId), "值班组已被删除，请重新选择。");
+            return this.StackView(await OnCallModel(application, request.OnCallGroupId, cancellationToken), "OnCall");
+        }
+        TempData["ApplicationOnCallSuccess"] = request.OnCallGroupId.HasValue ? "应用值班组已更新。" : "应用已解除值班组绑定。";
+        return RedirectToAction(nameof(OnCall), new { id = application.Id });
+    }
+
+    private async Task<bool> OnCallGroupExists(Guid? id, CancellationToken cancellationToken) =>
+        !id.HasValue || await db.OnCallGroups.AnyAsync(group => group.Id == id, cancellationToken);
+
+    private async Task<ApplicationOnCallViewModel> OnCallModel(SourceApplication application, Guid? groupId,
+        CancellationToken cancellationToken) => new()
+    {
+        Application = application,
+        OnCallGroupId = groupId,
+        Groups = await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken)
+    };
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> ResetApiKey(Guid id, CancellationToken cancellationToken)
@@ -225,7 +287,10 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         if (!string.IsNullOrEmpty(keyword)) applications = applications.Where(application => application.Name.Contains(keyword));
         return new AlertsViewModel
         {
-            Applications = await applications.OrderByDescending(application => application.CreatedAtUtc).ToListAsync(cancellationToken),
+            Applications = await applications.Include(application => application.OnCallGroup)
+                .OrderByDescending(application => application.CreatedAtUtc).ToListAsync(cancellationToken),
+            OnCallGroups = applicationAccess.IsAdministrator(User)
+                ? await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken) : [],
             ApplicationSearchKeyword = keyword,
             IsAdministrator = applicationAccess.IsAdministrator(User),
             ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, true, cancellationToken)).ToHashSet()

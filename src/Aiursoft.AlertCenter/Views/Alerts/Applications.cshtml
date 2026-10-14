@@ -79,8 +79,18 @@
                     <div class="col-sm">
                         <div class="input-group">
                             <span class="input-group-text bg-transparent text-muted"><i data-lucide="app-window" class="align-middle"></i></span>
-                            <input id="name" name="Name" required maxlength="100" placeholder="例如：订单支付服务、用户中心、边缘网关…" class="form-control" aria-describedby="name-hint" />
+                            <input id="name" name="Name" value="@Model.ApplicationInput.Name" required maxlength="100" placeholder="例如：订单支付服务、用户中心、边缘网关…" class="form-control" aria-describedby="name-hint" />
                         </div>
+                    </div>
+                    <div class="col-sm">
+                        <label for="create-oncall-group" class="visually-hidden">值班组（可选）</label>
+                        <select id="create-oncall-group" name="OnCallGroupId" class="form-select" aria-describedby="oncall-group-hint">
+                            <option value="">不绑定值班组</option>
+                            @foreach (var group in Model.OnCallGroups)
+                            {
+                                <option value="@group.Id" selected="@(Model.ApplicationInput.OnCallGroupId == group.Id)">@group.Name (@group.TimeZoneId)</option>
+                            }
+                        </select>
                     </div>
                     <div class="col-sm-auto">
                         <button class="btn btn-primary w-100" type="submit">
@@ -89,6 +99,7 @@
                     </div>
                 </div>
                 <small id="name-hint" class="text-muted d-block mt-2">使用简明清晰的业务系统名称，系统将自动生成对应的前缀 ID 与随机 Secret。</small>
+                <small id="oncall-group-hint" class="text-muted d-block mt-1">值班组可选；仅需接收告警的应用无需绑定。绑定暂不改变现有告警与通知行为。</small>
                 <div asp-validation-summary="All" class="text-danger mt-2"></div>
             </form>
         </div>
@@ -146,6 +157,7 @@
                     <tr>
                         <th class="ps-4">应用信息</th>
                         <th>应用 ID</th>
+                        <th>值班组</th>
                         <th>运行状态</th>
                         <th class="text-end pe-4">操作</th>
                     </tr>
@@ -168,6 +180,16 @@
                             <code class="text-muted font-monospace small">@application.Id</code>
                         </td>
                         <td>
+                            @if (application.OnCallGroup != null)
+                            {
+                                <a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@application.OnCallGroupId">@application.OnCallGroup.Name</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">未绑定</span>
+                            }
+                        </td>
+                        <td>
                             @if (application.IsEnabled)
                             {
                                 <span class="badge bg-success-subtle text-success border border-success-subtle">
@@ -188,6 +210,9 @@
                                 </a>
                                 @if (Model.ManageableApplicationIds.Contains(application.Id))
                                 {
+                                    <a asp-action="OnCall" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">
+                                        <i class="align-middle me-1" data-lucide="calendar-clock"></i>值班设置
+                                    </a>
                                     <a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">
                                         <i class="align-middle me-1" data-lucide="sliders"></i>推送设置
                                     </a>

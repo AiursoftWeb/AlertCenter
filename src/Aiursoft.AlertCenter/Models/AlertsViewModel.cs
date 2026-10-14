@@ -13,6 +13,8 @@ public class AlertsViewModel : UiStackLayoutViewModel
     public string? ApiKey { get; set; }
     public bool ApiKeyWasReset { get; set; }
     public string? ApplicationSearchKeyword { get; set; }
+    public CreateApplicationRequest ApplicationInput { get; set; } = new();
+    public List<OnCallGroup> OnCallGroups { get; set; } = [];
     public AlertFilter AlertFilter { get; set; } = new();
     public int Page { get; set; } = 1;
     public bool HasNextPage { get; set; }
@@ -23,4 +25,5 @@ public class AlertsViewModel : UiStackLayoutViewModel
 public class CreateApplicationRequest
 {
     [Required, StringLength(100)] public string Name { get; set; } = string.Empty;
+    public Guid? OnCallGroupId { get; set; }
 }

@@ -55,6 +55,10 @@
     {
         <div class="alert alert-info">该团队已有保存的班次，不能删除，以保留排班历史。</div>
     }
+    else if (Model.GroupHasBoundApplications)
+    {
+        <div class="alert alert-info">该团队已绑定接入应用，请先更换或解除应用的值班组绑定，再删除团队。</div>
+    }
     else
     {
         <form asp-action="DeleteGroup" method="post" onsubmit="return confirm('确定删除该团队？规则模板不会被删除，此操作无法恢复。');">

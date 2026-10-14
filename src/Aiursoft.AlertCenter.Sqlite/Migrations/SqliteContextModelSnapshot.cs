@@ -600,12 +600,17 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("OnCallGroupId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SecretHash")
                         .IsRequired()
                         .HasMaxLength(512)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OnCallGroupId");
 
                     b.ToTable("SourceApplications");
                 });
@@ -1108,6 +1113,16 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Incident");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SourceApplication", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "OnCallGroup")
+                        .WithMany()
+                        .HasForeignKey("OnCallGroupId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("OnCallGroup");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
