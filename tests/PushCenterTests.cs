@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 namespace Aiursoft.AlertCenter.Tests;
 
 [TestClass]
-public class PushCenterTests
+public partial class PushCenterTests
 {
     private SqliteContext _db = null!;
     private FakeWebhookHandler _http = null!;
@@ -653,7 +653,7 @@ public class PushCenterTests
         Assert.AreEqual(content, delivery.TestContent);
         Assert.AreEqual(PushDelivery.Succeeded, delivery.Status, delivery.Error);
         var sent = _email.Messages.Single();
-        Assert.AreEqual("oncall@example.com", sent.Recipient);
+        CollectionAssert.AreEqual(new[] { "oncall@example.com" }, sent.Recipients.ToArray());
         CollectionAssert.AreEquivalent(new[] { "manager@example.com", "TEAM@example.com" }, sent.CcRecipients.ToArray());
         StringAssert.StartsWith(sent.Subject, "[AlertCenter][sev3]");
         StringAssert.Contains(sent.Body, content);

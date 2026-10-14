@@ -16,13 +16,15 @@ public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificati
                 .SetProperty(delivery => delivery.Attempts, delivery => delivery.Attempts + 1), cancellationToken);
         if (claimed == 0) return;
         var delivery = await db.PushDeliveries.Include(item => item.Channel).Include(item => item.Message)
+            .Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
             .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return;
         await db.Entry(delivery).ReloadAsync(cancellationToken);
 
         NotificationDeliveryResult result;
-        var adapter = adapters.SingleOrDefault(item => item.Definition.Key == delivery.Channel.Type);
-        if (!delivery.Channel.IsEnabled)
+        var adapter = adapters.SingleOrDefault(item => item.Definition.Key ==
+            (delivery.OnCallEmail != null ? "email" : delivery.Channel?.Type));
+        if (delivery.OnCallEmail == null && delivery.Channel?.IsEnabled != true)
             result = new(false, ErrorMessage: "渠道已停用，启用后可手动重试。");
         else if (adapter == null)
             result = new(false, ErrorMessage: "该渠道类型当前不可用。");

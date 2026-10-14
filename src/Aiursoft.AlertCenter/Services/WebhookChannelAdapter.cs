@@ -51,7 +51,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
 
     public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
     {
-        if (!IsValidEndpoint(delivery.Channel.Endpoint))
+        if (delivery.Channel == null || !IsValidEndpoint(delivery.Channel.Endpoint))
             return new(false, ErrorMessage: "Webhook 地址无效，请检查渠道配置。");
         if (!webhookConfigurationProtector.TryUnprotect(delivery.Channel.WebhookHeadersProtected, out var customHeadersJson) ||
             !TryParseCustomHeaders(customHeadersJson, out var headers, out _) || !TryCreatePayload(delivery, out var payload))
@@ -176,7 +176,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
                 ["{{occurredAtUtc}}"] = JsonValue.Create(message?.OccurredAtUtc ?? delivery.CreatedAtUtc),
                 ["{{context}}"] = context
             };
-            if (string.IsNullOrWhiteSpace(delivery.Channel.WebhookPayloadTemplate))
+            if (string.IsNullOrWhiteSpace(delivery.Channel?.WebhookPayloadTemplate))
             {
                 payload = new JsonObject
                 {
@@ -187,7 +187,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
                 };
                 return true;
             }
-            var template = JsonNode.Parse(delivery.Channel.WebhookPayloadTemplate);
+            var template = JsonNode.Parse(delivery.Channel!.WebhookPayloadTemplate!);
             if (template is not JsonObject || !TryResolvePayload(template, values, out payload)) return false;
             return true;
         }

@@ -232,6 +232,67 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.ToTable("IncidentTimelineEntries");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailRecipient", b =>
+                {
+                    b.Property<Guid>("DeliveryId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(320)
+                        .HasColumnType("varchar(320)");
+
+                    b.HasKey("DeliveryId", "UserId");
+
+                    b.ToTable("OnCallEmailRecipient");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", b =>
+                {
+                    b.Property<Guid>("DeliveryId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("CcRecipients")
+                        .HasMaxLength(8000)
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("EndsAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime>("NotificationAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("ShiftId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("StartsAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ValidationError")
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
+
+                    b.HasKey("DeliveryId");
+
+                    b.ToTable("OnCallEmailSnapshots");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
                     b.Property<Guid>("Id")
@@ -240,6 +301,10 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.Property<DateTime>("AnchorUtc")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("EmailCcRecipients")
+                        .HasMaxLength(8000)
+                        .HasColumnType("varchar(8000)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -479,7 +544,7 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<int>("Attempts")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ChannelId")
+                    b.Property<Guid?>("ChannelId")
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime?>("CompletedAtUtc")
@@ -934,6 +999,28 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Incident");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailRecipient", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", "Snapshot")
+                        .WithMany("Recipients")
+                        .HasForeignKey("DeliveryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Snapshot");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.PushDelivery", "Delivery")
+                        .WithOne("OnCallEmail")
+                        .HasForeignKey("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", "DeliveryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Delivery");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.OnCallRule", "Rule")
@@ -1074,8 +1161,7 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasOne("Aiursoft.AlertCenter.Entities.PushChannel", "Channel")
                         .WithMany()
                         .HasForeignKey("ChannelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Aiursoft.AlertCenter.Entities.ReportedMessage", "Message")
                         .WithMany()
@@ -1192,6 +1278,11 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("TimelineEntries");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", b =>
+                {
+                    b.Navigation("Recipients");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
                     b.Navigation("Members");
@@ -1200,6 +1291,11 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
                 {
                     b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushDelivery", b =>
+                {
+                    b.Navigation("OnCallEmail");
                 });
 #pragma warning restore 612, 618
         }

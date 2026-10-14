@@ -33,6 +33,24 @@
             <p class="text-muted">未绑定规则模板，仍可手动编辑排班。</p>
         }
         <p class="small text-muted">模板可由多个团队共用；修改或切换模板不会重新生成已保存班次。</p>
+        @if (Model.IsAdministrator)
+        {
+            <h3 class="h6">值班邮件抄送（CC）</h3>
+            @if (string.IsNullOrWhiteSpace(group.EmailCcRecipients))
+            {
+                <p class="text-muted">未配置抄送地址。</p>
+            }
+            else
+            {
+                <ul class="mb-2">
+                    @foreach (var recipient in group.EmailCcRecipients.Split('\n'))
+                    {
+                        <li class="text-break">@recipient</li>
+                    }
+                </ul>
+            }
+            <p class="small text-muted">值班邮件会自动发送至当前已保存班次中所有值班工程师（OCE）的用户邮箱（To）。CC 仅使用管理员显式配置的团队邮箱或邮件组地址，不会自动抄送全部团队成员。应用配置的自定义推送渠道仍会额外投递。</p>
+        }
         <h3 class="h6">轮换成员（按顺序）</h3>
         @if (group.Members.Count == 0)
         {

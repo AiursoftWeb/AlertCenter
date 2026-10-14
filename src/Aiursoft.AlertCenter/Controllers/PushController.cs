@@ -244,7 +244,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [HttpGet]
     public async Task<IActionResult> Bindings(Guid id, CancellationToken cancellationToken)
     {
-        var application = await db.SourceApplications.FindAsync([id], cancellationToken);
+        var application = await db.SourceApplications.Include(item => item.OnCallGroup)
+            .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (application == null) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
         var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
@@ -335,16 +336,19 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
         var query = db.PushDeliveries.AsNoTracking().Where(delivery => delivery.Message != null &&
             (canManagePush || accessibleIds.Contains(delivery.Message.ApplicationId)));
-        if (channelId.HasValue) query = query.Where(delivery => delivery.ChannelId == channelId);
+        if (channelId == Guid.Empty) query = query.Where(delivery => delivery.OnCallEmail != null);
+        else if (channelId.HasValue) query = query.Where(delivery => delivery.ChannelId == channelId);
         if (!canManagePush)
         {
             var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
-            query = query.Where(delivery => bindableChannelIds.Contains(delivery.ChannelId));
+            query = query.Where(delivery => delivery.OnCallEmail != null ||
+                (delivery.ChannelId.HasValue && bindableChannelIds.Contains(delivery.ChannelId.Value)));
         }
         if (status is PushDelivery.Pending or PushDelivery.Sending or PushDelivery.Succeeded or PushDelivery.Failed)
             query = query.Where(delivery => delivery.Status == status);
         else status = null;
-        var deliveries = await query.Include(delivery => delivery.Channel).Include(delivery => delivery.Message)!
+        var deliveries = await query.Include(delivery => delivery.OnCallEmail)
+            .Include(delivery => delivery.Channel).Include(delivery => delivery.Message)!
             .ThenInclude(message => message!.Application).OrderByDescending(delivery => delivery.CreatedAtUtc)
             .ThenByDescending(delivery => delivery.Id).Skip((page - 1) * 20).Take(21).ToListAsync();
         return this.StackView(new PushViewModel
@@ -357,14 +361,16 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
 
     public async Task<IActionResult> Delivery(Guid id, CancellationToken cancellationToken)
     {
-        var delivery = await db.PushDeliveries.AsNoTracking().Include(item => item.Channel).Include(item => item.Message)!
+        var delivery = await db.PushDeliveries.AsNoTracking().Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
+            .Include(item => item.Channel).Include(item => item.Message)!
             .ThenInclude(message => message!.Application).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return NotFound();
         var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush) ||
                             applicationAccess.IsAdministrator(User);
         if (delivery.Message == null || (!canManagePush && !await applicationAccess.CanAccessAsync(
                 User, delivery.Message.ApplicationId, cancellationToken: cancellationToken))) return Forbid();
-        if (!canManagePush && !await channelAccess.CanBindAsync(User, delivery.ChannelId, cancellationToken)) return Forbid();
+        if (!canManagePush && delivery.OnCallEmail == null &&
+            (!delivery.ChannelId.HasValue || !await channelAccess.CanBindAsync(User, delivery.ChannelId.Value, cancellationToken))) return Forbid();
         return this.StackView(new PushViewModel
         {
             Delivery = delivery,
@@ -378,17 +384,20 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     public async Task<IActionResult> Retry(Guid id, CancellationToken cancellationToken = default)
     {
         var deliveryAccess = await db.PushDeliveries.Where(delivery => delivery.Id == id && delivery.MessageId != null)
-            .Select(delivery => new { delivery.ChannelId, ApplicationId = delivery.Message!.ApplicationId })
+            .Select(delivery => new { delivery.ChannelId, BuiltIn = delivery.OnCallEmail != null, ApplicationId = delivery.Message!.ApplicationId })
             .SingleOrDefaultAsync(cancellationToken);
         if (deliveryAccess == null) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, deliveryAccess.ApplicationId, requireManage: true, cancellationToken) ||
-            !await channelAccess.CanBindAsync(User, deliveryAccess.ChannelId, cancellationToken)) return Forbid();
+            (!deliveryAccess.BuiltIn && (!deliveryAccess.ChannelId.HasValue ||
+                !await channelAccess.CanBindAsync(User, deliveryAccess.ChannelId.Value, cancellationToken)))) return Forbid();
         var updated = await db.PushDeliveries.Where(delivery => delivery.Id == id &&
-                delivery.Status == PushDelivery.Failed && delivery.Channel.IsEnabled)
+                delivery.Status == PushDelivery.Failed &&
+                ((delivery.OnCallEmail != null && delivery.OnCallEmail.ValidationError == null && delivery.OnCallEmail.Recipients.Any()) ||
+                 (delivery.OnCallEmail == null && delivery.Channel != null && delivery.Channel.IsEnabled)))
             .ExecuteUpdateAsync(setters => setters.SetProperty(delivery => delivery.Status, PushDelivery.Pending)
                 .SetProperty(delivery => delivery.Error, (string?)null)
                 .SetProperty(delivery => delivery.CompletedAtUtc, (DateTime?)null));
-        if (updated == 0) return Conflict("仅可重试已启用渠道的失败记录，请刷新页面。");
+        if (updated == 0) return Conflict("仅可重试有效 OCE 快照的值班邮件，或已启用自定义渠道的失败记录。缺少 OCE 或邮箱时不能重新选择收件人补发旧告警。");
         return RedirectToAction(nameof(Delivery), new { id });
     }
 

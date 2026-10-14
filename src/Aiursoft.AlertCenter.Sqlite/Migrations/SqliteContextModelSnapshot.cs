@@ -227,6 +227,67 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.ToTable("IncidentTimelineEntries");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailRecipient", b =>
+                {
+                    b.Property<Guid>("DeliveryId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(320)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("DeliveryId", "UserId");
+
+                    b.ToTable("OnCallEmailRecipient");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", b =>
+                {
+                    b.Property<Guid>("DeliveryId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CcRecipients")
+                        .HasMaxLength(8000)
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("EndsAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("NotificationAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ShiftId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("StartsAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ValidationError")
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("DeliveryId");
+
+                    b.ToTable("OnCallEmailSnapshots");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
                     b.Property<Guid>("Id")
@@ -234,6 +295,10 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("AnchorUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EmailCcRecipients")
+                        .HasMaxLength(8000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -474,7 +539,7 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<int>("Attempts")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("ChannelId")
+                    b.Property<Guid?>("ChannelId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("CompletedAtUtc")
@@ -925,6 +990,28 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Incident");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailRecipient", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", "Snapshot")
+                        .WithMany("Recipients")
+                        .HasForeignKey("DeliveryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Snapshot");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.PushDelivery", "Delivery")
+                        .WithOne("OnCallEmail")
+                        .HasForeignKey("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", "DeliveryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Delivery");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.OnCallRule", "Rule")
@@ -1065,8 +1152,7 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.HasOne("Aiursoft.AlertCenter.Entities.PushChannel", "Channel")
                         .WithMany()
                         .HasForeignKey("ChannelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Aiursoft.AlertCenter.Entities.ReportedMessage", "Message")
                         .WithMany()
@@ -1183,6 +1269,11 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("TimelineEntries");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallEmailSnapshot", b =>
+                {
+                    b.Navigation("Recipients");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
                     b.Navigation("Members");
@@ -1191,6 +1282,11 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
                 {
                     b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.PushDelivery", b =>
+                {
+                    b.Navigation("OnCallEmail");
                 });
 #pragma warning restore 612, 618
         }

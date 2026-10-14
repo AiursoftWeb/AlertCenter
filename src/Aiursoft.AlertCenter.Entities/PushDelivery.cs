@@ -11,8 +11,9 @@ public class PushDelivery
     public const string DefaultTestContent = "这是一条推送渠道测试消息。";
 
     public Guid Id { get; set; } = Guid.NewGuid();
-    public Guid ChannelId { get; set; }
-    public PushChannel Channel { get; set; } = null!;
+    public Guid? ChannelId { get; set; }
+    public PushChannel? Channel { get; set; }
+    public OnCallEmailSnapshot? OnCallEmail { get; set; }
     public Guid? MessageId { get; set; }
     public ReportedMessage? Message { get; set; }
     [MaxLength(4000)] public string? TestContent { get; set; }

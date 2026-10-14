@@ -57,6 +57,7 @@
                     <span class="input-group-text bg-light text-muted"><i data-lucide="send" style="width: 16px; height: 16px;" aria-hidden="true"></i></span>
                     <select id="filter-channel" name="channelId" class="form-select">
                         <option value="">全部渠道</option>
+                        <option value="@Guid.Empty" selected="@(Model.ChannelId == Guid.Empty)">内置值班邮件</option>
                         @foreach (var channel in Model.Channels)
                         {
                             <option value="@channel.Id" selected="@(Model.ChannelId == channel.Id)">@channel.Name</option>
@@ -141,7 +142,7 @@
                             "sev4" => "ac-badge-sev4",
                             _ => null
                         };
-                        var channelIcon = delivery.Channel.Type switch
+                        var channelIcon = (delivery.OnCallEmail != null ? "email" : delivery.Channel?.Type) switch
                         {
                             "webhook" => "webhook",
                             "email" => "mail",
@@ -173,7 +174,7 @@
                             <td class="py-3">
                                 <div class="d-flex align-items-center gap-2">
                                     <i data-lucide="@channelIcon" style="width: 15px; height: 15px;" class="text-muted" aria-hidden="true"></i>
-                                    <span class="fw-medium">@delivery.Channel.Name</span>
+                                    <span class="fw-medium">@(delivery.OnCallEmail != null ? $"内置值班邮件 · {delivery.OnCallEmail.GroupName}" : delivery.Channel?.Name)</span>
                                 </div>
                             </td>
                             <td class="py-3 text-center">

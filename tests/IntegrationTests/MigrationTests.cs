@@ -21,9 +21,9 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(2, context.Database.GetMigrations().Count());
+        Assert.AreEqual(3, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
-        Assert.EndsWith("_AddApplicationOnCallGroup", context.Database.GetMigrations().Last());
+        Assert.EndsWith("_OnCallEmailNotifications", context.Database.GetMigrations().Last());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
 
@@ -66,6 +66,45 @@ public class MigrationTests
         await Assert.ThrowsAsync<DbUpdateException>(() => context.SaveChangesAsync());
         context.ChangeTracker.Clear();
         Assert.AreEqual(group.Id, (await context.SourceApplications.SingleAsync()).OnCallGroupId);
+    }
+
+    [TestMethod]
+    public async Task OnCallEmailMigrationPreservesCustomDeliveriesAndCanRevertBuiltInHistory()
+    {
+        await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await context.Database.OpenConnectionAsync();
+        var migrator = context.GetService<IMigrator>();
+        var previous = context.Database.GetMigrations().Single(id => id.EndsWith("_AddApplicationOnCallGroup"));
+        await migrator.MigrateAsync(previous);
+        var channelId = Guid.NewGuid();
+        var deliveryId = Guid.NewGuid();
+        var createdAt = DateTime.UtcNow;
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO PushChannels (Id, Name, Type, EmailRecipient, IsEnabled, CreatedAtUtc) VALUES ({channelId}, {"Custom"}, {"email"}, {"custom@example.com"}, {true}, {createdAt})");
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO PushDeliveries (Id, ChannelId, Status, Attempts, CreatedAtUtc) VALUES ({deliveryId}, {channelId}, {PushDelivery.Failed}, {1}, {createdAt})");
+        await context.Database.MigrateAsync();
+        Assert.AreEqual(channelId, (await context.PushDeliveries.SingleAsync()).ChannelId);
+        var builtIn = new PushDelivery
+        {
+            OnCallEmail = new OnCallEmailSnapshot
+            {
+                GroupId = Guid.NewGuid(), GroupName = "Snapshot", NotificationAtUtc = createdAt,
+                CcRecipients = "cc@example.com",
+                Recipients = [new OnCallEmailRecipient { UserId = "deleted-user", DisplayName = "Historical", Email = "oce@example.com" }]
+            }
+        };
+        context.PushDeliveries.Add(builtIn);
+        await context.SaveChangesAsync();
+        context.ChangeTracker.Clear();
+        var snapshot = await context.OnCallEmailSnapshots.Include(item => item.Recipients).SingleAsync();
+        Assert.AreEqual("oce@example.com", snapshot.Recipients.Single().Email);
+        Assert.AreEqual("cc@example.com", snapshot.CcRecipients);
+        await migrator.MigrateAsync(previous);
+        Assert.AreEqual(1, await context.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM PushDeliveries").SingleAsync());
+        await context.Database.MigrateAsync();
+        context.ChangeTracker.Clear();
+        Assert.AreEqual(deliveryId, (await context.PushDeliveries.SingleAsync()).Id);
+        Assert.AreEqual(0, await context.OnCallEmailSnapshots.CountAsync());
     }
 
     [TestMethod]
@@ -118,9 +157,9 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(2, context.Database.GetMigrations().Count());
+        Assert.AreEqual(3, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
-        Assert.EndsWith("_AddApplicationOnCallGroup", context.Database.GetMigrations().Last());
+        Assert.EndsWith("_OnCallEmailNotifications", context.Database.GetMigrations().Last());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");
         var script = context.GetService<IMigrator>().GenerateScript();
@@ -133,6 +172,9 @@ public class MigrationTests
         StringAssert.Contains(script, "`OnCallGroupId`");
         StringAssert.Contains(script, "FK_SourceApplications_OnCallGroups_OnCallGroupId");
         StringAssert.Contains(script, "ON DELETE RESTRICT");
+        StringAssert.Contains(script, "CREATE TABLE `OnCallEmailSnapshots`");
+        StringAssert.Contains(script, "CREATE TABLE `OnCallEmailRecipient`");
+        StringAssert.Contains(script, "`EmailCcRecipients`");
         Assert.DoesNotContain("OnCallRuleMembers", script);
     }
 }

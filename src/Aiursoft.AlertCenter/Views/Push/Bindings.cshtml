@@ -35,14 +35,29 @@
     </div>
 </div>
 
+@if (Model.Application.OnCallGroup is { } group)
+{
+    <section class="card border-primary mb-4" aria-labelledby="oncall-mail-heading">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 id="oncall-mail-heading" class="card-title mb-0">内置值班邮件</h2>
+            <span class="badge bg-primary">自动启用 · 不可单独关闭</span>
+        </div>
+        <div class="card-body">
+            <p>值班组：<a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a></p>
+            <p class="mb-1"><strong>To：</strong>通知时刻所有当班工程师（OCE）的系统登记邮箱；<strong>CC：</strong>值班组配置的抄送地址。</p>
+            <p class="small text-muted mb-0">适用于 sev0–sev4，无需勾选渠道。不自动发送站内消息或 Webhook；下方渠道是独立的补充通知。已确认事故继续沿用告警归档和通知抑制规则。</p>
+        </div>
+    </section>
+}
+
 <form asp-action="SaveBindings" method="post">
     <input type="hidden" name="id" value="@Model.Application.Id" />
 
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-header bg-transparent d-flex justify-content-between align-items-center py-3">
             <div>
-                <h2 class="card-title h5 mb-0">渠道与级别匹配矩阵</h2>
-                <small id="binding-hint" class="text-muted">每个级别可选择多个渠道；未勾选的级别仅归档告警而不触发推送。严格精确匹配，不向上或向下自动扩展。</small>
+                <h2 class="card-title h5 mb-0">自定义渠道与级别匹配矩阵</h2>
+                <small id="binding-hint" class="text-muted">每个级别可选择多个补充渠道；未勾选仅表示不发送自定义通知，不影响内置值班邮件。严格精确匹配，不向上或向下自动扩展。</small>
             </div>
             <span class="badge bg-light text-dark border">共 @Model.Channels.Count 个可用渠道</span>
         </div>
@@ -56,7 +71,7 @@
                     </div>
                     <h3 class="h5 mb-2">尚未配置推送渠道</h3>
                     <p class="text-muted mb-4" style="max-width: 24rem; margin-inline: auto;">
-                        需要先创建 Webhook、邮件或站内通知渠道，才能将应用产生的不同级别告警分发到团队。
+                        可按需创建 Webhook、邮件或站内通知渠道作为补充。已绑定值班组的应用无需自定义渠道也会发送内置值班邮件。
                     </p>
                     <p class="text-muted mb-0">请联系推送渠道管理员授予渠道绑定权限。</p>
                 </div>

@@ -57,6 +57,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         model.GroupInput = new CreateOnCallGroupRequest
         {
             Name = group.Name, TimeZoneId = group.TimeZoneId, RuleId = group.RuleId,
+            EmailCcRecipients = group.EmailCcRecipients,
             AnchorUtc = group.AnchorUtc, Version = group.ScheduleVersion,
             UserIds = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToList()
         };
@@ -187,6 +188,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("GroupInput.Name", "请输入团队名称。");
         if (!TimeZoneInfo.GetSystemTimeZones().Any(zone => zone.Id == request.TimeZoneId))
             ModelState.AddModelError("GroupInput.TimeZoneId", "请选择列表中的有效时区。");
+        if (!EmailChannelAdapter.TryParseCcRecipients(request.EmailCcRecipients, out var emailCcRecipients, out var ccRecipientsError))
+            ModelState.AddModelError("GroupInput.EmailCcRecipients", ccRecipientsError!);
         if (request.RuleId.HasValue && !await db.OnCallRules.AnyAsync(rule => rule.Id == request.RuleId, cancellationToken))
             ModelState.AddModelError("GroupInput.RuleId", "请选择现有排班规则。");
         if (request.AnchorUtc is not { } anchor || anchor.Kind == DateTimeKind.Local ||
@@ -221,6 +224,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         db.OnCallShiftMembers.RemoveRange(futureAssignments);
         group.Name = request.Name;
         group.TimeZoneId = request.TimeZoneId;
+        group.EmailCcRecipients = emailCcRecipients.Count == 0 ? null : string.Join('\n', emailCcRecipients);
         group.RuleId = request.RuleId;
         group.AnchorUtc = DateTime.SpecifyKind(request.AnchorUtc!.Value, DateTimeKind.Utc);
         group.ScheduleVersion = Guid.NewGuid();

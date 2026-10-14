@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <small id="name-hint" class="text-muted d-block mt-2">使用简明清晰的业务系统名称，系统将自动生成对应的前缀 ID 与随机 Secret。</small>
-                <small id="oncall-group-hint" class="text-muted d-block mt-1">值班组可选；仅需接收告警的应用无需绑定。绑定暂不改变现有告警与通知行为。</small>
+                <small id="oncall-group-hint" class="text-muted d-block mt-1">值班组可选；绑定后自动邮件通知当班工程师，并抄送值班组配置地址。自定义推送渠道仍可独立配置。</small>
                 <div asp-validation-summary="All" class="text-danger mt-2"></div>
             </form>
         </div>

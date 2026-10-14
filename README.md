@@ -74,11 +74,11 @@ Administrator JSON endpoints use the existing login cookie. POST requests requir
 | `POST /OnCall/GenerateSchedule` | Accepts `{ "groupId": "...", "version": "...", "startUtc": "...Z" }`; generates and saves an unsaved team week. |
 | `POST /OnCall/SaveSchedule` | Accepts the same identifiers plus `slots`: all 21 `{ "startsAtUtc": "...Z", "userIds": ["..."] }` entries. Atomically creates or updates the week. |
 
-Successful writes return 200 with a `warnings` array (including below-minimum staffing notices). Validation failures return 400 with an `errors` array; stale versions/write conflicts return 409. Refresh the schedule after saving to obtain the new version. Stored schedules currently do not change alert routing. Leave is handled by manually removing/replacing assignees, without a separate leave-approval workflow.
+Successful writes return 200 with a `warnings` array (including below-minimum staffing notices). Validation failures return 400 with an `errors` array; stale versions/write conflicts return 409. Refresh the schedule after saving to obtain the new version. Saved shifts determine OCE recipients for applications bound to the team. Leave is handled by manually removing/replacing assignees, without a separate leave-approval workflow.
 
 ### Optional application binding
 
-Applications may optionally bind one on-call team, and a team can serve multiple applications. Select a team when creating an application, or use **接入应用 → 值班设置** to bind, change, or remove it; administrators and users with application manage access can update the binding. Applications that only need alerts can remain unbound. All engineers assigned to the team's current shift are OCEs. Binding alone does not change alert ingestion, incident creation, notification routing, or application access permissions. A team bound to any application cannot be deleted until those applications are rebound or unbound. Existing applications remain unbound after migration.
+Applications may optionally bind one on-call team, and a team can serve multiple applications. Select a team when creating an application, or use **接入应用 → 值班设置** to bind, change, or remove it; administrators and users with application manage access can update the binding. Applications that only need alerts can remain unbound. All engineers assigned to the team's current saved shift are OCEs. Binding automatically enables built-in on-call email for `sev0` through `sev4`, independently of custom channels; it does not change alert ingestion, incident creation, or application access permissions. A team bound to any application cannot be deleted until those applications are rebound or unbound. Existing applications remain unbound after migration. Rolling back the on-call-email migration removes built-in delivery history, which has no equivalent in the previous schema; custom-channel history is retained.
 
 ## Application access control
 
@@ -91,6 +91,18 @@ Every new alert automatically creates or joins an active incident. The first rep
 Reports match an active incident by the same application and `incidentKey`. If no key is supplied, matching falls back to application, alert title, and severity. A resolved incident no longer matches new reports; the next matching report opens a new incident and notifications resume. The incident page records automatic creation, the actor for operator actions, optional notes, and UTC times.
 
 ## Notification channels
+
+### Built-in on-call email
+
+An application bound to a team always queues an on-call email for each new, non-archived alert. This is a system route, not an editable push-channel record: it cannot be disabled or filtered by severity in **推送设置**. Unbinding the team stops future on-call deliveries but does not cancel queued deliveries. The existing acknowledged-incident suppression applies to both built-in and custom routes.
+
+**To** contains all current OCEs' registered user email addresses, deduplicated case-insensitively. Administrators configure optional **CC** in **值班中心 → 团队管理 → 编辑团队** using a group mailbox or explicit addresses (up to 50 unique addresses; newline, comma and semicolon separators). CC never automatically expands to all team members, and addresses already in To are removed from CC. No personal channel binding is needed. Both routes use the global SMTP configuration below.
+
+OCE lookup uses receipt time in UTC and saved half-open shift intervals (`start <= time < end`), not the caller's alert occurrence time or a template preview. Queueing atomically persists the alert, incident and delivery together with the team, shift, OCE user IDs, emails, notification time and CC snapshot. Changing schedules, user emails, team names or bindings cannot rewrite pending or historical recipients.
+
+No coverage, an empty/overlapping shift, invalid CC or any OCE without a valid registered email creates a failed delivery with a clear reason without rejecting the alert or blocking configured custom notifications. Recipient-validation failures do not send a partial email and cannot be retried by selecting a new OCE; correct future configuration and submit a new actionable report. SMTP failures and interrupted deliveries can be manually retried after checking whether the server already received them; retry uses the original To/CC snapshot. There are no automatic retries.
+
+**推送中心 → 推送记录** includes a built-in-email filter and per-route results. Application viewers may see their application's built-in delivery metadata; email addresses are visible only to administrators or `CanManagePush` users. Manual retries still require `CanManagePush` and application manage access. Custom email, in-app and Webhook channels are additive: only explicitly configured channels receive notifications, and failure of one route does not prevent processing the others. No test button sends to a production OCE; custom-channel tests continue to target their explicitly configured recipients.
 
 ### In-app notifications and inbox search
 
@@ -119,7 +131,7 @@ to report until it is explicitly enabled. Resetting does not resend historical m
 
 In **接入应用 → 推送设置**, select channels independently for each severity:
 `sev0` (DEADLY), `sev1` (严重), `sev2` (错误), `sev3` (警告), and `sev4` (信息). The page shows only channels for which the current application manager has binding access.
-Each level can target multiple channels. Leaving a level unselected still saves its alerts but creates no notification deliveries.
+Each level can target multiple custom channels. Leaving a level unselected still saves its alerts and creates no custom deliveries; a bound team's built-in email remains enabled.
 Matching is exact; selecting `sev2` does not implicitly include `sev1`.
 
 Disabled channels retain their selections but do not receive new deliveries.
@@ -129,7 +141,7 @@ Existing clients remain compatible for `sev1` through `sev4`; update to a Sev0-c
 
 ### Email notification channels
 
-Email channels use a global SMTP configuration and store only their recipient addresses. Each channel accepts up to 50 recipients, separated by newlines, commas, or semicolons. Messages are sent as UTF-8 plain text; the subject includes the alert severity and title. A channel test sends a test email to its configured recipients.
+Custom email channels use a global SMTP configuration, one fixed To address and up to 50 CC addresses separated by newlines, commas, or semicolons. They remain separate from built-in on-call email. Messages are sent as UTF-8 plain text; the subject includes the alert severity and title. A channel test sends a test email to its configured recipients.
 
 Configure SMTP through protected environment variables rather than `appsettings.json`. STARTTLS is required by default; set `Email__RequireTls=false` only for a trusted SMTP server that does not support it:
 

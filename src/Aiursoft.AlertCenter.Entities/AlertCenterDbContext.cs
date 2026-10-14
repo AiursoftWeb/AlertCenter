@@ -25,6 +25,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<ApplicationPushChannel> ApplicationPushChannels => Set<ApplicationPushChannel>();
     public DbSet<PushDelivery> PushDeliveries => Set<PushDelivery>();
     public DbSet<PushDeliveryRecipient> PushDeliveryRecipients => Set<PushDeliveryRecipient>();
+    public DbSet<OnCallEmailSnapshot> OnCallEmailSnapshots => Set<OnCallEmailSnapshot>();
     public DbSet<InAppNotification> InAppNotifications => Set<InAppNotification>();
 
     public DbSet<PushChannelUser> PushChannelUsers => Set<PushChannelUser>();
@@ -120,6 +121,13 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(delivery => delivery.MessageId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.MessageId, delivery.ChannelId }).IsUnique();
         builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.Status, delivery.CreatedAtUtc });
+        builder.Entity<OnCallEmailSnapshot>().HasKey(snapshot => snapshot.DeliveryId);
+        builder.Entity<OnCallEmailSnapshot>().HasOne(snapshot => snapshot.Delivery).WithOne(delivery => delivery.OnCallEmail)
+            .HasForeignKey<OnCallEmailSnapshot>(snapshot => snapshot.DeliveryId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<OnCallEmailSnapshot>().Property(snapshot => snapshot.CcRecipients).HasColumnType("text");
+        builder.Entity<OnCallEmailRecipient>().HasKey(recipient => new { recipient.DeliveryId, recipient.UserId });
+        builder.Entity<OnCallEmailRecipient>().HasOne(recipient => recipient.Snapshot).WithMany(snapshot => snapshot.Recipients)
+            .HasForeignKey(recipient => recipient.DeliveryId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<PushDeliveryRecipient>().HasKey(recipient => new { recipient.DeliveryId, recipient.UserId });
         builder.Entity<PushDeliveryRecipient>().HasOne(recipient => recipient.Delivery).WithMany()
             .HasForeignKey(recipient => recipient.DeliveryId).OnDelete(DeleteBehavior.Cascade);

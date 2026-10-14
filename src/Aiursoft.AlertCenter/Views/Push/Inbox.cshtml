@@ -220,7 +220,7 @@
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-2 border-top">
                         <small class="text-muted inbox-notification-channel d-flex align-items-center gap-1">
                             <i data-lucide="bell" style="width: 13px; height: 13px;" aria-hidden="true"></i>
-                            <span>渠道: @notification.Delivery.Channel.Name</span>
+                            <span>渠道: @notification.Delivery.Channel?.Name</span>
                         </small>
                         <div class="d-flex flex-wrap align-items-center gap-2 flex-shrink-0">
                             <a asp-action="Notification" asp-route-id="@notification.Id" class="btn btn-sm btn-outline-secondary">

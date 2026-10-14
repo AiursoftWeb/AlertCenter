@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public sealed record EmailMessage(string Recipient, IReadOnlyList<string> CcRecipients, string Subject, string Body);
+public sealed record EmailMessage(IReadOnlyList<string> Recipients, IReadOnlyList<string> CcRecipients, string Subject, string Body);
 
 public interface IEmailSender
 {
@@ -29,7 +29,7 @@ public sealed class SmtpEmailSender(IOptions<EmailSettings> options) : IEmailSen
             BodyEncoding = Encoding.UTF8,
             IsBodyHtml = false
         };
-        mail.To.Add(message.Recipient);
+        foreach (var recipient in message.Recipients) mail.To.Add(recipient);
         foreach (var recipient in message.CcRecipients) mail.CC.Add(recipient);
         using var client = new SmtpClient(settings.Host, settings.Port)
         {
@@ -110,13 +110,28 @@ public class EmailChannelAdapter(IEmailSender sender) : INotificationChannelAdap
 
     public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
     {
-        if (!TryParseRecipient(delivery.Channel.EmailRecipient, out var recipient, out _) ||
-            !TryParseCcRecipients(delivery.Channel.EmailCcRecipients, out var ccRecipients, out _) ||
-            ccRecipients.Contains(recipient, StringComparer.OrdinalIgnoreCase))
-            return new(false, ErrorMessage: "邮件渠道收件人或抄送人配置无效，请检查渠道配置。");
+        List<string> recipients;
+        List<string> ccRecipients;
+        if (delivery.OnCallEmail is { } snapshot)
+        {
+            if (snapshot.ValidationError != null) return new(false, ErrorMessage: snapshot.ValidationError);
+            if (snapshot.Recipients.Count == 0 || snapshot.Recipients.Any(engineer => !TryParseRecipient(engineer.Email, out _, out _)) ||
+                !TryParseCcRecipients(snapshot.CcRecipients, out ccRecipients, out _))
+                return new(false, ErrorMessage: "值班邮件收件人快照无效，不能重新选择当前 OCE 投递。");
+            recipients = snapshot.Recipients.Select(engineer => engineer.Email!).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+            ccRecipients.RemoveAll(address => recipients.Contains(address, StringComparer.OrdinalIgnoreCase));
+        }
+        else
+        {
+            if (!TryParseRecipient(delivery.Channel?.EmailRecipient, out var recipient, out _) ||
+                !TryParseCcRecipients(delivery.Channel?.EmailCcRecipients, out ccRecipients, out _) ||
+                ccRecipients.Contains(recipient, StringComparer.OrdinalIgnoreCase))
+                return new(false, ErrorMessage: "邮件渠道收件人或抄送人配置无效，请检查渠道配置。");
+            recipients = [recipient];
+        }
         try
         {
-            await sender.SendAsync(CreateMessage(delivery, recipient, ccRecipients), cancellationToken);
+            await sender.SendAsync(CreateMessage(delivery, recipients, ccRecipients), cancellationToken);
             return new(true);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -141,7 +156,7 @@ public class EmailChannelAdapter(IEmailSender sender) : INotificationChannelAdap
         }
     }
 
-    private static EmailMessage CreateMessage(PushDelivery delivery, string recipient, IReadOnlyList<string> ccRecipients)
+    private static EmailMessage CreateMessage(PushDelivery delivery, IReadOnlyList<string> recipients, IReadOnlyList<string> ccRecipients)
     {
         var message = delivery.Message;
         var title = message?.Title ?? "渠道测试通知";
@@ -155,7 +170,13 @@ public class EmailChannelAdapter(IEmailSender sender) : INotificationChannelAdap
             .AppendLine($"投递 ID：{delivery.Id}");
         if (message?.Content is not null) body.AppendLine().AppendLine("内容：").AppendLine(message.Content);
         if (!string.IsNullOrWhiteSpace(message?.ContextJson)) body.AppendLine().AppendLine("上下文：").AppendLine(message.ContextJson);
-        return new(recipient, ccRecipients, subject, body.ToString());
+        if (delivery.OnCallEmail is { } snapshot)
+        {
+            body.AppendLine().AppendLine($"值班组：{snapshot.GroupName}")
+                .AppendLine($"OCE 查询时间（UTC）：{snapshot.NotificationAtUtc:O}")
+                .AppendLine($"值班时间（UTC）：{snapshot.StartsAtUtc:O} — {snapshot.EndsAtUtc:O}");
+        }
+        return new(recipients, ccRecipients, subject, body.ToString());
     }
 
     private static string SanitizeSubject(string value) => value.Replace('\r', ' ').Replace('\n', ' ');

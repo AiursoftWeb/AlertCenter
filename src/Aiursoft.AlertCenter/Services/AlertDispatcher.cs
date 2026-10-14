@@ -33,6 +33,7 @@ public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incide
             message.IsArchived = true;
             return;
         }
+        await OnCallEmailQueue.CreateAsync(db, message, cancellationToken);
         var channels = await db.ApplicationPushChannels.AsNoTracking()
             .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled &&
                 ((message.Level == "sev0" && link.ReceiveSev0) ||

@@ -42,6 +42,15 @@
             <div class="form-text">按 UTC 填写，不会根据团队时区自动换算。保存过班次后，排班起点不可更改。</div>
         </div>
     </div>
+    @if (Model.IsAdministrator)
+    {
+        <div class="mb-3">
+            <label asp-for="GroupInput.EmailCcRecipients" class="form-label">值班邮件抄送（CC）</label>
+            <textarea asp-for="GroupInput.EmailCcRecipients" class="form-control" rows="4" maxlength="8000" aria-describedby="oncall-email-cc-help"></textarea>
+            <span asp-validation-for="GroupInput.EmailCcRecipients" class="text-danger"></span>
+            <div id="oncall-email-cc-help" class="form-text">值班邮件会自动发送至当前已保存班次中所有值班工程师（OCE）的用户邮箱（To）。CC 仅使用此处显式配置的团队邮箱或邮件组地址，不会自动抄送全部团队成员。支持换行、逗号或分号分隔，最多 50 个地址；留空不抄送。应用配置的自定义推送渠道仍会额外投递。</div>
+        </div>
+    }
     <h3 class="h6">轮换成员</h3>
     <p class="text-muted small">输入姓名/账号后查找，或直接选择角色自动分页列出该角色全部员工；翻页不会清除已选成员。下方成员顺序即轮换顺序。</p>
     <p class="text-muted small">成员可随时增减；移除成员仅清除尚未开始的班次安排，已开始和历史班次保留。由此产生的空班需手动补充人员。</p>

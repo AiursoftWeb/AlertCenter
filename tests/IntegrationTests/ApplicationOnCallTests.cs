@@ -60,7 +60,7 @@ public partial class AlertDemoTests
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(3, await db.ReportedMessages.CountAsync());
         Assert.AreEqual(1, await db.Incidents.CountAsync());
-        Assert.AreEqual(0, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(2, await db.PushDeliveries.CountAsync(delivery => delivery.OnCallEmail != null && delivery.Status == PushDelivery.Failed));
         Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
     }
 

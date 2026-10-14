@@ -3,7 +3,11 @@
 @{
     var delivery = Model.Delivery!;
     ViewData["Title"] = $"投递详情 - {delivery.Message?.Title ?? "渠道测试"}";
-    var channelType = Model.ChannelTypes.FirstOrDefault(type => type.Key == delivery.Channel.Type);
+    var snapshot = delivery.OnCallEmail;
+    var typeKey = snapshot != null ? "email" : delivery.Channel?.Type;
+    var channelType = Model.ChannelTypes.FirstOrDefault(type => type.Key == typeKey);
+    var channelEnabled = snapshot != null || delivery.Channel?.IsEnabled == true;
+    var canRetry = channelEnabled && (snapshot == null || (snapshot.ValidationError == null && snapshot.Recipients.Count > 0));
     var latency = delivery.CompletedAtUtc.HasValue && delivery.AttemptedAtUtc.HasValue
         ? (delivery.CompletedAtUtc.Value - delivery.AttemptedAtUtc.Value).TotalMilliseconds
         : (double?)null;
@@ -32,7 +36,7 @@
                 <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>查看原始告警
             </a>
         }
-        @if (delivery.Channel.Type == "inapp" && delivery.Status == PushDelivery.Succeeded)
+        @if (typeKey == "inapp" && delivery.Status == PushDelivery.Succeeded)
         {
             <a asp-action="Inbox" class="btn btn-outline-primary">
                 <i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>查看站内通知
@@ -52,7 +56,7 @@
             <div>
                 <h2 class="h5 alert-heading mb-1 text-danger">投递失败</h2>
                 <div class="text-break font-monospace small mb-2 text-danger-emphasis">@delivery.Error</div>
-                <small class="text-muted d-block">重新投递将使用当前最新的渠道配置。超时或中断时目标端可能已接收，请在核实后重试。</small>
+                <small class="text-muted d-block">@(snapshot != null ? "值班邮件重试始终使用入队时的 OCE 与 CC 快照，不会改发给当前值班人员。无有效快照时不可重试。" : "重新投递将使用当前最新的渠道配置。") 超时或中断时目标端可能已接收，请在核实后重试。</small>
             </div>
         </div>
         @if (Model.IsAdministrator)
@@ -60,13 +64,13 @@
             <div class="flex-shrink-0 align-self-stretch align-self-md-center text-end">
                 <form asp-action="Retry" method="post" class="d-inline">
                     <input type="hidden" name="id" value="@delivery.Id" />
-                    <button class="btn btn-danger" disabled="@(!delivery.Channel.IsEnabled)">
+                    <button class="btn btn-danger" disabled="@(!canRetry)">
                         <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>重新投递
                     </button>
                 </form>
-                @if (!delivery.Channel.IsEnabled)
+                @if (!canRetry)
                 {
-                    <small class="text-danger d-block mt-1">请先启用目标渠道</small>
+                    <small class="text-danger d-block mt-1">@(snapshot != null ? "收件人快照无效，不能补发旧告警" : "请先启用目标渠道")</small>
                 }
             </div>
         }
@@ -224,16 +228,16 @@ else
             <div class="card-body">
                 <div class="d-flex align-items-center gap-3 mb-3">
                     <div class="rounded-3 p-2 bg-light border text-primary">
-                        <i data-lucide="@(delivery.Channel.Type == "webhook" ? "webhook" : delivery.Channel.Type == "email" ? "mail" : "bell")" style="width: 22px; height: 22px;" aria-hidden="true"></i>
+                        <i data-lucide="@(typeKey == "webhook" ? "webhook" : typeKey == "email" ? "mail" : "bell")" style="width: 22px; height: 22px;" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <h3 class="h6 mb-0">@delivery.Channel.Name</h3>
-                        <small class="text-muted">@(channelType?.Name ?? delivery.Channel.Type)</small>
+                        <h3 class="h6 mb-0">@(snapshot != null ? $"内置值班邮件 · {snapshot.GroupName}" : delivery.Channel?.Name)</h3>
+                        <small class="text-muted">@(snapshot != null ? "系统内置 · 不可单独关闭" : channelType?.Name ?? typeKey)</small>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center py-2 border-top">
                     <span class="text-muted small">渠道启用状态</span>
-                    @if (delivery.Channel.IsEnabled)
+                    @if (channelEnabled)
                     {
                         <span class="badge bg-success-subtle text-success">已启用</span>
                     }
@@ -246,7 +250,20 @@ else
                     <span class="text-muted small">来源接入应用</span>
                     <span class="fw-semibold small">@(delivery.Message?.Application.Name ?? "手动测试")</span>
                 </div>
-                @if (Model.IsAdministrator)
+                @if (snapshot != null)
+                {
+                    <div class="border-top pt-3 small">
+                        <p class="mb-1">快照时间（UTC）：@snapshot.NotificationAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                        <p class="mb-1">班次：@snapshot.StartsAtUtc?.ToString("yyyy-MM-dd HH:mm") — @snapshot.EndsAtUtc?.ToString("yyyy-MM-dd HH:mm") UTC</p>
+                        <p class="mb-1">OCE：@string.Join("、", snapshot.Recipients.Select(recipient => recipient.DisplayName))</p>
+                        @if (Model.IsAdministrator)
+                        {
+                            <p class="mb-1 text-break">To：@string.Join("; ", snapshot.Recipients.Select(recipient => recipient.Email).Distinct(StringComparer.OrdinalIgnoreCase))</p>
+                            <p class="mb-0 text-break">CC：@(string.IsNullOrWhiteSpace(snapshot.CcRecipients) ? "无" : snapshot.CcRecipients)</p>
+                        }
+                    </div>
+                }
+                @if (Model.IsAdministrator && delivery.Channel != null)
                 {
                     <div class="mt-3">
                         <a asp-action="Edit" asp-route-id="@delivery.Channel.Id" class="btn btn-outline-secondary btn-sm w-100">

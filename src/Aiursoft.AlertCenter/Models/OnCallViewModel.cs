@@ -41,6 +41,8 @@ public class CreateOnCallGroupRequest
 
     [Required(ErrorMessage = "请选择时区。"), StringLength(100, ErrorMessage = "时区 ID 不能超过 100 个字符。")]
     public string TimeZoneId { get; set; } = "UTC";
+    [MaxLength(8000, ErrorMessage = "值班邮件抄送配置不能超过 8000 个字符。")]
+    public string? EmailCcRecipients { get; set; }
     public Guid? RuleId { get; set; }
     [Required(ErrorMessage = "请选择 UTC 开始时间。")]
     public DateTime? AnchorUtc { get; set; } = DateTime.UtcNow.Date;
