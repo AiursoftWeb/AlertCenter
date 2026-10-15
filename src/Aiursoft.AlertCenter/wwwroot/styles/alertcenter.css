@@ -36,9 +36,21 @@
 }
 
 .ac-gantt-row {
+    position: relative;
     display: grid;
     grid-template-columns: var(--ac-gantt-name-width) var(--ac-gantt-toggle-width) minmax(0, 1fr);
     border-bottom: 1px solid var(--bs-border-color);
+}
+
+.ac-gantt-row:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    border-bottom: 1px solid var(--bs-border-color);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .ac-gantt-row:last-child {
