@@ -1,8 +1,11 @@
 /* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
 
 .ac-gantt-frame {
+    --ac-gantt-name-width: 10rem;
+    --ac-gantt-toggle-width: 2rem;
+    position: relative;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 0.5rem;
     align-items: stretch;
 }
@@ -13,19 +16,28 @@
     touch-action: manipulation;
 }
 
+.ac-gantt-edge-toggle[data-oncall-edge="previous"] {
+    position: absolute;
+    left: var(--ac-gantt-name-width);
+    top: 0;
+    bottom: 0;
+    width: var(--ac-gantt-toggle-width);
+    z-index: 4;
+    background: var(--bs-body-bg);
+}
+
 .ac-gantt-scroll {
     overflow-x: auto;
 }
 
 .ac-gantt {
-    --ac-gantt-name-width: 10rem;
     position: relative;
-    min-width: calc(var(--ac-gantt-name-width) + 1120px);
+    min-width: calc(var(--ac-gantt-name-width) + var(--ac-gantt-toggle-width) + 1120px);
 }
 
 .ac-gantt-row {
     display: grid;
-    grid-template-columns: var(--ac-gantt-name-width) minmax(0, 1fr);
+    grid-template-columns: var(--ac-gantt-name-width) var(--ac-gantt-toggle-width) minmax(0, 1fr);
     border-bottom: 1px solid var(--bs-border-color);
 }
 
@@ -41,6 +53,21 @@
     background: var(--bs-body-bg);
     border-right: 1px solid var(--bs-border-color);
     overflow-wrap: anywhere;
+}
+
+.ac-gantt-axis,
+.ac-gantt-lane {
+    grid-column: 3;
+}
+
+.ac-gantt-name::after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 0;
+    bottom: 0;
+    width: var(--ac-gantt-toggle-width);
+    background: var(--bs-body-bg);
 }
 
 .ac-gantt-axis {
@@ -67,7 +94,7 @@
 
 .ac-gantt-grid {
     position: absolute;
-    inset: 0 0 0 var(--ac-gantt-name-width);
+    inset: 0 0 0 calc(var(--ac-gantt-name-width) + var(--ac-gantt-toggle-width));
     pointer-events: none;
 }
 

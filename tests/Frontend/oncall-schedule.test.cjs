@@ -111,6 +111,10 @@ function setup({ nextSaved = false, departed = false, saveFails = false, externa
     for (const [edge, offset] of [['previous', -36], ['next', 168]]) {
         add(gantt, 'div', null, { className: 'ac-gantt-date ac-gantt-adjacent', hidden: true, dataset: { edge },
             style: { left: `${offset / 168 * 100}%`, width: `${36 / 168 * 100}%` } });
+        for (let hour = offset; hour < offset + 36; hour += 6) {
+            for (const [tag, className] of [['div', 'ac-gantt-grid-tick'], ['span', 'ac-gantt-tick small text-muted']])
+                add(gantt, tag, null, { className, hidden: true, dataset: { edge }, style: { left: `${hour / 168 * 100}%` } });
+        }
     }
     const rowMap = {};
     for (const id of ['user0', 'user1', 'user2', ...(departed ? ['departed'] : [])]) {
@@ -239,6 +243,36 @@ test('36h edges start collapsed even at the anchor, expand independently and scr
     assert(ui.adjacent('user0', 'next')[0].hidden);
     assert(!ui.cell('user0', 21).hidden);
     assert.equal(ui.elements['stat-shifts'].textContent, 21);
+});
+
+test('context grid and axis ticks expand together and keep positions through redraw and collapse', async () => {
+    const ui = setup({ nextSaved: true });
+    for (const edge of ['previous', 'next']) {
+        assert.equal(ui.chart.querySelectorAll(`.ac-gantt-grid-tick[data-edge="${edge}"]`).length, 6);
+        assert.equal(ui.chart.querySelectorAll(`.ac-gantt-tick[data-edge="${edge}"]`).length, 6);
+    }
+    await ui.click('toggle-previous');
+    await ui.click('toggle-next');
+    const positions = [];
+    for (const [edge, offset] of [['previous', -36], ['next', 168]]) {
+        const grid = ui.chart.querySelectorAll(`.ac-gantt-grid-tick[data-edge="${edge}"]`);
+        const ticks = ui.chart.querySelectorAll(`.ac-gantt-tick[data-edge="${edge}"]`);
+        grid.forEach((line, index) => {
+            assert(!line.hidden);
+            assert(!ticks[index].hidden);
+            near(line.style.left, (offset + index * 6 + 36) / 240 * 100);
+            near(ticks[index].style.left, Number.parseFloat(line.style.left));
+            positions.push([line, line.style.left]);
+        });
+    }
+    await ui.assign(21, 'user1', true);
+    for (const [line, left] of positions) assert.equal(line.style.left, left);
+    await ui.click('toggle-previous');
+    assert(ui.chart.querySelectorAll('.ac-gantt-grid-tick[data-edge="previous"]').every(line => line.hidden));
+    assert(ui.chart.querySelectorAll('.ac-gantt-tick[data-edge="previous"]').every(tick => tick.hidden));
+    assert(ui.chart.querySelectorAll('.ac-gantt-grid-tick[data-edge="next"]').every(line => !line.hidden));
+    await ui.click('toggle-next');
+    near(ui.cell('user0', 21).style.left, 0);
 });
 
 test('own adjacent shifts are clipped to 36 elapsed UTC hours with full details across both DST transitions', async () => {

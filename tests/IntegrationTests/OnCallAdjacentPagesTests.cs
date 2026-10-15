@@ -109,6 +109,29 @@ public class OnCallAdjacentPagesTests : TestBase
             Assert.AreEqual(4, Geometry(clipped).Width, 0.000001);
             var edgeStart = edge == "previous" ? start.AddHours(-36) : end;
             Assert.Contains($"{LocalTime(edgeStart)[..16]} → {LocalTime(edgeStart.AddHours(36))[..16]}", html);
+            var gridTicks = Regex.Matches(html, $"<div class=\"ac-gantt-grid-tick\" data-edge=\"{edge}\"[^>]*>")
+                .Select(match => match.Value).ToArray();
+            var axisTicks = Regex.Matches(html, $"<span class=\"ac-gantt-tick small text-muted\" data-edge=\"{edge}\"[^>]*>(.*?)</span>")
+                .Select(match => match.Value).ToArray();
+            Assert.AreEqual(6, gridTicks.Length);
+            Assert.AreEqual(6, axisTicks.Length);
+            for (var index = 0; index < 6; index++)
+            {
+                var tick = edgeStart.AddHours(index * 6);
+                var position = (tick - start).TotalHours / 168 * 100;
+                Assert.AreEqual(position, double.Parse(Regex.Match(gridTicks[index], "left: ([^%;]+)%").Groups[1].Value, CultureInfo.InvariantCulture), 0.000001);
+                Assert.Contains("hidden", gridTicks[index]);
+                Assert.Contains("hidden", axisTicks[index]);
+                Assert.Contains($">{LocalTime(tick)[11..16]}</span>", axisTicks[index]);
+            }
+            var dateHeaders = Regex.Matches(html, $"<div class=\"ac-gantt-date ac-gantt-adjacent\" data-edge=\"{edge}\"[^>]*>(.*?)</div>", RegexOptions.Singleline)
+                .Select(match => match.Value).ToArray();
+            var dayGrid = Regex.Matches(html, $"<div class=\"ac-gantt-day ac-gantt-adjacent\" data-edge=\"{edge}\"[^>]*>")
+                .Select(match => match.Value).ToArray();
+            Assert.AreEqual(dateHeaders.Length, dayGrid.Length);
+            Assert.IsTrue(dateHeaders.Length >= 2);
+            Assert.AreEqual(36, dayGrid.Sum(bar => Geometry(bar).Width), 0.000001);
+            Assert.IsTrue(dateHeaders.All(header => header.Contains("<strong>") && header.Contains(" · 只读") && header.Contains("hidden")));
         }
         Assert.Contains("本周前 36 小时（只读）", html);
         Assert.Contains("本周后 36 小时（只读）", html);

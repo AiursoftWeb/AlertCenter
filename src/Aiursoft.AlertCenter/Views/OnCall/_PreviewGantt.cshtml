@@ -17,6 +17,14 @@
     var adjacent = Model.AdjacentShifts.Where(shift => shift.EndsAtUtc > start.AddHours(-36) && shift.StartsAtUtc < end.AddHours(36))
         .SelectMany(shift => shift.Members.Select(member => new Aiursoft.AlertCenter.Services.GeneratedOnCallShift(member.UserId,
             DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), shift.RestHours))).ToList();
+    var contextDays = new[] { (Edge: "previous", Start: start.AddHours(-36)), (Edge: "next", Start: end) }
+        .Select(context => new
+        {
+            context.Edge,
+            context.Start,
+            Days = Aiursoft.AlertCenter.Models.OnCallPreviewTimeline.Build(
+                [new Aiursoft.AlertCenter.Services.GeneratedOnCallShift(string.Empty, context.Start, context.Start.AddHours(36))], zone)
+        }).ToList();
     string Percent(double hours) => (hours / duration * 100).ToString("0.######", CultureInfo.InvariantCulture) + "%";
     string Position(DateTime time) => Percent((time - start).TotalHours);
     string LocalTime(DateTime time) => TimeZoneInfo.ConvertTimeFromUtc(time, zone).ToString("yyyy-MM-dd HH:mm");
@@ -25,14 +33,25 @@
     <h3 class="h6 mb-0">员工值班时间轴</h3>
     <span class="small text-muted">@LocalTime(start) → @LocalTime(end) · @group.TimeZoneId</span>
 </div>
-<p id="oncall-gantt-help" class="small text-muted">横向滚动查看完整排班；悬停、聚焦或点击色块查看班次详情。红线表示页面加载时的当前时间。左右竖向按钮分别展开本周起点前、终点后各 36 小时（实际 UTC 时长，含夏令时切换），默认折叠。两侧灰色班次仅供查看，不可编辑，也不计入本周统计；需要调整时请切换到对应周。当前团队和其他团队的班次在同一行显示：管理员可编辑本组彩色班次，其他团队的灰色班次标明团队及时间，仅供查看；空白处可在「添加班次」模式下手动安排。</p>
+<p id="oncall-gantt-help" class="small text-muted">横向滚动查看完整排班；悬停、聚焦或点击色块查看班次详情。红线表示页面加载时的当前时间。员工列右侧和时间表最右侧的竖向按钮分别展开本周起点前、终点后各 36 小时（实际 UTC 时长，含夏令时切换），默认折叠。展开区域与本周使用相同的日期表头、每 6 小时刻度和网格。两侧灰色班次仅供查看，不可编辑，也不计入本周统计；需要调整时请切换到对应周。当前团队和其他团队的班次在同一行显示：管理员可编辑本组彩色班次，其他团队的灰色班次标明团队及时间，仅供查看；空白处可在「添加班次」模式下手动安排。</p>
 <div class="ac-gantt-frame">
 <button type="button" class="btn btn-sm btn-outline-secondary ac-gantt-edge-toggle" data-oncall-edge="previous" aria-expanded="false" aria-controls="oncall-gantt">展开前 36 小时</button>
 <div id="oncall-gantt" class="ac-gantt-scroll border rounded" role="region" aria-label="七天值班甘特图" aria-describedby="oncall-gantt-help" tabindex="0">
     <div class="ac-gantt">
         <div class="ac-gantt-grid" aria-hidden="true">
-            <div class="ac-gantt-day ac-gantt-adjacent" data-edge="previous" hidden style="left: @Percent(-36); width: @Percent(36)"></div>
-            <div class="ac-gantt-day ac-gantt-adjacent" data-edge="next" hidden style="left: @Percent(168); width: @Percent(36)"></div>
+            @foreach (var context in contextDays)
+            {
+                @foreach (var day in context.Days)
+                {
+                    var dayStart = day.Segments[0].StartsAtUtc;
+                    var dayEnd = day.Segments[^1].EndsAtUtc;
+                    <div class="ac-gantt-day ac-gantt-adjacent" data-edge="@context.Edge" hidden style="left: @Position(dayStart); width: @Percent((dayEnd - dayStart).TotalHours)"></div>
+                }
+                @for (var tick = context.Start; tick < context.Start.AddHours(36); tick = tick.AddHours(6))
+                {
+                    <div class="ac-gantt-grid-tick" data-edge="@context.Edge" hidden style="left: @Position(tick)"></div>
+                }
+            }
             @foreach (var day in Model.PreviewDays.Where(day => day.Segments.Count > 0))
             {
                 var dayStart = day.Segments[0].StartsAtUtc;
@@ -51,13 +70,22 @@
         <div class="ac-gantt-row">
             <div class="ac-gantt-name fw-semibold">值班员工<span class="small text-muted d-block">班次 / 总时长</span></div>
             <div class="ac-gantt-axis">
-                @foreach (var edge in new[] { "previous", "next" })
+                @foreach (var context in contextDays)
                 {
-                    var edgeStart = edge == "previous" ? start.AddHours(-36) : end;
-                    <div class="ac-gantt-date ac-gantt-adjacent" data-edge="@edge" hidden style="left: @Position(edgeStart); width: @Percent(36)">
-                        <strong>@(edge == "previous" ? "本周前 36 小时（只读）" : "本周后 36 小时（只读）")</strong>
-                        <span class="small d-block">@LocalTime(edgeStart) → @LocalTime(edgeStart.AddHours(36))</span>
-                    </div>
+                    @foreach (var day in context.Days)
+                    {
+                        var dayStart = day.Segments[0].StartsAtUtc;
+                        var dayEnd = day.Segments[^1].EndsAtUtc;
+                        <div class="ac-gantt-date ac-gantt-adjacent" data-edge="@context.Edge" hidden style="left: @Position(dayStart); width: @Percent((dayEnd - dayStart).TotalHours)"
+                             title="@(context.Edge == "previous" ? "本周前 36 小时（只读）" : "本周后 36 小时（只读）") · @LocalTime(context.Start) → @LocalTime(context.Start.AddHours(36))">
+                            <strong>@day.Date.ToString("MM/dd")</strong>
+                            <span class="small d-block">@day.Date.ToString("ddd", CultureInfo.GetCultureInfo("zh-CN")) · 只读</span>
+                        </div>
+                    }
+                    @for (var tick = context.Start; tick < context.Start.AddHours(36); tick = tick.AddHours(6))
+                    {
+                        <span class="ac-gantt-tick small text-muted" data-edge="@context.Edge" hidden style="left: @Position(tick)">@TimeZoneInfo.ConvertTimeFromUtc(tick, zone).ToString("HH:mm")</span>
+                    }
                 }
                 @foreach (var day in Model.PreviewDays.Where(day => day.Segments.Count > 0))
                 {

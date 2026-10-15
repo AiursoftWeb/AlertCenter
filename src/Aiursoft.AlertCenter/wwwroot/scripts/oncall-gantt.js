@@ -18,7 +18,7 @@
     function layout() {
         const before = edges.previous ? 36 : 0;
         const hours = 168 + before + (edges.next ? 36 : 0);
-        chart.querySelector('.ac-gantt').style.minWidth = `calc(10rem + ${hours * 160 / 24}px)`;
+        chart.querySelector('.ac-gantt').style.minWidth = `calc(var(--ac-gantt-name-width) + var(--ac-gantt-toggle-width) + ${hours * 160 / 24}px)`;
         chart.querySelectorAll('[style]').forEach(item => {
             if (!item.style.left || !item.style.left.endsWith('%')) return;
             item.dataset.layoutLeft ??= item.style.left.slice(0, -1);
