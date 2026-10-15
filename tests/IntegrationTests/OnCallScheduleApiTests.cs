@@ -34,6 +34,74 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
+    public async Task AtomicMultiweekApiSavesWarningsAndRejectsConflictsMalformedWeeksAndStaleVersions()
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        DateTime anchor;
+        Guid version;
+        string[] users;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.Include(item => item.Rule).Include(item => item.Members).SingleAsync(item => item.Id == id);
+            group.Rule!.MinimumStaff = 2;
+            group.Rule.TargetStaff = 2;
+            await db.SaveChangesAsync();
+            anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
+            version = group.ScheduleVersion;
+            users = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
+        }
+        List<OnCallSlotRequest> Slots(DateTime start) => Enumerable.Range(0, 21).Select(index => new OnCallSlotRequest
+        {
+            StartsAtUtc = start.AddHours(index * 8), UserIds = [users[index % 3]]
+        }).ToList();
+        var payload = new SaveOnCallScheduleRequest
+        {
+            GroupId = id, Version = version, StartUtc = anchor.AddDays(7), Slots = Slots(anchor.AddDays(7)),
+            AdjacentWeeks =
+            [
+                new() { StartUtc = anchor, Slots = Slots(anchor) },
+                new() { StartUtc = anchor.AddDays(14), Slots = Slots(anchor.AddDays(14)) }
+            ]
+        };
+
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("GenerateSchedule", payload)).StatusCode);
+        var response = await Save("SaveSchedule", payload);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.AreEqual(63, result.GetProperty("warnings").GetArrayLength());
+        Assert.AreEqual(HttpStatusCode.Conflict, (await Save("SaveSchedule", payload)).StatusCode);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            payload.Version = (await db.OnCallGroups.SingleAsync(item => item.Id == id)).ScheduleVersion;
+            Assert.AreNotEqual(version, payload.Version);
+            Assert.AreEqual(63, await db.OnCallShifts.CountAsync(shift => shift.GroupId == id));
+            Assert.AreEqual(63, await db.OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
+        }
+        payload.Slots[5].UserIds = [users[3]];
+        payload.AdjacentWeeks[0].Slots[^1].UserIds = [users[0]];
+        response = await Save("SaveSchedule", payload);
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.IsTrue(result.GetProperty("errors").EnumerateArray().Any(error => error.GetString()!.Contains("休息不足")));
+        payload.AdjacentWeeks[0].Slots[^1].UserIds = [users[2]];
+        payload.AdjacentWeeks[1].StartUtc = payload.AdjacentWeeks[0].StartUtc;
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("SaveSchedule", payload)).StatusCode);
+        payload.AdjacentWeeks = null!;
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("SaveSchedule", payload)).StatusCode);
+        payload.AdjacentWeeks = [null!];
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("SaveSchedule", payload)).StatusCode);
+        using var checkScope = Server!.Services.CreateScope();
+        var checkDb = checkScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(payload.Version, (await checkDb.OnCallGroups.SingleAsync(item => item.Id == id)).ScheduleVersion);
+        Assert.AreEqual(63, await checkDb.OnCallShifts.CountAsync(shift => shift.GroupId == id));
+        Assert.AreEqual(63, await checkDb.OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
+        Assert.IsFalse(await checkDb.OnCallShiftMembers.AnyAsync(member => member.Shift.GroupId == id && member.UserId == users[3]));
+    }
+
+    [TestMethod]
     public async Task AdminCanGenerateReadAndEditScheduleWithValidationAndVersionChecks()
     {
         await LoginAsAdmin();

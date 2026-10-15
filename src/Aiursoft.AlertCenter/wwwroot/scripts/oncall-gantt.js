@@ -13,6 +13,34 @@
         end.textContent = shift.dataset.end;
     }
 
+    const edges = { previous: false, next: false };
+    const toggles = [...document.querySelectorAll('[data-oncall-edge]')];
+    function layout() {
+        const before = edges.previous ? 3 : 0;
+        const count = 21 + before + (edges.next ? 3 : 0);
+        chart.querySelector('.ac-gantt').style.minWidth = `calc(10rem + ${count * 160 / 3}px)`;
+        chart.querySelectorAll('[style]').forEach(item => {
+            if (!item.style.left || !item.style.left.endsWith('%')) return;
+            item.dataset.layoutLeft ??= item.style.left.slice(0, -1);
+            if (item.style.width?.endsWith('%')) item.dataset.layoutWidth ??= item.style.width.slice(0, -1);
+            item.style.left = `${(Number(item.dataset.layoutLeft) * 21 + before * 100) / count}%`;
+            if (item.dataset.layoutWidth) item.style.width = `${Number(item.dataset.layoutWidth) * 21 / count}%`;
+        });
+        chart.querySelectorAll('[data-edge="previous"], [data-edge="next"]').forEach(item => item.hidden = !edges[item.dataset.edge]);
+        toggles.forEach(button => {
+            const edge = button.dataset.oncallEdge;
+            button.setAttribute('aria-expanded', String(edges[edge]));
+            button.textContent = `${edges[edge] ? '折叠' : '展开'}${edge === 'previous' ? '上一周末' : '下一周首'} 24 小时`;
+        });
+    }
+    toggles.forEach(button => button.addEventListener('click', () => {
+        edges[button.dataset.oncallEdge] = !edges[button.dataset.oncallEdge];
+        chart.dispatchEvent(new Event('oncall-edge-change'));
+        layout();
+    }));
+    chart.addEventListener('oncall-layout', layout);
+    layout();
+
     chart.addEventListener('pointerover', showShift);
     chart.addEventListener('focusin', showShift);
     chart.addEventListener('click', showShift);

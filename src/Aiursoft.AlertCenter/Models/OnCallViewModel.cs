@@ -20,6 +20,7 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public Guid? SelectedRuleId { get; set; }
     public Guid? SelectedGroupId { get; set; }
     public IReadOnlyList<GeneratedOnCallShift> Preview { get; set; } = [];
+    public List<OnCallShift> AdjacentShifts { get; set; } = [];
     public IReadOnlyList<OnCallPreviewDay> PreviewDays { get; set; } = [];
     public string? PreviewError { get; set; }
     public DateTime WeekStartUtc { get; set; }
@@ -70,6 +71,13 @@ public class SaveOnCallScheduleRequest
 {
     public Guid GroupId { get; set; }
     public Guid Version { get; set; }
+    public DateTime StartUtc { get; set; }
+    public List<OnCallSlotRequest> Slots { get; set; } = [];
+    public List<OnCallScheduleWeekRequest> AdjacentWeeks { get; set; } = [];
+}
+
+public class OnCallScheduleWeekRequest
+{
     public DateTime StartUtc { get; set; }
     public List<OnCallSlotRequest> Slots { get; set; } = [];
 }

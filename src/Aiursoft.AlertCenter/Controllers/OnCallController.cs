@@ -101,6 +101,19 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         if (model.Groups.All(group => group.Id != id)) return NotFound();
         model.SelectedGroupId = id;
         await PopulatePreview(model, cancellationToken, startUtc);
+        if (model.WeekStartUtc != default)
+        {
+            var start = model.WeekStartUtc;
+            var end = start.AddDays(7);
+            model.AdjacentShifts = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
+                .Where(shift => shift.GroupId == id &&
+                    ((shift.StartsAtUtc >= start.AddDays(-7) && shift.StartsAtUtc < start) ||
+                     (shift.StartsAtUtc >= end && shift.StartsAtUtc < end.AddDays(7))))
+                .OrderBy(shift => shift.StartsAtUtc).ToListAsync(cancellationToken);
+            var ids = model.PreviewUsers.Select(user => user.Id)
+                .Concat(model.AdjacentShifts.SelectMany(shift => shift.Members.Select(member => member.UserId))).Distinct().ToArray();
+            model.PreviewUsers = await db.Users.AsNoTracking().Where(user => ids.Contains(user.Id)).ToListAsync(cancellationToken);
+        }
         return this.StackView(model, "Details");
     }
 

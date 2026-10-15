@@ -21,9 +21,12 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
         return start;
     }
 
-    public async Task<List<GeneratedOnCallShift>> Existing(Guid groupId, string[] userIds, DateTime start, CancellationToken cancellationToken)
+    public Task<List<GeneratedOnCallShift>> Existing(Guid groupId, string[] userIds, DateTime start, CancellationToken cancellationToken) =>
+        Existing(groupId, userIds, start, start.AddDays(7), cancellationToken);
+
+    private async Task<List<GeneratedOnCallShift>> Existing(Guid groupId, string[] userIds, DateTime start, DateTime end,
+        CancellationToken cancellationToken)
     {
-        var end = start.AddDays(7);
         var from = start.AddDays(-28);
         var until = end.AddDays(7);
         var rows = await db.OnCallShiftMembers.AsNoTracking()
@@ -38,6 +41,11 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
     public async Task<List<string>> Save(SaveOnCallScheduleRequest request, bool generate, CancellationToken cancellationToken)
     {
         Warnings = [];
+        if (request == null || request.AdjacentWeeks == null || request.AdjacentWeeks.Count > 2 ||
+            request.AdjacentWeeks.Any(week => week == null))
+            return ["相邻周排班请求格式不正确，最多只能提交前后两周。"];
+        if (generate && request.AdjacentWeeks.Count != 0)
+            return ["自动生成不能同时修改相邻周排班。"];
         await using var transaction = db.Database.IsRelational()
             ? await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, cancellationToken) : null;
         var group = await db.OnCallGroups.Include(item => item.Rule).Include(item => item.Members)
@@ -46,72 +54,97 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
         if (request.Version != group.ScheduleVersion)
             throw new DbUpdateConcurrencyException("团队或排班已被其他管理员修改，请刷新页面后重试。");
         var start = WeekStart(group, request.StartUtc);
-        var end = start.AddDays(7);
-        var slots = await db.OnCallShifts.Include(shift => shift.Members)
-            .Where(shift => shift.GroupId == group.Id && shift.StartsAtUtc < end && shift.EndsAtUtc > start)
+        if (request.AdjacentWeeks.Any(week => week.StartUtc.Kind == DateTimeKind.Local ||
+                (week.StartUtc != start.AddDays(-7) && week.StartUtc != start.AddDays(7))) ||
+            request.AdjacentWeeks.Select(week => week.StartUtc).Distinct().Count() != request.AdjacentWeeks.Count)
+            return ["相邻周只能是当前周的前一周或后一周，且不能重复。"];
+        var requests = request.AdjacentWeeks.Prepend(new OnCallScheduleWeekRequest { StartUtc = start, Slots = request.Slots })
+            .Select(week => new OnCallScheduleWeekRequest { StartUtc = WeekStart(group, week.StartUtc), Slots = week.Slots })
+            .OrderBy(week => week.StartUtc).ToList();
+        var from = requests[0].StartUtc;
+        var until = requests[^1].StartUtc.AddDays(7);
+        var savedSlots = await db.OnCallShifts.Include(shift => shift.Members)
+            .Where(shift => shift.GroupId == group.Id && shift.StartsAtUtc < until && shift.EndsAtUtc > from)
             .OrderBy(shift => shift.StartsAtUtc).ToListAsync(cancellationToken);
-        if (generate && slots.Count != 0) return ["本周已有保存的排班，请使用手动调整；自动生成不会覆盖已有安排。"];
-        var create = slots.Count == 0;
-        if (!create && (slots.Count != 21 || slots.Where((slot, index) =>
-                slot.StartsAtUtc != start.AddHours(index * 8) || slot.EndsAtUtc != slot.StartsAtUtc.AddHours(8)).Any()))
-            return ["已有排班的时间边界不完整，不能覆盖。"];
-        var restHours = create ? group.Rule?.RestHours ?? 16 : slots[0].RestHours;
-        if (restHours is < 0 or > 168 || slots.Any(slot => slot.RestHours != restHours))
-            return ["排班的休息时长无效或不一致。"];
-        var minimumStaff = create ? group.Rule?.MinimumStaff ?? 1 : slots[0].MinimumStaff;
-        if (minimumStaff is < 1 or > 200 || slots.Any(slot => slot.MinimumStaff != minimumStaff))
-            return ["排班的最低人数无效或不一致。"];
+        if (generate && savedSlots.Count != 0) return ["本周已有保存的排班，请使用手动调整；自动生成不会覆盖已有安排。"];
         var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
-        var savedIds = slots.SelectMany(slot => slot.Members.Select(member => member.UserId)).ToArray();
-        var allowedIds = ids.Concat(savedIds).Distinct().ToArray();
+        var currentIds = ids.ToHashSet(StringComparer.Ordinal);
+        var allowedIds = ids.Concat(savedSlots.SelectMany(slot => slot.Members.Select(member => member.UserId))).Distinct().ToArray();
         var names = await db.Users.Where(user => allowedIds.Contains(user.Id))
             .ToDictionaryAsync(user => user.Id, user => user.DisplayName, cancellationToken);
-        var existing = await Existing(group.Id, allowedIds, start, cancellationToken);
-        List<GeneratedOnCallShift> assignments;
-        if (generate)
+        // 编辑周彼此连续，必须排除整个区间的旧排班，再用各周新草稿互相校验。
+        var existing = await Existing(group.Id, allowedIds, from, until, cancellationToken);
+        var weeks = new List<ScheduleWeek>();
+        foreach (var week in requests)
         {
-            if (group.Rule == null) return ["请先为团队绑定排班规则。"];
-            assignments = generator.Generate(group.Rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc),
-                ids, start, 21, existing).ToList();
-        }
-        else
-        {
-            if (!HasValidSlots(request.Slots, start, end))
-                return ["必须提交本周全部 21 个班次，且每个时段仅出现一次。"];
-            var currentIds = ids.ToHashSet(StringComparer.Ordinal);
-            var savedMembers = slots.ToDictionary(slot => slot.StartsAtUtc,
-                slot => slot.Members.Select(member => member.UserId).ToHashSet(StringComparer.Ordinal));
-            if (request.Slots.Any(slot => slot.UserIds.Any(id => !currentIds.Contains(id) &&
-                    (!savedMembers.TryGetValue(slot.StartsAtUtc, out var saved) || !saved.Contains(id)))))
-                return ["不能新增已退出团队或不属于团队的员工。"];
-            assignments = request.Slots.SelectMany(slot => slot.UserIds.Select(id => new GeneratedOnCallShift(id,
-                DateTime.SpecifyKind(slot.StartsAtUtc, DateTimeKind.Utc), DateTime.SpecifyKind(slot.StartsAtUtc.AddHours(8), DateTimeKind.Utc), restHours))).ToList();
-        }
-        var errors = OnCallScheduleValidator.Validate(start, 21, restHours, assignments, existing, names);
-        if (errors.Count != 0) return errors;
-        Warnings = OnCallScheduleValidator.StaffingWarnings(start, 21, minimumStaff, assignments);
-        if (generate && Warnings.Count > 0) return Warnings;
-        var bySlot = assignments.ToLookup(shift => shift.StartsAtUtc);
-        for (var index = 0; index < 21; index++)
-        {
-            var time = start.AddHours(index * 8);
-            var slot = create ? new OnCallShift
+            var end = week.StartUtc.AddDays(7);
+            var slots = savedSlots.Where(slot => slot.StartsAtUtc < end && slot.EndsAtUtc > week.StartUtc).ToList();
+            var create = slots.Count == 0;
+            if (!create && (slots.Count != 21 || slots.Where((slot, index) =>
+                    slot.StartsAtUtc != week.StartUtc.AddHours(index * 8) || slot.EndsAtUtc != slot.StartsAtUtc.AddHours(8)).Any()))
+                return ["已有排班的时间边界不完整，不能覆盖。"];
+            var restHours = create ? group.Rule?.RestHours ?? 16 : slots[0].RestHours;
+            if (restHours is < 0 or > 168 || slots.Any(slot => slot.RestHours != restHours))
+                return ["排班的休息时长无效或不一致。"];
+            var minimumStaff = create ? group.Rule?.MinimumStaff ?? 1 : slots[0].MinimumStaff;
+            if (minimumStaff is < 1 or > 200 || slots.Any(slot => slot.MinimumStaff != minimumStaff))
+                return ["排班的最低人数无效或不一致。"];
+            List<GeneratedOnCallShift> assignments;
+            if (generate)
             {
-                GroupId = group.Id, StartsAtUtc = time, EndsAtUtc = time.AddHours(8), RestHours = restHours,
-                MinimumStaff = minimumStaff
-            } : slots[index];
-            if (create) db.OnCallShifts.Add(slot);
-            var selected = bySlot[time].Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal);
-            foreach (var member in slot.Members.Where(member => !selected.Contains(member.UserId)).ToList())
-                db.OnCallShiftMembers.Remove(member);
-            foreach (var id in selected.Except(slot.Members.Select(member => member.UserId)))
-                slot.Members.Add(new OnCallShiftMember { UserId = id });
+                if (group.Rule == null) return ["请先为团队绑定排班规则。"];
+                assignments = generator.Generate(group.Rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc),
+                    ids, week.StartUtc, 21, existing).ToList();
+            }
+            else
+            {
+                if (!HasValidSlots(week.Slots, week.StartUtc, end))
+                    return ["必须提交本周全部 21 个班次，且每个时段仅出现一次。"];
+                var savedMembers = slots.ToDictionary(slot => slot.StartsAtUtc,
+                    slot => slot.Members.Select(member => member.UserId).ToHashSet(StringComparer.Ordinal));
+                if (week.Slots.Any(slot => slot.UserIds.Any(id => !currentIds.Contains(id) &&
+                        (!savedMembers.TryGetValue(slot.StartsAtUtc, out var saved) || !saved.Contains(id)))))
+                    return ["不能新增已退出团队或不属于团队的员工。"];
+                assignments = week.Slots.SelectMany(slot => slot.UserIds.Select(id => new GeneratedOnCallShift(id,
+                    DateTime.SpecifyKind(slot.StartsAtUtc, DateTimeKind.Utc), DateTime.SpecifyKind(slot.StartsAtUtc.AddHours(8), DateTimeKind.Utc), restHours))).ToList();
+            }
+            weeks.Add(new ScheduleWeek(week.StartUtc, slots, restHours, minimumStaff, assignments));
+        }
+        var errors = weeks.SelectMany(week => OnCallScheduleValidator.Validate(week.StartUtc, 21, week.RestHours,
+            week.Assignments, existing.Concat(weeks.Where(peer => peer.StartUtc != week.StartUtc)
+                .SelectMany(peer => peer.Assignments)).ToList(), names)).Distinct().ToList();
+        if (errors.Count != 0) return errors;
+        Warnings = weeks.SelectMany(week => OnCallScheduleValidator.StaffingWarnings(week.StartUtc, 21,
+            week.MinimumStaff, week.Assignments)).ToList();
+        if (generate && Warnings.Count > 0) return Warnings;
+        foreach (var week in weeks)
+        {
+            var create = week.SavedSlots.Count == 0;
+            var bySlot = week.Assignments.ToLookup(shift => shift.StartsAtUtc);
+            for (var index = 0; index < 21; index++)
+            {
+                var time = week.StartUtc.AddHours(index * 8);
+                var slot = create ? new OnCallShift
+                {
+                    GroupId = group.Id, StartsAtUtc = time, EndsAtUtc = time.AddHours(8), RestHours = week.RestHours,
+                    MinimumStaff = week.MinimumStaff
+                } : week.SavedSlots[index];
+                if (create) db.OnCallShifts.Add(slot);
+                var selected = bySlot[time].Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal);
+                foreach (var member in slot.Members.Where(member => !selected.Contains(member.UserId)).ToList())
+                    db.OnCallShiftMembers.Remove(member);
+                foreach (var id in selected.Except(slot.Members.Select(member => member.UserId)))
+                    slot.Members.Add(new OnCallShiftMember { UserId = id });
+            }
         }
         group.ScheduleVersion = Guid.NewGuid();
         await db.SaveChangesAsync(cancellationToken);
         if (transaction != null) await transaction.CommitAsync(cancellationToken);
         return [];
     }
+
+    private sealed record ScheduleWeek(DateTime StartUtc, List<OnCallShift> SavedSlots, int RestHours,
+        int MinimumStaff, List<GeneratedOnCallShift> Assignments);
 
     private static bool HasValidSlots(IReadOnlyList<OnCallSlotRequest?>? slots, DateTime start, DateTime end) =>
         slots is { Count: 21 } &&

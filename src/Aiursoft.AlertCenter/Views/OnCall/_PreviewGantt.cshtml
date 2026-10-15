@@ -14,6 +14,10 @@
     var selectedShift = Model.Preview.FirstOrDefault(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc) ?? Model.Preview.FirstOrDefault();
     var selectedStart = selectedShift == null ? "" : TimeZoneInfo.ConvertTime(new DateTimeOffset(selectedShift.StartsAtUtc), zone).ToString("yyyy-MM-dd HH:mm zzz");
     var selectedEnd = selectedShift == null ? "" : TimeZoneInfo.ConvertTime(new DateTimeOffset(selectedShift.EndsAtUtc), zone).ToString("yyyy-MM-dd HH:mm zzz");
+    var adjacent = Model.AdjacentShifts.Where(shift => shift.StartsAtUtc >= start.AddDays(-1) && shift.StartsAtUtc < end.AddDays(1))
+        .SelectMany(shift => shift.Members.Select(member => new Aiursoft.AlertCenter.Services.GeneratedOnCallShift(member.UserId,
+            DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), shift.RestHours))).ToList();
+    var allShifts = Model.Preview.Concat(adjacent).ToList();
     string Percent(double hours) => (hours / duration * 100).ToString("0.######", CultureInfo.InvariantCulture) + "%";
     string Position(DateTime time) => Percent((time - start).TotalHours);
     string LocalTime(DateTime time) => TimeZoneInfo.ConvertTimeFromUtc(time, zone).ToString("yyyy-MM-dd HH:mm");
@@ -22,10 +26,22 @@
     <h3 class="h6 mb-0">员工值班时间轴</h3>
     <span class="small text-muted">@LocalTime(start) → @LocalTime(end) · @group.TimeZoneId</span>
 </div>
-<p id="oncall-gantt-help" class="small text-muted">横向滚动查看完整排班；悬停、聚焦或点击色块查看班次详情。跨天班次连续显示，最后一班可能跨越第七天。红线表示页面加载时的当前时间。</p>
+<p id="oncall-gantt-help" class="small text-muted">横向滚动查看完整排班；悬停、聚焦或点击色块查看班次详情。跨天班次连续显示，最后一班可能跨越第七天。红线表示页面加载时的当前时间。两侧默认折叠，点击可展开相邻周的 24 小时（实际时长，含夏令时切换），灰色区域不计入本周统计。</p>
+<div class="d-flex justify-content-between gap-2 mb-2">
+    @if (start > group.AnchorUtc)
+    {
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-oncall-edge="previous" aria-expanded="false" aria-controls="oncall-gantt">展开上一周末 24 小时</button>
+    }
+    @if (start < DateTime.MaxValue.AddDays(-35))
+    {
+        <button type="button" class="btn btn-sm btn-outline-secondary ms-auto" data-oncall-edge="next" aria-expanded="false" aria-controls="oncall-gantt">展开下一周首 24 小时</button>
+    }
+</div>
 <div id="oncall-gantt" class="ac-gantt-scroll border rounded" role="region" aria-label="七天值班甘特图" aria-describedby="oncall-gantt-help" tabindex="0">
     <div class="ac-gantt">
         <div class="ac-gantt-grid" aria-hidden="true">
+            <div class="ac-gantt-day ac-gantt-adjacent" data-edge="previous" hidden style="left: @Percent(-24); width: @Percent(24)"></div>
+            <div class="ac-gantt-day ac-gantt-adjacent" data-edge="next" hidden style="left: @Percent(168); width: @Percent(24)"></div>
             @foreach (var day in Model.PreviewDays.Where(day => day.Segments.Count > 0))
             {
                 var dayStart = day.Segments[0].StartsAtUtc;
@@ -44,6 +60,14 @@
         <div class="ac-gantt-row">
             <div class="ac-gantt-name fw-semibold">值班员工<span class="small text-muted d-block">班次 / 总时长</span></div>
             <div class="ac-gantt-axis">
+                @foreach (var edge in new[] { "previous", "next" })
+                {
+                    var edgeStart = edge == "previous" ? start.AddDays(-1) : end;
+                    <div class="ac-gantt-date ac-gantt-adjacent" data-edge="@edge" hidden style="left: @Position(edgeStart); width: @Percent(24)">
+                        <strong>@(edge == "previous" ? "上一周末" : "下一周首")</strong>
+                        <span class="small d-block">@LocalTime(edgeStart) → @LocalTime(edgeStart.AddDays(1))</span>
+                    </div>
+                }
                 @foreach (var day in Model.PreviewDays.Where(day => day.Segments.Count > 0))
                 {
                     var dayStart = day.Segments[0].StartsAtUtc;
@@ -85,24 +109,26 @@
                 <div class="ac-gantt-lane">
                     @if (Model.IsAdministrator && !departed)
                     {
-                        @for (var slot = 0; slot < 21; slot++)
+                        @for (var slot = -3; slot < 24; slot++)
                         {
-                            <button type="button" class="ac-gantt-cell" data-slot="@slot" style="left: @Percent(slot * 8); width: @Percent(8)"
+                            var edge = slot < 0 ? "previous" : slot >= 21 ? "next" : null;
+                            <button type="button" class="ac-gantt-cell@(edge != null ? " ac-gantt-adjacent" : "")" data-slot="@(slot + 21)" data-edge="@edge" hidden="@(edge != null)" style="left: @Percent(slot * 8); width: @Percent(8)"
                                     aria-label="@name · @LocalTime(start.AddHours(slot * 8)) · 移动选中班次到此处" tabindex="-1"></button>
                         }
                     }
-                    @foreach (var shift in shifts)
+                    @foreach (var shift in allShifts.Where(shift => shift.UserId == user.Id))
                     {
+                        var edge = shift.StartsAtUtc < start ? "previous" : shift.StartsAtUtc >= end ? "next" : null;
                         var isCurrent = shift.StartsAtUtc <= now && now < shift.EndsAtUtc;
                         var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.StartsAtUtc), zone);
                         var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.EndsAtUtc), zone);
                         var shiftHours = (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours;
                         var details = $"{name}{(departed ? " · 已退出" : "")} · {localStart:yyyy-MM-dd HH:mm zzz} → {localEnd:yyyy-MM-dd HH:mm zzz} · {shiftHours:0.##} 小时 · {group.TimeZoneId}";
-                        <button type="button" class="ac-gantt-shift ac-oncall-color-@(index % 4) @(isCurrent ? "ac-gantt-current" : "")"
-                                style="left: @Position(shift.StartsAtUtc); width: @Percent(shiftHours)"
+                        <button type="button" class="ac-gantt-shift ac-oncall-color-@(index % 4) @(isCurrent ? "ac-gantt-current" : "") @(edge != null ? "ac-gantt-adjacent" : "")"
+                                data-edge="@edge" hidden="@(edge != null)" style="left: @Position(shift.StartsAtUtc); width: @Percent(shiftHours)"
                                 data-summary="@name@(departed ? " · 已退出" : "") · @shiftHours.ToString("0.##") 小时 · @group.TimeZoneId@(isCurrent ? " · 值班中" : "")"
                                 data-start="@localStart.ToString("yyyy-MM-dd HH:mm zzz")" data-end="@localEnd.ToString("yyyy-MM-dd HH:mm zzz")"
-                                data-slot="@((int)((shift.StartsAtUtc - Model.WeekStartUtc).TotalHours / 8))"
+                                data-slot="@((int)((shift.StartsAtUtc - Model.WeekStartUtc).TotalHours / 8) + 21)"
                                 aria-label="@details@(isCurrent ? " · 值班中" : "")" title="@details" aria-describedby="oncall-shift-detail">
                             <span class="ac-gantt-time" aria-hidden="true">起 @localStart.ToString("HH:mm")</span>
                             <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">止 @localEnd.ToString("HH:mm")</span>

@@ -2,6 +2,11 @@
     const root = document.getElementById('oncall-schedule');
     if (!root) return;
     const original = JSON.parse(root.dataset.slots);
+    const weeks = JSON.parse(root.dataset.weeks);
+    const departedIds = new Set([...root.querySelectorAll('.oncall-edit-member')].filter(input => input.dataset.departed === 'true').map(input => input.value));
+    const weekSlots = (items, week) => items.slice(week * 21, (week + 1) * 21);
+    const slotChanged = index => [...slots[index].userIds].sort().join(',') !== [...original[index].userIds].sort().join(',');
+    const weekChanged = week => weekSlots(slots, week).some((_, index) => slotChanged(week * 21 + index));
     let slots = structuredClone(original);
     const errors = document.getElementById('oncall-schedule-errors');
     const select = document.getElementById('oncall-edit-slot');
@@ -29,13 +34,13 @@
             input.checked = assigned.has(input.value);
             input.disabled = saving || input.dataset.departed === 'true';
         });
-        const changed = slots.filter((slot, index) => [...slot.userIds].sort().join(',') !== [...original[index].userIds].sort().join(',')).length;
+        const changed = slots.filter((_, index) => slotChanged(index)).length;
         dirty = changed > 0;
         const generate = document.getElementById('oncall-generate');
         if (generate) generate.disabled = dirty || saving;
         document.getElementById('oncall-undo-schedule').disabled = !history.length || saving;
         document.getElementById('oncall-reset-schedule').disabled = !dirty || saving;
-        document.getElementById('oncall-edit-count').textContent = `已修改 ${changed} 个班次`;
+        document.getElementById('oncall-edit-count').textContent = `已修改 ${changed} 个班次${weekChanged(0) ? ' · 含上一周' : ''}${weekChanged(2) ? ' · 含下一周' : ''}`;
         if (badge) {
             badge.textContent = dirty ? '未保存 · 调整草稿' : originalBadge;
             badge.className = dirty ? 'badge bg-warning text-dark' : originalBadgeClass;
@@ -52,6 +57,7 @@
             button.setAttribute('aria-pressed', String(active));
         });
         rows.forEach(row => {
+            row.querySelectorAll('.ac-gantt-shift').forEach(shift => shift.disabled = saving);
             const weekButton = row.querySelector('.ac-gantt-week');
             if (weekButton) weekButton.disabled = saving || mode !== 'move' || row.dataset.departed === 'true';
             row.querySelectorAll('.ac-gantt-cell').forEach(cell => {
@@ -100,11 +106,12 @@
 
     function renderChart() {
         const warnings = [];
-        const empty = slots.flatMap((slot, index) => slot.userIds.length ? [] : [index]);
-        empty.forEach(index => warnings.push(`${slots[index].localStart} 出现空班，请补充人员。`));
-        slots.forEach(slot => {
-            const minimum = Number(root.dataset.minimumStaff || 1);
-            if (slot.userIds.length > 0 && slot.userIds.length < minimum)
+        const active = index => Math.floor(index / 21) === 1 || weekChanged(Math.floor(index / 21));
+        const empty = slots.flatMap((slot, index) => !slot.userIds.length && active(index) ? [index] : []);
+        empty.forEach(index => warnings.push(`${slots[index].localStart} 出现空班，请补充人员（所属周需完整 21 班）。`));
+        slots.forEach((slot, index) => {
+            const minimum = weeks[Math.floor(index / 21)].minimumStaff;
+            if (active(index) && slot.userIds.length > 0 && slot.userIds.length < minimum)
                 warnings.push(`${slot.localStart} 仅安排 ${slot.userIds.length} 人，低于最低 ${minimum} 人；仍允许手动保存。`);
         });
         rows.forEach(row => {
@@ -114,24 +121,32 @@
                 if (!position) return;
                 const previous = assigned[position - 1];
                 const rest = (index - previous - 1) * 8;
-                if (rest < Number(root.dataset.restHours)) {
+                const requiredRest = Math.max(weeks[Math.floor(index / 21)].restHours, weeks[Math.floor(previous / 21)].restHours);
+                if ((active(index) || active(previous)) && rest < requiredRest) {
                     conflicts.add(index);
                     conflicts.add(previous);
-                    warnings.push(`${row.dataset.name}：${slots[previous].localStart} 与 ${slots[index].localStart} 两班之间仅休息 ${rest} 小时，至少需要 ${root.dataset.restHours} 小时。`);
+                    warnings.push(`${row.dataset.name}：${slots[previous].localStart} 与 ${slots[index].localStart} 两班之间仅休息 ${rest} 小时，至少需要 ${requiredRest} 小时。`);
                 }
             });
-            row.querySelector('.ac-gantt-hours').textContent = `${assigned.length} 班 / ${assigned.length * 8} 小时`;
+            const currentCount = assigned.filter(index => index >= 21 && index < 42).length;
+            row.querySelector('.ac-gantt-hours').textContent = `${currentCount} 班 / ${currentCount * 8} 小时`;
             row.querySelectorAll('.ac-gantt-shift').forEach(shift => shift.remove());
             row.querySelectorAll('.ac-gantt-cell').forEach(cell => cell.classList.toggle('ac-gantt-empty', empty.includes(Number(cell.dataset.slot))));
-            assigned.forEach(index => {
+            assigned.filter(index => index >= 18 && index < 45).forEach(index => {
                 const slot = slots[index];
+                const edge = index < 21 ? 'previous' : index >= 42 ? 'next' : null;
                 const shift = document.createElement('button');
                 shift.type = 'button';
                 shift.className = `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
+                if (edge) {
+                    shift.classList.add('ac-gantt-adjacent');
+                    shift.dataset.edge = edge;
+                    shift.hidden = true;
+                }
                 shift.classList.toggle('ac-gantt-conflict', conflicts.has(index));
                 const startsAt = Date.parse(slot.startsAtUtc);
                 shift.classList.toggle('ac-gantt-current', startsAt <= loadedAt && loadedAt < startsAt + 8 * 3600000);
-                shift.style.left = `${index / 21 * 100}%`;
+                shift.style.left = `${(index - 21) / 21 * 100}%`;
                 shift.style.width = `${100 / 21}%`;
                 shift.dataset.slot = index;
                 shift.dataset.summary = `${row.dataset.name}${row.dataset.departed === 'true' ? ' · 已退出' : ''} · 8 小时 · ${root.dataset.zone}${conflicts.has(index) ? ' · 休息不足' : ''}`;
@@ -152,11 +167,14 @@
         });
         showMessages(document.getElementById('oncall-draft-errors'), warnings);
         document.getElementById('oncall-draft-validation').hidden = warnings.length === 0;
-        document.getElementById('oncall-draft-summary').textContent = `本周有 ${warnings.length} 处待解决问题（展开查看）；可以继续调整。`;
+        document.getElementById('oncall-draft-summary').textContent = `排班有 ${warnings.length} 处待解决问题（展开查看）；可以继续调整。`;
         const stats = document.querySelectorAll('[data-oncall-stat]');
-        const values = { shifts: 21 - empty.length, staff: new Set(slots.flatMap(slot => slot.userIds)).size, hours: `${(21 - empty.length) * 8} 小时` };
+        const current = weekSlots(slots, 1);
+        const covered = current.filter(slot => slot.userIds.length).length;
+        const values = { shifts: covered, staff: new Set(current.flatMap(slot => slot.userIds)).size, hours: `${covered * 8} 小时` };
         stats.forEach(stat => stat.textContent = values[stat.dataset.oncallStat]);
         syncMode();
+        chart?.dispatchEvent(new Event('oncall-layout'));
     }
 
     function clearSelection() {
@@ -205,6 +223,8 @@
         const row = element?.closest('[data-user-id]');
         if (!row || !chart.contains(row) || row.dataset.departed === 'true') return null;
         const item = element.closest('.ac-gantt-shift, .ac-gantt-cell, .ac-gantt-week');
+        if (item?.hidden) return null;
+        if (item?.dataset.slot !== undefined && !weeks[Math.floor(Number(item.dataset.slot) / 21)].available) return null;
         return { user: row.dataset.userId, name: row.dataset.name, slot: item?.dataset.slot === undefined ? null : Number(item.dataset.slot),
             week: item?.classList.contains('ac-gantt-week'), occupied: item?.classList.contains('ac-gantt-shift'), element: item || row };
     }
@@ -227,7 +247,7 @@
         const draft = structuredClone(slots);
         if (source.week) {
             if (source.user === target.user) { status.textContent = '已取消交换。'; return; }
-            draft.forEach(slot => slot.userIds = slot.userIds.map(id => id === source.user ? target.user : id === target.user ? source.user : id));
+            weekSlots(draft, 1).forEach(slot => slot.userIds = slot.userIds.map(id => id === source.user ? target.user : id === target.user ? source.user : id));
         } else {
             if (source.slot === target.slot && source.user === target.user) { status.textContent = '已取消移动。'; return; }
             const from = draft[source.slot].userIds;
@@ -318,6 +338,36 @@
         clearSelection();
         status.textContent = '已取消选择。';
     });
+    chart?.addEventListener('oncall-edge-change', () => {
+        if (pointer) endPointer({ pointerId: pointer.id }, true);
+        clearSelection();
+    });
+
+    const copyDialog = document.getElementById('oncall-copy-confirm');
+    const copyModal = window.bootstrap?.Modal.getOrCreateInstance(copyDialog);
+    function copyNext() {
+        if (saving || !weeks[2].available) return;
+        if (weekSlots(slots, 1).some(slot => slot.userIds.some(id => departedIds.has(id)))) {
+            showMessages(errors, ['本周包含已退出成员，请先在本周草稿中替换这些人员，再复制到下一周。']);
+            return;
+        }
+        history.push(structuredClone(slots));
+        weekSlots(slots, 1).forEach((slot, index) => slots[42 + index].userIds = [...slot.userIds]);
+        changed('已将本周当前草稿复制到下一周全部 21 班；尚未保存，可撤销。请展开下一周首 24 小时或通过表单检查整周。');
+        const toggle = document.querySelector('[data-oncall-edge="next"]');
+        if (toggle?.getAttribute('aria-expanded') === 'false') toggle.click();
+    }
+    document.getElementById('oncall-copy-next')?.addEventListener('click', () => {
+        if (saving) return;
+        if (weeks[2].saved || weekChanged(2)) {
+            if (copyModal) copyModal.show();
+            else showMessages(errors, ['无法显示替换确认，请刷新页面后重试；下一周草稿未改变。']);
+        } else copyNext();
+    });
+    document.getElementById('oncall-copy-apply')?.addEventListener('click', () => {
+        copyModal?.hide();
+        copyNext();
+    });
     async function save(generate) {
         if (saving) return;
         saving = true;
@@ -331,7 +381,11 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', RequestVerificationToken: root.querySelector('input[name="__RequestVerificationToken"]').value },
                 body: JSON.stringify({ groupId: root.dataset.groupId, version: root.dataset.version, startUtc: root.dataset.start,
-                    slots: slots.map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds })) })
+                    slots: weekSlots(slots, 1).map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds })),
+                    adjacentWeeks: generate ? [] : [0, 2].filter(week => weekChanged(week)).map(week => ({
+                        startUtc: weeks[week].startUtc,
+                        slots: weekSlots(slots, week).map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds }))
+                    })) })
             });
             if (!response.ok) {
                 const result = await response.json();

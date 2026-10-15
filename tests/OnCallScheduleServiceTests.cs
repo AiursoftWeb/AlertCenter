@@ -53,6 +53,302 @@ public class OnCallScheduleServiceTests
         return request;
     }
 
+    private static List<OnCallSlotRequest> ManualSlots(DateTime start) => Enumerable.Range(0, 21)
+        .Select(index => new OnCallSlotRequest { StartsAtUtc = start.AddHours(index * 8), UserIds = [$"u{index % 3}"] }).ToList();
+
+    private static OnCallScheduleWeekRequest AdjacentWeek(DateTime start) => new() { StartUtc = start, Slots = ManualSlots(start) };
+
+    [TestMethod]
+    public async Task SavesPreviousCurrentAndNextWeeksAtomicallyWithOneVersionChange()
+    {
+        for (var index = 0; index < 3; index++)
+        {
+            var seed = Request(Anchor.AddDays(index * 7));
+            seed.Slots = ManualSlots(seed.StartUtc);
+            Assert.AreEqual(0, (await service.Save(seed, false, default)).Count);
+        }
+        var originalIds = await db.OnCallShifts.OrderBy(shift => shift.StartsAtUtc).Select(shift => shift.Id).ToListAsync();
+        var request = await EditRequest(Anchor.AddDays(7));
+        var previous = await EditRequest();
+        var next = await EditRequest(Anchor.AddDays(14));
+        request.AdjacentWeeks =
+        [
+            new() { StartUtc = next.StartUtc, Slots = next.Slots },
+            new() { StartUtc = previous.StartUtc, Slots = previous.Slots }
+        ];
+        foreach (var slot in request.Slots.Concat(request.AdjacentWeeks.SelectMany(week => week.Slots)))
+            slot.UserIds = slot.UserIds.Select(id => id == "u0" ? "u1" : id == "u1" ? "u0" : id).ToList();
+        var version = request.Version;
+
+        Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
+
+        Assert.AreNotEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(0, service.Warnings.Count);
+        Assert.AreEqual(63, await db.OnCallShiftMembers.CountAsync());
+        CollectionAssert.AreEqual(originalIds, await db.OnCallShifts.OrderBy(shift => shift.StartsAtUtc).Select(shift => shift.Id).ToListAsync());
+        for (var index = 0; index < 3; index++)
+        {
+            var saved = await EditRequest(Anchor.AddDays(index * 7));
+            CollectionAssert.AreEqual(new[] { "u1" }, saved.Slots[0].UserIds);
+            CollectionAssert.AreEqual(new[] { "u0" }, saved.Slots[1].UserIds);
+            Assert.AreEqual(group.ScheduleVersion, saved.Version);
+        }
+        await Assert.ThrowsAsync<DbUpdateConcurrencyException>(() => service.Save(request, false, default));
+        Assert.AreEqual(63, await db.OnCallShiftMembers.CountAsync());
+    }
+
+    [TestMethod]
+    [DataRow(-1)]
+    [DataRow(1)]
+    public async Task CrossWeekRestFailureRollsBackEditsAndNewAdjacentWeeks(int direction)
+    {
+        var seed = Request(Anchor.AddDays(7));
+        seed.Slots = ManualSlots(seed.StartUtc);
+        Assert.AreEqual(0, (await service.Save(seed, false, default)).Count);
+        var request = await EditRequest(seed.StartUtc);
+        request.Slots[5].UserIds = ["u3"];
+        var adjacent = AdjacentWeek(seed.StartUtc.AddDays(direction * 7));
+        adjacent.Slots[direction < 0 ? 20 : 0].UserIds = [direction < 0 ? "u0" : "u2"];
+        request.AdjacentWeeks = [adjacent];
+        var version = group.ScheduleVersion;
+
+        var errors = await service.Save(request, false, default);
+
+        Assert.IsTrue(errors.Any(error => error.Contains("休息不足")));
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(0, service.Warnings.Count);
+        Assert.AreEqual(21, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(21, await db.OnCallShiftMembers.CountAsync());
+        CollectionAssert.AreEqual(new[] { "u2" }, (await EditRequest(seed.StartUtc)).Slots[5].UserIds);
+        Assert.IsFalse(db.ChangeTracker.HasChanges());
+    }
+
+    [TestMethod]
+    [DataRow("previous")]
+    [DataRow("next")]
+    [DataRow("other-team")]
+    public async Task MultiweekSaveStillValidatesExternalAssignmentsOutsideEditedWeeks(string source)
+    {
+        var seed = Request(Anchor.AddDays(14));
+        seed.Slots = ManualSlots(seed.StartUtc);
+        Assert.AreEqual(0, (await service.Save(seed, false, default)).Count);
+        var externalStart = source == "previous" ? Anchor.AddDays(7).AddHours(-8) :
+            source == "next" ? Anchor.AddDays(28) : Anchor.AddDays(7);
+        var externalGroup = source == "other-team" ? new OnCallGroup { Name = "Other", AnchorUtc = Anchor } : group;
+        db.OnCallShifts.Add(new OnCallShift
+        {
+            Group = externalGroup, StartsAtUtc = externalStart, EndsAtUtc = externalStart.AddHours(8), RestHours = 16,
+            Members = [new OnCallShiftMember { UserId = source == "next" ? "u2" : "u0" }]
+        });
+        await db.SaveChangesAsync();
+        var request = await EditRequest(seed.StartUtc);
+        request.Slots[5].UserIds = ["u3"];
+        request.AdjacentWeeks = [AdjacentWeek(Anchor.AddDays(7)), AdjacentWeek(Anchor.AddDays(21))];
+        var version = group.ScheduleVersion;
+
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("休息不足")));
+
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(22, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(22, await db.OnCallShiftMembers.CountAsync());
+        CollectionAssert.AreEqual(new[] { "u2" }, (await EditRequest(seed.StartUtc)).Slots[5].UserIds);
+        Assert.IsFalse(db.ChangeTracker.HasChanges());
+    }
+
+    [TestMethod]
+    [DataRow("partial")]
+    [DataRow("rest")]
+    [DataRow("minimum")]
+    public async Task InvalidSavedAdjacentWeekCannotBeOverwrittenOrPartiallySaveMainWeek(string invalid)
+    {
+        var next = Request(Anchor.AddDays(7));
+        next.Slots = ManualSlots(next.StartUtc);
+        Assert.AreEqual(0, (await service.Save(next, false, default)).Count);
+        var first = await db.OnCallShifts.OrderBy(shift => shift.StartsAtUtc).FirstAsync();
+        switch (invalid)
+        {
+            case "partial": db.OnCallShifts.Remove(first); break;
+            case "rest": first.RestHours = 0; break;
+            case "minimum": first.MinimumStaff = 2; break;
+        }
+        await db.SaveChangesAsync();
+        var count = await db.OnCallShifts.CountAsync();
+        var request = Request();
+        request.Slots = ManualSlots(request.StartUtc);
+        request.AdjacentWeeks = [AdjacentWeek(next.StartUtc)];
+        var version = group.ScheduleVersion;
+
+        Assert.IsNotEmpty(await service.Save(request, false, default));
+
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(count, await db.OnCallShifts.CountAsync());
+        Assert.IsFalse(await db.OnCallShifts.AnyAsync(shift => shift.StartsAtUtc < next.StartUtc));
+        Assert.IsFalse(db.ChangeTracker.HasChanges());
+    }
+
+    [TestMethod]
+    public async Task MultiweekSavePreservesEachSavedSnapshotAndUsesCurrentDefaultsForNewWeek()
+    {
+        rule.RestHours = 0;
+        rule.MinimumStaff = 2;
+        await db.SaveChangesAsync();
+        var previous = Request();
+        previous.Slots = ManualSlots(previous.StartUtc);
+        Assert.AreEqual(0, (await service.Save(previous, false, default)).Count);
+        rule.RestHours = 8;
+        rule.MinimumStaff = 3;
+        await db.SaveChangesAsync();
+        var current = Request(Anchor.AddDays(7));
+        current.Slots = ManualSlots(current.StartUtc);
+        Assert.AreEqual(0, (await service.Save(current, false, default)).Count);
+        rule.RestHours = 16;
+        rule.MinimumStaff = 4;
+        await db.SaveChangesAsync();
+        var request = await EditRequest(current.StartUtc);
+        request.AdjacentWeeks = [AdjacentWeek(Anchor), AdjacentWeek(Anchor.AddDays(14))];
+        request.AdjacentWeeks[0].Slots[0].UserIds = ["u1"];
+
+        Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
+
+        Assert.AreEqual(63, service.Warnings.Count);
+        for (var index = 0; index < 3; index++)
+        {
+            var start = Anchor.AddDays(index * 7);
+            var end = start.AddDays(7);
+            var slots = await db.OnCallShifts.Where(shift => shift.StartsAtUtc >= start && shift.StartsAtUtc < end).ToListAsync();
+            Assert.AreEqual(21, slots.Count);
+            Assert.IsTrue(slots.All(slot => slot.RestHours == index * 8 && slot.MinimumStaff == index + 2));
+            Assert.IsTrue(service.Warnings.Skip(index * 21).Take(21).All(warning => warning.Contains($"最低 {index + 2} 人")));
+        }
+    }
+
+    [TestMethod]
+    public async Task PeerWeekValidationUsesStricterHistoricalRestSnapshot()
+    {
+        rule.RestHours = 16;
+        var seed = Request();
+        seed.Slots = ManualSlots(seed.StartUtc);
+        Assert.AreEqual(0, (await service.Save(seed, false, default)).Count);
+        rule.RestHours = 0;
+        await db.SaveChangesAsync();
+        var request = Request(Anchor.AddDays(7));
+        request.Slots = ManualSlots(request.StartUtc);
+        request.Slots[0].UserIds = ["u2"];
+        request.AdjacentWeeks = [AdjacentWeek(Anchor)];
+        var version = group.ScheduleVersion;
+
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("休息不足")));
+
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(21, await db.OnCallShifts.CountAsync());
+        Assert.IsTrue(await db.OnCallShifts.AllAsync(shift => shift.RestHours == 16));
+        Assert.IsFalse(db.ChangeTracker.HasChanges());
+    }
+
+    [TestMethod]
+    [DataRow("null")]
+    [DataRow("[null]")]
+    [DataRow("[{},{},{}]")]
+    [DataRow("[{}]")]
+    [DataRow("[{\"StartUtc\":\"2026-10-05T00:00:00Z\"}]")]
+    [DataRow("[{\"StartUtc\":\"2026-10-12T00:00:00Z\"},{\"StartUtc\":\"2026-10-12T00:00:00Z\"}]")]
+    [DataRow("[{\"StartUtc\":\"2026-10-19T00:00:00Z\"}]")]
+    [DataRow("[{\"StartUtc\":\"2026-10-12T08:00:00Z\"}]")]
+    [DataRow("[{\"StartUtc\":\"2026-10-12T00:00:00Z\",\"Slots\":null}]")]
+    [DataRow("[{\"StartUtc\":\"2026-10-12T00:00:00Z\",\"Slots\":[null]}]")]
+    public async Task RejectsMalformedAdjacentRequestsWithoutAnyWrites(string adjacentJson)
+    {
+        var request = Request(Anchor.AddDays(7));
+        request.Slots = ManualSlots(request.StartUtc);
+        request.AdjacentWeeks = System.Text.Json.JsonSerializer.Deserialize<List<OnCallScheduleWeekRequest>>(adjacentJson)!;
+        var version = group.ScheduleVersion;
+
+        Assert.IsNotEmpty(await service.Save(request, false, default));
+
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(0, await db.OnCallShiftMembers.CountAsync());
+        Assert.IsFalse(db.ChangeTracker.HasChanges());
+    }
+
+    [TestMethod]
+    [DataRow("partial")]
+    [DataRow("duplicate-slot")]
+    [DataRow("null-slot")]
+    [DataRow("null-users")]
+    [DataRow("blank-user")]
+    [DataRow("duplicate-user")]
+    [DataRow("unknown-user")]
+    [DataRow("local-slot")]
+    [DataRow("local-week")]
+    public async Task RejectsInvalidAdjacentSlotsWithoutWritingValidMainWeek(string invalid)
+    {
+        var request = Request();
+        request.Slots = ManualSlots(request.StartUtc);
+        var adjacent = AdjacentWeek(Anchor.AddDays(7));
+        request.AdjacentWeeks = [adjacent];
+        switch (invalid)
+        {
+            case "partial": adjacent.Slots.RemoveAt(0); break;
+            case "duplicate-slot": adjacent.Slots[1].StartsAtUtc = adjacent.Slots[0].StartsAtUtc; break;
+            case "null-slot": adjacent.Slots[0] = null!; break;
+            case "null-users": adjacent.Slots[0].UserIds = null!; break;
+            case "blank-user": adjacent.Slots[0].UserIds = [" "]; break;
+            case "duplicate-user": adjacent.Slots[0].UserIds.Add("u0"); break;
+            case "unknown-user": adjacent.Slots[0].UserIds = ["unknown"]; break;
+            case "local-slot": adjacent.Slots[0].StartsAtUtc = DateTime.SpecifyKind(adjacent.StartUtc, DateTimeKind.Local); break;
+            case "local-week": adjacent.StartUtc = DateTime.SpecifyKind(adjacent.StartUtc, DateTimeKind.Local); break;
+        }
+        var version = group.ScheduleVersion;
+
+        Assert.IsNotEmpty(await service.Save(request, false, default));
+
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+        Assert.IsFalse(db.ChangeTracker.HasChanges());
+    }
+
+    [TestMethod]
+    public async Task GenerationRejectsAdjacentEditsAndStaleManualRequestsCannotCreateWeeks()
+    {
+        var request = Request();
+        request.Slots = ManualSlots(request.StartUtc);
+        request.AdjacentWeeks = [AdjacentWeek(Anchor.AddDays(7))];
+        var version = group.ScheduleVersion;
+        Assert.IsTrue((await service.Save(request, true, default)).Any(error => error.Contains("自动生成")));
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+        request.Version = Guid.NewGuid();
+        await Assert.ThrowsAsync<DbUpdateConcurrencyException>(() => service.Save(request, false, default));
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task MultiweekSaveOnlyRetainsDepartedMembersInTheirOwnOriginalSlots()
+    {
+        for (var index = 0; index < 2; index++)
+            Assert.AreEqual(0, (await service.Save(Request(Anchor.AddDays(index * 7)), true, default)).Count);
+        db.OnCallGroupMembers.Remove(group.Members.Single(member => member.UserId == "u3"));
+        await db.SaveChangesAsync();
+        var request = await EditRequest();
+        var next = await EditRequest(Anchor.AddDays(7));
+        request.AdjacentWeeks = [new() { StartUtc = next.StartUtc, Slots = next.Slots }];
+        Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
+        request.Version = group.ScheduleVersion;
+        var version = group.ScheduleVersion;
+        var original = request.AdjacentWeeks[0].Slots.First(slot => slot.UserIds.Contains("u3"));
+        var target = request.AdjacentWeeks[0].Slots.First(slot => !slot.UserIds.Contains("u3"));
+        original.UserIds.Remove("u3");
+        target.UserIds.Add("u3");
+
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("退出团队")));
+
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(56, await db.OnCallShiftMembers.CountAsync());
+        Assert.IsFalse(db.ChangeTracker.HasChanges());
+    }
+
     [TestMethod]
     public async Task SavesMultipleStaffAndManualChangesWithoutRegenerationOverwrite()
     {

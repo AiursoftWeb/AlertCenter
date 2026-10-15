@@ -186,6 +186,20 @@
     cursor: pointer;
 }
 
+.ac-gantt-adjacent {
+    background: var(--bs-secondary-bg);
+    color: var(--bs-secondary-color);
+}
+
+.ac-gantt-shift.ac-gantt-adjacent {
+    background: var(--bs-secondary);
+    color: #fff;
+}
+
+.ac-gantt [hidden] {
+    display: none !important;
+}
+
 .ac-gantt-time {
     display: block;
     overflow: hidden;
