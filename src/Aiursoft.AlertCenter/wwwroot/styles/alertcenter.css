@@ -209,13 +209,7 @@
     color: var(--bs-secondary-color);
 }
 
-.ac-gantt-shift.ac-gantt-adjacent {
-    background: var(--bs-secondary);
-    color: #fff;
-    cursor: default;
-    touch-action: manipulation;
-}
-
+.ac-gantt-shift.ac-gantt-adjacent,
 .ac-gantt-shift.ac-gantt-external {
     height: 4.2rem;
     background: var(--bs-secondary);

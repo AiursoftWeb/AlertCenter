@@ -31,7 +31,7 @@
         };
     }).ToList();
 }
-<div id="oncall-schedule" class="my-3" data-group-id="@group.Id" data-version="@group.ScheduleVersion" data-rest-hours="@Model.ScheduleRestHours" data-minimum-staff="@Model.ScheduleMinimumStaff" data-zone="@group.TimeZoneId"
+<div id="oncall-schedule" class="my-3" data-group-id="@group.Id" data-group-name="@group.Name" data-version="@group.ScheduleVersion" data-rest-hours="@Model.ScheduleRestHours" data-minimum-staff="@Model.ScheduleMinimumStaff" data-zone="@group.TimeZoneId"
      data-start="@Model.WeekStartUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)" data-weeks="@JsonSerializer.Serialize(weeks)"
      data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()

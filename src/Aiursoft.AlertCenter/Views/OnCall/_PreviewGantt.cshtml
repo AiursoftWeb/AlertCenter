@@ -131,11 +131,12 @@
                         var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.StartsAtUtc), zone);
                         var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.EndsAtUtc), zone);
                         var details = $"{name}{(departed ? " · 已退出" : "")} · {group.Name} · 相邻周（只读） · {group.TimeZoneId}";
-                        <button type="button" class="ac-gantt-shift ac-gantt-adjacent" data-readonly="true" data-edge="@edge" hidden="hidden"
+                        <button type="button" class="ac-gantt-shift ac-gantt-adjacent" data-readonly="true" data-group-id="@group.Id" data-edge="@edge" hidden="hidden"
                                 style="left: @Position(clippedStart); width: @Percent((clippedEnd - clippedStart).TotalHours)"
                                 data-summary="@details" data-start="@localStart.ToString("yyyy-MM-dd HH:mm zzz")" data-end="@localEnd.ToString("yyyy-MM-dd HH:mm zzz")"
                                 aria-label="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz") → @localEnd.ToString("yyyy-MM-dd HH:mm zzz")"
                                 title="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz") → @localEnd.ToString("yyyy-MM-dd HH:mm zzz")" aria-describedby="oncall-shift-detail">
+                            <span class="ac-gantt-time">@group.Name（只读）</span>
                             <span class="ac-gantt-time" aria-hidden="true">起 @localStart.ToString("HH:mm")</span>
                             <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">止 @localEnd.ToString("HH:mm")</span>
                         </button>

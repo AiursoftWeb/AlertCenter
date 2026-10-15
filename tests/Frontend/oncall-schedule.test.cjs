@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const test = require('node:test');
 
 function setup({ nextSaved = false, departed = false, saveFails = false, externalShifts = false,
-    previousAvailable = true, startUtc = '2026-10-12T00:00:00Z', zone = 'UTC' } = {}) {
+    previousAvailable = true, startUtc = '2026-10-12T00:00:00Z', zone = 'UTC', groupName = 'Primary team' } = {}) {
     class Event {
         constructor(type, options = {}) { this.type = type; Object.assign(this, options); }
     }
@@ -96,7 +96,7 @@ function setup({ nextSaved = false, departed = false, saveFails = false, externa
         saved: index !== 2 || nextSaved, restHours: 16, minimumStaff: 1, available: index !== 0 || previousAvailable }));
     if (!nextSaved) source.slice(42).forEach(slot => slot.userIds = []);
     root.dataset = { slots: JSON.stringify(source), weeks: JSON.stringify(weeks), start: date.toISOString(),
-        groupId: 'group', version: 'version', zone, saveUrl: '/save', generateUrl: '/generate' };
+        groupId: 'group', groupName, version: 'version', zone, saveUrl: '/save', generateUrl: '/generate' };
     add(root, 'input', null, { attributes: { name: '__RequestVerificationToken' }, value: 'token' });
     for (const id of ['oncall-schedule-errors', 'oncall-drag-status', 'oncall-edit-count', 'oncall-draft-errors',
         'oncall-draft-validation', 'oncall-draft-summary', 'oncall-mode-help']) add(root, 'div', id);
@@ -273,6 +273,48 @@ test('own adjacent shifts are clipped to 36 elapsed UTC hours with full details 
         assert(offsets.includes('-04:00'));
         assert(offsets.includes('-05:00'));
     }
+});
+
+test('adjacent bars keep their team labels and details after expand, copy, redraw, undo and reset', async () => {
+    const groupName = 'Primary <team> & "值班组"';
+    const ui = setup({ nextSaved: true, externalShifts: true, groupName });
+    async function assertTeamLabels(nextBars = 5) {
+        for (const edge of ['previous', 'next']) {
+            const bars = ui.chart.querySelectorAll(`.ac-gantt-shift:not(.ac-gantt-external)[data-edge="${edge}"]`);
+            assert.equal(bars.length, edge === 'next' ? nextBars : 5);
+            for (const bar of bars) {
+                assert.equal(bar.dataset.groupId, 'group');
+                assert.equal(bar.dataset.readonly, 'true');
+                assert.equal(bar.dataset.slot, undefined);
+                assert.equal(bar.children[0].textContent, `${groupName}（只读）`);
+                assert(bar.dataset.summary.includes(groupName));
+                assert(bar.title.includes(groupName));
+                assert(bar.getAttribute('aria-label').includes(groupName));
+            }
+            await bars[0].children[0].click();
+            assert(ui.elements['oncall-shift-summary'].textContent.includes(groupName));
+            assert(!bars[0].classList.contains('ac-gantt-selected'));
+        }
+        for (const bar of ui.external) {
+            assert(ui.chart.contains(bar));
+            assert(bar.dataset.summary.includes('Other team'));
+            assert.equal(bar.children[0].textContent, 'Other team');
+        }
+    }
+    await ui.click('toggle-previous');
+    await ui.click('toggle-next');
+    await assertTeamLabels();
+    await ui.assign(21, 'user1', true);
+    await assertTeamLabels();
+    await ui.click('oncall-copy-next');
+    await ui.click('oncall-copy-apply');
+    await assertTeamLabels(6);
+    await ui.click('oncall-undo-schedule');
+    await assertTeamLabels();
+    await ui.click('oncall-reset-schedule');
+    await ui.click('toggle-next');
+    await ui.click('toggle-next');
+    await assertTeamLabels();
 });
 
 test('copy uses current draft, fills the complete next week and is undoable without saving', async () => {

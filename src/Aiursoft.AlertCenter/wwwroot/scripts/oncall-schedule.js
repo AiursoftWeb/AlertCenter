@@ -145,6 +145,7 @@
                     shift.classList.add('ac-gantt-adjacent');
                     shift.dataset.edge = edge;
                     shift.dataset.readonly = 'true';
+                    shift.dataset.groupId = root.dataset.groupId;
                     shift.hidden = true;
                 }
                 shift.classList.toggle('ac-gantt-conflict', conflicts.has(index));
@@ -155,12 +156,18 @@
                 shift.style.left = `${visibleStart / 168 * 100}%`;
                 shift.style.width = `${(visibleEnd - visibleStart) / 168 * 100}%`;
                 if (!edge) shift.dataset.slot = index;
-                shift.dataset.summary = `${row.dataset.name}${row.dataset.departed === 'true' ? ' · 已退出' : ''}${edge ? ' · 相邻周（只读）' : ''} · 8 小时 · ${root.dataset.zone}${conflicts.has(index) ? ' · 休息不足' : ''}`;
+                shift.dataset.summary = `${row.dataset.name}${row.dataset.departed === 'true' ? ' · 已退出' : ''}${edge ? ` · ${root.dataset.groupName} · 相邻周（只读）` : ''} · 8 小时 · ${root.dataset.zone}${conflicts.has(index) ? ' · 休息不足' : ''}`;
                 shift.dataset.start = slot.localStart;
                 shift.dataset.end = slot.localEnd;
                 shift.title = `${shift.dataset.summary} · ${slot.localStart} → ${slot.localEnd}`;
                 shift.setAttribute('aria-label', shift.title);
                 shift.setAttribute('aria-describedby', 'oncall-shift-detail');
+                if (edge) {
+                    const team = document.createElement('span');
+                    team.className = 'ac-gantt-time';
+                    team.textContent = `${root.dataset.groupName}（只读）`;
+                    shift.append(team);
+                }
                 [['起', slot.localStart], ['止', slot.localEnd]].forEach(([label, time], position) => {
                     const span = document.createElement('span');
                     span.className = `ac-gantt-time${position ? ' ac-gantt-time-end' : ''}`;

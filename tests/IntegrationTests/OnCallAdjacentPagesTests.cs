@@ -84,6 +84,11 @@ public class OnCallAdjacentPagesTests : TestBase
             .Select(match => WebUtility.HtmlDecode(match.Value)).ToArray();
         Assert.AreEqual(10, adjacent.Length);
         Assert.IsTrue(adjacent.All(shift => shift.Contains("data-readonly=\"true\"") && shift.Contains("hidden=\"hidden\"") && !shift.Contains("data-slot=")));
+        Assert.IsTrue(adjacent.All(shift => shift.Contains($"data-group-id=\"{id}\"") && shift.Contains("Adjacent team")));
+        var adjacentContents = Regex.Matches(html, "<button[^>]*class=\"ac-gantt-shift ac-gantt-adjacent\"[^>]*>(.*?)</button>", RegexOptions.Singleline)
+            .Select(match => match.Groups[1].Value).ToArray();
+        Assert.AreEqual(10, adjacentContents.Length);
+        Assert.IsTrue(adjacentContents.All(content => content.Contains("Adjacent team（只读）")));
         var zone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
         string LocalTime(DateTime time) => TimeZoneInfo.ConvertTime(new DateTimeOffset(time), zone).ToString("yyyy-MM-dd HH:mm zzz");
         var end = start.AddDays(7);
@@ -113,6 +118,7 @@ public class OnCallAdjacentPagesTests : TestBase
             Assert.Contains("id=\"oncall-copy-confirm\"", html);
             Assert.Contains("id=\"oncall-copy-next\"", html);
             var root = Regex.Match(rawHtml, "<div id=\"oncall-schedule\"[^>]*>").Value;
+            Assert.Contains("data-group-name=\"Adjacent team\"", root);
             using var weeks = JsonDocument.Parse(WebUtility.HtmlDecode(Regex.Match(root, "data-weeks=\"([^\"]*)\"").Groups[1].Value));
             Assert.AreEqual(3, weeks.RootElement.GetArrayLength());
             Assert.IsTrue(weeks.RootElement[0].GetProperty("saved").GetBoolean());
