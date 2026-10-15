@@ -220,6 +220,55 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.ToTable("Incidents");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("AuthorId")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DeletedAtUtc")
+                        .IsConcurrencyToken()
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("DeletedById")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
+                    b.Property<string>("DeletedByName")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<Guid>("IncidentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Markdown")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("varchar(4000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("DeletedById");
+
+                    b.HasIndex("IncidentId", "CreatedAtUtc", "Id");
+
+                    b.ToTable("IncidentComments");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1045,6 +1094,31 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentComment", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "DeletedBy")
+                        .WithMany()
+                        .HasForeignKey("DeletedById")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
+                        .WithMany()
+                        .HasForeignKey("IncidentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("DeletedBy");
+
+                    b.Navigation("Incident");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>

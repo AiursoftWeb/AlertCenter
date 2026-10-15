@@ -67,7 +67,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         return incidents;
     }
 
-    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken, int commentsPage = 1)
     {
         var incident = await db.Incidents.AsNoTracking().Include(item => item.Application).Include(item => item.Owner)
             .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
@@ -77,9 +77,23 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         if (!await access.CanViewAsync(User, incident, now, cancellationToken)) return Forbid();
         var oce = incident.Application.OnCallGroupId.HasValue
             ? await new OnCallOceService(db).QueryAsync(incident.Application.OnCallGroupId.Value, now, cancellationToken) : null;
+        commentsPage = Math.Clamp(commentsPage, 1, 1000000);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var canManageApplication = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, true, cancellationToken);
+        var comments = await db.IncidentComments.AsNoTracking().Where(comment => comment.IncidentId == id)
+            .OrderByDescending(comment => comment.CreatedAtUtc).ThenByDescending(comment => comment.Id)
+            .Skip((commentsPage - 1) * 20).Take(21).Select(comment => new IncidentCommentViewModel
+            {
+                Id = comment.Id, AuthorName = comment.AuthorName, CreatedAtUtc = comment.CreatedAtUtc,
+                Markdown = comment.DeletedAtUtc == null ? comment.Markdown : null,
+                DeletedAtUtc = comment.DeletedAtUtc, DeletedByName = comment.DeletedByName,
+                CanDelete = comment.DeletedAtUtc == null && (comment.AuthorId == userId || canManageApplication)
+            }).ToListAsync(cancellationToken);
         return this.StackView(new IncidentsViewModel
         {
             Incident = incident,
+            Comments = comments.Take(20).ToList(), CommentsPage = commentsPage, HasMoreComments = comments.Count > 20,
+            CanComment = userId != null,
             TimelineEntries = await db.IncidentTimelineEntries.AsNoTracking().Include(entry => entry.Actor)
                 .Where(entry => entry.IncidentId == id).OrderByDescending(entry => entry.CreatedAtUtc).ToListAsync(cancellationToken),
             Messages = await db.ReportedMessages.AsNoTracking().Where(message => message.IncidentId == id)
@@ -89,6 +103,31 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             CurrentOceError = oce?.Error
         });
     }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> AddComment(AddIncidentCommentRequest request, CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid) return BadRequest("评论不能为空，且不能超过 4000 个字符。");
+        var result = await new IncidentCommentService(db, applicationAccess).AddAsync(User, request, cancellationToken);
+        return CommentResult(result, request.IncidentId, 1);
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteComment(DeleteIncidentCommentRequest request, CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid) return BadRequest("评论参数无效，请刷新页面。");
+        var result = await new IncidentCommentService(db, applicationAccess).DeleteAsync(User, request, cancellationToken);
+        return CommentResult(result, request.IncidentId, Math.Clamp(request.CommentsPage, 1, 1000000));
+    }
+
+    private IActionResult CommentResult(IncidentCommentResult result, Guid id, int page) => result.StatusCode switch
+    {
+        200 => RedirectToAction(nameof(Details), null, new { id, commentsPage = page }, "incident-comments"),
+        403 => Forbid(),
+        404 => NotFound(),
+        409 => Conflict(result.Error),
+        _ => BadRequest(result.Error)
+    };
 
     [HttpPost, ValidateAntiForgeryToken]
     public Task<IActionResult> Acknowledge(IncidentNoteRequest request, CancellationToken cancellationToken) =>

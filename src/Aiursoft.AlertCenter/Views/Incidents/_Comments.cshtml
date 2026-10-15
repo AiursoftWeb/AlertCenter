@@ -1,0 +1,136 @@
+@model Aiursoft.AlertCenter.Models.IncidentsViewModel
+@{
+    var incidentId = Model.Incident!.Id;
+}
+
+<section id="incident-comments" class="card shadow-sm border-0 mt-4 incident-comments" aria-labelledby="incident-comments-title">
+    <div class="card-header bg-transparent py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <h2 class="card-title h5 mb-0 d-flex align-items-center gap-2" id="incident-comments-title">
+            <i data-lucide="messages-square" class="text-primary" aria-hidden="true"></i>
+            <span>事故讨论</span>
+        </h2>
+        <span class="text-muted small">最新优先 · 每页 20 条</span>
+    </div>
+    <div class="card-body">
+        <p class="text-muted small mb-3">评论独立于事故处置记录，在任何事故状态下均可发布；发布后不可编辑，仅作者或应用管理员可删除。</p>
+        @if (Model.CanComment)
+        {
+            <form asp-action="AddComment" method="post" data-action-feedback id="incident-comment-form" class="mb-4 pb-4 border-bottom">
+                <input type="hidden" name="IncidentId" value="@incidentId" />
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                    <label for="incident-comment-source" class="form-label mb-0">发表评论</label>
+                    <div id="incident-comment-view-modes" hidden>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="评论编辑器视图">
+                            <button type="button" class="btn btn-outline-secondary" data-comment-view-mode="editor" aria-pressed="false">编辑</button>
+                            <button type="button" class="btn btn-outline-secondary active" data-comment-view-mode="split" aria-pressed="true">分栏</button>
+                            <button type="button" class="btn btn-outline-secondary" data-comment-view-mode="preview" aria-pressed="false">预览</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="incident-comment-workspace">
+                    <div id="incident-comment-editor-pane" class="incident-comment-editor-pane">
+                        <div id="incident-comment-editor" class="incident-comment-editor" hidden></div>
+                        <textarea id="incident-comment-source" name="Markdown" class="form-control incident-comment-input" rows="10" required maxlength="4000" aria-describedby="incident-comment-help incident-comment-error" placeholder="使用 Markdown 分享排查线索、建议或讨论…">@Model.CommentInput</textarea>
+                    </div>
+                    <div id="incident-comment-preview-pane" class="incident-comment-preview-pane" hidden>
+                        <h3 class="h6 text-muted mb-3">预览</h3>
+                        <div id="incident-comment-preview" class="comment-markdown-body"></div>
+                    </div>
+                </div>
+                <div id="incident-comment-error" class="text-danger small mt-2" role="alert" hidden></div>
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2">
+                    <small id="incident-comment-help" class="text-muted">支持 Markdown，最多 4000 个 UTF-16 字符（表情可能占 2 个）。<span id="incident-comment-count">@Model.CommentInput.Length / 4000</span></small>
+                    <button type="submit" class="btn btn-primary btn-sm px-4">
+                        <i data-lucide="send" class="align-middle me-1" aria-hidden="true"></i>发布评论
+                    </button>
+                </div>
+            </form>
+        }
+
+        @if (Model.Comments.Count == 0)
+        {
+            <p class="text-muted text-center py-3 mb-0">当前页暂无评论。</p>
+        }
+        else
+        {
+            <div class="ac-timeline incident-comment-list">
+                @foreach (var comment in Model.Comments)
+                {
+                    <article class="ac-timeline-item" id="incident-comment-@comment.Id">
+                        <div class="ac-timeline-badge badge-updated">
+                            <i data-lucide="@(comment.DeletedAtUtc.HasValue ? "message-square-off" : "message-square")" aria-hidden="true"></i>
+                        </div>
+                        <div class="ac-timeline-content">
+                            <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
+                                <div class="text-break">
+                                    <strong>@comment.AuthorName</strong>
+                                    <time class="text-muted small d-block font-monospace" datetime="@comment.CreatedAtUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")">@comment.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</time>
+                                </div>
+                                @if (!comment.DeletedAtUtc.HasValue && comment.CanDelete)
+                                {
+                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-incident-comment" data-comment-id="@comment.Id" data-comment-author="@comment.AuthorName" data-comment-created="@comment.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC">删除</button>
+                                }
+                            </div>
+                            @if (comment.DeletedAtUtc.HasValue)
+                            {
+                                <div class="incident-comment-tombstone text-muted small">
+                                    <p class="mb-1">此评论已删除。</p>
+                                    <span class="text-break">删除人：@(comment.DeletedByName ?? "已删除用户")</span>
+                                    <time class="d-block font-monospace" datetime="@comment.DeletedAtUtc.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")">@comment.DeletedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") UTC</time>
+                                </div>
+                            }
+                            else
+                            {
+                                <textarea class="comment-markdown-source" readonly hidden aria-hidden="true">@comment.Markdown</textarea>
+                                <div class="comment-markdown-body comment-markdown-fallback">@comment.Markdown</div>
+                            }
+                        </div>
+                    </article>
+                }
+            </div>
+        }
+        @if (Model.CommentsPage > 1 || Model.HasMoreComments)
+        {
+            <nav class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-4 pt-3 border-top" aria-label="评论分页">
+                <div>
+                    @if (Model.CommentsPage > 1)
+                    {
+                        <a asp-action="Details" asp-route-id="@incidentId" asp-route-commentsPage="@(Model.CommentsPage - 1)" asp-fragment="incident-comments" class="btn btn-sm btn-outline-secondary">上一页</a>
+                    }
+                </div>
+                <span class="small text-muted">第 @Model.CommentsPage 页</span>
+                <div>
+                    @if (Model.HasMoreComments)
+                    {
+                        <a asp-action="Details" asp-route-id="@incidentId" asp-route-commentsPage="@(Model.CommentsPage + 1)" asp-fragment="incident-comments" class="btn btn-sm btn-outline-primary">下一页</a>
+                    }
+                </div>
+            </nav>
+        }
+    </div>
+</section>
+
+@if (Model.Comments.Any(comment => comment.CanDelete && !comment.DeletedAtUtc.HasValue))
+{
+    <div class="modal fade" id="delete-incident-comment" tabindex="-1" aria-labelledby="delete-incident-comment-title" aria-describedby="delete-incident-comment-description" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form asp-action="DeleteComment" method="post" data-action-feedback class="modal-content">
+                <input type="hidden" name="IncidentId" value="@incidentId" />
+                <input type="hidden" name="CommentId" id="delete-incident-comment-id" />
+                <input type="hidden" name="CommentsPage" value="@Model.CommentsPage" />
+                <div class="modal-header">
+                    <h2 class="modal-title h5 mb-0" id="delete-incident-comment-title">删除评论</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                </div>
+                <div class="modal-body">
+                    <p>确定删除 <strong id="delete-incident-comment-author" class="text-break"></strong> 于 <span id="delete-incident-comment-created"></span> 发布的评论？</p>
+                    <div class="alert alert-warning mb-0" id="delete-incident-comment-description">删除后仅保留作者、发布时间以及删除人和删除时间，评论原文不再显示，且无法恢复。</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="submit" id="delete-incident-comment-confirm" class="btn btn-danger" disabled>确认删除</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}

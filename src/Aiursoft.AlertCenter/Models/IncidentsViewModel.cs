@@ -18,6 +18,11 @@ public class IncidentsViewModel : UiStackLayoutViewModel
     public bool CanManage { get; set; }
     public IReadOnlyList<OnCallOce> CurrentOces { get; set; } = [];
     public string? CurrentOceError { get; set; }
+    public List<IncidentCommentViewModel> Comments { get; set; } = [];
+    public int CommentsPage { get; set; } = 1;
+    public bool HasMoreComments { get; set; }
+    public bool CanComment { get; set; }
+    public string CommentInput { get; set; } = string.Empty;
 }
 
 public class IncidentNoteRequest

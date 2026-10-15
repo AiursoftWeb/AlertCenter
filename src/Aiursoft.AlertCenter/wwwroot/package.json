@@ -5,10 +5,14 @@
   "author": "Anduin Xue",
   "license": "MIT",
   "dependencies": {
-    "dropify": "^0.2.2"
+    "@aiursoft/uistack-markdown-ui": "1.2.6",
+    "dropify": "^0.2.2",
+    "monaco-editor": "0.55.1"
   },
   "keep": {
-    "dropify": "dist"
+    "@aiursoft/uistack-markdown-ui": "dist",
+    "dropify": "dist",
+    "monaco-editor": "min"
   },
   "scripts": {
     "build": "node build.mjs"

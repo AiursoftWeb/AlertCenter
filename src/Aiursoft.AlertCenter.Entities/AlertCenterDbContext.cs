@@ -14,6 +14,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<ReportedMessage> ReportedMessages => Set<ReportedMessage>();
     public DbSet<Incident> Incidents => Set<Incident>();
     public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
+    public DbSet<IncidentComment> IncidentComments => Set<IncidentComment>();
     public DbSet<OnCallGroup> OnCallGroups => Set<OnCallGroup>();
     public DbSet<OnCallRule> OnCallRules => Set<OnCallRule>();
     public DbSet<OnCallGroupMember> OnCallGroupMembers => Set<OnCallGroupMember>();
@@ -81,6 +82,14 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<IncidentTimelineEntry>().HasOne(entry => entry.Actor).WithMany()
             .HasForeignKey(entry => entry.ActorId).OnDelete(DeleteBehavior.SetNull);
         builder.Entity<IncidentTimelineEntry>().HasIndex(entry => new { entry.IncidentId, entry.CreatedAtUtc });
+        builder.Entity<IncidentComment>().Property(comment => comment.DeletedAtUtc).IsConcurrencyToken();
+        builder.Entity<IncidentComment>().HasOne(comment => comment.Incident).WithMany()
+            .HasForeignKey(comment => comment.IncidentId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<IncidentComment>().HasOne(comment => comment.Author).WithMany()
+            .HasForeignKey(comment => comment.AuthorId).OnDelete(DeleteBehavior.SetNull);
+        builder.Entity<IncidentComment>().HasOne(comment => comment.DeletedBy).WithMany()
+            .HasForeignKey(comment => comment.DeletedById).OnDelete(DeleteBehavior.SetNull);
+        builder.Entity<IncidentComment>().HasIndex(comment => new { comment.IncidentId, comment.CreatedAtUtc, comment.Id });
         builder.Entity<OnCallGroup>().HasOne(group => group.Rule).WithMany()
             .HasForeignKey(group => group.RuleId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<OnCallGroup>().Property(group => group.ScheduleVersion).IsConcurrencyToken();

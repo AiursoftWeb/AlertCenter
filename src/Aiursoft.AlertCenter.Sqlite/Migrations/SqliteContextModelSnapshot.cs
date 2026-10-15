@@ -215,6 +215,55 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.ToTable("Incidents");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AuthorId")
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AuthorName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedAtUtc")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DeletedById")
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DeletedByName")
+                        .HasMaxLength(30)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("IncidentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Markdown")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("DeletedById");
+
+                    b.HasIndex("IncidentId", "CreatedAtUtc", "Id");
+
+                    b.ToTable("IncidentComments");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1036,6 +1085,31 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentComment", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "DeletedBy")
+                        .WithMany()
+                        .HasForeignKey("DeletedById")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
+                        .WithMany()
+                        .HasForeignKey("IncidentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("DeletedBy");
+
+                    b.Navigation("Incident");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>

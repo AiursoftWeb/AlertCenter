@@ -39,6 +39,7 @@
 }
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/styles/incident-comments.css" asp-append-version="true" />
 }
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
@@ -333,6 +334,8 @@
     </div>
 </div>
 
+<partial name="_Comments" model="Model" />
+
 @if (Model.CanManage && incident.Status == Incident.Acked)
 {
     <div class="modal fade" id="mitigate-incident" tabindex="-1" aria-labelledby="mitigate-incident-title" aria-hidden="true">
@@ -449,4 +452,12 @@
             </form>
         </div>
     </div>
+}
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+    <script src="~/node_modules/@@aiursoft/uistack-markdown-ui/dist/index.global.js" asp-append-version="true"></script>
+    <script>window.require = { paths: { vs: '@Url.Content("~/node_modules/monaco-editor/min/vs")' } };</script>
+    <script src="~/node_modules/monaco-editor/min/vs/loader.js" asp-append-version="true"></script>
+    <script defer src="~/scripts/incident-comments.js" asp-append-version="true"></script>
 }

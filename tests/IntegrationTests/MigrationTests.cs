@@ -21,9 +21,9 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(4, context.Database.GetMigrations().Count());
+        Assert.AreEqual(5, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
-        Assert.EndsWith("_IncidentStateMachine", context.Database.GetMigrations().Last());
+        Assert.EndsWith("_IncidentComments", context.Database.GetMigrations().Last());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
 
@@ -147,6 +147,41 @@ public class MigrationTests
     }
 
     [TestMethod]
+    public async Task CommentMigrationAddsIndependentHistoryAndDowngradesWithoutChangingIncident()
+    {
+        await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await context.Database.OpenConnectionAsync();
+        var migrator = context.GetService<IMigrator>();
+        var previous = context.Database.GetMigrations().Single(id => id.EndsWith("_IncidentStateMachine"));
+        await migrator.MigrateAsync(previous);
+        var incident = new Incident { Application = new SourceApplication { Name = "Existing app" }, Title = "Existing incident", Status = Incident.Resolved };
+        context.Incidents.Add(incident);
+        await context.SaveChangesAsync();
+        var version = incident.Version;
+        await context.Database.MigrateAsync();
+        context.IncidentComments.Add(new IncidentComment
+        {
+            IncidentId = incident.Id, AuthorName = "Historical engineer", Markdown = "**Incident evidence**",
+            DeletedAtUtc = DateTime.UtcNow, DeletedByName = "Application manager"
+        });
+        await context.SaveChangesAsync();
+        context.ChangeTracker.Clear();
+        var comment = await context.IncidentComments.SingleAsync();
+        Assert.AreEqual("**Incident evidence**", comment.Markdown);
+        Assert.AreEqual("Historical engineer", comment.AuthorName);
+        Assert.AreEqual("Application manager", comment.DeletedByName);
+        Assert.IsNotNull(comment.DeletedAtUtc);
+        Assert.AreEqual(version, (await context.Incidents.SingleAsync()).Version);
+        await migrator.MigrateAsync(previous);
+        await context.Database.MigrateAsync();
+        context.ChangeTracker.Clear();
+        Assert.AreEqual(0, await context.IncidentComments.CountAsync());
+        Assert.AreEqual(Incident.Resolved, (await context.Incidents.SingleAsync()).Status);
+        Assert.AreEqual(version, (await context.Incidents.SingleAsync()).Version);
+    }
+
+    [TestMethod]
     public async Task InitialMigrationPersistsStaffingDefaultsAndExplicitRequirements()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
@@ -196,9 +231,9 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(4, context.Database.GetMigrations().Count());
+        Assert.AreEqual(5, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
-        Assert.EndsWith("_IncidentStateMachine", context.Database.GetMigrations().Last());
+        Assert.EndsWith("_IncidentComments", context.Database.GetMigrations().Last());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");
         var script = context.GetService<IMigrator>().GenerateScript();
@@ -218,6 +253,9 @@ public class MigrationTests
         StringAssert.Contains(script, "FK_PushDeliveries_IncidentTimelineEntries_IncidentEventId");
         StringAssert.Contains(script, "MatchLevel = AlertLevel");
         StringAssert.Contains(script, "WHEN 'triggered' THEN 'new'");
+        StringAssert.Contains(script, "CREATE TABLE `IncidentComments`");
+        StringAssert.Contains(script, "FK_IncidentComments_AspNetUsers_AuthorId");
+        StringAssert.Contains(script, "FK_IncidentComments_AspNetUsers_DeletedById");
         Assert.DoesNotContain("OnCallRuleMembers", script);
     }
 }

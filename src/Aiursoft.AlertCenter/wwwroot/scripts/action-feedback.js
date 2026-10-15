@@ -49,6 +49,17 @@
         }
     }
 
+    function navigateTo(url) {
+        const destination = new URL(url, window.location.href);
+        if (destination.origin !== window.location.origin) throw new Error('Unexpected redirect');
+        if (destination.pathname === window.location.pathname && destination.search === window.location.search) {
+            window.location.hash = destination.hash;
+            window.location.reload();
+        } else {
+            window.location.assign(destination.href);
+        }
+    }
+
     document.addEventListener('submit', async event => {
         const form = event.target;
         if (!(form instanceof HTMLFormElement) || !form.hasAttribute('data-action-feedback') ||
@@ -72,18 +83,12 @@
                 headers: { 'X-AlertCenter-Dialog': 'true', 'Accept': 'application/json' }
             });
             if (response.redirected) {
-                const destination = new URL(response.url, window.location.href);
-                if (destination.origin === window.location.origin) {
-                    window.location.assign(destination.href);
-                    return;
-                }
-                throw new Error('Unexpected redirect');
+                navigateTo(response.url);
+                return;
             }
             const json = response.headers.get('Content-Type')?.includes('application/json') ? await response.json() : null;
             if (response.ok && typeof json?.redirectUrl === 'string') {
-                const destination = new URL(json.redirectUrl, window.location.href);
-                if (destination.origin !== window.location.origin) throw new Error('Unexpected redirect');
-                window.location.assign(destination.href);
+                navigateTo(json.redirectUrl);
                 return;
             }
             const fallback = response.status === 403 ? '没有执行此操作的权限。' :

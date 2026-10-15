@@ -1,0 +1,184 @@
+.incident-comments {
+    --comment-code-bg: var(--bs-tertiary-bg, #f6f8fa);
+    --comment-syntax-keyword: #cf222e;
+    --comment-syntax-string: #0a3069;
+    --comment-syntax-number: #0550ae;
+    --comment-syntax-title: #8250df;
+    --comment-syntax-comment: #57606a;
+    --comment-syntax-tag: #116329;
+}
+
+[data-bs-theme="dark"] .incident-comments {
+    --comment-code-bg: var(--bs-tertiary-bg, #161b22);
+    --comment-syntax-keyword: #ff7b72;
+    --comment-syntax-string: #a5d6ff;
+    --comment-syntax-number: #79c0ff;
+    --comment-syntax-title: #d2a8ff;
+    --comment-syntax-comment: #8b949e;
+    --comment-syntax-tag: #7ee787;
+}
+
+.incident-comments .card-title > i {
+    width: 18px;
+    height: 18px;
+}
+
+.incident-comment-workspace {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.incident-comment-editor-pane,
+.incident-comment-preview-pane {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.incident-comment-workspace > [hidden] {
+    display: none !important;
+}
+
+.incident-comment-editor {
+    height: 320px;
+    min-height: 280px;
+    overflow: hidden;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    background: var(--bs-body-bg);
+}
+
+.incident-comment-input {
+    min-height: 280px;
+    resize: vertical;
+}
+
+.incident-comment-preview-pane {
+    min-height: 280px;
+    max-height: 480px;
+    overflow: auto;
+    padding: 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    color: var(--bs-body-color);
+    background: var(--bs-body-bg);
+}
+
+.incident-comment-list .ac-timeline-content {
+    min-width: 0;
+}
+
+.incident-comment-list .ac-timeline-badge i {
+    width: 15px;
+    height: 15px;
+}
+
+.incident-comment-tombstone {
+    padding: 0.75rem 1rem;
+    border-inline-start: 3px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius-sm);
+    background: var(--bs-tertiary-bg);
+}
+
+.comment-markdown-body {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    line-height: 1.7;
+    color: var(--bs-body-color);
+}
+
+.comment-markdown-fallback {
+    white-space: pre-wrap;
+}
+
+.comment-markdown-body > :last-child {
+    margin-bottom: 0;
+}
+
+.comment-markdown-body h1,
+.comment-markdown-body h2,
+.comment-markdown-body h3,
+.comment-markdown-body h4,
+.comment-markdown-body h5,
+.comment-markdown-body h6 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.comment-markdown-body img {
+    max-width: 100%;
+    height: auto;
+}
+
+.comment-markdown-body blockquote {
+    margin-inline: 0;
+    padding-inline-start: 1rem;
+    border-inline-start: 3px solid var(--bs-border-color);
+    color: var(--bs-secondary-color);
+}
+
+.comment-markdown-body pre {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius-sm);
+    color: var(--bs-body-color);
+    background: var(--comment-code-bg);
+}
+
+.comment-markdown-body :not(pre) > code {
+    padding: 0.1rem 0.3rem;
+    border-radius: var(--bs-border-radius-sm);
+    background: var(--comment-code-bg);
+}
+
+.comment-markdown-body pre code {
+    white-space: pre;
+    overflow-wrap: normal;
+    color: inherit;
+    background: transparent;
+}
+
+.comment-markdown-body .hljs-keyword,
+.comment-markdown-body .hljs-selector-tag,
+.comment-markdown-body .hljs-deletion {
+    color: var(--comment-syntax-keyword);
+}
+
+.comment-markdown-body .hljs-string,
+.comment-markdown-body .hljs-regexp,
+.comment-markdown-body .hljs-meta .hljs-string {
+    color: var(--comment-syntax-string);
+}
+
+.comment-markdown-body .hljs-number,
+.comment-markdown-body .hljs-literal,
+.comment-markdown-body .hljs-attr,
+.comment-markdown-body .hljs-variable,
+.comment-markdown-body .hljs-built_in {
+    color: var(--comment-syntax-number);
+}
+
+.comment-markdown-body .hljs-title,
+.comment-markdown-body .hljs-section {
+    color: var(--comment-syntax-title);
+}
+
+.comment-markdown-body .hljs-comment,
+.comment-markdown-body .hljs-quote {
+    color: var(--comment-syntax-comment);
+}
+
+.comment-markdown-body .hljs-name,
+.comment-markdown-body .hljs-tag,
+.comment-markdown-body .hljs-addition {
+    color: var(--comment-syntax-tag);
+}
+
+@media (max-width: 767.98px) {
+    .incident-comment-workspace {
+        flex-direction: column;
+    }
+}
