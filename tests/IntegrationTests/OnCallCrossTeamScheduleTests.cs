@@ -264,6 +264,14 @@ public class OnCallCrossTeamScheduleTests : TestBase
         var buttons = Regex.Matches(rawHtml, "<button\\b[^>]*class=\"ac-gantt-shift ac-gantt-external\"[^>]*>")
             .Select(match => WebUtility.HtmlDecode(match.Value)).ToArray();
         Assert.AreEqual(6, buttons.Length);
+        Assert.AreEqual(metadata.GetProperty("members").GetArrayLength(), Regex.Matches(rawHtml, "<div class=\"ac-gantt-lane\">").Count);
+        var sharedLane = Regex.Match(rawHtml,
+            $"<div class=\"ac-gantt-row\"[^>]*data-user-id=\"{userIds[0]}\"[\\s\\S]*?<div class=\"ac-gantt-lane\">([\\s\\S]*?)</div>").Groups[1].Value;
+        Assert.AreEqual(21, Regex.Matches(sharedLane, "class=\"ac-gantt-cell\"").Count);
+        Assert.Contains("class=\"ac-gantt-shift ac-gantt-external\"", sharedLane);
+        var sharedCheckbox = Regex.Match(rawHtml, $"<input[^>]*class=\"[^\"]*oncall-edit-member[^\"]*\"[^>]*value=\"{userIds[0]}\"[^>]*>").Value;
+        Assert.IsFalse(string.IsNullOrEmpty(sharedCheckbox));
+        Assert.DoesNotContain("disabled", sharedCheckbox);
         Assert.IsTrue(buttons.All(button => button.Contains("data-readonly=\"true\"") && button.Contains($"data-group-id=\"{otherId}\"") && !button.Contains("data-slot=")));
         Assert.AreEqual(1, buttons.Count(button => button.Contains("data-edge=\"previous\"")));
         Assert.AreEqual(1, buttons.Count(button => button.Contains("data-edge=\"next\"")));

@@ -27,9 +27,6 @@
             if (item.dataset.layoutWidth) item.style.width = `${Number(item.dataset.layoutWidth) * 168 / hours}%`;
         });
         chart.querySelectorAll('[data-edge="previous"], [data-edge="next"]').forEach(item => item.hidden = !edges[item.dataset.edge]);
-        chart.querySelectorAll('.ac-gantt-external-lane').forEach(lane => {
-            lane.hidden = [...lane.querySelectorAll('.ac-gantt-shift')].every(shift => shift.hidden);
-        });
         toggles.forEach(button => {
             const edge = button.dataset.oncallEdge;
             button.setAttribute('aria-expanded', String(edges[edge]));

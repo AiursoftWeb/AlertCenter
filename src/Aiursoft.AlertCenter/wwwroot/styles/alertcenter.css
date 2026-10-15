@@ -102,12 +102,9 @@
     white-space: nowrap;
 }
 
-.ac-gantt-user-lanes {
-    min-width: 0;
-}
-
 .ac-gantt-lane {
     position: relative;
+    min-width: 0;
     min-height: 4.5rem;
 }
 
@@ -129,6 +126,10 @@
 
 #oncall-schedule button {
     touch-action: manipulation;
+}
+
+.ac-gantt-editable .ac-gantt-shift:not([data-readonly]) {
+    z-index: 2;
 }
 
 .ac-gantt-editable[data-edit-mode="add"] .ac-gantt-cell {
@@ -213,10 +214,6 @@
     color: #fff;
     cursor: default;
     touch-action: manipulation;
-}
-
-.ac-gantt-external-lane {
-    border-top: 1px dashed var(--bs-border-color);
 }
 
 .ac-gantt-shift.ac-gantt-external {

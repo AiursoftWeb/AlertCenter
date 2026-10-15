@@ -131,7 +131,7 @@ function setup({ nextSaved = false, departed = false, saveFails = false, externa
     const external = [];
     if (externalShifts) {
         for (const [id, offset, width, edge] of [['user0', 1.5, 3.75, ''], ['user1', -36, 36, 'previous'], ['user2', 168, 36, 'next']]) {
-            const lane = add(rowMap[id], 'div', null, { className: 'ac-gantt-lane ac-gantt-external-lane', dataset: { readonly: 'true' } });
+            const lane = rowMap[id].querySelector('.ac-gantt-lane');
             const shift = add(lane, 'button', null, {
                 className: 'ac-gantt-shift ac-gantt-external', hidden: Boolean(edge),
                 dataset: { readonly: 'true', groupId: 'other-group', edge, summary: `${id} · Other team · 只读`,
@@ -388,8 +388,9 @@ test('readonly external bars survive redraw, undo, reset and copy without enteri
     assert.equal(ui.elements['stat-staff'].textContent, 3);
     assert.equal(ui.elements['stat-hours'].textContent, '168 小时');
     assert.equal(ui.rowMap.user0.querySelector('.ac-gantt-hours').textContent, '7 班 / 56 小时');
-    assert(ui.external[1].parent.hidden);
-    assert(ui.external[2].parent.hidden);
+    assert(ui.external[1].hidden);
+    assert(ui.external[2].hidden);
+    assert(ui.external.every(shift => !shift.parent.hidden));
     await ui.click('toggle-previous');
     assert(!ui.external[1].hidden);
     assert(!ui.external[1].parent.hidden);
@@ -416,10 +417,44 @@ test('readonly external bars survive redraw, undo, reset and copy without enteri
     assert.equal(ui.elements['stat-hours'].textContent, '168 小时');
     await ui.click('toggle-previous');
     assert(ui.external[1].hidden);
-    assert(ui.external[1].parent.hidden);
+    assert(!ui.external[1].parent.hidden);
+    assert(!ui.cell('user1', 21).hidden);
 });
 
-test('readonly external bars and lanes cannot be edited or used as move and whole-week targets', async () => {
+test('shared lanes keep current-team manual editing alongside immutable external bars', async () => {
+    const ui = setup({ externalShifts: true });
+    for (const shift of ui.external) {
+        const row = shift.closest('[data-user-id]');
+        const lane = row.querySelector('.ac-gantt-lane');
+        assert.equal(row.querySelectorAll('.ac-gantt-lane').length, 1);
+        assert.equal(shift.parent, lane);
+        assert.equal(lane.dataset.readonly, undefined);
+        assert.equal(lane.querySelectorAll('.ac-gantt-cell').length, 21);
+    }
+    const external = ui.external[0];
+    await ui.mode('add');
+    await ui.cell('user0', 22).click();
+    assert(ui.shift('user0', 22));
+    assert.equal(ui.shift('user0', 22).parent, external.parent);
+    assert.equal(ui.shift('user0', 22).dataset.readonly, undefined);
+    await ui.mode('remove');
+    await ui.shift('user0', 22).click();
+    assert(!ui.shift('user0', 22));
+    assert(ui.chart.contains(external));
+    await ui.assign(22, 'user0', true);
+    await ui.mode('move');
+    await ui.drag(ui.shift('user0', 22), ui.cell('user0', 23));
+    assert(!ui.shift('user0', 22));
+    assert(ui.shift('user0', 23));
+    await ui.click('oncall-save-schedule');
+    assert(ui.requests[0].slots[2].userIds.includes('user0'));
+    assert(!ui.requests[0].slots[1].userIds.includes('user0'));
+    assert.equal(external.dataset.readonly, 'true');
+    assert.equal(external.dataset.slot, undefined);
+    assert(!JSON.stringify(ui.requests[0]).includes('other-group'));
+});
+
+test('readonly external bars cannot be edited or used as move and whole-week targets in a shared lane', async () => {
     const ui = setup({ nextSaved: true, externalShifts: true });
     const external = ui.external[0];
     const initialCount = ui.elements['oncall-edit-count'].textContent;
