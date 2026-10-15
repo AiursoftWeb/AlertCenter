@@ -350,6 +350,107 @@ public class OnCallScheduleServiceTests
     }
 
     [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task AutomaticGenerationExcludesSharedMembersEvenWhenOtherGroupHasNoSchedule(bool otherHasRule)
+    {
+        var other = new OnCallGroup
+        {
+            Name = "Other team", AnchorUtc = Anchor, Rule = otherHasRule ? rule : null,
+            Members = [new OnCallGroupMember { UserId = "u0" }]
+        };
+        db.OnCallGroups.Add(other);
+        await db.SaveChangesAsync();
+
+        Assert.AreEqual(0, (await service.Save(Request(), true, default)).Count);
+
+        var generated = await db.OnCallShifts.Where(shift => shift.GroupId == group.Id)
+            .Include(shift => shift.Members).ToListAsync();
+        Assert.AreEqual(21, generated.Count);
+        Assert.IsTrue(generated.All(shift => shift.Members.Count == 1 && shift.Members.All(member => member.UserId != "u0")));
+        CollectionAssert.AreEquivalent(new[] { "u1", "u2", "u3" },
+            generated.SelectMany(shift => shift.Members).Select(member => member.UserId).Distinct().ToArray());
+        Assert.IsFalse(await db.OnCallShifts.AnyAsync(shift => shift.GroupId == other.Id));
+
+        var manual = Request();
+        manual.Slots = ManualSlots(Anchor);
+        Assert.AreEqual(0, (await service.Save(manual, false, default)).Count);
+        Assert.AreEqual(7, await db.OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == group.Id && member.UserId == "u0"));
+    }
+
+    [TestMethod]
+    public async Task JoiningAnotherGroupPreservesSavedScheduleAndLeavingRestoresAutomaticEligibility()
+    {
+        Assert.AreEqual(0, (await service.Save(Request(), true, default)).Count);
+        var original = await db.OnCallShifts.Where(shift => shift.GroupId == group.Id)
+            .OrderBy(shift => shift.StartsAtUtc).Include(shift => shift.Members).ToListAsync();
+        var originalIds = original.Select(shift => shift.Id).ToArray();
+        var originalAssignments = original.Select(shift => string.Join(',', shift.Members.Select(member => member.UserId).Order())).ToArray();
+        Assert.IsTrue(original.Any(shift => shift.Members.Any(member => member.UserId == "u3")));
+        var other = new OnCallGroup
+        {
+            Name = "Manual team", AnchorUtc = Anchor,
+            Members = [new OnCallGroupMember { UserId = "u3" }]
+        };
+        db.OnCallGroups.Add(other);
+        await db.SaveChangesAsync();
+
+        Assert.AreEqual(0, (await service.Save(await EditRequest(), false, default)).Count);
+        Assert.AreEqual(0, (await service.Save(Request(Anchor.AddDays(7)), true, default)).Count);
+
+        var saved = await db.OnCallShifts.Where(shift => shift.GroupId == group.Id && shift.StartsAtUtc < Anchor.AddDays(7))
+            .OrderBy(shift => shift.StartsAtUtc).Include(shift => shift.Members).ToListAsync();
+        CollectionAssert.AreEqual(originalIds, saved.Select(shift => shift.Id).ToArray());
+        CollectionAssert.AreEqual(originalAssignments,
+            saved.Select(shift => string.Join(',', shift.Members.Select(member => member.UserId).Order())).ToArray());
+        Assert.IsFalse(await db.OnCallShiftMembers.AnyAsync(member => member.Shift.GroupId == group.Id &&
+            member.Shift.StartsAtUtc >= Anchor.AddDays(7) && member.UserId == "u3"));
+
+        db.OnCallGroupMembers.Remove(other.Members.Single());
+        await db.SaveChangesAsync();
+        Assert.AreEqual(0, (await service.Save(Request(Anchor.AddDays(14)), true, default)).Count);
+        Assert.IsTrue(await db.OnCallShiftMembers.AnyAsync(member => member.Shift.GroupId == group.Id &&
+            member.Shift.StartsAtUtc >= Anchor.AddDays(14) && member.UserId == "u3"));
+    }
+
+    [TestMethod]
+    [DataRow(-8, "休息不足")]
+    [DataRow(0, "重叠")]
+    public async Task SharedMembersRemainSubjectToCrossGroupManualRestAndOverlapValidation(int externalOffsetHours, string expectedError)
+    {
+        var other = new OnCallGroup
+        {
+            Name = "Other team", AnchorUtc = Anchor,
+            Members = [new OnCallGroupMember { UserId = "u0" }]
+        };
+        db.OnCallGroups.Add(other);
+        await db.SaveChangesAsync();
+        var request = Request();
+        request.Slots = ManualSlots(Anchor);
+        Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
+        var external = new OnCallShift
+        {
+            Group = other, StartsAtUtc = Anchor.AddHours(externalOffsetHours), EndsAtUtc = Anchor.AddHours(externalOffsetHours + 8),
+            RestHours = 16, Members = [new OnCallShiftMember { UserId = "u0" }]
+        };
+        db.OnCallShifts.Add(external);
+        await db.SaveChangesAsync();
+        request = await EditRequest();
+        request.Slots[5].UserIds = ["u3"];
+        var version = group.ScheduleVersion;
+
+        var errors = await service.Save(request, false, default);
+
+        Assert.IsTrue(errors.Any(error => error.Contains(expectedError)));
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(22, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(22, await db.OnCallShiftMembers.CountAsync());
+        CollectionAssert.AreEqual(new[] { "u2" }, (await EditRequest()).Slots[5].UserIds);
+        Assert.AreEqual("u0", (await db.OnCallShifts.Include(shift => shift.Members).SingleAsync(shift => shift.Id == external.Id)).Members.Single().UserId);
+        Assert.IsFalse(db.ChangeTracker.HasChanges());
+    }
+
+    [TestMethod]
     public async Task SavesMultipleStaffAndManualChangesWithoutRegenerationOverwrite()
     {
         var originalVersion = group.ScheduleVersion;
@@ -455,7 +556,7 @@ public class OnCallScheduleServiceTests
         rule.TargetStaff = 2;
         await db.SaveChangesAsync();
         var version = group.ScheduleVersion;
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.Save(Request(), true, default));
+        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("至少需要 6 人")));
         Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
         Assert.AreEqual(version, group.ScheduleVersion);
 
@@ -525,7 +626,7 @@ public class OnCallScheduleServiceTests
         rule.RestHours = 0;
         db.OnCallGroupMembers.RemoveRange(group.Members.Where(member => member.UserId != "u0"));
         await db.SaveChangesAsync();
-        await Assert.ThrowsAsync<InvalidOperationException>(() => service.Save(Request(), true, default));
+        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("至少需要 3 人")));
         var request = Request();
         request.Slots = Enumerable.Range(0, 21).Select(index => new OnCallSlotRequest
         {

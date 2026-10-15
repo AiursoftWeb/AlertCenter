@@ -54,6 +54,27 @@
         }
     </div>
 </div>
+@if (group.Members.Any(member => Model.OtherGroupMemberships.Any(other => other.UserId == member.UserId)))
+{
+    <div id="oncall-shared-members" class="alert alert-warning">
+        <h2 class="h6">跨值班组成员需手动安排</h2>
+        <p>以下员工同时属于多个值班组，自动预览和自动排班将跳过他们；已保存的安排保持不变，仍可手动安排并校验跨组冲突。</p>
+        <ul class="mb-0">
+            @foreach (var member in group.Members.OrderBy(item => item.RotationOrder))
+            {
+                var others = Model.OtherGroupMemberships.Where(other => other.UserId == member.UserId).ToList();
+                if (others.Count == 0) { continue; }
+                <li>
+                    <strong>@member.User.DisplayName</strong> · 其他团队：
+                    @foreach (var other in others)
+                    {
+                        <a asp-action="ScheduleDetails" asp-route-id="@other.GroupId" class="me-2">@other.Group.Name</a>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+}
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">七天值班排班</h2></div>
     <div class="card-body">

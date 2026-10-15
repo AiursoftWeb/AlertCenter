@@ -4,7 +4,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const test = require('node:test');
 
-function setup({ nextSaved = false, departed = false, saveFails = false } = {}) {
+function setup({ nextSaved = false, departed = false, saveFails = false, externalShifts = false } = {}) {
     class Event {
         constructor(type, options = {}) { this.type = type; Object.assign(this, options); }
     }
@@ -35,6 +35,9 @@ function setup({ nextSaved = false, departed = false, saveFails = false } = {}) 
         getAttribute(name) { return this.attributes[name]; }
         matches(selector) {
             return selector.split(',').some(part => {
+                const excluded = [...part.matchAll(/:not\(([^)]+)\)/g)].map(match => match[1]);
+                if (excluded.some(selector => this.matches(selector))) return false;
+                part = part.replace(/:not\([^)]+\)/g, '');
                 const tag = part.trim().match(/^[a-z]+/);
                 const classes = [...part.matchAll(/\.([\w-]+)/g)];
                 const attributes = [...part.matchAll(/\[([\w-]+)(?:="([^"]*)")?\]/g)];
@@ -108,6 +111,20 @@ function setup({ nextSaved = false, departed = false, saveFails = false } = {}) 
                 style: { left: `${(index - 21) * 100 / 21}%`, width: `${100 / 21}%` } });
         }
     }
+    const external = [];
+    if (externalShifts) {
+        for (const [id, offset, edge] of [['user0', 1.5, ''], ['user1', -12, 'previous'], ['user2', 168, 'next']]) {
+            const lane = add(rowMap[id], 'div', null, { className: 'ac-gantt-lane ac-gantt-external-lane', dataset: { readonly: 'true' } });
+            const shift = add(lane, 'button', null, {
+                className: 'ac-gantt-shift ac-gantt-external', hidden: Boolean(edge),
+                dataset: { readonly: 'true', groupId: 'other-group', edge, summary: `${id} · Other team · 只读`,
+                    start: '2026-10-12 01:30 +00:00', end: '2026-10-12 05:15 +00:00' },
+                style: { left: `${offset / 168 * 100}%`, width: `${3.75 / 168 * 100}%` }
+            });
+            add(shift, 'span', null, { className: 'ac-gantt-time', textContent: 'Other team' });
+            external.push(shift);
+        }
+    }
     for (const edge of ['previous', 'next']) {
         const toggle = add(body, 'button', `toggle-${edge}`, { dataset: { oncallEdge: edge } });
         toggle.setAttribute('aria-expanded', 'false');
@@ -138,7 +155,8 @@ function setup({ nextSaved = false, departed = false, saveFails = false } = {}) 
         member(id).checked = checked;
         await member(id).dispatchEvent(new Event('change'));
     }
-    return { elements, chart, root, requests, source, modal, window, assign, rowMap, reloads: () => reloads,
+    return { elements, chart, root, requests, source, modal, window, assign, rowMap, external, Event, reloads: () => reloads,
+        mode: value => root.querySelector(`[data-schedule-mode="${value}"]`).click(),
         click: id => elements[id].click(),
         cell: (id, slot) => rowMap[id].querySelector(`.ac-gantt-cell[data-slot="${slot}"]`),
         shift: (id, slot) => rowMap[id].querySelector(`.ac-gantt-shift[data-slot="${slot}"]`) };
@@ -248,6 +266,97 @@ test('previous and next week form edits submit together and validation failure r
     let prevented = false;
     ui.window.listeners.beforeunload({ preventDefault() { prevented = true; } });
     assert(prevented);
+});
+
+test('readonly external bars survive redraw, undo, reset and copy without entering totals or submitted slots', async () => {
+    const ui = setup({ externalShifts: true });
+    const original = ui.external.map(shift => ({ shift, dataset: { ...shift.dataset }, children: [...shift.children] }));
+    function unchanged() {
+        assert.equal(ui.chart.querySelectorAll('.ac-gantt-external').length, 3);
+        for (const { shift, dataset, children } of original) {
+            assert(ui.chart.contains(shift));
+            assert.deepEqual(shift.dataset, dataset);
+            assert.deepEqual(shift.children, children);
+            assert.equal(shift.dataset.slot, undefined);
+        }
+    }
+    unchanged();
+    assert.equal(ui.elements['stat-shifts'].textContent, 21);
+    assert.equal(ui.elements['stat-staff'].textContent, 3);
+    assert.equal(ui.elements['stat-hours'].textContent, '168 小时');
+    assert.equal(ui.rowMap.user0.querySelector('.ac-gantt-hours').textContent, '7 班 / 56 小时');
+    assert(ui.external[1].parent.hidden);
+    assert(ui.external[2].parent.hidden);
+    await ui.click('toggle-previous');
+    assert(!ui.external[1].hidden);
+    assert(!ui.external[1].parent.hidden);
+    const expectedLeft = Number.parseFloat(ui.external[0].style.left);
+    await ui.assign(21, 'user1', true);
+    unchanged();
+    assert.equal(Number.parseFloat(ui.external[0].style.left), expectedLeft);
+    await ui.click('oncall-undo-schedule');
+    unchanged();
+    await ui.click('oncall-copy-next');
+    unchanged();
+    assert(!ui.external[2].hidden);
+    assert(!ui.external[2].parent.hidden);
+    await ui.click('oncall-reset-schedule');
+    unchanged();
+    assert(!ui.shift('user0', 42));
+    await ui.click('oncall-copy-next');
+    await ui.click('oncall-save-schedule');
+    unchanged();
+    assert.equal(ui.requests.length, 1);
+    assert.deepEqual(ui.requests[0].slots, ui.source.slice(21, 42).map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds })));
+    assert.deepEqual(ui.requests[0].adjacentWeeks[0].slots.map(slot => slot.userIds), ui.requests[0].slots.map(slot => slot.userIds));
+    assert(!JSON.stringify(ui.requests[0]).includes('other-group'));
+    assert.equal(ui.elements['stat-hours'].textContent, '168 小时');
+    await ui.click('toggle-previous');
+    assert(ui.external[1].hidden);
+    assert(ui.external[1].parent.hidden);
+});
+
+test('readonly external bars and lanes cannot be edited or used as move and whole-week targets', async () => {
+    const ui = setup({ nextSaved: true, externalShifts: true });
+    const external = ui.external[0];
+    const initialCount = ui.elements['oncall-edit-count'].textContent;
+    await external.children[0].click();
+    assert(!external.classList.contains('ac-gantt-selected'));
+    assert.equal(ui.elements['oncall-shift-summary'].textContent, external.dataset.summary);
+    assert.equal(ui.elements['oncall-shift-start'].textContent, external.dataset.start);
+    assert.equal(ui.elements['oncall-shift-end'].textContent, external.dataset.end);
+    for (const mode of ['add', 'remove']) {
+        await ui.mode(mode);
+        await external.children[0].click();
+        await external.parent.click();
+        assert.equal(ui.elements['oncall-edit-count'].textContent, initialCount);
+        assert(ui.chart.contains(external));
+        assert.equal(ui.elements['oncall-undo-schedule'].disabled, true);
+    }
+    await ui.mode('move');
+    await external.dispatchEvent(new ui.Event('pointerdown', { bubbles: true, isPrimary: true, button: 0, pointerId: 1 }));
+    assert(!external.classList.contains('ac-gantt-selected'));
+    await ui.shift('user1', 22).click();
+    await external.click();
+    assert.equal(ui.elements['oncall-edit-count'].textContent, initialCount);
+    assert(ui.shift('user1', 22).classList.contains('ac-gantt-selected'));
+    await ui.cell('user0', 22).click();
+    assert(!ui.shift('user1', 22));
+    assert(ui.shift('user0', 22));
+    assert(ui.chart.contains(external));
+    await ui.click('oncall-undo-schedule');
+    await ui.rowMap.user1.querySelector('.ac-gantt-week').click();
+    await external.parent.click();
+    await external.click();
+    assert.equal(ui.elements['oncall-edit-count'].textContent, initialCount);
+    await ui.rowMap.user0.querySelector('.ac-gantt-week').click();
+    assert(ui.shift('user1', 21));
+    assert(ui.chart.contains(external));
+    assert.equal(external.dataset.slot, undefined);
+    await ui.click('oncall-save-schedule');
+    assert.equal(ui.requests[0].adjacentWeeks.length, 0);
+    assert.equal(ui.requests[0].slots.flatMap(slot => slot.userIds).length, 21);
+    assert(!JSON.stringify(ui.requests[0]).includes('other-group'));
 });
 
 test('click move crosses the week boundary; whole-week swaps still affect only the main week', async () => {

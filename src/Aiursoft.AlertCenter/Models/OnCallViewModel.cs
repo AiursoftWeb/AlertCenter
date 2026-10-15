@@ -21,6 +21,8 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public Guid? SelectedGroupId { get; set; }
     public IReadOnlyList<GeneratedOnCallShift> Preview { get; set; } = [];
     public List<OnCallShift> AdjacentShifts { get; set; } = [];
+    public List<OnCallGroupMember> OtherGroupMemberships { get; set; } = [];
+    public List<OnCallShift> OtherGroupShifts { get; set; } = [];
     public IReadOnlyList<OnCallPreviewDay> PreviewDays { get; set; } = [];
     public string? PreviewError { get; set; }
     public DateTime WeekStartUtc { get; set; }

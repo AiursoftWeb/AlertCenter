@@ -101,19 +101,6 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         if (model.Groups.All(group => group.Id != id)) return NotFound();
         model.SelectedGroupId = id;
         await PopulatePreview(model, cancellationToken, startUtc);
-        if (model.WeekStartUtc != default)
-        {
-            var start = model.WeekStartUtc;
-            var end = start.AddDays(7);
-            model.AdjacentShifts = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
-                .Where(shift => shift.GroupId == id &&
-                    ((shift.StartsAtUtc >= start.AddDays(-7) && shift.StartsAtUtc < start) ||
-                     (shift.StartsAtUtc >= end && shift.StartsAtUtc < end.AddDays(7))))
-                .OrderBy(shift => shift.StartsAtUtc).ToListAsync(cancellationToken);
-            var ids = model.PreviewUsers.Select(user => user.Id)
-                .Concat(model.AdjacentShifts.SelectMany(shift => shift.Members.Select(member => member.UserId))).Distinct().ToArray();
-            model.PreviewUsers = await db.Users.AsNoTracking().Where(user => ids.Contains(user.Id)).ToListAsync(cancellationToken);
-        }
         return this.StackView(model, "Details");
     }
 
@@ -143,7 +130,16 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             warnings = model.StaffingWarnings,
             members = model.PreviewUsers.Select(user => new
             {
-                id = user.Id, displayName = user.DisplayName, departed = group.Members.All(member => member.UserId != user.Id)
+                id = user.Id, displayName = user.DisplayName, departed = group.Members.All(member => member.UserId != user.Id),
+                otherGroups = model.OtherGroupMemberships.Where(member => member.UserId == user.Id)
+                    .Select(member => new { id = member.GroupId, name = member.Group.Name })
+            }),
+            otherGroupShifts = model.OtherGroupShifts.Select(shift => new
+            {
+                groupId = shift.GroupId, groupName = shift.Group.Name,
+                startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
+                endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc),
+                userIds = shift.Members.Select(member => member.UserId)
             }),
             slots = Enumerable.Range(0, 21).Select(index => new
             {
@@ -419,12 +415,28 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             var saved = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
                 .Where(shift => shift.GroupId == group.Id && shift.StartsAtUtc >= startUtc && shift.StartsAtUtc < endUtc)
                 .OrderBy(shift => shift.StartsAtUtc).ToListAsync(cancellationToken);
-            var previewIds = userIds.Concat(saved.SelectMany(shift => shift.Members.Select(member => member.UserId))).Distinct().ToArray();
+            model.AdjacentShifts = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
+                .Where(shift => shift.GroupId == group.Id &&
+                    ((shift.StartsAtUtc >= startUtc.AddDays(-7) && shift.StartsAtUtc < startUtc) ||
+                     (shift.StartsAtUtc >= endUtc && shift.StartsAtUtc < endUtc.AddDays(7))))
+                .OrderBy(shift => shift.StartsAtUtc).ToListAsync(cancellationToken);
+            var previewIds = userIds.Concat(saved.Concat(model.AdjacentShifts)
+                .SelectMany(shift => shift.Members.Select(member => member.UserId))).Distinct().ToArray();
             model.PreviewUsers = await db.Users.AsNoTracking().Where(user => previewIds.Contains(user.Id)).ToListAsync(cancellationToken);
+            model.OtherGroupMemberships = await db.OnCallGroupMembers.AsNoTracking().Include(member => member.Group)
+                .Where(member => member.GroupId != group.Id && previewIds.Contains(member.UserId))
+                .OrderBy(member => member.Group.Name).ToListAsync(cancellationToken);
+            model.OtherGroupShifts = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Group)
+                .Include(shift => shift.Members.Where(member => previewIds.Contains(member.UserId)))
+                .Where(shift => shift.GroupId != group.Id && shift.StartsAtUtc < endUtc.AddDays(7) &&
+                    shift.EndsAtUtc > startUtc.AddDays(-7) && shift.Members.Any(member => previewIds.Contains(member.UserId)))
+                .OrderBy(shift => shift.StartsAtUtc).ThenBy(shift => shift.Group.Name).ToListAsync(cancellationToken);
+            var sharedIds = model.OtherGroupMemberships.Select(member => member.UserId).ToHashSet(StringComparer.Ordinal);
+            var automaticIds = userIds.Where(id => !sharedIds.Contains(id)).ToArray();
             model.ScheduleSaved = saved.Count > 0;
             model.ScheduleRestHours = saved.Count > 0 ? saved[0].RestHours : group.Rule?.RestHours ?? 16;
             model.ScheduleMinimumStaff = saved.Count > 0 ? saved[0].MinimumStaff : group.Rule?.MinimumStaff ?? 1;
-            model.CanGenerateSchedule = group.Rule != null && userIds.Length >=
+            model.CanGenerateSchedule = group.Rule != null && automaticIds.Length >=
                 Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff;
             var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
             var boundaries = Enumerable.Range(0, 21).Select(index => new GeneratedOnCallShift(string.Empty,
@@ -443,11 +455,11 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             if (!model.CanGenerateSchedule)
             {
                 model.PreviewError = group.Rule == null ? "团队尚未绑定规则，可手动创建排班。"
-                    : $"自动生成每班至少 {group.Rule.MinimumStaff} 人、休息 {group.Rule.RestHours} 小时的排班，需要至少 {Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff} 名成员；当前 {userIds.Length} 人，可增加成员或手动安排。";
+                    : $"自动生成每班至少 {group.Rule.MinimumStaff} 人、休息 {group.Rule.RestHours} 小时的排班，需要至少 {Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff} 名成员；跳过多值班组成员后可自动排班 {automaticIds.Length} 人，可增加单组成员或手动安排。";
                 return;
             }
             model.Preview = generator.Generate(group.Rule!, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc),
-                userIds, startUtc, 21, await schedules.Existing(group.Id, userIds, startUtc, cancellationToken));
+                automaticIds, startUtc, 21, await schedules.Existing(group.Id, automaticIds, startUtc, cancellationToken));
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or TimeZoneNotFoundException or InvalidTimeZoneException or OverflowException)
         {

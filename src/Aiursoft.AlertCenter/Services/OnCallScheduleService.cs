@@ -93,8 +93,15 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             if (generate)
             {
                 if (group.Rule == null) return ["请先为团队绑定排班规则。"];
+                var sharedIds = await db.OnCallGroupMembers.AsNoTracking()
+                    .Where(member => member.GroupId != group.Id && ids.Contains(member.UserId))
+                    .Select(member => member.UserId).Distinct().ToListAsync(cancellationToken);
+                var automaticIds = ids.Except(sharedIds, StringComparer.Ordinal).ToArray();
+                var required = Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff;
+                if (automaticIds.Length < required)
+                    return [$"自动排班跳过多值班组成员后，仅剩 {automaticIds.Length} 人，至少需要 {required} 人；请增加单组成员或手动安排。"];
                 assignments = generator.Generate(group.Rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc),
-                    ids, week.StartUtc, 21, existing).ToList();
+                    automaticIds, week.StartUtc, 21, existing).ToList();
             }
             else
             {

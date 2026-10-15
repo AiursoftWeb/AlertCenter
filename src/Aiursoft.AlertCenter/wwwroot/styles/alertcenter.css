@@ -89,6 +89,10 @@
     white-space: nowrap;
 }
 
+.ac-gantt-user-lanes {
+    min-width: 0;
+}
+
 .ac-gantt-lane {
     position: relative;
     min-height: 4.5rem;
@@ -103,7 +107,7 @@
     background: transparent;
 }
 
-.ac-gantt-editable .ac-gantt-shift,
+.ac-gantt-editable .ac-gantt-shift:not(.ac-gantt-external),
 .ac-gantt-week {
     cursor: grab;
     touch-action: none;
@@ -131,13 +135,13 @@
     font-size: 1.5rem;
 }
 
-.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift {
+.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:not(.ac-gantt-external) {
     cursor: pointer;
     touch-action: manipulation;
 }
 
-.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:hover,
-.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:focus-visible {
+.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:not(.ac-gantt-external):hover,
+.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:not(.ac-gantt-external):focus-visible {
     outline: 3px solid var(--bs-danger);
 }
 
@@ -194,6 +198,18 @@
 .ac-gantt-shift.ac-gantt-adjacent {
     background: var(--bs-secondary);
     color: #fff;
+}
+
+.ac-gantt-external-lane {
+    border-top: 1px dashed var(--bs-border-color);
+}
+
+.ac-gantt-shift.ac-gantt-external {
+    height: 4.2rem;
+    background: var(--bs-secondary);
+    color: #fff;
+    cursor: default;
+    touch-action: manipulation;
 }
 
 .ac-gantt [hidden] {

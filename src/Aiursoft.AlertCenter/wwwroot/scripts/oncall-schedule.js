@@ -57,7 +57,7 @@
             button.setAttribute('aria-pressed', String(active));
         });
         rows.forEach(row => {
-            row.querySelectorAll('.ac-gantt-shift').forEach(shift => shift.disabled = saving);
+            row.querySelectorAll('.ac-gantt-shift:not([data-readonly])').forEach(shift => shift.disabled = saving);
             const weekButton = row.querySelector('.ac-gantt-week');
             if (weekButton) weekButton.disabled = saving || mode !== 'move' || row.dataset.departed === 'true';
             row.querySelectorAll('.ac-gantt-cell').forEach(cell => {
@@ -130,7 +130,7 @@
             });
             const currentCount = assigned.filter(index => index >= 21 && index < 42).length;
             row.querySelector('.ac-gantt-hours').textContent = `${currentCount} 班 / ${currentCount * 8} 小时`;
-            row.querySelectorAll('.ac-gantt-shift').forEach(shift => shift.remove());
+            row.querySelectorAll('.ac-gantt-shift:not([data-readonly])').forEach(shift => shift.remove());
             row.querySelectorAll('.ac-gantt-cell').forEach(cell => cell.classList.toggle('ac-gantt-empty', empty.includes(Number(cell.dataset.slot))));
             assigned.filter(index => index >= 18 && index < 45).forEach(index => {
                 const slot = slots[index];
@@ -188,7 +188,7 @@
         status.textContent = message;
         renderForm();
         renderChart();
-        const detailShift = chart?.querySelector(`.ac-gantt-shift[data-slot="${select.value}"]`) || chart?.querySelector('.ac-gantt-shift');
+        const detailShift = chart?.querySelector(`.ac-gantt-shift[data-slot="${select.value}"]`) || chart?.querySelector('.ac-gantt-shift:not([hidden])');
         if (detailShift) detailShift.dispatchEvent(new Event('pointerover', { bubbles: true }));
         else {
             document.getElementById('oncall-shift-summary')?.replaceChildren(document.createTextNode('暂无已分配的班次。'));
@@ -221,7 +221,7 @@
 
     function targetAt(element) {
         const row = element?.closest('[data-user-id]');
-        if (!row || !chart.contains(row) || row.dataset.departed === 'true') return null;
+        if (!row || !chart.contains(row) || row.dataset.departed === 'true' || element.closest('[data-readonly="true"]')) return null;
         const item = element.closest('.ac-gantt-shift, .ac-gantt-cell, .ac-gantt-week');
         if (item?.hidden) return null;
         if (item?.dataset.slot !== undefined && !weeks[Math.floor(Number(item.dataset.slot) / 21)].available) return null;
