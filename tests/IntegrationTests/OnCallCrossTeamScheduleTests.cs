@@ -278,7 +278,7 @@ public class OnCallCrossTeamScheduleTests : TestBase
         }
         var spans = buttons.Select(button => Regex.Match(button, "style=\"left: ([^%;]+)%; width: ([^%;]+)%\""))
             .Select(match => (Left: double.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture), Width: double.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture))).ToArray();
-        var expected = new[] { (-24.0, 24.0), (0.0, 2.5), (5.25, 5.5), (166.5, 1.5), (168.0, 24.0), (40.0, 8.0) };
+        var expected = new[] { (-36.0, 36.0), (0.0, 2.5), (5.25, 5.5), (166.5, 1.5), (168.0, 36.0), (40.0, 8.0) };
         foreach (var (left, width) in expected)
             Assert.IsTrue(spans.Any(span => Math.Abs(span.Left - left / 168 * 100) < 0.000001 && Math.Abs(span.Width - width / 168 * 100) < 0.000001));
         var root = Regex.Match(rawHtml, "<div id=\"oncall-schedule\"[^>]*>").Value;

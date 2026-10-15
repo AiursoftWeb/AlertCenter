@@ -1,5 +1,18 @@
 /* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
 
+.ac-gantt-frame {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.ac-gantt-edge-toggle {
+    writing-mode: vertical-rl;
+    padding: 0.75rem 0.4rem;
+    touch-action: manipulation;
+}
+
 .ac-gantt-scroll {
     overflow-x: auto;
 }
@@ -107,7 +120,7 @@
     background: transparent;
 }
 
-.ac-gantt-editable .ac-gantt-shift:not(.ac-gantt-external),
+.ac-gantt-editable .ac-gantt-shift:not([data-readonly]),
 .ac-gantt-week {
     cursor: grab;
     touch-action: none;
@@ -135,13 +148,13 @@
     font-size: 1.5rem;
 }
 
-.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:not(.ac-gantt-external) {
+.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:not([data-readonly]) {
     cursor: pointer;
     touch-action: manipulation;
 }
 
-.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:not(.ac-gantt-external):hover,
-.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:not(.ac-gantt-external):focus-visible {
+.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:not([data-readonly]):hover,
+.ac-gantt-editable[data-edit-mode="remove"] .ac-gantt-shift:not([data-readonly]):focus-visible {
     outline: 3px solid var(--bs-danger);
 }
 
@@ -198,6 +211,8 @@
 .ac-gantt-shift.ac-gantt-adjacent {
     background: var(--bs-secondary);
     color: #fff;
+    cursor: default;
+    touch-action: manipulation;
 }
 
 .ac-gantt-external-lane {

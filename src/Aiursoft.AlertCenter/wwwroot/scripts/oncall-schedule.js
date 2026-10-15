@@ -5,6 +5,7 @@
     const weeks = JSON.parse(root.dataset.weeks);
     const departedIds = new Set([...root.querySelectorAll('.oncall-edit-member')].filter(input => input.dataset.departed === 'true').map(input => input.value));
     const weekSlots = (items, week) => items.slice(week * 21, (week + 1) * 21);
+    const editableSlot = index => Number.isInteger(index) && index >= 21 && index < 42;
     const slotChanged = index => [...slots[index].userIds].sort().join(',') !== [...original[index].userIds].sort().join(',');
     const weekChanged = week => weekSlots(slots, week).some((_, index) => slotChanged(week * 21 + index));
     let slots = structuredClone(original);
@@ -29,10 +30,12 @@
 
     function renderForm() {
         if (!select) return;
-        const assigned = new Set(slots[Number(select.value)].userIds);
+        const index = Number(select.value);
+        const editable = editableSlot(index);
+        const assigned = new Set(editable ? slots[index].userIds : []);
         members.forEach(input => {
             input.checked = assigned.has(input.value);
-            input.disabled = saving || input.dataset.departed === 'true';
+            input.disabled = saving || !editable || input.dataset.departed === 'true';
         });
         const changed = slots.filter((_, index) => slotChanged(index)).length;
         dirty = changed > 0;
@@ -130,26 +133,29 @@
             });
             const currentCount = assigned.filter(index => index >= 21 && index < 42).length;
             row.querySelector('.ac-gantt-hours').textContent = `${currentCount} 班 / ${currentCount * 8} 小时`;
-            row.querySelectorAll('.ac-gantt-shift:not([data-readonly])').forEach(shift => shift.remove());
+            row.querySelectorAll('.ac-gantt-shift:not(.ac-gantt-external)').forEach(shift => shift.remove());
             row.querySelectorAll('.ac-gantt-cell').forEach(cell => cell.classList.toggle('ac-gantt-empty', empty.includes(Number(cell.dataset.slot))));
-            assigned.filter(index => index >= 18 && index < 45).forEach(index => {
+            assigned.filter(index => index >= 16 && index < 47).forEach(index => {
                 const slot = slots[index];
                 const edge = index < 21 ? 'previous' : index >= 42 ? 'next' : null;
                 const shift = document.createElement('button');
                 shift.type = 'button';
-                shift.className = `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
+                shift.className = edge ? 'ac-gantt-shift' : `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
                 if (edge) {
                     shift.classList.add('ac-gantt-adjacent');
                     shift.dataset.edge = edge;
+                    shift.dataset.readonly = 'true';
                     shift.hidden = true;
                 }
                 shift.classList.toggle('ac-gantt-conflict', conflicts.has(index));
                 const startsAt = Date.parse(slot.startsAtUtc);
                 shift.classList.toggle('ac-gantt-current', startsAt <= loadedAt && loadedAt < startsAt + 8 * 3600000);
-                shift.style.left = `${(index - 21) / 21 * 100}%`;
-                shift.style.width = `${100 / 21}%`;
-                shift.dataset.slot = index;
-                shift.dataset.summary = `${row.dataset.name}${row.dataset.departed === 'true' ? ' · 已退出' : ''} · 8 小时 · ${root.dataset.zone}${conflicts.has(index) ? ' · 休息不足' : ''}`;
+                const visibleStart = Math.max(-36, (index - 21) * 8);
+                const visibleEnd = Math.min(204, (index - 20) * 8);
+                shift.style.left = `${visibleStart / 168 * 100}%`;
+                shift.style.width = `${(visibleEnd - visibleStart) / 168 * 100}%`;
+                if (!edge) shift.dataset.slot = index;
+                shift.dataset.summary = `${row.dataset.name}${row.dataset.departed === 'true' ? ' · 已退出' : ''}${edge ? ' · 相邻周（只读）' : ''} · 8 小时 · ${root.dataset.zone}${conflicts.has(index) ? ' · 休息不足' : ''}`;
                 shift.dataset.start = slot.localStart;
                 shift.dataset.end = slot.localEnd;
                 shift.title = `${shift.dataset.summary} · ${slot.localStart} → ${slot.localEnd}`;
@@ -198,7 +204,7 @@
 
     select?.addEventListener('change', renderForm);
     members.forEach(input => input.addEventListener('change', () => {
-        if (saving || input.dataset.departed === 'true') { renderForm(); return; }
+        if (saving || input.dataset.departed === 'true' || !editableSlot(Number(select.value))) { renderForm(); return; }
         history.push(structuredClone(slots));
         const assigned = slots[Number(select.value)].userIds;
         if (input.checked) {
@@ -223,8 +229,9 @@
         const row = element?.closest('[data-user-id]');
         if (!row || !chart.contains(row) || row.dataset.departed === 'true' || element.closest('[data-readonly="true"]')) return null;
         const item = element.closest('.ac-gantt-shift, .ac-gantt-cell, .ac-gantt-week');
+        if (!item && !element.closest('.ac-gantt-name')) return null;
         if (item?.hidden) return null;
-        if (item?.dataset.slot !== undefined && !weeks[Math.floor(Number(item.dataset.slot) / 21)].available) return null;
+        if (item?.dataset.slot !== undefined && !editableSlot(Number(item.dataset.slot))) return null;
         return { user: row.dataset.userId, name: row.dataset.name, slot: item?.dataset.slot === undefined ? null : Number(item.dataset.slot),
             week: item?.classList.contains('ac-gantt-week'), occupied: item?.classList.contains('ac-gantt-shift'), element: item || row };
     }
@@ -353,7 +360,7 @@
         }
         history.push(structuredClone(slots));
         weekSlots(slots, 1).forEach((slot, index) => slots[42 + index].userIds = [...slot.userIds]);
-        changed('已将本周当前草稿复制到下一周全部 21 班；尚未保存，可撤销。请展开下一周首 24 小时或通过表单检查整周。');
+        changed('已将本周当前草稿复制到下一周全部 21 班；尚未保存，可撤销。可展开后 36 小时只读预览；保存后切换到下一周查看或编辑整周。');
         const toggle = document.querySelector('[data-oncall-edge="next"]');
         if (toggle?.getAttribute('aria-expanded') === 'false') toggle.click();
     }

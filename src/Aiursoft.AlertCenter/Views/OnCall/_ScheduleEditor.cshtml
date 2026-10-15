@@ -53,7 +53,7 @@
         <span id="oncall-edit-count" class="small text-muted" role="status"></span>
     </div>
     <p id="oncall-drag-status" class="small text-primary mb-2" role="status" aria-live="polite"></p>
-    <p class="small text-muted mb-2">复制使用本周当前草稿，下一周已有排班或修改时需先确认；复制后仍需保存。时间轴两侧可展开相邻的 24 小时并编辑，灰色区域属于相邻周；「交换整周」仅修改本周。相邻周未保存时必须补齐整周 21 班，不能只保存一天，可通过下方表单编辑完整相邻周。所有修改统一保存、撤销和还原，折叠不丢失草稿。</p>
+    <p class="small text-muted mb-2">复制使用本周当前草稿，下一周已有排班或修改时需先确认；复制后仍需保存。左右竖向按钮可分别展开本周前后各 36 小时，灰色区域只读；本页图表和表单仅编辑本周，需要调整相邻周请切换到对应周。复制后的下一周草稿也以只读方式预览；本周修改与复制统一保存、撤销和还原，折叠不丢失草稿。</p>
     <p class="small text-muted mb-2">红色提示空班、休息不足或低于最低人数，不阻止继续调整。低于最低人数仍允许手动保存，空班及休息不足不能保存。保存时统一校验修改周、相邻周和其他团队；任何一周失败都不会保存。已退出成员仅能保留原班次，不能新增或复制。</p>
     <details id="oncall-draft-validation" class="text-danger small mb-2" hidden>
         <summary id="oncall-draft-summary" role="status" aria-live="polite"></summary>
@@ -69,17 +69,11 @@
             <p class="small text-muted">选择时段增减同班人员，图表会同步更新。也可使用此表单完成键盘操作。跨组成员可手动选择；其他团队的灰色只读班次不会被修改，保存时仍校验跨组重叠及休息。</p>
             <label for="oncall-edit-slot" class="form-label">选择班次</label>
             <select id="oncall-edit-slot" class="form-select mb-3">
-                @for (var week = 0; week < weeks.Count; week++)
+                @for (var index = 21; index < 42; index++)
                 {
-                    if (!weeks[week].available) { continue; }
-                    <optgroup label="@(week == 0 ? "上一周" : week == 1 ? "本周" : "下一周")">
-                        @for (var index = week * 21; index < (week + 1) * 21; index++)
-                        {
-                            var local = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc, zone);
-                            var localEnd = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc.AddHours(8), zone);
-                            <option value="@index" selected="@(index == 21)">@local.ToString("MM-dd HH:mm") → @localEnd.ToString("MM-dd HH:mm") (@group.TimeZoneId)</option>
-                        }
-                    </optgroup>
+                    var local = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc, zone);
+                    var localEnd = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc.AddHours(8), zone);
+                    <option value="@index" selected="@(index == 21)">@local.ToString("MM-dd HH:mm") → @localEnd.ToString("MM-dd HH:mm") (@group.TimeZoneId)</option>
                 }
             </select>
             <fieldset>
