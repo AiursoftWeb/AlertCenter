@@ -32,7 +32,7 @@
         <p class="text-muted mb-0 small">个人的专属告警与通知消息中心 · 独立记录已读状态</p>
     </div>
     <div class="text-sm-end">
-        <form asp-action="MarkAllRead" asp-all-route-data="routes" method="post">
+        <form asp-action="MarkAllRead" asp-all-route-data="routes" method="post" data-action-feedback>
             <button class="btn btn-outline-primary" disabled="@(Model.UnreadCount == 0 || !ViewData.ModelState.IsValid)" aria-describedby="mark-all-hint">
                 <i class="align-middle me-1" data-lucide="check-check" aria-hidden="true"></i>我的全部通知标为已读
             </button>
@@ -228,7 +228,7 @@
                             </a>
                             @if (isUnread)
                             {
-                                <form asp-action="MarkRead" asp-all-route-data="routes" method="post" class="d-inline">
+                                <form asp-action="MarkRead" asp-all-route-data="routes" method="post" data-action-feedback class="d-inline">
                                     <input type="hidden" name="id" value="@notification.Id" />
                                     <button class="btn btn-sm btn-outline-primary">
                                         <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>标为已读

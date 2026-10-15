@@ -62,14 +62,15 @@
     <div class="card-body pt-0">
         <p class="text-muted small mb-3">将示例代码中的 <code>YOUR_API_KEY</code> 替换为上一步生成的应用密钥即可直接发送测试。</p>
 
+        <div id="code-copy-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
         <div class="tab-content" id="code-tab-content">
             <!-- cURL Tab -->
             <div class="tab-pane fade show active" id="panel-curl" role="tabpanel">
                 <div class="ac-code-container">
                     <div class="ac-code-header">
                         <span>bash / zsh</span>
-                        <button type="button" class="ac-copy-btn" onclick="copyCode('code-curl', this)">
-                            <i class="align-middle" data-lucide="copy"></i>复制代码
+                        <button type="button" class="ac-copy-btn" data-copy-target="code-curl" data-copy-feedback="code-copy-feedback">
+                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>复制代码
                         </button>
                     </div>
                     <pre class="ac-code-pre" id="code-curl"><code>curl -i '@endpoint' \
@@ -96,8 +97,8 @@
                 <div class="ac-code-container">
                     <div class="ac-code-header">
                         <span>C# (.NET 8/9/10)</span>
-                        <button type="button" class="ac-copy-btn" onclick="copyCode('code-dotnet', this)">
-                            <i class="align-middle" data-lucide="copy"></i>复制代码
+                        <button type="button" class="ac-copy-btn" data-copy-target="code-dotnet" data-copy-feedback="code-copy-feedback">
+                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>复制代码
                         </button>
                     </div>
                     <pre class="ac-code-pre" id="code-dotnet"><code>// 1. 安装 NuGet 包: Aiursoft.AlertCenterSdk
@@ -132,8 +133,8 @@ public class OrderService(IAlertClient alertClient)
                 <div class="ac-code-container">
                     <div class="ac-code-header">
                         <span>Go 1.22+</span>
-                        <button type="button" class="ac-copy-btn" onclick="copyCode('code-go', this)">
-                            <i class="align-middle" data-lucide="copy"></i>复制代码
+                        <button type="button" class="ac-copy-btn" data-copy-target="code-go" data-copy-feedback="code-copy-feedback">
+                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>复制代码
                         </button>
                     </div>
                     <pre class="ac-code-pre" id="code-go"><code>package main
@@ -171,8 +172,8 @@ func main() {
                 <div class="ac-code-container">
                     <div class="ac-code-header">
                         <span>Python 3.10+ (requests)</span>
-                        <button type="button" class="ac-copy-btn" onclick="copyCode('code-python', this)">
-                            <i class="align-middle" data-lucide="copy"></i>复制代码
+                        <button type="button" class="ac-copy-btn" data-copy-target="code-python" data-copy-feedback="code-copy-feedback">
+                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>复制代码
                         </button>
                     </div>
                     <pre class="ac-code-pre" id="code-python"><code>import uuid
@@ -326,21 +327,5 @@ print(response.status_code, response.json())</code></pre>
 </div>
 
 @section scripts {
-    <script>
-        async function copyCode(elementId, btn) {
-            const code = document.getElementById(elementId)?.innerText;
-            if (!code) return;
-            try {
-                await navigator.clipboard.writeText(code);
-                const originalHtml = btn.innerHTML;
-                btn.innerHTML = '<i class="align-middle me-1" data-lucide="check"></i>已复制';
-                setTimeout(() => {
-                    btn.innerHTML = originalHtml;
-                    if (window.lucide) lucide.createIcons({ nodes: [btn] });
-                }, 2000);
-            } catch {
-                // ignore
-            }
-        }
-    </script>
+    <script src="~/scripts/clipboard.js" asp-append-version="true"></script>
 }

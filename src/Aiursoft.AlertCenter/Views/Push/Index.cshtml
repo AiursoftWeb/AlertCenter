@@ -144,7 +144,7 @@
                                 <a asp-action="Records" asp-route-channelId="@channel.Id" class="btn btn-sm btn-outline-secondary">
                                     <i class="align-middle me-1" data-lucide="history"></i>记录
                                 </a>
-                                <form asp-action="SetEnabled" method="post" class="d-inline">
+                                <form asp-action="SetEnabled" method="post" data-action-feedback class="d-inline">
                                     <input type="hidden" name="id" value="@channel.Id" />
                                     <input type="hidden" name="enabled" value="@((!channel.IsEnabled).ToString().ToLowerInvariant())" />
                                     <button class="btn btn-sm btn-outline-secondary" type="submit">
@@ -215,7 +215,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                <form asp-action="Delete" method="post" class="d-inline">
+                <form asp-action="Delete" method="post" data-action-feedback class="d-inline">
                     <input id="delete-channel-id" name="id" type="hidden" />
                     <button id="delete-channel-confirm" class="btn btn-danger" disabled>
                         <i class="align-middle me-1" data-lucide="trash-2"></i>确认删除

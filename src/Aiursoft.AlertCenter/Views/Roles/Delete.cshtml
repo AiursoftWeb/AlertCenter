@@ -32,7 +32,7 @@
 
                 <div>
                     @* The form now contains a clear, explicit confirmation button. *@
-                    <form asp-action="Delete" class="d-inline-block">
+                    <form asp-action="Delete" method="post" data-action-feedback class="d-inline-block">
                         @* The hidden input for the ID is critical and preserved. *@
                         <input type="hidden" asp-for="@Model.Role.Id" />
                         <button type="submit" class="btn btn-danger">

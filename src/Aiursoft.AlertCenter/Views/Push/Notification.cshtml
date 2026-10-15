@@ -36,7 +36,7 @@
     <div class="d-flex align-items-center gap-2">
         @if (isUnread)
         {
-            <form asp-action="MarkRead" asp-route-returnToNotification="true" method="post">
+            <form asp-action="MarkRead" asp-route-returnToNotification="true" method="post" data-action-feedback>
                 <input type="hidden" name="id" value="@notification.Id" />
                 <button class="btn btn-outline-primary">
                     <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>标为已读
@@ -88,6 +88,7 @@
 
 @if (message?.ContextJson != null)
 {
+    <div id="notification-copy-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
     <div class="card shadow-sm border-0 mb-4">
         <div class="ac-code-container">
             <div class="ac-code-header">
@@ -95,11 +96,15 @@
                     <i data-lucide="braces" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
                     <span class="fw-semibold">业务上下文 (Context JSON)</span>
                 </div>
-                <button type="button" class="ac-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('notification-context-code').innerText); this.innerHTML = '<i data-lucide=\'check\' style=\'width:12px;height:12px;\'></i> 已复制';">
+                <button type="button" class="ac-copy-btn" data-copy-target="notification-context-code" data-copy-feedback="notification-copy-feedback">
                     <i data-lucide="copy" style="width: 12px; height: 12px;" aria-hidden="true"></i>复制 JSON
                 </button>
             </div>
             <pre class="ac-code-pre"><code id="notification-context-code">@message.ContextJson</code></pre>
         </div>
     </div>
+}
+
+@section scripts {
+    <script src="~/scripts/clipboard.js" asp-append-version="true"></script>
 }

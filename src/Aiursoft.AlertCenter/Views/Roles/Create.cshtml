@@ -21,7 +21,7 @@
                 <h5 class="card-title mb-0">@Localizer["Role Details"]</h5>
             </div>
             <div class="card-body">
-                <form asp-action="Create">
+                <form asp-action="Create" method="post" data-action-feedback>
 
                     <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 

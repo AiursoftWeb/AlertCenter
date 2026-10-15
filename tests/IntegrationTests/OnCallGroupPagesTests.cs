@@ -90,7 +90,13 @@ public class OnCallGroupPagesTests : TestBase
             Assert.AreEqual(memberId, group.Members.Single().UserId);
             Assert.AreNotEqual(version, group.ScheduleVersion);
         }
-        Assert.Contains("<button type=\"submit\" class=\"btn btn-outline-danger\">删除团队", await Http.GetStringAsync(location));
+        var deletePage = await Http.GetStringAsync(location);
+        Assert.Contains("data-bs-target=\"#delete-oncall-group\"", deletePage);
+        Assert.Contains("id=\"delete-oncall-group\"", deletePage);
+        Assert.Contains("aria-describedby=\"delete-oncall-group-description\"", deletePage);
+        Assert.Contains("data-action-feedback", deletePage);
+        Assert.DoesNotContain("onsubmit=", deletePage);
+        Assert.DoesNotContain("confirm(", deletePage);
         AssertRedirect(await PostForm("/OnCall/DeleteGroup", new() { ["id"] = id.ToString() }, location), "/OnCall/Groups");
         using (var scope = Server!.Services.CreateScope())
         {

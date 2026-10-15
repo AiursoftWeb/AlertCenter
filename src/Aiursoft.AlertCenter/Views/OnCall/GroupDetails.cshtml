@@ -79,9 +79,25 @@
     }
     else
     {
-        <form asp-action="DeleteGroup" method="post" data-action-feedback onsubmit="return confirm('确定删除该团队？规则模板不会被删除，此操作无法恢复。');">
-            <input type="hidden" name="id" value="@group.Id" />
-            <button type="submit" class="btn btn-outline-danger">删除团队</button>
-        </form>
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-oncall-group">删除团队</button>
+        <div class="modal fade" id="delete-oncall-group" tabindex="-1" aria-labelledby="delete-oncall-group-title" aria-describedby="delete-oncall-group-description" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form asp-action="DeleteGroup" method="post" data-action-feedback class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title h5" id="delete-oncall-group-title">删除值班团队</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>确定删除团队 <strong class="text-break">@group.Name</strong>？</p>
+                        <div class="alert alert-warning mb-0" id="delete-oncall-group-description">规则模板不会被删除。仅没有保存班次且未绑定应用的团队可以删除，此操作无法恢复。</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                        <input type="hidden" name="id" value="@group.Id" />
+                        <button type="submit" class="btn btn-danger">确认删除团队</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     }
 }

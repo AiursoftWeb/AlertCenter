@@ -89,6 +89,76 @@ public partial class AlertDemoTests
     }
 
     [TestMethod]
+    public async Task ApplicationAndChannelControlsUseDialogFeedbackAndKeepNormalPostBehavior()
+    {
+        var key = await CreateApplication();
+        var applicationId = Guid.Parse(key.Split('.')[0]);
+        var applications = await Http.GetStringAsync("/Alerts/Applications");
+        Assert.IsTrue(Regex.IsMatch(applications, "<form[^>]*data-action-feedback[^>]*action=\"/Alerts/SetEnabled\""));
+        using var enabled = await DialogPost("/Alerts/SetEnabled", new()
+        {
+            ["id"] = applicationId.ToString(), ["enabled"] = "false"
+        }, "/Alerts/Applications");
+        Assert.AreEqual(HttpStatusCode.OK, enabled.StatusCode);
+        Assert.AreEqual("/Alerts/Applications", JObject.Parse(await enabled.Content.ReadAsStringAsync())["redirectUrl"]!.Value<string>());
+        using var normal = await PostForm("/Alerts/SetEnabled", new()
+        {
+            ["id"] = applicationId.ToString(), ["enabled"] = "true"
+        }, "/Alerts/Applications");
+        AssertRedirect(normal, "/Alerts/Applications");
+        Guid channelId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.IsTrue((await db.SourceApplications.SingleAsync()).IsEnabled);
+            var channel = new PushChannel { Name = "UI feedback", Type = "webhook", Endpoint = "https://example.com/hooks" };
+            db.PushChannels.Add(channel);
+            await db.SaveChangesAsync();
+            channelId = channel.Id;
+        }
+        var channels = await Http.GetStringAsync("/Push");
+        foreach (var action in new[] { "SetEnabled", "Delete" })
+            Assert.IsTrue(Regex.IsMatch(channels, $"<form[^>]*data-action-feedback[^>]*action=\"/Push/{action}\""));
+        using var disabled = await DialogPost("/Push/SetEnabled", new()
+        {
+            ["id"] = channelId.ToString(), ["enabled"] = "false"
+        }, "/Push");
+        Assert.AreEqual(HttpStatusCode.OK, disabled.StatusCode);
+        using var deleted = await DialogPost("/Push/Delete", new() { ["id"] = channelId.ToString() }, "/Push");
+        Assert.AreEqual(HttpStatusCode.OK, deleted.StatusCode);
+        using var missing = await DialogPost("/Push/Delete", new() { ["id"] = channelId.ToString() }, "/Push");
+        Assert.AreEqual(HttpStatusCode.NotFound, missing.StatusCode);
+        using var finalScope = Server!.Services.CreateScope();
+        Assert.AreEqual(0, await finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>().PushChannels.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task CreationFormsAndInboxUseDialogFeedbackWithoutLosingFilters()
+    {
+        var items = await SeedInboxFilters();
+        foreach (var url in new[] { "/Users/Create", "/Roles/Create" })
+        {
+            var page = await Http.GetStringAsync(url);
+            Assert.IsTrue(Regex.IsMatch(page, "<form[^>]*method=\"post\"[^>]*data-action-feedback"));
+        }
+        using var invalidRole = await DialogPost("/Roles/Create", new() { ["RoleName"] = "" }, "/Roles/Create");
+        Assert.AreEqual(HttpStatusCode.BadRequest, invalidRole.StatusCode);
+        using var invalidUser = await DialogPost("/Users/Create", new() { ["UserName"] = "" }, "/Users/Create");
+        Assert.AreEqual(HttpStatusCode.BadRequest, invalidUser.StatusCode);
+        var inbox = await Http.GetStringAsync("/Push/Inbox?readStatus=all&level=sev1");
+        foreach (var action in new[] { "MarkRead", "MarkAllRead" })
+            Assert.IsTrue(Regex.IsMatch(inbox, $"<form[^>]*data-action-feedback[^>]*action=\"/Push/{action}\\?"));
+        using var read = await DialogPost("/Push/MarkRead?readStatus=all&level=sev1", new()
+        {
+            ["id"] = items[0].Id.ToString()
+        }, "/Push/Inbox");
+        Assert.AreEqual(HttpStatusCode.OK, read.StatusCode);
+        var redirect = JObject.Parse(await read.Content.ReadAsStringAsync())["redirectUrl"]!.Value<string>()!;
+        Assert.Contains("readStatus=all", redirect);
+        Assert.Contains("level=sev1", redirect);
+    }
+
+    [TestMethod]
     public async Task PlainTextReasonsRenderWithoutTemplateIndentationOrHtmlExecution()
     {
         var key = await CreateApplication();

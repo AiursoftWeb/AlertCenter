@@ -6,6 +6,10 @@
     const title = document.getElementById('action-feedback-title');
     const message = document.getElementById('action-feedback-message');
     const refresh = document.getElementById('action-feedback-refresh');
+    const returnButton = document.getElementById('action-feedback-return');
+    let refreshConfirmation = false;
+    let errorTitle;
+    let errorMessage;
     let sourceModal;
     let sourceControl;
     let restoreSource = false;
@@ -13,10 +17,42 @@
     document.addEventListener('show.bs.modal', event => { openModals.add(event.target); });
     document.addEventListener('hidden.bs.modal', event => { openModals.delete(event.target); });
 
+    function resetRefreshConfirmation() {
+        refreshConfirmation = false;
+        refresh.textContent = '刷新页面';
+        refresh.classList.remove('btn-warning');
+        refresh.classList.add('btn-outline-secondary');
+        returnButton.textContent = '返回修改';
+        returnButton.setAttribute('data-bs-dismiss', 'modal');
+    }
+
     refresh.addEventListener('click', () => {
-        if (window.confirm('刷新将丢弃尚未保存的输入，确定继续？')) window.location.reload();
+        if (refreshConfirmation) {
+            window.location.reload();
+            return;
+        }
+        errorTitle = title.textContent;
+        errorMessage = message.textContent;
+        refreshConfirmation = true;
+        title.textContent = '确认刷新页面？';
+        message.textContent = '刷新将丢弃尚未保存的输入。选择“取消刷新”可返回错误详情，保留当前输入。';
+        refresh.textContent = '放弃输入并刷新';
+        refresh.classList.remove('btn-outline-secondary');
+        refresh.classList.add('btn-warning');
+        returnButton.textContent = '取消刷新';
+        returnButton.removeAttribute('data-bs-dismiss');
+        returnButton.focus();
+    });
+    returnButton.addEventListener('click', event => {
+        if (!refreshConfirmation) return;
+        event.stopPropagation();
+        resetRefreshConfirmation();
+        title.textContent = errorTitle;
+        message.textContent = errorMessage;
+        refresh.focus();
     });
     dialog.addEventListener('hidden.bs.modal', () => {
+        resetRefreshConfirmation();
         if (restoreSource && sourceModal?.isConnected) {
             sourceModal.addEventListener('shown.bs.modal', () => sourceControl?.focus(), { once: true });
             bootstrap.Modal.getOrCreateInstance(sourceModal).show();
@@ -26,6 +62,7 @@
     });
 
     function showError(text, stale, form, submitter) {
+        resetRefreshConfirmation();
         const modalParent = form.closest('.modal');
         sourceModal = modalParent && (openModals.has(modalParent) || modalParent.classList.contains('show')) ? modalParent : null;
         sourceControl = submitter || form.querySelector('input:not([type="hidden"]), textarea, select, button');

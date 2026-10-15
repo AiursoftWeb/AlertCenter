@@ -216,7 +216,7 @@
                                     <a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">
                                         <i class="align-middle me-1" data-lucide="sliders"></i>推送设置
                                     </a>
-                                    <form asp-action="SetEnabled" method="post" class="d-inline">
+                                    <form asp-action="SetEnabled" method="post" data-action-feedback class="d-inline">
                                         <input type="hidden" name="id" value="@application.Id" />
                                         <input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" />
                                         <button class="btn btn-sm btn-outline-secondary text-nowrap" type="submit">
