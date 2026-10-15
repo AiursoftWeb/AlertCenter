@@ -209,8 +209,11 @@
             </div>
             <div class="modal-body">
                 <p>确定删除推送渠道 <strong id="delete-channel-name" class="text-break"></strong>？</p>
-                <div class="alert alert-danger py-2 px-3 small mb-0" id="delete-channel-description">
-                    <i class="align-middle me-1" data-lucide="alert-octagon"></i>关联的应用推送配置、历史投递记录和对应的站内通知将一并删除，此操作无法恢复。
+                <div class="alert alert-danger small mb-0" id="delete-channel-description" role="alert">
+                    <div class="alert-icon">
+                        <i class="align-middle" data-lucide="alert-octagon" aria-hidden="true"></i>
+                    </div>
+                    <div class="alert-message">关联的应用推送配置、历史投递记录和对应的站内通知将一并删除，此操作无法恢复。</div>
                 </div>
             </div>
             <div class="modal-footer">

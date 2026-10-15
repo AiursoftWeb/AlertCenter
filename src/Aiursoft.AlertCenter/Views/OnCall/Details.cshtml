@@ -56,23 +56,28 @@
 </div>
 @if (group.Members.Any(member => Model.OtherGroupMemberships.Any(other => other.UserId == member.UserId)))
 {
-    <div id="oncall-shared-members" class="alert alert-warning">
-        <h2 class="h6">跨值班组成员需手动安排</h2>
-        <p>以下员工同时属于多个值班组，自动预览和自动排班将跳过他们；已保存的安排保持不变，仍可手动安排并校验跨组冲突。</p>
-        <ul class="mb-0">
-            @foreach (var member in group.Members.OrderBy(item => item.RotationOrder))
-            {
-                var others = Model.OtherGroupMemberships.Where(other => other.UserId == member.UserId).ToList();
-                if (others.Count == 0) { continue; }
-                <li>
-                    <strong>@member.User.DisplayName</strong> · 其他团队：
-                    @foreach (var other in others)
-                    {
-                        <a asp-action="ScheduleDetails" asp-route-id="@other.GroupId" class="me-2">@other.Group.Name</a>
-                    }
-                </li>
-            }
-        </ul>
+    <div id="oncall-shared-members" class="alert alert-warning" role="alert">
+        <div class="alert-icon">
+            <i class="align-middle" data-lucide="users" aria-hidden="true"></i>
+        </div>
+        <div class="alert-message">
+            <h2 class="h6">跨值班组成员需手动安排</h2>
+            <p>以下员工同时属于多个值班组，自动预览和自动排班将跳过他们；已保存的安排保持不变，仍可手动安排并校验跨组冲突。</p>
+            <ul class="mb-0">
+                @foreach (var member in group.Members.OrderBy(item => item.RotationOrder))
+                {
+                    var others = Model.OtherGroupMemberships.Where(other => other.UserId == member.UserId).ToList();
+                    if (others.Count == 0) { continue; }
+                    <li>
+                        <strong>@member.User.DisplayName</strong> · 其他团队：
+                        @foreach (var other in others)
+                        {
+                            <a asp-action="ScheduleDetails" asp-route-id="@other.GroupId" class="alert-link me-2">@other.Group.Name</a>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
 }
 <div class="card">
@@ -80,14 +85,20 @@
     <div class="card-body">
         @if (Model.StaffingWarnings.Count > 0)
         {
-            <details class="alert alert-warning" open>
-                <summary>人数不足提示（仍允许手动保存，空班除外）</summary>
-                <ul class="mb-0">@foreach (var warning in Model.StaffingWarnings) { <li>@warning</li> }</ul>
-            </details>
+            <div class="alert alert-warning" role="alert">
+                <div class="alert-message">
+                    <details open>
+                        <summary class="fw-semibold">人数不足提示（仍允许手动保存，空班除外）</summary>
+                        <ul class="mt-2 mb-0">@foreach (var warning in Model.StaffingWarnings) { <li>@warning</li> }</ul>
+                    </details>
+                </div>
+            </div>
         }
         @if (Model.PreviewError != null)
         {
-            <div class="alert alert-warning">@Model.PreviewError</div>
+            <div class="alert alert-warning" role="alert">
+                <div class="alert-message text-break">@Model.PreviewError</div>
+            </div>
         }
         @if (Model.WeekStartUtc != default)
         {
@@ -111,20 +122,25 @@
             </div>
             @if (firstShift != null)
             {
-                <div class="alert alert-primary d-flex flex-wrap align-items-center gap-2">
-                    @if (currentShift != null)
-                    {
-                        <span class="badge bg-primary">当前值班</span>
-                        <strong>@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc == currentShift.StartsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, "已删除的员工")))</strong>
-                        <span>本班至 @TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-primary">@(firstShift.StartsAtUtc > now ? "即将开始" : "本周排班")</span>
-                        <strong>@staffNames.GetValueOrDefault(firstShift.UserId, "已删除的员工")</strong>
-                        <span>首班于 @TimeZoneInfo.ConvertTimeFromUtc(firstShift.StartsAtUtc, zone).ToString("MM-dd HH:mm") 开始</span>
-                    }
-                    <span class="small">（@group.TimeZoneId，状态以页面加载时为准）</span>
+                <div class="alert alert-primary" role="status">
+                    <div class="alert-icon">
+                        <i class="align-middle" data-lucide="clock" aria-hidden="true"></i>
+                    </div>
+                    <div class="alert-message d-flex flex-wrap align-items-center gap-2">
+                        @if (currentShift != null)
+                        {
+                            <span class="badge bg-primary">当前值班</span>
+                            <strong class="text-break">@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc == currentShift.StartsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, "已删除的员工")))</strong>
+                            <span>本班至 @TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-primary">@(firstShift.StartsAtUtc > now ? "即将开始" : "本周排班")</span>
+                            <strong class="text-break">@staffNames.GetValueOrDefault(firstShift.UserId, "已删除的员工")</strong>
+                            <span>首班于 @TimeZoneInfo.ConvertTimeFromUtc(firstShift.StartsAtUtc, zone).ToString("MM-dd HH:mm") 开始</span>
+                        }
+                        <span class="small">（@group.TimeZoneId，状态以页面加载时为准）</span>
+                    </div>
                 </div>
             }
             else

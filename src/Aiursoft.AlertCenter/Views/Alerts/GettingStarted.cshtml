@@ -26,9 +26,13 @@
     </div>
     <div class="card-body pt-0">
         <p class="mb-2">每个业务系统通过<strong>独立的 API Key</strong> 进行请求鉴权。中心通过 <code>&lt;applicationId&gt;.&lt;secret&gt;</code> 结构快速定位应用并校验哈希，保障来源隔离与安全性。</p>
-        <div class="alert alert-warning py-2 px-3 small mb-3">
-            <i class="align-middle me-1" data-lucide="shield-alert"></i>
-            <strong>防泄漏提示</strong>：API Key 仅在创建或重置成功瞬间显示一次。请立即配置在生产环境的环境变量（如 <code>ALERTCENTER_API_KEY</code>）或密钥管理中心（KMS），严禁硬编码至前端、日志或代码仓库。
+        <div class="alert alert-warning small mb-3" role="alert">
+            <div class="alert-icon">
+                <i class="align-middle" data-lucide="shield-alert" aria-hidden="true"></i>
+            </div>
+            <div class="alert-message text-break">
+                <strong>防泄漏提示</strong>：API Key 仅在创建或重置成功瞬间显示一次。请立即配置在生产环境的环境变量（如 <code>ALERTCENTER_API_KEY</code>）或密钥管理中心（KMS），严禁硬编码至前端、日志或代码仓库。
+            </div>
         </div>
         <a asp-action="Applications" class="btn btn-sm btn-outline-primary">
             <i class="align-middle me-1" data-lucide="plus"></i>前往创建应用并获取凭据 &rarr;
@@ -310,9 +314,13 @@ print(response.status_code, response.json())</code></pre>
             </div>
         </div>
 
-        <div class="alert alert-info small mb-4">
-            <i class="align-middle me-1" data-lucide="gauge"></i>
-            AlertCenter 不在事故确认前抑制重复通知。请由调用方限频，并仅上报需要人工处理的告警；<code>incidentKey</code> 仅用于事故关联。
+        <div class="alert alert-info small mb-4" role="alert">
+            <div class="alert-icon">
+                <i class="align-middle" data-lucide="gauge" aria-hidden="true"></i>
+            </div>
+            <div class="alert-message">
+                AlertCenter 不在事故确认前抑制重复通知。请由调用方限频，并仅上报需要人工处理的告警；<code>incidentKey</code> 仅用于事故关联。
+            </div>
         </div>
 
         <div class="d-flex flex-wrap gap-2">

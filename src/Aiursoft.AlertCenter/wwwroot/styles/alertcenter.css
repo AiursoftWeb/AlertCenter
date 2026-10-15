@@ -1,5 +1,13 @@
 /* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
 
+.alert-message {
+    min-width: 0;
+}
+
+.alert-message.validation-summary-errors > ul {
+    margin-bottom: 0;
+}
+
 .ac-gantt-frame {
     --ac-gantt-name-width: 10rem;
     --ac-gantt-toggle-width: 2rem;

@@ -13,7 +13,10 @@
 
 @if (TempData["OnCallRuleSuccess"] is string message)
 {
-    <div class="alert alert-success" role="status">@message</div>
+    <div class="alert alert-success alert-dismissible" role="status">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+        <div class="alert-message">@message</div>
+    </div>
 }
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">已保存规则</h2></div>
@@ -65,7 +68,9 @@
                 </div>
                 <div class="modal-body">
                     <p>确定删除规则 <strong id="delete-oncall-rule-name" class="text-break"></strong>？</p>
-                    <div class="alert alert-warning mb-0" id="delete-oncall-rule-description">仅未绑定团队的模板可以删除。团队已保存的班次和历史记录不会被删除；模板删除后无法恢复。</div>
+                    <div class="alert alert-warning mb-0" id="delete-oncall-rule-description" role="alert">
+                        <div class="alert-message">仅未绑定团队的模板可以删除。团队已保存的班次和历史记录不会被删除；模板删除后无法恢复。</div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>

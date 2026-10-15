@@ -18,7 +18,10 @@
 </div>
 @if (TempData["OnCallRuleSuccess"] is string message)
 {
-    <div class="alert alert-success" role="status">@message</div>
+    <div class="alert alert-success alert-dismissible" role="status">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+        <div class="alert-message">@message</div>
+    </div>
 }
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">规则配置</h2></div>

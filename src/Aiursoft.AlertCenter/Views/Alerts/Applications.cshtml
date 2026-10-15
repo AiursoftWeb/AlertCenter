@@ -258,8 +258,11 @@
             </div>
             <div class="modal-body">
                 <p>确定为应用 <strong id="reset-api-key-name" class="text-break"></strong> 重置接入密钥？</p>
-                <div class="alert alert-warning py-2 px-3 small" id="reset-api-key-description">
-                    <i class="align-middle me-1" data-lucide="alert-triangle"></i>旧密钥将立即失效，所有上报客户端都需要更新。新密钥仅在页面显示一次。
+                <div class="alert alert-warning small" id="reset-api-key-description" role="alert">
+                    <div class="alert-icon">
+                        <i class="align-middle" data-lucide="alert-triangle" aria-hidden="true"></i>
+                    </div>
+                    <div class="alert-message">旧密钥将立即失效，所有上报客户端都需要更新。新密钥仅在页面显示一次。</div>
                 </div>
                 <p class="small text-muted mb-0">应用 ID、历史告警记录、推送渠道绑定与启停状态保持不变。</p>
             </div>
@@ -306,8 +309,11 @@
             </div>
             <div class="modal-body">
                 <p>确定删除应用 <strong id="delete-application-name" class="text-break"></strong>？</p>
-                <div class="alert alert-danger py-2 px-3 small mb-3" id="delete-application-description">
-                    <i class="align-middle me-1" data-lucide="alert-octagon"></i>此操作不可逆！该应用的全部历史告警、关联投递记录和站内通知将一并删除，API Key 立即失效。
+                <div class="alert alert-danger small mb-3" id="delete-application-description" role="alert">
+                    <div class="alert-icon">
+                        <i class="align-middle" data-lucide="alert-octagon" aria-hidden="true"></i>
+                    </div>
+                    <div class="alert-message">此操作不可逆！该应用的全部历史告警、关联投递记录和站内通知将一并删除，API Key 立即失效。</div>
                 </div>
                 <label for="delete-application-confirmation" class="form-label small fw-medium">
                     请输入应用名称以确认删除:

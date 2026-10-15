@@ -221,7 +221,9 @@
             <div class="card-body pt-0 small">
                 @if (!string.IsNullOrEmpty(Model.CurrentOceError))
                 {
-                    <div class="alert alert-warning mb-0" role="alert">当前值班 OCE 查询失败：@Model.CurrentOceError</div>
+                    <div class="alert alert-warning mb-0" role="alert">
+                        <div class="alert-message text-break">当前值班 OCE 查询失败：@Model.CurrentOceError</div>
+                    </div>
                 }
                 else if (Model.CurrentOces.Count == 0)
                 {

@@ -66,7 +66,9 @@
                     <form asp-action="Save" method="post" data-action-feedback id="push-channel-form">
                         <input asp-for="Id" type="hidden" />
                         <input asp-for="Type" type="hidden" />
-                        <div asp-validation-summary="All" class="alert alert-danger py-2 px-3 small mb-3 @(ViewData.ModelState.IsValid ? "d-none" : "")"></div>
+                        <div class="alert alert-danger small mb-3 @(ViewData.ModelState.IsValid ? "d-none" : "")" role="alert">
+                            <div asp-validation-summary="All" class="alert-message"></div>
+                        </div>
 
                         <div class="mb-4">
                             <label asp-for="Name" class="form-label small fw-medium">渠道名称</label>
@@ -143,9 +145,13 @@
                         }
                         else if (Model.Type == "email")
                         {
-                            <div class="alert alert-info py-2 px-3 small mb-3">
-                                <i class="align-middle me-1" data-lucide="info"></i>
-                                <strong>全局 SMTP 邮件服务</strong>：系统统一使用全局 Email 服务配置。请通过 <code>Email__Password</code> 环境变量提供认证凭据。
+                            <div class="alert alert-info small mb-3" role="alert">
+                                <div class="alert-icon">
+                                    <i class="align-middle" data-lucide="info" aria-hidden="true"></i>
+                                </div>
+                                <div class="alert-message text-break">
+                                    <strong>全局 SMTP 邮件服务</strong>：系统统一使用全局 Email 服务配置。请通过 <code>Email__Password</code> 环境变量提供认证凭据。
+                                </div>
                             </div>
                             <div class="mb-4">
                                 <label asp-for="EmailRecipient" class="form-label small fw-medium">收件人邮箱</label>
@@ -187,9 +193,13 @@
                         }
                         else
                         {
-                            <div class="alert alert-info py-2 px-3 small mb-3">
-                                <i class="align-middle me-1" data-lucide="info"></i>
-                                <strong>站内通知范围</strong>：支持同时绑定多个用户与用户组（角色）。系统自动去重，每位成员仅产生一条待读通知。
+                            <div class="alert alert-info small mb-3" role="alert">
+                                <div class="alert-icon">
+                                    <i class="align-middle" data-lucide="info" aria-hidden="true"></i>
+                                </div>
+                                <div class="alert-message">
+                                    <strong>站内通知范围</strong>：支持同时绑定多个用户与用户组（角色）。系统自动去重，每位成员仅产生一条待读通知。
+                                </div>
                             </div>
                         }
 

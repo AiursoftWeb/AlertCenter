@@ -18,7 +18,10 @@
 </div>
 @if (TempData["OnCallGroupSuccess"] is string message)
 {
-    <div class="alert alert-success" role="status">@message</div>
+    <div class="alert alert-success alert-dismissible" role="status">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+        <div class="alert-message">@message</div>
+    </div>
 }
 <div class="card mb-4">
     <div class="card-header"><h2 class="card-title mb-0">团队配置</h2></div>
@@ -71,11 +74,15 @@
 {
     if (Model.GroupHasSavedSchedule)
     {
-        <div class="alert alert-info">该团队已有保存的班次，不能删除，以保留排班历史。</div>
+        <div class="alert alert-info" role="alert">
+            <div class="alert-message">该团队已有保存的班次，不能删除，以保留排班历史。</div>
+        </div>
     }
     else if (Model.GroupHasBoundApplications)
     {
-        <div class="alert alert-info">该团队已绑定接入应用，请先更换或解除应用的值班组绑定，再删除团队。</div>
+        <div class="alert alert-info" role="alert">
+            <div class="alert-message">该团队已绑定接入应用，请先更换或解除应用的值班组绑定，再删除团队。</div>
+        </div>
     }
     else
     {
@@ -89,7 +96,9 @@
                     </div>
                     <div class="modal-body">
                         <p>确定删除团队 <strong class="text-break">@group.Name</strong>？</p>
-                        <div class="alert alert-warning mb-0" id="delete-oncall-group-description">规则模板不会被删除。仅没有保存班次且未绑定应用的团队可以删除，此操作无法恢复。</div>
+                        <div class="alert alert-warning mb-0" id="delete-oncall-group-description" role="alert">
+                            <div class="alert-message">规则模板不会被删除。仅没有保存班次且未绑定应用的团队可以删除，此操作无法恢复。</div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>

@@ -311,6 +311,10 @@ Even if you have push rights on the repository, you should create a personal for
 
 We're also interested in your feedback on the future of this project. You can submit a suggestion or feature request through the issue tracker. To make this process more effective, we're asking that these include more information to help define them more clearly.
 
+### UI components
+
+Use the native Aiursoft.UiStack component markup rather than plain Bootstrap assumptions. An `.alert` is a flex container with no padding: wrap its content in `.alert-message` and place any icon in a sibling `.alert-icon`. Keep headings, lists, collapsible details and responsive action layouts inside `.alert-message`; do not add padding utilities to the alert container. Dismissible alerts also need `alert-dismissible` and a `btn-close` with `data-bs-dismiss="alert"`. Success feedback may be dismissed, while persistent warnings and confirmation descriptions remain visible.
+
 ## Database migrations
 
 SQLite and MySQL each have a single EF Core-generated `InitialCreate` migration that creates the current schema directly, including incident comments, on-call email snapshots and workflow actor snapshots. The baseline was regenerated on 2026-10-15 and replaces all earlier migration history; it is intended for **empty databases only**. Existing development databases cannot be upgraded using this baseline: back up any data you need, stop the application, and explicitly recreate the database before restarting. Do not just clear `__EFMigrationsHistory` while retaining the old tables.
