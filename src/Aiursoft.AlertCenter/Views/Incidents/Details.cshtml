@@ -376,7 +376,7 @@
                     <p class="text-muted small mb-3">调整当前事故严重程度，不改变原始告警的匹配规则。</p>
                     <label for="incident-new-level" class="form-label small text-muted">新级别</label>
                     <select id="incident-new-level" name="level" class="form-select mb-3" required>
-                        <option value="sev0" selected="@(incident.AlertLevel == "sev0")">sev0 · DEADLY (P0)</option>
+                        <option value="sev0" selected="@(incident.AlertLevel == "sev0")">sev0 · 致命 (P0)</option>
                         <option value="sev1" selected="@(incident.AlertLevel == "sev1")">sev1 · 严重 (P1)</option>
                         <option value="sev2" selected="@(incident.AlertLevel == "sev2")">sev2 · 错误 (P2)</option>
                         <option value="sev3" selected="@(incident.AlertLevel == "sev3")">sev3 · 警告 (P3)</option>

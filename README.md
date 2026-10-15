@@ -23,7 +23,7 @@ AlertCenter provides:
 
 - Independent API keys for every reporting application.
 - Structured, idempotent alert reporting through a standard HTTP API.
-- Five severity levels (`sev0` DEADLY through `sev4`) with independently configurable routing.
+- Five severity levels (`sev0` 致命 through `sev4`) with independently configurable routing.
 - Webhook, SMTP email, and targeted in-app notification channels.
 - Automatically created incidents with acknowledgement, resolution, and a timestamped handling timeline.
 - Message history, notification inboxes, and delivery records for tracking alert handling.
@@ -153,7 +153,7 @@ to report until it is explicitly enabled. Resetting does not resend historical m
 ### Severity-based notification channels
 
 In **接入应用 → 推送设置**, select channels independently for each severity:
-`sev0` (DEADLY), `sev1` (严重), `sev2` (错误), `sev3` (警告), and `sev4` (信息). The page shows only channels for which the current application manager has binding access.
+`sev0` (致命), `sev1` (严重), `sev2` (错误), `sev3` (警告), and `sev4` (信息). The page shows only channels for which the current application manager has binding access.
 Each level can target multiple custom channels. Leaving a level unselected still saves its alerts and creates no custom deliveries; a bound team's built-in email remains enabled.
 Matching is exact; selecting `sev2` does not implicitly include `sev1`.
 
