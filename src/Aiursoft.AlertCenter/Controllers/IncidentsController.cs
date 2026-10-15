@@ -85,6 +85,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             .Skip((commentsPage - 1) * 20).Take(21).Select(comment => new IncidentCommentViewModel
             {
                 Id = comment.Id, AuthorName = comment.AuthorName, CreatedAtUtc = comment.CreatedAtUtc,
+                AuthorAvatarRelativePath = comment.Author != null ? comment.Author.AvatarRelativePath : Entities.User.DefaultAvatarPath,
                 Markdown = comment.DeletedAtUtc == null ? comment.Markdown : null,
                 DeletedAtUtc = comment.DeletedAtUtc, DeletedByName = comment.DeletedByName,
                 CanDelete = comment.DeletedAtUtc == null && (comment.AuthorId == userId || canManageApplication)

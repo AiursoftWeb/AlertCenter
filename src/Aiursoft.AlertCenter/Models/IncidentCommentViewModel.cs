@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Aiursoft.AlertCenter.Entities;
 
 namespace Aiursoft.AlertCenter.Models;
 
@@ -6,6 +7,7 @@ public class IncidentCommentViewModel
 {
     public Guid Id { get; set; }
     public string AuthorName { get; set; } = string.Empty;
+    public string AuthorAvatarRelativePath { get; set; } = User.DefaultAvatarPath;
     public DateTime CreatedAtUtc { get; set; }
     public string? Markdown { get; set; }
     public DateTime? DeletedAtUtc { get; set; }

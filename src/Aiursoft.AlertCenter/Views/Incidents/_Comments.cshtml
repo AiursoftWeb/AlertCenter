@@ -1,4 +1,6 @@
+@using Aiursoft.AlertCenter.Services.FileStorage
 @model Aiursoft.AlertCenter.Models.IncidentsViewModel
+@inject StorageService StorageService
 @{
     var incidentId = Model.Incident!.Id;
 }
@@ -57,8 +59,8 @@
                 @foreach (var comment in Model.Comments)
                 {
                     <article class="ac-timeline-item" id="incident-comment-@comment.Id">
-                        <div class="ac-timeline-badge badge-updated">
-                            <i data-lucide="@(comment.DeletedAtUtc.HasValue ? "message-square-off" : "message-square")" aria-hidden="true"></i>
+                        <div class="ac-timeline-badge">
+                            <img src="@StorageService.RelativePathToInternetUrl(comment.AuthorAvatarRelativePath)?w=64&square=true" alt="@comment.AuthorName" class="rounded-circle incident-comment-avatar" width="28" height="28" loading="lazy" />
                         </div>
                         <div class="ac-timeline-content">
                             <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">

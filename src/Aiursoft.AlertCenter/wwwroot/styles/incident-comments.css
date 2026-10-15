@@ -68,9 +68,8 @@
     min-width: 0;
 }
 
-.incident-comment-list .ac-timeline-badge i {
-    width: 15px;
-    height: 15px;
+.incident-comment-avatar {
+    object-fit: cover;
 }
 
 .incident-comment-tombstone {

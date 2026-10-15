@@ -1,5 +1,7 @@
 using System.Net;
+using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
+using Aiursoft.AlertCenter.Services.FileStorage;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 
@@ -106,6 +108,75 @@ public partial class AlertDemoTests
         Assert.AreEqual(markdown, saved.Markdown);
         Assert.IsNotNull(saved.DeletedAtUtc);
         Assert.IsNotNull(saved.DeletedByName);
+    }
+
+    [TestMethod]
+    public async Task CommentAvatarsFollowProfilesAndFallBackForDeletedAuthorsIncludingTombstones()
+    {
+        var id = await CreateCommentIncident();
+        var url = $"/Incidents/Details/{id}";
+        var (email, _) = await RegisterAndLoginAsync();
+        Guid visibleId;
+        Guid deletedId;
+        string authorId;
+        string authorName;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var author = await db.Users.SingleAsync(user => user.Email == email);
+            authorId = author.Id;
+            authorName = author.DisplayName;
+            author.AvatarRelativePath = "avatar/comment-author.jpg";
+            var visible = new IncidentComment { IncidentId = id, AuthorId = authorId, AuthorName = authorName, Markdown = "Visible comment" };
+            var deleted = new IncidentComment
+            {
+                IncidentId = id, AuthorId = authorId, AuthorName = authorName, Markdown = "Deleted evidence",
+                DeletedAtUtc = DateTime.UtcNow, DeletedByName = "Administrator"
+            };
+            db.IncidentComments.AddRange(visible, deleted);
+            await db.SaveChangesAsync();
+            visibleId = visible.Id;
+            deletedId = deleted.Id;
+        }
+        await LoginAsAdmin();
+
+        void AssertAvatar(string html, Guid commentId, string avatarPath)
+        {
+            var article = Regex.Match(html, $"<article[^>]*id=\"incident-comment-{commentId}\"[^>]*>(.*?)</article>", RegexOptions.Singleline);
+            Assert.IsTrue(article.Success);
+            var storage = GetService<StorageService>();
+            Assert.Contains($"src=\"{storage.RelativePathToInternetUrl(avatarPath)}?w=64&square=true\"", WebUtility.HtmlDecode(article.Value));
+            Assert.Contains($"alt=\"{authorName}\"", article.Value);
+            Assert.Contains("incident-comment-avatar", article.Value);
+        }
+
+        var html = await Http.GetStringAsync(url);
+        AssertAvatar(html, visibleId, "avatar/comment-author.jpg");
+        AssertAvatar(html, deletedId, "avatar/comment-author.jpg");
+        Assert.DoesNotContain("Deleted evidence", html);
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var author = await db.Users.SingleAsync(user => user.Id == authorId);
+            author.AvatarRelativePath = "avatar/comment-author-updated.jpg";
+            author.DisplayName = "Renamed author";
+            await db.SaveChangesAsync();
+        }
+        html = await Http.GetStringAsync(url);
+        AssertAvatar(html, visibleId, "avatar/comment-author-updated.jpg");
+        AssertAvatar(html, deletedId, "avatar/comment-author-updated.jpg");
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.Users.Remove(await db.Users.SingleAsync(user => user.Id == authorId));
+            await db.SaveChangesAsync();
+        }
+        html = await Http.GetStringAsync(url);
+        AssertAvatar(html, visibleId, User.DefaultAvatarPath);
+        AssertAvatar(html, deletedId, User.DefaultAvatarPath);
+        Assert.DoesNotContain("Deleted evidence", html);
     }
 
     [TestMethod]
