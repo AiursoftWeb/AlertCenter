@@ -9,6 +9,9 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
 public partial class AlertDemoTests
 {
+    private static readonly HttpClient AnonymousClient = new(
+        new HttpClientHandler { AllowAutoRedirect = false, UseCookies = false });
+
     private async Task<string> ResetApplicationKey(Guid applicationId)
     {
         using var reset = await PostForm("/Alerts/ResetApiKey", new()
@@ -219,9 +222,7 @@ public partial class AlertDemoTests
     {
         var key = await CreateApplication();
         var applicationId = key.Split('.')[0];
-        using var handler = new HttpClientHandler { AllowAutoRedirect = false };
-        using var anonymous = new HttpClient(handler) { BaseAddress = Http.BaseAddress };
-        using var anonymousResult = await anonymous.PostAsync("/Alerts/ResetApiKey", new FormUrlEncodedContent(new Dictionary<string, string>
+        using var anonymousResult = await AnonymousClient.PostAsync(new Uri(Http.BaseAddress!, "/Alerts/ResetApiKey"), new FormUrlEncodedContent(new Dictionary<string, string>
         {
             ["id"] = applicationId
         }));

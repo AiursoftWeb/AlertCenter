@@ -5,7 +5,6 @@ using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models.RolesViewModels;
 using Aiursoft.AlertCenter.Models.UsersViewModels;
 using Aiursoft.AlertCenter.Sqlite;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,13 +50,13 @@ public class PrivilegeBoundaryTests
         await _userManager.AddToRoleAsync(administrator, administrators.Name!);
         var controller = Users(operators, AppPermissionNames.CanAssignRoleToUser);
 
-        var addAdministrator = await controller.ManageRoles(target.Id, new Aiursoft.AlertCenter.Models.UsersViewModels.EditViewModel
+        var addAdministrator = await controller.ManageRoles(target.Id, new Models.UsersViewModels.EditViewModel
         {
             Id = target.Id, UserName = target.UserName!, Email = target.Email!, DisplayName = target.DisplayName,
             AvatarUrl = User.DefaultAvatarPath,
             AllRoles = [new UserRoleViewModel { RoleName = administrators.Name!, IsSelected = true }]
         });
-        var modifyAdministrator = await controller.ManageRoles(administrator.Id, new Aiursoft.AlertCenter.Models.UsersViewModels.EditViewModel
+        var modifyAdministrator = await controller.ManageRoles(administrator.Id, new Models.UsersViewModels.EditViewModel
         {
             Id = administrator.Id, UserName = administrator.UserName!, Email = administrator.Email!, DisplayName = administrator.DisplayName,
             AvatarUrl = User.DefaultAvatarPath,
@@ -79,7 +78,7 @@ public class PrivilegeBoundaryTests
         await _userManager.AddToRoleAsync(administrator, administrators.Name!);
         var controller = Users(operators, AppPermissionNames.CanEditUsers, AppPermissionNames.CanDeleteUsers);
 
-        var edit = await controller.Edit(new Aiursoft.AlertCenter.Models.UsersViewModels.EditViewModel
+        var edit = await controller.Edit(new Models.UsersViewModels.EditViewModel
         {
             Id = administrator.Id, UserName = administrator.UserName!, Email = "changed@example.test",
             DisplayName = administrator.DisplayName, AvatarUrl = User.DefaultAvatarPath, Password = "Changed-Password-123"
@@ -101,12 +100,12 @@ public class PrivilegeBoundaryTests
         var operators = await CreateRole("Operators");
         var controller = Roles(operators, AppPermissionNames.CanEditRoles);
 
-        var grantPermission = await controller.Edit(new Aiursoft.AlertCenter.Models.RolesViewModels.EditViewModel
+        var grantPermission = await controller.Edit(new Models.RolesViewModels.EditViewModel
         {
             Id = operators.Id, RoleName = operators.Name!,
             Claims = [new RoleClaimViewModel { Key = AppPermissionNames.CanManagePush, Name = "Push", Description = "Push", IsSelected = true }]
         });
-        var editAdministrators = await controller.Edit(new Aiursoft.AlertCenter.Models.RolesViewModels.EditViewModel
+        var editAdministrators = await controller.Edit(new Models.RolesViewModels.EditViewModel
         {
             Id = administrators.Id, RoleName = "Renamed administrators", Claims = []
         });

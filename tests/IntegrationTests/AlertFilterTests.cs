@@ -2,7 +2,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 

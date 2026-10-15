@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net.Http.Json;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +27,8 @@ public class OnCallScheduleApiTests : TestBase
 
     private async Task<HttpResponseMessage> Save(string action, SaveOnCallScheduleRequest payload, string? tokenPath = null)
     {
-        using var message = new HttpRequestMessage(HttpMethod.Post, $"/OnCall/{action}") { Content = JsonContent.Create(payload) };
+        using var message = new HttpRequestMessage(HttpMethod.Post, $"/OnCall/{action}");
+        message.Content = JsonContent.Create(payload);
         message.Headers.Add("RequestVerificationToken", await GetAntiCsrfToken(tokenPath ?? $"/OnCall/ScheduleDetails/{payload.GroupId}"));
         return await Http.SendAsync(message);
     }

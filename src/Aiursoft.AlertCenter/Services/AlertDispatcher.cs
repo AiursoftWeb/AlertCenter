@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public sealed record NotificationDelivery(Guid MessageId, string Title, string? Content,
-    string Level, DateTime OccurredAtUtc, string? ContextJson);
-
-public sealed record NotificationDeliveryResult(bool Succeeded, string? ProviderMessageId = null,
-    string? ErrorCode = null, string? ErrorMessage = null, bool Retryable = false);
+public sealed record NotificationDeliveryResult(bool Succeeded, string? ErrorMessage = null);
 
 public interface INotificationChannelAdapter
 {

@@ -81,7 +81,8 @@ public sealed class OnCallScheduleGenerator : IOnCallScheduleGenerator
         var matched = new Dictionary<string, int>(StringComparer.Ordinal);
         bool Match(int position, HashSet<string> visited)
         {
-            var time = start.AddHours((position / minimumStaff + 1) * 8);
+            var slotIndex = position / minimumStaff;
+            var time = start.AddHours((slotIndex + 1) * 8);
             foreach (var (id, shifts) in history)
             {
                 if (visited.Contains(id) || !OnCallScheduleValidator.CanAssign(id, time, time.AddHours(8), restHours, shifts)) continue;

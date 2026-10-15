@@ -1,5 +1,4 @@
 using Aiursoft.AlertCenter.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 

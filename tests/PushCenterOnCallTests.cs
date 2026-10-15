@@ -3,7 +3,6 @@ using System.Security.Claims;
 using Aiursoft.AlertCenter.Authorization;
 using Aiursoft.AlertCenter.Controllers;
 using Aiursoft.AlertCenter.Entities;
-using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

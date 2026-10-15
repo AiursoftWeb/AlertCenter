@@ -38,7 +38,9 @@ public class SmtpEmailSenderTests
         using var client = await listener.AcceptTcpClientAsync(token);
         await using var stream = client.GetStream();
         using var reader = new StreamReader(stream, Encoding.ASCII, leaveOpen: true);
-        await using var writer = new StreamWriter(stream, Encoding.ASCII, leaveOpen: true) { NewLine = "\r\n", AutoFlush = true };
+        await using var writer = new StreamWriter(stream, Encoding.ASCII, leaveOpen: true);
+        writer.NewLine = "\r\n";
+        writer.AutoFlush = true;
         await writer.WriteLineAsync("220 localhost SMTP test".AsMemory(), token);
         var recipients = new List<string>();
         while (await reader.ReadLineAsync(token) is { } line)

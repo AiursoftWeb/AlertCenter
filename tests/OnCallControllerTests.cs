@@ -4,11 +4,9 @@ using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 
 namespace Aiursoft.AlertCenter.Tests;
@@ -189,9 +187,9 @@ public class OnCallControllerTests
         db.Users.Add(new User { Id = "outsider", UserName = "outsider", NormalizedUserName = "OUTSIDER", DisplayName = "outsider" });
         await db.SaveChangesAsync();
         var controller = new OnCallController(db, new OnCallScheduleGenerator());
-        var empty = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers(null, null, 1));
+        var empty = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers(null, null));
         Assert.AreEqual(0, ((IEnumerable<object>)empty.Value!.GetType().GetProperty("users")!.GetValue(empty.Value)!).Count());
-        var first = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers(null, role.Id, 1));
+        var first = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers(null, role.Id));
         var firstUsers = ((IEnumerable<object>)first.Value!.GetType().GetProperty("users")!.GetValue(first.Value)!).ToArray();
         Assert.AreEqual(20, firstUsers.Length);
         Assert.IsTrue((bool)first.Value.GetType().GetProperty("hasMore")!.GetValue(first.Value)!);
@@ -199,7 +197,7 @@ public class OnCallControllerTests
         var second = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers("user-00", role.Id, 2));
         Assert.AreEqual(5, ((IEnumerable<object>)second.Value!.GetType().GetProperty("users")!.GetValue(second.Value)!).Count());
         Assert.IsFalse((bool)second.Value.GetType().GetProperty("hasMore")!.GetValue(second.Value)!);
-        var match = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers("user-24", null, 1));
+        var match = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers("user-24", null));
         Assert.AreEqual(1, ((IEnumerable<object>)match.Value!.GetType().GetProperty("users")!.GetValue(match.Value)!).Count());
     }
 

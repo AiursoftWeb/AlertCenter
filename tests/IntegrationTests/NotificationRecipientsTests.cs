@@ -75,7 +75,7 @@ public class NotificationRecipientsTests : TestBase
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var user = await db.Users.SingleAsync(user => user.Email == email);
-            var admin = await db.Users.SingleAsync(user => user.UserName == "admin");
+            var admin = await db.Users.SingleAsync(item => item.UserName == "admin");
             var channel = new PushChannel { Name = "Private channel", Type = "inapp" };
             var own = new InAppNotification
             {

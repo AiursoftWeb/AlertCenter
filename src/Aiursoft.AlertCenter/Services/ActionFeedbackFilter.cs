@@ -32,7 +32,7 @@ public class ActionFeedbackFilter(IUrlHelperFactory urlHelperFactory) : IAsyncRe
         else if (context.Result is ViewResult && !context.ModelState.IsValid)
         {
             var messages = context.ModelState.Values.SelectMany(value => value.Errors)
-                .Select(error => string.IsNullOrWhiteSpace(error.ErrorMessage) ? "输入内容无效，请检查后重试。" : error.ErrorMessage).Distinct();
+                .Select(modelError => string.IsNullOrWhiteSpace(modelError.ErrorMessage) ? "输入内容无效，请检查后重试。" : modelError.ErrorMessage).Distinct();
             context.Result = new JsonResult(new { message = string.Join('\n', messages), refresh = false }) { StatusCode = 400 };
         }
         await next();

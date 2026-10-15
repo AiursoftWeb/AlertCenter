@@ -48,7 +48,7 @@
             <ol class="mb-0">
                 @foreach (var member in group.Members.OrderBy(item => item.RotationOrder))
                 {
-                    <li>@(member.User?.DisplayName ?? "已删除的员工") (@(member.User?.UserName ?? member.UserId))</li>
+                    <li>@member.User.DisplayName (@(member.User.UserName ?? member.UserId))</li>
                 }
             </ol>
         }

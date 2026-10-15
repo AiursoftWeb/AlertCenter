@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
@@ -231,7 +230,7 @@ public partial class AlertDemoTests : TestBase
         Assert.Contains("id=\"confirm-delete-application\" disabled", html);
         Assert.Contains("user-select: text", html);
 
-        foreach (var confirmationName in new string?[] { null, "", "demo orders", "Demo Orders " })
+        foreach (var confirmationName in new[] { null, "", "demo orders", "Demo Orders " })
         {
             var data = new Dictionary<string, string> { ["id"] = applicationId };
             if (confirmationName != null) data["confirmationName"] = confirmationName;

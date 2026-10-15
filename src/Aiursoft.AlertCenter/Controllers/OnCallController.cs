@@ -106,7 +106,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Roles = "Administrators")]
-    public Task<IActionResult> GenerateSchedule([FromBody] SaveOnCallScheduleRequest request, CancellationToken cancellationToken) =>
+    public Task<IActionResult> GenerateSchedule([FromBody] SaveOnCallScheduleRequest? request, CancellationToken cancellationToken) =>
         SaveScheduleCore(request, true, cancellationToken);
 
     [HttpGet]
@@ -142,10 +142,10 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Roles = "Administrators")]
-    public Task<IActionResult> SaveSchedule([FromBody] SaveOnCallScheduleRequest request, CancellationToken cancellationToken) =>
+    public Task<IActionResult> SaveSchedule([FromBody] SaveOnCallScheduleRequest? request, CancellationToken cancellationToken) =>
         SaveScheduleCore(request, false, cancellationToken);
 
-    private async Task<IActionResult> SaveScheduleCore(SaveOnCallScheduleRequest request, bool generate, CancellationToken cancellationToken)
+    private async Task<IActionResult> SaveScheduleCore(SaveOnCallScheduleRequest? request, bool generate, CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid || request == null) return BadRequest(new { errors = new[] { "排班请求格式不正确。" } });
         try
@@ -388,7 +388,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 
     private async Task PopulateSelectedUsers(OnCallViewModel model, CancellationToken cancellationToken)
     {
-        var ids = model.GroupInput.UserIds.Distinct().ToArray();
+        var ids = (model.GroupInput.UserIds ?? []).Distinct().ToArray();
         model.SelectedUsers = await db.Users.AsNoTracking().Where(user => ids.Contains(user.Id))
             .ToListAsync(cancellationToken);
     }

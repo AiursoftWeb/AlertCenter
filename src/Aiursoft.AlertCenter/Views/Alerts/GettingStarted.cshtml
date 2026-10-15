@@ -151,7 +151,7 @@ func main() {
     ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
     defer cancel()
 
-    receipt, err := client.Report(ctx, &alertcenter.ReportMessage{
+    receipt, err := client.Report(ctx, &amp;alertcenter.ReportMessage{
         ReportID:      uuid.New().String(),
         Title:         "数据库从库只读复制延迟超标",
         Content:       "从库同步延迟超过 120 秒，已触发读写分离保护。",

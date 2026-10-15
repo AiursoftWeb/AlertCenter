@@ -216,7 +216,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var notification = await db.InAppNotifications.AsNoTracking()
-            .Include(item => item.Delivery).ThenInclude(delivery => delivery.Message)!.ThenInclude(message => message!.Application)
+            .Include(item => item.Delivery).ThenInclude(delivery => delivery.Message).ThenInclude(message => message!.Application)
             .SingleOrDefaultAsync(item => item.Id == id && item.UserId == userId);
         if (notification == null) return NotFound();
         return this.StackView(new PushViewModel { PageTitle = "站内通知详情", Notifications = [notification] });
@@ -350,7 +350,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         else status = null;
         var deliveries = await query.Include(delivery => delivery.IncidentEvent).ThenInclude(entry => entry!.Incident).ThenInclude(incident => incident.Application)
             .Include(delivery => delivery.OnCallEmail)
-            .Include(delivery => delivery.Channel).Include(delivery => delivery.Message)!
+            .Include(delivery => delivery.Channel).Include(delivery => delivery.Message)
             .ThenInclude(message => message!.Application).OrderByDescending(delivery => delivery.CreatedAtUtc)
             .ThenByDescending(delivery => delivery.Id).Skip((page - 1) * 20).Take(21).ToListAsync();
         return this.StackView(new PushViewModel
@@ -365,7 +365,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var delivery = await db.PushDeliveries.AsNoTracking().Include(item => item.IncidentEvent).ThenInclude(entry => entry!.Incident).ThenInclude(incident => incident.Application)
             .Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
-            .Include(item => item.Channel).Include(item => item.Message)!
+            .Include(item => item.Channel).Include(item => item.Message)
             .ThenInclude(message => message!.Application).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return NotFound();
         var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush) ||
@@ -429,7 +429,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         };
         if (!ModelState.IsValid) return this.StackView(model);
         var query = FilterInbox(ownNotifications, filter);
-        var notifications = await query.Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Message)!
+        var notifications = await query.Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Message)
             .ThenInclude(message => message!.Application)
             .Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Channel)
             .OrderByDescending(notification => notification.CreatedAtUtc).ThenByDescending(notification => notification.Id)

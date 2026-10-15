@@ -80,7 +80,7 @@
     </div>
     <h4 class="h6">已选成员（可为空，最多 200 人）</h4>
     <ol id="oncall-selected" class="list-group list-group-numbered mb-3">
-        @foreach (var userId in Model.GroupInput.UserIds)
+        @foreach (var userId in Model.GroupInput.UserIds ?? [])
         {
             var user = Model.SelectedUsers.FirstOrDefault(item => item.Id == userId);
             <li class="list-group-item d-flex justify-content-between align-items-center" data-user-id="@userId" data-name="@(user?.DisplayName ?? "已删除的员工")" data-username="@(user?.UserName ?? userId)">

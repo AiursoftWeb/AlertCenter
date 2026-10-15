@@ -20,23 +20,19 @@ public sealed class SmtpEmailSender(IOptions<EmailSettings> options) : IEmailSen
     {
         var settings = options.Value;
         if (!settings.TryValidate(out var error)) throw new InvalidOperationException(error);
-        using var mail = new MailMessage
-        {
-            From = new MailAddress(settings.From),
-            Subject = message.Subject,
-            SubjectEncoding = Encoding.UTF8,
-            Body = message.Body,
-            BodyEncoding = Encoding.UTF8,
-            IsBodyHtml = false
-        };
+        using var mail = new MailMessage();
+        mail.From = new MailAddress(settings.From);
+        mail.Subject = message.Subject;
+        mail.SubjectEncoding = Encoding.UTF8;
+        mail.Body = message.Body;
+        mail.BodyEncoding = Encoding.UTF8;
+        mail.IsBodyHtml = false;
         foreach (var recipient in message.Recipients) mail.To.Add(recipient);
         foreach (var recipient in message.CcRecipients) mail.CC.Add(recipient);
-        using var client = new SmtpClient(settings.Host, settings.Port)
-        {
-            EnableSsl = settings.RequireTls,
-            UseDefaultCredentials = false,
-            Timeout = 10_000
-        };
+        using var client = new SmtpClient(settings.Host, settings.Port);
+        client.EnableSsl = settings.RequireTls;
+        client.UseDefaultCredentials = false;
+        client.Timeout = 10_000;
         if (!string.IsNullOrWhiteSpace(settings.UserName))
             client.Credentials = new NetworkCredential(settings.UserName, settings.Password);
         using var timeout = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);

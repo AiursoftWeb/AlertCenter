@@ -57,10 +57,8 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
             !TryParseCustomHeaders(customHeadersJson, out var headers, out _) || !TryCreatePayload(delivery, out var payload))
             return new(false, ErrorMessage: "Webhook 自定义配置无效，请检查渠道配置。");
 
-        using var request = new HttpRequestMessage(HttpMethod.Post, delivery.Channel.Endpoint)
-        {
-            Content = JsonContent.Create(payload)
-        };
+        using var request = new HttpRequestMessage(HttpMethod.Post, delivery.Channel.Endpoint);
+        request.Content = JsonContent.Create(payload);
         request.Headers.Add("Idempotency-Key", delivery.Id.ToString());
         foreach (var header in headers)
         {
@@ -150,7 +148,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
                 if (!TryValidatePlaceholders(item, out error)) return false;
             }
         }
-        else if (node is JsonValue value && value.TryGetValue<string>(out var text) && text != null &&
+        else if (node is JsonValue value && value.TryGetValue<string>(out var text) &&
                  text.Contains("{{", StringComparison.Ordinal) && !PayloadPlaceholders.Contains(text))
         {
             error = "自定义请求体包含未知或未完整使用的占位符。";
@@ -222,7 +220,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
             resolved = result;
             return true;
         }
-        if (node is JsonValue value && value.TryGetValue<string>(out var text) && text != null)
+        if (node is JsonValue value && value.TryGetValue<string>(out var text))
         {
             if (values.TryGetValue(text, out var replacement))
             {

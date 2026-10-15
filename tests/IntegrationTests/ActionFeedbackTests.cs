@@ -11,7 +11,8 @@ public partial class AlertDemoTests
     private async Task<HttpResponseMessage> DialogPost(string action, Dictionary<string, string> fields, string tokenUrl)
     {
         fields["__RequestVerificationToken"] = await GetAntiCsrfToken(tokenUrl);
-        using var request = new HttpRequestMessage(HttpMethod.Post, action) { Content = new FormUrlEncodedContent(fields) };
+        using var request = new HttpRequestMessage(HttpMethod.Post, action);
+        request.Content = new FormUrlEncodedContent(fields);
         request.Headers.Add("X-AlertCenter-Dialog", "true");
         request.Headers.Accept.ParseAdd("application/json");
         return await Http.SendAsync(request);

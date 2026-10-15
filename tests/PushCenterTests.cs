@@ -8,7 +8,6 @@ using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -671,7 +670,7 @@ public partial class PushCenterTests
         _db.PushChannels.Add(duplicateChannel);
         await _db.SaveChangesAsync();
         await Controller().Test(duplicateChannel.Id, CancellationToken.None);
-        Assert.AreEqual(PushDelivery.Failed, (await _db.PushDeliveries.SingleAsync(delivery => delivery.ChannelId == duplicateChannel.Id)).Status);
+        Assert.AreEqual(PushDelivery.Failed, (await _db.PushDeliveries.SingleAsync(item => item.ChannelId == duplicateChannel.Id)).Status);
         Assert.IsTrue(EmailChannelAdapter.TryParseCcRecipients("", out var emptyCcRecipients, out _));
         Assert.AreEqual(0, emptyCcRecipients.Count);
     }
@@ -710,7 +709,7 @@ public partial class PushCenterTests
         await _db.SaveChangesAsync();
         Assert.AreEqual(3, await _db.InAppNotifications.CountAsync());
         var own = await _db.InAppNotifications.SingleAsync(item => item.UserId == "ordinary-user");
-        Assert.IsInstanceOfType<NotFoundResult>(await Controller("admin-one").Notification(own.Id));
+        Assert.IsInstanceOfType<NotFoundResult>(await Controller().Notification(own.Id));
 
         model.Id = channel.Id;
         model.RecipientUserIds = [];

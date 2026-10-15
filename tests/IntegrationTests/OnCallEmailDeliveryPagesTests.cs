@@ -1,7 +1,5 @@
 using System.Net;
-using Aiursoft.AlertCenter.Authorization;
 using Aiursoft.AlertCenter.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;

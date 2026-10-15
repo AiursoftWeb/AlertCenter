@@ -37,24 +37,24 @@ public class OnCallViewModel : UiStackLayoutViewModel
 public class CreateOnCallGroupRequest
 {
     [Required(ErrorMessage = "请输入团队名称。"), StringLength(100, ErrorMessage = "团队名称不能超过 100 个字符。")]
-    public string Name { get; set; } = string.Empty;
+    public string? Name { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "请选择时区。"), StringLength(100, ErrorMessage = "时区 ID 不能超过 100 个字符。")]
-    public string TimeZoneId { get; set; } = "UTC";
+    public string? TimeZoneId { get; set; } = "UTC";
     [MaxLength(8000, ErrorMessage = "值班邮件抄送配置不能超过 8000 个字符。")]
     public string? EmailCcRecipients { get; set; }
     public Guid? RuleId { get; set; }
     [Required(ErrorMessage = "请选择 UTC 开始时间。")]
     public DateTime? AnchorUtc { get; set; } = DateTime.UtcNow.Date;
     public Guid Version { get; set; }
-    public List<string> UserIds { get; set; } = [];
+    public List<string>? UserIds { get; set; } = [];
 }
 
 public class SaveOnCallRuleRequest
 {
     public Guid? Id { get; set; }
     [Required(ErrorMessage = "请输入规则名称。"), StringLength(100, ErrorMessage = "规则名称不能超过 100 个字符。")]
-    public string Name { get; set; } = string.Empty;
+    public string? Name { get; set; } = string.Empty;
     [Range(8, 8, ErrorMessage = "固定每天三班，每班 8 小时。")]
     public int ShiftHours { get; set; } = 8;
     public bool BalanceShiftTimes { get; set; }

@@ -76,11 +76,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
         }
         else
         {
-            if (request.Slots == null || request.Slots.Count != 21 ||
-                request.Slots.Any(slot => slot == null || slot.UserIds == null || slot.UserIds.Count > 200 || slot.UserIds.Any(string.IsNullOrWhiteSpace) ||
-                    slot.StartsAtUtc.Kind == DateTimeKind.Local || slot.StartsAtUtc < start || slot.StartsAtUtc >= end ||
-                    (slot.StartsAtUtc - start).Ticks % TimeSpan.FromHours(8).Ticks != 0) ||
-                request.Slots.Select(slot => slot.StartsAtUtc).Distinct().Count() != 21)
+            if (!HasValidSlots(request.Slots, start, end))
                 return ["必须提交本周全部 21 个班次，且每个时段仅出现一次。"];
             var currentIds = ids.ToHashSet(StringComparer.Ordinal);
             var savedMembers = slots.ToDictionary(slot => slot.StartsAtUtc,
@@ -116,4 +112,11 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
         if (transaction != null) await transaction.CommitAsync(cancellationToken);
         return [];
     }
+
+    private static bool HasValidSlots(IReadOnlyList<OnCallSlotRequest?>? slots, DateTime start, DateTime end) =>
+        slots is { Count: 21 } &&
+        slots.All(slot => slot is { UserIds: { } userIds } && userIds.Count <= 200 && !userIds.Any(string.IsNullOrWhiteSpace) &&
+            slot.StartsAtUtc.Kind != DateTimeKind.Local && slot.StartsAtUtc >= start && slot.StartsAtUtc < end &&
+            (slot.StartsAtUtc - start).Ticks % TimeSpan.FromHours(8).Ticks == 0) &&
+        slots.Select(slot => slot!.StartsAtUtc).Distinct().Count() == 21;
 }

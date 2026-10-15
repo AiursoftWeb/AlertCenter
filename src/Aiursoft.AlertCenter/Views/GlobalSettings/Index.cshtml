@@ -132,7 +132,7 @@
 
 @if (ViewData.ModelState.Any(m => m.Value != null && m.Value.Errors.Any()))
 {
-    @await Html.PartialAsync("_NoticeDialog", new Aiursoft.AlertCenter.Models.NoticeDialogViewModel(
+    @await Html.PartialAsync("_NoticeDialog", new NoticeDialogViewModel(
         "page-notice", Localizer["Validation errors"].Value,
         string.Join(" ", ViewData.ModelState.Values.SelectMany(value => value.Errors).Select(error => error.ErrorMessage)), OpenOnLoad: true))
 }

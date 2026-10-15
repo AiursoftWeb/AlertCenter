@@ -91,6 +91,32 @@ public class OnCallScheduleServiceTests
     }
 
     [TestMethod]
+    [DataRow("\"Slots\":null")]
+    [DataRow("\"Slots\":[null,{0}]")]
+    [DataRow("\"Slots\":[{{\"StartsAtUtc\":\"2026-09-28T00:00:00Z\",\"UserIds\":null}},{0}]")]
+    public async Task RejectsNullSlotPayloadsWithoutChangingSavedSchedule(string slotsJson)
+    {
+        await service.Save(Request(), true, default);
+        var version = group.ScheduleVersion;
+        var remainingSlots = string.Join(',', Enumerable.Range(1, 20).Select(index =>
+            System.Text.Json.JsonSerializer.Serialize(new OnCallSlotRequest
+            {
+                StartsAtUtc = Anchor.AddHours(index * 8), UserIds = [$"u{index % 3}"]
+            })));
+        var payload = $"{{\"GroupId\":\"{group.Id}\",\"Version\":\"{version}\",\"StartUtc\":\"{Anchor:O}\"," +
+            string.Format(slotsJson, remainingSlots) + "}";
+        var request = System.Text.Json.JsonSerializer.Deserialize<SaveOnCallScheduleRequest>(payload);
+        Assert.IsNotNull(request);
+
+        var errors = await service.Save(request, false, default);
+
+        Assert.IsTrue(errors.Any(error => error.Contains("必须提交本周全部 21 个班次")));
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(21, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(28, await db.OnCallShiftMembers.CountAsync());
+    }
+
+    [TestMethod]
     public async Task ChecksBothAdjacentWeeksAndOtherTeams()
     {
         await service.Save(Request(), true, default);
