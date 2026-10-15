@@ -137,24 +137,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "SourceApplications",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    SecretHash = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    CreatedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SourceApplications", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -290,6 +272,8 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TimeZoneId = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    EmailCcRecipients = table.Column<string>(type: "varchar(8000)", maxLength: 8000, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     RuleId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     AnchorUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ScheduleVersion = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
@@ -411,6 +395,107 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "OnCallGroupMembers",
+                columns: table => new
+                {
+                    GroupId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RotationOrder = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallGroupMembers", x => new { x.GroupId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_OnCallGroupMembers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OnCallGroupMembers_OnCallGroups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "OnCallGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "OnCallShifts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    GroupId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    StartsAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    EndsAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    RestHours = table.Column<int>(type: "int", nullable: false),
+                    MinimumStaff = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallShifts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OnCallShifts_OnCallGroups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "OnCallGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "SourceApplications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SecretHash = table.Column<string>(type: "varchar(512)", maxLength: 512, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    IsEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    OnCallGroupId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    CreatedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SourceApplications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SourceApplications_OnCallGroups_OnCallGroupId",
+                        column: x => x.OnCallGroupId,
+                        principalTable: "OnCallGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "OnCallShiftMembers",
+                columns: table => new
+                {
+                    ShiftId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallShiftMembers", x => new { x.ShiftId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_OnCallShiftMembers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OnCallShiftMembers_OnCallShifts_ShiftId",
+                        column: x => x.ShiftId,
+                        principalTable: "OnCallShifts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "ApplicationPushChannels",
                 columns: table => new
                 {
@@ -502,23 +587,37 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     ApplicationId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Title = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IncidentKey = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                    IncidentKey = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true, collation: "utf8mb4_0900_bin")
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ActiveMatchKey = table.Column<string>(type: "varchar(220)", maxLength: 220, nullable: true)
+                    ActiveMatchKey = table.Column<string>(type: "varchar(220)", maxLength: 220, nullable: true, collation: "utf8mb4_0900_bin")
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    AlertTitle = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
+                    AlertTitle = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false, collation: "utf8mb4_0900_bin")
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AlertLevel = table.Column<string>(type: "varchar(4)", maxLength: 4, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    MatchLevel = table.Column<string>(type: "varchar(4)", maxLength: 4, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    OwnerId = table.Column<string>(type: "varchar(450)", maxLength: 450, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    OwnerDisplayName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Version = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     TriggeredAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     AcknowledgedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    MitigatedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     ResolvedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Incidents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Incidents_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Incidents_SourceApplications_ApplicationId",
                         column: x => x.ApplicationId,
@@ -529,50 +628,43 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OnCallGroupMembers",
-                columns: table => new
-                {
-                    GroupId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    RotationOrder = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OnCallGroupMembers", x => new { x.GroupId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_OnCallGroupMembers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OnCallGroupMembers_OnCallGroups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "OnCallGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "OnCallShifts",
+                name: "IncidentComments",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    GroupId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    StartsAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EndsAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    RestHours = table.Column<int>(type: "int", nullable: false),
-                    MinimumStaff = table.Column<int>(type: "int", nullable: false)
+                    IncidentId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    AuthorId = table.Column<string>(type: "varchar(450)", maxLength: 450, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuthorName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Markdown = table.Column<string>(type: "varchar(4000)", maxLength: 4000, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DeletedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DeletedById = table.Column<string>(type: "varchar(450)", maxLength: 450, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DeletedByName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OnCallShifts", x => x.Id);
+                    table.PrimaryKey("PK_IncidentComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OnCallShifts_OnCallGroups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "OnCallGroups",
+                        name: "FK_IncidentComments_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_IncidentComments_AspNetUsers_DeletedById",
+                        column: x => x.DeletedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_IncidentComments_Incidents_IncidentId",
+                        column: x => x.IncidentId,
+                        principalTable: "Incidents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -589,6 +681,26 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     Note = table.Column<string>(type: "varchar(4000)", maxLength: 4000, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ActorId = table.Column<string>(type: "varchar(450)", maxLength: 450, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ActorIdSnapshot = table.Column<string>(type: "varchar(450)", maxLength: 450, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ActorName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PreviousStatus = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NewStatus = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PreviousOwnerId = table.Column<string>(type: "varchar(450)", maxLength: 450, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NewOwnerId = table.Column<string>(type: "varchar(450)", maxLength: 450, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PreviousOwnerName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NewOwnerName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PreviousLevel = table.Column<string>(type: "varchar(4)", maxLength: 4, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NewLevel = table.Column<string>(type: "varchar(4)", maxLength: 4, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -651,38 +763,13 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OnCallShiftMembers",
-                columns: table => new
-                {
-                    ShiftId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OnCallShiftMembers", x => new { x.ShiftId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_OnCallShiftMembers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OnCallShiftMembers_OnCallShifts_ShiftId",
-                        column: x => x.ShiftId,
-                        principalTable: "OnCallShifts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "PushDeliveries",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ChannelId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ChannelId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     MessageId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    IncidentEventId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     TestContent = table.Column<string>(type: "varchar(4000)", maxLength: 4000, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
@@ -697,6 +784,12 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PushDeliveries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PushDeliveries_IncidentTimelineEntries_IncidentEventId",
+                        column: x => x.IncidentEventId,
+                        principalTable: "IncidentTimelineEntries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PushDeliveries_PushChannels_ChannelId",
                         column: x => x.ChannelId,
@@ -742,6 +835,35 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "OnCallEmailSnapshots",
+                columns: table => new
+                {
+                    DeliveryId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    GroupId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    GroupName = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ShiftId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    StartsAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    EndsAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    NotificationAtUtc = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CcRecipients = table.Column<string>(type: "text", maxLength: 8000, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ValidationError = table.Column<string>(type: "varchar(2000)", maxLength: 2000, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallEmailSnapshots", x => x.DeliveryId);
+                    table.ForeignKey(
+                        name: "FK_OnCallEmailSnapshots_PushDeliveries_DeliveryId",
+                        column: x => x.DeliveryId,
+                        principalTable: "PushDeliveries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "PushDeliveryRecipients",
                 columns: table => new
                 {
@@ -763,6 +885,30 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         column: x => x.DeliveryId,
                         principalTable: "PushDeliveries",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "OnCallEmailRecipient",
+                columns: table => new
+                {
+                    DeliveryId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    UserId = table.Column<string>(type: "varchar(450)", maxLength: 450, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    DisplayName = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "varchar(320)", maxLength: 320, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallEmailRecipient", x => new { x.DeliveryId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_OnCallEmailRecipient_OnCallEmailSnapshots_DeliveryId",
+                        column: x => x.DeliveryId,
+                        principalTable: "OnCallEmailSnapshots",
+                        principalColumn: "DeliveryId",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -831,6 +977,21 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 columns: new[] { "UserId", "CreatedAtUtc" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_IncidentComments_AuthorId",
+                table: "IncidentComments",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentComments_DeletedById",
+                table: "IncidentComments",
+                column: "DeletedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentComments_IncidentId_CreatedAtUtc_Id",
+                table: "IncidentComments",
+                columns: new[] { "IncidentId", "CreatedAtUtc", "Id" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Incidents_ApplicationId_ActiveMatchKey",
                 table: "Incidents",
                 columns: new[] { "ApplicationId", "ActiveMatchKey" },
@@ -845,6 +1006,11 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 name: "IX_Incidents_ApplicationId_IncidentKey",
                 table: "Incidents",
                 columns: new[] { "ApplicationId", "IncidentKey" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Incidents_OwnerId",
+                table: "Incidents",
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IncidentTimelineEntries_ActorId",
@@ -909,6 +1075,11 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 column: "ChannelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PushDeliveries_IncidentEventId",
+                table: "PushDeliveries",
+                column: "IncidentEventId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PushDeliveries_MessageId_ChannelId",
                 table: "PushDeliveries",
                 columns: new[] { "MessageId", "ChannelId" },
@@ -939,6 +1110,11 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 name: "IX_ReportedMessages_IncidentId_ReceivedAtUtc",
                 table: "ReportedMessages",
                 columns: new[] { "IncidentId", "ReceivedAtUtc" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SourceApplications_OnCallGroupId",
+                table: "SourceApplications",
+                column: "OnCallGroupId");
         }
 
         /// <inheritdoc />
@@ -975,7 +1151,10 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 name: "InAppNotifications");
 
             migrationBuilder.DropTable(
-                name: "IncidentTimelineEntries");
+                name: "IncidentComments");
+
+            migrationBuilder.DropTable(
+                name: "OnCallEmailRecipient");
 
             migrationBuilder.DropTable(
                 name: "OnCallGroupMembers");
@@ -999,19 +1178,19 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 name: "PushDeliveryRecipients");
 
             migrationBuilder.DropTable(
+                name: "OnCallEmailSnapshots");
+
+            migrationBuilder.DropTable(
                 name: "OnCallShifts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "PushDeliveries");
 
             migrationBuilder.DropTable(
-                name: "OnCallGroups");
+                name: "IncidentTimelineEntries");
 
             migrationBuilder.DropTable(
                 name: "PushChannels");
@@ -1020,13 +1199,19 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                 name: "ReportedMessages");
 
             migrationBuilder.DropTable(
-                name: "OnCallRules");
-
-            migrationBuilder.DropTable(
                 name: "Incidents");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "SourceApplications");
+
+            migrationBuilder.DropTable(
+                name: "OnCallGroups");
+
+            migrationBuilder.DropTable(
+                name: "OnCallRules");
         }
     }
 }

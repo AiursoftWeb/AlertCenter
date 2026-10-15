@@ -151,7 +151,8 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.Property<string>("ActiveMatchKey")
                         .HasMaxLength(220)
-                        .HasColumnType("varchar(220)");
+                        .HasColumnType("varchar(220)")
+                        .UseCollation("utf8mb4_0900_bin");
 
                     b.Property<string>("AlertLevel")
                         .IsRequired()
@@ -161,14 +162,16 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<string>("AlertTitle")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("varchar(200)")
+                        .UseCollation("utf8mb4_0900_bin");
 
                     b.Property<Guid>("ApplicationId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("IncidentKey")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("varchar(200)")
+                        .UseCollation("utf8mb4_0900_bin");
 
                     b.Property<string>("MatchLevel")
                         .IsRequired()
@@ -278,6 +281,14 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<string>("ActorId")
                         .HasMaxLength(450)
                         .HasColumnType("varchar(450)");
+
+                    b.Property<string>("ActorIdSnapshot")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
+                    b.Property<string>("ActorName")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
 
                     b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime(6)");

@@ -45,7 +45,8 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             return new(400, "你已经是当前负责人。");
         var entry = new IncidentTimelineEntry
         {
-            Incident = incident, Type = action, ActorId = actorId, Note = note, CreatedAtUtc = now,
+            Incident = incident, Type = action, ActorId = actor.Id, ActorIdSnapshot = actor.Id,
+            ActorName = actor.DisplayName, Note = note, CreatedAtUtc = now,
             PreviousStatus = incident.Status, PreviousOwnerId = incident.OwnerId,
             PreviousOwnerName = incident.Owner?.DisplayName ?? incident.OwnerDisplayName, PreviousLevel = incident.AlertLevel
         };

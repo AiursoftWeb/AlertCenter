@@ -103,21 +103,6 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SourceApplications",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    SecretHash = table.Column<string>(type: "TEXT", maxLength: 512, nullable: false),
-                    IsEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CreatedAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SourceApplications", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -230,6 +215,7 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     TimeZoneId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    EmailCcRecipients = table.Column<string>(type: "TEXT", maxLength: 8000, nullable: true),
                     RuleId = table.Column<Guid>(type: "TEXT", nullable: true),
                     AnchorUtc = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ScheduleVersion = table.Column<Guid>(type: "TEXT", nullable: false)
@@ -342,6 +328,99 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OnCallGroupMembers",
+                columns: table => new
+                {
+                    GroupId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    RotationOrder = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallGroupMembers", x => new { x.GroupId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_OnCallGroupMembers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OnCallGroupMembers_OnCallGroups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "OnCallGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OnCallShifts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    GroupId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    StartsAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    EndsAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    RestHours = table.Column<int>(type: "INTEGER", nullable: false),
+                    MinimumStaff = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallShifts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OnCallShifts_OnCallGroups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "OnCallGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SourceApplications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    SecretHash = table.Column<string>(type: "TEXT", maxLength: 512, nullable: false),
+                    IsEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    OnCallGroupId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    CreatedAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SourceApplications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SourceApplications_OnCallGroups_OnCallGroupId",
+                        column: x => x.OnCallGroupId,
+                        principalTable: "OnCallGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OnCallShiftMembers",
+                columns: table => new
+                {
+                    ShiftId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallShiftMembers", x => new { x.ShiftId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_OnCallShiftMembers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OnCallShiftMembers_OnCallShifts_ShiftId",
+                        column: x => x.ShiftId,
+                        principalTable: "OnCallShifts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ApplicationPushChannels",
                 columns: table => new
                 {
@@ -431,14 +510,25 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     ActiveMatchKey = table.Column<string>(type: "TEXT", maxLength: 220, nullable: true),
                     AlertTitle = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     AlertLevel = table.Column<string>(type: "TEXT", maxLength: 4, nullable: false),
+                    MatchLevel = table.Column<string>(type: "TEXT", maxLength: 4, nullable: false),
                     Status = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    OwnerId = table.Column<string>(type: "TEXT", maxLength: 450, nullable: true),
+                    OwnerDisplayName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: true),
+                    Version = table.Column<Guid>(type: "TEXT", nullable: false),
                     TriggeredAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false),
                     AcknowledgedAtUtc = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    MitigatedAtUtc = table.Column<DateTime>(type: "TEXT", nullable: true),
                     ResolvedAtUtc = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Incidents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Incidents_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Incidents_SourceApplications_ApplicationId",
                         column: x => x.ApplicationId,
@@ -448,48 +538,38 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OnCallGroupMembers",
-                columns: table => new
-                {
-                    GroupId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    RotationOrder = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OnCallGroupMembers", x => new { x.GroupId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_OnCallGroupMembers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OnCallGroupMembers_OnCallGroups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "OnCallGroups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OnCallShifts",
+                name: "IncidentComments",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    GroupId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    StartsAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EndsAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    RestHours = table.Column<int>(type: "INTEGER", nullable: false),
-                    MinimumStaff = table.Column<int>(type: "INTEGER", nullable: false)
+                    IncidentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    AuthorId = table.Column<string>(type: "TEXT", maxLength: 450, nullable: true),
+                    AuthorName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    Markdown = table.Column<string>(type: "TEXT", maxLength: 4000, nullable: false),
+                    CreatedAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DeletedAtUtc = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    DeletedById = table.Column<string>(type: "TEXT", maxLength: 450, nullable: true),
+                    DeletedByName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OnCallShifts", x => x.Id);
+                    table.PrimaryKey("PK_IncidentComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OnCallShifts_OnCallGroups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "OnCallGroups",
+                        name: "FK_IncidentComments_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_IncidentComments_AspNetUsers_DeletedById",
+                        column: x => x.DeletedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_IncidentComments_Incidents_IncidentId",
+                        column: x => x.IncidentId,
+                        principalTable: "Incidents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -503,6 +583,16 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     Type = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     Note = table.Column<string>(type: "TEXT", maxLength: 4000, nullable: true),
                     ActorId = table.Column<string>(type: "TEXT", maxLength: 450, nullable: true),
+                    ActorIdSnapshot = table.Column<string>(type: "TEXT", maxLength: 450, nullable: true),
+                    ActorName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: true),
+                    PreviousStatus = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
+                    NewStatus = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
+                    PreviousOwnerId = table.Column<string>(type: "TEXT", maxLength: 450, nullable: true),
+                    NewOwnerId = table.Column<string>(type: "TEXT", maxLength: 450, nullable: true),
+                    PreviousOwnerName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: true),
+                    NewOwnerName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: true),
+                    PreviousLevel = table.Column<string>(type: "TEXT", maxLength: 4, nullable: true),
+                    NewLevel = table.Column<string>(type: "TEXT", maxLength: 4, nullable: true),
                     CreatedAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -557,36 +647,13 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OnCallShiftMembers",
-                columns: table => new
-                {
-                    ShiftId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OnCallShiftMembers", x => new { x.ShiftId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_OnCallShiftMembers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OnCallShiftMembers_OnCallShifts_ShiftId",
-                        column: x => x.ShiftId,
-                        principalTable: "OnCallShifts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PushDeliveries",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ChannelId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ChannelId = table.Column<Guid>(type: "TEXT", nullable: true),
                     MessageId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    IncidentEventId = table.Column<Guid>(type: "TEXT", nullable: true),
                     TestContent = table.Column<string>(type: "TEXT", maxLength: 4000, nullable: true),
                     Status = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     Attempts = table.Column<int>(type: "INTEGER", nullable: false),
@@ -598,6 +665,12 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PushDeliveries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PushDeliveries_IncidentTimelineEntries_IncidentEventId",
+                        column: x => x.IncidentEventId,
+                        principalTable: "IncidentTimelineEntries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PushDeliveries_PushChannels_ChannelId",
                         column: x => x.ChannelId,
@@ -640,6 +713,31 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OnCallEmailSnapshots",
+                columns: table => new
+                {
+                    DeliveryId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    GroupId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    GroupName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    ShiftId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    StartsAtUtc = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    EndsAtUtc = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    NotificationAtUtc = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CcRecipients = table.Column<string>(type: "text", maxLength: 8000, nullable: true),
+                    ValidationError = table.Column<string>(type: "TEXT", maxLength: 2000, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallEmailSnapshots", x => x.DeliveryId);
+                    table.ForeignKey(
+                        name: "FK_OnCallEmailSnapshots_PushDeliveries_DeliveryId",
+                        column: x => x.DeliveryId,
+                        principalTable: "PushDeliveries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PushDeliveryRecipients",
                 columns: table => new
                 {
@@ -660,6 +758,26 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         column: x => x.DeliveryId,
                         principalTable: "PushDeliveries",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OnCallEmailRecipient",
+                columns: table => new
+                {
+                    DeliveryId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UserId = table.Column<string>(type: "TEXT", maxLength: 450, nullable: false),
+                    DisplayName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 320, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnCallEmailRecipient", x => new { x.DeliveryId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_OnCallEmailRecipient_OnCallEmailSnapshots_DeliveryId",
+                        column: x => x.DeliveryId,
+                        principalTable: "OnCallEmailSnapshots",
+                        principalColumn: "DeliveryId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -727,6 +845,21 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 columns: new[] { "UserId", "CreatedAtUtc" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_IncidentComments_AuthorId",
+                table: "IncidentComments",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentComments_DeletedById",
+                table: "IncidentComments",
+                column: "DeletedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IncidentComments_IncidentId_CreatedAtUtc_Id",
+                table: "IncidentComments",
+                columns: new[] { "IncidentId", "CreatedAtUtc", "Id" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Incidents_ApplicationId_ActiveMatchKey",
                 table: "Incidents",
                 columns: new[] { "ApplicationId", "ActiveMatchKey" },
@@ -741,6 +874,11 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 name: "IX_Incidents_ApplicationId_IncidentKey",
                 table: "Incidents",
                 columns: new[] { "ApplicationId", "IncidentKey" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Incidents_OwnerId",
+                table: "Incidents",
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IncidentTimelineEntries_ActorId",
@@ -805,6 +943,11 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 column: "ChannelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PushDeliveries_IncidentEventId",
+                table: "PushDeliveries",
+                column: "IncidentEventId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PushDeliveries_MessageId_ChannelId",
                 table: "PushDeliveries",
                 columns: new[] { "MessageId", "ChannelId" },
@@ -835,6 +978,11 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 name: "IX_ReportedMessages_IncidentId_ReceivedAtUtc",
                 table: "ReportedMessages",
                 columns: new[] { "IncidentId", "ReceivedAtUtc" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SourceApplications_OnCallGroupId",
+                table: "SourceApplications",
+                column: "OnCallGroupId");
         }
 
         /// <inheritdoc />
@@ -871,7 +1019,10 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 name: "InAppNotifications");
 
             migrationBuilder.DropTable(
-                name: "IncidentTimelineEntries");
+                name: "IncidentComments");
+
+            migrationBuilder.DropTable(
+                name: "OnCallEmailRecipient");
 
             migrationBuilder.DropTable(
                 name: "OnCallGroupMembers");
@@ -895,19 +1046,19 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 name: "PushDeliveryRecipients");
 
             migrationBuilder.DropTable(
+                name: "OnCallEmailSnapshots");
+
+            migrationBuilder.DropTable(
                 name: "OnCallShifts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "PushDeliveries");
 
             migrationBuilder.DropTable(
-                name: "OnCallGroups");
+                name: "IncidentTimelineEntries");
 
             migrationBuilder.DropTable(
                 name: "PushChannels");
@@ -916,13 +1067,19 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                 name: "ReportedMessages");
 
             migrationBuilder.DropTable(
-                name: "OnCallRules");
-
-            migrationBuilder.DropTable(
                 name: "Incidents");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "SourceApplications");
+
+            migrationBuilder.DropTable(
+                name: "OnCallGroups");
+
+            migrationBuilder.DropTable(
+                name: "OnCallRules");
         }
     }
 }

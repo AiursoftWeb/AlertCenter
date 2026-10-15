@@ -36,24 +36,28 @@ public partial class IncidentWorkflowTests
     [DataRow(Incident.New, IncidentTimelineEntry.Resolved, false)]
     [DataRow(Incident.New, IncidentTimelineEntry.Reopened, false)]
     [DataRow(Incident.New, IncidentTimelineEntry.LevelChanged, true)]
+    [DataRow(Incident.New, IncidentTimelineEntry.Updated, true)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.Acked, false)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.OwnershipChanged, true)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.Mitigated, true)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.Resolved, false)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.Reopened, false)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.LevelChanged, true)]
+    [DataRow(Incident.Acked, IncidentTimelineEntry.Updated, true)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.Acked, false)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.OwnershipChanged, false)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.Mitigated, false)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.Resolved, true)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.Reopened, true)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.LevelChanged, true)]
+    [DataRow(Incident.Mitigated, IncidentTimelineEntry.Updated, true)]
     [DataRow(Incident.Resolved, IncidentTimelineEntry.Acked, false)]
     [DataRow(Incident.Resolved, IncidentTimelineEntry.OwnershipChanged, false)]
     [DataRow(Incident.Resolved, IncidentTimelineEntry.Mitigated, false)]
     [DataRow(Incident.Resolved, IncidentTimelineEntry.Resolved, false)]
     [DataRow(Incident.Resolved, IncidentTimelineEntry.Reopened, true)]
     [DataRow(Incident.Resolved, IncidentTimelineEntry.LevelChanged, false)]
+    [DataRow(Incident.Resolved, IncidentTimelineEntry.Updated, false)]
     public async Task EnforcesTransitionMatrixAndAuditsSuccessfulActions(string state, string action, bool allowed)
     {
         var incident = await StateIncident(state);
@@ -76,6 +80,9 @@ public partial class IncidentWorkflowTests
         Assert.AreNotEqual(version, saved.Version);
         var entry = await _db.IncidentTimelineEntries.SingleAsync();
         Assert.AreEqual("admin", entry.ActorId);
+        Assert.AreEqual("admin", entry.ActorIdSnapshot);
+        Assert.AreEqual("Administrator", entry.ActorName);
+        Assert.AreEqual("Administrator", entry.ActorDisplayName);
         Assert.AreEqual(state, entry.PreviousStatus);
         Assert.AreEqual(oldOwner, entry.PreviousOwnerId);
         Assert.AreEqual(saved.Status, entry.NewStatus);
@@ -123,6 +130,7 @@ public partial class IncidentWorkflowTests
     [DataRow(IncidentTimelineEntry.Mitigated, Incident.Acked)]
     [DataRow(IncidentTimelineEntry.Resolved, Incident.Mitigated)]
     [DataRow(IncidentTimelineEntry.LevelChanged, Incident.New)]
+    [DataRow(IncidentTimelineEntry.Updated, Incident.New)]
     public async Task RequiredReasonsCannotBeBlankOrOversized(string action, string state)
     {
         var incident = await StateIncident(state);
@@ -224,6 +232,75 @@ public partial class IncidentWorkflowTests
         Assert.AreEqual("admin", audit.NewOwnerId);
         Assert.AreEqual("Administrator", audit.NewOwnerName);
         Assert.IsNull(audit.ActorId);
+    }
+
+    [TestMethod]
+    public async Task OwnerlessNotePreservesActorIdentityAfterRenameAndDeletion()
+    {
+        var incident = await StateIncident();
+        var result = await Workflow().ExecuteAsync(Actor("admin", true), new IncidentNoteRequest
+        {
+            IncidentId = incident.Id, Version = incident.Version, Note = "Investigating without claiming ownership"
+        }, IncidentTimelineEntry.Updated, default);
+        Assert.AreEqual(200, result.StatusCode, result.Error);
+        _db.ChangeTracker.Clear();
+        var audit = await _db.IncidentTimelineEntries.Include(entry => entry.Actor).SingleAsync();
+        Assert.AreEqual(IncidentTimelineEntry.Updated, audit.Type);
+        Assert.AreEqual("admin", audit.ActorId);
+        Assert.AreEqual("admin", audit.ActorIdSnapshot);
+        Assert.AreEqual("Administrator", audit.ActorName);
+        Assert.AreEqual("Administrator", audit.ActorDisplayName);
+        Assert.IsNull(audit.PreviousOwnerId);
+        Assert.IsNull(audit.NewOwnerId);
+        Assert.IsNull(audit.PreviousOwnerName);
+        Assert.IsNull(audit.NewOwnerName);
+
+        audit.Actor!.DisplayName = "Renamed administrator";
+        await _db.SaveChangesAsync();
+        _db.ChangeTracker.Clear();
+        audit = await _db.IncidentTimelineEntries.Include(entry => entry.Actor).SingleAsync();
+        Assert.AreEqual("Renamed administrator", audit.Actor!.DisplayName);
+        Assert.AreEqual("admin", audit.ActorIdSnapshot);
+        Assert.AreEqual("Administrator", audit.ActorName);
+        Assert.AreEqual("Administrator", audit.ActorDisplayName);
+
+        _db.ChangeTracker.Clear();
+        _db.Users.Remove(await _db.Users.SingleAsync(user => user.Id == "admin"));
+        await _db.SaveChangesAsync();
+        _db.ChangeTracker.Clear();
+        audit = await _db.IncidentTimelineEntries.Include(entry => entry.Actor).SingleAsync();
+        Assert.IsNull(audit.ActorId);
+        Assert.IsNull(audit.Actor);
+        Assert.AreEqual("admin", audit.ActorIdSnapshot);
+        Assert.AreEqual("Administrator", audit.ActorName);
+        Assert.AreEqual("Administrator", audit.ActorDisplayName);
+        var saved = await _db.Incidents.SingleAsync();
+        Assert.AreEqual(Incident.New, saved.Status);
+        Assert.IsNull(saved.OwnerId);
+        Assert.IsNull(saved.OwnerDisplayName);
+    }
+
+    [TestMethod]
+    public void TimelineActorDisplayNameSupportsSystemAndLegacyEntries()
+    {
+        Assert.AreEqual("系统", new IncidentTimelineEntry().ActorDisplayName);
+        Assert.AreEqual("Legacy actor", new IncidentTimelineEntry
+        {
+            Type = IncidentTimelineEntry.Updated, ActorId = "legacy",
+            Actor = new User { Id = "legacy", DisplayName = "Legacy actor" }
+        }.ActorDisplayName);
+        Assert.AreEqual("已删除用户", new IncidentTimelineEntry
+        {
+            Type = IncidentTimelineEntry.Updated
+        }.ActorDisplayName);
+        Assert.AreEqual("已删除用户", new IncidentTimelineEntry
+        {
+            ActorId = "legacy"
+        }.ActorDisplayName);
+        Assert.AreEqual("已删除用户", new IncidentTimelineEntry
+        {
+            ActorIdSnapshot = "legacy"
+        }.ActorDisplayName);
     }
 
     [TestMethod]

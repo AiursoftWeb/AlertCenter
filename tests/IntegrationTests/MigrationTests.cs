@@ -21,9 +21,8 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(5, context.Database.GetMigrations().Count());
-        Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
-        Assert.EndsWith("_IncidentComments", context.Database.GetMigrations().Last());
+        Assert.AreEqual(1, context.Database.GetMigrations().Count());
+        Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().Single());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
 
@@ -35,13 +34,12 @@ public class MigrationTests
     }
 
     [TestMethod]
-    public async Task ApplicationTeamMigrationKeepsExistingApplicationsUnboundAndEnforcesForeignKey()
+    public async Task ApplicationTeamBindingIsOptionalAndEnforcesForeignKey()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
-        var migrator = context.GetService<IMigrator>();
-        await migrator.MigrateAsync(context.Database.GetMigrations().First());
+        await context.Database.MigrateAsync();
         var applicationId = Guid.NewGuid();
         var createdAt = new DateTime(2026, 10, 1, 0, 0, 0, DateTimeKind.Utc);
         await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO SourceApplications (Id, Name, SecretHash, IsEnabled, CreatedAtUtc) VALUES ({applicationId}, {"Existing application"}, {"existing-hash"}, {false}, {createdAt})");
@@ -69,14 +67,12 @@ public class MigrationTests
     }
 
     [TestMethod]
-    public async Task OnCallEmailMigrationPreservesCustomDeliveriesAndCanRevertBuiltInHistory()
+    public async Task InitialMigrationPersistsCustomDeliveriesAndIndependentOnCallSnapshots()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
-        var migrator = context.GetService<IMigrator>();
-        var previous = context.Database.GetMigrations().Single(id => id.EndsWith("_AddApplicationOnCallGroup"));
-        await migrator.MigrateAsync(previous);
+        await context.Database.MigrateAsync();
         var channelId = Guid.NewGuid();
         var deliveryId = Guid.NewGuid();
         var createdAt = DateTime.UtcNow;
@@ -99,62 +95,57 @@ public class MigrationTests
         var snapshot = await context.OnCallEmailSnapshots.Include(item => item.Recipients).SingleAsync();
         Assert.AreEqual("oce@example.com", snapshot.Recipients.Single().Email);
         Assert.AreEqual("cc@example.com", snapshot.CcRecipients);
-        await migrator.MigrateAsync(previous);
-        Assert.AreEqual(1, await context.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM PushDeliveries").SingleAsync());
-        await context.Database.MigrateAsync();
-        context.ChangeTracker.Clear();
-        Assert.AreEqual(deliveryId, (await context.PushDeliveries.SingleAsync()).Id);
-        Assert.AreEqual(0, await context.OnCallEmailSnapshots.CountAsync());
+        Assert.AreEqual("deleted-user", snapshot.Recipients.Single().UserId);
+        Assert.AreEqual("Historical", snapshot.Recipients.Single().DisplayName);
+        Assert.AreEqual(2, await context.PushDeliveries.CountAsync());
+        Assert.AreEqual(channelId, (await context.PushDeliveries.SingleAsync(delivery => delivery.Id == deliveryId)).ChannelId);
     }
 
     [TestMethod]
-    public async Task IncidentMigrationConvertsOldStatesRestoresOwnerAndPreservesMatchSeverity()
+    public async Task SqliteGeneratedScriptsCreateRollbackAndRecreateCurrentSchema()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
         var migrator = context.GetService<IMigrator>();
-        var previous = context.Database.GetMigrations().Single(id => id.EndsWith("_OnCallEmailNotifications"));
-        await migrator.MigrateAsync(previous);
-        var application = new SourceApplication { Name = "Existing" };
-        var owner = new User { Id = "existing-owner", UserName = "owner", DisplayName = "Existing owner" };
-        context.Users.Add(owner);
-        context.SourceApplications.Add(application);
+        var migration = context.Database.GetMigrations().Single();
+        var upgrade = migrator.GenerateScript();
+        var downgrade = migrator.GenerateScript(migration, Migration.InitialDatabase);
+        await using var command = context.Database.GetDbConnection().CreateCommand();
+        command.CommandText = upgrade;
+        await command.ExecuteNonQueryAsync();
+        CollectionAssert.AreEqual(new[] { migration }, (await context.Database.GetAppliedMigrationsAsync()).ToArray());
+        var incident = new Incident { Application = new SourceApplication { Name = "Orders" }, Title = "Outage" };
+        context.Incidents.Add(incident);
+        context.IncidentComments.Add(new IncidentComment
+        {
+            Incident = incident, AuthorName = "Historical engineer", Markdown = "**Evidence**"
+        });
         await context.SaveChangesAsync();
-        var newId = Guid.NewGuid();
-        var ackedId = Guid.NewGuid();
-        var resolvedId = Guid.NewGuid();
-        var now = DateTime.UtcNow;
-        foreach (var pair in new[] { (newId, "triggered"), (ackedId, "acknowledged"), (resolvedId, "resolved") })
-            await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO Incidents (Id, ApplicationId, Title, AlertTitle, AlertLevel, Status, TriggeredAtUtc) VALUES ({pair.Item1}, {application.Id}, {"Existing outage"}, {"Source"}, {"sev1"}, {pair.Item2}, {now})");
-        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO IncidentTimelineEntries (Id, IncidentId, Type, ActorId, CreatedAtUtc) VALUES ({Guid.NewGuid()}, {ackedId}, {"acknowledged"}, {owner.Id}, {now})");
-        await context.Database.MigrateAsync();
+        Assert.AreEqual("**Evidence**", (await context.IncidentComments.SingleAsync()).Markdown);
+
+        command.CommandText = downgrade;
+        await command.ExecuteNonQueryAsync();
         context.ChangeTracker.Clear();
-        var rows = await context.Incidents.ToDictionaryAsync(incident => incident.Id);
-        Assert.AreEqual(Incident.New, rows[newId].Status);
-        Assert.AreEqual(Incident.Acked, rows[ackedId].Status);
-        Assert.AreEqual(Incident.Resolved, rows[resolvedId].Status);
-        Assert.AreEqual(owner.Id, rows[ackedId].OwnerId);
-        Assert.AreEqual("Existing owner", rows[ackedId].OwnerDisplayName);
-        Assert.IsTrue(rows.Values.All(incident => incident.MatchLevel == "sev1" && incident.Version != Guid.Empty));
-        Assert.AreEqual(IncidentTimelineEntry.Acked, (await context.IncidentTimelineEntries.SingleAsync()).Type);
-        await migrator.MigrateAsync(previous);
-        var restored = await context.Database.SqlQueryRaw<string>("SELECT Status AS Value FROM Incidents").ToListAsync();
-        CollectionAssert.AreEquivalent(new[] { "triggered", "acknowledged", "resolved" }, restored);
-        await context.Database.MigrateAsync();
-        context.ChangeTracker.Clear();
-        Assert.AreEqual(owner.Id, (await context.Incidents.SingleAsync(incident => incident.Id == ackedId)).OwnerId);
+        Assert.AreEqual(0, await context.Database.SqlQueryRaw<int>(
+            "SELECT COUNT(*) AS Value FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%' AND name != '__EFMigrationsHistory'")
+            .SingleAsync());
+        Assert.AreEqual(0, (await context.Database.GetAppliedMigrationsAsync()).Count());
+
+        command.CommandText = upgrade;
+        await command.ExecuteNonQueryAsync();
+        Assert.AreEqual(0, await context.Incidents.CountAsync());
+        Assert.AreEqual(0, await context.IncidentComments.CountAsync());
+        CollectionAssert.AreEqual(new[] { migration }, (await context.Database.GetAppliedMigrationsAsync()).ToArray());
     }
 
     [TestMethod]
-    public async Task CommentMigrationAddsIndependentHistoryAndDowngradesWithoutChangingIncident()
+    public async Task InitialMigrationPersistsIndependentCommentHistoryWithoutChangingIncident()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
-        var migrator = context.GetService<IMigrator>();
-        var previous = context.Database.GetMigrations().Single(id => id.EndsWith("_IncidentStateMachine"));
-        await migrator.MigrateAsync(previous);
+        await context.Database.MigrateAsync();
         var incident = new Incident { Application = new SourceApplication { Name = "Existing app" }, Title = "Existing incident", Status = Incident.Resolved };
         context.Incidents.Add(incident);
         await context.SaveChangesAsync();
@@ -173,12 +164,8 @@ public class MigrationTests
         Assert.AreEqual("Application manager", comment.DeletedByName);
         Assert.IsNotNull(comment.DeletedAtUtc);
         Assert.AreEqual(version, (await context.Incidents.SingleAsync()).Version);
-        await migrator.MigrateAsync(previous);
-        await context.Database.MigrateAsync();
-        context.ChangeTracker.Clear();
-        Assert.AreEqual(0, await context.IncidentComments.CountAsync());
+        Assert.AreEqual(1, await context.IncidentComments.CountAsync());
         Assert.AreEqual(Incident.Resolved, (await context.Incidents.SingleAsync()).Status);
-        Assert.AreEqual(version, (await context.Incidents.SingleAsync()).Version);
     }
 
     [TestMethod]
@@ -231,9 +218,8 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(5, context.Database.GetMigrations().Count());
-        Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
-        Assert.EndsWith("_IncidentComments", context.Database.GetMigrations().Last());
+        Assert.AreEqual(1, context.Database.GetMigrations().Count());
+        Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().Single());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");
         var script = context.GetService<IMigrator>().GenerateScript();
@@ -251,8 +237,11 @@ public class MigrationTests
         StringAssert.Contains(script, "`EmailCcRecipients`");
         StringAssert.Contains(script, "FK_Incidents_AspNetUsers_OwnerId");
         StringAssert.Contains(script, "FK_PushDeliveries_IncidentTimelineEntries_IncidentEventId");
-        StringAssert.Contains(script, "MatchLevel = AlertLevel");
-        StringAssert.Contains(script, "WHEN 'triggered' THEN 'new'");
+        StringAssert.Contains(script, "`ActorIdSnapshot`");
+        StringAssert.Contains(script, "`ActorName`");
+        foreach (var property in new[] { nameof(Incident.IncidentKey), nameof(Incident.ActiveMatchKey), nameof(Incident.AlertTitle) })
+            StringAssert.Contains(script, $"`{property}` varchar({(property == nameof(Incident.ActiveMatchKey) ? 220 : 200)}) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_bin");
+        Assert.DoesNotContain("UPDATE Incidents", script);
         StringAssert.Contains(script, "CREATE TABLE `IncidentComments`");
         StringAssert.Contains(script, "FK_IncidentComments_AspNetUsers_AuthorId");
         StringAssert.Contains(script, "FK_IncidentComments_AspNetUsers_DeletedById");

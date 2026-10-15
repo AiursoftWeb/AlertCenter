@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aiursoft.AlertCenter.Entities;
 
@@ -20,6 +21,10 @@ public class IncidentTimelineEntry
     [MaxLength(4000)] public string? Note { get; set; }
     [MaxLength(450)] public string? ActorId { get; set; }
     public User? Actor { get; set; }
+    [MaxLength(450)] public string? ActorIdSnapshot { get; set; }
+    [MaxLength(30)] public string? ActorName { get; set; }
+    [NotMapped] public string ActorDisplayName => ActorName ?? Actor?.DisplayName ??
+        (Type == Created && ActorId == null && ActorIdSnapshot == null ? "系统" : "已删除用户");
     [MaxLength(20)] public string? PreviousStatus { get; set; }
     [MaxLength(20)] public string? NewStatus { get; set; }
     [MaxLength(450)] public string? PreviousOwnerId { get; set; }
