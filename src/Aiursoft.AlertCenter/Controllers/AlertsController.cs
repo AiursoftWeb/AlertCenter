@@ -194,26 +194,31 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteApplication(Guid id, string? confirmationName, CancellationToken cancellationToken)
     {
-        await using var transaction = await db.Database.BeginTransactionAsync(cancellationToken);
-        var applicationName = await db.SourceApplications.AsNoTracking()
-            .Where(application => application.Id == id)
-            .Select(application => application.Name).SingleOrDefaultAsync(cancellationToken);
-        if (applicationName == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
-        if (!ModelState.IsValid || string.IsNullOrEmpty(confirmationName) ||
-            !string.Equals(applicationName, confirmationName, StringComparison.Ordinal))
+        var attempt = 0;
+        return await db.Database.CreateExecutionStrategy().ExecuteAsync<IActionResult>(async retryToken =>
         {
-            return BadRequest(localizer["Enter the exact app name to confirm deletion."].Value);
-        }
-        // 在同一事务中批量删除历史消息和应用，避免部分删除或逐条加载消息。
-        await db.Incidents.Where(incident => incident.ApplicationId == id)
-            .ExecuteDeleteAsync(cancellationToken);
-        await db.ReportedMessages.Where(message => message.ApplicationId == id)
-            .ExecuteDeleteAsync(cancellationToken);
-        var deleted = await db.SourceApplications.Where(application => application.Id == id)
-            .ExecuteDeleteAsync(cancellationToken);
-        await transaction.CommitAsync(cancellationToken);
-        return deleted == 0 ? NotFound() : RedirectToAction(nameof(Applications));
+            if (attempt++ > 0) db.ChangeTracker.Clear();
+            await using var transaction = await db.Database.BeginTransactionAsync(retryToken);
+            var applicationName = await db.SourceApplications.AsNoTracking()
+                .Where(application => application.Id == id)
+                .Select(application => application.Name).SingleOrDefaultAsync(retryToken);
+            if (applicationName == null) return NotFound();
+            if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, retryToken)) return Forbid();
+            if (!ModelState.IsValid || string.IsNullOrEmpty(confirmationName) ||
+                !string.Equals(applicationName, confirmationName, StringComparison.Ordinal))
+            {
+                return BadRequest(localizer["Enter the exact app name to confirm deletion."].Value);
+            }
+            // Delete the application and its history atomically without loading every message.
+            await db.Incidents.Where(incident => incident.ApplicationId == id)
+                .ExecuteDeleteAsync(retryToken);
+            await db.ReportedMessages.Where(message => message.ApplicationId == id)
+                .ExecuteDeleteAsync(retryToken);
+            var deleted = await db.SourceApplications.Where(application => application.Id == id)
+                .ExecuteDeleteAsync(retryToken);
+            await transaction.CommitAsync(retryToken);
+            return deleted == 0 ? NotFound() : RedirectToAction(nameof(Applications));
+        }, cancellationToken);
     }
 
     public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)

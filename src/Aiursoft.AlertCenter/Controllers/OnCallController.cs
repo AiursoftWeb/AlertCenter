@@ -185,105 +185,117 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 
     private async Task<IActionResult> SaveGroupCore(CreateOnCallGroupRequest request, Guid? id, CancellationToken cancellationToken)
     {
-        await using var transaction = db.Database.IsRelational()
-            ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, cancellationToken) : null;
-        var group = id.HasValue ? await db.OnCallGroups.Include(item => item.Members)
-            .SingleOrDefaultAsync(item => item.Id == id.Value, cancellationToken) : null;
-        if (id.HasValue && group == null) return NotFound();
-        if (group != null && request.Version != group.ScheduleVersion)
-            return Conflict(localizer["The team or schedule has changed. Please refresh the page and try again."].Value);
-        request.Name = request.Name?.Trim() ?? string.Empty;
-        request.TimeZoneId = request.TimeZoneId?.Trim() ?? string.Empty;
-        request.UserIds ??= [];
-        if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("GroupInput.Name", localizer["Please enter the team name."].Value);
-        if (!TimeZoneInfo.GetSystemTimeZones().Any(zone => zone.Id == request.TimeZoneId))
-            ModelState.AddModelError("GroupInput.TimeZoneId", localizer["Please select a valid time zone from the list."].Value);
-        if (!EmailChannelAdapter.TryParseCcRecipients(request.EmailCcRecipients, out var emailCcRecipients, out var ccRecipientsError, localizer: localizerFactory.Create(typeof(EmailChannelAdapter))))
-            ModelState.AddModelError("GroupInput.EmailCcRecipients", ccRecipientsError!);
-        if (request.RuleId.HasValue && !await db.OnCallRules.AnyAsync(rule => rule.Id == request.RuleId, cancellationToken))
-            ModelState.AddModelError("GroupInput.RuleId", localizer["Please select an existing on-call rule."].Value);
-        if (request.AnchorUtc is not { } anchor || anchor.Kind == DateTimeKind.Local ||
-            anchor < DateTime.MinValue.AddDays(28) || anchor > DateTime.MaxValue.AddDays(-28))
-            ModelState.AddModelError("GroupInput.AnchorUtc", localizer["Please select a valid UTC start time (must be at least 28 days from the date boundary)."].Value);
-        if (request.UserIds.Count > 200 || request.UserIds.Any(string.IsNullOrWhiteSpace) ||
-            request.UserIds.Distinct(StringComparer.Ordinal).Count() != request.UserIds.Count ||
-            await db.Users.CountAsync(user => request.UserIds.Contains(user.Id), cancellationToken) != request.UserIds.Count)
-            ModelState.AddModelError("GroupInput.UserIds", localizer["The selected employees do not exist, are duplicated, or exceed 200. Please select again."].Value);
-        var hasSchedule = group != null && await db.OnCallShifts.AnyAsync(shift => shift.GroupId == group.Id, cancellationToken);
-        if (hasSchedule && group!.AnchorUtc != request.AnchorUtc)
-            ModelState.AddModelError("GroupInput.AnchorUtc", localizer["A saved schedule exists; the team schedule start point cannot be modified."].Value);
-        if (!ModelState.IsValid)
-        {
-            var model = await LoadModel(cancellationToken);
-            model.GroupInput = request;
-            model.SelectedGroupId = id;
-            model.GroupHasSavedSchedule = hasSchedule;
-            await PopulateSelectedUsers(model, cancellationToken);
-            return this.StackView(model, id.HasValue ? "GroupEdit" : "GroupCreate");
-        }
-        if (group == null)
-        {
-            group = new OnCallGroup();
-            db.OnCallGroups.Add(group);
-        }
-        var removedIds = group.Members.Select(member => member.UserId).Except(request.UserIds).ToArray();
-        var now = DateTime.UtcNow;
-        var futureAssignments = await db.OnCallShiftMembers
-            .Where(member => member.Shift.GroupId == group.Id && member.Shift.StartsAtUtc > now && removedIds.Contains(member.UserId))
-            .ToListAsync(cancellationToken);
-        db.OnCallShiftMembers.RemoveRange(futureAssignments);
-        group.Name = request.Name;
-        group.TimeZoneId = request.TimeZoneId;
-        group.EmailCcRecipients = emailCcRecipients.Count == 0 ? null : string.Join('\n', emailCcRecipients);
-        group.RuleId = request.RuleId;
-        group.AnchorUtc = DateTime.SpecifyKind(request.AnchorUtc!.Value, DateTimeKind.Utc);
-        group.ScheduleVersion = Guid.NewGuid();
+        var attempt = 0;
+        // Reuse the ID on retry so an uncertain commit cannot create a second record.
+        var createdId = Guid.NewGuid();
         try
         {
-            // 先移除旧顺序，再写入新顺序，避免成员换序时触发唯一索引冲突。
-            db.OnCallGroupMembers.RemoveRange(group.Members);
-            await db.SaveChangesAsync(cancellationToken);
-            group.Members.Clear();
-            for (var index = 0; index < request.UserIds.Count; index++)
-                group.Members.Add(new OnCallGroupMember { UserId = request.UserIds[index], RotationOrder = index });
-            await db.SaveChangesAsync(cancellationToken);
-            if (transaction != null) await transaction.CommitAsync(cancellationToken);
+            return await db.Database.CreateExecutionStrategy().ExecuteAsync<IActionResult>(async retryToken =>
+            {
+                if (attempt++ > 0) db.ChangeTracker.Clear();
+                await using var transaction = db.Database.IsRelational()
+                    ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, retryToken) : null;
+                var group = id.HasValue ? await db.OnCallGroups.Include(item => item.Members)
+                    .SingleOrDefaultAsync(item => item.Id == id.Value, retryToken) : null;
+                if (id.HasValue && group == null) return NotFound();
+                if (group != null && request.Version != group.ScheduleVersion)
+                    return Conflict(localizer["The team or schedule has changed. Please refresh the page and try again."].Value);
+                request.Name = request.Name?.Trim() ?? string.Empty;
+                request.TimeZoneId = request.TimeZoneId?.Trim() ?? string.Empty;
+                request.UserIds ??= [];
+                if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("GroupInput.Name", localizer["Please enter the team name."].Value);
+                if (!TimeZoneInfo.GetSystemTimeZones().Any(zone => zone.Id == request.TimeZoneId))
+                    ModelState.AddModelError("GroupInput.TimeZoneId", localizer["Please select a valid time zone from the list."].Value);
+                if (!EmailChannelAdapter.TryParseCcRecipients(request.EmailCcRecipients, out var emailCcRecipients, out var ccRecipientsError, localizer: localizerFactory.Create(typeof(EmailChannelAdapter))))
+                    ModelState.AddModelError("GroupInput.EmailCcRecipients", ccRecipientsError!);
+                if (request.RuleId.HasValue && !await db.OnCallRules.AnyAsync(rule => rule.Id == request.RuleId, retryToken))
+                    ModelState.AddModelError("GroupInput.RuleId", localizer["Please select an existing on-call rule."].Value);
+                if (request.AnchorUtc is not { } anchor || anchor.Kind == DateTimeKind.Local ||
+                    anchor < DateTime.MinValue.AddDays(28) || anchor > DateTime.MaxValue.AddDays(-28))
+                    ModelState.AddModelError("GroupInput.AnchorUtc", localizer["Please select a valid UTC start time (must be at least 28 days from the date boundary)."].Value);
+                if (request.UserIds.Count > 200 || request.UserIds.Any(string.IsNullOrWhiteSpace) ||
+                    request.UserIds.Distinct(StringComparer.Ordinal).Count() != request.UserIds.Count ||
+                    await db.Users.CountAsync(user => request.UserIds.Contains(user.Id), retryToken) != request.UserIds.Count)
+                    ModelState.AddModelError("GroupInput.UserIds", localizer["The selected employees do not exist, are duplicated, or exceed 200. Please select again."].Value);
+                var hasSchedule = group != null && await db.OnCallShifts.AnyAsync(shift => shift.GroupId == group.Id, retryToken);
+                if (hasSchedule && group!.AnchorUtc != request.AnchorUtc)
+                    ModelState.AddModelError("GroupInput.AnchorUtc", localizer["A saved schedule exists; the team schedule start point cannot be modified."].Value);
+                if (!ModelState.IsValid)
+                {
+                    var model = await LoadModel(retryToken);
+                    model.GroupInput = request;
+                    model.SelectedGroupId = id;
+                    model.GroupHasSavedSchedule = hasSchedule;
+                    await PopulateSelectedUsers(model, retryToken);
+                    return this.StackView(model, id.HasValue ? "GroupEdit" : "GroupCreate");
+                }
+                if (group == null)
+                {
+                    group = new OnCallGroup { Id = createdId };
+                    db.OnCallGroups.Add(group);
+                }
+                var removedIds = group.Members.Select(member => member.UserId).Except(request.UserIds).ToArray();
+                var now = DateTime.UtcNow;
+                var futureAssignments = await db.OnCallShiftMembers
+                    .Where(member => member.Shift.GroupId == group.Id && member.Shift.StartsAtUtc > now && removedIds.Contains(member.UserId))
+                    .ToListAsync(retryToken);
+                db.OnCallShiftMembers.RemoveRange(futureAssignments);
+                group.Name = request.Name;
+                group.TimeZoneId = request.TimeZoneId;
+                group.EmailCcRecipients = emailCcRecipients.Count == 0 ? null : string.Join('\n', emailCcRecipients);
+                group.RuleId = request.RuleId;
+                group.AnchorUtc = DateTime.SpecifyKind(request.AnchorUtc!.Value, DateTimeKind.Utc);
+                group.ScheduleVersion = Guid.NewGuid();
+                // Remove the old ordering before saving the new ordering to avoid unique-index conflicts.
+                db.OnCallGroupMembers.RemoveRange(group.Members);
+                await db.SaveChangesAsync(retryToken);
+                group.Members.Clear();
+                for (var index = 0; index < request.UserIds.Count; index++)
+                    group.Members.Add(new OnCallGroupMember { UserId = request.UserIds[index], RotationOrder = index });
+                await db.SaveChangesAsync(retryToken);
+                if (transaction != null) await transaction.CommitAsync(retryToken);
+                TempData["OnCallGroupSuccess"] = id.HasValue ? localizer["Team updated."].Value : localizer["Team created successfully."].Value;
+                if (futureAssignments.Count > 0)
+                    TempData["OnCallGroupSuccess"] += string.Format(localizer[" Cleared {0} future shift assignments for departed members. Please review and fill any gaps."].Value, futureAssignments.Count);
+                return RedirectToAction(nameof(GroupDetails), new { id = group.Id });
+            }, cancellationToken);
         }
         catch (DbUpdateException)
         {
             return Conflict(localizer["The team or schedule has changed. Please refresh the page and try again."].Value);
         }
-        TempData["OnCallGroupSuccess"] = id.HasValue ? localizer["Team updated."].Value : localizer["Team created successfully."].Value;
-        if (futureAssignments.Count > 0)
-            TempData["OnCallGroupSuccess"] += string.Format(localizer[" Cleared {0} future shift assignments for departed members. Please review and fill any gaps."].Value, futureAssignments.Count);
-        return RedirectToAction(nameof(GroupDetails), new { id = group.Id });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Roles = "Administrators")]
     public async Task<IActionResult> DeleteGroup(Guid id, CancellationToken cancellationToken)
     {
-        await using var transaction = db.Database.IsRelational()
-            ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, cancellationToken) : null;
-        var group = await db.OnCallGroups.FindAsync([id], cancellationToken);
-        if (group == null) return NotFound();
-        if (await db.OnCallShifts.AnyAsync(shift => shift.GroupId == id, cancellationToken))
-            return Conflict(localizer["This team has saved schedules and cannot be deleted along with its history."].Value);
-        if (await db.SourceApplications.AnyAsync(application => application.OnCallGroupId == id, cancellationToken))
-            return Conflict(localizer["This team is bound to an integrated app. Please reassign or unbind the app's on-call group first."].Value);
-        db.OnCallGroupMembers.RemoveRange(await db.OnCallGroupMembers.Where(member => member.GroupId == id).ToListAsync(cancellationToken));
-        db.OnCallGroups.Remove(group);
+        var attempt = 0;
         try
         {
-            await db.SaveChangesAsync(cancellationToken);
-            if (transaction != null) await transaction.CommitAsync(cancellationToken);
+            return await db.Database.CreateExecutionStrategy().ExecuteAsync<IActionResult>(async retryToken =>
+            {
+                if (attempt++ > 0) db.ChangeTracker.Clear();
+                await using var transaction = db.Database.IsRelational()
+                    ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, retryToken) : null;
+                var group = await db.OnCallGroups.FindAsync([id], retryToken);
+                if (group == null) return NotFound();
+                if (await db.OnCallShifts.AnyAsync(shift => shift.GroupId == id, retryToken))
+                    return Conflict(localizer["This team has saved schedules and cannot be deleted along with its history."].Value);
+                if (await db.SourceApplications.AnyAsync(application => application.OnCallGroupId == id, retryToken))
+                    return Conflict(localizer["This team is bound to an integrated app. Please reassign or unbind the app's on-call group first."].Value);
+                db.OnCallGroupMembers.RemoveRange(await db.OnCallGroupMembers.Where(member => member.GroupId == id).ToListAsync(retryToken));
+                db.OnCallGroups.Remove(group);
+                await db.SaveChangesAsync(retryToken);
+                if (transaction != null) await transaction.CommitAsync(retryToken);
+                TempData["OnCallGroupSuccess"] = localizer["Team deleted."].Value;
+                return RedirectToAction(nameof(Groups));
+            }, cancellationToken);
         }
         catch (DbUpdateException)
         {
             return Conflict(localizer["The team or schedule has changed. Please refresh the page and try again."].Value);
         }
-        TempData["OnCallGroupSuccess"] = localizer["Team deleted."].Value;
-        return RedirectToAction(nameof(Groups));
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -291,47 +303,54 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     public async Task<IActionResult> SaveRule([Bind(Prefix = "RuleInput")] SaveOnCallRuleRequest request,
         CancellationToken cancellationToken)
     {
-        await using var transaction = db.Database.IsRelational()
-            ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, cancellationToken) : null;
-        request.Name = request.Name?.Trim() ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", localizer["Please enter the rule name."].Value);
-        if (request.ShiftHours != 8) ModelState.AddModelError("RuleInput.ShiftHours", localizer["Fixed three shifts per day, 8 hours each."].Value);
-        if (request.RestHours is < 0 or > 168) ModelState.AddModelError("RuleInput.RestHours", localizer["Minimum rest must be 0–168 hours."].Value);
-        if (request.MinimumStaff is < 1 or > 200) ModelState.AddModelError("RuleInput.MinimumStaff", localizer["Minimum staff per shift must be 1–200."].Value);
-        if (request.TargetStaff is < 1 or > 200 || request.TargetStaff < request.MinimumStaff)
-            ModelState.AddModelError("RuleInput.TargetStaff", localizer["Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment."].Value);
-        var rule = request.Id.HasValue ? await db.OnCallRules.FindAsync([request.Id.Value], cancellationToken) : null;
-        if (request.Id.HasValue && rule == null) return NotFound();
-        if (!ModelState.IsValid)
-        {
-            var model = await LoadModel(cancellationToken);
-            model.RuleInput = request;
-            return this.StackView(model, request.Id.HasValue ? "Edit" : "Create");
-        }
-        if (rule == null)
-        {
-            rule = new OnCallRule();
-            db.OnCallRules.Add(rule);
-        }
-        rule.Name = request.Name;
-        rule.ShiftHours = request.ShiftHours;
-        rule.RestHours = request.RestHours;
-        rule.BalanceShiftTimes = request.BalanceShiftTimes;
-        rule.MinimumStaff = request.MinimumStaff;
-        rule.TargetStaff = request.TargetStaff;
-        var groups = await db.OnCallGroups.Where(group => group.RuleId == rule.Id).ToListAsync(cancellationToken);
-        foreach (var group in groups) group.ScheduleVersion = Guid.NewGuid();
+        var attempt = 0;
+        // Reuse the ID on retry so an uncertain commit cannot create a second record.
+        var createdId = Guid.NewGuid();
         try
         {
-            await db.SaveChangesAsync(cancellationToken);
-            if (transaction != null) await transaction.CommitAsync(cancellationToken);
+            return await db.Database.CreateExecutionStrategy().ExecuteAsync<IActionResult>(async retryToken =>
+            {
+                if (attempt++ > 0) db.ChangeTracker.Clear();
+                await using var transaction = db.Database.IsRelational()
+                    ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, retryToken) : null;
+                request.Name = request.Name?.Trim() ?? string.Empty;
+                if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", localizer["Please enter the rule name."].Value);
+                if (request.ShiftHours != 8) ModelState.AddModelError("RuleInput.ShiftHours", localizer["Fixed three shifts per day, 8 hours each."].Value);
+                if (request.RestHours is < 0 or > 168) ModelState.AddModelError("RuleInput.RestHours", localizer["Minimum rest must be 0–168 hours."].Value);
+                if (request.MinimumStaff is < 1 or > 200) ModelState.AddModelError("RuleInput.MinimumStaff", localizer["Minimum staff per shift must be 1–200."].Value);
+                if (request.TargetStaff is < 1 or > 200 || request.TargetStaff < request.MinimumStaff)
+                    ModelState.AddModelError("RuleInput.TargetStaff", localizer["Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment."].Value);
+                var rule = request.Id.HasValue ? await db.OnCallRules.FindAsync([request.Id.Value], retryToken) : null;
+                if (request.Id.HasValue && rule == null) return NotFound();
+                if (!ModelState.IsValid)
+                {
+                    var model = await LoadModel(retryToken);
+                    model.RuleInput = request;
+                    return this.StackView(model, request.Id.HasValue ? "Edit" : "Create");
+                }
+                if (rule == null)
+                {
+                    rule = new OnCallRule { Id = createdId };
+                    db.OnCallRules.Add(rule);
+                }
+                rule.Name = request.Name;
+                rule.ShiftHours = request.ShiftHours;
+                rule.RestHours = request.RestHours;
+                rule.BalanceShiftTimes = request.BalanceShiftTimes;
+                rule.MinimumStaff = request.MinimumStaff;
+                rule.TargetStaff = request.TargetStaff;
+                var groups = await db.OnCallGroups.Where(group => group.RuleId == rule.Id).ToListAsync(retryToken);
+                foreach (var group in groups) group.ScheduleVersion = Guid.NewGuid();
+                await db.SaveChangesAsync(retryToken);
+                if (transaction != null) await transaction.CommitAsync(retryToken);
+                TempData["OnCallRuleSuccess"] = request.Id.HasValue ? localizer["Scheduling rule updated."].Value : localizer["Scheduling rule created successfully."].Value;
+                return RedirectToAction(nameof(Details), new { id = rule.Id });
+            }, cancellationToken);
         }
         catch (DbUpdateException)
         {
             return Conflict(localizer["The rule or team has changed. Refresh the page and try again."].Value);
         }
-        TempData["OnCallRuleSuccess"] = request.Id.HasValue ? localizer["Scheduling rule updated."].Value : localizer["Scheduling rule created successfully."].Value;
-        return RedirectToAction(nameof(Details), new { id = rule.Id });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
