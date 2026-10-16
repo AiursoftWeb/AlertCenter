@@ -1,5 +1,4 @@
 (() => {
-    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
 
     const root = document.getElementById('oncall-schedule');
     if (!root) return;
@@ -45,9 +44,9 @@
         if (generate) generate.disabled = dirty || saving;
         document.getElementById('oncall-undo-schedule').disabled = !history.length || saving;
         document.getElementById('oncall-reset-schedule').disabled = !dirty || saving;
-        document.getElementById('oncall-edit-count').textContent = (messages["Modified {0} shifts{1}{2}"] ?? "Modified {0} shifts{1}{2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(changed), String(weekChanged(0) ? (messages[" · includes previous week"] ?? " · includes previous week") : ''), String(weekChanged(2) ? (messages[" · includes next week"] ?? " · includes next week") : '')][Number(index)] ?? placeholder);
+        document.getElementById('oncall-edit-count').textContent = getLocalizedText("modified-shifts", "Modified {0} shifts{1}{2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(changed), String(weekChanged(0) ? getLocalizedText("includes-previous-week", " · includes previous week") : ''), String(weekChanged(2) ? getLocalizedText("includes-next-week", " · includes next week") : '')][Number(index)] ?? placeholder);
         if (badge) {
-            badge.textContent = dirty ? (messages["Unsaved · Adjustment draft"] ?? "Unsaved · Adjustment draft") : originalBadge;
+            badge.textContent = dirty ? getLocalizedText("unsaved-adjustment-draft", "Unsaved · Adjustment draft") : originalBadge;
             badge.className = dirty ? 'badge bg-warning text-dark' : originalBadgeClass;
         }
         syncMode();
@@ -69,7 +68,7 @@
                 const index = Number(cell.dataset.slot);
                 const assigned = slots[index].userIds.includes(row.dataset.userId);
                 cell.tabIndex = !saving && mode === 'add' && !assigned && row.dataset.departed !== 'true' ? 0 : -1;
-                cell.setAttribute('aria-label', (messages["{0} · {1} · {2}"] ?? "{0} · {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(slots[index].localStart), String(mode === 'add' ? (messages["Add on-call shift"] ?? "Add on-call shift") : (messages["Move selected shift here"] ?? "Move selected shift here"))][Number(index)] ?? placeholder));
+                cell.setAttribute('aria-label', getLocalizedText("message-2", "{0} · {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(slots[index].localStart), String(mode === 'add' ? getLocalizedText("add-on-call-shift", "Add on-call shift") : getLocalizedText("move-selected-shift-here", "Move selected shift here"))][Number(index)] ?? placeholder));
             });
         });
     }
@@ -80,9 +79,9 @@
         clearSelection();
         suppressClick = false;
         const help = document.getElementById('oncall-mode-help');
-        if (help) help.textContent = mode === 'add' ? (messages["Add mode: Click the empty space in the engineer's row to add an 8-hour shift; multiple people can share a shift."] ?? "Add mode: Click the empty space in the engineer's row to add an 8-hour shift; multiple people can share a shift.")
-            : mode === 'remove' ? (messages["Delete mode: Click a color block to remove this engineer's current shift. This action can be undone and takes effect after saving all changes."] ?? "Delete mode: Click a color block to remove this engineer's current shift. This action can be undone and takes effect after saving all changes.")
-            : (messages["Currently in Move/Swap mode. Switch the mode above before adding or removing shifts."] ?? "Currently in Move/Swap mode. Switch the mode above before adding or removing shifts.");
+        if (help) help.textContent = mode === 'add' ? getLocalizedText("add-mode-click-the-empty-space-in-the", "Add mode: Click the empty space in the engineer's row to add an 8-hour shift; multiple people can share a shift.")
+            : mode === 'remove' ? getLocalizedText("delete-mode-click-a-color-block-to-remove", "Delete mode: Click a color block to remove this engineer's current shift. This action can be undone and takes effect after saving all changes.")
+            : getLocalizedText("currently-in-move-swap-mode-switch-the-mode", "Currently in Move/Swap mode. Switch the mode above before adding or removing shifts.");
         status.textContent = '';
         syncMode();
     }
@@ -92,13 +91,13 @@
         if (target.slot === null || target.week) return;
         const assigned = slots[target.slot].userIds;
         const index = assigned.indexOf(target.user);
-        if (mode === 'add' && index !== -1) { status.textContent = (messages["This engineer is already assigned to this shift. No need to add them again."] ?? "This engineer is already assigned to this shift. No need to add them again."); return; }
-        if (mode === 'remove' && index === -1) { status.textContent = (messages["No shifts to delete in this cell."] ?? "No shifts to delete in this cell."); return; }
+        if (mode === 'add' && index !== -1) { status.textContent = getLocalizedText("this-engineer-is-already-assigned-to-this-shift", "This engineer is already assigned to this shift. No need to add them again."); return; }
+        if (mode === 'remove' && index === -1) { status.textContent = getLocalizedText("no-shifts-to-delete-in-this-cell", "No shifts to delete in this cell."); return; }
         history.push(structuredClone(slots));
         if (mode === 'add') assigned.push(target.user);
         else assigned.splice(index, 1);
         select.value = target.slot;
-        changed((messages["{0} shift for {1} · {2}; not saved yet. You can undo this."] ?? "{0} shift for {1} · {2}; not saved yet. You can undo this.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(mode === 'add' ? (messages["Added"] ?? "Added") : (messages["Removed"] ?? "Removed")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder));
+        changed(getLocalizedText("shift-for-not-saved-yet-you-can-undo", "{0} shift for {1} · {2}; not saved yet. You can undo this.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(mode === 'add' ? getLocalizedText("added", "Added") : getLocalizedText("removed", "Removed")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder));
     }
 
     function showMessages(container, messages) {
@@ -113,11 +112,11 @@
         const warnings = [];
         const active = index => Math.floor(index / 21) === 1 || weekChanged(Math.floor(index / 21));
         const empty = slots.flatMap((slot, index) => !slot.userIds.length && active(index) ? [index] : []);
-        empty.forEach(index => warnings.push((messages["Gap detected at {0}. Please add staff (the week requires a full 21 shifts)."] ?? "Gap detected at {0}. Please add staff (the week requires a full 21 shifts).").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slots[index].localStart)][Number(index)] ?? placeholder)));
+        empty.forEach(index => warnings.push(getLocalizedText("gap-detected-at-please-add-staff-the-week", "Gap detected at {0}. Please add staff (the week requires a full 21 shifts).").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slots[index].localStart)][Number(index)] ?? placeholder)));
         slots.forEach((slot, index) => {
             const minimum = weeks[Math.floor(index / 21)].minimumStaff;
             if (active(index) && slot.userIds.length > 0 && slot.userIds.length < minimum)
-                warnings.push((messages["{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed."] ?? "{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slot.localStart), String(slot.userIds.length), String(minimum)][Number(index)] ?? placeholder));
+                warnings.push(getLocalizedText("has-only-staff-below-the-minimum-of-manual", "{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slot.localStart), String(slot.userIds.length), String(minimum)][Number(index)] ?? placeholder));
         });
         rows.forEach(row => {
             const assigned = slots.flatMap((slot, index) => slot.userIds.includes(row.dataset.userId) ? [index] : []);
@@ -130,11 +129,11 @@
                 if ((active(index) || active(previous)) && rest < requiredRest) {
                     conflicts.add(index);
                     conflicts.add(previous);
-                    warnings.push((messages["{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours."] ?? "{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(rest), String(slots[previous].localStart), String(slots[index].localStart), String(requiredRest)][Number(index)] ?? placeholder));
+                    warnings.push(getLocalizedText("only-hours-rest-between-and-minimum-required-is", "{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(rest), String(slots[previous].localStart), String(slots[index].localStart), String(requiredRest)][Number(index)] ?? placeholder));
                 }
             });
             const currentCount = assigned.filter(index => index >= 21 && index < 42).length;
-            row.querySelector('.ac-gantt-hours').textContent = (messages["{0} shifts / {1} hours"] ?? "{0} shifts / {1} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(currentCount), String(currentCount * 8)][Number(index)] ?? placeholder);
+            row.querySelector('.ac-gantt-hours').textContent = getLocalizedText("shifts-hours", "{0} shifts / {1} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(currentCount), String(currentCount * 8)][Number(index)] ?? placeholder);
             row.querySelectorAll('.ac-gantt-shift:not(.ac-gantt-external)').forEach(shift => shift.remove());
             row.querySelectorAll('.ac-gantt-cell').forEach(cell => cell.classList.toggle('ac-gantt-empty', empty.includes(Number(cell.dataset.slot))));
             assigned.filter(index => index >= 16 && index < 47).forEach(index => {
@@ -158,7 +157,7 @@
                 shift.style.left = `${visibleStart / 168 * 100}%`;
                 shift.style.width = `${(visibleEnd - visibleStart) / 168 * 100}%`;
                 if (!edge) shift.dataset.slot = index;
-                shift.dataset.summary = (messages["{0}{1}{2} · 8 hours · {3}{4}"] ?? "{0}{1}{2} · 8 hours · {3}{4}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(row.dataset.departed === 'true' ? (messages[" · Departed"] ?? " · Departed") : ''), String(edge ? (messages[" · {0} · Adjacent week (read-only)"] ?? " · {0} · Adjacent week (read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder) : ''), String(root.dataset.zone), String(conflicts.has(index) ? (messages[" · Insufficient rest"] ?? " · Insufficient rest") : '')][Number(index)] ?? placeholder);
+                shift.dataset.summary = getLocalizedText("8-hours", "{0}{1}{2} · 8 hours · {3}{4}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(row.dataset.departed === 'true' ? getLocalizedText("departed", " · Departed") : ''), String(edge ? getLocalizedText("adjacent-week-read-only", " · {0} · Adjacent week (read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder) : ''), String(root.dataset.zone), String(conflicts.has(index) ? getLocalizedText("insufficient-rest", " · Insufficient rest") : '')][Number(index)] ?? placeholder);
                 shift.dataset.start = slot.localStart;
                 shift.dataset.end = slot.localEnd;
                 shift.title = `${shift.dataset.summary} · ${slot.localStart} → ${slot.localEnd}`;
@@ -167,10 +166,10 @@
                 if (edge) {
                     const team = document.createElement('span');
                     team.className = 'ac-gantt-time';
-                    team.textContent = (messages["{0} (Read-only)"] ?? "{0} (Read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder);
+                    team.textContent = getLocalizedText("read-only", "{0} (Read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder);
                     shift.append(team);
                 }
-                [[(messages["From"] ?? "From"), slot.localStart], [(messages["End"] ?? "End"), slot.localEnd]].forEach(([label, time], position) => {
+                [[getLocalizedText("from", "From"), slot.localStart], [getLocalizedText("end", "End"), slot.localEnd]].forEach(([label, time], position) => {
                     const span = document.createElement('span');
                     span.className = `ac-gantt-time${position ? ' ac-gantt-time-end' : ''}`;
                     span.textContent = `${label} ${time.slice(11, 16)}`;
@@ -182,11 +181,11 @@
         });
         showMessages(document.getElementById('oncall-draft-errors'), warnings);
         document.getElementById('oncall-draft-validation').hidden = warnings.length === 0;
-        document.getElementById('oncall-draft-summary').textContent = (messages["The schedule has {0} unresolved issues (expand to view); you can continue adjusting."] ?? "The schedule has {0} unresolved issues (expand to view); you can continue adjusting.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(warnings.length)][Number(index)] ?? placeholder);
+        document.getElementById('oncall-draft-summary').textContent = getLocalizedText("the-schedule-has-unresolved-issues-expand-to-view", "The schedule has {0} unresolved issues (expand to view); you can continue adjusting.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(warnings.length)][Number(index)] ?? placeholder);
         const stats = document.querySelectorAll('[data-oncall-stat]');
         const current = weekSlots(slots, 1);
         const covered = current.filter(slot => slot.userIds.length).length;
-        const values = { shifts: covered, staff: new Set(current.flatMap(slot => slot.userIds)).size, hours: (messages["{0} hours"] ?? "{0} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(covered * 8)][Number(index)] ?? placeholder) };
+        const values = { shifts: covered, staff: new Set(current.flatMap(slot => slot.userIds)).size, hours: getLocalizedText("hours", "{0} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(covered * 8)][Number(index)] ?? placeholder) };
         stats.forEach(stat => stat.textContent = values[stat.dataset.oncallStat]);
         syncMode();
         chart?.dispatchEvent(new Event('oncall-layout'));
@@ -206,7 +205,7 @@
         const detailShift = chart?.querySelector(`.ac-gantt-shift[data-slot="${select.value}"]`) || chart?.querySelector('.ac-gantt-shift:not([hidden])');
         if (detailShift) detailShift.dispatchEvent(new Event('pointerover', { bubbles: true }));
         else {
-            document.getElementById('oncall-shift-summary')?.replaceChildren(document.createTextNode((messages["No assigned shifts."] ?? "No assigned shifts.")));
+            document.getElementById('oncall-shift-summary')?.replaceChildren(document.createTextNode(getLocalizedText("no-assigned-shifts", "No assigned shifts.")));
             for (const id of ['oncall-shift-start', 'oncall-shift-end']) document.getElementById(id)?.replaceChildren();
         }
     }
@@ -221,17 +220,17 @@
         } else {
             slots[Number(select.value)].userIds = assigned.filter(id => id !== input.value);
         }
-        changed((messages["Staffing adjusted and chart updated; not saved yet."] ?? "Staffing adjusted and chart updated; not saved yet."));
+        changed(getLocalizedText("staffing-adjusted-and-chart-updated-not-saved-yet", "Staffing adjusted and chart updated; not saved yet."));
     }));
     document.getElementById('oncall-undo-schedule').addEventListener('click', () => {
         if (!history.length || saving) return;
         slots = history.pop();
-        changed((messages["Previous step undone."] ?? "Previous step undone."));
+        changed(getLocalizedText("previous-step-undone", "Previous step undone."));
     });
     document.getElementById('oncall-reset-schedule')?.addEventListener('click', () => {
         history.push(structuredClone(slots));
         slots = structuredClone(original);
-        changed((messages["Restored to the schedule from when the page was opened."] ?? "Restored to the schedule from when the page was opened."));
+        changed(getLocalizedText("restored-to-the-schedule-from-when-the-page", "Restored to the schedule from when the page was opened."));
     });
 
     function targetAt(element) {
@@ -249,29 +248,29 @@
         clearSelection();
         selected = target;
         target.element.classList.add('ac-gantt-selected');
-        status.textContent = target.week ? (messages["Selected {0}'s full-week schedule. Drag to or click another engineer."] ?? "Selected {0}'s full-week schedule. Drag to or click another engineer.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name)][Number(index)] ?? placeholder)
-            : (messages["Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel."] ?? "Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
+        status.textContent = target.week ? getLocalizedText("selected-s-full-week-schedule-drag-to-or", "Selected {0}'s full-week schedule. Drag to or click another engineer.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name)][Number(index)] ?? placeholder)
+            : getLocalizedText("selected-drag-to-or-click-a-color-block", "Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
         if (!target.week) { select.value = target.slot; renderForm(); }
     }
 
     function drop(source, target) {
         clearSelection();
         if (!target || (!source.week && (target.slot === null || target.week))) {
-            status.textContent = (messages["Move cancelled; schedule unchanged."] ?? "Move cancelled; schedule unchanged.");
+            status.textContent = getLocalizedText("move-cancelled-schedule-unchanged", "Move cancelled; schedule unchanged.");
             return;
         }
         const draft = structuredClone(slots);
         if (source.week) {
-            if (source.user === target.user) { status.textContent = (messages["Swap cancelled."] ?? "Swap cancelled."); return; }
+            if (source.user === target.user) { status.textContent = getLocalizedText("swap-cancelled", "Swap cancelled."); return; }
             weekSlots(draft, 1).forEach(slot => slot.userIds = slot.userIds.map(id => id === source.user ? target.user : id === target.user ? source.user : id));
         } else {
-            if (source.slot === target.slot && source.user === target.user) { status.textContent = (messages["Move cancelled."] ?? "Move cancelled."); return; }
+            if (source.slot === target.slot && source.user === target.user) { status.textContent = getLocalizedText("move-cancelled", "Move cancelled."); return; }
             const from = draft[source.slot].userIds;
             const to = draft[target.slot].userIds;
             const swap = to.includes(target.user);
-            if (swap && (source.slot === target.slot || source.user === target.user)) { status.textContent = (messages["Two locations already have the same arrangement; no need to swap."] ?? "Two locations already have the same arrangement; no need to swap."); return; }
+            if (swap && (source.slot === target.slot || source.user === target.user)) { status.textContent = getLocalizedText("two-locations-already-have-the-same-arrangement-no", "Two locations already have the same arrangement; no need to swap."); return; }
             if (swap && (from.includes(target.user) || to.includes(source.user))) {
-                status.textContent = (messages["Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using \"Add/Remove members by shift\" first."] ?? "Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using \"Add/Remove members by shift\" first.");
+                status.textContent = getLocalizedText("unable-to-swap-directly-one-person-is-already", "Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using \"Add/Remove members by shift\" first.");
                 return;
             }
             from.splice(from.indexOf(source.user), 1);
@@ -280,7 +279,7 @@
         }
         history.push(structuredClone(slots));
         slots = draft;
-        changed(source.week ? (messages["Swapped the full-week schedule for {0} and {1}. Not saved yet."] ?? "Swapped the full-week schedule for {0} and {1}. Not saved yet.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(source.name), String(target.name)][Number(index)] ?? placeholder) : (messages["Shift adjusted; you can continue dragging to resolve red warnings, then save all changes."] ?? "Shift adjusted; you can continue dragging to resolve red warnings, then save all changes."));
+        changed(source.week ? getLocalizedText("swapped-the-full-week-schedule-for-and-not", "Swapped the full-week schedule for {0} and {1}. Not saved yet.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(source.name), String(target.name)][Number(index)] ?? placeholder) : getLocalizedText("shift-adjusted-you-can-continue-dragging-to-resolve", "Shift adjusted; you can continue dragging to resolve red warnings, then save all changes."));
     }
 
     chart?.classList.add('ac-gantt-editable');
@@ -310,7 +309,7 @@
         if (!pointer.dragging) { pointer.dragging = true; pick(pointer.source); }
         chart.classList.add('ac-gantt-dragging');
         ghost.hidden = false;
-        ghost.textContent = (messages["{0} · {1}"] ?? "{0} · {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(pointer.source.week ? (messages["Swap whole week"] ?? "Swap whole week") : (messages["Move / swap shifts"] ?? "Move / swap shifts"))][Number(index)] ?? placeholder);
+        ghost.textContent = getLocalizedText("message", "{0} · {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(pointer.source.week ? getLocalizedText("swap-whole-week", "Swap whole week") : getLocalizedText("move-swap-shifts", "Move / swap shifts"))][Number(index)] ?? placeholder);
         ghost.style.left = `${Math.min(event.clientX + 12, window.innerWidth - ghost.offsetWidth)}px`;
         ghost.style.top = `${Math.min(event.clientY + 12, window.innerHeight - ghost.offsetHeight)}px`;
         const bounds = chart.getBoundingClientRect();
@@ -321,8 +320,8 @@
         const target = targetAt(document.elementFromPoint(event.clientX, event.clientY));
         if (target && (pointer.source.week || target.slot !== null)) {
             target.element.classList.add('ac-gantt-drop-target');
-            ghost.textContent = pointer.source.week ? (messages["Swap full week: {0} ↔ {1}"] ?? "Swap full week: {0} ↔ {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(target.name)][Number(index)] ?? placeholder)
-                : (messages["{0}: {1} · {2}"] ?? "{0}: {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.occupied ? (messages["Swap"] ?? "Swap") : (messages["Move to"] ?? "Move to")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
+            ghost.textContent = pointer.source.week ? getLocalizedText("swap-full-week", "Swap full week: {0} ↔ {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(target.name)][Number(index)] ?? placeholder)
+                : getLocalizedText("message-3", "{0}: {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.occupied ? getLocalizedText("swap", "Swap") : getLocalizedText("move-to", "Move to")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
         }
     });
     function endPointer(event, cancel = false) {
@@ -335,7 +334,7 @@
         chart.querySelectorAll('.ac-gantt-drop-target').forEach(item => item.classList.remove('ac-gantt-drop-target'));
         const target = cancel ? null : targetAt(document.elementFromPoint(event.clientX, event.clientY));
         const apply = () => {
-            if (cancel) { clearSelection(); status.textContent = (messages["Move cancelled; schedule unchanged."] ?? "Move cancelled; schedule unchanged."); }
+            if (cancel) { clearSelection(); status.textContent = getLocalizedText("move-cancelled-schedule-unchanged", "Move cancelled; schedule unchanged."); }
             else if (finished.dragging) drop(finished.source, target);
             else if (selected) drop(selected, finished.source);
             else pick(finished.source);
@@ -352,7 +351,7 @@
         if (pointer) endPointer({ pointerId: pointer.id }, true);
         setMode('move');
         clearSelection();
-        status.textContent = (messages["Selection cancelled."] ?? "Selection cancelled.");
+        status.textContent = getLocalizedText("selection-cancelled", "Selection cancelled.");
     });
     chart?.addEventListener('oncall-edge-change', () => {
         if (pointer) endPointer({ pointerId: pointer.id }, true);
@@ -364,12 +363,12 @@
     function copyNext() {
         if (saving || !weeks[2].available) return;
         if (weekSlots(slots, 1).some(slot => slot.userIds.some(id => departedIds.has(id)))) {
-            showMessages(errors, [(messages["This week includes members who have left. Please replace them in this week's draft before copying to the next week."] ?? "This week includes members who have left. Please replace them in this week's draft before copying to the next week.")]);
+            showMessages(errors, [getLocalizedText("this-week-includes-members-who-have-left-please", "This week includes members who have left. Please replace them in this week's draft before copying to the next week.")]);
             return;
         }
         history.push(structuredClone(slots));
         weekSlots(slots, 1).forEach((slot, index) => slots[42 + index].userIds = [...slot.userIds]);
-        changed((messages["Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week."] ?? "Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week."));
+        changed(getLocalizedText("copied-the-current-draft-for-this-week-to", "Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week."));
         const toggle = document.querySelector('[data-oncall-edge="next"]');
         if (toggle?.getAttribute('aria-expanded') === 'false') toggle.click();
     }
@@ -377,7 +376,7 @@
         if (saving) return;
         if (weeks[2].saved || weekChanged(2)) {
             if (copyModal) copyModal.show();
-            else showMessages(errors, [(messages["Unable to display replacement confirmation. Please refresh the page and try again. The next week's draft remains unchanged."] ?? "Unable to display replacement confirmation. Please refresh the page and try again. The next week's draft remains unchanged.")]);
+            else showMessages(errors, [getLocalizedText("unable-to-display-replacement-confirmation-please-refresh-the", "Unable to display replacement confirmation. Please refresh the page and try again. The next week's draft remains unchanged.")]);
         } else copyNext();
     });
     document.getElementById('oncall-copy-apply')?.addEventListener('click', () => {
@@ -405,7 +404,7 @@
             });
             if (!response.ok) {
                 const result = await response.json();
-                throw new Error((result.errors || [(messages["Save failed. Please refresh the page and try again."] ?? "Save failed. Please refresh the page and try again.")]).join('\n'));
+                throw new Error((result.errors || [getLocalizedText("save-failed-please-refresh-the-page-and-try", "Save failed. Please refresh the page and try again.")]).join('\n'));
             }
             dirty = false;
             reloading = true;

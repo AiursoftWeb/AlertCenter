@@ -144,8 +144,9 @@ public class NotificationRecipientsTests : TestBase
         await Http.GetAsync("/Account/LogOff");
         await PostForm("/Account/Login", new() { ["EmailOrUserName"] = email, ["Password"] = password });
         var edit = await Http.GetStringAsync("/Push/Create?type=inapp");
-        Assert.Contains("RecipientUserIds", edit);
-        Assert.Contains("RecipientRoleIds", edit);
+        Assert.Contains("id=\"recipient-user-search\"", edit);
+        Assert.Contains("/scripts/push-edit.js", edit);
+        Assert.Contains("id=\"recipient-role-select\"", edit);
         Assert.Contains("validation-summary-valid", edit);
         Assert.Contains("d-none", edit);
         Assert.Contains("binding-access-list", edit);

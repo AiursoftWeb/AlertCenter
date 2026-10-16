@@ -1,10 +1,10 @@
 (() => {
     'use strict';
-    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
 
 
     const root = document.getElementById('incident-comments');
     if (!root) return;
+    window.require?.config({ paths: { vs: root.dataset.monacoPath } });
 
     const deleteModal = document.getElementById('delete-incident-comment');
     deleteModal?.addEventListener('show.bs.modal', event => {
@@ -48,8 +48,8 @@
     let controller;
 
     function validationMessage(markdown) {
-        if (!markdown.trim()) return (messages["Enter comment content; cannot contain only whitespace."] ?? "Enter comment content; cannot contain only whitespace.");
-        if (markdown.length > source.maxLength) return (messages["Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing."] ?? "Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing.");
+        if (!markdown.trim()) return getLocalizedText("enter-comment-content-cannot-contain-only-whitespace", "Enter comment content; cannot contain only whitespace.");
+        if (markdown.length > source.maxLength) return getLocalizedText("comment-must-not-exceed-4-000-utf-16", "Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing.");
         return '';
     }
 
@@ -113,7 +113,7 @@
                     element,
                     mode: element.dataset.commentViewMode
                 })),
-                editorOptions: { ariaLabel: (messages["Comment content (Markdown)"] ?? "Comment content (Markdown)") },
+                editorOptions: { ariaLabel: getLocalizedText("comment-content-markdown", "Comment content (Markdown)") },
                 onChange: updateSource,
                 onSave: () => form.requestSubmit(),
                 onInitializationError: error => {

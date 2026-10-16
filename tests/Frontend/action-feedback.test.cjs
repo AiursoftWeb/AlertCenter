@@ -4,6 +4,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const test = require('node:test');
 
+const localization = fs.readFileSync(path.resolve(__dirname, '../../src/Aiursoft.AlertCenter/wwwroot/scripts/localization.js'), 'utf8');
 const script = fs.readFileSync(path.resolve(__dirname,
     '../../src/Aiursoft.AlertCenter/wwwroot/scripts/action-feedback.js'), 'utf8');
 
@@ -90,10 +91,11 @@ function setup({ status = 409, message = '版本冲突', sourceModal = false, pe
     const location = { href: 'https://alertcenter.test/OnCall/GroupDetails/1',
         origin: 'https://alertcenter.test', reload() { reloads++; } };
     const document = {
+        querySelector: () => null,
         getElementById: id => elements[id],
         addEventListener: (name, handler) => listeners.set(name, handler)
     };
-    vm.runInNewContext(script, { document, window: { bootstrap, fetch, location }, bootstrap,
+    vm.runInNewContext(localization + '\n' + script, { document, window: { bootstrap, fetch, location }, bootstrap,
         fetch, URL, HTMLFormElement: Form, FormData: class {}, WeakSet });
     async function submit() {
         await listeners.get('submit')({ target: form, submitter, preventDefault() {} });

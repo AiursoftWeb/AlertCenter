@@ -19,6 +19,17 @@ public partial class AlertDemoTests
     }
 
     [TestMethod]
+    public async Task LocalizationDataKeepsClientSidePlaceholdersAsText()
+    {
+        await LoginAsAdmin();
+        var html = await Http.GetStringAsync("/Dashboard/Index");
+        Assert.Contains("id=\"loc-data\" hidden", html);
+        Assert.Contains("data-key=\"modified-shifts\">Modified {0} shifts{1}{2}</span>", html);
+        Assert.Contains("/scripts/localization.js", html);
+        Assert.DoesNotContain("type=\"application/json\"", html);
+    }
+
+    [TestMethod]
     public async Task IncidentActionErrorsStayStructuredWhileNormalPostsKeepOriginalStatusAndRedirects()
     {
         var key = await CreateApplication();

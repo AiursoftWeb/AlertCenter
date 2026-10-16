@@ -1,5 +1,4 @@
 (() => {
-    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
 
     const form = document.getElementById('oncall-group-form');
     if (!form) return;
@@ -32,7 +31,7 @@
             const remove = document.createElement('button');
             remove.type = 'button';
             remove.className = 'btn btn-sm btn-outline-danger';
-            remove.textContent = (messages["Remove"] ?? "Remove");
+            remove.textContent = getLocalizedText("remove", "Remove");
             remove.addEventListener('click', () => {
                 selectedUsers.delete(user.id);
                 renderSelected();
@@ -63,7 +62,7 @@
                 if (checkbox.checked) {
                     if (selectedUsers.size >= 200) {
                         checkbox.checked = false;
-                        status.textContent = (messages["Select up to 200 employees per team."] ?? "Select up to 200 employees per team.");
+                        status.textContent = getLocalizedText("select-up-to-200-employees-per-team", "Select up to 200 employees per team.");
                         return;
                     }
                     selectedUsers.set(user.id, user);
@@ -77,8 +76,8 @@
             label.append(checkbox, text);
             results.append(label);
         }
-        if (!users.length) status.textContent = (messages["No matching employees."] ?? "No matching employees.");
-        pageLabel.textContent = users.length ? (messages["Page {0}"] ?? "Page {0}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(page)][Number(index)] ?? placeholder) : '';
+        if (!users.length) status.textContent = getLocalizedText("no-matching-employees", "No matching employees.");
+        pageLabel.textContent = users.length ? getLocalizedText("page", "Page {0}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(page)][Number(index)] ?? placeholder) : '';
         prev.disabled = page === 1;
         next.disabled = !hasMore;
     }
@@ -88,22 +87,22 @@
         results.replaceChildren();
         prev.disabled = true;
         next.disabled = true;
-        status.textContent = (messages["Searching for employees…"] ?? "Searching for employees…");
+        status.textContent = getLocalizedText("searching-for-employees", "Searching for employees…");
         try {
             const url = new URL(searchUrl, window.location.origin);
             url.searchParams.set('query', role.value ? '' : search.value.trim());
             url.searchParams.set('roleId', role.value);
             url.searchParams.set('page', page);
             const response = await fetch(url, { credentials: 'same-origin' });
-            if (!response.ok) throw new Error((messages["Unable to query employee."] ?? "Unable to query employee."));
+            if (!response.ok) throw new Error(getLocalizedText("unable-to-query-employee", "Unable to query employee."));
             const data = await response.json();
             if (id !== sequence) return;
             hasMore = data.hasMore;
-            status.textContent = (messages["Selected {0} users; maximum 20 per page."] ?? "Selected {0} users; maximum 20 per page.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(selectedUsers.size)][Number(index)] ?? placeholder);
+            status.textContent = getLocalizedText("selected-users-maximum-20-per-page", "Selected {0} users; maximum 20 per page.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(selectedUsers.size)][Number(index)] ?? placeholder);
             renderResults(data.users);
         } catch {
             if (id !== sequence) return;
-            status.textContent = (messages["Failed to query employee. Please try again."] ?? "Failed to query employee. Please try again.");
+            status.textContent = getLocalizedText("failed-to-query-employee-please-try-again", "Failed to query employee. Please try again.");
         }
     }
 

@@ -5,6 +5,7 @@ const vm = require('node:vm');
 const test = require('node:test');
 
 const root = path.resolve(__dirname, '../../src/Aiursoft.AlertCenter');
+const localization = fs.readFileSync(path.join(root, 'wwwroot/scripts/localization.js'), 'utf8');
 const script = fs.readFileSync(path.join(root, 'wwwroot/scripts/clipboard.js'), 'utf8');
 
 function setup({ writeText = async () => {}, text = '  示例 <code>\n第二行\n', copyText,
@@ -34,8 +35,12 @@ function setup({ writeText = async () => {}, text = '  示例 <code>\n第二行\
         replaceChildren(...children) { this.children = children; }
     };
     const document = {
+        querySelector: selector => {
+            const key = selector.match(/data-key="([^"]+)"/)?.[1];
+            return Object.hasOwn(messages, key) ? { textContent: messages[key] } : null;
+        },
         querySelectorAll: () => [button],
-        getElementById: id => id === 'alertcenter-localization' ? { textContent: JSON.stringify(messages) } : id === 'feedback' ? (feedback ? feedbackElement : null) :
+        getElementById: id => id === 'feedback' ? (feedback ? feedbackElement : null) :
             id === 'source' && source ? { textContent: text } : null,
         createElement: tagName => ({
             tagName,
@@ -43,7 +48,7 @@ function setup({ writeText = async () => {}, text = '  示例 <code>\n第二行\
             appendChild(child) { this.children.push(child); }
         })
     };
-    vm.runInNewContext(script, { document, navigator: clipboard ? { clipboard: { writeText } } : {} });
+    vm.runInNewContext(localization + '\n' + script, { document, navigator: clipboard ? { clipboard: { writeText } } : {} });
     return {
         button, icon, click,
         alert: () => feedbackElement.children[0],
@@ -177,7 +182,50 @@ for (const [view, expectedButtons] of [
 }
 
 test('uses injected localized copy feedback without interpreting markup', async () => {
-    const ui = setup({ messages: { 'Copied to clipboard.': '<已复制> $&' } });
+    const ui = setup({ messages: { 'copied-to-clipboard': '<已复制> $&' } });
     await ui.click();
     assert.equal(ui.message(), '<已复制> $&');
 });
+
+test('every JavaScript localization key has a literal server-rendered span', () => {
+    const markup = fs.readFileSync(path.join(root, 'Views/Shared/_ActionFeedback.cshtml'), 'utf8');
+    const supplied = new Map([...markup.matchAll(/<span data-key="([^"]+)">@Localizer\[("(?:\\.|[^"\\])*")\]<\/span>/g)]
+        .map(match => [match[1], JSON.parse(match[2])]));
+    assert(supplied.size > 0);
+    assert.match(markup, /<div id="loc-data" hidden>/);
+    for (const name of fs.readdirSync(path.join(root, 'wwwroot/scripts'))) {
+        if (!name.endsWith('.js') || name === 'localization.js') continue;
+        const source = fs.readFileSync(path.join(root, 'wwwroot/scripts', name), 'utf8');
+        for (const call of source.matchAll(/getLocalizedText\("([^"]+)", ("(?:\\.|[^"\\])*")\)/g)) {
+            assert.equal(supplied.get(call[1]), JSON.parse(call[2]), `${name}: ${call[1]}`);
+        }
+    }
+});
+
+for (const name of ['dashboard.js', 'alert-details.js']) {
+    test(`${name} copies content and shows localized feedback from hidden HTML`, async () => {
+        let click;
+        let copied;
+        const button = {
+            innerHTML: '<svg></svg>Copy',
+            addEventListener: (_event, handler) => { click = handler; },
+            appendChild(child) { this.label = child.textContent; }
+        };
+        const content = { innerText: 'literal $& {0}', textContent: 'literal $& {0}' };
+        const document = {
+            getElementById: id => ['copy-dashboard-curl', 'copy-content-btn'].includes(id) ? button :
+                id === 'dashboard-curl-code' ? content : null,
+            querySelector: selector => selector.startsWith('#loc-data ') ? { textContent: '<已复制> $&' } : content,
+            createTextNode: textContent => ({ textContent })
+        };
+        const timers = [];
+        vm.runInNewContext(localization + '\n' + fs.readFileSync(path.join(root, 'wwwroot/scripts', name), 'utf8'), {
+            document, window: {}, navigator: { clipboard: { writeText: async text => { copied = text; } } },
+            setTimeout: callback => timers.push(callback), setInterval() {}
+        });
+        await click.call(button);
+        assert.equal(copied, 'literal $& {0}');
+        assert.equal(button.label, '<已复制> $&');
+        assert.equal(timers.length, 1);
+    });
+}

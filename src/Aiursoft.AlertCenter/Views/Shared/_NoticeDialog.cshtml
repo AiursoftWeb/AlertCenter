@@ -2,7 +2,7 @@
 <button type="button" class="btn btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#@Model.Id">
     <i class="align-middle me-1" data-lucide="info" aria-hidden="true"></i> @Model.Title
 </button>
-<div class="modal fade" id="@Model.Id" tabindex="-1" aria-labelledby="@(Model.Id)-title" aria-describedby="@(Model.Id)-message" aria-hidden="true">
+<div data-open-on-load="@(Model.OpenOnLoad ? "true" : null)" class="modal fade" id="@Model.Id" tabindex="-1" aria-labelledby="@(Model.Id)-title" aria-describedby="@(Model.Id)-message" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -18,15 +18,4 @@
         </div>
     </div>
 </div>
-@if (Model.OpenOnLoad)
-{
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const dialog = document.getElementById('@Model.Id');
-            dialog.addEventListener('hidden.bs.modal', function () {
-                dialog.previousElementSibling.focus();
-            });
-            bootstrap.Modal.getOrCreateInstance(dialog).show();
-        });
-    </script>
-}
+<script src="~/scripts/notice-dialog.js" asp-append-version="true" defer></script>
