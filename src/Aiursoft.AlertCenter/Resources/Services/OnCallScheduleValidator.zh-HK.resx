@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0}&apos;s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." xml:space="preserve">
+    <value>{0}於 {1:yyyy-MM-dd HH:mm} UTC 的更表與另一更表時間重疊，或休息時間不足（本週最低休息 {2} 小時，並須符合相鄰更表的要求）。</value>
+  </data>
+  <data name="{0}&apos;s shift is outside the designated 8-hour window." xml:space="preserve">
+    <value>{0}的更表不在指定的 8 小時時段內。</value>
+  </data>
+  <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
+    <value>於 {0:yyyy-MM-dd HH:mm} UTC 發現空更。必須至少安排一名員工。</value>
+  </data>
+  <data name="Includes employees not belonging to the current team." xml:space="preserve">
+    <value>包含不屬於目前團隊的員工。</value>
+  </data>
+  <data name="Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." xml:space="preserve">
+    <value>於 {1:yyyy-MM-dd HH:mm} UTC 排班的員工只有 {0} 人，低於最低人數 {2} 人。即使人手不足，仍可手動儲存，但空班除外。</value>
+  </data>
+
+</root>

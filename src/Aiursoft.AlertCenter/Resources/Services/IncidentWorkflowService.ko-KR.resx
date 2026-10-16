@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A reason or progress update is required for this action." xml:space="preserve">
+    <value>이 작업을 수행하려면 사유 또는 진행 상황을 입력해야 합니다.</value>
+  </data>
+  <data name="An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened." xml:space="preserve">
+    <value>동일한 연결 규칙이 적용된 인시던트가 이미 있습니다. 해당 인시던트를 먼저 해결해야 하며, 병합하거나 다시 열 수 없습니다.</value>
+  </data>
+  <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
+    <value>sev0부터 sev4까지의 인시던트 심각도 수준을 선택하세요.</value>
+  </data>
+  <data name="Reason or progress cannot exceed 4000 characters." xml:space="preserve">
+    <value>사유 또는 진행 상황은 4000자를 초과할 수 없습니다.</value>
+  </data>
+  <data name="The current incident status does not allow this operation." xml:space="preserve">
+    <value>현재 인시던트 상태에서는 이 작업을 수행할 수 없습니다.</value>
+  </data>
+  <data name="The incident has been modified by another engineer. Please refresh and try again." xml:space="preserve">
+    <value>다른 엔지니어가 사건을 수정했습니다. 새로고침한 후 다시 시도해 주세요.</value>
+  </data>
+  <data name="The incident is already at the selected level." xml:space="preserve">
+    <value>사고가 이미 선택한 심각도 수준입니다.</value>
+  </data>
+  <data name="The incident version cannot be empty. Please refresh the page." xml:space="preserve">
+    <value>사고 버전은 비워 둘 수 없습니다. 페이지를 새로고침해 주세요.</value>
+  </data>
+  <data name="The linked rule is already occupied by another active incident. Please refresh and try again." xml:space="preserve">
+    <value>연결된 규칙은 이미 다른 활성 인시던트에 사용 중입니다. 새로고침한 후 다시 시도해 주세요.</value>
+  </data>
+  <data name="You are already the current assignee." xml:space="preserve">
+    <value>이미 현재 담당자입니다.</value>
+  </data>
+
+</root>

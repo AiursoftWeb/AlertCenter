@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>채널 테스트 알림</value>
+  </data>
+  <data name="Custom request body contains unknown or incompletely used placeholders." xml:space="preserve">
+    <value>사용자 지정 요청 본문에 알 수 없거나 완전히 사용되지 않은 자리 표시자가 포함되어 있습니다.</value>
+  </data>
+  <data name="Custom request body must be a JSON object." xml:space="preserve">
+    <value>사용자 지정 요청 본문은 JSON 객체여야 합니다.</value>
+  </data>
+  <data name="Custom request body must be valid JSON." xml:space="preserve">
+    <value>사용자 지정 요청 본문은 유효한 JSON이어야 합니다.</value>
+  </data>
+  <data name="Custom request header values must be non-empty strings." xml:space="preserve">
+    <value>사용자 지정 요청 헤더 값은 비어 있지 않은 문자열이어야 합니다.</value>
+  </data>
+  <data name="Custom request headers contain disallowed names." xml:space="preserve">
+    <value>사용자 지정 요청 헤더에 허용되지 않는 이름이 포함되어 있습니다.</value>
+  </data>
+  <data name="Custom request headers contain invalid or duplicate values." xml:space="preserve">
+    <value>사용자 지정 요청 헤더에 유효하지 않거나 중복된 값이 포함되어 있습니다.</value>
+  </data>
+  <data name="Custom request headers must be a JSON object." xml:space="preserve">
+    <value>사용자 지정 요청 헤더는 JSON 객체여야 합니다.</value>
+  </data>
+  <data name="Custom request headers must be valid JSON." xml:space="preserve">
+    <value>사용자 지정 요청 헤더는 유효한 JSON이어야 합니다.</value>
+  </data>
+  <data name="Invalid Webhook custom configuration. Please check channel configuration." xml:space="preserve">
+    <value>웹훅 사용자 지정 구성이 올바르지 않습니다. 채널 구성을 확인하세요.</value>
+  </data>
+  <data name="Invalid Webhook custom headers. Please check channel configuration." xml:space="preserve">
+    <value>웹훅 사용자 지정 헤더가 올바르지 않습니다. 채널 구성을 확인하세요.</value>
+  </data>
+  <data name="Invalid Webhook URL. Please check channel configuration." xml:space="preserve">
+    <value>유효하지 않은 Webhook URL입니다. 채널 설정을 확인해 주세요.</value>
+  </data>
+  <data name="Send JSON messages to a specified HTTP address, suitable for connecting to existing systems." xml:space="preserve">
+    <value>지정된 HTTP 주소로 JSON 메시지를 전송하여 기존 시스템과 연결할 수 있습니다.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>푸시 채널 테스트 메시지입니다.</value>
+  </data>
+  <data name="Unable to connect to Webhook. Please check the address, network, or receiving service." xml:space="preserve">
+    <value>Webhook에 연결할 수 없습니다. 주소, 네트워크 또는 수신 서비스를 확인해 주세요.</value>
+  </data>
+  <data name="Webhook request timed out. The receiver may have received the message. Please verify and retry." xml:space="preserve">
+    <value>Webhook 요청 시간이 초과되었습니다. 수신 측에서 메시지를 받았을 수 있습니다. 확인한 후 다시 시도해 주세요.</value>
+  </data>
+  <data name="Webhook returned HTTP {0}. Please check the receiver and retry manually." xml:space="preserve">
+    <value>Webhook에서 HTTP {0}을(를) 반환했습니다. 수신 측을 확인하고 수동으로 다시 시도하세요.</value>
+  </data>
+
+</root>
