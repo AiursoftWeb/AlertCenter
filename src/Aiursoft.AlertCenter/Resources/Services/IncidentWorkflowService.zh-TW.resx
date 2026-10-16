@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A reason or progress update is required for this action." xml:space="preserve">
+    <value>執行此操作時，必須提供原因或進度說明。</value>
+  </data>
+  <data name="An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened." xml:space="preserve">
+    <value>已存在具有相同連結規則的事件。請先解決該事件；無法合併或重新開啟。</value>
+  </data>
+  <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
+    <value>請選擇 sev0 至 sev4 之間的事件嚴重性等級。</value>
+  </data>
+  <data name="Reason or progress cannot exceed 4000 characters." xml:space="preserve">
+    <value>原因或處理進度不得超過 4000 個字元。</value>
+  </data>
+  <data name="The current incident status does not allow this operation." xml:space="preserve">
+    <value>目前的事件狀態不允許執行此操作。</value>
+  </data>
+  <data name="The incident has been modified by another engineer. Please refresh and try again." xml:space="preserve">
+    <value>此事件已由其他工程師修改。請重新整理後再試一次。</value>
+  </data>
+  <data name="The incident is already at the selected level." xml:space="preserve">
+    <value>事件已處於所選的級別。</value>
+  </data>
+  <data name="The incident version cannot be empty. Please refresh the page." xml:space="preserve">
+    <value>事件版本不得為空。請重新整理頁面。</value>
+  </data>
+  <data name="The linked rule is already occupied by another active incident. Please refresh and try again." xml:space="preserve">
+    <value>連結的規則已被另一個進行中的事件占用。請重新整理後再試一次。</value>
+  </data>
+  <data name="You are already the current assignee." xml:space="preserve">
+    <value>您已經是目前的負責人。</value>
+  </data>
+
+</root>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>频道测试通知</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>请输入有效的 HTTP 或 HTTPS URL。不支持用户名、密码和 URL 片段。</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>应用内通知详情</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>通道配置无效。请刷新页面后重试。</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>筛选条件无效。请刷新页面后重试。</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>只有包含有效 OCE 快照的值班邮件，或启用了自定义渠道的失败记录，才能重试。如果缺少 OCE 或电子邮件，您无法重新选择收件人来重新发送旧提醒。</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>请先启用该渠道。</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>请选择有效的渠道类型。</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>请至少选择一个接收用户或用户组。</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>测试消息内容不能为空，且不得超过 4,000 个字符。</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>无需再次将收件人添加到抄送列表中。</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>所选可绑定用户不存在。请重新选择。</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>所选的可绑定用户组不存在，请重新选择。</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>所选频道已不存在。请刷新页面后重试。</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>所选收件人用户不存在。请重新选择。</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>所选收件人用户组不存在。请重新选择。</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>这是一条用于推送渠道的测试消息。</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>现有渠道的类型无法更改；请创建新渠道。</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>无法保护 Webhook 自定义请求标头。请检查 Webhook:HeaderProtectionKey 配置。</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>无法读取已保存的 Webhook 请求标头。请检查数据保护密钥后重试。</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>使用自定义请求标头时，必须配置 Webhook:HeaderProtectionKey。请通过受保护的环境变量提供此密钥。</value>
+  </data>
+
+</root>

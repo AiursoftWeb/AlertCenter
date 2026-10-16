@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>Cleared {0} future shift assignments for departed members. Please review and fill any gaps.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>A saved schedule exists; the team schedule start point cannot be changed.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>Automatic scheduling requires at least {0} staff per shift and {1} hours of rest, so at least {2} members are needed. After excluding members who are on call for multiple groups, {3} can be scheduled automatically; please add members who belong to a single group or arrange the schedule manually.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Fixed at three shifts per day, 8 hours each.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Minimum rest must be 0–168 hours.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Minimum staffing per shift must be 1–200.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>No rules are linked to the team yet. You can create a schedule manually.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Please enter the rule name.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Please enter the team name.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Please select a valid time zone from the list.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Please select a valid UTC start time (it must be at least 28 days from the date boundary).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Please select an existing on-call rule.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>Scheduling rule created successfully.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Scheduling rule deleted.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Scheduling rule updated.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>The target headcount must be at least the minimum and between 1 and 200. Leave blank to assign automatically.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Team created successfully.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Team deleted.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Team updated.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>The rule or team has changed. Refresh the page and try again.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>The schedule has changed or a save conflict has occurred. Please refresh the page and try again.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>The selected employees do not exist, are duplicated or exceed 200. Please select again.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>The shift request format is invalid.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>The team or schedule has changed. Please refresh the page and try again.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>There are {0} unassigned shifts this week. Please fill in the on-call personnel manually.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>This rule is still assigned to a team. Please update the team&apos;s rule assignment first.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>This team has saved schedules and cannot be deleted along with its history.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>This team is linked to an integrated app. Please reassign or unlink the app&apos;s on-call group first.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Unable to generate preview: {0}</value>
+  </data>
+
+</root>

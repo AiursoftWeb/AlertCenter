@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>已清除已離隊成員的 {0} 項未來值班安排。請檢查並填補任何空缺。</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>已存在已儲存的排班表；不能修改團隊排班表的起始時間。</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>每更至少需要 {0} 名員工，並須有 {1} 小時休息時間，因此最少需要 {2} 名成員。略過同時隸屬多個值班組的成員後，可為 {3} 名成員自動編排值班；請新增只屬於一個值班組的成員，或手動安排。</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>固定每日三班，每班8小時。</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>最短休息時間必須為 0–168 小時。</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>每個更次的最低人手必須為 1–200 人。</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>團隊目前尚未設定規則。你可以手動建立排班表。</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>請輸入規則名稱。</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>請輸入團隊名稱。</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>請從清單中選擇有效的時區。</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>請選擇有效的 UTC 開始時間（必須距離日期界限至少 28 天）。</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>請選擇現有的候命規則。</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>排程規則已成功建立。</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>排程規則已刪除。</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>排程規則已更新。</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>目標人數不可少於最低人數，並須介乎 1 至 200 人。留空則會自動分配。</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>已成功建立團隊。</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>已刪除團隊。</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>團隊已更新。</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>規則或團隊已變更。請重新整理頁面並再試一次。</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>排班表已變更或儲存時發生衝突。請重新整理頁面，然後再試一次。</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>所選員工不存在、重複，或超過 200 人。請重新選擇。</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>輪班請求格式無效。</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>團隊或時間表已變更。請重新整理頁面並再試一次。</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>本週有 {0} 個未分配的值班時段。請手動安排值班人員。</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>此規則仍與某個團隊綁定。請先更新該團隊的規則綁定。</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>此團隊已有已儲存的更表，因此不能連同其歷史記錄一併刪除。</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>此小組已綁定至整合式應用程式。請先重新指派該應用程式的值班小組，或解除綁定。</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>無法產生預覽：{0}</value>
+  </data>
+
+</root>

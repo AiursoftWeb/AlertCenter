@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>이번 주에 저장된 일정이 있습니다. 수동으로 조정해 주세요. 자동 생성은 기존 배정을 덮어쓰지 않습니다.</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>인접 주는 현재 주의 이전 주 또는 다음 주만 지정할 수 있으며, 중복해서 지정할 수 없습니다.</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>자동 편성 시 여러 당직 그룹에 속한 구성원은 제외되므로, 남은 인원은 {0}명이며 최소 {1}명이 필요합니다. 단일 그룹에 구성원을 추가하거나 수동으로 편성해 주세요.</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>이번 주의 21개 근무 일정을 모두 제출해야 하며, 각 시간대는 한 번만 포함되어야 합니다.</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>자동 생성은 인접한 주간 일정을 동시에 수정할 수 없습니다.</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>팀을 떠났거나 팀에 속하지 않은 직원은 추가할 수 없습니다.</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>기존 일정의 시간 경계가 불완전하여 덮어쓸 수 없습니다.</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>인접 주간 일정 요청 형식이 올바르지 않습니다. 이전 주와 다음 주, 최대 두 주까지 제출할 수 있습니다.</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>당직 팀이 존재하지 않습니다.</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>먼저 팀에 일정 규칙을 연결해 주세요.</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>팀 기준 시점부터 시작하는 완전한 7일 당직 주기를 선택해 주세요.</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>UTC 시간을 사용하여 일정 기간을 지정해 주세요.</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>일정의 최소 인원수가 유효하지 않거나 일치하지 않습니다.</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>일정의 휴식 시간 설정이 잘못되었거나 일관되지 않습니다.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>팀 또는 일정이 다른 관리자에 의해 수정되었습니다. 페이지를 새로고침한 후 다시 시도해 주세요.</value>
+  </data>
+
+</root>

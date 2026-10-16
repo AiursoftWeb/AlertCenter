@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="OCE query time must be in UTC." xml:space="preserve">
+    <value>OCE 查询时间必须使用 UTC。</value>
+  </data>
+  <data name="On-call group has no schedule coverage at notification time." xml:space="preserve">
+    <value>通知时值班组没有对应的排班。</value>
+  </data>
+  <data name="On-call group has overlapping shifts at notification time, unable to determine OCE." xml:space="preserve">
+    <value>通知时值班组存在时间重叠的班次，无法确定 OCE。</value>
+  </data>
+  <data name="The current shift has no on-duty engineer (OCE)." xml:space="preserve">
+    <value>当前班次没有值班工程师（OCE）。</value>
+  </data>
+
+</root>

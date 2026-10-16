@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel is disabled. Enable it to retry manually." xml:space="preserve">
+    <value>채널이 비활성화되어 있습니다. 수동으로 다시 시도하려면 채널을 활성화하세요.</value>
+  </data>
+  <data name="Push execution failed. Please check the channel configuration and try again." xml:space="preserve">
+    <value>푸시 실행에 실패했습니다. 채널 설정을 확인한 후 다시 시도해 주세요.</value>
+  </data>
+  <data name="This channel type is currently unavailable." xml:space="preserve">
+    <value>현재 이 채널 유형은 사용할 수 없습니다.</value>
+  </data>
+
+</root>
