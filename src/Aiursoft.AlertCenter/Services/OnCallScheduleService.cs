@@ -38,11 +38,13 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             DateTime.SpecifyKind(row.EndsAtUtc, DateTimeKind.Utc), row.RestHours)).ToList();
     }
 
-    public async Task<List<string>> Save(SaveOnCallScheduleRequest request, bool generate, CancellationToken cancellationToken)
+    public async Task<List<string>> Save(SaveOnCallScheduleRequest? request, bool generate, CancellationToken cancellationToken)
     {
         Warnings = [];
-        if (request == null || request.AdjacentWeeks == null || request.AdjacentWeeks.Count > 2 ||
-            request.AdjacentWeeks.Any(week => week == null))
+        // JSON input can contain null collections and entries despite the DTO annotations.
+        IReadOnlyList<OnCallScheduleWeekRequest?>? adjacentWeeks = request?.AdjacentWeeks;
+        if (request == null || adjacentWeeks == null || adjacentWeeks.Count > 2 ||
+            adjacentWeeks.Any(week => week == null))
             return ["相邻周排班请求格式不正确，最多只能提交前后两周。"];
         if (generate && request.AdjacentWeeks.Count != 0)
             return ["自动生成不能同时修改相邻周排班。"];

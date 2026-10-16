@@ -424,10 +424,11 @@ public class WebhookChannelAdapterTests
     public async Task CallerCancellationPropagatesInsteadOfBecomingADeliveryFailure()
     {
         using var source = new CancellationTokenSource();
+        Action cancel = source.Cancel;
         using var handler = new StubHandler((_, token) =>
         {
             Assert.IsTrue(token.CanBeCanceled);
-            source.Cancel();
+            cancel();
             token.ThrowIfCancellationRequested();
             return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK));
         });

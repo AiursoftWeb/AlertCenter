@@ -69,7 +69,7 @@
             <p class="small text-muted">选择时段增减同班人员，图表会同步更新。也可使用此表单完成键盘操作。跨组成员可手动选择；其他团队的灰色只读班次不会被修改，保存时仍校验跨组重叠及休息。</p>
             <label for="oncall-edit-slot" class="form-label">选择班次</label>
             <select id="oncall-edit-slot" class="form-select mb-3">
-                @for (var index = 21; index < 42; index++)
+                @foreach (var index in Enumerable.Range(21, 21))
                 {
                     var local = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc, zone);
                     var localEnd = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc.AddHours(8), zone);
