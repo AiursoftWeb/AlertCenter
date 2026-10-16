@@ -1,9 +1,10 @@
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public class PushDeliveryWorker(IServiceScopeFactory scopes, ILogger<PushDeliveryWorker> logger) : BackgroundService
+public class PushDeliveryWorker(IServiceScopeFactory scopes, ILogger<PushDeliveryWorker> logger, IStringLocalizer<PushDeliveryWorker> localizer) : BackgroundService
 {
     private const int BatchSize = 20;
 
@@ -21,7 +22,7 @@ public class PushDeliveryWorker(IServiceScopeFactory scopes, ILogger<PushDeliver
             foreach (var delivery in expiredSending)
             {
                 delivery.Status = PushDelivery.Failed;
-                delivery.Error = "投递中断，结果未知。请核实接收端后手动重试。";
+                delivery.Error = localizer["Delivery interrupted; result unknown. Verify the recipient and retry manually."].Value;
                 delivery.CompletedAtUtc = DateTime.UtcNow;
             }
             await db.SaveChangesAsync(cancellationToken);

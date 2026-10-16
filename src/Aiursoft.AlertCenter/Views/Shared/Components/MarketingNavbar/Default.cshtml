@@ -8,17 +8,17 @@
         </a>
         <ul class="navbar-nav ms-auto">
             <li class="nav-item d-none d-md-inline-block">
-                <a asp-controller="Alerts" asp-action="GettingStarted" class="nav-link active text-lg px-lg-3">接入指南</a>
+                <a asp-controller="Alerts" asp-action="GettingStarted" class="nav-link active text-lg px-lg-3">@Localizer["Integration Guide"]</a>
             </li>
             <li class="nav-item d-none d-md-inline-block">
-                <a asp-controller="Alerts" asp-action="Applications" class="nav-link active text-lg px-lg-3">接入应用</a>
+                <a asp-controller="Alerts" asp-action="Applications" class="nav-link active text-lg px-lg-3">@Localizer["Applications"]</a>
             </li>
             <li class="nav-item d-none d-md-inline-block">
-                <a asp-controller="Push" asp-action="Index" class="nav-link active text-lg px-lg-3">推送中心</a>
+                <a asp-controller="Push" asp-action="Index" class="nav-link active text-lg px-lg-3">@Localizer["Notifications"]</a>
             </li>
         </ul>
         <a asp-controller="Dashboard" asp-action="Index" class="btn btn-lg btn-primary btn-pill my-2 my-sm-0 ms-3">
-            <i class="align-middle" data-lucide="layout-dashboard"></i> 进入控制台
+            <i class="align-middle" data-lucide="layout-dashboard"></i> @Localizer["Enter Console"]
         </a>
         <a href="https://github.com/aiursoftweb/alertCenter" target="_blank" rel="noreferrer" class="btn btn-lg btn-outline-light btn-pill my-2 my-sm-0 ms-3">
             <i class="fa-brands fa-github me-1"></i> GitHub

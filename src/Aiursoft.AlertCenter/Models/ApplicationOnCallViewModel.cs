@@ -5,7 +5,7 @@ namespace Aiursoft.AlertCenter.Models;
 
 public class ApplicationOnCallViewModel : UiStackLayoutViewModel
 {
-    public ApplicationOnCallViewModel() { PageTitle = "应用值班设置"; }
+    public ApplicationOnCallViewModel() { PageTitle = "Application On-Call Settings"; }
     public SourceApplication Application { get; set; } = null!;
     public List<OnCallGroup> Groups { get; set; } = [];
     public Guid? OnCallGroupId { get; set; }

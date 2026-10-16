@@ -2,47 +2,47 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
-        <h1 class="h3 mb-1">排班规则</h1>
-        <p class="text-muted mb-0">管理可由多个团队共用的规则模板；修改模板不会重新生成已保存班次。</p>
+        <h1 class="h3 mb-1">@Localizer["Scheduling Rules"]</h1>
+        <p class="text-muted mb-0">@Localizer["Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts."]</p>
     </div>
     @if (Model.IsAdministrator)
     {
-        <a asp-action="Create" class="btn btn-primary">创建规则</a>
+        <a asp-action="Create" class="btn btn-primary">@Localizer["Create Rule"]</a>
     }
 </div>
 
 @if (TempData["OnCallRuleSuccess"] is string message)
 {
     <div class="alert alert-success alert-dismissible" role="status">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Close"]"></button>
         <div class="alert-message">@message</div>
     </div>
 }
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">已保存规则</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Rule saved"]</h2></div>
     <div class="table-responsive">
         <table class="table table-hover mb-0">
-            <thead><tr><th>规则模板</th><th>班次 / 休息</th><th>使用团队数</th><th>操作</th></tr></thead>
+            <thead><tr><th>@Localizer["Rule template"]</th><th>@Localizer["Shift / Break"]</th><th>@Localizer["Teams using"]</th><th>@Localizer["Action"]</th></tr></thead>
             <tbody>
                 @foreach (var rule in Model.Rules)
                 {
                     var boundGroupCount = Model.Groups.Count(group => group.RuleId == rule.Id);
                     <tr>
                         <td>@rule.Name</td>
-                        <td>@rule.ShiftHours / @rule.RestHours 小时<br /><span class="small text-muted">最低 @rule.MinimumStaff 人 · 目标 @(rule.TargetStaff?.ToString() ?? "自动分配") 人</span></td>
+                        <td>@rule.ShiftHours / @rule.RestHours @Localizer["hours"]<br /><span class="small text-muted">@Localizer["Min "]@rule.MinimumStaff @Localizer["people · Target "]@(rule.TargetStaff?.ToString() ?? @Localizer["Auto-assign"].Value) @Localizer["people"]</span></td>
                         <td>@boundGroupCount</td>
                         <td>
-                            <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-primary">查看规则</a>
+                            <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-primary">@Localizer["View rules"]</a>
                             @if (Model.IsAdministrator)
                             {
-                                <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-secondary">编辑</a>
+                                <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-secondary">@Localizer["Edit"]</a>
                                 @if (boundGroupCount == 0)
                                 {
-                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-oncall-rule" data-rule-id="@rule.Id" data-rule-name="@rule.Name">删除</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-oncall-rule" data-rule-id="@rule.Id" data-rule-name="@rule.Name">@Localizer["Delete"]</button>
                                 }
                                 else
                                 {
-                                    <button type="button" class="btn btn-sm btn-outline-danger" disabled title="请先解除所有团队的模板绑定">已绑定，不能删除</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" disabled title="@Localizer["Please unbind the template from all teams first."]">@Localizer["Bound, cannot be deleted"]</button>
                                 }
                             }
                         </td>
@@ -53,7 +53,7 @@
     </div>
     @if (Model.Rules.Count == 0)
     {
-        <div class="card-body text-muted">目前没有已保存的规则模板，可先创建模板，再由团队绑定使用。</div>
+        <div class="card-body text-muted">@Localizer["No saved rule templates yet. Create a template first, then have the team bind and use it."]</div>
     }
 </div>
 
@@ -63,19 +63,19 @@
         <div class="modal-dialog modal-dialog-centered">
             <form asp-action="DeleteRule" method="post" data-action-feedback class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title h5" id="delete-oncall-rule-title">删除排班规则</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                    <h2 class="modal-title h5" id="delete-oncall-rule-title">@Localizer["Delete scheduling rule"]</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p>确定删除规则 <strong id="delete-oncall-rule-name" class="text-break"></strong>？</p>
+                    <p>@Localizer["Confirm rule deletion"] <strong id="delete-oncall-rule-name" class="text-break"></strong>？</p>
                     <div class="alert alert-warning mb-0" id="delete-oncall-rule-description" role="alert">
-                        <div class="alert-message">仅未绑定团队的模板可以删除。团队已保存的班次和历史记录不会被删除；模板删除后无法恢复。</div>
+                        <div class="alert-message">@Localizer["Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered."]</div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
                     <input type="hidden" id="delete-oncall-rule-id" name="id" />
-                    <button type="submit" id="delete-oncall-rule-confirm" class="btn btn-danger" disabled>确认删除</button>
+                    <button type="submit" id="delete-oncall-rule-confirm" class="btn btn-danger" disabled>@Localizer["Confirm deletion"]</button>
                 </div>
             </form>
         </div>

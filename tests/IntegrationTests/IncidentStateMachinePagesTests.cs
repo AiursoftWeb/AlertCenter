@@ -84,10 +84,10 @@ public partial class AlertDemoTests
             deliveryId = (await db.PushDeliveries.SingleAsync()).Id;
         }
         var deliveryPage = WebUtility.HtmlDecode(await Http.GetStringAsync($"/Push/Delivery/{deliveryId}"));
-        Assert.Contains("事故重开", deliveryPage);
+        Assert.Contains("Incident reopened", deliveryPage);
         Assert.Contains("Reopened team", deliveryPage);
         Assert.Contains("Failure returned", deliveryPage);
-        Assert.Contains("事故重开", WebUtility.HtmlDecode(await Http.GetStringAsync("/Push/Records")));
+        Assert.Contains("Incident reopened", WebUtility.HtmlDecode(await Http.GetStringAsync("/Push/Records")));
         using var invalidRetry = await PostForm("/Push/Retry", new() { ["id"] = deliveryId.ToString() }, $"/Push/Delivery/{deliveryId}");
         Assert.AreEqual(HttpStatusCode.Conflict, invalidRetry.StatusCode);
         foreach (var state in new[] { "new", "acked", "mitigated", "resolved" })

@@ -130,12 +130,12 @@ public class PrivilegeBoundaryTests
         return user;
     }
 
-    private UsersController Users(IdentityRole role, params string[] permissions) => new(_roleManager, _userManager, _db)
+    private UsersController Users(IdentityRole role, params string[] permissions) => new(_roleManager, _userManager, _db, localizer: TestLocalization.For<UsersController>())
     {
         ControllerContext = ControllerContext(role, permissions)
     };
 
-    private RolesController Roles(IdentityRole role, params string[] permissions) => new(_userManager, _db, _roleManager)
+    private RolesController Roles(IdentityRole role, params string[] permissions) => new(_userManager, _db, _roleManager, localizer: TestLocalization.For<RolesController>())
     {
         ControllerContext = ControllerContext(role, permissions)
     };

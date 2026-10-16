@@ -12,8 +12,8 @@ public class OnCallGroupPagesTests : TestBase
     {
         await LoginAsAdmin();
         var groups = await Http.GetStringAsync("/OnCall/Groups");
-        Assert.Contains("创建团队", groups);
-        Assert.Contains("已保存团队", groups);
+        Assert.Contains("Create Team", groups);
+        Assert.Contains("Team saved", groups);
         var create = await Http.GetStringAsync("/OnCall/GroupCreate");
         Assert.Contains("/OnCall/CreateGroup", create);
         Assert.Contains("/scripts/oncall-group-form.js", create);
@@ -29,7 +29,7 @@ public class OnCallGroupPagesTests : TestBase
         }, "/OnCall/GroupCreate");
         Assert.AreEqual(HttpStatusCode.OK, invalid.StatusCode);
         var invalidPage = WebUtility.HtmlDecode(await invalid.Content.ReadAsStringAsync());
-        Assert.Contains("请选择列表中的有效时区", invalidPage);
+        Assert.Contains("Please select a valid time zone from the list", invalidPage);
         Assert.Contains("/scripts/oncall-group-form.js", invalidPage);
         Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/OnCall/CreateGroup", new()
         {
@@ -44,12 +44,12 @@ public class OnCallGroupPagesTests : TestBase
         Assert.Contains("/OnCall/GroupDetails/", location);
         var id = Guid.Parse(location.Split('/').Last());
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync(location));
-        Assert.Contains("团队创建成功", details);
+        Assert.Contains("Team created successfully", details);
         Assert.Contains("Operations", details);
-        Assert.Contains("未绑定规则模板，仍可手动编辑排班", details);
+        Assert.Contains("Rule template not bound; manual scheduling is still available", details);
         Assert.Contains($"/OnCall/ScheduleDetails/{id}", details);
         Assert.Contains("/OnCall/GroupEdit/", details);
-        Assert.DoesNotContain("团队创建成功", await Http.GetStringAsync(location));
+        Assert.DoesNotContain("Team created successfully", await Http.GetStringAsync(location));
         var edit = await Http.GetStringAsync($"/OnCall/GroupEdit/{id}");
         Assert.Contains("/OnCall/UpdateGroup", edit);
         Assert.Contains("Operations", edit);
@@ -78,7 +78,7 @@ public class OnCallGroupPagesTests : TestBase
             ["GroupInput.RuleId"] = templateId.ToString(), ["GroupInput.UserIds[0]"] = memberId
         };
         AssertRedirect(await PostForm("/OnCall/UpdateGroup", update, $"/OnCall/GroupEdit/{id}"), location);
-        Assert.Contains("团队已更新", WebUtility.HtmlDecode(await Http.GetStringAsync(location)));
+        Assert.Contains("Team updated", WebUtility.HtmlDecode(await Http.GetStringAsync(location)));
         Assert.AreEqual(HttpStatusCode.Conflict, (await PostForm("/OnCall/UpdateGroup", update, $"/OnCall/GroupEdit/{id}")).StatusCode);
         using (var scope = Server!.Services.CreateScope())
         {
@@ -104,7 +104,7 @@ public class OnCallGroupPagesTests : TestBase
             Assert.AreEqual(templateId, (await db.OnCallRules.SingleAsync()).Id);
             Assert.AreEqual(0, await db.OnCallGroupMembers.CountAsync());
         }
-        Assert.Contains("团队已删除", WebUtility.HtmlDecode(await Http.GetStringAsync("/OnCall/Groups")));
+        Assert.Contains("Team deleted", WebUtility.HtmlDecode(await Http.GetStringAsync("/OnCall/Groups")));
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync(location)).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/GroupEdit/{id}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await PostForm("/OnCall/DeleteGroup", new() { ["id"] = id.ToString() }, "/OnCall/GroupCreate")).StatusCode);
@@ -116,7 +116,7 @@ public class OnCallGroupPagesTests : TestBase
         await RegisterAndLoginAsync();
         Assert.DoesNotContain("/OnCall/GroupCreate", await Http.GetStringAsync("/OnCall/Groups"));
         Assert.DoesNotContain("/OnCall/Create", await Http.GetStringAsync("/OnCall/Index"));
-        Assert.Contains("值班排班", await Http.GetStringAsync("/OnCall/Schedule"));
+        Assert.Contains("On-call schedule", await Http.GetStringAsync("/OnCall/Schedule"));
         foreach (var action in new[] { "GroupCreate", "GroupEdit" })
         {
             var response = await Http.GetAsync($"/OnCall/{action}/{Guid.NewGuid()}");

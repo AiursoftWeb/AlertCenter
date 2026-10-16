@@ -85,7 +85,7 @@ public class OnCallScheduleApiTests : TestBase
         response = await Save("SaveSchedule", payload);
         Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
-        Assert.IsTrue(result.GetProperty("errors").EnumerateArray().Any(error => error.GetString()!.Contains("休息不足")));
+        Assert.IsTrue(result.GetProperty("errors").EnumerateArray().Any(error => error.GetString()!.Contains("insufficient rest")));
         payload.AdjacentWeeks[0].Slots[^1].UserIds = [users[2]];
         payload.AdjacentWeeks[1].StartUtc = payload.AdjacentWeeks[0].StartUtc;
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("SaveSchedule", payload)).StatusCode);
@@ -136,7 +136,7 @@ public class OnCallScheduleApiTests : TestBase
         edited.Slots[0].UserIds.Clear();
         var empty = await Save("SaveSchedule", edited);
         Assert.AreEqual(HttpStatusCode.BadRequest, empty.StatusCode);
-        Assert.Contains("空班", System.Text.Json.JsonDocument.Parse(await empty.Content.ReadAsStringAsync()).RootElement.GetProperty("errors")[0].GetString()!);
+        Assert.Contains("Empty shift", System.Text.Json.JsonDocument.Parse(await empty.Content.ReadAsStringAsync()).RootElement.GetProperty("errors")[0].GetString()!);
         using var scope = Server!.Services.CreateScope();
         Assert.AreEqual(27, await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
         var nextStart = edited.StartUtc.AddDays(7);
@@ -207,7 +207,7 @@ public class OnCallScheduleApiTests : TestBase
         response = await Save("SaveSchedule", draft);
         Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
         result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
-        Assert.IsTrue(result.GetProperty("errors").EnumerateArray().Any(error => error.GetString()!.Contains("空班")));
+        Assert.IsTrue(result.GetProperty("errors").EnumerateArray().Any(error => error.GetString()!.Contains("Empty shift")));
         using var checkScope = Server!.Services.CreateScope();
         var checkDb = checkScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(version, (await checkDb.OnCallGroups.SingleAsync(group => group.Id == id)).ScheduleVersion);
@@ -227,9 +227,9 @@ public class OnCallScheduleApiTests : TestBase
         Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", draft)).StatusCode);
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
         Assert.Contains($"data-user-id=\"{redundant}\"", details);
-        Assert.Contains("0 班 / 0 小时", details);
+        Assert.Contains("0 shifts / 0 hours", details);
         Assert.AreEqual(84, System.Text.RegularExpressions.Regex.Matches(details, "class=\"ac-gantt-cell\"").Count);
-        Assert.Contains("撤销上一步", details);
+        Assert.Contains("Undo last step", details);
         Assert.Contains("data-schedule-mode=\"add\"", details);
         Assert.Contains("data-schedule-mode=\"remove\"", details);
     }
@@ -299,11 +299,11 @@ public class OnCallScheduleApiTests : TestBase
         Assert.AreNotEqual(saved.Version, current.Version);
         Assert.AreEqual(21, current.Slots.Count);
         Assert.IsTrue(current.Slots.Any(slot => slot.UserIds.Count == 0));
-        Assert.Contains("空班", metadata.GetProperty("generationError").GetString()!);
+        Assert.Contains("unassigned shifts", metadata.GetProperty("generationError").GetString()!);
         Assert.IsTrue(metadata.GetProperty("members").EnumerateArray()
             .Single(member => member.GetProperty("id").GetString() == departed).GetProperty("departed").GetBoolean());
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
-        Assert.Contains("已退出", details);
+        Assert.Contains("Departed", details);
         Assert.Contains("id=\"oncall-schedule\"", details);
         Assert.Contains("id=\"oncall-gantt\"", details);
         Assert.AreEqual(63, System.Text.RegularExpressions.Regex.Matches(details, "class=\"ac-gantt-cell\"").Count);

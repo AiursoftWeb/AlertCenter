@@ -8,7 +8,7 @@ public class PushDelivery
     public const string Sending = "sending";
     public const string Succeeded = "succeeded";
     public const string Failed = "failed";
-    public const string DefaultTestContent = "这是一条推送渠道测试消息。";
+    public const string DefaultTestContent = "This is a test message for the push channel.";
 
     public Guid Id { get; set; } = Guid.NewGuid();
     public Guid? ChannelId { get; set; }

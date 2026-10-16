@@ -6,41 +6,41 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
         <h1 class="h3 mb-1">@rule.Name</h1>
-        <p class="text-muted mb-0">可复用排班规则模板 · @groups.Count 个团队使用</p>
+        <p class="text-muted mb-0">@Localizer["Reusable shift rule template · "]@groups.Count @Localizer["teams using"]</p>
     </div>
     <div class="d-flex gap-2">
-        <a asp-action="Index" class="btn btn-outline-secondary">返回规则列表</a>
+        <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Back to Rule List"]</a>
         @if (Model.IsAdministrator)
         {
-            <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">编辑规则</a>
+            <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">@Localizer["Edit rule"]</a>
         }
     </div>
 </div>
 @if (TempData["OnCallRuleSuccess"] is string message)
 {
     <div class="alert alert-success alert-dismissible" role="status">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Close"]"></button>
         <div class="alert-message">@message</div>
     </div>
 }
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">规则配置</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Rule configuration"]</h2></div>
     <div class="card-body">
-        <p>每班 @rule.ShiftHours 小时 · 最短休息 @rule.RestHours 小时</p>
-        <p>每班最低 @rule.MinimumStaff 人 · 目标 @(rule.TargetStaff?.ToString() ?? "自动分配") 人</p>
-        <p>时段轮换：@(rule.BalanceShiftTimes ? "尽量均衡早、中、晚班" : "关闭，优先固定时段")</p>
-        <p class="small text-muted">修改模板不会重新生成团队已保存的班次。成员和排班起点由各团队分别管理。</p>
-        <h3 class="h6">使用该模板的团队</h3>
+        <p>@Localizer["Per shift "]@rule.ShiftHours @Localizer["hours · Min rest "]@rule.RestHours @Localizer["hours"]</p>
+        <p>@Localizer["Minimum per shift "]@rule.MinimumStaff @Localizer["people · Target "]@(rule.TargetStaff?.ToString() ?? @Localizer["Auto-assign"].Value) @Localizer["people"]</p>
+        <p>@Localizer["Time slot rotation: "]@(rule.BalanceShiftTimes ? @Localizer["Balance early, middle, and late shifts as evenly as possible"].Value : @Localizer["Close, prioritize fixed time slots"].Value)</p>
+        <p class="small text-muted">@Localizer["Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team."]</p>
+        <h3 class="h6">@Localizer["Teams using this template"]</h3>
         @if (groups.Count == 0)
         {
-            <p class="text-muted mb-0">暂无团队绑定该模板。</p>
+            <p class="text-muted mb-0">@Localizer["No teams are bound to this template."]</p>
         }
         else
         {
             <ul class="mb-0">
                 @foreach (var group in groups)
                 {
-                    <li><a asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a> (@group.TimeZoneId) · <a asp-action="ScheduleDetails" asp-route-id="@group.Id">查看值班排班</a></li>
+                    <li><a asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a> (@group.TimeZoneId) · <a asp-action="ScheduleDetails" asp-route-id="@group.Id">@Localizer["View on-call schedule"]</a></li>
                 }
             </ul>
         }

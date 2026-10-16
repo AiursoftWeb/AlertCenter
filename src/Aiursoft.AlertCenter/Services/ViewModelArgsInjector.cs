@@ -79,8 +79,25 @@ public class ViewModelArgsInjector(
         _ = localizer["Not Found"];
         _ = localizer["Permission Details"];
         _ = localizer["Register"];
-    
+
         _ = localizer["Delete Account"];
+
+        _ = localizer["Alert Center"];
+        _ = localizer["Application Access Permissions"];
+        _ = localizer["Application On-Call Settings"];
+        _ = localizer["Applications"];
+        _ = localizer["Console Overview"];
+        _ = localizer["In-app notifications"];
+        _ = localizer["Incident handling"];
+        _ = localizer["Integration Guide"];
+        _ = localizer["Message list"];
+        _ = localizer["Notifications"];
+        _ = localizer["On-call"];
+        _ = localizer["On-call schedule"];
+        _ = localizer["Push Channel"];
+        _ = localizer["Push Records"];
+        _ = localizer["Scheduling Rules"];
+        _ = localizer["Team management"];
     }
 
     public void InjectSimple(

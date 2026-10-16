@@ -2,17 +2,17 @@
 @using Aiursoft.AlertCenter.Entities
 @using System.Globalization
 @{
-    ViewData["Title"] = "事故处置中心";
+    ViewData["Title"] = @Localizer["Incident Handling Center"].Value;
     var filter = Model.Filter;
     var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Status != "all" || filter.Level != null ||
         filter.FromDate.HasValue || filter.ToDate.HasValue;
 
     (string PillClass, string Icon, string Text) StatusInfo(string status) => status switch
     {
-        Incident.New => ("ac-status-pill-failed", "alert-triangle", "待响应"),
-        Incident.Acked => ("ac-status-pill-sending", "user-check", "已确认"),
-        Incident.Mitigated => ("ac-status-pill-sending", "shield-check", "已缓解"),
-        Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", "已解决"),
+        Incident.New => ("ac-status-pill-failed", "alert-triangle", @Localizer["Pending Response"].Value),
+        Incident.Acked => ("ac-status-pill-sending", "user-check", @Localizer["Acknowledged"].Value),
+        Incident.Mitigated => ("ac-status-pill-sending", "shield-check", @Localizer["Mitigated"].Value),
+        Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", @Localizer["Resolved"].Value),
         _ => ("ac-status-pill-pending", "circle-help", status)
     };
 }
@@ -23,23 +23,23 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <div class="d-flex align-items-center gap-2">
-            <h1 class="h3 mb-0">事故处置与应急响应</h1>
+            <h1 class="h3 mb-0">@Localizer["Incident handling and emergency response"]</h1>
             @if (Model.ActiveCount > 0)
             {
                 <span class="badge bg-danger text-white px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
                     <span class="ac-status-dot dot-danger ac-pulse-danger"></span>
-                    <span>@Model.ActiveCount 个进行中事故</span>
+                    <span>@Model.ActiveCount @Localizer["ongoing incidents"]</span>
                 </span>
             }
             else
             {
                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
                     <span class="ac-status-dot dot-success ac-pulse"></span>
-                    <span>服务运行正常 · 无进行中事故</span>
+                    <span>@Localizer["Service operating normally · No ongoing incidents"]</span>
                 </span>
             }
         </div>
-        <p class="text-muted mb-0 small">全流程协同处置：待响应、确认并认领、缓解、解决；已确认与已缓解期间匹配的新告警将自动归档并抑制重复通知。</p>
+        <p class="text-muted mb-0 small">@Localizer["End-to-end collaborative handling: Pending Response, Acknowledge and Assign, Mitigate, Resolve; new alerts matching confirmed or mitigated incidents are automatically archived and duplicate notifications are suppressed."]</p>
     </div>
 </div>
 
@@ -47,23 +47,23 @@
 <div class="ac-filter-chips mb-3">
     <a asp-action="Index" asp-route-status="all" class="ac-chip @(filter.Status == "all" || string.IsNullOrEmpty(filter.Status) ? "active" : "")">
         <i data-lucide="layers" style="width: 14px; height: 14px;" aria-hidden="true"></i>
-        <span>全部事故</span>
+        <span>@Localizer["All incidents"]</span>
     </a>
     <a asp-action="Index" asp-route-status="new" class="ac-chip @(filter.Status == Incident.New ? "active" : "")">
         <i data-lucide="alert-triangle" style="width: 14px; height: 14px;" class="text-danger" aria-hidden="true"></i>
-        <span>待响应</span>
+        <span>@Localizer["Pending Response"]</span>
     </a>
     <a asp-action="Index" asp-route-status="acked" class="ac-chip @(filter.Status == Incident.Acked ? "active" : "")">
         <i data-lucide="user-check" style="width: 14px; height: 14px;" class="text-warning" aria-hidden="true"></i>
-        <span>已确认</span>
+        <span>@Localizer["Acknowledged"]</span>
     </a>
     <a asp-action="Index" asp-route-status="mitigated" class="ac-chip @(filter.Status == Incident.Mitigated ? "active" : "")">
         <i data-lucide="shield-check" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
-        <span>已缓解</span>
+        <span>@Localizer["Mitigated"]</span>
     </a>
     <a asp-action="Index" asp-route-status="resolved" class="ac-chip @(filter.Status == Incident.Resolved ? "active" : "")">
         <i data-lucide="check-circle-2" style="width: 14px; height: 14px;" class="text-success" aria-hidden="true"></i>
-        <span>已解决</span>
+        <span>@Localizer["Resolved"]</span>
     </a>
 </div>
 
@@ -72,19 +72,19 @@
     <div class="card-body p-3">
         <form asp-action="Index" method="get" class="row g-3 align-items-end">
             <div class="col-md-6 col-xl-4">
-                <label for="incident-keyword" class="form-label small text-muted mb-1">关键词搜索</label>
+                <label for="incident-keyword" class="form-label small text-muted mb-1">@Localizer["Keyword Search"]</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light text-muted"><i data-lucide="search" style="width: 15px; height: 15px;" aria-hidden="true"></i></span>
-                    <input id="incident-keyword" name="keyword" value="@filter.Keyword" class="form-control" maxlength="200" placeholder="搜索事故、告警标题、应用或 incidentKey..." />
+                    <input id="incident-keyword" name="keyword" value="@filter.Keyword" class="form-control" maxlength="200" placeholder="@Localizer["Search incidents, alert titles, applications, or incidentKey..."]" />
                 </div>
             </div>
             <div class="col-sm-6 col-xl-2">
-                <label for="incident-application" class="form-label small text-muted mb-1">来源应用</label>
+                <label for="incident-application" class="form-label small text-muted mb-1">@Localizer["Source application"]</label>
                 <select id="incident-application" name="applicationId" class="form-select">
-                    <option value="">全部应用</option>
+                    <option value="">@Localizer["All applications"]</option>
                     @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value))
                     {
-                        <option value="@filter.ApplicationId" selected>所选应用不可访问</option>
+                        <option value="@filter.ApplicationId" selected>@Localizer["The selected application is inaccessible"]</option>
                     }
                     @foreach (var application in Model.Applications)
                     {
@@ -93,41 +93,41 @@
                 </select>
             </div>
             <div class="col-sm-6 col-xl-2">
-                <label for="incident-status" class="form-label small text-muted mb-1">事故状态</label>
+                <label for="incident-status" class="form-label small text-muted mb-1">@Localizer["Incident status"]</label>
                 <select id="incident-status" name="status" class="form-select">
-                    <option value="all" selected="@(filter.Status == "all")">全部状态</option>
-                    <option value="new" selected="@(filter.Status == Incident.New)">待响应 (New)</option>
-                    <option value="acked" selected="@(filter.Status == Incident.Acked)">已确认 (Acked)</option>
-                    <option value="mitigated" selected="@(filter.Status == Incident.Mitigated)">已缓解 (Mitigated)</option>
-                    <option value="resolved" selected="@(filter.Status == Incident.Resolved)">已解决 (Resolved)</option>
+                    <option value="all" selected="@(filter.Status == "all")">@Localizer["All statuses"]</option>
+                    <option value="new" selected="@(filter.Status == Incident.New)">@Localizer["Pending Response (New)"]</option>
+                    <option value="acked" selected="@(filter.Status == Incident.Acked)">@Localizer["Acknowledged (Acked)"]</option>
+                    <option value="mitigated" selected="@(filter.Status == Incident.Mitigated)">@Localizer["Mitigated (Mitigated)"]</option>
+                    <option value="resolved" selected="@(filter.Status == Incident.Resolved)">@Localizer["Resolved (Resolved)"]</option>
                 </select>
             </div>
             <div class="col-sm-6 col-xl-2">
-                <label for="incident-level" class="form-label small text-muted mb-1">告警级别</label>
+                <label for="incident-level" class="form-label small text-muted mb-1">@Localizer["Alert severity"]</label>
                 <select id="incident-level" name="level" class="form-select">
-                    <option value="">全部级别</option>
-                    <option value="sev0" selected="@(filter.Level == "sev0")">sev0 · 致命 (P0)</option>
-                    <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重 (P1)</option>
-                    <option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误 (P2)</option>
-                    <option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告 (P3)</option>
-                    <option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息 (P4)</option>
+                    <option value="">@Localizer["All severities"]</option>
+                    <option value="sev0" selected="@(filter.Level == "sev0")">@Localizer["sev0 · Critical (P0)"]</option>
+                    <option value="sev1" selected="@(filter.Level == "sev1")">@Localizer["sev1 · Major (P1)"]</option>
+                    <option value="sev2" selected="@(filter.Level == "sev2")">@Localizer["sev2 · Error (P2)"]</option>
+                    <option value="sev3" selected="@(filter.Level == "sev3")">@Localizer["sev3 · Warning (P3)"]</option>
+                    <option value="sev4" selected="@(filter.Level == "sev4")">@Localizer["sev4 · Info (P4)"]</option>
                 </select>
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="incident-from-date" class="form-label small text-muted mb-1">触发开始日期（UTC）</label>
+                <label for="incident-from-date" class="form-label small text-muted mb-1">@Localizer["Trigger start date (UTC)"]</label>
                 <input id="incident-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="incident-to-date" class="form-label small text-muted mb-1">触发结束日期（UTC，含当日）</label>
+                <label for="incident-to-date" class="form-label small text-muted mb-1">@Localizer["Trigger end date (UTC, inclusive)"]</label>
                 <input id="incident-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
             </div>
             <div class="col-xl-2 d-flex gap-2">
                 <button type="submit" class="btn btn-primary flex-grow-1">
-                    <i class="align-middle me-1" data-lucide="filter" aria-hidden="true"></i>检索
+                    <i class="align-middle me-1" data-lucide="filter" aria-hidden="true"></i>@Localizer["Search"]
                 </button>
                 @if (hasFilters)
                 {
-                    <a asp-action="Index" class="btn btn-outline-secondary" title="重置筛选">
+                    <a asp-action="Index" class="btn btn-outline-secondary" title="@Localizer["Reset Filters"]">
                         <i data-lucide="rotate-ccw" style="width: 15px; height: 15px;" aria-hidden="true"></i>
                     </a>
                 }
@@ -140,8 +140,8 @@
 <!-- Incidents List Card -->
 <div class="card shadow-sm border-0">
     <div class="card-header bg-transparent d-flex justify-content-between align-items-center py-3">
-        <h2 class="card-title h5 mb-0">事故记录列表</h2>
-        <span class="badge bg-light text-secondary border">共 @Model.Incidents.Count 条</span>
+        <h2 class="card-title h5 mb-0">@Localizer["Incident log list"]</h2>
+        <span class="badge bg-light text-secondary border">@Localizer["Total "]@Model.Incidents.Count @Localizer[" items"]</span>
     </div>
 
     @if (Model.Incidents.Count == 0)
@@ -150,13 +150,13 @@
             <div class="ac-empty-icon text-success">
                 <i data-lucide="shield-check" aria-hidden="true"></i>
             </div>
-            <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters ? "没有匹配的事故" : "目前尚无事故记录")</h2>
+            <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? @Localizer["Please correct the filter conditions."].Value : hasFilters ? @Localizer["No matching incidents"].Value : @Localizer["No incident records yet"].Value)</h2>
             <p class="text-muted mb-3" style="max-width: 26rem; margin-inline: auto;">
-                @(hasFilters ? "请调整筛选条件或重置查看全部记录。" : "每条新告警都会自动创建或关联事故；在此集中确认、记录进展并解决问题。")
+                @(hasFilters ? @Localizer["Adjust filter conditions or reset to view all records."].Value : @Localizer["Each new alert automatically creates or associates an incident; confirm, record progress, and resolve issues here."].Value)
             </p>
             @if (hasFilters)
             {
-                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">清除所有筛选</a>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">@Localizer["Clear all filters"]</a>
             }
         </div>
     }
@@ -166,13 +166,13 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th class="ps-4 py-3" style="width: 120px;">状态</th>
-                        <th class="py-3" style="min-width: 260px;">事故标题与原始告警</th>
-                        <th class="py-3">来源应用</th>
-                        <th class="py-3">负责人</th>
-                        <th class="py-3">匹配规则 (抑制范围)</th>
-                        <th class="pe-4 py-3 text-end" style="min-width: 160px;">触发时间 (UTC)</th>
-                        <th class="py-3 text-center" style="width: 80px;">进入</th>
+                        <th class="ps-4 py-3" style="width: 120px;">@Localizer["Status"]</th>
+                        <th class="py-3" style="min-width: 260px;">@Localizer["Incident title and original alert"]</th>
+                        <th class="py-3">@Localizer["Source application"]</th>
+                        <th class="py-3">@Localizer["Owner"]</th>
+                        <th class="py-3">@Localizer["Matching rules (suppression scope)"]</th>
+                        <th class="pe-4 py-3 text-end" style="min-width: 160px;">@Localizer["Trigger time (UTC)"]</th>
+                        <th class="py-3 text-center" style="width: 80px;">@Localizer["Enter"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -215,16 +215,16 @@
                                 <span class="badge bg-secondary-subtle text-secondary font-monospace">@incident.Application.Name</span>
                             </td>
                             <td class="py-3 text-break">
-                                @(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? "未分配")
+                                @(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? @Localizer["Unassigned"].Value)
                             </td>
                             <td class="py-3">
-                                <code class="text-muted small text-break">@(incident.IncidentKey == null ? $"应用 + 标题 + 原始级别 ({incident.MatchLevel})" : $"incidentKey: {incident.IncidentKey}")</code>
+                                <code class="text-muted small text-break">@(incident.IncidentKey == null ? string.Format(@Localizer["App + Title + Original Level ({0})"].Value, incident.MatchLevel) : $"incidentKey: {incident.IncidentKey}")</code>
                             </td>
                             <td class="pe-4 py-3 text-end text-nowrap text-muted small font-monospace">
                                 @incident.TriggeredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")
                             </td>
                             <td class="py-3 text-center">
-                                <a asp-action="Details" asp-route-id="@incident.Id" class="btn btn-sm btn-outline-primary" title="进入处置作战室">
+                                <a asp-action="Details" asp-route-id="@incident.Id" class="btn btn-sm btn-outline-primary" title="@Localizer["Enter Response War Room"]">
                                     <i data-lucide="chevron-right" style="width: 15px; height: 15px;" aria-hidden="true"></i>
                                 </a>
                             </td>

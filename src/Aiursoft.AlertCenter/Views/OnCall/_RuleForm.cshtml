@@ -5,40 +5,40 @@
     <input asp-for="RuleInput.Id" type="hidden" />
     <div class="row g-3 mb-3">
         <div class="col-md-6">
-            <label asp-for="RuleInput.Name" class="form-label">模板名称</label>
+            <label asp-for="RuleInput.Name" class="form-label">@Localizer["Template name"]</label>
             <input asp-for="RuleInput.Name" class="form-control" maxlength="100" required />
         </div>
         <div class="col-md-3">
-            <label asp-for="RuleInput.ShiftHours" class="form-label">每班时长（小时）</label>
+            <label asp-for="RuleInput.ShiftHours" class="form-label">@Localizer["Shift duration (hours)"]</label>
             <input asp-for="RuleInput.ShiftHours" type="number" value="8" class="form-control" readonly />
-            <div class="form-text">固定每天三班，每班至少一人，允许多人同班。</div>
+            <div class="form-text">@Localizer["Fixed three shifts per day, at least one person per shift; multiple people per shift allowed."]</div>
         </div>
         <div class="col-md-3">
-            <label asp-for="RuleInput.RestHours" class="form-label">最短休息（小时）</label>
+            <label asp-for="RuleInput.RestHours" class="form-label">@Localizer["Minimum Rest (Hours)"]</label>
             <input asp-for="RuleInput.RestHours" type="number" min="0" max="168" class="form-control" required />
         </div>
     </div>
     <div class="row g-3 mb-3">
         <div class="col-md-4">
-            <label asp-for="RuleInput.MinimumStaff" class="form-label">每班最低人数</label>
+            <label asp-for="RuleInput.MinimumStaff" class="form-label">@Localizer["Minimum staff per shift"]</label>
             <input asp-for="RuleInput.MinimumStaff" type="number" min="1" max="200" class="form-control" required />
-            <div class="form-text">自动生成必须满足；手动排班人数不足仅警告，空班不能保存。</div>
+            <div class="form-text">@Localizer["Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved."]</div>
         </div>
         <div class="col-md-4">
-            <label asp-for="RuleInput.TargetStaff" class="form-label">每班目标人数</label>
+            <label asp-for="RuleInput.TargetStaff" class="form-label">@Localizer["Target staff per shift"]</label>
             <input asp-for="RuleInput.TargetStaff" type="number" min="1" max="200" class="form-control" />
-            <div class="form-text">不能低于最低人数；在覆盖和休息允许时尽量满足。留空自动分配。</div>
+            <div class="form-text">@Localizer["Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment."]</div>
         </div>
         <div class="col-md-4">
-            <label asp-for="RuleInput.BalanceShiftTimes" class="form-label">轮换偏好</label>
+            <label asp-for="RuleInput.BalanceShiftTimes" class="form-label">@Localizer["Rotation Preference"]</label>
             <select asp-for="RuleInput.BalanceShiftTimes" class="form-select">
-                <option value="false">固定时段优先</option>
-                <option value="true">尽量均衡早、中、晚班</option>
+                <option value="false">@Localizer["Fixed time slots take priority"]</option>
+                <option value="true">@Localizer["Balance early, middle, and late shifts as evenly as possible"]</option>
             </select>
         </div>
     </div>
-    <p class="small text-muted">优先保证覆盖和休息，换班期间可能减少冗余。三人且休息至少 16 小时时无法轮换时段。按实际 8 小时连续排班，夏令时切换时本地时间可能变化。</p>
-    <p class="small text-muted">这是可供多个团队共用的规则模板。成员、轮换顺序和排班起点由团队管理；修改模板不会重新生成任何已保存班次。</p>
-    <button type="submit" class="btn btn-primary">保存模板</button>
-    <a asp-action="Index" class="btn btn-outline-secondary ms-2">取消</a>
+    <p class="small text-muted">@Localizer["Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions."]</p>
+    <p class="small text-muted">@Localizer["This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts."]</p>
+    <button type="submit" class="btn btn-primary">@Localizer["Save template"]</button>
+    <a asp-action="Index" class="btn btn-outline-secondary ms-2">@Localizer["Cancel"]</a>
 </form>

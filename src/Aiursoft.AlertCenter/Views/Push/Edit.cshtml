@@ -11,17 +11,17 @@
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h1 class="h3 mb-1">@(Model.Id.HasValue ? "编辑推送渠道" : "添加推送渠道")</h1>
-        <p class="text-muted mb-0">@(Model.Id.HasValue ? $"正在修改渠道“{Model.Name}”的投递参数。" : "选择一种通知渠道类型，并配置接收端地址或目标收件人。")</p>
+        <h1 class="h3 mb-1">@(Model.Id.HasValue ? @Localizer["Edit push channel"].Value : @Localizer["Add push channel"].Value)</h1>
+        <p class="text-muted mb-0">@(Model.Id.HasValue ? string.Format(@Localizer["Modifying delivery parameters for channel \"{0}\"."].Value, Model.Name) : @Localizer["Select a notification channel type and configure the recipient address or target recipients."].Value)</p>
     </div>
     <a asp-action="Index" class="btn btn-outline-secondary">
-        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回渠道列表
+        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>@Localizer["Back to Channel List"]
     </a>
 </div>
 
 @if (!Model.Id.HasValue)
 {
-    <h2 class="h5 mb-3 fw-semibold">1. 选择渠道类型</h2>
+    <h2 class="h5 mb-3 fw-semibold">@Localizer["1. Select channel type"]</h2>
     <div class="row g-3 mb-4">
     @foreach (var type in Model.ChannelTypes)
     {
@@ -60,7 +60,7 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center gap-2">
                     <i class="align-middle text-primary" data-lucide="@selectedType.Icon" aria-hidden="true"></i>
-                    <h2 class="card-title mb-0">@selectedType.Name 配置详情</h2>
+                    <h2 class="card-title mb-0">@selectedType.Name @Localizer["Configuration details"]</h2>
                 </div>
                 <div class="card-body pt-0">
                     <form asp-action="Save" method="post" data-action-feedback id="push-channel-form">
@@ -71,25 +71,25 @@
                         </div>
 
                         <div class="mb-4">
-                            <label asp-for="Name" class="form-label small fw-medium">渠道名称</label>
-                            <input asp-for="Name" required maxlength="100" class="form-control" placeholder="例如：生产值班组、飞书告警机器人、Ops Webhook…" />
-                            <div class="form-text text-muted small">用于在应用推送分级和记录中快速辨识。</div>
+                            <label asp-for="Name" class="form-label small fw-medium">@Localizer["Channel name"]</label>
+                            <input asp-for="Name" required maxlength="100" class="form-control" placeholder="@Localizer["Example: Production on-call team, Feishu alert bot, Ops Webhook…"]" />
+                            <div class="form-text text-muted small">@Localizer["Used to quickly identify application push levels and records."]</div>
                         </div>
 
                         @if (selectedType.RequiresEndpoint)
                         {
                             <div class="mb-4">
-                                <label asp-for="Endpoint" class="form-label small fw-medium">Webhook 接收地址 (URL)</label>
+                                <label asp-for="Endpoint" class="form-label small fw-medium">@Localizer["Webhook Receiver URL"]</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-transparent text-muted"><i data-lucide="link" class="align-middle"></i></span>
                                     <input asp-for="Endpoint" type="url" required maxlength="2048" class="form-control" placeholder="https://example.com/api/alert-webhook" aria-describedby="endpoint-hint" />
                                 </div>
-                                <small class="text-muted d-block mt-2" id="endpoint-hint">接收端需支持 HTTP POST JSON，返回 2xx 视为投递成功。系统请求超时为 10 秒，不跟随跨域重定向。</small>
+                                <small class="text-muted d-block mt-2" id="endpoint-hint">@Localizer["The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed."]</small>
                             </div>
 
                             <div class="card border bg-body-tertiary mb-4">
                                 <div class="card-header bg-transparent py-2">
-                                    <h3 class="h6 mb-0 text-muted"><i class="align-middle me-1" data-lucide="file-json"></i>默认请求格式说明</h3>
+                                    <h3 class="h6 mb-0 text-muted"><i class="align-middle me-1" data-lucide="file-json"></i>@Localizer["Default request format description"]</h3>
                                 </div>
                                 <div class="card-body py-2">
                                     <dl class="row small mb-2">
@@ -101,35 +101,35 @@
                                     <div class="ac-code-container mb-2">
                                         <pre class="ac-code-pre py-2 small"><code>{
   "deliveryId": "&lt;GUID&gt;",
-  "messageId": "&lt;GUID 或 null&gt;",
-  "title": "告警标题",
-  "content": "告警正文或 null",
+  "messageId": "&lt;GUID or null&gt;",
+  "title": "Alert title",
+  "content": "Alert body or null",
   "level": "sev0 | sev1 | sev2 | sev3 | sev4",
   "occurredAtUtc": "2026-09-17T08:30:00.0000000Z",
   "context": { ... }
 }</code></pre>
                                     </div>
-                                    <p class="small text-muted mb-0">每次投递任务拥有唯一固定 <code>deliveryId</code>，可在接收端使用 <code>Idempotency-Key</code> 幂等去重。</p>
+                                    <p class="small text-muted mb-0">@Localizer["Each delivery task has a unique fixed"] <code>deliveryId</code>@Localizer[", can be used on the receiving end with"] <code>Idempotency-Key</code> @Localizer["Idempotent deduplication."]</p>
                                 </div>
                             </div>
 
                             <details class="card border mb-4">
                                 <summary class="card-header bg-transparent py-2" style="cursor: pointer;">
-                                    <span class="h6 mb-0 fw-semibold text-primary"><i class="align-middle me-1" data-lucide="settings-2"></i>高级自定义请求（自定义请求头与模板）</span>
+                                    <span class="h6 mb-0 fw-semibold text-primary"><i class="align-middle me-1" data-lucide="settings-2"></i>@Localizer["Advanced Custom Request (Custom headers and templates)"]</span>
                                 </summary>
                                 <div class="card-body">
-                                    <p class="text-muted small">留空时系统默认发送标准 JSON。自定义请求头将加密持久化；<code>Content-Type</code> 与 <code>Idempotency-Key</code> 不可覆盖。</p>
-                                    
+                                    <p class="text-muted small">@Localizer["If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;"]<code>Content-Type</code> @Localizer["and"] <code>Idempotency-Key</code> @Localizer["Cannot overwrite."]</p>
+
                                     <div class="mb-3">
-                                        <label asp-for="WebhookHeadersJson" class="form-label small fw-medium">额外请求头 (JSON 对象)</label>
+                                        <label asp-for="WebhookHeadersJson" class="form-label small fw-medium">@Localizer["Extra Request Headers (JSON object)"]</label>
                                         <textarea asp-for="WebhookHeadersJson" class="form-control font-monospace" rows="3" maxlength="8000" spellcheck="false" placeholder="{&#10;  &quot;Authorization&quot;: &quot;Bearer &lt;token&gt;&quot;,&#10;  &quot;X-Custom-Header&quot;: &quot;alert-center&quot;&#10;}"></textarea>
-                                        <small class="text-muted">请求头名称最长 128 字符，值须为合法字符串。</small>
+                                        <small class="text-muted">@Localizer["Header name max 128 characters; value must be a valid string."]</small>
                                     </div>
 
                                     <div>
-                                        <label asp-for="WebhookPayloadTemplate" class="form-label small fw-medium">请求体模板 (JSON 模板)</label>
+                                        <label asp-for="WebhookPayloadTemplate" class="form-label small fw-medium">@Localizer["Request Body Template (JSON Template)"]</label>
                                         <div class="d-flex flex-wrap gap-1 mb-2">
-                                            <span class="small text-muted align-self-center me-1">点击插入占位符:</span>
+                                            <span class="small text-muted align-self-center me-1">@Localizer["Click to insert placeholder:"]</span>
                                             <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{title}}')">{{title}}</button>
                                             <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{level}}')">{{level}}</button>
                                             <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{content}}')">{{content}}</button>
@@ -138,7 +138,7 @@
                                             <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-1 font-monospace" onclick="insertPlaceholder('{{occurredAtUtc}}')">{{occurredAtUtc}}</button>
                                         </div>
                                         <textarea asp-for="WebhookPayloadTemplate" id="webhook-payload-template" class="form-control font-monospace" rows="8" maxlength="16000" spellcheck="false" placeholder="{&#10;  &quot;msgtype&quot;: &quot;text&quot;,&#10;  &quot;text&quot;: {&#10;    &quot;content&quot;: &quot;[{{level}}] {{title}}\n{{content}}&quot;&#10;  }&#10;}"></textarea>
-                                        <small class="text-muted d-block mt-2">占位符必须单独作为 JSON 字符串的值。<code>{{context}}</code> 将解析并保留原始对象类型。</small>
+                                        <small class="text-muted d-block mt-2">@Localizer["Placeholders must be the sole value of a JSON string."]<code>{{context}}</code> @Localizer["Will parse and preserve the original object types."]</small>
                                     </div>
                                 </div>
                             </details>
@@ -150,42 +150,42 @@
                                     <i class="align-middle" data-lucide="info" aria-hidden="true"></i>
                                 </div>
                                 <div class="alert-message text-break">
-                                    <strong>全局 SMTP 邮件服务</strong>：系统统一使用全局 Email 服务配置。请通过 <code>Email__Password</code> 环境变量提供认证凭据。
+                                    <strong>@Localizer["Global SMTP mail service"]</strong>@Localizer[": The system uniformly uses the global Email service configuration. Please use"] <code>Email__Password</code> @Localizer["Environment variables provide authentication credentials."]
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <label asp-for="EmailRecipient" class="form-label small fw-medium">收件人邮箱</label>
+                                <label asp-for="EmailRecipient" class="form-label small fw-medium">@Localizer["Recipient email"]</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-transparent text-muted"><i data-lucide="mail" class="align-middle" aria-hidden="true"></i></span>
                                     <input asp-for="EmailRecipient" type="email" required maxlength="320" class="form-control font-monospace" placeholder="oncall-team@example.com" aria-describedby="email-recipient-hint" />
                                 </div>
-                                <small class="text-muted d-block mt-2" id="email-recipient-hint">邮件会直接发送给此邮箱地址。</small>
+                                <small class="text-muted d-block mt-2" id="email-recipient-hint">@Localizer["Emails will be sent directly to this email address."]</small>
                             </div>
 
                             <div class="card border mb-4" aria-labelledby="email-cc-heading">
                                 <div class="card-header bg-transparent py-2">
-                                    <h3 id="email-cc-heading" class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="users-round" aria-hidden="true"></i>抄送列表</h3>
+                                    <h3 id="email-cc-heading" class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="users-round" aria-hidden="true"></i>@Localizer["CC List"]</h3>
                                 </div>
                                 <div class="card-body">
-                                    <label asp-for="EmailCcRecipients" class="form-label small fw-medium">批量输入抄送邮箱</label>
+                                    <label asp-for="EmailCcRecipients" class="form-label small fw-medium">@Localizer["Batch enter CC emails"]</label>
                                     <textarea asp-for="EmailCcRecipients" id="email-cc-input" class="form-control font-monospace" rows="4" maxlength="8000" spellcheck="false" placeholder="manager@example.com&#10;incident-team@example.com" aria-describedby="email-cc-hint"></textarea>
-                                    <small class="text-muted d-block mt-2" id="email-cc-hint">每行一个邮箱地址，也支持使用英文逗号或分号分隔，最多支持 50 个抄送人。</small>
+                                    <small class="text-muted d-block mt-2" id="email-cc-hint">@Localizer["One email address per line; English commas or semicolons are also supported, up to 50 CC recipients."]</small>
                                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2">
                                         <button type="button" class="btn btn-sm btn-outline-secondary" id="parse-email-cc">
-                                            <i class="align-middle me-1" data-lucide="list-checks" aria-hidden="true"></i>解析为列表
+                                            <i class="align-middle me-1" data-lucide="list-checks" aria-hidden="true"></i>@Localizer["Parse as list"]
                                         </button>
                                         <div class="input-group input-group-sm" style="max-width: 22rem;">
-                                            <input id="add-email-cc" type="email" maxlength="320" class="form-control font-monospace" placeholder="补充一个邮箱地址" aria-label="补充一个抄送邮箱地址" />
-                                            <button type="button" class="btn btn-primary" id="add-email-cc-button"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加</button>
+                                            <input id="add-email-cc" type="email" maxlength="320" class="form-control font-monospace" placeholder="@Localizer["Add an email address"]" aria-label="@Localizer["Add a CC email address"]" />
+                                            <button type="button" class="btn btn-primary" id="add-email-cc-button"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>@Localizer["Add"]</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body border-top pt-3">
                                     <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
-                                        <span class="small fw-medium">已解析的抄送人</span>
+                                        <span class="small fw-medium">@Localizer["Parsed CC recipients"]</span>
                                         <span id="email-cc-count" class="badge bg-secondary-subtle text-secondary border">0</span>
                                     </div>
-                                    <p id="email-cc-empty" class="text-muted small mb-0">尚未添加抄送人。</p>
+                                    <p id="email-cc-empty" class="text-muted small mb-0">@Localizer["No CC recipients added yet."]</p>
                                     <div id="email-cc-list" class="d-flex flex-wrap gap-2" aria-live="polite"></div>
                                     <span asp-validation-for="EmailCcRecipients" class="text-danger small d-block mt-2"></span>
                                 </div>
@@ -198,7 +198,7 @@
                                     <i class="align-middle" data-lucide="info" aria-hidden="true"></i>
                                 </div>
                                 <div class="alert-message">
-                                    <strong>站内通知范围</strong>：支持同时绑定多个用户与用户组（角色）。系统自动去重，每位成员仅产生一条待读通知。
+                                    <strong>@Localizer["In-app notification scope"]</strong>@Localizer[": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification."]
                                 </div>
                             </div>
                         }
@@ -207,44 +207,44 @@
                         {
                             <div class="card border mb-4">
                                 <div class="card-header bg-transparent py-2">
-                                    <h3 class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="user-plus"></i>添加接收人与用户组</h3>
+                                    <h3 class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="user-plus"></i>@Localizer["Add recipients and user groups"]</h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="btn-group w-100 mb-3" role="group" aria-label="接收人类型">
+                                    <div class="btn-group w-100 mb-3" role="group" aria-label="@Localizer["Recipient Type"]">
                                         <input type="radio" class="btn-check" name="recipientType" id="recipient-type-role" value="role" checked />
                                         <label class="btn btn-outline-primary" for="recipient-type-role">
-                                            <i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>用户组 (Role)
+                                            <i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>@Localizer["User Group (Role)"]
                                         </label>
                                         <input type="radio" class="btn-check" name="recipientType" id="recipient-type-user" value="user" />
                                         <label class="btn btn-outline-primary" for="recipient-type-user">
-                                            <i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>指定用户 (User)
+                                            <i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>@Localizer["Specify User (User)"]
                                         </label>
                                     </div>
 
                                     <div id="recipient-role-selection">
-                                        <label for="recipient-role-select" class="form-label small fw-medium">选择用户组</label>
+                                        <label for="recipient-role-select" class="form-label small fw-medium">@Localizer["Select User Group"]</label>
                                         <div class="input-group">
                                             <select id="recipient-role-select" class="form-select">
-                                                <option value="">请选择用户组…</option>
+                                                <option value="">@Localizer["Select user group..."]</option>
                                                 @foreach (var role in Model.AvailableRoles)
                                                 {
                                                     <option value="@role.Value">@role.Text</option>
                                                 }
                                             </select>
                                             <button type="button" class="btn btn-primary" id="add-role-recipient">
-                                                <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加
+                                                <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>@Localizer["Add"]
                                             </button>
                                         </div>
                                     </div>
 
                                     <div id="recipient-user-selection" class="d-none">
-                                        <label for="recipient-user-search" class="form-label small fw-medium">搜索用户</label>
+                                        <label for="recipient-user-search" class="form-label small fw-medium">@Localizer["Search Users"]</label>
                                         <div class="position-relative">
                                             <div class="input-group">
                                                 <span class="input-group-text bg-transparent text-muted"><i data-lucide="search" class="align-middle"></i></span>
-                                                <input id="recipient-user-search" type="search" class="form-control" placeholder="输入用户名或显示名称搜索…" autocomplete="off" aria-autocomplete="list" aria-controls="recipient-user-results" />
+                                                <input id="recipient-user-search" type="search" class="form-control" placeholder="@Localizer["Search by username or display name..."]" autocomplete="off" aria-autocomplete="list" aria-controls="recipient-user-results" />
                                                 <button type="button" class="btn btn-primary" id="add-user-recipient" disabled>
-                                                    <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加
+                                                    <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>@Localizer["Add"]
                                                 </button>
                                             </div>
                                             <div id="recipient-user-results" class="position-absolute w-100 bg-white border rounded shadow-sm d-none" role="listbox" style="z-index: 1000; max-height: 280px; overflow-y: auto;"></div>
@@ -257,7 +257,7 @@
                                                     <small id="selected-user-username" class="d-block text-muted text-truncate"></small>
                                                     <small id="selected-user-id" class="d-none"></small>
                                                 </div>
-                                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle flex-shrink-0">待添加</span>
+                                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle flex-shrink-0">@Localizer["To be added"]</span>
                                             </div>
                                         </div>
                                     </div>
@@ -266,12 +266,12 @@
 
                             <div class="card border mb-4">
                                 <div class="card-header bg-transparent d-flex align-items-center justify-content-between py-2">
-                                    <h3 class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="users"></i>已选接收人列表</h3>
-                                    <span class="text-muted small">点击右侧按钮可移除</span>
+                                    <h3 class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="users"></i>@Localizer["Selected recipient list"]</h3>
+                                    <span class="text-muted small">@Localizer["Click the button on the right to remove"]</span>
                                 </div>
                                 <div class="card-body pt-2">
                                     <p id="recipients-empty" class="text-muted mb-0 py-3 text-center @(Model.SelectedUsers.Count + Model.SelectedRoles.Count > 0 ? "d-none" : "")">
-                                        尚未添加接收人。请在上方选择角色组或指定用户。
+                                        @Localizer["No recipients added yet. Please select role groups or specify users above."]
                                     </p>
                                     <div id="recipient-list" class="list-group list-group-flush">
                                         @foreach (var user in Model.SelectedUsers)
@@ -287,9 +287,9 @@
                                                     </div>
                                                 </div>
                                                 <input type="hidden" name="RecipientUserIds" value="@user.Id" />
-                                                <button type="button" class="btn btn-sm btn-outline-danger remove-recipient" title="移除 @user.Name">
+                                                <button type="button" class="btn btn-sm btn-outline-danger remove-recipient" title="@(string.Format(@Localizer["Remove {0}"].Value, user.Name))">
                                                     <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
-                                                    <span class="visually-hidden">移除 @user.Name</span>
+                                                    <span class="visually-hidden">@Localizer["Remove "]@user.Name</span>
                                                 </button>
                                             </div>
                                         }
@@ -302,50 +302,50 @@
                                                     </div>
                                                     <div class="text-truncate">
                                                         <strong class="text-truncate small">@role.Name</strong>
-                                                        <small class="text-muted d-block">角色组</small>
+                                                        <small class="text-muted d-block">@Localizer["Role group"]</small>
                                                     </div>
                                                 </div>
                                                 <input type="hidden" name="RecipientRoleIds" value="@role.Id" />
-                                                <button type="button" class="btn btn-sm btn-outline-danger remove-recipient" title="移除 @role.Name">
+                                                <button type="button" class="btn btn-sm btn-outline-danger remove-recipient" title="@(string.Format(@Localizer["Remove {0}"].Value, role.Name))">
                                                     <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
-                                                    <span class="visually-hidden">移除 @role.Name</span>
+                                                    <span class="visually-hidden">@Localizer["Remove "]@role.Name</span>
                                                 </button>
                                             </div>
                                         }
                                     </div>
-                                    <small class="text-muted d-block mt-2">请至少添加一个用户或用户组；组内无成员时不会产生通知。</small>
+                                    <small class="text-muted d-block mt-2">@Localizer["Add at least one user or user group; no notifications are sent if a group has no members."]</small>
                                 </div>
                             </div>
                         }
 
                         <section class="card border mb-4" aria-labelledby="binding-access-heading">
                             <div class="card-header bg-transparent d-flex align-items-center justify-content-between py-2">
-                                <h3 id="binding-access-heading" class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="link"></i>应用绑定授权</h3>
+                                <h3 id="binding-access-heading" class="h6 mb-0 fw-semibold"><i class="align-middle me-1 text-primary" data-lucide="link"></i>@Localizer["Application Binding Authorization"]</h3>
                                 <span id="binding-access-count" class="badge bg-secondary-subtle text-secondary border">@bindingAccessCount</span>
                             </div>
                             <div class="card-body">
-                                <p class="text-muted small">仅下列用户或用户组成员可在其可管理的应用中看到并绑定此渠道。该授权不提供收件人、Webhook 或测试配置访问权。</p>
+                                <p class="text-muted small">@Localizer["Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration."]</p>
                                 <div class="row g-3 align-items-end">
                                     <div class="col-md-3">
-                                        <label class="form-label small fw-medium d-block">授权类型</label>
+                                        <label class="form-label small fw-medium d-block">@Localizer["Authorization Type"]</label>
                                         <div class="btn-group w-100" role="group">
                                             <input type="radio" class="btn-check" name="binding-access-kind" id="binding-access-role" value="role" checked />
-                                            <label class="btn btn-outline-primary" for="binding-access-role"><i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>用户组</label>
+                                            <label class="btn btn-outline-primary" for="binding-access-role"><i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>@Localizer["User Group"]</label>
                                             <input type="radio" class="btn-check" name="binding-access-kind" id="binding-access-user" value="user" />
-                                            <label class="btn btn-outline-primary" for="binding-access-user"><i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>指定用户</label>
+                                            <label class="btn btn-outline-primary" for="binding-access-user"><i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>@Localizer["Specify User"]</label>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
-                                        <label for="binding-access-role-select" class="form-label small fw-medium" id="binding-access-subject-label">选择用户组</label>
+                                        <label for="binding-access-role-select" class="form-label small fw-medium" id="binding-access-subject-label">@Localizer["Select User Group"]</label>
                                         <select id="binding-access-role-select" class="form-select">
-                                            <option value="">请选择用户组…</option>
+                                            <option value="">@Localizer["Select user group..."]</option>
                                             @foreach (var role in Model.AvailableRoles)
                                             {
                                                 <option value="@role.Value">@role.Text</option>
                                             }
                                         </select>
                                         <select id="binding-access-user-select" class="form-select d-none">
-                                            <option value="">请选择用户…</option>
+                                            <option value="">@Localizer["Select user..."]</option>
                                             @foreach (var user in Model.AvailableUsers)
                                             {
                                                 <option value="@user.Value">@user.Text</option>
@@ -353,15 +353,15 @@
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button" id="add-binding-access" class="btn btn-primary w-100"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加</button>
+                                        <button type="button" id="add-binding-access" class="btn btn-primary w-100"><i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>@Localizer["Add"]</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body border-top pt-0">
                                 <div id="binding-access-empty" class="ac-empty-state py-4 @(bindingAccessCount > 0 ? "d-none" : "")">
                                     <div class="ac-empty-icon" style="width: 48px; height: 48px;"><i data-lucide="link" aria-hidden="true"></i></div>
-                                    <h4 class="h6 text-muted">尚未授予应用绑定权限</h4>
-                                    <p class="text-muted small mb-0">除推送渠道管理员外，当前没有用户可以绑定此渠道。</p>
+                                    <h4 class="h6 text-muted">@Localizer["Application binding permissions have not been granted yet"]</h4>
+                                    <p class="text-muted small mb-0">@Localizer["Aside from push channel administrators, no users can currently bind this channel."]</p>
                                 </div>
                                 <div id="binding-access-list" class="list-group list-group-flush">
                                     @foreach (var role in Model.SelectedBindingRoles)
@@ -369,9 +369,9 @@
                                         <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3" data-kind="role" data-id="@role.Id">
                                             <div class="d-flex align-items-center gap-3 min-w-0">
                                                 <div class="ac-stat-icon icon-primary" style="width: 40px; height: 40px;"><i data-lucide="users" aria-hidden="true"></i></div>
-                                                <div class="text-truncate"><strong class="d-block text-truncate">@role.Name</strong><small class="text-muted">用户组 · 成员动态继承绑定权限</small></div>
+                                                <div class="text-truncate"><strong class="d-block text-truncate">@role.Name</strong><small class="text-muted">@Localizer["User Group · Members dynamically inherit bound permissions"]</small></div>
                                             </div>
-                                            <div class="d-flex align-items-center gap-2"><input type="hidden" name="BindingRoleIds" value="@role.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-binding-access" title="移除权限"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @role.Name</span></button></div>
+                                            <div class="d-flex align-items-center gap-2"><input type="hidden" name="BindingRoleIds" value="@role.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-binding-access" title="@Localizer["Remove permission"]"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">@Localizer["Remove "]@role.Name</span></button></div>
                                         </div>
                                     }
                                     @foreach (var user in Model.SelectedBindingUsers)
@@ -379,9 +379,9 @@
                                         <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3" data-kind="user" data-id="@user.Id">
                                             <div class="d-flex align-items-center gap-3 min-w-0">
                                                 <div class="ac-stat-icon icon-indigo" style="width: 40px; height: 40px;"><i data-lucide="user" aria-hidden="true"></i></div>
-                                                <div class="text-truncate"><strong class="d-block text-truncate">@user.Name</strong><small class="text-muted">@user.UserName · 指定个人用户</small></div>
+                                                <div class="text-truncate"><strong class="d-block text-truncate">@user.Name</strong><small class="text-muted">@user.UserName · @Localizer["Specify Individual User"]</small></div>
                                             </div>
-                                            <div class="d-flex align-items-center gap-2"><input type="hidden" name="BindingUserIds" value="@user.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-binding-access" title="移除权限"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">移除 @user.Name</span></button></div>
+                                            <div class="d-flex align-items-center gap-2"><input type="hidden" name="BindingUserIds" value="@user.Id" /><button type="button" class="btn btn-sm btn-outline-danger remove-binding-access" title="@Localizer["Remove permission"]"><i class="align-middle" data-lucide="x" aria-hidden="true"></i><span class="visually-hidden">@Localizer["Remove "]@user.Name</span></button></div>
                                         </div>
                                     }
                                 </div>
@@ -392,14 +392,14 @@
 
                         <div class="form-check form-switch mb-4">
                             <input asp-for="IsEnabled" class="form-check-input" />
-                            <label asp-for="IsEnabled" class="form-check-label fw-medium">立即启用该推送渠道</label>
+                            <label asp-for="IsEnabled" class="form-check-label fw-medium">@Localizer["Enable this push channel now"]</label>
                         </div>
 
                         <div class="d-flex gap-2">
                             <button class="btn btn-primary" type="submit">
-                                <i class="align-middle me-1" data-lucide="save"></i>保存渠道配置
+                                <i class="align-middle me-1" data-lucide="save"></i>@Localizer["Save channel configuration"]
                             </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary">取消</a>
+                            <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Cancel"]</a>
                         </div>
                     </form>
                 </div>
@@ -422,7 +422,9 @@
 </script>
 
 @section scripts {
-    <script>
+    <script>{
+    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
+
         document.addEventListener('DOMContentLoaded', function () {
             const bindingRoleType = document.getElementById('binding-access-role');
             const bindingUserType = document.getElementById('binding-access-user');
@@ -438,7 +440,7 @@
                 const isRole = selectedBindingKind() === 'role';
                 bindingRoleSelect.classList.toggle('d-none', !isRole);
                 bindingUserSelect.classList.toggle('d-none', isRole);
-                bindingSubjectLabel.textContent = isRole ? '选择用户组' : '选择用户';
+                bindingSubjectLabel.textContent = isRole ? (messages["Select User Group"] ?? "Select User Group") : (messages["Select User"] ?? "Select User");
             }
             function updateBindingEmptyState() {
                 const count = bindingList.children.length;
@@ -484,7 +486,7 @@
                 name.textContent = option.textContent;
                 const subtitle = document.createElement('small');
                 subtitle.className = 'text-muted';
-                subtitle.textContent = kind === 'role' ? '用户组 · 成员动态继承绑定权限' : '指定个人用户';
+                subtitle.textContent = kind === 'role' ? (messages["User Group · Members dynamically inherit bound permissions"] ?? "User Group · Members dynamically inherit bound permissions") : (messages["Specify Individual User"] ?? "Specify Individual User");
                 text.append(name, subtitle);
                 details.append(iconContainer, text);
                 const controls = document.createElement('div');
@@ -496,8 +498,8 @@
                 const remove = document.createElement('button');
                 remove.type = 'button';
                 remove.className = 'btn btn-sm btn-outline-danger remove-binding-access';
-                remove.title = '移除权限';
-                remove.setAttribute('aria-label', `移除 ${option.textContent}`);
+                remove.title = (messages["Remove permission"] ?? "Remove permission");
+                remove.setAttribute('aria-label', (messages["Remove {0}"] ?? "Remove {0}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(option.textContent)][Number(index)] ?? placeholder));
                 remove.appendChild(createBindingIcon('x', 'align-middle'));
                 controls.append(hidden, remove);
                 item.append(details, controls);
@@ -550,7 +552,7 @@
                     const remove = document.createElement('button');
                     remove.type = 'button';
                     remove.className = 'btn-close btn-close-sm';
-                    remove.setAttribute('aria-label', `移除 ${address}`);
+                    remove.setAttribute('aria-label', (messages["Remove {0}"] ?? "Remove {0}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(address)][Number(index)] ?? placeholder));
                     remove.addEventListener('click', function () {
                         renderCcAddresses(ccAddresses().filter(item => item.toLowerCase() !== address.toLowerCase()));
                     });
@@ -564,7 +566,7 @@
             function parseCcAddresses() {
                 const addresses = ccAddresses();
                 if (addresses.some(address => !normalizeEmail(address))) {
-                    emailCcInput.setCustomValidity('请检查抄送邮箱格式。');
+                    emailCcInput.setCustomValidity((messages["Please check the CC email format."] ?? "Please check the CC email format."));
                     emailCcInput.reportValidity();
                     return;
                 }
@@ -682,7 +684,7 @@
                 const remove = document.createElement('button');
                 remove.type = 'button';
                 remove.className = 'btn btn-sm btn-outline-danger remove-recipient';
-                remove.setAttribute('aria-label', '移除 ' + name);
+                remove.setAttribute('aria-label', (messages["Remove "] ?? "Remove ") + name);
                 remove.appendChild(createIcon('x', 'align-middle'));
                 item.appendChild(remove);
                 recipientList.appendChild(item);
@@ -758,7 +760,7 @@
                 result.type = 'button';
                 result.className = 'list-group-item list-group-item-action d-flex align-items-center gap-3 px-3 py-2 text-start';
                 result.setAttribute('role', 'option');
-                result.setAttribute('aria-label', '选择用户 ' + user.displayName);
+                result.setAttribute('aria-label', (messages["Select User "] ?? "Select User ") + user.displayName);
 
                 const avatar = document.createElement('span');
                 avatar.className = 'd-inline-flex align-items-center justify-content-center flex-shrink-0 rounded-circle bg-primary-subtle text-primary fw-semibold';
@@ -778,7 +780,7 @@
 
                 const select = document.createElement('span');
                 select.className = 'badge bg-primary-subtle text-primary border border-primary-subtle flex-shrink-0';
-                select.textContent = '选择';
+                select.textContent = (messages["Select"] ?? "Select");
                 result.append(avatar, details, select);
                 result.addEventListener('click', function () {
                     selectUser(user);
@@ -804,7 +806,7 @@
                         if (data.users.length === 0) {
                             const empty = document.createElement('div');
                             empty.className = 'p-3 text-muted small text-center';
-                            empty.textContent = '没有找到匹配的用户。';
+                            empty.textContent = (messages["No matching users found."] ?? "No matching users found.");
                             userResults.appendChild(empty);
                         } else {
                             data.users.forEach(appendUserResult);
@@ -824,5 +826,6 @@
 </text>
 }
             });
-    </script>
+
+}</script>
 }

@@ -6,15 +6,15 @@
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h1 class="h3 mb-1">推送中心</h1>
-        <p class="text-muted mb-0">管理通知投递渠道，按严重级别将告警精准投递给责任人和外部系统。</p>
+        <h1 class="h3 mb-1">@Localizer["Notifications"]</h1>
+        <p class="text-muted mb-0">@Localizer["Manage notification delivery channels to deliver alerts to responsible parties and external systems accurately based on severity levels."]</p>
     </div>
     <div class="d-flex flex-wrap gap-2">
         <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-secondary">
-            <i class="align-middle me-1" data-lucide="sliders"></i>应用分级关联
+            <i class="align-middle me-1" data-lucide="sliders"></i>@Localizer["Application Tier Association"]
         </a>
         <a asp-action="Create" class="btn btn-primary">
-            <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加新渠道
+            <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>@Localizer["Add new channel"]
         </a>
     </div>
 </div>
@@ -49,7 +49,7 @@
                 </div>
                 <div>
                     <a asp-action="Create" asp-route-type="@type.Key" class="btn btn-outline-primary btn-sm w-100">
-                        <i class="align-middle me-1" data-lucide="plus"></i>配置 @type.Name
+                        <i class="align-middle me-1" data-lucide="plus"></i>@Localizer["Configure "]@type.Name
                     </a>
                 </div>
             </div>
@@ -62,11 +62,11 @@
 <div class="card">
     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
         <div class="d-flex align-items-center gap-2">
-            <h2 class="card-title mb-0">已配置推送渠道</h2>
-            <span class="badge bg-secondary-subtle text-secondary border">@Model.Channels.Count 个渠道</span>
+            <h2 class="card-title mb-0">@Localizer["Push channel configured"]</h2>
+            <span class="badge bg-secondary-subtle text-secondary border">@Model.Channels.Count @Localizer["channels"]</span>
         </div>
         <a asp-action="Records" class="btn btn-sm btn-outline-secondary">
-            <i class="align-middle me-1" data-lucide="history"></i>查看全部投递记录
+            <i class="align-middle me-1" data-lucide="history"></i>@Localizer["View all delivery records"]
         </a>
     </div>
 
@@ -76,10 +76,10 @@
             <div class="ac-empty-icon">
                 <i data-lucide="send" aria-hidden="true"></i>
             </div>
-            <h3 class="h5">还没有配置推送渠道</h3>
-            <p class="text-muted mb-4">选择上方的渠道类型（如 Webhook、站内通知或邮件），配置后即可在接入应用中关联。</p>
+            <h3 class="h5">@Localizer["No push channels configured yet"]</h3>
+            <p class="text-muted mb-4">@Localizer["Select the channel type above (e.g., Webhook, in-app notification, or email) and configure it to associate with the integrated application."]</p>
             <a asp-action="Create" class="btn btn-primary">
-                <i class="align-middle me-1" data-lucide="plus"></i>添加首个渠道
+                <i class="align-middle me-1" data-lucide="plus"></i>@Localizer["Add first channel"]
             </a>
         </div>
     }
@@ -89,10 +89,10 @@
             <table class="table table-hover align-middle mb-0">
                 <thead>
                     <tr>
-                        <th class="ps-4">渠道名称</th>
-                        <th>通道类型</th>
-                        <th>当前状态</th>
-                        <th class="text-end pe-4">操作</th>
+                        <th class="ps-4">@Localizer["Channel name"]</th>
+                        <th>@Localizer["Channel Type"]</th>
+                        <th>@Localizer["Current Status"]</th>
+                        <th class="text-end pe-4">@Localizer["Action"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,36 +123,36 @@
                             @if (channel.IsEnabled)
                             {
                                 <span class="badge bg-success-subtle text-success border border-success-subtle">
-                                    <span class="ac-status-dot dot-success ac-pulse"></span>已启用
+                                    <span class="ac-status-dot dot-success ac-pulse"></span>@Localizer["Enabled"]
                                 </span>
                             }
                             else
                             {
                                 <span class="badge bg-secondary-subtle text-secondary border">
-                                    <span class="ac-status-dot dot-muted"></span>已停用
+                                    <span class="ac-status-dot dot-muted"></span>@Localizer["Disabled"]
                                 </span>
                             }
                         </td>
                         <td class="pe-4 text-end">
                             <div class="d-flex justify-content-end align-items-center flex-wrap gap-2">
-                                <button type="button" class="btn btn-sm btn-primary" disabled="@(!channel.IsEnabled)" title="发送测试消息并查看投递结果" data-bs-toggle="modal" data-bs-target="#test-channel" data-channel-id="@channel.Id" data-channel-name="@channel.Name">
-                                    <i class="align-middle me-1" data-lucide="send"></i>测试
+                                <button type="button" class="btn btn-sm btn-primary" disabled="@(!channel.IsEnabled)" title="@Localizer["Send test message and view delivery result"]" data-bs-toggle="modal" data-bs-target="#test-channel" data-channel-id="@channel.Id" data-channel-name="@channel.Name">
+                                    <i class="align-middle me-1" data-lucide="send"></i>@Localizer["Test"]
                                 </button>
                                 <a asp-action="Edit" asp-route-id="@channel.Id" class="btn btn-sm btn-outline-primary">
-                                    <i class="align-middle me-1" data-lucide="edit-3"></i>编辑
+                                    <i class="align-middle me-1" data-lucide="edit-3"></i>@Localizer["Edit"]
                                 </a>
                                 <a asp-action="Records" asp-route-channelId="@channel.Id" class="btn btn-sm btn-outline-secondary">
-                                    <i class="align-middle me-1" data-lucide="history"></i>记录
+                                    <i class="align-middle me-1" data-lucide="history"></i>@Localizer["Log"]
                                 </a>
                                 <form asp-action="SetEnabled" method="post" data-action-feedback class="d-inline">
                                     <input type="hidden" name="id" value="@channel.Id" />
                                     <input type="hidden" name="enabled" value="@((!channel.IsEnabled).ToString().ToLowerInvariant())" />
                                     <button class="btn btn-sm btn-outline-secondary" type="submit">
-                                        @(channel.IsEnabled ? "停用" : "启用")
+                                        @(channel.IsEnabled ? @Localizer["Disable"].Value : @Localizer["Enable"].Value)
                                     </button>
                                 </form>
                                 <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-channel" data-channel-id="@channel.Id" data-channel-name="@channel.Name">
-                                    <i class="align-middle me-1" data-lucide="trash-2"></i>删除
+                                    <i class="align-middle me-1" data-lucide="trash-2"></i>@Localizer["Delete"]
                                 </button>
                             </div>
                         </td>
@@ -170,26 +170,26 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title h5 d-flex align-items-center gap-2" id="test-channel-title">
-                    <i class="align-middle text-primary" data-lucide="send"></i>发送测试消息
+                    <i class="align-middle text-primary" data-lucide="send"></i>@Localizer["Send test message"]
                 </h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
             </div>
             <form asp-action="Test" method="post" data-action-feedback>
                 <div class="modal-body">
-                    <p>确定向渠道 <strong id="test-channel-name" class="text-break"></strong> 发送测试通知？</p>
+                    <p>@Localizer["Confirm sending to channel"] <strong id="test-channel-name" class="text-break"></strong> @Localizer["Send test notification?"]</p>
                     <div class="mb-0">
-                        <label for="test-channel-content" class="form-label small fw-medium">测试消息内容</label>
-                        <textarea id="test-channel-content" name="content" class="form-control" rows="4" maxlength="4000" required aria-describedby="test-channel-description">@Aiursoft.AlertCenter.Entities.PushDelivery.DefaultTestContent</textarea>
+                        <label for="test-channel-content" class="form-label small fw-medium">@Localizer["Test message content"]</label>
+                        <textarea id="test-channel-content" name="content" class="form-control" rows="4" maxlength="4000" required aria-describedby="test-channel-description">@Localizer["This is a test message for the push channel."].Value</textarea>
                         <p id="test-channel-description" class="form-text text-muted mb-0 mt-2 small">
-                            系统将立即创建投递任务并调用对应的通道适配器，执行完毕后跳转至投递详情页查看结果。
+                            @Localizer["The system will immediately create a delivery task and invoke the corresponding channel adapter. After execution, you will be redirected to the delivery details page to view the results."]
                         </p>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
                     <input id="test-channel-id" name="id" type="hidden" />
                     <button id="test-channel-confirm" class="btn btn-primary" disabled>
-                        <i class="align-middle me-1" data-lucide="send"></i>立即发送测试
+                        <i class="align-middle me-1" data-lucide="send"></i>@Localizer["Send test now"]
                     </button>
                 </div>
             </form>
@@ -203,25 +203,25 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title h5 d-flex align-items-center gap-2" id="delete-channel-title">
-                    <i class="align-middle text-danger" data-lucide="trash-2"></i>删除推送渠道
+                    <i class="align-middle text-danger" data-lucide="trash-2"></i>@Localizer["Delete push channel"]
                 </h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
             </div>
             <div class="modal-body">
-                <p>确定删除推送渠道 <strong id="delete-channel-name" class="text-break"></strong>？</p>
+                <p>@Localizer["Confirm push channel deletion"] <strong id="delete-channel-name" class="text-break"></strong>？</p>
                 <div class="alert alert-danger small mb-0" id="delete-channel-description" role="alert">
                     <div class="alert-icon">
                         <i class="align-middle" data-lucide="alert-octagon" aria-hidden="true"></i>
                     </div>
-                    <div class="alert-message">关联的应用推送配置、历史投递记录和对应的站内通知将一并删除，此操作无法恢复。</div>
+                    <div class="alert-message">@Localizer["Linked application push configurations, historical delivery records, and corresponding in-app notifications will be deleted. This action cannot be undone."]</div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
                 <form asp-action="Delete" method="post" data-action-feedback class="d-inline">
                     <input id="delete-channel-id" name="id" type="hidden" />
                     <button id="delete-channel-confirm" class="btn btn-danger" disabled>
-                        <i class="align-middle me-1" data-lucide="trash-2"></i>确认删除
+                        <i class="align-middle me-1" data-lucide="trash-2"></i>@Localizer["Confirm deletion"]
                     </button>
                 </form>
             </div>

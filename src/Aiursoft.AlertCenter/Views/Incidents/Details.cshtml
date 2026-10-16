@@ -2,13 +2,13 @@
 @using Aiursoft.AlertCenter.Entities
 @{
     var incident = Model.Incident!;
-    ViewData["Title"] = $"事故作战室 - {incident.Title}";
+    ViewData["Title"] = string.Format(@Localizer["Incident War Room - {0}"].Value, incident.Title);
     var (statusPill, statusIcon, statusText, bannerClass) = incident.Status switch
     {
-        Incident.New => ("ac-status-pill-failed", "alert-triangle", "待响应 (New)", "ac-incident-banner-triggered"),
-        Incident.Acked => ("ac-status-pill-sending", "user-check", "已确认 (Acked)", "ac-incident-banner-acknowledged"),
-        Incident.Mitigated => ("ac-status-pill-sending", "shield-check", "已缓解 (Mitigated)", "ac-incident-banner-acknowledged"),
-        Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", "已解决 (Resolved)", "ac-incident-banner-resolved"),
+        Incident.New => ("ac-status-pill-failed", "alert-triangle", @Localizer["Pending Response (New)"].Value, "ac-incident-banner-triggered"),
+        Incident.Acked => ("ac-status-pill-sending", "user-check", @Localizer["Acknowledged (Acked)"].Value, "ac-incident-banner-acknowledged"),
+        Incident.Mitigated => ("ac-status-pill-sending", "shield-check", @Localizer["Mitigated (Mitigated)"].Value, "ac-incident-banner-acknowledged"),
+        Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", @Localizer["Resolved (Resolved)"].Value, "ac-incident-banner-resolved"),
         _ => ("ac-status-pill-pending", "circle-help", incident.Status, "")
     };
     var isActive = incident.Status != Incident.Resolved;
@@ -17,24 +17,24 @@
 
     string StatusText(string? status) => status switch
     {
-        Incident.New => "待响应",
-        Incident.Acked => "已确认",
-        Incident.Mitigated => "已缓解",
-        Incident.Resolved => "已解决",
-        _ => status ?? "未设置"
+        Incident.New => @Localizer["Pending Response"].Value,
+        Incident.Acked => @Localizer["Acknowledged"].Value,
+        Incident.Mitigated => @Localizer["Mitigated"].Value,
+        Incident.Resolved => @Localizer["Resolved"].Value,
+        _ => status ?? @Localizer["Not set"].Value
     };
 
     (string Icon, string BadgeClass, string Text) EntryStyle(string type) => type switch
     {
-        IncidentTimelineEntry.Created => ("alert-triangle", "badge-triggered", "自动创建事故"),
-        IncidentTimelineEntry.Acked => ("user-check", "badge-acknowledged", "确认并认领事故"),
-        IncidentTimelineEntry.OwnershipChanged => ("user-round-check", "badge-acknowledged", "接管事故"),
-        IncidentTimelineEntry.Mitigated => ("shield-check", "badge-acknowledged", "缓解事故"),
-        IncidentTimelineEntry.Resolved => ("check-circle", "badge-resolved", "解决事故"),
-        IncidentTimelineEntry.Reopened => ("rotate-ccw", "badge-triggered", "重开事故"),
-        IncidentTimelineEntry.LevelChanged => ("sliders-horizontal", "badge-updated", "调整事故级别"),
-        IncidentTimelineEntry.Updated => ("message-square", "badge-updated", "处理进展"),
-        _ => ("activity", "badge-updated", "事故事件")
+        IncidentTimelineEntry.Created => ("alert-triangle", "badge-triggered", @Localizer["Auto-create incident"].Value),
+        IncidentTimelineEntry.Acked => ("user-check", "badge-acknowledged", @Localizer["Confirm and claim incident"].Value),
+        IncidentTimelineEntry.OwnershipChanged => ("user-round-check", "badge-acknowledged", @Localizer["Take Over Incident"].Value),
+        IncidentTimelineEntry.Mitigated => ("shield-check", "badge-acknowledged", @Localizer["Mitigate incident"].Value),
+        IncidentTimelineEntry.Resolved => ("check-circle", "badge-resolved", @Localizer["Resolve incident"].Value),
+        IncidentTimelineEntry.Reopened => ("rotate-ccw", "badge-triggered", @Localizer["Reopen Incident"].Value),
+        IncidentTimelineEntry.LevelChanged => ("sliders-horizontal", "badge-updated", @Localizer["Adjust Incident Severity"].Value),
+        IncidentTimelineEntry.Updated => ("message-square", "badge-updated", @Localizer["Progress"].Value),
+        _ => ("activity", "badge-updated", @Localizer["Incident event"].Value)
     };
 }
 @section styles {
@@ -44,12 +44,12 @@
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <a asp-action="Index" class="btn btn-outline-secondary">
-        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回事故列表
+        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>@Localizer["Back to Incident List"]
     </a>
     <div class="d-flex align-items-center gap-2">
         <span class="text-muted small font-monospace">
             <i data-lucide="clock" style="width: 13px; height: 13px;" class="align-middle me-1" aria-hidden="true"></i>
-            自动创建于 @incident.TriggeredAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+            @Localizer["Auto-created at "]@incident.TriggeredAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
         </span>
     </div>
 </div>
@@ -69,11 +69,11 @@
                 <span class="badge @(incident.AlertLevel == "sev0" ? "ac-badge-sev0" : incident.AlertLevel == "sev1" ? "ac-badge-sev1" : incident.AlertLevel == "sev2" ? "ac-badge-sev2" : incident.AlertLevel == "sev3" ? "ac-badge-sev3" : "ac-badge-sev4") font-monospace">@incident.AlertLevel</span>
             </div>
             <h1 class="h3 mb-2 text-break fw-bold">@incident.Title</h1>
-            <p class="text-muted small mb-2 text-break">事故负责人：<strong>@(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? "未分配")</strong></p>
+            <p class="text-muted small mb-2 text-break">@Localizer["Incident owner:"]<strong>@(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? @Localizer["Unassigned"].Value)</strong></p>
             <div class="text-muted small text-break d-flex align-items-center gap-2">
                 <i data-lucide="fingerprint" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
-                <span>告警匹配抑制规则：</span>
-                <code class="bg-white bg-opacity-50 px-2 py-0.5 rounded border">@(incident.IncidentKey == null ? $"应用 + 标题 + 原始级别 ({incident.AlertTitle} · {incident.MatchLevel})" : $"incidentKey: {incident.IncidentKey}")</code>
+                <span>@Localizer["Alert matched suppression rule:"]</span>
+                <code class="bg-white bg-opacity-50 px-2 py-0.5 rounded border">@(incident.IncidentKey == null ? string.Format(@Localizer["App + Title + Original Level ({0} · {1})"].Value, incident.AlertTitle, incident.MatchLevel) : $"incidentKey: {incident.IncidentKey}")</code>
             </div>
         </div>
 
@@ -84,9 +84,9 @@
                 <form asp-action="Acknowledge" method="post" data-action-feedback class="d-flex flex-wrap gap-2">
                     <input type="hidden" name="incidentId" value="@incident.Id" />
                     <input type="hidden" name="version" value="@incident.Version" />
-                    <input name="note" maxlength="4000" class="form-control form-control-sm" style="max-width: 18rem;" placeholder="确认说明（可选）" aria-label="确认说明（可选）" />
+                    <input name="note" maxlength="4000" class="form-control form-control-sm" style="max-width: 18rem;" placeholder="@Localizer["Confirmation note (optional)"]" aria-label="@Localizer["Confirmation note (optional)"]" />
                     <button type="submit" class="btn btn-sm btn-warning text-nowrap">
-                        <i class="align-middle me-1" data-lucide="user-check" aria-hidden="true"></i>确认并认领
+                        <i class="align-middle me-1" data-lucide="user-check" aria-hidden="true"></i>@Localizer["Confirm and claim"]
                     </button>
                 </form>
             }
@@ -95,38 +95,38 @@
                 <form asp-action="TakeOwnership" method="post" data-action-feedback class="d-flex flex-wrap gap-2">
                     <input type="hidden" name="incidentId" value="@incident.Id" />
                     <input type="hidden" name="version" value="@incident.Version" />
-                    <input name="note" maxlength="4000" class="form-control form-control-sm" style="max-width: 18rem;" placeholder="接管说明（可选）" aria-label="接管说明（可选）" />
+                    <input name="note" maxlength="4000" class="form-control form-control-sm" style="max-width: 18rem;" placeholder="@Localizer["Take Over Notes (Optional)"]" aria-label="@Localizer["Take Over Notes (Optional)"]" />
                     <button type="submit" class="btn btn-sm btn-outline-warning text-nowrap">
-                        <i class="align-middle me-1" data-lucide="user-round-check" aria-hidden="true"></i>接管事故
+                        <i class="align-middle me-1" data-lucide="user-round-check" aria-hidden="true"></i>@Localizer["Take Over Incident"]
                     </button>
                 </form>
                 <button class="btn btn-sm btn-primary text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#mitigate-incident">
-                    <i class="align-middle me-1" data-lucide="shield-check" aria-hidden="true"></i>缓解事故
+                    <i class="align-middle me-1" data-lucide="shield-check" aria-hidden="true"></i>@Localizer["Mitigate incident"]
                 </button>
             }
             @if (Model.CanManage && incident.Status == Incident.Mitigated)
             {
                 <button class="btn btn-sm btn-success text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#resolve-incident">
-                    <i class="align-middle me-1" data-lucide="check-circle" aria-hidden="true"></i>解决事故
+                    <i class="align-middle me-1" data-lucide="check-circle" aria-hidden="true"></i>@Localizer["Resolve incident"]
                 </button>
             }
             @if (canChangeLevel)
             {
                 <button class="btn btn-sm btn-outline-primary text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#change-incident-level">
-                    <i class="align-middle me-1" data-lucide="sliders-horizontal" aria-hidden="true"></i>调整级别
+                    <i class="align-middle me-1" data-lucide="sliders-horizontal" aria-hidden="true"></i>@Localizer["Adjust Severity"]
                 </button>
             }
             @if (canReopen)
             {
                 <button class="btn btn-sm btn-outline-danger text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#reopen-incident">
-                    <i class="align-middle me-1" data-lucide="rotate-ccw" aria-hidden="true"></i>重开事故
+                    <i class="align-middle me-1" data-lucide="rotate-ccw" aria-hidden="true"></i>@Localizer["Reopen Incident"]
                 </button>
             }
             @if (!isActive)
             {
                 <span class="badge bg-success text-white px-3 py-2 d-inline-flex align-items-center gap-1.5">
                     <i data-lucide="check-circle-2" style="width: 15px; height: 15px;" aria-hidden="true"></i>
-                    <span>已完成修复并关闭</span>
+                    <span>@Localizer["Fixed and closed"]</span>
                 </span>
             }
         </div>
@@ -140,17 +140,17 @@
         <div class="card-header bg-transparent py-3">
             <h2 class="card-title h6 mb-0 d-flex align-items-center gap-2">
                 <i data-lucide="edit-3" style="width: 16px; height: 16px;" class="text-primary" aria-hidden="true"></i>
-                <span>记录排查与处理进展</span>
+                <span>@Localizer["Log investigation and handling progress"]</span>
             </h2>
         </div>
         <div class="card-body pt-0">
             <form asp-action="AddNote" method="post" data-action-feedback class="d-flex flex-column gap-3">
                 <input type="hidden" name="incidentId" value="@incident.Id" />
                 <input type="hidden" name="version" value="@incident.Version" />
-                <textarea class="form-control" name="note" maxlength="4000" rows="3" required placeholder="实时记录排查线索、应急缓解措施、影响范围评估或系统恢复进展..."></textarea>
+                <textarea class="form-control" name="note" maxlength="4000" rows="3" required placeholder="@Localizer["Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..."]"></textarea>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-outline-primary btn-sm px-4">
-                        <i class="align-middle me-1" data-lucide="send" aria-hidden="true"></i>发布进展
+                        <i class="align-middle me-1" data-lucide="send" aria-hidden="true"></i>@Localizer["Publish progress"]
                     </button>
                 </div>
             </form>
@@ -165,9 +165,9 @@
             <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
                 <h2 class="card-title h5 mb-0 d-flex align-items-center gap-2">
                     <i data-lucide="git-commit" style="width: 18px; height: 18px;" class="text-primary" aria-hidden="true"></i>
-                    <span>处理全周期时间线</span>
+                    <span>@Localizer["Full-cycle handling timeline"]</span>
                 </h2>
-                <span class="badge bg-light text-secondary border">共 @Model.TimelineEntries.Count 个处置节点</span>
+                <span class="badge bg-light text-secondary border">@Localizer["Total "]@Model.TimelineEntries.Count @Localizer["handling nodes"]</span>
             </div>
             <div class="card-body">
                 <div class="ac-timeline">
@@ -182,7 +182,7 @@
                                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-1">
                                     <div class="d-flex align-items-center gap-2">
                                         <strong class="text-dark">@entryStyle.Text</strong>
-                                        <span class="badge bg-light text-secondary border small">@entry.ActorDisplayName</span>
+                                        <span class="badge bg-light text-secondary border small">@(entry.ActorName ?? entry.Actor?.DisplayName ?? (entry.Type == IncidentTimelineEntry.Created && entry.ActorId == null && entry.ActorIdSnapshot == null ? @Localizer["System"].Value : @Localizer["User deleted"].Value))</span>
                                     </div>
                                     <small class="text-muted font-monospace small">
                                         @entry.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
@@ -190,15 +190,15 @@
                                 </div>
                                 @if (entry.PreviousStatus != entry.NewStatus && (entry.PreviousStatus != null || entry.NewStatus != null))
                                 {
-                                    <div class="text-muted small mt-1">状态：@StatusText(entry.PreviousStatus) → @StatusText(entry.NewStatus)</div>
+                                    <div class="text-muted small mt-1">@Localizer["Status: "]@StatusText(entry.PreviousStatus) → @StatusText(entry.NewStatus)</div>
                                 }
                                 @if (entry.PreviousOwnerId != entry.NewOwnerId || entry.PreviousOwnerName != entry.NewOwnerName)
                                 {
-                                    <div class="text-muted small mt-1 text-break">负责人：@(entry.PreviousOwnerName ?? entry.PreviousOwnerId ?? "未分配") → @(entry.NewOwnerName ?? entry.NewOwnerId ?? "未分配")</div>
+                                    <div class="text-muted small mt-1 text-break">@Localizer["Owner: "]@(entry.PreviousOwnerName ?? entry.PreviousOwnerId ?? @Localizer["Unassigned"].Value) → @(entry.NewOwnerName ?? entry.NewOwnerId ?? @Localizer["Unassigned"].Value)</div>
                                 }
                                 @if (entry.PreviousLevel != entry.NewLevel && (entry.PreviousLevel != null || entry.NewLevel != null))
                                 {
-                                    <div class="text-muted small mt-1">级别：@(entry.PreviousLevel ?? "未设置") → @(entry.NewLevel ?? "未设置")</div>
+                                    <div class="text-muted small mt-1">@Localizer["Severity: "]@(entry.PreviousLevel ?? @Localizer["Not set"].Value) → @(entry.NewLevel ?? @Localizer["Not set"].Value)</div>
                                 }
                                 @if (!string.IsNullOrEmpty(entry.Note))
                                 {
@@ -216,18 +216,18 @@
     <div class="col-lg-4">
         <section class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-transparent py-3">
-                <h2 class="card-title h6 mb-0">当前值班 OCE</h2>
+                <h2 class="card-title h6 mb-0">@Localizer["Current On-Call OCE"]</h2>
             </div>
             <div class="card-body pt-0 small">
                 @if (!string.IsNullOrEmpty(Model.CurrentOceError))
                 {
                     <div class="alert alert-warning mb-0" role="alert">
-                        <div class="alert-message text-break">当前值班 OCE 查询失败：@Model.CurrentOceError</div>
+                        <div class="alert-message text-break">@Localizer["Currently on call "]OCE @Localizer["Query failed: "]@Model.CurrentOceError</div>
                     </div>
                 }
                 else if (Model.CurrentOces.Count == 0)
                 {
-                    <p class="text-muted mb-0">当前无值班 OCE。</p>
+                    <p class="text-muted mb-0">@Localizer["No current on-call OCE."]</p>
                 }
                 else
                 {
@@ -249,17 +249,17 @@
                     <dl class="mb-0 mt-3 pt-3 border-top text-muted">
                         @if (incident.AcknowledgedAtUtc.HasValue)
                         {
-                            <dt>确认时间 (UTC)</dt>
+                            <dt>@Localizer["Confirmation time (UTC)"]</dt>
                             <dd class="font-monospace">@incident.AcknowledgedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
                         }
                         @if (incident.MitigatedAtUtc.HasValue)
                         {
-                            <dt>缓解时间 (UTC)</dt>
+                            <dt>@Localizer["Mitigation time (UTC)"]</dt>
                             <dd class="font-monospace">@incident.MitigatedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
                         }
                         @if (incident.ResolvedAtUtc.HasValue)
                         {
-                            <dt>解决时间 (UTC)</dt>
+                            <dt>@Localizer["Resolution time (UTC)"]</dt>
                             <dd class="font-monospace">@incident.ResolvedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
                         }
                     </dl>
@@ -272,16 +272,16 @@
             <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
                 <h2 class="card-title h6 mb-0 d-flex align-items-center gap-2">
                     <i data-lucide="link-2" style="width: 16px; height: 16px;" class="text-primary" aria-hidden="true"></i>
-                    <span>关联告警</span>
+                    <span>@Localizer["Linked Alert"]</span>
                 </h2>
-                <span class="badge bg-light text-secondary border">@Model.Messages.Count 条</span>
+                <span class="badge bg-light text-secondary border">@Model.Messages.Count @Localizer[" items"]</span>
             </div>
             <div class="list-group list-group-flush small">
                 @if (Model.Messages.Count == 0)
                 {
                     <div class="list-group-item text-muted py-4 text-center">
                         <i data-lucide="inbox" style="width: 24px; height: 24px;" class="d-block mx-auto mb-2 text-muted" aria-hidden="true"></i>
-                        暂无关联告警
+                        @Localizer["No associated alerts"]
                     </div>
                 }
                 @foreach (var message in Model.Messages)
@@ -303,7 +303,7 @@
                             <span>@message.ReceivedAtUtc.ToString("MM-dd HH:mm:ss")</span>
                             @if (message.IsArchived)
                             {
-                                <span class="badge bg-secondary-subtle text-secondary py-0">已归档</span>
+                                <span class="badge bg-secondary-subtle text-secondary py-0">@Localizer["Archived"]</span>
                             }
                         </div>
                     </a>
@@ -314,21 +314,21 @@
         <!-- Incident Quick Info -->
         <section class="card shadow-sm border-0">
             <div class="card-header bg-transparent py-3">
-                <h2 class="card-title h6 mb-0">处置机制说明</h2>
+                <h2 class="card-title h6 mb-0">@Localizer["Response Mechanism Description"]</h2>
             </div>
             <div class="card-body small text-muted">
                 <div class="d-flex align-items-start gap-2 mb-3">
                     <i data-lucide="shield-check" style="width: 18px; height: 18px;" class="text-primary flex-shrink-0 mt-0.5" aria-hidden="true"></i>
                     <div>
-                        <strong class="text-dark d-block mb-0.5">自动归档与通知静默</strong>
-                        事故处于“已确认”或“已缓解”状态时，匹配相同规则的新上报告警将自动归档并抑制重复通知。调整事故级别不会改变原始告警的匹配规则。
+                        <strong class="text-dark d-block mb-0.5">@Localizer["Auto-archive and notification silence"]</strong>
+                        @Localizer["When an incident is in the “Acknowledged” or “Mitigated” state, new reported alerts matching the same rules are automatically archived and duplicate notifications are suppressed. Adjusting the incident level does not change the matching rules of the original alert."]
                     </div>
                 </div>
                 <div class="d-flex align-items-start gap-2">
                     <i data-lucide="rotate-ccw" style="width: 18px; height: 18px;" class="text-success flex-shrink-0 mt-0.5" aria-hidden="true"></i>
                     <div>
-                        <strong class="text-dark d-block mb-0.5">闭环恢复</strong>
-                        先记录缓解措施，再填写解决原因关闭事故。重开事故将恢复“待响应”、清空负责人、恢复告警通知，并邮件通知当前值班 OCE。
+                        <strong class="text-dark d-block mb-0.5">@Localizer["Closed-loop Recovery"]</strong>
+                        @Localizer["Record mitigation measures first, then fill in the resolution reason to close the incident. Reopening an incident restores the 'Pending Response' status, clears the assignee, restores alert notifications, and emails the current on-call OCE."]
                     </div>
                 </div>
             </div>
@@ -346,17 +346,17 @@
                 <input type="hidden" name="incidentId" value="@incident.Id" />
                 <input type="hidden" name="version" value="@incident.Version" />
                 <div class="modal-header">
-                    <h2 class="modal-title h5 mb-0" id="mitigate-incident-title">缓解事故</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                    <h2 class="modal-title h5 mb-0" id="mitigate-incident-title">@Localizer["Mitigate incident"]</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted small mb-3">记录已采取的缓解措施。缓解后仍会自动归档匹配告警并抑制重复通知；完成修复后再解决事故。</p>
-                    <label for="mitigate-note" class="form-label small text-muted">缓解原因（必填）</label>
-                    <textarea id="mitigate-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="说明缓解措施、影响范围与恢复情况。"></textarea>
+                    <p class="text-muted small mb-3">@Localizer["Record the mitigation measures taken. Matching alerts will still be auto-archived and duplicate notifications suppressed after mitigation; resolve the incident after the fix is complete."]</p>
+                    <label for="mitigate-note" class="form-label small text-muted">@Localizer["Mitigation reason (required)"]</label>
+                    <textarea id="mitigate-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="@Localizer["Describe mitigation measures, impact scope, and recovery status."]"></textarea>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-primary">确认缓解事故</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@Localizer["Confirm incident mitigation"]</button>
                 </div>
             </form>
         </div>
@@ -371,25 +371,25 @@
                 <input type="hidden" name="incidentId" value="@incident.Id" />
                 <input type="hidden" name="version" value="@incident.Version" />
                 <div class="modal-header">
-                    <h2 class="modal-title h5 mb-0" id="change-incident-level-title">调整事故级别</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                    <h2 class="modal-title h5 mb-0" id="change-incident-level-title">@Localizer["Adjust Incident Severity"]</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted small mb-3">调整当前事故严重程度，不改变原始告警的匹配规则。</p>
-                    <label for="incident-new-level" class="form-label small text-muted">新级别</label>
+                    <p class="text-muted small mb-3">@Localizer["Adjust the current incident severity without changing the original alert matching rules."]</p>
+                    <label for="incident-new-level" class="form-label small text-muted">@Localizer["New level"]</label>
                     <select id="incident-new-level" name="level" class="form-select mb-3" required>
-                        <option value="sev0" selected="@(incident.AlertLevel == "sev0")">sev0 · 致命 (P0)</option>
-                        <option value="sev1" selected="@(incident.AlertLevel == "sev1")">sev1 · 严重 (P1)</option>
-                        <option value="sev2" selected="@(incident.AlertLevel == "sev2")">sev2 · 错误 (P2)</option>
-                        <option value="sev3" selected="@(incident.AlertLevel == "sev3")">sev3 · 警告 (P3)</option>
-                        <option value="sev4" selected="@(incident.AlertLevel == "sev4")">sev4 · 信息 (P4)</option>
+                        <option value="sev0" selected="@(incident.AlertLevel == "sev0")">@Localizer["sev0 · Critical (P0)"]</option>
+                        <option value="sev1" selected="@(incident.AlertLevel == "sev1")">@Localizer["sev1 · Major (P1)"]</option>
+                        <option value="sev2" selected="@(incident.AlertLevel == "sev2")">@Localizer["sev2 · Error (P2)"]</option>
+                        <option value="sev3" selected="@(incident.AlertLevel == "sev3")">@Localizer["sev3 · Warning (P3)"]</option>
+                        <option value="sev4" selected="@(incident.AlertLevel == "sev4")">@Localizer["sev4 · Info (P4)"]</option>
                     </select>
-                    <label for="change-level-note" class="form-label small text-muted">调整原因（必填）</label>
-                    <textarea id="change-level-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="说明影响变化与级别调整依据。"></textarea>
+                    <label for="change-level-note" class="form-label small text-muted">@Localizer["Reason for adjustment (required)"]</label>
+                    <textarea id="change-level-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="@Localizer["Describe the impact changes and the basis for severity adjustments."]"></textarea>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-primary">确认调整级别</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-primary">@Localizer["Confirm severity adjustment"]</button>
                 </div>
             </form>
         </div>
@@ -404,17 +404,17 @@
                 <input type="hidden" name="incidentId" value="@incident.Id" />
                 <input type="hidden" name="version" value="@incident.Version" />
                 <div class="modal-header">
-                    <h2 class="modal-title h5 mb-0" id="reopen-incident-title">重开事故</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                    <h2 class="modal-title h5 mb-0" id="reopen-incident-title">@Localizer["Reopen Incident"]</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted small mb-3">重开后恢复“待响应”状态并清空负责人，匹配告警恢复通知，同时邮件通知当前值班 OCE。需重新确认并认领事故。</p>
-                    <label for="reopen-note" class="form-label small text-muted">重开说明（可选）</label>
-                    <textarea id="reopen-note" name="note" maxlength="4000" rows="4" class="form-control" placeholder="例如：监控再次发现相同故障，需要重新排查。"></textarea>
+                    <p class="text-muted small mb-3">@Localizer["Reopening restores the \"Pending Response\" status and clears the assignee, matches alert recovery notifications, and emails the current on-call OCE. The incident must be re-acknowledged and claimed."]</p>
+                    <label for="reopen-note" class="form-label small text-muted">@Localizer["Reopen Notes (Optional)"]</label>
+                    <textarea id="reopen-note" name="note" maxlength="4000" rows="4" class="form-control" placeholder="@Localizer["Example: Monitoring detected the same failure again, re-investigation required."]"></textarea>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="submit" class="btn btn-danger">确认重开事故</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-danger">@Localizer["Confirm incident re-opening"]</button>
                 </div>
             </form>
         </div>
@@ -434,21 +434,21 @@
                         <div class="rounded-circle bg-success-subtle text-success p-1.5">
                             <i data-lucide="check-circle" style="width: 18px; height: 18px;" aria-hidden="true"></i>
                         </div>
-                        <h2 class="modal-title h5 mb-0" id="resolve-incident-title">解决事故</h2>
+                        <h2 class="modal-title h5 mb-0" id="resolve-incident-title">@Localizer["Resolve incident"]</h2>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
                     <p class="text-muted small mb-3">
-                        解决事故后，将解除对匹配告警的自动归档与静默机制，后续相同规则的告警将恢复正常推送。
+                        @Localizer["After resolving the incident, automatic archiving and muting for matching alerts will be lifted. Subsequent alerts with the same rule will resume normal notifications."]
                     </p>
-                    <label for="resolve-note" class="form-label small text-muted">解决原因（必填）</label>
-                    <textarea id="resolve-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="例如：核心数据库连接池已恢复，服务响应正常，压测验证通过。"></textarea>
+                    <label for="resolve-note" class="form-label small text-muted">@Localizer["Resolution reason (required)"]</label>
+                    <textarea id="resolve-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="@Localizer["Example: Core database connection pool restored, service responses normal, load test passed."]"></textarea>
                 </div>
                 <div class="modal-footer bg-light">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
                     <button type="submit" class="btn btn-success">
-                        <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>确认解决事故
+                        <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>@Localizer["Confirm incident resolution"]
                     </button>
                 </div>
             </form>

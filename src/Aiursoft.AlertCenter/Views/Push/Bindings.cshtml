@@ -1,14 +1,14 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using Aiursoft.AlertCenter.Models
 @{
-    ViewData["Title"] = $"{Model.Application!.Name} - 推送路由设置";
+    ViewData["Title"] = string.Format(@Localizer["{0} - Push Routing Settings"].Value, Model.Application!.Name);
     var levels = new[]
     {
-        (Field: nameof(ApplicationPushBindingsRequest.Sev0ChannelIds), Level: "sev0", Label: "致命 (P0)", BadgeClass: "ac-badge-sev0", Selected: Model.Bindings.Sev0ChannelIds.ToHashSet()),
-        (Field: nameof(ApplicationPushBindingsRequest.Sev1ChannelIds), Level: "sev1", Label: "严重 (P1)", BadgeClass: "ac-badge-sev1", Selected: Model.Bindings.Sev1ChannelIds.ToHashSet()),
-        (Field: nameof(ApplicationPushBindingsRequest.Sev2ChannelIds), Level: "sev2", Label: "错误 (P2)", BadgeClass: "ac-badge-sev2", Selected: Model.Bindings.Sev2ChannelIds.ToHashSet()),
-        (Field: nameof(ApplicationPushBindingsRequest.Sev3ChannelIds), Level: "sev3", Label: "警告 (P3)", BadgeClass: "ac-badge-sev3", Selected: Model.Bindings.Sev3ChannelIds.ToHashSet()),
-        (Field: nameof(ApplicationPushBindingsRequest.Sev4ChannelIds), Level: "sev4", Label: "信息 (P4)", BadgeClass: "ac-badge-sev4", Selected: Model.Bindings.Sev4ChannelIds.ToHashSet())
+        (Field: nameof(ApplicationPushBindingsRequest.Sev0ChannelIds), Level: "sev0", Label: @Localizer["Critical (P0)"].Value, BadgeClass: "ac-badge-sev0", Selected: Model.Bindings.Sev0ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev1ChannelIds), Level: "sev1", Label: @Localizer["Major (P1)"].Value, BadgeClass: "ac-badge-sev1", Selected: Model.Bindings.Sev1ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev2ChannelIds), Level: "sev2", Label: @Localizer["Error (P2)"].Value, BadgeClass: "ac-badge-sev2", Selected: Model.Bindings.Sev2ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev3ChannelIds), Level: "sev3", Label: @Localizer["Warning (P3)"].Value, BadgeClass: "ac-badge-sev3", Selected: Model.Bindings.Sev3ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev4ChannelIds), Level: "sev4", Label: @Localizer["Info (P4)"].Value, BadgeClass: "ac-badge-sev4", Selected: Model.Bindings.Sev4ChannelIds.ToHashSet())
     };
 }
 @section styles {
@@ -22,15 +22,15 @@
         </div>
         <div>
             <div class="d-flex align-items-center gap-2">
-                <h1 class="h3 mb-0">应用推送路由</h1>
+                <h1 class="h3 mb-0">@Localizer["Application Push Routing"]</h1>
                 <span class="badge bg-secondary-subtle text-secondary font-monospace small">@Model.Application.Name</span>
             </div>
-            <p class="text-muted mb-0 small">按告警级别精确匹配接收渠道 · 矩阵路由引擎</p>
+            <p class="text-muted mb-0 small">@Localizer["Precisely match receiving channels by alert level · Matrix Routing Engine"]</p>
         </div>
     </div>
     <div class="d-flex gap-2">
         <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-secondary">
-            <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回接入应用
+            <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>@Localizer["Back to Connected Apps"]
         </a>
     </div>
 </div>
@@ -39,13 +39,13 @@
 {
     <section class="card border-primary mb-4" aria-labelledby="oncall-mail-heading">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h2 id="oncall-mail-heading" class="card-title mb-0">内置值班邮件</h2>
-            <span class="badge bg-primary">自动启用 · 不可单独关闭</span>
+            <h2 id="oncall-mail-heading" class="card-title mb-0">@Localizer["Built-in On-call Email"]</h2>
+            <span class="badge bg-primary">@Localizer["Auto-enabled · Cannot be disabled individually"]</span>
         </div>
         <div class="card-body">
-            <p>值班组：<a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a></p>
-            <p class="mb-1"><strong>To：</strong>通知时刻所有当班工程师（OCE）的系统登记邮箱；<strong>CC：</strong>值班组配置的抄送地址。</p>
-            <p class="small text-muted mb-0">适用于 sev0–sev4，无需勾选渠道。不自动发送站内消息或 Webhook；下方渠道是独立的补充通知。已确认事故继续沿用告警归档和通知抑制规则。</p>
+            <p>@Localizer["On-call group:"]<a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a></p>
+            <p class="mb-1"><strong>To：</strong>@Localizer["System registered email addresses of all on-duty engineers (OCE) at the time of notification;"]<strong>CC：</strong>@Localizer["CC addresses configured for the on-call group."]</p>
+            <p class="small text-muted mb-0">@Localizer["Applies to sev0–sev4; no channel selection required. In-app messages or Webhooks are not sent automatically; the channels below are independent supplementary notifications. Confirmed incidents continue to follow alert archival and notification suppression rules."]</p>
         </div>
     </section>
 }
@@ -56,10 +56,10 @@
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-header bg-transparent d-flex justify-content-between align-items-center py-3">
             <div>
-                <h2 class="card-title h5 mb-0">自定义渠道与级别匹配矩阵</h2>
-                <small id="binding-hint" class="text-muted">每个级别可选择多个补充渠道；未勾选仅表示不发送自定义通知，不影响内置值班邮件。严格精确匹配，不向上或向下自动扩展。</small>
+                <h2 class="card-title h5 mb-0">@Localizer["Custom channel-to-severity match matrix"]</h2>
+                <small id="binding-hint" class="text-muted">@Localizer["Multiple supplementary channels can be selected per level; unchecked items only indicate no custom notifications will be sent, without affecting built-in on-call emails. Strict exact matching is applied, with no automatic expansion to higher or lower levels."]</small>
             </div>
-            <span class="badge bg-light text-dark border">共 @Model.Channels.Count 个可用渠道</span>
+            <span class="badge bg-light text-dark border">@Localizer["Total "]@Model.Channels.Count @Localizer["available channels"]</span>
         </div>
 
         <div class="card-body p-0">
@@ -69,11 +69,11 @@
                     <div class="ac-empty-icon">
                         <i data-lucide="send" aria-hidden="true"></i>
                     </div>
-                    <h3 class="h5 mb-2">尚未配置推送渠道</h3>
+                    <h3 class="h5 mb-2">@Localizer["No push channels configured yet"]</h3>
                     <p class="text-muted mb-4" style="max-width: 24rem; margin-inline: auto;">
-                        可按需创建 Webhook、邮件或站内通知渠道作为补充。已绑定值班组的应用无需自定义渠道也会发送内置值班邮件。
+                        @Localizer["You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels."]
                     </p>
-                    <p class="text-muted mb-0">请联系推送渠道管理员授予渠道绑定权限。</p>
+                    <p class="text-muted mb-0">@Localizer["Please contact the push channel administrator to grant channel binding permissions."]</p>
                 </div>
             }
             else
@@ -83,7 +83,7 @@
                         <thead>
                             <tr class="table-light">
                                 <th scope="col" class="ps-4 py-3" style="min-width: 240px;">
-                                    <span class="text-uppercase text-muted small fw-semibold">推送渠道与类型</span>
+                                    <span class="text-uppercase text-muted small fw-semibold">@Localizer["Push Channel and Type"]</span>
                                 </th>
                                 @foreach (var level in levels)
                                 {
@@ -118,18 +118,18 @@
                                                     <strong class="text-break">@channel.Name</strong>
                                                     @if (channel.IsEnabled)
                                                     {
-                                                        <span class="ac-status-dot dot-success" title="已启用"></span>
+                                                        <span class="ac-status-dot dot-success" title="@Localizer["Enabled"]"></span>
                                                     }
                                                     else
                                                     {
-                                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle small py-0">已停用</span>
+                                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle small py-0">@Localizer["Disabled"]</span>
                                                     }
                                                 </div>
                                                 <small class="text-muted">
                                                     @(type?.Name ?? channel.Type)
                                                     @if (!channel.IsEnabled)
                                                     {
-                                                        <span class="text-danger-subtle">· 停用中，暂不派发</span>
+                                                        <span class="text-danger-subtle">@Localizer["· Disabled, not dispatching"]</span>
                                                     }
                                                 </small>
                                             </div>
@@ -159,10 +159,10 @@
                 <div class="card-footer bg-light p-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
                     <div class="d-flex align-items-center gap-2 text-muted small">
                         <i data-lucide="info" class="text-primary" style="width: 18px; height: 18px;" aria-hidden="true"></i>
-                        <span>保存后仅对新上报告警生效。若渠道停用，路由保留但新产生的告警将被跳过。</span>
+                        <span>@Localizer["Applies only to new alerts after saving. If a channel is disabled, routing is retained but new alerts will be skipped."]</span>
                     </div>
                     <button type="submit" class="btn btn-primary px-4">
-                        <i class="align-middle me-1" data-lucide="save" aria-hidden="true"></i>保存路由配置
+                        <i class="align-middle me-1" data-lucide="save" aria-hidden="true"></i>@Localizer["Save routing configuration"]
                     </button>
                 </div>
             }

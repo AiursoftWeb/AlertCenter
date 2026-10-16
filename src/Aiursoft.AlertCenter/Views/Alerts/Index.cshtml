@@ -14,10 +14,10 @@
 
     string IncidentStatusText(string status) => status switch
     {
-        Incident.New => "待响应",
-        Incident.Acked => "已确认",
-        Incident.Mitigated => "已缓解",
-        Incident.Resolved => "已解决",
+        Incident.New => @Localizer["Pending Response"].Value,
+        Incident.Acked => @Localizer["Acknowledged"].Value,
+        Incident.Mitigated => @Localizer["Mitigated"].Value,
+        Incident.Resolved => @Localizer["Resolved"].Value,
         _ => status
     };
 
@@ -34,33 +34,33 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <div class="d-flex align-items-center gap-2 mb-1">
-            <h1 class="h3 mb-0">告警消息</h1>
+            <h1 class="h3 mb-0">@Localizer["Alert messages"]</h1>
             @if (hasFilters)
             {
-                <span class="badge bg-primary-subtle text-primary border border-primary-subtle">已筛选</span>
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle">@Localizer["Filtered"]</span>
             }
         </div>
-        <p class="text-muted mb-0">集中查看业务系统事件、告警级别与关联事故，快速定位问题现场。</p>
+        <p class="text-muted mb-0">@Localizer["Centrally view business system events, alert levels, and related incidents to quickly locate the problem scene."]</p>
     </div>
     <div class="d-flex flex-wrap gap-2">
         <a asp-action="GettingStarted" class="btn btn-outline-primary">
-            <i class="align-middle me-1" data-lucide="book-open" aria-hidden="true"></i>接入指南
+            <i class="align-middle me-1" data-lucide="book-open" aria-hidden="true"></i>@Localizer["Integration Guide"]
         </a>
         <a asp-action="Applications" class="btn btn-primary">
-            <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>接入应用
+            <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>@Localizer["Applications"]
         </a>
     </div>
 </div>
 
 @await Html.PartialAsync("_NoticeDialog", new Aiursoft.AlertCenter.Models.NoticeDialogViewModel(
-    "delivery-notice", "通知能力说明", "在推送中心配置 Webhook 或站内通知，再到接入应用的推送设置中关联渠道。新告警保存后会自动投递，失败可在推送记录中手动重试。", OpenOnLoad: false))
+    "delivery-notice", @Localizer["Notification Capability Description"].Value, @Localizer["Configure Webhook or in-site notifications in the Push Center, then link the channel in the integrated app’s push settings. New alerts are delivered automatically after saving; failures can be retried manually in push records."].Value, OpenOnLoad: false))
 
 <!-- Filter Card -->
 <div class="card mb-4">
     <div class="card-body">
         <!-- Quick Severity Filters -->
         <div class="d-flex flex-wrap align-items-center gap-2 mb-3 pb-3 border-bottom">
-            <span class="text-muted small fw-medium me-1"><i class="align-middle me-1" data-lucide="filter"></i>级别快捷筛选:</span>
+            <span class="text-muted small fw-medium me-1"><i class="align-middle me-1" data-lucide="filter"></i>@Localizer["Severity quick filter:"]</span>
             @{
                 var allRoutes = filter.ToRouteValues(1);
                 allRoutes.Remove("level");
@@ -75,39 +75,39 @@
                 var sev4Routes = filter.ToRouteValues(1);
                 sev4Routes["level"] = "sev4";
             }
-            <a asp-action="Index" asp-all-route-data="allRoutes" class="ac-chip @(filter.Level == null ? "active" : "")">全部级别</a>
+            <a asp-action="Index" asp-all-route-data="allRoutes" class="ac-chip @(filter.Level == null ? "active" : "")">@Localizer["All severities"]</a>
             <a asp-action="Index" asp-all-route-data="sev0Routes" class="ac-chip @(filter.Level == "sev0" ? "active" : "")">
-                <span class="ac-status-dot dot-deadly"></span>sev0 致命
+                <span class="ac-status-dot dot-deadly"></span>@Localizer["sev0 Critical"]
             </a>
             <a asp-action="Index" asp-all-route-data="sev1Routes" class="ac-chip @(filter.Level == "sev1" ? "active" : "")">
-                <span class="ac-status-dot dot-danger"></span>sev1 严重
+                <span class="ac-status-dot dot-danger"></span>@Localizer["sev1 Major"]
             </a>
             <a asp-action="Index" asp-all-route-data="sev2Routes" class="ac-chip @(filter.Level == "sev2" ? "active" : "")">
-                <span class="ac-status-dot dot-warning"></span>sev2 错误
+                <span class="ac-status-dot dot-warning"></span>@Localizer["sev2 Error"]
             </a>
             <a asp-action="Index" asp-all-route-data="sev3Routes" class="ac-chip @(filter.Level == "sev3" ? "active" : "")">
-                <span class="ac-status-dot dot-warning"></span>sev3 警告
+                <span class="ac-status-dot dot-warning"></span>@Localizer["sev3 Warning"]
             </a>
             <a asp-action="Index" asp-all-route-data="sev4Routes" class="ac-chip @(filter.Level == "sev4" ? "active" : "")">
-                <span class="ac-status-dot dot-info"></span>sev4 信息
+                <span class="ac-status-dot dot-info"></span>@Localizer["sev4 Info"]
             </a>
         </div>
 
         <form asp-action="Index" method="get" class="row g-3 align-items-end" id="alert-filters">
             <div class="col-md-6 col-xl-4">
-                <label for="filter-keyword" class="form-label small fw-medium">搜索关键词</label>
+                <label for="filter-keyword" class="form-label small fw-medium">@Localizer["Search Keywords"]</label>
                 <div class="input-group">
                     <span class="input-group-text bg-transparent text-muted"><i data-lucide="search" class="align-middle"></i></span>
-                    <input id="filter-keyword" name="keyword" value="@filter.Keyword" maxlength="200" class="form-control" placeholder="搜索告警标题或正文内容" />
+                    <input id="filter-keyword" name="keyword" value="@filter.Keyword" maxlength="200" class="form-control" placeholder="@Localizer["Search alert title or body content"]" />
                 </div>
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="filter-application" class="form-label small fw-medium">来源应用</label>
+                <label for="filter-application" class="form-label small fw-medium">@Localizer["Source application"]</label>
                 <select id="filter-application" name="applicationId" class="form-select">
-                    <option value="">全部应用</option>
+                    <option value="">@Localizer["All applications"]</option>
                     @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value))
                     {
-                        <option value="@filter.ApplicationId" selected>所选应用暂无消息</option>
+                        <option value="@filter.ApplicationId" selected>@Localizer["No messages for the selected application"]</option>
                     }
                     @foreach (var application in Model.Applications)
                     {
@@ -116,30 +116,30 @@
                 </select>
             </div>
             <div class="col-sm-6 col-xl-2">
-                <label for="filter-level" class="form-label small fw-medium">指定级别</label>
+                <label for="filter-level" class="form-label small fw-medium">@Localizer["Specify Level"]</label>
                 <select id="filter-level" name="level" class="form-select">
-                    <option value="">全部级别</option>
-                    <option value="sev0" selected="@(filter.Level == "sev0")">sev0 · 致命 (P0)</option>
-                    <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重</option>
-                    <option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误</option>
-                    <option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告</option>
-                    <option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息</option>
+                    <option value="">@Localizer["All severities"]</option>
+                    <option value="sev0" selected="@(filter.Level == "sev0")">@Localizer["sev0 · Critical (P0)"]</option>
+                    <option value="sev1" selected="@(filter.Level == "sev1")">@Localizer["sev1 · Major"]</option>
+                    <option value="sev2" selected="@(filter.Level == "sev2")">@Localizer["sev2 · Error"]</option>
+                    <option value="sev3" selected="@(filter.Level == "sev3")">@Localizer["sev3 · Warning"]</option>
+                    <option value="sev4" selected="@(filter.Level == "sev4")">@Localizer["sev4 · Info"]</option>
                 </select>
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="filter-from-date" class="form-label small fw-medium">开始日期 (UTC)</label>
+                <label for="filter-from-date" class="form-label small fw-medium">@Localizer["Start Date (UTC)"]</label>
                 <input id="filter-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="filter-to-date" class="form-label small fw-medium">结束日期 (UTC，含当日)</label>
+                <label for="filter-to-date" class="form-label small fw-medium">@Localizer["End date (UTC, inclusive of the day)"]</label>
                 <input id="filter-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
             </div>
             <div class="col-xl-3 d-flex gap-2">
                 <button class="btn btn-primary flex-grow-1" type="submit">
-                    <i class="align-middle me-1" data-lucide="search"></i>检索
+                    <i class="align-middle me-1" data-lucide="search"></i>@Localizer["Search"]
                 </button>
                 <a asp-action="Index" class="btn btn-outline-secondary text-nowrap">
-                    <i class="align-middle me-1" data-lucide="rotate-ccw"></i>重置
+                    <i class="align-middle me-1" data-lucide="rotate-ccw"></i>@Localizer["Reset"]
                 </a>
             </div>
             <div asp-validation-summary="All" class="text-danger mb-0"></div>
@@ -151,11 +151,11 @@
 <div class="card">
     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
         <div>
-            <h2 class="card-title mb-0">告警消息记录</h2>
-            <small class="text-muted">按接收时间倒序排列 · 每页 20 条 · UTC 时间</small>
+            <h2 class="card-title mb-0">@Localizer["Alert message records"]</h2>
+            <small class="text-muted">@Localizer["Sorted by receipt time (descending) · 20 items per page · UTC Time"]</small>
         </div>
         <a asp-action="Index" asp-all-route-data="routes" class="btn btn-sm btn-outline-secondary">
-            <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>刷新
+            <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>@Localizer["Refresh"]
         </a>
     </div>
 
@@ -165,17 +165,17 @@
             <div class="ac-empty-icon">
                 <i data-lucide="inbox" aria-hidden="true"></i>
             </div>
-            <h2 class="h4">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters || Model.Page > 1 ? "当前筛选或分页下没有告警消息" : "还没有告警消息")</h2>
+            <h2 class="h4">@(!ViewData.ModelState.IsValid ? @Localizer["Please correct the filter conditions."].Value : hasFilters || Model.Page > 1 ? @Localizer["No alert messages under the current filter or page"].Value : @Localizer["No alert messages yet"].Value)</h2>
             @if (hasFilters || Model.Page > 1)
             {
-                <p class="text-muted mb-3">可调整或清除筛选条件查看其他告警记录。</p>
-                <a asp-action="Index" class="btn btn-sm btn-outline-primary">清除筛选条件</a>
+                <p class="text-muted mb-3">@Localizer["Adjust or clear filters to view other alert records."]</p>
+                <a asp-action="Index" class="btn btn-sm btn-outline-primary">@Localizer["Clear filter conditions"]</a>
             }
             else
             {
-                <p class="text-muted mb-4">创建接入应用，使用专属 API Key 发送第一条业务告警。</p>
+                <p class="text-muted mb-4">@Localizer["Create an integration app and use your dedicated API Key to send your first business alert."]</p>
                 <a asp-action="Applications" class="btn btn-primary">
-                    <i class="align-middle me-1" data-lucide="plus"></i>创建应用
+                    <i class="align-middle me-1" data-lucide="plus"></i>@Localizer["Create Application"]
                 </a>
             }
         </div>
@@ -186,11 +186,11 @@
             <table class="table table-hover align-middle mb-0">
                 <thead>
                     <tr>
-                        <th class="ps-4" style="width: 100px;">级别</th>
-                        <th>告警标题与正文</th>
-                        <th>来源应用</th>
-                        <th>关联事故</th>
-                        <th class="text-nowrap pe-4">接收时间 (UTC)</th>
+                        <th class="ps-4" style="width: 100px;">@Localizer["Severity"]</th>
+                        <th>@Localizer["Alert title and body"]</th>
+                        <th>@Localizer["Source application"]</th>
+                        <th>@Localizer["Linked Incident"]</th>
+                        <th class="text-nowrap pe-4">@Localizer["Reception Time (UTC)"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -237,12 +237,12 @@
                         <td class="text-nowrap">
                             @if (message.Incident == null)
                             {
-                                <span class="text-muted small">未关联</span>
+                                <span class="text-muted small">@Localizer["Unlinked"]</span>
                             }
                             else if (message.IsArchived)
                             {
                                 <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="badge bg-secondary-subtle text-secondary border text-decoration-none">
-                                    <i class="align-middle me-1" data-lucide="archive"></i>已归档
+                                    <i class="align-middle me-1" data-lucide="archive"></i>@Localizer["Archived"]
                                 </a>
                             }
                             else
@@ -265,22 +265,22 @@
     @if (ViewData.ModelState.IsValid && (Model.Messages.Count > 0 || Model.Page > 1))
     {
         <div class="card-body border-top d-flex flex-wrap justify-content-between align-items-center gap-3 py-3">
-            <small class="text-muted">第 @Model.Page 页 · 本页 @Model.Messages.Count 条记录</small>
-            <nav aria-label="消息分页" class="d-flex flex-wrap align-items-center gap-2">
+            <small class="text-muted">@Localizer["No. "]@Model.Page @Localizer["Page · This page "]@Model.Messages.Count @Localizer[" records"]</small>
+            <nav aria-label="@Localizer["Message pagination"]" class="d-flex flex-wrap align-items-center gap-2">
                 @if (Model.Page > 1)
                 {
-                    <a asp-action="Index" asp-all-route-data="filter.ToRouteValues(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a>
+                    <a asp-action="Index" asp-all-route-data="filter.ToRouteValues(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">@Localizer["Previous Page"]</a>
                 }
                 <form id="alert-page-jump-form" asp-action="Index" asp-all-route-data="filter.ToRouteValues(1)" method="get" class="d-flex align-items-center gap-1">
-                    <label for="alert-page-jump" class="visually-hidden">跳转到页码</label>
-                    <span class="small text-muted">跳至</span>
+                    <label for="alert-page-jump" class="visually-hidden">@Localizer["Jump to page number"]</label>
+                    <span class="small text-muted">@Localizer["Go to"]</span>
                     <input id="alert-page-jump" name="page" type="number" value="@Model.Page" min="1" max="1000000" step="1" class="form-control form-control-sm" style="width: 4.5rem" required />
-                    <span class="small text-muted">页</span>
-                    <button type="submit" class="btn btn-sm btn-outline-secondary">跳转</button>
+                    <span class="small text-muted">@Localizer["Page"]</span>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">@Localizer["Jump"]</button>
                 </form>
                 @if (Model.HasNextPage)
                 {
-                    <a asp-action="Index" asp-all-route-data="filter.ToRouteValues(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a>
+                    <a asp-action="Index" asp-all-route-data="filter.ToRouteValues(Model.Page + 1)" class="btn btn-sm btn-outline-primary">@Localizer["Next Page"]</a>
                 }
             </nav>
         </div>

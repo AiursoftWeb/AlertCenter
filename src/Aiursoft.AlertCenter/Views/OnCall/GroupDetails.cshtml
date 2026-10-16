@@ -5,43 +5,43 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
         <h1 class="h3 mb-1">@group.Name</h1>
-        <p class="text-muted mb-0">时区：@group.TimeZoneId · @group.Members.Count 名成员</p>
+        <p class="text-muted mb-0">@Localizer["Time zone: "]@group.TimeZoneId · @group.Members.Count @Localizer[" members"]</p>
     </div>
     <div class="d-flex flex-wrap gap-2">
-        <a asp-action="Groups" class="btn btn-outline-secondary">返回团队列表</a>
-        <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-outline-primary">查看值班排班</a>
+        <a asp-action="Groups" class="btn btn-outline-secondary">@Localizer["Back to Team List"]</a>
+        <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-outline-primary">@Localizer["View on-call schedule"]</a>
         @if (Model.IsAdministrator)
         {
-            <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-primary">编辑团队</a>
+            <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-primary">@Localizer["Edit team"]</a>
         }
     </div>
 </div>
 @if (TempData["OnCallGroupSuccess"] is string message)
 {
     <div class="alert alert-success alert-dismissible" role="status">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Close"]"></button>
         <div class="alert-message">@message</div>
     </div>
 }
 <div class="card mb-4">
-    <div class="card-header"><h2 class="card-title mb-0">团队配置</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Team configuration"]</h2></div>
     <div class="card-body">
-        <p>排班起点：@group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        <p>@Localizer["Scheduling start point: "]@group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
         @if (group.Rule != null)
         {
-            <p>规则模板：<a asp-action="Details" asp-route-id="@group.Rule.Id">@group.Rule.Name</a> · 每班 @group.Rule.ShiftHours 小时 · 最短休息 @group.Rule.RestHours 小时</p>
+            <p>@Localizer["Rule template:"]<a asp-action="Details" asp-route-id="@group.Rule.Id">@group.Rule.Name</a> · @Localizer["Per shift "]@group.Rule.ShiftHours @Localizer["hours · Min rest "]@group.Rule.RestHours @Localizer["hours"]</p>
         }
         else
         {
-            <p class="text-muted">未绑定规则模板，仍可手动编辑排班。</p>
+            <p class="text-muted">@Localizer["Rule template not bound; manual scheduling is still available."]</p>
         }
-        <p class="small text-muted">模板可由多个团队共用；修改或切换模板不会重新生成已保存班次。</p>
+        <p class="small text-muted">@Localizer["Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts."]</p>
         @if (Model.IsAdministrator)
         {
-            <h3 class="h6">值班邮件抄送（CC）</h3>
+            <h3 class="h6">@Localizer["On-call email CC"]</h3>
             @if (string.IsNullOrWhiteSpace(group.EmailCcRecipients))
             {
-                <p class="text-muted">未配置抄送地址。</p>
+                <p class="text-muted">@Localizer["CC address not configured."]</p>
             }
             else
             {
@@ -52,12 +52,12 @@
                     }
                 </ul>
             }
-            <p class="small text-muted">值班邮件会自动发送至当前已保存班次中所有值班工程师（OCE）的用户邮箱（To）。CC 仅使用管理员显式配置的团队邮箱或邮件组地址，不会自动抄送全部团队成员。应用配置的自定义推送渠道仍会额外投递。</p>
+            <p class="small text-muted">@Localizer["On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications."]</p>
         }
-        <h3 class="h6">轮换成员（按顺序）</h3>
+        <h3 class="h6">@Localizer["Rotate Members (Sequential)"]</h3>
         @if (group.Members.Count == 0)
         {
-            <p class="text-muted mb-0">暂无团队成员。</p>
+            <p class="text-muted mb-0">@Localizer["No team members."]</p>
         }
         else
         {
@@ -75,35 +75,35 @@
     if (Model.GroupHasSavedSchedule)
     {
         <div class="alert alert-info" role="alert">
-            <div class="alert-message">该团队已有保存的班次，不能删除，以保留排班历史。</div>
+            <div class="alert-message">@Localizer["This team has saved shifts and cannot be deleted to preserve scheduling history."]</div>
         </div>
     }
     else if (Model.GroupHasBoundApplications)
     {
         <div class="alert alert-info" role="alert">
-            <div class="alert-message">该团队已绑定接入应用，请先更换或解除应用的值班组绑定，再删除团队。</div>
+            <div class="alert-message">@Localizer["This team is bound to an integrated app. Please reassign or unbind the app's on-call group before deleting the team."]</div>
         </div>
     }
     else
     {
-        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-oncall-group">删除团队</button>
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-oncall-group">@Localizer["Delete team"]</button>
         <div class="modal fade" id="delete-oncall-group" tabindex="-1" aria-labelledby="delete-oncall-group-title" aria-describedby="delete-oncall-group-description" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <form asp-action="DeleteGroup" method="post" data-action-feedback class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title h5" id="delete-oncall-group-title">删除值班团队</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                        <h2 class="modal-title h5" id="delete-oncall-group-title">@Localizer["Delete on-call team"]</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                     </div>
                     <div class="modal-body">
-                        <p>确定删除团队 <strong class="text-break">@group.Name</strong>？</p>
+                        <p>@Localizer["Confirm team deletion"] <strong class="text-break">@group.Name</strong>？</p>
                         <div class="alert alert-warning mb-0" id="delete-oncall-group-description" role="alert">
-                            <div class="alert-message">规则模板不会被删除。仅没有保存班次且未绑定应用的团队可以删除，此操作无法恢复。</div>
+                            <div class="alert-message">@Localizer["Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible."]</div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
                         <input type="hidden" name="id" value="@group.Id" />
-                        <button type="submit" class="btn btn-danger">确认删除团队</button>
+                        <button type="submit" class="btn btn-danger">@Localizer["Confirm team deletion"]</button>
                     </div>
                 </form>
             </div>

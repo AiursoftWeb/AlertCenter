@@ -186,7 +186,7 @@ public class WebhookChannelAdapterTests
         });
         var factory = new StubClientFactory(handler);
 
-        var result = await new WebhookChannelAdapter(factory, Protector()).DeliverAsync(delivery);
+        var result = await new WebhookChannelAdapter(factory, Protector(), localizer: TestLocalization.For<WebhookChannelAdapter>()).DeliverAsync(delivery);
 
         Assert.IsTrue(result.Succeeded);
         Assert.IsNull(result.ErrorMessage);
@@ -208,7 +208,7 @@ public class WebhookChannelAdapterTests
             var payload = json.RootElement;
             Assert.AreEqual(delivery.Id, payload.GetProperty("deliveryId").GetGuid());
             Assert.AreEqual(JsonValueKind.Null, payload.GetProperty("messageId").ValueKind);
-            Assert.AreEqual("渠道测试通知", payload.GetProperty("title").GetString());
+            Assert.AreEqual("Channel test notification", payload.GetProperty("title").GetString());
             Assert.AreEqual(content ?? PushDelivery.DefaultTestContent, payload.GetProperty("content").GetString());
             Assert.AreEqual("sev3", payload.GetProperty("level").GetString());
             Assert.AreEqual(CreatedAt, payload.GetProperty("occurredAtUtc").GetDateTime());
@@ -273,7 +273,7 @@ public class WebhookChannelAdapterTests
             return new HttpResponseMessage(HttpStatusCode.OK);
         });
 
-        var result = await new WebhookChannelAdapter(new StubClientFactory(handler), protector).DeliverAsync(delivery);
+        var result = await new WebhookChannelAdapter(new StubClientFactory(handler), protector, localizer: TestLocalization.For<WebhookChannelAdapter>()).DeliverAsync(delivery);
 
         Assert.IsTrue(result.Succeeded, result.ErrorMessage);
         Assert.IsTrue(protector.TryUnprotect(delivery.Channel.WebhookHeadersProtected, out var savedHeaders));
@@ -344,11 +344,11 @@ public class WebhookChannelAdapterTests
         using var handler = new StubHandler((_, _) => throw new InvalidOperationException("No request should be sent."));
         var factory = new StubClientFactory(handler);
 
-        var result = await new WebhookChannelAdapter(factory, protector).DeliverAsync(delivery);
+        var result = await new WebhookChannelAdapter(factory, protector, localizer: TestLocalization.For<WebhookChannelAdapter>()).DeliverAsync(delivery);
 
         Assert.IsFalse(result.Succeeded);
         Assert.AreEqual(scenario is "missing-channel" or "invalid-endpoint"
-            ? "Webhook 地址无效，请检查渠道配置。" : "Webhook 自定义配置无效，请检查渠道配置。", result.ErrorMessage);
+            ? "Invalid Webhook URL. Please check channel configuration." : "Invalid Webhook custom configuration. Please check channel configuration.", result.ErrorMessage);
         Assert.IsNull(factory.LastName);
         Assert.AreEqual(0, handler.Calls);
     }
@@ -363,10 +363,10 @@ public class WebhookChannelAdapterTests
         using var handler = new StubHandler((_, _) => throw new InvalidOperationException("No request should be sent."));
         var factory = new StubClientFactory(handler);
 
-        var result = await new WebhookChannelAdapter(factory, protector).DeliverAsync(delivery);
+        var result = await new WebhookChannelAdapter(factory, protector, localizer: TestLocalization.For<WebhookChannelAdapter>()).DeliverAsync(delivery);
 
         Assert.IsFalse(result.Succeeded);
-        Assert.AreEqual("Webhook 自定义请求头无效，请检查渠道配置。", result.ErrorMessage);
+        Assert.AreEqual("Invalid Webhook custom headers. Please check channel configuration.", result.ErrorMessage);
         Assert.IsNull(factory.LastName);
         Assert.AreEqual(0, handler.Calls);
     }
@@ -392,7 +392,7 @@ public class WebhookChannelAdapterTests
         var result = await Adapter(handler).DeliverAsync(Delivery());
 
         Assert.AreEqual(success, result.Succeeded);
-        Assert.AreEqual(success ? null : $"Webhook 返回 HTTP {status}。请检查接收端后手动重试。", result.ErrorMessage);
+        Assert.AreEqual(success ? null : $"Webhook returned HTTP {status}. Please check the receiver and retry manually.", result.ErrorMessage);
         Assert.AreEqual(1, handler.Calls);
     }
 
@@ -404,7 +404,7 @@ public class WebhookChannelAdapterTests
         var result = await Adapter(handler).DeliverAsync(Delivery());
 
         Assert.IsFalse(result.Succeeded);
-        Assert.AreEqual("无法连接 Webhook，请检查地址、网络或接收端服务。", result.ErrorMessage);
+        Assert.AreEqual("Unable to connect to Webhook. Please check the address, network, or receiving service.", result.ErrorMessage);
         Assert.AreEqual(1, handler.Calls);
     }
 
@@ -416,7 +416,7 @@ public class WebhookChannelAdapterTests
         var result = await Adapter(handler).DeliverAsync(Delivery());
 
         Assert.IsFalse(result.Succeeded);
-        Assert.AreEqual("Webhook 请求超时，接收端可能已收到消息，请核实后重试。", result.ErrorMessage);
+        Assert.AreEqual("Webhook request timed out. The receiver may have received the message. Please verify and retry.", result.ErrorMessage);
         Assert.AreEqual(1, handler.Calls);
     }
 
@@ -451,7 +451,7 @@ public class WebhookChannelAdapterTests
             ["Webhook:HeaderProtectionKey"] = Convert.ToBase64String(Enumerable.Range(0, 32).Select(value => (byte)value).ToArray())
         }).Build());
 
-    private static WebhookChannelAdapter Adapter(HttpMessageHandler handler) => new(new StubClientFactory(handler), Protector());
+    private static WebhookChannelAdapter Adapter(HttpMessageHandler handler) => new(new StubClientFactory(handler), Protector(), localizer: TestLocalization.For<WebhookChannelAdapter>());
 
     private sealed class StubClientFactory(HttpMessageHandler handler) : IHttpClientFactory
     {

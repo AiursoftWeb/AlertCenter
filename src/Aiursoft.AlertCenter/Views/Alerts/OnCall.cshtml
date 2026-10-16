@@ -2,43 +2,43 @@
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h1 class="h3 mb-1">应用值班设置</h1>
-        <p class="text-muted mb-0">@Model.Application.Name · 选择、更换或解除值班组绑定。</p>
+        <h1 class="h3 mb-1">@Localizer["Application On-Call Settings"]</h1>
+        <p class="text-muted mb-0">@Model.Application.Name · @Localizer["Select, replace, or unbind on-call group."]</p>
     </div>
-    <a asp-action="Applications" class="btn btn-outline-secondary">返回接入应用</a>
+    <a asp-action="Applications" class="btn btn-outline-secondary">@Localizer["Back to Connected Apps"]</a>
 </div>
 @if (TempData["ApplicationOnCallSuccess"] is string message)
 {
     <div class="alert alert-success alert-dismissible" role="status">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Close"]"></button>
         <div class="alert-message">@message</div>
     </div>
 }
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">值班组（可选）</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["On-call group (optional)"]</h2></div>
     <div class="card-body pt-0">
         <form asp-action="SaveOnCall" method="post" data-action-feedback>
             <input type="hidden" name="ApplicationId" value="@Model.Application.Id" />
             <div asp-validation-summary="All" class="text-danger mb-3"></div>
             <div class="mb-3">
-                <label asp-for="OnCallGroupId" class="form-label">值班组</label>
+                <label asp-for="OnCallGroupId" class="form-label">@Localizer["On-call group"]</label>
                 <select asp-for="OnCallGroupId" class="form-select" aria-describedby="oncall-group-hint">
-                    <option value="">不绑定值班组</option>
+                    <option value="">@Localizer["Do not bind on-call group"]</option>
                     @foreach (var group in Model.Groups)
                     {
                         <option value="@group.Id">@group.Name (@group.TimeZoneId)</option>
                     }
                 </select>
-                <div id="oncall-group-hint" class="form-text">每个应用最多绑定一个值班组，一个组可服务多个应用。选择“不绑定值班组”可解除绑定，仅需接收告警的应用无需配置值班。</div>
+                <div id="oncall-group-hint" class="form-text">@Localizer["Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive alerts do not require on-call configuration."]</div>
             </div>
             @if (Model.Groups.Count == 0)
             {
                 <div class="alert alert-info" role="alert">
-                    <div class="alert-message">暂无值班组，请联系管理员在值班中心创建团队。</div>
+                    <div class="alert-message">@Localizer["No on-duty groups available. Please contact the administrator to create a team in the On-Call Center."]</div>
                 </div>
             }
-            <p class="small text-muted">绑定后自动启用内置值班邮件：To 为当前所有当班工程师（OCE）的登记邮箱，CC 为值班组配置地址。不可在推送设置中单独关闭；解除绑定后不再生成新的值班邮件。应用的自定义渠道保持独立，绑定不授予应用访问权限。</p>
-            <button type="submit" class="btn btn-primary">保存值班设置</button>
+            <p class="small text-muted">@Localizer["Binding automatically enables the built-in on-call email: To is the registered email addresses of all current on-call engineers (OCE), and CC is the on-call group's configured address. This cannot be disabled individually in push settings; unbinding stops new on-call emails. Application-specific custom channels remain independent, and binding does not grant the application access permissions."]</p>
+            <button type="submit" class="btn btn-primary">@Localizer["Save on-call settings"]</button>
         </form>
     </div>
 </div>

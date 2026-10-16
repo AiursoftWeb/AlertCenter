@@ -29,7 +29,7 @@ public partial class IncidentWorkflowTests
     [TestCleanup]
     public async Task Cleanup() => await _db.DisposeAsync();
 
-    private IncidentsController IncidentController() => new(_db, new ApplicationAccessService(_db))
+    private IncidentsController IncidentController() => new(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<IncidentsController>(), localizerFactory: TestLocalization.Factory)
     {
         ControllerContext = new ControllerContext
         {
@@ -55,7 +55,7 @@ public partial class IncidentWorkflowTests
     private async Task<ReportedMessage> Report(SourceApplication application, string title, string level, string? incidentKey)
     {
         _db.ChangeTracker.Clear();
-        var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db)))
+        var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db), localizerFactory: TestLocalization.Factory))
         {
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() }
         };

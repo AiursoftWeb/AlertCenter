@@ -12,7 +12,7 @@ public partial class IncidentWorkflowTests
         admin ? [new Claim(ClaimTypes.NameIdentifier, id), new Claim(ClaimTypes.Role, "Administrators")]
             : [new Claim(ClaimTypes.NameIdentifier, id)], "test"));
 
-    private IncidentWorkflowService Workflow() => new(_db, new ApplicationAccessService(_db));
+    private IncidentWorkflowService Workflow() => new(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<IncidentWorkflowService>(), localizerFactory: TestLocalization.Factory);
 
     private async Task<Incident> StateIncident(string status = Incident.New)
     {
@@ -283,21 +283,21 @@ public partial class IncidentWorkflowTests
     [TestMethod]
     public void TimelineActorDisplayNameSupportsSystemAndLegacyEntries()
     {
-        Assert.AreEqual("系统", new IncidentTimelineEntry().ActorDisplayName);
+        Assert.AreEqual("System", new IncidentTimelineEntry().ActorDisplayName);
         Assert.AreEqual("Legacy actor", new IncidentTimelineEntry
         {
             Type = IncidentTimelineEntry.Updated, ActorId = "legacy",
             Actor = new User { Id = "legacy", DisplayName = "Legacy actor" }
         }.ActorDisplayName);
-        Assert.AreEqual("已删除用户", new IncidentTimelineEntry
+        Assert.AreEqual("User deleted", new IncidentTimelineEntry
         {
             Type = IncidentTimelineEntry.Updated
         }.ActorDisplayName);
-        Assert.AreEqual("已删除用户", new IncidentTimelineEntry
+        Assert.AreEqual("User deleted", new IncidentTimelineEntry
         {
             ActorId = "legacy"
         }.ActorDisplayName);
-        Assert.AreEqual("已删除用户", new IncidentTimelineEntry
+        Assert.AreEqual("User deleted", new IncidentTimelineEntry
         {
             ActorIdSnapshot = "legacy"
         }.ActorDisplayName);

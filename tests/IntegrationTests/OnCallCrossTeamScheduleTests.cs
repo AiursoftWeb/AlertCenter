@@ -129,7 +129,7 @@ public class OnCallCrossTeamScheduleTests : TestBase
         Assert.IsFalse(string.IsNullOrWhiteSpace(error));
         Assert.Contains("2", error);
         Assert.Contains("3", error);
-        Assert.Contains("多值班组", error);
+        Assert.Contains("multi-on-call group", error);
         var draft = await Draft(id, Anchor);
         Assert.IsTrue(draft.Slots.All(slot => slot.UserIds.Count == 0));
         var response = await Generate(draft);
@@ -295,6 +295,6 @@ public class OnCallCrossTeamScheduleTests : TestBase
         Assert.IsTrue(editorSlots.Skip(21).Take(21).All(slot => slot.GetProperty("userIds").GetArrayLength() == 0));
         Assert.AreEqual(1, editorSlots.Sum(slot => slot.GetProperty("userIds").GetArrayLength()));
         Assert.IsTrue(Regex.IsMatch(html, "data-oncall-stat=\"shifts\">0</strong>"));
-        Assert.IsTrue(Regex.IsMatch(html, "data-oncall-stat=\"hours\">0 小时</strong>"));
+        Assert.IsTrue(Regex.IsMatch(html, "data-oncall-stat=\"hours\">0 hours</strong>"));
     }
 }

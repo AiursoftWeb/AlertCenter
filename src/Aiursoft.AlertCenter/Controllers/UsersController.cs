@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
@@ -17,10 +18,7 @@ namespace Aiursoft.AlertCenter.Controllers;
 /// </summary>
 [Authorize]
 [LimitPerMin]
-public class UsersController(
-    RoleManager<IdentityRole> roleManager,
-    UserManager<User> userManager,
-    TemplateDbContext context)
+public class UsersController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, TemplateDbContext context, IStringLocalizer<UsersController> localizer)
     : Controller
 {
     [Authorize(Policy = AppPermissionNames.CanReadUsers)]
@@ -210,7 +208,7 @@ public class UsersController(
             .ToHashSet(StringComparer.Ordinal);
         if (!IsAdministrator() && selectedRoles.Contains(AdministratorsRole)) return Forbid();
         var existingRoles = await roleManager.Roles.Select(role => role.Name!).ToListAsync();
-        if (selectedRoles.Any(role => !existingRoles.Contains(role, StringComparer.Ordinal))) return BadRequest("所选角色不存在，请刷新页面后重试。");
+        if (selectedRoles.Any(role => !existingRoles.Contains(role, StringComparer.Ordinal))) return BadRequest(localizer["The selected role does not exist. Please refresh the page and try again."].Value);
 
         var rolesToAdd = selectedRoles.Except(userCurrentRoles);
         await userManager.AddToRolesAsync(userInDb, rolesToAdd);

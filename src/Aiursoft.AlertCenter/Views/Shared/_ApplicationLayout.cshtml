@@ -2,8 +2,8 @@
     // ReSharper disable once Razor.LayoutNotResolved
     Layout = "~/Layout/UiStackLayout.cshtml";
 }
-@RenderBody()
 <partial name="_ActionFeedback" />
+@RenderBody()
 @section styles {
     @await RenderSectionAsync("styles", required: false)
 }

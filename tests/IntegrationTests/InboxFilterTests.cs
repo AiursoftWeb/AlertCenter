@@ -73,7 +73,7 @@ public partial class AlertDemoTests
             .Select(item => item.Id).ToArray(), InboxNotificationIds(html));
         Assert.Contains($"/Push/Notification/{items[9].Id}", html);
         Assert.DoesNotContain("Other reader private", html);
-        Assert.Contains("8 未读", WebUtility.HtmlDecode(html));
+        Assert.Contains("8 Unread", WebUtility.HtmlDecode(html));
         Assert.AreEqual(0, InboxMessageIds(await Http.GetStringAsync(
             $"/Push/Inbox?applicationId={items[8].Delivery.Message!.ApplicationId}&channelId={items[8].Delivery.ChannelId}")).Length);
         CollectionAssert.AreEqual(new[] { items[2].Id },
@@ -95,7 +95,7 @@ public partial class AlertDemoTests
         var html = await Http.GetStringAsync("/Push/Inbox");
         Assert.Contains("aria-current=\"page\"", StatusLink(html, "unread"));
         var allLink = StatusLink(html, "all");
-        Assert.Contains("全部通知", WebUtility.HtmlDecode(allLink));
+        Assert.Contains("All notifications", WebUtility.HtmlDecode(allLink));
         html = await Http.GetStringAsync(Href(allLink));
         Assert.AreEqual(9, InboxMessageIds(html).Length);
         Assert.Contains(items[2].Id, InboxMessageIds(html));
@@ -133,7 +133,7 @@ public partial class AlertDemoTests
         CollectionAssert.AreEqual(new[] { items[1].Id }, InboxMessageIds(escaped));
         Assert.Contains("&lt;script&gt;", escaped);
         Assert.DoesNotContain("value=\"<script>\"", escaped);
-        var test = await Http.GetStringAsync("/Push/Inbox?keyword=" + Uri.EscapeDataString("渠道测试通知"));
+        var test = await Http.GetStringAsync("/Push/Inbox?keyword=" + Uri.EscapeDataString("Channel test notification"));
         Assert.AreEqual(1, InboxMessageIds(test).Length);
         Assert.Contains($"/Push/Notification/{items[9].Id}", test);
         Assert.DoesNotContain($"/Push/Notification/{items[9].Id}", await Http.GetStringAsync("/Push/Inbox?level=sev3"));
@@ -213,7 +213,7 @@ public partial class AlertDemoTests
         var pageJumpParameters = QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, pageJump).Query);
         foreach (var parameter in QueryHelpers.ParseQuery("?" + query)) Assert.AreEqual(parameter.Value.ToString(), pageJumpParameters[parameter.Key].ToString());
         Assert.IsFalse(pageJumpParameters.ContainsKey("page"));
-        var next = WebUtility.HtmlDecode(Regex.Match(html, "href=\"([^\"]+)\"[^>]*>下一页</a>").Groups[1].Value);
+        var next = WebUtility.HtmlDecode(Regex.Match(html, "href=\"([^\"]+)\"[^>]*>Next Page</a>").Groups[1].Value);
         Assert.IsFalse(string.IsNullOrEmpty(next));
         var nextQuery = QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, next).Query);
         foreach (var parameter in QueryHelpers.ParseQuery("?" + query)) Assert.AreEqual(parameter.Value.ToString(), nextQuery[parameter.Key].ToString());
@@ -238,7 +238,7 @@ public partial class AlertDemoTests
         foreach (var parameter in nextQuery) Assert.AreEqual(parameter.Value.ToString(), globalReturn[parameter.Key].ToString());
         html = await Http.GetStringAsync("/Push/Inbox?keyword=needle&page=2");
         Assert.AreEqual(0, InboxMessageIds(html).Length);
-        Assert.Contains("上一页", WebUtility.HtmlDecode(html));
-        Assert.DoesNotContain("下一页</a>", html);
+        Assert.Contains("Previous Page", WebUtility.HtmlDecode(html));
+        Assert.DoesNotContain("Next Page</a>", html);
     }
 }

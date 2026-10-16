@@ -2,12 +2,13 @@ using System.Security.Claims;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
 public sealed record IncidentActionResult(int StatusCode, string? Error = null);
 
-public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessService applicationAccess)
+public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizer<IncidentWorkflowService> localizer, IStringLocalizerFactory localizerFactory)
 {
     public async Task<IncidentActionResult> ExecuteAsync(ClaimsPrincipal user, IncidentNoteRequest request, string action,
         CancellationToken cancellationToken)
@@ -16,13 +17,13 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             .SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
         if (incident == null) return new(404);
         var now = DateTime.UtcNow;
-        if (!await new IncidentAccessService(db, applicationAccess).CanManageAsync(user, incident, now, cancellationToken)) return new(403);
-        if (request.Version == Guid.Empty) return new(400, "事故版本不能为空，请刷新页面。");
-        if (request.Version != incident.Version) return new(409, "事故已被其他工程师修改，请刷新后重试。");
+        if (!await new IncidentAccessService(db, applicationAccess, localizerFactory).CanManageAsync(user, incident, now, cancellationToken)) return new(403);
+        if (request.Version == Guid.Empty) return new(400, localizer["The incident version cannot be empty. Please refresh the page."].Value);
+        if (request.Version != incident.Version) return new(409, localizer["The incident has been modified by another engineer. Please refresh and try again."].Value);
         var note = string.IsNullOrWhiteSpace(request.Note) ? null : request.Note.Trim();
-        if (note?.Length > 4000) return new(400, "理由或处理进展不能超过 4000 个字符。");
+        if (note?.Length > 4000) return new(400, localizer["Reason or progress cannot exceed 4000 characters."].Value);
         if ((action is IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.LevelChanged or IncidentTimelineEntry.Updated) && note == null)
-            return new(400, "此操作必须填写理由或处理进展。");
+            return new(400, localizer["A reason or progress update is required for this action."].Value);
         var allowed = action switch
         {
             IncidentTimelineEntry.Acked => incident.Status == Incident.New,
@@ -32,17 +33,17 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             IncidentTimelineEntry.LevelChanged or IncidentTimelineEntry.Updated => incident.Status is Incident.New or Incident.Acked or Incident.Mitigated,
             _ => false
         };
-        if (!allowed) return new(400, "当前事故状态不允许此操作。");
+        if (!allowed) return new(400, localizer["The current incident status does not allow this operation."].Value);
         var actorId = user.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var actor = await db.Users.AsNoTracking().SingleOrDefaultAsync(item => item.Id == actorId, cancellationToken);
         if (actor == null) return new(403);
         var level = (request as IncidentLevelRequest)?.Level;
         if (action == IncidentTimelineEntry.LevelChanged && level is not ("sev0" or "sev1" or "sev2" or "sev3" or "sev4"))
-            return new(400, "请选择 sev0 至 sev4 的事故级别。");
+            return new(400, localizer["Please select an incident severity level from sev0 to sev4."].Value);
         if (action == IncidentTimelineEntry.LevelChanged && level == incident.AlertLevel)
-            return new(400, "事故已处于所选级别。");
+            return new(400, localizer["The incident is already at the selected level."].Value);
         if (action == IncidentTimelineEntry.OwnershipChanged && incident.OwnerId == actorId)
-            return new(400, "你已经是当前负责人。");
+            return new(400, localizer["You are already the current assignee."].Value);
         var entry = new IncidentTimelineEntry
         {
             Incident = incident, Type = action, ActorId = actor.Id, ActorIdSnapshot = actor.Id,
@@ -79,7 +80,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
                         (item.ActiveMatchKey == null && (incident.IncidentKey != null
                             ? item.IncidentKey == incident.IncidentKey
                             : item.IncidentKey == null && item.AlertTitle == incident.AlertTitle && item.MatchLevel == incident.MatchLevel))), cancellationToken))
-                    return new(409, "已有相同关联规则的活动事故，请先处置该事故，不能合并或重复重开。");
+                    return new(409, localizer["An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened."].Value);
                 incident.Status = Incident.New;
                 incident.ActiveMatchKey = matchKey;
                 incident.OwnerId = null;
@@ -99,7 +100,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         incident.Version = Guid.NewGuid();
         db.IncidentTimelineEntries.Add(entry);
         if (action == IncidentTimelineEntry.Reopened)
-            await OnCallEmailQueue.CreateReopenAsync(db, entry, cancellationToken);
+            await OnCallEmailQueue.CreateReopenAsync(db, entry, cancellationToken, localizer: localizerFactory.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
         try
         {
             await db.SaveChangesAsync(cancellationToken);
@@ -107,7 +108,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         catch (DbUpdateConcurrencyException)
         {
             db.ChangeTracker.Clear();
-            return new(409, "事故已被其他工程师修改，请刷新后重试。");
+            return new(409, localizer["The incident has been modified by another engineer. Please refresh and try again."].Value);
         }
         catch (DbUpdateException) when (action == IncidentTimelineEntry.Reopened)
         {
@@ -115,7 +116,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             var conflicting = await db.Incidents.AsNoTracking().AnyAsync(item => item.Id != request.IncidentId &&
                 item.ApplicationId == incident.ApplicationId && item.ActiveMatchKey == incident.ActiveMatchKey, cancellationToken);
             if (!conflicting) throw;
-            return new(409, "关联规则已被另一活动事故占用，请刷新后重试。");
+            return new(409, localizer["The linked rule is already occupied by another active incident. Please refresh and try again."].Value);
         }
         return new(200);
     }

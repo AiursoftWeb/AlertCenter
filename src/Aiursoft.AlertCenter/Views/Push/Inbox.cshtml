@@ -1,7 +1,7 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using System.Globalization
 @{
-    ViewData["Title"] = "站内通知收件箱";
+    ViewData["Title"] = @Localizer["In-app notification inbox"].Value;
     var filter = Model.InboxFilter;
     var routes = filter.ToRouteValues();
     var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.ChannelId.HasValue ||
@@ -15,35 +15,35 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <div class="d-flex align-items-center gap-2">
-            <h1 class="h3 mb-0">站内通知收件箱</h1>
+            <h1 class="h3 mb-0">@Localizer["In-app notification inbox"]</h1>
             @if (Model.UnreadCount > 0)
             {
                 <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1">
-                    <span class="ac-status-dot dot-info"></span>@Model.UnreadCount 未读
+                    <span class="ac-status-dot dot-info"></span>@Model.UnreadCount @Localizer["Unread"]
                 </span>
             }
             else
             {
                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1">
-                    <i data-lucide="check" style="width: 12px; height: 12px;" class="align-middle me-1" aria-hidden="true"></i>全部已读
+                    <i data-lucide="check" style="width: 12px; height: 12px;" class="align-middle me-1" aria-hidden="true"></i>@Localizer["All read"]
                 </span>
             }
         </div>
-        <p class="text-muted mb-0 small">个人的专属告警与通知消息中心 · 独立记录已读状态</p>
+        <p class="text-muted mb-0 small">@Localizer["Personal Alert and Notification Center · Independent Read Status Tracking"]</p>
     </div>
     <div class="text-sm-end">
         <form asp-action="MarkAllRead" asp-all-route-data="routes" method="post" data-action-feedback>
             <button class="btn btn-outline-primary" disabled="@(Model.UnreadCount == 0 || !ViewData.ModelState.IsValid)" aria-describedby="mark-all-hint">
-                <i class="align-middle me-1" data-lucide="check-check" aria-hidden="true"></i>我的全部通知标为已读
+                <i class="align-middle me-1" data-lucide="check-check" aria-hidden="true"></i>@Localizer["Mark all my notifications as read"]
             </button>
         </form>
-        <small id="mark-all-hint" class="text-muted d-block mt-1">处理我的全部未读通知，不受当前筛选和分页限制。</small>
+        <small id="mark-all-hint" class="text-muted d-block mt-1">@Localizer["Process all my unread notifications, regardless of current filters and pagination."]</small>
     </div>
 </div>
 
 <!-- Status Tabs Bar -->
-<div class="d-flex flex-wrap gap-2 mb-3" aria-label="通知阅读状态">
-    @foreach (var status in new[] { (Value: "unread", Label: "仅看未读"), (Value: "all", Label: "全部通知"), (Value: "read", Label: "仅看已读") })
+<div class="d-flex flex-wrap gap-2 mb-3" aria-label="@Localizer["Notification Read Status"]">
+    @foreach (var status in new[] { (Value: "unread", Label: @Localizer["Show unread only"].Value), (Value: "all", Label: @Localizer["All notifications"].Value), (Value: "read", Label: @Localizer["Show read only"].Value) })
     {
         var statusRoutes = filter.ToRouteValues(1);
         statusRoutes["readStatus"] = status.Value;
@@ -61,27 +61,27 @@
     <div class="card-body p-3">
         <form asp-action="Inbox" method="get" class="row g-3 align-items-end" id="inbox-filters">
             <div class="col-md-6 col-xl-4">
-                <label for="filter-keyword" class="form-label small text-muted mb-1">关键词搜索</label>
+                <label for="filter-keyword" class="form-label small text-muted mb-1">@Localizer["Keyword Search"]</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light text-muted"><i data-lucide="search" style="width: 15px; height: 15px;" aria-hidden="true"></i></span>
-                    <input id="filter-keyword" name="keyword" value="@filter.Keyword" maxlength="200" class="form-control" placeholder="搜索标题或正文..." />
+                    <input id="filter-keyword" name="keyword" value="@filter.Keyword" maxlength="200" class="form-control" placeholder="@Localizer["Search title or body..."]" />
                 </div>
             </div>
             <div class="col-sm-6 col-xl-2">
-                <label for="filter-read-status" class="form-label small text-muted mb-1">阅读状态</label>
+                <label for="filter-read-status" class="form-label small text-muted mb-1">@Localizer["Read Status"]</label>
                 <select id="filter-read-status" name="readStatus" class="form-select">
-                    <option value="unread" selected="@(filter.ReadStatus == "unread")">未读通知</option>
-                    <option value="read" selected="@(filter.ReadStatus == "read")">已读通知</option>
-                    <option value="all" selected="@(filter.ReadStatus == "all")">全部通知</option>
+                    <option value="unread" selected="@(filter.ReadStatus == "unread")">@Localizer["Unread notifications"]</option>
+                    <option value="read" selected="@(filter.ReadStatus == "read")">@Localizer["Read notification"]</option>
+                    <option value="all" selected="@(filter.ReadStatus == "all")">@Localizer["All notifications"]</option>
                 </select>
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="filter-application" class="form-label small text-muted mb-1">来源应用</label>
+                <label for="filter-application" class="form-label small text-muted mb-1">@Localizer["Source application"]</label>
                 <select id="filter-application" name="applicationId" class="form-select">
-                    <option value="">全部应用</option>
+                    <option value="">@Localizer["All applications"]</option>
                     @if (filter.ApplicationId.HasValue && Model.Applications.All(application => application.Id != filter.ApplicationId.Value))
                     {
-                        <option value="@filter.ApplicationId" selected>所选应用暂无通知</option>
+                        <option value="@filter.ApplicationId" selected>@Localizer["No notifications for the selected application"]</option>
                     }
                     @foreach (var application in Model.Applications)
                     {
@@ -90,23 +90,23 @@
                 </select>
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="filter-level" class="form-label small text-muted mb-1">告警级别</label>
+                <label for="filter-level" class="form-label small text-muted mb-1">@Localizer["Alert severity"]</label>
                 <select id="filter-level" name="level" class="form-select">
-                    <option value="">全部级别（含测试）</option>
-                    <option value="sev0" selected="@(filter.Level == "sev0")">sev0 · 致命 (P0)</option>
-                    <option value="sev1" selected="@(filter.Level == "sev1")">sev1 · 严重 (P1)</option>
-                    <option value="sev2" selected="@(filter.Level == "sev2")">sev2 · 错误 (P2)</option>
-                    <option value="sev3" selected="@(filter.Level == "sev3")">sev3 · 警告 (P3)</option>
-                    <option value="sev4" selected="@(filter.Level == "sev4")">sev4 · 信息 (P4)</option>
+                    <option value="">@Localizer["All severities (including test)"]</option>
+                    <option value="sev0" selected="@(filter.Level == "sev0")">@Localizer["sev0 · Critical (P0)"]</option>
+                    <option value="sev1" selected="@(filter.Level == "sev1")">@Localizer["sev1 · Major (P1)"]</option>
+                    <option value="sev2" selected="@(filter.Level == "sev2")">@Localizer["sev2 · Error (P2)"]</option>
+                    <option value="sev3" selected="@(filter.Level == "sev3")">@Localizer["sev3 · Warning (P3)"]</option>
+                    <option value="sev4" selected="@(filter.Level == "sev4")">@Localizer["sev4 · Info (P4)"]</option>
                 </select>
             </div>
             <div class="col-sm-6 col-xl-4">
-                <label for="filter-channel" class="form-label small text-muted mb-1">通知渠道</label>
+                <label for="filter-channel" class="form-label small text-muted mb-1">@Localizer["Notification Channel"]</label>
                 <select id="filter-channel" name="channelId" class="form-select">
-                    <option value="">全部渠道</option>
+                    <option value="">@Localizer["All channels"]</option>
                     @if (filter.ChannelId.HasValue && Model.Channels.All(channel => channel.Id != filter.ChannelId.Value))
                     {
-                        <option value="@filter.ChannelId" selected>所选渠道暂无通知</option>
+                        <option value="@filter.ChannelId" selected>@Localizer["No notifications for the selected channel."]</option>
                     }
                     @foreach (var channel in Model.Channels)
                     {
@@ -115,18 +115,18 @@
                 </select>
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="filter-from-date" class="form-label small text-muted mb-1">接收开始日期（UTC）</label>
+                <label for="filter-from-date" class="form-label small text-muted mb-1">@Localizer["Reception Start Date (UTC)"]</label>
                 <input id="filter-from-date" name="fromDate" type="date" value="@(filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="filter-to-date" class="form-label small text-muted mb-1">接收结束日期（UTC，含当日）</label>
+                <label for="filter-to-date" class="form-label small text-muted mb-1">@Localizer["Reception End Date (UTC, inclusive)"]</label>
                 <input id="filter-to-date" name="toDate" type="date" value="@(filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture))" class="form-control" />
             </div>
             <div class="col-xl-2 d-flex gap-2">
                 <button type="submit" class="btn btn-primary flex-grow-1">
-                    <i class="align-middle me-1" data-lucide="search" aria-hidden="true"></i>检索
+                    <i class="align-middle me-1" data-lucide="search" aria-hidden="true"></i>@Localizer["Search"]
                 </button>
-                <a asp-action="Inbox" class="btn btn-outline-secondary text-nowrap" title="重置检索条件">
+                <a asp-action="Inbox" class="btn btn-outline-secondary text-nowrap" title="@Localizer["Reset Search Criteria"]">
                     <i data-lucide="rotate-ccw" style="width: 15px; height: 15px;" aria-hidden="true"></i>
                 </a>
             </div>
@@ -136,9 +136,9 @@
 </div>
 
 <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
-    <small class="text-muted">按接收时间倒序 · 每页 20 条</small>
+    <small class="text-muted">@Localizer["Sorted by receipt time (descending) · 20 items per page"]</small>
     <a asp-action="Inbox" asp-all-route-data="routes" class="btn btn-sm btn-outline-secondary">
-        <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>刷新通知
+        <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>@Localizer["Refresh notifications"]
     </a>
 </div>
 
@@ -150,13 +150,13 @@
             <div class="ac-empty-icon">
                 <i data-lucide="bell-off" aria-hidden="true"></i>
             </div>
-            <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? "请修正筛选条件" : hasFilters || Model.Page > 1 ? "当前筛选或分页下没有通知" : filter.ReadStatus == "unread" ? "没有未读通知" : filter.ReadStatus == "read" ? "没有已读通知" : "暂时没有通知")</h2>
+            <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? @Localizer["Please correct the filter conditions."].Value : hasFilters || Model.Page > 1 ? @Localizer["No notifications under the current filter or page"].Value : filter.ReadStatus == "unread" ? @Localizer["No unread notifications"].Value : filter.ReadStatus == "read" ? @Localizer["No read notifications"].Value : @Localizer["No notifications yet"].Value)</h2>
             <p class="text-muted mb-3" style="max-width: 24rem; margin-inline: auto;">
-                @(hasFilters ? "可调整筛选条件或重置查看其他通知。" : "当系统产生站内渠道绑定的告警时，将直接推送到你的个人收件箱。")
+                @(hasFilters ? @Localizer["Adjust filters or reset to view other notifications."].Value : @Localizer["When the system generates alerts bound to the in-site channel, they are pushed directly to your personal inbox."].Value)
             </p>
             @if (hasFilters)
             {
-                <a asp-action="Inbox" class="btn btn-outline-secondary btn-sm">清除所有筛选</a>
+                <a asp-action="Inbox" class="btn btn-outline-secondary btn-sm">@Localizer["Clear all filters"]</a>
             }
         </div>
     }
@@ -190,14 +190,14 @@
                         <div class="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
                             @if (isUnread)
                             {
-                                <span class="badge bg-primary px-2 py-0.5 small flex-shrink-0">未读</span>
+                                <span class="badge bg-primary px-2 py-0.5 small flex-shrink-0">@Localizer["Unread"]</span>
                             }
                             @if (message != null)
                             {
                                 <span class="badge @levelBadgeClass font-monospace flex-shrink-0">@message.Level</span>
                             }
                             <h2 class="h5 mb-0 inbox-notification-title text-break">
-                                @(message?.Title ?? "渠道测试通知")
+                                @(message?.Title ?? @Localizer["Channel test notification"].Value)
                             </h2>
                         </div>
                         <small class="text-muted text-nowrap font-monospace small">
@@ -215,30 +215,30 @@
                         </div>
                     }
 
-                    <p class="text-muted mb-3 inbox-notification-preview font-monospace small" style="line-height: 1.6;">@(message == null ? notification.Delivery.TestContent ?? Aiursoft.AlertCenter.Entities.PushDelivery.DefaultTestContent : message.Content)</p>
+                    <p class="text-muted mb-3 inbox-notification-preview font-monospace small" style="line-height: 1.6;">@(message == null ? notification.Delivery.TestContent ?? @Localizer["This is a test message for the push channel."].Value : message.Content)</p>
 
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-2 border-top">
                         <small class="text-muted inbox-notification-channel d-flex align-items-center gap-1">
                             <i data-lucide="bell" style="width: 13px; height: 13px;" aria-hidden="true"></i>
-                            <span>渠道: @notification.Delivery.Channel?.Name</span>
+                            <span>@Localizer["Channel"]: @notification.Delivery.Channel?.Name</span>
                         </small>
                         <div class="d-flex flex-wrap align-items-center gap-2 flex-shrink-0">
                             <a asp-action="Notification" asp-route-id="@notification.Id" class="btn btn-sm btn-outline-secondary">
-                                <i class="align-middle me-1" data-lucide="eye" aria-hidden="true"></i>查看详情
+                                <i class="align-middle me-1" data-lucide="eye" aria-hidden="true"></i>@Localizer["View details"]
                             </a>
                             @if (isUnread)
                             {
                                 <form asp-action="MarkRead" asp-all-route-data="routes" method="post" data-action-feedback class="d-inline">
                                     <input type="hidden" name="id" value="@notification.Id" />
                                     <button class="btn btn-sm btn-outline-primary">
-                                        <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>标为已读
+                                        <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>@Localizer["Mark as read"]
                                     </button>
                                 </form>
                             }
                             else
                             {
                                 <span class="badge bg-light text-muted border small align-self-center py-1.5 px-2">
-                                    <i data-lucide="check-check" style="width: 12px; height: 12px;" class="me-1" aria-hidden="true"></i>已读
+                                    <i data-lucide="check-check" style="width: 12px; height: 12px;" class="me-1" aria-hidden="true"></i>@Localizer["Read"]
                                 </span>
                             }
                         </div>
@@ -251,22 +251,22 @@
     @if (ViewData.ModelState.IsValid && (Model.Notifications.Count > 0 || Model.Page > 1))
     {
         <div class="card-footer bg-light border-top p-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
-            <small class="text-muted">当前展示第 <span class="fw-semibold text-dark">@Model.Page</span> 页</small>
-            <nav class="d-flex flex-wrap align-items-center gap-2" aria-label="站内通知分页">
+            <small class="text-muted">@Localizer["Currently displaying page"] <span class="fw-semibold text-dark">@Model.Page</span> @Localizer["Page"]</small>
+            <nav class="d-flex flex-wrap align-items-center gap-2" aria-label="@Localizer["In-app notification pagination"]">
                 @if (Model.Page > 1)
                 {
-                    <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a>
+                    <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">@Localizer["Previous Page"]</a>
                 }
                 <form id="inbox-page-jump-form" asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(1)" method="get" class="d-flex align-items-center gap-1">
-                    <label for="inbox-page-jump" class="visually-hidden">跳转到页码</label>
-                    <span class="small text-muted">跳至</span>
+                    <label for="inbox-page-jump" class="visually-hidden">@Localizer["Jump to page number"]</label>
+                    <span class="small text-muted">@Localizer["Go to"]</span>
                     <input id="inbox-page-jump" name="page" type="number" value="@Model.Page" min="1" max="1000000" step="1" class="form-control form-control-sm text-center" style="width: 4.5rem" required />
-                    <span class="small text-muted">页</span>
-                    <button type="submit" class="btn btn-sm btn-outline-secondary">跳转</button>
+                    <span class="small text-muted">@Localizer["Page"]</span>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">@Localizer["Jump"]</button>
                 </form>
                 @if (Model.HasNextPage)
                 {
-                    <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a>
+                    <a asp-action="Inbox" asp-all-route-data="filter.ToRouteValues(Model.Page + 1)" class="btn btn-sm btn-outline-primary">@Localizer["Next Page"]</a>
                 }
             </nav>
         </div>

@@ -1,16 +1,128 @@
+@using System.Text.Json
+@{
+    var messages = new Dictionary<string, string>
+    {
+        ["Copied"] = @Localizer["Copied"].Value,
+        ["Copy"] = @Localizer["Copy"].Value,
+        ["Action not completed"] = @Localizer["Action not completed"].Value,
+        ["Add mode: Click the empty space in the engineer's row to add an 8-hour shift; multiple people can share a shift."] = @Localizer["Add mode: Click the empty space in the engineer's row to add an 8-hour shift; multiple people can share a shift."].Value,
+        ["Back to Edit"] = @Localizer["Back to Edit"].Value,
+        ["Cancel refresh"] = @Localizer["Cancel refresh"].Value,
+        ["Comment content (Markdown)"] = @Localizer["Comment content (Markdown)"].Value,
+        ["Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing."] = @Localizer["Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing."].Value,
+        ["Confirm page refresh?"] = @Localizer["Confirm page refresh?"].Value,
+        ["Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week."] = @Localizer["Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week."].Value,
+        ["Copied to clipboard."] = @Localizer["Copied to clipboard."].Value,
+        ["Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions."] = @Localizer["Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions."].Value,
+        ["Copying…"] = @Localizer["Copying…"].Value,
+        ["Currently in Move/Swap mode. Switch the mode above before adding or removing shifts."] = @Localizer["Currently in Move/Swap mode. Switch the mode above before adding or removing shifts."].Value,
+        ["Delete mode: Click a color block to remove this engineer's current shift. This action can be undone and takes effect after saving all changes."] = @Localizer["Delete mode: Click a color block to remove this engineer's current shift. This action can be undone and takes effect after saving all changes."].Value,
+        ["Discard input and refresh"] = @Localizer["Discard input and refresh"].Value,
+        ["End"] = @Localizer["End"].Value,
+        ["Enter comment content; cannot contain only whitespace."] = @Localizer["Enter comment content; cannot contain only whitespace."].Value,
+        ["Enter the exact app name to confirm deletion."] = @Localizer["Enter the exact app name to confirm deletion."].Value,
+        ["Failed to query employee. Please try again."] = @Localizer["Failed to query employee. Please try again."].Value,
+        ["From"] = @Localizer["From"].Value,
+        ["Gap detected at {0}. Please add staff (the week requires a full 21 shifts)."] = @Localizer["Gap detected at {0}. Please add staff (the week requires a full 21 shifts)."].Value,
+        ["Manageable"] = @Localizer["Manageable"].Value,
+        ["Move cancelled."] = @Localizer["Move cancelled."].Value,
+        ["Move cancelled; schedule unchanged."] = @Localizer["Move cancelled; schedule unchanged."].Value,
+        ["Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates."] = @Localizer["Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates."].Value,
+        ["No assigned shifts."] = @Localizer["No assigned shifts."].Value,
+        ["No matching employees."] = @Localizer["No matching employees."].Value,
+        ["No matching timezone found"] = @Localizer["No matching timezone found"].Value,
+        ["No matching users found."] = @Localizer["No matching users found."].Value,
+        ["No shifts to delete in this cell."] = @Localizer["No shifts to delete in this cell."].Value,
+        ["Page information updated"] = @Localizer["Page information updated"].Value,
+        ["Page {0}"] = @Localizer["Page {0}"].Value,
+        ["Please check the CC email format."] = @Localizer["Please check the CC email format."].Value,
+        ["Press Ctrl+C to copy the selected key."] = @Localizer["Press Ctrl+C to copy the selected key."].Value,
+        ["Previous step undone."] = @Localizer["Previous step undone."].Value,
+        ["Refresh page"] = @Localizer["Refresh page"].Value,
+        ["Refreshing will discard unsaved input. Select \"Cancel refresh\" to return to error details and retain current input."] = @Localizer["Refreshing will discard unsaved input. Select \"Cancel refresh\" to return to error details and retain current input."].Value,
+        ["Remove"] = @Localizer["Remove"].Value,
+        ["Remove "] = @Localizer["Remove "].Value,
+        ["Remove permission"] = @Localizer["Remove permission"].Value,
+        ["Remove {0}"] = @Localizer["Remove {0}"].Value,
+        ["Request invalid or page credentials expired. Check input and refresh to retry if necessary."] = @Localizer["Request invalid or page credentials expired. Check input and refresh to retry if necessary."].Value,
+        ["Restored to the schedule from when the page was opened."] = @Localizer["Restored to the schedule from when the page was opened."].Value,
+        ["Role group · All members in the group automatically inherit permissions"] = @Localizer["Role group · All members in the group automatically inherit permissions"].Value,
+        ["Save failed. Please refresh the page and try again."] = @Localizer["Save failed. Please refresh the page and try again."].Value,
+        ["Searching for employees…"] = @Localizer["Searching for employees…"].Value,
+        ["Select"] = @Localizer["Select"].Value,
+        ["Select Role"] = @Localizer["Select Role"].Value,
+        ["Select User"] = @Localizer["Select User"].Value,
+        ["Select User "] = @Localizer["Select User "].Value,
+        ["Select User Group"] = @Localizer["Select User Group"].Value,
+        ["Select up to 200 employees per team."] = @Localizer["Select up to 200 employees per team."].Value,
+        ["Selected {0} users; maximum 20 per page."] = @Localizer["Selected {0} users; maximum 20 per page."].Value,
+        ["Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel."] = @Localizer["Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel."].Value,
+        ["Selected {0}'s full-week schedule. Drag to or click another engineer."] = @Localizer["Selected {0}'s full-week schedule. Drag to or click another engineer."].Value,
+        ["Selection cancelled."] = @Localizer["Selection cancelled."].Value,
+        ["Shift adjusted; you can continue dragging to resolve red warnings, then save all changes."] = @Localizer["Shift adjusted; you can continue dragging to resolve red warnings, then save all changes."].Value,
+        ["Specify Individual User"] = @Localizer["Specify Individual User"].Value,
+        ["Staffing adjusted and chart updated; not saved yet."] = @Localizer["Staffing adjusted and chart updated; not saved yet."].Value,
+        ["Successfully copied to clipboard!"] = @Localizer["Successfully copied to clipboard!"].Value,
+        ["Swap cancelled."] = @Localizer["Swap cancelled."].Value,
+        ["Swap full week: {0} ↔ {1}"] = @Localizer["Swap full week: {0} ↔ {1}"].Value,
+        ["Swapped the full-week schedule for {0} and {1}. Not saved yet."] = @Localizer["Swapped the full-week schedule for {0} and {1}. Not saved yet."].Value,
+        ["The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting."] = @Localizer["The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting."].Value,
+        ["The schedule has {0} unresolved issues (expand to view); you can continue adjusting."] = @Localizer["The schedule has {0} unresolved issues (expand to view); you can continue adjusting."].Value,
+        ["The target object no longer exists. Please refresh the page."] = @Localizer["The target object no longer exists. Please refresh the page."].Value,
+        ["This engineer is already assigned to this shift. No need to add them again."] = @Localizer["This engineer is already assigned to this shift. No need to add them again."].Value,
+        ["This week includes members who have left. Please replace them in this week's draft before copying to the next week."] = @Localizer["This week includes members who have left. Please replace them in this week's draft before copying to the next week."].Value,
+        ["Two locations already have the same arrangement; no need to swap."] = @Localizer["Two locations already have the same arrangement; no need to swap."].Value,
+        ["Unable to display replacement confirmation. Please refresh the page and try again. The next week's draft remains unchanged."] = @Localizer["Unable to display replacement confirmation. Please refresh the page and try again. The next week's draft remains unchanged."].Value,
+        ["Unable to query employee."] = @Localizer["Unable to query employee."].Value,
+        ["Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using \"Add/Remove members by shift\" first."] = @Localizer["Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using \"Add/Remove members by shift\" first."].Value,
+        ["Unsaved · Adjustment draft"] = @Localizer["Unsaved · Adjustment draft"].Value,
+        ["User Group · Members dynamically inherit bound permissions"] = @Localizer["User Group · Members dynamically inherit bound permissions"].Value,
+        ["View only"] = @Localizer["View only"].Value,
+        ["You do not have permission to perform this action."] = @Localizer["You do not have permission to perform this action."].Value,
+        ["{0} (Read-only)"] = @Localizer["{0} (Read-only)"].Value,
+        ["{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed."] = @Localizer["{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed."].Value,
+        ["{0} hours"] = @Localizer["{0} hours"].Value,
+        ["{0} shifts / {1} hours"] = @Localizer["{0} shifts / {1} hours"].Value,
+        ["{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours."] = @Localizer["{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours."].Value,
+        [" · Departed"] = @Localizer[" · Departed"].Value,
+        [" · Insufficient rest"] = @Localizer[" · Insufficient rest"].Value,
+        [" · includes next week"] = @Localizer[" · includes next week"].Value,
+        [" · includes previous week"] = @Localizer[" · includes previous week"].Value,
+        [" · {0} · Adjacent week (read-only)"] = @Localizer[" · {0} · Adjacent week (read-only)"].Value,
+        ["Add on-call shift"] = @Localizer["Add on-call shift"].Value,
+        ["Added"] = @Localizer["Added"].Value,
+        ["Collapse {0} 36 hours"] = @Localizer["Collapse {0} 36 hours"].Value,
+        ["Expand {0} 36 hours"] = @Localizer["Expand {0} 36 hours"].Value,
+        ["Modified {0} shifts{1}{2}"] = @Localizer["Modified {0} shifts{1}{2}"].Value,
+        ["Move / swap shifts"] = @Localizer["Move / swap shifts"].Value,
+        ["Move selected shift here"] = @Localizer["Move selected shift here"].Value,
+        ["Move to"] = @Localizer["Move to"].Value,
+        ["Removed"] = @Localizer["Removed"].Value,
+        ["Swap"] = @Localizer["Swap"].Value,
+        ["Swap whole week"] = @Localizer["Swap whole week"].Value,
+        ["next"] = @Localizer["next"].Value,
+        ["previous"] = @Localizer["previous"].Value,
+        ["{0} shift for {1} · {2}; not saved yet. You can undo this."] = @Localizer["{0} shift for {1} · {2}; not saved yet. You can undo this."].Value,
+        ["{0} · {1}"] = @Localizer["{0} · {1}"].Value,
+        ["{0} · {1} · {2}"] = @Localizer["{0} · {1} · {2}"].Value,
+        ["{0}: {1} · {2}"] = @Localizer["{0}: {1} · {2}"].Value,
+        ["{0}{1}{2} · 8 hours · {3}{4}"] = @Localizer["{0}{1}{2} · 8 hours · {3}{4}"].Value,
+    };
+}
+<script id="alertcenter-localization" type="application/json">@Html.Raw(JsonSerializer.Serialize(messages))</script>
 <div class="modal fade" id="action-feedback" tabindex="-1" aria-labelledby="action-feedback-title" aria-describedby="action-feedback-message" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title h5" id="action-feedback-title">操作未完成</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+                <h2 class="modal-title h5" id="action-feedback-title">@Localizer["Action not completed"]</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
             </div>
             <div class="modal-body">
                 <p id="action-feedback-message" class="mb-0 text-break" style="white-space: pre-line;"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary d-none" id="action-feedback-refresh">刷新页面</button>
-                <button type="button" class="btn btn-primary" id="action-feedback-return" data-bs-dismiss="modal">返回修改</button>
+                <button type="button" class="btn btn-outline-secondary d-none" id="action-feedback-refresh">@Localizer["Refresh page"]</button>
+                <button type="button" class="btn btn-primary" id="action-feedback-return" data-bs-dismiss="modal">@Localizer["Back to Edit"]</button>
             </div>
         </div>
     </div>

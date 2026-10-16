@@ -27,10 +27,10 @@ public partial class AlertDemoTests
         var key = Regex.Match(html, "value=\"([a-fA-F0-9-]{36}\\.[A-F0-9]{64})\"").Groups[1].Value;
         Assert.IsFalse(string.IsNullOrEmpty(key));
         Assert.AreEqual(applicationId, Guid.Parse(key.Split('.')[0]));
-        Assert.Contains("API Key 已重置", WebUtility.HtmlDecode(html));
-        Assert.Contains("旧密钥已立即失效", WebUtility.HtmlDecode(html));
+        Assert.Contains("API Key has been reset", WebUtility.HtmlDecode(html));
+        Assert.Contains("old key has been invalidated immediately", WebUtility.HtmlDecode(html));
         Assert.Contains("id=\"copy-key\"", html);
-        Assert.Contains("密钥仅显示一次", WebUtility.HtmlDecode(html));
+        Assert.Contains("key is displayed only once", WebUtility.HtmlDecode(html));
         Assert.DoesNotContain(key, await reset.Content.ReadAsStringAsync());
         return key;
     }
@@ -147,7 +147,7 @@ public partial class AlertDemoTests
         Assert.Contains("method=\"post\"", form);
         Assert.Contains("name=\"__RequestVerificationToken\"", form);
         Assert.Contains("id=\"confirm-reset-api-key\" disabled", form);
-        Assert.Contains("旧密钥将立即失效", WebUtility.HtmlDecode(form));
+        Assert.Contains("old key will become invalid immediately", WebUtility.HtmlDecode(form));
 
         var newKey = await ResetApplicationKey(applicationId);
         for (var refresh = 0; refresh < 3; refresh++)

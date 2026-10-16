@@ -1,4 +1,5 @@
 using System.Net.Mail;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Configuration;
 
@@ -11,17 +12,17 @@ public sealed class EmailSettings
     public string From { get; set; } = string.Empty;
     public bool RequireTls { get; set; } = true;
 
-    public bool TryValidate(out string? error)
+    public bool TryValidate(out string? error, IStringLocalizer? localizer = null)
     {
         error = null;
         if (string.IsNullOrWhiteSpace(Host) || Port is < 1 or > 65535 || !IsSingleAddress(From))
         {
-            error = "请配置 Email:Host、Email:Port 和 Email:From。";
+            error = (localizer is null ? "Please configure Email:Host, Email:Port, and Email:From." : localizer["Please configure Email:Host, Email:Port, and Email:From."].Value);
             return false;
         }
         if (string.IsNullOrWhiteSpace(UserName) != string.IsNullOrWhiteSpace(Password))
         {
-            error = "Email:UserName 和 Email:Password 必须同时配置或同时留空。";
+            error = (localizer is null ? "Email:UserName and Email:Password must both be configured or both left empty." : localizer["Email:UserName and Email:Password must both be configured or both left empty."].Value);
             return false;
         }
         return true;

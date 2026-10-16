@@ -333,8 +333,8 @@ public partial class AlertDemoTests : TestBase
 
         var details = await Http.GetStringAsync($"/Push/Notification/{notification.Id}");
         Assert.Contains(message.Title, details);
-        Assert.Contains("返回站内通知", details);
-        Assert.Contains("标为已读", details);
+        Assert.Contains("Back to In-App Notifications", details);
+        Assert.Contains("Mark as read", details);
         Assert.Contains(content, WebUtility.HtmlDecode(details));
         Assert.Contains("Full context", details);
         Assert.DoesNotContain("inbox-notification-preview", details);
@@ -381,8 +381,8 @@ public partial class AlertDemoTests : TestBase
         Assert.Contains("inbox-notification-preview", inbox);
         Assert.Contains($"href=\"/Push/Notification/{notification.Id}\"", inbox);
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/Push/Notification/{notification.Id}"));
-        Assert.Contains("渠道测试通知", details);
-        Assert.Contains("返回站内通知", details);
+        Assert.Contains("Channel test notification", details);
+        Assert.Contains("Back to In-App Notifications", details);
     }
 
     [TestMethod]

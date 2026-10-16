@@ -37,54 +37,54 @@ public class OnCallRulePagesTests : TestBase
         var list = await Http.GetStringAsync("/OnCall/Index");
         Assert.Contains("Day shift", list);
         Assert.Contains($"/OnCall/Details/{ruleId}", list);
-        Assert.DoesNotContain("创建团队</h2>", list);
+        Assert.DoesNotContain("Create Team</h2>", list);
         Assert.DoesNotContain($"data-rule-id=\"{ruleId}\"", list);
-        Assert.Contains("已绑定，不能删除", WebUtility.HtmlDecode(list));
-        Assert.Contains("团队已保存的班次和历史记录不会被删除", WebUtility.HtmlDecode(list));
+        Assert.Contains("Bound, cannot be deleted", WebUtility.HtmlDecode(list));
+        Assert.Contains("Saved shifts and history for teams are not deleted", WebUtility.HtmlDecode(list));
         Assert.Contains("/OnCall/DeleteRule", list);
         Assert.DoesNotContain("id=\"oncall-rule-form\"", list);
         var scheduleList = await Http.GetStringAsync("/OnCall/Schedule");
         Assert.Contains($"/OnCall/ScheduleDetails/{groupId}", scheduleList);
         Assert.DoesNotContain($"/OnCall/ScheduleDetails/{ruleId}", scheduleList);
-        Assert.DoesNotContain("创建团队</h2>", scheduleList);
+        Assert.DoesNotContain("Create Team</h2>", scheduleList);
         Assert.DoesNotContain("id=\"oncall-schedule\"", scheduleList);
 
         var create = await Http.GetStringAsync("/OnCall/Create");
-        Assert.Contains("创建排班规则", create);
+        Assert.Contains("Create Scheduling Rule", create);
         Assert.Contains("action=\"/OnCall/SaveRule\"", create);
         Assert.Contains("name=\"RuleInput.Name\"", create);
         Assert.Contains("name=\"RuleInput.MinimumStaff\"", create);
         Assert.Contains("name=\"RuleInput.TargetStaff\"", create);
-        Assert.Contains("固定时段优先", WebUtility.HtmlDecode(create));
-        Assert.Contains("尽量均衡早、中、晚班", WebUtility.HtmlDecode(create));
-        Assert.Contains("目标人数", WebUtility.HtmlDecode(create));
-        Assert.DoesNotContain("七天值班预览", create);
+        Assert.Contains("Fixed time slots take priority", WebUtility.HtmlDecode(create));
+        Assert.Contains("Balance early, middle, and late shifts as evenly as possible", WebUtility.HtmlDecode(create));
+        Assert.Contains("Target staff", WebUtility.HtmlDecode(create));
+        Assert.DoesNotContain("7-day on-call preview", create);
         Assert.DoesNotContain("RuleInput.GroupId", create);
         Assert.DoesNotContain("RuleInput.AnchorUtc", create);
         Assert.DoesNotContain("RuleInput.UserIds", create);
         Assert.DoesNotContain("oncall-member-search.js", create);
 
         var edit = await Http.GetStringAsync($"/OnCall/Edit/{ruleId}");
-        Assert.Contains("编辑排班规则", edit);
+        Assert.Contains("Edit scheduling rules", edit);
         Assert.Contains("action=\"/OnCall/SaveRule\"", edit);
         Assert.Contains("name=\"RuleInput.Id\"", edit);
         Assert.Contains("Day shift", edit);
-        Assert.DoesNotContain("七天值班预览", edit);
+        Assert.DoesNotContain("7-day on-call preview", edit);
 
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{ruleId}"));
         Assert.Contains("Day shift", details);
-        Assert.Contains("规则配置", details);
+        Assert.Contains("Rule configuration", details);
         Assert.Contains($"/OnCall/ScheduleDetails/{groupId}", details);
-        Assert.Contains("使用该模板的团队", details);
-        Assert.DoesNotContain("七天值班预览", details);
+        Assert.Contains("Teams using this template", details);
+        Assert.DoesNotContain("7-day on-call preview", details);
         var schedule = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}"));
-        Assert.Contains("七天值班排班", schedule);
-        Assert.Contains("当前值班", schedule);
-        Assert.Contains("七天值班甘特图", schedule);
+        Assert.Contains("7-Day On-Call Schedule", schedule);
+        Assert.Contains("Current On-Call", schedule);
+        Assert.Contains("7-Day On-Call Gantt Chart", schedule);
         Assert.Contains("ac-gantt-now", schedule);
         Assert.Contains("ac-gantt-current", schedule);
         Assert.AreEqual(21, Regex.Matches(schedule, "class=\"ac-gantt-shift ").Count);
-        Assert.DoesNotContain("无法生成预览", schedule);
+        Assert.DoesNotContain("Unable to generate preview", schedule);
         Assert.DoesNotContain("id=\"oncall-rule-form\"", details);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Details/{Guid.NewGuid()}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/ScheduleDetails/{Guid.NewGuid()}")).StatusCode);
@@ -208,14 +208,14 @@ public class OnCallRulePagesTests : TestBase
         }
 
         var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}"));
-        Assert.Contains("即将开始", html);
+        Assert.Contains("Starting soon", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);
         Assert.AreEqual(3, Regex.Matches(html, "class=\"ac-gantt-row\" role=\"group\"").Count);
         Assert.AreEqual(21, Regex.Matches(html, "class=\"ac-gantt-shift ").Count);
-        Assert.Contains($"Alice · {anchor.AddHours(8):yyyy-MM-dd HH:mm} +08:00 → {anchor.AddHours(16):yyyy-MM-dd HH:mm} +08:00 · 8 小时 · Asia/Shanghai", html);
+        Assert.Contains($"Alice · {anchor.AddHours(8):yyyy-MM-dd HH:mm} +08:00 → {anchor.AddHours(16):yyyy-MM-dd HH:mm} +08:00 · 8 hours · Asia/Shanghai", html);
         Assert.Contains("left: 0%; width: 4.761905%", html);
         Assert.Contains("left: 4.761905%; width: 4.761905%", html);
         Assert.Contains("oncall-gantt.js", html);
-        Assert.DoesNotContain("无法生成预览", html);
+        Assert.DoesNotContain("Unable to generate preview", html);
     }
 }

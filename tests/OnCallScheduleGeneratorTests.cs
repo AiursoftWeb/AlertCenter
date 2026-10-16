@@ -6,7 +6,7 @@ namespace Aiursoft.AlertCenter.Tests;
 [TestClass]
 public class OnCallScheduleGeneratorTests
 {
-    private readonly OnCallScheduleGenerator _generator = new();
+    private readonly OnCallScheduleGenerator _generator = new(localizer:TestLocalization.For<OnCallScheduleGenerator>());
     private static readonly DateTime Anchor = new(2026, 9, 28, 0, 0, 0, DateTimeKind.Utc);
 
     [TestMethod]
@@ -62,7 +62,7 @@ public class OnCallScheduleGeneratorTests
     {
         var rule = new OnCallRule();
         var error = Assert.Throws<InvalidOperationException>(() => _generator.Generate(rule, Anchor, ["a", "b"], Anchor, 21));
-        StringAssert.Contains(error.Message, "至少需要 3 名员工");
+        StringAssert.Contains(error.Message, "requires at least 3 staff");
         Assert.Throws<ArgumentException>(() => _generator.Generate(rule, Anchor, ["a", "b", "c"], Anchor.AddHours(1), 1));
         Assert.Throws<ArgumentException>(() => _generator.Generate(rule, Anchor, ["a", "a", "c"], Anchor, 1));
         Assert.Throws<ArgumentException>(() => _generator.Generate(new OnCallRule { ShiftHours = 0 }, Anchor, ["a"], Anchor, 1));
@@ -199,7 +199,7 @@ public class OnCallScheduleGeneratorTests
         var rule = new OnCallRule { MinimumStaff = 2, TargetStaff = 2, RestHours = restHours };
         var users = Enumerable.Range(0, requiredMembers).Select(index => $"u{index}").ToArray();
         var error = Assert.Throws<InvalidOperationException>(() => _generator.Generate(rule, Anchor, users[..^1], Anchor, 21));
-        StringAssert.Contains(error.Message, $"至少需要 {requiredMembers} 名员工");
+        StringAssert.Contains(error.Message, $"requires at least {requiredMembers} staff");
         var shifts = _generator.Generate(rule, Anchor, users, Anchor, 42);
         Assert.AreEqual(84, shifts.Count);
         Assert.AreEqual(0, OnCallScheduleValidator.Validate(Anchor, 42, restHours, shifts, [], users.ToDictionary(id => id)).Count);
@@ -257,11 +257,11 @@ public class OnCallScheduleGeneratorTests
     {
         var names = new Dictionary<string, string> { ["a"] = "Alice", ["b"] = "Bob" };
         var shifts = new[] { new GeneratedOnCallShift("a", Anchor, Anchor.AddHours(8)) };
-        Assert.IsTrue(OnCallScheduleValidator.Validate(Anchor, 2, 16, shifts, [], names).Any(error => error.Contains("空班")));
-        Assert.IsTrue(OnCallScheduleValidator.Validate(Anchor, 1, 16, [shifts[0], shifts[0]], [], names).Any(error => error.Contains("重叠")));
+        Assert.IsTrue(OnCallScheduleValidator.Validate(Anchor, 2, 16, shifts, [], names).Any(error => error.Contains("Empty shift")));
+        Assert.IsTrue(OnCallScheduleValidator.Validate(Anchor, 1, 16, [shifts[0], shifts[0]], [], names).Any(error => error.Contains("overlaps")));
         foreach (var other in new[] { new GeneratedOnCallShift("a", Anchor.AddHours(-16), Anchor.AddHours(-8)),
                      new GeneratedOnCallShift("a", Anchor.AddHours(16), Anchor.AddHours(24)) })
-            Assert.IsTrue(OnCallScheduleValidator.Validate(Anchor, 1, 16, shifts, [other], names).Any(error => error.Contains("休息不足")));
+            Assert.IsTrue(OnCallScheduleValidator.Validate(Anchor, 1, 16, shifts, [other], names).Any(error => error.Contains("insufficient rest")));
         Assert.AreEqual(0, OnCallScheduleValidator.Validate(Anchor, 1, 16, shifts,
             [new GeneratedOnCallShift("a", Anchor.AddHours(24), Anchor.AddHours(32))], names).Count);
     }

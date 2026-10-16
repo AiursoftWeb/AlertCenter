@@ -37,13 +37,13 @@ public partial class AlertDemoTests
         }
         var url = $"/Push/Delivery/{deliveryId}";
         var admin = WebUtility.HtmlDecode(await Http.GetStringAsync(url));
-        Assert.Contains("内置值班邮件", admin);
+        Assert.Contains("Built-in On-call Email", admin);
         Assert.Contains("private-oce@example.com", admin);
         Assert.Contains("private-team@example.com", admin);
         Assert.Contains("/Push/Retry", admin);
         Assert.DoesNotContain("action=\"/Push/Edit\"", admin);
         var bindings = WebUtility.HtmlDecode(await Http.GetStringAsync($"/Push/Bindings/{applicationId}"));
-        Assert.Contains("自动启用 · 不可单独关闭", bindings);
+        Assert.Contains("Auto-enabled · Cannot be disabled individually", bindings);
         Assert.DoesNotContain("private-oce@example.com", bindings);
         Assert.Contains("OCE Production", bindings);
         Assert.Contains("OCE response test", await Http.GetStringAsync($"/Push/Records?channelId={Guid.Empty}"));
@@ -145,7 +145,7 @@ public partial class AlertDemoTests
         }
         var url = $"/Push/Delivery/{deliveryId}";
         var html = WebUtility.HtmlDecode(await Http.GetStringAsync(url));
-        Assert.Contains("没有排班覆盖", html);
+        Assert.Contains("no schedule coverage", html);
         Assert.Contains("disabled", html);
         using var retry = await PostForm("/Push/Retry", new() { ["id"] = deliveryId.ToString() }, url);
         Assert.AreEqual(HttpStatusCode.Conflict, retry.StatusCode);

@@ -1,10 +1,10 @@
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters,
-    ILogger<PushDeliveryProcessor> logger)
+public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters, ILogger<PushDeliveryProcessor> logger, IStringLocalizer<PushDeliveryProcessor> localizer)
 {
     public async Task ProcessAsync(Guid id, CancellationToken cancellationToken)
     {
@@ -26,9 +26,9 @@ public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificati
         var adapter = adapters.SingleOrDefault(item => item.Definition.Key ==
             (delivery.OnCallEmail != null ? "email" : delivery.Channel?.Type));
         if (delivery.OnCallEmail == null && delivery.Channel?.IsEnabled != true)
-            result = new(false, ErrorMessage: "渠道已停用，启用后可手动重试。");
+            result = new(false, ErrorMessage: localizer["Channel is disabled. Enable it to retry manually."].Value);
         else if (adapter == null)
-            result = new(false, ErrorMessage: "该渠道类型当前不可用。");
+            result = new(false, ErrorMessage: localizer["This channel type is currently unavailable."].Value);
         else
         {
             try
@@ -45,7 +45,7 @@ public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificati
                 // 适配器可能已经暂存了部分通知；失败时不能保存这些未完成的副作用。
                 db.ChangeTracker.Clear();
                 db.PushDeliveries.Attach(delivery);
-                result = new(false, ErrorMessage: "推送执行失败，请检查渠道配置后重试。");
+                result = new(false, ErrorMessage: localizer["Push execution failed. Please check the channel configuration and try again."].Value);
             }
         }
         delivery.Status = result.Succeeded ? PushDelivery.Succeeded : PushDelivery.Failed;

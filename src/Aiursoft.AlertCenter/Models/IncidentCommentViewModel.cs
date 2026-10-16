@@ -18,7 +18,7 @@ public class IncidentCommentViewModel
 public class AddIncidentCommentRequest
 {
     public Guid IncidentId { get; set; }
-    [Required(ErrorMessage = "评论不能为空。"), StringLength(4000, ErrorMessage = "评论不能超过 4000 个字符。")]
+    [Required(ErrorMessage = "Comment cannot be empty."), StringLength(4000, ErrorMessage = "Comment must not exceed 4,000 characters.")]
     public string Markdown { get; set; } = string.Empty;
 }
 

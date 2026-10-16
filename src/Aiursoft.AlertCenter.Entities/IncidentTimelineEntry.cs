@@ -24,7 +24,7 @@ public class IncidentTimelineEntry
     [MaxLength(450)] public string? ActorIdSnapshot { get; set; }
     [MaxLength(30)] public string? ActorName { get; set; }
     [NotMapped] public string ActorDisplayName => ActorName ?? Actor?.DisplayName ??
-        (Type == Created && ActorId == null && ActorIdSnapshot == null ? "系统" : "已删除用户");
+        (Type == Created && ActorId == null && ActorIdSnapshot == null ? "System" : "User deleted");
     [MaxLength(20)] public string? PreviousStatus { get; set; }
     [MaxLength(20)] public string? NewStatus { get; set; }
     [MaxLength(450)] public string? PreviousOwnerId { get; set; }

@@ -60,12 +60,12 @@ public class OnCallGroupEmailPagesTests : TestBase
     {
         await LoginAsAdmin();
         var createPage = WebUtility.HtmlDecode(await Http.GetStringAsync("/OnCall/GroupCreate"));
-        Assert.Contains("值班邮件抄送（CC）", createPage);
+        Assert.Contains("On-call email CC", createPage);
         Assert.Contains("name=\"GroupInput.EmailCcRecipients\"", createPage);
         Assert.Contains("maxlength=\"8000\"", createPage);
-        Assert.Contains("所有值班工程师（OCE）的用户邮箱（To）", createPage);
-        Assert.Contains("不会自动抄送全部团队成员", createPage);
-        Assert.Contains("自定义推送渠道仍会额外投递", createPage);
+        Assert.Contains("user mailboxes (To) of all On-Call Engineers (OCEs)", createPage);
+        Assert.Contains("does not automatically CC all team members", createPage);
+        Assert.Contains("Custom push channels configured in the application will still deliver additional notifications", createPage);
         var created = await PostForm("/OnCall/CreateGroup", new()
         {
             ["GroupInput.Name"] = "Operations", ["GroupInput.TimeZoneId"] = "UTC",
@@ -101,7 +101,7 @@ public class OnCallGroupEmailPagesTests : TestBase
         var editPage = WebUtility.HtmlDecode(await Http.GetStringAsync(editUrl));
         Assert.Contains(canonical, editPage.Replace("\r\n", "\n"));
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync(location));
-        Assert.Contains("值班邮件抄送（CC）", details);
+        Assert.Contains("On-call email CC", details);
         foreach (var recipient in canonical.Split('\n')) Assert.Contains(recipient, details);
         var update = new Dictionary<string, string>
         {
@@ -135,21 +135,21 @@ public class OnCallGroupEmailPagesTests : TestBase
             Assert.IsNull(group.EmailCcRecipients);
             Assert.AreNotEqual(Guid.Parse(update["GroupInput.Version"]), group.ScheduleVersion);
         }
-        Assert.Contains("未配置抄送地址", WebUtility.HtmlDecode(await Http.GetStringAsync(location)));
+        Assert.Contains("CC address not configured", WebUtility.HtmlDecode(await Http.GetStringAsync(location)));
     }
 
     [TestMethod]
-    public async Task InvalidCcIsRedisplayedInChineseAndDoesNotCreateOrModifyTeam()
+    public async Task InvalidCcIsRedisplayedAndDoesNotCreateOrModifyTeam()
     {
         await LoginAsAdmin();
         var tooMany = string.Join(';', Enumerable.Range(0, 51).Select(index => $"user{index}@example.com"));
         var invalidInputs = new[]
         {
-            (Value: "invalid-address", Error: "抄送邮箱格式无效"),
-            (Value: "Team <team@example.com>", Error: "抄送邮箱格式无效"),
-            (Value: "team@example.com\nBcc: hidden@example.com", Error: "抄送邮箱格式无效"),
-            (Value: tooMany, Error: "最多支持 50 个抄送人"),
-            (Value: string.Join(';', Enumerable.Repeat("team@example.com", 501)), Error: "值班邮件抄送配置不能超过 8000 个字符")
+            (Value: "invalid-address", Error: "Invalid CC email format"),
+            (Value: "Team <team@example.com>", Error: "Invalid CC email format"),
+            (Value: "team@example.com\nBcc: hidden@example.com", Error: "Invalid CC email format"),
+            (Value: tooMany, Error: "up to 50 CC recipients"),
+            (Value: string.Join(';', Enumerable.Repeat("team@example.com", 501)), Error: "The on-call email CC configuration must not exceed 8,000 characters")
         };
         foreach (var (value, error) in invalidInputs)
         {
@@ -186,7 +186,7 @@ public class OnCallGroupEmailPagesTests : TestBase
             ["GroupInput.EmailCcRecipients"] = "not-an-email"
         }, $"/OnCall/GroupEdit/{id}");
         Assert.AreEqual(HttpStatusCode.OK, invalidUpdate.StatusCode);
-        Assert.Contains("抄送邮箱格式无效", WebUtility.HtmlDecode(await invalidUpdate.Content.ReadAsStringAsync()));
+        Assert.Contains("Invalid CC email format", WebUtility.HtmlDecode(await invalidUpdate.Content.ReadAsStringAsync()));
         using (var scope = Server.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -246,7 +246,7 @@ public class OnCallGroupEmailPagesTests : TestBase
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/GroupDetails/{id}"));
         Assert.Contains("Visible team", details);
         Assert.DoesNotContain("private-team@example.com", details);
-        Assert.DoesNotContain("值班邮件抄送（CC）", details);
+        Assert.DoesNotContain("On-call email CC", details);
         Assert.DoesNotContain("GroupInput.EmailCcRecipients", details);
         Assert.DoesNotContain("private-team@example.com", await Http.GetStringAsync("/OnCall/Groups"));
         foreach (var action in new[] { "GroupCreate", "GroupEdit" })

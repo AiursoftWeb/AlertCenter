@@ -2,26 +2,26 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
-        <h1 class="h3 mb-1">团队管理</h1>
-        <p class="text-muted mb-0">管理团队成员、轮换顺序、时区和排班起点；可绑定一个共用规则模板，实际班次由团队保存。</p>
+        <h1 class="h3 mb-1">@Localizer["Team management"]</h1>
+        <p class="text-muted mb-0">@Localizer["Manage team members, rotation order, timezone, and scheduling start point. You can bind a shared rule template, but actual shifts are saved by the team."]</p>
     </div>
     @if (Model.IsAdministrator)
     {
-        <a asp-action="GroupCreate" class="btn btn-primary">创建团队</a>
+        <a asp-action="GroupCreate" class="btn btn-primary">@Localizer["Create Team"]</a>
     }
 </div>
 @if (TempData["OnCallGroupSuccess"] is string message)
 {
     <div class="alert alert-success alert-dismissible" role="status">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Close"]"></button>
         <div class="alert-message">@message</div>
     </div>
 }
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">已保存团队</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Team saved"]</h2></div>
     <div class="table-responsive">
         <table class="table table-hover mb-0">
-            <thead><tr><th>团队</th><th>时区</th><th>成员数</th><th>规则模板</th><th>操作</th></tr></thead>
+            <thead><tr><th>@Localizer["Team"]</th><th>@Localizer["Time Zone"]</th><th>@Localizer["Member Count"]</th><th>@Localizer["Rule template"]</th><th>@Localizer["Action"]</th></tr></thead>
             <tbody>
                 @foreach (var group in Model.Groups)
                 {
@@ -29,10 +29,10 @@
                         <td>@group.Name</td>
                         <td>@group.TimeZoneId</td>
                         <td>@group.Members.Count</td>
-                        <td>@(group.Rule?.Name ?? "未绑定")</td>
+                        <td>@(group.Rule?.Name ?? @Localizer["Unbound"].Value)</td>
                         <td>
-                            <a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary">查看团队</a>
-                            <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-secondary">查看排班</a>
+                            <a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary">@Localizer["View team"]</a>
+                            <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-secondary">@Localizer["View schedule"]</a>
                         </td>
                     </tr>
                 }
@@ -41,6 +41,6 @@
     </div>
     @if (Model.Groups.Count == 0)
     {
-        <div class="card-body text-muted">暂无团队，请先创建团队。</div>
+        <div class="card-body text-muted">@Localizer["No teams available. Please create a team first."]</div>
     }
 </div>

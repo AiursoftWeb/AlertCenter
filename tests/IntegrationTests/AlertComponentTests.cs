@@ -73,7 +73,7 @@ public partial class AlertDemoTests
         {
             var information = initial.Single(alert => alert.Classes.Contains("alert-info"));
             Assert.Contains("class=\"alert-icon", information.Root);
-            Assert.Contains(type == "email" ? "SMTP" : "站内通知范围", WebUtility.HtmlDecode(information.Message));
+            Assert.Contains(type == "email" ? "SMTP" : "In-app notification scope", WebUtility.HtmlDecode(information.Message));
         }
 
         var fields = new Dictionary<string, string>
@@ -134,7 +134,7 @@ public partial class AlertDemoTests
         }
         else if (status == PushDelivery.Succeeded)
         {
-            Assert.Contains("投递成功完成", WebUtility.HtmlDecode(alert.Message));
+            Assert.Contains("Delivery completed successfully", WebUtility.HtmlDecode(alert.Message));
             Assert.Contains("flex-md-row", alert.Message);
         }
         else
@@ -173,17 +173,17 @@ public partial class AlertDemoTests
             groupId = group.Id;
         }
         var alerts = AssertUiStackAlerts(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(start.ToString("O"))}"));
-        var staffing = alerts.Single(alert => WebUtility.HtmlDecode(alert.Message).Contains("人数不足提示"));
+        var staffing = alerts.Single(alert => WebUtility.HtmlDecode(alert.Message).Contains("Insufficient staff warning"));
         Assert.Contains("alert-warning", staffing.Classes);
         Assert.IsTrue(Regex.IsMatch(staffing.Message, "<div[^>]*class=\"alert-message[^\"]*\"[^>]*>\\s*<details\\b[^>]*open[^>]*>\\s*<summary\\b", RegexOptions.Singleline));
         Assert.Contains("</summary>", staffing.Message);
         Assert.Contains("</details>", staffing.Message);
         var shared = alerts.Single(alert => alert.Root.Contains("id=\"oncall-shared-members\""));
         Assert.Contains("class=\"alert-icon", shared.Root);
-        Assert.IsTrue(alerts.Any(alert => WebUtility.HtmlDecode(alert.Message).Contains("个空班")));
+        Assert.IsTrue(alerts.Any(alert => WebUtility.HtmlDecode(alert.Message).Contains("unassigned shifts")));
         var summary = alerts.Single(alert => alert.Classes.Contains("alert-primary"));
         Assert.Contains("role=\"status\"", summary.Root);
-        Assert.Contains("即将开始", WebUtility.HtmlDecode(summary.Message));
+        Assert.Contains("Starting soon", WebUtility.HtmlDecode(summary.Message));
         Assert.Contains("d-flex", summary.Message);
         Assert.IsTrue(alerts.Where(alert => alert.Classes.Contains("alert-warning"))
             .All(alert => alert.Root.Contains("role=\"alert\"") && !alert.Root.Contains("data-bs-dismiss=\"alert\"")));

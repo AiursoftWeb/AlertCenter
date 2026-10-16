@@ -1,7 +1,7 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using Aiursoft.AlertCenter.Entities
 @{
-    ViewData["Title"] = "推送投递记录";
+    ViewData["Title"] = @Localizer["Push Delivery Records"].Value;
     var hasFilters = !string.IsNullOrEmpty(Model.ChannelId?.ToString()) || !string.IsNullOrEmpty(Model.Status);
 }
 @section styles {
@@ -11,14 +11,14 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <div class="d-flex align-items-center gap-2">
-            <h1 class="h3 mb-0">推送投递记录</h1>
-            <span class="badge bg-secondary-subtle text-secondary small">UTC 实时轨迹</span>
+            <h1 class="h3 mb-0">@Localizer["Push Delivery Records"]</h1>
+            <span class="badge bg-secondary-subtle text-secondary small">@Localizer["UTC Real-Time Trace"]</span>
         </div>
-        <p class="text-muted mb-0 small">全面追踪 Webhook、邮件及站内通知的异步派发状态与错误重试</p>
+        <p class="text-muted mb-0 small">@Localizer["Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications"]</p>
     </div>
     <div class="d-flex gap-2">
         <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" asp-route-page="@Model.Page" class="btn btn-outline-secondary">
-            <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>刷新列表
+            <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>@Localizer["Refresh list"]
         </a>
     </div>
 </div>
@@ -27,23 +27,23 @@
 <div class="ac-filter-chips mb-3">
     <a asp-action="Records" asp-route-channelId="@Model.ChannelId" class="ac-chip @(string.IsNullOrEmpty(Model.Status) ? "active" : "")">
         <i data-lucide="layers" style="width: 14px; height: 14px;" aria-hidden="true"></i>
-        <span>全部状态</span>
+        <span>@Localizer["All statuses"]</span>
     </a>
     <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="succeeded" class="ac-chip @(Model.Status == PushDelivery.Succeeded ? "active" : "")">
         <i data-lucide="check-circle-2" style="width: 14px; height: 14px;" class="text-success" aria-hidden="true"></i>
-        <span>投递成功</span>
+        <span>@Localizer["Delivery Successful"]</span>
     </a>
     <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="failed" class="ac-chip @(Model.Status == PushDelivery.Failed ? "active" : "")">
         <i data-lucide="alert-circle" style="width: 14px; height: 14px;" class="text-danger" aria-hidden="true"></i>
-        <span>投递失败</span>
+        <span>@Localizer["Delivery Failed"]</span>
     </a>
     <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="sending" class="ac-chip @(Model.Status == PushDelivery.Sending ? "active" : "")">
         <i data-lucide="loader" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
-        <span>投递中</span>
+        <span>@Localizer["Delivering"]</span>
     </a>
     <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="pending" class="ac-chip @(Model.Status == PushDelivery.Pending ? "active" : "")">
         <i data-lucide="clock" style="width: 14px; height: 14px;" class="text-muted" aria-hidden="true"></i>
-        <span>等待投递</span>
+        <span>@Localizer["Pending delivery"]</span>
     </a>
 </div>
 
@@ -52,12 +52,12 @@
     <div class="card-body p-3">
         <form asp-action="Records" method="get" class="row g-3 align-items-end">
             <div class="col-md-5">
-                <label for="filter-channel" class="form-label small text-muted mb-1">目标渠道</label>
+                <label for="filter-channel" class="form-label small text-muted mb-1">@Localizer["Target Channel"]</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light text-muted"><i data-lucide="send" style="width: 16px; height: 16px;" aria-hidden="true"></i></span>
                     <select id="filter-channel" name="channelId" class="form-select">
-                        <option value="">全部渠道</option>
-                        <option value="@Guid.Empty" selected="@(Model.ChannelId == Guid.Empty)">内置值班邮件</option>
+                        <option value="">@Localizer["All channels"]</option>
+                        <option value="@Guid.Empty" selected="@(Model.ChannelId == Guid.Empty)">@Localizer["Built-in On-call Email"]</option>
                         @foreach (var channel in Model.Channels)
                         {
                             <option value="@channel.Id" selected="@(Model.ChannelId == channel.Id)">@channel.Name</option>
@@ -66,25 +66,25 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <label for="filter-status" class="form-label small text-muted mb-1">投递状态</label>
+                <label for="filter-status" class="form-label small text-muted mb-1">@Localizer["Delivery Status"]</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light text-muted"><i data-lucide="activity" style="width: 16px; height: 16px;" aria-hidden="true"></i></span>
                     <select id="filter-status" name="status" class="form-select">
-                        <option value="">全部状态</option>
-                        <option value="pending" selected="@(Model.Status == PushDelivery.Pending)">等待投递 (Pending)</option>
-                        <option value="sending" selected="@(Model.Status == PushDelivery.Sending)">投递中 (Sending)</option>
-                        <option value="succeeded" selected="@(Model.Status == PushDelivery.Succeeded)">投递成功 (Succeeded)</option>
-                        <option value="failed" selected="@(Model.Status == PushDelivery.Failed)">投递失败 (Failed)</option>
+                        <option value="">@Localizer["All statuses"]</option>
+                        <option value="pending" selected="@(Model.Status == PushDelivery.Pending)">@Localizer["Pending delivery (Pending)"]</option>
+                        <option value="sending" selected="@(Model.Status == PushDelivery.Sending)">@Localizer["Delivering (Sending)"]</option>
+                        <option value="succeeded" selected="@(Model.Status == PushDelivery.Succeeded)">@Localizer["Delivery Successful (Succeeded)"]</option>
+                        <option value="failed" selected="@(Model.Status == PushDelivery.Failed)">@Localizer["Delivery Failed (Failed)"]</option>
                     </select>
                 </div>
             </div>
             <div class="col-md-2 d-flex gap-2">
                 <button type="submit" class="btn btn-primary flex-grow-1">
-                    <i class="align-middle me-1" data-lucide="filter" aria-hidden="true"></i>筛选
+                    <i class="align-middle me-1" data-lucide="filter" aria-hidden="true"></i>@Localizer["Filter"]
                 </button>
                 @if (hasFilters)
                 {
-                    <a asp-action="Records" class="btn btn-outline-secondary" title="重置筛选">
+                    <a asp-action="Records" class="btn btn-outline-secondary" title="@Localizer["Reset Filters"]">
                         <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;" aria-hidden="true"></i>
                     </a>
                 }
@@ -101,17 +101,17 @@
             <div class="ac-empty-icon">
                 <i data-lucide="history" aria-hidden="true"></i>
             </div>
-            <h3 class="h5 mb-2">暂无推送记录</h3>
+            <h3 class="h5 mb-2">@Localizer["No push records"]</h3>
             <p class="text-muted mb-3" style="max-width: 26rem; margin-inline: auto;">
-                @(hasFilters ? "当前筛选条件下没有匹配的投递记录，请尝试调整筛选条件。" : "当系统触发告警推送或手动发送渠道测试时，所有派发轨迹与状态都会记录在此。")
+                @(hasFilters ? @Localizer["No matching delivery records under the current filter. Please adjust the filter criteria."].Value : @Localizer["When the system triggers alert pushes or manual channel tests, all dispatch traces and statuses are recorded here."].Value)
             </p>
             @if (hasFilters)
             {
-                <a asp-action="Records" class="btn btn-outline-secondary btn-sm">清除所有筛选</a>
+                <a asp-action="Records" class="btn btn-outline-secondary btn-sm">@Localizer["Clear all filters"]</a>
             }
             else
             {
-                <a asp-action="Index" class="btn btn-primary btn-sm">前往推送中心配置渠道</a>
+                <a asp-action="Index" class="btn btn-primary btn-sm">@Localizer["Go to Push Center to configure channels"]</a>
             }
         </div>
     }
@@ -121,12 +121,12 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th class="ps-4 py-3" style="min-width: 280px;">告警 / 测试消息</th>
-                        <th class="py-3">目标渠道</th>
-                        <th class="py-3 text-center">状态</th>
-                        <th class="py-3 text-center">尝试次数</th>
-                        <th class="py-3 text-end pe-4" style="min-width: 160px;">创建时间 (UTC)</th>
-                        <th class="py-3 text-center" style="width: 70px;">操作</th>
+                        <th class="ps-4 py-3" style="min-width: 280px;">@Localizer["Alert / Test message"]</th>
+                        <th class="py-3">@Localizer["Target Channel"]</th>
+                        <th class="py-3 text-center">@Localizer["Status"]</th>
+                        <th class="py-3 text-center">@Localizer["Attempts"]</th>
+                        <th class="py-3 text-end pe-4" style="min-width: 160px;">@Localizer["Creation Time (UTC)"]</th>
+                        <th class="py-3 text-center" style="width: 70px;">@Localizer["Action"]</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -158,15 +158,15 @@
                                     }
                                     else
                                     {
-                                        <span class="badge bg-secondary-subtle text-secondary small mt-0.5">测试</span>
+                                        <span class="badge bg-secondary-subtle text-secondary small mt-0.5">@Localizer["Test"]</span>
                                     }
                                     <div class="min-w-0">
                                         <a asp-action="Delivery" asp-route-id="@delivery.Id" class="fw-semibold text-decoration-none text-break d-block">
-                                            @(delivery.Message?.Title ?? (delivery.IncidentEvent != null ? $"事故重开：{delivery.IncidentEvent.Incident.Title}" : "渠道测试通知"))
+                                            @(delivery.Message?.Title ?? (delivery.IncidentEvent != null ? string.Format(@Localizer["Incident reopened: {0}"].Value, delivery.IncidentEvent.Incident.Title) : @Localizer["Channel test notification"].Value))
                                         </a>
                                         <small class="text-muted d-flex align-items-center gap-1 mt-0.5">
                                             <i data-lucide="layers" style="width: 12px; height: 12px;" aria-hidden="true"></i>
-                                            @(delivery.Message?.Application.Name ?? delivery.IncidentEvent?.Incident.Application.Name ?? "手动测试")
+                                            @(delivery.Message?.Application.Name ?? delivery.IncidentEvent?.Incident.Application.Name ?? @Localizer["Manual Test"].Value)
                                         </small>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@
                             <td class="py-3">
                                 <div class="d-flex align-items-center gap-2">
                                     <i data-lucide="@channelIcon" style="width: 15px; height: 15px;" class="text-muted" aria-hidden="true"></i>
-                                    <span class="fw-medium">@(delivery.OnCallEmail != null ? $"内置值班邮件 · {delivery.OnCallEmail.GroupName}" : delivery.Channel?.Name)</span>
+                                    <span class="fw-medium">@(delivery.OnCallEmail != null ? string.Format(@Localizer["Built-in On-call Email · {0}"].Value, delivery.OnCallEmail.GroupName) : delivery.Channel?.Name)</span>
                                 </div>
                             </td>
                             <td class="py-3 text-center">
@@ -187,7 +187,7 @@
                                 @delivery.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")
                             </td>
                             <td class="py-3 text-center">
-                                <a asp-action="Delivery" asp-route-id="@delivery.Id" class="btn btn-sm btn-outline-secondary" title="查看投递详情">
+                                <a asp-action="Delivery" asp-route-id="@delivery.Id" class="btn btn-sm btn-outline-secondary" title="@Localizer["View delivery details"]">
                                     <i data-lucide="arrow-right" style="width: 14px; height: 14px;" aria-hidden="true"></i>
                                 </a>
                             </td>
@@ -198,22 +198,22 @@
         </div>
 
         <div class="card-footer bg-light border-top p-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
-            <small class="text-muted">当前展示第 <span class="fw-semibold text-dark">@Model.Page</span> 页记录</small>
-            <nav class="d-flex flex-wrap align-items-center gap-2" aria-label="推送记录分页">
+            <small class="text-muted">@Localizer["Currently displaying page"] <span class="fw-semibold text-dark">@Model.Page</span> @Localizer["Page Records"]</small>
+            <nav class="d-flex flex-wrap align-items-center gap-2" aria-label="@Localizer["Push Record Pagination"]">
                 @if (Model.Page > 1)
                 {
-                    <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">上一页</a>
+                    <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page - 1)" class="btn btn-sm btn-outline-secondary">@Localizer["Previous Page"]</a>
                 }
                 <form id="records-page-jump-form" asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" method="get" class="d-flex align-items-center gap-1">
-                    <label for="records-page-jump" class="visually-hidden">跳转到页码</label>
-                    <span class="small text-muted">跳至</span>
+                    <label for="records-page-jump" class="visually-hidden">@Localizer["Jump to page number"]</label>
+                    <span class="small text-muted">@Localizer["Go to"]</span>
                     <input id="records-page-jump" name="page" type="number" value="@Model.Page" min="1" max="1000000" step="1" class="form-control form-control-sm text-center" style="width: 4.5rem" required />
-                    <span class="small text-muted">页</span>
-                    <button type="submit" class="btn btn-sm btn-outline-secondary">跳转</button>
+                    <span class="small text-muted">@Localizer["Page"]</span>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">@Localizer["Jump"]</button>
                 </form>
                 @if (Model.HasNextPage)
                 {
-                    <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page + 1)" class="btn btn-sm btn-outline-primary">下一页</a>
+                    <a asp-action="Records" asp-route-channelId="@Model.ChannelId" asp-route-status="@Model.Status" asp-route-page="@(Model.Page + 1)" class="btn btn-sm btn-outline-primary">@Localizer["Next Page"]</a>
                 }
             </nav>
         </div>

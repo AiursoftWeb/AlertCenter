@@ -7,19 +7,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
 [Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-public class AlertsController(TemplateDbContext db, IApplicationAccessService applicationAccess) : Controller
+public class AlertsController(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizer<AlertsController> localizer, IStringLocalizerFactory localizerFactory) : Controller
 {
     private const string CreatedApplicationApiKey = "CreatedApplicationApiKey";
     private const string ApiKeyWasReset = "ApiKeyWasReset";
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
-        LinkText = "消息列表", LinkOrder = 0)]
+        CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
+        LinkText = "Message list", LinkOrder = 0)]
     public async Task<IActionResult> Index([FromQuery] AlertFilter filter, CancellationToken cancellationToken)
     {
         filter.Normalize();
@@ -71,8 +72,8 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
     }
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
-        LinkText = "接入应用", LinkOrder = 1)]
+        CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
+        LinkText = "Applications", LinkOrder = 1)]
     public async Task<IActionResult> Applications(string? keyword, CancellationToken cancellationToken)
     {
         keyword = string.IsNullOrWhiteSpace(keyword) ? null : keyword.Trim();
@@ -83,16 +84,16 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
     }
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
-        LinkText = "接入指南", LinkOrder = 2)]
-    public IActionResult GettingStarted() => this.StackView(new AlertsViewModel { PageTitle = "接入指南" });
+        CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
+        LinkText = "Integration Guide", LinkOrder = 2)]
+    public IActionResult GettingStarted() => this.StackView(new AlertsViewModel { PageTitle = localizer["Integration Guide"].Value });
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateApplication(CreateApplicationRequest request, CancellationToken cancellationToken)
     {
         if (!applicationAccess.IsAdministrator(User)) return Forbid();
         if (!await OnCallGroupExists(request.OnCallGroupId, cancellationToken))
-            ModelState.AddModelError(nameof(request.OnCallGroupId), "所选值班组不存在，请重新选择。");
+            ModelState.AddModelError(nameof(request.OnCallGroupId), localizer["The selected on-call group does not exist. Please select again."].Value);
         if (!ModelState.IsValid)
         {
             var model = await ApplicationsModel(cancellationToken: cancellationToken);
@@ -110,7 +111,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         catch (DbUpdateException)
         {
             if (await OnCallGroupExists(request.OnCallGroupId, cancellationToken)) throw;
-            ModelState.AddModelError(nameof(request.OnCallGroupId), "值班组已被删除，请重新选择。");
+            ModelState.AddModelError(nameof(request.OnCallGroupId), localizer["On-call group has been deleted. Please select another."].Value);
             var model = await ApplicationsModel(cancellationToken: cancellationToken);
             model.ApplicationInput = request;
             return this.StackView(model, "Applications");
@@ -135,7 +136,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         if (application == null) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, application.Id, requireManage: true, cancellationToken)) return Forbid();
         if (!await OnCallGroupExists(request.OnCallGroupId, cancellationToken))
-            ModelState.AddModelError(nameof(request.OnCallGroupId), "所选值班组不存在，请重新选择。");
+            ModelState.AddModelError(nameof(request.OnCallGroupId), localizer["The selected on-call group does not exist. Please select again."].Value);
         if (!ModelState.IsValid)
             return this.StackView(await OnCallModel(application, request.OnCallGroupId, cancellationToken), "OnCall");
         application.OnCallGroupId = request.OnCallGroupId;
@@ -146,10 +147,10 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         catch (DbUpdateException)
         {
             if (await OnCallGroupExists(request.OnCallGroupId, cancellationToken)) throw;
-            ModelState.AddModelError(nameof(request.OnCallGroupId), "值班组已被删除，请重新选择。");
+            ModelState.AddModelError(nameof(request.OnCallGroupId), localizer["On-call group has been deleted. Please select another."].Value);
             return this.StackView(await OnCallModel(application, request.OnCallGroupId, cancellationToken), "OnCall");
         }
-        TempData["ApplicationOnCallSuccess"] = request.OnCallGroupId.HasValue ? "应用值班组已更新。" : "应用已解除值班组绑定。";
+        TempData["ApplicationOnCallSuccess"] = request.OnCallGroupId.HasValue ? localizer["App on-call group updated."].Value : localizer["The application has been unbound from the on-call group."].Value;
         return RedirectToAction(nameof(OnCall), new { id = application.Id });
     }
 
@@ -167,7 +168,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> ResetApiKey(Guid id, CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid || id == Guid.Empty) return BadRequest("请选择有效的应用。");
+        if (!ModelState.IsValid || id == Guid.Empty) return BadRequest(localizer["Please select a valid application."].Value);
         var application = await db.SourceApplications.SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (application == null) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, id, true, cancellationToken)) return Forbid();
@@ -202,7 +203,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         if (!ModelState.IsValid || string.IsNullOrEmpty(confirmationName) ||
             !string.Equals(applicationName, confirmationName, StringComparison.Ordinal))
         {
-            return BadRequest("请输入完全一致的应用名称以确认删除。");
+            return BadRequest(localizer["Enter the exact app name to confirm deletion."].Value);
         }
         // 在同一事务中批量删除历史消息和应用，避免部分删除或逐条加载消息。
         await db.Incidents.Where(incident => incident.ApplicationId == id)
@@ -221,7 +222,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
             .SingleOrDefaultAsync(m => m.Id == id, cancellationToken);
         if (message == null) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, message.ApplicationId, cancellationToken: cancellationToken) &&
-            (message.Incident == null || !await new IncidentAccessService(db, applicationAccess).CanViewAsync(User, message.Incident, DateTime.UtcNow, cancellationToken))) return Forbid();
+            (message.Incident == null || !await new IncidentAccessService(db, applicationAccess, localizerFactory).CanViewAsync(User, message.Incident, DateTime.UtcNow, cancellationToken))) return Forbid();
         return this.StackView(new AlertsViewModel
         {
             Message = message,
@@ -260,7 +261,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         var manageRoles = request.ManageRoleIds.ToHashSet();
         if (await db.Users.CountAsync(user => viewUsers.Contains(user.Id), cancellationToken) != viewUsers.Count ||
             await db.Roles.CountAsync(role => viewRoles.Contains(role.Id), cancellationToken) != viewRoles.Count)
-            return BadRequest("所选用户或角色不存在，请刷新页面后重试。");
+            return BadRequest(localizer["The selected user or role does not exist. Please refresh the page and try again."].Value);
         var users = await db.ApplicationUserAccesses.Where(access => access.ApplicationId == request.ApplicationId).ToListAsync(cancellationToken);
         var roles = await db.ApplicationRoleAccesses.Where(access => access.ApplicationId == request.ApplicationId).ToListAsync(cancellationToken);
         db.ApplicationUserAccesses.RemoveRange(users.Where(access => !viewUsers.Contains(access.UserId)));

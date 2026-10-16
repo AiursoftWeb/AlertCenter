@@ -4,7 +4,7 @@
     var delivery = Model.Delivery!;
     var incidentEvent = delivery.IncidentEvent;
     var level = delivery.Message?.Level ?? incidentEvent?.NewLevel;
-    ViewData["Title"] = $"投递详情 - {delivery.Message?.Title ?? incidentEvent?.Incident.Title ?? "渠道测试"}";
+    ViewData["Title"] = string.Format(@Localizer["Delivery details - {0}"].Value, delivery.Message?.Title ?? incidentEvent?.Incident.Title ?? @Localizer["Channel test"].Value);
     var snapshot = delivery.OnCallEmail;
     var typeKey = snapshot != null ? "email" : delivery.Channel?.Type;
     var channelType = Model.ChannelTypes.FirstOrDefault(type => type.Key == typeKey);
@@ -21,31 +21,31 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div class="d-flex align-items-center gap-3">
         <a asp-action="Records" class="btn btn-outline-secondary">
-            <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回推送记录
+            <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>@Localizer["Back to Push Records"]
         </a>
         <div>
             <div class="d-flex align-items-center gap-2">
-                <h1 class="h3 mb-0">投递详情</h1>
+                <h1 class="h3 mb-0">@Localizer["Delivery Details"]</h1>
                 <partial name="_DeliveryStatus" model="delivery.Status" />
             </div>
-            <p class="text-muted mb-0 small">投递 ID: <code class="text-secondary">@delivery.Id</code></p>
+            <p class="text-muted mb-0 small">@Localizer["Delivery ID:"] <code class="text-secondary">@delivery.Id</code></p>
         </div>
     </div>
     <div class="d-flex gap-2">
         @if (delivery.MessageId.HasValue)
         {
             <a asp-controller="Alerts" asp-action="Details" asp-route-id="@delivery.MessageId" class="btn btn-outline-secondary">
-                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>查看原始告警
+                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>@Localizer["View original alert"]
             </a>
         }
         @if (incidentEvent != null)
         {
-            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@incidentEvent.IncidentId" class="btn btn-outline-secondary">查看重开事故</a>
+            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@incidentEvent.IncidentId" class="btn btn-outline-secondary">@Localizer["View reopened incident"]</a>
         }
         @if (typeKey == "inapp" && delivery.Status == PushDelivery.Succeeded)
         {
             <a asp-action="Inbox" class="btn btn-outline-primary">
-                <i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>查看站内通知
+                <i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>@Localizer["View in-app notifications"]
             </a>
         }
     </div>
@@ -59,21 +59,21 @@
             <i data-lucide="alert-triangle" aria-hidden="true"></i>
         </div>
         <div class="alert-message">
-            <h2 class="h5 alert-heading mb-1">投递失败</h2>
+            <h2 class="h5 alert-heading mb-1">@Localizer["Delivery Failed"]</h2>
             <div class="text-break font-monospace small mb-2">@delivery.Error</div>
-            <p class="small mb-0">@(snapshot != null ? "值班邮件重试始终使用入队时的 OCE 与 CC 快照，不会改发给当前值班人员。无有效快照时不可重试。" : "重新投递将使用当前最新的渠道配置。") 超时或中断时目标端可能已接收，请在核实后重试。</p>
+            <p class="small mb-0">@(snapshot != null ? @Localizer["On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists."].Value : @Localizer["Redelivery will use the latest channel configuration."].Value) @Localizer["Target may have already received it upon timeout or interruption. Please verify before retrying."]</p>
             @if (Model.IsAdministrator)
             {
                 <div class="mt-3">
                     <form asp-action="Retry" method="post" data-action-feedback class="d-inline">
                         <input type="hidden" name="id" value="@delivery.Id" />
                         <button class="btn btn-danger" disabled="@(!canRetry)">
-                            <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>重新投递
+                            <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>@Localizer["Redeliver"]
                         </button>
                     </form>
                     @if (!canRetry)
                     {
-                        <small class="d-block mt-1">@(snapshot != null ? "收件人快照无效，不能补发旧告警" : "请先启用目标渠道")</small>
+                        <small class="d-block mt-1">@(snapshot != null ? @Localizer["Invalid recipient snapshot. Cannot resend old alerts."].Value : @Localizer["Please enable the target channel first."].Value)</small>
                     }
                 </div>
             }
@@ -88,13 +88,13 @@ else if (delivery.Status == PushDelivery.Succeeded)
         </div>
         <div class="alert-message d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
             <div>
-                <strong class="d-block">投递成功完成</strong>
+                <strong class="d-block">@Localizer["Delivery completed successfully"]</strong>
                 <small>
-                    耗时: @(latency.HasValue ? $"{latency.Value:N0} ms" : "即时完成") · 尝试次数: @delivery.Attempts
+                    @Localizer["Duration"]: @(latency.HasValue ? $"{latency.Value:N0} ms" : @Localizer["Complete immediately"].Value) · @Localizer["Attempts"]: @delivery.Attempts
                 </small>
             </div>
             <div class="small font-monospace">
-                完成于 @(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "—") UTC
+                @Localizer["Completed at "]@(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "—") UTC
             </div>
         </div>
     </div>
@@ -107,11 +107,11 @@ else
         </div>
         <div class="alert-message d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3">
             <div>
-                <strong class="d-block">正在后台派发投递</strong>
-                <small>异步任务排队中，请稍后刷新状态</small>
+                <strong class="d-block">@Localizer["Dispatching deliveries in the background"]</strong>
+                <small>@Localizer["Async task is queued. Please refresh status later."]</small>
             </div>
             <a asp-action="Delivery" asp-route-id="@delivery.Id" class="btn btn-sm btn-primary flex-shrink-0">
-                <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>刷新状态
+                <i class="align-middle me-1" data-lucide="refresh-cw" aria-hidden="true"></i>@Localizer["Refresh status"]
             </a>
         </div>
     </div>
@@ -125,7 +125,7 @@ else
             <div class="card-header bg-transparent d-flex justify-content-between align-items-center py-3">
                 <h2 class="card-title h5 mb-0">
                     <i data-lucide="message-square" style="width: 18px; height: 18px;" class="text-primary me-2" aria-hidden="true"></i>
-                    投递内容
+                    @Localizer["Delivery Content"]
                 </h2>
                 @if (level != null)
                 {
@@ -141,15 +141,15 @@ else
                 }
                 else
                 {
-                    <span class="badge bg-secondary-subtle text-secondary">手动测试消息</span>
+                    <span class="badge bg-secondary-subtle text-secondary">@Localizer["Manual Test Message"]</span>
                 }
             </div>
             <div class="card-body">
-                <h3 class="h5 mb-3 text-break">@(delivery.Message?.Title ?? (incidentEvent != null ? $"事故重开：{incidentEvent.Incident.Title}" : "渠道测试通知"))</h3>
+                <h3 class="h5 mb-3 text-break">@(delivery.Message?.Title ?? (incidentEvent != null ? string.Format(@Localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title) : @Localizer["Channel test notification"].Value))</h3>
                 @{
-                    var payload = delivery.Message?.Content ?? (incidentEvent != null ? incidentEvent.Note : delivery.Message == null ? delivery.TestContent ?? PushDelivery.DefaultTestContent : null);
+                    var payload = delivery.Message?.Content ?? (incidentEvent != null ? incidentEvent.Note : delivery.Message == null ? delivery.TestContent ?? @Localizer["This is a test message for the push channel."].Value : null);
                 }
-                <div class="ac-prose">@(string.IsNullOrWhiteSpace(payload) ? "无正文内容" : payload)</div>
+                <div class="ac-prose">@(string.IsNullOrWhiteSpace(payload) ? @Localizer["No body content"].Value : payload)</div>
             </div>
         </div>
 
@@ -158,7 +158,7 @@ else
             <div class="card-header bg-transparent py-3">
                 <h2 class="card-title h5 mb-0">
                     <i data-lucide="clock" style="width: 18px; height: 18px;" class="text-primary me-2" aria-hidden="true"></i>
-                    派发时间线 (UTC)
+                    @Localizer["Dispatch timeline (UTC)"]
                 </h2>
             </div>
             <div class="card-body">
@@ -170,10 +170,10 @@ else
                         </div>
                         <div class="ac-timeline-content">
                             <div class="d-flex justify-content-between align-items-center">
-                                <strong>投递任务已创建</strong>
+                                <strong>@Localizer["Delivery task created"]</strong>
                                 <small class="text-muted font-monospace">@delivery.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</small>
                             </div>
-                            <small class="text-muted d-block mt-1">进入投递调度队列</small>
+                            <small class="text-muted d-block mt-1">@Localizer["Enter Delivery Queue"]</small>
                         </div>
                     </div>
 
@@ -184,10 +184,10 @@ else
                         </div>
                         <div class="ac-timeline-content">
                             <div class="d-flex justify-content-between align-items-center">
-                                <strong>发起派发请求</strong>
-                                <small class="text-muted font-monospace">@(delivery.AttemptedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "等待派发")</small>
+                                <strong>@Localizer["Initiate dispatch request"]</strong>
+                                <small class="text-muted font-monospace">@(delivery.AttemptedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? @Localizer["Pending dispatch"].Value)</small>
                             </div>
-                            <small class="text-muted d-block mt-1">已累计尝试 @delivery.Attempts 次</small>
+                            <small class="text-muted d-block mt-1">@Localizer["Total attempts: "]@delivery.Attempts @Localizer["times"]</small>
                         </div>
                     </div>
 
@@ -210,9 +210,9 @@ else
                         <div class="ac-timeline-content">
                             <div class="d-flex justify-content-between align-items-center">
                                 <strong>
-                                    @(delivery.Status == PushDelivery.Succeeded ? "投递成功完成" : delivery.Status == PushDelivery.Failed ? "投递最终失败" : "执行中...")
+                                    @(delivery.Status == PushDelivery.Succeeded ? @Localizer["Delivery completed successfully"].Value : delivery.Status == PushDelivery.Failed ? @Localizer["Delivery failed permanently"].Value : @Localizer["Running..."].Value)
                                 </strong>
-                                <small class="text-muted font-monospace">@(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "未完成")</small>
+                                <small class="text-muted font-monospace">@(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? @Localizer["Incomplete"].Value)</small>
                             </div>
                             @if (delivery.Status == PushDelivery.Failed && !string.IsNullOrEmpty(delivery.Error))
                             {
@@ -230,7 +230,7 @@ else
         <!-- Channel Card -->
         <div class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-transparent py-3">
-                <h2 class="card-title h5 mb-0">目标渠道</h2>
+                <h2 class="card-title h5 mb-0">@Localizer["Target Channel"]</h2>
             </div>
             <div class="card-body">
                 <div class="d-flex align-items-center gap-3 mb-3">
@@ -238,35 +238,35 @@ else
                         <i data-lucide="@(typeKey == "webhook" ? "webhook" : typeKey == "email" ? "mail" : "bell")" style="width: 22px; height: 22px;" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <h3 class="h6 mb-0">@(snapshot != null ? $"内置值班邮件 · {snapshot.GroupName}" : delivery.Channel?.Name)</h3>
-                        <small class="text-muted">@(snapshot != null ? "系统内置 · 不可单独关闭" : channelType?.Name ?? typeKey)</small>
+                        <h3 class="h6 mb-0">@(snapshot != null ? string.Format(@Localizer["Built-in On-call Email · {0}"].Value, snapshot.GroupName) : delivery.Channel?.Name)</h3>
+                        <small class="text-muted">@(snapshot != null ? @Localizer["Built-in system · Cannot be disabled individually"].Value : channelType?.Name ?? typeKey)</small>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center py-2 border-top">
-                    <span class="text-muted small">渠道启用状态</span>
+                    <span class="text-muted small">@Localizer["Channel enabled status"]</span>
                     @if (channelEnabled)
                     {
-                        <span class="badge bg-success-subtle text-success">已启用</span>
+                        <span class="badge bg-success-subtle text-success">@Localizer["Enabled"]</span>
                     }
                     else
                     {
-                        <span class="badge bg-danger-subtle text-danger">已停用</span>
+                        <span class="badge bg-danger-subtle text-danger">@Localizer["Disabled"]</span>
                     }
                 </div>
                 <div class="d-flex justify-content-between align-items-center py-2 border-top">
-                    <span class="text-muted small">来源接入应用</span>
-                    <span class="fw-semibold small">@(delivery.Message?.Application.Name ?? incidentEvent?.Incident.Application.Name ?? "手动测试")</span>
+                    <span class="text-muted small">@Localizer["Source integrated application"]</span>
+                    <span class="fw-semibold small">@(delivery.Message?.Application.Name ?? incidentEvent?.Incident.Application.Name ?? @Localizer["Manual Test"].Value)</span>
                 </div>
                 @if (snapshot != null)
                 {
                     <div class="border-top pt-3 small">
-                        <p class="mb-1">快照时间（UTC）：@snapshot.NotificationAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</p>
-                        <p class="mb-1">班次：@snapshot.StartsAtUtc?.ToString("yyyy-MM-dd HH:mm") — @snapshot.EndsAtUtc?.ToString("yyyy-MM-dd HH:mm") UTC</p>
+                        <p class="mb-1">@Localizer["Snapshot time ("]UTC）：@snapshot.NotificationAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                        <p class="mb-1">@Localizer["Shift: "]@snapshot.StartsAtUtc?.ToString("yyyy-MM-dd HH:mm") — @snapshot.EndsAtUtc?.ToString("yyyy-MM-dd HH:mm") UTC</p>
                         <p class="mb-1">OCE：@string.Join("、", snapshot.Recipients.Select(recipient => recipient.DisplayName))</p>
                         @if (Model.IsAdministrator)
                         {
                             <p class="mb-1 text-break">To：@string.Join("; ", snapshot.Recipients.Select(recipient => recipient.Email).Distinct(StringComparer.OrdinalIgnoreCase))</p>
-                            <p class="mb-0 text-break">CC：@(string.IsNullOrWhiteSpace(snapshot.CcRecipients) ? "无" : snapshot.CcRecipients)</p>
+                            <p class="mb-0 text-break">CC：@(string.IsNullOrWhiteSpace(snapshot.CcRecipients) ? @Localizer["None"].Value : snapshot.CcRecipients)</p>
                         }
                     </div>
                 }
@@ -274,7 +274,7 @@ else
                 {
                     <div class="mt-3">
                         <a asp-action="Edit" asp-route-id="@delivery.Channel.Id" class="btn btn-outline-secondary btn-sm w-100">
-                            <i class="align-middle me-1" data-lucide="sliders" aria-hidden="true"></i>查看或修改渠道配置
+                            <i class="align-middle me-1" data-lucide="sliders" aria-hidden="true"></i>@Localizer["View or modify channel configuration"]
                         </a>
                     </div>
                 }
@@ -284,32 +284,32 @@ else
         <!-- Task Metadata Card -->
         <div class="card shadow-sm border-0">
             <div class="card-header bg-transparent py-3">
-                <h2 class="card-title h5 mb-0">任务元数据</h2>
+                <h2 class="card-title h5 mb-0">@Localizer["Task metadata"]</h2>
             </div>
             <div class="card-body p-0">
                 <div id="delivery-copy-feedback" class="px-3" role="status" aria-live="polite" aria-atomic="true"></div>
                 <ul class="list-group list-group-flush small">
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                        <span class="text-muted">投递 ID</span>
+                        <span class="text-muted">@Localizer["Delivery ID"]</span>
                         <div class="d-flex align-items-center gap-1">
                             <code class="text-break">@delivery.Id.ToString().Substring(0, 8)...</code>
-                            <button type="button" class="btn btn-sm btn-link p-0 text-muted" data-copy-text="@delivery.Id" data-copy-feedback="delivery-copy-feedback" title="复制完整 ID" aria-label="复制完整投递 ID">
+                            <button type="button" class="btn btn-sm btn-link p-0 text-muted" data-copy-text="@delivery.Id" data-copy-feedback="delivery-copy-feedback" title="@Localizer["Copy Full ID"]" aria-label="@Localizer["Copy Full Delivery ID"]">
                                 <i data-lucide="copy" style="width: 14px; height: 14px;" aria-hidden="true"></i>
                             </button>
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                        <span class="text-muted">派发尝试次数</span>
-                        <span class="badge bg-secondary-subtle text-secondary font-monospace">@delivery.Attempts 次</span>
+                        <span class="text-muted">@Localizer["Dispatch attempts"]</span>
+                        <span class="badge bg-secondary-subtle text-secondary font-monospace">@delivery.Attempts @Localizer["times"]</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                        <span class="text-muted">创建时间 (UTC)</span>
+                        <span class="text-muted">@Localizer["Creation Time (UTC)"]</span>
                         <span class="font-monospace">@delivery.CreatedAtUtc.ToString("HH:mm:ss")</span>
                     </li>
                     @if (delivery.CompletedAtUtc.HasValue)
                     {
                         <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                            <span class="text-muted">完成时间 (UTC)</span>
+                            <span class="text-muted">@Localizer["Completion Time (UTC)"]</span>
                             <span class="font-monospace">@delivery.CompletedAtUtc.Value.ToString("HH:mm:ss")</span>
                         </li>
                     }

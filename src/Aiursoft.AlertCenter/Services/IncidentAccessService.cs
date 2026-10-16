@@ -1,10 +1,11 @@
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public class IncidentAccessService(TemplateDbContext db, IApplicationAccessService applicationAccess)
+public class IncidentAccessService(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizerFactory localizerFactory)
 {
     public async Task<bool> CanManageAsync(ClaimsPrincipal user, Incident incident, DateTime atUtc,
         CancellationToken cancellationToken = default)
@@ -36,7 +37,7 @@ public class IncidentAccessService(TemplateDbContext db, IApplicationAccessServi
         var groupId = await db.SourceApplications.Where(application => application.Id == applicationId)
             .Select(application => application.OnCallGroupId).SingleOrDefaultAsync(cancellationToken);
         if (!groupId.HasValue) return false;
-        var oce = await new OnCallOceService(db).QueryAsync(groupId.Value, atUtc, cancellationToken);
+        var oce = await new OnCallOceService(db, localizer: new StringLocalizer<OnCallOceService>(localizerFactory)).QueryAsync(groupId.Value, atUtc, cancellationToken);
         return oce.Error == null && oce.Engineers.Any(engineer => engineer.UserId == userId);
     }
 }
