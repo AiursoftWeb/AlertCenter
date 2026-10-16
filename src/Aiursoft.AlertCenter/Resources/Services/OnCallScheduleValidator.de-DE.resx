@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0}&apos;s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." xml:space="preserve">
+    <value>Die Schicht von {0} am {1:yyyy-MM-dd HH:mm} UTC überschneidet sich mit einer anderen Schicht oder die Ruhezeit ist zu kurz (mindestens {2} Stunden in dieser Woche unter Einhaltung der Anforderungen an angrenzende Schichten).</value>
+  </data>
+  <data name="{0}&apos;s shift is outside the designated 8-hour window." xml:space="preserve">
+    <value>Die Schicht von {0} liegt außerhalb des vorgesehenen 8-Stunden-Zeitfensters.</value>
+  </data>
+  <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
+    <value>Leere Schicht am {0:yyyy-MM-dd HH:mm} UTC erkannt. Mindestens ein Teammitglied ist erforderlich.</value>
+  </data>
+  <data name="Includes employees not belonging to the current team." xml:space="preserve">
+    <value>Enthält Mitarbeitende, die nicht zum aktuellen Team gehören.</value>
+  </data>
+  <data name="Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." xml:space="preserve">
+    <value>Für den Dienst um {1:yyyy-MM-dd HH:mm} UTC sind nur {0} Mitarbeiter eingeplant. Damit wird die Mindestbesetzung von {2} unterschritten. Das manuelle Speichern ist trotz unzureichender Besetzung weiterhin möglich, außer bei unbesetzten Diensten.</value>
+  </data>
+
+</root>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A new alert has been detected." xml:space="preserve">
+    <value>Обнаружено новое оповещение.</value>
+  </data>
+  <data name="Action time (UTC): {0:O}" xml:space="preserve">
+    <value>Время действия (UTC): {0:O}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Тестовое уведомление канала</value>
+  </data>
+  <data name="Content: " xml:space="preserve">
+    <value>Содержимое:</value>
+  </data>
+  <data name="Context:" xml:space="preserve">
+    <value>Контекст:</value>
+  </data>
+  <data name="Delivery ID: {0}" xml:space="preserve">
+    <value>Идентификатор доставки: {0}</value>
+  </data>
+  <data name="Each email channel supports up to {0} CC recipients." xml:space="preserve">
+    <value>Каждый канал электронной почты поддерживает до {0} получателей в копии.</value>
+  </data>
+  <data name="Email (SMTP)" xml:space="preserve">
+    <value>Электронная почта (SMTP)</value>
+  </data>
+  <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
+    <value>Не удалось отправить электронное письмо. Проверьте настройки SMTP, сеть или почтовый сервер.</value>
+  </data>
+  <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
+    <value>Время ожидания при отправке письма истекло. Возможно, почтовый сервер получил сообщение; проверьте это и повторите попытку.</value>
+  </data>
+  <data name="Incident ID: {0}" xml:space="preserve">
+    <value>ID инцидента: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Инцидент открыт повторно: {0}</value>
+  </data>
+  <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
+    <value>Неверный формат адреса электронной почты в копии. Отображаемые имена не поддерживаются.</value>
+  </data>
+  <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
+    <value>Неверный формат адреса электронной почты получателя. Отображаемые имена не поддерживаются.</value>
+  </data>
+  <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
+    <value>Недопустимый адрес получателя или настройки копии для канала электронной почты. Проверьте настройки канала.</value>
+  </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Неверная конфигурация SMTP. Проверьте настройки электронной почты.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
+    <value>Время события (UTC): {0:O}</value>
+  </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Время запроса OCE (UTC): {0:O}</value>
+  </data>
+  <data name="On-call group: {0}" xml:space="preserve">
+    <value>Дежурная группа: {0}</value>
+  </data>
+  <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
+    <value>Время дежурства (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Please enter the recipient email address." xml:space="preserve">
+    <value>Введите адрес электронной почты получателя.</value>
+  </data>
+  <data name="Reopen note: {0}" xml:space="preserve">
+    <value>Примечание о повторном открытии: {0}</value>
+  </data>
+  <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Отправляйте текстовые уведомления на указанные адреса электронной почты через глобальный SMTP-сервер.</value>
+  </data>
+  <data name="Severity: {0}" xml:space="preserve">
+    <value>Уровень важности: {0}</value>
+  </data>
+  <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
+    <value>Инцидент повторно открыт. Просим отреагировать, дежурный инженер.</value>
+  </data>
+  <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>Снимок получателей дежурной рассылки недействителен; невозможно повторно выбрать текущую доставку OCE.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Это тестовое сообщение для push-канала.</value>
+  </data>
+  <data name="Title: {0}" xml:space="preserve">
+    <value>Название: {0}</value>
+  </data>
+
+</root>

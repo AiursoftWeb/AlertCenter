@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A new alert has been detected." xml:space="preserve">
+    <value>Une nouvelle alerte a été détectée.</value>
+  </data>
+  <data name="Action time (UTC): {0:O}" xml:space="preserve">
+    <value>Heure de l’action (UTC) : {0:O}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Notification de test du canal</value>
+  </data>
+  <data name="Content: " xml:space="preserve">
+    <value>Contenu :</value>
+  </data>
+  <data name="Context:" xml:space="preserve">
+    <value>Contexte :</value>
+  </data>
+  <data name="Delivery ID: {0}" xml:space="preserve">
+    <value>ID de livraison : {0}</value>
+  </data>
+  <data name="Each email channel supports up to {0} CC recipients." xml:space="preserve">
+    <value>Chaque canal de messagerie prend en charge jusqu’à {0} destinataires en copie.</value>
+  </data>
+  <data name="Email (SMTP)" xml:space="preserve">
+    <value>E-mail (SMTP)</value>
+  </data>
+  <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
+    <value>L’envoi de l’e-mail a échoué. Veuillez vérifier la configuration SMTP, le réseau ou le serveur de messagerie.</value>
+  </data>
+  <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
+    <value>L’envoi de l’e-mail a expiré. Le serveur de messagerie a peut-être reçu le message ; veuillez vérifier et réessayer.</value>
+  </data>
+  <data name="Incident ID: {0}" xml:space="preserve">
+    <value>ID de l’incident : {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Incident rouvert : {0}</value>
+  </data>
+  <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
+    <value>Format d’adresse e-mail en copie (CC) invalide. Les noms d’affichage ne sont pas pris en charge.</value>
+  </data>
+  <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
+    <value>Format d’adresse e-mail du destinataire invalide. Les noms d’affichage ne sont pas pris en charge.</value>
+  </data>
+  <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
+    <value>Configuration du destinataire ou des destinataires en copie (Cc) invalide pour le canal e-mail. Veuillez vérifier les paramètres du canal.</value>
+  </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Configuration SMTP invalide. Veuillez vérifier les paramètres de messagerie.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
+    <value>Survenu le (UTC) : {0:O}</value>
+  </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Heure de la requête OCE (UTC) : {0:O}</value>
+  </data>
+  <data name="On-call group: {0}" xml:space="preserve">
+    <value>Groupe d’astreinte : {0}</value>
+  </data>
+  <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
+    <value>Période d’astreinte (UTC) : {0:O} — {1:O}</value>
+  </data>
+  <data name="Please enter the recipient email address." xml:space="preserve">
+    <value>Veuillez saisir l’adresse e-mail du destinataire.</value>
+  </data>
+  <data name="Reopen note: {0}" xml:space="preserve">
+    <value>Note de réouverture : {0}</value>
+  </data>
+  <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Envoyez des alertes en texte brut aux adresses e-mail indiquées via le serveur SMTP global.</value>
+  </data>
+  <data name="Severity: {0}" xml:space="preserve">
+    <value>Gravité : {0}</value>
+  </data>
+  <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
+    <value>L’incident a été rouvert. Veuillez intervenir, ingénieur d’astreinte.</value>
+  </data>
+  <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>L’instantané des destinataires de l’e-mail d’astreinte est invalide ; impossible de sélectionner à nouveau la livraison OCE en cours.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Ceci est un message de test pour le canal push.</value>
+  </data>
+  <data name="Title: {0}" xml:space="preserve">
+    <value>Titre : {0}</value>
+  </data>
+
+</root>

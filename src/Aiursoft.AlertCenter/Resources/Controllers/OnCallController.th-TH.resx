@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>ลบเวรที่มอบหมายไว้ในอนาคตของสมาชิกที่ออกจากทีมแล้ว {0} รายการ โปรดตรวจสอบและจัดเวรในช่วงที่ยังว่างให้ครบถ้วน</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>มีตารางเวรที่บันทึกไว้แล้ว ไม่สามารถแก้ไขเวลาเริ่มต้นตารางเวรของทีมได้</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>การสร้างตารางเวรอัตโนมัติต้องมีเจ้าหน้าที่อย่างน้อย {0} คนต่อกะ และมีเวลาพัก {1} ชั่วโมง จึงต้องมีสมาชิกอย่างน้อย {2} คน หลังจากไม่นับสมาชิกที่อยู่ในกลุ่มเวรหลายกลุ่มแล้ว จะสามารถจัดตารางอัตโนมัติให้ได้ {3} คน โปรดเพิ่มสมาชิกที่อยู่เพียงกลุ่มเดียว หรือจัดตารางด้วยตนเอง</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>กำหนดให้มี 3 กะต่อวัน กะละ 8 ชั่วโมง</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>เวลาพักขั้นต่ำต้องอยู่ระหว่าง 0–168 ชั่วโมง</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>จำนวนพนักงานขั้นต่ำต่อกะต้องอยู่ระหว่าง 1–200 คน</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>ยังไม่มีกฎผูกกับทีม คุณสามารถสร้างตารางเวรด้วยตนเองได้</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>โปรดป้อนชื่อกฎ</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>โปรดกรอกชื่อทีม</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>โปรดเลือกเขตเวลาที่ถูกต้องจากรายการ</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>โปรดเลือกเวลาเริ่มต้น UTC ที่ถูกต้อง (ต้องอยู่ห่างจากขอบเขตวันที่อย่างน้อย 28 วัน)</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>โปรดเลือกกฎการเข้าเวรที่มีอยู่</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>สร้างกฎการจัดตารางเรียบร้อยแล้ว</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>ลบกฎการจัดตารางเวลาแล้ว</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>อัปเดตกฎการจัดตารางเวลาแล้ว</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>จำนวนเป้าหมายต้องไม่น้อยกว่าจำนวนขั้นต่ำ และต้องอยู่ระหว่าง 1–200 เว้นว่างไว้เพื่อกำหนดจำนวนโดยอัตโนมัติ</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>สร้างทีมสำเร็จแล้ว</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>ลบทีมแล้ว</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>อัปเดตทีมแล้ว</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>กฎหรือทีมมีการเปลี่ยนแปลง โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>กำหนดการมีการเปลี่ยนแปลงหรือเกิดข้อขัดแย้งในการบันทึก โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>ไม่พบพนักงานที่เลือก มีรายชื่อซ้ำ หรือเลือกเกิน 200 คน โปรดเลือกอีกครั้ง</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>รูปแบบคำขอจัดกะไม่ถูกต้อง</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>ทีมหรือตารางเวรมีการเปลี่ยนแปลง โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>สัปดาห์นี้มีกะที่ยังไม่มีผู้รับผิดชอบ {0} กะ โปรดกำหนดเจ้าหน้าที่เวรเรียกตามด้วยตนเอง</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>กฎนี้ยังคงผูกอยู่กับทีม โปรดอัปเดตการผูกกฎของทีมก่อน</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>ทีมนี้มีตารางเวรที่บันทึกไว้แล้ว จึงไม่สามารถลบพร้อมประวัติได้</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>ทีมนี้เชื่อมโยงกับแอปที่ผสานรวมไว้ โปรดย้ายกลุ่มเวรของแอปไปยังทีมอื่นหรือยกเลิกการเชื่อมโยงก่อน</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>ไม่สามารถสร้างตัวอย่างล่วงหน้าได้: {0}</value>
+  </data>
+
+</root>

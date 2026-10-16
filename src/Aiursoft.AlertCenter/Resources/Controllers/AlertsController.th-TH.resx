@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="App on-call group updated." xml:space="preserve">
+    <value>อัปเดตกลุ่มรับแจ้งเหตุของแอปแล้ว</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>ป้อนชื่อแอปให้ตรงทุกประการเพื่อยืนยันการลบ</value>
+  </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>คู่มือการผสานรวม</value>
+  </data>
+  <data name="On-call group has been deleted. Please select another." xml:space="preserve">
+    <value>กลุ่มเวรรับแจ้งเหตุถูกลบแล้ว โปรดเลือกกลุ่มอื่น</value>
+  </data>
+  <data name="Please select a valid application." xml:space="preserve">
+    <value>กรุณาเลือกแอปพลิเคชันที่ถูกต้อง</value>
+  </data>
+  <data name="The application has been unbound from the on-call group." xml:space="preserve">
+    <value>ยกเลิกการผูกแอปพลิเคชันกับกลุ่มเวรแล้ว</value>
+  </data>
+  <data name="The selected on-call group does not exist. Please select again." xml:space="preserve">
+    <value>ไม่มีกลุ่มเวรที่เลือกไว้ โปรดเลือกอีกครั้ง</value>
+  </data>
+  <data name="The selected user or role does not exist. Please refresh the page and try again." xml:space="preserve">
+    <value>ไม่พบผู้ใช้หรือบทบาทที่เลือก โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
+  </data>
+
+</root>

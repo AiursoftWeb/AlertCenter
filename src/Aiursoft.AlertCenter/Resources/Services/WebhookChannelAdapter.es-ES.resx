@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Notificación de prueba del canal</value>
+  </data>
+  <data name="Custom request body contains unknown or incompletely used placeholders." xml:space="preserve">
+    <value>El cuerpo de la solicitud personalizada contiene marcadores de posición desconocidos o utilizados de forma incompleta.</value>
+  </data>
+  <data name="Custom request body must be a JSON object." xml:space="preserve">
+    <value>El cuerpo de la solicitud personalizada debe ser un objeto JSON.</value>
+  </data>
+  <data name="Custom request body must be valid JSON." xml:space="preserve">
+    <value>El cuerpo de la solicitud personalizada debe ser un JSON válido.</value>
+  </data>
+  <data name="Custom request header values must be non-empty strings." xml:space="preserve">
+    <value>Los valores de las cabeceras de solicitud personalizadas deben ser cadenas no vacías.</value>
+  </data>
+  <data name="Custom request headers contain disallowed names." xml:space="preserve">
+    <value>Las cabeceras de solicitud personalizadas contienen nombres no permitidos.</value>
+  </data>
+  <data name="Custom request headers contain invalid or duplicate values." xml:space="preserve">
+    <value>Los encabezados de solicitud personalizados contienen valores no válidos o duplicados.</value>
+  </data>
+  <data name="Custom request headers must be a JSON object." xml:space="preserve">
+    <value>Las cabeceras personalizadas de la solicitud deben ser un objeto JSON.</value>
+  </data>
+  <data name="Custom request headers must be valid JSON." xml:space="preserve">
+    <value>Las cabeceras de solicitud personalizadas deben ser JSON válido.</value>
+  </data>
+  <data name="Invalid Webhook custom configuration. Please check channel configuration." xml:space="preserve">
+    <value>Configuración personalizada del webhook no válida. Comprueba la configuración del canal.</value>
+  </data>
+  <data name="Invalid Webhook custom headers. Please check channel configuration." xml:space="preserve">
+    <value>Encabezados personalizados del webhook no válidos. Comprueba la configuración del canal.</value>
+  </data>
+  <data name="Invalid Webhook URL. Please check channel configuration." xml:space="preserve">
+    <value>URL de webhook no válida. Comprueba la configuración del canal.</value>
+  </data>
+  <data name="Send JSON messages to a specified HTTP address, suitable for connecting to existing systems." xml:space="preserve">
+    <value>Envía mensajes JSON a una dirección HTTP especificada, ideal para conectar con sistemas existentes.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Este es un mensaje de prueba para el canal de notificaciones push.</value>
+  </data>
+  <data name="Unable to connect to Webhook. Please check the address, network, or receiving service." xml:space="preserve">
+    <value>No se ha podido conectar con Webhook. Comprueba la dirección, la red o el servicio receptor.</value>
+  </data>
+  <data name="Webhook request timed out. The receiver may have received the message. Please verify and retry." xml:space="preserve">
+    <value>Se ha agotado el tiempo de espera de la solicitud del webhook. Es posible que el destinatario haya recibido el mensaje. Compruébalo y vuelve a intentarlo.</value>
+  </data>
+  <data name="Webhook returned HTTP {0}. Please check the receiver and retry manually." xml:space="preserve">
+    <value>El webhook ha devuelto HTTP {0}. Comprueba el destinatario y vuelve a intentarlo manualmente.</value>
+  </data>
+
+</root>

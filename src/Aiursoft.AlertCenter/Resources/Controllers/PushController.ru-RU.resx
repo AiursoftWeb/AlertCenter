@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Тестовое уведомление канала</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>Введите корректный URL с протоколом HTTP или HTTPS. Использование имён пользователей, паролей и фрагментов URL не поддерживается.</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>Сведения об уведомлении в приложении</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>Некорректная конфигурация канала. Обновите страницу и попробуйте ещё раз.</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>Некорректные параметры фильтра. Обновите страницу и попробуйте снова.</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>Повторно отправить можно только дежурные письма с корректными снимками OCE или неудачные записи с включёнными пользовательскими каналами. Нельзя выбрать получателей заново, чтобы повторно отправить старые оповещения, если отсутствует OCE или адрес электронной почты.</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>Пожалуйста, сначала включите канал.</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>Пожалуйста, выберите доступный тип канала.</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>Выберите хотя бы одного пользователя или одну группу пользователей-получателей.</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>Содержание тестового сообщения не может быть пустым и не должно превышать 4 000 символов.</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>Получателя не нужно добавлять в копию повторно.</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>Выбранный пользователь, которому можно назначать привязки, не существует. Выберите его снова.</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>Выбранная группа пользователей для привязки не существует. Пожалуйста, выберите её снова.</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>Выбранный канал больше не существует. Обновите страницу и попробуйте ещё раз.</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>Выбранный пользователь-получатель не существует. Выберите пользователя ещё раз.</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>Выбранная группа пользователей-получателей не существует. Выберите ещё раз.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Это тестовое сообщение для канала push-уведомлений.</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>Тип существующего канала нельзя изменить. Создайте новый канал.</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>Не удалось защитить пользовательские заголовки запросов Webhook. Проверьте конфигурацию Webhook:HeaderProtectionKey.</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>Не удалось прочитать сохранённые заголовки запроса Webhook. Проверьте ключ защиты данных и повторите попытку.</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>Для пользовательских заголовков запросов необходимо настроить Webhook:HeaderProtectionKey. Передайте этот ключ через защищённую переменную окружения.</value>
+  </data>
+
+</root>

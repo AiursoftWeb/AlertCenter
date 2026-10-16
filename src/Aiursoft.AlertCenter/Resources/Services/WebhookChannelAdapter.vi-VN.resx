@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Thông báo kiểm tra kênh</value>
+  </data>
+  <data name="Custom request body contains unknown or incompletely used placeholders." xml:space="preserve">
+    <value>Nội dung phần thân yêu cầu tùy chỉnh chứa các ký hiệu giữ chỗ không xác định hoặc chưa được sử dụng đầy đủ.</value>
+  </data>
+  <data name="Custom request body must be a JSON object." xml:space="preserve">
+    <value>Phần nội dung yêu cầu tùy chỉnh phải là một đối tượng JSON.</value>
+  </data>
+  <data name="Custom request body must be valid JSON." xml:space="preserve">
+    <value>Nội dung yêu cầu tùy chỉnh phải là JSON hợp lệ.</value>
+  </data>
+  <data name="Custom request header values must be non-empty strings." xml:space="preserve">
+    <value>Giá trị của tiêu đề yêu cầu tùy chỉnh phải là chuỗi không rỗng.</value>
+  </data>
+  <data name="Custom request headers contain disallowed names." xml:space="preserve">
+    <value>Các tiêu đề yêu cầu tùy chỉnh chứa tên không được phép.</value>
+  </data>
+  <data name="Custom request headers contain invalid or duplicate values." xml:space="preserve">
+    <value>Các tiêu đề yêu cầu tùy chỉnh chứa giá trị không hợp lệ hoặc trùng lặp.</value>
+  </data>
+  <data name="Custom request headers must be a JSON object." xml:space="preserve">
+    <value>Các tiêu đề yêu cầu tùy chỉnh phải là một đối tượng JSON.</value>
+  </data>
+  <data name="Custom request headers must be valid JSON." xml:space="preserve">
+    <value>Tiêu đề yêu cầu tùy chỉnh phải là JSON hợp lệ.</value>
+  </data>
+  <data name="Invalid Webhook custom configuration. Please check channel configuration." xml:space="preserve">
+    <value>Cấu hình tùy chỉnh của Webhook không hợp lệ. Vui lòng kiểm tra cấu hình kênh.</value>
+  </data>
+  <data name="Invalid Webhook custom headers. Please check channel configuration." xml:space="preserve">
+    <value>Tiêu đề tùy chỉnh của Webhook không hợp lệ. Vui lòng kiểm tra cấu hình kênh.</value>
+  </data>
+  <data name="Invalid Webhook URL. Please check channel configuration." xml:space="preserve">
+    <value>URL Webhook không hợp lệ. Vui lòng kiểm tra cấu hình kênh.</value>
+  </data>
+  <data name="Send JSON messages to a specified HTTP address, suitable for connecting to existing systems." xml:space="preserve">
+    <value>Gửi các thông điệp JSON đến một địa chỉ HTTP cụ thể, phù hợp để kết nối với các hệ thống hiện có.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Đây là tin nhắn thử nghiệm cho kênh thông báo đẩy.</value>
+  </data>
+  <data name="Unable to connect to Webhook. Please check the address, network, or receiving service." xml:space="preserve">
+    <value>Không thể kết nối với Webhook. Vui lòng kiểm tra địa chỉ, mạng hoặc dịch vụ nhận.</value>
+  </data>
+  <data name="Webhook request timed out. The receiver may have received the message. Please verify and retry." xml:space="preserve">
+    <value>Yêu cầu Webhook đã hết thời gian chờ. Có thể bên nhận đã nhận được thông điệp. Vui lòng xác minh và thử lại.</value>
+  </data>
+  <data name="Webhook returned HTTP {0}. Please check the receiver and retry manually." xml:space="preserve">
+    <value>Webhook trả về HTTP {0}. Vui lòng kiểm tra dịch vụ nhận và thử lại thủ công.</value>
+  </data>
+
+</root>

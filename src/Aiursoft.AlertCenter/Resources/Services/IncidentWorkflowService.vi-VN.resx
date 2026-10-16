@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A reason or progress update is required for this action." xml:space="preserve">
+    <value>Vui lòng cung cấp lý do hoặc thông tin cập nhật tiến độ cho thao tác này.</value>
+  </data>
+  <data name="An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened." xml:space="preserve">
+    <value>Đã tồn tại một sự cố có cùng quy tắc được liên kết. Vui lòng giải quyết sự cố đó trước; không thể hợp nhất hoặc mở lại sự cố này.</value>
+  </data>
+  <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
+    <value>Vui lòng chọn mức độ nghiêm trọng của sự cố từ sev0 đến sev4.</value>
+  </data>
+  <data name="Reason or progress cannot exceed 4000 characters." xml:space="preserve">
+    <value>Lý do hoặc nội dung cập nhật tiến độ không được vượt quá 4000 ký tự.</value>
+  </data>
+  <data name="The current incident status does not allow this operation." xml:space="preserve">
+    <value>Trạng thái hiện tại của sự cố không cho phép thực hiện thao tác này.</value>
+  </data>
+  <data name="The incident has been modified by another engineer. Please refresh and try again." xml:space="preserve">
+    <value>Sự cố đã được một kỹ sư khác chỉnh sửa. Vui lòng làm mới trang rồi thử lại.</value>
+  </data>
+  <data name="The incident is already at the selected level." xml:space="preserve">
+    <value>Sự cố đã ở mức độ được chọn.</value>
+  </data>
+  <data name="The incident version cannot be empty. Please refresh the page." xml:space="preserve">
+    <value>Phiên bản sự cố không được để trống. Vui lòng tải lại trang.</value>
+  </data>
+  <data name="The linked rule is already occupied by another active incident. Please refresh and try again." xml:space="preserve">
+    <value>Quy tắc được liên kết đã được một sự cố đang hoạt động khác sử dụng. Vui lòng làm mới và thử lại.</value>
+  </data>
+  <data name="You are already the current assignee." xml:space="preserve">
+    <value>Bạn đã là người được giao xử lý hiện tại.</value>
+  </data>
+
+</root>
