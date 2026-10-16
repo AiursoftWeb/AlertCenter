@@ -18,7 +18,7 @@ public class ErrorController : Controller
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
             ErrorCode = code,
-            ReturnUrl = returnUrl
+            ReturnUrl = Url.IsLocalUrl(returnUrl) ? returnUrl : null
         };
 
         switch (code)

@@ -77,9 +77,9 @@
                     <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg">
                         <i class="align-middle me-2" data-lucide="home"></i> @Localizer["Back to Home"]
                     </a>
-                    @if (!string.IsNullOrEmpty(Model.ReturnUrl))
+                    @if (Url.IsLocalUrl(Model.ReturnUrl))
                     {
-                        <a href="@Model.ReturnUrl" class="btn btn-secondary btn-lg">
+                        <a href="@Url.Content(Model.ReturnUrl)" class="btn btn-secondary btn-lg">
                             <i class="align-middle me-2" data-lucide="refresh-cw"></i> @Localizer["Try again"]
                         </a>
                     }
