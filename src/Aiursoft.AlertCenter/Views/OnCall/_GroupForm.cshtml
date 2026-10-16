@@ -42,7 +42,7 @@
             <div class="form-text">@Localizer["Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed."]</div>
         </div>
     </div>
-    @if (Model.IsAdministrator)
+    @if (Model.CanManageOnCall)
     {
         <div class="mb-3">
             <label asp-for="GroupInput.EmailCcRecipients" class="form-label">@Localizer["On-call email CC"]</label>

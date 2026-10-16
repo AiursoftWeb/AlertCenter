@@ -8,6 +8,29 @@ namespace Aiursoft.AlertCenter.Tests;
 public class FileOriginPolicyTests
 {
     [TestMethod]
+    public async Task ApplicationDefaultsAllowVerifiedSvgOnlyInsideProjectLogoFolder()
+    {
+        var configuration = new ConfigurationBuilder().AddJsonFile(Path.GetFullPath(Path.Combine(
+            AppContext.BaseDirectory, "../../../../src/Aiursoft.AlertCenter/appsettings.json"))).Build();
+        var policy = new FileDeliveryPolicy(configuration);
+        var path = Path.Combine(Path.GetTempPath(), $"logo-policy-{Guid.NewGuid():N}.svg");
+        try
+        {
+            await File.WriteAllTextAsync(path, "<svg xmlns=\"http://www.w3.org/2000/svg\"></svg>");
+            Assert.IsTrue(policy.TryGetVerifiedInlineMediaType("project-logo/logo.svg", path, out var type));
+            Assert.AreEqual("image/svg+xml", type);
+            Assert.IsFalse(policy.TryGetVerifiedInlineMediaType("other/logo.svg", path, out _));
+            Assert.IsFalse(policy.TryGetVerifiedInlineMediaType("project-logo-other/logo.svg", path, out _));
+            await File.WriteAllTextAsync(path, "<html>Not an SVG image</html>");
+            Assert.IsFalse(policy.TryGetVerifiedInlineMediaType("project-logo/logo.svg", path, out _));
+        }
+        finally
+        {
+            File.Delete(path);
+        }
+    }
+
+    [TestMethod]
     public void ArbitraryContentRenderingIsDisabledByDefault()
     {
         var configuration = new ConfigurationBuilder()

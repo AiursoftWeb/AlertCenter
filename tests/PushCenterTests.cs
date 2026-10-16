@@ -1,3 +1,4 @@
+using Aiursoft.AlertCenter.Authorization;
 using System.Net;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Configuration;
@@ -41,7 +42,7 @@ public partial class PushCenterTests
         _email = new FakeEmailSender();
         _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector, localizer: TestLocalization.For<WebhookChannelAdapter>()), new InAppChannelAdapter(_db, localizer: TestLocalization.For<InAppChannelAdapter>()), new EmailChannelAdapter(_email, localizer: TestLocalization.For<EmailChannelAdapter>())];
         _processor = new PushDeliveryProcessor(_db, _adapters, NullLogger<PushDeliveryProcessor>.Instance, localizer: TestLocalization.For<PushDeliveryProcessor>());
-        _channelAccess = new PushChannelAccessService(_db, new ApplicationAccessService(_db));
+        _channelAccess = new PushChannelAccessService(_db);
     }
 
     [TestCleanup]
@@ -59,7 +60,7 @@ public partial class PushCenterTests
             {
                 User = new ClaimsPrincipal(new ClaimsIdentity(
                     administrator
-                        ? [new Claim(ClaimTypes.NameIdentifier, userId), new Claim(ClaimTypes.Role, "Administrators"), .. claims]
+                        ? [new Claim(ClaimTypes.NameIdentifier, userId), new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key)), .. claims]
                         : [new Claim(ClaimTypes.NameIdentifier, userId), .. claims],
                     "test"))
             }
@@ -553,7 +554,7 @@ public partial class PushCenterTests
             {
                 HttpContext = new DefaultHttpContext
                 {
-                    User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
+                    User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key))], "test"))
                 }
             }
         }.DeleteApplication(application.Id, application.Name, CancellationToken.None);

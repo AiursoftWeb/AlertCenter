@@ -25,7 +25,7 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
         var model = new IndexViewModel
         {
             IsAuthenticated = User.Identity?.IsAuthenticated == true,
-            IsAdministrator = applicationAccess.IsAdministrator(User)
+            CanManageApplications = applicationAccess.CanManageApplications(User)
         };
 
         if (model.IsAuthenticated)

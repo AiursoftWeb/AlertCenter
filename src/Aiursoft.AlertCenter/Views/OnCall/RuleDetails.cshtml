@@ -10,7 +10,7 @@
     </div>
     <div class="d-flex gap-2">
         <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Back to Rule List"]</a>
-        @if (Model.IsAdministrator)
+        @if (Model.CanManageOnCall)
         {
             <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">@Localizer["Edit rule"]</a>
         }

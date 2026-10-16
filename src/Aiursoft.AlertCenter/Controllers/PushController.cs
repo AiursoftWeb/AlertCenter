@@ -330,8 +330,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         CancellationToken cancellationToken = default)
     {
         page = Math.Clamp(page, 1, 1000000);
-        var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush) ||
-                            applicationAccess.IsAdministrator(User);
+        var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush);
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
         var query = db.PushDeliveries.AsNoTracking().Where(delivery =>
             (delivery.Message != null && (canManagePush || accessibleIds.Contains(delivery.Message.ApplicationId))) ||
@@ -367,8 +366,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             .Include(item => item.Channel).Include(item => item.Message)
             .ThenInclude(message => message!.Application).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return NotFound();
-        var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush) ||
-                            applicationAccess.IsAdministrator(User);
+        var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush);
         var sourceApplicationId = delivery.Message?.ApplicationId ?? delivery.IncidentEvent?.Incident.ApplicationId;
         if (!sourceApplicationId.HasValue || (!canManagePush && !await applicationAccess.CanAccessAsync(
                 User, sourceApplicationId.Value, cancellationToken: cancellationToken))) return Forbid();
@@ -378,7 +376,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         {
             Delivery = delivery,
             ChannelTypes = Types,
-            IsAdministrator = canManagePush
+            CanManagePush = canManagePush
         });
     }
 

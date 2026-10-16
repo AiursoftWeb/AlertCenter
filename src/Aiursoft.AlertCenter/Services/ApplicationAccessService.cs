@@ -1,3 +1,4 @@
+using Aiursoft.AlertCenter.Authorization;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ namespace Aiursoft.AlertCenter.Services;
 
 public interface IApplicationAccessService
 {
-    bool IsAdministrator(ClaimsPrincipal user);
+    bool CanManageApplications(ClaimsPrincipal user);
     Task<List<Guid>> GetAccessibleApplicationIdsAsync(ClaimsPrincipal user, bool requireManage = false,
         CancellationToken cancellationToken = default);
     Task<bool> CanAccessAsync(ClaimsPrincipal user, Guid applicationId, bool requireManage = false,
@@ -15,12 +16,12 @@ public interface IApplicationAccessService
 
 public sealed class ApplicationAccessService(TemplateDbContext db) : IApplicationAccessService
 {
-    public bool IsAdministrator(ClaimsPrincipal user) => user.IsInRole("Administrators");
+    public bool CanManageApplications(ClaimsPrincipal user) => user.HasClaim(AppPermissions.Type, AppPermissionNames.CanManageApplications);
 
     public async Task<List<Guid>> GetAccessibleApplicationIdsAsync(ClaimsPrincipal user, bool requireManage = false,
         CancellationToken cancellationToken = default)
     {
-        if (IsAdministrator(user))
+        if (CanManageApplications(user))
             return await db.SourceApplications.Select(application => application.Id).ToListAsync(cancellationToken);
         var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return [];
@@ -35,7 +36,7 @@ public sealed class ApplicationAccessService(TemplateDbContext db) : IApplicatio
     public async Task<bool> CanAccessAsync(ClaimsPrincipal user, Guid applicationId, bool requireManage = false,
         CancellationToken cancellationToken = default)
     {
-        if (IsAdministrator(user)) return true;
+        if (CanManageApplications(user)) return true;
         var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return false;
         var direct = await db.ApplicationUserAccesses.AnyAsync(access => access.ApplicationId == applicationId &&

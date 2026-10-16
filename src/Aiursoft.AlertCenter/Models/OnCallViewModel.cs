@@ -10,7 +10,7 @@ public class OnCallViewModel : UiStackLayoutViewModel
 {
     public OnCallViewModel() { PageTitle = "On-call"; }
 
-    public bool IsAdministrator { get; set; }
+    public bool CanManageOnCall { get; set; }
     public List<OnCallGroup> Groups { get; set; } = [];
     public List<SelectListItem> TimeZones { get; set; } = [];
     public List<SelectListItem> Roles { get; set; } = [];

@@ -18,7 +18,7 @@ public class AlertsViewModel : UiStackLayoutViewModel
     public AlertFilter AlertFilter { get; set; } = new();
     public int Page { get; set; } = 1;
     public bool HasNextPage { get; set; }
-    public bool IsAdministrator { get; set; }
+    public bool CanManageApplications { get; set; }
     public HashSet<Guid> ManageableApplicationIds { get; set; } = [];
 }
 

@@ -25,6 +25,12 @@ public class AppPermissions
         var localizer = new FakeLocalizer();
         List<PermissionDescriptor> allPermission =
         [
+            new(AppPermissionNames.CanManageApplications,
+                localizer["Manage Applications"],
+                localizer["Allows creating applications and managing access to all applications."]),
+            new(AppPermissionNames.CanManageOnCall,
+                localizer["Manage On-Call"],
+                localizer["Allows managing on-call teams, scheduling rules, and schedules."]),
             new(AppPermissionNames.CanManagePush,
                 localizer["Manage Push Channels"],
                 localizer["Allows configuring push channels and recipients, application bindings, and delivery records."]),

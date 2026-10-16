@@ -1,3 +1,4 @@
+using Aiursoft.AlertCenter.Authorization;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
@@ -9,7 +10,7 @@ namespace Aiursoft.AlertCenter.Tests;
 public partial class IncidentWorkflowTests
 {
     private static ClaimsPrincipal Actor(string id, bool admin = false) => new(new ClaimsIdentity(
-        admin ? [new Claim(ClaimTypes.NameIdentifier, id), new Claim(ClaimTypes.Role, "Administrators")]
+        admin ? [new Claim(ClaimTypes.NameIdentifier, id), new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key))]
             : [new Claim(ClaimTypes.NameIdentifier, id)], "test"));
 
     private IncidentWorkflowService Workflow() => new(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<IncidentWorkflowService>(), localizerFactory: TestLocalization.Factory);

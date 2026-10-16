@@ -1,3 +1,4 @@
+using Aiursoft.AlertCenter.Authorization;
 using System.Data.Common;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Controllers;
@@ -217,7 +218,7 @@ public class RetryingTransactionTests
     {
         var http = new DefaultHttpContext
         {
-            User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"))
+            User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key))], "test"))
         };
         return new OnCallController(db, new OnCallScheduleGenerator(TestLocalization.For<OnCallScheduleGenerator>()),
             TestLocalization.For<OnCallController>(), TestLocalization.Factory)

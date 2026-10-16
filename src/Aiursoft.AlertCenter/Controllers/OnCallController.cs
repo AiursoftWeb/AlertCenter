@@ -1,3 +1,4 @@
+using Aiursoft.AlertCenter.Authorization;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
@@ -43,11 +44,11 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         return this.StackView(model);
     }
 
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> GroupCreate(CancellationToken cancellationToken) =>
         this.StackView(await LoadModel(cancellationToken));
 
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> GroupEdit(Guid id, CancellationToken cancellationToken)
     {
         var model = await LoadModel(cancellationToken);
@@ -66,11 +67,11 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         return this.StackView(model);
     }
 
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> Create(CancellationToken cancellationToken) =>
         this.StackView(await LoadModel(cancellationToken));
 
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> Edit(Guid id, CancellationToken cancellationToken)
     {
         var model = await LoadModel(cancellationToken);
@@ -106,12 +107,12 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public Task<IActionResult> GenerateSchedule([FromBody] SaveOnCallScheduleRequest? request, CancellationToken cancellationToken) =>
         SaveScheduleCore(request, true, cancellationToken);
 
     [HttpGet]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> GetSchedule(Guid id, DateTime? startUtc, CancellationToken cancellationToken)
     {
         var group = await db.OnCallGroups.AsNoTracking().Include(item => item.Rule).Include(item => item.Members)
@@ -151,7 +152,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public Task<IActionResult> SaveSchedule([FromBody] SaveOnCallScheduleRequest? request, CancellationToken cancellationToken) =>
         SaveScheduleCore(request, false, cancellationToken);
 
@@ -174,12 +175,12 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> CreateGroup([Bind(Prefix = "GroupInput")] CreateOnCallGroupRequest request,
         CancellationToken cancellationToken) => await SaveGroupCore(request, null, cancellationToken);
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> UpdateGroup(Guid id, [Bind(Prefix = "GroupInput")] CreateOnCallGroupRequest request,
         CancellationToken cancellationToken) => await SaveGroupCore(request, id, cancellationToken);
 
@@ -267,7 +268,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> DeleteGroup(Guid id, CancellationToken cancellationToken)
     {
         var attempt = 0;
@@ -299,7 +300,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> SaveRule([Bind(Prefix = "RuleInput")] SaveOnCallRuleRequest request,
         CancellationToken cancellationToken)
     {
@@ -354,7 +355,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> DeleteRule(Guid id, CancellationToken cancellationToken)
     {
         var rule = await db.OnCallRules.FindAsync([id], cancellationToken);
@@ -376,7 +377,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 
     private async Task<OnCallViewModel> LoadModel(CancellationToken cancellationToken) => new()
     {
-        IsAdministrator = User.IsInRole("Administrators"),
+        CanManageOnCall = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManageOnCall),
         TimeZones = TimeZoneInfo.GetSystemTimeZones().Select(zone => new SelectListItem
         {
             Value = zone.Id,
@@ -391,7 +392,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     };
 
     [HttpGet]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> SearchUsers(string? query, string? roleId, int page = 1,
         CancellationToken cancellationToken = default)
     {

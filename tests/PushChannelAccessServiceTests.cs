@@ -24,7 +24,7 @@ public class PushChannelAccessServiceTests
         db.PushChannelBindingUsers.Add(new PushChannelBindingUser { Channel = first, UserId = user.Id });
         db.PushChannelBindingRoles.Add(new PushChannelBindingRole { Channel = second, RoleId = role.Id });
         await db.SaveChangesAsync();
-        var access = new PushChannelAccessService(db, new ApplicationAccessService(db));
+        var access = new PushChannelAccessService(db);
         var principal = Principal(user.Id);
 
         Assert.IsTrue(await access.CanBindAsync(principal, first.Id));
@@ -33,18 +33,18 @@ public class PushChannelAccessServiceTests
     }
 
     [TestMethod]
-    public async Task PushManagersAndAdministratorsCanBindEveryChannel()
+    public async Task PushPermissionGrantsGlobalBindingAccessButRoleNameAloneDoesNot()
     {
         await using var db = await CreateContextAsync();
         var channel = new PushChannel { Name = "Operations", Type = "email" };
         db.PushChannels.Add(channel);
         await db.SaveChangesAsync();
-        var access = new PushChannelAccessService(db, new ApplicationAccessService(db));
+        var access = new PushChannelAccessService(db);
         var pushManager = Principal("manager", new Claim(AppPermissions.Type, AppPermissionNames.CanManagePush));
         var administrator = Principal("admin", new Claim(ClaimTypes.Role, "Administrators"));
 
         Assert.IsTrue(await access.CanBindAsync(pushManager, channel.Id));
-        Assert.IsTrue(await access.CanBindAsync(administrator, channel.Id));
+        Assert.IsFalse(await access.CanBindAsync(administrator, channel.Id));
         CollectionAssert.AreEquivalent(new[] { channel.Id }, await access.GetBindableChannelIdsAsync(pushManager));
     }
 

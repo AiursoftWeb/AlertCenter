@@ -10,7 +10,7 @@
     <div class="d-flex flex-wrap gap-2">
         <a asp-action="Groups" class="btn btn-outline-secondary">@Localizer["Back to Team List"]</a>
         <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-outline-primary">@Localizer["View on-call schedule"]</a>
-        @if (Model.IsAdministrator)
+        @if (Model.CanManageOnCall)
         {
             <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-primary">@Localizer["Edit team"]</a>
         }
@@ -36,7 +36,7 @@
             <p class="text-muted">@Localizer["Rule template not bound; manual scheduling is still available."]</p>
         }
         <p class="small text-muted">@Localizer["Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts."]</p>
-        @if (Model.IsAdministrator)
+        @if (Model.CanManageOnCall)
         {
             <h3 class="h6">@Localizer["On-call email CC"]</h3>
             @if (string.IsNullOrWhiteSpace(group.EmailCcRecipients))
@@ -70,7 +70,7 @@
         }
     </div>
 </div>
-@if (Model.IsAdministrator)
+@if (Model.CanManageOnCall)
 {
     if (Model.GroupHasSavedSchedule)
     {

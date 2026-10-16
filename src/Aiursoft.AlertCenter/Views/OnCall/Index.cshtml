@@ -5,7 +5,7 @@
         <h1 class="h3 mb-1">@Localizer["Scheduling Rules"]</h1>
         <p class="text-muted mb-0">@Localizer["Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts."]</p>
     </div>
-    @if (Model.IsAdministrator)
+    @if (Model.CanManageOnCall)
     {
         <a asp-action="Create" class="btn btn-primary">@Localizer["Create Rule"]</a>
     }
@@ -33,7 +33,7 @@
                         <td>@boundGroupCount</td>
                         <td>
                             <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-primary">@Localizer["View rules"]</a>
-                            @if (Model.IsAdministrator)
+                            @if (Model.CanManageOnCall)
                             {
                                 <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-secondary">@Localizer["Edit"]</a>
                                 @if (boundGroupCount == 0)
@@ -57,7 +57,7 @@
     }
 </div>
 
-@if (Model.IsAdministrator && Model.Rules.Count > 0)
+@if (Model.CanManageOnCall && Model.Rules.Count > 0)
 {
     <div class="modal fade" id="delete-oncall-rule" tabindex="-1" aria-labelledby="delete-oncall-rule-title" aria-describedby="delete-oncall-rule-description" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -83,7 +83,7 @@
 }
 
 @section scripts {
-    @if (Model.IsAdministrator && Model.Rules.Count > 0)
+    @if (Model.CanManageOnCall && Model.Rules.Count > 0)
     {
         <script src="~/scripts/oncall-rules.js" asp-append-version="true" defer></script>
     }

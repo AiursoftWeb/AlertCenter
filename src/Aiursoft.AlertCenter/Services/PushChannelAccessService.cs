@@ -11,12 +11,12 @@ public interface IPushChannelAccessService
     Task<List<Guid>> GetBindableChannelIdsAsync(ClaimsPrincipal user, CancellationToken cancellationToken = default);
 }
 
-public sealed class PushChannelAccessService(TemplateDbContext db, IApplicationAccessService applicationAccess)
+public sealed class PushChannelAccessService(TemplateDbContext db)
     : IPushChannelAccessService
 {
     public async Task<bool> CanBindAsync(ClaimsPrincipal user, Guid channelId, CancellationToken cancellationToken = default)
     {
-        if (applicationAccess.IsAdministrator(user) || user.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush)) return true;
+        if (user.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush)) return true;
         var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return false;
         if (await db.PushChannelBindingUsers.AnyAsync(link =>
@@ -29,7 +29,7 @@ public sealed class PushChannelAccessService(TemplateDbContext db, IApplicationA
 
     public async Task<List<Guid>> GetBindableChannelIdsAsync(ClaimsPrincipal user, CancellationToken cancellationToken = default)
     {
-        if (applicationAccess.IsAdministrator(user) || user.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush))
+        if (user.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush))
             return await db.PushChannels.Select(channel => channel.Id).ToListAsync(cancellationToken);
         var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return [];
