@@ -1,6 +1,5 @@
 (() => {
     'use strict';
-    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
 
 
     function showFeedback(feedback, message, variant) {
@@ -23,15 +22,15 @@
             button.disabled = true;
             button.setAttribute('aria-busy', 'true');
             try {
-                showFeedback(feedback, (messages["Copying…"] ?? "Copying…"), 'info');
+                showFeedback(feedback, getLocalizedText("copying", "Copying…"), 'info');
                 const text = button.dataset.copyText ?? document.getElementById(button.dataset.copyTarget)?.textContent;
                 if (!text || typeof navigator.clipboard?.writeText !== 'function') {
                     throw new Error('Clipboard or copy source unavailable');
                 }
                 await navigator.clipboard.writeText(text);
-                showFeedback(feedback, (messages["Copied to clipboard."] ?? "Copied to clipboard."), 'success');
+                showFeedback(feedback, getLocalizedText("copied-to-clipboard", "Copied to clipboard."), 'success');
             } catch {
-                showFeedback(feedback, (messages["Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions."] ?? "Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions."), 'danger');
+                showFeedback(feedback, getLocalizedText("copy-failed-please-select-and-copy-the-content", "Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions."), 'danger');
             } finally {
                 button.disabled = false;
                 if (previousBusy === null) {

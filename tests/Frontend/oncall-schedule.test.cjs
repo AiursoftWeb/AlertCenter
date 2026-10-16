@@ -161,8 +161,14 @@ function setup({ nextSaved = false, departed = false, saveFails = false, externa
         location: { reload() { reloads++; } }, listeners: {},
         addEventListener(type, handler) { this.listeners[type] = handler; } };
     let pointedElement;
-    const document = { body, getElementById: id => id === 'alertcenter-localization' ? { textContent: JSON.stringify(messages) } : elements[id], querySelectorAll: selector => body.querySelectorAll(selector),
-        querySelector: selector => body.querySelector(selector), createElement: tag => new Element(tag),
+    const document = { body, getElementById: id => elements[id], querySelectorAll: selector => body.querySelectorAll(selector),
+        querySelector: selector => {
+            if (selector.startsWith('#loc-data ')) {
+                const key = selector.match(/data-key="([^"]+)"/)?.[1];
+                return Object.hasOwn(messages, key) ? { textContent: messages[key] } : null;
+            }
+            return body.querySelector(selector);
+        }, createElement: tag => new Element(tag),
         createTextNode: text => new Element('text', { textContent: text }), addEventListener() {},
         elementFromPoint: () => pointedElement };
     const context = vm.createContext({ document, window, Event, structuredClone, Date, Set,
@@ -170,7 +176,7 @@ function setup({ nextSaved = false, departed = false, saveFails = false, externa
             requests.push({ url, ...JSON.parse(options.body) });
             return { ok: !saveFails, json: async () => ({ errors: ['休息不足，未保存'] }) };
         } });
-    for (const script of ['oncall-gantt.js', 'oncall-schedule.js'])
+    for (const script of ['localization.js', 'oncall-gantt.js', 'oncall-schedule.js'])
         vm.runInContext(fs.readFileSync(path.resolve(__dirname, '../../src/Aiursoft.AlertCenter/wwwroot/scripts', script), 'utf8'), context);
     const member = id => root.querySelectorAll('.oncall-edit-member').find(input => input.value === id);
     async function assign(slot, id, checked) {
@@ -658,6 +664,6 @@ test('chart guards reject noncurrent slot indices even if a stray editable-looki
 });
 
 test('formats localized schedule counts while preserving literal special characters', () => {
-    const ui = setup({ messages: { 'Modified {0} shifts{1}{2}': '已修改 {0} 班 $& <draft>{1}{2}' } });
+    const ui = setup({ messages: { 'modified-shifts': '已修改 {0} 班 $& <draft>{1}{2}' } });
     assert.equal(ui.elements['oncall-edit-count'].textContent, '已修改 0 班 $& <draft>');
 });

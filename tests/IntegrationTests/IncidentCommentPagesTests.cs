@@ -28,7 +28,7 @@ public partial class AlertDemoTests
         Assert.Contains("/scripts/incident-comments.js", initial);
         Assert.Contains("/node_modules/@aiursoft/uistack-markdown-ui/dist/index.global.js", initial);
         Assert.Contains("/node_modules/monaco-editor/min/vs/loader.js", initial);
-        Assert.IsTrue(initial.IndexOf("/uistack-markdown-ui/", StringComparison.Ordinal) < initial.IndexOf("/monaco-editor/", StringComparison.Ordinal));
+        Assert.IsTrue(initial.IndexOf("/uistack-markdown-ui/", StringComparison.Ordinal) < initial.IndexOf("/monaco-editor/min/vs/loader.js", StringComparison.Ordinal));
         using var noToken = await PostForm("/Incidents/AddComment", new() { ["IncidentId"] = id.ToString(), ["Markdown"] = "CSRF" }, includeToken: false);
         Assert.AreEqual(HttpStatusCode.BadRequest, noToken.StatusCode);
         using var get = await Http.GetAsync($"/Incidents/AddComment?IncidentId={id}");

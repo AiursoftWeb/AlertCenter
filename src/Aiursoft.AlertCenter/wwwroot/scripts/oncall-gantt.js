@@ -1,5 +1,4 @@
 (() => {
-    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
     const chart = document.getElementById('oncall-gantt');
     const summary = document.getElementById('oncall-shift-summary');
     const start = document.getElementById('oncall-shift-start');
@@ -31,7 +30,7 @@
         toggles.forEach(button => {
             const edge = button.dataset.oncallEdge;
             button.setAttribute('aria-expanded', String(edges[edge]));
-            button.textContent = (edges[edge] ? (messages["Collapse {0} 36 hours"] ?? "Collapse {0} 36 hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(edge === 'previous' ? (messages["previous"] ?? "previous") : (messages["next"] ?? "next"))][Number(index)] ?? placeholder) : (messages["Expand {0} 36 hours"] ?? "Expand {0} 36 hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(edge === 'previous' ? (messages["previous"] ?? "previous") : (messages["next"] ?? "next"))][Number(index)] ?? placeholder));
+            button.textContent = (edges[edge] ? getLocalizedText("collapse-36-hours", "Collapse {0} 36 hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(edge === 'previous' ? getLocalizedText("previous", "previous") : getLocalizedText("next", "next"))][Number(index)] ?? placeholder) : getLocalizedText("expand-36-hours", "Expand {0} 36 hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(edge === 'previous' ? getLocalizedText("previous", "previous") : getLocalizedText("next", "next"))][Number(index)] ?? placeholder));
         });
     }
     toggles.forEach(button => button.addEventListener('click', () => {

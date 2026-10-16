@@ -106,7 +106,8 @@ public class ManageControllerTests : TestBase
 
         var html = await response.Content.ReadAsStringAsync();
         Assert.Contains("data-allowed-file-extensions=\"png bmp jpg jpeg\"", html);
-        Assert.Contains("validExtensions: ('png bmp jpg jpeg' || '').split(' ').filter(Boolean)", html);
+        Assert.Contains("data-valid-extensions=\"png bmp jpg jpeg\"", html);
+        Assert.Contains("/scripts/file-upload.js", html);
     }
 
     private class UploadResult

@@ -296,7 +296,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="restartModalLabel">@Localizer["Confirm Application Restart"]</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
             </div>
             <div class="modal-body">
                 <div class="text-center mb-3">
@@ -316,39 +316,5 @@
 @* ReSharper disable once Razor.SectionNotResolved *@
 
 @section scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const restartButton = document.querySelector('#restartConfirmModal .btn-restart');
-            if (!restartButton) return;
-
-            function startTimer(duration, displayElement) {
-                let timer = duration;
-                displayElement.textContent = `@Localizer["Restarting..."] (${timer}s)`;
-                const interval = setInterval(function () {
-                    timer--;
-                    displayElement.textContent = `@Localizer["Restarting..."] (${timer}s)`;
-                    if (timer <= 0) {
-                        clearInterval(interval);
-                        displayElement.textContent = `@Localizer["Reloading page..."]`;
-                    }
-                }, 1000);
-            }
-
-            restartButton.addEventListener('click', function () {
-                fetch('/System/Shutdown', {
-                    method: 'POST'
-                }).catch(error => console.error('Error sending shutdown request:', error));
-
-                restartButton.disabled = true;
-                const cancelButton = document.querySelector('#restartConfirmModal .btn-secondary');
-                if (cancelButton) {
-                    cancelButton.disabled = true;
-                }
-                startTimer(10, restartButton);
-                setTimeout(function () {
-                    window.location.reload();
-                }, 10000);
-            });
-        });
-    </script>
+    <script src="~/scripts/system.js" asp-append-version="true" defer></script>
 }

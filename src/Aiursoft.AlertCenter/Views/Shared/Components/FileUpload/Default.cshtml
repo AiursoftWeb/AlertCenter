@@ -35,6 +35,7 @@
         htmlAttributes: new { style = "width:0;height:0;padding:0;border:none;" });
 }
 
+<div data-file-upload data-size-in-mb="@Model.MaxSizeInMb" data-valid-extensions="@Model.AllowedExtensions" data-upload-url="@Model.UploadEndpoint">
 <input
     form="fakeForm"
     type="file"
@@ -47,53 +48,18 @@
 </div>
 @hiddenInputTag
 
-<script type="module">
-    import Uploader from "/scripts/uploader.js";
-    window.addEventListener('load', function () {
-
-        const fileInput = $(`#@fileInputId`);
-        const progress = $(`#@progressId`);
-        const progressbar = $(`#@progressbarId`);
-
-        const addressInput = $(`[name="@fieldName"]`);
-
-        new Uploader({
-            fileInput: fileInput,
-            progress: progress,
-            progressbar: progressbar,
-            addressInput: addressInput,
-
-            sizeInMb: @Model.MaxSizeInMb,
-            validExtensions: ('@Model.AllowedExtensions' || '').split(' ').filter(Boolean),
-            uploadUrl: '@Model.UploadEndpoint'
-        }).init({
-            messages: {
-                'default': @Json.Serialize(Localizer["Drag and drop a file here or click"].Value),
-                'replace': @Json.Serialize(Localizer["Drag and drop or click to replace"].Value),
-                'remove':  @Json.Serialize(Localizer["Remove"].Value),
-                'error':   @Json.Serialize(Localizer["Ooops, something wrong happended."].Value)
-            },
-            error: {
-                'fileSize': @Json.Serialize(Localizer["The file size is too big ({{ value }} max)."].Value),
-                'minWidth': @Json.Serialize(Localizer["The image width is too small ({{ value }}px min)."].Value),
-                'maxWidth': @Json.Serialize(Localizer["The image width is too big ({{ value }}px max)."].Value),
-                'minHeight': @Json.Serialize(Localizer["The image height is too small ({{ value }}px min)."].Value),
-                'maxHeight': @Json.Serialize(Localizer["The image height is too big ({{ value }}px max)."].Value),
-                'imageFormat': @Json.Serialize(Localizer["The image format is not allowed ({{ value }} only)."].Value),
-                'fileExtension': @Json.Serialize(Localizer["The file is not allowed ({{ value }} only)."].Value),
-            }
-        });
-    })
-</script>
-
-@* @Localizer["Drag and drop a file here or click"] *@
-@* @Localizer["Drag and drop or click to replace"] *@
-@* @Localizer["Remove"] *@
-@* @Localizer["Ooops, something wrong happended."] *@
-@* @Localizer["The file size is too big ({{ value }} max)."] *@
-@* @Localizer["The image width is too small ({{ value }}px min)."] *@
-@* @Localizer["The image width is too big ({{ value }}px max)."] *@
-@* @Localizer["The image height is too small ({{ value }}px min)."] *@
-@* @Localizer["The image height is too big ({{ value }}px max)."] *@
-@* @Localizer["The image format is not allowed ({{ value }} only)."] *@
-@* @Localizer["The file is not allowed ({{ value }} only)."] *@
+<div data-upload-localization hidden>
+    <span data-key="default">@Localizer["Drag and drop a file here or click"].Value</span>
+    <span data-key="replace">@Localizer["Drag and drop or click to replace"].Value</span>
+    <span data-key="remove">@Localizer["Remove"].Value</span>
+    <span data-key="error">@Localizer["Ooops, something wrong happended."].Value</span>
+    <span data-key="fileSize">@Localizer["The file size is too big ({{ value }} max)."].Value</span>
+    <span data-key="minWidth">@Localizer["The image width is too small ({{ value }}px min)."].Value</span>
+    <span data-key="maxWidth">@Localizer["The image width is too big ({{ value }}px max)."].Value</span>
+    <span data-key="minHeight">@Localizer["The image height is too small ({{ value }}px min)."].Value</span>
+    <span data-key="maxHeight">@Localizer["The image height is too big ({{ value }}px max)."].Value</span>
+    <span data-key="imageFormat">@Localizer["The image format is not allowed ({{ value }} only)."].Value</span>
+    <span data-key="fileExtension">@Localizer["The file is not allowed ({{ value }} only)."].Value</span>
+</div>
+</div>
+<script type="module" src="~/scripts/file-upload.js" asp-append-version="true"></script>
