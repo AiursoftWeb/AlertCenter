@@ -327,6 +327,12 @@ dotnet test tests/Aiursoft.AlertCenter.Tests.csproj --filter 'FullyQualifiedName
 
 These unit tests cover overlap/rest boundaries, staffing warnings, invalid assignments, filter normalization, validation, and culture-independent pagination routes.
 
+Security regression tests also cover direct/role application grants, cross-application management denial, immediate grant revocation, incident-owner isolation, hidden channel binding preservation, and HTTP enforcement of push management policies:
+
+```bash
+dotnet test tests/Aiursoft.AlertCenter.Tests.csproj --filter 'FullyQualifiedName~ApplicationGrantsCannotEscalatePrivilegesOrManageAnotherApplication|FullyQualifiedName~ApplicationGrantRevocationTakesEffectWithTheExistingLoginCookie|FullyQualifiedName~IncidentOwnershipGrantsAccessOnlyToThatIncidentAndItsAssociatedAlerts|FullyQualifiedName~LimitedBindingSavePreservesHiddenChannelsAndRevocationPreventsFurtherChanges|FullyQualifiedName~ChannelBindingPermissionDoesNotGrantConfigurationSecretsOrChannelManagement'
+```
+
 ### UI components
 
 Use the native Aiursoft.UiStack component markup rather than plain Bootstrap assumptions. An `.alert` is a flex container with no padding: wrap its content in `.alert-message` and place any icon in a sibling `.alert-icon`. Keep headings, lists, collapsible details and responsive action layouts inside `.alert-message`; do not add padding utilities to the alert container. Dismissible alerts also need `alert-dismissible` and a `btn-close` with `data-bs-dismiss="alert"`. Success feedback may be dismissed, while persistent warnings and confirmation descriptions remain visible.
