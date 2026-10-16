@@ -311,6 +311,22 @@ Even if you have push rights on the repository, you should create a personal for
 
 We're also interested in your feedback on the future of this project. You can submit a suggestion or feature request through the issue tracker. To make this process more effective, we're asking that these include more information to help define them more clearly.
 
+### Tests
+
+Run the .NET test suite with:
+
+```bash
+dotnet test tests/Aiursoft.AlertCenter.Tests.csproj
+```
+
+For fast, isolated coverage of schedule validation and filter models (no database or web server required):
+
+```bash
+dotnet test tests/Aiursoft.AlertCenter.Tests.csproj --filter 'FullyQualifiedName~OnCallScheduleValidatorTests|FullyQualifiedName~FilterModelTests'
+```
+
+These unit tests cover overlap/rest boundaries, staffing warnings, invalid assignments, filter normalization, validation, and culture-independent pagination routes.
+
 ### UI components
 
 Use the native Aiursoft.UiStack component markup rather than plain Bootstrap assumptions. An `.alert` is a flex container with no padding: wrap its content in `.alert-message` and place any icon in a sibling `.alert-icon`. Keep headings, lists, collapsible details and responsive action layouts inside `.alert-message`; do not add padding utilities to the alert container. Dismissible alerts also need `alert-dismissible` and a `btn-close` with `data-bs-dismiss="alert"`. Success feedback may be dismissed, while persistent warnings and confirmation descriptions remain visible.
