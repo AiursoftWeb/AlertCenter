@@ -64,7 +64,7 @@
 }
 
 <!-- Create Application Card (Admin Only) -->
-@if (Model.IsAdministrator)
+@if (Model.CanManageApplications)
 {
     <div class="card mb-4">
         <div class="card-header">
@@ -230,7 +230,7 @@
                                         <i class="align-middle me-1" data-lucide="trash-2"></i>@Localizer["Delete"]
                                     </button>
                                 }
-                                @if (Model.IsAdministrator)
+                                @if (Model.CanManageApplications)
                                 {
                                     <a asp-action="Access" asp-route-id="@application.Id" class="btn btn-sm btn-outline-secondary text-nowrap">
                                         <i class="align-middle me-1" data-lucide="shield"></i>@Localizer["Permissions"]

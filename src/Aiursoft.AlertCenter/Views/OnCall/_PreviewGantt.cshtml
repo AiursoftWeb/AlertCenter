@@ -120,13 +120,13 @@
                         }
                     </div>
                     <span class="small text-muted ac-gantt-hours">@(string.Format(@Localizer["{0} shifts / {1:0.##} hours"].Value, shifts.Count, hours))</span>
-                    @if (Model.IsAdministrator && !departed)
+                    @if (Model.CanManageOnCall && !departed)
                     {
                         <button type="button" class="btn btn-outline-secondary btn-sm mt-1 ac-gantt-week" aria-label="@(string.Format(@Localizer["Swap full-week shifts with {0}"].Value, name))" title="@Localizer["Drag to another engineer to swap the entire week, or click to select a target employee."]">@Localizer["Swap full week"]</button>
                     }
                 </div>
                 <div class="ac-gantt-lane">
-                    @if (Model.IsAdministrator && !departed)
+                    @if (Model.CanManageOnCall && !departed)
                     {
                         @for (var slot = 0; slot < 21; slot++)
                         {

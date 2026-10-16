@@ -1,3 +1,4 @@
+using Aiursoft.AlertCenter.Authorization;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Services;
@@ -24,7 +25,7 @@ public class ApplicationAccessServiceTests
     public async Task Cleanup() => await _db.DisposeAsync();
 
     [TestMethod]
-    public async Task DirectAndRoleGrantsUseHighestAccessLevelAndAdministratorsBypassGrants()
+    public async Task DirectAndRoleGrantsRemainScopedAndPlatformPermissionGrantsGlobalAccess()
     {
         var application = new SourceApplication { Name = "Orders" };
         var role = new IdentityRole("OnCall");
@@ -41,6 +42,10 @@ public class ApplicationAccessServiceTests
         Assert.IsTrue(await service.CanAccessAsync(onCall, application.Id));
         Assert.IsTrue(await service.CanAccessAsync(onCall, application.Id, requireManage: true));
         CollectionAssert.AreEquivalent(new[] { application.Id }, await service.GetAccessibleApplicationIdsAsync(onCall, true));
-        Assert.IsTrue(await service.CanAccessAsync(administrator, application.Id, requireManage: true));
+        Assert.IsFalse(await service.CanAccessAsync(administrator, application.Id, requireManage: true));
+        var manager = new ClaimsPrincipal(new ClaimsIdentity(
+            [new Claim(AppPermissions.Type, AppPermissionNames.CanManageApplications)], "test"));
+        Assert.IsTrue(await service.CanAccessAsync(manager, application.Id, requireManage: true));
+        CollectionAssert.AreEquivalent(new[] { application.Id }, await service.GetAccessibleApplicationIdsAsync(manager, true));
     }
 }

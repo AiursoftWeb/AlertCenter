@@ -23,7 +23,7 @@ public class PushViewModel : UiStackLayoutViewModel
     public Guid? ChannelId { get; set; }
     public string? Status { get; set; }
     public Guid? ApplicationId { get; set; }
-    public bool IsAdministrator { get; set; }
+    public bool CanManagePush { get; set; }
     public HashSet<Guid> ManageableApplicationIds { get; set; } = [];
 }
 

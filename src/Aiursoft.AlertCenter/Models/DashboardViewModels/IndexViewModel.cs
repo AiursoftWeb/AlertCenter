@@ -25,5 +25,5 @@ public class IndexViewModel : UiStackLayoutViewModel
     public List<ReportedMessage> RecentMessages { get; set; } = [];
     public List<Incident> RecentIncidents { get; set; } = [];
     public bool IsAuthenticated { get; set; }
-    public bool IsAdministrator { get; set; }
+    public bool CanManageApplications { get; set; }
 }

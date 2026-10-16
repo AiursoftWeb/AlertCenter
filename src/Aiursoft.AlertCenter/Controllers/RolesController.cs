@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
@@ -18,7 +17,10 @@ namespace Aiursoft.AlertCenter.Controllers;
 /// </summary>
 [Authorize]
 [LimitPerMin]
-public class RolesController(UserManager<User> userManager, TemplateDbContext context, RoleManager<IdentityRole> roleManager, IStringLocalizer<RolesController> localizer)
+public class RolesController(
+    UserManager<User> userManager,
+    TemplateDbContext context,
+    RoleManager<IdentityRole> roleManager)
     : Controller
 {
     // GET: Roles
@@ -140,7 +142,6 @@ public class RolesController(UserManager<User> userManager, TemplateDbContext co
         if (id == null) return NotFound();
         var role = await roleManager.FindByIdAsync(id);
         if (role == null) return NotFound();
-        if (!CanManageRole(role)) return Forbid();
 
         var model = new EditViewModel
         {
@@ -170,42 +171,48 @@ public class RolesController(UserManager<User> userManager, TemplateDbContext co
     [Authorize(Policy = AppPermissionNames.CanEditRoles)]
     public async Task<IActionResult> Edit(EditViewModel model)
     {
-        if (!ModelState.IsValid) return this.StackView(model);
-        var role = await roleManager.FindByIdAsync(model.Id);
-        if (role == null) return NotFound();
-        if (!CanManageRole(role)) return Forbid();
-
-        var knownPermissions = AppPermissions.GetAllPermissions().Select(permission => permission.Key).ToHashSet();
-        if (model.Claims.Any(claim => !knownPermissions.Contains(claim.Key)))
-            return BadRequest(localizer["The selected permission does not exist. Please refresh the page and try again."].Value);
-        var existingClaims = await roleManager.GetClaimsAsync(role);
-        var existingPermissionKeys = existingClaims.Where(claim => claim.Type == AppPermissions.Type)
-            .Select(claim => claim.Value).ToHashSet();
-        var selectedPermissionKeys = model.Claims.Where(claim => claim.IsSelected).Select(claim => claim.Key).ToHashSet();
-        if (!IsAdministrator() && !existingPermissionKeys.SetEquals(selectedPermissionKeys)) return Forbid();
-
-        role.Name = model.RoleName;
-        var updateResult = await roleManager.UpdateAsync(role);
-        if (updateResult != IdentityResult.Success)
+        if (ModelState.IsValid)
         {
-            foreach (var error in updateResult.Errors)
+            var role = await roleManager.FindByIdAsync(model.Id);
+            if (role == null) return NotFound();
+
+            role.Name = model.RoleName;
+            var updateResult = await roleManager.UpdateAsync(role);
+            if (updateResult != IdentityResult.Success)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                foreach (var error in updateResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return this.StackView(model);
             }
-            return this.StackView(model);
-        }
 
-        foreach (var existingClaim in existingClaims.Where(claim => claim.Type == AppPermissions.Type &&
-                     !selectedPermissionKeys.Contains(claim.Value)))
-        {
-            await roleManager.RemoveClaimAsync(role, existingClaim);
-        }
-        foreach (var permissionKey in selectedPermissionKeys.Except(existingPermissionKeys))
-        {
-            await roleManager.AddClaimAsync(role, new Claim(AppPermissions.Type, permissionKey));
-        }
+            var existingClaims = await roleManager.GetClaimsAsync(role);
 
-        return RedirectToAction(nameof(Details), new { id = role.Id });
+            // Remove unselected claims
+            foreach (var existingClaim in existingClaims)
+            {
+                // Compare against the Key
+                if (!model.Claims.Any(c => c.Key == existingClaim.Value && c.IsSelected))
+                {
+                    await roleManager.RemoveClaimAsync(role, existingClaim);
+                }
+            }
+
+            // Add newly selected claims
+            foreach (var claimViewModel in model.Claims)
+            {
+                // Check against the Key
+                if (claimViewModel.IsSelected && existingClaims.All(c => c.Value != claimViewModel.Key))
+                {
+                    // Add the claim using the Key
+                    await roleManager.AddClaimAsync(role, new Claim(AppPermissions.Type, claimViewModel.Key));
+                }
+            }
+
+            return RedirectToAction(nameof(Details), new { id = role.Id });
+        }
+        return this.StackView(model);
     }
 
     // GET: Roles/Delete/5
@@ -222,7 +229,6 @@ public class RolesController(UserManager<User> userManager, TemplateDbContext co
         {
             return NotFound();
         }
-        if (!CanManageRole(role)) return Forbid();
 
         return this.StackView(new DeleteViewModel
         {
@@ -241,15 +247,8 @@ public class RolesController(UserManager<User> userManager, TemplateDbContext co
         {
             return NotFound();
         }
-        if (!CanManageRole(role)) return Forbid();
 
         await roleManager.DeleteAsync(role);
         return RedirectToAction(nameof(Index));
     }
-
-    private const string AdministratorsRole = "Administrators";
-
-    private bool CanManageRole(IdentityRole role) => role.Name != AdministratorsRole;
-
-    private bool IsAdministrator() => User.IsInRole(AdministratorsRole);
 }

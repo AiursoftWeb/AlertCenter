@@ -62,7 +62,7 @@
             <h2 class="h5 alert-heading mb-1">@Localizer["Delivery Failed"]</h2>
             <div class="text-break font-monospace small mb-2">@delivery.Error</div>
             <p class="small mb-0">@(snapshot != null ? @Localizer["On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists."].Value : @Localizer["Redelivery will use the latest channel configuration."].Value) @Localizer["Target may have already received it upon timeout or interruption. Please verify before retrying."]</p>
-            @if (Model.IsAdministrator)
+            @if (Model.CanManagePush)
             {
                 <div class="mt-3">
                     <form asp-action="Retry" method="post" data-action-feedback class="d-inline">
@@ -263,14 +263,14 @@ else
                         <p class="mb-1">@Localizer["Snapshot time ("]UTC）：@snapshot.NotificationAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</p>
                         <p class="mb-1">@Localizer["Shift: "]@snapshot.StartsAtUtc?.ToString("yyyy-MM-dd HH:mm") — @snapshot.EndsAtUtc?.ToString("yyyy-MM-dd HH:mm") UTC</p>
                         <p class="mb-1">OCE：@string.Join("、", snapshot.Recipients.Select(recipient => recipient.DisplayName))</p>
-                        @if (Model.IsAdministrator)
+                        @if (Model.CanManagePush)
                         {
                             <p class="mb-1 text-break">To：@string.Join("; ", snapshot.Recipients.Select(recipient => recipient.Email).Distinct(StringComparer.OrdinalIgnoreCase))</p>
                             <p class="mb-0 text-break">CC：@(string.IsNullOrWhiteSpace(snapshot.CcRecipients) ? @Localizer["None"].Value : snapshot.CcRecipients)</p>
                         }
                     </div>
                 }
-                @if (Model.IsAdministrator && delivery.Channel != null)
+                @if (Model.CanManagePush && delivery.Channel != null)
                 {
                     <div class="mt-3">
                         <a asp-action="Edit" asp-route-id="@delivery.Channel.Id" class="btn btn-outline-secondary btn-sm w-100">

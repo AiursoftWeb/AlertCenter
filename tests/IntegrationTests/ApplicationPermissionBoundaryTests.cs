@@ -1,3 +1,5 @@
+using Aiursoft.AlertCenter.Authorization;
+using System.Security.Claims;
 using System.Net;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +9,62 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
 public partial class AlertDemoTests
 {
+    [TestMethod]
+    [DataRow("none", false)]
+    [DataRow("none", true)]
+    [DataRow("applications", false)]
+    [DataRow("on-call", false)]
+    [DataRow("push", false)]
+    [DataRow("all", false)]
+    public async Task PlatformCapabilitiesFollowPermissionsInsteadOfTheAdministratorRole(string capability, bool administratorRole)
+    {
+        var (email, password) = await RegisterAndLoginAsync();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var users = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            var user = (await users.FindByEmailAsync(email))!;
+            if (administratorRole) Assert.IsTrue((await users.AddToRoleAsync(user, "Administrators")).Succeeded);
+            var keys = capability switch
+            {
+                "applications" => new[] { AppPermissionNames.CanManageApplications },
+                "on-call" => new[] { AppPermissionNames.CanManageOnCall },
+                "push" => new[] { AppPermissionNames.CanManagePush },
+                "all" => AppPermissions.GetAllPermissions().Select(permission => permission.Key).ToArray(),
+                _ => []
+            };
+            // Keep this role-only case free of role claims, including the normally seeded claims.
+            if (administratorRole)
+            {
+                var roles = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var role = (await roles.FindByNameAsync("Administrators"))!;
+                foreach (var claim in await roles.GetClaimsAsync(role))
+                    Assert.IsTrue((await roles.RemoveClaimAsync(role, claim)).Succeeded);
+            }
+            Assert.IsTrue((await users.AddClaimsAsync(user, keys.Select(key => new Claim(AppPermissions.Type, key)))).Succeeded);
+        }
+        using var signOut = await Http.GetAsync("/Account/LogOff");
+        using var login = await PostForm("/Account/Login", new()
+        {
+            ["EmailOrUserName"] = email, ["Password"] = password
+        });
+        Assert.AreEqual(HttpStatusCode.Found, login.StatusCode);
+        var canManageApplications = capability is "applications" or "all";
+        var canManageOnCall = capability is "on-call" or "all";
+        var canManagePush = capability is "push" or "all";
+        using var groupCreate = await Http.GetAsync("/OnCall/GroupCreate");
+        if (canManageOnCall) Assert.AreEqual(HttpStatusCode.OK, groupCreate.StatusCode);
+        else AssertForbidden(groupCreate);
+        using var pushSettings = await Http.GetAsync("/Push/Index");
+        if (canManagePush) Assert.AreEqual(HttpStatusCode.OK, pushSettings.StatusCode);
+        else AssertForbidden(pushSettings);
+        using var create = await PostForm("/Alerts/CreateApplication", new() { ["Name"] = "Permission-managed app" }, "/Manage/ChangePassword");
+        if (canManageApplications) AssertRedirect(create, "/Alerts/Applications");
+        else AssertForbidden(create);
+        using var verifyScope = Server.Services.CreateScope();
+        var db = verifyScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(canManageApplications ? 1 : 0, await db.SourceApplications.CountAsync());
+    }
+
     [TestMethod]
     [DataRow(false, false)]
     [DataRow(true, false)]

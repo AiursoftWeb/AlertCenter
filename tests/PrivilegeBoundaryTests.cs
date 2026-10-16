@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.DataProtection;
 using Aiursoft.AlertCenter.Authorization;
 using Aiursoft.AlertCenter.Controllers;
 using Aiursoft.AlertCenter.Entities;
@@ -24,8 +25,9 @@ public class PrivilegeBoundaryTests
     {
         var services = new ServiceCollection();
         services.AddLogging();
+        services.AddSingleton<IDataProtectionProvider>(new EphemeralDataProtectionProvider());
         services.AddDbContext<SqliteContext>(options => options.UseSqlite("DataSource=:memory:"));
-        services.AddIdentityCore<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<SqliteContext>();
+        services.AddIdentityCore<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<SqliteContext>().AddDefaultTokenProviders();
         _services = services.BuildServiceProvider();
         _db = _services.GetRequiredService<SqliteContext>();
         await _db.Database.OpenConnectionAsync();
@@ -41,7 +43,7 @@ public class PrivilegeBoundaryTests
     }
 
     [TestMethod]
-    public async Task RoleAssignerCannotAddAdministratorsOrChangeAnAdministrator()
+    public async Task RoleAssignmentPermissionAppliesToAdministratorsAsInTemplate()
     {
         var administrators = await CreateRole("Administrators");
         var operators = await CreateRole("Operators");
@@ -63,14 +65,14 @@ public class PrivilegeBoundaryTests
             AllRoles = [new UserRoleViewModel { RoleName = operators.Name!, IsSelected = true }]
         });
 
-        Assert.IsInstanceOfType<ForbidResult>(addAdministrator);
-        Assert.IsInstanceOfType<ForbidResult>(modifyAdministrator);
-        Assert.IsFalse(await _userManager.IsInRoleAsync(target, administrators.Name!));
-        Assert.IsTrue(await _userManager.IsInRoleAsync(administrator, administrators.Name!));
+        Assert.IsInstanceOfType<RedirectToActionResult>(addAdministrator);
+        Assert.IsInstanceOfType<RedirectToActionResult>(modifyAdministrator);
+        Assert.IsTrue(await _userManager.IsInRoleAsync(target, administrators.Name!));
+        Assert.IsFalse(await _userManager.IsInRoleAsync(administrator, administrators.Name!));
     }
 
     [TestMethod]
-    public async Task UserEditorCannotResetAdministratorPasswordOrDeleteAdministrator()
+    public async Task UserManagementPermissionsApplyToAdministratorsAsInTemplate()
     {
         var administrators = await CreateRole("Administrators");
         var operators = await CreateRole("Operators");
@@ -83,18 +85,18 @@ public class PrivilegeBoundaryTests
             Id = administrator.Id, UserName = administrator.UserName!, Email = "changed@example.test",
             DisplayName = administrator.DisplayName, AvatarUrl = User.DefaultAvatarPath, Password = "Changed-Password-123"
         });
-        var delete = await controller.DeleteConfirmed(administrator.Id);
 
-        Assert.IsInstanceOfType<ForbidResult>(edit);
-        Assert.IsInstanceOfType<ForbidResult>(delete);
+        Assert.IsInstanceOfType<RedirectToActionResult>(edit);
         var stored = await _userManager.FindByIdAsync(administrator.Id);
         Assert.IsNotNull(stored);
-        Assert.AreEqual(administrator.Email, stored.Email);
-        Assert.IsFalse(await _userManager.CheckPasswordAsync(stored, "Changed-Password-123"));
+        Assert.AreEqual("changed@example.test", stored.Email);
+        Assert.IsTrue(await _userManager.CheckPasswordAsync(stored, "Changed-Password-123"));
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.DeleteConfirmed(administrator.Id));
+        Assert.IsNull(await _userManager.FindByIdAsync(administrator.Id));
     }
 
     [TestMethod]
-    public async Task RoleEditorCannotGrantPermissionsOrModifyAdministrators()
+    public async Task RoleEditingPermissionAllowsPermissionDelegationAsInTemplate()
     {
         var administrators = await CreateRole("Administrators");
         var operators = await CreateRole("Operators");
@@ -110,10 +112,10 @@ public class PrivilegeBoundaryTests
             Id = administrators.Id, RoleName = "Renamed administrators", Claims = []
         });
 
-        Assert.IsInstanceOfType<ForbidResult>(grantPermission);
-        Assert.IsInstanceOfType<ForbidResult>(editAdministrators);
-        Assert.IsFalse((await _roleManager.GetClaimsAsync(operators)).Any(claim => claim.Value == AppPermissionNames.CanManagePush));
-        Assert.AreEqual("Administrators", (await _roleManager.FindByIdAsync(administrators.Id))!.Name);
+        Assert.IsInstanceOfType<RedirectToActionResult>(grantPermission);
+        Assert.IsInstanceOfType<RedirectToActionResult>(editAdministrators);
+        Assert.IsTrue((await _roleManager.GetClaimsAsync(operators)).Any(claim => claim.Value == AppPermissionNames.CanManagePush));
+        Assert.AreEqual("Renamed administrators", (await _roleManager.FindByIdAsync(administrators.Id))!.Name);
     }
 
     private async Task<IdentityRole> CreateRole(string name)
@@ -130,12 +132,12 @@ public class PrivilegeBoundaryTests
         return user;
     }
 
-    private UsersController Users(IdentityRole role, params string[] permissions) => new(_roleManager, _userManager, _db, localizer: TestLocalization.For<UsersController>())
+    private UsersController Users(IdentityRole role, params string[] permissions) => new(_roleManager, _userManager, _db)
     {
         ControllerContext = ControllerContext(role, permissions)
     };
 
-    private RolesController Roles(IdentityRole role, params string[] permissions) => new(_userManager, _db, _roleManager, localizer: TestLocalization.For<RolesController>())
+    private RolesController Roles(IdentityRole role, params string[] permissions) => new(_userManager, _db, _roleManager)
     {
         ControllerContext = ControllerContext(role, permissions)
     };

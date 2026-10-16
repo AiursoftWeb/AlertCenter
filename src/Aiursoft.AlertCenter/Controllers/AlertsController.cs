@@ -29,7 +29,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         {
             AlertFilter = filter,
             Page = filter.Page,
-            IsAdministrator = applicationAccess.IsAdministrator(User),
+            CanManageApplications = applicationAccess.CanManageApplications(User),
             ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, true, cancellationToken)).ToHashSet(),
             Applications = await db.SourceApplications.AsNoTracking().Where(application => accessibleIds.Contains(application.Id) &&
                 db.ReportedMessages.Any(message => message.ApplicationId == application.Id))
@@ -91,7 +91,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateApplication(CreateApplicationRequest request, CancellationToken cancellationToken)
     {
-        if (!applicationAccess.IsAdministrator(User)) return Forbid();
+        if (!applicationAccess.CanManageApplications(User)) return Forbid();
         if (!await OnCallGroupExists(request.OnCallGroupId, cancellationToken))
             ModelState.AddModelError(nameof(request.OnCallGroupId), localizer["The selected on-call group does not exist. Please select again."].Value);
         if (!ModelState.IsValid)
@@ -231,14 +231,14 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         return this.StackView(new AlertsViewModel
         {
             Message = message,
-            IsAdministrator = applicationAccess.IsAdministrator(User),
+            CanManageApplications = applicationAccess.CanManageApplications(User),
             ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, true, cancellationToken)).ToHashSet()
         });
     }
 
     public async Task<IActionResult> Access(Guid id, CancellationToken cancellationToken)
     {
-        if (!applicationAccess.IsAdministrator(User)) return Forbid();
+        if (!applicationAccess.CanManageApplications(User)) return Forbid();
         var application = await db.SourceApplications.AsNoTracking().SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (application == null) return NotFound();
         return this.StackView(new ApplicationAccessViewModel
@@ -258,7 +258,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> SaveAccess(SaveApplicationAccessRequest request, CancellationToken cancellationToken)
     {
-        if (!applicationAccess.IsAdministrator(User)) return Forbid();
+        if (!applicationAccess.CanManageApplications(User)) return Forbid();
         if (!await db.SourceApplications.AnyAsync(application => application.Id == request.ApplicationId, cancellationToken)) return NotFound();
         var viewUsers = request.ViewUserIds.Concat(request.ManageUserIds).Distinct().ToHashSet();
         var manageUsers = request.ManageUserIds.ToHashSet();
@@ -296,10 +296,10 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         {
             Applications = await applications.Include(application => application.OnCallGroup)
                 .OrderByDescending(application => application.CreatedAtUtc).ToListAsync(cancellationToken),
-            OnCallGroups = applicationAccess.IsAdministrator(User)
+            OnCallGroups = applicationAccess.CanManageApplications(User)
                 ? await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken) : [],
             ApplicationSearchKeyword = keyword,
-            IsAdministrator = applicationAccess.IsAdministrator(User),
+            CanManageApplications = applicationAccess.CanManageApplications(User),
             ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, true, cancellationToken)).ToHashSet()
         };
     }

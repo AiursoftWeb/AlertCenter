@@ -5,7 +5,7 @@
         <h1 class="h3 mb-1">@Localizer["Team management"]</h1>
         <p class="text-muted mb-0">@Localizer["Manage team members, rotation order, timezone, and scheduling start point. You can bind a shared rule template, but actual shifts are saved by the team."]</p>
     </div>
-    @if (Model.IsAdministrator)
+    @if (Model.CanManageOnCall)
     {
         <a asp-action="GroupCreate" class="btn btn-primary">@Localizer["Create Team"]</a>
     }

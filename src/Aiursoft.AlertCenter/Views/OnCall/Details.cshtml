@@ -19,7 +19,7 @@
     <div class="d-flex flex-wrap gap-2">
         <a asp-action="Schedule" class="btn btn-outline-secondary">@Localizer["Back to Schedule List"]</a>
         <a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-outline-primary">@Localizer["View team"]</a>
-        @if (Model.IsAdministrator)
+        @if (Model.CanManageOnCall)
         {
             <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-primary">@Localizer["Edit team"]</a>
         }
@@ -152,7 +152,7 @@
                 <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">@Localizer["Participating employees"]</div><strong class="fs-4" data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></div></div></div>
                 <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">@Localizer["Override duration"]</div><strong class="fs-4" data-oncall-stat="hours">@totalHours.ToString("0") @Localizer["hours"]</strong></div></div></div>
             </div>
-            @if (Model.IsAdministrator)
+            @if (Model.CanManageOnCall)
             {
                 @await Html.PartialAsync("_ScheduleEditor", Model)
             }
