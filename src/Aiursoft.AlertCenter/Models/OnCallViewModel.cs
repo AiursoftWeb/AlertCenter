@@ -8,7 +8,7 @@ namespace Aiursoft.AlertCenter.Models;
 
 public class OnCallViewModel : UiStackLayoutViewModel
 {
-    public OnCallViewModel() { PageTitle = "值班中心"; }
+    public OnCallViewModel() { PageTitle = "On-call"; }
 
     public bool IsAdministrator { get; set; }
     public List<OnCallGroup> Groups { get; set; } = [];
@@ -39,15 +39,15 @@ public class OnCallViewModel : UiStackLayoutViewModel
 
 public class CreateOnCallGroupRequest
 {
-    [Required(ErrorMessage = "请输入团队名称。"), StringLength(100, ErrorMessage = "团队名称不能超过 100 个字符。")]
+    [Required(ErrorMessage = "Please enter the team name."), StringLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
     public string? Name { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "请选择时区。"), StringLength(100, ErrorMessage = "时区 ID 不能超过 100 个字符。")]
+    [Required(ErrorMessage = "Please select a time zone."), StringLength(100, ErrorMessage = "Time zone ID cannot exceed 100 characters.")]
     public string? TimeZoneId { get; set; } = "UTC";
-    [MaxLength(8000, ErrorMessage = "值班邮件抄送配置不能超过 8000 个字符。")]
+    [MaxLength(8000, ErrorMessage = "The on-call email CC configuration must not exceed 8,000 characters.")]
     public string? EmailCcRecipients { get; set; }
     public Guid? RuleId { get; set; }
-    [Required(ErrorMessage = "请选择 UTC 开始时间。")]
+    [Required(ErrorMessage = "Please select a UTC start time.")]
     public DateTime? AnchorUtc { get; set; } = DateTime.UtcNow.Date;
     public Guid Version { get; set; }
     public List<string>? UserIds { get; set; } = [];
@@ -56,16 +56,16 @@ public class CreateOnCallGroupRequest
 public class SaveOnCallRuleRequest
 {
     public Guid? Id { get; set; }
-    [Required(ErrorMessage = "请输入规则名称。"), StringLength(100, ErrorMessage = "规则名称不能超过 100 个字符。")]
+    [Required(ErrorMessage = "Please enter the rule name."), StringLength(100, ErrorMessage = "Rule name must not exceed 100 characters.")]
     public string? Name { get; set; } = string.Empty;
-    [Range(8, 8, ErrorMessage = "固定每天三班，每班 8 小时。")]
+    [Range(8, 8, ErrorMessage = "Fixed three shifts per day, 8 hours each.")]
     public int ShiftHours { get; set; } = 8;
     public bool BalanceShiftTimes { get; set; }
-    [Range(0, 168, ErrorMessage = "最短休息需为 0–168 小时。")]
+    [Range(0, 168, ErrorMessage = "Minimum rest must be 0–168 hours.")]
     public int RestHours { get; set; } = 16;
-    [Range(1, 200, ErrorMessage = "每班最低人数需为 1–200 人。")]
+    [Range(1, 200, ErrorMessage = "Minimum staff per shift must be 1–200.")]
     public int MinimumStaff { get; set; } = 1;
-    [Range(1, 200, ErrorMessage = "每班目标人数需为 1–200 人。")]
+    [Range(1, 200, ErrorMessage = "Target staff per shift must be 1–200.")]
     public int? TargetStaff { get; set; } = 1;
 }
 

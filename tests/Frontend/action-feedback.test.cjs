@@ -105,11 +105,11 @@ function setup({ status = 409, message = '版本冲突', sourceModal = false, pe
 test('conflict refresh requires explicit confirmation and cancellation retains error and draft', async () => {
     const ui = setup();
     await ui.submit();
-    assert.equal(ui.elements['action-feedback-title'].textContent, '页面信息已更新');
+    assert.equal(ui.elements['action-feedback-title'].textContent, 'Page information updated');
     assert.equal(ui.elements['action-feedback-message'].textContent, '版本冲突');
     ui.refresh.emit('click');
     assert.equal(ui.reloads(), 0);
-    assert.equal(ui.elements['action-feedback-title'].textContent, '确认刷新页面？');
+    assert.equal(ui.elements['action-feedback-title'].textContent, 'Confirm page refresh?');
     assert.equal(ui.back.getAttribute('data-bs-dismiss'), null);
     assert.equal(ui.active(), ui.back);
     let stopped = false;
@@ -134,17 +134,17 @@ test('closing refresh confirmation restores its source dialog and starts fresh n
     ui.dialog.emit('hidden.bs.modal');
     assert(ui.parent.classList.contains('show'));
     assert.equal(ui.active(), ui.submitter);
-    assert.equal(ui.back.textContent, '返回修改');
+    assert.equal(ui.back.textContent, 'Back to Edit');
     await ui.submit();
     ui.refresh.emit('click');
     assert.equal(ui.reloads(), 0);
-    assert.equal(ui.back.textContent, '取消刷新');
+    assert.equal(ui.back.textContent, 'Cancel refresh');
 });
 
 test('non-conflict failures render plain text and keep refresh hidden', async () => {
     const ui = setup({ status: 400, message: '<script>not executable</script>' });
     await ui.submit();
-    assert.equal(ui.elements['action-feedback-title'].textContent, '操作未完成');
+    assert.equal(ui.elements['action-feedback-title'].textContent, 'Action not completed');
     assert.equal(ui.elements['action-feedback-message'].textContent, '<script>not executable</script>');
     assert(ui.refresh.classList.contains('d-none'));
     ui.dialog.emit('hidden.bs.modal');

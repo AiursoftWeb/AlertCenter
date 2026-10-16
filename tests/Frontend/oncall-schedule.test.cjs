@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const test = require('node:test');
 
 function setup({ nextSaved = false, departed = false, saveFails = false, externalShifts = false,
-    previousAvailable = true, startUtc = '2026-10-12T00:00:00Z', zone = 'UTC', groupName = 'Primary team' } = {}) {
+    previousAvailable = true, startUtc = '2026-10-12T00:00:00Z', zone = 'UTC', groupName = 'Primary team', messages = {} } = {}) {
     class Event {
         constructor(type, options = {}) { this.type = type; Object.assign(this, options); }
     }
@@ -161,7 +161,7 @@ function setup({ nextSaved = false, departed = false, saveFails = false, externa
         location: { reload() { reloads++; } }, listeners: {},
         addEventListener(type, handler) { this.listeners[type] = handler; } };
     let pointedElement;
-    const document = { body, getElementById: id => elements[id], querySelectorAll: selector => body.querySelectorAll(selector),
+    const document = { body, getElementById: id => id === 'alertcenter-localization' ? { textContent: JSON.stringify(messages) } : elements[id], querySelectorAll: selector => body.querySelectorAll(selector),
         querySelector: selector => body.querySelector(selector), createElement: tag => new Element(tag),
         createTextNode: text => new Element('text', { textContent: text }), addEventListener() {},
         elementFromPoint: () => pointedElement };
@@ -211,7 +211,7 @@ test('36h edges start collapsed even at the anchor, expand independently and scr
         assert(!ui.chart.contains(toggle));
         assert(toggle.classList.contains('ac-gantt-edge-toggle'));
         assert.equal(toggle.getAttribute('aria-expanded'), 'false');
-        assert.equal(toggle.textContent, `展开${edge === 'previous' ? '前' : '后'} 36 小时`);
+        assert.equal(toggle.textContent, `Expand ${edge === 'previous' ? 'previous' : 'next'} 36 hours`);
         assert(ui.chart.querySelectorAll(`[data-edge="${edge}"]`).every(item => item.hidden));
         assert.equal(ui.chart.querySelectorAll(`.ac-gantt-shift[data-edge="${edge}"]`).length, 5);
     }
@@ -220,13 +220,13 @@ test('36h edges start collapsed even at the anchor, expand independently and scr
     near(ui.cell('user0', 21).style.left, 0);
     await ui.click('toggle-previous');
     assert.equal(ui.chart.scrollLeft, 0);
-    assert.equal(ui.elements['toggle-previous'].textContent, '折叠前 36 小时');
+    assert.equal(ui.elements['toggle-previous'].textContent, 'Collapse previous 36 hours');
     assert(!ui.adjacent('user1', 'previous')[0].hidden);
     assert(ui.adjacent('user0', 'next')[0].hidden);
     near(ui.cell('user0', 21).style.left, 36 / 204 * 100);
     await ui.click('toggle-next');
     assert.equal(ui.chart.scrollLeft, ui.chart.scrollWidth - ui.chart.clientWidth);
-    assert.equal(ui.elements['toggle-next'].textContent, '折叠后 36 小时');
+    assert.equal(ui.elements['toggle-next'].textContent, 'Collapse next 36 hours');
     near(ui.cell('user0', 21).style.left, 15);
     const originalAdjacent = ui.adjacent('user0', 'next')[0];
     await ui.assign(21, 'user1', true);
@@ -235,7 +235,7 @@ test('36h edges start collapsed even at the anchor, expand independently and scr
     near(ui.cell('user0', 21).style.left, 15);
     near(ui.adjacent('user0', 'next')[0].style.left, 85);
     await ui.click('toggle-previous');
-    assert.equal(ui.elements['toggle-previous'].textContent, '展开前 36 小时');
+    assert.equal(ui.elements['toggle-previous'].textContent, 'Expand previous 36 hours');
     assert(ui.adjacent('user1', 'previous')[0].hidden);
     assert(!ui.adjacent('user0', 'next')[0].hidden);
     near(ui.cell('user0', 21).style.left, 0);
@@ -291,7 +291,7 @@ test('own adjacent shifts are clipped to 36 elapsed UTC hours with full details 
             assert.equal(shift.dataset.slot, undefined);
             assert.equal(shift.dataset.start, ui.source[index].localStart);
             assert.equal(shift.dataset.end, ui.source[index].localEnd);
-            assert.match(shift.dataset.summary, /只读/);
+            assert.match(shift.dataset.summary, /read-only/);
             await shift.children[0].click();
             assert.equal(ui.elements['oncall-shift-start'].textContent, ui.source[index].localStart);
             assert.equal(ui.elements['oncall-shift-end'].textContent, ui.source[index].localEnd);
@@ -320,7 +320,7 @@ test('adjacent bars keep their team labels and details after expand, copy, redra
                 assert.equal(bar.dataset.groupId, 'group');
                 assert.equal(bar.dataset.readonly, 'true');
                 assert.equal(bar.dataset.slot, undefined);
-                assert.equal(bar.children[0].textContent, `${groupName}（只读）`);
+                assert.equal(bar.children[0].textContent, `${groupName} (Read-only)`);
                 assert(bar.dataset.summary.includes(groupName));
                 assert(bar.title.includes(groupName));
                 assert(bar.getAttribute('aria-label').includes(groupName));
@@ -381,7 +381,7 @@ test('copy undo and reset restore all weeks and keep the current draft when undo
     await ui.click('oncall-reset-schedule');
     assert.equal(ui.adjacent('user0', 'next').length, 0);
     assert(!ui.shift('user1', 21));
-    assert.equal(ui.elements['oncall-edit-count'].textContent, '已修改 0 个班次');
+    assert.equal(ui.elements['oncall-edit-count'].textContent, 'Modified 0 shifts');
     await ui.click('oncall-undo-schedule');
     assert(ui.adjacent('user1', 'next').some(shift => shift.dataset.start === ui.source[42].localStart));
 });
@@ -414,16 +414,16 @@ test('departed engineers cannot be copied to new assignments', async () => {
     const ui = setup({ departed: true });
     await ui.click('oncall-copy-next');
     assert.equal(ui.elements['oncall-schedule-errors'].children.length, 1);
-    assert.match(ui.elements['oncall-schedule-errors'].children[0].textContent, /已退出/);
+    assert.match(ui.elements['oncall-schedule-errors'].children[0].textContent, /members who have left/);
     assert.equal(ui.adjacent('departed', 'next').length, 0);
-    assert.equal(ui.elements['oncall-edit-count'].textContent, '已修改 0 个班次');
+    assert.equal(ui.elements['oncall-edit-count'].textContent, 'Modified 0 shifts');
 });
 
 test('form rejects adjacent indices while failed saves preserve current edits and the complete copied next week', async () => {
     const ui = setup({ nextSaved: true, saveFails: true });
     for (const [index, user] of [[20, 'user0'], [42, 'user1']]) {
         await ui.assign(index, user, true);
-        assert.equal(ui.elements['oncall-edit-count'].textContent, '已修改 0 个班次');
+        assert.equal(ui.elements['oncall-edit-count'].textContent, 'Modified 0 shifts');
         assert.equal(ui.elements['oncall-undo-schedule'].disabled, true);
     }
     await ui.assign(21, 'user1', true);
@@ -462,8 +462,8 @@ test('readonly external bars survive redraw, undo, reset and copy without enteri
     unchanged();
     assert.equal(ui.elements['stat-shifts'].textContent, 21);
     assert.equal(ui.elements['stat-staff'].textContent, 3);
-    assert.equal(ui.elements['stat-hours'].textContent, '168 小时');
-    assert.equal(ui.rowMap.user0.querySelector('.ac-gantt-hours').textContent, '7 班 / 56 小时');
+    assert.equal(ui.elements['stat-hours'].textContent, '168 hours');
+    assert.equal(ui.rowMap.user0.querySelector('.ac-gantt-hours').textContent, '7 shifts / 56 hours');
     assert(ui.external[1].hidden);
     assert(ui.external[2].hidden);
     assert(ui.external.every(shift => !shift.parent.hidden));
@@ -490,7 +490,7 @@ test('readonly external bars survive redraw, undo, reset and copy without enteri
     assert.deepEqual(ui.requests[0].slots, ui.source.slice(21, 42).map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds })));
     assert.deepEqual(ui.requests[0].adjacentWeeks[0].slots.map(slot => slot.userIds), ui.requests[0].slots.map(slot => slot.userIds));
     assert(!JSON.stringify(ui.requests[0]).includes('other-group'));
-    assert.equal(ui.elements['stat-hours'].textContent, '168 小时');
+    assert.equal(ui.elements['stat-hours'].textContent, '168 hours');
     await ui.click('toggle-previous');
     assert(ui.external[1].hidden);
     assert(!ui.external[1].parent.hidden);
@@ -640,19 +640,24 @@ test('chart guards reject noncurrent slot indices even if a stray editable-looki
         const cell = ui.injectCell('user1', index);
         await ui.mode('add');
         await cell.click();
-        assert.equal(ui.elements['oncall-edit-count'].textContent, '已修改 0 个班次');
+        assert.equal(ui.elements['oncall-edit-count'].textContent, 'Modified 0 shifts');
         await ui.mode('move');
         await ui.shift('user0', 21).click();
         await cell.click();
         assert(ui.shift('user0', 21).classList.contains('ac-gantt-selected'));
-        assert.equal(ui.elements['oncall-edit-count'].textContent, '已修改 0 个班次');
+        assert.equal(ui.elements['oncall-edit-count'].textContent, 'Modified 0 shifts');
         await ui.mode('move');
         await ui.drag(ui.shift('user0', 21), cell);
-        assert.equal(ui.elements['oncall-edit-count'].textContent, '已修改 0 个班次');
+        assert.equal(ui.elements['oncall-edit-count'].textContent, 'Modified 0 shifts');
         cell.remove();
     }
     assert.equal(ui.elements['oncall-undo-schedule'].disabled, true);
     await ui.click('oncall-save-schedule');
     assert.equal(ui.requests[0].adjacentWeeks.length, 0);
     assert.deepEqual(ui.requests[0].slots, ui.source.slice(21, 42).map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds })));
+});
+
+test('formats localized schedule counts while preserving literal special characters', () => {
+    const ui = setup({ messages: { 'Modified {0} shifts{1}{2}': '已修改 {0} 班 $& <draft>{1}{2}' } });
+    assert.equal(ui.elements['oncall-edit-count'].textContent, '已修改 0 班 $& <draft>');
 });

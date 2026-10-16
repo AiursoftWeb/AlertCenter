@@ -74,8 +74,8 @@ public class OnCallScheduleValidatorTests
             new Dictionary<string, string> { ["alice"] = "Alice" });
 
         Assert.AreEqual(2, errors.Count);
-        StringAssert.Contains(errors[0], "2026-09-28 00:00 UTC 出现空班");
-        StringAssert.Contains(errors[1], "2026-09-28 16:00 UTC 出现空班");
+        StringAssert.Contains(errors[0], "Empty shift detected at 2026-09-28 00:00 UTC");
+        StringAssert.Contains(errors[1], "Empty shift detected at 2026-09-28 16:00 UTC");
     }
 
     [TestMethod]
@@ -92,7 +92,7 @@ public class OnCallScheduleValidatorTests
         var errors = OnCallScheduleValidator.Validate(Start, 1, 16, shifts, [],
             new Dictionary<string, string> { ["alice"] = "Alice" });
 
-        Assert.Contains("Alice 的班次不在规定的 8 小时时段内。", errors);
+        Assert.Contains("Alice's shift is outside the designated 8-hour window.", errors);
     }
 
     [TestMethod]
@@ -103,7 +103,7 @@ public class OnCallScheduleValidatorTests
         var errors = OnCallScheduleValidator.Validate(Start, 1, 16, [unknown, unknown], [],
             new Dictionary<string, string> { ["alice"] = "Alice" });
 
-        CollectionAssert.AreEqual(new[] { "包含不属于当前团队的员工。" }, errors);
+        CollectionAssert.AreEqual(new[] { "Includes employees not belonging to the current team." }, errors);
     }
 
     [TestMethod]
@@ -117,7 +117,7 @@ public class OnCallScheduleValidatorTests
 
         Assert.AreEqual(1, errors.Count);
         StringAssert.Contains(errors[0], "Alice");
-        StringAssert.Contains(errors[0], "重叠或休息不足");
+        StringAssert.Contains(errors[0], "overlaps with another shift or has insufficient rest");
         Assert.AreEqual(0, OnCallScheduleValidator.Validate(Start, 1, 16, [alice, bob], [], members).Count);
     }
 
@@ -142,7 +142,7 @@ public class OnCallScheduleValidatorTests
 
         Assert.AreEqual(valid ? 0 : 1, errors.Count, string.Join("; ", errors));
         if (!valid)
-            StringAssert.Contains(errors[0], "Alice 在 2026-09-29 00:00 UTC 的班次与其他班次重叠或休息不足");
+            StringAssert.Contains(errors[0], "Alice's shift at 2026-09-29 00:00 UTC overlaps with another shift or has insufficient rest");
         CollectionAssert.AreEqual(draftSnapshot, shifts);
         CollectionAssert.AreEqual(historySnapshot, history);
     }
@@ -165,8 +165,8 @@ public class OnCallScheduleValidatorTests
         var warnings = OnCallScheduleValidator.StaffingWarnings(Start, 4, 2, shifts);
 
         Assert.AreEqual(2, warnings.Count);
-        StringAssert.Contains(warnings[0], "2026-09-28 00:00 UTC 仅安排 1 人，低于最低 2 人");
-        StringAssert.Contains(warnings[1], "2026-09-29 00:00 UTC 仅安排 0 人，低于最低 2 人");
+        StringAssert.Contains(warnings[0], "Only 1 staff scheduled at 2026-09-28 00:00 UTC, below the minimum of 2");
+        StringAssert.Contains(warnings[1], "Only 0 staff scheduled at 2026-09-29 00:00 UTC, below the minimum of 2");
     }
 
     [TestMethod]

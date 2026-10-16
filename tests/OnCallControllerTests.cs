@@ -34,7 +34,7 @@ public class OnCallControllerTests
         return db;
     }
 
-    private static OnCallController Controller(SqliteContext db) => new(db, new OnCallScheduleGenerator())
+    private static OnCallController Controller(SqliteContext db) => new(db, new OnCallScheduleGenerator(localizer:TestLocalization.For<OnCallScheduleGenerator>()), localizer: TestLocalization.For<OnCallController>(), localizerFactory: TestLocalization.Factory)
     {
         ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext
         {
@@ -186,7 +186,7 @@ public class OnCallControllerTests
         }
         db.Users.Add(new User { Id = "outsider", UserName = "outsider", NormalizedUserName = "OUTSIDER", DisplayName = "outsider" });
         await db.SaveChangesAsync();
-        var controller = new OnCallController(db, new OnCallScheduleGenerator());
+        var controller = new OnCallController(db, new OnCallScheduleGenerator(localizer:TestLocalization.For<OnCallScheduleGenerator>()), localizer: TestLocalization.For<OnCallController>(), localizerFactory: TestLocalization.Factory);
         var empty = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers(null, null));
         Assert.AreEqual(0, ((IEnumerable<object>)empty.Value!.GetType().GetProperty("users")!.GetValue(empty.Value)!).Count());
         var first = Assert.IsInstanceOfType<JsonResult>(await controller.SearchUsers(null, role.Id));
@@ -208,7 +208,7 @@ public class OnCallControllerTests
             .UseSqlite("DataSource=:memory:").Options);
         await db.Database.OpenConnectionAsync();
         await db.Database.MigrateAsync();
-        var controller = new OnCallController(db, new OnCallScheduleGenerator())
+        var controller = new OnCallController(db, new OnCallScheduleGenerator(localizer:TestLocalization.For<OnCallScheduleGenerator>()), localizer: TestLocalization.For<OnCallController>(), localizerFactory: TestLocalization.Factory)
         {
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext
             {

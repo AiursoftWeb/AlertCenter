@@ -102,14 +102,14 @@ public class NotificationRecipientsTests : TestBase
         Assert.DoesNotContain("href=\"/Push/Create", inbox);
         var detail = await Http.GetStringAsync($"/Push/Notification/{ownId}");
         Assert.Contains("Recipient-only title", detail);
-        Assert.Contains("返回站内通知", detail);
-        Assert.Contains("标为已读", detail);
+        Assert.Contains("Back to In-App Notifications", detail);
+        Assert.Contains("Mark as read", detail);
         Assert.DoesNotContain("<script>private content</script>", detail);
         using var markReadFromDetail = await PostForm($"/Push/MarkRead?returnToNotification=true", new() { ["id"] = ownId.ToString() }, $"/Push/Notification/{ownId}");
         AssertRedirect(markReadFromDetail, $"/Push/Notification/{ownId}");
         detail = await Http.GetStringAsync($"/Push/Notification/{ownId}");
-        Assert.Contains("已读", detail);
-        Assert.DoesNotContain("标为已读", detail);
+        Assert.Contains("Read", detail);
+        Assert.DoesNotContain("Mark as read", detail);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/Push/Notification/{otherId}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await PostForm("/Push/MarkRead", new() { ["id"] = otherId.ToString() }, "/Push/Inbox")).StatusCode);
         AssertRedirect(await PostForm("/Push/MarkRead", new() { ["id"] = ownId.ToString() }, "/Push/Inbox"), "/Push/Inbox", exact: false);

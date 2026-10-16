@@ -1,5 +1,7 @@
 (() => {
     'use strict';
+    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
+
 
     const dialog = document.getElementById('action-feedback');
     if (!dialog || !window.bootstrap || !window.fetch) return;
@@ -19,10 +21,10 @@
 
     function resetRefreshConfirmation() {
         refreshConfirmation = false;
-        refresh.textContent = '刷新页面';
+        refresh.textContent = (messages["Refresh page"] ?? "Refresh page");
         refresh.classList.remove('btn-warning');
         refresh.classList.add('btn-outline-secondary');
-        returnButton.textContent = '返回修改';
+        returnButton.textContent = (messages["Back to Edit"] ?? "Back to Edit");
         returnButton.setAttribute('data-bs-dismiss', 'modal');
     }
 
@@ -34,12 +36,12 @@
         errorTitle = title.textContent;
         errorMessage = message.textContent;
         refreshConfirmation = true;
-        title.textContent = '确认刷新页面？';
-        message.textContent = '刷新将丢弃尚未保存的输入。选择“取消刷新”可返回错误详情，保留当前输入。';
-        refresh.textContent = '放弃输入并刷新';
+        title.textContent = (messages["Confirm page refresh?"] ?? "Confirm page refresh?");
+        message.textContent = (messages["Refreshing will discard unsaved input. Select \"Cancel refresh\" to return to error details and retain current input."] ?? "Refreshing will discard unsaved input. Select \"Cancel refresh\" to return to error details and retain current input.");
+        refresh.textContent = (messages["Discard input and refresh"] ?? "Discard input and refresh");
         refresh.classList.remove('btn-outline-secondary');
         refresh.classList.add('btn-warning');
-        returnButton.textContent = '取消刷新';
+        returnButton.textContent = (messages["Cancel refresh"] ?? "Cancel refresh");
         returnButton.removeAttribute('data-bs-dismiss');
         returnButton.focus();
     });
@@ -67,7 +69,7 @@
         sourceModal = modalParent && (openModals.has(modalParent) || modalParent.classList.contains('show')) ? modalParent : null;
         sourceControl = submitter || form.querySelector('input:not([type="hidden"]), textarea, select, button');
         restoreSource = Boolean(sourceModal);
-        title.textContent = stale ? '页面信息已更新' : '操作未完成';
+        title.textContent = stale ? (messages["Page information updated"] ?? "Page information updated") : (messages["Action not completed"] ?? "Action not completed");
         message.textContent = text;
         refresh.classList.toggle('d-none', !stale);
         const show = () => bootstrap.Modal.getOrCreateInstance(dialog).show();
@@ -128,14 +130,14 @@
                 navigateTo(json.redirectUrl);
                 return;
             }
-            const fallback = response.status === 403 ? '没有执行此操作的权限。' :
-                response.status === 404 ? '操作对象已不存在，请刷新页面。' :
-                response.status === 400 ? '请求无效或页面凭据已过期，请检查输入，必要时刷新后重试。' :
-                '操作结果暂时无法确认。请先核实页面状态，不要重复提交。';
+            const fallback = response.status === 403 ? (messages["You do not have permission to perform this action."] ?? "You do not have permission to perform this action.") :
+                response.status === 404 ? (messages["The target object no longer exists. Please refresh the page."] ?? "The target object no longer exists. Please refresh the page.") :
+                response.status === 400 ? (messages["Request invalid or page credentials expired. Check input and refresh to retry if necessary."] ?? "Request invalid or page credentials expired. Check input and refresh to retry if necessary.") :
+                (messages["The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting."] ?? "The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting.");
             showError(typeof json?.message === 'string' ? json.message : fallback,
                 response.status === 409 || response.status === 404 || json?.refresh === true, form, submitter);
         } catch {
-            showError('网络异常，操作结果暂时无法确认。请先核实状态，不要重复提交。', false, form, submitter);
+            showError((messages["Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates."] ?? "Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates."), false, form, submitter);
         } finally {
             buttons.forEach((button, index) => { button.disabled = previousDisabled[index]; });
             delete form.dataset.submitting;

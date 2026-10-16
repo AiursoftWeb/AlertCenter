@@ -14,12 +14,12 @@
             <div class="ac-stat-icon icon-primary" style="width: 36px; height: 36px;">
                 <i data-lucide="shield-check" aria-hidden="true"></i>
             </div>
-            <h1 class="h3 mb-0">应用访问权限</h1>
+            <h1 class="h3 mb-0">@Localizer["Application Access Permissions"]</h1>
         </div>
-        <p class="text-muted mb-0">@Model.Application.Name · 精确控制团队成员与角色的查看与管理权限。</p>
+        <p class="text-muted mb-0">@Model.Application.Name · @Localizer["Precisely control view and management permissions for team members and roles."]</p>
     </div>
     <a asp-action="Applications" class="btn btn-outline-secondary">
-        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回接入应用
+        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>@Localizer["Back to Connected Apps"]
     </a>
 </div>
 
@@ -28,8 +28,8 @@
         <i class="align-middle" data-lucide="info" aria-hidden="true"></i>
     </div>
     <div class="alert-message">
-        <strong>系统 Administrators 默认拥有全部应用的完整管理权限。</strong>
-        <div class="small mt-1">角色授权将自动覆盖该角色的所有成员；当用户同时拥有直接授权与角色授权时，系统以“可管理”最高权限优先。</div>
+        <strong>@Localizer["System Administrators have full management permissions for all applications by default."]</strong>
+        <div class="small mt-1">@Localizer["Role-based authorization automatically applies to all members of that role. If a user has both direct and role-based authorization, the system prioritizes the highest permission, which is 'Manageable'."]</div>
     </div>
 </div>
 
@@ -40,36 +40,36 @@
     <section class="card mb-4" aria-labelledby="add-access-heading">
         <div class="card-header">
             <h2 id="add-access-heading" class="card-title mb-0">
-                <i class="align-middle me-2 text-primary" data-lucide="user-plus" aria-hidden="true"></i>授予新权限
+                <i class="align-middle me-2 text-primary" data-lucide="user-plus" aria-hidden="true"></i>@Localizer["Grant New Permissions"]
             </h2>
         </div>
         <div class="card-body pt-0">
             <div class="row g-3 align-items-end">
                 <div class="col-md-3">
-                    <label class="form-label small fw-medium d-block">授权类型</label>
+                    <label class="form-label small fw-medium d-block">@Localizer["Authorization Type"]</label>
                     <div class="btn-group w-100" role="group">
                         <input type="radio" class="btn-check" name="access-kind" id="access-role" value="role" checked />
                         <label class="btn btn-outline-primary" for="access-role">
-                            <i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>角色组
+                            <i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>@Localizer["Role group"]
                         </label>
                         <input type="radio" class="btn-check" name="access-kind" id="access-user" value="user" />
                         <label class="btn btn-outline-primary" for="access-user">
-                            <i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>指定用户
+                            <i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>@Localizer["Specify User"]
                         </label>
                     </div>
                 </div>
 
                 <div class="col-md-5">
-                    <label for="access-role-select" class="form-label small fw-medium" id="access-subject-label">选择角色</label>
+                    <label for="access-role-select" class="form-label small fw-medium" id="access-subject-label">@Localizer["Select Role"]</label>
                     <select id="access-role-select" class="form-select">
-                        <option value="">请选择角色…</option>
+                        <option value="">@Localizer["Select role..."]</option>
                         @foreach (var role in Model.Roles)
                         {
                             <option value="@role.Value">@role.Text</option>
                         }
                     </select>
                     <select id="access-user-select" class="form-select d-none">
-                        <option value="">请选择用户…</option>
+                        <option value="">@Localizer["Select user..."]</option>
                         @foreach (var user in Model.Users)
                         {
                             <option value="@user.Value">@user.Text</option>
@@ -78,21 +78,21 @@
                 </div>
 
                 <div class="col-md-2">
-                    <label for="access-level" class="form-label small fw-medium">权限级别</label>
+                    <label for="access-level" class="form-label small fw-medium">@Localizer["Permission level"]</label>
                     <select id="access-level" class="form-select">
-                        <option value="view">仅查看 (View)</option>
-                        <option value="manage">可管理 (Manage)</option>
+                        <option value="view">@Localizer["View only (View)"]</option>
+                        <option value="manage">@Localizer["Manageable (Manage)"]</option>
                     </select>
                 </div>
 
                 <div class="col-md-2">
                     <button type="button" id="add-access" class="btn btn-primary w-100">
-                        <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>添加授权
+                        <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>@Localizer["Add authorization"]
                     </button>
                 </div>
             </div>
             <p class="form-text text-muted mb-0 mt-3 small">
-                <i class="align-middle me-1" data-lucide="shield"></i><strong>仅查看</strong>：允许浏览该应用的告警消息、关联事故与投递记录；<strong>可管理</strong>：额外允许修改推送绑定、重置密钥和处置事故。
+                <i class="align-middle me-1" data-lucide="shield"></i><strong>@Localizer["View only"]</strong>@Localizer[": Allows browsing alert messages, related incidents, and delivery records for this application;"]<strong>@Localizer["Manageable"]</strong>@Localizer[": Additionally allows modifying push bindings, resetting keys, and handling incidents."]
             </p>
         </div>
     </section>
@@ -101,7 +101,7 @@
     <section class="card" aria-labelledby="granted-heading">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h2 id="granted-heading" class="card-title mb-0">
-                <i class="align-middle me-2 text-primary" data-lucide="shield" aria-hidden="true"></i>已授予权限
+                <i class="align-middle me-2 text-primary" data-lucide="shield" aria-hidden="true"></i>@Localizer["Permissions granted"]
             </h2>
             <span id="access-count" class="badge bg-secondary-subtle text-secondary border">@accessCount</span>
         </div>
@@ -110,8 +110,8 @@
                 <div class="ac-empty-icon" style="width: 48px; height: 48px;">
                     <i data-lucide="users" aria-hidden="true"></i>
                 </div>
-                <h3 class="h6 text-muted">尚未为普通用户或角色授予额外访问权限</h3>
-                <p class="text-muted small mb-0">当前仅系统管理员可访问此应用。</p>
+                <h3 class="h6 text-muted">@Localizer["No additional access permissions have been granted to regular users or roles yet"]</h3>
+                <p class="text-muted small mb-0">@Localizer["Only system administrators can access this application."]</p>
             </div>
 
             <div id="access-list" class="list-group list-group-flush">
@@ -124,17 +124,17 @@
                             </div>
                             <div class="text-truncate">
                                 <strong class="d-block text-truncate">@access.Role.Name</strong>
-                                <small class="text-muted">角色组 · 组内所有成员自动继承权限</small>
+                                <small class="text-muted">@Localizer["Role group · All members in the group automatically inherit permissions"]</small>
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-2">
                             <span class="badge @(access.CanManage ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border")">
-                                @(access.CanManage ? "可管理" : "仅查看")
+                                @(access.CanManage ? @Localizer["Manageable"].Value : @Localizer["View only"].Value)
                             </span>
                             <input type="hidden" name="@(access.CanManage ? "manageRoleIds" : "viewRoleIds")" value="@access.RoleId" />
-                            <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="移除权限">
+                            <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="@Localizer["Remove permission"]">
                                 <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
-                                <span class="visually-hidden">移除 @access.Role.Name</span>
+                                <span class="visually-hidden">@Localizer["Remove "]@access.Role.Name</span>
                             </button>
                         </div>
                     </div>
@@ -149,17 +149,17 @@
                             </div>
                             <div class="text-truncate">
                                 <strong class="d-block text-truncate">@access.User.DisplayName</strong>
-                                <small class="text-muted">@access.User.UserName · 指定个人用户</small>
+                                <small class="text-muted">@access.User.UserName · @Localizer["Specify Individual User"]</small>
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-2">
                             <span class="badge @(access.CanManage ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border")">
-                                @(access.CanManage ? "可管理" : "仅查看")
+                                @(access.CanManage ? @Localizer["Manageable"].Value : @Localizer["View only"].Value)
                             </span>
                             <input type="hidden" name="@(access.CanManage ? "manageUserIds" : "viewUserIds")" value="@access.UserId" />
-                            <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="移除权限">
+                            <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="@Localizer["Remove permission"]">
                                 <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
-                                <span class="visually-hidden">移除 @access.User.DisplayName</span>
+                                <span class="visually-hidden">@Localizer["Remove "]@access.User.DisplayName</span>
                             </button>
                         </div>
                     </div>
@@ -167,16 +167,18 @@
             </div>
         </div>
         <div class="card-footer bg-transparent d-flex justify-content-end gap-2">
-            <a asp-action="Applications" class="btn btn-outline-secondary">取消</a>
+            <a asp-action="Applications" class="btn btn-outline-secondary">@Localizer["Cancel"]</a>
             <button class="btn btn-primary" type="submit">
-                <i class="align-middle me-1" data-lucide="save" aria-hidden="true"></i>保存权限变更
+                <i class="align-middle me-1" data-lucide="save" aria-hidden="true"></i>@Localizer["Save permission changes"]
             </button>
         </div>
     </section>
 </form>
 
 @section scripts {
-<script>
+<script>{
+    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
+
     document.addEventListener('DOMContentLoaded', () => {
         const roleType = document.getElementById('access-role');
         const userType = document.getElementById('access-user');
@@ -193,7 +195,7 @@
             const isRole = selectedKind() === 'role';
             roleSelect.classList.toggle('d-none', !isRole);
             userSelect.classList.toggle('d-none', isRole);
-            subjectLabel.textContent = isRole ? '选择角色' : '选择用户';
+            subjectLabel.textContent = isRole ? (messages["Select Role"] ?? "Select Role") : (messages["Select User"] ?? "Select User");
         }
         function updateEmpty() {
             const total = list.children.length;
@@ -226,9 +228,9 @@
 
             const iconClass = kind === 'role' ? 'icon-primary' : 'icon-indigo';
             const iconName = kind === 'role' ? 'users' : 'user';
-            const subtitle = kind === 'role' ? '角色组 · 组内所有成员自动继承权限' : '指定个人用户';
+            const subtitle = kind === 'role' ? (messages["Role group · All members in the group automatically inherit permissions"] ?? "Role group · All members in the group automatically inherit permissions") : (messages["Specify Individual User"] ?? "Specify Individual User");
             const badgeClass = manage ? 'bg-success-subtle text-success border border-success-subtle' : 'bg-secondary-subtle text-secondary border';
-            const badgeText = manage ? '可管理' : '仅查看';
+            const badgeText = manage ? (messages["Manageable"] ?? "Manageable") : (messages["View only"] ?? "View only");
             const fieldName = manage ? (kind === 'role' ? 'manageRoleIds' : 'manageUserIds') : (kind === 'role' ? 'viewRoleIds' : 'viewUserIds');
 
             item.innerHTML = `
@@ -238,17 +240,24 @@
                     </div>
                     <div class="text-truncate">
                         <strong class="d-block text-truncate"></strong>
-                        <small class="text-muted">${subtitle}</small>
+                        <small class="text-muted"></small>
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                    <span class="badge ${badgeClass}">${badgeText}</span>
-                    <input type="hidden" name="${fieldName}" value="${option.value}" />
-                    <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="移除">
+                    <span class="badge ${badgeClass}"></span>
+                    <input type="hidden" name="${fieldName}" value="" />
+                    <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="">
                         <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
-                        <span class="visually-hidden">移除</span>
+                        <span class="visually-hidden"></span>
                     </button>
                 </div>`;
+
+            item.querySelector('small').textContent = subtitle;
+            item.querySelector('.badge').textContent = badgeText;
+            item.querySelector('input').value = option.value;
+            const removeButton = item.querySelector('.remove-access');
+            removeButton.title = messages["Remove"] ?? "Remove";
+            removeButton.querySelector('span').textContent = messages["Remove"] ?? "Remove";
 
             item.querySelector('strong').textContent = option.textContent;
             list.appendChild(item);
@@ -267,5 +276,6 @@
             updateEmpty();
         });
     });
-</script>
+
+}</script>
 }

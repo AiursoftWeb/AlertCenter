@@ -1,7 +1,7 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1 class="h3 mb-0">创建团队</h1>
-    <a asp-action="Groups" class="btn btn-outline-secondary">返回团队列表</a>
+    <h1 class="h3 mb-0">@Localizer["Create Team"]</h1>
+    <a asp-action="Groups" class="btn btn-outline-secondary">@Localizer["Back to Team List"]</a>
 </div>
 <div class="card"><div class="card-body"><partial name="_GroupForm" model="Model" /></div></div>
 

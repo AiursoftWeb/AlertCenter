@@ -2,24 +2,24 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
-        <h1 class="h3 mb-1">值班排班</h1>
-        <p class="text-muted mb-0">选择团队查看七天班次、生成或手动调整排班。未绑定模板的团队也可手动排班；保存的班次暂不影响告警路由。</p>
+        <h1 class="h3 mb-1">@Localizer["On-call schedule"]</h1>
+        <p class="text-muted mb-0">@Localizer["Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect alert routing."]</p>
     </div>
-    <a asp-action="Index" class="btn btn-outline-secondary">管理排班规则</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Manage scheduling rules"]</a>
 </div>
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">选择值班团队</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Select On-Call Team"]</h2></div>
     <div class="table-responsive">
         <table class="table table-hover mb-0">
-            <thead><tr><th>团队</th><th>规则</th><th>成员数</th><th>操作</th></tr></thead>
+            <thead><tr><th>@Localizer["Team"]</th><th>@Localizer["Rule"]</th><th>@Localizer["Member Count"]</th><th>@Localizer["Action"]</th></tr></thead>
             <tbody>
                 @foreach (var group in Model.Groups)
                 {
                     <tr>
                         <td>@group.Name (@group.TimeZoneId)</td>
-                        <td>@(group.Rule?.Name ?? "未绑定模板")</td>
+                        <td>@(group.Rule?.Name ?? @Localizer["Template not bound"].Value)</td>
                         <td>@group.Members.Count</td>
-                        <td><a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary">查看排班</a></td>
+                        <td><a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-sm btn-outline-primary">@Localizer["View schedule"]</a></td>
                     </tr>
                 }
             </tbody>
@@ -27,6 +27,6 @@
     </div>
     @if (Model.Groups.Count == 0)
     {
-        <div class="card-body text-muted">暂无团队，请先在<a asp-action="Groups">团队管理</a>中创建。</div>
+        <div class="card-body text-muted">@Localizer["No teams available. Please go to"]<a asp-action="Groups">@Localizer["Team management"]</a>@Localizer["created in"]</div>
     }
 </div>

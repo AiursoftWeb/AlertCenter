@@ -30,7 +30,7 @@ public class OnCallScheduleServiceTests
         };
         db.OnCallGroups.Add(group);
         await db.SaveChangesAsync();
-        service = new OnCallScheduleService(db, new OnCallScheduleGenerator());
+        service = new OnCallScheduleService(db, new OnCallScheduleGenerator(localizer:TestLocalization.For<OnCallScheduleGenerator>()), localizer: TestLocalization.For<OnCallScheduleService>(), localizerFactory: TestLocalization.Factory);
     }
 
     [TestCleanup]
@@ -114,7 +114,7 @@ public class OnCallScheduleServiceTests
 
         var errors = await service.Save(request, false, default);
 
-        Assert.IsTrue(errors.Any(error => error.Contains("休息不足")));
+        Assert.IsTrue(errors.Any(error => error.Contains("insufficient rest")));
         Assert.AreEqual(version, group.ScheduleVersion);
         Assert.AreEqual(0, service.Warnings.Count);
         Assert.AreEqual(21, await db.OnCallShifts.CountAsync());
@@ -146,7 +146,7 @@ public class OnCallScheduleServiceTests
         request.AdjacentWeeks = [AdjacentWeek(Anchor.AddDays(7)), AdjacentWeek(Anchor.AddDays(21))];
         var version = group.ScheduleVersion;
 
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("休息不足")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("insufficient rest")));
 
         Assert.AreEqual(version, group.ScheduleVersion);
         Assert.AreEqual(22, await db.OnCallShifts.CountAsync());
@@ -218,7 +218,7 @@ public class OnCallScheduleServiceTests
             var slots = await db.OnCallShifts.Where(shift => shift.StartsAtUtc >= start && shift.StartsAtUtc < end).ToListAsync();
             Assert.AreEqual(21, slots.Count);
             Assert.IsTrue(slots.All(slot => slot.RestHours == index * 8 && slot.MinimumStaff == index + 2));
-            Assert.IsTrue(service.Warnings.Skip(index * 21).Take(21).All(warning => warning.Contains($"最低 {index + 2} 人")));
+            Assert.IsTrue(service.Warnings.Skip(index * 21).Take(21).All(warning => warning.Contains($"minimum of {index + 2}")));
         }
     }
 
@@ -237,7 +237,7 @@ public class OnCallScheduleServiceTests
         request.AdjacentWeeks = [AdjacentWeek(Anchor)];
         var version = group.ScheduleVersion;
 
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("休息不足")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("insufficient rest")));
 
         Assert.AreEqual(version, group.ScheduleVersion);
         Assert.AreEqual(21, await db.OnCallShifts.CountAsync());
@@ -315,7 +315,7 @@ public class OnCallScheduleServiceTests
         request.Slots = ManualSlots(request.StartUtc);
         request.AdjacentWeeks = [AdjacentWeek(Anchor.AddDays(7))];
         var version = group.ScheduleVersion;
-        Assert.IsTrue((await service.Save(request, true, default)).Any(error => error.Contains("自动生成")));
+        Assert.IsTrue((await service.Save(request, true, default)).Any(error => error.Contains("Auto-generation")));
         Assert.AreEqual(version, group.ScheduleVersion);
         Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
         request.Version = Guid.NewGuid();
@@ -342,7 +342,7 @@ public class OnCallScheduleServiceTests
         original.UserIds.Remove("u3");
         target.UserIds.Add("u3");
 
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("退出团队")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("left the team")));
 
         Assert.AreEqual(version, group.ScheduleVersion);
         Assert.AreEqual(56, await db.OnCallShiftMembers.CountAsync());
@@ -414,8 +414,8 @@ public class OnCallScheduleServiceTests
     }
 
     [TestMethod]
-    [DataRow(-8, "休息不足")]
-    [DataRow(0, "重叠")]
+    [DataRow(-8, "insufficient rest")]
+    [DataRow(0, "overlaps")]
     public async Task SharedMembersRemainSubjectToCrossGroupManualRestAndOverlapValidation(int externalOffsetHours, string expectedError)
     {
         var other = new OnCallGroup
@@ -464,7 +464,7 @@ public class OnCallScheduleServiceTests
         db.ChangeTracker.Clear();
         group = await db.OnCallGroups.Include(item => item.Rule).Include(item => item.Members).SingleAsync();
         Assert.AreEqual(27, await db.OnCallShiftMembers.CountAsync());
-        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("不会覆盖")));
+        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("will not overwrite")));
         Assert.AreEqual(27, await db.OnCallShiftMembers.CountAsync());
         await Assert.ThrowsAsync<DbUpdateConcurrencyException>(() => service.Save(request, false, default));
     }
@@ -476,13 +476,13 @@ public class OnCallScheduleServiceTests
         var request = await EditRequest();
         var version = group.ScheduleVersion;
         request.Slots[0].UserIds.Clear();
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("空班")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("Empty shift")));
         request = await EditRequest();
         request.Slots[1].UserIds.Add("u0");
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("休息不足")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("insufficient rest")));
         request = await EditRequest();
         request.Slots[0].UserIds.Add("u0");
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("重叠")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("overlaps")));
         Assert.AreEqual(version, group.ScheduleVersion);
         Assert.AreEqual(28, await db.OnCallShiftMembers.CountAsync());
     }
@@ -507,7 +507,7 @@ public class OnCallScheduleServiceTests
 
         var errors = await service.Save(request, false, default);
 
-        Assert.IsTrue(errors.Any(error => error.Contains("必须提交本周全部 21 个班次")));
+        Assert.IsTrue(errors.Any(error => error.Contains("All 21 shifts for this week must be submitted")));
         Assert.AreEqual(version, group.ScheduleVersion);
         Assert.AreEqual(21, await db.OnCallShifts.CountAsync());
         Assert.AreEqual(28, await db.OnCallShiftMembers.CountAsync());
@@ -520,10 +520,10 @@ public class OnCallScheduleServiceTests
         Assert.AreEqual(0, (await service.Save(Request(Anchor.AddDays(7)), true, default)).Count);
         var request = await EditRequest();
         request.Slots[^1].UserIds.Add("u0");
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("休息不足")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("insufficient rest")));
         request = await EditRequest(Anchor.AddDays(7));
         request.Slots[0].UserIds.Add("u2");
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("休息不足")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("insufficient rest")));
 
         var other = new OnCallGroup { Rule = rule, Name = "Other", AnchorUtc = Anchor };
         db.OnCallGroups.Add(other);
@@ -533,7 +533,7 @@ public class OnCallScheduleServiceTests
             Members = [new OnCallShiftMember { UserId = "u0" }]
         });
         await db.SaveChangesAsync();
-        Assert.IsTrue((await service.Save(await EditRequest(), false, default)).Any(error => error.Contains("重叠")));
+        Assert.IsTrue((await service.Save(await EditRequest(), false, default)).Any(error => error.Contains("overlaps")));
     }
 
     [TestMethod]
@@ -556,7 +556,7 @@ public class OnCallScheduleServiceTests
         rule.TargetStaff = 2;
         await db.SaveChangesAsync();
         var version = group.ScheduleVersion;
-        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("至少需要 6 人")));
+        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("at least 6 are required")));
         Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
         Assert.AreEqual(version, group.ScheduleVersion);
 
@@ -592,7 +592,7 @@ public class OnCallScheduleServiceTests
         request = await EditRequest();
         version = group.ScheduleVersion;
         request.Slots[0].UserIds.Clear();
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("空班")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("Empty shift")));
         Assert.AreEqual(0, service.Warnings.Count);
         Assert.AreEqual(version, group.ScheduleVersion);
         Assert.AreEqual(21, await db.OnCallShiftMembers.CountAsync());
@@ -609,7 +609,7 @@ public class OnCallScheduleServiceTests
         {
             StartsAtUtc = Anchor.AddHours(index * 8), UserIds = [$"u{index % 3}"]
         }).ToList();
-        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("绑定排班规则")));
+        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("bind a scheduling rule")));
         Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
         Assert.IsTrue(await db.OnCallShifts.AllAsync(shift => shift.RestHours == 16));
 
@@ -626,7 +626,7 @@ public class OnCallScheduleServiceTests
         rule.RestHours = 0;
         db.OnCallGroupMembers.RemoveRange(group.Members.Where(member => member.UserId != "u0"));
         await db.SaveChangesAsync();
-        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("至少需要 3 人")));
+        Assert.IsTrue((await service.Save(Request(), true, default)).Any(error => error.Contains("at least 3 are required")));
         var request = Request();
         request.Slots = Enumerable.Range(0, 21).Select(index => new OnCallSlotRequest
         {
@@ -650,7 +650,7 @@ public class OnCallScheduleServiceTests
             StartsAtUtc = Anchor.AddHours(index * 8), UserIds = ["u0"]
         }).ToList();
         var version = group.ScheduleVersion;
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("休息不足")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("insufficient rest")));
         Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
         Assert.AreEqual(version, group.ScheduleVersion);
     }
@@ -665,11 +665,11 @@ public class OnCallScheduleServiceTests
         var request = await EditRequest();
         request.Slots[1].UserIds.Add("u3");
         var version = group.ScheduleVersion;
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("退出团队")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("left the team")));
         request = await EditRequest();
         request.Slots[0].UserIds.Remove("u3");
         request.Slots[1].UserIds.Add("u3");
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("退出团队")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("left the team")));
         Assert.AreEqual(version, group.ScheduleVersion);
         Assert.AreEqual(28, await db.OnCallShiftMembers.CountAsync());
         request = await EditRequest();
@@ -677,7 +677,7 @@ public class OnCallScheduleServiceTests
         Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
         request = await EditRequest();
         request.Slots[0].UserIds.Add("u3");
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("退出团队")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("left the team")));
         Assert.AreEqual(27, await db.OnCallShiftMembers.CountAsync());
     }
 
@@ -722,7 +722,7 @@ public class OnCallScheduleServiceTests
         {
             StartsAtUtc = Anchor.AddHours(index * 8), UserIds = [$"u{index % 3}"]
         }).ToList();
-        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("休息不足")));
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("insufficient rest")));
         Assert.AreEqual(1, await db.OnCallShifts.CountAsync());
         var existing = await service.Existing(group.Id, ["u0"], Anchor, default);
         Assert.AreEqual(48, existing.Single().RestHours);

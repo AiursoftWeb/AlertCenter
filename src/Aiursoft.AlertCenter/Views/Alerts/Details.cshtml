@@ -21,7 +21,7 @@
         ? (latency.TotalSeconds < 1 ? $"{latency.TotalMilliseconds:F0}ms" : $"{latency.TotalSeconds:F1}s")
         : "—";
 
-    string formattedJson = "无";
+    string formattedJson = @Localizer["None"].Value;
     if (!string.IsNullOrWhiteSpace(message.ContextJson))
     {
         try
@@ -38,12 +38,12 @@
 <!-- Top Action Bar -->
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
     <a asp-action="Index" class="btn btn-outline-secondary">
-        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回消息列表
+        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>@Localizer["Back to Message List"]
     </a>
     @if (message.Incident != null)
     {
         <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="btn btn-outline-primary">
-            <i class="align-middle me-1" data-lucide="siren" aria-hidden="true"></i>查看关联事故
+            <i class="align-middle me-1" data-lucide="siren" aria-hidden="true"></i>@Localizer["View linked incident"]
         </a>
     }
 </div>
@@ -57,15 +57,15 @@
             @if (message.IsArchived)
             {
                 <span class="badge bg-secondary-subtle text-secondary border">
-                    <i class="align-middle me-1" data-lucide="archive"></i>已归档
+                    <i class="align-middle me-1" data-lucide="archive"></i>@Localizer["Archived"]
                 </span>
             }
             <span class="text-muted small ms-auto">
-                <i class="align-middle me-1" data-lucide="clock"></i>传输延迟: @latencyText
+                <i class="align-middle me-1" data-lucide="clock"></i>@Localizer["Transfer latency"]: @latencyText
             </span>
         </div>
         <h1 class="h3 mb-1 text-break fw-bold">@message.Title</h1>
-        <p class="text-muted small mb-0">接收时间: @message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC · Report ID: <code class="text-muted">@message.ReportId</code></p>
+        <p class="text-muted small mb-0">@Localizer["Received at"]: @message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC · Report ID: <code class="text-muted">@message.ReportId</code></p>
     </div>
 </div>
 
@@ -76,17 +76,17 @@
         <section class="card mb-4" aria-labelledby="content-heading">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h2 id="content-heading" class="card-title mb-0">
-                    <i class="align-middle me-2" data-lucide="align-left" aria-hidden="true"></i>告警正文
+                    <i class="align-middle me-2" data-lucide="align-left" aria-hidden="true"></i>@Localizer["Alert body"]
                 </h2>
                 @if (!string.IsNullOrWhiteSpace(message.Content))
                 {
                     <button type="button" class="btn btn-sm btn-outline-secondary" id="copy-content-btn">
-                        <i class="align-middle me-1" data-lucide="copy"></i>复制正文
+                        <i class="align-middle me-1" data-lucide="copy"></i>@Localizer["Copy Body"]
                     </button>
                 }
             </div>
             <div class="card-body pt-0">
-                <div class="ac-prose" id="message-content-text">@(string.IsNullOrWhiteSpace(message.Content) ? "（该告警未包含详细正文内容）" : message.Content)</div>
+                <div class="ac-prose" id="message-content-text">@(string.IsNullOrWhiteSpace(message.Content) ? @Localizer["(This alert does not contain detailed body content)"].Value : message.Content)</div>
             </div>
         </section>
 
@@ -94,14 +94,14 @@
         <section class="card" aria-labelledby="context-heading">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h2 id="context-heading" class="card-title mb-0">
-                    <i class="align-middle me-2" data-lucide="braces" aria-hidden="true"></i>业务上下文
+                    <i class="align-middle me-2" data-lucide="braces" aria-hidden="true"></i>@Localizer["Business Context"]
                 </h2>
                 <div class="d-flex align-items-center gap-2">
                     <span class="badge bg-secondary-subtle text-secondary">JSON Object</span>
                     @if (message.ContextJson != null)
                     {
                         <button type="button" class="btn btn-sm btn-outline-secondary" id="copy-json-btn">
-                            <i class="align-middle me-1" data-lucide="copy"></i>复制 JSON
+                            <i class="align-middle me-1" data-lucide="copy"></i>@Localizer["Copy JSON"]
                         </button>
                     }
                 </div>
@@ -123,43 +123,43 @@
         <section class="card mb-4" aria-labelledby="meta-heading">
             <div class="card-header">
                 <h2 id="meta-heading" class="card-title mb-0">
-                    <i class="align-middle me-2" data-lucide="info" aria-hidden="true"></i>事件元数据
+                    <i class="align-middle me-2" data-lucide="info" aria-hidden="true"></i>@Localizer["Event metadata"]
                 </h2>
             </div>
             <div class="card-body pt-0">
                 <dl class="mb-0">
-                    <dt class="text-muted small fw-medium mb-1">来源应用</dt>
+                    <dt class="text-muted small fw-medium mb-1">@Localizer["Source application"]</dt>
                     <dd class="mb-3 d-flex align-items-center justify-content-between">
                         <span class="fw-semibold">@message.Application.Name</span>
                         <a asp-action="Index" asp-route-applicationId="@message.ApplicationId" class="small text-primary text-decoration-none">
-                            查看该应用全部告警 <i class="align-middle" data-lucide="chevron-right"></i>
+                            @Localizer["View all alerts for this application"] <i class="align-middle" data-lucide="chevron-right"></i>
                         </a>
                     </dd>
 
-                    <dt class="text-muted small fw-medium mb-1">业务发生时间 (Occurred)</dt>
+                    <dt class="text-muted small fw-medium mb-1">@Localizer["Business Occurrence Time (Occurred)"]</dt>
                     <dd class="mb-3">
                         <i class="align-middle me-1 text-muted" data-lucide="calendar"></i>@message.OccurredAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
                     </dd>
 
-                    <dt class="text-muted small fw-medium mb-1">中心接收时间 (Received)</dt>
+                    <dt class="text-muted small fw-medium mb-1">@Localizer["Center Received Time (Received)"]</dt>
                     <dd class="mb-3">
                         <i class="align-middle me-1 text-muted" data-lucide="clock"></i>@message.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
                     </dd>
 
-                    <dt class="text-muted small fw-medium mb-1">传输耗时 (Latency)</dt>
+                    <dt class="text-muted small fw-medium mb-1">@Localizer["Transmission latency (Latency)"]</dt>
                     <dd class="mb-3">
                         <span class="badge bg-body-secondary text-body border">@latencyText</span>
                     </dd>
 
-                    <dt class="text-muted small fw-medium mb-1">归档状态</dt>
+                    <dt class="text-muted small fw-medium mb-1">@Localizer["Archive Status"]</dt>
                     <dd class="mb-3">
                         @if (message.IsArchived)
                         {
-                            <span class="badge bg-secondary-subtle text-secondary border">已自动归档（关联事故处理中）</span>
+                            <span class="badge bg-secondary-subtle text-secondary border">@Localizer["Automatically archived (related incident in progress)"]</span>
                         }
                         else
                         {
-                            <span class="badge bg-success-subtle text-success border">正常活跃</span>
+                            <span class="badge bg-success-subtle text-success border">@Localizer["Active"]</span>
                         }
                     </dd>
 
@@ -171,10 +171,10 @@
                         </dd>
                     }
 
-                    <dt class="text-muted small fw-medium mb-1">Report ID (幂等键)</dt>
+                    <dt class="text-muted small fw-medium mb-1">@Localizer["Report ID (Idempotency Key)"]</dt>
                     <dd class="mb-0 text-break d-flex align-items-center justify-content-between">
                         <code class="small text-muted font-monospace" id="report-id-val">@message.ReportId</code>
-                        <button type="button" class="btn btn-sm btn-link text-muted p-0 ms-2" id="copy-report-id" title="复制 Report ID">
+                        <button type="button" class="btn btn-sm btn-link text-muted p-0 ms-2" id="copy-report-id" title="@Localizer["Copy Report ID"]">
                             <i class="align-middle" data-lucide="copy"></i>
                         </button>
                     </dd>
@@ -187,10 +187,10 @@
         {
             <div class="card">
                 <div class="card-body">
-                    <h3 class="h6 mb-2">应用推送设置</h3>
-                    <p class="small text-muted mb-3">为该应用关联推送渠道，或配置不同严重级别的投递目标。</p>
+                    <h3 class="h6 mb-2">@Localizer["Application Push Settings"]</h3>
+                    <p class="small text-muted mb-3">@Localizer["Associate push channels with this application or configure delivery targets for different severity levels."]</p>
                     <a asp-controller="Push" asp-action="Bindings" asp-route-id="@message.ApplicationId" class="btn btn-outline-primary btn-sm w-100">
-                        <i class="align-middle me-1" data-lucide="sliders"></i>配置该应用的推送渠道
+                        <i class="align-middle me-1" data-lucide="sliders"></i>@Localizer["Configure push channels for this application"]
                     </a>
                 </div>
             </div>
@@ -199,7 +199,8 @@
 </div>
 
 @section scripts {
-    <script>
+    <script>{
+        const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
         function setupCopy(buttonId, textSelector, isCodeTag = false) {
             const btn = document.getElementById(buttonId);
             if (!btn) return;
@@ -210,8 +211,10 @@
                 try {
                     await navigator.clipboard.writeText(text);
                     const original = this.innerHTML;
-                    this.innerHTML = '<i class="align-middle me-1" data-lucide="check"></i>已复制';
+                    this.innerHTML = '<i class="align-middle me-1" data-lucide="check"></i>';
+                    this.appendChild(document.createTextNode(messages["Copied"] ?? "Copied"));
                     setTimeout(() => {
+
                         this.innerHTML = original;
                         if (window.lucide) lucide.createIcons({ nodes: [this] });
                     }, 2000);
@@ -224,5 +227,5 @@
         setupCopy('copy-content-btn', '#message-content-text');
         setupCopy('copy-json-btn', '#context-json-code', true);
         setupCopy('copy-report-id', '#report-id-val');
-    </script>
+    }</script>
 }

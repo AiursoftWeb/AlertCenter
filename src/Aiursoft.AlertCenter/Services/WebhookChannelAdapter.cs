@@ -1,10 +1,11 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Aiursoft.AlertCenter.Entities;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurationProtector webhookConfigurationProtector) : INotificationChannelAdapter
+public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurationProtector webhookConfigurationProtector, IStringLocalizer<WebhookChannelAdapter> localizer) : INotificationChannelAdapter
 {
     private static readonly HashSet<string> ReservedHeaders = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -18,17 +19,17 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
     };
 
     public ChannelTypeDefinition Definition { get; } = new("webhook", "Webhook",
-        "向指定 HTTP 地址发送 JSON 消息，适合连接已有系统。", "webhook", true);
+        localizer["Send JSON messages to a specified HTTP address, suitable for connecting to existing systems."].Value, "webhook", true);
 
     public static bool IsValidEndpoint(string? endpoint) =>
         Uri.TryCreate(endpoint, UriKind.Absolute, out var uri) &&
         (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps) &&
         string.IsNullOrEmpty(uri.UserInfo) && string.IsNullOrEmpty(uri.Fragment);
 
-    public static bool TryValidateCustomHeaders(string? customHeadersJson, out string? error) =>
-        TryParseCustomHeaders(customHeadersJson, out _, out error);
+    public static bool TryValidateCustomHeaders(string? customHeadersJson, out string? error, IStringLocalizer? localizer = null) =>
+        TryParseCustomHeaders(customHeadersJson, out _, out error, localizer: localizer);
 
-    public static bool TryValidatePayloadTemplate(string? payloadTemplate, out string? error)
+    public static bool TryValidatePayloadTemplate(string? payloadTemplate, out string? error, IStringLocalizer? localizer = null)
     {
         error = null;
         if (string.IsNullOrWhiteSpace(payloadTemplate)) return true;
@@ -37,14 +38,14 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
             var template = JsonNode.Parse(payloadTemplate);
             if (template is not JsonObject)
             {
-                error = "自定义请求体必须是 JSON 对象。";
+                error = (localizer is null ? "Custom request body must be a JSON object." : localizer["Custom request body must be a JSON object."].Value);
                 return false;
             }
-            return TryValidatePlaceholders(template, out error);
+            return TryValidatePlaceholders(template, out error, localizer: localizer);
         }
         catch (JsonException)
         {
-            error = "自定义请求体必须是有效 JSON。";
+            error = (localizer is null ? "Custom request body must be valid JSON." : localizer["Custom request body must be valid JSON."].Value);
             return false;
         }
     }
@@ -52,10 +53,10 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
     public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
     {
         if (delivery.Channel == null || !IsValidEndpoint(delivery.Channel.Endpoint))
-            return new(false, ErrorMessage: "Webhook 地址无效，请检查渠道配置。");
+            return new(false, ErrorMessage: localizer["Invalid Webhook URL. Please check channel configuration."].Value);
         if (!webhookConfigurationProtector.TryUnprotect(delivery.Channel.WebhookHeadersProtected, out var customHeadersJson) ||
-            !TryParseCustomHeaders(customHeadersJson, out var headers, out _) || !TryCreatePayload(delivery, out var payload))
-            return new(false, ErrorMessage: "Webhook 自定义配置无效，请检查渠道配置。");
+            !TryParseCustomHeaders(customHeadersJson, out var headers, out _, localizer: localizer) || !TryCreatePayload(delivery, out var payload, localizer: localizer))
+            return new(false, ErrorMessage: localizer["Invalid Webhook custom configuration. Please check channel configuration."].Value);
 
         using var request = new HttpRequestMessage(HttpMethod.Post, delivery.Channel.Endpoint);
         request.Content = JsonContent.Create(payload);
@@ -63,7 +64,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
         foreach (var header in headers)
         {
             if (!request.Headers.TryAddWithoutValidation(header.Key, header.Value))
-                return new(false, ErrorMessage: "Webhook 自定义请求头无效，请检查渠道配置。");
+                return new(false, ErrorMessage: localizer["Invalid Webhook custom headers. Please check channel configuration."].Value);
         }
         try
         {
@@ -71,19 +72,19 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
             using var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             return response.IsSuccessStatusCode
                 ? new(true)
-                : new(false, ErrorMessage: $"Webhook 返回 HTTP {(int)response.StatusCode}。请检查接收端后手动重试。");
+                : new(false, ErrorMessage: string.Format(localizer["Webhook returned HTTP {0}. Please check the receiver and retry manually."].Value, (int)response.StatusCode));
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
-            return new(false, ErrorMessage: "Webhook 请求超时，接收端可能已收到消息，请核实后重试。");
+            return new(false, ErrorMessage: localizer["Webhook request timed out. The receiver may have received the message. Please verify and retry."].Value);
         }
         catch (HttpRequestException)
         {
-            return new(false, ErrorMessage: "无法连接 Webhook，请检查地址、网络或接收端服务。");
+            return new(false, ErrorMessage: localizer["Unable to connect to Webhook. Please check the address, network, or receiving service."].Value);
         }
     }
 
-    private static bool TryParseCustomHeaders(string? customHeadersJson, out Dictionary<string, string> headers, out string? error)
+    private static bool TryParseCustomHeaders(string? customHeadersJson, out Dictionary<string, string> headers, out string? error, IStringLocalizer? localizer = null)
     {
         headers = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         error = null;
@@ -93,25 +94,25 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
             using var document = JsonDocument.Parse(customHeadersJson);
             if (document.RootElement.ValueKind != JsonValueKind.Object)
             {
-                error = "自定义请求头必须是 JSON 对象。";
+                error = (localizer is null ? "Custom request headers must be a JSON object." : localizer["Custom request headers must be a JSON object."].Value);
                 return false;
             }
             foreach (var property in document.RootElement.EnumerateObject())
             {
                 if (!IsValidHeaderName(property.Name) || IsReservedHeader(property.Name))
                 {
-                    error = "自定义请求头包含不允许的名称。";
+                    error = (localizer is null ? "Custom request headers contain disallowed names." : localizer["Custom request headers contain disallowed names."].Value);
                     return false;
                 }
                 if (property.Value.ValueKind != JsonValueKind.String || string.IsNullOrWhiteSpace(property.Value.GetString()))
                 {
-                    error = "自定义请求头的值必须是非空字符串。";
+                    error = (localizer is null ? "Custom request header values must be non-empty strings." : localizer["Custom request header values must be non-empty strings."].Value);
                     return false;
                 }
                 var value = property.Value.GetString()!;
                 if (value.Length > 2048 || value.Any(char.IsControl) || !headers.TryAdd(property.Name, value))
                 {
-                    error = "自定义请求头包含无效或重复的值。";
+                    error = (localizer is null ? "Custom request headers contain invalid or duplicate values." : localizer["Custom request headers contain invalid or duplicate values."].Value);
                     return false;
                 }
             }
@@ -119,7 +120,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
         }
         catch (JsonException)
         {
-            error = "自定义请求头必须是有效 JSON。";
+            error = (localizer is null ? "Custom request headers must be valid JSON." : localizer["Custom request headers must be valid JSON."].Value);
             return false;
         }
     }
@@ -131,33 +132,33 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
         (character is >= 'A' and <= 'Z') || (character is >= 'a' and <= 'z') || (character is >= '0' and <= '9') ||
         "!#$%&'*+-.^_`|~".Contains(character));
 
-    private static bool TryValidatePlaceholders(JsonNode? node, out string? error)
+    private static bool TryValidatePlaceholders(JsonNode? node, out string? error, IStringLocalizer? localizer = null)
     {
         error = null;
         if (node is JsonObject obj)
         {
             foreach (var property in obj)
             {
-                if (!TryValidatePlaceholders(property.Value, out error)) return false;
+                if (!TryValidatePlaceholders(property.Value, out error, localizer: localizer)) return false;
             }
         }
         else if (node is JsonArray array)
         {
             foreach (var item in array)
             {
-                if (!TryValidatePlaceholders(item, out error)) return false;
+                if (!TryValidatePlaceholders(item, out error, localizer: localizer)) return false;
             }
         }
         else if (node is JsonValue value && value.TryGetValue<string>(out var text) &&
                  text.Contains("{{", StringComparison.Ordinal) && !PayloadPlaceholders.Contains(text))
         {
-            error = "自定义请求体包含未知或未完整使用的占位符。";
+            error = (localizer is null ? "Custom request body contains unknown or incompletely used placeholders." : localizer["Custom request body contains unknown or incompletely used placeholders."].Value);
             return false;
         }
         return true;
     }
 
-    private static bool TryCreatePayload(PushDelivery delivery, out JsonNode? payload)
+    private static bool TryCreatePayload(PushDelivery delivery, out JsonNode? payload, IStringLocalizer? localizer = null)
     {
         payload = null;
         try
@@ -168,8 +169,8 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
             {
                 ["{{deliveryId}}"] = JsonValue.Create(delivery.Id.ToString()),
                 ["{{messageId}}"] = delivery.MessageId.HasValue ? JsonValue.Create(delivery.MessageId.Value.ToString()) : null,
-                ["{{title}}"] = JsonValue.Create(message?.Title ?? "渠道测试通知"),
-                ["{{content}}"] = message == null ? JsonValue.Create(delivery.TestContent ?? PushDelivery.DefaultTestContent) : JsonValue.Create(message.Content),
+                ["{{title}}"] = JsonValue.Create(message?.Title ?? (localizer is null ? "Channel test notification" : localizer["Channel test notification"].Value)),
+                ["{{content}}"] = message == null ? JsonValue.Create(delivery.TestContent ?? (localizer is null ? "This is a test message for the push channel." : localizer["This is a test message for the push channel."].Value)) : JsonValue.Create(message.Content),
                 ["{{level}}"] = JsonValue.Create(message?.Level ?? "sev3"),
                 ["{{occurredAtUtc}}"] = JsonValue.Create(message?.OccurredAtUtc ?? delivery.CreatedAtUtc),
                 ["{{context}}"] = context

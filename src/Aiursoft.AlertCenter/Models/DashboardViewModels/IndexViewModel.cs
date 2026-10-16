@@ -7,7 +7,7 @@ public class IndexViewModel : UiStackLayoutViewModel
 {
     public IndexViewModel()
     {
-        PageTitle = "控制台概览";
+        PageTitle = "Console Overview";
     }
 
     public int TotalApplications { get; set; }

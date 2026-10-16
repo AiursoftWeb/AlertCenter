@@ -31,7 +31,7 @@ public class IncidentCommentServiceTests
         foreach (var id in new[] { "author", "viewer", "manager" })
             db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = incident.ApplicationId, UserId = id, CanManage = id == "manager" });
         await db.SaveChangesAsync();
-        service = new IncidentCommentService(db, new ApplicationAccessService(db));
+        service = new IncidentCommentService(db, new ApplicationAccessService(db), localizer: TestLocalization.For<IncidentCommentService>(), localizerFactory: TestLocalization.Factory);
     }
 
     [TestCleanup]
@@ -175,7 +175,7 @@ public class IncidentCommentServiceTests
         await second.IncidentComments.SingleAsync();
         var request = new DeleteIncidentCommentRequest { IncidentId = incident.Id, CommentId = comment.Id };
         Assert.AreEqual(200, (await service.DeleteAsync(Actor("author"), request)).StatusCode);
-        Assert.AreEqual(409, (await new IncidentCommentService(second, new ApplicationAccessService(second)).DeleteAsync(Actor("manager"), request)).StatusCode);
+        Assert.AreEqual(409, (await new IncidentCommentService(second, new ApplicationAccessService(second), localizer: TestLocalization.For<IncidentCommentService>(), localizerFactory: TestLocalization.Factory).DeleteAsync(Actor("manager"), request)).StatusCode);
         db.ChangeTracker.Clear();
         db.Users.Remove(await db.Users.SingleAsync(user => user.Id == "author"));
         await db.SaveChangesAsync();

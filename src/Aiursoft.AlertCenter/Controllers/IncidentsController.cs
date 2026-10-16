@@ -6,21 +6,22 @@ using Aiursoft.UiStack.Navigation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
 [Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-public class IncidentsController(TemplateDbContext db, IApplicationAccessService applicationAccess) : Controller
+public class IncidentsController(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizer<IncidentsController> localizer, IStringLocalizerFactory localizerFactory) : Controller
 {
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "告警中心", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
-        LinkText = "事故处置", LinkOrder = 1)]
+        CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
+        LinkText = "Incident handling", LinkOrder = 1)]
     public async Task<IActionResult> Index([FromQuery] IncidentFilter filter, CancellationToken cancellationToken)
     {
         filter.Normalize();
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
-        var oceIds = await new IncidentAccessService(db, applicationAccess).GetOceApplicationIdsAsync(User, DateTime.UtcNow, cancellationToken);
+        var oceIds = await new IncidentAccessService(db, applicationAccess, localizerFactory).GetOceApplicationIdsAsync(User, DateTime.UtcNow, cancellationToken);
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var accessibleIncidents = db.Incidents.AsNoTracking().Include(incident => incident.Application).Include(incident => incident.Owner)
             .Where(incident => accessibleIds.Contains(incident.ApplicationId) || oceIds.Contains(incident.ApplicationId) ||
@@ -73,10 +74,10 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (incident == null) return NotFound();
         var now = DateTime.UtcNow;
-        var access = new IncidentAccessService(db, applicationAccess);
+        var access = new IncidentAccessService(db, applicationAccess, localizerFactory);
         if (!await access.CanViewAsync(User, incident, now, cancellationToken)) return Forbid();
         var oce = incident.Application.OnCallGroupId.HasValue
-            ? await new OnCallOceService(db).QueryAsync(incident.Application.OnCallGroupId.Value, now, cancellationToken) : null;
+            ? await new OnCallOceService(db, localizer: new StringLocalizer<OnCallOceService>(localizerFactory)).QueryAsync(incident.Application.OnCallGroupId.Value, now, cancellationToken) : null;
         commentsPage = Math.Clamp(commentsPage, 1, 1000000);
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var canManageApplication = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, true, cancellationToken);
@@ -108,16 +109,16 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> AddComment(AddIncidentCommentRequest request, CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid) return BadRequest("评论不能为空，且不能超过 4000 个字符。");
-        var result = await new IncidentCommentService(db, applicationAccess).AddAsync(User, request, cancellationToken);
+        if (!ModelState.IsValid) return BadRequest(localizer["Comment cannot be empty and must not exceed 4,000 characters."].Value);
+        var result = await new IncidentCommentService(db, applicationAccess, localizer: new StringLocalizer<IncidentCommentService>(localizerFactory), localizerFactory: localizerFactory).AddAsync(User, request, cancellationToken);
         return CommentResult(result, request.IncidentId, 1);
     }
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteComment(DeleteIncidentCommentRequest request, CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid) return BadRequest("评论参数无效，请刷新页面。");
-        var result = await new IncidentCommentService(db, applicationAccess).DeleteAsync(User, request, cancellationToken);
+        if (!ModelState.IsValid) return BadRequest(localizer["Invalid comment parameters. Please refresh the page."].Value);
+        var result = await new IncidentCommentService(db, applicationAccess, localizer: new StringLocalizer<IncidentCommentService>(localizerFactory), localizerFactory: localizerFactory).DeleteAsync(User, request, cancellationToken);
         return CommentResult(result, request.IncidentId, Math.Clamp(request.CommentsPage, 1, 1000000));
     }
 
@@ -160,8 +161,8 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
 
     private async Task<IActionResult> Execute(IncidentNoteRequest request, string action, CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid) return BadRequest("操作参数无效，理由不能超过 4000 个字符，改级须为 sev0 至 sev4。");
-        var result = await new IncidentWorkflowService(db, applicationAccess).ExecuteAsync(User, request, action, cancellationToken);
+        if (!ModelState.IsValid) return BadRequest(localizer["Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4."].Value);
+        var result = await new IncidentWorkflowService(db, applicationAccess, localizer: new StringLocalizer<IncidentWorkflowService>(localizerFactory), localizerFactory: localizerFactory).ExecuteAsync(User, request, action, cancellationToken);
         return result.StatusCode switch
         {
             200 => RedirectToAction(nameof(Details), new { id = request.IncidentId }),

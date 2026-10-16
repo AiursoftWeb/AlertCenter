@@ -18,6 +18,7 @@ public class PushDeliveryWorkerTests
     {
         _databasePath = Path.Combine(Path.GetTempPath(), $"alert-delivery-worker-{Guid.NewGuid():N}.db");
         var services = new ServiceCollection();
+        services.AddLocalization(options => options.ResourcesPath = "Resources");
         services.AddLogging();
         services.AddDbContext<SqliteContext>(options => options.UseSqlite($"DataSource={_databasePath};Pooling=False"));
         services.AddScoped<TemplateDbContext>(provider => provider.GetRequiredService<SqliteContext>());
@@ -58,7 +59,7 @@ public class PushDeliveryWorkerTests
         _db.ChangeTracker.Clear();
         var deliveries = await _db.PushDeliveries.OrderBy(delivery => delivery.AttemptedAtUtc).ToListAsync();
         Assert.AreEqual(PushDelivery.Failed, deliveries[0].Status);
-        Assert.Contains("结果未知", deliveries[0].Error!);
+        Assert.Contains("result unknown", deliveries[0].Error!);
         Assert.IsNotNull(deliveries[0].CompletedAtUtc);
         Assert.AreEqual(PushDelivery.Sending, deliveries[1].Status);
         Assert.IsNull(deliveries[1].Error);
@@ -89,5 +90,5 @@ public class PushDeliveryWorkerTests
     }
 
     private PushDeliveryWorker Worker() => new(_services.GetRequiredService<IServiceScopeFactory>(),
-        NullLogger<PushDeliveryWorker>.Instance);
+        NullLogger<PushDeliveryWorker>.Instance, localizer: TestLocalization.For<PushDeliveryWorker>());
 }

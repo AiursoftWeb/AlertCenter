@@ -48,7 +48,7 @@ public partial class AlertDemoTests
             }, settingsUrl), settingsUrl);
             Assert.AreEqual(string.IsNullOrEmpty(groupId) ? null : Guid.Parse(groupId), await ApplicationTeam(id));
             var saved = WebUtility.HtmlDecode(await Http.GetStringAsync(settingsUrl));
-            Assert.Contains(string.IsNullOrEmpty(groupId) ? "已解除值班组绑定" : "值班组已更新", saved);
+            Assert.Contains(string.IsNullOrEmpty(groupId) ? "application has been unbound from the on-call group" : "App on-call group updated", saved);
             if (!string.IsNullOrEmpty(groupId)) Assert.Contains($"<option value=\"{groupId}\" selected=\"selected\">", saved);
             var applications = await Http.GetStringAsync("/Alerts/Applications");
             Assert.Contains(settingsUrl, applications);
@@ -222,7 +222,7 @@ public partial class AlertDemoTests
         }
         var detailsUrl = $"/OnCall/GroupDetails/{groupId}";
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync(detailsUrl));
-        Assert.Contains("已绑定接入应用", details);
+        Assert.Contains("bound to an integrated app", details);
         Assert.DoesNotContain("action=\"/OnCall/DeleteGroup\"", details);
         using var blocked = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, $"/Alerts/OnCall/{id}");
         Assert.AreEqual(HttpStatusCode.Conflict, blocked.StatusCode);

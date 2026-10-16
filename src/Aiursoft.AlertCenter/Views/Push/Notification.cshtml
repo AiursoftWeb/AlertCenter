@@ -1,9 +1,8 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
-@using Aiursoft.AlertCenter.Entities
 @{
     var notification = Model.Notifications.Single();
     var message = notification.Delivery.Message;
-    ViewData["Title"] = $"通知详情 - {message?.Title ?? "渠道测试通知"}";
+    ViewData["Title"] = string.Format(@Localizer["Notification details - {0}"].Value, message?.Title ?? @Localizer["Channel test notification"].Value);
     var isUnread = notification.ReadAtUtc == null;
     var levelBadge = message?.Level switch
     {
@@ -22,15 +21,15 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div class="d-flex align-items-center gap-2">
         <a asp-action="Inbox" class="btn btn-outline-secondary">
-            <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>返回站内通知
+            <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>@Localizer["Back to In-App Notifications"]
         </a>
         @if (isUnread)
         {
-            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">未读通知</span>
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">@Localizer["Unread notifications"]</span>
         }
         else
         {
-            <span class="badge bg-light text-muted border">已读</span>
+            <span class="badge bg-light text-muted border">@Localizer["Read"]</span>
         }
     </div>
     <div class="d-flex align-items-center gap-2">
@@ -39,14 +38,14 @@
             <form asp-action="MarkRead" asp-route-returnToNotification="true" method="post" data-action-feedback>
                 <input type="hidden" name="id" value="@notification.Id" />
                 <button class="btn btn-outline-primary">
-                    <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>标为已读
+                    <i class="align-middle me-1" data-lucide="check" aria-hidden="true"></i>@Localizer["Mark as read"]
                 </button>
             </form>
         }
         @if (message != null)
         {
             <a asp-controller="Alerts" asp-action="Details" asp-route-id="@message.Id" class="btn btn-outline-secondary">
-                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>查看原始告警
+                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>@Localizer["View original alert"]
             </a>
         }
     </div>
@@ -68,21 +67,21 @@
                 @notification.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
             </span>
         </div>
-        <h1 class="h3 mb-1 text-break">@(message?.Title ?? "渠道测试通知")</h1>
+        <h1 class="h3 mb-1 text-break">@(message?.Title ?? @Localizer["Channel test notification"].Value)</h1>
         <small class="text-muted">
-            @(notification.Delivery.Channel != null ? $"通过站内通知渠道 {notification.Delivery.Channel.Name} 派发" : "站内通知派发")
+            @(notification.Delivery.Channel != null ? string.Format(@Localizer["Dispatched via in-app notification channel {0}"].Value, notification.Delivery.Channel.Name) : @Localizer["In-app notification dispatch"].Value)
             @if (notification.ReadAtUtc != null)
             {
-                <span> · 已于 @notification.ReadAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") UTC 阅读</span>
+                <span> · @Localizer["At "]@notification.ReadAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") UTC @Localizer["Read"]</span>
             }
         </small>
     </div>
     <div class="card-body py-4">
-        <h2 class="h6 text-uppercase text-muted fw-semibold mb-3">通知正文内容</h2>
+        <h2 class="h6 text-uppercase text-muted fw-semibold mb-3">@Localizer["Notification Body Content"]</h2>
         @{
-            var body = message == null ? notification.Delivery.TestContent ?? PushDelivery.DefaultTestContent : message.Content;
+            var body = message == null ? notification.Delivery.TestContent ?? @Localizer["This is a test message for the push channel."].Value : message.Content;
         }
-        <div class="ac-prose">@(string.IsNullOrWhiteSpace(body) ? "无正文内容" : body)</div>
+        <div class="ac-prose">@(string.IsNullOrWhiteSpace(body) ? @Localizer["No body content"].Value : body)</div>
     </div>
 </div>
 
@@ -94,10 +93,10 @@
             <div class="ac-code-header">
                 <div class="d-flex align-items-center gap-2">
                     <i data-lucide="braces" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
-                    <span class="fw-semibold">业务上下文 (Context JSON)</span>
+                    <span class="fw-semibold">@Localizer["Business Context (Context JSON)"]</span>
                 </div>
                 <button type="button" class="ac-copy-btn" data-copy-target="notification-context-code" data-copy-feedback="notification-copy-feedback">
-                    <i data-lucide="copy" style="width: 12px; height: 12px;" aria-hidden="true"></i>复制 JSON
+                    <i data-lucide="copy" style="width: 12px; height: 12px;" aria-hidden="true"></i>@Localizer["Copy JSON"]
                 </button>
             </div>
             <pre class="ac-code-pre"><code id="notification-context-code">@message.ContextJson</code></pre>

@@ -1,4 +1,6 @@
 (() => {
+    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
+
     const form = document.getElementById('oncall-group-form');
     if (!form) return;
     const search = document.getElementById('oncall-user-search');
@@ -30,7 +32,7 @@
             const remove = document.createElement('button');
             remove.type = 'button';
             remove.className = 'btn btn-sm btn-outline-danger';
-            remove.textContent = '移除';
+            remove.textContent = (messages["Remove"] ?? "Remove");
             remove.addEventListener('click', () => {
                 selectedUsers.delete(user.id);
                 renderSelected();
@@ -61,7 +63,7 @@
                 if (checkbox.checked) {
                     if (selectedUsers.size >= 200) {
                         checkbox.checked = false;
-                        status.textContent = '每个团队最多选择 200 名员工。';
+                        status.textContent = (messages["Select up to 200 employees per team."] ?? "Select up to 200 employees per team.");
                         return;
                     }
                     selectedUsers.set(user.id, user);
@@ -75,8 +77,8 @@
             label.append(checkbox, text);
             results.append(label);
         }
-        if (!users.length) status.textContent = '没有匹配的员工。';
-        pageLabel.textContent = users.length ? `第 ${page} 页` : '';
+        if (!users.length) status.textContent = (messages["No matching employees."] ?? "No matching employees.");
+        pageLabel.textContent = users.length ? (messages["Page {0}"] ?? "Page {0}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(page)][Number(index)] ?? placeholder) : '';
         prev.disabled = page === 1;
         next.disabled = !hasMore;
     }
@@ -86,22 +88,22 @@
         results.replaceChildren();
         prev.disabled = true;
         next.disabled = true;
-        status.textContent = '正在查找员工…';
+        status.textContent = (messages["Searching for employees…"] ?? "Searching for employees…");
         try {
             const url = new URL(searchUrl, window.location.origin);
             url.searchParams.set('query', role.value ? '' : search.value.trim());
             url.searchParams.set('roleId', role.value);
             url.searchParams.set('page', page);
             const response = await fetch(url, { credentials: 'same-origin' });
-            if (!response.ok) throw new Error('无法查询员工。');
+            if (!response.ok) throw new Error((messages["Unable to query employee."] ?? "Unable to query employee."));
             const data = await response.json();
             if (id !== sequence) return;
             hasMore = data.hasMore;
-            status.textContent = `已选 ${selectedUsers.size} 人；每页最多 20 人。`;
+            status.textContent = (messages["Selected {0} users; maximum 20 per page."] ?? "Selected {0} users; maximum 20 per page.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(selectedUsers.size)][Number(index)] ?? placeholder);
             renderResults(data.users);
         } catch {
             if (id !== sequence) return;
-            status.textContent = '员工查询失败，请重试。';
+            status.textContent = (messages["Failed to query employee. Please try again."] ?? "Failed to query employee. Please try again.");
         }
     }
 

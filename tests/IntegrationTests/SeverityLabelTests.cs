@@ -7,7 +7,7 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 public partial class AlertDemoTests
 {
     [TestMethod]
-    public async Task Sev0UsesChineseLabelAcrossAlertPages()
+    public async Task Sev0UsesConsistentEnglishLabelAcrossAlertPages()
     {
         var key = await CreateApplication();
         var applicationId = Guid.Parse(key.Split('.')[0]);
@@ -27,13 +27,13 @@ public partial class AlertDemoTests
 
         foreach (var (url, expectedLabels) in new[]
         {
-            ("/Dashboard/Index", new[] { "sev0 致命 (1)", "</span> 致命 ·" }),
-            ("/Alerts/Index?level=sev0", new[] { "sev0 致命", "sev0 · 致命 (P0)" }),
-            ("/Incidents/Index?level=sev0", new[] { "sev0 · 致命 (P0)" }),
-            ($"/Incidents/Details/{incidentId}", new[] { "sev0 · 致命 (P0)" }),
-            ("/Push/Inbox?level=sev0", new[] { "sev0 · 致命 (P0)" }),
-            ($"/Push/Bindings/{applicationId}", new[] { "致命 (P0)" }),
-            ("/Alerts/GettingStarted", new[] { "<code>sev0</code>（致命，最高优先级）" })
+            ("/Dashboard/Index", new[] { "sev0 Critical (1)", "</span> Critical ·" }),
+            ("/Alerts/Index?level=sev0", new[] { "sev0 Critical", "sev0 · Critical (P0)" }),
+            ("/Incidents/Index?level=sev0", new[] { "sev0 · Critical (P0)" }),
+            ($"/Incidents/Details/{incidentId}", new[] { "sev0 · Critical (P0)" }),
+            ("/Push/Inbox?level=sev0", new[] { "sev0 · Critical (P0)" }),
+            ($"/Push/Bindings/{applicationId}", new[] { "Critical (P0)" }),
+            ("/Alerts/GettingStarted", new[] { "<code>sev0</code>(Critical, highest priority)" })
         })
         {
             var html = WebUtility.HtmlDecode(await Http.GetStringAsync(url));

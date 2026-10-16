@@ -108,7 +108,7 @@ public partial class PushCenterTests
         await Report(application, Guid.NewGuid());
         var id = (await BuiltInDelivery()).Id;
         var failureSender = new FailingEmailSender();
-        var failing = new PushDeliveryProcessor(_db, [new EmailChannelAdapter(failureSender)], NullLogger<PushDeliveryProcessor>.Instance);
+        var failing = new PushDeliveryProcessor(_db, [new EmailChannelAdapter(failureSender, localizer: TestLocalization.For<EmailChannelAdapter>())], NullLogger<PushDeliveryProcessor>.Instance, localizer: TestLocalization.For<PushDeliveryProcessor>());
         await failing.ProcessAsync(id, default);
         Assert.AreEqual(PushDelivery.Failed, (await BuiltInDelivery()).Status);
         Assert.AreEqual(1, failureSender.Attempts);
@@ -151,7 +151,7 @@ public partial class PushCenterTests
         Assert.AreEqual(201, ((ObjectResult)await Report(application, Guid.NewGuid())).StatusCode);
         var builtIn = await BuiltInDelivery();
         Assert.AreEqual(PushDelivery.Failed, builtIn.Status);
-        Assert.Contains("登记邮箱", builtIn.Error!);
+        Assert.Contains("registered email", builtIn.Error!);
         Assert.AreEqual(0, builtIn.Attempts);
         await _processor.ProcessAsync(builtIn.Id, default);
         Assert.AreEqual(0, _email.Messages.Count);
@@ -251,7 +251,7 @@ public partial class PushCenterTests
         Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
         Assert.AreEqual(1, await _db.OnCallEmailSnapshots.CountAsync());
         Assert.AreEqual(2, (await BuiltInDelivery()).OnCallEmail!.Recipients.Count);
-        Assert.IsInstanceOfType<RedirectToActionResult>(await new AlertsController(_db, new ApplicationAccessService(_db))
+        Assert.IsInstanceOfType<RedirectToActionResult>(await new AlertsController(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<AlertsController>(), localizerFactory: TestLocalization.Factory)
         {
             ControllerContext = Controller().ControllerContext
         }.DeleteApplication(application.Id, application.Name, default));
@@ -268,8 +268,8 @@ public partial class PushCenterTests
         await BindAllLevels(application.Id, webhook.Id);
         await Report(application, Guid.NewGuid());
         var processor = new PushDeliveryProcessor(_db,
-            [new EmailChannelAdapter(new FailingEmailSender()), _adapters.Single(adapter => adapter.Definition.Key == "webhook")],
-            NullLogger<PushDeliveryProcessor>.Instance);
+            [new EmailChannelAdapter(new FailingEmailSender(), localizer: TestLocalization.For<EmailChannelAdapter>()), _adapters.Single(adapter => adapter.Definition.Key == "webhook")],
+            NullLogger<PushDeliveryProcessor>.Instance, localizer: TestLocalization.For<PushDeliveryProcessor>());
         await processor.ProcessAsync((await BuiltInDelivery()).Id, default);
         await processor.ProcessAsync((await _db.PushDeliveries.SingleAsync(delivery => delivery.ChannelId == webhook.Id)).Id, default);
         Assert.AreEqual(PushDelivery.Failed, (await BuiltInDelivery()).Status);

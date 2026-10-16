@@ -42,7 +42,7 @@ public partial class AlertDemoTests
         using var alreadyOwner = await DialogPost("/Incidents/TakeOwnership", await IncidentForm(id), url);
         Assert.AreEqual(HttpStatusCode.BadRequest, alreadyOwner.StatusCode);
         Assert.AreEqual("application/json", alreadyOwner.Content.Headers.ContentType!.MediaType);
-        Assert.AreEqual("你已经是当前负责人。", JObject.Parse(await alreadyOwner.Content.ReadAsStringAsync())["message"]!.Value<string>());
+        Assert.AreEqual("You are already the current assignee.", JObject.Parse(await alreadyOwner.Content.ReadAsStringAsync())["message"]!.Value<string>());
         using var staleResponse = await DialogPost("/Incidents/Mitigate", stale, url);
         Assert.AreEqual(HttpStatusCode.Conflict, staleResponse.StatusCode);
         Assert.IsTrue(JObject.Parse(await staleResponse.Content.ReadAsStringAsync())["refresh"]!.Value<bool>());
@@ -82,7 +82,7 @@ public partial class AlertDemoTests
         }
         using var response = await DialogPost("/OnCall/DeleteRule", new() { ["id"] = ruleId.ToString() }, "/OnCall/Index");
         Assert.AreEqual(HttpStatusCode.Conflict, response.StatusCode);
-        Assert.Contains("仍被团队绑定", JObject.Parse(await response.Content.ReadAsStringAsync())["message"]!.Value<string>()!);
+        Assert.Contains("still bound to a team", JObject.Parse(await response.Content.ReadAsStringAsync())["message"]!.Value<string>()!);
         using var page = await Http.GetAsync("/OnCall/Index");
         var html = await page.Content.ReadAsStringAsync();
         Assert.Contains("data-action-feedback", html);

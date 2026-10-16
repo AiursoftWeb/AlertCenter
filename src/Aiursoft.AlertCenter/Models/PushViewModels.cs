@@ -7,7 +7,7 @@ namespace Aiursoft.AlertCenter.Models;
 
 public class PushViewModel : UiStackLayoutViewModel
 {
-    public PushViewModel() { PageTitle = "推送中心"; }
+    public PushViewModel() { PageTitle = "Notifications"; }
     public List<PushChannel> Channels { get; set; } = [];
     public List<ChannelTypeDefinition> ChannelTypes { get; set; } = [];
     public List<PushDelivery> Deliveries { get; set; } = [];
@@ -45,7 +45,7 @@ public class RecipientSelection
 
 public class PushChannelEditViewModel : UiStackLayoutViewModel
 {
-    public PushChannelEditViewModel() { PageTitle = "配置推送渠道"; }
+    public PushChannelEditViewModel() { PageTitle = "Configure Push Channel"; }
     public string[] RecipientUserIds { get; set; } = [];
     public string[] RecipientRoleIds { get; set; } = [];
     public string[] BindingUserIds { get; set; } = [];

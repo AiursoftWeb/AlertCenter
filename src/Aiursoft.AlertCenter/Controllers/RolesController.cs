@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
@@ -17,10 +18,7 @@ namespace Aiursoft.AlertCenter.Controllers;
 /// </summary>
 [Authorize]
 [LimitPerMin]
-public class RolesController(
-    UserManager<User> userManager,
-    TemplateDbContext context,
-    RoleManager<IdentityRole> roleManager)
+public class RolesController(UserManager<User> userManager, TemplateDbContext context, RoleManager<IdentityRole> roleManager, IStringLocalizer<RolesController> localizer)
     : Controller
 {
     // GET: Roles
@@ -179,7 +177,7 @@ public class RolesController(
 
         var knownPermissions = AppPermissions.GetAllPermissions().Select(permission => permission.Key).ToHashSet();
         if (model.Claims.Any(claim => !knownPermissions.Contains(claim.Key)))
-            return BadRequest("所选权限不存在，请刷新页面后重试。");
+            return BadRequest(localizer["The selected permission does not exist. Please refresh the page and try again."].Value);
         var existingClaims = await roleManager.GetClaimsAsync(role);
         var existingPermissionKeys = existingClaims.Where(claim => claim.Type == AppPermissions.Type)
             .Select(claim => claim.Value).ToHashSet();

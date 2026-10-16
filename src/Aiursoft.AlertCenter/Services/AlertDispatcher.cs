@@ -1,5 +1,6 @@
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
@@ -18,7 +19,7 @@ public interface IAlertDispatcher
     Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default);
 }
 
-public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incidentMatcher) : IAlertDispatcher
+public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incidentMatcher, IStringLocalizerFactory localizerFactory) : IAlertDispatcher
 {
     public async Task DispatchAsync(ReportedMessage message, CancellationToken cancellationToken = default)
     {
@@ -29,7 +30,7 @@ public class QueuedAlertDispatcher(TemplateDbContext db, IIncidentMatcher incide
             message.IsArchived = true;
             return;
         }
-        await OnCallEmailQueue.CreateAsync(db, message, cancellationToken);
+        await OnCallEmailQueue.CreateAsync(db, message, cancellationToken, localizer: localizerFactory.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
         var channels = await db.ApplicationPushChannels.AsNoTracking()
             .Where(link => link.ApplicationId == message.ApplicationId && link.Channel.IsEnabled &&
                 ((message.Level == "sev0" && link.ReceiveSev0) ||

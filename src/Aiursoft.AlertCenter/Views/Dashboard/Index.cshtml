@@ -13,10 +13,10 @@
 
     string IncidentStatusText(string status) => status switch
     {
-        Incident.New => "待响应",
-        Incident.Acked => "已确认",
-        Incident.Mitigated => "已缓解",
-        Incident.Resolved => "已解决",
+        Incident.New => @Localizer["Pending Response"].Value,
+        Incident.Acked => @Localizer["Acknowledged"].Value,
+        Incident.Mitigated => @Localizer["Mitigated"].Value,
+        Incident.Resolved => @Localizer["Resolved"].Value,
         _ => status
     };
 }
@@ -26,19 +26,19 @@
     <div>
         <div class="d-flex align-items-center gap-2 mb-1">
             <span class="ac-status-dot dot-success ac-pulse"></span>
-            <h1 class="h3 mb-0">监控仪表盘</h1>
+            <h1 class="h3 mb-0">@Localizer["Monitoring Dashboard"]</h1>
         </div>
-        <p class="text-muted mb-0">AlertCenter 告警与运维中心 · 全局态势与闭环跟踪</p>
+        <p class="text-muted mb-0">@Localizer["AlertCenter Alerting & Operations Center · Global Status & Closed-Loop Tracking"]</p>
     </div>
     <div class="d-flex flex-wrap align-items-center gap-2">
         <span class="badge bg-body-secondary text-body border px-3 py-2">
             <i class="align-middle me-1" data-lucide="clock"></i><span id="utc-clock">@DateTime.UtcNow.ToString("HH:mm:ss") UTC</span>
         </span>
         <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-outline-primary">
-            <i class="align-middle me-1" data-lucide="book-open"></i>接入指南
+            <i class="align-middle me-1" data-lucide="book-open"></i>@Localizer["Integration Guide"]
         </a>
         <a asp-controller="Alerts" asp-action="Applications" class="btn btn-primary">
-            <i class="align-middle me-1" data-lucide="plus"></i>接入应用
+            <i class="align-middle me-1" data-lucide="plus"></i>@Localizer["Applications"]
         </a>
     </div>
 </div>
@@ -49,17 +49,17 @@
         <div class="card ac-stat-card h-100 mb-0">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted small fw-medium">接入应用</span>
+                    <span class="text-muted small fw-medium">@Localizer["Applications"]</span>
                     <div class="ac-stat-icon icon-primary">
                         <i data-lucide="app-window"></i>
                     </div>
                 </div>
                 <div class="d-flex align-items-baseline justify-content-between">
                     <h2 class="h1 mb-0 fw-bold">@Model.TotalApplications</h2>
-                    <a asp-controller="Alerts" asp-action="Applications" class="small text-primary text-decoration-none">管理应用 <i class="align-middle" data-lucide="chevron-right"></i></a>
+                    <a asp-controller="Alerts" asp-action="Applications" class="small text-primary text-decoration-none">@Localizer["Manage applications"] <i class="align-middle" data-lucide="chevron-right"></i></a>
                 </div>
                 <div class="mt-2 text-muted small">
-                    <span>独立 API Key 鉴权</span>
+                    <span>@Localizer["Dedicated API Key Authentication"]</span>
                 </div>
             </div>
         </div>
@@ -69,17 +69,17 @@
         <div class="card ac-stat-card h-100 mb-0">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted small fw-medium">告警消息总数</span>
+                    <span class="text-muted small fw-medium">@Localizer["Total alert messages"]</span>
                     <div class="ac-stat-icon icon-indigo">
                         <i data-lucide="bell"></i>
                     </div>
                 </div>
                 <div class="d-flex align-items-baseline justify-content-between">
                     <h2 class="h1 mb-0 fw-bold">@Model.TotalMessages</h2>
-                    <a asp-controller="Alerts" asp-action="Index" class="small text-primary text-decoration-none">全部记录 <i class="align-middle" data-lucide="chevron-right"></i></a>
+                    <a asp-controller="Alerts" asp-action="Index" class="small text-primary text-decoration-none">@Localizer["All records"] <i class="align-middle" data-lucide="chevron-right"></i></a>
                 </div>
                 <div class="mt-2 text-muted small">
-                    <span class="fw-semibold" style="color: var(--ac-sev0);">@Model.Sev0Count</span> 致命 · <span class="text-danger fw-semibold">@Model.Sev1Count</span> 严重 · <span class="text-warning fw-semibold">@Model.Sev2Count</span> 错误
+                    <span class="fw-semibold" style="color: var(--ac-sev0);">@Model.Sev0Count</span> @Localizer["Critical ·"] <span class="text-danger fw-semibold">@Model.Sev1Count</span> @Localizer["Major ·"] <span class="text-warning fw-semibold">@Model.Sev2Count</span> @Localizer["Error"]
                 </div>
             </div>
         </div>
@@ -89,23 +89,23 @@
         <div class="card ac-stat-card h-100 mb-0">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted small fw-medium">进行中事故</span>
+                    <span class="text-muted small fw-medium">@Localizer["Ongoing Incident"]</span>
                     <div class="ac-stat-icon @(Model.ActiveIncidents > 0 ? "icon-danger" : "icon-success")">
                         <i data-lucide="@(Model.ActiveIncidents > 0 ? "siren" : "shield-check")"></i>
                     </div>
                 </div>
                 <div class="d-flex align-items-baseline justify-content-between">
                     <h2 class="h1 mb-0 fw-bold @(Model.ActiveIncidents > 0 ? "text-danger" : "text-success")">@Model.ActiveIncidents</h2>
-                    <a asp-controller="Incidents" asp-action="Index" class="small text-primary text-decoration-none">事故响应 <i class="align-middle" data-lucide="chevron-right"></i></a>
+                    <a asp-controller="Incidents" asp-action="Index" class="small text-primary text-decoration-none">@Localizer["Incident response"] <i class="align-middle" data-lucide="chevron-right"></i></a>
                 </div>
                 <div class="mt-2 text-muted small">
                     @if (Model.ActiveIncidents > 0)
                     {
-                        <span class="text-danger"><i class="align-middle me-1" data-lucide="alert-triangle"></i>需立即处理</span>
+                        <span class="text-danger"><i class="align-middle me-1" data-lucide="alert-triangle"></i>@Localizer["Requires Immediate Action"]</span>
                     }
                     else
                     {
-                        <span class="text-success"><i class="align-middle me-1" data-lucide="check-circle-2"></i>当前无未解决事故</span>
+                        <span class="text-success"><i class="align-middle me-1" data-lucide="check-circle-2"></i>@Localizer["No unresolved incidents currently"]</span>
                     }
                 </div>
             </div>
@@ -116,17 +116,17 @@
         <div class="card ac-stat-card h-100 mb-0">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted small fw-medium">推送成功率</span>
+                    <span class="text-muted small fw-medium">@Localizer["Push Success Rate"]</span>
                     <div class="ac-stat-icon icon-success">
                         <i data-lucide="send"></i>
                     </div>
                 </div>
                 <div class="d-flex align-items-baseline justify-content-between">
                     <h2 class="h1 mb-0 fw-bold">@(Model.TotalDeliveries > 0 ? $"{deliverySuccessRate}%" : "100%")</h2>
-                    <a asp-controller="Push" asp-action="Records" class="small text-primary text-decoration-none">投递记录 <i class="align-middle" data-lucide="chevron-right"></i></a>
+                    <a asp-controller="Push" asp-action="Records" class="small text-primary text-decoration-none">@Localizer["Delivery Records"] <i class="align-middle" data-lucide="chevron-right"></i></a>
                 </div>
                 <div class="mt-2 text-muted small">
-                    <span>@Model.ChannelsCount 个可用渠道 · @Model.TotalDeliveries 次投递</span>
+                    <span>@Model.ChannelsCount @Localizer["available channels · "]@Model.TotalDeliveries @Localizer[" deliveries"]</span>
                 </div>
             </div>
         </div>
@@ -138,28 +138,28 @@
     <div class="card-body py-3">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
             <div class="d-flex align-items-center gap-2">
-                <span class="text-muted small fw-semibold text-uppercase me-2"><i class="align-middle me-1" data-lucide="layers"></i>级别透视:</span>
-                <a asp-controller="Alerts" asp-action="Index" class="btn btn-sm btn-outline-secondary">全部 (@Model.TotalMessages)</a>
+                <span class="text-muted small fw-semibold text-uppercase me-2"><i class="align-middle me-1" data-lucide="layers"></i>@Localizer["Severity pivot:"]</span>
+                <a asp-controller="Alerts" asp-action="Index" class="btn btn-sm btn-outline-secondary">@Localizer["All "] (@Model.TotalMessages)</a>
                 <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev0" class="btn btn-sm ac-badge-sev0">
-                    <span class="ac-status-dot dot-deadly"></span>sev0 致命 (@Model.Sev0Count)
+                    <span class="ac-status-dot dot-deadly"></span>sev0 @Localizer["Critical"] (@Model.Sev0Count)
                 </a>
                 <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev1" class="btn btn-sm ac-badge-sev1">
-                    <span class="ac-status-dot dot-danger"></span>sev1 严重 (@Model.Sev1Count)
+                    <span class="ac-status-dot dot-danger"></span>sev1 @Localizer["Major"] (@Model.Sev1Count)
                 </a>
                 <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev2" class="btn btn-sm ac-badge-sev2">
-                    <span class="ac-status-dot dot-warning"></span>sev2 错误 (@Model.Sev2Count)
+                    <span class="ac-status-dot dot-warning"></span>sev2 @Localizer["Error "] (@Model.Sev2Count)
                 </a>
                 <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev3" class="btn btn-sm ac-badge-sev3">
-                    <span class="ac-status-dot dot-warning"></span>sev3 警告 (@Model.Sev3Count)
+                    <span class="ac-status-dot dot-warning"></span>sev3 @Localizer["Warning "] (@Model.Sev3Count)
                 </a>
                 <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev4" class="btn btn-sm ac-badge-sev4">
-                    <span class="ac-status-dot dot-info"></span>sev4 信息 (@Model.Sev4Count)
+                    <span class="ac-status-dot dot-info"></span>sev4 @Localizer["Info "] (@Model.Sev4Count)
                 </a>
             </div>
             @if (Model.UnreadNotifications > 0)
             {
                 <a asp-controller="Push" asp-action="Inbox" class="badge bg-primary text-decoration-none py-2 px-3">
-                    <i class="align-middle me-1" data-lucide="bell"></i>@Model.UnreadNotifications 条待读站内通知
+                    <i class="align-middle me-1" data-lucide="bell"></i>@Model.UnreadNotifications @Localizer[" unread in-site notifications"]
                 </a>
             }
         </div>
@@ -175,9 +175,9 @@
                 <div class="card-header bg-danger-subtle d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center gap-2">
                         <i class="align-middle text-danger" data-lucide="alert-triangle"></i>
-                        <h2 class="card-title text-danger mb-0">进行中事故需响应</h2>
+                        <h2 class="card-title text-danger mb-0">@Localizer["Ongoing Incident Requires Response"]</h2>
                     </div>
-                    <a asp-controller="Incidents" asp-action="Index" class="btn btn-sm btn-danger">查看全部事故</a>
+                    <a asp-controller="Incidents" asp-action="Index" class="btn btn-sm btn-danger">@Localizer["View all incidents"]</a>
                 </div>
                 <div class="list-group list-group-flush">
                     @foreach (var incident in Model.RecentIncidents)
@@ -188,7 +188,7 @@
                                     <span class="badge bg-danger">@IncidentStatusText(incident.Status)</span>
                                     <strong class="text-break">@incident.Title</strong>
                                 </div>
-                                <small class="text-muted">来源: @incident.Application.Name · 匹配规则: @(incident.IncidentKey ?? incident.AlertTitle)</small>
+                                <small class="text-muted">@Localizer["Source"]: @incident.Application.Name · @Localizer["Matching rules"]: @(incident.IncidentKey ?? incident.AlertTitle)</small>
                             </div>
                             <span class="text-muted small text-nowrap">@incident.TriggeredAtUtc.ToString("HH:mm:ss") UTC</span>
                         </a>
@@ -201,11 +201,11 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
-                    <h2 class="card-title mb-0">实时告警流</h2>
-                    <small class="text-muted">最近上报的业务事件与故障提醒</small>
+                    <h2 class="card-title mb-0">@Localizer["Real-time Alert Stream"]</h2>
+                    <small class="text-muted">@Localizer["Recent reported business events and failure alerts"]</small>
                 </div>
                 <a asp-controller="Alerts" asp-action="Index" class="btn btn-sm btn-outline-primary">
-                    查看全部消息 <i class="align-middle" data-lucide="arrow-right"></i>
+                    @Localizer["View all messages"] <i class="align-middle" data-lucide="arrow-right"></i>
                 </a>
             </div>
             @if (Model.RecentMessages.Count == 0)
@@ -214,10 +214,10 @@
                     <div class="ac-empty-icon">
                         <i data-lucide="bell-off"></i>
                     </div>
-                    <h3 class="h5">暂无告警消息</h3>
-                    <p class="text-muted mb-4">通过 API 或 SDK 发送第一条告警，实时告警流将在这里展示。</p>
+                    <h3 class="h5">@Localizer["No alert messages"]</h3>
+                    <p class="text-muted mb-4">@Localizer["Send the first alert via API or SDK; the real-time alert stream will be displayed here."]</p>
                     <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-primary">
-                        <i class="align-middle me-1" data-lucide="rocket"></i>快速开始接入
+                        <i class="align-middle me-1" data-lucide="rocket"></i>@Localizer["Quick Start Integration"]
                     </a>
                 </div>
             }
@@ -227,11 +227,11 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead>
                             <tr>
-                                <th class="ps-3" style="width: 90px;">级别</th>
-                                <th>消息标题</th>
-                                <th>来源应用</th>
-                                <th>关联事故</th>
-                                <th class="text-end pe-3">时间</th>
+                                <th class="ps-3" style="width: 90px;">@Localizer["Severity"]</th>
+                                <th>@Localizer["Message title"]</th>
+                                <th>@Localizer["Source application"]</th>
+                                <th>@Localizer["Linked Incident"]</th>
+                                <th class="text-end pe-3">@Localizer["Time"]</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -298,26 +298,26 @@
         <!-- Quick Report cURL Snippet -->
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="terminal"></i>快速上报示例</h2>
+                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="terminal"></i>@Localizer["Quick Report Example"]</h2>
                 <span class="badge bg-secondary-subtle text-secondary">HTTP POST</span>
             </div>
             <div class="card-body pt-0">
-                <p class="small text-muted mb-2">使用 Bearer 鉴权上报测试告警：</p>
+                <p class="small text-muted mb-2">@Localizer["Use Bearer authentication to report test alerts:"]</p>
                 <div class="ac-code-container mb-3">
                     <div class="ac-code-header">
                         <span>cURL</span>
                         <button type="button" class="ac-copy-btn" id="copy-dashboard-curl">
-                            <i class="align-middle" data-lucide="copy"></i>复制
+                            <i class="align-middle" data-lucide="copy"></i>@Localizer["Copy"]
                         </button>
                     </div>
                     <pre class="ac-code-pre" id="dashboard-curl-code"><code>curl -X POST '@endpoint' \
   -H 'Authorization: Bearer &lt;YOUR_API_KEY&gt;' \
   -H 'Content-Type: application/json' \
-  -d '{"reportId":"@Guid.NewGuid()","title":"服务健康检查异常","level":"sev2","occurredAtUtc":"@DateTime.UtcNow.ToString("O")"}'</code></pre>
+  -d '{"reportId":"@Guid.NewGuid()","title":"Service health check failed","level":"sev2","occurredAtUtc":"@DateTime.UtcNow.ToString("O")"}'</code></pre>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
-                    <small class="text-muted">支持 .NET SDK / Go / Webhook</small>
-                    <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-sm btn-outline-primary">详细接入文档</a>
+                    <small class="text-muted">@Localizer["Supports .NET SDK / Go / Webhook"]</small>
+                    <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-sm btn-outline-primary">@Localizer["Detailed Integration Documentation"]</a>
                 </div>
             </div>
         </div>
@@ -325,7 +325,7 @@
         <!-- System Routing & Destinations -->
         <div class="card mb-4">
             <div class="card-header">
-                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="route"></i>通知推送中心</h2>
+                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="route"></i>@Localizer["Notification Push Center"]</h2>
             </div>
             <div class="card-body pt-0">
                 <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-body-tertiary rounded">
@@ -333,8 +333,8 @@
                         <i data-lucide="webhook"></i>
                     </div>
                     <div class="flex-grow-1">
-                        <strong class="d-block">Webhook 自动调度</strong>
-                        <small class="text-muted">支持自定义请求头与 JSON 模板</small>
+                        <strong class="d-block">@Localizer["Webhook Auto-Scheduling"]</strong>
+                        <small class="text-muted">@Localizer["Supports custom request headers and JSON templates"]</small>
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-body-tertiary rounded">
@@ -342,8 +342,8 @@
                         <i data-lucide="inbox"></i>
                     </div>
                     <div class="flex-grow-1">
-                        <strong class="d-block">站内通知 Inbox</strong>
-                        <small class="text-muted">直达责任人与用户组协同处置</small>
+                        <strong class="d-block">@Localizer["In-app notification Inbox"]</strong>
+                        <small class="text-muted">@Localizer["Directly engage responsible parties and user groups for collaborative handling"]</small>
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-body-tertiary rounded">
@@ -351,12 +351,12 @@
                         <i data-lucide="mail"></i>
                     </div>
                     <div class="flex-grow-1">
-                        <strong class="d-block">SMTP 邮件通道</strong>
-                        <small class="text-muted">批量派发值班群与关键邮箱</small>
+                        <strong class="d-block">@Localizer["SMTP Email Channel"]</strong>
+                        <small class="text-muted">@Localizer["Batch dispatch to on-call groups and key emails"]</small>
                     </div>
                 </div>
                 <a asp-controller="Push" asp-action="Index" class="btn btn-outline-secondary w-100">
-                    <i class="align-middle me-1" data-lucide="sliders"></i>配置推送渠道
+                    <i class="align-middle me-1" data-lucide="sliders"></i>@Localizer["Configure Push Channel"]
                 </a>
             </div>
         </div>
@@ -364,25 +364,25 @@
         <!-- 4-Step Process -->
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="workflow"></i>运维处置闭环</h2>
+                <h2 class="card-title mb-0"><i class="align-middle me-2" data-lucide="workflow"></i>@Localizer["Ops Response Closure"]</h2>
             </div>
             <div class="card-body pt-0">
                 <ol class="list-unstyled mb-0">
                     <li class="d-flex gap-3 mb-3">
                         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">1</span>
-                        <div><strong>创建应用并获取 Key</strong><p class="text-muted small mb-0">在“接入应用”签发专属凭据。</p></div>
+                        <div><strong>@Localizer["Create Application and Get Key"]</strong><p class="text-muted small mb-0">@Localizer["Issue dedicated credentials in “Integrated Apps.”"]</p></div>
                     </li>
                     <li class="d-flex gap-3 mb-3">
                         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">2</span>
-                        <div><strong>关联推送渠道</strong><p class="text-muted small mb-0">在应用的推送设置中按 Sev0-Sev4 路由。</p></div>
+                        <div><strong>@Localizer["Linked Push Channel"]</strong><p class="text-muted small mb-0">@Localizer["Route by Sev0-Sev4 in the app’s push settings."]</p></div>
                     </li>
                     <li class="d-flex gap-3 mb-3">
                         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">3</span>
-                        <div><strong>消息自动投递与排查</strong><p class="text-muted small mb-0">中心异步投递通知，支持记录回溯与重试。</p></div>
+                        <div><strong>@Localizer["Automatic message delivery and troubleshooting"]</strong><p class="text-muted small mb-0">@Localizer["The center delivers notifications asynchronously, supporting record tracing and retries."]</p></div>
                     </li>
                     <li class="d-flex gap-3">
                         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">4</span>
-                        <div><strong>事故触发与协同解决</strong><p class="text-muted small mb-0">关联告警记录处置时间线并解决关闭。</p></div>
+                        <div><strong>@Localizer["Incident triggering and collaborative resolution"]</strong><p class="text-muted small mb-0">@Localizer["Linked alert records, handling timeline, and resolution status."]</p></div>
                     </li>
                 </ol>
             </div>
@@ -391,14 +391,18 @@
 </div>
 
 @section scripts {
-    <script>
+    <script>{
+        const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
         document.getElementById('copy-dashboard-curl')?.addEventListener('click', async function () {
             const code = document.getElementById('dashboard-curl-code').innerText;
             try {
                 await navigator.clipboard.writeText(code);
-                this.innerHTML = '<i class="align-middle" data-lucide="check"></i> 已复制';
+                this.innerHTML = '<i class="align-middle me-1" data-lucide="check"></i>';
+                this.appendChild(document.createTextNode(messages["Copied"] ?? "Copied"));
                 setTimeout(() => {
-                    this.innerHTML = '<i class="align-middle" data-lucide="copy"></i> 复制';
+
+                    this.innerHTML = '<i class="align-middle me-1" data-lucide="copy"></i>';
+                    this.appendChild(document.createTextNode(messages["Copy"] ?? "Copy"));
                     if (window.lucide) lucide.createIcons({ nodes: [this] });
                 }, 2000);
             } catch {
@@ -415,5 +419,5 @@
                 clock.textContent = `${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}:${pad(now.getUTCSeconds())} UTC`;
             }
         }, 1000);
-    </script>
+    }</script>
 }

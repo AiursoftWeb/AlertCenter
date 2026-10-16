@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public class ActionFeedbackFilter(IUrlHelperFactory urlHelperFactory) : IAsyncResultFilter
+public class ActionFeedbackFilter(IUrlHelperFactory urlHelperFactory, IStringLocalizer<ActionFeedbackFilter> localizer) : IAsyncResultFilter
 {
     public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
     {
@@ -32,7 +33,7 @@ public class ActionFeedbackFilter(IUrlHelperFactory urlHelperFactory) : IAsyncRe
         else if (context.Result is ViewResult && !context.ModelState.IsValid)
         {
             var messages = context.ModelState.Values.SelectMany(value => value.Errors)
-                .Select(modelError => string.IsNullOrWhiteSpace(modelError.ErrorMessage) ? "输入内容无效，请检查后重试。" : modelError.ErrorMessage).Distinct();
+                .Select(modelError => string.IsNullOrWhiteSpace(modelError.ErrorMessage) ? localizer["Invalid input. Please check and try again."].Value : modelError.ErrorMessage).Distinct();
             context.Result = new JsonResult(new { message = string.Join('\n', messages), refresh = false }) { StatusCode = 400 };
         }
         await next();

@@ -7,7 +7,7 @@
                 <div class="mb-3">
                     <img src="@Model.LogoUrl" alt="logo" style="width: 24px; height: 24px;" loading="lazy" />
                 </div>
-                <p class="text-white-50">AlertCenter 是面向业务系统的集中告警与通知平台，帮助团队快速发现、分级处置并可靠投递生产环境异常。</p>
+                <p class="text-white-50">@Localizer["AlertCenter is a centralized alerting and notification platform for business systems, helping teams rapidly detect, prioritize, and reliably deliver production environment anomalies."]</p>
                 <div class="dropdown mt-3 mb-3">
                     @{
                         var currentCulture = ViewContext.HttpContext.Features
@@ -30,9 +30,9 @@
             <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">
                 <h4 class="text-light fs-5">@Localizer["Resources"]</h4>
                 <ul class="list-unstyled ps-0 mb-0 mt-3">
-                    <li class="mt-2"><a asp-controller="Alerts" asp-action="GettingStarted" class="text-white-50">接入指南</a></li>
-                    <li class="mt-2"><a asp-controller="Alerts" asp-action="Applications" class="text-white-50">接入应用</a></li>
-                    <li class="mt-2"><a asp-controller="Push" asp-action="Inbox" class="text-white-50">站内通知</a></li>
+                    <li class="mt-2"><a asp-controller="Alerts" asp-action="GettingStarted" class="text-white-50">@Localizer["Integration Guide"]</a></li>
+                    <li class="mt-2"><a asp-controller="Alerts" asp-action="Applications" class="text-white-50">@Localizer["Applications"]</a></li>
+                    <li class="mt-2"><a asp-controller="Push" asp-action="Inbox" class="text-white-50">@Localizer["In-app notifications"]</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-4 col-lg-2 mb-3 mb-md-0">

@@ -7,7 +7,7 @@ namespace Aiursoft.AlertCenter.Models;
 
 public class ApplicationAccessViewModel : UiStackLayoutViewModel
 {
-    public ApplicationAccessViewModel() => PageTitle = "应用访问权限";
+    public ApplicationAccessViewModel() => PageTitle = "Application Access Permissions";
     public SourceApplication Application { get; set; } = null!;
     public List<ApplicationUserAccess> UserAccesses { get; set; } = [];
     public List<ApplicationRoleAccess> RoleAccesses { get; set; } = [];

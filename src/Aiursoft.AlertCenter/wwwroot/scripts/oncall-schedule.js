@@ -1,4 +1,6 @@
 (() => {
+    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
+
     const root = document.getElementById('oncall-schedule');
     if (!root) return;
     const original = JSON.parse(root.dataset.slots);
@@ -43,9 +45,9 @@
         if (generate) generate.disabled = dirty || saving;
         document.getElementById('oncall-undo-schedule').disabled = !history.length || saving;
         document.getElementById('oncall-reset-schedule').disabled = !dirty || saving;
-        document.getElementById('oncall-edit-count').textContent = `已修改 ${changed} 个班次${weekChanged(0) ? ' · 含上一周' : ''}${weekChanged(2) ? ' · 含下一周' : ''}`;
+        document.getElementById('oncall-edit-count').textContent = (messages["Modified {0} shifts{1}{2}"] ?? "Modified {0} shifts{1}{2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(changed), String(weekChanged(0) ? (messages[" · includes previous week"] ?? " · includes previous week") : ''), String(weekChanged(2) ? (messages[" · includes next week"] ?? " · includes next week") : '')][Number(index)] ?? placeholder);
         if (badge) {
-            badge.textContent = dirty ? '未保存 · 调整草稿' : originalBadge;
+            badge.textContent = dirty ? (messages["Unsaved · Adjustment draft"] ?? "Unsaved · Adjustment draft") : originalBadge;
             badge.className = dirty ? 'badge bg-warning text-dark' : originalBadgeClass;
         }
         syncMode();
@@ -67,7 +69,7 @@
                 const index = Number(cell.dataset.slot);
                 const assigned = slots[index].userIds.includes(row.dataset.userId);
                 cell.tabIndex = !saving && mode === 'add' && !assigned && row.dataset.departed !== 'true' ? 0 : -1;
-                cell.setAttribute('aria-label', `${row.dataset.name} · ${slots[index].localStart} · ${mode === 'add' ? '添加值班' : '移动选中班次到此处'}`);
+                cell.setAttribute('aria-label', (messages["{0} · {1} · {2}"] ?? "{0} · {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(slots[index].localStart), String(mode === 'add' ? (messages["Add on-call shift"] ?? "Add on-call shift") : (messages["Move selected shift here"] ?? "Move selected shift here"))][Number(index)] ?? placeholder));
             });
         });
     }
@@ -78,9 +80,9 @@
         clearSelection();
         suppressClick = false;
         const help = document.getElementById('oncall-mode-help');
-        if (help) help.textContent = mode === 'add' ? '添加模式：点击工程师所在行的空格，添加一个 8 小时班次；允许多人同班。'
-            : mode === 'remove' ? '删除模式：点击色块，删除该工程师的本次值班；可撤销，统一保存后生效。'
-            : '当前为移动 / 交换模式。添加或删除班次时，请先切换上方模式。';
+        if (help) help.textContent = mode === 'add' ? (messages["Add mode: Click the empty space in the engineer's row to add an 8-hour shift; multiple people can share a shift."] ?? "Add mode: Click the empty space in the engineer's row to add an 8-hour shift; multiple people can share a shift.")
+            : mode === 'remove' ? (messages["Delete mode: Click a color block to remove this engineer's current shift. This action can be undone and takes effect after saving all changes."] ?? "Delete mode: Click a color block to remove this engineer's current shift. This action can be undone and takes effect after saving all changes.")
+            : (messages["Currently in Move/Swap mode. Switch the mode above before adding or removing shifts."] ?? "Currently in Move/Swap mode. Switch the mode above before adding or removing shifts.");
         status.textContent = '';
         syncMode();
     }
@@ -90,13 +92,13 @@
         if (target.slot === null || target.week) return;
         const assigned = slots[target.slot].userIds;
         const index = assigned.indexOf(target.user);
-        if (mode === 'add' && index !== -1) { status.textContent = '该工程师已在此班次，无需重复添加。'; return; }
-        if (mode === 'remove' && index === -1) { status.textContent = '此格没有需要删除的班次。'; return; }
+        if (mode === 'add' && index !== -1) { status.textContent = (messages["This engineer is already assigned to this shift. No need to add them again."] ?? "This engineer is already assigned to this shift. No need to add them again."); return; }
+        if (mode === 'remove' && index === -1) { status.textContent = (messages["No shifts to delete in this cell."] ?? "No shifts to delete in this cell."); return; }
         history.push(structuredClone(slots));
         if (mode === 'add') assigned.push(target.user);
         else assigned.splice(index, 1);
         select.value = target.slot;
-        changed(`已${mode === 'add' ? '添加' : '删除'} ${target.name} · ${slots[target.slot].localStart} 的值班；尚未保存，可撤销。`);
+        changed((messages["{0} shift for {1} · {2}; not saved yet. You can undo this."] ?? "{0} shift for {1} · {2}; not saved yet. You can undo this.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(mode === 'add' ? (messages["Added"] ?? "Added") : (messages["Removed"] ?? "Removed")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder));
     }
 
     function showMessages(container, messages) {
@@ -111,11 +113,11 @@
         const warnings = [];
         const active = index => Math.floor(index / 21) === 1 || weekChanged(Math.floor(index / 21));
         const empty = slots.flatMap((slot, index) => !slot.userIds.length && active(index) ? [index] : []);
-        empty.forEach(index => warnings.push(`${slots[index].localStart} 出现空班，请补充人员（所属周需完整 21 班）。`));
+        empty.forEach(index => warnings.push((messages["Gap detected at {0}. Please add staff (the week requires a full 21 shifts)."] ?? "Gap detected at {0}. Please add staff (the week requires a full 21 shifts).").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slots[index].localStart)][Number(index)] ?? placeholder)));
         slots.forEach((slot, index) => {
             const minimum = weeks[Math.floor(index / 21)].minimumStaff;
             if (active(index) && slot.userIds.length > 0 && slot.userIds.length < minimum)
-                warnings.push(`${slot.localStart} 仅安排 ${slot.userIds.length} 人，低于最低 ${minimum} 人；仍允许手动保存。`);
+                warnings.push((messages["{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed."] ?? "{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slot.localStart), String(slot.userIds.length), String(minimum)][Number(index)] ?? placeholder));
         });
         rows.forEach(row => {
             const assigned = slots.flatMap((slot, index) => slot.userIds.includes(row.dataset.userId) ? [index] : []);
@@ -128,11 +130,11 @@
                 if ((active(index) || active(previous)) && rest < requiredRest) {
                     conflicts.add(index);
                     conflicts.add(previous);
-                    warnings.push(`${row.dataset.name}：${slots[previous].localStart} 与 ${slots[index].localStart} 两班之间仅休息 ${rest} 小时，至少需要 ${requiredRest} 小时。`);
+                    warnings.push((messages["{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours."] ?? "{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(rest), String(slots[previous].localStart), String(slots[index].localStart), String(requiredRest)][Number(index)] ?? placeholder));
                 }
             });
             const currentCount = assigned.filter(index => index >= 21 && index < 42).length;
-            row.querySelector('.ac-gantt-hours').textContent = `${currentCount} 班 / ${currentCount * 8} 小时`;
+            row.querySelector('.ac-gantt-hours').textContent = (messages["{0} shifts / {1} hours"] ?? "{0} shifts / {1} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(currentCount), String(currentCount * 8)][Number(index)] ?? placeholder);
             row.querySelectorAll('.ac-gantt-shift:not(.ac-gantt-external)').forEach(shift => shift.remove());
             row.querySelectorAll('.ac-gantt-cell').forEach(cell => cell.classList.toggle('ac-gantt-empty', empty.includes(Number(cell.dataset.slot))));
             assigned.filter(index => index >= 16 && index < 47).forEach(index => {
@@ -156,7 +158,7 @@
                 shift.style.left = `${visibleStart / 168 * 100}%`;
                 shift.style.width = `${(visibleEnd - visibleStart) / 168 * 100}%`;
                 if (!edge) shift.dataset.slot = index;
-                shift.dataset.summary = `${row.dataset.name}${row.dataset.departed === 'true' ? ' · 已退出' : ''}${edge ? ` · ${root.dataset.groupName} · 相邻周（只读）` : ''} · 8 小时 · ${root.dataset.zone}${conflicts.has(index) ? ' · 休息不足' : ''}`;
+                shift.dataset.summary = (messages["{0}{1}{2} · 8 hours · {3}{4}"] ?? "{0}{1}{2} · 8 hours · {3}{4}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(row.dataset.departed === 'true' ? (messages[" · Departed"] ?? " · Departed") : ''), String(edge ? (messages[" · {0} · Adjacent week (read-only)"] ?? " · {0} · Adjacent week (read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder) : ''), String(root.dataset.zone), String(conflicts.has(index) ? (messages[" · Insufficient rest"] ?? " · Insufficient rest") : '')][Number(index)] ?? placeholder);
                 shift.dataset.start = slot.localStart;
                 shift.dataset.end = slot.localEnd;
                 shift.title = `${shift.dataset.summary} · ${slot.localStart} → ${slot.localEnd}`;
@@ -165,10 +167,10 @@
                 if (edge) {
                     const team = document.createElement('span');
                     team.className = 'ac-gantt-time';
-                    team.textContent = `${root.dataset.groupName}（只读）`;
+                    team.textContent = (messages["{0} (Read-only)"] ?? "{0} (Read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder);
                     shift.append(team);
                 }
-                [['起', slot.localStart], ['止', slot.localEnd]].forEach(([label, time], position) => {
+                [[(messages["From"] ?? "From"), slot.localStart], [(messages["End"] ?? "End"), slot.localEnd]].forEach(([label, time], position) => {
                     const span = document.createElement('span');
                     span.className = `ac-gantt-time${position ? ' ac-gantt-time-end' : ''}`;
                     span.textContent = `${label} ${time.slice(11, 16)}`;
@@ -180,11 +182,11 @@
         });
         showMessages(document.getElementById('oncall-draft-errors'), warnings);
         document.getElementById('oncall-draft-validation').hidden = warnings.length === 0;
-        document.getElementById('oncall-draft-summary').textContent = `排班有 ${warnings.length} 处待解决问题（展开查看）；可以继续调整。`;
+        document.getElementById('oncall-draft-summary').textContent = (messages["The schedule has {0} unresolved issues (expand to view); you can continue adjusting."] ?? "The schedule has {0} unresolved issues (expand to view); you can continue adjusting.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(warnings.length)][Number(index)] ?? placeholder);
         const stats = document.querySelectorAll('[data-oncall-stat]');
         const current = weekSlots(slots, 1);
         const covered = current.filter(slot => slot.userIds.length).length;
-        const values = { shifts: covered, staff: new Set(current.flatMap(slot => slot.userIds)).size, hours: `${covered * 8} 小时` };
+        const values = { shifts: covered, staff: new Set(current.flatMap(slot => slot.userIds)).size, hours: (messages["{0} hours"] ?? "{0} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(covered * 8)][Number(index)] ?? placeholder) };
         stats.forEach(stat => stat.textContent = values[stat.dataset.oncallStat]);
         syncMode();
         chart?.dispatchEvent(new Event('oncall-layout'));
@@ -204,7 +206,7 @@
         const detailShift = chart?.querySelector(`.ac-gantt-shift[data-slot="${select.value}"]`) || chart?.querySelector('.ac-gantt-shift:not([hidden])');
         if (detailShift) detailShift.dispatchEvent(new Event('pointerover', { bubbles: true }));
         else {
-            document.getElementById('oncall-shift-summary')?.replaceChildren(document.createTextNode('暂无已分配的班次。'));
+            document.getElementById('oncall-shift-summary')?.replaceChildren(document.createTextNode((messages["No assigned shifts."] ?? "No assigned shifts.")));
             for (const id of ['oncall-shift-start', 'oncall-shift-end']) document.getElementById(id)?.replaceChildren();
         }
     }
@@ -219,17 +221,17 @@
         } else {
             slots[Number(select.value)].userIds = assigned.filter(id => id !== input.value);
         }
-        changed('人员已调整，图表已更新；尚未保存。');
+        changed((messages["Staffing adjusted and chart updated; not saved yet."] ?? "Staffing adjusted and chart updated; not saved yet."));
     }));
     document.getElementById('oncall-undo-schedule').addEventListener('click', () => {
         if (!history.length || saving) return;
         slots = history.pop();
-        changed('已撤销上一步。');
+        changed((messages["Previous step undone."] ?? "Previous step undone."));
     });
     document.getElementById('oncall-reset-schedule')?.addEventListener('click', () => {
         history.push(structuredClone(slots));
         slots = structuredClone(original);
-        changed('已还原为打开页面时的排班。');
+        changed((messages["Restored to the schedule from when the page was opened."] ?? "Restored to the schedule from when the page was opened."));
     });
 
     function targetAt(element) {
@@ -247,29 +249,29 @@
         clearSelection();
         selected = target;
         target.element.classList.add('ac-gantt-selected');
-        status.textContent = target.week ? `已选中 ${target.name} 的整周安排，请拖到或点击另一位工程师。`
-            : `已选中 ${target.name} · ${slots[target.slot].localStart}。拖到或点击色块交换，空格移动；Esc 取消。`;
+        status.textContent = target.week ? (messages["Selected {0}'s full-week schedule. Drag to or click another engineer."] ?? "Selected {0}'s full-week schedule. Drag to or click another engineer.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name)][Number(index)] ?? placeholder)
+            : (messages["Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel."] ?? "Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
         if (!target.week) { select.value = target.slot; renderForm(); }
     }
 
     function drop(source, target) {
         clearSelection();
         if (!target || (!source.week && (target.slot === null || target.week))) {
-            status.textContent = '已取消移动，排班未改变。';
+            status.textContent = (messages["Move cancelled; schedule unchanged."] ?? "Move cancelled; schedule unchanged.");
             return;
         }
         const draft = structuredClone(slots);
         if (source.week) {
-            if (source.user === target.user) { status.textContent = '已取消交换。'; return; }
+            if (source.user === target.user) { status.textContent = (messages["Swap cancelled."] ?? "Swap cancelled."); return; }
             weekSlots(draft, 1).forEach(slot => slot.userIds = slot.userIds.map(id => id === source.user ? target.user : id === target.user ? source.user : id));
         } else {
-            if (source.slot === target.slot && source.user === target.user) { status.textContent = '已取消移动。'; return; }
+            if (source.slot === target.slot && source.user === target.user) { status.textContent = (messages["Move cancelled."] ?? "Move cancelled."); return; }
             const from = draft[source.slot].userIds;
             const to = draft[target.slot].userIds;
             const swap = to.includes(target.user);
-            if (swap && (source.slot === target.slot || source.user === target.user)) { status.textContent = '两处已有相同安排，无需交换。'; return; }
+            if (swap && (source.slot === target.slot || source.user === target.user)) { status.textContent = (messages["Two locations already have the same arrangement; no need to swap."] ?? "Two locations already have the same arrangement; no need to swap."); return; }
             if (swap && (from.includes(target.user) || to.includes(source.user))) {
-                status.textContent = '无法直接交换：其中一人已在目标班次。请先通过「按班次增减人员」调整同班成员。';
+                status.textContent = (messages["Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using \"Add/Remove members by shift\" first."] ?? "Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using \"Add/Remove members by shift\" first.");
                 return;
             }
             from.splice(from.indexOf(source.user), 1);
@@ -278,7 +280,7 @@
         }
         history.push(structuredClone(slots));
         slots = draft;
-        changed(source.week ? `已交换 ${source.name} 与 ${target.name} 的整周安排；尚未保存。` : '班次已调整；可继续拖动解决红色提示，再统一保存。');
+        changed(source.week ? (messages["Swapped the full-week schedule for {0} and {1}. Not saved yet."] ?? "Swapped the full-week schedule for {0} and {1}. Not saved yet.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(source.name), String(target.name)][Number(index)] ?? placeholder) : (messages["Shift adjusted; you can continue dragging to resolve red warnings, then save all changes."] ?? "Shift adjusted; you can continue dragging to resolve red warnings, then save all changes."));
     }
 
     chart?.classList.add('ac-gantt-editable');
@@ -308,7 +310,7 @@
         if (!pointer.dragging) { pointer.dragging = true; pick(pointer.source); }
         chart.classList.add('ac-gantt-dragging');
         ghost.hidden = false;
-        ghost.textContent = `${pointer.source.name} · ${pointer.source.week ? '交换整周' : '移动 / 交换班次'}`;
+        ghost.textContent = (messages["{0} · {1}"] ?? "{0} · {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(pointer.source.week ? (messages["Swap whole week"] ?? "Swap whole week") : (messages["Move / swap shifts"] ?? "Move / swap shifts"))][Number(index)] ?? placeholder);
         ghost.style.left = `${Math.min(event.clientX + 12, window.innerWidth - ghost.offsetWidth)}px`;
         ghost.style.top = `${Math.min(event.clientY + 12, window.innerHeight - ghost.offsetHeight)}px`;
         const bounds = chart.getBoundingClientRect();
@@ -319,8 +321,8 @@
         const target = targetAt(document.elementFromPoint(event.clientX, event.clientY));
         if (target && (pointer.source.week || target.slot !== null)) {
             target.element.classList.add('ac-gantt-drop-target');
-            ghost.textContent = pointer.source.week ? `交换整周：${pointer.source.name} ↔ ${target.name}`
-                : `${target.occupied ? '交换' : '移动到'}：${target.name} · ${slots[target.slot].localStart}`;
+            ghost.textContent = pointer.source.week ? (messages["Swap full week: {0} ↔ {1}"] ?? "Swap full week: {0} ↔ {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(target.name)][Number(index)] ?? placeholder)
+                : (messages["{0}: {1} · {2}"] ?? "{0}: {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.occupied ? (messages["Swap"] ?? "Swap") : (messages["Move to"] ?? "Move to")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
         }
     });
     function endPointer(event, cancel = false) {
@@ -333,7 +335,7 @@
         chart.querySelectorAll('.ac-gantt-drop-target').forEach(item => item.classList.remove('ac-gantt-drop-target'));
         const target = cancel ? null : targetAt(document.elementFromPoint(event.clientX, event.clientY));
         const apply = () => {
-            if (cancel) { clearSelection(); status.textContent = '已取消移动，排班未改变。'; }
+            if (cancel) { clearSelection(); status.textContent = (messages["Move cancelled; schedule unchanged."] ?? "Move cancelled; schedule unchanged."); }
             else if (finished.dragging) drop(finished.source, target);
             else if (selected) drop(selected, finished.source);
             else pick(finished.source);
@@ -350,7 +352,7 @@
         if (pointer) endPointer({ pointerId: pointer.id }, true);
         setMode('move');
         clearSelection();
-        status.textContent = '已取消选择。';
+        status.textContent = (messages["Selection cancelled."] ?? "Selection cancelled.");
     });
     chart?.addEventListener('oncall-edge-change', () => {
         if (pointer) endPointer({ pointerId: pointer.id }, true);
@@ -362,12 +364,12 @@
     function copyNext() {
         if (saving || !weeks[2].available) return;
         if (weekSlots(slots, 1).some(slot => slot.userIds.some(id => departedIds.has(id)))) {
-            showMessages(errors, ['本周包含已退出成员，请先在本周草稿中替换这些人员，再复制到下一周。']);
+            showMessages(errors, [(messages["This week includes members who have left. Please replace them in this week's draft before copying to the next week."] ?? "This week includes members who have left. Please replace them in this week's draft before copying to the next week.")]);
             return;
         }
         history.push(structuredClone(slots));
         weekSlots(slots, 1).forEach((slot, index) => slots[42 + index].userIds = [...slot.userIds]);
-        changed('已将本周当前草稿复制到下一周全部 21 班；尚未保存，可撤销。可展开后 36 小时只读预览；保存后切换到下一周查看或编辑整周。');
+        changed((messages["Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week."] ?? "Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week."));
         const toggle = document.querySelector('[data-oncall-edge="next"]');
         if (toggle?.getAttribute('aria-expanded') === 'false') toggle.click();
     }
@@ -375,7 +377,7 @@
         if (saving) return;
         if (weeks[2].saved || weekChanged(2)) {
             if (copyModal) copyModal.show();
-            else showMessages(errors, ['无法显示替换确认，请刷新页面后重试；下一周草稿未改变。']);
+            else showMessages(errors, [(messages["Unable to display replacement confirmation. Please refresh the page and try again. The next week's draft remains unchanged."] ?? "Unable to display replacement confirmation. Please refresh the page and try again. The next week's draft remains unchanged.")]);
         } else copyNext();
     });
     document.getElementById('oncall-copy-apply')?.addEventListener('click', () => {
@@ -403,7 +405,7 @@
             });
             if (!response.ok) {
                 const result = await response.json();
-                throw new Error((result.errors || ['保存失败，请刷新页面后重试。']).join('\n'));
+                throw new Error((result.errors || [(messages["Save failed. Please refresh the page and try again."] ?? "Save failed. Please refresh the page and try again.")]).join('\n'));
             }
             dirty = false;
             reloading = true;

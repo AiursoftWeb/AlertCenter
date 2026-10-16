@@ -39,8 +39,8 @@ public partial class PushCenterTests
                 ["Webhook:HeaderProtectionKey"] = Convert.ToBase64String(new byte[32])
             }).Build());
         _email = new FakeEmailSender();
-        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector), new InAppChannelAdapter(_db), new EmailChannelAdapter(_email)];
-        _processor = new PushDeliveryProcessor(_db, _adapters, NullLogger<PushDeliveryProcessor>.Instance);
+        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector, localizer: TestLocalization.For<WebhookChannelAdapter>()), new InAppChannelAdapter(_db, localizer: TestLocalization.For<InAppChannelAdapter>()), new EmailChannelAdapter(_email, localizer: TestLocalization.For<EmailChannelAdapter>())];
+        _processor = new PushDeliveryProcessor(_db, _adapters, NullLogger<PushDeliveryProcessor>.Instance, localizer: TestLocalization.For<PushDeliveryProcessor>());
         _channelAccess = new PushChannelAccessService(_db, new ApplicationAccessService(_db));
     }
 
@@ -51,7 +51,7 @@ public partial class PushCenterTests
         _http.Dispose();
     }
 
-    private PushController Controller(string userId = "admin-one", bool administrator = true, params Claim[] claims) => new(_db, _adapters, _processor, _webhookConfigurationProtector, new ApplicationAccessService(_db), _channelAccess)
+    private PushController Controller(string userId = "admin-one", bool administrator = true, params Claim[] claims) => new(_db, _adapters, _processor, _webhookConfigurationProtector, new ApplicationAccessService(_db), _channelAccess, localizer: TestLocalization.For<PushController>(), localizerFactory: TestLocalization.Factory)
     {
         ControllerContext = new ControllerContext
         {
@@ -114,7 +114,7 @@ public partial class PushCenterTests
     private async Task<IActionResult> Report(SourceApplication application, Guid reportId, string level = "sev3")
     {
         _db.ChangeTracker.Clear();
-        var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db)))
+        var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db), localizerFactory: TestLocalization.Factory))
         {
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() }
         };
@@ -358,7 +358,7 @@ public partial class PushCenterTests
         await Controller().Test(channel.Id, CancellationToken.None);
         var delivery = await _db.PushDeliveries.SingleAsync();
         Assert.AreEqual(PushDelivery.Failed, delivery.Status);
-        Assert.Contains("接收", delivery.Error!);
+        Assert.Contains("receive", delivery.Error!);
         Assert.AreEqual(0, await _db.InAppNotifications.CountAsync());
     }
 
@@ -547,7 +547,7 @@ public partial class PushCenterTests
         await Report(application, Guid.NewGuid());
         var id = await _db.PushDeliveries.Select(delivery => delivery.Id).SingleAsync();
         await _processor.ProcessAsync(id, CancellationToken.None);
-        await new AlertsController(_db, new ApplicationAccessService(_db))
+        await new AlertsController(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<AlertsController>(), localizerFactory: TestLocalization.Factory)
         {
             ControllerContext = new ControllerContext
             {
@@ -623,7 +623,7 @@ public partial class PushCenterTests
         var request = _http.Requests.Single();
         using var payload = JsonDocument.Parse(request.Json);
         Assert.AreEqual("alert", payload.RootElement.GetProperty("event").GetString());
-        Assert.AreEqual("渠道测试通知", payload.RootElement.GetProperty("subject").GetString());
+        Assert.AreEqual("Channel test notification", payload.RootElement.GetProperty("subject").GetString());
         Assert.AreEqual(JsonValueKind.Null, payload.RootElement.GetProperty("testMessageId").ValueKind);
         Assert.AreEqual("Bearer token", request.Headers["Authorization"]);
         Assert.AreEqual("alert-center", request.Headers["X-Source"]);
@@ -705,7 +705,7 @@ public partial class PushCenterTests
         await Controller().Test(channel.Id, CancellationToken.None);
         Assert.AreEqual(3, await _db.InAppNotifications.CountAsync());
         var delivery = await _db.PushDeliveries.SingleAsync();
-        await new InAppChannelAdapter(_db).DeliverAsync(delivery);
+        await new InAppChannelAdapter(_db, localizer: TestLocalization.For<InAppChannelAdapter>()).DeliverAsync(delivery);
         await _db.SaveChangesAsync();
         Assert.AreEqual(3, await _db.InAppNotifications.CountAsync());
         var own = await _db.InAppNotifications.SingleAsync(item => item.UserId == "ordinary-user");

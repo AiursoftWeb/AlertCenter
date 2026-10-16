@@ -1,15 +1,16 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Models;
 
 public class IncidentFilter : IValidatableObject
 {
-    [StringLength(200, ErrorMessage = "关键词不能超过 200 个字符。")]
+    [StringLength(200, ErrorMessage = "Keywords cannot exceed 200 characters.")]
     public string? Keyword { get; set; }
     public Guid? ApplicationId { get; set; }
-    [RegularExpression("^(new|acked|mitigated|resolved|all)$", ErrorMessage = "请选择有效的事故状态。")]
+    [RegularExpression("^(new|acked|mitigated|resolved|all)$", ErrorMessage = "Please select a valid incident status.")]
     public string? Status { get; set; }
-    [RegularExpression("^sev[0-4]$", ErrorMessage = "请选择有效的告警级别。")]
+    [RegularExpression("^sev[0-4]$", ErrorMessage = "Please select a valid alert level.")]
     public string? Level { get; set; }
     public DateOnly? FromDate { get; set; }
     public DateOnly? ToDate { get; set; }
@@ -22,7 +23,8 @@ public class IncidentFilter : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
+        var localizer = validationContext.GetService(typeof(IStringLocalizer<IncidentFilter>)) as IStringLocalizer<IncidentFilter>;
         if (FromDate.HasValue && ToDate.HasValue && FromDate.Value > ToDate.Value)
-            yield return new ValidationResult("开始日期不能晚于结束日期。", [nameof(FromDate), nameof(ToDate)]);
+            yield return new ValidationResult(localizer is null ? "The start date cannot be later than the end date." : localizer["The start date cannot be later than the end date."].Value, [nameof(FromDate), nameof(ToDate)]);
     }
 }

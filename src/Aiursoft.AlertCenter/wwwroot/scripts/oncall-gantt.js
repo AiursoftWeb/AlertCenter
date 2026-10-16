@@ -1,4 +1,5 @@
 (() => {
+    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
     const chart = document.getElementById('oncall-gantt');
     const summary = document.getElementById('oncall-shift-summary');
     const start = document.getElementById('oncall-shift-start');
@@ -30,7 +31,7 @@
         toggles.forEach(button => {
             const edge = button.dataset.oncallEdge;
             button.setAttribute('aria-expanded', String(edges[edge]));
-            button.textContent = `${edges[edge] ? '折叠' : '展开'}${edge === 'previous' ? '前' : '后'} 36 小时`;
+            button.textContent = (edges[edge] ? (messages["Collapse {0} 36 hours"] ?? "Collapse {0} 36 hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(edge === 'previous' ? (messages["previous"] ?? "previous") : (messages["next"] ?? "next"))][Number(index)] ?? placeholder) : (messages["Expand {0} 36 hours"] ?? "Expand {0} 36 hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(edge === 'previous' ? (messages["previous"] ?? "previous") : (messages["next"] ?? "next"))][Number(index)] ?? placeholder));
         });
     }
     toggles.forEach(button => button.addEventListener('click', () => {

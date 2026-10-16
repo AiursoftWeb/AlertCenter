@@ -75,8 +75,8 @@ public partial class AlertDemoTests
         Assert.Contains("id=\"filter-from-date\"", html);
         Assert.Contains("id=\"filter-to-date\"", html);
         Assert.Contains("id=\"alert-page-jump\"", html);
-        Assert.Contains("<th>关联事故</th>", html);
-        Assert.Contains("<th class=\"text-nowrap pe-4\">接收时间 (UTC)</th>", html);
+        Assert.Contains("<th>Linked Incident</th>", html);
+        Assert.Contains("<th class=\"text-nowrap pe-4\">Reception Time (UTC)</th>", html);
         Assert.AreEqual(20, AlertMessageIds(html).Length);
         var pageJump = WebUtility.HtmlDecode(Regex.Match(html, "<form id=\"alert-page-jump-form\"[^>]*action=\"([^\"]+)\"").Groups[1].Value);
         Assert.IsFalse(string.IsNullOrEmpty(pageJump));
@@ -84,7 +84,7 @@ public partial class AlertDemoTests
         foreach (var parameter in QueryHelpers.ParseQuery("?" + query))
             Assert.AreEqual(parameter.Value.ToString(), pageJumpParameters[parameter.Key].ToString());
         Assert.IsFalse(pageJumpParameters.ContainsKey("page"));
-        var next = WebUtility.HtmlDecode(Regex.Match(html, "href=\"([^\"]+)\"[^>]*>下一页</a>").Groups[1].Value);
+        var next = WebUtility.HtmlDecode(Regex.Match(html, "href=\"([^\"]+)\"[^>]*>Next Page</a>").Groups[1].Value);
         Assert.IsFalse(string.IsNullOrEmpty(next));
         var parameters = QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, next).Query);
         foreach (var parameter in QueryHelpers.ParseQuery("?" + query))

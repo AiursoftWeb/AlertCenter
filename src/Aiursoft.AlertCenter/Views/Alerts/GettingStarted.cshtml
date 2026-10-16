@@ -10,11 +10,11 @@
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
-        <h1 class="h3 mb-1">开发者接入指南</h1>
-        <p class="text-muted mb-0">从应用创建、密钥鉴权到首条告警上报，4 步建立稳定的系统告警通道。</p>
+        <h1 class="h3 mb-1">@Localizer["Developer Integration Guide"]</h1>
+        <p class="text-muted mb-0">@Localizer["From app creation and key authentication to the first alert report, establish a stable system alert channel in 4 steps."]</p>
     </div>
     <a asp-action="Applications" class="btn btn-primary">
-        <i class="align-middle me-1" data-lucide="app-window" aria-hidden="true"></i>管理接入应用
+        <i class="align-middle me-1" data-lucide="app-window" aria-hidden="true"></i>@Localizer["Manage integrated applications"]
     </a>
 </div>
 
@@ -22,20 +22,20 @@
 <div class="card mb-4">
     <div class="card-header d-flex align-items-center gap-3">
         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.9rem;">1</span>
-        <h2 class="card-title mb-0">创建接入应用并获取 API Key</h2>
+        <h2 class="card-title mb-0">@Localizer["Create Integration App and Get API Key"]</h2>
     </div>
     <div class="card-body pt-0">
-        <p class="mb-2">每个业务系统通过<strong>独立的 API Key</strong> 进行请求鉴权。中心通过 <code>&lt;applicationId&gt;.&lt;secret&gt;</code> 结构快速定位应用并校验哈希，保障来源隔离与安全性。</p>
+        <p class="mb-2">@Localizer["Each business system authenticates requests using its own API key."] <code>&lt;applicationId&gt;.&lt;secret&gt;</code> @Localizer["This format identifies the application and lets the server verify its secret hash."]</p>
         <div class="alert alert-warning small mb-3" role="alert">
             <div class="alert-icon">
                 <i class="align-middle" data-lucide="shield-alert" aria-hidden="true"></i>
             </div>
             <div class="alert-message text-break">
-                <strong>防泄漏提示</strong>：API Key 仅在创建或重置成功瞬间显示一次。请立即配置在生产环境的环境变量（如 <code>ALERTCENTER_API_KEY</code>）或密钥管理中心（KMS），严禁硬编码至前端、日志或代码仓库。
+                <strong>@Localizer["Leak Prevention Notice"]</strong>@Localizer[": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.,"] <code>ALERTCENTER_API_KEY</code>@Localizer[") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited."]
             </div>
         </div>
         <a asp-action="Applications" class="btn btn-sm btn-outline-primary">
-            <i class="align-middle me-1" data-lucide="plus"></i>前往创建应用并获取凭据 &rarr;
+            <i class="align-middle me-1" data-lucide="plus"></i>@Localizer["Go to create an app and get credentials "]&rarr;
         </a>
     </div>
 </div>
@@ -45,7 +45,7 @@
     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
         <div class="d-flex align-items-center gap-3">
             <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.9rem;">2</span>
-            <h2 class="card-title mb-0">发送第一条告警消息</h2>
+            <h2 class="card-title mb-0">@Localizer["Send the first alert message"]</h2>
         </div>
         <!-- Language Switcher Tabs -->
         <ul class="nav nav-pills card-header-pills" id="code-tabs" role="tablist">
@@ -64,7 +64,7 @@
         </ul>
     </div>
     <div class="card-body pt-0">
-        <p class="text-muted small mb-3">将示例代码中的 <code>YOUR_API_KEY</code> 替换为上一步生成的应用密钥即可直接发送测试。</p>
+        <p class="text-muted small mb-3">@Localizer["In the sample code,"] <code>YOUR_API_KEY</code> @Localizer["Replace with the application key generated in the previous step to send a test directly."]</p>
 
         <div id="code-copy-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
         <div class="tab-content" id="code-tab-content">
@@ -74,7 +74,7 @@
                     <div class="ac-code-header">
                         <span>bash / zsh</span>
                         <button type="button" class="ac-copy-btn" data-copy-target="code-curl" data-copy-feedback="code-copy-feedback">
-                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>复制代码
+                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>@Localizer["Copy Code"]
                         </button>
                     </div>
                     <pre class="ac-code-pre" id="code-curl"><code>curl -i '@endpoint' \
@@ -83,8 +83,8 @@
   --data '{
     "reportId": "@Guid.NewGuid()",
     "incidentKey": "order-payment-timeout",
-    "title": "订单支付响应超时",
-    "content": "第三方渠道未在 5000ms 内返回交易状态，进入轮询兜底流程。",
+    "title": "Order payment response timeout",
+    "content": "Third-party channel did not return transaction status within 5000ms; entering polling fallback process.",
     "level": "sev1",
     "occurredAtUtc": "@DateTime.UtcNow.ToString("O")",
     "context": {
@@ -102,25 +102,25 @@
                     <div class="ac-code-header">
                         <span>C# (.NET 8/9/10)</span>
                         <button type="button" class="ac-copy-btn" data-copy-target="code-dotnet" data-copy-feedback="code-copy-feedback">
-                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>复制代码
+                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>@Localizer["Copy Code"]
                         </button>
                     </div>
-                    <pre class="ac-code-pre" id="code-dotnet"><code>// 1. 安装 NuGet 包: Aiursoft.AlertCenterSdk
-// 2. 在 Program.cs 中注册服务
+                    <pre class="ac-code-pre" id="code-dotnet"><code>// 1. @Localizer["Install "]NuGet @Localizer["packages"]: Aiursoft.AlertCenterSdk
+// 2. @Localizer["In "]Program.cs @Localizer["registered services"]
 builder.Services.AddAlertCenter(
     endpointUrl: "@endpoint",
     apiKey: builder.Configuration["AlertCenter:ApiKey"]!);
 
-// 3. 注入 IAlertClient 并上报
+// 3. @Localizer["Inject "]IAlertClient @Localizer["and reported"]
 public class OrderService(IAlertClient alertClient)
 {
     public async Task ProcessPaymentAsync(string orderId)
     {
         try {
-            // ... 业务处理
+            // ... @Localizer["Business Handling"]
         } catch (Exception ex) {
             await alertClient.ReportAsync(
-                title: "订单支付异常",
+                title: "Order payment anomaly",
                 content: ex.Message,
                 level: AlertSeverity.Sev1,
                 incidentKey: "order-payment-timeout",
@@ -138,7 +138,7 @@ public class OrderService(IAlertClient alertClient)
                     <div class="ac-code-header">
                         <span>Go 1.22+</span>
                         <button type="button" class="ac-copy-btn" data-copy-target="code-go" data-copy-feedback="code-copy-feedback">
-                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>复制代码
+                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>@Localizer["Copy Code"]
                         </button>
                     </div>
                     <pre class="ac-code-pre" id="code-go"><code>package main
@@ -157,8 +157,8 @@ func main() {
 
     receipt, err := client.Report(ctx, &amp;alertcenter.ReportMessage{
         ReportID:      uuid.New().String(),
-        Title:         "数据库从库只读复制延迟超标",
-        Content:       "从库同步延迟超过 120 秒，已触发读写分离保护。",
+        Title:         "Database replica read-only replication lag exceeded threshold",
+        Content:       "Replication lag exceeded 120 seconds; read/write separation protection triggered.",
         Level:         alertcenter.SeveritySev2,
         OccurredAtUTC: time.Now().UTC(),
         Context: map[string]any{
@@ -177,7 +177,7 @@ func main() {
                     <div class="ac-code-header">
                         <span>Python 3.10+ (requests)</span>
                         <button type="button" class="ac-copy-btn" data-copy-target="code-python" data-copy-feedback="code-copy-feedback">
-                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>复制代码
+                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>@Localizer["Copy Code"]
                         </button>
                     </div>
                     <pre class="ac-code-pre" id="code-python"><code>import uuid
@@ -186,8 +186,8 @@ import requests
 
 payload = {
     "reportId": str(uuid.uuid4()),
-    "title": "Celery 任务队列积压严重",
-    "content": "待处理队列任务数超过 10,000 条，执行速率低于预期。",
+    "title": "Celery task queue backlog is severe",
+    "content": "The number of tasks in the pending queue exceeds 10,000, and the execution rate is below expectations.",
     "level": "sev2",
     "occurredAtUtc": datetime.now(timezone.utc).isoformat(),
     "context": {
@@ -212,68 +212,68 @@ print(response.status_code, response.json())</code></pre>
 <div class="card mb-4">
     <div class="card-header d-flex align-items-center gap-3">
         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.9rem;">3</span>
-        <h2 class="card-title mb-0">HTTP 上报请求字段规范</h2>
+        <h2 class="card-title mb-0">@Localizer["HTTP Reporting Request Field Specification"]</h2>
     </div>
     <div class="table-responsive">
         <table class="table align-middle mb-0">
             <thead>
                 <tr>
-                    <th class="ps-4">字段名称</th>
-                    <th>类型</th>
-                    <th>必填</th>
-                    <th>规则与约束</th>
-                    <th class="pe-4">说明</th>
+                    <th class="ps-4">@Localizer["Field Name"]</th>
+                    <th>@Localizer["Type"]</th>
+                    <th>@Localizer["Required"]</th>
+                    <th>@Localizer["Rules & constraints"]</th>
+                    <th class="pe-4">@Localizer["Description"]</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="ps-4"><code>reportId</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">UUID / GUID</span></td>
-                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">必填</span></td>
-                    <td>标准 UUID 格式</td>
-                    <td class="pe-4">客户端全局唯一的上报 ID。中心使用 <code>(ApplicationId, ReportId)</code> 保证严格并发幂等性；重试请沿用相同 ID。</td>
+                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">@Localizer["Required"]</span></td>
+                    <td>@Localizer["Standard UUID format"]</td>
+                    <td class="pe-4">@Localizer["The client's globally unique report ID. The center uses"] <code>(ApplicationId, ReportId)</code> @Localizer["Ensure strict concurrent idempotency; use the same ID for retries."]</td>
                 </tr>
                 <tr>
                     <td class="ps-4"><code>title</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
-                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">必填</span></td>
-                    <td>1 ~ 200 字符</td>
-                    <td class="pe-4">告警摘要标题。简明概括故障现象，例如“订单支付渠道响应超时”。</td>
+                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">@Localizer["Required"]</span></td>
+                    <td>@Localizer["1 to 200 characters"]</td>
+                    <td class="pe-4">@Localizer["Alert summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”"]</td>
                 </tr>
                 <tr>
                     <td class="ps-4"><code>content</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
-                    <td><span class="badge bg-secondary-subtle text-secondary">可选</span></td>
-                    <td>最多 4,000 字符</td>
-                    <td class="pe-4">告警正文详情。支持排查指引、异常堆栈或诊断摘要。展示层自动转义 HTML，杜绝 XSS 注入。</td>
+                    <td><span class="badge bg-secondary-subtle text-secondary">@Localizer["Optional"]</span></td>
+                    <td>@Localizer["Max 4,000 characters"]</td>
+                    <td class="pe-4">@Localizer["Alert body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection."]</td>
                 </tr>
                 <tr>
                     <td class="ps-4"><code>level</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
-                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">必填</span></td>
+                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">@Localizer["Required"]</span></td>
                     <td><code>sev0</code>, <code>sev1</code>, <code>sev2</code>, <code>sev3</code>, <code>sev4</code></td>
-                    <td class="pe-4">严重级别：<code>sev0</code>（致命，最高优先级）、<code>sev1</code>（严重阻断）、<code>sev2</code>（关键错误）、<code>sev3</code>（预警提示）、<code>sev4</code>（普通信息）。中心按此级别执行路由推送。</td>
+                    <td class="pe-4">@Localizer["Severity:"]<code>sev0</code>@Localizer["(Critical, highest priority),"]<code>sev1</code>@Localizer["(Major),"]<code>sev2</code>@Localizer["(Error),"]<code>sev3</code>@Localizer["(Warning),"]<code>sev4</code>@Localizer["(General Information). The Center routes and pushes based on this level."]</td>
                 </tr>
                 <tr>
                     <td class="ps-4"><code>incidentKey</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
-                    <td><span class="badge bg-secondary-subtle text-secondary">可选</span></td>
-                    <td>最多 200 字符</td>
-                    <td class="pe-4">故障关联标识。同一持续性故障可使用稳定且相同的 key，使新告警自动归入同一事故。该字段不代替调用方限频；请在源系统仅上报需要处理的告警。</td>
+                    <td><span class="badge bg-secondary-subtle text-secondary">@Localizer["Optional"]</span></td>
+                    <td>@Localizer["Max 200 characters"]</td>
+                    <td class="pe-4">@Localizer["Incident correlation identifier. Use a stable and identical key for the same ongoing incident to automatically group new alerts into the same incident. This field does not replace caller-side rate limiting; please report only actionable alerts from the source system."]</td>
                 </tr>
                 <tr>
                     <td class="ps-4"><code>occurredAtUtc</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">ISO 8601</span></td>
-                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">必填</span></td>
-                    <td>带时区偏移或 Z 标识</td>
-                    <td class="pe-4">业务实际发生时间，例如 <code>2026-09-17T08:30:00Z</code>。中心可根据此字段测算上报与投递网络延迟。</td>
+                    <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">@Localizer["Required"]</span></td>
+                    <td>@Localizer["With timezone offset or Z identifier"]</td>
+                    <td class="pe-4">@Localizer["Actual business occurrence time, e.g.,"] <code>2026-09-17T08:30:00Z</code>@Localizer[". The center can use this field to estimate reporting and delivery network latency."]</td>
                 </tr>
                 <tr>
                     <td class="ps-4"><code>context</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">Object</span></td>
-                    <td><span class="badge bg-secondary-subtle text-secondary">可选</span></td>
-                    <td>JSON 对象，最大 64 KiB</td>
-                    <td class="pe-4">结构化业务上下文。建议附带 <code>traceId</code>、<code>userId</code>、<code>orderId</code> 或环境变量，便于在详情页一键定位排查。</td>
+                    <td><span class="badge bg-secondary-subtle text-secondary">@Localizer["Optional"]</span></td>
+                    <td>@Localizer["JSON object, max 64 KiB"]</td>
+                    <td class="pe-4">@Localizer["Structured business context. It is recommended to include"] <code>traceId</code>、<code>userId</code>、<code>orderId</code> @Localizer["or environment variables, facilitating one-click location and troubleshooting on the detail page."]</td>
                 </tr>
             </tbody>
         </table>
@@ -284,32 +284,32 @@ print(response.status_code, response.json())</code></pre>
 <div class="card">
     <div class="card-header d-flex align-items-center gap-3">
         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.9rem;">4</span>
-        <h2 class="card-title mb-0">HTTP 响应状态码与最佳工程实践</h2>
+        <h2 class="card-title mb-0">@Localizer["HTTP Response Status Codes and Best Engineering Practices"]</h2>
     </div>
     <div class="card-body pt-0">
         <div class="row g-3 mb-4">
             <div class="col-md-6 col-lg-3">
                 <div class="p-3 bg-body-tertiary rounded h-100">
                     <strong class="d-block text-success mb-1">201 Created</strong>
-                    <p class="small text-muted mb-0">首次保存成功，返回生成的主键 ID，<code>duplicate: false</code>。已异步触发推送调度。</p>
+                    <p class="small text-muted mb-0">@Localizer["Initial save successful. Returns the generated primary key ID,"]<code>duplicate: false</code>@Localizer[". Push scheduling triggered asynchronously."]</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="p-3 bg-body-tertiary rounded h-100">
-                    <strong class="d-block text-info mb-1">200 OK (幂等)</strong>
-                    <p class="small text-muted mb-0">相同 ReportId 重复上报，<code>duplicate: true</code>。保留首次记录，不重复触发推送。</p>
+                    <strong class="d-block text-info mb-1">@Localizer["200 OK (Idempotent)"]</strong>
+                    <p class="small text-muted mb-0">@Localizer["Duplicate report with the same ReportId,"]<code>duplicate: true</code>@Localizer[". Retain the first record and do not trigger duplicate pushes."]</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="p-3 bg-body-tertiary rounded h-100">
-                    <strong class="d-block text-warning mb-1">401 / 403 鉴权失败</strong>
-                    <p class="small text-muted mb-0">Bearer 凭据缺失、密钥不匹配或应用处于停用状态。请检查应用设置。</p>
+                    <strong class="d-block text-warning mb-1">@Localizer["401 / 403 Authentication failed"]</strong>
+                    <p class="small text-muted mb-0">@Localizer["Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings."]</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="p-3 bg-body-tertiary rounded h-100">
-                    <strong class="d-block text-danger mb-1">400 / 413 参数错误</strong>
-                    <p class="small text-muted mb-0">必填项缺失、level 格式错误或请求体超过 64 KiB 限制。</p>
+                    <strong class="d-block text-danger mb-1">@Localizer["400 / 413 Parameter error"]</strong>
+                    <p class="small text-muted mb-0">@Localizer["Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit."]</p>
                 </div>
             </div>
         </div>
@@ -319,16 +319,16 @@ print(response.status_code, response.json())</code></pre>
                 <i class="align-middle" data-lucide="gauge" aria-hidden="true"></i>
             </div>
             <div class="alert-message">
-                AlertCenter 不在事故确认前抑制重复通知。请由调用方限频，并仅上报需要人工处理的告警；<code>incidentKey</code> 仅用于事故关联。
+                @Localizer["AlertCenter does not suppress duplicate notifications before incident confirmation. Please rate-limit on the caller side and only report alerts requiring manual intervention;"]<code>incidentKey</code> @Localizer["For incident correlation only."]
             </div>
         </div>
 
         <div class="d-flex flex-wrap gap-2">
             <a asp-action="Index" class="btn btn-primary">
-                <i class="align-middle me-1" data-lucide="list"></i>查看消息列表
+                <i class="align-middle me-1" data-lucide="list"></i>@Localizer["View message list"]
             </a>
             <a asp-controller="Push" asp-action="Index" class="btn btn-outline-primary">
-                <i class="align-middle me-1" data-lucide="sliders"></i>配置推送中心渠道
+                <i class="align-middle me-1" data-lucide="sliders"></i>@Localizer["Configure Push Center Channel"]
             </a>
         </div>
     </div>

@@ -35,39 +35,39 @@
      data-start="@Model.WeekStartUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)" data-weeks="@JsonSerializer.Serialize(weeks)"
      data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()
-    <div class="btn-group mb-2" role="group" aria-label="排班操作模式">
-        <button type="button" class="btn btn-outline-primary active" data-schedule-mode="move" aria-pressed="true">移动 / 交换</button>
-        <button type="button" class="btn btn-outline-primary" data-schedule-mode="add" aria-pressed="false">添加班次</button>
-        <button type="button" class="btn btn-outline-danger" data-schedule-mode="remove" aria-pressed="false">删除班次</button>
+    <div class="btn-group mb-2" role="group" aria-label="@Localizer["Scheduling Operation Mode"]">
+        <button type="button" class="btn btn-outline-primary active" data-schedule-mode="move" aria-pressed="true">@Localizer["Move / Swap"]</button>
+        <button type="button" class="btn btn-outline-primary" data-schedule-mode="add" aria-pressed="false">@Localizer["Add shift"]</button>
+        <button type="button" class="btn btn-outline-danger" data-schedule-mode="remove" aria-pressed="false">@Localizer["Delete shift"]</button>
     </div>
-    <p id="oncall-mode-help" class="small mb-2" role="status">当前为移动 / 交换模式。添加或删除班次时，请先切换上方模式。</p>
-    <p class="small mb-2">拖动色块到另一班次可交换人员，拖到空格可移动班次；拖动「交换整周」可交换两人的整周安排。也可先点击选中，再点击目标；Esc 取消。调整立即显示，可连续修改后统一保存。</p>
+    <p id="oncall-mode-help" class="small mb-2" role="status">@Localizer["Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts."]</p>
+    <p class="small mb-2">@Localizer["Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag 'Swap Entire Week' to exchange two people's weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments."]</p>
     <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
-        <button id="oncall-save-schedule" type="button" class="btn btn-primary">保存排班调整</button>
+        <button id="oncall-save-schedule" type="button" class="btn btn-primary">@Localizer["Save schedule adjustments"]</button>
         @if (weeks[2].available)
         {
-            <button id="oncall-copy-next" type="button" class="btn btn-outline-primary">复制本周到下一周</button>
+            <button id="oncall-copy-next" type="button" class="btn btn-outline-primary">@Localizer["Copy Current Week to Next Week"]</button>
         }
-        <button id="oncall-undo-schedule" type="button" class="btn btn-outline-secondary">撤销上一步</button>
-        <button id="oncall-reset-schedule" type="button" class="btn btn-outline-secondary">还原全部</button>
+        <button id="oncall-undo-schedule" type="button" class="btn btn-outline-secondary">@Localizer["Undo last step"]</button>
+        <button id="oncall-reset-schedule" type="button" class="btn btn-outline-secondary">@Localizer["Reset All"]</button>
         <span id="oncall-edit-count" class="small text-muted" role="status"></span>
     </div>
     <p id="oncall-drag-status" class="small text-primary mb-2" role="status" aria-live="polite"></p>
-    <p class="small text-muted mb-2">复制使用本周当前草稿，下一周已有排班或修改时需先确认；复制后仍需保存。左右竖向按钮可分别展开本周前后各 36 小时，灰色区域只读；本页图表和表单仅编辑本周，需要调整相邻周请切换到对应周。复制后的下一周草稿也以只读方式预览；本周修改与复制统一保存、撤销和还原，折叠不丢失草稿。</p>
-    <p class="small text-muted mb-2">红色提示空班、休息不足或低于最低人数，不阻止继续调整。低于最低人数仍允许手动保存，空班及休息不足不能保存。保存时统一校验修改周、相邻周和其他团队；任何一周失败都不会保存。已退出成员仅能保留原班次，不能新增或复制。</p>
+    <p class="small text-muted mb-2">@Localizer["Copy the current week's draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week's draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts."]</p>
+    <p class="small text-muted mb-2">@Localizer["Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied."]</p>
     <details id="oncall-draft-validation" class="text-danger small mb-2" hidden>
         <summary id="oncall-draft-summary" role="status" aria-live="polite"></summary>
         <ul id="oncall-draft-errors" class="mt-2"></ul>
     </details>
     @if (Model.CanGenerateSchedule && !Model.ScheduleSaved)
     {
-        <p class="small text-muted">自动建议尚未保存。生成时会重新校验相邻排班；已有保存的安排不会被覆盖。</p>
-        <button id="oncall-generate" type="button" class="btn btn-primary">生成并保存本周排班</button>
+        <p class="small text-muted">@Localizer["Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten."]</p>
+        <button id="oncall-generate" type="button" class="btn btn-primary">@Localizer["Generate and save this week's schedule"]</button>
     }
         <details id="oncall-editor">
-            <summary class="fw-semibold my-3">按班次增减人员</summary>
-            <p class="small text-muted">选择时段增减同班人员，图表会同步更新。也可使用此表单完成键盘操作。跨组成员可手动选择；其他团队的灰色只读班次不会被修改，保存时仍校验跨组重叠及休息。</p>
-            <label for="oncall-edit-slot" class="form-label">选择班次</label>
+            <summary class="fw-semibold my-3">@Localizer["Add or remove personnel by shift"]</summary>
+            <p class="small text-muted">@Localizer["Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving."]</p>
+            <label for="oncall-edit-slot" class="form-label">@Localizer["Select Shift"]</label>
             <select id="oncall-edit-slot" class="form-select mb-3">
                 @foreach (var index in Enumerable.Range(21, 21))
                 {
@@ -77,7 +77,7 @@
                 }
             </select>
             <fieldset>
-                <legend class="h6">值班人员（允许多人，至少一人）</legend>
+                <legend class="h6">@Localizer["On-call personnel (multiple allowed, at least one)"]</legend>
                 <div class="row g-2 mb-3">
                     @foreach (var user in Model.PreviewUsers)
                     {
@@ -85,7 +85,7 @@
                         <div class="col-sm-6 col-lg-4">
                             <label class="d-flex align-items-center gap-2 border rounded p-2">
                                 <input type="checkbox" class="form-check-input m-0 oncall-edit-member" value="@user.Id" data-departed="@(departed ? "true" : "false")" disabled="@departed" />
-                                <span>@user.DisplayName (@user.UserName)@(departed ? " · 已退出" : "")</span>
+                                <span>@user.DisplayName (@user.UserName)@(departed ? @Localizer[" · Departed"].Value : "")</span>
                             </label>
                         </div>
                     }
@@ -98,13 +98,13 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title h5" id="oncall-copy-title">替换下一周草稿？</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="取消"></button>
+                <h2 class="modal-title h5" id="oncall-copy-title">@Localizer["Replace next week's draft?"]</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Cancel"]"></button>
             </div>
-            <div class="modal-body" id="oncall-copy-description">下一周已有保存的排班或未保存修改。复制会将下一周完整 21 班替换为本周当前草稿；确认后仍可撤销，点击保存才会写入。</div>
+            <div class="modal-body" id="oncall-copy-description">@Localizer["Next week already has a saved schedule or unsaved changes. Copying will replace the full 21 shifts of next week with the current draft of this week. You can still undo after confirmation; changes are only written when you click Save."]</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消，保留下一周</button>
-                <button type="button" class="btn btn-primary" id="oncall-copy-apply">确认替换草稿</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Cancel, keep next week"]</button>
+                <button type="button" class="btn btn-primary" id="oncall-copy-apply">@Localizer["Confirm draft replacement"]</button>
             </div>
         </div>
     </div>

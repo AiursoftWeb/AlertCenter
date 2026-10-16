@@ -6,29 +6,30 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
 [Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator generator) : Controller
+public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator generator, IStringLocalizer<OnCallController> localizer, IStringLocalizerFactory localizerFactory) : Controller
 {
-    private readonly OnCallScheduleService schedules = new(db, generator);
+    private readonly OnCallScheduleService schedules = new(db, generator, new StringLocalizer<OnCallScheduleService>(localizerFactory), localizerFactory);
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "值班中心", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
-        LinkText = "排班规则", LinkOrder = 1)]
+        CascadedLinksGroupName = "On-call", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
+        LinkText = "Scheduling Rules", LinkOrder = 1)]
     public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
         this.StackView(await LoadModel(cancellationToken));
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "值班中心", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
-        LinkText = "团队管理", LinkOrder = 0)]
+        CascadedLinksGroupName = "On-call", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
+        LinkText = "Team management", LinkOrder = 0)]
     public async Task<IActionResult> Groups(CancellationToken cancellationToken) =>
         this.StackView(await LoadModel(cancellationToken));
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "值班中心", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
-        LinkText = "值班排班", LinkOrder = 2)]
+        CascadedLinksGroupName = "On-call", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
+        LinkText = "On-call schedule", LinkOrder = 2)]
     public async Task<IActionResult> Schedule(CancellationToken cancellationToken) =>
         this.StackView(await LoadModel(cancellationToken));
 
@@ -156,7 +157,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 
     private async Task<IActionResult> SaveScheduleCore(SaveOnCallScheduleRequest? request, bool generate, CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid || request == null) return BadRequest(new { errors = new[] { "排班请求格式不正确。" } });
+        if (!ModelState.IsValid || request == null) return BadRequest(new { errors = new[] { localizer["The shift request format is invalid."].Value } });
         try
         {
             var errors = await schedules.Save(request, generate, cancellationToken);
@@ -164,7 +165,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         }
         catch (DbUpdateException)
         {
-            return Conflict(new { errors = new[] { "排班已发生变化或保存冲突，请刷新页面后重试。" } });
+            return Conflict(new { errors = new[] { localizer["The schedule has changed or a save conflict occurred. Please refresh the page and try again."].Value } });
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
@@ -190,27 +191,27 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             .SingleOrDefaultAsync(item => item.Id == id.Value, cancellationToken) : null;
         if (id.HasValue && group == null) return NotFound();
         if (group != null && request.Version != group.ScheduleVersion)
-            return Conflict("团队或排班已发生变化，请刷新页面后重试。");
+            return Conflict(localizer["The team or schedule has changed. Please refresh the page and try again."].Value);
         request.Name = request.Name?.Trim() ?? string.Empty;
         request.TimeZoneId = request.TimeZoneId?.Trim() ?? string.Empty;
         request.UserIds ??= [];
-        if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("GroupInput.Name", "请输入团队名称。");
+        if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("GroupInput.Name", localizer["Please enter the team name."].Value);
         if (!TimeZoneInfo.GetSystemTimeZones().Any(zone => zone.Id == request.TimeZoneId))
-            ModelState.AddModelError("GroupInput.TimeZoneId", "请选择列表中的有效时区。");
-        if (!EmailChannelAdapter.TryParseCcRecipients(request.EmailCcRecipients, out var emailCcRecipients, out var ccRecipientsError))
+            ModelState.AddModelError("GroupInput.TimeZoneId", localizer["Please select a valid time zone from the list."].Value);
+        if (!EmailChannelAdapter.TryParseCcRecipients(request.EmailCcRecipients, out var emailCcRecipients, out var ccRecipientsError, localizer: localizerFactory.Create(typeof(EmailChannelAdapter))))
             ModelState.AddModelError("GroupInput.EmailCcRecipients", ccRecipientsError!);
         if (request.RuleId.HasValue && !await db.OnCallRules.AnyAsync(rule => rule.Id == request.RuleId, cancellationToken))
-            ModelState.AddModelError("GroupInput.RuleId", "请选择现有排班规则。");
+            ModelState.AddModelError("GroupInput.RuleId", localizer["Please select an existing on-call rule."].Value);
         if (request.AnchorUtc is not { } anchor || anchor.Kind == DateTimeKind.Local ||
             anchor < DateTime.MinValue.AddDays(28) || anchor > DateTime.MaxValue.AddDays(-28))
-            ModelState.AddModelError("GroupInput.AnchorUtc", "请选择有效的 UTC 开始时间（需距离日期边界至少 28 天）。");
+            ModelState.AddModelError("GroupInput.AnchorUtc", localizer["Please select a valid UTC start time (must be at least 28 days from the date boundary)."].Value);
         if (request.UserIds.Count > 200 || request.UserIds.Any(string.IsNullOrWhiteSpace) ||
             request.UserIds.Distinct(StringComparer.Ordinal).Count() != request.UserIds.Count ||
             await db.Users.CountAsync(user => request.UserIds.Contains(user.Id), cancellationToken) != request.UserIds.Count)
-            ModelState.AddModelError("GroupInput.UserIds", "所选员工不存在、重复或超过 200 人，请重新选择。");
+            ModelState.AddModelError("GroupInput.UserIds", localizer["The selected employees do not exist, are duplicated, or exceed 200. Please select again."].Value);
         var hasSchedule = group != null && await db.OnCallShifts.AnyAsync(shift => shift.GroupId == group.Id, cancellationToken);
         if (hasSchedule && group!.AnchorUtc != request.AnchorUtc)
-            ModelState.AddModelError("GroupInput.AnchorUtc", "已有保存排班，不能修改团队排班起点。");
+            ModelState.AddModelError("GroupInput.AnchorUtc", localizer["A saved schedule exists; the team schedule start point cannot be modified."].Value);
         if (!ModelState.IsValid)
         {
             var model = await LoadModel(cancellationToken);
@@ -250,11 +251,11 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         }
         catch (DbUpdateException)
         {
-            return Conflict("团队或排班已发生变化，请刷新页面后重试。");
+            return Conflict(localizer["The team or schedule has changed. Please refresh the page and try again."].Value);
         }
-        TempData["OnCallGroupSuccess"] = id.HasValue ? "团队已更新。" : "团队创建成功。";
+        TempData["OnCallGroupSuccess"] = id.HasValue ? localizer["Team updated."].Value : localizer["Team created successfully."].Value;
         if (futureAssignments.Count > 0)
-            TempData["OnCallGroupSuccess"] += $" 已清除退出成员的 {futureAssignments.Count} 条未来值班安排，请检查并补齐空班。";
+            TempData["OnCallGroupSuccess"] += string.Format(localizer[" Cleared {0} future shift assignments for departed members. Please review and fill any gaps."].Value, futureAssignments.Count);
         return RedirectToAction(nameof(GroupDetails), new { id = group.Id });
     }
 
@@ -267,9 +268,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         var group = await db.OnCallGroups.FindAsync([id], cancellationToken);
         if (group == null) return NotFound();
         if (await db.OnCallShifts.AnyAsync(shift => shift.GroupId == id, cancellationToken))
-            return Conflict("该团队有已保存的排班，不能删除团队及其历史记录。");
+            return Conflict(localizer["This team has saved schedules and cannot be deleted along with its history."].Value);
         if (await db.SourceApplications.AnyAsync(application => application.OnCallGroupId == id, cancellationToken))
-            return Conflict("该团队已绑定接入应用，请先更换或解除应用的值班组绑定。");
+            return Conflict(localizer["This team is bound to an integrated app. Please reassign or unbind the app's on-call group first."].Value);
         db.OnCallGroupMembers.RemoveRange(await db.OnCallGroupMembers.Where(member => member.GroupId == id).ToListAsync(cancellationToken));
         db.OnCallGroups.Remove(group);
         try
@@ -279,9 +280,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         }
         catch (DbUpdateException)
         {
-            return Conflict("团队或排班已发生变化，请刷新页面后重试。");
+            return Conflict(localizer["The team or schedule has changed. Please refresh the page and try again."].Value);
         }
-        TempData["OnCallGroupSuccess"] = "团队已删除。";
+        TempData["OnCallGroupSuccess"] = localizer["Team deleted."].Value;
         return RedirectToAction(nameof(Groups));
     }
 
@@ -293,12 +294,12 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         await using var transaction = db.Database.IsRelational()
             ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, cancellationToken) : null;
         request.Name = request.Name?.Trim() ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", "请输入规则名称。");
-        if (request.ShiftHours != 8) ModelState.AddModelError("RuleInput.ShiftHours", "固定每天三班，每班 8 小时。");
-        if (request.RestHours is < 0 or > 168) ModelState.AddModelError("RuleInput.RestHours", "最短休息需为 0–168 小时。");
-        if (request.MinimumStaff is < 1 or > 200) ModelState.AddModelError("RuleInput.MinimumStaff", "每班最低人数需为 1–200 人。");
+        if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", localizer["Please enter the rule name."].Value);
+        if (request.ShiftHours != 8) ModelState.AddModelError("RuleInput.ShiftHours", localizer["Fixed three shifts per day, 8 hours each."].Value);
+        if (request.RestHours is < 0 or > 168) ModelState.AddModelError("RuleInput.RestHours", localizer["Minimum rest must be 0–168 hours."].Value);
+        if (request.MinimumStaff is < 1 or > 200) ModelState.AddModelError("RuleInput.MinimumStaff", localizer["Minimum staff per shift must be 1–200."].Value);
         if (request.TargetStaff is < 1 or > 200 || request.TargetStaff < request.MinimumStaff)
-            ModelState.AddModelError("RuleInput.TargetStaff", "目标人数不能低于最低人数，且需为 1–200 人；留空表示自动分配。");
+            ModelState.AddModelError("RuleInput.TargetStaff", localizer["Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment."].Value);
         var rule = request.Id.HasValue ? await db.OnCallRules.FindAsync([request.Id.Value], cancellationToken) : null;
         if (request.Id.HasValue && rule == null) return NotFound();
         if (!ModelState.IsValid)
@@ -327,9 +328,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         }
         catch (DbUpdateException)
         {
-            return Conflict("规则或团队已发生变化，请刷新页面后重试。");
+            return Conflict(localizer["The rule or team has changed. Refresh the page and try again."].Value);
         }
-        TempData["OnCallRuleSuccess"] = request.Id.HasValue ? "排班规则已更新。" : "排班规则创建成功。";
+        TempData["OnCallRuleSuccess"] = request.Id.HasValue ? localizer["Scheduling rule updated."].Value : localizer["Scheduling rule created successfully."].Value;
         return RedirectToAction(nameof(Details), new { id = rule.Id });
     }
 
@@ -340,7 +341,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         var rule = await db.OnCallRules.FindAsync([id], cancellationToken);
         if (rule == null) return NotFound();
         if (await db.OnCallGroups.AnyAsync(group => group.RuleId == id, cancellationToken))
-            return Conflict("该规则仍被团队绑定，请先修改团队的规则绑定。");
+            return Conflict(localizer["This rule is still bound to a team. Please update the team's rule binding first."].Value);
         db.OnCallRules.Remove(rule);
         try
         {
@@ -348,9 +349,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         }
         catch (DbUpdateException)
         {
-            return Conflict("该规则仍被团队绑定，请先修改团队的规则绑定。");
+            return Conflict(localizer["This rule is still bound to a team. Please update the team's rule binding first."].Value);
         }
-        TempData["OnCallRuleSuccess"] = "排班规则已删除。";
+        TempData["OnCallRuleSuccess"] = localizer["Scheduling rule deleted."].Value;
         return RedirectToAction(nameof(Index));
     }
 
@@ -409,7 +410,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         var userIds = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
         try
         {
-            var startUtc = OnCallScheduleService.WeekStart(group, requestedStart);
+            var startUtc = OnCallScheduleService.WeekStart(group, requestedStart, localizer: localizerFactory.Create(typeof(OnCallScheduleService)));
             model.WeekStartUtc = startUtc;
             var endUtc = startUtc.AddDays(7);
             var saved = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
@@ -447,15 +448,15 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 model.Preview = saved.SelectMany(shift => shift.Members.OrderBy(member => member.UserId)
                     .Select(member => new GeneratedOnCallShift(member.UserId, DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
                         DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), shift.RestHours))).ToList();
-                model.StaffingWarnings = OnCallScheduleValidator.StaffingWarnings(startUtc, 21, model.ScheduleMinimumStaff, model.Preview);
+                model.StaffingWarnings = OnCallScheduleValidator.StaffingWarnings(startUtc, 21, model.ScheduleMinimumStaff, model.Preview, localizerFactory.Create(typeof(OnCallScheduleValidator)));
                 var covered = model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count();
-                if (covered < 21) model.PreviewError = $"本周有 {21 - covered} 个空班，请手动补齐值班人员。";
+                if (covered < 21) model.PreviewError = string.Format(localizer["There are {0} unassigned shifts this week. Please fill in on-call personnel manually."].Value, 21 - covered);
                 return;
             }
             if (!model.CanGenerateSchedule)
             {
-                model.PreviewError = group.Rule == null ? "团队尚未绑定规则，可手动创建排班。"
-                    : $"自动生成每班至少 {group.Rule.MinimumStaff} 人、休息 {group.Rule.RestHours} 小时的排班，需要至少 {Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff} 名成员；跳过多值班组成员后可自动排班 {automaticIds.Length} 人，可增加单组成员或手动安排。";
+                model.PreviewError = group.Rule == null ? localizer["No rules bound to the team yet. You can manually create a schedule."].Value
+                    : string.Format(localizer["Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually."].Value, group.Rule.MinimumStaff, group.Rule.RestHours, Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff, automaticIds.Length);
                 return;
             }
             model.Preview = generator.Generate(group.Rule!, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc),
@@ -463,7 +464,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or TimeZoneNotFoundException or InvalidTimeZoneException or OverflowException)
         {
-            model.PreviewError = $"无法生成预览：{ex.Message}";
+            model.PreviewError = string.Format(localizer["Unable to generate preview: {0}"].Value, ex.Message);
         }
     }
 }

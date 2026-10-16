@@ -1,5 +1,7 @@
 (() => {
     'use strict';
+    const messages = JSON.parse(document.getElementById('alertcenter-localization')?.textContent || '{}');
+
 
     const root = document.getElementById('incident-comments');
     if (!root) return;
@@ -46,8 +48,8 @@
     let controller;
 
     function validationMessage(markdown) {
-        if (!markdown.trim()) return '请输入评论内容，不能仅包含空白字符。';
-        if (markdown.length > source.maxLength) return '评论不能超过 4000 个 UTF-16 字符，请缩短内容后再发布。';
+        if (!markdown.trim()) return (messages["Enter comment content; cannot contain only whitespace."] ?? "Enter comment content; cannot contain only whitespace.");
+        if (markdown.length > source.maxLength) return (messages["Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing."] ?? "Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing.");
         return '';
     }
 
@@ -111,7 +113,7 @@
                     element,
                     mode: element.dataset.commentViewMode
                 })),
-                editorOptions: { ariaLabel: '评论内容（Markdown）' },
+                editorOptions: { ariaLabel: (messages["Comment content (Markdown)"] ?? "Comment content (Markdown)") },
                 onChange: updateSource,
                 onSave: () => form.requestSubmit(),
                 onInitializationError: error => {

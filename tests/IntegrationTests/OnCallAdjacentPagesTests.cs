@@ -88,7 +88,7 @@ public class OnCallAdjacentPagesTests : TestBase
         var adjacentContents = Regex.Matches(html, "<button[^>]*class=\"ac-gantt-shift ac-gantt-adjacent\"[^>]*>(.*?)</button>", RegexOptions.Singleline)
             .Select(match => match.Groups[1].Value).ToArray();
         Assert.AreEqual(10, adjacentContents.Length);
-        Assert.IsTrue(adjacentContents.All(content => content.Contains("Adjacent team（只读）")));
+        Assert.IsTrue(adjacentContents.All(content => content.Contains("Adjacent team (Read-only)")));
         var zone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
         string LocalTime(DateTime time) => TimeZoneInfo.ConvertTime(new DateTimeOffset(time), zone).ToString("yyyy-MM-dd HH:mm zzz");
         var end = start.AddDays(7);
@@ -131,10 +131,10 @@ public class OnCallAdjacentPagesTests : TestBase
             Assert.AreEqual(dateHeaders.Length, dayGrid.Length);
             Assert.IsTrue(dateHeaders.Length >= 2);
             Assert.AreEqual(36, dayGrid.Sum(bar => Geometry(bar).Width), 0.000001);
-            Assert.IsTrue(dateHeaders.All(header => header.Contains("<strong>") && header.Contains(" · 只读") && header.Contains("hidden")));
+            Assert.IsTrue(dateHeaders.All(header => header.Contains("<strong>") && header.Contains(" · Read-only") && header.Contains("hidden")));
         }
-        Assert.Contains("本周前 36 小时（只读）", html);
-        Assert.Contains("本周后 36 小时（只读）", html);
+        Assert.Contains("36 hours before this week (read-only)", html);
+        Assert.Contains("36 hours after this week (read-only)", html);
         Assert.IsTrue(adjacent.Any(shift => shift.Contains("-04:00")) && adjacent.Any(shift => shift.Contains("-05:00")));
         if (administrator)
         {
@@ -181,8 +181,8 @@ public class OnCallAdjacentPagesTests : TestBase
         var select = Regex.Match(html, "<select id=\"oncall-edit-slot\"[^>]*>(.*?)</select>", RegexOptions.Singleline).Groups[1].Value;
         var values = Regex.Matches(select, "<option value=\"([0-9]+)\"").Select(match => int.Parse(match.Groups[1].Value)).ToArray();
         CollectionAssert.AreEqual(Enumerable.Range(21, 21).ToArray(), values);
-        Assert.DoesNotContain("<optgroup label=\"上一周\"", select);
-        Assert.DoesNotContain("<optgroup label=\"下一周\"", select);
+        Assert.DoesNotContain("<optgroup label=\"Previous week\"", select);
+        Assert.DoesNotContain("<optgroup label=\"Next week\"", select);
     }
 
     private static void AssertEdgeFrame(string html)
@@ -196,7 +196,7 @@ public class OnCallAdjacentPagesTests : TestBase
         var toggles = Regex.Matches(html, "<button[^>]*data-oncall-edge=\"(?:previous|next)\"[^>]*>").Select(match => match.Value).ToArray();
         Assert.AreEqual(2, toggles.Length);
         Assert.IsTrue(toggles.All(toggle => toggle.Contains("ac-gantt-edge-toggle")));
-        Assert.Contains("展开前 36 小时", html);
-        Assert.Contains("展开后 36 小时", html);
+        Assert.Contains("Expand previous 36 hours", html);
+        Assert.Contains("Expand next 36 hours", html);
     }
 }

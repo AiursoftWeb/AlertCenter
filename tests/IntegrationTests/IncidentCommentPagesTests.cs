@@ -94,7 +94,7 @@ public partial class AlertDemoTests
         Assert.AreEqual(HttpStatusCode.OK, deleted.StatusCode);
         Assert.AreEqual(url + "?commentsPage=2#incident-comments", JObject.Parse(await deleted.Content.ReadAsStringAsync())["redirectUrl"]!.Value<string>());
         var after = WebUtility.HtmlDecode(await Http.GetStringAsync(url));
-        Assert.Contains("评论已删除", after);
+        Assert.Contains("comment has been deleted", after);
         Assert.DoesNotContain("private-evidence-removed", after);
         Assert.DoesNotContain("window.commentXss", after);
         using var repeated = await DialogPost("/Incidents/DeleteComment", new()

@@ -123,7 +123,7 @@ public class ApplicationDeletionTests
         Assert.AreEqual(1, await _db.ReportedMessages.CountAsync());
     }
 
-    private AlertsController AdminController() => new(_db, new ApplicationAccessService(_db))
+    private AlertsController AdminController() => new(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<AlertsController>(), localizerFactory: TestLocalization.Factory)
     {
         ControllerContext = new ControllerContext
         {

@@ -3,10 +3,10 @@
 @{
     var (pillClass, icon, label) = Model switch
     {
-        PushDelivery.Pending => ("ac-status-pill-pending", "clock", "等待投递"),
-        PushDelivery.Sending => ("ac-status-pill-sending", "loader", "投递中"),
-        PushDelivery.Succeeded => ("ac-status-pill-succeeded", "check-circle-2", "投递成功"),
-        _ => ("ac-status-pill-failed", "alert-circle", "投递失败")
+        PushDelivery.Pending => ("ac-status-pill-pending", "clock", @Localizer["Pending delivery"].Value),
+        PushDelivery.Sending => ("ac-status-pill-sending", "loader", @Localizer["Delivering"].Value),
+        PushDelivery.Succeeded => ("ac-status-pill-succeeded", "check-circle-2", @Localizer["Delivery Successful"].Value),
+        _ => ("ac-status-pill-failed", "alert-circle", @Localizer["Delivery Failed"].Value)
     };
 }
 <span class="ac-status-pill @pillClass">

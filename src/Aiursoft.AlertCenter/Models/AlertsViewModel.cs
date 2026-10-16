@@ -6,7 +6,7 @@ namespace Aiursoft.AlertCenter.Models;
 
 public class AlertsViewModel : UiStackLayoutViewModel
 {
-    public AlertsViewModel() { PageTitle = "告警中心"; }
+    public AlertsViewModel() { PageTitle = "Alert Center"; }
     public List<SourceApplication> Applications { get; set; } = [];
     public List<ReportedMessage> Messages { get; set; } = [];
     public ReportedMessage? Message { get; set; }

@@ -1,4 +1,5 @@
 using Aiursoft.AlertCenter.Entities;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
@@ -10,30 +11,30 @@ public interface IOnCallScheduleGenerator
         DateTime startUtc, int shiftCount, IReadOnlyList<GeneratedOnCallShift>? existing = null);
 }
 
-public sealed class OnCallScheduleGenerator : IOnCallScheduleGenerator
+public sealed class OnCallScheduleGenerator (IStringLocalizer<OnCallScheduleGenerator> localizer): IOnCallScheduleGenerator
 {
     public IReadOnlyList<GeneratedOnCallShift> Generate(OnCallRule rule, DateTime anchorUtc, IReadOnlyList<string> orderedUserIds,
         DateTime startUtc, int shiftCount, IReadOnlyList<GeneratedOnCallShift>? existing = null)
     {
         if (rule.ShiftHours != 8 || rule.RestHours is < 0 or > 168)
-            throw new ArgumentException("固定每天三班，每班 8 小时；最短休息需为 0–168 小时。");
+            throw new ArgumentException(localizer["Fixed three shifts per day, 8 hours each; minimum break must be 0–168 hours."].Value);
         if (rule.MinimumStaff is < 1 or > 200 ||
             rule.TargetStaff is < 1 or > 200 || rule.TargetStaff < rule.MinimumStaff)
-            throw new ArgumentException("最低人数需为 1–200，目标人数需为空或为不低于最低人数的 1–200。");
+            throw new ArgumentException(localizer["Minimum staff must be 1–200. Target staff must be empty or between 1–200 and not less than the minimum."].Value);
         if (anchorUtc.Kind != DateTimeKind.Utc || startUtc.Kind != DateTimeKind.Utc)
-            throw new ArgumentException("排班起点必须是 UTC 时间。");
+            throw new ArgumentException(localizer["The shift start time must be in UTC."].Value);
         if (shiftCount is < 1 or > 168)
-            throw new ArgumentOutOfRangeException(nameof(shiftCount), "预览班次数量需为 1–168。");
+            throw new ArgumentOutOfRangeException(nameof(shiftCount), localizer["Preview shift count must be 1–168."].Value);
         if (orderedUserIds.Count == 0 || orderedUserIds.Any(string.IsNullOrWhiteSpace) ||
             orderedUserIds.Distinct(StringComparer.Ordinal).Count() != orderedUserIds.Count)
-            throw new ArgumentException("请选择不重复的有效员工。");
+            throw new ArgumentException(localizer["Please select unique, valid employees."].Value);
         var requiredStaff = Math.Max(3, 1 + (int)Math.Ceiling(rule.RestHours / 8.0));
         var minimumRequiredStaff = requiredStaff * rule.MinimumStaff;
         if (orderedUserIds.Count < minimumRequiredStaff)
-            throw new InvalidOperationException($"该规则至少需要 {minimumRequiredStaff} 名员工（班次 {rule.ShiftHours} 小时，休息不少于 {rule.RestHours} 小时）。");
+            throw new InvalidOperationException(string.Format(localizer["This rule requires at least {0} staff (shift {1} hours, rest no less than {2} hours)."].Value, minimumRequiredStaff, rule.ShiftHours, rule.RestHours));
         var duration = TimeSpan.FromHours(rule.ShiftHours);
         if (startUtc < anchorUtc || (startUtc - anchorUtc).Ticks % duration.Ticks != 0)
-            throw new ArgumentException("预览起点必须位于团队的班次边界上。");
+            throw new ArgumentException(localizer["Preview start must align with the team's shift boundary."].Value);
         var firstIndex = (startUtc - anchorUtc).Ticks / duration.Ticks;
         var history = orderedUserIds.ToDictionary(id => id,
             id => (existing ?? []).Where(shift => shift.UserId == id).ToList(), StringComparer.Ordinal);
@@ -67,7 +68,7 @@ public sealed class OnCallScheduleGenerator : IOnCallScheduleGenerator
                 if (++assigned == target) break;
             }
             if (assigned < rule.MinimumStaff)
-                throw new InvalidOperationException($"{startsAt:yyyy-MM-dd HH:mm} UTC 无法安排满足休息要求的员工，请调整相邻排班或增加成员。");
+                throw new InvalidOperationException(string.Format(localizer["Unable to schedule staff meeting rest requirements at {0:yyyy-MM-dd HH:mm} UTC. Please adjust adjacent shifts or add members."].Value, startsAt));
         }
         return result;
     }

@@ -13,35 +13,35 @@
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
-        <h1 class="h3 mb-1">@group.Name · 值班排班</h1>
-        <p class="text-muted mb-0">@group.TimeZoneId · 每天三班，支持多人同班。实际班次保存在团队下。</p>
+        <h1 class="h3 mb-1">@group.Name · @Localizer["On-call schedule"]</h1>
+        <p class="text-muted mb-0">@group.TimeZoneId · @Localizer["Three shifts per day, supporting multiple members per shift. Actual shifts are stored under the team."]</p>
     </div>
     <div class="d-flex flex-wrap gap-2">
-        <a asp-action="Schedule" class="btn btn-outline-secondary">返回排班列表</a>
-        <a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-outline-primary">查看团队</a>
+        <a asp-action="Schedule" class="btn btn-outline-secondary">@Localizer["Back to Schedule List"]</a>
+        <a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-outline-primary">@Localizer["View team"]</a>
         @if (Model.IsAdministrator)
         {
-            <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-primary">编辑团队</a>
+            <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-primary">@Localizer["Edit team"]</a>
         }
     </div>
 </div>
 <div class="card mb-4">
-    <div class="card-header"><h2 class="card-title mb-0">团队配置</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Team configuration"]</h2></div>
     <div class="card-body">
-        <p>每班 @(rule?.ShiftHours ?? 8) 小时 · 本周最低 @Model.ScheduleMinimumStaff 人 · 本周最短休息 @Model.ScheduleRestHours 小时 · 锚点 @group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        <p>@Localizer["Per shift "]@(rule?.ShiftHours ?? 8) @Localizer["hours · Weekly min "]@Model.ScheduleMinimumStaff @Localizer["people · Shortest rest this week "]@Model.ScheduleRestHours @Localizer["hours · Anchor "]@group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
         @if (rule != null)
         {
-            <p>规则模板：<a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a> · 模板最短休息 @rule.RestHours 小时 · 每班最低 @rule.MinimumStaff 人，目标 @(rule.TargetStaff?.ToString() ?? "自动分配") 人 · 时段轮换：@(rule.BalanceShiftTimes ? "尽量均衡早、中、晚班" : "关闭，优先固定时段")</p>
+            <p>@Localizer["Rule template:"]<a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a> · @Localizer["Minimum template cooldown "]@rule.RestHours @Localizer["hours · Shift min "]@rule.MinimumStaff @Localizer["people, target "]@(rule.TargetStaff?.ToString() ?? @Localizer["Auto-assign"].Value) @Localizer["people · Time-slot rotation: "]@(rule.BalanceShiftTimes ? @Localizer["Balance early, middle, and late shifts as evenly as possible"].Value : @Localizer["Close, prioritize fixed time slots"].Value)</p>
         }
         else
         {
-            <p class="text-muted">未绑定规则模板，可手动排班；新排班默认最短休息 @(rule?.RestHours ?? 16) 小时。</p>
+            <p class="text-muted">@Localizer["No rule template bound, manual scheduling available; new shifts default to min rest "]@(rule?.RestHours ?? 16) @Localizer["hours."]</p>
         }
-        <p class="small text-muted">修改模板、重新绑定模板或增减成员不会重新生成已保存班次。移除成员后，尚未开始的安排会清除，空班需手动补充。</p>
-        <h3 class="h6">轮换成员</h3>
+        <p class="small text-muted">@Localizer["Modifying templates, re-binding templates, or adding/removing members will not regenerate saved shifts. After removing a member, upcoming assignments are cleared; empty shifts must be filled manually."]</p>
+        <h3 class="h6">@Localizer["Rotate Members"]</h3>
         @if (group.Members.Count == 0)
         {
-            <p class="text-muted mb-0">暂无团队成员；请先编辑团队添加成员，再手动填充空班。</p>
+            <p class="text-muted mb-0">@Localizer["No team members. Please edit the team to add members before manually filling empty shifts."]</p>
         }
         else
         {
@@ -61,15 +61,15 @@
             <i class="align-middle" data-lucide="users" aria-hidden="true"></i>
         </div>
         <div class="alert-message">
-            <h2 class="h6">跨值班组成员需手动安排</h2>
-            <p>以下员工同时属于多个值班组，自动预览和自动排班将跳过他们；已保存的安排保持不变，仍可手动安排并校验跨组冲突。</p>
+            <h2 class="h6">@Localizer["Cross-on-call-group members require manual scheduling"]</h2>
+            <p>@Localizer["The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available."]</p>
             <ul class="mb-0">
                 @foreach (var member in group.Members.OrderBy(item => item.RotationOrder))
                 {
                     var others = Model.OtherGroupMemberships.Where(other => other.UserId == member.UserId).ToList();
                     if (others.Count == 0) { continue; }
                     <li>
-                        <strong>@member.User.DisplayName</strong> · 其他团队：
+                        <strong>@member.User.DisplayName</strong> · @Localizer["Other teams: "]
                         @foreach (var other in others)
                         {
                             <a asp-action="ScheduleDetails" asp-route-id="@other.GroupId" class="alert-link me-2">@other.Group.Name</a>
@@ -81,14 +81,14 @@
     </div>
 }
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">七天值班排班</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["7-Day On-Call Schedule"]</h2></div>
     <div class="card-body">
         @if (Model.StaffingWarnings.Count > 0)
         {
             <div class="alert alert-warning" role="alert">
                 <div class="alert-message">
                     <details open>
-                        <summary class="fw-semibold">人数不足提示（仍允许手动保存，空班除外）</summary>
+                        <summary class="fw-semibold">@Localizer["Insufficient staff warning (manual save allowed, except for empty shifts)"]</summary>
                         <ul class="mt-2 mb-0">@foreach (var warning in Model.StaffingWarnings) { <li>@warning</li> }</ul>
                     </details>
                 </div>
@@ -111,14 +111,14 @@
             <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
                 @if (Model.WeekStartUtc > group.AnchorUtc)
                 {
-                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(-7).ToString("O")" class="btn btn-outline-secondary btn-sm">上一周</a>
+                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(-7).ToString("O")" class="btn btn-outline-secondary btn-sm">@Localizer["Previous Week"]</a>
                 }
-                <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-outline-secondary btn-sm">当前周</a>
+                <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-outline-secondary btn-sm">@Localizer["Current Week"]</a>
                 @if (Model.WeekStartUtc < DateTime.MaxValue.AddDays(-35))
                 {
-                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(7).ToString("O")" class="btn btn-outline-secondary btn-sm">下一周</a>
+                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(7).ToString("O")" class="btn btn-outline-secondary btn-sm">@Localizer["Next Week"]</a>
                 }
-                <span id="oncall-save-state" class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? "已保存" : Model.CanGenerateSchedule ? "未保存 · 自动建议" : "未保存 · 手动排班")</span>
+                <span id="oncall-save-state" class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? @Localizer["Saved"].Value : Model.CanGenerateSchedule ? @Localizer["Unsaved · Auto-suggested"].Value : @Localizer["Unsaved · Manual schedule"].Value)</span>
             </div>
             @if (firstShift != null)
             {
@@ -129,28 +129,28 @@
                     <div class="alert-message d-flex flex-wrap align-items-center gap-2">
                         @if (currentShift != null)
                         {
-                            <span class="badge bg-primary">当前值班</span>
-                            <strong class="text-break">@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc == currentShift.StartsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, "已删除的员工")))</strong>
-                            <span>本班至 @TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
+                            <span class="badge bg-primary">@Localizer["Current On-Call"]</span>
+                            <strong class="text-break">@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc == currentShift.StartsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, @Localizer["Employee deleted"].Value)))</strong>
+                            <span>@Localizer["This shift ends at "]@TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
                         }
                         else
                         {
-                            <span class="badge bg-primary">@(firstShift.StartsAtUtc > now ? "即将开始" : "本周排班")</span>
-                            <strong class="text-break">@staffNames.GetValueOrDefault(firstShift.UserId, "已删除的员工")</strong>
-                            <span>首班于 @TimeZoneInfo.ConvertTimeFromUtc(firstShift.StartsAtUtc, zone).ToString("MM-dd HH:mm") 开始</span>
+                            <span class="badge bg-primary">@(firstShift.StartsAtUtc > now ? @Localizer["Starting soon"].Value : @Localizer["This week's schedule"].Value)</span>
+                            <strong class="text-break">@staffNames.GetValueOrDefault(firstShift.UserId, @Localizer["Employee deleted"].Value)</strong>
+                            <span>@Localizer["First class at "]@TimeZoneInfo.ConvertTimeFromUtc(firstShift.StartsAtUtc, zone).ToString("MM-dd HH:mm") @Localizer["Start"]</span>
                         }
-                        <span class="small">（@group.TimeZoneId，状态以页面加载时为准）</span>
+                        <span class="small">（@group.TimeZoneId，@Localizer["Status is based on page load time)"]</span>
                     </div>
                 </div>
             }
             else
             {
-                <p class="text-muted">本周暂无已分配班次，可手动补充人员。</p>
+                <p class="text-muted">@Localizer["No shifts are currently assigned this week. You can add personnel manually."]</p>
             }
             <div class="row g-3 mb-3">
-                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">已覆盖班次</div><strong class="fs-4" data-oncall-stat="shifts">@Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count()</strong></div></div></div>
-                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">参与员工</div><strong class="fs-4" data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></div></div></div>
-                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">覆盖时长</div><strong class="fs-4" data-oncall-stat="hours">@totalHours.ToString("0") 小时</strong></div></div></div>
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">@Localizer["Shift covered"]</div><strong class="fs-4" data-oncall-stat="shifts">@Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count()</strong></div></div></div>
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">@Localizer["Participating employees"]</div><strong class="fs-4" data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></div></div></div>
+                <div class="col-sm-4"><div class="card border h-100 mb-0"><div class="card-body py-3"><div class="text-muted small">@Localizer["Override duration"]</div><strong class="fs-4" data-oncall-stat="hours">@totalHours.ToString("0") @Localizer["hours"]</strong></div></div></div>
             </div>
             @if (Model.IsAdministrator)
             {
@@ -160,7 +160,7 @@
         }
         else
         {
-            <p class="text-muted mb-0">暂无有效排班周，请检查团队的排班起点。</p>
+            <p class="text-muted mb-0">@Localizer["No valid scheduling weeks. Please check the team's scheduling start point."]</p>
         }
     </div>
 </div>

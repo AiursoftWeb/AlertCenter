@@ -7,20 +7,19 @@ using Aiursoft.UiStack.Navigation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
 [Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-public class PushController(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters,
-    PushDeliveryProcessor processor, WebhookConfigurationProtector webhookConfigurationProtector,
-    IApplicationAccessService applicationAccess, IPushChannelAccessService channelAccess) : Controller
+public class PushController(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters, PushDeliveryProcessor processor, WebhookConfigurationProtector webhookConfigurationProtector, IApplicationAccessService applicationAccess, IPushChannelAccessService channelAccess, IStringLocalizer<PushController> localizer, IStringLocalizerFactory localizerFactory) : Controller
 {
     private List<ChannelTypeDefinition> Types => adapters.Select(adapter => adapter.Definition).ToList();
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
-        LinkText = "推送渠道", LinkOrder = 0)]
+        CascadedLinksGroupName = "Notifications", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
+        LinkText = "Push Channel", LinkOrder = 0)]
     [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Index() => this.StackView(new PushViewModel
     {
@@ -48,7 +47,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (channel == null) return NotFound();
         string? webhookHeadersJson = null;
         if (channel.Type == "webhook" && !webhookConfigurationProtector.TryUnprotect(channel.WebhookHeadersProtected, out webhookHeadersJson))
-            return BadRequest("无法读取已保存的 Webhook 请求头。请检查数据保护密钥后重试。");
+            return BadRequest(localizer["Unable to read saved Webhook request headers. Please check the data protection key and try again."].Value);
         var model = new PushChannelEditViewModel
         {
             Id = channel.Id, Name = channel.Name, Type = channel.Type, Endpoint = channel.Endpoint,
@@ -75,50 +74,50 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         model.BindingUserIds = model.BindingUserIds.Distinct().ToArray();
         model.BindingRoleIds = model.BindingRoleIds.Distinct().ToArray();
         if (await db.Users.CountAsync(user => model.BindingUserIds.Contains(user.Id)) != model.BindingUserIds.Length)
-            ModelState.AddModelError(nameof(model.BindingUserIds), "所选可绑定用户不存在，请重新选择。");
+            ModelState.AddModelError(nameof(model.BindingUserIds), localizer["The selected bindable user does not exist. Please select again."].Value);
         if (await db.Roles.CountAsync(role => model.BindingRoleIds.Contains(role.Id)) != model.BindingRoleIds.Length)
-            ModelState.AddModelError(nameof(model.BindingRoleIds), "所选可绑定用户组不存在，请重新选择。");
+            ModelState.AddModelError(nameof(model.BindingRoleIds), localizer["The selected bindable user group does not exist. Please select again."].Value);
         if (await db.Users.CountAsync(user => model.RecipientUserIds.Contains(user.Id)) != model.RecipientUserIds.Length)
-            ModelState.AddModelError(nameof(model.RecipientUserIds), "所选接收用户不存在，请重新选择。");
+            ModelState.AddModelError(nameof(model.RecipientUserIds), localizer["The selected recipient user does not exist. Please select again."].Value);
         if (await db.Roles.CountAsync(role => model.RecipientRoleIds.Contains(role.Id)) != model.RecipientRoleIds.Length)
-            ModelState.AddModelError(nameof(model.RecipientRoleIds), "所选接收用户组不存在，请重新选择。");
+            ModelState.AddModelError(nameof(model.RecipientRoleIds), localizer["The selected recipient user group does not exist. Please select again."].Value);
         if (model.Type == "inapp" && model.RecipientUserIds.Length + model.RecipientRoleIds.Length == 0)
-            ModelState.AddModelError(nameof(model.RecipientUserIds), "请至少选择一个接收用户或用户组。");
+            ModelState.AddModelError(nameof(model.RecipientUserIds), localizer["Select at least one recipient user or user group."].Value);
         var type = Types.SingleOrDefault(item => item.Key == model.Type);
-        if (type == null) ModelState.AddModelError(nameof(model.Type), "请选择可用的渠道类型。");
+        if (type == null) ModelState.AddModelError(nameof(model.Type), localizer["Please select an available channel type."].Value);
         if (type?.RequiresEndpoint == true)
         {
             if (!WebhookChannelAdapter.IsValidEndpoint(model.Endpoint?.Trim()))
-                ModelState.AddModelError(nameof(model.Endpoint), "请输入有效的 HTTP 或 HTTPS 地址，不支持用户名、密码或 URL 片段。");
-            if (!WebhookChannelAdapter.TryValidateCustomHeaders(model.WebhookHeadersJson, out var headersError))
+                ModelState.AddModelError(nameof(model.Endpoint), localizer["Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported."].Value);
+            if (!WebhookChannelAdapter.TryValidateCustomHeaders(model.WebhookHeadersJson, out var headersError, localizer: localizerFactory.Create(typeof(WebhookChannelAdapter))))
                 ModelState.AddModelError(nameof(model.WebhookHeadersJson), headersError!);
-            if (!WebhookChannelAdapter.TryValidatePayloadTemplate(model.WebhookPayloadTemplate, out var payloadError))
+            if (!WebhookChannelAdapter.TryValidatePayloadTemplate(model.WebhookPayloadTemplate, out var payloadError, localizer: localizerFactory.Create(typeof(WebhookChannelAdapter))))
                 ModelState.AddModelError(nameof(model.WebhookPayloadTemplate), payloadError!);
             if (!string.IsNullOrWhiteSpace(model.WebhookHeadersJson) && !webhookConfigurationProtector.IsAvailable)
-                ModelState.AddModelError(nameof(model.WebhookHeadersJson), "自定义请求头需要配置 Webhook:HeaderProtectionKey。请通过受保护的环境变量提供该密钥。");
+                ModelState.AddModelError(nameof(model.WebhookHeadersJson), localizer["Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable."].Value);
         }
         string? emailRecipient = null;
         List<string>? emailCcRecipients = null;
         if (model.Type == "email")
         {
-            if (!EmailChannelAdapter.TryParseRecipient(model.EmailRecipient, out emailRecipient, out var recipientError))
+            if (!EmailChannelAdapter.TryParseRecipient(model.EmailRecipient, out emailRecipient, out var recipientError, localizer: localizerFactory.Create(typeof(EmailChannelAdapter))))
                 ModelState.AddModelError(nameof(model.EmailRecipient), recipientError!);
-            if (!EmailChannelAdapter.TryParseCcRecipients(model.EmailCcRecipients, out emailCcRecipients, out var ccRecipientsError))
+            if (!EmailChannelAdapter.TryParseCcRecipients(model.EmailCcRecipients, out emailCcRecipients, out var ccRecipientsError, localizer: localizerFactory.Create(typeof(EmailChannelAdapter))))
                 ModelState.AddModelError(nameof(model.EmailCcRecipients), ccRecipientsError!);
             else if (!string.IsNullOrEmpty(emailRecipient) && emailCcRecipients.Contains(emailRecipient, StringComparer.OrdinalIgnoreCase))
-                ModelState.AddModelError(nameof(model.EmailCcRecipients), "收件人无需重复添加到抄送列表。");
+                ModelState.AddModelError(nameof(model.EmailCcRecipients), localizer["The recipient does not need to be added to the CC list again."].Value);
         }
         var channel = model.Id.HasValue ? await db.PushChannels.FindAsync(model.Id.Value) : new PushChannel();
         if (channel == null) return NotFound();
         if (model.Id.HasValue && channel.Type != model.Type)
-            ModelState.AddModelError(nameof(model.Type), "已有渠道不能更改类型，请创建新的渠道。");
+            ModelState.AddModelError(nameof(model.Type), localizer["Type of an existing channel cannot be changed; please create a new channel."].Value);
         if (!ModelState.IsValid) return this.StackView(model, "Edit");
         channel.Name = model.Name.Trim();
         channel.Type = model.Type;
         channel.Endpoint = type!.RequiresEndpoint ? model.Endpoint!.Trim() : null;
         string? protectedHeaders = null;
         if (type.RequiresEndpoint && !webhookConfigurationProtector.TryProtect(NullIfWhiteSpace(model.WebhookHeadersJson), out protectedHeaders))
-            return BadRequest("无法保护 Webhook 自定义请求头。请检查 Webhook:HeaderProtectionKey 配置。");
+            return BadRequest(localizer["Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration."].Value);
         channel.WebhookHeadersProtected = type.RequiresEndpoint ? protectedHeaders : null;
         channel.WebhookPayloadTemplate = type.RequiresEndpoint ? NullIfWhiteSpace(model.WebhookPayloadTemplate) : null;
         channel.EmailRecipient = emailRecipient ?? string.Empty;
@@ -219,7 +218,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             .Include(item => item.Delivery).ThenInclude(delivery => delivery.Message).ThenInclude(message => message!.Application)
             .SingleOrDefaultAsync(item => item.Id == id && item.UserId == userId);
         if (notification == null) return NotFound();
-        return this.StackView(new PushViewModel { PageTitle = "站内通知详情", Notifications = [notification] });
+        return this.StackView(new PushViewModel { PageTitle = localizer["In-app notification details"].Value, Notifications = [notification] });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -272,7 +271,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         if (!await db.SourceApplications.AnyAsync(application => application.Id == id, cancellationToken)) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
-        if (!ModelState.IsValid) return BadRequest("渠道配置无效，请刷新页面后重试。");
+        if (!ModelState.IsValid) return BadRequest(localizer["Invalid channel configuration. Please refresh the page and try again."].Value);
         var sev0 = bindings.Sev0ChannelIds.ToHashSet();
         var sev1 = bindings.Sev1ChannelIds.ToHashSet();
         var sev2 = bindings.Sev2ChannelIds.ToHashSet();
@@ -280,7 +279,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var sev4 = bindings.Sev4ChannelIds.ToHashSet();
         var selected = sev0.Concat(sev1).Concat(sev2).Concat(sev3).Concat(sev4).ToHashSet();
         if (await db.PushChannels.CountAsync(channel => selected.Contains(channel.Id)) != selected.Count)
-            return BadRequest("所选渠道已不存在，请刷新页面后重试。");
+            return BadRequest(localizer["The selected channel no longer exists. Please refresh the page and try again."].Value);
         var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
         if (selected.Any(channelId => !bindableChannelIds.Contains(channelId)))
             return Forbid();
@@ -309,13 +308,13 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Test(Guid id, CancellationToken cancellationToken, [FromForm] string? content = null)
     {
-        content ??= PushDelivery.DefaultTestContent;
+        content ??= localizer["This is a test message for the push channel."].Value;
         content = content.Trim();
         if (content.Length == 0 || content.Length > 4000)
-            return BadRequest("测试消息内容不能为空，且不能超过 4000 个字符。");
+            return BadRequest(localizer["Test message content cannot be empty and must not exceed 4,000 characters."].Value);
         var channel = await db.PushChannels.FindAsync(id);
         if (channel == null) return NotFound();
-        if (!channel.IsEnabled) return BadRequest("请先启用渠道。");
+        if (!channel.IsEnabled) return BadRequest(localizer["Please enable the channel first."].Value);
         var delivery = new PushDelivery { ChannelId = id, TestContent = content };
         db.PushDeliveries.Add(delivery);
         if (channel.Type == "inapp") await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
@@ -325,8 +324,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     }
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
-        LinkText = "推送记录", LinkOrder = 1)]
+        CascadedLinksGroupName = "Notifications", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
+        LinkText = "Push Records", LinkOrder = 1)]
     public async Task<IActionResult> Records(int page = 1, Guid? channelId = null, string? status = null,
         CancellationToken cancellationToken = default)
     {
@@ -403,13 +402,13 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             .ExecuteUpdateAsync(setters => setters.SetProperty(delivery => delivery.Status, PushDelivery.Pending)
                 .SetProperty(delivery => delivery.Error, (string?)null)
                 .SetProperty(delivery => delivery.CompletedAtUtc, (DateTime?)null));
-        if (updated == 0) return Conflict("仅可重试有效 OCE 快照的值班邮件，或已启用自定义渠道的失败记录。缺少 OCE 或邮箱时不能重新选择收件人补发旧告警。");
+        if (updated == 0) return Conflict(localizer["Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing."].Value);
         return RedirectToAction(nameof(Delivery), new { id });
     }
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "推送中心", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
-        LinkText = "站内通知", LinkOrder = 2)]
+        CascadedLinksGroupName = "Notifications", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
+        LinkText = "In-app notifications", LinkOrder = 2)]
     public async Task<IActionResult> Inbox([FromQuery] InboxFilter filter)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -428,7 +427,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
                 .OrderBy(channel => channel.Name).ToListAsync()
         };
         if (!ModelState.IsValid) return this.StackView(model);
-        var query = FilterInbox(ownNotifications, filter);
+        var query = FilterInbox(ownNotifications, filter, localizer: localizer);
         var notifications = await query.Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Message)
             .ThenInclude(message => message!.Application)
             .Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Channel)
@@ -439,7 +438,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         return this.StackView(model);
     }
 
-    private static IQueryable<InAppNotification> FilterInbox(IQueryable<InAppNotification> query, InboxFilter filter)
+    private static IQueryable<InAppNotification> FilterInbox(IQueryable<InAppNotification> query, InboxFilter filter, IStringLocalizer? localizer = null)
     {
         if (filter.ReadStatus == "unread") query = query.Where(notification => notification.ReadAtUtc == null);
         if (filter.ReadStatus == "read") query = query.Where(notification => notification.ReadAtUtc != null);
@@ -453,10 +452,12 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (filter.Keyword != null)
         {
             var keyword = filter.Keyword.ToLowerInvariant();
+            var testTitle = (localizer is null ? "Channel test notification" : localizer["Channel test notification"].Value).ToLowerInvariant();
+            var defaultContent = (localizer is null ? "This is a test message for the push channel." : localizer["This is a test message for the push channel."].Value).ToLowerInvariant();
             query = query.Where(notification => notification.Delivery.Message == null
-                ? "渠道测试通知".Contains(keyword) ||
+                ? testTitle.Contains(keyword) ||
                   (notification.Delivery.TestContent != null && notification.Delivery.TestContent.ToLower().Contains(keyword)) ||
-                  (notification.Delivery.TestContent == null && PushDelivery.DefaultTestContent.Contains(keyword))
+                  (notification.Delivery.TestContent == null && defaultContent.Contains(keyword))
                 : notification.Delivery.Message.Title.ToLower().Contains(keyword) ||
                   (notification.Delivery.Message.Content != null && notification.Delivery.Message.Content.ToLower().Contains(keyword)));
         }
@@ -478,7 +479,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return Unauthorized();
-        if (!ModelState.IsValid) return BadRequest("筛选条件无效，请刷新页面后重试。");
+        if (!ModelState.IsValid) return BadRequest(localizer["Invalid filter criteria. Please refresh the page and try again."].Value);
         filter.Normalize();
         var notification = await db.InAppNotifications.SingleOrDefaultAsync(item => item.Id == id && item.UserId == userId);
         if (notification == null) return NotFound();
@@ -494,7 +495,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return Unauthorized();
-        if (!ModelState.IsValid) return BadRequest("筛选条件无效，请刷新页面后重试。");
+        if (!ModelState.IsValid) return BadRequest(localizer["Invalid filter criteria. Please refresh the page and try again."].Value);
         filter.Normalize();
         await db.InAppNotifications.Where(notification => notification.UserId == userId && notification.ReadAtUtc == null)
             .ExecuteUpdateAsync(setters => setters.SetProperty(notification => notification.ReadAtUtc, DateTime.UtcNow));
