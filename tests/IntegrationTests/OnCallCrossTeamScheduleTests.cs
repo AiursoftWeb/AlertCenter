@@ -81,10 +81,8 @@ public class OnCallCrossTeamScheduleTests : TestBase
 
     private async Task<HttpResponseMessage> Generate(SaveOnCallScheduleRequest request)
     {
-        using var message = new HttpRequestMessage(HttpMethod.Post, "/OnCall/GenerateSchedule")
-        {
-            Content = JsonContent.Create(request)
-        };
+        using var message = new HttpRequestMessage(HttpMethod.Post, "/OnCall/GenerateSchedule");
+        message.Content = JsonContent.Create(request);
         message.Headers.Add("RequestVerificationToken", await GetAntiCsrfToken($"/OnCall/ScheduleDetails/{request.GroupId}"));
         return await Http.SendAsync(message);
     }
@@ -127,6 +125,7 @@ public class OnCallCrossTeamScheduleTests : TestBase
         var metadata = await Http.GetFromJsonAsync<JsonElement>(ScheduleUrl(id, Anchor));
         Assert.IsFalse(metadata.GetProperty("canGenerate").GetBoolean());
         var error = metadata.GetProperty("generationError").GetString();
+        Assert.IsNotNull(error);
         Assert.IsFalse(string.IsNullOrWhiteSpace(error));
         Assert.Contains("2", error);
         Assert.Contains("3", error);
