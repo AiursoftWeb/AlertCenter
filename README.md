@@ -327,6 +327,14 @@ dotnet test tests/Aiursoft.AlertCenter.Tests.csproj --filter 'FullyQualifiedName
 
 These unit tests cover overlap/rest boundaries, staffing warnings, invalid assignments, filter normalization, validation, and culture-independent pagination routes.
 
+For isolated Webhook adapter and configuration-protection tests:
+
+```bash
+dotnet test tests/Aiursoft.AlertCenter.Tests.csproj --filter 'FullyQualifiedName~WebhookChannelAdapterTests|FullyQualifiedName~WebhookConfigurationProtectorTests'
+```
+
+These tests cover endpoint/header/template validation, nested JSON placeholders and types, delivery idempotency headers, HTTP failures, timeout versus caller cancellation, and encrypted-header round trips, invalid keys, and tamper rejection. HTTP uses an in-process stub; no database, web server, or external receiver is required.
+
 Security regression tests also cover direct/role application grants, cross-application management denial, immediate grant revocation, incident-owner isolation, hidden channel binding preservation, and HTTP enforcement of push management policies:
 
 ```bash
