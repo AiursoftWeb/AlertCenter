@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
@@ -25,19 +26,11 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
     [RequestSizeLimit(65536)]
     public async Task<IActionResult> Create([FromBody] CreateIncidentRequest request, CancellationToken cancellationToken)
     {
-        if (!AuthenticationHeaderValue.TryParse(Request.Headers.Authorization, out var header) ||
-            !string.Equals(header.Scheme, "Bearer", StringComparison.OrdinalIgnoreCase))
-            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
-        var parts = header.Parameter?.Split('.', 2);
-        if (parts is not { Length: 2 } || !Guid.TryParse(parts[0], out var applicationId))
-            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
-        var application = await db.SourceApplications.AsNoTracking()
-            .SingleOrDefaultAsync(a => a.Id == applicationId && a.IsEnabled, cancellationToken);
-        if (application == null || new PasswordHasher<SourceApplication>()
-                .VerifyHashedPassword(application, application.SecretHash, parts[1]) == PasswordVerificationResult.Failed)
+        var applicationId = await AuthenticateApplicationAsync(cancellationToken);
+        if (applicationId == null)
             return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
 
-        var existing = await FindExisting(applicationId, request.ReportId, cancellationToken);
+        var existing = await FindExisting(applicationId.Value, request.ReportId, cancellationToken);
         if (existing != null) return this.Protocol(Receipt(existing, true));
 
         // MySQL stores microseconds. Keep initial and duplicate receipts identical across providers.
@@ -45,7 +38,7 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         receivedAtUtc = receivedAtUtc.AddTicks(-(receivedAtUtc.Ticks % 10));
         var incident = new Incident
         {
-            ApplicationId = applicationId, ReportId = request.ReportId, Title = request.Title,
+            ApplicationId = applicationId.Value, ReportId = request.ReportId, Title = request.Title,
             ReceivedAtUtc = receivedAtUtc,
             Content = request.Content, Level = request.Level,
             OccurredAtUtc = request.OccurredAtUtc.UtcDateTime, ContextJson = request.Context?.ToString(Formatting.None)
@@ -65,11 +58,58 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         catch (DbUpdateException)
         {
             db.ChangeTracker.Clear();
-            existing = await FindExisting(applicationId, request.ReportId, cancellationToken);
+            existing = await FindExisting(applicationId.Value, request.ReportId, cancellationToken);
             if (existing != null) return this.Protocol(Receipt(existing, true));
             throw;
         }
         return this.Protocol(Receipt(incident, false));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Query([FromQuery] QueryIncidentsRequest request, CancellationToken cancellationToken)
+    {
+        var applicationId = await AuthenticateApplicationAsync(cancellationToken);
+        if (applicationId == null)
+            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
+
+        var query = db.Incidents.AsNoTracking().Where(incident => incident.ApplicationId == applicationId.Value);
+        if (request.ActiveOnly)
+            query = query.Where(incident => incident.Status != Incident.Resolved);
+        var total = await query.CountAsync(cancellationToken);
+        var incidents = await query.OrderByDescending(incident => incident.ReceivedAtUtc)
+            .ThenBy(incident => incident.Id)
+            .Skip((request.Page - 1) * request.PageSize).Take(request.PageSize)
+            .ToListAsync(cancellationToken);
+        return this.Protocol(new QueryIncidentsResponse
+        {
+            Code = Code.JobDone, Message = "Incidents retrieved.",
+            Page = request.Page, PageSize = request.PageSize, TotalCount = total,
+            Items = incidents.Select(incident => new IncidentDetails
+            {
+                IncidentId = incident.Id, ReportId = incident.ReportId,
+                Title = incident.Title, Content = incident.Content, Level = incident.Level, Status = incident.Status,
+                OccurredAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.OccurredAtUtc, DateTimeKind.Utc)),
+                ReceivedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc)),
+                Context = incident.ContextJson == null ? null : JObject.Parse(incident.ContextJson)
+            }).ToList()
+        });
+    }
+
+    private async Task<Guid?> AuthenticateApplicationAsync(CancellationToken cancellationToken)
+    {
+        if (!AuthenticationHeaderValue.TryParse(Request.Headers.Authorization, out var header) ||
+            !string.Equals(header.Scheme, "Bearer", StringComparison.OrdinalIgnoreCase))
+            return null;
+        var parts = header.Parameter?.Split('.', 2);
+        if (parts is not { Length: 2 } || !Guid.TryParse(parts[0], out var applicationId))
+            return null;
+        var application = await db.SourceApplications.AsNoTracking()
+            .SingleOrDefaultAsync(a => a.Id == applicationId && a.IsEnabled, cancellationToken);
+        if (application == null || new PasswordHasher<SourceApplication>()
+                .VerifyHashedPassword(application, application.SecretHash, parts[1]) == PasswordVerificationResult.Failed)
+            return null;
+
+        return applicationId;
     }
 
     private Task<Incident?> FindExisting(Guid applicationId, Guid reportId, CancellationToken cancellationToken) =>

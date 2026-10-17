@@ -22,6 +22,130 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
+    public async Task SdkQueriesOwnIncidentsWithFullContextAndActivePagination()
+    {
+        var key = await CreateApplication();
+        var otherKey = await CreateApplication();
+        await using var services = ReportingClient(key);
+        await using var otherServices = ReportingClient(otherKey);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var otherClient = otherServices.GetRequiredService<AlertCenterApiClient>();
+        var context = JObject.Parse("""
+            {"service":"payment-api","request":{"traceId":"abc123"},"nodes":["global-01"],"checks":[{"healthy":false}]}
+            """);
+        var request = new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(), Title = "Service unavailable", Content = "Probe failed.",
+            Level = "sev2", OccurredAtUtc = DateTimeOffset.UtcNow, Context = context
+        };
+        var first = await client.CreateIncidentAsync(request);
+        await otherClient.CreateIncidentAsync(request);
+        var ids = new List<Guid> { first.IncidentId };
+        foreach (var status in new[] { Incident.Acked, Incident.Mitigated, Incident.Resolved })
+        {
+            request.ReportId = Guid.NewGuid();
+            var receipt = await client.CreateIncidentAsync(request);
+            ids.Add(receipt.IncidentId);
+            using var scope = Server!.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var incident = await db.Incidents.SingleAsync(item => item.Id == receipt.IncidentId);
+            incident.Status = status;
+            // Equal timestamps exercise the stable secondary ordering across pages.
+            incident.ReceivedAtUtc = first.ReceivedAtUtc.UtcDateTime;
+            await db.SaveChangesAsync();
+        }
+
+        var active = await client.QueryIncidentsAsync(new QueryIncidentsRequest { ActiveOnly = true, PageSize = 2 });
+        Assert.AreEqual(Code.JobDone, active.Code);
+        Assert.IsNotNull(active.ProtocolVersion);
+        Assert.AreEqual(3, active.TotalCount);
+        Assert.AreEqual(1, active.Page);
+        Assert.AreEqual(2, active.PageSize);
+        Assert.HasCount(2, active.Items);
+        var second = await client.QueryIncidentsAsync(new QueryIncidentsRequest { ActiveOnly = true, PageSize = 2, Page = 2 });
+        Assert.HasCount(1, second.Items);
+        var combined = active.Items.Concat(second.Items).ToList();
+        Assert.HasCount(3, combined.Select(item => item.IncidentId).Distinct().ToList());
+        CollectionAssert.AreEquivalent(new[] { Incident.New, Incident.Acked, Incident.Mitigated }, combined.Select(item => item.Status).ToArray());
+        foreach (var item in combined)
+        {
+            Assert.Contains(item.IncidentId, ids);
+            Assert.AreEqual(request.Title, item.Title);
+            Assert.AreEqual(request.Content, item.Content);
+            Assert.AreEqual(request.Level, item.Level);
+            Assert.AreEqual(TimeSpan.Zero, item.OccurredAtUtc.Offset);
+            Assert.AreEqual(TimeSpan.Zero, item.ReceivedAtUtc.Offset);
+            Assert.IsTrue(JToken.DeepEquals(context, item.Context));
+        }
+        var all = await client.QueryIncidentsAsync(new QueryIncidentsRequest());
+        Assert.AreEqual(4, all.TotalCount);
+        Assert.HasCount(4, all.Items);
+        var empty = await client.QueryIncidentsAsync(new QueryIncidentsRequest { Page = 3, PageSize = 2 });
+        Assert.AreEqual(4, empty.TotalCount);
+        Assert.IsEmpty(empty.Items);
+        var other = await otherClient.QueryIncidentsAsync(new QueryIncidentsRequest());
+        Assert.AreEqual(1, other.TotalCount);
+        Assert.IsFalse(ids.Contains(other.Items.Single().IncidentId));
+    }
+
+    [TestMethod]
+    public async Task SdkQueryRejectsInvalidPagingAndRevokedOrDisabledKeys()
+    {
+        var key = await CreateApplication();
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        foreach (var request in new[]
+                 {
+                     new QueryIncidentsRequest { Page = 0 }, new QueryIncidentsRequest { Page = int.MaxValue },
+                     new QueryIncidentsRequest { PageSize = 0 }, new QueryIncidentsRequest { PageSize = 101 }
+                 })
+        {
+            var invalid = await Assert.ThrowsAsync<AiurBadApiInputException>(() => client.QueryIncidentsAsync(request));
+            Assert.IsNotEmpty(invalid.Reasons);
+        }
+        var empty = await client.QueryIncidentsAsync(new QueryIncidentsRequest());
+        Assert.AreEqual(0, empty.TotalCount);
+        Assert.IsEmpty(empty.Items);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var app = await db.SourceApplications.SingleAsync();
+            app.IsEnabled = false;
+            await db.SaveChangesAsync();
+        }
+        var disabled = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.QueryIncidentsAsync(new QueryIncidentsRequest()));
+        Assert.AreEqual(Code.WrongKey, disabled.Response.Code);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var app = await db.SourceApplications.SingleAsync();
+            app.IsEnabled = true;
+            await db.SaveChangesAsync();
+        }
+        await ResetApplicationKey(Guid.Parse(key.Split('.')[0]));
+        var revoked = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.QueryIncidentsAsync(new QueryIncidentsRequest()));
+        Assert.AreEqual(Code.WrongKey, revoked.Response.Code);
+    }
+
+    [TestMethod]
+    [DataRow("?Page=invalid", true, Code.InvalidInput)]
+    [DataRow("?ActiveOnly=invalid", true, Code.InvalidInput)]
+    [DataRow("", false, Code.WrongKey)]
+    public async Task QueryFailuresUseAiurProtocol(string query, bool authenticated, Code expectedCode)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, "/api/v1/incidents" + query);
+        if (authenticated)
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await CreateApplication());
+        using var response = await Http.SendAsync(request);
+        Assert.AreEqual("application/json", response.Content.Headers.ContentType?.MediaType);
+        var error = JObject.Parse(await response.Content.ReadAsStringAsync());
+        Assert.AreEqual((int)expectedCode, error.Value<int>("Code"));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(error.Value<string>("ProtocolVersion")));
+        if (expectedCode == Code.InvalidInput)
+            Assert.IsTrue(error["Items"] is JArray { Count: > 0 });
+    }
+
+    [TestMethod]
     public async Task SdkPersistsStructuredReportAndReturnsOriginalReceiptForRetries()
     {
         var key = await CreateApplication();
