@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>Er bestaat al een opgeslagen rooster voor deze week. Pas het rooster handmatig aan; automatisch genereren overschrijft bestaande indelingen niet.</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>Aangrenzende weken mogen alleen de vorige of de volgende week ten opzichte van de huidige week zijn en mogen niet dubbel voorkomen.</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>Nadat automatisch inplannen leden van groepen met meerdere bereikbaarheidsdiensten overslaat, blijven er slechts {0} over, terwijl er minimaal {1} nodig zijn. Voeg leden toe aan groepen met één bereikbaarheidsdienst of plan handmatig in.</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>Alle 21 diensten voor deze week moeten worden ingediend en elk tijdslot mag maar één keer voorkomen.</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>Automatisch genereren kan aangrenzende weekschema&apos;s niet tegelijkertijd wijzigen.</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>Kan geen medewerkers toevoegen die het team hebben verlaten of geen deel uitmaken van het team.</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>De tijdsgrenzen van het bestaande rooster zijn onvolledig; overschrijven is niet mogelijk.</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>Ongeldig formaat voor het verzoek om aangrenzende weken in te plannen; u kunt maximaal twee weken indienen (de vorige en de volgende).</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Het team voor oproepdiensten bestaat niet.</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>Koppel eerst een planningsregel aan het team.</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>Selecteer een volledige oproepcyclus van zeven dagen die begint bij het ankerpunt van het team.</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>Geef de planningsperiode op in UTC-tijd.</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Het minimale aantal medewerkers in het rooster is ongeldig of inconsistent.</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>De rustduur in het rooster is ongeldig of inconsistent.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>Het team of het rooster is gewijzigd door een andere beheerder. Vernieuw de pagina en probeer het opnieuw.</value>
+  </data>
+
+</root>

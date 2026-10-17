@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A new alert has been detected." xml:space="preserve">
+    <value>En ny avisering har upptäckts.</value>
+  </data>
+  <data name="Action time (UTC): {0:O}" xml:space="preserve">
+    <value>Åtgärdstid (UTC): {0:O}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Testmeddelande för kanalen</value>
+  </data>
+  <data name="Content: " xml:space="preserve">
+    <value>Innehåll:</value>
+  </data>
+  <data name="Context:" xml:space="preserve">
+    <value>Sammanhang:</value>
+  </data>
+  <data name="Delivery ID: {0}" xml:space="preserve">
+    <value>Leverans-ID: {0}</value>
+  </data>
+  <data name="Each email channel supports up to {0} CC recipients." xml:space="preserve">
+    <value>Varje e-postkanal stöder upp till {0} CC-mottagare.</value>
+  </data>
+  <data name="Email (SMTP)" xml:space="preserve">
+    <value>E-post (SMTP)</value>
+  </data>
+  <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
+    <value>Det gick inte att skicka e-post. Kontrollera SMTP-konfigurationen, nätverket eller e-postservern.</value>
+  </data>
+  <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
+    <value>Tidsgränsen för e-postutskick överskreds. E-postservern kan ha tagit emot meddelandet. Kontrollera och försök igen.</value>
+  </data>
+  <data name="Incident ID: {0}" xml:space="preserve">
+    <value>Incident-ID: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Incident återöppnat: {0}</value>
+  </data>
+  <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
+    <value>Ogiltigt e-postformat för kopia. Visningsnamn stöds inte.</value>
+  </data>
+  <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
+    <value>Ogiltigt format på mottagarens e-postadress. Visningsnamn stöds inte.</value>
+  </data>
+  <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
+    <value>Ogiltig mottagare eller kopiemottagarkonfiguration för e-postkanalen. Kontrollera kanalinställningarna.</value>
+  </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Ogiltig SMTP-konfiguration. Kontrollera e-postinställningarna.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
+    <value>Inträffade (UTC): {0:O}</value>
+  </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>OCE-frågetid (UTC): {0:O}</value>
+  </data>
+  <data name="On-call group: {0}" xml:space="preserve">
+    <value>Beredskapsgrupp: {0}</value>
+  </data>
+  <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
+    <value>Beredskapstid (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Please enter the recipient email address." xml:space="preserve">
+    <value>Ange mottagarens e-postadress.</value>
+  </data>
+  <data name="Reopen note: {0}" xml:space="preserve">
+    <value>Anteckning om återöppning: {0}</value>
+  </data>
+  <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Skicka aviseringar i oformaterad text till angivna e-postadresser via den globala SMTP-servern.</value>
+  </data>
+  <data name="Severity: {0}" xml:space="preserve">
+    <value>Allvarlighetsgrad: {0}</value>
+  </data>
+  <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
+    <value>Incidenten har öppnats på nytt. Vänligen agera, jourhavande ingenjör.</value>
+  </data>
+  <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>Ögonblicksbilden av mottagarna för jourmejlet är ogiltig; det går inte att välja den aktuella OCE-leveransen på nytt.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Det här är ett testmeddelande för pushkanalen.</value>
+  </data>
+  <data name="Title: {0}" xml:space="preserve">
+    <value>Titel: {0}</value>
+  </data>
+
+</root>

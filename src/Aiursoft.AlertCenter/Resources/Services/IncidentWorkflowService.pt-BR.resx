@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A reason or progress update is required for this action." xml:space="preserve">
+    <value>É necessário informar um motivo ou uma atualização de progresso para esta ação.</value>
+  </data>
+  <data name="An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened." xml:space="preserve">
+    <value>Já existe um incidente com a mesma regra vinculada. Resolva esse incidente primeiro; ele não pode ser mesclado nem reaberto.</value>
+  </data>
+  <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
+    <value>Selecione um nível de severidade do incidente entre sev0 e sev4.</value>
+  </data>
+  <data name="Reason or progress cannot exceed 4000 characters." xml:space="preserve">
+    <value>O motivo ou a atualização de progresso não pode exceder 4.000 caracteres.</value>
+  </data>
+  <data name="The current incident status does not allow this operation." xml:space="preserve">
+    <value>O status atual do incidente não permite esta operação.</value>
+  </data>
+  <data name="The incident has been modified by another engineer. Please refresh and try again." xml:space="preserve">
+    <value>O incidente foi modificado por outro engenheiro. Atualize a página e tente novamente.</value>
+  </data>
+  <data name="The incident is already at the selected level." xml:space="preserve">
+    <value>O incidente já está no nível selecionado.</value>
+  </data>
+  <data name="The incident version cannot be empty. Please refresh the page." xml:space="preserve">
+    <value>A versão do incidente não pode estar vazia. Atualize a página.</value>
+  </data>
+  <data name="The linked rule is already occupied by another active incident. Please refresh and try again." xml:space="preserve">
+    <value>A regra vinculada já está ocupada por outro incidente ativo. Atualize a página e tente novamente.</value>
+  </data>
+  <data name="You are already the current assignee." xml:space="preserve">
+    <value>Você já é o responsável atual.</value>
+  </data>
+
+</root>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>Au fost șterse {0} ture viitoare alocate membrilor care au plecat. Vă rugăm să verificați programul și să completați eventualele goluri.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Există un program salvat; punctul de început al programului echipei nu poate fi modificat.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>Generarea automată necesită cel puțin {0} persoane de serviciu pe tură și {1} ore de repaus, ceea ce înseamnă că sunt necesari cel puțin {2} membri. După excluderea membrilor care fac parte din mai multe grupuri de permanență, {3} pot fi programați automat; adăugați membri care aparțin unui singur grup sau efectuați programarea manual.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Trei schimburi fixe pe zi, de câte 8 ore.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Perioada minimă de repaus trebuie să fie între 0 și 168 de ore.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Numărul minim de angajați pe tură trebuie să fie între 1 și 200.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Încă nu există reguli asociate echipei. Puteți crea manual un program.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Vă rugăm să introduceți numele regulii.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Vă rugăm să introduceți numele echipei.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Vă rugăm să selectați un fus orar valid din listă.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Selectați o oră de început UTC validă (trebuie să fie la cel puțin 28 de zile de limita datei).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Selectați o regulă de permanență existentă.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>Regula de planificare a fost creată cu succes.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Regula de programare a fost ștearsă.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Regula de planificare a fost actualizată.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Numărul țintă de persoane nu poate fi mai mic decât numărul minim și trebuie să fie între 1 și 200. Lăsați necompletat pentru alocarea automată.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Echipa a fost creată cu succes.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Echipa a fost ștearsă.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Echipa a fost actualizată.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Regula sau echipa s-a modificat. Reîmprospătați pagina și încercați din nou.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>Programul s-a modificat sau a apărut un conflict la salvare. Reîmprospătați pagina și încercați din nou.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>Angajații selectați nu există, sunt duplicați sau sunt mai mult de 200. Vă rugăm să selectați din nou.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Formatul solicitării de tură este invalid.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>Echipa sau programul s-a modificat. Reîmprospătați pagina și încercați din nou.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>Săptămâna aceasta există {0} ture neacoperite. Vă rugăm să repartizați manual personalul de permanență.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>Această regulă este încă asociată unei echipe. Actualizați mai întâi asocierea regulii cu echipa.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>Această echipă are programe salvate și nu poate fi ștearsă împreună cu istoricul său.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Această echipă este asociată unei aplicații integrate. Reasociați sau deconectați mai întâi grupul de permanență al aplicației.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Nu se poate genera previzualizarea: {0}</value>
+  </data>
+
+</root>

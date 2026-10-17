@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>Na ten tydzień istnieje już zapisany harmonogram. Wprowadź zmiany ręcznie; automatyczne generowanie nie nadpisze istniejących ustaleń.</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>Tygodnie sąsiadujące mogą obejmować wyłącznie tydzień poprzedzający lub następujący po bieżącym tygodniu i nie mogą się powtarzać.</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>Po pominięciu przez automatyczne układanie członków należących do wielu grup dyżurnych pozostało tylko {0}, a wymagane minimum to {1}. Dodaj członków do pojedynczych grup lub ułóż grafik ręcznie.</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>Wszystkie 21 zmian w tym tygodniu muszą zostać zgłoszone, a każdy przedział czasowy może wystąpić tylko raz.</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>Automatyczne generowanie nie może jednocześnie modyfikować sąsiednich harmonogramów tygodniowych.</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>Nie można dodać pracowników, którzy opuścili zespół lub do niego nie należą.</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>Istniejący harmonogram ma niekompletne granice czasowe; nie można go nadpisać.</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>Nieprawidłowy format żądania dotyczącego sąsiednich tygodni. Możesz przesłać maksymalnie dwa tygodnie (poprzedni i następny).</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Zespół dyżurny nie istnieje.</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>Najpierw przypisz zespołowi regułę planowania.</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>Wybierz pełny siedmiodniowy cykl dyżuru rozpoczynający się w dniu kotwiczącym zespołu.</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>Proszę określić okres harmonogramu w czasie UTC.</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Minimalna liczba osób w grafiku jest nieprawidłowa lub niespójna.</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Czas odpoczynku w harmonogramie jest nieprawidłowy lub niespójny.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>Zespół lub harmonogram został zmodyfikowany przez innego administratora. Odśwież stronę i spróbuj ponownie.</value>
+  </data>
+
+</root>

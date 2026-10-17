@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>Скасовано {0} майбутніх призначень на зміни для учасників, які вибули. Перевірте розклад і заповніть усі прогалини.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Збережений розклад уже існує; змінювати початкову точку розкладу команди не можна.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>Для автоматичного формування розкладу потрібно щонайменше {0} працівників на зміну та {1} годин відпочинку, тобто не менше ніж {2} учасників. Після виключення учасників, які чергують у кількох групах, автоматично можна запланувати {3}; додайте учасників лише однієї групи або складіть розклад вручну.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Фіксований режим: три зміни на день по 8 годин кожна.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Мінімальний відпочинок має становити від 0 до 168 годин.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Мінімальна кількість працівників на зміну має становити від 1 до 200.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Правила для команди ще не налаштовано. Ви можете створити графік вручну.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Введіть назву правила.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Будь ласка, введіть назву команди.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Будь ласка, виберіть дійсний часовий пояс зі списку.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Виберіть коректний час початку за UTC (він має бути не ближче ніж за 28 днів до межі діапазону дат).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Виберіть наявне правило чергування.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>Правило планування успішно створено.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Правило чергування видалено.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Правило графіка оновлено.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Цільова кількість працівників не може бути меншою за мінімальну й має становити від 1 до 200. Залиште поле порожнім для автоматичного призначення.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Команду успішно створено.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Команду видалено.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Команду оновлено.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Правило або команда змінилися. Оновіть сторінку та спробуйте ще раз.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>Розклад змінився або під час збереження сталася конфліктна ситуація. Оновіть сторінку та спробуйте ще раз.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>Вибраних працівників не знайдено, їх вибрано кілька разів або їх більше ніж 200. Виберіть ще раз.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Формат запиту на зміну некоректний.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>Команда або графік змінилися. Оновіть сторінку та спробуйте ще раз.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>Цього тижня залишилося незаповненими змін: {0}. Будь ласка, вручну призначте чергових.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>Це правило досі прив’язане до команди. Спочатку змініть прив’язку правила до команди.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>Ця команда має збережені розклади, тому її не можна видалити разом з історією.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Цю команду прив’язано до інтегрованого застосунку. Спершу призначте для застосунку іншу чергову групу або скасуйте прив’язку.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Не вдалося створити попередній перегляд: {0}</value>
+  </data>
+
+</root>

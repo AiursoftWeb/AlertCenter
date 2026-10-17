@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Notificare de test a canalului</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>Introduceți o adresă URL HTTP sau HTTPS validă. Numele de utilizator, parolele și fragmentele URL nu sunt acceptate.</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>Detalii despre notificarea din aplicație</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>Configurația canalului este invalidă. Reîmprospătați pagina și încercați din nou.</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>Criterii de filtrare invalide. Reîmprospătați pagina și încercați din nou.</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>Doar e-mailurile de gardă cu instantanee OCE valide sau înregistrările eșuate asociate unor canale personalizate activate pot fi reîncercate. Nu puteți selecta din nou destinatarii pentru a retrimite alerte vechi dacă lipsesc OCE sau e-mailul.</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>Vă rugăm să activați mai întâi canalul.</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>Vă rugăm să selectați un tip de canal disponibil.</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>Selectați cel puțin un utilizator sau un grup de utilizatori destinatar.</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>Conținutul mesajului de test nu poate fi gol și nu trebuie să depășească 4.000 de caractere.</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>Destinatarul nu trebuie adăugat din nou la lista CC.</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>Utilizatorul selectat pentru asociere nu există. Selectați din nou.</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>Grupul de utilizatori selectat pentru asociere nu există. Vă rugăm să selectați din nou.</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>Canalul selectat nu mai există. Reîncărcați pagina și încercați din nou.</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>Utilizatorul destinatar selectat nu există. Vă rugăm să selectați din nou.</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>Grupul de utilizatori selectat ca destinatar nu există. Vă rugăm să selectați din nou.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Acesta este un mesaj de test pentru canalul push.</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>Tipul unui canal existent nu poate fi schimbat; creați un canal nou.</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>Nu se pot proteja antetele personalizate ale solicitării Webhook. Verificați configurația Webhook:HeaderProtectionKey.</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>Nu se pot citi antetele salvate ale cererii Webhook. Verificați cheia de protecție a datelor și încercați din nou.</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>Webhook:HeaderProtectionKey trebuie configurată pentru antetele de solicitare personalizate. Furnizați această cheie printr-o variabilă de mediu protejată.</value>
+  </data>
+
+</root>

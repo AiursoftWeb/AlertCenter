@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Fixed three shifts per day, 8 hours each; minimum break must be 0–168 hours." xml:space="preserve">
+    <value>Sunt fixate trei ture pe zi, de câte 8 ore; pauza minimă trebuie să fie între 0 și 168 de ore.</value>
+  </data>
+  <data name="Minimum staff must be 1–200. Target staff must be empty or between 1–200 and not less than the minimum." xml:space="preserve">
+    <value>Numărul minim de angajați trebuie să fie între 1 și 200. Numărul țintă de angajați poate fi necompletat sau trebuie să fie între 1 și 200 și să nu fie mai mic decât numărul minim.</value>
+  </data>
+  <data name="Please select unique, valid employees." xml:space="preserve">
+    <value>Vă rugăm să selectați angajați unici și valizi.</value>
+  </data>
+  <data name="Preview shift count must be 1–168." xml:space="preserve">
+    <value>Numărul de ture din previzualizare trebuie să fie între 1 și 168.</value>
+  </data>
+  <data name="Preview start must align with the team&apos;s shift boundary." xml:space="preserve">
+    <value>Ora de început a previzualizării trebuie să coincidă cu limita intervalului de tură al echipei.</value>
+  </data>
+  <data name="The shift start time must be in UTC." xml:space="preserve">
+    <value>Ora de începere a turei trebuie să fie în UTC.</value>
+  </data>
+  <data name="This rule requires at least {0} staff (shift {1} hours, rest no less than {2} hours)." xml:space="preserve">
+    <value>Această regulă necesită cel puțin {0} membri ai personalului (ture de {1} ore, cu un repaus de cel puțin {2} ore).</value>
+  </data>
+  <data name="Unable to schedule staff meeting rest requirements at {0:yyyy-MM-dd HH:mm} UTC. Please adjust adjacent shifts or add members." xml:space="preserve">
+    <value>Nu se pot programa turele personalului cu respectarea cerințelor privind timpul de repaus la {0:yyyy-MM-dd HH:mm} UTC. Vă rugăm să ajustați turele adiacente sau să adăugați membri.</value>
+  </data>
+
+</root>

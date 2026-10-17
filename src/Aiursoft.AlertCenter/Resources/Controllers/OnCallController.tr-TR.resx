@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>Ayrılan üyeler için gelecekteki {0} vardiya görevlendirmesi kaldırıldı. Lütfen gözden geçirip boşlukları doldurun.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Kaydedilmiş bir program var; ekibin program başlangıç noktası değiştirilemez.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>Otomatik oluşturma için vardiya başına en az {0} personel ve {1} saat dinlenme süresi gerekir; bu da en az {2} üye gerektirir. Birden fazla nöbet grubunda yer alan üyeler çıkarıldıktan sonra {3} üye için otomatik planlama yapılabilir. Lütfen yalnızca tek bir grupta yer alan üyeler ekleyin veya planlamayı manuel olarak yapın.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Günde üç vardiya sabittir; her biri 8 saattir.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Asgari dinlenme süresi 0–168 saat olmalıdır.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Vardiya başına minimum personel sayısı 1–200 olmalıdır.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Henüz bu ekibe herhangi bir kural bağlanmamış. Programı manuel olarak oluşturabilirsiniz.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Lütfen kural adını girin.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Lütfen takım adını girin.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Lütfen listeden geçerli bir saat dilimi seçin.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Lütfen geçerli bir UTC başlangıç zamanı seçin (tarih sınırından en az 28 gün uzakta olmalıdır).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Lütfen mevcut bir nöbet kuralı seçin.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>Planlama kuralı başarıyla oluşturuldu.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Zamanlama kuralı silindi.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Nöbet çizelgesi kuralı güncellendi.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Hedef çalışan sayısı minimum değerin altında olamaz ve 1–200 arasında olmalıdır. Otomatik atama için boş bırakın.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Takım başarıyla oluşturuldu.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Takım silindi.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Ekip güncellendi.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Kural veya ekip değişti. Sayfayı yenileyip tekrar deneyin.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>Program değişmiş veya kaydetme çakışması meydana gelmiş. Lütfen sayfayı yenileyip tekrar deneyin.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>Seçilen çalışanlar mevcut değil, yineleniyor veya sayıları 200’ü aşıyor. Lütfen tekrar seçin.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Vardiya isteği biçimi geçersiz.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>Ekip veya program değişti. Lütfen sayfayı yenileyip tekrar deneyin.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>Bu hafta atanmamış {0} vardiya var. Lütfen nöbet tutacak personeli manuel olarak belirleyin.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>Bu kural hâlâ bir takıma bağlı. Lütfen önce takımın kural bağlantısını güncelleyin.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>Bu ekibin kayıtlı programları var ve geçmişiyle birlikte silinemez.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Bu ekip, entegre bir uygulamaya bağlı. Lütfen önce uygulamanın nöbet grubunu yeniden atayın veya bağlantısını kaldırın.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Önizleme oluşturulamadı: {0}</value>
+  </data>
+
+</root>

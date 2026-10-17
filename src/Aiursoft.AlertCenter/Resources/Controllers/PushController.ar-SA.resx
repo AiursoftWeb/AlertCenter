@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>إشعار اختبار القناة</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>أدخل عنوان URL صالحًا باستخدام HTTP أو HTTPS. أسماء المستخدمين وكلمات المرور وأجزاء العنوان بعد الرمز # غير مدعومة.</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>تفاصيل الإشعار داخل التطبيق</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>إعدادات القناة غير صالحة. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>معايير التصفية غير صالحة. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>يمكن إعادة المحاولة فقط لرسائل البريد الإلكتروني الخاصة بالمناوبة التي تتضمن لقطات OCE صالحة، أو للسجلات الفاشلة التي تكون فيها القنوات المخصصة مفعّلة. لا يمكنك إعادة اختيار المستلمين لإعادة إرسال التنبيهات القديمة إذا كانت بيانات OCE أو البريد الإلكتروني غير متوفرة.</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>يرجى تفعيل القناة أولاً.</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>يرجى اختيار نوع قناة متاح.</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>يرجى اختيار مستخدم مستلِم واحد على الأقل أو مجموعة مستخدمين.</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>لا يمكن أن يكون محتوى الرسالة التجريبية فارغًا، ويجب ألا يتجاوز 4,000 حرف.</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>لا حاجة إلى إضافة المستلِم إلى قائمة النسخ (CC) مرة أخرى.</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>المستخدم المحدد القابل للربط غير موجود. يُرجى التحديد مرة أخرى.</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>مجموعة المستخدمين القابلة للربط المحددة غير موجودة. يُرجى الاختيار مرة أخرى.</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>لم تعد القناة المحددة موجودة. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>المستخدم المحدد كمستلم غير موجود. يُرجى الاختيار مرة أخرى.</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>المجموعة المحددة لمستلمي الإشعارات غير موجودة. يُرجى التحديد مرة أخرى.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>هذه رسالة اختبار لقناة الإشعارات الفورية.</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>لا يمكن تغيير نوع قناة موجودة؛ يُرجى إنشاء قناة جديدة.</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>تعذّرت حماية ترويسات الطلب المخصصة لـ Webhook. يُرجى التحقق من إعداد Webhook:HeaderProtectionKey.</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>تعذّرت قراءة ترويسات طلب Webhook المحفوظة. يُرجى التحقق من مفتاح حماية البيانات والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>يجب إعداد Webhook:HeaderProtectionKey لاستخدام ترويسات الطلبات المخصصة. وفّر هذا المفتاح عبر متغير بيئة محمي.</value>
+  </data>
+
+</root>

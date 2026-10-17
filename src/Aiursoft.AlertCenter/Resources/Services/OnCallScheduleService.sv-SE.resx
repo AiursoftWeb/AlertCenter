@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>Det finns redan ett sparat schema för den här veckan. Gör ändringarna manuellt; automatisk schemaläggning skriver inte över befintliga scheman.</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>Angränsande veckor får endast vara veckan före eller efter den aktuella veckan och får inte förekomma flera gånger.</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>När den automatiska schemaläggningen hoppar över medlemmar i grupper med flera beredskapsuppdrag återstår bara {0}, men minst {1} krävs. Lägg till medlemmar i grupper med ett enda beredskapsuppdrag eller schemalägg manuellt.</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>Alla 21 arbetspass för den här veckan måste lämnas in, och varje tidsintervall får bara förekomma en gång.</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>Automatisk generering kan inte ändra scheman för intilliggande veckor samtidigt.</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>Det går inte att lägga till anställda som har lämnat teamet eller inte tillhör teamet.</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>De befintliga tidsgränserna i schemat är ofullständiga; det går inte att skriva över.</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>Ogiltigt format för begäran om angränsande veckoschema; du kan skicka in högst två veckor (föregående och nästkommande).</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Jourteamet finns inte.</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>Koppla först en schemaläggningsregel till teamet.</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>Välj en fullständig sjudagarsjourcykel som börjar vid teamets ankardatum.</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>Ange schemaläggningsperioden i UTC-tid.</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Minimiantalet personer i schemat är ogiltigt eller inkonsekvent.</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Viloperioden i schemat är ogiltig eller inkonsekvent.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>Teamet eller schemat har ändrats av en annan administratör. Uppdatera sidan och försök igen.</value>
+  </data>
+
+</root>

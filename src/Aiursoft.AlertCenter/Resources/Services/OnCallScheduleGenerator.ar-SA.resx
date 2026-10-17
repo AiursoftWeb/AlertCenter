@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Fixed three shifts per day, 8 hours each; minimum break must be 0–168 hours." xml:space="preserve">
+    <value>ثلاث ورديات ثابتة يوميًا، مدة كل منها 8 ساعات؛ يجب أن تتراوح فترة الراحة الدنيا بين 0 و168 ساعة.</value>
+  </data>
+  <data name="Minimum staff must be 1–200. Target staff must be empty or between 1–200 and not less than the minimum." xml:space="preserve">
+    <value>يجب أن يتراوح الحد الأدنى لعدد الموظفين بين 1 و200. ويجب أن يكون عدد الموظفين المستهدف فارغًا أو بين 1 و200، وألا يقل عن الحد الأدنى.</value>
+  </data>
+  <data name="Please select unique, valid employees." xml:space="preserve">
+    <value>يرجى اختيار موظفين صالحين وغير مكررين.</value>
+  </data>
+  <data name="Preview shift count must be 1–168." xml:space="preserve">
+    <value>يجب أن يكون عدد الورديات في المعاينة بين 1 و168.</value>
+  </data>
+  <data name="Preview start must align with the team&apos;s shift boundary." xml:space="preserve">
+    <value>يجب أن تتوافق بداية المعاينة مع حدّ نوبة الفريق.</value>
+  </data>
+  <data name="The shift start time must be in UTC." xml:space="preserve">
+    <value>يجب أن يكون وقت بدء المناوبة بتوقيت UTC.</value>
+  </data>
+  <data name="This rule requires at least {0} staff (shift {1} hours, rest no less than {2} hours)." xml:space="preserve">
+    <value>تتطلب هذه القاعدة وجود {0} موظفًا على الأقل (مدة المناوبة {1} ساعة، وفترة الراحة لا تقل عن {2} ساعة).</value>
+  </data>
+  <data name="Unable to schedule staff meeting rest requirements at {0:yyyy-MM-dd HH:mm} UTC. Please adjust adjacent shifts or add members." xml:space="preserve">
+    <value>تعذرت جدولة مناوبة للموظفين تفي بمتطلبات الراحة عند {0:yyyy-MM-dd HH:mm} بالتوقيت العالمي المنسق (UTC). يُرجى تعديل المناوبات المجاورة أو إضافة أعضاء.</value>
+  </data>
+
+</root>

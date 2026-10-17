@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Notificare de test a canalului</value>
+  </data>
+  <data name="Custom request body contains unknown or incompletely used placeholders." xml:space="preserve">
+    <value>Corpul personalizat al solicitării conține substituenți necunoscuți sau utilizați incomplet.</value>
+  </data>
+  <data name="Custom request body must be a JSON object." xml:space="preserve">
+    <value>Corpul personalizat al solicitării trebuie să fie un obiect JSON.</value>
+  </data>
+  <data name="Custom request body must be valid JSON." xml:space="preserve">
+    <value>Corpul cererii personalizate trebuie să fie în format JSON valid.</value>
+  </data>
+  <data name="Custom request header values must be non-empty strings." xml:space="preserve">
+    <value>Valorile antetelor personalizate ale cererii trebuie să fie șiruri nevide.</value>
+  </data>
+  <data name="Custom request headers contain disallowed names." xml:space="preserve">
+    <value>Antetele personalizate ale solicitării conțin nume nepermise.</value>
+  </data>
+  <data name="Custom request headers contain invalid or duplicate values." xml:space="preserve">
+    <value>Antetele de solicitare personalizate conțin valori nevalide sau duplicate.</value>
+  </data>
+  <data name="Custom request headers must be a JSON object." xml:space="preserve">
+    <value>Antetele personalizate ale cererii trebuie să fie un obiect JSON.</value>
+  </data>
+  <data name="Custom request headers must be valid JSON." xml:space="preserve">
+    <value>Antetele personalizate ale solicitării trebuie să fie în format JSON valid.</value>
+  </data>
+  <data name="Invalid Webhook custom configuration. Please check channel configuration." xml:space="preserve">
+    <value>Configurație personalizată Webhook invalidă. Verificați configurația canalului.</value>
+  </data>
+  <data name="Invalid Webhook custom headers. Please check channel configuration." xml:space="preserve">
+    <value>Antetele personalizate Webhook nu sunt valide. Verificați configurația canalului.</value>
+  </data>
+  <data name="Invalid Webhook URL. Please check channel configuration." xml:space="preserve">
+    <value>Adresa URL a webhookului nu este validă. Verificați configurația canalului.</value>
+  </data>
+  <data name="Send JSON messages to a specified HTTP address, suitable for connecting to existing systems." xml:space="preserve">
+    <value>Trimiteți mesaje JSON la o adresă HTTP specificată, potrivită pentru conectarea la sistemele existente.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Acesta este un mesaj de test pentru canalul push.</value>
+  </data>
+  <data name="Unable to connect to Webhook. Please check the address, network, or receiving service." xml:space="preserve">
+    <value>Nu s-a putut realiza conexiunea la Webhook. Verificați adresa, rețeaua sau serviciul destinatar.</value>
+  </data>
+  <data name="Webhook request timed out. The receiver may have received the message. Please verify and retry." xml:space="preserve">
+    <value>Solicitarea Webhook a expirat. Este posibil ca destinatarul să fi primit mesajul. Verificați și încercați din nou.</value>
+  </data>
+  <data name="Webhook returned HTTP {0}. Please check the receiver and retry manually." xml:space="preserve">
+    <value>Webhook-ul a returnat HTTP {0}. Verificați destinatarul și încercați din nou manual.</value>
+  </data>
+
+</root>

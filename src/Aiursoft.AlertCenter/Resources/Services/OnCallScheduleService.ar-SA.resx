@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>يوجد جدول محفوظ لهذا الأسبوع. يُرجى إجراء التعديلات يدويًا؛ إذ لن يؤدي الإنشاء التلقائي إلى استبدال الترتيبات الحالية.</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>يمكن أن تكون الأسابيع المجاورة هي الأسبوع السابق أو التالي للأسبوع الحالي فقط، ويجب ألا يتكرر أيٌّ منها.</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>بعد أن يتجاوز الجدول التلقائي أعضاء مجموعات المناوبة المتعددة، يتبقى {0} فقط، بينما يلزم {1} على الأقل. يُرجى إضافة أعضاء إلى مجموعات منفردة أو ترتيب الجدول يدويًا.</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>يجب إدخال جميع المناوبات الـ21 لهذا الأسبوع، وألا يظهر كل موعد إلا مرة واحدة.</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>لا يمكن للإنشاء التلقائي تعديل جداول الأسابيع المتجاورة في الوقت نفسه.</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>لا يمكن إضافة الموظفين الذين غادروا الفريق أو لا ينتمون إليه.</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>الحدود الزمنية للجدول الحالي غير مكتملة؛ لا يمكن استبداله.</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>تنسيق طلب جدول الأسابيع المجاورة غير صالح؛ يمكنك إرسال أسبوعين كحد أقصى (الأسبوع السابق والأسبوع التالي).</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>فريق المناوبة غير موجود.</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>يرجى ربط قاعدة جدولة بالفريق أولًا.</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>يرجى تحديد دورة مناوبة كاملة مدتها سبعة أيام تبدأ من تاريخ الارتكاز للفريق.</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>يرجى تحديد فترة الجدولة باستخدام التوقيت العالمي المنسق (UTC).</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>الحد الأدنى لعدد الموظفين في الجدول غير صالح أو غير متسق.</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>مدة الراحة في الجدول غير صالحة أو غير متسقة.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>تم تعديل الفريق أو الجدول بواسطة مسؤول آخر. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
+  </data>
+
+</root>

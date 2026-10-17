@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A reason or progress update is required for this action." xml:space="preserve">
+    <value>En motivering eller en uppdatering om framsteg krävs för den här åtgärden.</value>
+  </data>
+  <data name="An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened." xml:space="preserve">
+    <value>En incident med samma länkade regel finns redan. Lös den incidenten först; den kan inte slås ihop eller öppnas igen.</value>
+  </data>
+  <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
+    <value>Välj en allvarlighetsgrad för incidenten från sev0 till sev4.</value>
+  </data>
+  <data name="Reason or progress cannot exceed 4000 characters." xml:space="preserve">
+    <value>Orsak eller förloppsbeskrivning får inte överstiga 4 000 tecken.</value>
+  </data>
+  <data name="The current incident status does not allow this operation." xml:space="preserve">
+    <value>Den aktuella incidentstatusen tillåter inte den här åtgärden.</value>
+  </data>
+  <data name="The incident has been modified by another engineer. Please refresh and try again." xml:space="preserve">
+    <value>Händelsen har ändrats av en annan tekniker. Uppdatera sidan och försök igen.</value>
+  </data>
+  <data name="The incident is already at the selected level." xml:space="preserve">
+    <value>Incidenten är redan på den valda nivån.</value>
+  </data>
+  <data name="The incident version cannot be empty. Please refresh the page." xml:space="preserve">
+    <value>Incidentversionen får inte vara tom. Uppdatera sidan.</value>
+  </data>
+  <data name="The linked rule is already occupied by another active incident. Please refresh and try again." xml:space="preserve">
+    <value>Den länkade regeln är redan knuten till en annan aktiv incident. Uppdatera sidan och försök igen.</value>
+  </data>
+  <data name="You are already the current assignee." xml:space="preserve">
+    <value>Du är redan den nuvarande ansvariga.</value>
+  </data>
+
+</root>

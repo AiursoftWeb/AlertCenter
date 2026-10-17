@@ -27,6 +27,15 @@
   <data name="Allows assigning or removing roles for any user." xml:space="preserve">
     <value>Giver mulighed for at tildele eller fjerne roller for enhver bruger.</value>
   </data>
+  <data name="Allows configuring push channels and recipients, application bindings, and delivery records." xml:space="preserve">
+    <value>Giver mulighed for at konfigurere pushkanaler og modtagere, applikationstilknytninger og leveringsregistreringer.</value>
+  </data>
+  <data name="Allows creating applications and managing access to all applications." xml:space="preserve">
+    <value>Giver mulighed for at oprette applikationer og administrere adgangen til alle applikationer.</value>
+  </data>
+  <data name="Allows managing on-call teams, scheduling rules, and schedules." xml:space="preserve">
+    <value>Giver mulighed for at administrere tilkaldehold, planlægningsregler og vagtplaner.</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>Tillader ændring af rollenavne og deres tildelte tilladelser.</value>
   </data>
@@ -81,8 +90,17 @@
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Giver tilladelse til at genstarte applikationsinstansen. Kan forårsage afbrydelser i tilgængeligheden, men alle indstillinger og cache vil blive genindlæst.</value>
   </data>
+  <data name="Manage Applications" xml:space="preserve">
+    <value>Administrer applikationer</value>
+  </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Håndtér globale indstillinger</value>
+  </data>
+  <data name="Manage On-Call" xml:space="preserve">
+    <value>Administrer tilkaldevagter</value>
+  </data>
+  <data name="Manage Push Channels" xml:space="preserve">
+    <value>Administrer pushkanaler</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Læs tilladelser</value>
