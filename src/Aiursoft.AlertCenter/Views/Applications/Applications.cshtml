@@ -111,7 +111,7 @@
     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
         <div class="d-flex align-items-center gap-2">
             <h2 class="card-title mb-0">@Localizer["App connected"]</h2>
-            <span class="badge bg-secondary-subtle text-secondary border">@Model.Applications.Count @Localizer["applications"]</span>
+            <span class="badge bg-secondary-subtle text-secondary border">@string.Format(@Localizer["{0} applications"].Value, Model.Applications.Count)</span>
         </div>
     </div>
     <div class="card-body border-bottom py-3">
