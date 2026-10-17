@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· 已停用，不會派送</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - 推播路由設定</value>
+  </data>
+  <data name="Application Push Routing" xml:space="preserve">
+    <value>應用程式推播路由</value>
+  </data>
+  <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
+    <value>儲存後僅套用於新的事件。若停用某個通道，系統會保留路由設定，但會略過新的事件。</value>
+  </data>
+  <data name="Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident." xml:space="preserve">
+    <value>適用於 sev0–sev4；無須選擇通知管道。下方的管道會針對每個新事件，另外提供獨立的補充通知。</value>
+  </data>
+  <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
+    <value>自動啟用 · 無法個別停用</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>可用管道</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>返回已連結的應用程式</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>內建值班電子郵件</value>
+  </data>
+  <data name="CC addresses configured for the on-call group." xml:space="preserve">
+    <value>隨值班群組設定的副本收件地址。</value>
+  </data>
+  <data name="Critical (P0)" xml:space="preserve">
+    <value>嚴重 (P0)</value>
+  </data>
+  <data name="Custom channel-to-severity match matrix" xml:space="preserve">
+    <value>自訂通道與事件嚴重性對應矩陣</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已啟用</value>
+  </data>
+  <data name="Error (P2)" xml:space="preserve">
+    <value>錯誤（P2）</value>
+  </data>
+  <data name="Info (P4)" xml:space="preserve">
+    <value>資訊 (P4)</value>
+  </data>
+  <data name="Major (P1)" xml:space="preserve">
+    <value>重大（P1）</value>
+  </data>
+  <data name="Multiple supplementary channels can be selected per level; unchecked items only indicate no custom notifications will be sent, without affecting built-in on-call emails. Strict exact matching is applied, with no automatic expansion to higher or lower levels." xml:space="preserve">
+    <value>每個等級可選擇多個補充通知管道；未勾選的項目僅表示不會傳送自訂通知，不影響內建的值班電子郵件。系統採用嚴格的完全相符規則，不會自動擴展至較高或較低的等級。</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>尚未設定任何推播管道</value>
+  </data>
+  <data name="On-call group:" xml:space="preserve">
+    <value>值班群組：</value>
+  </data>
+  <data name="Please contact the push channel administrator to grant channel binding permissions." xml:space="preserve">
+    <value>請聯絡推播管道管理員，以授予管道綁定權限。</value>
+  </data>
+  <data name="Precisely match receiving channels by incident level · Matrix Routing Engine" xml:space="preserve">
+    <value>依事件等級精準配對接收管道 · 矩陣路由引擎</value>
+  </data>
+  <data name="Push Channel and Type" xml:space="preserve">
+    <value>推播管道與類型</value>
+  </data>
+  <data name="Save routing configuration" xml:space="preserve">
+    <value>儲存路由設定</value>
+  </data>
+  <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
+    <value>系統於通知時已登錄的所有值班工程師（OCE）電子郵件地址；</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>總計</value>
+  </data>
+  <data name="Warning (P3)" xml:space="preserve">
+    <value>警告（P3）</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
+    <value>您可以視需要建立 Webhook、電子郵件或應用程式內通知管道作為補充。即使未設定自訂管道，綁定至值班群組的應用程式仍會寄送內建的值班通知電子郵件。</value>
+  </data>
+
+</root>

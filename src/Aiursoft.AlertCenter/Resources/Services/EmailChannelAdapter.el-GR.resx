@@ -30,8 +30,14 @@
   <data name="Content: " xml:space="preserve">
     <value>Περιεχόμενο:</value>
   </data>
+  <data name="Context" xml:space="preserve">
+    <value>Πλαίσιο</value>
+  </data>
   <data name="Context:" xml:space="preserve">
     <value>Πλαίσιο:</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>Αναγνωριστικό παράδοσης</value>
   </data>
   <data name="Delivery ID: {0}" xml:space="preserve">
     <value>Κωδικός παράδοσης: {0}</value>
@@ -47,6 +53,15 @@
   </data>
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Η αποστολή του email έληξε λόγω χρονικού ορίου. Ο διακομιστής αλληλογραφίας ενδέχεται να έχει λάβει το μήνυμα· παρακαλούμε ελέγξτε και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>Αν το κουμπί δεν λειτουργεί, ανοίξτε αυτόν τον σύνδεσμο:</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Λεπτομέρειες συμβάντος</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Αναγνωριστικό περιστατικού</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Αναγνωριστικό συμβάντος: {0}</value>
@@ -69,6 +84,9 @@
   <data name="None" xml:space="preserve">
     <value>Κανένα</value>
   </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>Ώρα συμβάντος (UTC)</value>
+  </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Συνέβη στις (UTC): {0:O}</value>
   </data>
@@ -78,14 +96,26 @@
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Ομάδα επιφυλακής: {0}</value>
   </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>Ομάδα εφημερίας</value>
+  </data>
   <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
     <value>Ώρες εφημερίας (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>Άνοιγμα στο AlertCenter</value>
   </data>
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Παρακαλώ εισαγάγετε τη διεύθυνση email του παραλήπτη.</value>
   </data>
+  <data name="Reopen note" xml:space="preserve">
+    <value>Σημείωση επανανοίγματος</value>
+  </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Σημείωση επανανοίγματος: {0}</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Αποστολή ειδοποιήσεων για περιστατικά στις καθορισμένες διευθύνσεις email μέσω του καθολικού διακομιστή SMTP.</value>
   </data>
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Αποστολή ειδοποιήσεων απλού κειμένου σε καθορισμένες διευθύνσεις email μέσω του καθολικού διακομιστή SMTP.</value>

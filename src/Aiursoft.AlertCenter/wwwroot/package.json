@@ -6,12 +6,20 @@
   "license": "MIT",
   "dependencies": {
     "@aiursoft/uistack-markdown-ui": "1.2.6",
+    "@fontsource/cascadia-code": "5.3.0",
+    "@highlightjs/cdn-assets": "^11.11.1",
     "dropify": "^0.2.2",
+    "mathjax": "^3.2.2",
+    "mermaid": "^11.16.0",
     "monaco-editor": "0.55.1"
   },
   "keep": {
     "@aiursoft/uistack-markdown-ui": "dist",
+    "@fontsource/cascadia-code": ".",
+    "@highlightjs/cdn-assets": ".",
     "dropify": "dist",
+    "mathjax": "es5",
+    "mermaid": "dist",
     "monaco-editor": "min"
   },
   "scripts": {

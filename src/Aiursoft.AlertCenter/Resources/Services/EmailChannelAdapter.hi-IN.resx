@@ -30,8 +30,14 @@
   <data name="Content: " xml:space="preserve">
     <value>सामग्री:</value>
   </data>
+  <data name="Context" xml:space="preserve">
+    <value>संदर्भ:</value>
+  </data>
   <data name="Context:" xml:space="preserve">
     <value>संदर्भ:</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>डिलीवरी आईडी</value>
   </data>
   <data name="Delivery ID: {0}" xml:space="preserve">
     <value>डिलीवरी आईडी: {0}</value>
@@ -47,6 +53,15 @@
   </data>
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>ईमेल भेजने में समय सीमा समाप्त हो गई। मेल सर्वर को संदेश मिल गया हो सकता है; कृपया पुष्टि करें और फिर से प्रयास करें।</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>यदि बटन काम न करे, तो इस लिंक को खोलें:</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>घटना का विवरण</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>घटना आईडी</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>घटना आईडी: {0}</value>
@@ -69,6 +84,9 @@
   <data name="None" xml:space="preserve">
     <value>कोई नहीं</value>
   </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>घटित होने का समय (UTC)</value>
+  </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>घटित होने का समय (UTC): {0:O}</value>
   </data>
@@ -78,14 +96,26 @@
   <data name="On-call group: {0}" xml:space="preserve">
     <value>ऑन-कॉल समूह: {0}</value>
   </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>ऑन-कॉल टीम</value>
+  </data>
   <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
     <value>ऑन-कॉल समय (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>AlertCenter में खोलें</value>
   </data>
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>कृपया प्राप्तकर्ता का ईमेल पता दर्ज करें।</value>
   </data>
+  <data name="Reopen note" xml:space="preserve">
+    <value>पुनः खोलने का नोट</value>
+  </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>पुनः खोलने का नोट: {0}</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>वैश्विक SMTP सर्वर के माध्यम से निर्दिष्ट ईमेल पतों पर घटना संबंधी सूचनाएँ भेजें।</value>
   </data>
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>वैश्विक SMTP सर्वर के माध्यम से निर्दिष्ट ईमेल पतों पर सादे टेक्स्ट अलर्ट भेजें।</value>

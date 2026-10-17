@@ -33,8 +33,14 @@
   <data name="Content: " xml:space="preserve">
     <value>Treść:</value>
   </data>
+  <data name="Context" xml:space="preserve">
+    <value>Kontekst</value>
+  </data>
   <data name="Context:" xml:space="preserve">
     <value>Kontekst:</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>ID dostarczenia</value>
   </data>
   <data name="Delivery ID: {0}" xml:space="preserve">
     <value>Identyfikator dostarczenia: {0}</value>
@@ -50,6 +56,15 @@
   </data>
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Upłynął limit czasu wysyłania wiadomości e-mail. Serwer pocztowy mógł otrzymać wiadomość; sprawdź to i ponów próbę.</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>Jeśli przycisk nie działa, otwórz ten link:</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Szczegóły incydentu</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Identyfikator zgłoszenia</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>ID incydentu: {0}</value>
@@ -72,6 +87,9 @@
   <data name="None" xml:space="preserve">
     <value>Brak</value>
   </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>Wystąpiło o (UTC)</value>
+  </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Wystąpiło o (UTC): {0:O}</value>
   </data>
@@ -81,14 +99,26 @@
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Grupa dyżurna: {0}</value>
   </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>Zespół dyżurny</value>
+  </data>
   <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
     <value>Czas dyżuru (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>Otwórz w AlertCenter</value>
   </data>
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Proszę podać adres e-mail odbiorcy.</value>
   </data>
+  <data name="Reopen note" xml:space="preserve">
+    <value>Uwagi dotyczące ponownego otwarcia</value>
+  </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Uwaga dotycząca ponownego otwarcia: {0}</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Wysyłaj powiadomienia o incydentach na wskazane adresy e-mail za pośrednictwem globalnego serwera SMTP.</value>
   </data>
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Wysyłaj powiadomienia w postaci zwykłego tekstu na wskazane adresy e-mail za pośrednictwem globalnego serwera SMTP.</value>

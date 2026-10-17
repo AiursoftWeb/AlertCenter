@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>非同步工作已排入佇列，請稍後重新整理狀態。</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>嘗試次數</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>返回推播記錄</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>內建隨選待命電子郵件 · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>內建系統 · 無法個別停用</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>頻道啟用狀態</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>通道測試</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>頻道測試通知</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>立即完成</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>完成時間：</value>
+  </data>
+  <data name="Completion Time (UTC)" xml:space="preserve">
+    <value>完成時間（UTC）</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>複製完整傳送 ID</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>複製完整 ID</value>
+  </data>
+  <data name="Creation Time (UTC)" xml:space="preserve">
+    <value>建立時間（UTC）</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>通知已成功送達</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>傳遞內容</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>傳送詳細資料</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>傳送詳細資料 - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>傳送失敗</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>傳送永久失敗</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>派送 ID</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>配送 ID：</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>配送工作已建立</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>已停用</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>派送嘗試次數</value>
+  </data>
+  <data name="Dispatch timeline (UTC)" xml:space="preserve">
+    <value>派送時間軸（UTC）</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>正在背景派送通知</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>持續時間</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已啟用</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>進入傳送佇列</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>事件已重新開啟：{0}</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>未完成</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>開始傳送請求</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>收件者快照無效。無法重新傳送舊事件。</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>手動測試</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>手動測試訊息</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>沒有內文</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>隨叫隨到電子郵件的重試一律使用訊息排入佇列時的 OCE 和 CC 快照，不會改寄給目前的值班人員。若沒有有效的快照，則無法重試。</value>
+  </data>
+  <data name="Pending dispatch" xml:space="preserve">
+    <value>等待派送</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>請先啟用目標通道。</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>重新傳送</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>重新傳送時會使用最新的通道設定。</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>重新整理狀態</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>處理中…</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>值班時段：</value>
+  </data>
+  <data name="Snapshot time (" xml:space="preserve">
+    <value>快照時間（</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>來源整合應用程式</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>目標通道</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>發生逾時或中斷時，目標可能已經收到訊息。請先確認，再重試。</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>任務中繼資料</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>這是推播頻道的測試訊息。</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>次</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>總嘗試次數：</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>查看應用程式內通知</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>檢視或修改通道設定</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>查看原始事件</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>查看重新開啟的事件</value>
+  </data>
+
+</root>

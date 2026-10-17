@@ -33,8 +33,14 @@
   <data name="Content: " xml:space="preserve">
     <value>內容：</value>
   </data>
+  <data name="Context" xml:space="preserve">
+    <value>上下文：</value>
+  </data>
   <data name="Context:" xml:space="preserve">
     <value>內容：</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>傳遞 ID</value>
   </data>
   <data name="Delivery ID: {0}" xml:space="preserve">
     <value>傳送 ID：{0}</value>
@@ -50,6 +56,15 @@
   </data>
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>電子郵件傳送逾時。郵件伺服器可能已收到郵件；請確認後再重試。</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>如果按鈕無法使用，請開啟此連結：</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>事件詳細資訊</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>事件 ID</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>事件 ID：{0}</value>
@@ -72,6 +87,9 @@
   <data name="None" xml:space="preserve">
     <value>無</value>
   </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>發生時間（UTC）</value>
+  </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>發生時間（UTC）：{0:O}</value>
   </data>
@@ -81,14 +99,26 @@
   <data name="On-call group: {0}" xml:space="preserve">
     <value>值班群組：{0}</value>
   </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>值班團隊</value>
+  </data>
   <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
     <value>值班時間（UTC）：{0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>在 AlertCenter 中開啟</value>
   </data>
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>請輸入收件者的電子郵件地址。</value>
   </data>
+  <data name="Reopen note" xml:space="preserve">
+    <value>重新開啟備註</value>
+  </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>重新開啟備註：{0}</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>透過全域 SMTP 伺服器，將事件通知傳送至指定的電子郵件地址。</value>
   </data>
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>透過全域 SMTP 伺服器，將純文字警示傳送至指定的電子郵件地址。</value>

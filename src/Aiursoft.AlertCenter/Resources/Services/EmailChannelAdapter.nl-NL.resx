@@ -33,8 +33,14 @@
   <data name="Content: " xml:space="preserve">
     <value>Inhoud:</value>
   </data>
+  <data name="Context" xml:space="preserve">
+    <value>Context</value>
+  </data>
   <data name="Context:" xml:space="preserve">
     <value>Context:</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>Bezorgings-ID</value>
   </data>
   <data name="Delivery ID: {0}" xml:space="preserve">
     <value>Leverings-ID: {0}</value>
@@ -50,6 +56,15 @@
   </data>
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Het verzenden van de e-mail is verlopen. De mailserver heeft het bericht mogelijk ontvangen; controleer dit en probeer het opnieuw.</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>Als de knop niet werkt, open dan deze link:</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Incidentdetails</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Incident-ID</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Incident-ID: {0}</value>
@@ -72,6 +87,9 @@
   <data name="None" xml:space="preserve">
     <value>Geen</value>
   </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>Opgetreden op (UTC)</value>
+  </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Opgetreden op (UTC): {0:O}</value>
   </data>
@@ -81,14 +99,26 @@
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Piketgroep: {0}</value>
   </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>Piketploeg</value>
+  </data>
   <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
     <value>Bereikbaarheidsdienst (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>Openen in AlertCenter</value>
   </data>
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Voer het e-mailadres van de ontvanger in.</value>
   </data>
+  <data name="Reopen note" xml:space="preserve">
+    <value>Notitie bij heropening</value>
+  </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Notitie bij heropening: {0}</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Stuur incidentmeldingen naar opgegeven e-mailadressen via de centrale SMTP-server.</value>
   </data>
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Verzend plattetekstwaarschuwingen naar opgegeven e-mailadressen via de globale SMTP-server.</value>

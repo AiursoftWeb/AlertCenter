@@ -33,8 +33,14 @@
   <data name="Content: " xml:space="preserve">
     <value>İçerik:</value>
   </data>
+  <data name="Context" xml:space="preserve">
+    <value>Bağlam</value>
+  </data>
   <data name="Context:" xml:space="preserve">
     <value>Bağlam:</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>Teslimat Kimliği</value>
   </data>
   <data name="Delivery ID: {0}" xml:space="preserve">
     <value>Teslimat Kimliği: {0}</value>
@@ -50,6 +56,15 @@
   </data>
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>E-posta gönderimi zaman aşımına uğradı. Posta sunucusu mesajı almış olabilir; lütfen kontrol edip yeniden deneyin.</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>Düğme çalışmazsa bu bağlantıyı açın:</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Olay ayrıntıları</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Olay Kimliği</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Olay Kimliği: {0}</value>
@@ -72,6 +87,9 @@
   <data name="None" xml:space="preserve">
     <value>Yok</value>
   </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>Gerçekleşme zamanı (UTC)</value>
+  </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Gerçekleşme zamanı (UTC): {0:O}</value>
   </data>
@@ -81,14 +99,26 @@
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Nöbetçi grup: {0}</value>
   </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>Nöbetçi ekip</value>
+  </data>
   <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
     <value>Nöbet süresi (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>AlertCenter&apos;da aç</value>
   </data>
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Lütfen alıcının e-posta adresini girin.</value>
   </data>
+  <data name="Reopen note" xml:space="preserve">
+    <value>Yeniden açma notu</value>
+  </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Yeniden açılma notu: {0}</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Olay bildirimlerini genel SMTP sunucusu aracılığıyla belirtilen e-posta adreslerine gönderin.</value>
   </data>
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Belirtilen e-posta adreslerine genel SMTP sunucusu üzerinden düz metin uyarıları gönderin.</value>
