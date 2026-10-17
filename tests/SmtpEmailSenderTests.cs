@@ -11,7 +11,9 @@ namespace Aiursoft.AlertCenter.Tests;
 public class SmtpEmailSenderTests
 {
     [TestMethod]
-    public async Task SendsAllToAndCcRecipientsInOneSmtpMessage()
+    [DataRow(null)]
+    [DataRow("<html><body><a href=\"https://alerts.example.com/Incidents/Details/123\">Open incident</a></body></html>")]
+    public async Task SendsAllToAndCcRecipientsInOneSmtpMessage(string? html)
     {
         using var listener = new TcpListener(IPAddress.Loopback, 0);
         listener.Start();
@@ -23,14 +25,26 @@ public class SmtpEmailSenderTests
             Host = "127.0.0.1", Port = port, From = "sender@example.com", RequireTls = false
         }));
         await sender.SendAsync(new EmailMessage(["alice@example.com", "bob@example.com"],
-            ["team@example.com"], "OCE mail", "Alert payload"), timeout.Token);
+            ["team@example.com"], "OCE mail", "Alert payload", html), timeout.Token);
         var (recipients, data) = await received;
         CollectionAssert.AreEquivalent(new[] { "alice@example.com", "bob@example.com", "team@example.com" }, recipients.ToArray());
         var parts = data.Split("\r\n\r\n", 2);
         Assert.Contains("To: alice@example.com, bob@example.com", parts[0]);
         Assert.Contains("Cc: team@example.com", parts[0]);
-        Assert.Contains("Content-Transfer-Encoding: base64", parts[0]);
-        Assert.AreEqual("Alert payload", Encoding.UTF8.GetString(Convert.FromBase64String(parts[1])));
+        if (html == null)
+        {
+            Assert.Contains("Content-Transfer-Encoding: base64", parts[0]);
+            Assert.AreEqual("Alert payload", Encoding.UTF8.GetString(Convert.FromBase64String(parts[1])));
+        }
+        else
+        {
+            Assert.Contains("multipart/alternative", parts[0]);
+            Assert.Contains("text/plain", parts[1]);
+            Assert.Contains("text/html", parts[1]);
+            var unfolded = data.Replace("\r\n", "");
+            Assert.Contains(Convert.ToBase64String(Encoding.UTF8.GetBytes("Alert payload")), unfolded);
+            Assert.Contains(Convert.ToBase64String(Encoding.UTF8.GetBytes(html)), unfolded);
+        }
     }
 
     private static async Task<(List<string> Recipients, string Data)> ReceiveMessage(TcpListener listener, CancellationToken token)

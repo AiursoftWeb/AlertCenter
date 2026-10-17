@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using Aiursoft.AiurProtocol.Models;
 using Aiursoft.AlertCenter.SDK.Models;
 using Aiursoft.AlertCenter.Authorization;
@@ -44,7 +45,7 @@ public partial class PushCenterTests
                 ["Webhook:HeaderProtectionKey"] = Convert.ToBase64String(new byte[32])
             }).Build());
         _email = new FakeEmailSender();
-        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector, localizer: TestLocalization.For<WebhookChannelAdapter>()), new InAppChannelAdapter(_db, localizer: TestLocalization.For<InAppChannelAdapter>()), new EmailChannelAdapter(_email, localizer: TestLocalization.For<EmailChannelAdapter>())];
+        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector, localizer: TestLocalization.For<WebhookChannelAdapter>()), new InAppChannelAdapter(_db, localizer: TestLocalization.For<InAppChannelAdapter>()), new EmailChannelAdapter(_email, localizer: TestLocalization.For<EmailChannelAdapter>(), options: Options.Create(new EmailSettings()))];
         _processor = new PushDeliveryProcessor(_db, _adapters, NullLogger<PushDeliveryProcessor>.Instance, localizer: TestLocalization.For<PushDeliveryProcessor>());
         _channelAccess = new PushChannelAccessService(_db);
     }
@@ -640,6 +641,59 @@ public partial class PushCenterTests
     }
 
     [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task IncidentEmailsLinkToDetailsAndEncodeUntrustedContent(bool reopened)
+    {
+        var incident = new Incident
+        {
+            Title = "Database <img src=x onerror=alert(1)> & outage",
+            Content = "First line\n<script>alert(1)</script>",
+            ContextJson = "{\"value\":\"<iframe>\"}", Level = "sev1"
+        };
+        var delivery = new PushDelivery
+        {
+            Channel = new PushChannel { EmailRecipient = "anduin@example.com" },
+            Incident = reopened ? null : incident,
+            IncidentEvent = reopened ? new IncidentTimelineEntry
+            {
+                Incident = incident, IncidentId = incident.Id, NewLevel = "sev1", Note = "<b>Reopened</b>"
+            } : null
+        };
+        var adapter = new EmailChannelAdapter(_email, TestLocalization.For<EmailChannelAdapter>(),
+            Options.Create(new EmailSettings { PublicBaseUrl = "https://alerts.example.com/portal/" }));
+        var result = await adapter.DeliverAsync(delivery);
+        Assert.IsTrue(result.Succeeded, result.ErrorMessage);
+        var mail = _email.Messages.Single();
+        var url = $"https://alerts.example.com/portal/Incidents/Details/{incident.Id}";
+        Assert.Contains(url, mail.Body);
+        Assert.IsNotNull(mail.HtmlBody);
+        Assert.Contains($"href=\"{url}\"", mail.HtmlBody);
+        Assert.Contains("&lt;img", mail.HtmlBody);
+        Assert.Contains("&lt;script&gt;", mail.HtmlBody);
+        Assert.Contains("&lt;iframe&gt;", mail.HtmlBody);
+        Assert.DoesNotContain("<script>", mail.HtmlBody);
+        Assert.DoesNotContain("<img", mail.HtmlBody);
+        if (reopened) Assert.Contains("&lt;b&gt;Reopened&lt;/b&gt;", mail.HtmlBody);
+    }
+
+    [TestMethod]
+    [DataRow("javascript:alert(1)")]
+    [DataRow("https://user:password@example.com")]
+    [DataRow("https://example.com?redirect=other")]
+    public async Task EmailRejectsInvalidPublicSiteAddress(string url)
+    {
+        var adapter = new EmailChannelAdapter(_email, TestLocalization.For<EmailChannelAdapter>(),
+            Options.Create(new EmailSettings { PublicBaseUrl = url }));
+        var result = await adapter.DeliverAsync(new PushDelivery
+        {
+            Channel = new PushChannel { EmailRecipient = "anduin@example.com" }
+        });
+        Assert.IsFalse(result.Succeeded);
+        Assert.IsEmpty(_email.Messages);
+    }
+
+    [TestMethod]
     public async Task EmailRecipientAndCcRecipientsAreValidatedPersistedAndDelivered()
     {
         var model = new PushChannelEditViewModel
@@ -663,6 +717,9 @@ public partial class PushCenterTests
         StringAssert.StartsWith(sent.Subject, "[AlertCenter][sev3]");
         StringAssert.Contains(sent.Body, content);
         StringAssert.Contains(sent.Body, delivery.Id.ToString());
+        Assert.Contains("https://alertcenter.aiursoft.com/", sent.Body);
+        Assert.IsNotNull(sent.HtmlBody);
+        Assert.Contains("href=\"https://alertcenter.aiursoft.com/\"", sent.HtmlBody);
 
         Assert.IsFalse(EmailChannelAdapter.TryParseRecipient("", out _, out _));
         Assert.IsFalse(EmailChannelAdapter.TryParseRecipient("not-an-email", out _, out _));
