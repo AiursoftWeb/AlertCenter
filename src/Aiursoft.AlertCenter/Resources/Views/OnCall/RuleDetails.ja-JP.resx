@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-assign" xml:space="preserve">
+    <value>自動割り当て</value>
+  </data>
+  <data name="Back to Rule List" xml:space="preserve">
+    <value>ルール一覧に戻る</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>早番・中番・遅番の勤務ができるだけ均等になるように調整する</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="Close, prioritize fixed time slots" xml:space="preserve">
+    <value>固定の時間枠を優先</value>
+  </data>
+  <data name="Edit rule" xml:space="preserve">
+    <value>ルールを編集</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="hours · Min rest " xml:space="preserve">
+    <value>時間・最低休憩時間</value>
+  </data>
+  <data name="Minimum per shift " xml:space="preserve">
+    <value>シフトあたりの最低人数</value>
+  </data>
+  <data name="Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team." xml:space="preserve">
+    <value>テンプレートを変更しても、チームに保存済みのシフトは再生成されません。メンバーとスケジュールの開始地点は、各チームで個別に管理されます。</value>
+  </data>
+  <data name="No teams are bound to this template." xml:space="preserve">
+    <value>このテンプレートに紐づいているチームはありません。</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>人 · 目標</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>シフトあたり</value>
+  </data>
+  <data name="Reusable shift rule template · " xml:space="preserve">
+    <value>再利用可能なシフトルールテンプレート ·</value>
+  </data>
+  <data name="Rule configuration" xml:space="preserve">
+    <value>ルール設定</value>
+  </data>
+  <data name="teams using" xml:space="preserve">
+    <value>利用中のチーム</value>
+  </data>
+  <data name="Teams using this template" xml:space="preserve">
+    <value>このテンプレートを使用しているチーム</value>
+  </data>
+  <data name="Time slot rotation: " xml:space="preserve">
+    <value>時間帯のローテーション：</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>オンコールスケジュールを表示</value>
+  </data>
+
+</root>

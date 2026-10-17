@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
+    <value>7일 온콜 일정</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>자동 할당</value>
+  </data>
+  <data name="Back to Schedule List" xml:space="preserve">
+    <value>일정 목록으로 돌아가기</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>이른 시간대, 중간 시간대, 늦은 시간대 근무가 최대한 균등하게 배정되도록 합니다</value>
+  </data>
+  <data name="Close, prioritize fixed time slots" xml:space="preserve">
+    <value>가까운 순으로, 고정 시간대를 우선합니다</value>
+  </data>
+  <data name="Cross-on-call-group members require manual scheduling" xml:space="preserve">
+    <value>여러 온콜 그룹에 속한 구성원은 수동으로 일정을 배정해야 합니다</value>
+  </data>
+  <data name="Current On-Call" xml:space="preserve">
+    <value>현재 당직자</value>
+  </data>
+  <data name="Current Week" xml:space="preserve">
+    <value>이번 주</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>팀 수정</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>삭제된 직원</value>
+  </data>
+  <data name="First class at " xml:space="preserve">
+    <value>첫 번째 수업 시작 시간:</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>시간 · 기준 시각</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>시간 · 교대 최소 인원</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>시간 · 주간 최소 인원</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>시간.</value>
+  </data>
+  <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
+    <value>인력 부족 경고(교대 근무자가 없는 경우를 제외하고 수동 저장 가능)</value>
+  </data>
+  <data name="Minimum template cooldown " xml:space="preserve">
+    <value>템플릿 최소 휴식 시간</value>
+  </data>
+  <data name="Modifying templates, re-binding templates, or adding/removing members will not regenerate saved shifts. After removing a member, upcoming assignments are cleared; empty shifts must be filled manually." xml:space="preserve">
+    <value>템플릿을 수정하거나 다시 연결하고, 구성원을 추가하거나 삭제해도 저장된 근무 일정은 다시 생성되지 않습니다. 구성원을 삭제하면 예정된 배정이 해제되며, 빈 근무 시간대는 수동으로 채워야 합니다.</value>
+  </data>
+  <data name="Next Week" xml:space="preserve">
+    <value>다음 주</value>
+  </data>
+  <data name="No rule template bound, manual scheduling available; new shifts default to min rest " xml:space="preserve">
+    <value>규칙 템플릿이 연결되지 않았습니다. 수동으로 일정을 편성할 수 있으며, 새 교대 근무에는 기본 최소 휴식 시간이 적용됩니다</value>
+  </data>
+  <data name="No shifts are currently assigned this week. You can add personnel manually." xml:space="preserve">
+    <value>이번 주에는 아직 배정된 근무가 없습니다. 인력을 수동으로 추가할 수 있습니다.</value>
+  </data>
+  <data name="No team members. Please edit the team to add members before manually filling empty shifts." xml:space="preserve">
+    <value>팀원이 없습니다. 비어 있는 근무를 수동으로 배정하기 전에 팀을 편집하여 팀원을 추가해 주세요.</value>
+  </data>
+  <data name="No valid scheduling weeks. Please check the team&apos;s scheduling start point." xml:space="preserve">
+    <value>유효한 일정 편성 주가 없습니다. 팀의 일정 편성 시작점을 확인해 주세요.</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>당직 일정</value>
+  </data>
+  <data name="Other teams: " xml:space="preserve">
+    <value>다른 팀:</value>
+  </data>
+  <data name="Override duration" xml:space="preserve">
+    <value>초과 근무 시간</value>
+  </data>
+  <data name="Participating employees" xml:space="preserve">
+    <value>참여 직원</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>명 · 이번 주 최소 휴식 시간</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>명 · 시간대별 교대 순환:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>명, 목표</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>교대당</value>
+  </data>
+  <data name="Previous Week" xml:space="preserve">
+    <value>이전 주</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>구성원 순환</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>규칙 템플릿:</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>저장됨</value>
+  </data>
+  <data name="Shift covered" xml:space="preserve">
+    <value>담당 교대 근무</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>시작</value>
+  </data>
+  <data name="Starting soon" xml:space="preserve">
+    <value>곧 시작</value>
+  </data>
+  <data name="Status is based on page load time)" xml:space="preserve">
+    <value>상태는 페이지가 로드된 시점을 기준으로 합니다)</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>팀 구성</value>
+  </data>
+  <data name="The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available." xml:space="preserve">
+    <value>다음 직원들은 여러 온콜 그룹에 속해 있어 자동 미리 보기 및 일정 생성에서 제외됩니다. 저장된 배정은 변경되지 않으며, 수동 일정 생성과 그룹 간 충돌 검증은 계속 사용할 수 있습니다.</value>
+  </data>
+  <data name="This shift ends at " xml:space="preserve">
+    <value>이 근무는 다음 시간에 종료됩니다</value>
+  </data>
+  <data name="This week&apos;s schedule" xml:space="preserve">
+    <value>이번 주 일정</value>
+  </data>
+  <data name="Three shifts per day, supporting multiple members per shift. Actual shifts are stored under the team." xml:space="preserve">
+    <value>하루 3교대로 운영되며, 교대마다 여러 명을 배정할 수 있습니다. 실제 교대 일정은 팀에 저장됩니다.</value>
+  </data>
+  <data name="Unsaved · Auto-suggested" xml:space="preserve">
+    <value>저장되지 않음 · 자동 제안</value>
+  </data>
+  <data name="Unsaved · Manual schedule" xml:space="preserve">
+    <value>저장되지 않음 · 수동 일정</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>팀 보기</value>
+  </data>
+
+</root>

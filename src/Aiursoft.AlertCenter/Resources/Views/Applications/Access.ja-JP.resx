@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": Additionally allows modifying push bindings, resetting keys, and handling incidents." xml:space="preserve">
+    <value>：さらに、プッシュ設定の変更、キーのリセット、インシデントへの対応が可能になります。</value>
+  </data>
+  <data name=": Allows browsing incident messages, related incidents, and delivery records for this application;" xml:space="preserve">
+    <value>: このアプリケーションのインシデントメッセージ、関連するインシデント、および配信記録を閲覧できます；</value>
+  </data>
+  <data name="Add authorization" xml:space="preserve">
+    <value>認証を追加</value>
+  </data>
+  <data name="Application Access Permissions" xml:space="preserve">
+    <value>アプリケーションのアクセス権限</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>認可タイプ</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>連携済みアプリに戻る</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Grant New Permissions" xml:space="preserve">
+    <value>新しい権限を付与</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>管理可能</value>
+  </data>
+  <data name="Manageable (Manage)" xml:space="preserve">
+    <value>管理可能（管理）</value>
+  </data>
+  <data name="No additional access permissions have been granted to regular users or roles yet" xml:space="preserve">
+    <value>一般ユーザーまたはロールには、まだ追加のアクセス権限が付与されていません</value>
+  </data>
+  <data name="Only users with the application management permission can access this application." xml:space="preserve">
+    <value>アプリケーションの管理権限を持つユーザーのみが、このアプリケーションにアクセスできます。</value>
+  </data>
+  <data name="Permission level" xml:space="preserve">
+    <value>権限レベル</value>
+  </data>
+  <data name="Permissions granted" xml:space="preserve">
+    <value>付与済みの権限</value>
+  </data>
+  <data name="Precisely control view and management permissions for team members and roles." xml:space="preserve">
+    <value>チームメンバーやロールごとに、閲覧および管理の権限を細かく設定できます。</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>権限を削除</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>ロールグループ</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>ロールグループ · グループ内のすべてのメンバーに権限が自動的に継承されます</value>
+  </data>
+  <data name="Role-based authorization automatically applies to all members of that role. If a user has both direct and role-based authorization, the system prioritizes the highest permission, which is &apos;Manageable&apos;." xml:space="preserve">
+    <value>ロールベースの認可は、そのロールのすべてのメンバーに自動的に適用されます。ユーザーに個別の認可とロールベースの認可の両方が設定されている場合、システムは最も高い権限である「管理可能」を優先します。</value>
+  </data>
+  <data name="Save permission changes" xml:space="preserve">
+    <value>権限の変更を保存</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>ロールを選択</value>
+  </data>
+  <data name="Select role..." xml:space="preserve">
+    <value>役割を選択...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>ユーザーを選択...</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>個別のユーザーを指定</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>ユーザーを指定</value>
+  </data>
+  <data name="Users with the application management permission have full management access to all applications." xml:space="preserve">
+    <value>アプリケーション管理権限を持つユーザーは、すべてのアプリケーションを完全に管理できます。</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>閲覧のみ</value>
+  </data>
+  <data name="View only (View)" xml:space="preserve">
+    <value>閲覧のみ（View）</value>
+  </data>
+
+</root>

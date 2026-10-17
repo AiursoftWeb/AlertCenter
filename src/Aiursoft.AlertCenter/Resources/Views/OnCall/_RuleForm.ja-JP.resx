@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>自動生成では要件を満たす必要があります。手動での人員配置が不足している場合は警告のみ表示されますが、担当者のいないシフトは保存できません。</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>早番・中番・遅番ができるだけ均等になるように調整する</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>最低人数を下回ることはできません。上書きや休憩の条件が許す範囲で、できるだけ目標人数を満たします。自動割り当てにする場合は空欄にしてください。</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>人員配置と休息を優先します。シフトの入れ替えにより、余剰人員が減る場合があります。休息時間が16時間以上の場合、3人チームでのローテーションはできません。スケジュールは実際の8時間連続勤務に基づいており、夏時間への移行時には現地時間が変わる場合があります。</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>1日3交代制で、各シフトに最低1人を配置します。各シフトに複数人を配置することもできます。</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>固定時間帯を優先</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>最小休息時間（時間）</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>シフトごとの最低人数</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>ローテーションの希望</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>テンプレートを保存</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>シフト時間（時間）</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>1シフトあたりの目標人数</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>テンプレート名</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>これは複数のチームで共有できるルールテンプレートです。メンバー、ローテーション順、およびスケジュールの開始位置は、チームごとに管理されます。テンプレートを変更しても、保存済みのシフトは再生成されません。</value>
+  </data>
+
+</root>

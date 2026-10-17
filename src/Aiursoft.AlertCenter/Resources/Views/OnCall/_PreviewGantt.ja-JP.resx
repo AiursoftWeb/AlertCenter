@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· 退職済み</value>
+  </data>
+  <data name=" · On call" xml:space="preserve">
+    <value>· オンコール中</value>
+  </data>
+  <data name=" · On duty" xml:space="preserve">
+    <value>・勤務中</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · 選択したシフトをここに移動</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · 他のチーム（読み取り専用） · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0}（読み取り専用）</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0}件のシフト / {1:0.##}時間</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>{0}のオンコールシフト</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} 時間 · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · 隣接週（読み取り専用） · {3}</value>
+  </data>
+  <data name="36 hours after this week (read-only)" xml:space="preserve">
+    <value>今週の36時間後（読み取り専用）</value>
+  </data>
+  <data name="36 hours before this week (read-only)" xml:space="preserve">
+    <value>今週の36時間前（読み取り専用）</value>
+  </data>
+  <data name="7-Day On-Call Gantt Chart" xml:space="preserve">
+    <value>7日間オンコールガントチャート</value>
+  </data>
+  <data name="Departed" xml:space="preserve">
+    <value>退職済み</value>
+  </data>
+  <data name="Drag to another engineer to swap the entire week, or click to select a target employee." xml:space="preserve">
+    <value>別のエンジニアにドラッグすると週全体の担当を入れ替えられます。クリックすると対象の従業員を選択できます。</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>従業員は削除されました</value>
+  </data>
+  <data name="Employee on-call timeline" xml:space="preserve">
+    <value>従業員のオンコール予定表</value>
+  </data>
+  <data name="End time" xml:space="preserve">
+    <value>終了時刻</value>
+  </data>
+  <data name="Expand next 36 hours" xml:space="preserve">
+    <value>次の36時間を展開</value>
+  </data>
+  <data name="Expand previous 36 hours" xml:space="preserve">
+    <value>前の36時間を展開</value>
+  </data>
+  <data name="From " xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>時間 ·</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>割り当てられたシフトはありません。</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>現在</value>
+  </data>
+  <data name="On-call staff" xml:space="preserve">
+    <value>オンコール担当者</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>読み取り専用</value>
+  </data>
+  <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
+    <value>スケジュール全体を表示するには横にスクロールしてください。色付きのブロックにカーソルを合わせるか、フォーカスするか、クリックすると、シフトの詳細を確認できます。赤い線は、ページを読み込んだ時点の現在時刻を示します。従業員列の右側とタイムラインの一番右にある縦型ボタンを押すと、週の開始前と終了後の36時間分の範囲（DSTによる変更を含む実際のUTC時間）が展開されます。既定では折りたたまれています。展開した範囲にも、現在の週と同じ日付見出し、6時間刻み、グリッドが表示されます。両側に表示される灰色のシフトは閲覧専用で、編集できず、週次統計にも含まれません。変更するには、該当する週に切り替えてください。現在のチームと他のチームのシフトは同じ行に表示されます。管理者は自分のグループの色付きシフトを編集できますが、他のチームの灰色のシフトは、参照用にチーム名と時刻のみが表示されます。「シフトを追加」モードでは、空き枠に手動でシフトを設定できます。</value>
+  </data>
+  <data name="Shift / Total Duration" xml:space="preserve">
+    <value>シフト／合計時間</value>
+  </data>
+  <data name="Start Time" xml:space="preserve">
+    <value>開始時刻</value>
+  </data>
+  <data name="Swap full week" xml:space="preserve">
+    <value>1週間全体を入れ替える</value>
+  </data>
+  <data name="Swap full-week shifts with {0}" xml:space="preserve">
+    <value>{0}と週全体のシフトを交換</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="Until " xml:space="preserve">
+    <value>まで</value>
+  </data>
+
+</root>

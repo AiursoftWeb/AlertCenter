@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="All roles" xml:space="preserve">
+    <value>모든 역할</value>
+  </data>
+  <data name="Browse all employees by role" xml:space="preserve">
+    <value>역할별 전체 직원 보기</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>삭제된 직원</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>템플릿을 연결하지 않음(수동 일정 관리)</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>삭제된 직원</value>
+  </data>
+  <data name="Enter a keyword to search, or select a role to immediately view all employees in that role." xml:space="preserve">
+    <value>검색어를 입력하거나 역할을 선택하면 해당 역할의 모든 직원을 바로 확인할 수 있습니다.</value>
+  </data>
+  <data name="Enter a name/account to search, or select a role to automatically paginate and list all employees in that role. Paging does not clear selected members. The member order below represents the rotation order." xml:space="preserve">
+    <value>검색하려면 이름 또는 계정을 입력하거나 역할을 선택하세요. 해당 역할의 모든 직원이 페이지별로 자동 표시됩니다. 페이지를 이동해도 선택한 구성원은 선택 해제되지 않습니다. 아래 구성원 순서는 로테이션 순서를 나타냅니다.</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>UTC 기준으로 입력하세요. 팀 시간대에 따라 자동 변환되지 않습니다. 근무가 저장되면 일정 시작 시점은 변경할 수 없습니다.</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>검색</value>
+  </data>
+  <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
+    <value>구성원은 언제든지 추가하거나 제거할 수 있습니다. 구성원을 제거하면 아직 시작되지 않은 예약 근무만 취소되며, 이미 시작된 근무와 과거 근무 기록은 유지됩니다. 이로 인해 발생한 공석은 직접 인원을 배정해야 합니다.</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>여러 팀이 동일한 템플릿을 공유할 수 있습니다. 템플릿을 변경하거나 수정해도 저장된 교대 근무는 다시 생성되지 않습니다.</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>이름 또는 계정</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>다음 페이지</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>당직 이메일 참조</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured here; it does not automatically CC all team members. Supports line breaks, commas, or semicolons as separators, up to 50 addresses; leave blank to omit CC. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>현재 저장된 근무조의 모든 온콜 엔지니어(OCE) 사용자 메일함(To)으로 온콜 이메일이 자동 전송됩니다. 참조(CC)에는 여기에 명시적으로 설정한 팀 메일함 또는 메일링 리스트 주소만 사용되며, 모든 팀원이 자동으로 참조에 추가되지는 않습니다. 줄바꿈, 쉼표 또는 세미콜론으로 주소를 구분할 수 있으며, 최대 50개까지 입력할 수 있습니다. 참조를 생략하려면 비워 두세요. 애플리케이션에 설정된 사용자 지정 푸시 채널을 통해 추가 알림은 계속 전송됩니다.</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>이전 페이지</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>제거</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>순환 담당자</value>
+  </data>
+  <data name="Save team" xml:space="preserve">
+    <value>팀 저장</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>근무 일정 규칙 템플릿</value>
+  </data>
+  <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
+    <value>시간대 이름, 도시 또는 UTC 오프셋으로 검색하세요. 일정 기준 시각은 UTC로 저장되며 팀의 시간대를 기준으로 표시됩니다.</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>직원 검색</value>
+  </data>
+  <data name="Selected members (can be empty, max 200)" xml:space="preserve">
+    <value>선택된 구성원 (비워 둘 수 있음, 최대 200명)</value>
+  </data>
+  <data name="Shift Start Time (UTC)" xml:space="preserve">
+    <value>교대 시작 시간(UTC)</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>팀 이름</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>시간대</value>
+  </data>
+
+</root>

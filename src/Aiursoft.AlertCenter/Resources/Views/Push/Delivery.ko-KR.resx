@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>비동기 작업이 대기열에 추가되었습니다. 나중에 상태를 새로 고침해 주세요.</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>시도 횟수</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>푸시 기록으로 돌아가기</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>내장 당직 이메일 · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>내장 시스템 · 개별적으로 비활성화할 수 없음</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>채널 활성화 상태</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>채널 테스트</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>채널 테스트 알림</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>즉시 완료</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>완료 시각</value>
+  </data>
+  <data name="Completion Time (UTC)" xml:space="preserve">
+    <value>완료 시간(UTC)</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>전체 배송 ID 복사</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>전체 ID 복사</value>
+  </data>
+  <data name="Creation Time (UTC)" xml:space="preserve">
+    <value>생성 시간(UTC)</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>전송이 성공적으로 완료되었습니다</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>전달 내용</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>전송 상세 정보</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>전달 상세 정보 - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>전송 실패</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>전송이 영구적으로 실패했습니다</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>배송 ID</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>배송 ID:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>전송 작업이 생성되었습니다</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>전송 시도 횟수</value>
+  </data>
+  <data name="Dispatch timeline (UTC)" xml:space="preserve">
+    <value>발송 타임라인(UTC)</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>백그라운드에서 전송을 처리하는 중</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>소요 시간</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>활성화됨</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>전송 대기열에 등록</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>인시던트가 다시 열렸습니다: {0}</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>미완료</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>전송 요청 시작</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>수신자 스냅샷이 유효하지 않습니다. 이전 인시던트는 다시 보낼 수 없습니다.</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>수동 테스트</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>수동 테스트 메시지</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>본문 내용이 없습니다</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>당직 이메일 재시도는 항상 메시지가 대기열에 등록된 시점의 OCE 및 CC 스냅샷을 사용하며, 현재 당직자에게 재전송하지 않습니다. 유효한 스냅샷이 없으면 재시도할 수 없습니다.</value>
+  </data>
+  <data name="Pending dispatch" xml:space="preserve">
+    <value>발송 대기 중</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>먼저 대상 채널을 활성화해 주세요.</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>다시 전송</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>다시 전송할 때는 최신 채널 설정이 적용됩니다.</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>상태 새로 고침</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>실행 중...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>근무 시간:</value>
+  </data>
+  <data name="Snapshot time (" xml:space="preserve">
+    <value>스냅샷 시간 (</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>원본 연동 애플리케이션</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>대상 채널</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>시간 초과 또는 중단 시 대상에게 이미 전달되었을 수 있습니다. 재시도하기 전에 확인해 주세요.</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>작업 메타데이터</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>푸시 채널 테스트 메시지입니다.</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>회</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>총 시도 횟수:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>앱 내 알림 보기</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>채널 설정 보기 또는 수정</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>원본 인시던트 보기</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>재개된 인시던트 보기</value>
+  </data>
+
+</root>

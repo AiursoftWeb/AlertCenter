@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>・退職済み</value>
+  </data>
+  <data name="Add or remove personnel by shift" xml:space="preserve">
+    <value>シフトごとに担当者を追加・削除</value>
+  </data>
+  <data name="Add shift" xml:space="preserve">
+    <value>シフトを追加</value>
+  </data>
+  <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
+    <value>自動提案はまだ保存されていません。生成時に隣接するスケジュールが再検証されますが、既存の保存済みの割り当ては上書きされません。</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Cancel, keep next week" xml:space="preserve">
+    <value>キャンセルして来週はそのままにする</value>
+  </data>
+  <data name="Confirm draft replacement" xml:space="preserve">
+    <value>下書きの置き換えを確定</value>
+  </data>
+  <data name="Copy Current Week to Next Week" xml:space="preserve">
+    <value>今週を翌週にコピー</value>
+  </data>
+  <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
+    <value>今週の下書きを翌週にコピーします。翌週にすでにシフトや変更がある場合は、コピーする前に確認が必要です。コピー後も保存が必要です。左右の縦ボタンで、今週の前後36時間を展開できます。グレーの領域は読み取り専用です。このページのカレンダーとフォームで編集できるのは今週のみです。隣接する週を調整するには、該当する週に切り替えてください。コピー後の翌週の下書きも、読み取り専用モードでプレビューされます。今週への変更とコピー内容は、まとめて保存、取り消し、復元されます。折りたたんでも下書きは失われません。</value>
+  </data>
+  <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>現在は移動／入れ替えモードです。シフトを追加または削除する前に、上のボタンでモードを切り替えてください。</value>
+  </data>
+  <data name="Delete shift" xml:space="preserve">
+    <value>シフトを削除</value>
+  </data>
+  <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
+    <value>色付きのブロックを別のシフトにドラッグすると担当者を入れ替え、空き枠にドラッグするとシフトを移動できます。「Swap Entire Week」をドラッグすると、2人の週間スケジュールを入れ替えます。クリックして選択し、移動先をクリックすることもできます。Escキーを押すとキャンセルできます。変更はすぐに表示され、複数の調整を行った後にまとめて保存できます。</value>
+  </data>
+  <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
+    <value>今週のスケジュールを作成して保存</value>
+  </data>
+  <data name="Move / Swap" xml:space="preserve">
+    <value>移動／入れ替え</value>
+  </data>
+  <data name="Next week already has a saved schedule or unsaved changes. Copying will replace the full 21 shifts of next week with the current draft of this week. You can still undo after confirmation; changes are only written when you click Save." xml:space="preserve">
+    <value>来週にはすでに保存済みのスケジュール、または未保存の変更があります。コピーすると、来週の21シフトすべてが今週の現在の下書きで置き換えられます。確認後も元に戻せます。変更が書き込まれるのは「保存」をクリックしたときだけです。</value>
+  </data>
+  <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
+    <value>オンコール担当者（複数選択可、1名以上）</value>
+  </data>
+  <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
+    <value>赤色の警告は、シフトが空いている、休息時間が不足している、または最低必要人数を下回っていることを示しますが、その後の調整を妨げるものではありません。最低必要人数を下回っていても保存できますが、シフトが空いている場合や休息時間が不足している場合は保存できません。保存時には、変更した週、前後の週、および他チームのシフトにも一律に検証が適用されます。いずれかの週で検証に失敗すると、何も保存されません。退職したメンバーは元のシフトのみ保持でき、新しいシフトの追加やコピーはできません。</value>
+  </data>
+  <data name="Replace next week&apos;s draft?" xml:space="preserve">
+    <value>来週の下書きを置き換えますか？</value>
+  </data>
+  <data name="Reset All" xml:space="preserve">
+    <value>すべてリセット</value>
+  </data>
+  <data name="Save schedule adjustments" xml:space="preserve">
+    <value>スケジュールの変更を保存</value>
+  </data>
+  <data name="Scheduling Operation Mode" xml:space="preserve">
+    <value>スケジュール操作モード</value>
+  </data>
+  <data name="Select Shift" xml:space="preserve">
+    <value>シフトを選択</value>
+  </data>
+  <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
+    <value>勤務担当者を追加または削除する時間枠を選択してください。チャートはリアルタイムで更新されます。キーボードで操作する場合も、このフォームを使用できます。グループ外のメンバーは手動で選択できます。他チームの灰色で表示された読み取り専用のシフトは変更されませんが、保存時にはグループをまたぐ重複や休憩時間も検証されます。</value>
+  </data>
+  <data name="Undo last step" xml:space="preserve">
+    <value>直前の操作を元に戻す</value>
+  </data>
+
+</root>

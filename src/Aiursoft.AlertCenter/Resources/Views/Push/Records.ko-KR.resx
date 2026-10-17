@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>작업</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>모든 채널</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>모든 상태</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>시도 횟수</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>기본 제공 당직 이메일</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>기본 제공 온콜 이메일 · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>채널 테스트 알림</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>모든 필터 지우기</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>웹훅, 이메일 및 앱 내 알림의 비동기 전송 상태와 오류 재시도에 대한 종합적인 추적</value>
+  </data>
+  <data name="Creation Time (UTC)" xml:space="preserve">
+    <value>생성 시간(UTC)</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>현재 표시 중인 페이지</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>전송 중</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>전송 중 (Sending)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>전송 실패</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>전송 실패 (실패)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>전송 상태</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>전송 성공</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>전송 성공 (성공)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>필터</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>이동</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>푸시 센터로 이동하여 채널을 설정하세요</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>인시던트 / 테스트 메시지</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>인시던트가 다시 열렸습니다: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>이동</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>페이지 번호로 이동</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>수동 테스트</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>다음 페이지</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>현재 필터에 해당하는 전송 기록이 없습니다. 필터 조건을 조정해 주세요.</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>푸시 기록이 없습니다</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>페이지</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>페이지 기록</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>전송 대기 중</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>전송 대기 중 (대기)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>이전 페이지</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>푸시 전송 기록</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>푸시 기록 페이지 탐색</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>목록 새로고침</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>필터 초기화</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>대상 채널</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>테스트</value>
+  </data>
+  <data name="UTC Real-Time Trace" xml:space="preserve">
+    <value>UTC 실시간 추적</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>전송 상세 정보 보기</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>시스템에서 인시던트 푸시를 실행하거나 채널 수동 테스트를 진행하면 모든 발송 기록과 상태가 여기에 기록됩니다.</value>
+  </data>
+
+</root>

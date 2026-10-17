@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>작업</value>
+  </data>
+  <data name="Add first channel" xml:space="preserve">
+    <value>첫 번째 채널 추가</value>
+  </data>
+  <data name="Add new channel" xml:space="preserve">
+    <value>새 채널 추가</value>
+  </data>
+  <data name="Application Tier Association" xml:space="preserve">
+    <value>애플리케이션 등급 연결</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>채널 이름</value>
+  </data>
+  <data name="Channel Type" xml:space="preserve">
+    <value>채널 유형</value>
+  </data>
+  <data name="channels" xml:space="preserve">
+    <value>채널</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>닫기</value>
+  </data>
+  <data name="Configure " xml:space="preserve">
+    <value>구성</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>삭제 확인</value>
+  </data>
+  <data name="Confirm push channel deletion" xml:space="preserve">
+    <value>푸시 채널 삭제를 확인하세요</value>
+  </data>
+  <data name="Confirm sending to channel" xml:space="preserve">
+    <value>채널로 전송할까요?</value>
+  </data>
+  <data name="Current Status" xml:space="preserve">
+    <value>현재 상태</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Delete push channel" xml:space="preserve">
+    <value>푸시 채널 삭제</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>활성화</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>사용</value>
+  </data>
+  <data name="Linked application push configurations, historical delivery records, and corresponding in-app notifications will be deleted. This action cannot be undone." xml:space="preserve">
+    <value>연결된 애플리케이션의 푸시 설정, 과거 전송 기록 및 관련 인앱 알림이 삭제됩니다. 이 작업은 취소할 수 없습니다.</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>기록</value>
+  </data>
+  <data name="Manage notification delivery channels to deliver incidents to responsible parties and external systems accurately based on severity levels." xml:space="preserve">
+    <value>심각도에 따라 사고를 담당자와 외부 시스템에 정확하게 전달하도록 알림 전송 채널을 관리합니다.</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>푸시 채널이 아직 설정되지 않았습니다</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>알림</value>
+  </data>
+  <data name="Push channel configured" xml:space="preserve">
+    <value>푸시 채널이 구성되었습니다</value>
+  </data>
+  <data name="Select the channel type above (e.g., Webhook, in-app notification, or email) and configure it to associate with the integrated application." xml:space="preserve">
+    <value>위에서 채널 유형(예: Webhook, 앱 내 알림 또는 이메일)을 선택하고, 통합 애플리케이션과 연결되도록 설정하세요.</value>
+  </data>
+  <data name="Send test message" xml:space="preserve">
+    <value>테스트 메시지 보내기</value>
+  </data>
+  <data name="Send test message and view delivery result" xml:space="preserve">
+    <value>테스트 메시지를 보내고 전송 결과 확인</value>
+  </data>
+  <data name="Send test notification?" xml:space="preserve">
+    <value>테스트 알림을 보내시겠습니까?</value>
+  </data>
+  <data name="Send test now" xml:space="preserve">
+    <value>지금 테스트 전송</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>테스트</value>
+  </data>
+  <data name="Test message content" xml:space="preserve">
+    <value>테스트 메시지 내용</value>
+  </data>
+  <data name="The system will immediately create a delivery task and invoke the corresponding channel adapter. After execution, you will be redirected to the delivery details page to view the results." xml:space="preserve">
+    <value>시스템은 즉시 전송 작업을 생성하고 해당 채널 어댑터를 호출합니다. 실행이 완료되면 결과를 확인할 수 있도록 전송 상세 페이지로 이동합니다.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>푸시 채널 테스트 메시지입니다.</value>
+  </data>
+  <data name="View all delivery records" xml:space="preserve">
+    <value>모든 전송 기록 보기</value>
+  </data>
+
+</root>

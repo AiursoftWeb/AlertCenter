@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>작업</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>에서 생성됨</value>
+  </data>
+  <data name="Manage scheduling rules" xml:space="preserve">
+    <value>일정 규칙 관리</value>
+  </data>
+  <data name="Member Count" xml:space="preserve">
+    <value>구성원 수</value>
+  </data>
+  <data name="No teams available. Please go to" xml:space="preserve">
+    <value>사용할 수 있는 팀이 없습니다. 다음으로 이동하세요</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>당직 일정</value>
+  </data>
+  <data name="Rule" xml:space="preserve">
+    <value>규칙</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>팀을 선택하면 7일 일정을 확인하고 교대 근무를 생성하거나 수동으로 조정할 수 있습니다. 연결된 템플릿이 없는 팀도 수동으로 일정을 설정할 수 있으며, 저장된 교대 근무는 현재 인시던트 라우팅에 영향을 주지 않습니다.</value>
+  </data>
+  <data name="Select On-Call Team" xml:space="preserve">
+    <value>당직 팀 선택</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>팀</value>
+  </data>
+  <data name="Team management" xml:space="preserve">
+    <value>팀 관리</value>
+  </data>
+  <data name="Template not bound" xml:space="preserve">
+    <value>템플릿이 연결되지 않음</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>일정 보기</value>
+  </data>
+
+</root>
