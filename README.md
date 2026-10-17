@@ -88,7 +88,49 @@ curl -i 'http://localhost:5000/api/v1/messages' \
   }'
 ```
 
-Use your server's HTTPS URL for remote reporting and keep API keys outside source control. Reuse a `reportId` only when retrying the same report. A new report returns `201 Created`; a duplicate returns `200 OK` with `duplicate: true`. Invalid credentials return `401`; invalid fields return `400`. Requests are limited to 64 KB, titles and incident keys to 200 characters, and content to 4,000 characters.
+Use your server's HTTPS URL for remote reporting and keep API keys outside source control. Reuse a `reportId` only when retrying the same report. A new report returns `201 Created`; a duplicate returns `202 Accepted` with `Code: 1` and `Duplicate: true`. Invalid credentials return `401`; invalid fields return `400`. Requests are limited to 64 KiB, titles and incident keys to 200 characters, and content to 4,000 characters.
+
+The API uses [AiurProtocol](https://gitlab.aiursoft.com/aiursoft/aiurprotocol). Receipts contain `Code`, `Message`, `ProtocolVersion`, `Id`, `ReportId`, `ReceivedAtUtc`, `IncidentId`, `Archived`, and `Duplicate`. A new report uses `Code: 2` (`JobDone`); a duplicate uses `Code: 1` (`NoActionTaken`). Invalid credentials use `Code: -1` (`WrongKey`); invalid input uses `Code: -10` (`InvalidInput`) with an `Items` array describing errors. Oversized requests return HTTP `413` with the same invalid-input envelope.
+
+### .NET SDK
+
+Install the .NET 10 reporting client:
+
+```bash
+dotnet add package Aiursoft.AlertCenter.SDK
+```
+
+Register it with your server's base URL and an application key from configuration:
+
+```csharp
+using Aiursoft.AlertCenter.SDK;
+using Aiursoft.AlertCenter.SDK.Models;
+
+builder.Services.AddAlertCenterSdk(
+    "https://alertcenter.example.com",
+    builder.Configuration["AlertCenter:ApiKey"]!);
+```
+
+Inject `AlertCenterApiClient` and send a report:
+
+```csharp
+public class PaymentAlerts(AlertCenterApiClient alerts)
+{
+    public Task<ReportMessageResponse> ReportTimeoutAsync(Guid reportId, DateTimeOffset occurredAtUtc)
+        => alerts.ReportAsync(new ReportMessageRequest
+        {
+            ReportId = reportId,
+            Title = "Order payment timed out",
+            Level = "sev1",
+            IncidentKey = "payment-provider-timeout",
+            OccurredAtUtc = occurredAtUtc
+        });
+}
+```
+
+Generate and retain the report ID and occurrence time before the first attempt. The SDK sends once; after an uncertain network outcome, retry the same request with the same ID. Successful duplicates return the original receipt. Input errors throw `AiurBadApiInputException`; authentication and other protocol failures throw `AiurUnexpectedServerResponseException` (inspect its `Response.Code`). These types are in `Aiursoft.AiurProtocol.Exceptions`. Transport failures propagate to the caller. The SDK reports persistence and dispatch scheduling, not notification delivery success.
+
+For rotating credentials, register your own scoped `IAlertCenterApiKeyProvider`; the client retrieves a key for each call. Keep the client on the server, never in a browser.
 
 **Reporting clients must rate-limit at the source.** AlertCenter does not rate-limit ingestion. An `incidentKey` correlates reports; it does not replace caller-side rate limiting. Without a key, correlation uses the application, title, and severity. Acknowledged or mitigated incidents retain matching reports without creating new deliveries; resolving an incident allows the next matching report to create a new incident.
 

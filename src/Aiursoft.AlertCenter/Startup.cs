@@ -1,3 +1,7 @@
+using Aiursoft.AiurProtocol.Server;
+using Aiursoft.AlertCenter.Filters;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Aiursoft.CSTools.Tools;
 using Aiursoft.Canon.TaskQueue;
 using Aiursoft.Canon.BackgroundJobs;
@@ -88,6 +92,7 @@ public class Startup : IWebStartup
 
         // Controllers and localization
         services.AddControllersWithViews(options => options.Filters.Add<ActionFeedbackFilter>())
+            .AddAiurProtocol()
             .AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
@@ -112,9 +117,8 @@ public class Startup : IWebStartup
                 exception.StatusCode == StatusCodes.Status413PayloadTooLarge &&
                 context.Request.Path.Equals("/api/v1/messages", StringComparison.OrdinalIgnoreCase))
             {
-                // 保留上报接口的 413 语义，避免模板异常页将请求体超限转换成 500。
-                context.Response.StatusCode = StatusCodes.Status413PayloadTooLarge;
-                await context.Response.WriteAsJsonAsync(new { error = "Request body exceeds 64 KiB." });
+                await MessageReportExceptionHandlerAttribute.PayloadTooLarge(context).ExecuteResultAsync(
+                    new ActionContext(context, new RouteData(), new ActionDescriptor()));
             }
         });
         app.UseStatusCodePagesWithReExecute("/Error/Code{0}");

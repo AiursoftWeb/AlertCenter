@@ -103,7 +103,7 @@ public partial class AlertDemoTests
         }
         var reportId = Guid.NewGuid();
         var retries = await Task.WhenAll(Report(key, reportId), Report(key, reportId));
-        CollectionAssert.AreEquivalent(new[] { HttpStatusCode.Created, HttpStatusCode.OK }, retries.Select(response => response.StatusCode).ToArray());
+        CollectionAssert.AreEquivalent(new[] { HttpStatusCode.Created, HttpStatusCode.Accepted }, retries.Select(response => response.StatusCode).ToArray());
         foreach (var response in retries) response.Dispose();
         using (var scope = Server!.Services.CreateScope())
         {

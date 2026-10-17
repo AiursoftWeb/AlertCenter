@@ -1,3 +1,5 @@
+using Aiursoft.AiurProtocol.Models;
+using Aiursoft.AlertCenter.SDK.Models;
 using Aiursoft.AlertCenter.Authorization;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Controllers;
@@ -16,10 +18,12 @@ public partial class IncidentWorkflowTests
 {
     private const string Secret = "incident-test-secret";
     private SqliteContext _db = null!;
+    private ServiceProvider _apiServices = null!;
 
     [TestInitialize]
     public async Task Initialize()
     {
+        _apiServices = new ServiceCollection().AddLogging().BuildServiceProvider();
         _db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>().UseSqlite("DataSource=:memory:").Options);
         await _db.Database.OpenConnectionAsync();
         await _db.Database.MigrateAsync();
@@ -28,7 +32,11 @@ public partial class IncidentWorkflowTests
     }
 
     [TestCleanup]
-    public async Task Cleanup() => await _db.DisposeAsync();
+    public async Task Cleanup()
+    {
+        await _db.DisposeAsync();
+        await _apiServices.DisposeAsync();
+    }
 
     private IncidentsController IncidentController() => new(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<IncidentsController>(), localizerFactory: TestLocalization.Factory)
     {
@@ -58,7 +66,7 @@ public partial class IncidentWorkflowTests
         _db.ChangeTracker.Clear();
         var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db), localizerFactory: TestLocalization.Factory))
         {
-            ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() }
+            ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { RequestServices = _apiServices } }
         };
         controller.Request.Headers.Authorization = new($"Bearer {application.Id}.{Secret}");
         var result = await controller.Report(new ReportMessageRequest
@@ -66,7 +74,7 @@ public partial class IncidentWorkflowTests
             ReportId = Guid.NewGuid(), Title = title, Level = level, IncidentKey = incidentKey,
             OccurredAtUtc = DateTimeOffset.UtcNow
         }, CancellationToken.None);
-        Assert.AreEqual(StatusCodes.Status201Created, ((ObjectResult)result).StatusCode);
+        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)((JsonResult)result).Value!).Code);
         return await _db.ReportedMessages.OrderByDescending(message => message.ReceivedAtUtc).FirstAsync();
     }
 
