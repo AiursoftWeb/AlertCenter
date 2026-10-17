@@ -5,7 +5,8 @@
 }
 
 @{
-    var endpoint = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}/api/v1/messages";
+    var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}";
+    var endpoint = $"{baseUrl}/api/v1/messages";
 }
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
@@ -56,9 +57,6 @@
                 <button class="nav-link py-1 px-3" id="tab-dotnet" data-bs-toggle="pill" data-bs-target="#panel-dotnet" type="button" role="tab">.NET C# SDK</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link py-1 px-3" id="tab-go" data-bs-toggle="pill" data-bs-target="#panel-go" type="button" role="tab">Go SDK</button>
-            </li>
-            <li class="nav-item" role="presentation">
                 <button class="nav-link py-1 px-3" id="tab-python" data-bs-toggle="pill" data-bs-target="#panel-python" type="button" role="tab">Python</button>
             </li>
         </ul>
@@ -100,73 +98,33 @@
             <div class="tab-pane fade" id="panel-dotnet" role="tabpanel">
                 <div class="ac-code-container">
                     <div class="ac-code-header">
-                        <span>C# (.NET 8/9/10)</span>
+                        <span>C# (.NET 10)</span>
                         <button type="button" class="ac-copy-btn" data-copy-target="code-dotnet" data-copy-feedback="code-copy-feedback">
                             <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>@Localizer["Copy Code"]
                         </button>
                     </div>
-                    <pre class="ac-code-pre" id="code-dotnet"><code>// 1. @Localizer["Install "]NuGet @Localizer["packages"]: Aiursoft.AlertCenterSdk
-// 2. @Localizer["In "]Program.cs @Localizer["registered services"]
-builder.Services.AddAlertCenter(
-    endpointUrl: "@endpoint",
-    apiKey: builder.Configuration["AlertCenter:ApiKey"]!);
+                    <pre class="ac-code-pre" id="code-dotnet"><code>// dotnet add package Aiursoft.AlertCenter.SDK
+using Aiursoft.AlertCenter.SDK;
+using Aiursoft.AlertCenter.SDK.Models;
 
-// 3. @Localizer["Inject "]IAlertClient @Localizer["and reported"]
-public class OrderService(IAlertClient alertClient)
+builder.Services.AddAlertCenterSdk(
+    "@baseUrl",
+    builder.Configuration["AlertCenter:ApiKey"]!);
+
+public class OrderService(AlertCenterApiClient alerts)
 {
-    public async Task ProcessPaymentAsync(string orderId)
+    public Task&lt;ReportMessageResponse&gt; ReportTimeoutAsync(Guid reportId, DateTimeOffset occurredAtUtc)
     {
-        try {
-            // ... @Localizer["Business Handling"]
-        } catch (Exception ex) {
-            await alertClient.ReportAsync(
-                title: "Order payment anomaly",
-                content: ex.Message,
-                level: AlertSeverity.Sev1,
-                incidentKey: "order-payment-timeout",
-                context: new { OrderId = orderId, TraceId = Activity.Current?.Id });
-            throw;
-        }
+        return alerts.ReportAsync(new ReportMessageRequest
+        {
+            ReportId = reportId,
+            Title = "Order payment timed out",
+            Content = "The payment provider did not respond within 5 seconds.",
+            Level = "sev1",
+            IncidentKey = "order-payment-timeout",
+            OccurredAtUtc = occurredAtUtc
+        });
     }
-}</code></pre>
-                </div>
-            </div>
-
-            <!-- Go Tab -->
-            <div class="tab-pane fade" id="panel-go" role="tabpanel">
-                <div class="ac-code-container">
-                    <div class="ac-code-header">
-                        <span>Go 1.22+</span>
-                        <button type="button" class="ac-copy-btn" data-copy-target="code-go" data-copy-feedback="code-copy-feedback">
-                            <i class="align-middle" data-lucide="copy" aria-hidden="true"></i>@Localizer["Copy Code"]
-                        </button>
-                    </div>
-                    <pre class="ac-code-pre" id="code-go"><code>package main
-
-import (
-    "context"
-    "time"
-    "github.com/google/uuid"
-    "alertcenter" // alertcenter-go SDK
-)
-
-func main() {
-    client := alertcenter.NewClient("@endpoint", "YOUR_API_KEY")
-    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-    defer cancel()
-
-    receipt, err := client.Report(ctx, &amp;alertcenter.ReportMessage{
-        ReportID:      uuid.New().String(),
-        Title:         "Database replica read-only replication lag exceeded threshold",
-        Content:       "Replication lag exceeded 120 seconds; read/write separation protection triggered.",
-        Level:         alertcenter.SeveritySev2,
-        OccurredAtUTC: time.Now().UTC(),
-        Context: map[string]any{
-            "replica": "db-slave-02",
-            "lagSeconds": 145,
-        },
-    })
-    _ = receipt
 }</code></pre>
                 </div>
             </div>
@@ -272,8 +230,8 @@ print(response.status_code, response.json())</code></pre>
                     <td class="ps-4"><code>context</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">Object</span></td>
                     <td><span class="badge bg-secondary-subtle text-secondary">@Localizer["Optional"]</span></td>
-                    <td>@Localizer["JSON object, max 64 KiB"]</td>
-                    <td class="pe-4">@Localizer["Structured business context. It is recommended to include"] <code>traceId</code>、<code>userId</code>、<code>orderId</code> @Localizer["or environment variables, facilitating one-click location and troubleshooting on the detail page."]</td>
+                    <td>@Localizer["JSON object; entire request max 64 KiB"]</td>
+                    <td class="pe-4">@Localizer["Structured business context. It is recommended to include"] <code>traceId</code>, <code>userId</code>, <code>orderId</code> @Localizer["or environment variables, facilitating one-click location and troubleshooting on the detail page."]</td>
                 </tr>
             </tbody>
         </table>
@@ -287,22 +245,24 @@ print(response.status_code, response.json())</code></pre>
         <h2 class="card-title mb-0">@Localizer["HTTP Response Status Codes and Best Engineering Practices"]</h2>
     </div>
     <div class="card-body pt-0">
+        <p>@Localizer["Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception."]</p>
+        <p>@Localizer["The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time."]</p>
         <div class="row g-3 mb-4">
             <div class="col-md-6 col-lg-3">
                 <div class="p-3 bg-body-tertiary rounded h-100">
                     <strong class="d-block text-success mb-1">201 Created</strong>
-                    <p class="small text-muted mb-0">@Localizer["Initial save successful. Returns the generated primary key ID,"]<code>duplicate: false</code>@Localizer[". Push scheduling triggered asynchronously."]</p>
+                    <p class="small text-muted mb-0">@Localizer["Initial save successful. Returns the generated primary key ID,"]<code>Code: 2, Duplicate: false</code>@Localizer[". Push scheduling triggered asynchronously."]</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="p-3 bg-body-tertiary rounded h-100">
-                    <strong class="d-block text-info mb-1">@Localizer["200 OK (Idempotent)"]</strong>
-                    <p class="small text-muted mb-0">@Localizer["Duplicate report with the same ReportId,"]<code>duplicate: true</code>@Localizer[". Retain the first record and do not trigger duplicate pushes."]</p>
+                    <strong class="d-block text-info mb-1">@Localizer["202 Accepted (Idempotent)"]</strong>
+                    <p class="small text-muted mb-0">@Localizer["Duplicate report with the same ReportId,"]<code>Code: 1, Duplicate: true</code>@Localizer[". Retain the first record and do not trigger duplicate pushes."]</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="p-3 bg-body-tertiary rounded h-100">
-                    <strong class="d-block text-warning mb-1">@Localizer["401 / 403 Authentication failed"]</strong>
+                    <strong class="d-block text-warning mb-1">@Localizer["401 Authentication failed"]</strong>
                     <p class="small text-muted mb-0">@Localizer["Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings."]</p>
                 </div>
             </div>

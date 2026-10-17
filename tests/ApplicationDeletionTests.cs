@@ -1,8 +1,9 @@
+using Aiursoft.AiurProtocol.Models;
+using Aiursoft.AlertCenter.SDK.Models;
 using Aiursoft.AlertCenter.Authorization;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Controllers;
 using Aiursoft.AlertCenter.Entities;
-using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,12 @@ namespace Aiursoft.AlertCenter.Tests;
 public class ApplicationDeletionTests
 {
     private SqliteContext _db = null!;
+    private ServiceProvider _apiServices = null!;
 
     [TestInitialize]
     public async Task Initialize()
     {
+        _apiServices = new ServiceCollection().AddLogging().BuildServiceProvider();
         _db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite("DataSource=:memory:").Options);
         await _db.Database.OpenConnectionAsync();
@@ -26,7 +29,11 @@ public class ApplicationDeletionTests
     }
 
     [TestCleanup]
-    public async Task Cleanup() => await _db.DisposeAsync();
+    public async Task Cleanup()
+    {
+        await _db.DisposeAsync();
+        await _apiServices.DisposeAsync();
+    }
 
     [TestMethod]
     [DataRow(0, "Delete this application")]
@@ -56,13 +63,14 @@ public class ApplicationDeletionTests
 
         var reports = new MessageReportsController(_db, new NullAlertDispatcher(NullLogger<NullAlertDispatcher>.Instance))
         {
-            ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext() }
+            ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { RequestServices = _apiServices } }
         };
         reports.Request.Headers.Authorization = $"Bearer {application.Id}.old-secret";
-        Assert.IsInstanceOfType<UnauthorizedResult>(await reports.Report(new ReportMessageRequest
+        var rejected = (JsonResult)await reports.Report(new ReportMessageRequest
         {
             ReportId = Guid.NewGuid(), Title = "Rejected report", OccurredAtUtc = DateTimeOffset.UtcNow
-        }, CancellationToken.None));
+        }, CancellationToken.None);
+        Assert.AreEqual(Code.WrongKey, ((AiurResponse)rejected.Value!).Code);
     }
 
     [TestMethod]

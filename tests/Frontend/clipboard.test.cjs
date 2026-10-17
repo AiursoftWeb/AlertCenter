@@ -151,7 +151,7 @@ test('does not bind a copy button without its feedback region', () => {
 });
 
 for (const [view, expectedButtons] of [
-    ['Views/Alerts/GettingStarted.cshtml', 4],
+    ['Views/Alerts/GettingStarted.cshtml', 3],
     ['Views/Push/Notification.cshtml', 1],
     ['Views/Push/Delivery.cshtml', 1]
 ]) {
@@ -189,7 +189,7 @@ test('uses injected localized copy feedback without interpreting markup', async 
 
 test('every JavaScript localization key has a literal server-rendered span', () => {
     const markup = fs.readFileSync(path.join(root, 'Views/Shared/_ActionFeedback.cshtml'), 'utf8');
-    const supplied = new Map([...markup.matchAll(/<span data-key="([^"]+)">@Localizer\[("(?:\\.|[^"\\])*")\]<\/span>/g)]
+    const supplied = new Map([...markup.matchAll(/<span data-key="([^"]+)">@Localizer\[("(?:\\.|[^"\\])*")\](?:\.Value)?<\/span>/g)]
         .map(match => [match[1], JSON.parse(match[2])]));
     assert(supplied.size > 0);
     assert.match(markup, /<div id="loc-data" hidden>/);

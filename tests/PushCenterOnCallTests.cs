@@ -1,3 +1,5 @@
+using Aiursoft.AiurProtocol.Models;
+using Aiursoft.AlertCenter.SDK.Models;
 using System.Net.Mail;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Authorization;
@@ -50,7 +52,7 @@ public partial class PushCenterTests
         var application = await Application();
         var group = await OnCallTeam(application);
         var reportId = Guid.NewGuid();
-        Assert.AreEqual(201, ((ObjectResult)await Report(application, reportId, level)).StatusCode);
+        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
         var delivery = await BuiltInDelivery();
         var snapshot = delivery.OnCallEmail!;
         Assert.IsNull(delivery.ChannelId);
@@ -63,7 +65,7 @@ public partial class PushCenterTests
         Assert.AreEqual(0, await _db.PushChannels.CountAsync());
         Assert.AreEqual(0, await _db.ApplicationPushChannels.CountAsync());
         Assert.AreEqual(0, await _db.InAppNotifications.CountAsync());
-        Assert.IsInstanceOfType<OkObjectResult>(await Report(application, reportId, level));
+        Assert.AreEqual(Code.NoActionTaken, ((ReportMessageResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
         Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
         await _processor.ProcessAsync(delivery.Id, default);
         await _processor.ProcessAsync(delivery.Id, default);
@@ -148,7 +150,7 @@ public partial class PushCenterTests
         await OnCallTeam(application, email);
         var webhook = await Channel();
         await BindAllLevels(application.Id, webhook.Id);
-        Assert.AreEqual(201, ((ObjectResult)await Report(application, Guid.NewGuid())).StatusCode);
+        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)((JsonResult)await Report(application, Guid.NewGuid())).Value!).Code);
         var builtIn = await BuiltInDelivery();
         Assert.AreEqual(PushDelivery.Failed, builtIn.Status);
         Assert.Contains("registered email", builtIn.Error!);
@@ -293,7 +295,7 @@ public partial class PushCenterTests
         Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
         Assert.AreEqual(0, await _db.OnCallEmailSnapshots.CountAsync());
         await _db.Database.ExecuteSqlRawAsync("DROP TRIGGER RejectOceSnapshot");
-        Assert.AreEqual(201, ((ObjectResult)await Report(application, reportId)).StatusCode);
+        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)((JsonResult)await Report(application, reportId)).Value!).Code);
         Assert.AreEqual(1, await _db.OnCallEmailSnapshots.CountAsync());
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
     }

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <Version>10.0.0</Version>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>Aiursoft.AlertCenter.SDK</AssemblyName>
+    <RootNamespace>Aiursoft.AlertCenter.SDK</RootNamespace>
+    <IsTestProject>false</IsTestProject>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Company>Aiursoft</Company>
+    <Product>AlertCenter.SDK</Product>
+    <Description>Report alerts to Aiursoft AlertCenter using AiurProtocol.</Description>
+    <PackageId>Aiursoft.AlertCenter.SDK</PackageId>
+    <PackageTags>alerts notifications aiursoft sdk</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/aiursoftweb/alertcenter</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/aiursoftweb/alertcenter.git</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="." />
+    <PackageReference Include="Aiursoft.AiurProtocol" Version="10.0.25" />
+  </ItemGroup>
+</Project>

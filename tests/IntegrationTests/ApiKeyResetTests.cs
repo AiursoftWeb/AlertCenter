@@ -48,7 +48,7 @@ public partial class AlertDemoTests
         using var report = await Report(oldKey, reportId);
         Assert.AreEqual(HttpStatusCode.Created, report.StatusCode);
         var receipt = JObject.Parse(await report.Content.ReadAsStringAsync());
-        var messageId = Guid.Parse(receipt.Value<string>("id")!);
+        var messageId = Guid.Parse(receipt.Value<string>("Id")!);
         var channel = new PushChannel { Name = "Preserved inbox", Type = "inapp" };
         var delivery = new PushDelivery { Channel = channel, MessageId = messageId, Status = PushDelivery.Succeeded, Attempts = 1 };
         var readAt = new DateTime(2026, 9, 9, 12, 0, 0, DateTimeKind.Utc);
@@ -119,10 +119,10 @@ public partial class AlertDemoTests
             AssertRedirect(enable, "/Alerts/Applications");
         }
         using var duplicate = await Report(newKey, reportId);
-        Assert.AreEqual(HttpStatusCode.OK, duplicate.StatusCode);
+        Assert.AreEqual(HttpStatusCode.Accepted, duplicate.StatusCode);
         var duplicateReceipt = JObject.Parse(await duplicate.Content.ReadAsStringAsync());
-        Assert.IsTrue(duplicateReceipt.Value<bool>("duplicate"));
-        Assert.AreEqual(messageId, Guid.Parse(duplicateReceipt.Value<string>("id")!));
+        Assert.IsTrue(duplicateReceipt.Value<bool>("Duplicate"));
+        Assert.AreEqual(messageId, Guid.Parse(duplicateReceipt.Value<string>("Id")!));
         using var accepted = await Report(newKey, Guid.NewGuid(), level: "sev3");
         Assert.AreEqual(HttpStatusCode.Created, accepted.StatusCode);
         using var otherAccepted = await Report(otherKey, Guid.NewGuid());
