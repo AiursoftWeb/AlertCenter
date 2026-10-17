@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Adjacent week (read-only)</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· Left</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· includes next week</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· includes previous week</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Insufficient rest</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Read-only)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} has only {1} staff, below the minimum of {2}. Manual saving is still allowed.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} shift for {1} · {2}; not saved yet. You can undo this.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} shifts / {1} hours</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Only {1} hours&apos; rest between {2} and {3}. The minimum required is {4} hours.</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 hours · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>Action not completed</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift.</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>Add on-call shift</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Added</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>Back to editing</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>Cancel refresh</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>Collapse {0} 36 hours</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>Comment content (Markdown)</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>Comments must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing.</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>Confirm page refresh?</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Copied</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>Copied the current draft for this week to all 21 shifts in the following week. It hasn’t been saved yet; you can undo this. You can expand the next 36 hours for a read-only preview. After saving, switch to the following week to view or edit the full week.</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>Copied to the clipboard.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>Copy failed. Please select and copy the content manually. To retry, check your browser&apos;s clipboard permissions.</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>Copying…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>You’re currently in Move/Swap mode. Switch the mode above before adding or removing shifts.</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>Deletion mode: Click a coloured block to remove this engineer’s current shift. This action can be undone and will take effect once all changes have been saved.</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>Discard input and refresh</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>Enter a comment; it cannot contain only whitespace.</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>Enter the exact app name to confirm deletion.</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>Expand {0} 36 hours</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>Failed to retrieve the employee. Please try again.</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>Gap detected at {0}. Please add staff (the week requires a full 21 shifts).</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>Manageable</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>Modified {0} shifts{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>Move / swap shifts</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Move cancelled; schedule unchanged.</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>Move cancelled.</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>Move the selected shift here</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>Move to</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>Network error; the operation result cannot yet be confirmed. Please check the status before resubmitting to avoid duplicates.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>next</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>No shifts assigned.</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>No matching employees.</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>No matching time zone found</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>No matching users found.</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>No shifts to delete in this cell.</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Page {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>Page information updated</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>Please check the CC email format.</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>Press Ctrl+C to copy the selected key.</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>previous</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>Previous step undone.</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>Refresh page</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>Refreshing will discard unsaved input. Select “Cancel refresh” to return to the error details and retain the current input.</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>Reloading page...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Remove {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Remove permission</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Removed</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>The request is invalid or the page credentials have expired. Check your input and refresh the page to try again if necessary.</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>Restarting... ({0}s)</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>Restored to the schedule as it was when the page was opened.</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>Role group · All group members automatically inherit permissions</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>Save failed. Please refresh the page and try again.</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>Searching for employees…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>Select Role</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Select up to 200 employees per team.</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>Select User</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>Select user</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Select user group</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Selected {0} · {1}. Drag to or click a colour block to swap, Space to move; Esc to cancel.</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>Selected {0} users; maximum 20 per page.</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>Selected {0}&apos;s full-week schedule. Drag to or click another engineer.</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>Selection cancelled.</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>Shift adjusted; you can continue dragging to resolve red warnings, then save all changes.</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Specify individual user</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>Staffing adjusted and chart updated; not saved yet.</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>Copied to the clipboard successfully!</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>Swap</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>Swap cancelled.</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>Swap the full week: {0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>Swap whole week</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>Swapped the full-week schedule for {0} and {1}. Not saved yet.</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>The outcome of the action cannot be confirmed at this time. Please check the page status before trying again.</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>The schedule has {0} unresolved issues (expand to view); you can continue adjusting.</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>The target object no longer exists. Please refresh the page.</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>This engineer is already assigned to this shift. No need to add them again.</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>This week includes members who have left. Please replace them in this week&apos;s draft before copying it to the following week.</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>The two locations already have the same arrangement; there’s no need to swap them.</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>Unable to display replacement confirmation. Please refresh the page and try again. The draft for next week remains unchanged.</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>Unable to find employee.</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>Unable to swap directly: one person is already on the target shift. Please adjust the members of the same shift using &quot;Add/Remove members by shift&quot; first.</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>Unsaved · Adjustment draft</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>User group · Members automatically inherit assigned permissions</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>View only</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>You do not have permission to perform this action.</value>
+  </data>
+
+</root>
