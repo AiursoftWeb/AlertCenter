@@ -9,7 +9,7 @@
     var deliverySuccessRate = Model.TotalDeliveries > 0
         ? (int)Math.Round((double)Model.SuccessfulDeliveries / Model.TotalDeliveries * 100)
         : 100;
-    var endpoint = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}/api/v1/messages";
+    var endpoint = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}/api/v1/incidents";
 
     string IncidentStatusText(string status) => status switch
     {
@@ -34,10 +34,10 @@
         <span class="badge bg-body-secondary text-body border px-3 py-2">
             <i class="align-middle me-1" data-lucide="clock"></i><span id="utc-clock">@DateTime.UtcNow.ToString("HH:mm:ss") UTC</span>
         </span>
-        <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-outline-primary">
+        <a asp-controller="Applications" asp-action="GettingStarted" class="btn btn-outline-primary">
             <i class="align-middle me-1" data-lucide="book-open"></i>@Localizer["Integration Guide"]
         </a>
-        <a asp-controller="Alerts" asp-action="Applications" class="btn btn-primary">
+        <a asp-controller="Applications" asp-action="Applications" class="btn btn-primary">
             <i class="align-middle me-1" data-lucide="plus"></i>@Localizer["Applications"]
         </a>
     </div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="d-flex align-items-baseline justify-content-between">
                     <h2 class="h1 mb-0 fw-bold">@Model.TotalApplications</h2>
-                    <a asp-controller="Alerts" asp-action="Applications" class="small text-primary text-decoration-none">@Localizer["Manage applications"] <i class="align-middle" data-lucide="chevron-right"></i></a>
+                    <a asp-controller="Applications" asp-action="Applications" class="small text-primary text-decoration-none">@Localizer["Manage applications"] <i class="align-middle" data-lucide="chevron-right"></i></a>
                 </div>
                 <div class="mt-2 text-muted small">
                     <span>@Localizer["Dedicated API Key Authentication"]</span>
@@ -69,14 +69,14 @@
         <div class="card ac-stat-card h-100 mb-0">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-muted small fw-medium">@Localizer["Total alert messages"]</span>
+                    <span class="text-muted small fw-medium">@Localizer["Total incidents"]</span>
                     <div class="ac-stat-icon icon-indigo">
                         <i data-lucide="bell"></i>
                     </div>
                 </div>
                 <div class="d-flex align-items-baseline justify-content-between">
-                    <h2 class="h1 mb-0 fw-bold">@Model.TotalMessages</h2>
-                    <a asp-controller="Alerts" asp-action="Index" class="small text-primary text-decoration-none">@Localizer["All records"] <i class="align-middle" data-lucide="chevron-right"></i></a>
+                    <h2 class="h1 mb-0 fw-bold">@Model.TotalIncidents</h2>
+                    <a asp-controller="Incidents" asp-action="Index" class="small text-primary text-decoration-none">@Localizer["All records"] <i class="align-middle" data-lucide="chevron-right"></i></a>
                 </div>
                 <div class="mt-2 text-muted small">
                     <span class="fw-semibold" style="color: var(--ac-sev0);">@Model.Sev0Count</span> @Localizer["Critical ·"] <span class="text-danger fw-semibold">@Model.Sev1Count</span> @Localizer["Major ·"] <span class="text-warning fw-semibold">@Model.Sev2Count</span> @Localizer["Error"]
@@ -139,20 +139,20 @@
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
             <div class="d-flex align-items-center gap-2">
                 <span class="text-muted small fw-semibold text-uppercase me-2"><i class="align-middle me-1" data-lucide="layers"></i>@Localizer["Severity pivot:"]</span>
-                <a asp-controller="Alerts" asp-action="Index" class="btn btn-sm btn-outline-secondary">@Localizer["All "] (@Model.TotalMessages)</a>
-                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev0" class="btn btn-sm ac-badge-sev0">
+                <a asp-controller="Incidents" asp-action="Index" class="btn btn-sm btn-outline-secondary">@Localizer["All "] (@Model.TotalIncidents)</a>
+                <a asp-controller="Incidents" asp-action="Index" asp-route-level="sev0" class="btn btn-sm ac-badge-sev0">
                     <span class="ac-status-dot dot-deadly"></span>sev0 @Localizer["Critical"] (@Model.Sev0Count)
                 </a>
-                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev1" class="btn btn-sm ac-badge-sev1">
+                <a asp-controller="Incidents" asp-action="Index" asp-route-level="sev1" class="btn btn-sm ac-badge-sev1">
                     <span class="ac-status-dot dot-danger"></span>sev1 @Localizer["Major"] (@Model.Sev1Count)
                 </a>
-                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev2" class="btn btn-sm ac-badge-sev2">
+                <a asp-controller="Incidents" asp-action="Index" asp-route-level="sev2" class="btn btn-sm ac-badge-sev2">
                     <span class="ac-status-dot dot-warning"></span>sev2 @Localizer["Error "] (@Model.Sev2Count)
                 </a>
-                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev3" class="btn btn-sm ac-badge-sev3">
+                <a asp-controller="Incidents" asp-action="Index" asp-route-level="sev3" class="btn btn-sm ac-badge-sev3">
                     <span class="ac-status-dot dot-warning"></span>sev3 @Localizer["Warning "] (@Model.Sev3Count)
                 </a>
-                <a asp-controller="Alerts" asp-action="Index" asp-route-level="sev4" class="btn btn-sm ac-badge-sev4">
+                <a asp-controller="Incidents" asp-action="Index" asp-route-level="sev4" class="btn btn-sm ac-badge-sev4">
                     <span class="ac-status-dot dot-info"></span>sev4 @Localizer["Info "] (@Model.Sev4Count)
                 </a>
             </div>
@@ -167,7 +167,7 @@
 </div>
 
 <div class="row g-4">
-    <!-- Left Column: Recent Alerts & Incidents -->
+    <!-- Left Column: Recent Incidents & Incidents -->
     <div class="col-lg-8">
         @if (Model.RecentIncidents.Count > 0)
         {
@@ -188,35 +188,35 @@
                                     <span class="badge bg-danger">@IncidentStatusText(incident.Status)</span>
                                     <strong class="text-break">@incident.Title</strong>
                                 </div>
-                                <small class="text-muted">@Localizer["Source"]: @incident.Application.Name · @Localizer["Matching rules"]: @(incident.IncidentKey ?? incident.AlertTitle)</small>
+                                <small class="text-muted">@Localizer["Source"]: @incident.Application.Name</small>
                             </div>
-                            <span class="text-muted small text-nowrap">@incident.TriggeredAtUtc.ToString("HH:mm:ss") UTC</span>
+                            <span class="text-muted small text-nowrap">@incident.ReceivedAtUtc.ToString("HH:mm:ss") UTC</span>
                         </a>
                     }
                 </div>
             </div>
         }
 
-        <!-- Recent Alerts Stream -->
+        <!-- Recent Incidents Stream -->
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
-                    <h2 class="card-title mb-0">@Localizer["Real-time Alert Stream"]</h2>
-                    <small class="text-muted">@Localizer["Recent reported business events and failure alerts"]</small>
+                    <h2 class="card-title mb-0">@Localizer["Latest incidents"]</h2>
+                    <small class="text-muted">@Localizer["Recently created incidents"]</small>
                 </div>
-                <a asp-controller="Alerts" asp-action="Index" class="btn btn-sm btn-outline-primary">
-                    @Localizer["View all messages"] <i class="align-middle" data-lucide="arrow-right"></i>
+                <a asp-controller="Incidents" asp-action="Index" class="btn btn-sm btn-outline-primary">
+                    @Localizer["View all incidents"] <i class="align-middle" data-lucide="arrow-right"></i>
                 </a>
             </div>
-            @if (Model.RecentMessages.Count == 0)
+            @if (Model.LatestIncidents.Count == 0)
             {
                 <div class="card-body ac-empty-state">
                     <div class="ac-empty-icon">
                         <i data-lucide="bell-off"></i>
                     </div>
-                    <h3 class="h5">@Localizer["No alert messages"]</h3>
-                    <p class="text-muted mb-4">@Localizer["Send the first alert via API or SDK; the real-time alert stream will be displayed here."]</p>
-                    <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-primary">
+                    <h3 class="h5">@Localizer["No incidents yet"]</h3>
+                    <p class="text-muted mb-4">@Localizer["Create the first incident via the API or SDK. It will appear here."]</p>
+                    <a asp-controller="Applications" asp-action="GettingStarted" class="btn btn-primary">
                         <i class="align-middle me-1" data-lucide="rocket"></i>@Localizer["Quick Start Integration"]
                     </a>
                 </div>
@@ -228,14 +228,14 @@
                         <thead>
                             <tr>
                                 <th class="ps-3" style="width: 90px;">@Localizer["Severity"]</th>
-                                <th>@Localizer["Message title"]</th>
+                                <th>@Localizer["Incident title"]</th>
                                 <th>@Localizer["Source application"]</th>
                                 <th>@Localizer["Linked Incident"]</th>
                                 <th class="text-end pe-3">@Localizer["Time"]</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var message in Model.RecentMessages)
+                            @foreach (var message in Model.LatestIncidents)
                             {
                                 var rowClass = message.Level switch
                                 {
@@ -258,7 +258,7 @@
                                         <span class="badge @badgeClass text-uppercase">@message.Level</span>
                                     </td>
                                     <td>
-                                        <a asp-controller="Alerts" asp-action="Details" asp-route-id="@message.Id" class="fw-semibold text-decoration-none d-block text-break">
+                                        <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Id" class="fw-semibold text-decoration-none d-block text-break">
                                             @message.Title
                                         </a>
                                         @if (!string.IsNullOrWhiteSpace(message.Content))
@@ -270,16 +270,9 @@
                                         <span class="text-muted">@message.Application.Name</span>
                                     </td>
                                     <td>
-                                        @if (message.Incident != null)
-                                        {
-                                            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Incident.Id" class="badge bg-warning-subtle text-warning-emphasis text-decoration-none">
-                                                <i class="align-middle me-1" data-lucide="siren"></i>@IncidentStatusText(message.Incident.Status)
+                                            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Id" class="badge bg-warning-subtle text-warning-emphasis text-decoration-none">
+                                                <i class="align-middle me-1" data-lucide="siren"></i>@IncidentStatusText(message.Status)
                                             </a>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-muted small">—</span>
-                                        }
                                     </td>
                                     <td class="text-end pe-3 text-muted small text-nowrap">
                                         @message.ReceivedAtUtc.ToString("MM-dd HH:mm:ss")
@@ -302,7 +295,7 @@
                 <span class="badge bg-secondary-subtle text-secondary">HTTP POST</span>
             </div>
             <div class="card-body pt-0">
-                <p class="small text-muted mb-2">@Localizer["Use Bearer authentication to report test alerts:"]</p>
+                <p class="small text-muted mb-2">@Localizer["Use Bearer authentication to report test incidents:"]</p>
                 <div class="ac-code-container mb-3">
                     <div class="ac-code-header">
                         <span>cURL</span>
@@ -317,7 +310,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                     <small class="text-muted">@Localizer["Supports .NET SDK / Go / Webhook"]</small>
-                    <a asp-controller="Alerts" asp-action="GettingStarted" class="btn btn-sm btn-outline-primary">@Localizer["Detailed Integration Documentation"]</a>
+                    <a asp-controller="Applications" asp-action="GettingStarted" class="btn btn-sm btn-outline-primary">@Localizer["Detailed Integration Documentation"]</a>
                 </div>
             </div>
         </div>
@@ -382,7 +375,7 @@
                     </li>
                     <li class="d-flex gap-3">
                         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">4</span>
-                        <div><strong>@Localizer["Incident triggering and collaborative resolution"]</strong><p class="text-muted small mb-0">@Localizer["Linked alert records, handling timeline, and resolution status."]</p></div>
+                        <div><strong>@Localizer["Incident triggering and collaborative resolution"]</strong><p class="text-muted small mb-0">@Localizer["Report details, handling history, and resolution status."]</p></div>
                     </li>
                 </ol>
             </div>

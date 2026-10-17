@@ -19,14 +19,14 @@ public class IncidentSearchTests : TestBase
             db.Incidents.AddRange(
                 new Incident
                 {
-                    Application = orders, Title = "Payment outage", IncidentKey = "payments-2026",
-                    AlertTitle = "Provider unavailable", AlertLevel = "sev1", Status = Incident.New,
-                    TriggeredAtUtc = new DateTime(2026, 9, 10, 12, 0, 0, DateTimeKind.Utc)
+                    Application = orders, Title = "Payment outage",
+                    Content = "Provider unavailable", Level = "sev1", Status = Incident.New,
+                    ReceivedAtUtc = new DateTime(2026, 9, 10, 12, 0, 0, DateTimeKind.Utc)
                 },
                 new Incident
                 {
-                    Application = billing, Title = "Invoice delay", AlertTitle = "Queue backlog", AlertLevel = "sev3",
-                    Status = Incident.Resolved, TriggeredAtUtc = new DateTime(2026, 9, 12, 12, 0, 0, DateTimeKind.Utc)
+                    Application = billing, Title = "Invoice delay", Content = "Queue backlog", Level = "sev3",
+                    Status = Incident.Resolved, ReceivedAtUtc = new DateTime(2026, 9, 12, 12, 0, 0, DateTimeKind.Utc)
                 });
             await db.SaveChangesAsync();
             ordersId = orders.Id;
@@ -35,7 +35,7 @@ public class IncidentSearchTests : TestBase
 
         foreach (var query in new[]
                  {
-                     "keyword=payment%20outage", "keyword=provider%20unavailable", "keyword=orders", "keyword=payments-2026",
+                     "keyword=payment%20outage", "keyword=provider%20unavailable", "keyword=orders",
                      "applicationId=" + ordersId, "status=new", "level=sev1", "fromDate=2026-09-10&toDate=2026-09-10"
                  })
         {

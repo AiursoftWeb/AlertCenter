@@ -16,7 +16,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
 {
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
-        LinkText = "Incident handling", LinkOrder = 1)]
+        LinkText = "Incidents", LinkOrder = 1)]
     public async Task<IActionResult> Index([FromQuery] IncidentFilter filter, CancellationToken cancellationToken)
     {
         filter.Normalize();
@@ -26,6 +26,9 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         var accessibleIncidents = db.Incidents.AsNoTracking().Include(incident => incident.Application).Include(incident => incident.Owner)
             .Where(incident => accessibleIds.Contains(incident.ApplicationId) || oceIds.Contains(incident.ApplicationId) ||
                 (userId != null && incident.OwnerId == userId));
+        if (filter.ApplicationId.HasValue && !accessibleIds.Contains(filter.ApplicationId.Value) &&
+            !oceIds.Contains(filter.ApplicationId.Value) &&
+            !await accessibleIncidents.AnyAsync(incident => incident.ApplicationId == filter.ApplicationId.Value, cancellationToken)) return Forbid();
         var model = new IncidentsViewModel
         {
             Filter = filter,
@@ -34,9 +37,12 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
                 .OrderBy(application => application.Name).ToListAsync(cancellationToken)
         };
         if (!ModelState.IsValid) return this.StackView(model);
-        model.Incidents = await FilterIncidents(accessibleIncidents, filter)
-            .OrderBy(incident => incident.Status == Incident.Resolved).ThenByDescending(incident => incident.TriggeredAtUtc)
+        var incidents = await FilterIncidents(accessibleIncidents, filter)
+            .OrderBy(incident => incident.Status == Incident.Resolved).ThenByDescending(incident => incident.ReceivedAtUtc).ThenByDescending(incident => incident.Id)
+            .Skip((filter.Page - 1) * 20).Take(21)
             .ToListAsync(cancellationToken);
+        model.Incidents = incidents.Take(20).ToList();
+        model.HasNextPage = incidents.Count > 20;
         return this.StackView(model);
     }
 
@@ -47,23 +53,22 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         if (filter.Status is Incident.New or Incident.Acked or Incident.Mitigated or Incident.Resolved)
             incidents = incidents.Where(incident => incident.Status == filter.Status);
         if (filter.Level != null)
-            incidents = incidents.Where(incident => incident.AlertLevel == filter.Level);
+            incidents = incidents.Where(incident => incident.Level == filter.Level);
         if (filter.Keyword != null)
         {
             var keyword = filter.Keyword.ToLowerInvariant();
             incidents = incidents.Where(incident => incident.Title.ToLower().Contains(keyword) ||
-                incident.AlertTitle.ToLower().Contains(keyword) || incident.Application.Name.ToLower().Contains(keyword) ||
-                (incident.IncidentKey != null && incident.IncidentKey.ToLower().Contains(keyword)));
+                (incident.Content != null && incident.Content.ToLower().Contains(keyword)) || incident.Application.Name.ToLower().Contains(keyword));
         }
         if (filter.FromDate.HasValue)
         {
             var start = filter.FromDate.Value.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
-            incidents = incidents.Where(incident => incident.TriggeredAtUtc >= start);
+            incidents = incidents.Where(incident => incident.ReceivedAtUtc >= start);
         }
         if (filter.ToDate.HasValue && filter.ToDate.Value < DateOnly.MaxValue)
         {
             var end = filter.ToDate.Value.AddDays(1).ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
-            incidents = incidents.Where(incident => incident.TriggeredAtUtc < end);
+            incidents = incidents.Where(incident => incident.ReceivedAtUtc < end);
         }
         return incidents;
     }
@@ -98,8 +103,6 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             CanComment = userId != null,
             TimelineEntries = await db.IncidentTimelineEntries.AsNoTracking().Include(entry => entry.Actor)
                 .Where(entry => entry.IncidentId == id).OrderByDescending(entry => entry.CreatedAtUtc).ToListAsync(cancellationToken),
-            Messages = await db.ReportedMessages.AsNoTracking().Where(message => message.IncidentId == id)
-                .OrderByDescending(message => message.ReceivedAtUtc).Take(50).ToListAsync(cancellationToken),
             CanManage = await access.CanManageAsync(User, incident, now, cancellationToken),
             CurrentOces = oce?.Engineers ?? [],
             CurrentOceError = oce?.Error

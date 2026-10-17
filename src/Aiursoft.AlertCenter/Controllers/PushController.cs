@@ -215,7 +215,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var notification = await db.InAppNotifications.AsNoTracking()
-            .Include(item => item.Delivery).ThenInclude(delivery => delivery.Message).ThenInclude(message => message!.Application)
+            .Include(item => item.Delivery).ThenInclude(delivery => delivery.Incident).ThenInclude(message => message!.Application)
             .SingleOrDefaultAsync(item => item.Id == id && item.UserId == userId);
         if (notification == null) return NotFound();
         return this.StackView(new PushViewModel { PageTitle = localizer["In-app notification details"].Value, Notifications = [notification] });
@@ -333,7 +333,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush);
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
         var query = db.PushDeliveries.AsNoTracking().Where(delivery =>
-            (delivery.Message != null && (canManagePush || accessibleIds.Contains(delivery.Message.ApplicationId))) ||
+            (delivery.Incident != null && (canManagePush || accessibleIds.Contains(delivery.Incident.ApplicationId))) ||
             (delivery.IncidentEvent != null && (canManagePush || accessibleIds.Contains(delivery.IncidentEvent.Incident.ApplicationId))));
         if (channelId == Guid.Empty) query = query.Where(delivery => delivery.OnCallEmail != null);
         else if (channelId.HasValue) query = query.Where(delivery => delivery.ChannelId == channelId);
@@ -348,7 +348,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         else status = null;
         var deliveries = await query.Include(delivery => delivery.IncidentEvent).ThenInclude(entry => entry!.Incident).ThenInclude(incident => incident.Application)
             .Include(delivery => delivery.OnCallEmail)
-            .Include(delivery => delivery.Channel).Include(delivery => delivery.Message)
+            .Include(delivery => delivery.Channel).Include(delivery => delivery.Incident)
             .ThenInclude(message => message!.Application).OrderByDescending(delivery => delivery.CreatedAtUtc)
             .ThenByDescending(delivery => delivery.Id).Skip((page - 1) * 20).Take(21).ToListAsync();
         return this.StackView(new PushViewModel
@@ -363,11 +363,11 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     {
         var delivery = await db.PushDeliveries.AsNoTracking().Include(item => item.IncidentEvent).ThenInclude(entry => entry!.Incident).ThenInclude(incident => incident.Application)
             .Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
-            .Include(item => item.Channel).Include(item => item.Message)
+            .Include(item => item.Channel).Include(item => item.Incident)
             .ThenInclude(message => message!.Application).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (delivery == null) return NotFound();
         var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush);
-        var sourceApplicationId = delivery.Message?.ApplicationId ?? delivery.IncidentEvent?.Incident.ApplicationId;
+        var sourceApplicationId = delivery.Incident?.ApplicationId ?? delivery.IncidentEvent?.Incident.ApplicationId;
         if (!sourceApplicationId.HasValue || (!canManagePush && !await applicationAccess.CanAccessAsync(
                 User, sourceApplicationId.Value, cancellationToken: cancellationToken))) return Forbid();
         if (!canManagePush && delivery.OnCallEmail == null &&
@@ -385,9 +385,9 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     public async Task<IActionResult> Retry(Guid id, CancellationToken cancellationToken = default)
     {
         var deliveryAccess = await db.PushDeliveries.Where(delivery => delivery.Id == id &&
-                (delivery.MessageId != null || delivery.IncidentEventId != null))
+                (delivery.IncidentId != null || delivery.IncidentEventId != null))
             .Select(delivery => new { delivery.ChannelId, BuiltIn = delivery.OnCallEmail != null,
-                ApplicationId = delivery.Message != null ? delivery.Message.ApplicationId : delivery.IncidentEvent!.Incident.ApplicationId })
+                ApplicationId = delivery.Incident != null ? delivery.Incident.ApplicationId : delivery.IncidentEvent!.Incident.ApplicationId })
             .SingleOrDefaultAsync(cancellationToken);
         if (deliveryAccess == null) return NotFound();
         if (!await applicationAccess.CanAccessAsync(User, deliveryAccess.ApplicationId, requireManage: true, cancellationToken) ||
@@ -418,7 +418,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             InboxFilter = filter, Page = filter.Page,
             UnreadCount = await ownNotifications.CountAsync(notification => notification.ReadAtUtc == null),
             Applications = await db.SourceApplications.AsNoTracking().Where(application => ownNotifications.Any(
-                    notification => notification.Delivery.Message != null && notification.Delivery.Message.ApplicationId == application.Id))
+                    notification => notification.Delivery.Incident != null && notification.Delivery.Incident.ApplicationId == application.Id))
                 .OrderBy(application => application.Name).ToListAsync(),
             Channels = await db.PushChannels.AsNoTracking().Where(channel => ownNotifications.Any(
                     notification => notification.Delivery.ChannelId == channel.Id))
@@ -426,7 +426,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         };
         if (!ModelState.IsValid) return this.StackView(model);
         var query = FilterInbox(ownNotifications, filter, localizer: localizer);
-        var notifications = await query.Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Message)
+        var notifications = await query.Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Incident)
             .ThenInclude(message => message!.Application)
             .Include(notification => notification.Delivery).ThenInclude(delivery => delivery.Channel)
             .OrderByDescending(notification => notification.CreatedAtUtc).ThenByDescending(notification => notification.Id)
@@ -441,23 +441,23 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (filter.ReadStatus == "unread") query = query.Where(notification => notification.ReadAtUtc == null);
         if (filter.ReadStatus == "read") query = query.Where(notification => notification.ReadAtUtc != null);
         if (filter.ApplicationId.HasValue)
-            query = query.Where(notification => notification.Delivery.Message != null &&
-                notification.Delivery.Message.ApplicationId == filter.ApplicationId.Value);
+            query = query.Where(notification => notification.Delivery.Incident != null &&
+                notification.Delivery.Incident.ApplicationId == filter.ApplicationId.Value);
         if (filter.ChannelId.HasValue)
             query = query.Where(notification => notification.Delivery.ChannelId == filter.ChannelId.Value);
         if (filter.Level != null)
-            query = query.Where(notification => notification.Delivery.Message != null && notification.Delivery.Message.Level == filter.Level);
+            query = query.Where(notification => notification.Delivery.Incident != null && notification.Delivery.Incident.Level == filter.Level);
         if (filter.Keyword != null)
         {
             var keyword = filter.Keyword.ToLowerInvariant();
             var testTitle = (localizer is null ? "Channel test notification" : localizer["Channel test notification"].Value).ToLowerInvariant();
             var defaultContent = (localizer is null ? "This is a test message for the push channel." : localizer["This is a test message for the push channel."].Value).ToLowerInvariant();
-            query = query.Where(notification => notification.Delivery.Message == null
+            query = query.Where(notification => notification.Delivery.Incident == null
                 ? testTitle.Contains(keyword) ||
                   (notification.Delivery.TestContent != null && notification.Delivery.TestContent.ToLower().Contains(keyword)) ||
                   (notification.Delivery.TestContent == null && defaultContent.Contains(keyword))
-                : notification.Delivery.Message.Title.ToLower().Contains(keyword) ||
-                  (notification.Delivery.Message.Content != null && notification.Delivery.Message.Content.ToLower().Contains(keyword)));
+                : notification.Delivery.Incident.Title.ToLower().Contains(keyword) ||
+                  (notification.Delivery.Incident.Content != null && notification.Delivery.Incident.Content.ToLower().Contains(keyword)));
         }
         if (filter.FromDate.HasValue)
         {

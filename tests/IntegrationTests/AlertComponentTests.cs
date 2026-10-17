@@ -6,21 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     [TestMethod]
     public async Task UiStackAlertComponentsRenderGuideAccessAndApplicationDialogs()
     {
         var key = await CreateApplication();
         var applicationId = Guid.Parse(key.Split('.')[0]);
-        var guide = AssertUiStackAlerts(await Http.GetStringAsync("/Alerts/GettingStarted"));
+        var guide = AssertUiStackAlerts(await Http.GetStringAsync("/Applications/GettingStarted"));
         Assert.IsTrue(guide.Any(alert => alert.Classes.Contains("alert-warning")));
         Assert.IsTrue(guide.Any(alert => alert.Classes.Contains("alert-info")));
         Assert.IsTrue(guide.All(alert => alert.Root.Contains("class=\"alert-icon") && alert.Root.Contains("role=\"alert\"")));
 
-        var access = AssertUiStackAlerts(await Http.GetStringAsync($"/Alerts/Access/{applicationId}"));
+        var access = AssertUiStackAlerts(await Http.GetStringAsync($"/Applications/Access/{applicationId}"));
         Assert.IsTrue(access.Any(alert => alert.Classes.Contains("alert-info") && alert.Root.Contains("class=\"alert-icon")));
-        var applications = AssertUiStackAlerts(await Http.GetStringAsync("/Alerts/Applications"));
+        var applications = AssertUiStackAlerts(await Http.GetStringAsync("/Applications/Applications"));
         foreach (var id in new[] { "reset-api-key-description", "delete-application-description" })
         {
             var alert = applications.Single(item => item.Root.Contains($"id=\"{id}\""));
@@ -29,13 +29,13 @@ public partial class AlertDemoTests
             Assert.DoesNotContain("data-bs-dismiss=\"alert\"", alert.Root);
         }
 
-        var onCall = AssertUiStackAlerts(await Http.GetStringAsync($"/Alerts/OnCall/{applicationId}"));
+        var onCall = AssertUiStackAlerts(await Http.GetStringAsync($"/Applications/OnCall/{applicationId}"));
         Assert.IsTrue(onCall.Any(alert => alert.Classes.Contains("alert-info")));
-        using var saved = await PostForm("/Alerts/SaveOnCall", new()
+        using var saved = await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = applicationId.ToString()
-        }, $"/Alerts/OnCall/{applicationId}");
-        AssertRedirect(saved, $"/Alerts/OnCall/{applicationId}");
+        }, $"/Applications/OnCall/{applicationId}");
+        AssertRedirect(saved, $"/Applications/OnCall/{applicationId}");
         AssertDismissibleSuccess(await Http.GetStringAsync(saved.Headers.Location));
     }
 
@@ -103,7 +103,7 @@ public partial class AlertDemoTests
         var key = await CreateApplication();
         using var reported = await Report(key, Guid.NewGuid());
         Assert.AreEqual(HttpStatusCode.Created, reported.StatusCode);
-        // 保持待处理状态稳定，避免后台任务在页面读取前领取测试投递。
+        // Keep the test delivery pending until the page has been read.
         await Server!.Services.GetServices<IHostedService>().OfType<PushDeliveryWorker>().Single().StopAsync(CancellationToken.None);
         Guid deliveryId;
         using (var scope = Server.Services.CreateScope())
@@ -111,7 +111,7 @@ public partial class AlertDemoTests
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var delivery = new PushDelivery
             {
-                MessageId = (await db.ReportedMessages.SingleAsync()).Id,
+                IncidentId = (await db.Incidents.SingleAsync()).Id,
                 Channel = new PushChannel { Name = "Delivery alert", Type = "inapp" },
                 Status = status, Attempts = status == PushDelivery.Pending ? 0 : 1,
                 Error = status == PushDelivery.Failed ? "Remote endpoint rejected <unsafe> payload" : null,

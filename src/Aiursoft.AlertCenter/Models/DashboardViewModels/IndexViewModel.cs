@@ -11,7 +11,7 @@ public class IndexViewModel : UiStackLayoutViewModel
     }
 
     public int TotalApplications { get; set; }
-    public int TotalMessages { get; set; }
+    public int TotalIncidents { get; set; }
     public int ActiveIncidents { get; set; }
     public int TotalDeliveries { get; set; }
     public int SuccessfulDeliveries { get; set; }
@@ -22,7 +22,7 @@ public class IndexViewModel : UiStackLayoutViewModel
     public int Sev2Count { get; set; }
     public int Sev3Count { get; set; }
     public int Sev4Count { get; set; }
-    public List<ReportedMessage> RecentMessages { get; set; } = [];
+    public List<Incident> LatestIncidents { get; set; } = [];
     public List<Incident> RecentIncidents { get; set; } = [];
     public bool IsAuthenticated { get; set; }
     public bool CanManageApplications { get; set; }

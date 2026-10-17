@@ -6,11 +6,12 @@ using Aiursoft.UiStack.Navigation;
 using Aiursoft.WebTools.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
 [LimitPerMin]
-public class DashboardController(TemplateDbContext db, IApplicationAccessService applicationAccess) : Controller
+public class DashboardController(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizerFactory localizerFactory) : Controller
 {
     [RenderInNavBar(
         NavGroupName = "Features",
@@ -34,23 +35,26 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
             model.TotalApplications = await db.SourceApplications.AsNoTracking()
                 .CountAsync(a => accessibleIds.Contains(a.Id), cancellationToken);
 
-            var messagesQuery = db.ReportedMessages.AsNoTracking().Where(m => accessibleIds.Contains(m.ApplicationId));
-            model.TotalMessages = await messagesQuery.CountAsync(cancellationToken);
+            var oceIds = await new IncidentAccessService(db, applicationAccess, localizerFactory)
+                .GetOceApplicationIdsAsync(User, DateTime.UtcNow, cancellationToken);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var messagesQuery = db.Incidents.AsNoTracking().Where(incident => accessibleIds.Contains(incident.ApplicationId) ||
+                oceIds.Contains(incident.ApplicationId) || (userId != null && incident.OwnerId == userId));
+            model.TotalIncidents = await messagesQuery.CountAsync(cancellationToken);
             model.Sev0Count = await messagesQuery.CountAsync(m => m.Level == "sev0", cancellationToken);
             model.Sev1Count = await messagesQuery.CountAsync(m => m.Level == "sev1", cancellationToken);
             model.Sev2Count = await messagesQuery.CountAsync(m => m.Level == "sev2", cancellationToken);
             model.Sev3Count = await messagesQuery.CountAsync(m => m.Level == "sev3", cancellationToken);
             model.Sev4Count = await messagesQuery.CountAsync(m => m.Level == "sev4", cancellationToken);
 
-            model.ActiveIncidents = await db.Incidents.AsNoTracking()
-                .CountAsync(i => accessibleIds.Contains(i.ApplicationId) && i.Status != Incident.Resolved, cancellationToken);
+            model.ActiveIncidents = await messagesQuery
+                .CountAsync(i => i.Status != Incident.Resolved, cancellationToken);
 
             var deliveriesQuery = db.PushDeliveries.AsNoTracking()
-                .Where(d => d.Message != null && accessibleIds.Contains(d.Message.ApplicationId));
+                .Where(d => d.Incident != null && accessibleIds.Contains(d.Incident.ApplicationId));
             model.TotalDeliveries = await deliveriesQuery.CountAsync(cancellationToken);
             model.SuccessfulDeliveries = await deliveriesQuery.CountAsync(d => d.Status == PushDelivery.Succeeded, cancellationToken);
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId != null)
             {
                 model.UnreadNotifications = await db.InAppNotifications.AsNoTracking()
@@ -59,24 +63,23 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
 
             model.ChannelsCount = await db.PushChannels.AsNoTracking().CountAsync(c => c.IsEnabled, cancellationToken);
 
-            model.RecentMessages = await messagesQuery
+            model.LatestIncidents = await messagesQuery
                 .Include(m => m.Application)
-                .Include(m => m.Incident)
                 .OrderByDescending(m => m.ReceivedAtUtc)
                 .Take(6)
                 .ToListAsync(cancellationToken);
 
-            model.RecentIncidents = await db.Incidents.AsNoTracking()
-                .Where(i => accessibleIds.Contains(i.ApplicationId) && i.Status != Incident.Resolved)
+            model.RecentIncidents = await messagesQuery
+                .Where(i => i.Status != Incident.Resolved)
                 .Include(i => i.Application)
-                .OrderByDescending(i => i.TriggeredAtUtc)
+                .OrderByDescending(i => i.ReceivedAtUtc)
                 .Take(4)
                 .ToListAsync(cancellationToken);
         }
         else
         {
             model.TotalApplications = await db.SourceApplications.AsNoTracking().CountAsync(cancellationToken);
-            model.TotalMessages = await db.ReportedMessages.AsNoTracking().CountAsync(cancellationToken);
+            model.TotalIncidents = await db.Incidents.AsNoTracking().CountAsync(cancellationToken);
             model.ActiveIncidents = await db.Incidents.AsNoTracking().CountAsync(i => i.Status != Incident.Resolved, cancellationToken);
             model.ChannelsCount = await db.PushChannels.AsNoTracking().CountAsync(c => c.IsEnabled, cancellationToken);
         }

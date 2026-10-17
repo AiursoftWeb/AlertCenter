@@ -61,11 +61,10 @@ public class Startup : IWebStartup
         services.AddSingleton<WebhookConfigurationProtector>();
         services.Configure<EmailSettings>(configuration.GetSection("Email"));
         services.AddScoped<IEmailSender, SmtpEmailSender>();
-        services.AddScoped<IIncidentMatcher, IncidentMatcher>();
         services.AddSingleton<IOnCallScheduleGenerator, OnCallScheduleGenerator>();
         services.AddScoped<IApplicationAccessService, ApplicationAccessService>();
         services.AddScoped<IPushChannelAccessService, PushChannelAccessService>();
-        services.AddScoped<IAlertDispatcher, QueuedAlertDispatcher>();
+        services.AddScoped<IIncidentDispatcher, QueuedIncidentDispatcher>();
         services.AddScoped<INotificationChannelAdapter, EmailChannelAdapter>();
         services.AddScoped<INotificationChannelAdapter, WebhookChannelAdapter>();
         services.AddScoped<INotificationChannelAdapter, InAppChannelAdapter>();
@@ -115,9 +114,9 @@ public class Startup : IWebStartup
             }
             catch (BadHttpRequestException exception) when (
                 exception.StatusCode == StatusCodes.Status413PayloadTooLarge &&
-                context.Request.Path.Equals("/api/v1/messages", StringComparison.OrdinalIgnoreCase))
+                context.Request.Path.Equals("/api/v1/incidents", StringComparison.OrdinalIgnoreCase))
             {
-                await MessageReportExceptionHandlerAttribute.PayloadTooLarge(context).ExecuteResultAsync(
+                await IncidentReportExceptionHandlerAttribute.PayloadTooLarge(context).ExecuteResultAsync(
                     new ActionContext(context, new RouteData(), new ActionDescriptor()));
             }
         });

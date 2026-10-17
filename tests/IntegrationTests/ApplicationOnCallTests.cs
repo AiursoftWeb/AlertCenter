@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     private async Task<Guid> CreateOnCallTeam(string name)
     {
@@ -32,17 +32,17 @@ public partial class AlertDemoTests
         var id = Guid.Parse(key.Split('.')[0]);
         var first = await CreateOnCallTeam("Primary OCE");
         var second = await CreateOnCallTeam("Backup OCE");
-        var settingsUrl = $"/Alerts/OnCall/{id}";
+        var settingsUrl = $"/Applications/OnCall/{id}";
         Assert.IsNull(await ApplicationTeam(id));
         var settings = await Http.GetStringAsync(settingsUrl);
         Assert.Contains("name=\"OnCallGroupId\"", settings);
         Assert.Contains("Primary OCE (Asia/Shanghai)", settings);
         Assert.Contains("Backup OCE (Asia/Shanghai)", settings);
-        Assert.Contains("/Alerts/SaveOnCall", settings);
+        Assert.Contains("/Applications/SaveOnCall", settings);
 
         foreach (var groupId in new[] { first.ToString(), second.ToString(), string.Empty })
         {
-            AssertRedirect(await PostForm("/Alerts/SaveOnCall", new()
+            AssertRedirect(await PostForm("/Applications/SaveOnCall", new()
             {
                 ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = groupId
             }, settingsUrl), settingsUrl);
@@ -50,7 +50,7 @@ public partial class AlertDemoTests
             var saved = WebUtility.HtmlDecode(await Http.GetStringAsync(settingsUrl));
             Assert.Contains(string.IsNullOrEmpty(groupId) ? "application has been unbound from the on-call group" : "App on-call group updated", saved);
             if (!string.IsNullOrEmpty(groupId)) Assert.Contains($"<option value=\"{groupId}\" selected=\"selected\">", saved);
-            var applications = await Http.GetStringAsync("/Alerts/Applications");
+            var applications = await Http.GetStringAsync("/Applications/Applications");
             Assert.Contains(settingsUrl, applications);
             if (!string.IsNullOrEmpty(groupId)) Assert.Contains($"/OnCall/GroupDetails/{groupId}", applications);
             using var report = await Report(key, Guid.NewGuid());
@@ -58,8 +58,7 @@ public partial class AlertDemoTests
         }
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        Assert.AreEqual(3, await db.ReportedMessages.CountAsync());
-        Assert.AreEqual(1, await db.Incidents.CountAsync());
+        Assert.AreEqual(3, await db.Incidents.CountAsync());
         Assert.AreEqual(2, await db.PushDeliveries.CountAsync(delivery => delivery.OnCallEmail != null && delivery.Status == PushDelivery.Failed));
         Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
     }
@@ -69,22 +68,22 @@ public partial class AlertDemoTests
     {
         await LoginAsAdmin();
         var groupId = await CreateOnCallTeam("Shared team");
-        var applications = await Http.GetStringAsync("/Alerts/Applications");
+        var applications = await Http.GetStringAsync("/Applications/Applications");
         Assert.Contains("id=\"create-oncall-group\"", applications);
         Assert.Contains(groupId.ToString(), applications);
         foreach (var name in new[] { "Orders", "Billing" })
         {
-            AssertRedirect(await PostForm("/Alerts/CreateApplication", new()
+            AssertRedirect(await PostForm("/Applications/CreateApplication", new()
             {
                 ["Name"] = name, ["OnCallGroupId"] = groupId.ToString()
-            }, "/Alerts/Applications"), "/Alerts/Applications");
+            }, "/Applications/Applications"), "/Applications/Applications");
         }
         foreach (var group in new[] { Guid.NewGuid().ToString(), Guid.Empty.ToString(), "invalid-guid" })
         {
-            using var response = await PostForm("/Alerts/CreateApplication", new()
+            using var response = await PostForm("/Applications/CreateApplication", new()
             {
                 ["Name"] = "Rejected", ["OnCallGroupId"] = group
-            }, "/Alerts/Applications");
+            }, "/Applications/Applications");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             var html = await response.Content.ReadAsStringAsync();
             Assert.Contains("validation-summary-errors", html);
@@ -103,14 +102,14 @@ public partial class AlertDemoTests
         var key = await CreateApplication();
         var id = Guid.Parse(key.Split('.')[0]);
         var groupId = await CreateOnCallTeam("Keep team");
-        var settingsUrl = $"/Alerts/OnCall/{id}";
-        AssertRedirect(await PostForm("/Alerts/SaveOnCall", new()
+        var settingsUrl = $"/Applications/OnCall/{id}";
+        AssertRedirect(await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = groupId.ToString()
         }, settingsUrl), settingsUrl);
         foreach (var group in new[] { Guid.NewGuid().ToString(), Guid.Empty.ToString(), "invalid-guid" })
         {
-            using var invalid = await PostForm("/Alerts/SaveOnCall", new()
+            using var invalid = await PostForm("/Applications/SaveOnCall", new()
             {
                 ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = group
             }, settingsUrl);
@@ -118,19 +117,19 @@ public partial class AlertDemoTests
             Assert.Contains("validation-summary-errors", await invalid.Content.ReadAsStringAsync());
             Assert.AreEqual(groupId, await ApplicationTeam(id));
         }
-        using var missingToken = await PostForm("/Alerts/SaveOnCall", new()
+        using var missingToken = await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = string.Empty
         }, includeToken: false);
         Assert.AreEqual(HttpStatusCode.BadRequest, missingToken.StatusCode);
-        using var get = await Http.GetAsync($"/Alerts/SaveOnCall?ApplicationId={id}");
+        using var get = await Http.GetAsync($"/Applications/SaveOnCall?ApplicationId={id}");
         Assert.AreEqual(HttpStatusCode.MethodNotAllowed, get.StatusCode);
-        using var missingApplication = await PostForm("/Alerts/SaveOnCall", new()
+        using var missingApplication = await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = Guid.NewGuid().ToString(), ["OnCallGroupId"] = groupId.ToString()
         }, settingsUrl);
         Assert.AreEqual(HttpStatusCode.NotFound, missingApplication.StatusCode);
-        Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/Alerts/OnCall/{Guid.NewGuid()}")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/Applications/OnCall/{Guid.NewGuid()}")).StatusCode);
         Assert.AreEqual(groupId, await ApplicationTeam(id));
     }
 
@@ -145,7 +144,7 @@ public partial class AlertDemoTests
         var otherId = Guid.Parse(otherKey.Split('.')[0]);
         var groupId = await CreateOnCallTeam("Operations");
         var (email, _) = await RegisterAndLoginAsync();
-        var settingsUrl = $"/Alerts/OnCall/{id}";
+        var settingsUrl = $"/Applications/OnCall/{id}";
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -161,14 +160,14 @@ public partial class AlertDemoTests
                 db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = id, UserId = user.Id });
             await db.SaveChangesAsync();
         }
-        var applications = await Http.GetStringAsync("/Alerts/Applications");
+        var applications = await Http.GetStringAsync("/Applications/Applications");
         Assert.DoesNotContain(settingsUrl, applications);
         Assert.DoesNotContain("create-oncall-group", applications);
         AssertForbidden(await Http.GetAsync(settingsUrl));
-        AssertForbidden(await PostForm("/Alerts/SaveOnCall", new()
+        AssertForbidden(await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = groupId.ToString()
-        }, "/Alerts/Applications"));
+        }, "/Applications/Applications"));
         Assert.IsNull(await ApplicationTeam(id));
         using (var scope = Server!.Services.CreateScope())
         {
@@ -177,14 +176,14 @@ public partial class AlertDemoTests
             else (await db.ApplicationUserAccesses.SingleAsync(item => item.ApplicationId == id)).CanManage = true;
             await db.SaveChangesAsync();
         }
-        Assert.Contains(settingsUrl, await Http.GetStringAsync("/Alerts/Applications"));
+        Assert.Contains(settingsUrl, await Http.GetStringAsync("/Applications/Applications"));
         Assert.AreEqual(HttpStatusCode.OK, (await Http.GetAsync(settingsUrl)).StatusCode);
-        AssertRedirect(await PostForm("/Alerts/SaveOnCall", new()
+        AssertRedirect(await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = groupId.ToString()
         }, settingsUrl), settingsUrl);
         Assert.AreEqual(groupId, await ApplicationTeam(id));
-        AssertForbidden(await PostForm("/Alerts/SaveOnCall", new()
+        AssertForbidden(await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = otherId.ToString(), ["OnCallGroupId"] = groupId.ToString()
         }, settingsUrl));
@@ -207,10 +206,10 @@ public partial class AlertDemoTests
         var key = await CreateApplication();
         var id = Guid.Parse(key.Split('.')[0]);
         var groupId = await CreateOnCallTeam("Protected team");
-        AssertRedirect(await PostForm("/Alerts/SaveOnCall", new()
+        AssertRedirect(await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = groupId.ToString()
-        }, $"/Alerts/OnCall/{id}"), $"/Alerts/OnCall/{id}");
+        }, $"/Applications/OnCall/{id}"), $"/Applications/OnCall/{id}");
         Guid otherId;
         using (var scope = Server!.Services.CreateScope())
         {
@@ -224,7 +223,7 @@ public partial class AlertDemoTests
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync(detailsUrl));
         Assert.Contains("bound to an integrated app", details);
         Assert.DoesNotContain("action=\"/OnCall/DeleteGroup\"", details);
-        using var blocked = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, $"/Alerts/OnCall/{id}");
+        using var blocked = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, $"/Applications/OnCall/{id}");
         Assert.AreEqual(HttpStatusCode.Conflict, blocked.StatusCode);
         using (var scope = Server!.Services.CreateScope())
         {
@@ -234,16 +233,16 @@ public partial class AlertDemoTests
             Assert.IsTrue(await db.OnCallGroups.AnyAsync(group => group.Id == groupId));
             Assert.AreEqual(2, await db.SourceApplications.CountAsync(application => application.OnCallGroupId == groupId));
         }
-        AssertRedirect(await PostForm("/Alerts/SaveOnCall", new()
+        AssertRedirect(await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = string.Empty
-        }, $"/Alerts/OnCall/{id}"), $"/Alerts/OnCall/{id}");
-        using var stillBound = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, $"/Alerts/OnCall/{id}");
+        }, $"/Applications/OnCall/{id}"), $"/Applications/OnCall/{id}");
+        using var stillBound = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, $"/Applications/OnCall/{id}");
         Assert.AreEqual(HttpStatusCode.Conflict, stillBound.StatusCode);
-        AssertRedirect(await PostForm("/Alerts/DeleteApplication", new()
+        AssertRedirect(await PostForm("/Applications/DeleteApplication", new()
         {
             ["id"] = otherId.ToString(), ["confirmationName"] = "Other bound application"
-        }, "/Alerts/Applications"), "/Alerts/Applications");
+        }, "/Applications/Applications"), "/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.OK, (await Http.GetAsync(detailsUrl)).StatusCode);
         AssertRedirect(await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, detailsUrl), "/OnCall/Groups");
         Assert.IsNull(await ApplicationTeam(id));

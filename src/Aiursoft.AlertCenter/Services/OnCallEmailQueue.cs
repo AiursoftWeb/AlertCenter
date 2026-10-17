@@ -6,10 +6,10 @@ namespace Aiursoft.AlertCenter.Services;
 
 public static class OnCallEmailQueue
 {
-    public static async Task CreateAsync(TemplateDbContext db, ReportedMessage message, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null)
+    public static async Task CreateAsync(TemplateDbContext db, Incident incident, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null)
     {
-        await CreateAsync(db, message.ApplicationId, new PushDelivery { Message = message, MessageId = message.Id },
-            DateTime.SpecifyKind(message.ReceivedAtUtc, DateTimeKind.Utc), cancellationToken, localizer: localizer, localizerFactory: localizerFactory);
+        await CreateAsync(db, incident.ApplicationId, new PushDelivery { Incident = incident, IncidentId = incident.Id },
+            DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc), cancellationToken, localizer: localizer, localizerFactory: localizerFactory);
     }
 
     public static Task CreateReopenAsync(TemplateDbContext db, IncidentTimelineEntry entry, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null) =>
@@ -22,7 +22,7 @@ public static class OnCallEmailQueue
             .Select(application => application.OnCallGroup).SingleOrDefaultAsync(cancellationToken);
         if (group == null) return;
         var oce = await new OnCallOceService(db, localizer: localizerFactory == null ? null : new StringLocalizer<OnCallOceService>(localizerFactory)).QueryAsync(group.Id, atUtc, cancellationToken);
-        // 快照不关联可变的用户或班次外键，避免换班、删用户和重试改写历史收件人。
+        // Keep recipient history independent of mutable users and shifts, including retries.
         var snapshot = new OnCallEmailSnapshot
         {
             GroupId = group.Id, GroupName = group.Name, ShiftId = oce.ShiftId,

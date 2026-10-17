@@ -7,18 +7,18 @@ using Newtonsoft.Json.Linq;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     private static readonly HttpClient AnonymousClient = new(
         new HttpClientHandler { AllowAutoRedirect = false, UseCookies = false });
 
     private async Task<string> ResetApplicationKey(Guid applicationId)
     {
-        using var reset = await PostForm("/Alerts/ResetApiKey", new()
+        using var reset = await PostForm("/Applications/ResetApiKey", new()
         {
             ["id"] = applicationId.ToString()
-        }, "/Alerts/Applications");
-        AssertRedirect(reset, "/Alerts/Applications");
+        }, "/Applications/Applications");
+        AssertRedirect(reset, "/Applications/Applications");
         Assert.IsTrue(reset.Headers.CacheControl?.NoStore);
         using var response = await Http.GetAsync(reset.Headers.Location);
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -48,9 +48,9 @@ public partial class AlertDemoTests
         using var report = await Report(oldKey, reportId);
         Assert.AreEqual(HttpStatusCode.Created, report.StatusCode);
         var receipt = JObject.Parse(await report.Content.ReadAsStringAsync());
-        var messageId = Guid.Parse(receipt.Value<string>("Id")!);
+        var incidentId = Guid.Parse(receipt.Value<string>("IncidentId")!);
         var channel = new PushChannel { Name = "Preserved inbox", Type = "inapp" };
-        var delivery = new PushDelivery { Channel = channel, MessageId = messageId, Status = PushDelivery.Succeeded, Attempts = 1 };
+        var delivery = new PushDelivery { Channel = channel, IncidentId = incidentId, Status = PushDelivery.Succeeded, Attempts = 1 };
         var readAt = new DateTime(2026, 9, 9, 12, 0, 0, DateTimeKind.Utc);
         var notification = new InAppNotification { Delivery = delivery, ReadAtUtc = readAt };
         string oldHash;
@@ -90,7 +90,7 @@ public partial class AlertDemoTests
             Assert.AreEqual(PasswordVerificationResult.Failed, hasher.VerifyHashedPassword(application, application.SecretHash, oldKey.Split('.')[1]));
             Assert.AreEqual(PasswordVerificationResult.Success, hasher.VerifyHashedPassword(application, application.SecretHash, newKey.Split('.')[1]));
             Assert.AreEqual(otherHash, await db.SourceApplications.Where(item => item.Id == otherId).Select(item => item.SecretHash).SingleAsync());
-            Assert.AreEqual(messageId, (await db.ReportedMessages.SingleAsync()).Id);
+            Assert.AreEqual(incidentId, (await db.Incidents.SingleAsync()).Id);
             Assert.AreEqual(channel.Id, (await db.PushChannels.SingleAsync()).Id);
             var binding = await db.ApplicationPushChannels.SingleAsync();
             Assert.AreEqual(applicationId, binding.ApplicationId);
@@ -112,24 +112,24 @@ public partial class AlertDemoTests
         {
             using var rejectedNew = await Report(newKey, Guid.NewGuid());
             Assert.AreEqual(HttpStatusCode.Unauthorized, rejectedNew.StatusCode);
-            using var enable = await PostForm("/Alerts/SetEnabled", new()
+            using var enable = await PostForm("/Applications/SetEnabled", new()
             {
                 ["id"] = applicationId.ToString(), ["enabled"] = "true"
-            }, "/Alerts/Applications");
-            AssertRedirect(enable, "/Alerts/Applications");
+            }, "/Applications/Applications");
+            AssertRedirect(enable, "/Applications/Applications");
         }
         using var duplicate = await Report(newKey, reportId);
         Assert.AreEqual(HttpStatusCode.Accepted, duplicate.StatusCode);
         var duplicateReceipt = JObject.Parse(await duplicate.Content.ReadAsStringAsync());
         Assert.IsTrue(duplicateReceipt.Value<bool>("Duplicate"));
-        Assert.AreEqual(messageId, Guid.Parse(duplicateReceipt.Value<string>("Id")!));
+        Assert.AreEqual(incidentId, Guid.Parse(duplicateReceipt.Value<string>("IncidentId")!));
         using var accepted = await Report(newKey, Guid.NewGuid(), level: "sev3");
         Assert.AreEqual(HttpStatusCode.Created, accepted.StatusCode);
         using var otherAccepted = await Report(otherKey, Guid.NewGuid());
         Assert.AreEqual(HttpStatusCode.Created, otherAccepted.StatusCode);
         using var finalScope = Server!.Services.CreateScope();
         var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        Assert.AreEqual(3, await finalDb.ReportedMessages.CountAsync());
+        Assert.AreEqual(3, await finalDb.Incidents.CountAsync());
         Assert.AreEqual(1, await finalDb.PushDeliveries.CountAsync());
         Assert.AreEqual(1, await finalDb.InAppNotifications.CountAsync());
     }
@@ -139,11 +139,11 @@ public partial class AlertDemoTests
     {
         var oldKey = await CreateApplication();
         var applicationId = Guid.Parse(oldKey.Split('.')[0]);
-        var html = await Http.GetStringAsync("/Alerts/Applications");
+        var html = await Http.GetStringAsync("/Applications/Applications");
         Assert.Contains("data-bs-target=\"#reset-api-key\"", html);
         Assert.Contains($"data-application-id=\"{applicationId}\"", html);
         var form = Regex.Match(html, "<form[^>]*id=\"reset-api-key-form\"[^>]*>[\\s\\S]*?</form>").Value;
-        Assert.Contains("action=\"/Alerts/ResetApiKey\"", form);
+        Assert.Contains("action=\"/Applications/ResetApiKey\"", form);
         Assert.Contains("method=\"post\"", form);
         Assert.Contains("name=\"__RequestVerificationToken\"", form);
         Assert.Contains("id=\"confirm-reset-api-key\" disabled", form);
@@ -152,7 +152,7 @@ public partial class AlertDemoTests
         var newKey = await ResetApplicationKey(applicationId);
         for (var refresh = 0; refresh < 3; refresh++)
         {
-            using var response = await Http.GetAsync("/Alerts/Applications");
+            using var response = await Http.GetAsync("/Applications/Applications");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.IsTrue(response.Headers.CacheControl?.NoStore);
             html = await response.Content.ReadAsStringAsync();
@@ -180,9 +180,9 @@ public partial class AlertDemoTests
         var key = await CreateApplication();
         var data = new Dictionary<string, string>();
         if (id != null) data["id"] = id;
-        using var rejected = await PostForm("/Alerts/ResetApiKey", data, "/Alerts/Applications");
+        using var rejected = await PostForm("/Applications/ResetApiKey", data, "/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.BadRequest, rejected.StatusCode);
-        Assert.DoesNotContain("id=\"api-key\"", await Http.GetStringAsync("/Alerts/Applications"));
+        Assert.DoesNotContain("id=\"api-key\"", await Http.GetStringAsync("/Applications/Applications"));
         using var accepted = await Report(key, Guid.NewGuid());
         Assert.AreEqual(HttpStatusCode.Created, accepted.StatusCode);
     }
@@ -191,12 +191,12 @@ public partial class AlertDemoTests
     public async Task ResetApiKeyRejectsUnknownApplication()
     {
         var key = await CreateApplication();
-        using var rejected = await PostForm("/Alerts/ResetApiKey", new()
+        using var rejected = await PostForm("/Applications/ResetApiKey", new()
         {
             ["id"] = Guid.NewGuid().ToString()
-        }, "/Alerts/Applications");
+        }, "/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.NotFound, rejected.StatusCode);
-        Assert.DoesNotContain("id=\"api-key\"", await Http.GetStringAsync("/Alerts/Applications"));
+        Assert.DoesNotContain("id=\"api-key\"", await Http.GetStringAsync("/Applications/Applications"));
         using var accepted = await Report(key, Guid.NewGuid());
         Assert.AreEqual(HttpStatusCode.Created, accepted.StatusCode);
     }
@@ -206,9 +206,9 @@ public partial class AlertDemoTests
     {
         var key = await CreateApplication();
         var applicationId = key.Split('.')[0];
-        using var get = await Http.GetAsync($"/Alerts/ResetApiKey?id={applicationId}");
+        using var get = await Http.GetAsync($"/Applications/ResetApiKey?id={applicationId}");
         Assert.AreEqual(HttpStatusCode.MethodNotAllowed, get.StatusCode);
-        using var missingToken = await PostForm("/Alerts/ResetApiKey", new()
+        using var missingToken = await PostForm("/Applications/ResetApiKey", new()
         {
             ["id"] = applicationId
         }, includeToken: false);
@@ -222,7 +222,7 @@ public partial class AlertDemoTests
     {
         var key = await CreateApplication();
         var applicationId = key.Split('.')[0];
-        using var anonymousResult = await AnonymousClient.PostAsync(new Uri(Http.BaseAddress!, "/Alerts/ResetApiKey"), new FormUrlEncodedContent(new Dictionary<string, string>
+        using var anonymousResult = await AnonymousClient.PostAsync(new Uri(Http.BaseAddress!, "/Applications/ResetApiKey"), new FormUrlEncodedContent(new Dictionary<string, string>
         {
             ["id"] = applicationId
         }));
@@ -230,7 +230,7 @@ public partial class AlertDemoTests
         Assert.Contains("/Account/Login", anonymousResult.Headers.Location!.OriginalString);
 
         await RegisterAndLoginAsync();
-        using var forbidden = await PostForm("/Alerts/ResetApiKey", new()
+        using var forbidden = await PostForm("/Applications/ResetApiKey", new()
         {
             ["id"] = applicationId
         }, "/");

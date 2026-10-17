@@ -25,11 +25,11 @@
                 <h1 class="h3 mb-0">@Localizer["Application Push Routing"]</h1>
                 <span class="badge bg-secondary-subtle text-secondary font-monospace small">@Model.Application.Name</span>
             </div>
-            <p class="text-muted mb-0 small">@Localizer["Precisely match receiving channels by alert level · Matrix Routing Engine"]</p>
+            <p class="text-muted mb-0 small">@Localizer["Precisely match receiving channels by incident level · Matrix Routing Engine"]</p>
         </div>
     </div>
     <div class="d-flex gap-2">
-        <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-secondary">
+        <a asp-controller="Applications" asp-action="Applications" class="btn btn-outline-secondary">
             <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>@Localizer["Back to Connected Apps"]
         </a>
     </div>
@@ -45,7 +45,7 @@
         <div class="card-body">
             <p>@Localizer["On-call group:"]<a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a></p>
             <p class="mb-1"><strong>To：</strong>@Localizer["System registered email addresses of all on-duty engineers (OCE) at the time of notification;"]<strong>CC：</strong>@Localizer["CC addresses configured for the on-call group."]</p>
-            <p class="small text-muted mb-0">@Localizer["Applies to sev0–sev4; no channel selection required. In-app messages or Webhooks are not sent automatically; the channels below are independent supplementary notifications. Confirmed incidents continue to follow alert archival and notification suppression rules."]</p>
+            <p class="small text-muted mb-0">@Localizer["Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident."]</p>
         </div>
     </section>
 }
@@ -159,7 +159,7 @@
                 <div class="card-footer bg-light p-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
                     <div class="d-flex align-items-center gap-2 text-muted small">
                         <i data-lucide="info" class="text-primary" style="width: 18px; height: 18px;" aria-hidden="true"></i>
-                        <span>@Localizer["Applies only to new alerts after saving. If a channel is disabled, routing is retained but new alerts will be skipped."]</span>
+                        <span>@Localizer["Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped."]</span>
                     </div>
                     <button type="submit" class="btn btn-primary px-4">
                         <i class="align-middle me-1" data-lucide="save" aria-hidden="true"></i>@Localizer["Save routing configuration"]

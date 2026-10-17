@@ -14,8 +14,8 @@ public class PushDelivery
     public Guid? ChannelId { get; set; }
     public PushChannel? Channel { get; set; }
     public OnCallEmailSnapshot? OnCallEmail { get; set; }
-    public Guid? MessageId { get; set; }
-    public ReportedMessage? Message { get; set; }
+    public Guid? IncidentId { get; set; }
+    public Incident? Incident { get; set; }
     public Guid? IncidentEventId { get; set; }
     public IncidentTimelineEntry? IncidentEvent { get; set; }
     [MaxLength(4000)] public string? TestContent { get; set; }

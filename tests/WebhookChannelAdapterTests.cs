@@ -152,7 +152,7 @@ public class WebhookChannelAdapterTests
     public async Task DefaultPayloadPreservesReportedFieldsAndUsesDeliveryIdForIdempotency(string? content)
     {
         var delivery = Delivery();
-        var message = new ReportedMessage
+        var message = new Incident
         {
             Title = "数据库 \"primary\"\n故障",
             Content = content,
@@ -160,8 +160,8 @@ public class WebhookChannelAdapterTests
             OccurredAtUtc = CreatedAt.AddMinutes(-5),
             ContextJson = "{\"count\":3,\"active\":true,\"items\":[null,{\"id\":7}]}"
         };
-        delivery.Message = message;
-        delivery.MessageId = message.Id;
+        delivery.Incident = message;
+        delivery.IncidentId = message.Id;
         using var handler = new StubHandler(async (request, token) =>
         {
             Assert.AreEqual(HttpMethod.Post, request.Method);
@@ -172,7 +172,7 @@ public class WebhookChannelAdapterTests
             var payload = json.RootElement;
             Assert.AreEqual(7, payload.EnumerateObject().Count());
             Assert.AreEqual(delivery.Id, payload.GetProperty("deliveryId").GetGuid());
-            Assert.AreEqual(message.Id, payload.GetProperty("messageId").GetGuid());
+            Assert.AreEqual(message.Id, payload.GetProperty("incidentId").GetGuid());
             Assert.AreEqual(message.Title, payload.GetProperty("title").GetString());
             Assert.AreEqual(content, payload.GetProperty("content").GetString());
             Assert.AreEqual(message.Level, payload.GetProperty("level").GetString());
@@ -207,7 +207,7 @@ public class WebhookChannelAdapterTests
             using var json = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
             var payload = json.RootElement;
             Assert.AreEqual(delivery.Id, payload.GetProperty("deliveryId").GetGuid());
-            Assert.AreEqual(JsonValueKind.Null, payload.GetProperty("messageId").ValueKind);
+            Assert.AreEqual(JsonValueKind.Null, payload.GetProperty("incidentId").ValueKind);
             Assert.AreEqual("Channel test notification", payload.GetProperty("title").GetString());
             Assert.AreEqual(content ?? PushDelivery.DefaultTestContent, payload.GetProperty("content").GetString());
             Assert.AreEqual("sev3", payload.GetProperty("level").GetString());
@@ -231,11 +231,11 @@ public class WebhookChannelAdapterTests
         Assert.IsTrue(protector.TryProtect(headers, out var encrypted));
         delivery.Channel!.WebhookHeadersProtected = encrypted;
         delivery.Channel.WebhookPayloadTemplate = """
-            {"event":"alert","nested":{"id":"{{deliveryId}}","message":"{{messageId}}","title":"{{title}}",
+            {"event":"alert","nested":{"id":"{{deliveryId}}","message":"{{incidentId}}","title":"{{title}}",
             "content":"{{content}}","level":"{{level}}","time":"{{occurredAtUtc}}"},
             "items":["{{context}}",{"copy":"{{context}}"},"{{title}}",42,true,null]}
             """;
-        var message = new ReportedMessage
+        var message = new Incident
         {
             Title = "literal {{unknown}}",
             Content = "prefix {{title}}",
@@ -243,8 +243,8 @@ public class WebhookChannelAdapterTests
             OccurredAtUtc = CreatedAt.AddHours(-1),
             ContextJson = "{\"ids\":[1,2],\"empty\":null}"
         };
-        delivery.Message = message;
-        delivery.MessageId = message.Id;
+        delivery.Incident = message;
+        delivery.IncidentId = message.Id;
         using var handler = new StubHandler(async (request, token) =>
         {
             Assert.AreEqual("alert-center", request.Headers.GetValues("X-Source").Single());
@@ -293,8 +293,8 @@ public class WebhookChannelAdapterTests
     public async Task ContextReplacementRetainsJsonTypeIncludingNull(string? context, string expected)
     {
         var delivery = Delivery();
-        delivery.Message = new ReportedMessage { ContextJson = context };
-        delivery.MessageId = delivery.Message.Id;
+        delivery.Incident = new Incident { ContextJson = context };
+        delivery.IncidentId = delivery.Incident.Id;
         delivery.Channel!.WebhookPayloadTemplate = "{\"first\":\"{{context}}\",\"second\":[\"{{context}}\"]}";
         using var handler = new StubHandler(async (request, token) =>
         {
@@ -338,7 +338,7 @@ public class WebhookChannelAdapterTests
             case "invalid-template": delivery.Channel!.WebhookPayloadTemplate = "{"; break;
             case "non-object-template": delivery.Channel!.WebhookPayloadTemplate = "[]"; break;
             case "unknown-placeholder": delivery.Channel!.WebhookPayloadTemplate = "{\"nested\":[\"{{unknown}}\"]}"; break;
-            case "invalid-context": delivery.Message = new ReportedMessage { ContextJson = "{" }; break;
+            case "invalid-context": delivery.Incident = new Incident { ContextJson = "{" }; break;
             default: throw new ArgumentOutOfRangeException(nameof(scenario));
         }
         using var handler = new StubHandler((_, _) => throw new InvalidOperationException("No request should be sent."));

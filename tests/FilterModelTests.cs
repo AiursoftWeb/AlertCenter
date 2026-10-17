@@ -15,7 +15,7 @@ public class FilterModelTests
     [DataRow("　数据库  故障　", "数据库  故障")]
     public void NormalizeTrimsKeywordsAndClearsBlankSearchesForEveryFilter(string? keyword, string? expected)
     {
-        var alert = new AlertFilter { Keyword = keyword };
+        var alert = new IncidentFilter { Keyword = keyword };
         var inbox = new InboxFilter { Keyword = keyword };
         var incident = new IncidentFilter { Keyword = keyword };
 
@@ -37,7 +37,7 @@ public class FilterModelTests
     [DataRow(int.MaxValue, 1000000)]
     public void NormalizeClampsAlertAndInboxPages(int page, int expected)
     {
-        var alert = new AlertFilter { Page = page };
+        var alert = new IncidentFilter { Page = page };
         var inbox = new InboxFilter { Page = page };
 
         alert.Normalize();
@@ -86,7 +86,7 @@ public class FilterModelTests
     [TestMethod]
     public void DefaultRoutesOmitEmptyFiltersAndTheFirstPage()
     {
-        var alert = new AlertFilter();
+        var alert = new IncidentFilter();
         var inbox = new InboxFilter();
         alert.Normalize();
         inbox.Normalize();
@@ -103,7 +103,7 @@ public class FilterModelTests
     [DataRow(2, "2")]
     public void RoutePageOverridesDoNotMutateTheSelectedPage(int? page, string? expected)
     {
-        var alert = new AlertFilter { Page = 3 };
+        var alert = new IncidentFilter { Page = 3 };
         var inbox = new InboxFilter { Page = 3 };
 
         foreach (var values in new[] { alert.ToRouteValues(page), inbox.ToRouteValues(page) })
@@ -144,7 +144,7 @@ public class FilterModelTests
             var channelId = Guid.Parse("58d41938-7c6f-470d-af67-280b7f14df42");
             var fromDate = new DateOnly(2026, 9, 28);
             var toDate = new DateOnly(2026, 10, 5);
-            var alert = new AlertFilter
+            var alert = new IncidentFilter
             {
                 Keyword = " service outage ", ApplicationId = applicationId, Level = "sev1",
                 FromDate = fromDate, ToDate = toDate, Page = 1234
@@ -188,7 +188,7 @@ public class FilterModelTests
         DateOnly? toDate = to is null ? null : DateOnly.ParseExact(to, "yyyy-MM-dd", CultureInfo.InvariantCulture);
         object[] filters =
         [
-            new AlertFilter { FromDate = fromDate, ToDate = toDate },
+            new IncidentFilter { FromDate = fromDate, ToDate = toDate },
             new InboxFilter { FromDate = fromDate, ToDate = toDate },
             new IncidentFilter { FromDate = fromDate, ToDate = toDate }
         ];
@@ -213,7 +213,7 @@ public class FilterModelTests
         var keyword = new string('x', 200);
         object[] filters =
         [
-            new AlertFilter { Keyword = keyword, Level = level },
+            new IncidentFilter { Keyword = keyword, Level = level },
             new InboxFilter { Keyword = keyword, Level = level },
             new IncidentFilter { Keyword = keyword, Level = level }
         ];
@@ -228,7 +228,7 @@ public class FilterModelTests
         var keyword = new string('x', 201);
         object[] filters =
         [
-            new AlertFilter { Keyword = keyword },
+            new IncidentFilter { Keyword = keyword },
             new InboxFilter { Keyword = keyword },
             new IncidentFilter { Keyword = keyword }
         ];
@@ -250,7 +250,7 @@ public class FilterModelTests
     {
         object[] filters =
         [
-            new AlertFilter { Level = level },
+            new IncidentFilter { Level = level },
             new InboxFilter { Level = level },
             new IncidentFilter { Level = level }
         ];

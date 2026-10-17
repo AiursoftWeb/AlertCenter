@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     [TestMethod]
     [DataRow("webhook")]
@@ -34,7 +34,7 @@ public partial class AlertDemoTests
             };
             var delivery = new PushDelivery
             {
-                Channel = channel, MessageId = await db.ReportedMessages.Select(message => message.Id).SingleAsync(),
+                Channel = channel, IncidentId = await db.Incidents.Select(message => message.Id).SingleAsync(),
                 Status = PushDelivery.Succeeded, Attempts = 1
             };
             db.PushDeliveries.Add(delivery);

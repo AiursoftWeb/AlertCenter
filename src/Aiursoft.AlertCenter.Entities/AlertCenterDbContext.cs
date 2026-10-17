@@ -11,7 +11,6 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
 {
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<SourceApplication> SourceApplications => Set<SourceApplication>();
-    public DbSet<ReportedMessage> ReportedMessages => Set<ReportedMessage>();
     public DbSet<Incident> Incidents => Set<Incident>();
     public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
     public DbSet<IncidentComment> IncidentComments => Set<IncidentComment>();
@@ -62,19 +61,12 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(link => link.UserId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<SourceApplication>().HasOne(application => application.OnCallGroup).WithMany()
             .HasForeignKey(application => application.OnCallGroupId).OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<ReportedMessage>().HasIndex(m => new { m.ApplicationId, m.ReportId }).IsUnique();
-        builder.Entity<ReportedMessage>().HasIndex(m => new { m.ApplicationId, m.ReceivedAtUtc });
-        builder.Entity<ReportedMessage>().HasIndex(m => new { m.IncidentId, m.ReceivedAtUtc });
-        builder.Entity<ReportedMessage>().HasOne(m => m.Application).WithMany()
-            .HasForeignKey(m => m.ApplicationId).OnDelete(DeleteBehavior.Restrict);
-        builder.Entity<ReportedMessage>().HasOne(m => m.Incident).WithMany(incident => incident.Messages)
-            .HasForeignKey(m => m.IncidentId).OnDelete(DeleteBehavior.SetNull);
+        builder.Entity<Incident>().HasIndex(m => new { m.ApplicationId, m.ReportId }).IsUnique();
+        builder.Entity<Incident>().HasIndex(m => new { m.ApplicationId, m.ReceivedAtUtc });
         builder.Entity<Incident>().Property(incident => incident.Version).IsConcurrencyToken();
         builder.Entity<Incident>().HasOne(incident => incident.Owner).WithMany()
             .HasForeignKey(incident => incident.OwnerId).OnDelete(DeleteBehavior.SetNull);
-        builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.IncidentKey });
-        builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.ActiveMatchKey }).IsUnique();
-        builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.AlertTitle, incident.AlertLevel, incident.Status });
+        builder.Entity<Incident>().HasIndex(incident => new { incident.ApplicationId, incident.Level, incident.Status });
         builder.Entity<Incident>().HasOne(incident => incident.Application).WithMany()
             .HasForeignKey(incident => incident.ApplicationId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<IncidentTimelineEntry>().HasOne(entry => entry.Incident).WithMany(incident => incident.TimelineEntries)
@@ -129,11 +121,11 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(link => link.ChannelId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<PushDelivery>().HasOne(delivery => delivery.Channel).WithMany()
             .HasForeignKey(delivery => delivery.ChannelId).OnDelete(DeleteBehavior.Cascade);
-        builder.Entity<PushDelivery>().HasOne(delivery => delivery.Message).WithMany()
-            .HasForeignKey(delivery => delivery.MessageId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<PushDelivery>().HasOne(delivery => delivery.Incident).WithMany()
+            .HasForeignKey(delivery => delivery.IncidentId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<PushDelivery>().HasOne(delivery => delivery.IncidentEvent).WithMany()
             .HasForeignKey(delivery => delivery.IncidentEventId).OnDelete(DeleteBehavior.Cascade);
-        builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.MessageId, delivery.ChannelId }).IsUnique();
+        builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.IncidentId, delivery.ChannelId }).IsUnique();
         builder.Entity<PushDelivery>().HasIndex(delivery => new { delivery.Status, delivery.CreatedAtUtc });
         builder.Entity<OnCallEmailSnapshot>().HasKey(snapshot => snapshot.DeliveryId);
         builder.Entity<OnCallEmailSnapshot>().HasOne(snapshot => snapshot.Delivery).WithOne(delivery => delivery.OnCallEmail)

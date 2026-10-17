@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     private async Task<HttpResponseMessage> DialogPost(string action, Dictionary<string, string> fields, string tokenUrl)
     {
@@ -66,10 +66,10 @@ public partial class AlertDemoTests
     public async Task DialogValidationPreservesCreationFormAndOneTimeKeyIsNotConsumedByFetch()
     {
         await LoginAsAdmin();
-        using var invalid = await DialogPost("/Alerts/CreateApplication", new() { ["Name"] = "   " }, "/Alerts/Applications");
+        using var invalid = await DialogPost("/Applications/CreateApplication", new() { ["Name"] = "   " }, "/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.BadRequest, invalid.StatusCode);
         Assert.IsNotNull(JObject.Parse(await invalid.Content.ReadAsStringAsync())["message"]);
-        using var created = await DialogPost("/Alerts/CreateApplication", new() { ["Name"] = "Dialog application" }, "/Alerts/Applications");
+        using var created = await DialogPost("/Applications/CreateApplication", new() { ["Name"] = "Dialog application" }, "/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.OK, created.StatusCode);
         var redirect = JObject.Parse(await created.Content.ReadAsStringAsync())["redirectUrl"]!.Value<string>()!;
         var page = await Http.GetStringAsync(redirect);
@@ -105,19 +105,19 @@ public partial class AlertDemoTests
     {
         var key = await CreateApplication();
         var applicationId = Guid.Parse(key.Split('.')[0]);
-        var applications = await Http.GetStringAsync("/Alerts/Applications");
-        Assert.IsTrue(Regex.IsMatch(applications, "<form[^>]*data-action-feedback[^>]*action=\"/Alerts/SetEnabled\""));
-        using var enabled = await DialogPost("/Alerts/SetEnabled", new()
+        var applications = await Http.GetStringAsync("/Applications/Applications");
+        Assert.IsTrue(Regex.IsMatch(applications, "<form[^>]*data-action-feedback[^>]*action=\"/Applications/SetEnabled\""));
+        using var enabled = await DialogPost("/Applications/SetEnabled", new()
         {
             ["id"] = applicationId.ToString(), ["enabled"] = "false"
-        }, "/Alerts/Applications");
+        }, "/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.OK, enabled.StatusCode);
-        Assert.AreEqual("/Alerts/Applications", JObject.Parse(await enabled.Content.ReadAsStringAsync())["redirectUrl"]!.Value<string>());
-        using var normal = await PostForm("/Alerts/SetEnabled", new()
+        Assert.AreEqual("/Applications/Applications", JObject.Parse(await enabled.Content.ReadAsStringAsync())["redirectUrl"]!.Value<string>());
+        using var normal = await PostForm("/Applications/SetEnabled", new()
         {
             ["id"] = applicationId.ToString(), ["enabled"] = "true"
-        }, "/Alerts/Applications");
-        AssertRedirect(normal, "/Alerts/Applications");
+        }, "/Applications/Applications");
+        AssertRedirect(normal, "/Applications/Applications");
         Guid channelId;
         using (var scope = Server!.Services.CreateScope())
         {

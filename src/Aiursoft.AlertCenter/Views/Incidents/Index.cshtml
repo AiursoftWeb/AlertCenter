@@ -23,7 +23,7 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <div class="d-flex align-items-center gap-2">
-            <h1 class="h3 mb-0">@Localizer["Incident handling and emergency response"]</h1>
+            <h1 class="h3 mb-0">@Localizer["Incidents and emergency response"]</h1>
             @if (Model.ActiveCount > 0)
             {
                 <span class="badge bg-danger text-white px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
@@ -39,7 +39,7 @@
                 </span>
             }
         </div>
-        <p class="text-muted mb-0 small">@Localizer["End-to-end collaborative handling: Pending Response, Acknowledge and Assign, Mitigate, Resolve; new alerts matching confirmed or mitigated incidents are automatically archived and duplicate notifications are suppressed."]</p>
+        <p class="text-muted mb-0 small">@Localizer["Each report creates an independent incident. Acknowledge and assign, mitigate, resolve, and track progress here."]</p>
     </div>
 </div>
 
@@ -75,7 +75,7 @@
                 <label for="incident-keyword" class="form-label small text-muted mb-1">@Localizer["Keyword Search"]</label>
                 <div class="input-group">
                     <span class="input-group-text bg-light text-muted"><i data-lucide="search" style="width: 15px; height: 15px;" aria-hidden="true"></i></span>
-                    <input id="incident-keyword" name="keyword" value="@filter.Keyword" class="form-control" maxlength="200" placeholder="@Localizer["Search incidents, alert titles, applications, or incidentKey..."]" />
+                    <input id="incident-keyword" name="keyword" value="@filter.Keyword" class="form-control" maxlength="200" placeholder="@Localizer["Search incident titles, content, or applications..."]" />
                 </div>
             </div>
             <div class="col-sm-6 col-xl-2">
@@ -103,7 +103,7 @@
                 </select>
             </div>
             <div class="col-sm-6 col-xl-2">
-                <label for="incident-level" class="form-label small text-muted mb-1">@Localizer["Alert severity"]</label>
+                <label for="incident-level" class="form-label small text-muted mb-1">@Localizer["Incident severity"]</label>
                 <select id="incident-level" name="level" class="form-select">
                     <option value="">@Localizer["All severities"]</option>
                     <option value="sev0" selected="@(filter.Level == "sev0")">@Localizer["sev0 · Critical (P0)"]</option>
@@ -152,7 +152,7 @@
             </div>
             <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? @Localizer["Please correct the filter conditions."].Value : hasFilters ? @Localizer["No matching incidents"].Value : @Localizer["No incident records yet"].Value)</h2>
             <p class="text-muted mb-3" style="max-width: 26rem; margin-inline: auto;">
-                @(hasFilters ? @Localizer["Adjust filter conditions or reset to view all records."].Value : @Localizer["Each new alert automatically creates or associates an incident; confirm, record progress, and resolve issues here."].Value)
+                @(hasFilters ? @Localizer["Adjust filter conditions or reset to view all records."].Value : @Localizer["Each new incident automatically creates or associates an incident; confirm, record progress, and resolve issues here."].Value)
             </p>
             @if (hasFilters)
             {
@@ -167,10 +167,9 @@
                 <thead class="table-light">
                     <tr>
                         <th class="ps-4 py-3" style="width: 120px;">@Localizer["Status"]</th>
-                        <th class="py-3" style="min-width: 260px;">@Localizer["Incident title and original alert"]</th>
+                        <th class="py-3" style="min-width: 260px;">@Localizer["Incident"]</th>
                         <th class="py-3">@Localizer["Source application"]</th>
                         <th class="py-3">@Localizer["Owner"]</th>
-                        <th class="py-3">@Localizer["Matching rules (suppression scope)"]</th>
                         <th class="pe-4 py-3 text-end" style="min-width: 160px;">@Localizer["Trigger time (UTC)"]</th>
                         <th class="py-3 text-center" style="width: 80px;">@Localizer["Enter"]</th>
                     </tr>
@@ -179,7 +178,7 @@
                     @foreach (var incident in Model.Incidents)
                     {
                         var status = StatusInfo(incident.Status);
-                        var levelBadge = incident.AlertLevel switch
+                        var levelBadge = incident.Level switch
                         {
                             "sev0" => "ac-badge-sev0",
                             "sev1" => "ac-badge-sev1",
@@ -207,8 +206,8 @@
                                     @incident.Title
                                 </a>
                                 <small class="text-muted d-flex align-items-center gap-1.5 mt-0.5 text-break">
-                                    <span class="badge @levelBadge font-monospace py-0 px-1.5" style="font-size: 0.725rem;">@incident.AlertLevel</span>
-                                    <span>@incident.AlertTitle</span>
+                                    <span class="badge @levelBadge font-monospace py-0 px-1.5" style="font-size: 0.725rem;">@incident.Level</span>
+                                    <span class="text-truncate">@incident.Content</span>
                                 </small>
                             </td>
                             <td class="py-3">
@@ -217,11 +216,8 @@
                             <td class="py-3 text-break">
                                 @(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? @Localizer["Unassigned"].Value)
                             </td>
-                            <td class="py-3">
-                                <code class="text-muted small text-break">@(incident.IncidentKey == null ? string.Format(@Localizer["App + Title + Original Level ({0})"].Value, incident.MatchLevel) : $"incidentKey: {incident.IncidentKey}")</code>
-                            </td>
                             <td class="pe-4 py-3 text-end text-nowrap text-muted small font-monospace">
-                                @incident.TriggeredAtUtc.ToString("yyyy-MM-dd HH:mm:ss")
+                                @incident.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")
                             </td>
                             <td class="py-3 text-center">
                                 <a asp-action="Details" asp-route-id="@incident.Id" class="btn btn-sm btn-outline-primary" title="@Localizer["Enter Response War Room"]">
@@ -235,3 +231,14 @@
         </div>
     }
 </div>
+
+<nav aria-label="@Localizer["Incident pages"]" class="d-flex justify-content-between mt-3">
+    @if (Model.Filter.Page > 1)
+    {
+        <a asp-action="Index" asp-all-route-data="Model.Filter.ToRouteValues(Model.Filter.Page - 1)" class="btn btn-outline-secondary">@Localizer["Previous page"]</a>
+    }
+    @if (Model.HasNextPage)
+    {
+        <a asp-action="Index" asp-all-route-data="Model.Filter.ToRouteValues(Model.Filter.Page + 1)" class="btn btn-outline-secondary">@Localizer["Next page"]</a>
+    }
+</nav>

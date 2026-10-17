@@ -1,4 +1,4 @@
-@model Aiursoft.AlertCenter.Models.AlertsViewModel
+@model Aiursoft.AlertCenter.Models.ApplicationsViewModel
 
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
@@ -19,8 +19,8 @@
         <a asp-action="GettingStarted" class="btn btn-outline-primary">
             <i class="align-middle me-1" data-lucide="book-open" aria-hidden="true"></i>@Localizer["Integration Guide"]
         </a>
-        <a asp-action="Index" class="btn btn-primary">
-            <i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>@Localizer["View all alerts"]
+        <a asp-controller="Incidents" asp-action="Index" class="btn btn-primary">
+            <i class="align-middle me-1" data-lucide="inbox" aria-hidden="true"></i>@Localizer["View all incidents"]
         </a>
     </div>
 </div>
@@ -205,8 +205,8 @@
                         </td>
                         <td class="text-end pe-4">
                             <div class="d-flex justify-content-end align-items-center flex-wrap gap-2">
-                                <a asp-action="Index" asp-route-applicationId="@application.Id" class="btn btn-sm btn-primary text-nowrap">
-                                    <i class="align-middle me-1" data-lucide="list"></i>@Localizer["View alert"]
+                                <a asp-controller="Incidents" asp-action="Index" asp-route-applicationId="@application.Id" class="btn btn-sm btn-primary text-nowrap">
+                                    <i class="align-middle me-1" data-lucide="list"></i>@Localizer["View incident"]
                                 </a>
                                 @if (Model.ManageableApplicationIds.Contains(application.Id))
                                 {
@@ -264,7 +264,7 @@
                     </div>
                     <div class="alert-message">@Localizer["The old key will become invalid immediately. All reporting clients must be updated. The new key is displayed only once on this page."]</div>
                 </div>
-                <p class="small text-muted mb-0">@Localizer["App ID, historical alert records, push channel bindings, and enable/disable status remain unchanged."]</p>
+                <p class="small text-muted mb-0">@Localizer["App ID, historical incident records, push channel bindings, and enable/disable status remain unchanged."]</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
@@ -292,7 +292,7 @@
                     <div class="alert-icon">
                         <i class="align-middle" data-lucide="alert-octagon" aria-hidden="true"></i>
                     </div>
-                    <div class="alert-message">@Localizer["This action is irreversible! All historical alerts, associated delivery records, and in-site notifications for this application will be deleted, and the API Key will be immediately invalidated."]</div>
+                    <div class="alert-message">@Localizer["This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and the API Key will be immediately invalidated."]</div>
                 </div>
                 <label for="delete-application-confirmation" class="form-label small fw-medium">
                     @Localizer["Enter the app name to confirm deletion:"]

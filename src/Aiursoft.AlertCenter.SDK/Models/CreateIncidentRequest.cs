@@ -3,13 +3,12 @@ using Newtonsoft.Json.Linq;
 
 namespace Aiursoft.AlertCenter.SDK.Models;
 
-public sealed class ReportMessageRequest : IValidatableObject
+public sealed class CreateIncidentRequest : IValidatableObject
 {
     public Guid ReportId { get; set; }
     [Required, StringLength(200)] public string Title { get; set; } = string.Empty;
     [StringLength(4000)] public string? Content { get; set; }
     [Required, RegularExpression("^sev[0-4]$")] public string Level { get; set; } = "sev3";
-    [StringLength(200)] public string? IncidentKey { get; set; }
     public DateTimeOffset OccurredAtUtc { get; set; }
     public JObject? Context { get; set; }
 

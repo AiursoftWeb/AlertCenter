@@ -1,4 +1,4 @@
-@model Aiursoft.AlertCenter.Models.AlertsViewModel
+@model Aiursoft.AlertCenter.Models.ApplicationsViewModel
 
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
@@ -6,13 +6,13 @@
 
 @{
     var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}";
-    var endpoint = $"{baseUrl}/api/v1/messages";
+    var endpoint = $"{baseUrl}/api/v1/incidents";
 }
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <h1 class="h3 mb-1">@Localizer["Developer Integration Guide"]</h1>
-        <p class="text-muted mb-0">@Localizer["From app creation and key authentication to the first alert report, establish a stable system alert channel in 4 steps."]</p>
+        <p class="text-muted mb-0">@Localizer["From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps."]</p>
     </div>
     <a asp-action="Applications" class="btn btn-primary">
         <i class="align-middle me-1" data-lucide="app-window" aria-hidden="true"></i>@Localizer["Manage integrated applications"]
@@ -46,7 +46,7 @@
     <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
         <div class="d-flex align-items-center gap-3">
             <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.9rem;">2</span>
-            <h2 class="card-title mb-0">@Localizer["Send the first alert message"]</h2>
+            <h2 class="card-title mb-0">@Localizer["Send the first incident message"]</h2>
         </div>
         <!-- Language Switcher Tabs -->
         <ul class="nav nav-pills card-header-pills" id="code-tabs" role="tablist">
@@ -80,7 +80,6 @@
   -H 'Content-Type: application/json' \
   --data '{
     "reportId": "@Guid.NewGuid()",
-    "incidentKey": "order-payment-timeout",
     "title": "Order payment response timeout",
     "content": "Third-party channel did not return transaction status within 5000ms; entering polling fallback process.",
     "level": "sev1",
@@ -111,17 +110,16 @@ builder.Services.AddAlertCenterSdk(
     "@baseUrl",
     builder.Configuration["AlertCenter:ApiKey"]!);
 
-public class OrderService(AlertCenterApiClient alerts)
+public class OrderService(AlertCenterApiClient incidents)
 {
-    public Task&lt;ReportMessageResponse&gt; ReportTimeoutAsync(Guid reportId, DateTimeOffset occurredAtUtc)
+    public Task&lt;CreateIncidentResponse&gt; ReportTimeoutAsync(Guid reportId, DateTimeOffset occurredAtUtc)
     {
-        return alerts.ReportAsync(new ReportMessageRequest
+        return incidents.CreateIncidentAsync(new CreateIncidentRequest
         {
             ReportId = reportId,
             Title = "Order payment timed out",
             Content = "The payment provider did not respond within 5 seconds.",
             Level = "sev1",
-            IncidentKey = "order-payment-timeout",
             OccurredAtUtc = occurredAtUtc
         });
     }
@@ -196,14 +194,14 @@ print(response.status_code, response.json())</code></pre>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
                     <td><span class="badge bg-danger-subtle text-danger border border-danger-subtle">@Localizer["Required"]</span></td>
                     <td>@Localizer["1 to 200 characters"]</td>
-                    <td class="pe-4">@Localizer["Alert summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”"]</td>
+                    <td class="pe-4">@Localizer["Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”"]</td>
                 </tr>
                 <tr>
                     <td class="ps-4"><code>content</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
                     <td><span class="badge bg-secondary-subtle text-secondary">@Localizer["Optional"]</span></td>
                     <td>@Localizer["Max 4,000 characters"]</td>
-                    <td class="pe-4">@Localizer["Alert body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection."]</td>
+                    <td class="pe-4">@Localizer["Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection."]</td>
                 </tr>
                 <tr>
                     <td class="ps-4"><code>level</code></td>
@@ -212,13 +210,7 @@ print(response.status_code, response.json())</code></pre>
                     <td><code>sev0</code>, <code>sev1</code>, <code>sev2</code>, <code>sev3</code>, <code>sev4</code></td>
                     <td class="pe-4">@Localizer["Severity:"]<code>sev0</code>@Localizer["(Critical, highest priority),"]<code>sev1</code>@Localizer["(Major),"]<code>sev2</code>@Localizer["(Error),"]<code>sev3</code>@Localizer["(Warning),"]<code>sev4</code>@Localizer["(General Information). The Center routes and pushes based on this level."]</td>
                 </tr>
-                <tr>
-                    <td class="ps-4"><code>incidentKey</code></td>
-                    <td><span class="badge bg-secondary-subtle text-secondary font-monospace">String</span></td>
-                    <td><span class="badge bg-secondary-subtle text-secondary">@Localizer["Optional"]</span></td>
-                    <td>@Localizer["Max 200 characters"]</td>
-                    <td class="pe-4">@Localizer["Incident correlation identifier. Use a stable and identical key for the same ongoing incident to automatically group new alerts into the same incident. This field does not replace caller-side rate limiting; please report only actionable alerts from the source system."]</td>
-                </tr>
+
                 <tr>
                     <td class="ps-4"><code>occurredAtUtc</code></td>
                     <td><span class="badge bg-secondary-subtle text-secondary font-monospace">ISO 8601</span></td>
@@ -279,13 +271,13 @@ print(response.status_code, response.json())</code></pre>
                 <i class="align-middle" data-lucide="gauge" aria-hidden="true"></i>
             </div>
             <div class="alert-message">
-                @Localizer["AlertCenter does not suppress duplicate notifications before incident confirmation. Please rate-limit on the caller side and only report alerts requiring manual intervention;"]<code>incidentKey</code> @Localizer["For incident correlation only."]
+                @Localizer["Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source."]
             </div>
         </div>
 
         <div class="d-flex flex-wrap gap-2">
-            <a asp-action="Index" class="btn btn-primary">
-                <i class="align-middle me-1" data-lucide="list"></i>@Localizer["View message list"]
+            <a asp-controller="Incidents" asp-action="Index" class="btn btn-primary">
+                <i class="align-middle me-1" data-lucide="list"></i>@Localizer["View incidents"]
             </a>
             <a asp-controller="Push" asp-action="Index" class="btn btn-outline-primary">
                 <i class="align-middle me-1" data-lucide="sliders"></i>@Localizer["Configure Push Center Channel"]
