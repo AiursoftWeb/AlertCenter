@@ -110,7 +110,7 @@ public partial class PushCenterTests
         await Report(application, Guid.NewGuid());
         var id = (await BuiltInDelivery()).Id;
         var failureSender = new FailingEmailSender();
-        var failing = new PushDeliveryProcessor(_db, [new EmailChannelAdapter(failureSender, localizer: TestLocalization.For<EmailChannelAdapter>())], NullLogger<PushDeliveryProcessor>.Instance, localizer: TestLocalization.For<PushDeliveryProcessor>());
+        var failing = new PushDeliveryProcessor(_db, [new EmailChannelAdapter(failureSender, localizer: TestLocalization.For<EmailChannelAdapter>(), options: Microsoft.Extensions.Options.Options.Create(new Aiursoft.AlertCenter.Configuration.EmailSettings()))], NullLogger<PushDeliveryProcessor>.Instance, localizer: TestLocalization.For<PushDeliveryProcessor>());
         await failing.ProcessAsync(id, default);
         Assert.AreEqual(PushDelivery.Failed, (await BuiltInDelivery()).Status);
         Assert.AreEqual(1, failureSender.Attempts);
@@ -270,7 +270,7 @@ public partial class PushCenterTests
         await BindAllLevels(application.Id, webhook.Id);
         await Report(application, Guid.NewGuid());
         var processor = new PushDeliveryProcessor(_db,
-            [new EmailChannelAdapter(new FailingEmailSender(), localizer: TestLocalization.For<EmailChannelAdapter>()), _adapters.Single(adapter => adapter.Definition.Key == "webhook")],
+            [new EmailChannelAdapter(new FailingEmailSender(), localizer: TestLocalization.For<EmailChannelAdapter>(), options: Microsoft.Extensions.Options.Options.Create(new Aiursoft.AlertCenter.Configuration.EmailSettings())), _adapters.Single(adapter => adapter.Definition.Key == "webhook")],
             NullLogger<PushDeliveryProcessor>.Instance, localizer: TestLocalization.For<PushDeliveryProcessor>());
         await processor.ProcessAsync((await BuiltInDelivery()).Id, default);
         await processor.ProcessAsync((await _db.PushDeliveries.SingleAsync(delivery => delivery.ChannelId == webhook.Id)).Id, default);
