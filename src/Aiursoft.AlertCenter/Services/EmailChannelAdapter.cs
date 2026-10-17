@@ -155,13 +155,13 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
 
     private static EmailMessage CreateMessage(PushDelivery delivery, IReadOnlyList<string> recipients, IReadOnlyList<string> ccRecipients, IStringLocalizer? localizer = null)
     {
-        var message = delivery.Message;
+        var message = delivery.Incident;
         var incidentEvent = delivery.IncidentEvent;
         var title = message?.Title ?? (incidentEvent != null ? string.Format((localizer is null ? "Incident reopened: {0}" : localizer["Incident reopened: {0}"].Value), incidentEvent.Incident.Title) : (localizer is null ? "Channel test notification" : localizer["Channel test notification"].Value));
         var level = message?.Level ?? incidentEvent?.NewLevel ?? "sev3";
         var subject = $"[AlertCenter][{level}] {SanitizeSubject(title)}";
         var body = new StringBuilder()
-            .AppendLine(incidentEvent != null ? (localizer is null ? "The incident has been reopened. Please respond, on-call engineer." : localizer["The incident has been reopened. Please respond, on-call engineer."].Value) : message == null ? delivery.TestContent ?? (localizer is null ? "This is a test message for the push channel." : localizer["This is a test message for the push channel."].Value) : (localizer is null ? "A new alert has been detected." : localizer["A new alert has been detected."].Value))
+            .AppendLine(incidentEvent != null ? (localizer is null ? "The incident has been reopened. Please respond, on-call engineer." : localizer["The incident has been reopened. Please respond, on-call engineer."].Value) : message == null ? delivery.TestContent ?? (localizer is null ? "This is a test message for the push channel." : localizer["This is a test message for the push channel."].Value) : (localizer is null ? "A new incident has been reported." : localizer["A new incident has been reported."].Value))
             .AppendLine()
             .AppendLine(string.Format((localizer is null ? "Title: {0}" : localizer["Title: {0}"].Value), title))
             .AppendLine(string.Format((localizer is null ? "Severity: {0}" : localizer["Severity: {0}"].Value), level))

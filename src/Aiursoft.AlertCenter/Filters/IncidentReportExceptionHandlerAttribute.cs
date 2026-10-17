@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Aiursoft.AlertCenter.Filters;
 
-public sealed class MessageReportExceptionHandlerAttribute : ApiExceptionHandler
+public sealed class IncidentReportExceptionHandlerAttribute : ApiExceptionHandler
 {
     public override void OnException(ExceptionContext context)
     {

@@ -1,7 +1,7 @@
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @{
     var notification = Model.Notifications.Single();
-    var message = notification.Delivery.Message;
+    var message = notification.Delivery.Incident;
     ViewData["Title"] = string.Format(@Localizer["Notification details - {0}"].Value, message?.Title ?? @Localizer["Channel test notification"].Value);
     var isUnread = notification.ReadAtUtc == null;
     var levelBadge = message?.Level switch
@@ -44,8 +44,8 @@
         }
         @if (message != null)
         {
-            <a asp-controller="Alerts" asp-action="Details" asp-route-id="@message.Id" class="btn btn-outline-secondary">
-                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>@Localizer["View original alert"]
+            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@message.Id" class="btn btn-outline-secondary">
+                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>@Localizer["View original incident"]
             </a>
         }
     </div>

@@ -15,7 +15,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
 
     private static readonly HashSet<string> PayloadPlaceholders = new(StringComparer.Ordinal)
     {
-        "{{deliveryId}}", "{{messageId}}", "{{title}}", "{{content}}", "{{level}}", "{{occurredAtUtc}}", "{{context}}"
+        "{{deliveryId}}", "{{incidentId}}", "{{title}}", "{{content}}", "{{level}}", "{{occurredAtUtc}}", "{{context}}"
     };
 
     public ChannelTypeDefinition Definition { get; } = new("webhook", "Webhook",
@@ -163,12 +163,12 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
         payload = null;
         try
         {
-            var context = JsonNode.Parse(delivery.Message?.ContextJson ?? "null");
-            var message = delivery.Message;
+            var context = JsonNode.Parse(delivery.Incident?.ContextJson ?? "null");
+            var message = delivery.Incident;
             var values = new Dictionary<string, JsonNode?>(StringComparer.Ordinal)
             {
                 ["{{deliveryId}}"] = JsonValue.Create(delivery.Id.ToString()),
-                ["{{messageId}}"] = delivery.MessageId.HasValue ? JsonValue.Create(delivery.MessageId.Value.ToString()) : null,
+                ["{{incidentId}}"] = delivery.IncidentId.HasValue ? JsonValue.Create(delivery.IncidentId.Value.ToString()) : null,
                 ["{{title}}"] = JsonValue.Create(message?.Title ?? (localizer is null ? "Channel test notification" : localizer["Channel test notification"].Value)),
                 ["{{content}}"] = message == null ? JsonValue.Create(delivery.TestContent ?? (localizer is null ? "This is a test message for the push channel." : localizer["This is a test message for the push channel."].Value)) : JsonValue.Create(message.Content),
                 ["{{level}}"] = JsonValue.Create(message?.Level ?? "sev3"),
@@ -179,7 +179,7 @@ public class WebhookChannelAdapter(IHttpClientFactory clients, WebhookConfigurat
             {
                 payload = new JsonObject
                 {
-                    ["deliveryId"] = values["{{deliveryId}}"], ["messageId"] = values["{{messageId}}"],
+                    ["deliveryId"] = values["{{deliveryId}}"], ["incidentId"] = values["{{incidentId}}"],
                     ["title"] = values["{{title}}"], ["content"] = values["{{content}}"],
                     ["level"] = values["{{level}}"], ["occurredAtUtc"] = values["{{occurredAtUtc}}"],
                     ["context"] = values["{{context}}"]

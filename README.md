@@ -6,7 +6,7 @@
 [![Man hours](https://manhours.aiursoft.com/r/github.com/aiursoftweb/alertcenter.svg)](https://manhours.aiursoft.com/r/github.com/aiursoftweb/alertcenter.html)
 [![Docker](https://img.shields.io/docker/pulls/aiursoft/alertcenter.svg)](https://hub.docker.com/r/aiursoft/alertcenter)
 
-AlertCenter is a self-hosted alert management and notification platform built on ASP.NET Core (.NET 10). Business systems report alerts through one HTTP API; teams manage incidents, on-call schedules, and delivery through Webhook, email, and in-app notifications.
+AlertCenter is a self-hosted alert management and notification platform built on ASP.NET Core (.NET 10). Business systems create incidents through one HTTP API; teams manage incidents, on-call schedules, and delivery through Webhook, email, and in-app notifications.
 
 ![AlertCenter screenshot](./screenshot.png)
 
@@ -15,7 +15,7 @@ On an empty database, the default local account is `admin@default.com` with pass
 ## What is AlertCenter?
 
 - Independent API keys, idempotent reporting, and five severity levels (`sev0` through `sev4`).
-- Incident correlation, acknowledgement, ownership, mitigation, resolution, and Markdown discussions.
+- Independent incidents, acknowledgement, ownership, mitigation, resolution, and Markdown discussions.
 - On-call teams, reusable scheduling rules, and an interactive schedule editor with overlap and rest validation.
 - Severity-based notification routing, personal inboxes, and delivery history.
 - Application access grants for users and roles, with separate permissions for application, on-call, and push management.
@@ -67,19 +67,18 @@ Open `http://localhost:5000`. Keep `/data` persistent for configuration, the SQL
 
 The image copies its default configuration to `/data/appsettings.json` on first start and retains that file on subsequent starts. Environment variables use double underscores, such as `ConnectionStrings__DefaultConnection` or `AppSettings__OIDC__ClientSecret`.
 
-## Reporting alerts
+## Creating incidents
 
-Open **Applications** to create an application and save its API key. The key is shown only on creation or reset; resetting it immediately invalidates the old key. The built-in **Integration Guide** at `/Alerts/GettingStarted` provides examples for the current server.
+Open **Applications** to create an application and save its API key. The key is shown only on creation or reset; resetting it immediately invalidates the old key. The built-in **Integration Guide** at `/Applications/GettingStarted` provides examples for the current server.
 
-Send an alert using `POST /api/v1/messages`:
+Create an incident using `POST /api/v1/incidents`:
 
 ```bash
-curl -i 'http://localhost:5000/api/v1/messages' \
+curl -i 'http://localhost:5000/api/v1/incidents' \
   -H 'Authorization: Bearer YOUR_API_KEY' \
   -H 'Content-Type: application/json' \
   --data '{
     "reportId": "0c561d22-5b71-4a4f-9c13-c824e273a8aa",
-    "incidentKey": "payment-provider-timeout",
     "title": "Order payment timed out",
     "content": "The downstream provider did not respond within 5 seconds.",
     "level": "sev1",
@@ -88,9 +87,9 @@ curl -i 'http://localhost:5000/api/v1/messages' \
   }'
 ```
 
-Use your server's HTTPS URL for remote reporting and keep API keys outside source control. Reuse a `reportId` only when retrying the same report. A new report returns `201 Created`; a duplicate returns `202 Accepted` with `Code: 1` and `Duplicate: true`. Invalid credentials return `401`; invalid fields return `400`. Requests are limited to 64 KiB, titles and incident keys to 200 characters, and content to 4,000 characters.
+Use your server's HTTPS URL for remote reporting and keep API keys outside source control. Reuse a `reportId` only when retrying the same report. A new report returns `201 Created`; a duplicate returns `202 Accepted` with `Code: 1` and `Duplicate: true`. Invalid credentials return `401`; invalid fields return `400`. Requests are limited to 64 KiB, titles to 200 characters, and content to 4,000 characters.
 
-The API uses [AiurProtocol](https://gitlab.aiursoft.com/aiursoft/aiurprotocol). Receipts contain `Code`, `Message`, `ProtocolVersion`, `Id`, `ReportId`, `ReceivedAtUtc`, `IncidentId`, `Archived`, and `Duplicate`. A new report uses `Code: 2` (`JobDone`); a duplicate uses `Code: 1` (`NoActionTaken`). Invalid credentials use `Code: -1` (`WrongKey`); invalid input uses `Code: -10` (`InvalidInput`) with an `Items` array describing errors. Oversized requests return HTTP `413` with the same invalid-input envelope.
+The API uses [AiurProtocol](https://gitlab.aiursoft.com/aiursoft/aiurprotocol). Receipts contain `Code`, `Message`, `ProtocolVersion`, `ReportId`, `ReceivedAtUtc`, `IncidentId`, and `Duplicate`. A new report uses `Code: 2` (`JobDone`); a duplicate uses `Code: 1` (`NoActionTaken`). Invalid credentials use `Code: -1` (`WrongKey`); invalid input uses `Code: -10` (`InvalidInput`) with an `Items` array describing errors. Oversized requests return HTTP `413` with the same invalid-input envelope.
 
 ### .NET SDK
 
@@ -114,15 +113,14 @@ builder.Services.AddAlertCenterSdk(
 Inject `AlertCenterApiClient` and send a report:
 
 ```csharp
-public class PaymentAlerts(AlertCenterApiClient alerts)
+public class PaymentIncidents(AlertCenterApiClient incidents)
 {
-    public Task<ReportMessageResponse> ReportTimeoutAsync(Guid reportId, DateTimeOffset occurredAtUtc)
-        => alerts.ReportAsync(new ReportMessageRequest
+    public Task<CreateIncidentResponse> ReportTimeoutAsync(Guid reportId, DateTimeOffset occurredAtUtc)
+        => incidents.CreateIncidentAsync(new CreateIncidentRequest
         {
             ReportId = reportId,
             Title = "Order payment timed out",
             Level = "sev1",
-            IncidentKey = "payment-provider-timeout",
             OccurredAtUtc = occurredAtUtc
         });
 }
@@ -132,7 +130,7 @@ Generate and retain the report ID and occurrence time before the first attempt. 
 
 For rotating credentials, register your own scoped `IAlertCenterApiKeyProvider`; the client retrieves a key for each call. Keep the client on the server, never in a browser.
 
-**Reporting clients must rate-limit at the source.** AlertCenter does not rate-limit ingestion. An `incidentKey` correlates reports; it does not replace caller-side rate limiting. Without a key, correlation uses the application, title, and severity. Acknowledged or mitigated incidents retain matching reports without creating new deliveries; resolving an incident allows the next matching report to create a new incident.
+**Reporting clients must rate-limit at the source.** Each new report ID creates an independent incident, even when its content matches another incident. Retrying the same application/report ID returns the original receipt without creating another incident or delivery. All handling takes place on the incident detail page.
 
 ## Permissions and on-call response
 
@@ -144,7 +142,7 @@ Platform capabilities use `Permission` claims. Roles collect permissions; the na
 
 The current OCEs, incident owner, and application managers may handle an incident. A view grant alone does not permit incident handling. Default identity initialization runs only when both users and roles are empty; restarting an existing installation does not restore revoked permissions or grant newly introduced permissions.
 
-Applications may bind an on-call team. Each new, non-archived alert and explicit incident reopen queues built-in email to that team's current OCEs, independently of custom severity routes. Delivery recipients are snapshotted when queued. Missing coverage or invalid recipient configuration produces a visible delivery failure without rejecting the alert. There are no automatic email retries; inspect delivery records before manually retrying an SMTP failure.
+Applications may bind an on-call team. Each new incident and explicit incident reopen queues built-in email to that team's current OCEs, independently of custom severity routes. Delivery recipients are snapshotted when queued. Missing coverage or invalid recipient configuration produces a visible delivery failure without rejecting the alert. There are no automatic email retries; inspect delivery records before manually retrying an SMTP failure.
 
 ## Configuration
 
@@ -156,7 +154,7 @@ See the comments in [appsettings.json](src/Aiursoft.AlertCenter/appsettings.json
 
 ### Database migrations
 
-The SQLite and MySQL migration baselines are intended for **empty databases** and replace earlier development migration history. Back up an older development database and plan its recreation before using this baseline; clearing only `__EFMigrationsHistory` while retaining old tables is not an upgrade path.
+The single-incident schema migration removes pre-release incidents, reports and their delivery history. Applications, API keys, users, permissions and channel configuration remain. Back up the database before upgrading; restoring the old application requires restoring the matching database backup. The old message endpoint and SDK reporting types have been removed.
 
 The application applies pending migrations at startup. Generate future migrations for both providers using the [SQLite guide](src/Aiursoft.AlertCenter.Sqlite/HOW_TO_ADD_MIGRATIONS.md) and [MySQL guide](src/Aiursoft.AlertCenter.MySql/HOW_TO_ADD_MIGRATIONS.md).
 

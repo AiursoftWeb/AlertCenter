@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     [TestMethod]
     public async Task BuiltInDeliveryPagesShowSnapshotAndProtectEmailAddressesAndRetries()
@@ -17,13 +17,13 @@ public partial class AlertDemoTests
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             (await db.SourceApplications.SingleAsync()).OnCallGroupId = groupId;
-            var message = new ReportedMessage
+            var message = new Incident
             {
                 ApplicationId = applicationId, ReportId = Guid.NewGuid(), Title = "OCE response test", Level = "sev0"
             };
             var delivery = new PushDelivery
             {
-                Message = message, Status = PushDelivery.Failed, Error = "SMTP test failure", Attempts = 1,
+                Incident = message, Status = PushDelivery.Failed, Error = "SMTP test failure", Attempts = 1,
                 OnCallEmail = new OnCallEmailSnapshot
                 {
                     GroupId = groupId, GroupName = "OCE Production", NotificationAtUtc = DateTime.UtcNow,
@@ -108,7 +108,6 @@ public partial class AlertDemoTests
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            Assert.AreEqual(1, await db.ReportedMessages.CountAsync());
             Assert.AreEqual(1, await db.Incidents.CountAsync());
             Assert.AreEqual(1, await db.OnCallEmailSnapshots.CountAsync());
             Assert.AreEqual(2, await db.PushDeliveries.CountAsync());
@@ -119,8 +118,7 @@ public partial class AlertDemoTests
         foreach (var response in distinctReports) response.Dispose();
         using var finalScope = Server!.Services.CreateScope();
         var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        Assert.AreEqual(3, await finalDb.ReportedMessages.CountAsync());
-        Assert.AreEqual(1, await finalDb.Incidents.CountAsync());
+        Assert.AreEqual(3, await finalDb.Incidents.CountAsync());
         Assert.AreEqual(3, await finalDb.OnCallEmailSnapshots.CountAsync());
         Assert.AreEqual(6, await finalDb.PushDeliveries.CountAsync());
     }
@@ -131,10 +129,10 @@ public partial class AlertDemoTests
         var key = await CreateApplication();
         var id = Guid.Parse(key.Split('.')[0]);
         var team = await CreateOnCallTeam("Unstaffed");
-        AssertRedirect(await PostForm("/Alerts/SaveOnCall", new()
+        AssertRedirect(await PostForm("/Applications/SaveOnCall", new()
         {
             ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = team.ToString()
-        }, $"/Alerts/OnCall/{id}"), $"/Alerts/OnCall/{id}");
+        }, $"/Applications/OnCall/{id}"), $"/Applications/OnCall/{id}");
         using var report = await Report(key, Guid.NewGuid());
         Assert.AreEqual(HttpStatusCode.Created, report.StatusCode);
         Guid deliveryId;

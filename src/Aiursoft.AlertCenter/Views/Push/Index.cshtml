@@ -7,10 +7,10 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <h1 class="h3 mb-1">@Localizer["Notifications"]</h1>
-        <p class="text-muted mb-0">@Localizer["Manage notification delivery channels to deliver alerts to responsible parties and external systems accurately based on severity levels."]</p>
+        <p class="text-muted mb-0">@Localizer["Manage notification delivery channels to deliver incidents to responsible parties and external systems accurately based on severity levels."]</p>
     </div>
     <div class="d-flex flex-wrap gap-2">
-        <a asp-controller="Alerts" asp-action="Applications" class="btn btn-outline-secondary">
+        <a asp-controller="Applications" asp-action="Applications" class="btn btn-outline-secondary">
             <i class="align-middle me-1" data-lucide="sliders"></i>@Localizer["Application Tier Association"]
         </a>
         <a asp-action="Create" class="btn btn-primary">

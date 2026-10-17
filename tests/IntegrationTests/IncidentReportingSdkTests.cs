@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     private ServiceProvider ReportingClient(string key)
     {
@@ -27,46 +27,43 @@ public partial class AlertDemoTests
         var key = await CreateApplication();
         await using var services = ReportingClient(key);
         var client = services.GetRequiredService<AlertCenterApiClient>();
-        var request = new ReportMessageRequest
+        var request = new CreateIncidentRequest
         {
             ReportId = Guid.NewGuid(), Title = "Payment provider timed out", Content = "Retry later.",
-            Level = "sev1", IncidentKey = "payment-timeout",
+            Level = "sev1",
             OccurredAtUtc = new DateTimeOffset(2026, 10, 17, 12, 0, 0, TimeSpan.FromHours(8)),
             Context = new JObject { ["orderId"] = "ORDER-42", ["attempts"] = 3 }
         };
-        var first = await client.ReportAsync(request);
+        var first = await client.CreateIncidentAsync(request);
         Assert.AreEqual(Code.JobDone, first.Code);
         Assert.IsFalse(first.Duplicate);
-        Assert.AreNotEqual(Guid.Empty, first.Id);
+        Assert.AreNotEqual(Guid.Empty, first.IncidentId);
         Assert.AreEqual(request.ReportId, first.ReportId);
         Assert.AreNotEqual(default, first.ReceivedAtUtc);
         Assert.AreEqual(TimeSpan.Zero, first.ReceivedAtUtc.Offset);
-        Assert.IsNotNull(first.IncidentId);
-        Assert.IsFalse(first.Archived);
         Assert.IsNotNull(first.ProtocolVersion);
 
         request.Title = "Must not replace the original";
-        var duplicate = await client.ReportAsync(request);
+        var duplicate = await client.CreateIncidentAsync(request);
         Assert.AreEqual(Code.NoActionTaken, duplicate.Code);
         Assert.IsTrue(duplicate.Duplicate);
-        Assert.AreEqual(first.Id, duplicate.Id);
+        Assert.AreEqual(first.IncidentId, duplicate.IncidentId);
         Assert.AreEqual(first.ReceivedAtUtc, duplicate.ReceivedAtUtc);
         Assert.AreEqual(first.IncidentId, duplicate.IncidentId);
 
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        var saved = await db.ReportedMessages.SingleAsync();
+        var saved = await db.Incidents.SingleAsync();
         Assert.AreEqual("Payment provider timed out", saved.Title);
         Assert.AreEqual(request.OccurredAtUtc.UtcDateTime, saved.OccurredAtUtc);
         Assert.IsTrue(JToken.DeepEquals(request.Context, JObject.Parse(saved.ContextJson!)));
 
         var otherKey = await CreateApplication();
         await using var otherServices = ReportingClient(otherKey);
-        var other = await otherServices.GetRequiredService<AlertCenterApiClient>().ReportAsync(request);
+        var other = await otherServices.GetRequiredService<AlertCenterApiClient>().CreateIncidentAsync(request);
         Assert.AreEqual(Code.JobDone, other.Code);
-        Assert.AreNotEqual(first.Id, other.Id);
         Assert.AreNotEqual(first.IncidentId, other.IncidentId);
-        Assert.AreEqual(2, await db.ReportedMessages.CountAsync());
+        Assert.AreEqual(2, await db.Incidents.CountAsync());
     }
 
     [TestMethod]
@@ -75,18 +72,18 @@ public partial class AlertDemoTests
         var key = await CreateApplication();
         await using var services = ReportingClient(key);
         var client = services.GetRequiredService<AlertCenterApiClient>();
-        var invalid = await Assert.ThrowsAsync<AiurBadApiInputException>(() => client.ReportAsync(new ReportMessageRequest()));
+        var invalid = await Assert.ThrowsAsync<AiurBadApiInputException>(() => client.CreateIncidentAsync(new CreateIncidentRequest()));
         Assert.IsNotEmpty(invalid.Reasons);
 
-        var request = new ReportMessageRequest
+        var request = new CreateIncidentRequest
         {
             ReportId = Guid.NewGuid(), Title = "SDK authorization", OccurredAtUtc = DateTimeOffset.UtcNow
         };
         await ResetApplicationKey(Guid.Parse(key.Split('.')[0]));
-        var rejected = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ReportAsync(request));
+        var rejected = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.CreateIncidentAsync(request));
         Assert.AreEqual(Code.WrongKey, rejected.Response.Code);
         using var scope = Server!.Services.CreateScope();
-        Assert.AreEqual(0, await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().ReportedMessages.CountAsync());
+        Assert.AreEqual(0, await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Incidents.CountAsync());
     }
 
     [TestMethod]
@@ -95,7 +92,7 @@ public partial class AlertDemoTests
         var key = await CreateApplication();
         await using var services = ReportingClient(key);
         var error = await Assert.ThrowsAsync<AiurBadApiInputException>(() =>
-            services.GetRequiredService<AlertCenterApiClient>().ReportAsync(new ReportMessageRequest
+            services.GetRequiredService<AlertCenterApiClient>().CreateIncidentAsync(new CreateIncidentRequest
             {
                 ReportId = Guid.NewGuid(), Title = "Oversized context", OccurredAtUtc = DateTimeOffset.UtcNow,
                 Context = new JObject { ["detail"] = new string('x', 66000) }
@@ -117,7 +114,7 @@ public partial class AlertDemoTests
         var chunked = body == "chunked";
         var contentType = body == "unsupported" ? "text/plain" : "application/json";
         if (body is "oversized" or "chunked") body = "{\"title\":\"" + new string('a', 66000) + "\"}";
-        using var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/messages");
+        using var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/incidents");
         request.Content = new StringContent(body, Encoding.UTF8, contentType);
         request.Headers.TransferEncodingChunked = chunked;
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", key);

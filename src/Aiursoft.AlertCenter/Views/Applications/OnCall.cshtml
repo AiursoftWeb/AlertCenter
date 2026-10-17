@@ -29,7 +29,7 @@
                         <option value="@group.Id">@group.Name (@group.TimeZoneId)</option>
                     }
                 </select>
-                <div id="oncall-group-hint" class="form-text">@Localizer["Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive alerts do not require on-call configuration."]</div>
+                <div id="oncall-group-hint" class="form-text">@Localizer["Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive incidents do not require on-call configuration."]</div>
             </div>
             @if (Model.Groups.Count == 0)
             {

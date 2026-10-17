@@ -21,8 +21,7 @@ public partial class IncidentWorkflowTests
         _db.Users.Add(new User { Id = "engineer", UserName = "engineer", DisplayName = "Engineer", Email = "engineer@example.com" });
         var incident = new Incident
         {
-            ApplicationId = application.Id, Title = "Outage", AlertTitle = "Source outage", IncidentKey = "outage",
-            ActiveMatchKey = status == Incident.Resolved ? null : "key:outage", AlertLevel = "sev2", MatchLevel = "sev2", Status = status,
+            ApplicationId = application.Id, Title = "Outage", Level = "sev2", Status = status,
             OwnerId = status == Incident.New ? null : "engineer", OwnerDisplayName = status == Incident.New ? null : "Engineer"
         };
         _db.Incidents.Add(incident);
@@ -90,7 +89,7 @@ public partial class IncidentWorkflowTests
         Assert.AreEqual(saved.OwnerId, entry.NewOwnerId);
         Assert.AreEqual("Required reason", entry.Note);
         Assert.AreEqual("sev2", entry.PreviousLevel);
-        Assert.AreEqual(saved.AlertLevel, entry.NewLevel);
+        Assert.AreEqual(saved.Level, entry.NewLevel);
         if (action is IncidentTimelineEntry.Acked or IncidentTimelineEntry.OwnershipChanged)
         {
             Assert.AreEqual("admin", saved.OwnerId);
@@ -105,12 +104,10 @@ public partial class IncidentWorkflowTests
             Assert.IsNull(saved.AcknowledgedAtUtc);
             Assert.IsNull(saved.MitigatedAtUtc);
             Assert.IsNull(saved.ResolvedAtUtc);
-            Assert.AreEqual("key:outage", saved.ActiveMatchKey);
         }
         if (action == IncidentTimelineEntry.Resolved)
         {
             Assert.AreEqual(Incident.Resolved, saved.Status);
-            Assert.IsNull(saved.ActiveMatchKey);
             Assert.IsNotNull(saved.ResolvedAtUtc);
         }
         if (action == IncidentTimelineEntry.Mitigated)
@@ -123,7 +120,7 @@ public partial class IncidentWorkflowTests
         {
             Assert.AreEqual(state, saved.Status);
             Assert.AreEqual(oldOwner, saved.OwnerId);
-            Assert.AreEqual("sev0", saved.AlertLevel);
+            Assert.AreEqual("sev0", saved.Level);
         }
     }
 
@@ -193,13 +190,13 @@ public partial class IncidentWorkflowTests
     }
 
     [TestMethod]
-    public async Task ReopenRejectsActiveCorrelationConflictWithoutAnySideEffects()
+    public async Task ReopenIsIndependentOfOtherActiveIncidents()
     {
         var incident = await StateIncident(Incident.Resolved);
         _db.Incidents.Add(new Incident
         {
-            ApplicationId = incident.ApplicationId, Title = "Next outage", AlertTitle = incident.AlertTitle,
-            IncidentKey = incident.IncidentKey, ActiveMatchKey = "key:outage", AlertLevel = "sev2", MatchLevel = "sev2"
+            ApplicationId = incident.ApplicationId, Title = incident.Title,
+            Level = "sev2",
         });
         await _db.SaveChangesAsync();
         var version = incident.Version;
@@ -207,10 +204,10 @@ public partial class IncidentWorkflowTests
         {
             IncidentId = incident.Id, Version = version
         }, IncidentTimelineEntry.Reopened, default);
-        Assert.AreEqual(409, result.StatusCode);
-        Assert.AreEqual(Incident.Resolved, incident.Status);
-        Assert.AreEqual(version, incident.Version);
-        Assert.AreEqual(0, await _db.IncidentTimelineEntries.CountAsync());
+        Assert.AreEqual(200, result.StatusCode);
+        Assert.AreEqual(Incident.New, incident.Status);
+        Assert.AreNotEqual(version, incident.Version);
+        Assert.AreEqual(1, await _db.IncidentTimelineEntries.CountAsync());
         Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
     }
 
@@ -361,10 +358,10 @@ public partial class IncidentWorkflowTests
     }
 
     [TestMethod]
-    public async Task StaleVersionIsRejectedAndLevelChangeKeepsOriginalCorrelation()
+    public async Task StaleVersionIsRejectedAndLevelChangeDoesNotAffectOtherIncidents()
     {
         var application = await CreateApplication();
-        await Report(application, "Source warning", "sev3", null);
+        await Report(application, "Source warning", "sev3");
         var incident = await _db.Incidents.SingleAsync();
         var version = incident.Version;
         var result = await Workflow().ExecuteAsync(Actor("admin", true), new IncidentLevelRequest
@@ -372,11 +369,10 @@ public partial class IncidentWorkflowTests
             IncidentId = incident.Id, Version = version, Level = "sev0", Note = "Impact expanded"
         }, IncidentTimelineEntry.LevelChanged, default);
         Assert.AreEqual(200, result.StatusCode);
-        Assert.AreEqual("sev3", incident.MatchLevel);
-        var next = await Report(application, "Source warning", "sev3", null);
-        Assert.AreEqual(incident.Id, next.IncidentId);
+        var next = await Report(application, "Source warning", "sev3");
+        Assert.AreNotEqual(incident.Id, next.Id);
         Assert.AreEqual("sev3", next.Level);
-        Assert.AreEqual("sev0", (await _db.Incidents.SingleAsync()).AlertLevel);
+        Assert.AreEqual("sev0", (await _db.Incidents.SingleAsync(item => item.Id == incident.Id)).Level);
         Assert.AreEqual(409, (await Workflow().ExecuteAsync(Actor("admin", true), new IncidentNoteRequest
         {
             IncidentId = incident.Id, Version = version

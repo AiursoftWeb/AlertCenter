@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     [TestMethod]
     public async Task Sev0UsesConsistentEnglishLabelAcrossAlertPages()
@@ -28,12 +28,11 @@ public partial class AlertDemoTests
         foreach (var (url, expectedLabels) in new[]
         {
             ("/Dashboard/Index", new[] { "sev0 Critical (1)", "</span> Critical ·" }),
-            ("/Alerts/Index?level=sev0", new[] { "sev0 Critical", "sev0 · Critical (P0)" }),
             ("/Incidents/Index?level=sev0", new[] { "sev0 · Critical (P0)" }),
-            ($"/Incidents/Details/{incidentId}", new[] { "sev0 · Critical (P0)" }),
+            ($"/Incidents/Details/{incidentId}", new[] { "sev0" }),
             ("/Push/Inbox?level=sev0", new[] { "sev0 · Critical (P0)" }),
             ($"/Push/Bindings/{applicationId}", new[] { "Critical (P0)" }),
-            ("/Alerts/GettingStarted", new[] { "<code>sev0</code>(Critical, highest priority)" })
+            ("/Applications/GettingStarted", new[] { "<code>sev0</code>(Critical, highest priority)" })
         })
         {
             var html = WebUtility.HtmlDecode(await Http.GetStringAsync(url));

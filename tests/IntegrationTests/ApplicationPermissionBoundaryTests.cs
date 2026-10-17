@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     [TestMethod]
     [DataRow("none", false)]
@@ -57,8 +57,8 @@ public partial class AlertDemoTests
         using var pushSettings = await Http.GetAsync("/Push/Index");
         if (canManagePush) Assert.AreEqual(HttpStatusCode.OK, pushSettings.StatusCode);
         else AssertForbidden(pushSettings);
-        using var create = await PostForm("/Alerts/CreateApplication", new() { ["Name"] = "Permission-managed app" }, "/Manage/ChangePassword");
-        if (canManageApplications) AssertRedirect(create, "/Alerts/Applications");
+        using var create = await PostForm("/Applications/CreateApplication", new() { ["Name"] = "Permission-managed app" }, "/Manage/ChangePassword");
+        if (canManageApplications) AssertRedirect(create, "/Applications/Applications");
         else AssertForbidden(create);
         using var verifyScope = Server.Services.CreateScope();
         var db = verifyScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -82,7 +82,7 @@ public partial class AlertDemoTests
         Assert.AreEqual(HttpStatusCode.Created, otherReport.StatusCode);
         var (email, _) = await RegisterAndLoginAsync();
         string userId;
-        Guid otherMessageId;
+        Guid otherIncidentId;
         Dictionary<Guid, string> hashes;
         using (var scope = Server!.Services.CreateScope())
         {
@@ -93,39 +93,39 @@ public partial class AlertDemoTests
             (await db.SourceApplications.SingleAsync(application => application.Id == otherId)).Name = "Private other application";
             await db.SaveChangesAsync();
             hashes = await db.SourceApplications.ToDictionaryAsync(application => application.Id, application => application.SecretHash);
-            otherMessageId = await db.ReportedMessages.Where(message => message.ApplicationId == otherId).Select(message => message.Id).SingleAsync();
+            otherIncidentId = await db.Incidents.Where(message => message.ApplicationId == otherId).Select(message => message.Id).SingleAsync();
         }
 
-        var applications = await Http.GetStringAsync("/Alerts/Applications");
+        var applications = await Http.GetStringAsync("/Applications/Applications");
         Assert.Contains("Allowed application", applications);
         Assert.DoesNotContain("Private other application", applications);
-        var alerts = await Http.GetStringAsync("/Alerts");
+        var alerts = await Http.GetStringAsync("/Incidents");
         Assert.Contains("Allowed application alert", alerts);
         Assert.DoesNotContain("Private other application alert", alerts);
-        AssertForbidden(await Http.GetAsync($"/Alerts?applicationId={otherId}"));
-        AssertForbidden(await Http.GetAsync($"/Alerts/Details/{otherMessageId}"));
+        AssertForbidden(await Http.GetAsync($"/Incidents?applicationId={otherId}"));
+        AssertForbidden(await Http.GetAsync($"/Incidents/Details/{otherIncidentId}"));
 
         foreach (var id in manage ? new[] { otherId } : new[] { ownId, otherId })
         {
-            AssertForbidden(await PostForm("/Alerts/ResetApiKey", new() { ["id"] = id.ToString() }, "/Manage/ChangePassword"));
-            AssertForbidden(await PostForm("/Alerts/SetEnabled", new()
+            AssertForbidden(await PostForm("/Applications/ResetApiKey", new() { ["id"] = id.ToString() }, "/Manage/ChangePassword"));
+            AssertForbidden(await PostForm("/Applications/SetEnabled", new()
             {
                 ["id"] = id.ToString(), ["enabled"] = "false"
             }, "/Manage/ChangePassword"));
-            AssertForbidden(await PostForm("/Alerts/DeleteApplication", new()
+            AssertForbidden(await PostForm("/Applications/DeleteApplication", new()
             {
                 ["id"] = id.ToString(), ["confirmationName"] = id == ownId ? "Allowed application" : "Private other application"
             }, "/Manage/ChangePassword"));
         }
         foreach (var id in new[] { ownId, otherId })
         {
-            AssertForbidden(await Http.GetAsync($"/Alerts/Access/{id}"));
-            AssertForbidden(await PostForm("/Alerts/SaveAccess", new()
+            AssertForbidden(await Http.GetAsync($"/Applications/Access/{id}"));
+            AssertForbidden(await PostForm("/Applications/SaveAccess", new()
             {
                 ["ApplicationId"] = id.ToString(), ["ManageUserIds"] = userId
             }, "/Manage/ChangePassword"));
         }
-        AssertForbidden(await PostForm("/Alerts/CreateApplication", new() { ["Name"] = "Unauthorized application" }, "/Manage/ChangePassword"));
+        AssertForbidden(await PostForm("/Applications/CreateApplication", new() { ["Name"] = "Unauthorized application" }, "/Manage/ChangePassword"));
 
         using (var scope = Server!.Services.CreateScope())
         {
@@ -133,7 +133,6 @@ public partial class AlertDemoTests
             var saved = await db.SourceApplications.ToListAsync();
             Assert.AreEqual(2, saved.Count);
             Assert.IsTrue(saved.All(application => application.IsEnabled && application.SecretHash == hashes[application.Id]));
-            Assert.AreEqual(2, await db.ReportedMessages.CountAsync());
             Assert.AreEqual(2, await db.Incidents.CountAsync());
             Assert.AreEqual(roleGrant ? 0 : 1, await db.ApplicationUserAccesses.CountAsync());
             Assert.AreEqual(roleGrant ? 1 : 0, await db.ApplicationRoleAccesses.CountAsync());
@@ -177,7 +176,6 @@ public partial class AlertDemoTests
         Assert.AreEqual(HttpStatusCode.Created, report.StatusCode);
         Assert.AreEqual(HttpStatusCode.Created, otherReport.StatusCode);
         var (email, _) = await RegisterAndLoginAsync();
-        Guid messageId;
         Guid incidentId;
         using (var scope = Server!.Services.CreateScope())
         {
@@ -186,10 +184,9 @@ public partial class AlertDemoTests
             await AddBoundaryApplicationGrant(db, id, userId, roleGrant, true);
             db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = otherId, UserId = userId });
             await db.SaveChangesAsync();
-            messageId = await db.ReportedMessages.Where(message => message.ApplicationId == id).Select(message => message.Id).SingleAsync();
             incidentId = await db.Incidents.Where(incident => incident.ApplicationId == id).Select(incident => incident.Id).SingleAsync();
         }
-        foreach (var url in new[] { $"/Alerts/Details/{messageId}", $"/Incidents/Details/{incidentId}", $"/Alerts/OnCall/{id}" })
+        foreach (var url in new[] { $"/Incidents/Details/{incidentId}", $"/Applications/OnCall/{id}" })
         {
             using var allowed = await Http.GetAsync(url);
             Assert.AreEqual(HttpStatusCode.OK, allowed.StatusCode);
@@ -208,10 +205,10 @@ public partial class AlertDemoTests
             await db.SaveChangesAsync();
         }
 
-        foreach (var url in new[] { $"/Alerts/Details/{messageId}", $"/Incidents/Details/{incidentId}", $"/Alerts/OnCall/{id}", $"/Alerts?applicationId={id}" })
+        foreach (var url in new[] { $"/Incidents/Details/{incidentId}", $"/Applications/OnCall/{id}", $"/Incidents?applicationId={id}" })
             AssertForbidden(await Http.GetAsync(url));
-        AssertForbidden(await PostForm("/Alerts/ResetApiKey", new() { ["id"] = id.ToString() }, "/Manage/ChangePassword"));
-        var alerts = await Http.GetStringAsync("/Alerts");
+        AssertForbidden(await PostForm("/Applications/ResetApiKey", new() { ["id"] = id.ToString() }, "/Manage/ChangePassword"));
+        var alerts = await Http.GetStringAsync("/Incidents");
         Assert.DoesNotContain("Revoked application alert", alerts);
         Assert.Contains("Retained application alert", alerts);
         var incidents = await Http.GetStringAsync("/Incidents");
@@ -232,9 +229,7 @@ public partial class AlertDemoTests
         Assert.AreEqual(HttpStatusCode.Created, secondReport.StatusCode);
         var (email, _) = await RegisterAndLoginAsync();
         Guid ownedIncidentId;
-        Guid ownedMessageId;
         Guid otherIncidentId;
-        Guid otherMessageId;
         Guid unassociatedId;
         using (var scope = Server!.Services.CreateScope())
         {
@@ -246,28 +241,26 @@ public partial class AlertDemoTests
             owned.Status = Incident.Acked;
             ownedIncidentId = owned.Id;
             otherIncidentId = await db.Incidents.Where(incident => incident.Id != owned.Id).Select(incident => incident.Id).SingleAsync();
-            ownedMessageId = await db.ReportedMessages.Where(message => message.IncidentId == owned.Id).Select(message => message.Id).SingleAsync();
-            otherMessageId = await db.ReportedMessages.Where(message => message.IncidentId == otherIncidentId).Select(message => message.Id).SingleAsync();
-            var unassociated = new ReportedMessage
+            var unassociated = new Incident
             {
                 ApplicationId = applicationId, ReportId = Guid.NewGuid(), Title = "Unassociated private marker", Level = "sev1"
             };
-            db.ReportedMessages.Add(unassociated);
+            db.Incidents.Add(unassociated);
             await db.SaveChangesAsync();
             unassociatedId = unassociated.Id;
         }
-        foreach (var url in new[] { $"/Incidents/Details/{ownedIncidentId}", $"/Alerts/Details/{ownedMessageId}" })
+        foreach (var url in new[] { $"/Incidents/Details/{ownedIncidentId}", $"/Incidents/Details/{ownedIncidentId}" })
         {
             using var allowed = await Http.GetAsync(url);
             Assert.AreEqual(HttpStatusCode.OK, allowed.StatusCode);
         }
-        foreach (var url in new[] { $"/Incidents/Details/{otherIncidentId}", $"/Alerts/Details/{otherMessageId}", $"/Alerts/Details/{unassociatedId}" })
+        foreach (var url in new[] { $"/Incidents/Details/{otherIncidentId}", $"/Incidents/Details/{otherIncidentId}", $"/Incidents/Details/{unassociatedId}" })
             AssertForbidden(await Http.GetAsync(url));
         var incidents = await Http.GetStringAsync("/Incidents");
         Assert.Contains("Owned incident marker", incidents);
         Assert.DoesNotContain("Unrelated incident marker", incidents);
         Assert.DoesNotContain("Unrelated incident marker", await Http.GetStringAsync("/Incidents?keyword=Unrelated"));
-        AssertForbidden(await PostForm("/Alerts/SetEnabled", new()
+        AssertForbidden(await PostForm("/Applications/SetEnabled", new()
         {
             ["id"] = applicationId.ToString(), ["enabled"] = "false"
         }, "/Manage/ChangePassword"));
@@ -280,7 +273,7 @@ public partial class AlertDemoTests
             await db.SaveChangesAsync();
         }
         AssertForbidden(await Http.GetAsync($"/Incidents/Details/{ownedIncidentId}"));
-        AssertForbidden(await Http.GetAsync($"/Alerts/Details/{ownedMessageId}"));
+        AssertForbidden(await Http.GetAsync($"/Incidents/Details/{ownedIncidentId}"));
         Assert.DoesNotContain("Owned incident marker", await Http.GetStringAsync("/Incidents"));
     }
 

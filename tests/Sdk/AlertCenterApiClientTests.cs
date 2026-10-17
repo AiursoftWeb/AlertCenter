@@ -18,15 +18,15 @@ public sealed class AlertCenterApiClientTests
         await using var services = BuildProvider(handler, keys);
         var client = services.GetRequiredService<AlertCenterApiClient>();
         var request = ValidRequest();
-        await client.ReportAsync(request);
-        Assert.AreEqual("https://alerts.example/center/api/v1/messages", handler.RequestUri?.ToString());
+        await client.CreateIncidentAsync(request);
+        Assert.AreEqual("https://alerts.example/center/api/v1/incidents", handler.RequestUri?.ToString());
         Assert.AreEqual(HttpMethod.Post, handler.Method);
         Assert.AreEqual("application/json", handler.ContentType);
         Assert.AreEqual("Bearer first-key", handler.Authorization);
         Assert.AreEqual(request.ReportId, JObject.Parse(handler.Body!)["reportId"]!.ToObject<Guid>());
 
         keys.Key = "rotated-key";
-        await client.ReportAsync(request);
+        await client.CreateIncidentAsync(request);
         Assert.AreEqual("Bearer rotated-key", handler.Authorization);
         Assert.AreEqual(2, handler.CallCount);
     }
@@ -48,7 +48,7 @@ public sealed class AlertCenterApiClientTests
             case "title": request.Title = " "; break;
             case "level": request.Level = "sev5"; break;
         }
-        await Assert.ThrowsAsync<AiurBadApiInputException>(() => services.GetRequiredService<AlertCenterApiClient>().ReportAsync(request));
+        await Assert.ThrowsAsync<AiurBadApiInputException>(() => services.GetRequiredService<AlertCenterApiClient>().CreateIncidentAsync(request));
         Assert.AreEqual(0, handler.CallCount);
     }
 
@@ -57,11 +57,11 @@ public sealed class AlertCenterApiClientTests
     {
         using var handler = new RecordingHandler { Fail = true };
         await using var services = BuildProvider(handler, new RotatingKeyProvider());
-        await Assert.ThrowsAsync<HttpRequestException>(() => services.GetRequiredService<AlertCenterApiClient>().ReportAsync(ValidRequest()));
+        await Assert.ThrowsAsync<HttpRequestException>(() => services.GetRequiredService<AlertCenterApiClient>().CreateIncidentAsync(ValidRequest()));
         Assert.AreEqual(1, handler.CallCount);
     }
 
-    private static ReportMessageRequest ValidRequest() => new()
+    private static CreateIncidentRequest ValidRequest() => new()
     {
         ReportId = Guid.NewGuid(), Title = "Database unavailable", OccurredAtUtc = DateTimeOffset.UtcNow
     };

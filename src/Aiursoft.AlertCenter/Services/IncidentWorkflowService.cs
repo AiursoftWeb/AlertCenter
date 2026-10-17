@@ -40,7 +40,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         var level = (request as IncidentLevelRequest)?.Level;
         if (action == IncidentTimelineEntry.LevelChanged && level is not ("sev0" or "sev1" or "sev2" or "sev3" or "sev4"))
             return new(400, localizer["Please select an incident severity level from sev0 to sev4."].Value);
-        if (action == IncidentTimelineEntry.LevelChanged && level == incident.AlertLevel)
+        if (action == IncidentTimelineEntry.LevelChanged && level == incident.Level)
             return new(400, localizer["The incident is already at the selected level."].Value);
         if (action == IncidentTimelineEntry.OwnershipChanged && incident.OwnerId == actorId)
             return new(400, localizer["You are already the current assignee."].Value);
@@ -49,7 +49,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             Incident = incident, Type = action, ActorId = actor.Id, ActorIdSnapshot = actor.Id,
             ActorName = actor.DisplayName, Note = note, CreatedAtUtc = now,
             PreviousStatus = incident.Status, PreviousOwnerId = incident.OwnerId,
-            PreviousOwnerName = incident.Owner?.DisplayName ?? incident.OwnerDisplayName, PreviousLevel = incident.AlertLevel
+            PreviousOwnerName = incident.Owner?.DisplayName ?? incident.OwnerDisplayName, PreviousLevel = incident.Level
         };
         switch (action)
         {
@@ -70,19 +70,9 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             case IncidentTimelineEntry.Resolved:
                 incident.Status = Incident.Resolved;
                 incident.ResolvedAtUtc = now;
-                incident.ActiveMatchKey = null;
                 break;
             case IncidentTimelineEntry.Reopened:
-                var matchKey = string.IsNullOrWhiteSpace(incident.IncidentKey)
-                    ? $"alert:{incident.AlertTitle}\u001f{incident.MatchLevel}" : $"key:{incident.IncidentKey}";
-                if (await db.Incidents.AsNoTracking().AnyAsync(item => item.Id != incident.Id && item.ApplicationId == incident.ApplicationId &&
-                    item.Status != Incident.Resolved && (item.ActiveMatchKey == matchKey ||
-                        (item.ActiveMatchKey == null && (incident.IncidentKey != null
-                            ? item.IncidentKey == incident.IncidentKey
-                            : item.IncidentKey == null && item.AlertTitle == incident.AlertTitle && item.MatchLevel == incident.MatchLevel))), cancellationToken))
-                    return new(409, localizer["An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened."].Value);
                 incident.Status = Incident.New;
-                incident.ActiveMatchKey = matchKey;
                 incident.OwnerId = null;
                 incident.OwnerDisplayName = null;
                 incident.AcknowledgedAtUtc = null;
@@ -90,13 +80,13 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
                 incident.ResolvedAtUtc = null;
                 break;
             case IncidentTimelineEntry.LevelChanged:
-                incident.AlertLevel = level!;
+                incident.Level = level!;
                 break;
         }
         entry.NewStatus = incident.Status;
         entry.NewOwnerId = incident.OwnerId;
         entry.NewOwnerName = incident.OwnerId == entry.PreviousOwnerId ? entry.PreviousOwnerName : incident.OwnerDisplayName;
-        entry.NewLevel = incident.AlertLevel;
+        entry.NewLevel = incident.Level;
         incident.Version = Guid.NewGuid();
         db.IncidentTimelineEntries.Add(entry);
         if (action == IncidentTimelineEntry.Reopened)
@@ -109,14 +99,6 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         {
             db.ChangeTracker.Clear();
             return new(409, localizer["The incident has been modified by another engineer. Please refresh and try again."].Value);
-        }
-        catch (DbUpdateException) when (action == IncidentTimelineEntry.Reopened)
-        {
-            db.ChangeTracker.Clear();
-            var conflicting = await db.Incidents.AsNoTracking().AnyAsync(item => item.Id != request.IncidentId &&
-                item.ApplicationId == incident.ApplicationId && item.ActiveMatchKey == incident.ActiveMatchKey, cancellationToken);
-            if (!conflicting) throw;
-            return new(409, localizer["The linked rule is already occupied by another active incident. Please refresh and try again."].Value);
         }
         return new(200);
     }

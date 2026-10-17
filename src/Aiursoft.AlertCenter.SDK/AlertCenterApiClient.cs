@@ -10,15 +10,15 @@ public sealed class AlertCenterApiClient(
     IOptions<AlertCenterApiOptions> options,
     IAlertCenterApiKeyProvider keyProvider)
 {
-    public async Task<ReportMessageResponse> ReportAsync(ReportMessageRequest request)
+    public async Task<CreateIncidentResponse> CreateIncidentAsync(CreateIncidentRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
         var key = await keyProvider.GetApiKeyAsync();
         if (string.IsNullOrWhiteSpace(key))
             throw new InvalidOperationException("An AlertCenter application API key is required.");
 
-        return await http.Post<ReportMessageResponse>(
-            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), "/api/v1/messages", new { }),
+        return await http.Post<CreateIncidentResponse>(
+            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), "/api/v1/incidents", new { }),
             new AiurApiPayload(request), BodyFormat.HttpJsonBody,
             autoRetry: false,
             headers: new Dictionary<string, string> { ["Authorization"] = $"Bearer {key}" });

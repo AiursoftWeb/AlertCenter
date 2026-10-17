@@ -29,7 +29,7 @@
                 </span>
             }
         </div>
-        <p class="text-muted mb-0 small">@Localizer["Personal Alert and Notification Center · Independent Read Status Tracking"]</p>
+        <p class="text-muted mb-0 small">@Localizer["Personal Incident and Notification Center · Independent Read Status Tracking"]</p>
     </div>
     <div class="text-sm-end">
         <form asp-action="MarkAllRead" asp-all-route-data="routes" method="post" data-action-feedback>
@@ -90,7 +90,7 @@
                 </select>
             </div>
             <div class="col-sm-6 col-xl-3">
-                <label for="filter-level" class="form-label small text-muted mb-1">@Localizer["Alert severity"]</label>
+                <label for="filter-level" class="form-label small text-muted mb-1">@Localizer["Incident severity"]</label>
                 <select id="filter-level" name="level" class="form-select">
                     <option value="">@Localizer["All severities (including test)"]</option>
                     <option value="sev0" selected="@(filter.Level == "sev0")">@Localizer["sev0 · Critical (P0)"]</option>
@@ -152,7 +152,7 @@
             </div>
             <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? @Localizer["Please correct the filter conditions."].Value : hasFilters || Model.Page > 1 ? @Localizer["No notifications under the current filter or page"].Value : filter.ReadStatus == "unread" ? @Localizer["No unread notifications"].Value : filter.ReadStatus == "read" ? @Localizer["No read notifications"].Value : @Localizer["No notifications yet"].Value)</h2>
             <p class="text-muted mb-3" style="max-width: 24rem; margin-inline: auto;">
-                @(hasFilters ? @Localizer["Adjust filters or reset to view other notifications."].Value : @Localizer["When the system generates alerts bound to the in-site channel, they are pushed directly to your personal inbox."].Value)
+                @(hasFilters ? @Localizer["Adjust filters or reset to view other notifications."].Value : @Localizer["When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox."].Value)
             </p>
             @if (hasFilters)
             {
@@ -165,7 +165,7 @@
         <div class="list-group list-group-flush">
             @foreach (var notification in Model.Notifications)
             {
-                var message = notification.Delivery.Message;
+                var message = notification.Delivery.Incident;
                 var isUnread = notification.ReadAtUtc == null;
                 var levelClass = message?.Level switch
                 {

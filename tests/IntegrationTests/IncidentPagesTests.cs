@@ -26,7 +26,7 @@ public class AlertDemoStartup : IWebStartup
 }
 
 [TestClass]
-public partial class AlertDemoTests : TestBase
+public partial class IncidentPagesTests : TestBase
 {
     private string? _databasePath;
 
@@ -71,14 +71,14 @@ public partial class AlertDemoTests : TestBase
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(0, await db.SourceApplications.CountAsync());
-        Assert.AreEqual(0, await db.ReportedMessages.CountAsync());
+        Assert.AreEqual(0, await db.Incidents.CountAsync());
     }
 
     private async Task<string> CreateApplication()
     {
         await LoginAsAdmin();
-        using var created = await PostForm("/Alerts/CreateApplication", new() { ["Name"] = "Demo Orders" }, "/Alerts/Applications");
-        AssertRedirect(created, "/Alerts/Applications");
+        using var created = await PostForm("/Applications/CreateApplication", new() { ["Name"] = "Demo Orders" }, "/Applications/Applications");
+        AssertRedirect(created, "/Applications/Applications");
         Assert.IsTrue(created.Headers.CacheControl?.NoStore);
         using var response = await Http.GetAsync(created.Headers.Location);
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -86,14 +86,14 @@ public partial class AlertDemoTests : TestBase
         var html = await response.Content.ReadAsStringAsync();
         var key = Regex.Match(html, "value=\"([a-fA-F0-9-]{36}\\.[A-F0-9]{64})\"").Groups[1].Value;
         Assert.IsFalse(string.IsNullOrEmpty(key));
-        var applications = await Http.GetStringAsync("/Alerts/Applications");
+        var applications = await Http.GetStringAsync("/Applications/Applications");
         Assert.DoesNotContain(key, applications);
         return key;
     }
 
     private Task<HttpResponseMessage> Report(string? key, Guid reportId, string title = "Order timeout", string level = "sev1")
     {
-        var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/messages")
+        var request = new HttpRequestMessage(HttpMethod.Post, "/api/v1/incidents")
         {
             Content = JsonContent.Create(new
             {
@@ -118,22 +118,22 @@ public partial class AlertDemoTests : TestBase
             await db.SaveChangesAsync();
         }
 
-        using var applications = await Http.GetAsync("/Alerts/Applications?keyword=%20Orders%20");
+        using var applications = await Http.GetAsync("/Applications/Applications?keyword=%20Orders%20");
         Assert.AreEqual(HttpStatusCode.OK, applications.StatusCode);
         var applicationsHtml = await applications.Content.ReadAsStringAsync();
         Assert.Contains("id=\"application-keyword\"", applicationsHtml);
         Assert.Contains("value=\"Orders\"", applicationsHtml);
         Assert.Contains("Orders service", applicationsHtml);
         Assert.DoesNotContain("Inventory service", applicationsHtml);
-        Assert.Contains("/Alerts/GettingStarted", applicationsHtml);
+        Assert.Contains("/Applications/GettingStarted", applicationsHtml);
         Assert.DoesNotContain("Authorization: Bearer YOUR_API_KEY", applicationsHtml);
 
-        using var guide = await Http.GetAsync("/Alerts/GettingStarted");
+        using var guide = await Http.GetAsync("/Applications/GettingStarted");
         Assert.AreEqual(HttpStatusCode.OK, guide.StatusCode);
         Assert.IsTrue(guide.Headers.CacheControl?.NoStore);
         var guideHtml = await guide.Content.ReadAsStringAsync();
         Assert.Contains("Authorization: Bearer YOUR_API_KEY", guideHtml);
-        Assert.Contains("/api/v1/messages", guideHtml);
+        Assert.Contains("/api/v1/incidents", guideHtml);
         Assert.Contains("reportId", guideHtml);
     }
 
@@ -144,7 +144,7 @@ public partial class AlertDemoTests : TestBase
         var applicationId = Guid.Parse(key.Split('.')[0]);
         for (var refresh = 0; refresh < 3; refresh++)
         {
-            using var response = await Http.GetAsync("/Alerts/Applications");
+            using var response = await Http.GetAsync("/Applications/Applications");
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.IsTrue(response.Headers.CacheControl?.NoStore);
             var html = await response.Content.ReadAsStringAsync();
@@ -165,7 +165,7 @@ public partial class AlertDemoTests : TestBase
     public async Task InvalidApplicationCreationStillShowsValidationWithoutCreatingData()
     {
         await LoginAsAdmin();
-        using var response = await PostForm("/Alerts/CreateApplication", new() { ["Name"] = " " }, "/Alerts/Applications");
+        using var response = await PostForm("/Applications/CreateApplication", new() { ["Name"] = " " }, "/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         var html = await response.Content.ReadAsStringAsync();
         Assert.Contains("validation-summary-errors", html);
@@ -188,19 +188,19 @@ public partial class AlertDemoTests : TestBase
         Assert.AreEqual(HttpStatusCode.Accepted, duplicate.StatusCode);
         var second = JObject.Parse(await duplicate.Content.ReadAsStringAsync());
         Assert.IsTrue(second.Value<bool>("Duplicate"));
-        Assert.AreEqual(receipt.Value<string>("Id"), second.Value<string>("Id"));
-        var list = await Http.GetStringAsync("/Alerts");
+        Assert.AreEqual(receipt.Value<string>("IncidentId"), second.Value<string>("IncidentId"));
+        var list = await Http.GetStringAsync("/Incidents");
         Assert.Contains("Order timeout", list);
         Assert.Contains("Demo Orders", list);
-        var details = await Http.GetStringAsync($"/Alerts/Details/{receipt.Value<string>("Id")}");
+        var details = await Http.GetStringAsync($"/Incidents/Details/{receipt.Value<string>("IncidentId")}");
         Assert.Contains("ORDER-1001", details);
         Assert.Contains("&lt;script&gt;", details);
         Assert.DoesNotContain("<script>alert", details);
         Assert.DoesNotContain("Must not replace original", details);
-        var disabled = await PostForm("/Alerts/SetEnabled", new()
+        var disabled = await PostForm("/Applications/SetEnabled", new()
         {
             ["id"] = key.Split('.')[0], ["enabled"] = "false"
-        }, "/Alerts/Applications");
+        }, "/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.Found, disabled.StatusCode);
         Assert.AreEqual(HttpStatusCode.Unauthorized, (await Report(key, Guid.NewGuid())).StatusCode);
     }
@@ -208,7 +208,7 @@ public partial class AlertDemoTests : TestBase
     [TestMethod]
     public async Task RejectInvalidReportsAndUnauthorizedManagement()
     {
-        Assert.AreEqual(HttpStatusCode.Found, (await Http.GetAsync("/Alerts/Applications")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.Found, (await Http.GetAsync("/Applications/Applications")).StatusCode);
         Assert.AreEqual(HttpStatusCode.Unauthorized, (await Report(null, Guid.NewGuid())).StatusCode);
         var key = await CreateApplication();
         Assert.AreEqual(HttpStatusCode.Unauthorized, (await Report(key + "bad", Guid.NewGuid())).StatusCode);
@@ -217,13 +217,13 @@ public partial class AlertDemoTests : TestBase
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Report(key, Guid.Empty)).StatusCode);
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Report(key, Guid.NewGuid(), title: " ")).StatusCode);
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Report(key, Guid.NewGuid(), title: new string('a', 201))).StatusCode);
-        var oversized = new HttpRequestMessage(HttpMethod.Post, "/api/v1/messages")
+        var oversized = new HttpRequestMessage(HttpMethod.Post, "/api/v1/incidents")
         {
             Content = new StringContent("{\"title\":\"" + new string('a', 66000) + "\"}", Encoding.UTF8, "application/json")
         };
         oversized.Headers.Authorization = new AuthenticationHeaderValue("Bearer", key);
         Assert.AreEqual(HttpStatusCode.RequestEntityTooLarge, (await Http.SendAsync(oversized)).StatusCode);
-        Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/Alerts/SetEnabled", new()
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/Applications/SetEnabled", new()
         {
             ["id"] = key.Split('.')[0], ["enabled"] = "false"
         }, includeToken: false)).StatusCode);
@@ -236,7 +236,7 @@ public partial class AlertDemoTests : TestBase
         var applicationId = key.Split('.')[0];
         using var report = await Report(key, Guid.NewGuid());
         Assert.AreEqual(HttpStatusCode.Created, report.StatusCode);
-        var html = await Http.GetStringAsync("/Alerts/Applications");
+        var html = await Http.GetStringAsync("/Applications/Applications");
         Assert.Contains("id=\"delete-application-form\"", html);
         Assert.Contains("name=\"confirmationName\"", html);
         Assert.Contains("id=\"confirm-delete-application\" disabled", html);
@@ -246,28 +246,28 @@ public partial class AlertDemoTests : TestBase
         {
             var data = new Dictionary<string, string> { ["id"] = applicationId };
             if (confirmationName != null) data["confirmationName"] = confirmationName;
-            using var rejected = await PostForm("/Alerts/DeleteApplication", data, "/Alerts/Applications");
+            using var rejected = await PostForm("/Applications/DeleteApplication", data, "/Applications/Applications");
             Assert.AreEqual(HttpStatusCode.BadRequest, rejected.StatusCode);
             using var scope = Server!.Services.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             Assert.AreEqual(1, await db.SourceApplications.CountAsync());
-            Assert.AreEqual(1, await db.ReportedMessages.CountAsync());
+            Assert.AreEqual(1, await db.Incidents.CountAsync());
         }
 
-        using var missingToken = await PostForm("/Alerts/DeleteApplication", new()
+        using var missingToken = await PostForm("/Applications/DeleteApplication", new()
         {
             ["id"] = applicationId, ["confirmationName"] = "Demo Orders"
         }, includeToken: false);
         Assert.AreEqual(HttpStatusCode.BadRequest, missingToken.StatusCode);
-        using var deleted = await PostForm("/Alerts/DeleteApplication", new()
+        using var deleted = await PostForm("/Applications/DeleteApplication", new()
         {
             ["id"] = applicationId, ["confirmationName"] = "Demo Orders"
-        }, "/Alerts/Applications");
-        AssertRedirect(deleted, "/Alerts/Applications");
+        }, "/Applications/Applications");
+        AssertRedirect(deleted, "/Applications/Applications");
         using var finalScope = Server!.Services.CreateScope();
         var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(0, await finalDb.SourceApplications.CountAsync());
-        Assert.AreEqual(0, await finalDb.ReportedMessages.CountAsync());
+        Assert.AreEqual(0, await finalDb.Incidents.CountAsync());
         using var rejectedReport = await Report(key, Guid.NewGuid());
         Assert.AreEqual(HttpStatusCode.Unauthorized, rejectedReport.StatusCode);
     }
@@ -282,12 +282,12 @@ public partial class AlertDemoTests : TestBase
         Assert.AreEqual(4, responses.Count(r => r.StatusCode == HttpStatusCode.Accepted));
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        Assert.AreEqual(1, await db.ReportedMessages.CountAsync());
+        Assert.AreEqual(1, await db.Incidents.CountAsync());
         var application = await db.SourceApplications.SingleAsync();
         Assert.AreNotEqual(key.Split('.')[1], application.SecretHash);
     }
 
-    private async Task<InAppNotification> CreateInboxNotification(ReportedMessage? message = null)
+    private async Task<InAppNotification> CreateInboxNotification(Incident? message = null)
     {
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -298,7 +298,7 @@ public partial class AlertDemoTests : TestBase
             Delivery = new PushDelivery
             {
                 Channel = new PushChannel { Name = new string('C', 100), Type = "inapp" },
-                Message = message,
+                Incident = message,
                 Status = PushDelivery.Succeeded
             }
         };
@@ -315,7 +315,7 @@ public partial class AlertDemoTests : TestBase
         await LoginAsAdmin();
         var content = "<script>alert('unsafe')</script>" +
             string.Join(separator, Enumerable.Repeat(new string('x', 40), 70)) + "Full content tail";
-        var message = new ReportedMessage
+        var message = new Incident
         {
             Application = new SourceApplication { Name = "Inbox application" },
             ReportId = Guid.NewGuid(),
@@ -367,7 +367,7 @@ public partial class AlertDemoTests : TestBase
     public async Task InboxSupportsEmptyAndShortContent(string? content)
     {
         await LoginAsAdmin();
-        var message = new ReportedMessage
+        var message = new Incident
         {
             Application = new SourceApplication { Name = "Inbox application" },
             ReportId = Guid.NewGuid(),
@@ -478,7 +478,7 @@ public partial class AlertDemoTests : TestBase
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            Assert.AreEqual(2, await db.ReportedMessages.CountAsync());
+            Assert.AreEqual(2, await db.Incidents.CountAsync());
             Assert.AreEqual(firstId, (await db.PushDeliveries.SingleAsync()).ChannelId);
         }
         using var cleared = await PostForm("/Push/SaveBindings", new() { ["id"] = applicationId.ToString() }, url);
@@ -493,7 +493,7 @@ public partial class AlertDemoTests : TestBase
     public async Task OrdinaryUsersCannotManageAlerts()
     {
         await RegisterAndLoginAsync();
-        var response = await Http.GetAsync("/Alerts/Applications");
+        var response = await Http.GetAsync("/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         Assert.DoesNotContain("Demo Orders", await response.Content.ReadAsStringAsync());
     }

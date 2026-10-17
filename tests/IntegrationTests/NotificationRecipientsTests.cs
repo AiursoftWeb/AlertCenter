@@ -83,7 +83,7 @@ public class NotificationRecipientsTests : TestBase
                 Delivery = new PushDelivery
                 {
                     Channel = channel,
-                    Message = new ReportedMessage
+                    Incident = new Incident
                     {
                         Application = new SourceApplication { Name = "Private app" },
                         Title = "Recipient-only title", Content = "<script>private content</script>", Level = "sev3"

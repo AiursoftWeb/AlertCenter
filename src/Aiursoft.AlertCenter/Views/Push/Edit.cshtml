@@ -72,7 +72,7 @@
 
                         <div class="mb-4">
                             <label asp-for="Name" class="form-label small fw-medium">@Localizer["Channel name"]</label>
-                            <input asp-for="Name" required maxlength="100" class="form-control" placeholder="@Localizer["Example: Production on-call team, Feishu alert bot, Ops Webhook…"]" />
+                            <input asp-for="Name" required maxlength="100" class="form-control" placeholder="@Localizer["Example: Production on-call team, Feishu incident bot, Ops Webhook…"]" />
                             <div class="form-text text-muted small">@Localizer["Used to quickly identify application push levels and records."]</div>
                         </div>
 
@@ -101,7 +101,7 @@
                                     <div class="ac-code-container mb-2">
                                         <pre class="ac-code-pre py-2 small"><code>{
   "deliveryId": "&lt;GUID&gt;",
-  "messageId": "&lt;GUID or null&gt;",
+  "incidentId": "&lt;GUID or null&gt;",
   "title": "Alert title",
   "content": "Alert body or null",
   "level": "sev0 | sev1 | sev2 | sev3 | sev4",

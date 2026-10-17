@@ -103,7 +103,7 @@
             </div>
             <h3 class="h5 mb-2">@Localizer["No push records"]</h3>
             <p class="text-muted mb-3" style="max-width: 26rem; margin-inline: auto;">
-                @(hasFilters ? @Localizer["No matching delivery records under the current filter. Please adjust the filter criteria."].Value : @Localizer["When the system triggers alert pushes or manual channel tests, all dispatch traces and statuses are recorded here."].Value)
+                @(hasFilters ? @Localizer["No matching delivery records under the current filter. Please adjust the filter criteria."].Value : @Localizer["When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here."].Value)
             </p>
             @if (hasFilters)
             {
@@ -121,7 +121,7 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th class="ps-4 py-3" style="min-width: 280px;">@Localizer["Alert / Test message"]</th>
+                        <th class="ps-4 py-3" style="min-width: 280px;">@Localizer["Incident / Test message"]</th>
                         <th class="py-3">@Localizer["Target Channel"]</th>
                         <th class="py-3 text-center">@Localizer["Status"]</th>
                         <th class="py-3 text-center">@Localizer["Attempts"]</th>
@@ -132,7 +132,7 @@
                 <tbody>
                     @foreach (var delivery in Model.Deliveries)
                     {
-                        var level = delivery.Message?.Level ?? delivery.IncidentEvent?.NewLevel;
+                        var level = delivery.Incident?.Level ?? delivery.IncidentEvent?.NewLevel;
                         var levelBadge = level switch
                         {
                             "sev0" => "ac-badge-sev0",
@@ -162,11 +162,11 @@
                                     }
                                     <div class="min-w-0">
                                         <a asp-action="Delivery" asp-route-id="@delivery.Id" class="fw-semibold text-decoration-none text-break d-block">
-                                            @(delivery.Message?.Title ?? (delivery.IncidentEvent != null ? string.Format(@Localizer["Incident reopened: {0}"].Value, delivery.IncidentEvent.Incident.Title) : @Localizer["Channel test notification"].Value))
+                                            @(delivery.Incident?.Title ?? (delivery.IncidentEvent != null ? string.Format(@Localizer["Incident reopened: {0}"].Value, delivery.IncidentEvent.Incident.Title) : @Localizer["Channel test notification"].Value))
                                         </a>
                                         <small class="text-muted d-flex align-items-center gap-1 mt-0.5">
                                             <i data-lucide="layers" style="width: 12px; height: 12px;" aria-hidden="true"></i>
-                                            @(delivery.Message?.Application.Name ?? delivery.IncidentEvent?.Incident.Application.Name ?? @Localizer["Manual Test"].Value)
+                                            @(delivery.Incident?.Application.Name ?? delivery.IncidentEvent?.Incident.Application.Name ?? @Localizer["Manual Test"].Value)
                                         </small>
                                     </div>
                                 </div>

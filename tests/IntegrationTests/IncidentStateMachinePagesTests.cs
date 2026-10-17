@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     private async Task<Dictionary<string, string>> IncidentForm(Guid id, string? note = null, string? level = null)
     {
@@ -79,8 +79,8 @@ public partial class AlertDemoTests
             var incident = await db.Incidents.SingleAsync();
             Assert.AreEqual(Incident.New, incident.Status);
             Assert.IsNull(incident.OwnerId);
-            Assert.AreEqual("sev0", incident.AlertLevel);
-            Assert.AreEqual(1, await db.ReportedMessages.CountAsync());
+            Assert.AreEqual("sev0", incident.Level);
+            Assert.AreEqual(1, await db.Incidents.CountAsync());
             deliveryId = (await db.PushDeliveries.SingleAsync()).Id;
         }
         var deliveryPage = WebUtility.HtmlDecode(await Http.GetStringAsync($"/Push/Delivery/{deliveryId}"));
@@ -95,10 +95,10 @@ public partial class AlertDemoTests
             var list = await Http.GetStringAsync($"/Incidents/Index?status={state}");
             Assert.AreEqual(state == "new", list.Contains("Order timeout"));
         }
-        AssertRedirect(await PostForm("/Alerts/DeleteApplication", new()
+        AssertRedirect(await PostForm("/Applications/DeleteApplication", new()
         {
             ["id"] = applicationId.ToString(), ["confirmationName"] = "Demo Orders"
-        }, "/Alerts/Applications"), "/Alerts/Applications");
+        }, "/Applications/Applications"), "/Applications/Applications");
         using var finalScope = Server!.Services.CreateScope();
         var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(0, await finalDb.PushDeliveries.CountAsync());
@@ -159,7 +159,7 @@ public partial class AlertDemoTests
         var url = $"/Incidents/Details/{incidentId}";
         Assert.Contains("Order timeout", await Http.GetStringAsync("/Incidents/Index"));
         AssertRedirect(await PostForm("/Incidents/Acknowledge", await IncidentForm(incidentId), url), url);
-        using var deniedManage = await Http.GetAsync($"/Alerts/OnCall/{applicationId}");
+        using var deniedManage = await Http.GetAsync($"/Applications/OnCall/{applicationId}");
         Assert.AreEqual(HttpStatusCode.Found, deniedManage.StatusCode);
         Assert.Contains("Code403", deniedManage.Headers.Location!.OriginalString);
         using (var scope = Server!.Services.CreateScope())

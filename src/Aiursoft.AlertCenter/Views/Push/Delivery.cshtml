@@ -3,8 +3,8 @@
 @{
     var delivery = Model.Delivery!;
     var incidentEvent = delivery.IncidentEvent;
-    var level = delivery.Message?.Level ?? incidentEvent?.NewLevel;
-    ViewData["Title"] = string.Format(@Localizer["Delivery details - {0}"].Value, delivery.Message?.Title ?? incidentEvent?.Incident.Title ?? @Localizer["Channel test"].Value);
+    var level = delivery.Incident?.Level ?? incidentEvent?.NewLevel;
+    ViewData["Title"] = string.Format(@Localizer["Delivery details - {0}"].Value, delivery.Incident?.Title ?? incidentEvent?.Incident.Title ?? @Localizer["Channel test"].Value);
     var snapshot = delivery.OnCallEmail;
     var typeKey = snapshot != null ? "email" : delivery.Channel?.Type;
     var channelType = Model.ChannelTypes.FirstOrDefault(type => type.Key == typeKey);
@@ -32,10 +32,10 @@
         </div>
     </div>
     <div class="d-flex gap-2">
-        @if (delivery.MessageId.HasValue)
+        @if (delivery.IncidentId.HasValue)
         {
-            <a asp-controller="Alerts" asp-action="Details" asp-route-id="@delivery.MessageId" class="btn btn-outline-secondary">
-                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>@Localizer["View original alert"]
+            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@delivery.IncidentId" class="btn btn-outline-secondary">
+                <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>@Localizer["View original incident"]
             </a>
         }
         @if (incidentEvent != null)
@@ -73,7 +73,7 @@
                     </form>
                     @if (!canRetry)
                     {
-                        <small class="d-block mt-1">@(snapshot != null ? @Localizer["Invalid recipient snapshot. Cannot resend old alerts."].Value : @Localizer["Please enable the target channel first."].Value)</small>
+                        <small class="d-block mt-1">@(snapshot != null ? @Localizer["Invalid recipient snapshot. Cannot resend old incidents."].Value : @Localizer["Please enable the target channel first."].Value)</small>
                     }
                 </div>
             }
@@ -145,9 +145,9 @@ else
                 }
             </div>
             <div class="card-body">
-                <h3 class="h5 mb-3 text-break">@(delivery.Message?.Title ?? (incidentEvent != null ? string.Format(@Localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title) : @Localizer["Channel test notification"].Value))</h3>
+                <h3 class="h5 mb-3 text-break">@(delivery.Incident?.Title ?? (incidentEvent != null ? string.Format(@Localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title) : @Localizer["Channel test notification"].Value))</h3>
                 @{
-                    var payload = delivery.Message?.Content ?? (incidentEvent != null ? incidentEvent.Note : delivery.Message == null ? delivery.TestContent ?? @Localizer["This is a test message for the push channel."].Value : null);
+                    var payload = delivery.Incident?.Content ?? (incidentEvent != null ? incidentEvent.Note : delivery.Incident == null ? delivery.TestContent ?? @Localizer["This is a test message for the push channel."].Value : null);
                 }
                 <div class="ac-prose">@(string.IsNullOrWhiteSpace(payload) ? @Localizer["No body content"].Value : payload)</div>
             </div>
@@ -255,7 +255,7 @@ else
                 </div>
                 <div class="d-flex justify-content-between align-items-center py-2 border-top">
                     <span class="text-muted small">@Localizer["Source integrated application"]</span>
-                    <span class="fw-semibold small">@(delivery.Message?.Application.Name ?? incidentEvent?.Incident.Application.Name ?? @Localizer["Manual Test"].Value)</span>
+                    <span class="fw-semibold small">@(delivery.Incident?.Application.Name ?? incidentEvent?.Incident.Application.Name ?? @Localizer["Manual Test"].Value)</span>
                 </div>
                 @if (snapshot != null)
                 {

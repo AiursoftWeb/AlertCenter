@@ -129,7 +129,7 @@ public class RetryingTransactionTests
         db.OnCallGroups.Add(group);
         var application = new SourceApplication { Name = "Delete me" };
         db.SourceApplications.Add(application);
-        db.ReportedMessages.Add(new ReportedMessage
+        db.Incidents.Add(new Incident
         {
             ApplicationId = application.Id, ReportId = Guid.NewGuid(), Title = "Delete with application",
             OccurredAtUtc = DateTime.UtcNow
@@ -180,8 +180,7 @@ public class RetryingTransactionTests
                 return;
             default:
                 var application = await db.SourceApplications.SingleAsync();
-                var alerts = new AlertsController(db, new ApplicationAccessService(db), TestLocalization.For<AlertsController>(),
-                    TestLocalization.Factory) { ControllerContext = controller.ControllerContext };
+                var alerts = new ApplicationsController(db, new ApplicationAccessService(db), TestLocalization.For<ApplicationsController>()) { ControllerContext = controller.ControllerContext };
                 result = await alerts.DeleteApplication(application.Id, application.Name, default);
                 break;
         }
@@ -196,7 +195,7 @@ public class RetryingTransactionTests
         Assert.AreEqual(operation == "delete-application" ? 0 : 1, await db.SourceApplications.CountAsync());
         Assert.AreEqual(operation == "save-schedule" ? 21 : 0, await db.OnCallShifts.CountAsync());
         Assert.AreEqual(operation == "save-schedule" ? 28 : 0, await db.OnCallShiftMembers.CountAsync());
-        Assert.AreEqual(operation == "delete-application" ? 0 : 1, await db.ReportedMessages.CountAsync());
+        Assert.AreEqual(operation == "delete-application" ? 0 : 1, await db.Incidents.CountAsync());
         if (operation == "update-rule")
         {
             var rule = await db.OnCallRules.SingleAsync();

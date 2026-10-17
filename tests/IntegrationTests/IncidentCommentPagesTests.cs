@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
-public partial class AlertDemoTests
+public partial class IncidentPagesTests
 {
     private async Task<Guid> CreateCommentIncident()
     {
@@ -229,11 +229,11 @@ public partial class AlertDemoTests
             ownId = (await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().IncidentComments.SingleAsync(comment => comment.AuthorId == userId)).Id;
         AssertRedirect(await PostForm("/Incidents/DeleteComment", new() { ["IncidentId"] = id.ToString(), ["CommentId"] = ownId.ToString() }, url), url + "?commentsPage=1#incident-comments");
         await LoginAsAdmin();
-        using var deletedApplication = await PostForm("/Alerts/DeleteApplication", new()
+        using var deletedApplication = await PostForm("/Applications/DeleteApplication", new()
         {
             ["id"] = (await CommentApplicationId(id)).ToString(), ["confirmationName"] = "Demo Orders"
-        }, "/Alerts/Applications");
-        AssertRedirect(deletedApplication, "/Alerts/Applications");
+        }, "/Applications/Applications");
+        AssertRedirect(deletedApplication, "/Applications/Applications");
         using var afterScope = Server!.Services.CreateScope();
         Assert.AreEqual(0, await afterScope.ServiceProvider.GetRequiredService<TemplateDbContext>().IncidentComments.CountAsync());
     }

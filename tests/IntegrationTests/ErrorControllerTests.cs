@@ -55,9 +55,9 @@ public class ErrorControllerTests : TestBase
     [TestMethod]
     [DataRow("/", "/")]
     [DataRow("/dashboard", "/dashboard")]
-    [DataRow("/Alerts?level=sev1&page=2#results", "/Alerts?level=sev1&page=2#results")]
+    [DataRow("/Incidents?level=sev1&page=2#results", "/Incidents?level=sev1&page=2#results")]
     [DataRow("~/dashboard", "/dashboard")]
-    [DataRow("/Alerts?keyword=\"<test>\"&level=sev1", "/Alerts?keyword=\"<test>\"&level=sev1")]
+    [DataRow("/Incidents?keyword=\"<test>\"&level=sev1", "/Incidents?keyword=\"<test>\"&level=sev1")]
     public async Task ErrorPagesPreserveAndEncodeLocalRetryLinks(string returnUrl, string expectedHref)
     {
         foreach (var authenticated in new[] { false, true })

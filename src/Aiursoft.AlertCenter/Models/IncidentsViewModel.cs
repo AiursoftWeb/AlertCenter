@@ -7,14 +7,14 @@ namespace Aiursoft.AlertCenter.Models;
 
 public class IncidentsViewModel : UiStackLayoutViewModel
 {
-    public IncidentsViewModel() => PageTitle = "Incident handling";
+    public IncidentsViewModel() => PageTitle = "Incidents";
     public IncidentFilter Filter { get; set; } = new();
+    public bool HasNextPage { get; set; }
     public int ActiveCount { get; set; }
     public List<SourceApplication> Applications { get; set; } = [];
     public List<Incident> Incidents { get; set; } = [];
     public Incident? Incident { get; set; }
     public List<IncidentTimelineEntry> TimelineEntries { get; set; } = [];
-    public List<ReportedMessage> Messages { get; set; } = [];
     public bool CanManage { get; set; }
     public IReadOnlyList<OnCallOce> CurrentOces { get; set; } = [];
     public string? CurrentOceError { get; set; }

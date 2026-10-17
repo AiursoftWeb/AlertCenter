@@ -14,16 +14,16 @@ using Newtonsoft.Json;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
-[MessageReportExceptionHandler]
+[IncidentReportExceptionHandler]
 // Run before MVC's unsupported-content-type filter to keep input errors in AiurProtocol.
 [ApiModelStateChecker(Order = -3001)]
 [AllowAnonymous]
-[Route("api/v1/messages")]
-public class MessageReportsController(TemplateDbContext db, IAlertDispatcher dispatcher) : ControllerBase
+[Route("api/v1/incidents")]
+public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher dispatcher) : ControllerBase
 {
     [HttpPost]
     [RequestSizeLimit(65536)]
-    public async Task<IActionResult> Report([FromBody] ReportMessageRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create([FromBody] CreateIncidentRequest request, CancellationToken cancellationToken)
     {
         if (!AuthenticationHeaderValue.TryParse(Request.Headers.Authorization, out var header) ||
             !string.Equals(header.Scheme, "Bearer", StringComparison.OrdinalIgnoreCase))
@@ -43,18 +43,21 @@ public class MessageReportsController(TemplateDbContext db, IAlertDispatcher dis
         // MySQL stores microseconds. Keep initial and duplicate receipts identical across providers.
         var receivedAtUtc = DateTime.UtcNow;
         receivedAtUtc = receivedAtUtc.AddTicks(-(receivedAtUtc.Ticks % 10));
-        ReportedMessage CreateMessage() => new()
+        var incident = new Incident
         {
             ApplicationId = applicationId, ReportId = request.ReportId, Title = request.Title,
             ReceivedAtUtc = receivedAtUtc,
             Content = request.Content, Level = request.Level,
-            IncidentKey = string.IsNullOrWhiteSpace(request.IncidentKey) ? null : request.IncidentKey.Trim(),
             OccurredAtUtc = request.OccurredAtUtc.UtcDateTime, ContextJson = request.Context?.ToString(Formatting.None)
         };
 
-        var message = CreateMessage();
-        db.ReportedMessages.Add(message);
-        await dispatcher.DispatchAsync(message, cancellationToken);
+        db.Incidents.Add(incident);
+        db.IncidentTimelineEntries.Add(new IncidentTimelineEntry
+        {
+            Incident = incident, Type = IncidentTimelineEntry.Created,
+            NewStatus = Incident.New, NewLevel = incident.Level, CreatedAtUtc = receivedAtUtc
+        });
+        await dispatcher.DispatchAsync(incident, cancellationToken);
         try
         {
             await db.SaveChangesAsync(cancellationToken);
@@ -64,42 +67,22 @@ public class MessageReportsController(TemplateDbContext db, IAlertDispatcher dis
             db.ChangeTracker.Clear();
             existing = await FindExisting(applicationId, request.ReportId, cancellationToken);
             if (existing != null) return this.Protocol(Receipt(existing, true));
-            var activeMatchKey = IncidentMatcher.GetActiveMatchKey(message);
-            var incidentExists = await db.Incidents.AsNoTracking().AnyAsync(incident =>
-                incident.ApplicationId == applicationId && incident.ActiveMatchKey == activeMatchKey, cancellationToken);
-            if (!incidentExists) throw;
-
-            message = CreateMessage();
-            db.ReportedMessages.Add(message);
-            await dispatcher.DispatchAsync(message, cancellationToken);
-            try
-            {
-                await db.SaveChangesAsync(cancellationToken);
-            }
-            catch (DbUpdateException)
-            {
-                db.ChangeTracker.Clear();
-                existing = await FindExisting(applicationId, request.ReportId, cancellationToken);
-                if (existing == null) throw;
-                return this.Protocol(Receipt(existing, true));
-            }
+            throw;
         }
-        return this.Protocol(Receipt(message, false));
+        return this.Protocol(Receipt(incident, false));
     }
 
-    private Task<ReportedMessage?> FindExisting(Guid applicationId, Guid reportId, CancellationToken cancellationToken) =>
-        db.ReportedMessages.AsNoTracking().SingleOrDefaultAsync(
+    private Task<Incident?> FindExisting(Guid applicationId, Guid reportId, CancellationToken cancellationToken) =>
+        db.Incidents.AsNoTracking().SingleOrDefaultAsync(
             m => m.ApplicationId == applicationId && m.ReportId == reportId, cancellationToken);
 
-    private static ReportMessageResponse Receipt(ReportedMessage message, bool duplicate) => new()
+    private static CreateIncidentResponse Receipt(Incident incident, bool duplicate) => new()
     {
         Code = duplicate ? Code.NoActionTaken : Code.JobDone,
         Message = duplicate ? "This report has already been received." : "The report was received.",
-        Id = message.Id,
-        ReportId = message.ReportId,
-        ReceivedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(message.ReceivedAtUtc, DateTimeKind.Utc)),
-        IncidentId = message.IncidentId,
-        Archived = message.IsArchived,
+        IncidentId = incident.Id,
+        ReportId = incident.ReportId,
+        ReceivedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc)),
         Duplicate = duplicate
     };
 }

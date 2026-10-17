@@ -120,12 +120,12 @@ public partial class PushCenterTests
     private async Task<IActionResult> Report(SourceApplication application, Guid reportId, string level = "sev3")
     {
         _db.ChangeTracker.Clear();
-        var controller = new MessageReportsController(_db, new QueuedAlertDispatcher(_db, new IncidentMatcher(_db), localizerFactory: TestLocalization.Factory))
+        var controller = new IncidentReportsController(_db, new QueuedIncidentDispatcher(_db, localizerFactory: TestLocalization.Factory))
         {
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { RequestServices = _apiServices } }
         };
         controller.Request.Headers.Authorization = $"Bearer {application.Id}.{Secret}";
-        return await controller.Report(new ReportMessageRequest
+        return await controller.Create(new CreateIncidentRequest
         {
             ReportId = reportId, Title = "<script>unsafe</script>", Content = null, Level = level,
             OccurredAtUtc = DateTimeOffset.UtcNow, Context = Newtonsoft.Json.Linq.JObject.Parse("{\"orderId\":123}")
@@ -152,12 +152,12 @@ public partial class PushCenterTests
         var reportId = Guid.NewGuid();
 
         var first = (JsonResult)await Report(application, reportId);
-        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)first.Value!).Code);
+        Assert.AreEqual(Code.JobDone, ((CreateIncidentResponse)first.Value!).Code);
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
         Assert.AreEqual(0, _http.Requests.Count);
-        Assert.AreEqual(Code.NoActionTaken, ((ReportMessageResponse)((JsonResult)await Report(application, reportId)).Value!).Code);
+        Assert.AreEqual(Code.NoActionTaken, ((CreateIncidentResponse)((JsonResult)await Report(application, reportId)).Value!).Code);
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
-        Assert.AreEqual(1, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(1, await _db.Incidents.CountAsync());
 
         var ids = await _db.PushDeliveries.Select(delivery => delivery.Id).ToListAsync();
         foreach (var id in ids)
@@ -211,11 +211,11 @@ public partial class PushCenterTests
         Assert.AreEqual(level == "sev4", saved.ReceiveSev4);
 
         var reportId = Guid.NewGuid();
-        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
+        Assert.AreEqual(Code.JobDone, ((CreateIncidentResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
         CollectionAssert.AreEquivalent(new[] { first.Id, second.Id },
             await _db.PushDeliveries.Select(delivery => delivery.ChannelId).ToArrayAsync());
-        Assert.AreEqual(level, (await _db.ReportedMessages.SingleAsync()).Level);
-        Assert.AreEqual(Code.NoActionTaken, ((ReportMessageResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
+        Assert.AreEqual(level, (await _db.Incidents.SingleAsync()).Level);
+        Assert.AreEqual(Code.NoActionTaken, ((CreateIncidentResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
     }
 
@@ -232,9 +232,9 @@ public partial class PushCenterTests
         var pending = await _db.PushDeliveries.AsNoTracking().SingleAsync();
 
         await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest { Sev2ChannelIds = [channel.Id] });
-        Assert.AreEqual(Code.NoActionTaken, ((ReportMessageResponse)((JsonResult)await Report(application, reportId, "sev2")).Value!).Code);
+        Assert.AreEqual(Code.NoActionTaken, ((CreateIncidentResponse)((JsonResult)await Report(application, reportId, "sev2")).Value!).Code);
         await Report(application, Guid.NewGuid(), "sev1");
-        Assert.AreEqual(2, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(2, await _db.Incidents.CountAsync());
         Assert.AreEqual(pending.Id, (await _db.PushDeliveries.SingleAsync()).Id);
         Assert.AreEqual(PushDelivery.Pending, (await _db.PushDeliveries.SingleAsync()).Status);
         await Report(application, Guid.NewGuid(), "sev2");
@@ -242,7 +242,7 @@ public partial class PushCenterTests
 
         await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest());
         await Report(application, Guid.NewGuid(), "sev2");
-        Assert.AreEqual(4, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(4, await _db.Incidents.CountAsync());
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
         var remaining = await _db.ApplicationPushChannels.SingleAsync();
         Assert.AreEqual(otherApplication.Id, remaining.ApplicationId);
@@ -292,10 +292,10 @@ public partial class PushCenterTests
         var channel = await Channel();
         await BindAllLevels(application.Id, channel.Id);
         _http.StatusCode = HttpStatusCode.BadGateway;
-        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)((JsonResult)await Report(application, Guid.NewGuid())).Value!).Code);
+        Assert.AreEqual(Code.JobDone, ((CreateIncidentResponse)((JsonResult)await Report(application, Guid.NewGuid())).Value!).Code);
         var id = await _db.PushDeliveries.Select(delivery => delivery.Id).SingleAsync();
         await _processor.ProcessAsync(id, CancellationToken.None);
-        Assert.AreEqual(1, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(1, await _db.Incidents.CountAsync());
         var failed = await _db.PushDeliveries.SingleAsync();
         Assert.AreEqual(PushDelivery.Failed, failed.Status);
         Assert.Contains("502", failed.Error!);
@@ -538,7 +538,7 @@ public partial class PushCenterTests
         await _processor.ProcessAsync(delivery.Id, CancellationToken.None);
         await Controller().Delete(channel.Id);
         Assert.AreEqual(0, await _db.InAppNotifications.CountAsync());
-        Assert.AreEqual(1, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(1, await _db.Incidents.CountAsync());
         Assert.AreEqual(other.Id, (await _db.PushDeliveries.SingleAsync()).ChannelId);
         Assert.AreEqual(other.Id, (await _db.ApplicationPushChannels.SingleAsync()).ChannelId);
     }
@@ -553,7 +553,7 @@ public partial class PushCenterTests
         await Report(application, Guid.NewGuid());
         var id = await _db.PushDeliveries.Select(delivery => delivery.Id).SingleAsync();
         await _processor.ProcessAsync(id, CancellationToken.None);
-        await new AlertsController(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<AlertsController>(), localizerFactory: TestLocalization.Factory)
+        await new ApplicationsController(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<ApplicationsController>())
         {
             ControllerContext = new ControllerContext
             {
@@ -580,7 +580,7 @@ public partial class PushCenterTests
             BEGIN SELECT RAISE(ABORT, 'Queue insert rejected'); END;
             """);
         await Assert.ThrowsAsync<DbUpdateException>(() => Report(application, Guid.NewGuid()));
-        Assert.AreEqual(0, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(0, await _db.Incidents.CountAsync());
         Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
     }
 
@@ -610,7 +610,7 @@ public partial class PushCenterTests
     public async Task CustomWebhookHeadersAndPayloadAreValidatedProtectedAndDelivered()
     {
         var headers = "{\"Authorization\":\"Bearer token\",\"X-Source\":\"alert-center\"}";
-        var template = "{\"event\":\"alert\",\"subject\":\"{{title}}\",\"data\":\"{{context}}\",\"testMessageId\":\"{{messageId}}\"}";
+        var template = "{\"event\":\"alert\",\"subject\":\"{{title}}\",\"data\":\"{{context}}\",\"testIncidentId\":\"{{incidentId}}\"}";
         var model = new PushChannelEditViewModel
         {
             Name = "Custom webhook", Type = "webhook", Endpoint = "https://receiver.example/hook",
@@ -630,7 +630,7 @@ public partial class PushCenterTests
         using var payload = JsonDocument.Parse(request.Json);
         Assert.AreEqual("alert", payload.RootElement.GetProperty("event").GetString());
         Assert.AreEqual("Channel test notification", payload.RootElement.GetProperty("subject").GetString());
-        Assert.AreEqual(JsonValueKind.Null, payload.RootElement.GetProperty("testMessageId").ValueKind);
+        Assert.AreEqual(JsonValueKind.Null, payload.RootElement.GetProperty("testIncidentId").ValueKind);
         Assert.AreEqual("Bearer token", request.Headers["Authorization"]);
         Assert.AreEqual("alert-center", request.Headers["X-Source"]);
 

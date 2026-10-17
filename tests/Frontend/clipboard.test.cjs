@@ -151,8 +151,9 @@ test('does not bind a copy button without its feedback region', () => {
 });
 
 for (const [view, expectedButtons] of [
-    ['Views/Alerts/GettingStarted.cshtml', 3],
+    ['Views/Applications/GettingStarted.cshtml', 3],
     ['Views/Push/Notification.cshtml', 1],
+    ['Views/Incidents/Details.cshtml', 2],
     ['Views/Push/Delivery.cshtml', 1]
 ]) {
     test(`${view} wires copy buttons to an accessible UiStack feedback region`, () => {
@@ -202,7 +203,7 @@ test('every JavaScript localization key has a literal server-rendered span', () 
     }
 });
 
-for (const name of ['dashboard.js', 'alert-details.js']) {
+for (const name of ['dashboard.js']) {
     test(`${name} copies content and shows localized feedback from hidden HTML`, async () => {
         let click;
         let copied;

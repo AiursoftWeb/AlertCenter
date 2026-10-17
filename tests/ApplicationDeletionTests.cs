@@ -8,7 +8,6 @@ using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Aiursoft.AlertCenter.Tests;
 
@@ -46,9 +45,9 @@ public class ApplicationDeletionTests
         _db.SourceApplications.AddRange(application, other);
         for (var index = 0; index < messageCount; index++)
         {
-            _db.ReportedMessages.Add(Message(application.Id));
+            _db.Incidents.Add(Message(application.Id));
         }
-        _db.ReportedMessages.Add(Message(other.Id));
+        _db.Incidents.Add(Message(other.Id));
         await _db.SaveChangesAsync();
         _db.ChangeTracker.Clear();
 
@@ -56,17 +55,17 @@ public class ApplicationDeletionTests
         var result = await controller.DeleteApplication(application.Id, application.Name, CancellationToken.None);
 
         Assert.IsInstanceOfType<RedirectToActionResult>(result);
-        Assert.AreEqual(nameof(AlertsController.Applications), ((RedirectToActionResult)result).ActionName);
+        Assert.AreEqual(nameof(ApplicationsController.Applications), ((RedirectToActionResult)result).ActionName);
         Assert.AreEqual(other.Id, (await _db.SourceApplications.SingleAsync()).Id);
-        Assert.AreEqual(other.Id, (await _db.ReportedMessages.SingleAsync()).ApplicationId);
+        Assert.AreEqual(other.Id, (await _db.Incidents.SingleAsync()).ApplicationId);
         Assert.IsInstanceOfType<NotFoundResult>(await controller.DeleteApplication(application.Id, application.Name, CancellationToken.None));
 
-        var reports = new MessageReportsController(_db, new NullAlertDispatcher(NullLogger<NullAlertDispatcher>.Instance))
+        var reports = new IncidentReportsController(_db, new QueuedIncidentDispatcher(_db, TestLocalization.Factory))
         {
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { RequestServices = _apiServices } }
         };
         reports.Request.Headers.Authorization = $"Bearer {application.Id}.old-secret";
-        var rejected = (JsonResult)await reports.Report(new ReportMessageRequest
+        var rejected = (JsonResult)await reports.Create(new CreateIncidentRequest
         {
             ReportId = Guid.NewGuid(), Title = "Rejected report", OccurredAtUtc = DateTimeOffset.UtcNow
         }, CancellationToken.None);
@@ -78,14 +77,14 @@ public class ApplicationDeletionTests
     {
         var application = new SourceApplication { Name = "Keep this application" };
         _db.SourceApplications.Add(application);
-        _db.ReportedMessages.Add(Message(application.Id));
+        _db.Incidents.Add(Message(application.Id));
         await _db.SaveChangesAsync();
 
         var result = await AdminController().DeleteApplication(Guid.NewGuid(), application.Name, CancellationToken.None);
 
         Assert.IsInstanceOfType<NotFoundResult>(result);
         Assert.AreEqual(1, await _db.SourceApplications.CountAsync());
-        Assert.AreEqual(1, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(1, await _db.Incidents.CountAsync());
     }
 
     [TestMethod]
@@ -101,7 +100,7 @@ public class ApplicationDeletionTests
     {
         var application = new SourceApplication { Name = "Delete this application" };
         _db.SourceApplications.Add(application);
-        _db.ReportedMessages.Add(Message(application.Id));
+        _db.Incidents.Add(Message(application.Id));
         await _db.SaveChangesAsync();
 
         var result = await AdminController()
@@ -109,7 +108,7 @@ public class ApplicationDeletionTests
 
         Assert.IsInstanceOfType<BadRequestObjectResult>(result);
         Assert.AreEqual(application.Id, (await _db.SourceApplications.SingleAsync()).Id);
-        Assert.AreEqual(application.Id, (await _db.ReportedMessages.SingleAsync()).ApplicationId);
+        Assert.AreEqual(application.Id, (await _db.Incidents.SingleAsync()).ApplicationId);
     }
 
     [TestMethod]
@@ -117,9 +116,9 @@ public class ApplicationDeletionTests
     {
         var application = new SourceApplication { Name = "Preserve on failure" };
         _db.SourceApplications.Add(application);
-        _db.ReportedMessages.Add(Message(application.Id));
+        _db.Incidents.Add(Message(application.Id));
         await _db.SaveChangesAsync();
-        // 在消息删除之后制造应用删除失败，验证事务确实回滚而非留下半删除状态。
+        // Fail application deletion after incident deletion to verify atomic rollback.
         await _db.Database.ExecuteSqlRawAsync("""
             CREATE TRIGGER RejectApplicationDeletion BEFORE DELETE ON SourceApplications
             BEGIN SELECT RAISE(ABORT, 'Deletion rejected for rollback test'); END;
@@ -129,10 +128,10 @@ public class ApplicationDeletionTests
             AdminController().DeleteApplication(application.Id, application.Name, CancellationToken.None));
 
         Assert.AreEqual(1, await _db.SourceApplications.CountAsync());
-        Assert.AreEqual(1, await _db.ReportedMessages.CountAsync());
+        Assert.AreEqual(1, await _db.Incidents.CountAsync());
     }
 
-    private AlertsController AdminController() => new(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<AlertsController>(), localizerFactory: TestLocalization.Factory)
+    private ApplicationsController AdminController() => new(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<ApplicationsController>())
     {
         ControllerContext = new ControllerContext
         {
@@ -143,7 +142,7 @@ public class ApplicationDeletionTests
         }
     };
 
-    private static ReportedMessage Message(Guid applicationId) => new()
+    private static Incident Message(Guid applicationId) => new()
     {
         ApplicationId = applicationId, ReportId = Guid.NewGuid(), Title = "Test message",
         OccurredAtUtc = DateTime.UtcNow

@@ -13,63 +13,10 @@ namespace Aiursoft.AlertCenter.Controllers;
 
 [Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-public class AlertsController(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizer<AlertsController> localizer, IStringLocalizerFactory localizerFactory) : Controller
+public class ApplicationsController(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizer<ApplicationsController> localizer) : Controller
 {
     private const string CreatedApplicationApiKey = "CreatedApplicationApiKey";
     private const string ApiKeyWasReset = "ApiKeyWasReset";
-
-    [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
-        CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
-        LinkText = "Message list", LinkOrder = 0)]
-    public async Task<IActionResult> Index([FromQuery] AlertFilter filter, CancellationToken cancellationToken)
-    {
-        filter.Normalize();
-        var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
-        var model = new AlertsViewModel
-        {
-            AlertFilter = filter,
-            Page = filter.Page,
-            CanManageApplications = applicationAccess.CanManageApplications(User),
-            ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, true, cancellationToken)).ToHashSet(),
-            Applications = await db.SourceApplications.AsNoTracking().Where(application => accessibleIds.Contains(application.Id) &&
-                db.ReportedMessages.Any(message => message.ApplicationId == application.Id))
-                .OrderBy(application => application.Name).ToListAsync(cancellationToken)
-        };
-        if (filter.ApplicationId.HasValue && !accessibleIds.Contains(filter.ApplicationId.Value)) return Forbid();
-        if (!ModelState.IsValid) return this.StackView(model);
-        var query = FilterMessages(db.ReportedMessages.AsNoTracking().Where(message => accessibleIds.Contains(message.ApplicationId)), filter);
-        var messages = await query.Include(message => message.Application).Include(message => message.Incident)
-            .OrderByDescending(message => message.ReceivedAtUtc).ThenByDescending(message => message.Id)
-            .Skip((filter.Page - 1) * 20).Take(21).ToListAsync();
-        model.Messages = messages.Take(20).ToList();
-        model.HasNextPage = messages.Count > 20;
-        return this.StackView(model);
-    }
-
-    private static IQueryable<ReportedMessage> FilterMessages(IQueryable<ReportedMessage> query, AlertFilter filter)
-    {
-        if (filter.ApplicationId.HasValue)
-            query = query.Where(message => message.ApplicationId == filter.ApplicationId.Value);
-        if (filter.Level != null)
-            query = query.Where(message => message.Level == filter.Level);
-        if (filter.Keyword != null)
-        {
-            var keyword = filter.Keyword.ToLowerInvariant();
-            query = query.Where(message => message.Title.ToLower().Contains(keyword) ||
-                (message.Content != null && message.Content.ToLower().Contains(keyword)));
-        }
-        if (filter.FromDate.HasValue)
-        {
-            var start = filter.FromDate.Value.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
-            query = query.Where(message => message.ReceivedAtUtc >= start);
-        }
-        if (filter.ToDate.HasValue && filter.ToDate.Value < DateOnly.MaxValue)
-        {
-            var end = filter.ToDate.Value.AddDays(1).ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
-            query = query.Where(message => message.ReceivedAtUtc < end);
-        }
-        return query;
-    }
 
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
@@ -86,7 +33,7 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "Integration Guide", LinkOrder = 2)]
-    public IActionResult GettingStarted() => this.StackView(new AlertsViewModel { PageTitle = localizer["Integration Guide"].Value });
+    public IActionResult GettingStarted() => this.StackView(new ApplicationsViewModel { PageTitle = localizer["Integration Guide"].Value });
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateApplication(CreateApplicationRequest request, CancellationToken cancellationToken)
@@ -212,28 +159,11 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
             // Delete the application and its history atomically without loading every message.
             await db.Incidents.Where(incident => incident.ApplicationId == id)
                 .ExecuteDeleteAsync(retryToken);
-            await db.ReportedMessages.Where(message => message.ApplicationId == id)
-                .ExecuteDeleteAsync(retryToken);
             var deleted = await db.SourceApplications.Where(application => application.Id == id)
                 .ExecuteDeleteAsync(retryToken);
             await transaction.CommitAsync(retryToken);
             return deleted == 0 ? NotFound() : RedirectToAction(nameof(Applications));
         }, cancellationToken);
-    }
-
-    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
-    {
-        var message = await db.ReportedMessages.AsNoTracking().Include(m => m.Application).Include(m => m.Incident)
-            .SingleOrDefaultAsync(m => m.Id == id, cancellationToken);
-        if (message == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, message.ApplicationId, cancellationToken: cancellationToken) &&
-            (message.Incident == null || !await new IncidentAccessService(db, applicationAccess, localizerFactory).CanViewAsync(User, message.Incident, DateTime.UtcNow, cancellationToken))) return Forbid();
-        return this.StackView(new AlertsViewModel
-        {
-            Message = message,
-            CanManageApplications = applicationAccess.CanManageApplications(User),
-            ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, true, cancellationToken)).ToHashSet()
-        });
     }
 
     public async Task<IActionResult> Access(Guid id, CancellationToken cancellationToken)
@@ -287,12 +217,12 @@ public class AlertsController(TemplateDbContext db, IApplicationAccessService ap
         return RedirectToAction(nameof(Access), new { id = request.ApplicationId });
     }
 
-    private async Task<AlertsViewModel> ApplicationsModel(string? keyword = null, CancellationToken cancellationToken = default)
+    private async Task<ApplicationsViewModel> ApplicationsModel(string? keyword = null, CancellationToken cancellationToken = default)
     {
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
         var applications = db.SourceApplications.AsNoTracking().Where(application => accessibleIds.Contains(application.Id));
         if (!string.IsNullOrEmpty(keyword)) applications = applications.Where(application => application.Name.Contains(keyword));
-        return new AlertsViewModel
+        return new ApplicationsViewModel
         {
             Applications = await applications.Include(application => application.OnCallGroup)
                 .OrderByDescending(application => application.CreatedAtUtc).ToListAsync(cancellationToken),

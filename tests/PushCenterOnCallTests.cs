@@ -52,20 +52,20 @@ public partial class PushCenterTests
         var application = await Application();
         var group = await OnCallTeam(application);
         var reportId = Guid.NewGuid();
-        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
+        Assert.AreEqual(Code.JobDone, ((CreateIncidentResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
         var delivery = await BuiltInDelivery();
         var snapshot = delivery.OnCallEmail!;
         Assert.IsNull(delivery.ChannelId);
         Assert.AreEqual(group.Id, snapshot.GroupId);
         Assert.AreEqual("Production OCE", snapshot.GroupName);
         Assert.AreEqual("team@example.com", snapshot.CcRecipients);
-        Assert.AreEqual((await _db.ReportedMessages.SingleAsync()).ReceivedAtUtc, snapshot.NotificationAtUtc);
+        Assert.AreEqual((await _db.Incidents.SingleAsync()).ReceivedAtUtc, snapshot.NotificationAtUtc);
         Assert.AreEqual((await _db.OnCallShifts.SingleAsync()).Id, snapshot.ShiftId);
         CollectionAssert.AreEquivalent(new[] { "oce-alice", "oce-bob" }, snapshot.Recipients.Select(recipient => recipient.UserId).ToArray());
         Assert.AreEqual(0, await _db.PushChannels.CountAsync());
         Assert.AreEqual(0, await _db.ApplicationPushChannels.CountAsync());
         Assert.AreEqual(0, await _db.InAppNotifications.CountAsync());
-        Assert.AreEqual(Code.NoActionTaken, ((ReportMessageResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
+        Assert.AreEqual(Code.NoActionTaken, ((CreateIncidentResponse)((JsonResult)await Report(application, reportId, level)).Value!).Code);
         Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
         await _processor.ProcessAsync(delivery.Id, default);
         await _processor.ProcessAsync(delivery.Id, default);
@@ -150,7 +150,7 @@ public partial class PushCenterTests
         await OnCallTeam(application, email);
         var webhook = await Channel();
         await BindAllLevels(application.Id, webhook.Id);
-        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)((JsonResult)await Report(application, Guid.NewGuid())).Value!).Code);
+        Assert.AreEqual(Code.JobDone, ((CreateIncidentResponse)((JsonResult)await Report(application, Guid.NewGuid())).Value!).Code);
         var builtIn = await BuiltInDelivery();
         Assert.AreEqual(PushDelivery.Failed, builtIn.Status);
         Assert.Contains("registered email", builtIn.Error!);
@@ -206,7 +206,7 @@ public partial class PushCenterTests
     }
 
     [TestMethod]
-    public async Task AcknowledgementSuppressesBothRoutesWithoutChangingQueuedRecipients()
+    public async Task AcknowledgementDoesNotSuppressNewIncidents()
     {
         var application = await Application();
         await OnCallTeam(application);
@@ -215,9 +215,9 @@ public partial class PushCenterTests
         incident.Status = Incident.Acked;
         await _db.SaveChangesAsync();
         await Report(application, Guid.NewGuid());
-        Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
-        Assert.AreEqual(1, await _db.ReportedMessages.CountAsync(message => message.IsArchived));
-        await _processor.ProcessAsync((await BuiltInDelivery()).Id, default);
+        Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
+        Assert.AreEqual(2, await _db.Incidents.CountAsync());
+        await _processor.ProcessAsync((await _db.PushDeliveries.FirstAsync()).Id, default);
         Assert.AreEqual(1, _email.Messages.Count);
     }
 
@@ -253,7 +253,7 @@ public partial class PushCenterTests
         Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
         Assert.AreEqual(1, await _db.OnCallEmailSnapshots.CountAsync());
         Assert.AreEqual(2, (await BuiltInDelivery()).OnCallEmail!.Recipients.Count);
-        Assert.IsInstanceOfType<RedirectToActionResult>(await new AlertsController(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<AlertsController>(), localizerFactory: TestLocalization.Factory)
+        Assert.IsInstanceOfType<RedirectToActionResult>(await new ApplicationsController(_db, new ApplicationAccessService(_db), localizer: TestLocalization.For<ApplicationsController>())
         {
             ControllerContext = Controller().ControllerContext
         }.DeleteApplication(application.Id, application.Name, default));
@@ -290,12 +290,11 @@ public partial class PushCenterTests
         var reportId = Guid.NewGuid();
         await Assert.ThrowsAsync<DbUpdateException>(() => Report(application, reportId));
         _db.ChangeTracker.Clear();
-        Assert.AreEqual(0, await _db.ReportedMessages.CountAsync());
         Assert.AreEqual(0, await _db.Incidents.CountAsync());
         Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
         Assert.AreEqual(0, await _db.OnCallEmailSnapshots.CountAsync());
         await _db.Database.ExecuteSqlRawAsync("DROP TRIGGER RejectOceSnapshot");
-        Assert.AreEqual(Code.JobDone, ((ReportMessageResponse)((JsonResult)await Report(application, reportId)).Value!).Code);
+        Assert.AreEqual(Code.JobDone, ((CreateIncidentResponse)((JsonResult)await Report(application, reportId)).Value!).Code);
         Assert.AreEqual(1, await _db.OnCallEmailSnapshots.CountAsync());
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
     }
