@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
+    <value>7-day on-call rota</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>Auto-assign</value>
+  </data>
+  <data name="Back to Schedule List" xml:space="preserve">
+    <value>Back to schedule list</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Balance early, middle and late shifts as evenly as possible</value>
+  </data>
+  <data name="Close, prioritize fixed time slots" xml:space="preserve">
+    <value>Close, prioritise fixed time slots</value>
+  </data>
+  <data name="Cross-on-call-group members require manual scheduling" xml:space="preserve">
+    <value>Members shared between on-call groups must be scheduled manually</value>
+  </data>
+  <data name="Current On-Call" xml:space="preserve">
+    <value>Currently on call</value>
+  </data>
+  <data name="Current Week" xml:space="preserve">
+    <value>Current Week</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>Edit team</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Employee deleted</value>
+  </data>
+  <data name="First class at " xml:space="preserve">
+    <value>First class at</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>hours · Anchor</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>hours · Minimum per shift</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>hours · Weekly minimum</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>hours.</value>
+  </data>
+  <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
+    <value>Insufficient staff warning (manual saving allowed, except for empty shifts)</value>
+  </data>
+  <data name="Minimum template cooldown " xml:space="preserve">
+    <value>Minimum template cool-down</value>
+  </data>
+  <data name="Modifying templates, re-binding templates, or adding/removing members will not regenerate saved shifts. After removing a member, upcoming assignments are cleared; empty shifts must be filled manually." xml:space="preserve">
+    <value>Modifying templates, re-binding templates or adding/removing members will not regenerate saved shifts. After a member is removed, their upcoming assignments are cleared; empty shifts must be filled manually.</value>
+  </data>
+  <data name="Next Week" xml:space="preserve">
+    <value>Next week</value>
+  </data>
+  <data name="No rule template bound, manual scheduling available; new shifts default to min rest " xml:space="preserve">
+    <value>No rule template is bound; manual scheduling is available. New shifts default to the minimum rest period</value>
+  </data>
+  <data name="No shifts are currently assigned this week. You can add personnel manually." xml:space="preserve">
+    <value>No shifts are currently assigned this week. You can add staff manually.</value>
+  </data>
+  <data name="No team members. Please edit the team to add members before manually filling empty shifts." xml:space="preserve">
+    <value>No team members. Please edit the team to add members before manually filling empty shifts.</value>
+  </data>
+  <data name="No valid scheduling weeks. Please check the team&apos;s scheduling start point." xml:space="preserve">
+    <value>No valid scheduling weeks. Please check the team&apos;s scheduling start date.</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>On-call schedule</value>
+  </data>
+  <data name="Other teams: " xml:space="preserve">
+    <value>Other teams:</value>
+  </data>
+  <data name="Override duration" xml:space="preserve">
+    <value>Override duration</value>
+  </data>
+  <data name="Participating employees" xml:space="preserve">
+    <value>Employees participating</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>people · Shortest rest this week</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>people · Time-slot rotation:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>people, target</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>Per shift</value>
+  </data>
+  <data name="Previous Week" xml:space="preserve">
+    <value>Previous Week</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>Rotate members</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>Rule template:</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="Shift covered" xml:space="preserve">
+    <value>Shifts covered</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Starting soon" xml:space="preserve">
+    <value>Starting shortly</value>
+  </data>
+  <data name="Status is based on page load time)" xml:space="preserve">
+    <value>Status is based on page load time)</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Team configuration</value>
+  </data>
+  <data name="The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available." xml:space="preserve">
+    <value>The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available.</value>
+  </data>
+  <data name="This shift ends at " xml:space="preserve">
+    <value>This shift ends at</value>
+  </data>
+  <data name="This week&apos;s schedule" xml:space="preserve">
+    <value>This week&apos;s schedule</value>
+  </data>
+  <data name="Three shifts per day, supporting multiple members per shift. Actual shifts are stored under the team." xml:space="preserve">
+    <value>Three shifts per day, with multiple team members supported on each shift. The actual shifts are stored under the team.</value>
+  </data>
+  <data name="Unsaved · Auto-suggested" xml:space="preserve">
+    <value>Unsaved · Automatically suggested</value>
+  </data>
+  <data name="Unsaved · Manual schedule" xml:space="preserve">
+    <value>Unsaved · manual schedule</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>View team</value>
+  </data>
+
+</root>

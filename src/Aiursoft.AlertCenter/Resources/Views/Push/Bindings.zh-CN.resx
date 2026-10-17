@@ -19,7 +19,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
       <data name="· Disabled, not dispatching" xml:space="preserve">
-    <value>· 已禁用，不会进行分发</value>
+    <value>· 已禁用，不会发送</value>
   </data>
   <data name="{0} - Push Routing Settings" xml:space="preserve">
     <value>{0} - 推送路由设置</value>
@@ -28,10 +28,10 @@
     <value>应用推送路由</value>
   </data>
   <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
-    <value>仅在保存后对新事件生效。如果某个渠道已停用，其路由配置会保留，但新事件将被跳过。</value>
+    <value>仅在保存后对新事件生效。如果某个渠道已禁用，其路由配置会保留，但新事件将被跳过。</value>
   </data>
   <data name="Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident." xml:space="preserve">
-    <value>适用于 sev0–sev4，无需选择渠道。下方渠道会针对每个新事件独立发送补充通知。</value>
+    <value>适用于 sev0–sev4；无需选择通知渠道。下方渠道会针对每个新事件独立发送补充通知。</value>
   </data>
   <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
     <value>自动启用 · 无法单独禁用</value>
@@ -40,7 +40,7 @@
     <value>可用渠道</value>
   </data>
   <data name="Back to Connected Apps" xml:space="preserve">
-    <value>返回已连接的应用</value>
+    <value>返回已接入的应用</value>
   </data>
   <data name="Built-in On-call Email" xml:space="preserve">
     <value>内置值班邮件</value>
@@ -61,16 +61,16 @@
     <value>已启用</value>
   </data>
   <data name="Error (P2)" xml:space="preserve">
-    <value>错误 (P2)</value>
+    <value>错误（P2）</value>
   </data>
   <data name="Info (P4)" xml:space="preserve">
-    <value>信息 (P4)</value>
+    <value>信息（P4）</value>
   </data>
   <data name="Major (P1)" xml:space="preserve">
-    <value>主要（P1）</value>
+    <value>严重（P1）</value>
   </data>
   <data name="Multiple supplementary channels can be selected per level; unchecked items only indicate no custom notifications will be sent, without affecting built-in on-call emails. Strict exact matching is applied, with no automatic expansion to higher or lower levels." xml:space="preserve">
-    <value>每个级别可选择多个补充渠道；未勾选的项目仅表示不会发送自定义通知，不影响内置值班邮件。严格按级别精确匹配，不会自动扩展到更高或更低级别。</value>
+    <value>每个级别可选择多个补充渠道；未勾选的项目仅表示不会发送自定义通知，不影响内置的值班邮件。系统将严格精确匹配，不会自动扩展到更高或更低级别。</value>
   </data>
   <data name="No push channels configured yet" xml:space="preserve">
     <value>尚未配置推送渠道</value>
@@ -85,7 +85,7 @@
     <value>按事件级别精准匹配接收渠道 · 矩阵路由引擎</value>
   </data>
   <data name="Push Channel and Type" xml:space="preserve">
-    <value>推送渠道及类型</value>
+    <value>推送渠道和类型</value>
   </data>
   <data name="Save routing configuration" xml:space="preserve">
     <value>保存路由配置</value>
@@ -100,7 +100,7 @@
     <value>警告 (P3)</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
-    <value>您可以根据需要创建 Webhook、电子邮件或应用内通知渠道作为补充。即使未配置自定义渠道，绑定到值班组的应用也会发送内置值班邮件。</value>
+    <value>您可以根据需要创建 Webhook、电子邮件或应用内通知渠道作为补充。即使没有自定义渠道，绑定了值班组的应用也会发送内置值班邮件。</value>
   </data>
 
 </root>

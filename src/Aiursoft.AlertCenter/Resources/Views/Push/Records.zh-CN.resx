@@ -34,16 +34,16 @@
     <value>内置值班邮箱</value>
   </data>
   <data name="Built-in On-call Email · {0}" xml:space="preserve">
-    <value>内置值班邮箱 · {0}</value>
+    <value>内置值班邮件 · {0}</value>
   </data>
   <data name="Channel test notification" xml:space="preserve">
-    <value>频道测试通知</value>
+    <value>通道测试通知</value>
   </data>
   <data name="Clear all filters" xml:space="preserve">
     <value>清除所有筛选条件</value>
   </data>
   <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
-    <value>全面跟踪 Webhook、电子邮件和应用内通知的异步派发状态及错误重试情况</value>
+    <value>全面追踪 Webhook、电子邮件和应用内通知的异步发送状态及错误重试情况</value>
   </data>
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>创建时间（UTC）</value>
@@ -52,10 +52,10 @@
     <value>当前显示第</value>
   </data>
   <data name="Delivering" xml:space="preserve">
-    <value>正在发送</value>
+    <value>正在投递</value>
   </data>
   <data name="Delivering (Sending)" xml:space="preserve">
-    <value>正在发送（发送中）</value>
+    <value>发送中（Sending）</value>
   </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>投递失败</value>
@@ -85,13 +85,13 @@
     <value>事件 / 测试消息</value>
   </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
-    <value>事件已重新打开：{0}</value>
+    <value>事件已重新开启：{0}</value>
   </data>
   <data name="Jump" xml:space="preserve">
     <value>跳转</value>
   </data>
   <data name="Jump to page number" xml:space="preserve">
-    <value>跳转到页码</value>
+    <value>跳转到指定页码</value>
   </data>
   <data name="Manual Test" xml:space="preserve">
     <value>手动测试</value>
@@ -103,7 +103,7 @@
     <value>当前筛选条件下没有匹配的投递记录。请调整筛选条件。</value>
   </data>
   <data name="No push records" xml:space="preserve">
-    <value>暂无推送记录</value>
+    <value>没有推送记录</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>页面</value>
@@ -115,13 +115,13 @@
     <value>待发送</value>
   </data>
   <data name="Pending delivery (Pending)" xml:space="preserve">
-    <value>待发送（Pending）</value>
+    <value>待处理（待发送）</value>
   </data>
   <data name="Previous Page" xml:space="preserve">
     <value>上一页</value>
   </data>
   <data name="Push Delivery Records" xml:space="preserve">
-    <value>推送发送记录</value>
+    <value>推送投递记录</value>
   </data>
   <data name="Push Record Pagination" xml:space="preserve">
     <value>推送记录分页</value>
@@ -136,7 +136,7 @@
     <value>状态</value>
   </data>
   <data name="Target Channel" xml:space="preserve">
-    <value>目标渠道</value>
+    <value>目标频道</value>
   </data>
   <data name="Test" xml:space="preserve">
     <value>测试</value>

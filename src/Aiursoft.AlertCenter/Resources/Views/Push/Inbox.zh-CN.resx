@@ -22,22 +22,22 @@
     <value>调整筛选条件或重置筛选，以查看其他通知。</value>
   </data>
   <data name="All applications" xml:space="preserve">
-    <value>所有应用</value>
+    <value>所有应用程序</value>
   </data>
   <data name="All channels" xml:space="preserve">
     <value>所有渠道</value>
   </data>
   <data name="All notifications" xml:space="preserve">
-    <value>全部通知</value>
+    <value>所有通知</value>
   </data>
   <data name="All read" xml:space="preserve">
-    <value>已全部读完</value>
+    <value>全部已读</value>
   </data>
   <data name="All severities (including test)" xml:space="preserve">
     <value>所有严重级别（包括测试）</value>
   </data>
   <data name="Channel" xml:space="preserve">
-    <value>渠道</value>
+    <value>频道</value>
   </data>
   <data name="Channel test notification" xml:space="preserve">
     <value>频道测试通知</value>
@@ -52,13 +52,13 @@
     <value>前往</value>
   </data>
   <data name="In-app notification inbox" xml:space="preserve">
-    <value>应用内通知收件箱</value>
+    <value>站内通知收件箱</value>
   </data>
   <data name="In-app notification pagination" xml:space="preserve">
     <value>应用内通知分页</value>
   </data>
   <data name="Incident severity" xml:space="preserve">
-    <value>事件严重程度</value>
+    <value>事件严重级别</value>
   </data>
   <data name="Jump" xml:space="preserve">
     <value>跳转</value>
@@ -79,7 +79,7 @@
     <value>下一页</value>
   </data>
   <data name="No notifications for the selected application" xml:space="preserve">
-    <value>所选应用暂无通知</value>
+    <value>所选应用没有通知</value>
   </data>
   <data name="No notifications for the selected channel." xml:space="preserve">
     <value>所选渠道没有通知。</value>
@@ -100,13 +100,13 @@
     <value>通知渠道</value>
   </data>
   <data name="Notification Read Status" xml:space="preserve">
-    <value>通知阅读状态</value>
+    <value>通知读取状态</value>
   </data>
   <data name="Page" xml:space="preserve">
-    <value>页面</value>
+    <value>Page</value>
   </data>
   <data name="Personal Incident and Notification Center · Independent Read Status Tracking" xml:space="preserve">
-    <value>个人事件与通知中心 · 独立已读状态跟踪</value>
+    <value>个人事件与通知中心 · 独立的已读状态跟踪</value>
   </data>
   <data name="Please correct the filter conditions." xml:space="preserve">
     <value>请更正筛选条件。</value>
@@ -115,7 +115,7 @@
     <value>上一页</value>
   </data>
   <data name="Process all my unread notifications, regardless of current filters and pagination." xml:space="preserve">
-    <value>处理我所有未读的通知，无论当前筛选条件和分页设置如何。</value>
+    <value>处理我所有未读的通知，不受当前筛选条件和分页限制。</value>
   </data>
   <data name="Read" xml:space="preserve">
     <value>已读</value>
@@ -157,10 +157,10 @@
     <value>sev3 · 警告 (P3)</value>
   </data>
   <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · 信息 (P4)</value>
+    <value>sev4 · 信息（P4）</value>
   </data>
   <data name="Show read only" xml:space="preserve">
-    <value>仅显示已读通知</value>
+    <value>仅显示已读</value>
   </data>
   <data name="Show unread only" xml:space="preserve">
     <value>仅显示未读</value>
@@ -184,7 +184,7 @@
     <value>查看详情</value>
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
-    <value>当系统生成与站内渠道关联的事件时，会将其直接推送到您的个人收件箱。</value>
+    <value>当系统生成与站内渠道绑定的事件时，会直接将其推送到您的个人收件箱。</value>
   </data>
 
 </root>

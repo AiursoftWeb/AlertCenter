@@ -22,13 +22,13 @@
     <value>操作</value>
   </data>
   <data name="Add first channel" xml:space="preserve">
-    <value>添加第一个频道</value>
+    <value>添加第一个渠道</value>
   </data>
   <data name="Add new channel" xml:space="preserve">
     <value>添加新渠道</value>
   </data>
   <data name="Application Tier Association" xml:space="preserve">
-    <value>应用程序级别关联</value>
+    <value>应用层级关联</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
@@ -55,7 +55,7 @@
     <value>确认删除推送渠道</value>
   </data>
   <data name="Confirm sending to channel" xml:space="preserve">
-    <value>确认要发送到该频道</value>
+    <value>确认将消息发送到频道</value>
   </data>
   <data name="Current Status" xml:space="preserve">
     <value>当前状态</value>
@@ -82,13 +82,13 @@
     <value>已启用</value>
   </data>
   <data name="Linked application push configurations, historical delivery records, and corresponding in-app notifications will be deleted. This action cannot be undone." xml:space="preserve">
-    <value>关联应用的推送配置、历史发送记录及相应的应用内通知将被删除。此操作无法撤销。</value>
+    <value>关联应用的推送配置、历史发送记录以及相应的应用内通知都将被删除。此操作无法撤销。</value>
   </data>
   <data name="Log" xml:space="preserve">
     <value>日志</value>
   </data>
   <data name="Manage notification delivery channels to deliver incidents to responsible parties and external systems accurately based on severity levels." xml:space="preserve">
-    <value>根据严重程度，管理通知发送渠道，将事件准确地发送给相关负责人和外部系统。</value>
+    <value>根据严重级别管理通知发送渠道，确保将事件准确发送给相关责任方和外部系统。</value>
   </data>
   <data name="No push channels configured yet" xml:space="preserve">
     <value>尚未配置推送渠道</value>
@@ -97,7 +97,7 @@
     <value>通知</value>
   </data>
   <data name="Push channel configured" xml:space="preserve">
-    <value>已配置的推送渠道</value>
+    <value>推送渠道已配置</value>
   </data>
   <data name="Select the channel type above (e.g., Webhook, in-app notification, or email) and configure it to associate with the integrated application." xml:space="preserve">
     <value>请选择上方的渠道类型（例如 Webhook、应用内通知或电子邮件），并进行配置以将其关联到集成应用程序。</value>
@@ -121,13 +121,13 @@
     <value>测试消息内容</value>
   </data>
   <data name="The system will immediately create a delivery task and invoke the corresponding channel adapter. After execution, you will be redirected to the delivery details page to view the results." xml:space="preserve">
-    <value>系统将立即创建一个投递任务并调用相应的渠道适配器。执行完成后，您将跳转至投递详情页面查看结果。</value>
+    <value>系统将立即创建一个投递任务并调用相应的渠道适配器。执行完成后，您将被重定向到投递详情页面查看结果。</value>
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>这是一条用于推送渠道的测试消息。</value>
   </data>
   <data name="View all delivery records" xml:space="preserve">
-    <value>查看所有发送记录</value>
+    <value>查看所有投递记录</value>
   </data>
 
 </root>
