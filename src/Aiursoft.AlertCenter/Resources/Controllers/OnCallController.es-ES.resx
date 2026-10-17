@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>Se han eliminado {0} asignaciones de turnos futuros de miembros que ya no pertenecen al equipo. Revisa el calendario y cubre los turnos vacantes.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Ya existe un calendario guardado; no se puede modificar la fecha de inicio del calendario del equipo.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>La generación automática requiere al menos {0} personas por turno y {1} horas de descanso, por lo que hacen falta al menos {2} miembros. Tras excluir a los miembros que pertenecen a varios grupos de guardia, se pueden programar automáticamente {3}; añade miembros que pertenezcan a un solo grupo o asigna los turnos manualmente.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Fijos tres turnos al día, de 8 horas cada uno.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>El descanso mínimo debe ser de 0–168 horas.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>El número mínimo de empleados por turno debe ser de 1 a 200.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>El equipo aún no tiene ninguna regla asignada. Puedes crear un calendario manualmente.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Introduce el nombre de la regla.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Introduce el nombre del equipo.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Selecciona una zona horaria válida de la lista.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Selecciona una hora de inicio UTC válida (debe estar al menos a 28 días del límite de fecha).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Selecciona una regla de guardia existente.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>La regla de programación se ha creado correctamente.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Regla de programación eliminada.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Regla de planificación actualizada.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>El número objetivo de personas no puede ser inferior al mínimo y debe estar entre 1 y 200. Déjalo en blanco para asignarlo automáticamente.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Equipo creado correctamente.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Equipo eliminado.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Equipo actualizado.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>La regla o el equipo han cambiado. Actualiza la página y vuelve a intentarlo.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>El horario ha cambiado o se ha producido un conflicto al guardar. Actualiza la página y vuelve a intentarlo.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>Los empleados seleccionados no existen, están duplicados o superan el límite de 200. Vuelve a seleccionarlos.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>El formato de la solicitud de turno no es válido.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>El equipo o el calendario ha cambiado. Actualiza la página y vuelve a intentarlo.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>Hay {0} turnos sin asignar esta semana. Asigna manualmente al personal de guardia.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>Esta regla sigue vinculada a un equipo. Actualiza primero la vinculación de la regla al equipo.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>Este equipo tiene turnos guardados y no se puede eliminar junto con su historial.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Este equipo está vinculado a una aplicación integrada. Primero, reasigna el grupo de guardia de la aplicación o desvincúlalo.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>No se ha podido generar la vista previa: {0}</value>
+  </data>
+
+</root>

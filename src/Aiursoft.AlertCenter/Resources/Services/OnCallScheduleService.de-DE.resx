@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>Für diese Woche liegt bereits ein gespeicherter Dienstplan vor. Bitte nehmen Sie manuelle Anpassungen vor; die automatische Generierung überschreibt bestehende Einteilungen nicht.</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>Angrenzende Wochen dürfen nur die vorherige oder die nächste Woche im Verhältnis zur aktuellen Woche sein und nicht doppelt vorkommen.</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>Nachdem bei der automatischen Planung Mitglieder aus Gruppen mit mehreren Bereitschaftsgruppen übersprungen wurden, sind nur noch {0} verfügbar, mindestens {1} werden jedoch benötigt. Bitte fügen Sie Mitglieder zu einzelnen Gruppen hinzu oder nehmen Sie die Planung manuell vor.</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>Alle 21 Schichten für diese Woche müssen eingetragen werden, und jedes Zeitfenster darf nur einmal vorkommen.</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>Die automatische Generierung kann benachbarte Wochenpläne nicht gleichzeitig ändern.</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>Mitarbeiter, die das Team verlassen haben oder nicht zum Team gehören, können nicht hinzugefügt werden.</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>Die Zeitgrenzen des bestehenden Dienstplans sind unvollständig; ein Überschreiben ist nicht möglich.</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>Ungültiges Format der Anfrage für benachbarte Wochenpläne; Sie können höchstens zwei Wochen übermitteln (die vorherige und die nächste).</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Das Bereitschaftsteam existiert nicht.</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>Bitte ordnen Sie dem Team zuerst eine Planungsregel zu.</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>Bitte wählen Sie einen vollständigen siebentägigen Bereitschaftszyklus aus, der mit dem Anker des Teams beginnt.</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>Bitte geben Sie den Planungszeitraum in UTC-Zeit an.</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Die Mindestbesetzung im Dienstplan ist ungültig oder widersprüchlich.</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Die Ruhezeit im Zeitplan ist ungültig oder inkonsistent.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>Das Team oder der Dienstplan wurde von einem anderen Administrator geändert. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
+  </data>
+
+</root>

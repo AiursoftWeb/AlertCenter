@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A new alert has been detected." xml:space="preserve">
+    <value>Foi detetado um novo alerta.</value>
+  </data>
+  <data name="Action time (UTC): {0:O}" xml:space="preserve">
+    <value>Hora da ação (UTC): {0:O}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Notificação de teste do canal</value>
+  </data>
+  <data name="Content: " xml:space="preserve">
+    <value>Conteúdo:</value>
+  </data>
+  <data name="Context:" xml:space="preserve">
+    <value>Contexto:</value>
+  </data>
+  <data name="Delivery ID: {0}" xml:space="preserve">
+    <value>ID de entrega: {0}</value>
+  </data>
+  <data name="Each email channel supports up to {0} CC recipients." xml:space="preserve">
+    <value>Cada canal de e-mail suporta até {0} destinatários em CC.</value>
+  </data>
+  <data name="Email (SMTP)" xml:space="preserve">
+    <value>E-mail (SMTP)</value>
+  </data>
+  <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
+    <value>Falha no envio do e-mail. Verifique a configuração de SMTP, a rede ou o servidor de correio.</value>
+  </data>
+  <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
+    <value>O envio do e-mail excedeu o tempo limite. O servidor de correio poderá ter recebido a mensagem; verifique e tente novamente.</value>
+  </data>
+  <data name="Incident ID: {0}" xml:space="preserve">
+    <value>ID do incidente: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Incidente reaberto: {0}</value>
+  </data>
+  <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
+    <value>Formato de e-mail CC inválido. Os nomes de apresentação não são suportados.</value>
+  </data>
+  <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
+    <value>Formato do endereço de e-mail do destinatário inválido. Não são suportados nomes de apresentação.</value>
+  </data>
+  <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
+    <value>Destinatário inválido ou configuração de CC inválida para o canal de e-mail. Verifique as definições do canal.</value>
+  </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Configuração SMTP inválida. Verifique as definições de e-mail.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
+    <value>Ocorreu em (UTC): {0:O}</value>
+  </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Hora da consulta OCE (UTC): {0:O}</value>
+  </data>
+  <data name="On-call group: {0}" xml:space="preserve">
+    <value>Grupo de prevenção: {0}</value>
+  </data>
+  <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
+    <value>Hora de prevenção (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Please enter the recipient email address." xml:space="preserve">
+    <value>Introduza o endereço de e-mail do destinatário.</value>
+  </data>
+  <data name="Reopen note: {0}" xml:space="preserve">
+    <value>Nota de reabertura: {0}</value>
+  </data>
+  <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Enviar alertas em texto simples para os endereços de email especificados através do servidor SMTP global.</value>
+  </data>
+  <data name="Severity: {0}" xml:space="preserve">
+    <value>Gravidade: {0}</value>
+  </data>
+  <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
+    <value>O incidente foi reaberto. Por favor, responda, engenheiro de prevenção.</value>
+  </data>
+  <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
+    <value>O instantâneo dos destinatários do e-mail de prevenção está inválido; não é possível voltar a selecionar a entrega OCE atual.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Esta é uma mensagem de teste para o canal push.</value>
+  </data>
+  <data name="Title: {0}" xml:space="preserve">
+    <value>Título: {0}</value>
+  </data>
+
+</root>

@@ -30,6 +30,12 @@
   <data name="Allows configuring push channels and recipients, application bindings, and delivery records." xml:space="preserve">
     <value>Allows configuration of push channels and recipients, application bindings and delivery records.</value>
   </data>
+  <data name="Allows creating applications and managing access to all applications." xml:space="preserve">
+    <value>Allows creating applications and managing access to all applications.</value>
+  </data>
+  <data name="Allows managing on-call teams, scheduling rules, and schedules." xml:space="preserve">
+    <value>Allows management of on-call teams, scheduling rules and schedules.</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>Allows modification of role names and their assigned permissions.</value>
   </data>
@@ -84,8 +90,14 @@
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Grants permission to restart the application instance. May cause service interruptions, but all settings and cache will be reloaded.</value>
   </data>
+  <data name="Manage Applications" xml:space="preserve">
+    <value>Manage Applications</value>
+  </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Manage Global Settings</value>
+  </data>
+  <data name="Manage On-Call" xml:space="preserve">
+    <value>Manage on-call</value>
   </data>
   <data name="Manage Push Channels" xml:space="preserve">
     <value>Manage Push Channels</value>

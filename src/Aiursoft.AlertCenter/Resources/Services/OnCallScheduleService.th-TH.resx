@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>มีตารางเวรที่บันทึกไว้สำหรับสัปดาห์นี้แล้ว โปรดปรับแก้ด้วยตนเอง ระบบสร้างตารางอัตโนมัติจะไม่เขียนทับการจัดเวรที่มีอยู่</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>สัปดาห์ข้างเคียงต้องเป็นสัปดาห์ก่อนหน้าหรือสัปดาห์ถัดไปจากสัปดาห์ปัจจุบันเท่านั้น และห้ามระบุซ้ำ</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>หลังจากระบบจัดตารางเวรอัตโนมัติข้ามสมาชิกของกลุ่มที่อยู่เวรหลายกลุ่มแล้ว จะเหลือสมาชิกเพียง {0} คน แต่ต้องมีอย่างน้อย {1} คน โปรดเพิ่มสมาชิกในกลุ่มที่อยู่เวรเพียงกลุ่มเดียว หรือจัดตารางด้วยตนเอง</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>ต้องส่งเวรทั้ง 21 กะของสัปดาห์นี้ให้ครบ และแต่ละช่วงเวลาต้องปรากฏเพียงครั้งเดียวเท่านั้น</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>การสร้างตารางเวลาอัตโนมัติไม่สามารถแก้ไขตารางเวรรายสัปดาห์ที่อยู่ติดกันพร้อมกันได้</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>ไม่สามารถเพิ่มพนักงานที่ออกจากทีมหรือไม่ได้เป็นสมาชิกของทีมได้</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>ขอบเขตเวลาของตารางเวรที่มีอยู่ไม่ครบถ้วน ไม่สามารถเขียนทับได้</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>รูปแบบคำขอกำหนดตารางเวรสัปดาห์ข้างเคียงไม่ถูกต้อง คุณส่งได้ไม่เกินสองสัปดาห์ (สัปดาห์ก่อนหน้าและสัปดาห์ถัดไป)</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>ไม่มีกลุ่มเวรเรียกนอกเวลางานอยู่</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>กรุณาผูกกฎการจัดตารางเวรกับทีมก่อน</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>โปรดเลือกวงรอบเวรรับแจ้งเหตุที่ครบเจ็ดวัน โดยเริ่มจากวันอ้างอิงของทีม</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>โปรดระบุช่วงเวลาการจัดตารางโดยใช้เวลา UTC</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>จำนวนพนักงานขั้นต่ำในตารางเวรไม่ถูกต้องหรือไม่สอดคล้องกัน</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>ระยะเวลาพักในตารางไม่ถูกต้องหรือไม่สอดคล้องกัน</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>ทีมงานหรือตารางเวรถูกแก้ไขโดยผู้ดูแลระบบคนอื่นแล้ว โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
+  </data>
+
+</root>

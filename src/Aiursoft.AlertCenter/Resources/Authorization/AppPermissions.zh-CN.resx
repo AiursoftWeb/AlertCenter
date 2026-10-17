@@ -30,6 +30,12 @@
   <data name="Allows configuring push channels and recipients, application bindings, and delivery records." xml:space="preserve">
     <value>允许配置推送渠道和接收者、应用绑定及投递记录。</value>
   </data>
+  <data name="Allows creating applications and managing access to all applications." xml:space="preserve">
+    <value>允许创建应用并管理所有应用的访问权限。</value>
+  </data>
+  <data name="Allows managing on-call teams, scheduling rules, and schedules." xml:space="preserve">
+    <value>支持管理值班团队、排班规则和排班计划。</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>允许修改角色名称及其分配的权限。</value>
   </data>
@@ -84,8 +90,14 @@
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>授予重启应用程序实例的权限。可能导致服务中断，但所有设置和缓存都将重新加载。</value>
   </data>
+  <data name="Manage Applications" xml:space="preserve">
+    <value>管理应用程序</value>
+  </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>管理全局设置</value>
+  </data>
+  <data name="Manage On-Call" xml:space="preserve">
+    <value>管理值班</value>
   </data>
   <data name="Manage Push Channels" xml:space="preserve">
     <value>管理推送渠道</value>

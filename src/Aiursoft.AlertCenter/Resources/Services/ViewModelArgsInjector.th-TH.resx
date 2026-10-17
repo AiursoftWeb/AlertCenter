@@ -33,8 +33,20 @@
   <data name="Aiursoft Template" xml:space="preserve">
     <value>เทมเพลต Aiursoft</value>
   </data>
+  <data name="Alert Center" xml:space="preserve">
+    <value>ศูนย์การแจ้งเตือน</value>
+  </data>
   <data name="Anonymous" xml:space="preserve">
     <value>ไม่ระบุชื่อ</value>
+  </data>
+  <data name="Application Access Permissions" xml:space="preserve">
+    <value>สิทธิ์การเข้าถึงแอปพลิเคชัน</value>
+  </data>
+  <data name="Application On-Call Settings" xml:space="preserve">
+    <value>การตั้งค่าเวรรับแจ้งเหตุของแอปพลิเคชัน</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>แอปพลิเคชัน</value>
   </data>
   <data name="Background Jobs" xml:space="preserve">
     <value>งานพื้นหลัง</value>
@@ -53,6 +65,9 @@
   </data>
   <data name="Click to login" xml:space="preserve">
     <value>คลิกเพื่อเข้าสู่ระบบ</value>
+  </data>
+  <data name="Console Overview" xml:space="preserve">
+    <value>ภาพรวมคอนโซล</value>
   </data>
   <data name="Create Role" xml:space="preserve">
     <value>สร้างบทบาท</value>
@@ -93,11 +108,20 @@
   <data name="Home" xml:space="preserve">
     <value>หน้าแรก</value>
   </data>
+  <data name="In-app notifications" xml:space="preserve">
+    <value>การแจ้งเตือนในแอป</value>
+  </data>
+  <data name="Incident handling" xml:space="preserve">
+    <value>การจัดการเหตุการณ์</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>หน้าหลัก</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>ข้อมูล</value>
+  </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>คู่มือการเชื่อมต่อระบบ</value>
   </data>
   <data name="Internal Server Error" xml:space="preserve">
     <value>ข้อผิดพลาดของเซิร์ฟเวอร์ภายใน</value>
@@ -114,8 +138,20 @@
   <data name="Manage" xml:space="preserve">
     <value>จัดการ</value>
   </data>
+  <data name="Message list" xml:space="preserve">
+    <value>รายการข้อความ</value>
+  </data>
   <data name="Not Found" xml:space="preserve">
     <value>ไม่พบ</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>การแจ้งเตือน</value>
+  </data>
+  <data name="On-call" xml:space="preserve">
+    <value>เวรรับสาย</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>ตารางเวร</value>
   </data>
   <data name="Permission Details" xml:space="preserve">
     <value>รายละเอียดสิทธิ์การใช้งาน</value>
@@ -132,6 +168,12 @@
   <data name="Profile Settings" xml:space="preserve">
     <value>การตั้งค่าโปรไฟล์</value>
   </data>
+  <data name="Push Channel" xml:space="preserve">
+    <value>ช่องทางพุช</value>
+  </data>
+  <data name="Push Records" xml:space="preserve">
+    <value>ประวัติการส่งข้อความแบบพุช</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>สมัครสมาชิก</value>
   </data>
@@ -140,6 +182,9 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>บทบาท</value>
+  </data>
+  <data name="Scheduling Rules" xml:space="preserve">
+    <value>กฎการจัดตารางเวลา</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>การตั้งค่า</value>
@@ -152,6 +197,9 @@
   </data>
   <data name="System Info" xml:space="preserve">
     <value>ข้อมูลระบบ</value>
+  </data>
+  <data name="Team management" xml:space="preserve">
+    <value>การจัดการทีม</value>
   </data>
   <data name="Template" xml:space="preserve">
     <value>แม่แบบ</value>

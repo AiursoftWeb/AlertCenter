@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>{0} zukünftige Schichteinteilungen für ausgeschiedene Mitglieder wurden gelöscht. Bitte überprüfen und schließen Sie etwaige Lücken.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Ein gespeicherter Dienstplan existiert; der Startzeitpunkt des Team-Dienstplans kann nicht geändert werden.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>Für die automatische Erstellung sind mindestens {0} Mitarbeitende pro Schicht und {1} Stunden Ruhezeit erforderlich, sodass mindestens {2} Mitglieder benötigt werden. Nach dem Ausschluss von Mitgliedern mit Bereitschaftsdiensten in mehreren Gruppen können {3} automatisch eingeplant werden. Bitte fügen Sie Mitglieder hinzu, die nur einer Gruppe angehören, oder erstellen Sie den Dienstplan manuell.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Festgelegt sind drei Schichten pro Tag mit jeweils 8 Stunden.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Die Mindestruhezeit muss zwischen 0 und 168 Stunden liegen.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Die Mindestbesetzung pro Schicht muss zwischen 1 und 200 liegen.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Dem Team sind noch keine Regeln zugeordnet. Sie können manuell einen Dienstplan erstellen.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Bitte geben Sie den Regelnamen ein.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Bitte geben Sie den Teamnamen ein.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Bitte wählen Sie eine gültige Zeitzone aus der Liste aus.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Bitte wählen Sie eine gültige UTC-Startzeit aus (sie muss mindestens 28 Tage vom Datumsgrenzwert entfernt liegen).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Bitte wählen Sie eine vorhandene Bereitschaftsregel aus.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>Planungsregel erfolgreich erstellt.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Planungsregel gelöscht.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Planungsregel aktualisiert.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Die Zielbesetzung darf nicht unter dem Mindestwert liegen und muss zwischen 1 und 200 liegen. Für eine automatische Zuweisung leer lassen.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Team erfolgreich erstellt.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Team gelöscht.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Team aktualisiert.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Die Regel oder das Team wurde geändert. Aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>Der Zeitplan wurde geändert oder es ist ein Speicherkonflikt aufgetreten. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>Die ausgewählten Mitarbeiter sind nicht vorhanden, doppelt ausgewählt oder überschreiten die Höchstzahl von 200. Bitte wählen Sie erneut aus.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Das Format der Schichtanfrage ist ungültig.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>Das Team oder der Dienstplan wurde geändert. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>Diese Woche gibt es {0} nicht zugewiesene Schichten. Bitte tragen Sie das Bereitschaftspersonal manuell ein.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>Diese Regel ist noch einem Team zugeordnet. Bitte aktualisieren Sie zuerst die Regelzuordnung des Teams.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>Für dieses Team sind Zeitpläne gespeichert; es kann daher nicht gelöscht werden, ohne auch den Verlauf zu löschen.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Dieses Team ist mit einer integrierten App verknüpft. Bitte weisen Sie der App zuerst eine andere Bereitschaftsgruppe zu oder heben Sie die Zuordnung auf.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Vorschau kann nicht erstellt werden: {0}</value>
+  </data>
+
+</root>

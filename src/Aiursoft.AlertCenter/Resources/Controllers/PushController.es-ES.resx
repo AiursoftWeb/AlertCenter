@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Notificación de prueba del canal</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>Introduce una URL HTTP o HTTPS válida. No se admiten nombres de usuario, contraseñas ni fragmentos de URL.</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>Detalles de la notificación en la aplicación</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>La configuración del canal no es válida. Actualiza la página y vuelve a intentarlo.</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>Los criterios del filtro no son válidos. Actualiza la página y vuelve a intentarlo.</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>Solo se pueden reintentar los correos de guardia con instantáneas OCE válidas o los registros fallidos con canales personalizados habilitados. No puedes volver a seleccionar a los destinatarios para reenviar alertas antiguas si faltan OCE o el correo electrónico.</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>Por favor, habilita primero el canal.</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>Selecciona un tipo de canal disponible.</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>Selecciona al menos un usuario o grupo de usuarios destinatario.</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>El contenido del mensaje de prueba no puede estar vacío y no debe superar los 4.000 caracteres.</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>No es necesario volver a añadir al destinatario a la lista CC.</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>El usuario seleccionado para la vinculación no existe. Vuelve a seleccionarlo.</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>El grupo de usuarios seleccionable no existe. Selecciónelo de nuevo.</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>El canal seleccionado ya no existe. Actualiza la página y vuelve a intentarlo.</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>El usuario destinatario seleccionado no existe. Selecciónelo de nuevo.</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>El grupo de usuarios destinatario seleccionado no existe. Vuelve a seleccionarlo.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Este es un mensaje de prueba para el canal push.</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>No se puede cambiar el tipo de un canal existente; crea uno nuevo.</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>No se han podido proteger las cabeceras de petición personalizadas del webhook. Comprueba la configuración de Webhook:HeaderProtectionKey.</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>No se pueden leer los encabezados de la solicitud de Webhook guardados. Comprueba la clave de protección de datos y vuelve a intentarlo.</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>Webhook:HeaderProtectionKey debe estar configurada para las cabeceras de solicitud personalizadas. Proporciona esta clave mediante una variable de entorno protegida.</value>
+  </data>
+
+</root>

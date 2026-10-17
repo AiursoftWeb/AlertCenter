@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>Đã có lịch được lưu cho tuần này. Vui lòng điều chỉnh thủ công; tính năng tự động tạo lịch sẽ không ghi đè các sắp xếp hiện có.</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>Các tuần liền kề chỉ có thể là tuần trước hoặc tuần sau so với tuần hiện tại, và không được trùng lặp.</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>Sau khi tính lịch tự động bỏ qua các thành viên thuộc nhiều nhóm trực cùng lúc, chỉ còn {0} thành viên, trong khi cần ít nhất {1}. Vui lòng bổ sung thành viên vào các nhóm riêng lẻ hoặc tự sắp xếp lịch.</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>Phải gửi đủ cả 21 ca trực trong tuần này và mỗi khung giờ chỉ được xuất hiện một lần.</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>Tính năng tự động tạo không thể đồng thời chỉnh sửa lịch của các tuần liền kề.</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>Không thể thêm nhân viên đã rời khỏi nhóm hoặc không thuộc nhóm.</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>Các mốc thời gian của lịch hiện tại chưa đầy đủ; không thể ghi đè.</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>Định dạng yêu cầu lịch tuần liền kề không hợp lệ; bạn chỉ có thể gửi tối đa hai tuần (tuần trước và tuần sau).</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Đội trực không tồn tại.</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>Vui lòng gán quy tắc lập lịch cho nhóm trước.</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>Vui lòng chọn một chu kỳ trực theo ca đầy đủ bảy ngày, bắt đầu từ mốc thời gian của nhóm.</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>Vui lòng chỉ định khoảng thời gian lập lịch theo giờ UTC.</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Số nhân sự tối thiểu trong lịch không hợp lệ hoặc không nhất quán.</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Thời gian nghỉ trong lịch không hợp lệ hoặc không nhất quán.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>Nhóm hoặc lịch đã được một quản trị viên khác chỉnh sửa. Vui lòng làm mới trang và thử lại.</value>
+  </data>
+
+</root>
