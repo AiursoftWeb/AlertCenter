@@ -643,6 +643,63 @@ public partial class PushCenterTests
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
+    public async Task EmailContextContainsOnlyTopLevelScalarFields(bool reopened)
+    {
+        var incident = new Incident
+        {
+            Title = "Context summary", Level = "sev4",
+            ContextJson = """
+                {"service":"payment-api","request":{"traceId":"abc123","durationMs":3200},
+                 "affectedNodes":["global-01","global-02"],"checks":[{"name":"database","healthy":false}],
+                 "count":12,"healthy":true,"optional":null,"empty":"","<label>":"<script>unsafe</script>"}
+                """
+        };
+        var result = await _adapters.Single(adapter => adapter.Definition.Key == "email").DeliverAsync(new PushDelivery
+        {
+            Channel = new PushChannel { EmailRecipient = "anduin@example.com" },
+            Incident = reopened ? null : incident,
+            IncidentEvent = reopened ? new IncidentTimelineEntry { Incident = incident, IncidentId = incident.Id } : null
+        });
+        Assert.IsTrue(result.Succeeded, result.ErrorMessage);
+        var mail = _email.Messages.Single();
+        Assert.IsNotNull(mail.HtmlBody);
+        Assert.Contains("<th scope=\"row\"", mail.HtmlBody);
+        Assert.Contains("payment-api", mail.HtmlBody);
+        Assert.Contains("service: payment-api", mail.Body);
+        Assert.Contains("count: 12", mail.Body);
+        Assert.Contains("healthy: true", mail.Body);
+        Assert.Contains("optional: null", mail.Body);
+        Assert.Contains("&lt;label&gt;", mail.HtmlBody);
+        Assert.Contains("&lt;script&gt;unsafe&lt;/script&gt;", mail.HtmlBody);
+        foreach (var nested in new[] { "traceId", "abc123", "affectedNodes", "global-01", "checks", "database" })
+        {
+            Assert.DoesNotContain(nested, mail.HtmlBody);
+            Assert.DoesNotContain(nested, mail.Body);
+        }
+    }
+
+    [TestMethod]
+    [DataRow(null)]
+    [DataRow("{}")]
+    [DataRow("{\"request\":{\"traceId\":\"abc123\"},\"nodes\":[1,2]}")]
+    [DataRow("malformed stored JSON")]
+    public async Task EmailOmitsContextTableWhenNoScalarFieldsExist(string? context)
+    {
+        var result = await _adapters.Single(adapter => adapter.Definition.Key == "email").DeliverAsync(new PushDelivery
+        {
+            Channel = new PushChannel { EmailRecipient = "anduin@example.com" },
+            Incident = new Incident { Title = "No summary", ContextJson = context }
+        });
+        Assert.IsTrue(result.Succeeded, result.ErrorMessage);
+        var mail = _email.Messages.Single();
+        Assert.IsNotNull(mail.HtmlBody);
+        Assert.DoesNotContain("<th scope=\"row\"", mail.HtmlBody);
+        Assert.DoesNotContain("Context:", mail.Body);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
     public async Task IncidentEmailsLinkToDetailsAndEncodeUntrustedContent(bool reopened)
     {
         var incident = new Incident

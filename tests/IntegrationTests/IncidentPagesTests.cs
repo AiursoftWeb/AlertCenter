@@ -66,6 +66,34 @@ public partial class IncidentPagesTests : TestBase
     }
 
     [TestMethod]
+    public async Task IncidentDetailsShowCompleteIndentedAndEscapedContext()
+    {
+        await LoginAsAdmin();
+        var incident = new Incident
+        {
+            Application = new SourceApplication { Name = "Context presentation test" },
+            ReportId = Guid.NewGuid(), Title = "Nested context", OccurredAtUtc = DateTime.UtcNow,
+            ContextJson = """
+                {"service":"payment-api","request":{"traceId":"abc123","durationMs":3200},"affectedNodes":["global-01","global-02"],"checks":[{"name":"database","healthy":false}],"unsafe":"<script>alert(1)</script>","large":9007199254740993}
+                """
+        };
+        await CreateInboxNotification(incident);
+        var html = await Http.GetStringAsync($"/Incidents/Details/{incident.Id}");
+        var match = Regex.Match(html, "<pre id=\"incident-context\"[^>]*><code>(.*?)</code></pre>", RegexOptions.Singleline);
+        Assert.IsTrue(match.Success);
+        var formatted = WebUtility.HtmlDecode(match.Groups[1].Value);
+        Assert.Contains("\n  \"service\"", formatted);
+        var context = JObject.Parse(formatted);
+        Assert.AreEqual("abc123", context["request"]!["traceId"]!.Value<string>());
+        Assert.AreEqual(2, ((JArray)context["affectedNodes"]!).Count);
+        Assert.IsFalse(context["checks"]![0]!["healthy"]!.Value<bool>());
+        Assert.AreEqual(9007199254740993L, context["large"]!.Value<long>());
+        Assert.AreEqual("<script>alert(1)</script>", context["unsafe"]!.Value<string>());
+        Assert.DoesNotContain("<script>alert(1)</script>", html);
+        Assert.Contains("data-copy-target=\"incident-context\"", html);
+    }
+
+    [TestMethod]
     public async Task FreshDatabaseHasNoApplicationsOrMessages()
     {
         using var scope = Server!.Services.CreateScope();
