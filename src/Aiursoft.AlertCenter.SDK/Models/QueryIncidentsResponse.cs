@@ -14,6 +14,7 @@ public sealed class QueryIncidentsResponse : AiurResponse
 public sealed class IncidentDetails
 {
     public Guid IncidentId { get; set; }
+    public Guid Version { get; set; }
     public Guid ReportId { get; set; }
     public string Title { get; set; } = string.Empty;
     public string? Content { get; set; }

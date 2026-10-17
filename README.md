@@ -163,6 +163,32 @@ Queries have no state or notification side effects. AiurProtocol response codes 
 handling match reporting; invalid query parameters return its validation reasons.
 
 
+### Resolve an incident with the SDK
+
+Use `ResolveIncidentAsync` (`POST /api/v1/incidents/{incidentId}/resolve`) after the
+calling application has confirmed recovery. Supply the `Version` returned by a fresh query
+and a non-blank `Reason` of at most 4,000 characters:
+
+```csharp
+var result = await client.ResolveIncidentAsync(incident.IncidentId, new ResolveIncidentRequest
+{
+    Version = incident.Version,
+    Reason = "Audit run 42 confirmed that the endpoint is healthy."
+});
+```
+
+The application key can resolve only its own incidents. Any active state can transition
+directly to `resolved`; the existing human workflow is unchanged. Resolution preserves the
+owner and records the previous state, application identity and reason in the incident timeline.
+No engineer is impersonated, and no acknowledgement or mitigation steps are fabricated.
+
+The first resolution returns `JobDone`; an already resolved incident returns `NoActionTaken`
+without another timeline entry. A changed active incident returns `Conflict`: query again and
+re-evaluate recovery rather than blindly retrying with a new version. This also prevents an old
+request from closing a subsequently reopened incident. Missing and other-application incidents
+both return `NotFound`. SDK protocol exceptions match reporting. No automatic resolution or
+recovery detection runs inside AlertCenter; the caller decides when to invoke this method.
+
 ## Permissions and on-call response
 
 Platform capabilities use `Permission` claims. Roles collect permissions; the name `Administrators` does not grant privileges by itself.

@@ -86,12 +86,36 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
             Page = request.Page, PageSize = request.PageSize, TotalCount = total,
             Items = incidents.Select(incident => new IncidentDetails
             {
-                IncidentId = incident.Id, ReportId = incident.ReportId,
+                IncidentId = incident.Id, ReportId = incident.ReportId, Version = incident.Version,
                 Title = incident.Title, Content = incident.Content, Level = incident.Level, Status = incident.Status,
                 OccurredAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.OccurredAtUtc, DateTimeKind.Utc)),
                 ReceivedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc)),
                 Context = incident.ContextJson == null ? null : JObject.Parse(incident.ContextJson)
             }).ToList()
+        });
+    }
+
+    [HttpPost("{incidentId:guid}/resolve")]
+    [RequestSizeLimit(65536)]
+    public async Task<IActionResult> Resolve(Guid incidentId, [FromBody] ResolveIncidentRequest request,
+        CancellationToken cancellationToken)
+    {
+        var applicationId = await AuthenticateApplicationAsync(cancellationToken);
+        if (applicationId == null)
+            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
+        var result = await IncidentWorkflowService.ResolveForApplicationAsync(
+            db, applicationId.Value, incidentId, request.Version, request.Reason, cancellationToken);
+        if (result.StatusCode == 404) return this.Protocol(Code.NotFound, "The incident was not found.");
+        if (result.StatusCode == 409)
+            return this.Protocol(Code.Conflict, "The incident changed. Query it again before deciding whether to resolve it.");
+        var incident = result.Incident!;
+        return this.Protocol(new ResolveIncidentResponse
+        {
+            Code = result.StatusCode == 202 ? Code.NoActionTaken : Code.JobDone,
+            Message = result.StatusCode == 202 ? "The incident is already resolved." : "The incident was resolved by its application.",
+            IncidentId = incident.Id, Version = incident.Version,
+            ResolvedAtUtc = incident.ResolvedAtUtc.HasValue
+                ? new DateTimeOffset(DateTime.SpecifyKind(incident.ResolvedAtUtc.Value, DateTimeKind.Utc)) : null
         });
     }
 

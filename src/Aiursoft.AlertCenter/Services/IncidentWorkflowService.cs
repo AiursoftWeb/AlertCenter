@@ -8,8 +8,53 @@ namespace Aiursoft.AlertCenter.Services;
 
 public sealed record IncidentActionResult(int StatusCode, string? Error = null);
 
+public sealed record ApplicationIncidentResolutionResult(int StatusCode, Incident? Incident = null);
+
 public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizer<IncidentWorkflowService> localizer, IStringLocalizerFactory localizerFactory)
 {
+    public static async Task<ApplicationIncidentResolutionResult> ResolveForApplicationAsync(
+        TemplateDbContext context, Guid applicationId, Guid incidentId, Guid version, string reason,
+        CancellationToken cancellationToken)
+    {
+        var incident = await context.Incidents.Include(item => item.Owner)
+            .SingleOrDefaultAsync(item => item.Id == incidentId && item.ApplicationId == applicationId, cancellationToken);
+        if (incident == null) return new(404);
+        if (incident.Status == Incident.Resolved) return new(202, incident);
+        if (incident.Version != version) return new(409);
+
+        var now = DateTime.UtcNow;
+        now = now.AddTicks(-(now.Ticks % 10));
+        var ownerName = incident.Owner?.DisplayName ?? incident.OwnerDisplayName;
+        context.IncidentTimelineEntries.Add(new IncidentTimelineEntry
+        {
+            Incident = incident, Type = IncidentTimelineEntry.Resolved,
+            ActorName = "Application", ActorIdSnapshot = $"application:{applicationId}",
+            Note = reason.Trim(), CreatedAtUtc = now,
+            PreviousStatus = incident.Status, NewStatus = Incident.Resolved,
+            PreviousOwnerId = incident.OwnerId, NewOwnerId = incident.OwnerId,
+            PreviousOwnerName = ownerName, NewOwnerName = ownerName,
+            PreviousLevel = incident.Level, NewLevel = incident.Level
+        });
+        ApplyResolution(incident, now);
+        incident.Version = Guid.NewGuid();
+        try
+        {
+            await context.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            context.ChangeTracker.Clear();
+            return new(409);
+        }
+        return new(200, incident);
+    }
+
+    private static void ApplyResolution(Incident incident, DateTime now)
+    {
+        incident.Status = Incident.Resolved;
+        incident.ResolvedAtUtc = now;
+    }
+
     public async Task<IncidentActionResult> ExecuteAsync(ClaimsPrincipal user, IncidentNoteRequest request, string action,
         CancellationToken cancellationToken)
     {
@@ -68,8 +113,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
                 incident.MitigatedAtUtc = now;
                 break;
             case IncidentTimelineEntry.Resolved:
-                incident.Status = Incident.Resolved;
-                incident.ResolvedAtUtc = now;
+                ApplyResolution(incident, now);
                 break;
             case IncidentTimelineEntry.Reopened:
                 incident.Status = Incident.New;

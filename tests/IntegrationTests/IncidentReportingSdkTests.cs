@@ -22,6 +22,130 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
+    [DataRow("", 400, false)]
+    [DataRow("{broken", 400, false)]
+    [DataRow("oversized", 413, false)]
+    [DataRow("oversized", 413, true)]
+    public async Task ResolutionBodyErrorsUseAiurProtocol(string body, int expectedStatus, bool chunked)
+    {
+        if (body == "oversized") body = "{\"Reason\":\"" + new string('x', 66000) + "\"}";
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"/api/v1/incidents/{Guid.NewGuid()}/resolve");
+        request.Content = new StringContent(body, Encoding.UTF8, "application/json");
+        request.Headers.TransferEncodingChunked = chunked;
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await CreateApplication());
+        using var response = await Http.SendAsync(request);
+        Assert.AreEqual((HttpStatusCode)expectedStatus, response.StatusCode);
+        Assert.AreEqual("application/json", response.Content.Headers.ContentType?.MediaType);
+        var error = JObject.Parse(await response.Content.ReadAsStringAsync());
+        Assert.AreEqual((int)Code.InvalidInput, error.Value<int>("Code"));
+        Assert.IsTrue(error["Items"] is JArray { Count: > 0 });
+    }
+
+    [TestMethod]
+    [DataRow(Incident.New)]
+    [DataRow(Incident.Acked)]
+    [DataRow(Incident.Mitigated)]
+    public async Task SdkResolvesActiveIncidentsOnceWithApplicationAttribution(string status)
+    {
+        var key = await CreateApplication();
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var receipt = await client.CreateIncidentAsync(new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(), Title = "Service recovery", OccurredAtUtc = DateTimeOffset.UtcNow
+        });
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var incident = await db.Incidents.SingleAsync();
+            incident.Status = status;
+            await db.SaveChangesAsync();
+        }
+        var before = (await client.QueryIncidentsAsync(new QueryIncidentsRequest())).Items.Single();
+        var request = new ResolveIncidentRequest { Version = before.Version, Reason = "  Audit run 42 confirmed recovery.  " };
+        var resolved = await client.ResolveIncidentAsync(receipt.IncidentId, request);
+        Assert.AreEqual(Code.JobDone, resolved.Code);
+        Assert.IsNotNull(resolved.ProtocolVersion);
+        Assert.AreNotEqual(before.Version, resolved.Version);
+        Assert.IsNotNull(resolved.ResolvedAtUtc);
+        Assert.AreEqual(TimeSpan.Zero, resolved.ResolvedAtUtc.Value.Offset);
+        var retry = await client.ResolveIncidentAsync(receipt.IncidentId, request);
+        Assert.AreEqual(Code.NoActionTaken, retry.Code);
+        Assert.AreEqual(resolved.Version, retry.Version);
+        Assert.AreEqual(resolved.ResolvedAtUtc, retry.ResolvedAtUtc);
+        Assert.IsEmpty((await client.QueryIncidentsAsync(new QueryIncidentsRequest { ActiveOnly = true })).Items);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var incident = await db.Incidents.SingleAsync();
+            Assert.AreEqual(Incident.Resolved, incident.Status);
+            var entry = await db.IncidentTimelineEntries.SingleAsync(item => item.Type == IncidentTimelineEntry.Resolved);
+            Assert.IsNull(entry.ActorId);
+            Assert.AreEqual("Application", entry.ActorName);
+            Assert.AreEqual($"application:{incident.ApplicationId}", entry.ActorIdSnapshot);
+            Assert.AreEqual("Audit run 42 confirmed recovery.", entry.Note);
+            Assert.AreEqual(status, entry.PreviousStatus);
+            Assert.AreEqual(Incident.Resolved, entry.NewStatus);
+            Assert.AreEqual(incident.ResolvedAtUtc, entry.CreatedAtUtc);
+            Assert.AreEqual(2, await db.IncidentTimelineEntries.CountAsync());
+            // A delayed retry must not close an incident that was reopened meanwhile.
+            incident.Status = Incident.New;
+            incident.ResolvedAtUtc = null;
+            incident.Version = Guid.NewGuid();
+            await db.SaveChangesAsync();
+        }
+        var stale = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ResolveIncidentAsync(receipt.IncidentId, request));
+        Assert.AreEqual(Code.Conflict, stale.Response.Code);
+        Assert.HasCount(1, (await client.QueryIncidentsAsync(new QueryIncidentsRequest { ActiveOnly = true })).Items);
+    }
+
+    [TestMethod]
+    public async Task SdkResolutionEnforcesScopeKeysVersionAndReason()
+    {
+        var key = await CreateApplication();
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var receipt = await client.CreateIncidentAsync(new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(), Title = "Scoped recovery", OccurredAtUtc = DateTimeOffset.UtcNow
+        });
+        var current = (await client.QueryIncidentsAsync(new QueryIncidentsRequest())).Items.Single();
+        foreach (var request in new[]
+                 {
+                     new ResolveIncidentRequest { Version = current.Version, Reason = " " },
+                     new ResolveIncidentRequest { Version = current.Version, Reason = new string('x', 4001) },
+                     new ResolveIncidentRequest { Reason = "Recovered" }
+                 })
+        {
+            var invalid = await Assert.ThrowsAsync<AiurBadApiInputException>(() => client.ResolveIncidentAsync(receipt.IncidentId, request));
+            Assert.IsNotEmpty(invalid.Reasons);
+        }
+        var valid = new ResolveIncidentRequest { Version = current.Version, Reason = "Recovered" };
+        await using var otherServices = ReportingClient(await CreateApplication());
+        var other = otherServices.GetRequiredService<AlertCenterApiClient>();
+        var foreign = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => other.ResolveIncidentAsync(receipt.IncidentId, valid));
+        Assert.AreEqual(Code.NotFound, foreign.Response.Code);
+        var missing = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ResolveIncidentAsync(Guid.NewGuid(), valid));
+        Assert.AreEqual(Code.NotFound, missing.Response.Code);
+        var stale = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ResolveIncidentAsync(receipt.IncidentId,
+            new ResolveIncidentRequest { Version = Guid.NewGuid(), Reason = "Recovered" }));
+        Assert.AreEqual(Code.Conflict, stale.Response.Code);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var app = await db.SourceApplications.SingleAsync(item => item.Id == Guid.Parse(key.Split('.')[0]));
+            app.IsEnabled = false;
+            await db.SaveChangesAsync();
+        }
+        var disabled = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ResolveIncidentAsync(receipt.IncidentId, valid));
+        Assert.AreEqual(Code.WrongKey, disabled.Response.Code);
+        using var finalScope = Server!.Services.CreateScope();
+        var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(Incident.New, (await finalDb.Incidents.SingleAsync()).Status);
+        Assert.AreEqual(1, await finalDb.IncidentTimelineEntries.CountAsync());
+    }
+
+    [TestMethod]
     public async Task SdkQueriesOwnIncidentsWithFullContextAndActivePagination()
     {
         var key = await CreateApplication();

@@ -18,6 +18,15 @@ public sealed class AlertCenterApiClient(
             autoRetry: false, headers: await AuthorizationHeadersAsync());
     }
 
+    public async Task<ResolveIncidentResponse> ResolveIncidentAsync(Guid incidentId, ResolveIncidentRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        return await http.Post<ResolveIncidentResponse>(
+            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), $"/api/v1/incidents/{incidentId}/resolve", new { }),
+            new AiurApiPayload(request), BodyFormat.HttpJsonBody,
+            autoRetry: false, headers: await AuthorizationHeadersAsync());
+    }
+
     private async Task<Dictionary<string, string>> AuthorizationHeadersAsync()
     {
         var key = await keyProvider.GetApiKeyAsync();
