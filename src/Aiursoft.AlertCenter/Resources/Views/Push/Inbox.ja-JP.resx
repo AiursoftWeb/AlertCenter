@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Adjust filters or reset to view other notifications." xml:space="preserve">
+    <value>フィルターを調整するかリセットして、他の通知を表示してください。</value>
+  </data>
+  <data name="All applications" xml:space="preserve">
+    <value>すべてのアプリケーション</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>すべてのチャネル</value>
+  </data>
+  <data name="All notifications" xml:space="preserve">
+    <value>すべての通知</value>
+  </data>
+  <data name="All read" xml:space="preserve">
+    <value>すべて既読</value>
+  </data>
+  <data name="All severities (including test)" xml:space="preserve">
+    <value>すべての重大度（テストを含む）</value>
+  </data>
+  <data name="Channel" xml:space="preserve">
+    <value>チャンネル</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>チャネルテスト通知</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>すべてのフィルターをクリア</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>現在表示中のページ</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>移動先</value>
+  </data>
+  <data name="In-app notification inbox" xml:space="preserve">
+    <value>アプリ内通知受信箱</value>
+  </data>
+  <data name="In-app notification pagination" xml:space="preserve">
+    <value>アプリ内通知のページ送り</value>
+  </data>
+  <data name="Incident severity" xml:space="preserve">
+    <value>インシデントの重大度</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>移動</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>ページ番号へ移動</value>
+  </data>
+  <data name="Keyword Search" xml:space="preserve">
+    <value>キーワード検索</value>
+  </data>
+  <data name="Mark all my notifications as read" xml:space="preserve">
+    <value>すべての通知を既読にする</value>
+  </data>
+  <data name="Mark as read" xml:space="preserve">
+    <value>既読にする</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>次のページ</value>
+  </data>
+  <data name="No notifications for the selected application" xml:space="preserve">
+    <value>選択したアプリケーションの通知はありません</value>
+  </data>
+  <data name="No notifications for the selected channel." xml:space="preserve">
+    <value>選択したチャネルの通知はありません。</value>
+  </data>
+  <data name="No notifications under the current filter or page" xml:space="preserve">
+    <value>現在のフィルターまたはページに該当する通知はありません</value>
+  </data>
+  <data name="No notifications yet" xml:space="preserve">
+    <value>通知はまだありません</value>
+  </data>
+  <data name="No read notifications" xml:space="preserve">
+    <value>既読の通知はありません</value>
+  </data>
+  <data name="No unread notifications" xml:space="preserve">
+    <value>未読の通知はありません</value>
+  </data>
+  <data name="Notification Channel" xml:space="preserve">
+    <value>通知チャネル</value>
+  </data>
+  <data name="Notification Read Status" xml:space="preserve">
+    <value>通知の既読状況</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>ページ</value>
+  </data>
+  <data name="Personal Incident and Notification Center · Independent Read Status Tracking" xml:space="preserve">
+    <value>個人向けインシデント・通知センター · 既読状況を個別に管理</value>
+  </data>
+  <data name="Please correct the filter conditions." xml:space="preserve">
+    <value>フィルター条件を修正してください。</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>前のページ</value>
+  </data>
+  <data name="Process all my unread notifications, regardless of current filters and pagination." xml:space="preserve">
+    <value>現在のフィルターやページネーションに関係なく、未読の通知をすべて処理します。</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>既読</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>既読通知</value>
+  </data>
+  <data name="Read Status" xml:space="preserve">
+    <value>既読状況</value>
+  </data>
+  <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
+    <value>受信終了日（UTC、当日を含む）</value>
+  </data>
+  <data name="Reception Start Date (UTC)" xml:space="preserve">
+    <value>受付開始日（UTC）</value>
+  </data>
+  <data name="Refresh notifications" xml:space="preserve">
+    <value>通知を更新</value>
+  </data>
+  <data name="Reset Search Criteria" xml:space="preserve">
+    <value>検索条件をリセット</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Search title or body..." xml:space="preserve">
+    <value>タイトルまたは本文を検索...</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 重大（P0）</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 重大 (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · エラー（P2）</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 警告 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 情報 (P4)</value>
+  </data>
+  <data name="Show read only" xml:space="preserve">
+    <value>既読のみを表示</value>
+  </data>
+  <data name="Show unread only" xml:space="preserve">
+    <value>未読のみ表示</value>
+  </data>
+  <data name="Sorted by receipt time (descending) · 20 items per page" xml:space="preserve">
+    <value>受信日時の降順 · 1ページあたり20件</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>ソースアプリケーション</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>プッシュチャネルのテストメッセージです。</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>未読</value>
+  </data>
+  <data name="Unread notifications" xml:space="preserve">
+    <value>未読通知</value>
+  </data>
+  <data name="View details" xml:space="preserve">
+    <value>詳細を表示</value>
+  </data>
+  <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
+    <value>システムがサイト内チャンネル向けのインシデントを生成すると、通知はあなたの個人用受信箱に直接届きます。</value>
+  </data>
+
+</root>

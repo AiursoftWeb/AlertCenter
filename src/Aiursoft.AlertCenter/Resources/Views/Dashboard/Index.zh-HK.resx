@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>次送</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>未讀站內通知</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>「即發即忘」支援長時間執行的任務（例如電郵或人工智慧），具備用於佇列管理、平行處理及取消的圖形使用者介面。</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
@@ -36,17 +42,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>一個現代化、功能豐富且高度可擴展嘅基礎，為您嘅下一個網頁應用程式提供強大支援。</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>已確認</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>人工智能翻譯</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter 警報與營運中心 · 全球狀態及閉環追蹤</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>全部</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>所有依賴項都會自動註冊，並可隨時透過構造函數注入使用。</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>所有紀錄</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>應用程式</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>自動深色模式</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>自動依賴注入</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>自動訊息傳送及故障排解</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>自動時區處理</value>
@@ -57,8 +81,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>自動、由人工智能驅動的翻譯，支援 28 種語言。</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>可用渠道 ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>背景工作處理</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>批量發送至當值小組及重要電郵地址</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>內建用戶管理</value>
@@ -72,11 +102,41 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>完整說明文件</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>設定推送頻道</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>一致性驗證</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>建立應用程式並取得金鑰</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>透過 API 或 SDK 建立第一個事件。它會在這裡顯示。</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>嚴重</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>嚴重 ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>專用 API 金鑰認證</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>傳送記錄</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>詳細整合說明文件</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>在開發時一律使用 UTC，系統會自動將日期轉換並以用戶的本地時間顯示。</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>直接聯絡負責人員及用戶群組協作處理</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>已容器化以便部署</value>
@@ -96,6 +156,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>輕鬆編寫整合測試，使用記憶體資料庫、暫存檔案系統、內建模擬功能，以及真實世界的 HTTP 請求模擬。</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>錯誤</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>具備內建檔案管理系統，支援自動頭像壓縮及私隱保護。</value>
   </data>
@@ -108,14 +174,59 @@
   <data name="Hello World!" xml:space="preserve">
     <value>你好世界！</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>應用程式內通知收件匣</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>事故應變</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>事件標題</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>事故觸發及協作處理</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>包含詳盡嘅說明文件同埋實用例子，助你快速上手。</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>資訊</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>整合式檔案管理</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>整合指南</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>在「整合應用程式」中發出專用憑證。</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>最新事故</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>關聯事件</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>已連接推送渠道</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>重大</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>重大 ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>管理應用程式</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>已緩解</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>模型會根據資料註解，在客戶端及伺服器端同時進行驗證。</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>監察儀表板</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>支援多個資料庫提供者</value>
@@ -123,8 +234,38 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>多種數據庫支援</value>
   </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>尚無事件</value>
+  </data>
+  <data name="No unresolved incidents currently" xml:space="preserve">
+    <value>目前沒有未解決的事故</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>通知推送中心</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>正在處理的事故</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>正在發生的事故需要處理</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect 整合</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>營運回應閉環</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>等待回覆</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>推送成功率</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>快速報告範例</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>快速開始整合</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>基於角色的存取控制授權</value>
@@ -132,17 +273,38 @@
   <data name="Read the document" xml:space="preserve">
     <value>閱讀文件</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>最近建立的事件</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>事件詳情、處理記錄及解決狀態。</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>需要立即採取行動</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>已解決</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>自適應設計</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>穩健的整合測試</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>在應用程式的推送設定中，按 Sev0 至 Sev4 分流。</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>定時工作管理</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>無縫整合任何 OpenID Connect 供應商，並自動同步角色權限。</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>嚴重程度</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>嚴重程度分類：</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>智能設定覆蓋</value>
@@ -153,17 +315,53 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>智能深色模式，會自動適應使用者嘅系統設定。</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP 電郵頻道</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>來源</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>來源應用程式</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>開始新項目</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>支援 .NET SDK / Go / Webhook</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>支援環境變數及資料庫支援的設定，並自動優先使用環境變數以實現無縫覆蓋。</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>支援自訂要求標頭及 JSON 範本</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>中心會以非同步方式發送通知，並支援記錄追蹤及重試。</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>導覽列會根據用戶角色和權限自動調整。</value>
   </data>
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>這是一個模板項目，我們在此展開探索之旅...</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>事件總數</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>使用 Bearer 認證提交測試事故：</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>查看所有事故</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Webhook 自動排程</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>歡迎</value>

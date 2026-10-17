@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · 隣接週（読み取り専用）</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>・退職済み</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· 来週を含む</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· 前週を含む</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>・休息不足</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>選択中: {0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0}（読み取り専用）</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0}のスタッフは{1}人のみで、最低人数の{2}人を下回っています。手動での保存は引き続き可能です。</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0}時間</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0}の{1}のシフト · {2}。まだ保存されていません。この操作は取り消せます。</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0}シフト / {1}時間</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}：{2}と{3}の間の休息時間はわずか{1}時間です。必要な最小時間は{4}時間です。</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8時間 · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>操作は完了しませんでした</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>追加モード：エンジニアの行の空欄をクリックすると、8時間のシフトを追加できます。1つのシフトを複数人で共有できます。</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>オンコールシフトを追加</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>追加済み</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>編集に戻る</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>更新をキャンセル</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>{0} の36時間を折りたたむ</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>コメント内容（Markdown）</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>コメントは UTF-16 で 4,000 文字以内にしてください。公開する前に内容を短くしてください。</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>ページを更新しますか？</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>コピーしました</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>今週の現在の下書きを、来週の全21シフトにコピーしました。まだ保存されていません。元に戻すことができます。読み取り専用プレビューとして、今後36時間分を表示できます。保存後、来週に切り替えると、週全体を表示または編集できます。</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>クリップボードにコピーしました。</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>コピーに失敗しました。コンテンツを選択して手動でコピーしてください。再試行するには、ブラウザーのクリップボードへのアクセス許可を確認してください。</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>コピー中…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>現在、移動／入れ替えモードです。シフトを追加または削除する前に、上のモードを切り替えてください。</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>削除モード：色付きのブロックをクリックすると、このエンジニアの現在のシフトを削除できます。この操作は元に戻すことができ、すべての変更を保存した後に反映されます。</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>入力を破棄して再読み込み</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>終了</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>コメントを入力してください。空白文字のみは入力できません。</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>削除を確認するには、アプリ名を正確に入力してください。</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>{0}の36時間を展開</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>従業員の検索に失敗しました。もう一度お試しください。</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>画像のアップロードに失敗しました。もう一度お試しください。</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>{0}に不足があります。スタッフを追加してください（週あたり合計21シフトが必要です）。</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>管理可能</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>{0}件のシフトを変更しました{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>シフトの移動／入れ替え</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>移動をキャンセルしました。スケジュールは変更されていません。</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>移動をキャンセルしました。</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>選択したシフトをここに移動</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>移動先</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>ネットワークエラーが発生しました。操作結果をまだ確認できません。重複を避けるため、再送信する前に状態を確認してください。</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>次</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>割り当てられたシフトはありません。</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>該当する従業員はいません。</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>一致するタイムゾーンが見つかりません</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>一致するユーザーが見つかりません。</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>このセルに削除するシフトはありません。</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>ページ {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>ページ情報が更新されました</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>CCメールの形式を確認してください。</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>選択したキーをコピーするには、Ctrl+Cを押してください。</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>前へ</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>前の操作を取り消しました。</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>ページを再読み込み</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>更新すると、保存されていない入力内容は破棄されます。現在の入力内容を保持したままエラーの詳細に戻るには、「更新をキャンセル」を選択してください。</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>ページを再読み込みしています...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>{0}を削除</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>権限を削除</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>削除済み</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>リクエストが無効か、ページの認証情報の有効期限が切れています。入力内容を確認し、必要に応じてページを更新して再試行してください。</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>再起動中...（{0}秒）</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>ページを開いた時点のスケジュールに戻しました。</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>ロールグループ · グループ内のすべてのメンバーに権限が自動的に継承されます</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>保存に失敗しました。ページを更新して、もう一度お試しください。</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>従業員を検索中…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>選択</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>役割を選択</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>チームごとに最大200人の従業員を選択してください。</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>ユーザーを選択</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>ユーザーを選択</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>ユーザーグループを選択</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>{0} · {1}を選択しました。入れ替えるには色ブロックにドラッグするかクリックし、移動するにはSpaceキー、キャンセルするにはEscキーを押してください。</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>{0}人選択中（1ページあたり最大20人）</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>{0}の1週間分のスケジュールを選択しました。ドラッグするか、別のエンジニアをクリックしてください。</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>選択がキャンセルされました。</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>シフトを調整しました。赤い警告を解消するために引き続きドラッグで調整し、すべての変更を保存できます。</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>個別のユーザーを指定</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>人員配置を調整し、勤務表を更新しました。まだ保存されていません。</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>クリップボードにコピーしました！</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>入れ替え</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>入れ替えがキャンセルされました。</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>週全体を入れ替え：{0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>週全体を入れ替える</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>{0}と{1}の週全体のスケジュールを入れ替えました。まだ保存されていません。</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>現時点では操作の結果を確認できません。再送信する前に、ページの状態をご確認ください。</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>スケジュールには未解決の問題が {0} 件あります（展開して表示）。引き続き調整できます。</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>対象のオブジェクトはもう存在しません。ページを更新してください。</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>このエンジニアはすでにこのシフトに割り当てられています。再度追加する必要はありません。</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>今週のシフトには退職したメンバーが含まれています。翌週にコピーする前に、今週の下書きで該当メンバーを入れ替えてください。</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>2つの場所はすでに同じ配置になっているため、入れ替える必要はありません。</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>置換の確認を表示できません。ページを再読み込みして、もう一度お試しください。翌週の下書きは変更されていません。</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>従業員を検索できません。</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>直接入れ替えできません：対象のシフトにすでにメンバーがいます。まず「シフトごとにメンバーを追加／削除」で、同じシフトのメンバーを調整してください。</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>未保存 · 調整下書き</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>ユーザーグループ · メンバーは紐付けられた権限を動的に継承します</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>閲覧のみ</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>この操作を実行する権限がありません。</value>
+  </data>
+
+</root>

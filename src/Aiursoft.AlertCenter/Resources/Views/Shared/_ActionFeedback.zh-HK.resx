@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · 相鄰週（唯讀）</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· 已離職</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· 包括下星期</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· 包括前一週</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· 休息時間不足</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0}（唯讀）</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} 只有 {1} 名員工，低於最低人數 {2}。仍可手動儲存。</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} 小時</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} 個更班已安排給 {1} · {2}；尚未儲存。你可以復原此操作。</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} 個更次 / {1} 小時</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}：{1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}：{2} 至 {3} 之間只有 {1} 小時休息時間。最低要求為 {4} 小時。</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 小時 · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>操作未完成</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>新增模式：按一下工程師一行中的空白位置，即可新增一更 8 小時的班次；多人可以共用同一更。</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>新增候命更次</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>已新增</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>返回編輯</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>取消重新整理</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>收起 {0} 小時</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>評論內容（Markdown）</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>留言不得超過 4,000 個 UTF-16 字元。請縮短內容後再發佈。</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>確認要重新整理頁面嗎？</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>已複製</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>已將本週的目前草稿複製到下週全部 21 個更次。尚未儲存；你可以復原。你可以展開未來 36 小時作唯讀預覽；儲存後，切換至下週即可查看或編輯整週的更表。</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>已複製到剪貼簿。</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>複製失敗。請手動選取並複製內容。如要重試，請檢查瀏覽器的剪貼簿權限。</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>正在複製…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>目前處於移動／交換模式。新增或移除更次前，請先切換上方的模式。</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>刪除模式：按一下色塊即可移除這位工程師目前的更次。此操作可復原，並會在儲存所有變更後生效。</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>捨棄輸入並重新整理</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>結束</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>請輸入留言內容；不能只包含空白字元。</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>輸入完整的應用程式名稱以確認刪除。</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>展開 {0} 個 36 小時時段</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>查詢員工失敗，請重試。</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>無法上載圖片，請再試一次。</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>由</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>於 {0} 發現人手缺口。請增派員工（該週必須排滿 21 個班次）。</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>可管理</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>已修改 {0} 個更次{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>調動／交換更次</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>移動已取消；排班維持不變。</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>移動已取消。</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>將已選取的更次移至此處</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>移至</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>網絡錯誤；目前未能確認操作結果。請先核實狀態，再重新提交，以免造成重複。</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>沒有已排定的更次。</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>沒有符合條件的員工。</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>找不到符合條件的時區</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>找不到符合條件的使用者。</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>此儲存格沒有可刪除的更次。</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>第 {0} 頁</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>頁面資訊已更新</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>請檢查副本電郵地址格式。</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>按 Ctrl+C 複製所選的金鑰。</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>上一個</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>已復原上一步。</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>重新整理頁面</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>重新整理會捨棄未儲存的輸入。選擇「取消重新整理」即可返回錯誤詳細資料並保留目前的輸入。</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>正在重新載入頁面……</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>移除 {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>撤銷權限</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>已移除</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>要求無效或頁面憑證已過期。如有需要，請檢查輸入內容並重新整理頁面後重試。</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>正在重新啟動……（{0}秒）</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>已還原至開啟頁面時的排程。</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>角色群組 · 群組內所有成員會自動繼承權限</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>儲存失敗。請重新整理頁面，然後再試一次。</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>正在搜尋員工…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>選擇</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>選擇角色</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>每隊最多選取 200 名員工。</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>選擇使用者</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>選擇使用者</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>選擇使用者群組</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>已選取 {0} · {1}。拖曳至或點擊色塊以交換，按空白鍵移動；按 Esc 取消。</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>已選取 {0} 位使用者；每頁最多 20 位。</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>已選取 {0} 的全週時間表。拖曳至或點擊另一位工程師。</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>已取消選取。</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>已調整更表；你可以繼續拖曳以解決紅色警告，然後儲存所有變更。</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>指定個別使用者</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>人手安排已調整，圖表亦已更新；尚未儲存。</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>已成功複製到剪貼簿！</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>交換</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>交換已取消。</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>交換整週：{0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>交換整個星期</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>已互換 {0} 和 {1} 的整週時間表。尚未儲存。</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>目前無法確認操作結果。重新提交前，請先確認頁面狀態。</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>此排更表有 {0} 個未解決問題（展開以查看）；你可以繼續調整。</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>目標物件已不存在。請重新整理頁面。</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>這位工程師已被安排在此更次，無需再次加入。</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>本週包含已離職的成員。請在複製至下週前，先在本週的草稿中替換他們。</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>兩個地點的安排已經相同，毋須交換。</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>無法顯示替換確認訊息。請重新整理頁面並再試一次。下星期的草稿維持不變。</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>無法查詢員工。</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>無法直接交換：其中一人已在目標更次中。請先使用「按更次新增／移除成員」調整同一更次的成員。</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>未儲存 · 調整草稿</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>用户组 · 成员会动态继承已绑定的权限</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>僅供查看</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>你沒有權限執行此操作。</value>
+  </data>
+
+</root>
