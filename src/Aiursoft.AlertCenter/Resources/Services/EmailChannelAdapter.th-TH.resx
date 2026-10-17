@@ -33,8 +33,14 @@
   <data name="Content: " xml:space="preserve">
     <value>เนื้อหา:</value>
   </data>
+  <data name="Context" xml:space="preserve">
+    <value>บริบท</value>
+  </data>
   <data name="Context:" xml:space="preserve">
     <value>บริบท:</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>รหัสการจัดส่ง</value>
   </data>
   <data name="Delivery ID: {0}" xml:space="preserve">
     <value>รหัสการส่ง: {0}</value>
@@ -50,6 +56,15 @@
   </data>
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>การส่งอีเมลหมดเวลา เซิร์ฟเวอร์อีเมลอาจได้รับข้อความแล้ว โปรดตรวจสอบและลองอีกครั้ง</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>หากปุ่มใช้งานไม่ได้ ให้เปิดลิงก์นี้:</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>รายละเอียดเหตุการณ์</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>รหัสเหตุการณ์</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>รหัสเหตุการณ์: {0}</value>
@@ -72,6 +87,9 @@
   <data name="None" xml:space="preserve">
     <value>ไม่มี</value>
   </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>เกิดขึ้นเมื่อ (UTC)</value>
+  </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>เกิดขึ้นเมื่อ (UTC): {0:O}</value>
   </data>
@@ -81,14 +99,26 @@
   <data name="On-call group: {0}" xml:space="preserve">
     <value>กลุ่มเวรรับแจ้งเหตุ: {0}</value>
   </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>ทีมปฏิบัติงานนอกเวลา</value>
+  </data>
   <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
     <value>ช่วงเวลาเวรรับสาย (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>เปิดใน AlertCenter</value>
   </data>
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>กรุณากรอกที่อยู่อีเมลของผู้รับ</value>
   </data>
+  <data name="Reopen note" xml:space="preserve">
+    <value>หมายเหตุการเปิดเหตุการณ์อีกครั้ง</value>
+  </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>หมายเหตุการเปิดเหตุการณ์อีกครั้ง: {0}</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>ส่งการแจ้งเตือนเหตุการณ์ไปยังอีเมลที่ระบุผ่านเซิร์ฟเวอร์ SMTP ส่วนกลาง</value>
   </data>
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>ส่งการแจ้งเตือนแบบข้อความธรรมดาไปยังที่อยู่อีเมลที่ระบุผ่านเซิร์ฟเวอร์ SMTP ส่วนกลาง</value>

@@ -30,8 +30,14 @@
   <data name="Content: " xml:space="preserve">
     <value>Sisältö:</value>
   </data>
+  <data name="Context" xml:space="preserve">
+    <value>Konteksti</value>
+  </data>
   <data name="Context:" xml:space="preserve">
     <value>Asiayhteys:</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>Toimitustunnus</value>
   </data>
   <data name="Delivery ID: {0}" xml:space="preserve">
     <value>Toimituksen tunnus: {0}</value>
@@ -47,6 +53,15 @@
   </data>
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Sähköpostin lähetys aikakatkaistiin. Postipalvelin on saattanut vastaanottaa viestin; tarkista tilanne ja yritä uudelleen.</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>Jos painike ei toimi, avaa tämä linkki:</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Tapahtuman tiedot</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Häiriön tunnus</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Tunnuksen ID: {0}</value>
@@ -69,6 +84,9 @@
   <data name="None" xml:space="preserve">
     <value>Ei mitään</value>
   </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>Tapahtuma-aika (UTC)</value>
+  </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Tapahtuma-aika (UTC): {0:O}</value>
   </data>
@@ -78,14 +96,26 @@
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Päivystysryhmä: {0}</value>
   </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>Päivystysryhmä</value>
+  </data>
   <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
     <value>Päivystysvuoro (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>Avaa AlertCenterissä</value>
   </data>
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Anna vastaanottajan sähköpostiosoite.</value>
   </data>
+  <data name="Reopen note" xml:space="preserve">
+    <value>Uudelleenavaamisen huomautus</value>
+  </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Uudelleenavaamisen huomautus: {0}</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Lähetä häiriöilmoitukset määritettyihin sähköpostiosoitteisiin yleisen SMTP-palvelimen kautta.</value>
   </data>
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Lähetä pelkkiä tekstihälytyksiä annettuihin sähköpostiosoitteisiin maailmanlaajuisen SMTP-palvelimen kautta.</value>
