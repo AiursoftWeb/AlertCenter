@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>تم إلغاء {0} من نوبات العمل المجدولة للأعضاء الذين غادروا. يُرجى مراجعة الجدول وسد أي شواغر.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>يوجد جدول مناوبات محفوظ؛ ولا يمكن تعديل نقطة بداية جدول مناوبات الفريق.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>يتطلب الإنشاء التلقائي وجود {0} موظفين على الأقل لكل مناوبة وفترة راحة مدتها {1} ساعة، ما يستلزم توفر {2} أعضاء على الأقل. بعد استبعاد أعضاء المجموعات المتعددة المناوبات، يمكن جدولة {3} تلقائيًا؛ يُرجى إضافة أعضاء ينتمون إلى مجموعة واحدة أو إعداد الجدول يدويًا.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>ثلاث ورديات ثابتة يوميًا، مدة كل منها 8 ساعات.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>يجب ألا تقل مدة الراحة عن 0–168 ساعة.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>الحد الأدنى لعدد الموظفين في كل وردية هو 1–200.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>لم تُحدَّد أي قواعد للفريق بعد. يمكنك إنشاء جدول مناوبات يدويًا.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>يرجى إدخال اسم القاعدة.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>يرجى إدخال اسم الفريق.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>يرجى اختيار منطقة زمنية صالحة من القائمة.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>يرجى اختيار وقت بدء صالح بالتوقيت العالمي المنسق (UTC) (على أن يكون على بُعد 28 يومًا على الأقل من الحد الفاصل للتاريخ).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>يرجى اختيار قاعدة مناوبة موجودة.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>تم إنشاء قاعدة الجدولة بنجاح.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>تم حذف قاعدة الجدولة.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>تم تحديث قاعدة الجدولة.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>لا يمكن أن يكون العدد المستهدف أقل من الحد الأدنى، ويجب أن يتراوح بين 1 و200. اتركه فارغًا للتعيين التلقائي.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>تم إنشاء الفريق بنجاح.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>تم حذف الفريق.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>تم تحديث الفريق.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>تم تغيير القاعدة أو الفريق. حدّث الصفحة وحاول مرة أخرى.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>تم تغيير الجدول أو حدث تعارض أثناء الحفظ. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>الموظفون المحددون غير موجودين أو مكررون أو يزيد عددهم على 200. يُرجى الاختيار مرة أخرى.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>تنسيق طلب المناوبة غير صالح.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>تم تغيير الفريق أو الجدول. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>توجد {0} مناوبات غير مُسندة هذا الأسبوع. يُرجى تعيين أفراد المناوبة يدويًا.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>لا تزال هذه القاعدة مرتبطة بفريق. يُرجى تحديث ربط الفريق بالقاعدة أولاً.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>يحتوي هذا الفريق على جداول مناوبات محفوظة، ولا يمكن حذفه مع سجلاته.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>هذا الفريق مرتبط بتطبيق متكامل. يُرجى إعادة تعيين مجموعة المناوبة الخاصة بالتطبيق أو إلغاء ربطها أولاً.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>تعذّر إنشاء المعاينة: {0}</value>
+  </data>
+
+</root>

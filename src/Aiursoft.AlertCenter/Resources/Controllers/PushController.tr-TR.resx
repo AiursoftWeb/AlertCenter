@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Kanal test bildirimi</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>Geçerli bir HTTP veya HTTPS URL&apos;si girin. Kullanıcı adları, parolalar ve URL parçaları desteklenmez.</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>Uygulama içi bildirim ayrıntıları</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>Kanal yapılandırması geçersiz. Lütfen sayfayı yenileyip tekrar deneyin.</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>Filtre ölçütleri geçersiz. Lütfen sayfayı yenileyip tekrar deneyin.</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>Yalnızca geçerli OCE anlık görüntülerine sahip nöbet e-postaları veya özel kanalları etkin olan başarısız kayıtlar yeniden denenebilir. OCE veya e-posta yoksa eski uyarıları yeniden göndermek için alıcıları yeniden seçemezsiniz.</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>Lütfen önce kanalı etkinleştirin.</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>Lütfen kullanılabilir bir kanal türü seçin.</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>En az bir alıcı kullanıcı veya kullanıcı grubu seçin.</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>Test mesajı içeriği boş olamaz ve 4.000 karakteri aşmamalıdır.</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>Alıcının CC listesine tekrar eklenmesine gerek yoktur.</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>Seçilen bağlanabilir kullanıcı mevcut değil. Lütfen yeniden seçin.</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>Seçilen bağlanabilir kullanıcı grubu mevcut değil. Lütfen yeniden seçin.</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>Seçilen kanal artık mevcut değil. Lütfen sayfayı yenileyip tekrar deneyin.</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>Seçilen alıcı kullanıcı mevcut değil. Lütfen tekrar seçin.</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>Seçilen alıcı kullanıcı grubu mevcut değil. Lütfen tekrar seçin.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Bu, anlık bildirim kanalı için bir test mesajıdır.</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>Mevcut bir kanalın türü değiştirilemez; lütfen yeni bir kanal oluşturun.</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>Webhook özel istek başlıkları korunamadı. Lütfen Webhook:HeaderProtectionKey yapılandırmasını kontrol edin.</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>Kaydedilmiş Webhook isteği üst bilgileri okunamadı. Lütfen veri koruma anahtarını kontrol edip tekrar deneyin.</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>Webhook:HeaderProtectionKey özel istek başlıkları için yapılandırılmalıdır. Bu anahtarı korumalı bir ortam değişkeni aracılığıyla sağlayın.</value>
+  </data>
+
+</root>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Testmelding voor kanaal</value>
+  </data>
+  <data name="Custom request body contains unknown or incompletely used placeholders." xml:space="preserve">
+    <value>De aangepaste aanvraagbody bevat onbekende of onvolledig gebruikte tijdelijke aanduidingen.</value>
+  </data>
+  <data name="Custom request body must be a JSON object." xml:space="preserve">
+    <value>De aangepaste aanvraaginhoud moet een JSON-object zijn.</value>
+  </data>
+  <data name="Custom request body must be valid JSON." xml:space="preserve">
+    <value>De aangepaste aanvraaginhoud moet geldige JSON zijn.</value>
+  </data>
+  <data name="Custom request header values must be non-empty strings." xml:space="preserve">
+    <value>Waarden van aangepaste aanvraagheaders moeten niet-lege tekenreeksen zijn.</value>
+  </data>
+  <data name="Custom request headers contain disallowed names." xml:space="preserve">
+    <value>Aangepaste aanvraagheaders bevatten niet-toegestane namen.</value>
+  </data>
+  <data name="Custom request headers contain invalid or duplicate values." xml:space="preserve">
+    <value>Aangepaste aanvraagheaders bevatten ongeldige of dubbele waarden.</value>
+  </data>
+  <data name="Custom request headers must be a JSON object." xml:space="preserve">
+    <value>Aangepaste aanvraagheaders moeten een JSON-object zijn.</value>
+  </data>
+  <data name="Custom request headers must be valid JSON." xml:space="preserve">
+    <value>Aangepaste aanvraagheaders moeten geldige JSON zijn.</value>
+  </data>
+  <data name="Invalid Webhook custom configuration. Please check channel configuration." xml:space="preserve">
+    <value>Ongeldige aangepaste Webhook-configuratie. Controleer de kanaalconfiguratie.</value>
+  </data>
+  <data name="Invalid Webhook custom headers. Please check channel configuration." xml:space="preserve">
+    <value>Ongeldige aangepaste Webhook-headers. Controleer de kanaalconfiguratie.</value>
+  </data>
+  <data name="Invalid Webhook URL. Please check channel configuration." xml:space="preserve">
+    <value>Ongeldige webhook-URL. Controleer de kanaalconfiguratie.</value>
+  </data>
+  <data name="Send JSON messages to a specified HTTP address, suitable for connecting to existing systems." xml:space="preserve">
+    <value>Verstuur JSON-berichten naar een opgegeven HTTP-adres, geschikt voor verbinding met bestaande systemen.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Dit is een testbericht voor het pushkanaal.</value>
+  </data>
+  <data name="Unable to connect to Webhook. Please check the address, network, or receiving service." xml:space="preserve">
+    <value>Kan geen verbinding maken met de webhook. Controleer het adres, het netwerk of de ontvangende service.</value>
+  </data>
+  <data name="Webhook request timed out. The receiver may have received the message. Please verify and retry." xml:space="preserve">
+    <value>Het verzoek via de webhook is verlopen. De ontvanger heeft het bericht mogelijk ontvangen. Controleer dit en probeer het opnieuw.</value>
+  </data>
+  <data name="Webhook returned HTTP {0}. Please check the receiver and retry manually." xml:space="preserve">
+    <value>Webhook gaf HTTP {0} terug. Controleer de ontvanger en probeer het handmatig opnieuw.</value>
+  </data>
+
+</root>

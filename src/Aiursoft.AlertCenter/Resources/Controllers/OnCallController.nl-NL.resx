@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>{0} toekomstige diensttoewijzingen voor vertrokken teamleden zijn verwijderd. Controleer het rooster en vul eventuele open diensten in.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Er bestaat al een opgeslagen rooster; het startpunt van het teamrooster kan niet worden gewijzigd.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>Voor automatische generatie zijn per dienst minimaal {0} medewerkers en {1} uur rust nodig, wat betekent dat er minstens {2} teamleden nodig zijn. Na het overslaan van teamleden die bij meerdere bereikbaarheidsdiensten zijn ingedeeld, kunnen er {3} automatisch worden ingeroosterd. Voeg teamleden toe die maar bij één groep zijn ingedeeld of maak het rooster handmatig.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Vaste drie diensten per dag, elk 8 uur.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>De minimale rusttijd moet 0–168 uur zijn.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Het minimumaantal medewerkers per dienst moet 1–200 zijn.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Er zijn nog geen regels aan het team gekoppeld. Je kunt handmatig een rooster maken.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Vul de naam van de regel in.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Voer de teamnaam in.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Selecteer een geldige tijdzone uit de lijst.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Selecteer een geldige UTC-starttijd (deze moet ten minste 28 dagen van de datumgrens liggen).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Selecteer een bestaande bereikbaarheidsdienstregel.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>Planningsregel succesvol aangemaakt.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Planningsregel verwijderd.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Planningsregel bijgewerkt.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Het beoogde aantal medewerkers mag niet lager zijn dan het minimum en moet tussen 1 en 200 liggen. Laat dit leeg voor automatische toewijzing.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Team is succesvol aangemaakt.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Team verwijderd.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Team bijgewerkt.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>De regel of het team is gewijzigd. Vernieuw de pagina en probeer het opnieuw.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>Het rooster is gewijzigd of er is een conflict opgetreden bij het opslaan. Vernieuw de pagina en probeer het opnieuw.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>De geselecteerde medewerkers bestaan niet, zijn dubbel geselecteerd of zijn met meer dan 200. Selecteer opnieuw.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>De indeling van het dienstverzoek is ongeldig.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>Het team of het rooster is gewijzigd. Vernieuw de pagina en probeer het opnieuw.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>Er zijn deze week {0} niet-ingevulde diensten. Vul de bereikbaarheidsdiensten handmatig in.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>Deze regel is nog gekoppeld aan een team. Werk eerst de regelkoppeling van het team bij.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>Dit team heeft opgeslagen roosters en kan niet worden verwijderd zonder de bijbehorende geschiedenis.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Dit team is gekoppeld aan een geïntegreerde app. Wijs de bereikbaarheidsdienstgroep van de app eerst opnieuw toe of ontkoppel deze.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Kan voorbeeld niet genereren: {0}</value>
+  </data>
+
+</root>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Testmeddelelse for kanal</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>Angiv en gyldig HTTP- eller HTTPS-URL. Brugernavne, adgangskoder og URL-fragmenter understøttes ikke.</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>Detaljer om notifikation i appen</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>Ugyldig kanalopsætning. Opdater siden, og prøv igen.</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>Ugyldige filterkriterier. Opdater siden, og prøv igen.</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>Kun vagtmails med gyldige OCE-øjebliksbilleder eller fejlede poster med aktiverede brugerdefinerede kanaler kan prøves igen. Du kan ikke vælge modtagere igen for at gensende gamle advarsler, hvis OCE eller e-mail mangler.</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>Aktivér venligst kanalen først.</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>Vælg en tilgængelig kanaltype.</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>Vælg mindst én modtagerbruger eller brugergruppe.</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>Testbeskedens indhold må ikke være tomt og må ikke overstige 4.000 tegn.</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>Modtageren behøver ikke at blive tilføjet til CC-listen igen.</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>Den valgte bruger, der kan tilknyttes, findes ikke. Vælg igen.</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>Den valgte brugergruppe, der kan tilknyttes, findes ikke. Vælg igen.</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>Den valgte kanal findes ikke længere. Opdater siden, og prøv igen.</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>Den valgte modtagerbruger findes ikke. Vælg igen.</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>Den valgte modtagerbrugergruppe findes ikke. Vælg igen.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Dette er en testbesked til pushkanalen.</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>Typen på en eksisterende kanal kan ikke ændres. Opret venligst en ny kanal.</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>Kan ikke beskytte Webhooks brugerdefinerede request-headere. Kontrollér konfigurationen af Webhook:HeaderProtectionKey.</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>Det er ikke muligt at læse de gemte Webhook-anmodningsheadere. Kontrollér databeskyttelsesnøglen, og prøv igen.</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>Webhook:HeaderProtectionKey skal konfigureres for brugerdefinerede request-headere. Angiv denne nøgle via en beskyttet miljøvariabel.</value>
+  </data>
+
+</root>

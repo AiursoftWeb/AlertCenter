@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A reason or progress update is required for this action." xml:space="preserve">
+    <value>Bu işlem için bir gerekçe veya ilerleme güncellemesi gereklidir.</value>
+  </data>
+  <data name="An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened." xml:space="preserve">
+    <value>Aynı bağlantılı kurala sahip bir olay zaten mevcut. Lütfen önce bu olayı çözüme kavuşturun; bu olay birleştirilemez veya yeniden açılamaz.</value>
+  </data>
+  <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
+    <value>Lütfen sev0 ile sev4 arasında bir olay önem düzeyi seçin.</value>
+  </data>
+  <data name="Reason or progress cannot exceed 4000 characters." xml:space="preserve">
+    <value>Gerekçe veya ilerleme 4000 karakteri aşamaz.</value>
+  </data>
+  <data name="The current incident status does not allow this operation." xml:space="preserve">
+    <value>Mevcut olay durumu bu işleme izin vermiyor.</value>
+  </data>
+  <data name="The incident has been modified by another engineer. Please refresh and try again." xml:space="preserve">
+    <value>Olay başka bir mühendis tarafından değiştirildi. Lütfen sayfayı yenileyip tekrar deneyin.</value>
+  </data>
+  <data name="The incident is already at the selected level." xml:space="preserve">
+    <value>Olay zaten seçilen önem düzeyinde.</value>
+  </data>
+  <data name="The incident version cannot be empty. Please refresh the page." xml:space="preserve">
+    <value>Olay sürümü boş olamaz. Lütfen sayfayı yenileyin.</value>
+  </data>
+  <data name="The linked rule is already occupied by another active incident. Please refresh and try again." xml:space="preserve">
+    <value>Bağlantılı kural başka bir etkin olay tarafından zaten kullanılıyor. Lütfen yenileyip tekrar deneyin.</value>
+  </data>
+  <data name="You are already the current assignee." xml:space="preserve">
+    <value>Zaten mevcut atanan kişi sizsiniz.</value>
+  </data>
+
+</root>

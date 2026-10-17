@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Avisering för kanaltest</value>
+  </data>
+  <data name="Custom request body contains unknown or incompletely used placeholders." xml:space="preserve">
+    <value>Den anpassade begärandekroppen innehåller okända platshållare eller platshållare som inte används fullständigt.</value>
+  </data>
+  <data name="Custom request body must be a JSON object." xml:space="preserve">
+    <value>Den anpassade begärandetexten måste vara ett JSON-objekt.</value>
+  </data>
+  <data name="Custom request body must be valid JSON." xml:space="preserve">
+    <value>Den anpassade förfrågningskroppen måste vara giltig JSON.</value>
+  </data>
+  <data name="Custom request header values must be non-empty strings." xml:space="preserve">
+    <value>Värden för anpassade begäranderubriker måste vara icke-tomma strängar.</value>
+  </data>
+  <data name="Custom request headers contain disallowed names." xml:space="preserve">
+    <value>Anpassade begärandehuvuden innehåller otillåtna namn.</value>
+  </data>
+  <data name="Custom request headers contain invalid or duplicate values." xml:space="preserve">
+    <value>Anpassade begäranderubriker innehåller ogiltiga eller duplicerade värden.</value>
+  </data>
+  <data name="Custom request headers must be a JSON object." xml:space="preserve">
+    <value>Anpassade förfrågningsrubriker måste vara ett JSON-objekt.</value>
+  </data>
+  <data name="Custom request headers must be valid JSON." xml:space="preserve">
+    <value>Anpassade begärandehuvuden måste vara giltig JSON.</value>
+  </data>
+  <data name="Invalid Webhook custom configuration. Please check channel configuration." xml:space="preserve">
+    <value>Ogiltig anpassad webhook-konfiguration. Kontrollera kanalkonfigurationen.</value>
+  </data>
+  <data name="Invalid Webhook custom headers. Please check channel configuration." xml:space="preserve">
+    <value>Ogiltiga anpassade webhook-rubriker. Kontrollera kanalens konfiguration.</value>
+  </data>
+  <data name="Invalid Webhook URL. Please check channel configuration." xml:space="preserve">
+    <value>Ogiltig webhook-URL. Kontrollera kanalens konfiguration.</value>
+  </data>
+  <data name="Send JSON messages to a specified HTTP address, suitable for connecting to existing systems." xml:space="preserve">
+    <value>Skicka JSON-meddelanden till en angiven HTTP-adress, lämpligt för anslutning till befintliga system.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Det här är ett testmeddelande för pushkanalen.</value>
+  </data>
+  <data name="Unable to connect to Webhook. Please check the address, network, or receiving service." xml:space="preserve">
+    <value>Det går inte att ansluta till webhooken. Kontrollera adressen, nätverket eller mottagartjänsten.</value>
+  </data>
+  <data name="Webhook request timed out. The receiver may have received the message. Please verify and retry." xml:space="preserve">
+    <value>Webhook-förfrågan överskred tidsgränsen. Mottagaren kan ha tagit emot meddelandet. Kontrollera och försök igen.</value>
+  </data>
+  <data name="Webhook returned HTTP {0}. Please check the receiver and retry manually." xml:space="preserve">
+    <value>Webhook returnerade HTTP {0}. Kontrollera mottagaren och försök igen manuellt.</value>
+  </data>
+
+</root>

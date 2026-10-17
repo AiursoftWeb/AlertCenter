@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>Rensade {0} kommande skifttilldelningar för personer som lämnat teamet. Granska schemat och fyll eventuella luckor.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Ett sparat schema finns; startpunkten för teamets schema kan inte ändras.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>Automatisk schemaläggning kräver minst {0} personer per skift och {1} timmars vila, vilket innebär att det behövs minst {2} medlemmar. När medlemmar som tillhör flera jourgrupper har räknats bort kan {3} schemaläggas automatiskt. Lägg till medlemmar som bara tillhör en grupp eller planera manuellt.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Fast tre skift per dag, 8 timmar vardera.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Minsta viloperiod måste vara 0–168 timmar.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Minsta bemanning per skift måste vara 1–200.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Inga regler är kopplade till teamet ännu. Du kan skapa ett schema manuellt.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Ange namnet på regeln.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Ange teamnamnet.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Välj en giltig tidszon i listan.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Välj en giltig starttid i UTC (måste ligga minst 28 dagar från datumgränsen).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Välj en befintlig jourregel.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>Schemaläggningsregeln har skapats.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Schemaläggningsregeln har tagits bort.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Schemaläggningsregeln har uppdaterats.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Målantalet får inte vara lägre än minimantalet och måste vara mellan 1 och 200. Lämna tomt för automatisk tilldelning.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Teamet har skapats.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Gruppen har tagits bort.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Teamet har uppdaterats.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Regeln eller teamet har ändrats. Uppdatera sidan och försök igen.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>Schemat har ändrats eller ett sparningsfel har inträffat. Uppdatera sidan och försök igen.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>De valda medarbetarna finns inte, förekommer flera gånger eller är fler än 200. Välj igen.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Formatet för skiftbegäran är ogiltigt.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>Teamet eller schemat har ändrats. Uppdatera sidan och försök igen.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>Det finns {0} obemannade pass den här veckan. Fyll i jourpersonal manuellt.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>Regeln är fortfarande kopplad till ett team. Uppdatera teamets regelkoppling först.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>Det här teamet har sparade scheman och kan inte tas bort tillsammans med sin historik.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Det här teamet är kopplat till en integrerad app. Tilldela appens jourgrupp på nytt eller koppla bort den först.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Det går inte att generera en förhandsgranskning: {0}</value>
+  </data>
+
+</root>
