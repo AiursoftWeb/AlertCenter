@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Create Team" xml:space="preserve">
+    <value>创建团队</value>
+  </data>
+  <data name="Manage team members, rotation order, timezone, and scheduling start point. You can bind a shared rule template, but actual shifts are saved by the team." xml:space="preserve">
+    <value>管理团队成员、轮值顺序、时区和排班起始时间。可以绑定共享规则模板，但实际班次由团队保存。</value>
+  </data>
+  <data name="Member Count" xml:space="preserve">
+    <value>成员数量</value>
+  </data>
+  <data name="No teams available. Please create a team first." xml:space="preserve">
+    <value>暂无团队。请先创建一个团队。</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>规则模板</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>团队</value>
+  </data>
+  <data name="Team management" xml:space="preserve">
+    <value>团队管理</value>
+  </data>
+  <data name="Team saved" xml:space="preserve">
+    <value>团队已保存</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>时区</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>未绑定</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>查看排班</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>查看团队</value>
+  </data>
+
+</root>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>：API 密钥仅在成功创建或重置时显示一次。请立即将其配置到生产环境变量中（例如，</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>。推送调度已异步触发。</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>。保留第一条记录，不要触发重复推送。</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>。中心可以使用此字段估算报告上报和送达的网络延迟。</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>（严重，最高优先级），</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>（错误），</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>（一般信息）。中心会根据此级别进行路由和推送。</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>（严重），</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>（警告），</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>）或密钥管理服务（KMS）。严禁将其硬编码到前端、日志或代码仓库中。</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>1 至 200 个字符</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 已接受（幂等）</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 参数错误</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 身份验证失败</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>业务实际发生时间，例如：</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>缺少 Bearer 凭据、密钥不匹配或应用程序已禁用。请检查应用程序设置。</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>配置推送中心渠道</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>复制代码</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>创建集成应用并获取 API 密钥</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>开发者集成指南</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>ReportId 相同的重复报告，</value>
+  </data>
+  <data name="Each business system authenticates requests using its own API key." xml:space="preserve">
+    <value>每个业务系统都使用自己的 API 密钥对请求进行身份验证。</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>确保严格的并发幂等性；重试时使用相同的 ID。</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>每个新的报告 ID 都会创建一个独立事件。仅在重试同一个请求时才重复使用相同的报告 ID。请在报告源头进行限流。</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>字段名称</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>从创建应用、验证密钥到提交首个事件报告，只需 4 步即可建立稳定的系统事件通道。</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>前往创建应用并获取凭据</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>HTTP 报告请求字段规范</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>HTTP 响应状态码与最佳工程实践</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>在示例代码中，</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>事件正文详情。支持添加故障排查指南、异常堆栈或诊断摘要。展示层会自动转义 HTML，以防止 XSS 注入。</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>事件摘要标题。简要描述故障，例如：“订单支付渠道响应超时。”</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>首次保存成功。返回生成的主键 ID，</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>JSON 对象；整个请求最大 64 KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>防止信息泄露须知</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>管理已集成的应用程序</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>最多 4,000 个字符</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>可选</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>或环境变量，便于在详情页一键定位和排查。</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>将其替换为上一步生成的应用密钥，即可直接发送测试请求。</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>必填</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>必填字段缺失、级别格式无效，或请求正文超过 64 KiB 限制。</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>响应使用 AiurProtocol，包含 Code、Message 和 ProtocolVersion。验证失败时会包含一个 Items 数组。SDK 会返回类型化回执，或抛出 AiurProtocol 异常。</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>规则与限制</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>发送第一条事件消息</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>严重程度：</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>标准 UUID 格式</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>结构化业务上下文。建议包含</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>客户端的全局唯一报告 ID。中心使用</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>SDK 对每条报告仅发送一次。如果网络故障导致结果无法确定，请使用相同的 ReportId 和发生时间重试相同的请求。</value>
+  </data>
+  <data name="This format identifies the application and lets the server verify its secret hash." xml:space="preserve">
+    <value>这种格式用于标识应用程序，并允许服务器验证其密钥哈希值。</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>查看事件</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>带时区偏移量或 Z 标识符</value>
+  </data>
+
+</root>

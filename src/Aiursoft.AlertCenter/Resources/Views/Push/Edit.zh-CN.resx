@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>，可在接收端配合</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>：支持同时绑定多个用户和用户组（角色）。系统会自动去重，确保每位成员只收到一条未读通知。</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>：系统统一使用全局 Email 服务配置。请使用</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. 选择频道类型</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>添加一个抄送邮箱地址</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>添加电子邮件地址</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>请至少添加一位用户或一个用户组；如果用户组中没有成员，则不会发送通知。</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>添加推送渠道</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>添加接收对象和用户组</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>高级自定义请求（自定义请求头和模板）</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>应用绑定授权</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>尚未授予应用绑定权限</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>目前除推送渠道管理员外，没有其他用户可以绑定此渠道。</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>授权类型</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>返回频道列表</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>批量输入抄送邮箱地址</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>无法覆盖。</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>抄送列表</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>频道名称</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>点击右侧按钮即可移除</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>点击以插入占位符：</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>配置详情</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>默认请求格式说明</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>每个投递任务都有一个唯一且固定的</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>编辑推送渠道</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>邮件将直接发送到此邮箱地址。</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>立即启用此推送渠道</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>环境变量用于提供身份验证凭据。</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>示例：生产值班团队、飞书事件机器人、运维 Webhook……</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>额外请求标头（JSON 对象）</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>全局 SMTP 邮件服务</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>标头名称最多 128 个字符；值必须是有效字符串。</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>实现幂等去重。</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>如果留空，系统默认发送标准 JSON。自定义请求头会加密并持久化；</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>应用内通知范围</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>正在修改频道“{0}”的投递参数。</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>尚未添加抄送收件人。</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>尚未添加收件人。请在上方选择角色组或指定用户。</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>每行填写一个电子邮件地址；也支持使用英文逗号或分号分隔，最多可添加 50 个抄送收件人。</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>只有以下用户或用户组成员可以在其管理的应用中查看并绑定此渠道。此权限不授予访问收件人、Webhook 或测试配置的权限。</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>解析为列表</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>已解析的抄送收件人</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>占位符必须是 JSON 字符串的唯一值。</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>收件人邮箱</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>接收对象类型</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>移除 {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>移除权限</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>请求正文模板（JSON 模板）</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>角色组</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>保存频道配置</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>按用户名或显示名称搜索...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>搜索用户</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>选择通知渠道类型，并配置收件地址或目标接收对象。</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>选择用户组</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>选择用户组...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>选择用户...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>已选收件人列表</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>指定的单个用户</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>指定用户</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>指定用户（用户）</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>接收端必须支持通过 HTTP POST 发送 JSON。收到 2xx 响应即视为投递成功。系统请求超时时间为 10 秒，且不会跟随跨源重定向。</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>待添加</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>用于快速识别应用推送级别和记录。</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>用户组</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>用户组 · 成员自动继承已绑定的权限</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>用户组（角色）</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>Webhook 接收 URL</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>将解析并保留原始对象类型。</value>
+  </data>
+
+</root>

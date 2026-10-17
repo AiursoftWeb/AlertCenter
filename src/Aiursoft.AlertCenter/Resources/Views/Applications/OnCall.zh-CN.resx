@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application On-Call Settings" xml:space="preserve">
+    <value>应用值班设置</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>返回已连接的应用</value>
+  </data>
+  <data name="Binding automatically enables the built-in on-call email: To is the registered email addresses of all current on-call engineers (OCE), and CC is the on-call group&apos;s configured address. This cannot be disabled individually in push settings; unbinding stops new on-call emails. Application-specific custom channels remain independent, and binding does not grant the application access permissions." xml:space="preserve">
+    <value>绑定后会自动启用内置值班邮件：收件人（To）为所有当前值班工程师（OCE）的注册邮箱，抄送（CC）为值班组配置的邮箱。无法在推送设置中单独关闭此邮件；解除绑定后将不再发送新的值班邮件。应用专属的自定义渠道不受影响，绑定也不会授予应用访问权限。</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>不绑定值班组</value>
+  </data>
+  <data name="Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive incidents do not require on-call configuration." xml:space="preserve">
+    <value>每个应用只能绑定一个值班组；一个值班组可以服务于多个应用。选择“无值班组”即可解除绑定。仅接收事件的应用无需配置值班。</value>
+  </data>
+  <data name="No on-duty groups available. Please contact the administrator to create a team in the On-Call Center." xml:space="preserve">
+    <value>暂无值班组。请联系管理员在值班中心创建团队。</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>值班组</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>值班组（可选）</value>
+  </data>
+  <data name="Save on-call settings" xml:space="preserve">
+    <value>保存值班设置</value>
+  </data>
+  <data name="Select, replace, or unbind on-call group." xml:space="preserve">
+    <value>选择、更换或解绑值班组。</value>
+  </data>
+
+</root>

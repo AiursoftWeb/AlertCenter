@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledged" xml:space="preserve">
+    <value>已确认</value>
+  </data>
+  <data name="Acknowledged (Acked)" xml:space="preserve">
+    <value>已确认（Acked）</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>调整事件严重级别</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>调整严重程度</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
+    <value>调整此事件的严重级别并记录原因。</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>自动创建事件</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>自动创建于</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>返回事件列表</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>闭环恢复</value>
+  </data>
+  <data name="Confirm and claim" xml:space="preserve">
+    <value>确认并接管</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>确认并接管事件</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>确认事件缓解</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>确认重新打开事件</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>确认解决事件</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>确认调整严重级别</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>确认备注（可选）</value>
+  </data>
+  <data name="Confirmation time (UTC)" xml:space="preserve">
+    <value>确认时间（UTC）</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>复制内容</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>复制 JSON</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>当前值班 OCE</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>当前值班</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>请说明采取的缓解措施、影响范围和恢复状态。</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>请描述影响的变化以及调整严重程度的依据。</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>每份独立报告都会创建一个新事件。确认、缓解或解决此事件不会影响其他事件或其通知。</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>示例：核心数据库连接池已恢复，服务响应正常，负载测试已通过。</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>示例：监控再次检测到相同故障，需要重新调查。</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>已修复并关闭</value>
+  </data>
+  <data name="Full-cycle handling timeline" xml:space="preserve">
+    <value>全流程处理时间线</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>处理节点</value>
+  </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>事件动态</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>事件 ID</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>事件负责人：</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>事件处理中心 - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>独立事件</value>
+  </data>
+  <data name="Log investigation and handling progress" xml:space="preserve">
+    <value>记录调查与处理进展</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>缓解事件</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>已缓解</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>已缓解（Mitigated）</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>缓解原因（必填）</value>
+  </data>
+  <data name="Mitigation time (UTC)" xml:space="preserve">
+    <value>缓解时间（UTC）</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>新级别</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>目前没有值班 OCE。</value>
+  </data>
+  <data name="Not set" xml:space="preserve">
+    <value>未设置</value>
+  </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>发生时间（UTC）</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>负责人：</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>待响应</value>
+  </data>
+  <data name="Pending Response (New)" xml:space="preserve">
+    <value>待处理响应（新建）</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>进展</value>
+  </data>
+  <data name="Publish progress" xml:space="preserve">
+    <value>发布进展</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>查询失败：</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>调整原因（必填）</value>
+  </data>
+  <data name="Received at (UTC)" xml:space="preserve">
+    <value>接收时间（UTC）</value>
+  </data>
+  <data name="Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..." xml:space="preserve">
+    <value>实时记录调查线索、紧急缓解措施、影响范围评估或系统恢复进度……</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE." xml:space="preserve">
+    <value>记录所采取的缓解措施，然后填写解决原因。重新打开此事件会将其状态恢复为“待响应”，清除受派人，并向当前值班的 OCE 发送邮件。</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>记录所采取的缓解措施。修复完成后，请解决此事件。</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>重新打开事件</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>重新打开备注（可选）</value>
+  </data>
+  <data name="Reopening restores the &quot;Pending Response&quot; status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed." xml:space="preserve">
+    <value>重新打开后，事件状态将恢复为“待响应”，负责人将被清除，并向当前值班的 OCE 发送电子邮件。必须重新确认并认领该事件。</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>报告 ID</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>报告信息</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>解决原因（必填）</value>
+  </data>
+  <data name="Resolution time (UTC)" xml:space="preserve">
+    <value>解决时间（UTC）</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>解决事件</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>已解决</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>已解决（已解决）</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>解决此事件后，其处理流程即告完成。其他事件将独立处理。</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>响应机制说明</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 严重（P0）</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 重大（P1）</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · 错误 (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 警告 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 信息（P4）</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>严重程度：</value>
+  </data>
+  <data name="Status: " xml:space="preserve">
+    <value>状态：</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>系统</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>接管事件</value>
+  </data>
+  <data name="Take Over Notes (Optional)" xml:space="preserve">
+    <value>接手备注（可选）</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未分配</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>用户已删除</value>
+  </data>
+
+</root>

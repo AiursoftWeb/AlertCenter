@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
+    <value>7 天值班安排</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>自动分配</value>
+  </data>
+  <data name="Back to Schedule List" xml:space="preserve">
+    <value>返回排班列表</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>尽可能均衡地安排早班、中班和晚班</value>
+  </data>
+  <data name="Close, prioritize fixed time slots" xml:space="preserve">
+    <value>优先安排相近的固定时段</value>
+  </data>
+  <data name="Cross-on-call-group members require manual scheduling" xml:space="preserve">
+    <value>跨值班组成员需要手动排班</value>
+  </data>
+  <data name="Current On-Call" xml:space="preserve">
+    <value>当前值班</value>
+  </data>
+  <data name="Current Week" xml:space="preserve">
+    <value>本周</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>编辑团队</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>员工已删除</value>
+  </data>
+  <data name="First class at " xml:space="preserve">
+    <value>第一班次开始于</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>小时 · 锚定时间</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>小时 · 每班最低人数</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>小时 · 每周最低人数</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>小时。</value>
+  </data>
+  <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
+    <value>人员不足警告（允许手动保存，空班次除外）</value>
+  </data>
+  <data name="Minimum template cooldown " xml:space="preserve">
+    <value>模板最短冷却时间</value>
+  </data>
+  <data name="Modifying templates, re-binding templates, or adding/removing members will not regenerate saved shifts. After removing a member, upcoming assignments are cleared; empty shifts must be filled manually." xml:space="preserve">
+    <value>修改模板、重新绑定模板或添加/移除成员都不会重新生成已保存的班次。移除成员后，其后续排班将被清除；空缺班次必须手动安排。</value>
+  </data>
+  <data name="Next Week" xml:space="preserve">
+    <value>下周</value>
+  </data>
+  <data name="No rule template bound, manual scheduling available; new shifts default to min rest " xml:space="preserve">
+    <value>未绑定规则模板，可手动排班；新班次默认采用最短休息时长</value>
+  </data>
+  <data name="No shifts are currently assigned this week. You can add personnel manually." xml:space="preserve">
+    <value>本周目前尚未安排任何班次。您可以手动添加人员。</value>
+  </data>
+  <data name="No team members. Please edit the team to add members before manually filling empty shifts." xml:space="preserve">
+    <value>暂无团队成员。请编辑团队并添加成员，然后再手动填补空班次。</value>
+  </data>
+  <data name="No valid scheduling weeks. Please check the team&apos;s scheduling start point." xml:space="preserve">
+    <value>没有有效的排班周。请检查团队的排班起始日期。</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>值班排班表</value>
+  </data>
+  <data name="Other teams: " xml:space="preserve">
+    <value>其他团队：</value>
+  </data>
+  <data name="Override duration" xml:space="preserve">
+    <value>覆盖时长</value>
+  </data>
+  <data name="Participating employees" xml:space="preserve">
+    <value>参与员工</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>人 · 本周最短休息时间</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>人 · 时段轮换：</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>人，目标</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>每班</value>
+  </data>
+  <data name="Previous Week" xml:space="preserve">
+    <value>上一周</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>轮换成员</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>规则模板：</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>已保存</value>
+  </data>
+  <data name="Shift covered" xml:space="preserve">
+    <value>已覆盖班次</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>开始</value>
+  </data>
+  <data name="Starting soon" xml:space="preserve">
+    <value>即将开始</value>
+  </data>
+  <data name="Status is based on page load time)" xml:space="preserve">
+    <value>状态基于页面加载时间）</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>团队配置</value>
+  </data>
+  <data name="The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available." xml:space="preserve">
+    <value>以下员工属于多个值班组；自动预览和排班将跳过这些员工。已保存的安排不会改变；仍可手动排班并进行跨组冲突验证。</value>
+  </data>
+  <data name="This shift ends at " xml:space="preserve">
+    <value>本班次结束时间为</value>
+  </data>
+  <data name="This week&apos;s schedule" xml:space="preserve">
+    <value>本周的排班</value>
+  </data>
+  <data name="Three shifts per day, supporting multiple members per shift. Actual shifts are stored under the team." xml:space="preserve">
+    <value>每天三班，每班可安排多名成员。实际班次存储在团队下。</value>
+  </data>
+  <data name="Unsaved · Auto-suggested" xml:space="preserve">
+    <value>未保存 · 自动建议</value>
+  </data>
+  <data name="Unsaved · Manual schedule" xml:space="preserve">
+    <value>未保存 · 手动排班</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>查看团队</value>
+  </data>
+
+</root>
