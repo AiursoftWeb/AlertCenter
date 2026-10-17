@@ -114,7 +114,7 @@ public class Startup : IWebStartup
             }
             catch (BadHttpRequestException exception) when (
                 exception.StatusCode == StatusCodes.Status413PayloadTooLarge &&
-                context.Request.Path.Equals("/api/v1/incidents", StringComparison.OrdinalIgnoreCase))
+                context.Request.Path.StartsWithSegments("/api/v1/incidents", StringComparison.OrdinalIgnoreCase))
             {
                 await IncidentReportExceptionHandlerAttribute.PayloadTooLarge(context).ExecuteResultAsync(
                     new ActionContext(context, new RouteData(), new ActionDescriptor()));

@@ -132,6 +132,63 @@ For rotating credentials, register your own scoped `IAlertCenterApiKeyProvider`;
 
 **Reporting clients must rate-limit at the source.** Each new report ID creates an independent incident, even when its content matches another incident. Retrying the same application/report ID returns the original receipt without creating another incident or delivery. All handling takes place on the incident detail page.
 
+### Query incidents with the SDK
+
+SDK 10.2.0 adds `QueryIncidentsAsync` (`GET /api/v1/incidents`). The same application
+Bearer key authorizes both reporting and querying; queries only return that application's
+incidents, including their complete structured `Context`.
+
+```csharp
+var page = await client.QueryIncidentsAsync(new QueryIncidentsRequest
+{
+    ActiveOnly = true,
+    Page = 1,
+    PageSize = 50
+});
+foreach (var incident in page.Items)
+{
+    Console.WriteLine($"{incident.IncidentId}: {incident.Title} ({incident.Status})");
+}
+```
+
+`ActiveOnly` defaults to false; true includes `new`, `acked`, and `mitigated`, excluding
+`resolved`. Pages start at 1 (maximum 1,000,000); page sizes range from 1 to 100 and default
+to 50. Responses include `Page`, `PageSize`, and `TotalCount`, with newest received incidents
+first and incident ID as the tie-breaker. Read all relevant pages before deciding no match
+exists. Pagination reflects live data, not a snapshot across requests.
+
+Callers decide which titles, services, or Context fields constitute a duplicate. The SDK
+and API do not compare metadata, suppress reports, or make query-and-create atomic.
+Queries have no state or notification side effects. AiurProtocol response codes and error
+handling match reporting; invalid query parameters return its validation reasons.
+
+
+### Resolve an incident with the SDK
+
+Use `ResolveIncidentAsync` (`POST /api/v1/incidents/{incidentId}/resolve`) after the
+calling application has confirmed recovery. Supply the `Version` returned by a fresh query
+and a non-blank `Reason` of at most 4,000 characters:
+
+```csharp
+var result = await client.ResolveIncidentAsync(incident.IncidentId, new ResolveIncidentRequest
+{
+    Version = incident.Version,
+    Reason = "Audit run 42 confirmed that the endpoint is healthy."
+});
+```
+
+The application key can resolve only its own incidents. Any active state can transition
+directly to `resolved`; the existing human workflow is unchanged. Resolution preserves the
+owner and records the previous state, application identity and reason in the incident timeline.
+No engineer is impersonated, and no acknowledgement or mitigation steps are fabricated.
+
+The first resolution returns `JobDone`; an already resolved incident returns `NoActionTaken`
+without another timeline entry. A changed active incident returns `Conflict`: query again and
+re-evaluate recovery rather than blindly retrying with a new version. This also prevents an old
+request from closing a subsequently reopened incident. Missing and other-application incidents
+both return `NotFound`. SDK protocol exceptions match reporting. No automatic resolution or
+recovery detection runs inside AlertCenter; the caller decides when to invoke this method.
+
 ## Permissions and on-call response
 
 Platform capabilities use `Permission` claims. Roles collect permissions; the name `Administrators` does not grant privileges by itself.
