@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="The start date cannot be later than the end date." xml:space="preserve">
+      <data name="Keywords cannot exceed 200 characters." xml:space="preserve">
+    <value>Từ khóa không được vượt quá 200 ký tự.</value>
+  </data>
+  <data name="Please select a valid incident level." xml:space="preserve">
+    <value>Vui lòng chọn mức độ sự cố hợp lệ.</value>
+  </data>
+  <data name="Please select a valid incident status." xml:space="preserve">
+    <value>Vui lòng chọn trạng thái sự cố hợp lệ.</value>
+  </data>
+  <data name="The start date cannot be later than the end date." xml:space="preserve">
     <value>Ngày bắt đầu không thể muộn hơn ngày kết thúc.</value>
   </data>
 

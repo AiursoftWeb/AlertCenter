@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>1日3交代制（各8時間固定）。</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>最低休息時間は0～168時間である必要があります。</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>1シフトあたりの最低スタッフ数は1～200人である必要があります。</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>ルール名を入力してください。</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>チーム名を入力してください。</value>
+  </data>
+  <data name="Please select a time zone." xml:space="preserve">
+    <value>タイムゾーンを選択してください。</value>
+  </data>
+  <data name="Please select a UTC start time." xml:space="preserve">
+    <value>UTCの開始時刻を選択してください。</value>
+  </data>
+  <data name="Rule name must not exceed 100 characters." xml:space="preserve">
+    <value>ルール名は100文字以内で入力してください。</value>
+  </data>
+  <data name="Target staff per shift must be 1–200." xml:space="preserve">
+    <value>シフトあたりの目標スタッフ数は1～200人である必要があります。</value>
+  </data>
+  <data name="Team name cannot exceed 100 characters." xml:space="preserve">
+    <value>チーム名は100文字以内で入力してください。</value>
+  </data>
+  <data name="The on-call email CC configuration must not exceed 8,000 characters." xml:space="preserve">
+    <value>オンコールメールのCC設定は8,000文字以内である必要があります。</value>
+  </data>
+  <data name="Time zone ID cannot exceed 100 characters." xml:space="preserve">
+    <value>タイムゾーン ID は100文字以内で入力してください。</value>
+  </data>
+
+</root>

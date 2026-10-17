@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>चैनल परीक्षण सूचना</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>कृपया मान्य HTTP या HTTPS URL दर्ज करें। उपयोगकर्ता नाम, पासवर्ड और URL फ़्रैगमेंट समर्थित नहीं हैं।</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>ऐप के अंदर की सूचना का विवरण</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>चैनल कॉन्फ़िगरेशन अमान्य है। कृपया पृष्ठ को रीफ़्रेश करें और फिर से प्रयास करें।</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>फ़िल्टर मानदंड अमान्य हैं। कृपया पृष्ठ रीफ़्रेश करें और फिर से कोशिश करें।</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>केवल मान्य OCE स्नैपशॉट वाले ऑन-कॉल ईमेल या कस्टम चैनल सक्षम होने पर विफल रिकॉर्ड को फिर से आज़माया जा सकता है। यदि OCE या ईमेल मौजूद नहीं है, तो पुराने अलर्ट दोबारा भेजने के लिए आप प्राप्तकर्ताओं को फिर से नहीं चुन सकते।</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>कृपया पहले चैनल को सक्षम करें।</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>कृपया उपलब्ध चैनल प्रकार चुनें।</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>कम से कम एक प्राप्तकर्ता उपयोगकर्ता या उपयोगकर्ता समूह चुनें।</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>परीक्षण संदेश की सामग्री खाली नहीं हो सकती और उसमें 4,000 से अधिक वर्ण नहीं होने चाहिए।</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>प्राप्तकर्ता को फिर से CC सूची में जोड़ने की आवश्यकता नहीं है।</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>चयनित बाइंड करने योग्य उपयोगकर्ता मौजूद नहीं है। कृपया फिर से चुनें।</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>चयनित बाइंड करने योग्य उपयोगकर्ता समूह मौजूद नहीं है। कृपया फिर से चुनें।</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>चयनित चैनल अब मौजूद नहीं है। कृपया पृष्ठ को रीफ़्रेश करें और फिर से प्रयास करें।</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>चयनित प्राप्तकर्ता उपयोगकर्ता मौजूद नहीं है। कृपया फिर से चुनें।</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>चयनित प्राप्तकर्ता उपयोगकर्ता समूह मौजूद नहीं है। कृपया फिर से चुनें।</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>यह पुश चैनल के लिए एक परीक्षण संदेश है।</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>किसी मौजूदा चैनल का प्रकार बदला नहीं जा सकता; कृपया नया चैनल बनाएँ।</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>Webhook के कस्टम अनुरोध हेडर सुरक्षित नहीं किए जा सके। कृपया Webhook:HeaderProtectionKey कॉन्फ़िगरेशन की जाँच करें।</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>सहेजे गए Webhook अनुरोध हेडर पढ़ने में असमर्थ। कृपया डेटा सुरक्षा कुंजी जाँचें और फिर से प्रयास करें।</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>कस्टम अनुरोध हेडर के लिए Webhook:HeaderProtectionKey कॉन्फ़िगर करना आवश्यक है। यह कुंजी किसी संरक्षित पर्यावरण चर के माध्यम से प्रदान करें।</value>
+  </data>
+
+</root>

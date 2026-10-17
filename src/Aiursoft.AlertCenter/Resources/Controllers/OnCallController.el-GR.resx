@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>Αφαιρέθηκαν {0} μελλοντικές αναθέσεις βαρδιών για μέλη που αποχώρησαν. Παρακαλούμε ελέγξτε το πρόγραμμα και καλύψτε τυχόν κενά.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Υπάρχει αποθηκευμένο πρόγραμμα· δεν είναι δυνατή η τροποποίηση της ώρας έναρξης του προγράμματος της ομάδας.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>Η αυτόματη δημιουργία προγράμματος απαιτεί τουλάχιστον {0} άτομα ανά βάρδια και {1} ώρες ανάπαυσης, επομένως χρειάζονται τουλάχιστον {2} μέλη. Μετά την εξαίρεση των μελών που συμμετέχουν σε ομάδες εφημερίας πολλαπλών ομάδων, μπορούν να προγραμματιστούν αυτόματα {3} μέλη. Προσθέστε μέλη που ανήκουν σε μία μόνο ομάδα ή καταρτίστε το πρόγραμμα χειροκίνητα.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Καθορισμένες τρεις βάρδιες την ημέρα, 8 ώρες η καθεμία.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Η ελάχιστη ανάπαυση πρέπει να είναι 0–168 ώρες.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Το ελάχιστο προσωπικό ανά βάρδια πρέπει να είναι 1–200.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Δεν έχουν οριστεί ακόμη κανόνες για την ομάδα. Μπορείτε να δημιουργήσετε ένα πρόγραμμα χειροκίνητα.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Παρακαλώ εισαγάγετε το όνομα του κανόνα.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Παρακαλώ εισαγάγετε το όνομα της ομάδας.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Επιλέξτε μια έγκυρη ζώνη ώρας από τη λίστα.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Επιλέξτε μια έγκυρη ώρα έναρξης UTC (πρέπει να απέχει τουλάχιστον 28 ημέρες από το όριο της ημερομηνίας).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Παρακαλώ επιλέξτε έναν υπάρχοντα κανόνα εφημερίας.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>Ο κανόνας προγραμματισμού δημιουργήθηκε με επιτυχία.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Ο κανόνας προγραμματισμού διαγράφηκε.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Ο κανόνας προγραμματισμού ενημερώθηκε.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Ο επιθυμητός αριθμός ατόμων δεν μπορεί να είναι μικρότερος από τον ελάχιστο και πρέπει να κυμαίνεται από 1 έως 200. Αφήστε το κενό για αυτόματη κατανομή.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Η ομάδα δημιουργήθηκε με επιτυχία.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Η ομάδα διαγράφηκε.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Η ομάδα ενημερώθηκε.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Ο κανόνας ή η ομάδα έχει αλλάξει. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>Το πρόγραμμα έχει αλλάξει ή προέκυψε διένεξη κατά την αποθήκευση. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>Οι επιλεγμένοι εργαζόμενοι δεν υπάρχουν, έχουν επιλεγεί περισσότερες από μία φορές ή είναι πάνω από 200. Επιλέξτε ξανά.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Η μορφή του αιτήματος βάρδιας δεν είναι έγκυρη.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>Η ομάδα ή το πρόγραμμα έχει αλλάξει. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>Υπάρχουν {0} βάρδιες χωρίς ανάθεση αυτή την εβδομάδα. Παρακαλώ συμπληρώστε χειροκίνητα τα άτομα εφημερίας.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>Αυτός ο κανόνας εξακολουθεί να είναι συνδεδεμένος με μια ομάδα. Ενημερώστε πρώτα τη σύνδεση του κανόνα με την ομάδα.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>Αυτή η ομάδα έχει αποθηκευμένα προγράμματα και δεν μπορεί να διαγραφεί μαζί με το ιστορικό της.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Αυτή η ομάδα είναι συνδεδεμένη με μια ενσωματωμένη εφαρμογή. Παρακαλούμε αναθέστε εκ νέου ή αποσυνδέστε πρώτα την ομάδα εφημερίας της εφαρμογής.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Δεν είναι δυνατή η δημιουργία προεπισκόπησης: {0}</value>
+  </data>
+
+</root>

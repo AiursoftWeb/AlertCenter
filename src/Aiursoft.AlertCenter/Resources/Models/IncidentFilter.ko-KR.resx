@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="The start date cannot be later than the end date." xml:space="preserve">
+      <data name="Keywords cannot exceed 200 characters." xml:space="preserve">
+    <value>키워드는 200자를 초과할 수 없습니다.</value>
+  </data>
+  <data name="Please select a valid incident level." xml:space="preserve">
+    <value>유효한 인시던트 수준을 선택하세요.</value>
+  </data>
+  <data name="Please select a valid incident status." xml:space="preserve">
+    <value>유효한 인시던트 상태를 선택하세요.</value>
+  </data>
+  <data name="The start date cannot be later than the end date." xml:space="preserve">
     <value>시작 날짜는 종료 날짜보다 늦을 수 없습니다.</value>
   </data>
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>每天固定三班，每班 8 小时。</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>最短休息时间必须为 0–168 小时。</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>每班最低人员数必须为 1–200 人。</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>请输入规则名称。</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>请输入团队名称。</value>
+  </data>
+  <data name="Please select a time zone." xml:space="preserve">
+    <value>请选择一个时区。</value>
+  </data>
+  <data name="Please select a UTC start time." xml:space="preserve">
+    <value>请选择 UTC 开始时间。</value>
+  </data>
+  <data name="Rule name must not exceed 100 characters." xml:space="preserve">
+    <value>规则名称不能超过 100 个字符。</value>
+  </data>
+  <data name="Target staff per shift must be 1–200." xml:space="preserve">
+    <value>每班目标人员数必须为 1–200 人。</value>
+  </data>
+  <data name="Team name cannot exceed 100 characters." xml:space="preserve">
+    <value>团队名称不能超过 100 个字符。</value>
+  </data>
+  <data name="The on-call email CC configuration must not exceed 8,000 characters." xml:space="preserve">
+    <value>值班邮件抄送配置不能超过 8,000 个字符。</value>
+  </data>
+  <data name="Time zone ID cannot exceed 100 characters." xml:space="preserve">
+    <value>时区 ID 不能超过 100 个字符。</value>
+  </data>
+
+</root>

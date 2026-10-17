@@ -27,6 +27,15 @@
   <data name="Allows assigning or removing roles for any user." xml:space="preserve">
     <value>Mahdollistaa roolien määrittämisen tai poistamisen mille tahansa käyttäjälle.</value>
   </data>
+  <data name="Allows configuring push channels and recipients, application bindings, and delivery records." xml:space="preserve">
+    <value>Mahdollistaa push-kanavien ja vastaanottajien, sovellussidosten sekä toimitustietueiden määrittämisen.</value>
+  </data>
+  <data name="Allows creating applications and managing access to all applications." xml:space="preserve">
+    <value>Sallii sovellusten luomisen ja kaikkien sovellusten käyttöoikeuksien hallinnan.</value>
+  </data>
+  <data name="Allows managing on-call teams, scheduling rules, and schedules." xml:space="preserve">
+    <value>Sallii päivystystiimien, ajastussääntöjen ja aikataulujen hallinnan.</value>
+  </data>
   <data name="Allows modification of role names and their assigned permissions." xml:space="preserve">
     <value>Sallii roolien nimien ja niihin liitettyjen käyttöoikeuksien muokkaamisen.</value>
   </data>
@@ -81,8 +90,17 @@
   <data name="Grants permission to restart the application instance. May cause availability interruptions but all settings and cache will be reloaded." xml:space="preserve">
     <value>Antaa luvan sovelluksen uudelleenkäynnistämiseen. Saattaa aiheuttaa käyttökatkoksia, mutta kaikki asetukset ja välimuisti ladataan uudelleen.</value>
   </data>
+  <data name="Manage Applications" xml:space="preserve">
+    <value>Hallitse sovelluksia</value>
+  </data>
   <data name="Manage Global Settings" xml:space="preserve">
     <value>Hallinnoi yleisiä asetuksia</value>
+  </data>
+  <data name="Manage On-Call" xml:space="preserve">
+    <value>Hallitse päivystysvuoroja</value>
+  </data>
+  <data name="Manage Push Channels" xml:space="preserve">
+    <value>Hallitse push-kanavia</value>
   </data>
   <data name="Read Permissions" xml:space="preserve">
     <value>Lue käyttöoikeudet</value>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Tetap tiga sif per hari, masing-masing 8 jam.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Waktu istirahat minimum harus 0–168 jam.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Jumlah minimum staf per sif harus 1–200.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Harap masukkan nama aturan.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Silakan masukkan nama tim.</value>
+  </data>
+  <data name="Please select a time zone." xml:space="preserve">
+    <value>Silakan pilih zona waktu.</value>
+  </data>
+  <data name="Please select a UTC start time." xml:space="preserve">
+    <value>Silakan pilih waktu mulai dalam UTC.</value>
+  </data>
+  <data name="Rule name must not exceed 100 characters." xml:space="preserve">
+    <value>Nama aturan tidak boleh melebihi 100 karakter.</value>
+  </data>
+  <data name="Target staff per shift must be 1–200." xml:space="preserve">
+    <value>Jumlah staf sasaran per giliran harus 1–200.</value>
+  </data>
+  <data name="Team name cannot exceed 100 characters." xml:space="preserve">
+    <value>Nama tim tidak boleh melebihi 100 karakter.</value>
+  </data>
+  <data name="The on-call email CC configuration must not exceed 8,000 characters." xml:space="preserve">
+    <value>Konfigurasi CC email piket tidak boleh melebihi 8.000 karakter.</value>
+  </data>
+  <data name="Time zone ID cannot exceed 100 characters." xml:space="preserve">
+    <value>ID zona waktu tidak boleh melebihi 100 karakter.</value>
+  </data>
+
+</root>

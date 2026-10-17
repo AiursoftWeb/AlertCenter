@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0}&apos;s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." xml:space="preserve">
+    <value>Зміна {0} о {1:yyyy-MM-dd HH:mm} UTC перетинається з іншою зміною або не забезпечує достатнього відпочинку (мінімум {2} годин цього тижня з урахуванням вимог до суміжних змін).</value>
+  </data>
+  <data name="{0}&apos;s shift is outside the designated 8-hour window." xml:space="preserve">
+    <value>Зміна {0} виходить за межі встановленого 8-годинного інтервалу.</value>
+  </data>
+  <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
+    <value>Виявлено порожню зміну о {0:yyyy-MM-dd HH:mm} UTC. Потрібен щонайменше один працівник.</value>
+  </data>
+  <data name="Includes employees not belonging to the current team." xml:space="preserve">
+    <value>Містить працівників, які не належать до поточної команди.</value>
+  </data>
+  <data name="Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." xml:space="preserve">
+    <value>Заплановано лише {0} працівників на {1:yyyy-MM-dd HH:mm} UTC, що менше за мінімум {2}. Зберегти вручну все одно можна, навіть якщо працівників недостатньо, за винятком порожніх змін.</value>
+  </data>
+
+</root>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Fixed three shifts per day, 8 hours each; minimum break must be 0–168 hours." xml:space="preserve">
+    <value>Καθορισμένες τρεις βάρδιες την ημέρα, διάρκειας 8 ωρών η καθεμία· το ελάχιστο διάλειμμα πρέπει να είναι 0–168 ώρες.</value>
+  </data>
+  <data name="Minimum staff must be 1–200. Target staff must be empty or between 1–200 and not less than the minimum." xml:space="preserve">
+    <value>Ο ελάχιστος αριθμός εργαζομένων πρέπει να είναι από 1 έως 200. Ο αριθμός εργαζομένων-στόχος πρέπει να είναι κενός ή από 1 έως 200 και όχι μικρότερος από τον ελάχιστο αριθμό.</value>
+  </data>
+  <data name="Please select unique, valid employees." xml:space="preserve">
+    <value>Παρακαλώ επιλέξτε μοναδικούς, έγκυρους υπαλλήλους.</value>
+  </data>
+  <data name="Preview shift count must be 1–168." xml:space="preserve">
+    <value>Ο αριθμός βαρδιών προεπισκόπησης πρέπει να είναι από 1 έως 168.</value>
+  </data>
+  <data name="Preview start must align with the team&apos;s shift boundary." xml:space="preserve">
+    <value>Η έναρξη της προεπισκόπησης πρέπει να συμπίπτει με την αλλαγή βάρδιας της ομάδας.</value>
+  </data>
+  <data name="The shift start time must be in UTC." xml:space="preserve">
+    <value>Η ώρα έναρξης της βάρδιας πρέπει να είναι σε UTC.</value>
+  </data>
+  <data name="This rule requires at least {0} staff (shift {1} hours, rest no less than {2} hours)." xml:space="preserve">
+    <value>Αυτός ο κανόνας απαιτεί τουλάχιστον {0} εργαζομένους (βάρδια {1} ωρών, ανάπαυση τουλάχιστον {2} ωρών).</value>
+  </data>
+  <data name="Unable to schedule staff meeting rest requirements at {0:yyyy-MM-dd HH:mm} UTC. Please adjust adjacent shifts or add members." xml:space="preserve">
+    <value>Δεν είναι δυνατός ο προγραμματισμός βάρδιας προσωπικού με τήρηση των απαιτήσεων ανάπαυσης στις {0:yyyy-MM-dd HH:mm} UTC. Προσαρμόστε τις γειτονικές βάρδιες ή προσθέστε μέλη.</value>
+  </data>
+
+</root>
