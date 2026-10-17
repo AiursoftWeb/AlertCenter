@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Services.FileStorage;
@@ -68,6 +69,50 @@ public partial class IncidentPagesTests
         Assert.AreEqual(4, await finalDb.IncidentComments.CountAsync());
         Assert.AreEqual(0, await finalDb.PushDeliveries.CountAsync());
         Assert.AreEqual(1, await finalDb.IncidentTimelineEntries.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task CommentEditorUploadsImagesThroughSharedStorageAndPreservesMarkdown()
+    {
+        var id = await CreateCommentIncident();
+        var url = $"/Incidents/Details/{id}";
+        var html = await Http.GetStringAsync(url);
+        var uploadMatch = Regex.Match(html, "data-image-upload-url=\"([^\"]+)\"");
+        Assert.IsTrue(uploadMatch.Success);
+        var uploadUrl = WebUtility.HtmlDecode(uploadMatch.Groups[1].Value);
+        Assert.StartsWith("/upload/incident-images?token=", uploadUrl);
+        foreach (var asset in new[] { "/scripts/markdown-config.js", "/node_modules/mathjax/es5/tex-mml-chtml.js",
+                     "/node_modules/mermaid/dist/mermaid.min.js", "/node_modules/@highlightjs/cdn-assets/highlight.min.js" })
+        {
+            Assert.Contains(asset, html);
+            Assert.IsTrue(html.IndexOf(asset, StringComparison.Ordinal) < html.IndexOf("/monaco-editor/min/vs/loader.js", StringComparison.Ordinal));
+        }
+
+        using var image = new ByteArrayContent(Convert.FromBase64String(
+            "iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAIAAAD91JpzAAAAEUlEQVR4nGP4z8DA8B+MgBgAHfAD/dPQfSYAAAAASUVORK5CYII="));
+        image.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+        using var multipart = new MultipartFormDataContent();
+        multipart.Add(image, "file", "incident-evidence.png");
+        using var uploaded = await Http.PostAsync(uploadUrl, multipart);
+        uploaded.EnsureSuccessStatusCode();
+        var result = JObject.Parse(await uploaded.Content.ReadAsStringAsync());
+        var imageUrl = result["internetPath"]?.Value<string>() ?? result["InternetPath"]!.Value<string>();
+        Assert.IsNotNull(imageUrl);
+        using var downloaded = await Http.GetAsync(imageUrl);
+        downloaded.EnsureSuccessStatusCode();
+        Assert.AreEqual("image/png", downloaded.Content.Headers.ContentType?.MediaType);
+        Assert.AreEqual("inline", downloaded.Content.Headers.ContentDisposition?.DispositionType);
+        Assert.AreNotEqual(0, (await downloaded.Content.ReadAsByteArrayAsync()).Length);
+
+        var markdown = $"![Evidence]({imageUrl})\n\n```mermaid\ngraph TD; A-->B;\n```\n\n$E=mc^2$";
+        AssertRedirect(await PostForm("/Incidents/AddComment", new()
+        {
+            ["IncidentId"] = id.ToString(), ["Markdown"] = markdown
+        }, url), url + "?commentsPage=1#incident-comments");
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(markdown, (await db.IncidentComments.SingleAsync()).Markdown);
+        Assert.Contains(WebUtility.HtmlEncode(imageUrl), await Http.GetStringAsync(url));
     }
 
     [TestMethod]
