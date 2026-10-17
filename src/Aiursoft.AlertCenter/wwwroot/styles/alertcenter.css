@@ -894,3 +894,16 @@
 .ac-inbox-item.ac-row-sev2 { border-left-color: var(--ac-sev2) !important; }
 .ac-inbox-item.ac-row-sev3 { border-left-color: var(--ac-sev3) !important; }
 .ac-inbox-item.ac-row-sev4 { border-left-color: var(--ac-sev4) !important; }
+
+/* Keep complete, indented JSON readable without widening the incident page. */
+.ac-context-json {
+    max-height: 36rem;
+    overflow: auto;
+    white-space: pre;
+    tab-size: 2;
+    font-family: var(--bs-font-monospace, monospace);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    background-color: var(--bs-tertiary-bg, #f8f9fa);
+    color: var(--bs-body-color, #212529);
+}

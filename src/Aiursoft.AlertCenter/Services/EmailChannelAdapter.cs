@@ -181,7 +181,12 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             body.AppendLine(string.Format(localizer["Incident ID: {0}"].Value, incidentEvent.IncidentId)).AppendLine(string.Format(localizer["Action time (UTC): {0:O}"].Value, incidentEvent.CreatedAtUtc))
                 .AppendLine(string.Format(localizer["Reopen note: {0}"].Value, incidentEvent.Note ?? localizer["None"].Value));
         if (message?.Content is not null) body.AppendLine().AppendLine(localizer["Content: "].Value).AppendLine(message.Content);
-        if (!string.IsNullOrWhiteSpace(message?.ContextJson)) body.AppendLine().AppendLine(localizer["Context:"].Value).AppendLine(message.ContextJson);
+        var context = IncidentContextPresentation.ScalarFields((message ?? incidentEvent?.Incident)?.ContextJson);
+        if (context.Count > 0)
+        {
+            body.AppendLine().AppendLine(localizer["Context:"].Value);
+            foreach (var field in context) body.AppendLine($"{field.Key}: {field.Value}");
+        }
         if (delivery.OnCallEmail is { } snapshot)
         {
             body.AppendLine().AppendLine(string.Format(localizer["On-call group: {0}"].Value, snapshot.GroupName))
@@ -190,13 +195,13 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         }
         body.AppendLine().AppendLine(localizer["Open in AlertCenter"].Value).AppendLine(url);
         return new(recipients, ccRecipients, subject, body.ToString(),
-            RenderHtml(delivery, title, level, url, localizer));
+            RenderHtml(delivery, title, level, url, localizer, context));
     }
 
     private static string SanitizeSubject(string value) => value.Replace('\r', ' ').Replace('\n', ' ');
 
     private static string RenderHtml(PushDelivery delivery, string title, string level, string url,
-        IStringLocalizer localizer)
+        IStringLocalizer localizer, IReadOnlyList<KeyValuePair<string, string>> context)
     {
         var incident = delivery.Incident ?? delivery.IncidentEvent?.Incident;
         var color = level switch
@@ -221,8 +226,14 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             sections.Append(Section(localizer["On-call team"].Value,
                 $"{snapshot.GroupName}\n{engineers}\n{snapshot.StartsAtUtc:yyyy-MM-dd HH:mm} — {snapshot.EndsAtUtc:yyyy-MM-dd HH:mm} UTC"));
         }
-        if (!string.IsNullOrWhiteSpace(incident?.ContextJson))
-            sections.Append(Section(localizer["Context"].Value, incident.ContextJson));
+        if (context.Count > 0)
+        {
+            sections.Append($"<h2 style=\"margin:26px 0 10px;font-size:14px;color:#102a43;\">{Encode(localizer["Context"].Value)}</h2>");
+            sections.Append("<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;table-layout:fixed;border-collapse:collapse;font-size:14px;line-height:1.6;\">");
+            foreach (var field in context)
+                sections.Append($"<tr><th scope=\"row\" style=\"width:35%;padding:12px;text-align:left;vertical-align:top;background-color:#f1f5f9;border:1px solid #e2e8f0;overflow-wrap:anywhere;word-break:break-word;\">{Encode(field.Key)}</th><td style=\"padding:12px;vertical-align:top;border:1px solid #e2e8f0;overflow-wrap:anywhere;word-break:break-word;white-space:pre-wrap;\">{Encode(field.Value)}</td></tr>");
+            sections.Append("</table>");
+        }
         var incidentId = incident?.Id;
         var reference = incidentId.HasValue
             ? $"{localizer["Incident ID"].Value}: {incidentId.Value}"
