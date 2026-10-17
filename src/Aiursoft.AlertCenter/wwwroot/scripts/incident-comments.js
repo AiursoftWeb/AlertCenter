@@ -1,7 +1,6 @@
 (() => {
     'use strict';
 
-
     const root = document.getElementById('incident-comments');
     if (!root) return;
     window.require?.config({ paths: { vs: root.dataset.monacoPath } });
@@ -31,7 +30,7 @@
                 console.error('Failed to render incident comment Markdown.', error);
             }
         });
-        void markdownUi.initializeMarkdownReader({ container: bodies }).catch(error => {
+        void markdownUi.initializeMarkdownReader({ container: bodies, mermaidTheme: mermaidTheme() }).catch(error => {
             console.error('Failed to initialize incident comment readers.', error);
         });
     }
@@ -92,6 +91,10 @@
 
     if (!markdownUi) return;
 
+    function mermaidTheme() {
+        return document.documentElement.dataset.bsTheme === 'dark' ? 'dark' : 'default';
+    }
+
     function monacoTheme() {
         return document.documentElement.dataset.bsTheme === 'dark' ? 'vs-dark' : 'vs';
     }
@@ -108,6 +111,16 @@
                 form,
                 loadMonaco: () => markdownUi.loadMonacoFromAmd(),
                 theme: monacoTheme(),
+                mermaidTheme: mermaidTheme(),
+                uploadUrl: form.dataset.imageUploadUrl,
+                imageUploadOptions: {
+                    onError: error => {
+                        console.error('Failed to upload an incident comment image.', error);
+                        const uploadError = document.getElementById('incident-comment-upload-error');
+                        uploadError.textContent = getLocalizedText("failed-upload-image", "Failed to upload image. Please try again.");
+                        uploadError.hidden = false;
+                    }
+                },
                 initialViewMode: window.matchMedia('(max-width: 767.98px)').matches ? 'editor' : 'split',
                 viewModeControls: [...viewModes.querySelectorAll('[data-comment-view-mode]')].map(element => ({
                     element,

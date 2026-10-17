@@ -37,3 +37,13 @@ test('code blocks never become executable markup', () => {
     assert(!/<script\b|<img\b/i.test(html));
     assert(html.includes('&lt;'));
 });
+
+
+test('incident evidence preserves uploaded images, diagrams and formulas for reader enhancement', () => {
+    const html = render('![Evidence](/download/incident-images/screenshot.png)\n\n' +
+        '```mermaid\ngraph TD; A-->B;\n```\n\n$E=mc^2$\n\n$$\na^2+b^2=c^2\n$$');
+    assert(html.includes('src="/download/incident-images/screenshot.png"'));
+    assert(html.includes('language-mermaid'));
+    assert(html.includes('class="math-inline"'));
+    assert(html.includes('class="math-block"'));
+});

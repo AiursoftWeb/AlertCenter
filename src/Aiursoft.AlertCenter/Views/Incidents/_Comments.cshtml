@@ -17,7 +17,7 @@
         <p class="text-muted small mb-3">@Localizer["Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them."]</p>
         @if (Model.CanComment)
         {
-            <form asp-action="AddComment" method="post" data-action-feedback id="incident-comment-form" class="mb-4 pb-4 border-bottom">
+            <form asp-action="AddComment" method="post" data-action-feedback data-image-upload-url="@StorageService.GetUploadUrl("incident-images")" id="incident-comment-form" class="mb-4 pb-4 border-bottom">
                 <input type="hidden" name="IncidentId" value="@incidentId" />
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
                     <label for="incident-comment-source" class="form-label mb-0">@Localizer["Post comment"]</label>
@@ -39,9 +39,10 @@
                         <div id="incident-comment-preview" class="comment-markdown-body"></div>
                     </div>
                 </div>
+                <div id="incident-comment-upload-error" class="text-danger small mt-2" role="alert" hidden></div>
                 <div id="incident-comment-error" class="text-danger small mt-2" role="alert" hidden></div>
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2">
-                    <small id="incident-comment-help" class="text-muted">@Localizer["Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)."]<span id="incident-comment-count">@Model.CommentInput.Length / 4000</span></small>
+                    <small id="incident-comment-help" class="text-muted">@Localizer["Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)."] @Localizer["Paste or drag images into the editor to upload them."] <span id="incident-comment-count">@Model.CommentInput.Length / 4000</span></small>
                     <button type="submit" class="btn btn-primary btn-sm px-4">
                         <i data-lucide="send" class="align-middle me-1" aria-hidden="true"></i>@Localizer["Publish comment"]
                     </button>

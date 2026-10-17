@@ -39,6 +39,7 @@
 }
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/node_modules/@@fontsource/cascadia-code/index.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/styles/incident-comments.css" asp-append-version="true" />
 }
 
@@ -428,6 +429,10 @@
 @* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
     <script src="~/scripts/clipboard.js" asp-append-version="true"></script>
+    <script src="~/scripts/markdown-config.js" asp-append-version="true"></script>
+    <script src="~/node_modules/mathjax/es5/tex-mml-chtml.js" asp-append-version="true"></script>
+    <script src="~/node_modules/mermaid/dist/mermaid.min.js" asp-append-version="true"></script>
+    <script src="~/node_modules/@@highlightjs/cdn-assets/highlight.min.js" asp-append-version="true"></script>
     <script src="~/node_modules/@@aiursoft/uistack-markdown-ui/dist/index.global.js" asp-append-version="true"></script>
     <script src="~/node_modules/monaco-editor/min/vs/loader.js" asp-append-version="true"></script>
     <script defer src="~/scripts/incident-comments.js" asp-append-version="true"></script>
