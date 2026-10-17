@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="All roles" xml:space="preserve">
+    <value>所有角色</value>
+  </data>
+  <data name="Browse all employees by role" xml:space="preserve">
+    <value>按職位瀏覽所有員工</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>已刪除的員工</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>不要綁定範本（手動排程）</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>已刪除員工</value>
+  </data>
+  <data name="Enter a keyword to search, or select a role to immediately view all employees in that role." xml:space="preserve">
+    <value>輸入關鍵字以搜尋，或選擇職務以即時查看該職務的所有員工。</value>
+  </data>
+  <data name="Enter a name/account to search, or select a role to automatically paginate and list all employees in that role. Paging does not clear selected members. The member order below represents the rotation order." xml:space="preserve">
+    <value>輸入姓名／帳戶以搜尋，或選擇職級以自動分頁列出該職級的所有員工。翻頁不會清除已選取的成員。下方成員的排列次序即輪值次序。</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>請以 UTC 輸入；系統不會根據團隊時區自動轉換。儲存班次後，便無法更改排程的開始時間。</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>搜尋</value>
+  </data>
+  <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
+    <value>成員可隨時新增或移除；移除成員只會清除尚未開始的已排班次，已開始及過往的班次則會保留。因此而出現的空缺班次必須由人手安排。</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>多個團隊可以共用同一個範本。切換或修改範本不會重新產生已儲存的更表。</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>名稱或帳戶</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>下一頁</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>待命電郵副本收件人</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured here; it does not automatically CC all team members. Supports line breaks, commas, or semicolons as separators, up to 50 addresses; leave blank to omit CC. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>目前已儲存的輪值班次中，所有當值工程師（OCE）的電郵都會自動寄送至其用戶郵箱（收件者）。副本（CC）只會使用在此明確設定的團隊郵箱或郵寄清單地址，不會自動將所有團隊成員加入副本。地址可用換行、逗號或分號分隔，最多 50 個；留空即可不寄送副本。應用程式中設定的自訂推送渠道仍會額外發送通知。</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>上一頁</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>輪值成員</value>
+  </data>
+  <data name="Save team" xml:space="preserve">
+    <value>儲存團隊</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>排程規則範本</value>
+  </data>
+  <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
+    <value>按時區名稱、城市或 UTC 時差搜尋。排班起始時間以 UTC 儲存，並按團隊時區顯示。</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>搜尋員工</value>
+  </data>
+  <data name="Selected members (can be empty, max 200)" xml:space="preserve">
+    <value>已選成員（可留空，最多 200 人）</value>
+  </data>
+  <data name="Shift Start Time (UTC)" xml:space="preserve">
+    <value>輪班開始時間（UTC）</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>團隊名稱</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>時區</value>
+  </data>
+
+</root>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>すべてのチャンネル</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>すべてのステータス</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>試行回数</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>組み込みオンコールメール</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>組み込みオンコールメール · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>チャンネルのテスト通知</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>すべてのフィルターをクリア</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>Webhook、メール、アプリ内通知の非同期配信状況とエラー時の再試行を包括的に追跡</value>
+  </data>
+  <data name="Creation Time (UTC)" xml:space="preserve">
+    <value>作成日時（UTC）</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>現在表示中のページ</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>配信中</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>配信中（送信中）</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>配信失敗</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>配信失敗（失敗）</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>配信ステータス</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>配信成功</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>配信成功（成功）</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>フィルター</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>移動先</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>プッシュセンターに移動してチャンネルを設定</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>インシデント／テストメッセージ</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>インシデントが再開されました: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>ジャンプ</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>ページ番号へ移動</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>手動テスト</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>次のページ</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>現在のフィルター条件に一致する配信記録はありません。フィルター条件を調整してください。</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>プッシュ記録はありません</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>ページ</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>ページの記録</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>配信待ち</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>配信待ち（保留中）</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>前のページ</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>プッシュ配信記録</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>プッシュレコードのページネーション</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>リストを更新</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>フィルターをリセット</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>対象チャネル</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>テスト</value>
+  </data>
+  <data name="UTC Real-Time Trace" xml:space="preserve">
+    <value>UTCリアルタイムトレース</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>配信の詳細を表示</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>システムがインシデント通知を送信した場合や、チャネルの手動テストを実行した場合、すべての送信履歴とステータスがここに記録されます。</value>
+  </data>
+
+</root>

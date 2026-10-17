@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· 已離職</value>
+  </data>
+  <data name="Add or remove personnel by shift" xml:space="preserve">
+    <value>按更次新增或移除人員</value>
+  </data>
+  <data name="Add shift" xml:space="preserve">
+    <value>新增更次</value>
+  </data>
+  <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
+    <value>自動建議尚未儲存。產生排班表時會重新驗證相鄰排班表；現有已儲存的安排不會被覆寫。</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Cancel, keep next week" xml:space="preserve">
+    <value>取消，保留下星期</value>
+  </data>
+  <data name="Confirm draft replacement" xml:space="preserve">
+    <value>確認取代草稿</value>
+  </data>
+  <data name="Copy Current Week to Next Week" xml:space="preserve">
+    <value>複製本週至下週</value>
+  </data>
+  <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
+    <value>將本週的草稿複製到下週。如果下週已有更表或修改，複製前須先確認；複製後仍須儲存。按兩側的垂直按鈕可展開本週前後各 36 小時的時段；灰色區域為唯讀。此頁面的圖表和表格只會編輯本週；如要調整相鄰週，請切換至相應的週。複製後的下週草稿亦會以唯讀模式預覽。本週的變更和複製內容會統一儲存、復原及還原；收起時不會遺失草稿。</value>
+  </data>
+  <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>目前處於移動／交換模式。新增或刪除更次前，請先切換至上方的模式。</value>
+  </data>
+  <data name="Delete shift" xml:space="preserve">
+    <value>刪除更次</value>
+  </data>
+  <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
+    <value>將色塊拖曳至另一個班次，即可交換人員；拖曳至空白時段，即可移動班次。拖曳「交換整週」即可交換兩人的整週班表。你亦可先按一下選取，再按一下目標位置；按 Esc 取消。變更會即時顯示，完成多項調整後可一次過儲存。</value>
+  </data>
+  <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
+    <value>產生並儲存本週時間表</value>
+  </data>
+  <data name="Move / Swap" xml:space="preserve">
+    <value>移動 / 交換</value>
+  </data>
+  <data name="Next week already has a saved schedule or unsaved changes. Copying will replace the full 21 shifts of next week with the current draft of this week. You can still undo after confirmation; changes are only written when you click Save." xml:space="preserve">
+    <value>下星期已經有已儲存的時間表或尚未儲存的變更。複製後，下星期完整的 21 個更次將會被本星期目前的草稿取代。確認後仍可復原；只有按下「儲存」後，變更才會寫入。</value>
+  </data>
+  <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
+    <value>當值人員（可選多位，至少一位）</value>
+  </data>
+  <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
+    <value>紅色警示表示有空班、休息時間不足或人手低於最低要求，但不會阻止進一步調整。即使人手低於最低要求，仍可儲存；但空班及休息時間不足的安排則不能儲存。儲存時會一律驗證已修改的星期、相鄰星期及其他團隊的安排。若任何一星期未能通過驗證，便不會儲存任何內容。已離隊成員只能保留原有班次，不能新增或複製班次。</value>
+  </data>
+  <data name="Replace next week&apos;s draft?" xml:space="preserve">
+    <value>取代下星期的草稿？</value>
+  </data>
+  <data name="Reset All" xml:space="preserve">
+    <value>全部重設</value>
+  </data>
+  <data name="Save schedule adjustments" xml:space="preserve">
+    <value>儲存時間表調整</value>
+  </data>
+  <data name="Scheduling Operation Mode" xml:space="preserve">
+    <value>排程操作模式</value>
+  </data>
+  <data name="Select Shift" xml:space="preserve">
+    <value>選擇更次</value>
+  </data>
+  <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
+    <value>選擇時段以新增或移除當值人員；圖表會即時更新。你亦可以使用此表單以鍵盤操作。你可以手動選擇跨組別成員；其他團隊的灰色唯讀更次不會被修改，而跨組別的時間重疊及休息時間仍會在儲存時進行驗證。</value>
+  </data>
+  <data name="Undo last step" xml:space="preserve">
+    <value>復原上一步</value>
+  </data>
+
+</root>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledged" xml:space="preserve">
+    <value>確認済み</value>
+  </data>
+  <data name="Acknowledged (Acked)" xml:space="preserve">
+    <value>確認済み（Acked）</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>インシデントの重大度を調整</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>重大度を調整</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
+    <value>このインシデントの深刻度を調整し、その理由を記録してください。</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>インシデントを自動作成</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>自動作成日時：</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>インシデント一覧に戻る</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>クローズドループ型の復旧</value>
+  </data>
+  <data name="Confirm and claim" xml:space="preserve">
+    <value>確認して担当する</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>インシデントを確認して担当する</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>インシデントの緩和を確定</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>インシデントの再オープンを確認</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>インシデントの解決を確定</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>重大度の変更を確定</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>確認メモ（任意）</value>
+  </data>
+  <data name="Confirmation time (UTC)" xml:space="preserve">
+    <value>確認時刻（UTC）</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>コンテンツをコピー</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>JSONをコピー</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>現在オンコール中のOCE</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>現在対応中</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>実施した緩和措置、影響範囲、復旧状況を記載してください。</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>影響の変化と、重大度を調整する根拠を記入してください。</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>個別のレポートごとに新しいインシデントが作成されます。このインシデントの確認、緩和、解決を行っても、他のインシデントやその通知には影響しません。</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>例：コアデータベースの接続プールが復旧し、サービスの応答が正常になり、負荷テストに合格しました。</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>例：監視により同じ障害が再び検出されました。再調査が必要です。</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>修正済み・クローズ</value>
+  </data>
+  <data name="Full context" xml:space="preserve">
+    <value>全コンテキスト</value>
+  </data>
+  <data name="Full-cycle handling timeline" xml:space="preserve">
+    <value>一連の対応履歴</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>対応履歴項目</value>
+  </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>インシデントイベント</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>インシデント ID</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>インシデント担当者:</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>インシデント対応ルーム - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>独立したインシデント</value>
+  </data>
+  <data name="Log investigation and handling progress" xml:space="preserve">
+    <value>調査・対応の進捗を記録</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>インシデントを緩和</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>軽減済み</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>緩和済み（緩和済み）</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>緩和理由（必須）</value>
+  </data>
+  <data name="Mitigation time (UTC)" xml:space="preserve">
+    <value>緩和時刻（UTC）</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>新しいレベル</value>
+  </data>
+  <data name="No additional context was reported." xml:space="preserve">
+    <value>追加のコンテキストは報告されていません。</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>現在オンコール中のOCEはいません。</value>
+  </data>
+  <data name="Not set" xml:space="preserve">
+    <value>未設定</value>
+  </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>発生日時（UTC）</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>所有者：</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>対応待ち</value>
+  </data>
+  <data name="Pending Response (New)" xml:space="preserve">
+    <value>対応待ち（新規）</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>進捗</value>
+  </data>
+  <data name="Publish progress" xml:space="preserve">
+    <value>進捗を投稿する</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>クエリに失敗しました：</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>変更理由（必須）</value>
+  </data>
+  <data name="Received at (UTC)" xml:space="preserve">
+    <value>受信日時（UTC）</value>
+  </data>
+  <data name="Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..." xml:space="preserve">
+    <value>調査の手がかり、緊急時の被害軽減策、影響範囲の評価、またはシステムの復旧状況をリアルタイムで記録してください...</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE." xml:space="preserve">
+    <value>緩和措置を記録し、その後に解決理由を記録してください。このインシデントを再オープンすると、ステータスは「対応待ち」に戻り、担当者が解除され、現在オンコール中のOCEにメールが送信されます。</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>実施した緩和措置を記録してください。修正が完了したら、このインシデントを解決してください。</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>インシデントを再開</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>再開時のメモ（任意）</value>
+  </data>
+  <data name="Reopening restores the &quot;Pending Response&quot; status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed." xml:space="preserve">
+    <value>再オープンするとステータスが「対応待ち」に戻り、担当者が解除され、現在のオンコール担当OCEにメールが送信されます。インシデントには再度確認応答し、担当者として引き受ける必要があります。</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>レポートID</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>報告情報</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>解決理由（必須）</value>
+  </data>
+  <data name="Resolution time (UTC)" xml:space="preserve">
+    <value>解決時刻（UTC）</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>インシデントを解決</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>解決済み</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>解決済み（解決済み）</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>このインシデントを解決すると、そのワークフローは完了します。他のインシデントは個別に処理されます。</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>対応メカニズムの説明</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 重大（P0）</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 重大（P1）</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · エラー（P2）</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 警告 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 情報 (P4)</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>重大度：</value>
+  </data>
+  <data name="Status: " xml:space="preserve">
+    <value>ステータス：</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>システム</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>インシデントを引き継ぐ</value>
+  </data>
+  <data name="Take Over Notes (Optional)" xml:space="preserve">
+    <value>引き継ぎメモ（任意）</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未割り当て</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>ユーザーは削除されました</value>
+  </data>
+
+</root>
