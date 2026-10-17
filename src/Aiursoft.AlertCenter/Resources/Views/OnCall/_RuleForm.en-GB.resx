@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>Automatic generation must meet the requirements; insufficient manual staffing will only trigger a warning, while shifts cannot be saved if they are empty.</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Balance early, middle and late shifts as evenly as possible</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Must not be lower than the minimum headcount; meet the target as far as possible when overrides and rest requirements allow. Leave blank for automatic assignment.</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>Coverage and rest are prioritised; staffing levels may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual continuous 8-hour shifts; local time may change during daylight saving time transitions.</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>There are three fixed shifts per day, with at least one person per shift. Multiple people per shift are allowed.</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>Fixed time slots take priority</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>Minimum rest (hours)</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>Minimum staff per shift</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>Rotation preference</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>Save template</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>Shift duration (hours)</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>Target staff per shift</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>Template name</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>This is a rule template that can be shared across multiple teams. Team membership, rotation order and schedule start points are managed by each team. Modifying the template will not regenerate any saved shifts.</value>
+  </data>
+
+</root>

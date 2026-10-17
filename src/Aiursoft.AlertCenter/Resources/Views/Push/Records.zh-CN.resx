@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>所有渠道</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>所有状态</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>尝试次数</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>内置值班邮箱</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>内置值班邮件 · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>通道测试通知</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>清除所有筛选条件</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>全面追踪 Webhook、电子邮件和应用内通知的异步发送状态及错误重试情况</value>
+  </data>
+  <data name="Creation Time (UTC)" xml:space="preserve">
+    <value>创建时间（UTC）</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>当前显示第</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>正在投递</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>发送中（Sending）</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>投递失败</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>投递失败（失败）</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>投递状态</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>投递成功</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>投递成功（已成功）</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>前往</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>前往推送中心配置渠道</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>事件 / 测试消息</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>事件已重新开启：{0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>跳转</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>跳转到指定页码</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>手动测试</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>当前筛选条件下没有匹配的投递记录。请调整筛选条件。</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>没有推送记录</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>页记录</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>待发送</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>待处理（待发送）</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>上一页</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>推送投递记录</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>推送记录分页</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>刷新列表</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>重置筛选条件</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>目标频道</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>测试</value>
+  </data>
+  <data name="UTC Real-Time Trace" xml:space="preserve">
+    <value>UTC 实时追踪</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>查看投递详情</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>当系统触发事件推送或手动测试渠道时，所有发送记录和状态都会显示在这里。</value>
+  </data>
+
+</root>

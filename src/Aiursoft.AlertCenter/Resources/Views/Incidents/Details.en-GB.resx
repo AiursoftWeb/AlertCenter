@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledged" xml:space="preserve">
+    <value>Acknowledged</value>
+  </data>
+  <data name="Acknowledged (Acked)" xml:space="preserve">
+    <value>Acknowledged (Acked)</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Adjust incident severity</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>Adjust severity</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
+    <value>Adjust the severity of this incident and record the reason.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>Automatically create incident</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>Automatically created at</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>Back to Incident List</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>Closed-loop Recovery</value>
+  </data>
+  <data name="Confirm and claim" xml:space="preserve">
+    <value>Confirm and take ownership</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>Acknowledge and take ownership of incident</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>Confirm incident mitigation</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>Confirm incident reopening</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>Confirm incident resolution</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>Confirm severity adjustment</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>Confirmation note (optional)</value>
+  </data>
+  <data name="Confirmation time (UTC)" xml:space="preserve">
+    <value>Confirmation time (UTC)</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Copy content</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>Copy JSON</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>Current on-call OCE</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>Currently on call</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>Describe the mitigation measures, scope of impact and recovery status.</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>Describe the changes in impact and the basis for severity adjustments.</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>Each independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications.</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>Example: Core database connection pool restored, service responses normal, load test passed.</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>Example: Monitoring detected the same failure again; further investigation is required.</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>Fixed and closed</value>
+  </data>
+  <data name="Full-cycle handling timeline" xml:space="preserve">
+    <value>Full incident handling timeline</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>handling steps</value>
+  </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>Incident event</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Incident ID</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>Incident owner:</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Incident response room - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>Independent incidents</value>
+  </data>
+  <data name="Log investigation and handling progress" xml:space="preserve">
+    <value>Record investigation and response progress</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Mitigate incident</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Mitigated</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Mitigated (Mitigated)</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>Mitigation reason (required)</value>
+  </data>
+  <data name="Mitigation time (UTC)" xml:space="preserve">
+    <value>Mitigation time (UTC)</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>New level</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>No OCE currently on call.</value>
+  </data>
+  <data name="Not set" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>Occurred at (UTC)</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>Owner:</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>Awaiting response</value>
+  </data>
+  <data name="Pending Response (New)" xml:space="preserve">
+    <value>Awaiting response (new)</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="Publish progress" xml:space="preserve">
+    <value>Publish progress</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>Query failed:</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>Reason for adjustment (required)</value>
+  </data>
+  <data name="Received at (UTC)" xml:space="preserve">
+    <value>Received at (UTC)</value>
+  </data>
+  <data name="Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..." xml:space="preserve">
+    <value>Record investigation findings, emergency mitigation measures, the extent of the impact, or system recovery progress in real time...</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE." xml:space="preserve">
+    <value>Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE.</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>Record the mitigation measures taken. Resolve this incident once the fix is complete.</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Reopen incident</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>Reopening notes (optional)</value>
+  </data>
+  <data name="Reopening restores the &quot;Pending Response&quot; status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed." xml:space="preserve">
+    <value>Reopening restores the “Pending Response” status, clears the assignee and emails the current on-call OCE. The incident must be acknowledged and claimed again.</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>Report ID</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>Report information</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>Resolution reason (required)</value>
+  </data>
+  <data name="Resolution time (UTC)" xml:space="preserve">
+    <value>Resolution time (UTC)</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Resolve incident</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Resolved</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Resolved (Resolved)</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>Resolving this incident completes its workflow. Other incidents are handled independently.</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>Response Mechanism Description</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Critical (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Major (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Error (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Warning (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Info (P4)</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>Severity:</value>
+  </data>
+  <data name="Status: " xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>Take over incident</value>
+  </data>
+  <data name="Take Over Notes (Optional)" xml:space="preserve">
+    <value>Takeover notes (optional)</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Unassigned</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>User deleted</value>
+  </data>
+
+</root>

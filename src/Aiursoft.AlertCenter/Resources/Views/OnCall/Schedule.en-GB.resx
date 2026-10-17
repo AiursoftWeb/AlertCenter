@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>created in</value>
+  </data>
+  <data name="Manage scheduling rules" xml:space="preserve">
+    <value>Manage scheduling rules</value>
+  </data>
+  <data name="Member Count" xml:space="preserve">
+    <value>Number of members</value>
+  </data>
+  <data name="No teams available. Please go to" xml:space="preserve">
+    <value>No teams available. Please go to</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>On-call rota</value>
+  </data>
+  <data name="Rule" xml:space="preserve">
+    <value>Rule</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without an assigned template can also be scheduled manually; saved shifts do not currently affect incident routing.</value>
+  </data>
+  <data name="Select On-Call Team" xml:space="preserve">
+    <value>Select On-Call Team</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Team management" xml:space="preserve">
+    <value>Team management</value>
+  </data>
+  <data name="Template not bound" xml:space="preserve">
+    <value>No template assigned</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>View schedule</value>
+  </data>
+
+</root>
