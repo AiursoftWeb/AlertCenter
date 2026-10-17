@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Kanavan testihuomautus</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>Anna kelvollinen HTTP- tai HTTPS-URL-osoite. Käyttäjätunnuksia, salasanoja ja URL-osoitteen fragmentteja ei tueta.</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>Sovelluksen sisäisen ilmoituksen tiedot</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>Virheellinen kanavamääritys. Päivitä sivu ja yritä uudelleen.</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>Virheelliset suodatusehdot. Päivitä sivu ja yritä uudelleen.</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>Vain sellaiset päivystysviestit, joilla on kelvolliset OCE-tilannevedokset, tai epäonnistuneet tietueet, joissa mukautetut kanavat ovat käytössä, voidaan yrittää lähettää uudelleen. Vastaanottajia ei voi valita uudelleen vanhojen hälytysten lähettämiseksi, jos OCE tai sähköposti puuttuu.</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>Ota kanava ensin käyttöön.</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>Valitse käytettävissä oleva kanavatyyppi.</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>Valitse vähintään yksi vastaanottajakäyttäjä tai käyttäjäryhmä.</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>Testiviestin sisältö ei voi olla tyhjä, eikä se saa ylittää 4 000 merkkiä.</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>Vastaanottajaa ei tarvitse lisätä uudelleen kopiolistalle.</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>Valittua sidottavaa käyttäjää ei ole olemassa. Valitse uudelleen.</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>Valittua käyttäjäryhmää, johon voi liittää käyttäjiä, ei ole olemassa. Valitse uudelleen.</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>Valittua kanavaa ei enää ole. Päivitä sivu ja yritä uudelleen.</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>Valittua vastaanottajakäyttäjää ei ole olemassa. Valitse uudelleen.</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>Valittua vastaanottajien käyttäjäryhmää ei ole olemassa. Valitse uudelleen.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Tämä on push-kanavan testiviesti.</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>Olemassa olevan kanavan tyyppiä ei voi muuttaa. Luo uusi kanava.</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>Webhookin mukautettuja pyyntöotsakkeita ei voitu suojata. Tarkista Webhook:HeaderProtectionKey-määritys.</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>Tallennettuja Webhook-pyynnön otsakkeita ei voitu lukea. Tarkista tietosuojauksen avain ja yritä uudelleen.</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>Webhook:HeaderProtectionKey on määritettävä mukautettuja pyyntöotsakkeita varten. Anna tämä avain suojatun ympäristömuuttujan kautta.</value>
+  </data>
+
+</root>

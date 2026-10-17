@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Δοκιμαστική ειδοποίηση καναλιού</value>
+  </data>
+  <data name="Custom request body contains unknown or incompletely used placeholders." xml:space="preserve">
+    <value>Το προσαρμοσμένο σώμα του αιτήματος περιέχει άγνωστα ή μη χρησιμοποιημένα πλήρως σύμβολα κράτησης θέσης.</value>
+  </data>
+  <data name="Custom request body must be a JSON object." xml:space="preserve">
+    <value>Το προσαρμοσμένο σώμα του αιτήματος πρέπει να είναι ένα αντικείμενο JSON.</value>
+  </data>
+  <data name="Custom request body must be valid JSON." xml:space="preserve">
+    <value>Το προσαρμοσμένο σώμα του αιτήματος πρέπει να είναι έγκυρο JSON.</value>
+  </data>
+  <data name="Custom request header values must be non-empty strings." xml:space="preserve">
+    <value>Οι τιμές των προσαρμοσμένων κεφαλίδων αιτήματος πρέπει να είναι μη κενές συμβολοσειρές.</value>
+  </data>
+  <data name="Custom request headers contain disallowed names." xml:space="preserve">
+    <value>Οι προσαρμοσμένες κεφαλίδες αιτήματος περιέχουν μη επιτρεπόμενα ονόματα.</value>
+  </data>
+  <data name="Custom request headers contain invalid or duplicate values." xml:space="preserve">
+    <value>Οι προσαρμοσμένες κεφαλίδες αιτήματος περιέχουν μη έγκυρες ή διπλότυπες τιμές.</value>
+  </data>
+  <data name="Custom request headers must be a JSON object." xml:space="preserve">
+    <value>Οι προσαρμοσμένες κεφαλίδες αιτήματος πρέπει να είναι αντικείμενο JSON.</value>
+  </data>
+  <data name="Custom request headers must be valid JSON." xml:space="preserve">
+    <value>Οι προσαρμοσμένες κεφαλίδες αιτήματος πρέπει να είναι έγκυρο JSON.</value>
+  </data>
+  <data name="Invalid Webhook custom configuration. Please check channel configuration." xml:space="preserve">
+    <value>Μη έγκυρη προσαρμοσμένη διαμόρφωση του Webhook. Ελέγξτε τη διαμόρφωση του καναλιού.</value>
+  </data>
+  <data name="Invalid Webhook custom headers. Please check channel configuration." xml:space="preserve">
+    <value>Μη έγκυρες προσαρμοσμένες κεφαλίδες Webhook. Ελέγξτε τις ρυθμίσεις του καναλιού.</value>
+  </data>
+  <data name="Invalid Webhook URL. Please check channel configuration." xml:space="preserve">
+    <value>Μη έγκυρη διεύθυνση URL του Webhook. Ελέγξτε τη διαμόρφωση του καναλιού.</value>
+  </data>
+  <data name="Send JSON messages to a specified HTTP address, suitable for connecting to existing systems." xml:space="preserve">
+    <value>Αποστολή μηνυμάτων JSON σε καθορισμένη διεύθυνση HTTP, κατάλληλη για σύνδεση με υπάρχοντα συστήματα.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Αυτό είναι ένα δοκιμαστικό μήνυμα για το κανάλι push.</value>
+  </data>
+  <data name="Unable to connect to Webhook. Please check the address, network, or receiving service." xml:space="preserve">
+    <value>Δεν είναι δυνατή η σύνδεση με το Webhook. Ελέγξτε τη διεύθυνση, το δίκτυο ή την υπηρεσία λήψης.</value>
+  </data>
+  <data name="Webhook request timed out. The receiver may have received the message. Please verify and retry." xml:space="preserve">
+    <value>Η αίτηση Webhook έληξε λόγω χρονικού ορίου. Ο παραλήπτης ενδέχεται να έχει λάβει το μήνυμα. Επαληθεύστε και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Webhook returned HTTP {0}. Please check the receiver and retry manually." xml:space="preserve">
+    <value>Το Webhook επέστρεψε HTTP {0}. Ελέγξτε τον παραλήπτη και δοκιμάστε ξανά χειροκίνητα.</value>
+  </data>
+
+</root>

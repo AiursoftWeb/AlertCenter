@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>प्रतिदिन तीन निश्चित शिफ़्ट, प्रत्येक 8 घंटे की।</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>न्यूनतम विश्राम अवधि 0–168 घंटे होनी चाहिए।</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>प्रति शिफ्ट न्यूनतम कर्मचारियों की संख्या 1–200 होनी चाहिए।</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>कृपया नियम का नाम दर्ज करें।</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>कृपया टीम का नाम दर्ज करें।</value>
+  </data>
+  <data name="Please select a time zone." xml:space="preserve">
+    <value>कृपया समय क्षेत्र चुनें।</value>
+  </data>
+  <data name="Please select a UTC start time." xml:space="preserve">
+    <value>कृपया UTC प्रारंभ समय चुनें।</value>
+  </data>
+  <data name="Rule name must not exceed 100 characters." xml:space="preserve">
+    <value>नियम का नाम 100 वर्णों से अधिक नहीं होना चाहिए।</value>
+  </data>
+  <data name="Target staff per shift must be 1–200." xml:space="preserve">
+    <value>प्रति शिफ़्ट लक्षित कर्मचारियों की संख्या 1–200 होनी चाहिए।</value>
+  </data>
+  <data name="Team name cannot exceed 100 characters." xml:space="preserve">
+    <value>टीम का नाम 100 अक्षरों से अधिक नहीं हो सकता।</value>
+  </data>
+  <data name="The on-call email CC configuration must not exceed 8,000 characters." xml:space="preserve">
+    <value>ऑन-कॉल ईमेल CC कॉन्फ़िगरेशन 8,000 वर्णों से अधिक नहीं होना चाहिए।</value>
+  </data>
+  <data name="Time zone ID cannot exceed 100 characters." xml:space="preserve">
+    <value>समय क्षेत्र की आईडी 100 वर्णों से अधिक नहीं हो सकती।</value>
+  </data>
+
+</root>

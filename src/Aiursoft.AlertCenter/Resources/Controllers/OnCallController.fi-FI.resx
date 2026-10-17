@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" Cleared {0} future shift assignments for departed members. Please review and fill any gaps." xml:space="preserve">
+    <value>Poistuneiden jäsenten tulevilta vuoroilta poistettiin {0} työvuoromääritystä. Tarkista tilanne ja täytä mahdolliset aukot.</value>
+  </data>
+  <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
+    <value>Tallennettu työvuorolista on olemassa; tiimin työvuorolistan aloituskohtaa ei voi muuttaa.</value>
+  </data>
+  <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
+    <value>Automaattinen luonti edellyttää vähintään {0} työntekijää vuoroa kohden ja {1} tunnin lepoaikaa, joten jäseniä tarvitaan vähintään {2}. Kun useaan päivystysryhmään kuuluvat jäsenet jätetään pois, {3} voidaan ajoittaa automaattisesti. Lisää yhden ryhmän jäseniä tai laadi aikataulu manuaalisesti.</value>
+  </data>
+  <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Kiinteästi kolme työvuoroa päivässä, 8 tuntia kussakin.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Vähimmäislepoajan on oltava 0–168 tuntia.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Henkilöstöä on oltava vuorossa vähintään 1 ja enintään 200.</value>
+  </data>
+  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Tiimille ei ole vielä määritetty sääntöjä. Voit luoda työvuorosuunnitelman manuaalisesti.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Anna säännölle nimi.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Anna ryhmälle nimi.</value>
+  </data>
+  <data name="Please select a valid time zone from the list." xml:space="preserve">
+    <value>Valitse luettelosta kelvollinen aikavyöhyke.</value>
+  </data>
+  <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Valitse kelvollinen UTC-aloitusaika (sen on oltava vähintään 28 päivän päässä päivämäärärajoista).</value>
+  </data>
+  <data name="Please select an existing on-call rule." xml:space="preserve">
+    <value>Valitse olemassa oleva päivystysvuoro-ohje.</value>
+  </data>
+  <data name="Scheduling rule created successfully." xml:space="preserve">
+    <value>Aikataulusääntö luotiin onnistuneesti.</value>
+  </data>
+  <data name="Scheduling rule deleted." xml:space="preserve">
+    <value>Ajoitussääntö poistettu.</value>
+  </data>
+  <data name="Scheduling rule updated." xml:space="preserve">
+    <value>Aikataulusääntö päivitetty.</value>
+  </data>
+  <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Tavoitemäärä ei voi olla vähimmäismäärää pienempi, ja sen on oltava välillä 1–200. Jätä tyhjäksi automaattista määrittämistä varten.</value>
+  </data>
+  <data name="Team created successfully." xml:space="preserve">
+    <value>Joukkue luotiin onnistuneesti.</value>
+  </data>
+  <data name="Team deleted." xml:space="preserve">
+    <value>Ryhmä poistettu.</value>
+  </data>
+  <data name="Team updated." xml:space="preserve">
+    <value>Tiimi päivitetty.</value>
+  </data>
+  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Sääntö tai tiimi on muuttunut. Päivitä sivu ja yritä uudelleen.</value>
+  </data>
+  <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
+    <value>Aikataulu on muuttunut tai tallennuksessa tapahtui ristiriita. Päivitä sivu ja yritä uudelleen.</value>
+  </data>
+  <data name="The selected employees do not exist, are duplicated, or exceed 200. Please select again." xml:space="preserve">
+    <value>Valittuja työntekijöitä ei ole olemassa, heitä on valittu useita kertoja tai heitä on yli 200. Valitse uudelleen.</value>
+  </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Vuoropyynnön muoto on virheellinen.</value>
+  </data>
+  <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
+    <value>Tiimi tai aikataulu on muuttunut. Päivitä sivu ja yritä uudelleen.</value>
+  </data>
+  <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
+    <value>Tällä viikolla on {0} täyttämätöntä työvuoroa. Lisää päivystävät henkilöt manuaalisesti.</value>
+  </data>
+  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
+    <value>Tämä sääntö on edelleen liitetty tiimiin. Päivitä ensin tiimin sääntöliitos.</value>
+  </data>
+  <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
+    <value>Tällä tiimillä on tallennettuja työvuorolistoja, eikä sitä voida poistaa historia mukaan lukien.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
+    <value>Tämä tiimi on liitetty integroituun sovellukseen. Määritä sovellukselle ensin toinen päivystysryhmä tai poista nykyinen määritys.</value>
+  </data>
+  <data name="Unable to generate preview: {0}" xml:space="preserve">
+    <value>Esikatselun luominen epäonnistui: {0}</value>
+  </data>
+
+</root>

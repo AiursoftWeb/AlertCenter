@@ -98,6 +98,8 @@ public class ViewModelArgsInjector(
         _ = localizer["Push Records"];
         _ = localizer["Scheduling Rules"];
         _ = localizer["Team management"];
+    
+        _ = localizer["Incidents"];
     }
 
     public void InjectSimple(

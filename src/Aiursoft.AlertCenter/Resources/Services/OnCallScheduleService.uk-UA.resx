@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>На цей тиждень уже є збережений розклад. Будь ласка, внесіть зміни вручну; автоматичне створення не перезаписуватиме наявний розклад.</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>Суміжними можуть бути лише попередній або наступний тиждень відносно поточного, і вони не повинні дублюватися.</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>Після того як автоматичне складання розкладу пропустить учасників груп із кількома чергуваннями, залишиться лише {0}, а потрібно щонайменше {1}. Додайте учасників до окремих груп або складіть розклад вручну.</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>Усі 21 зміни на цей тиждень мають бути подані, і кожен часовий інтервал має з’явитися лише один раз.</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>Автоматичне генерування не може одночасно змінювати розклад на суміжні тижні.</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>Не можна додавати працівників, які залишили команду або не належать до неї.</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>Межі часу в наявному розкладі неповні; перезаписати неможливо.</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>Неприпустимий формат запиту на розклад суміжних тижнів; можна надіслати не більше двох тижнів (попередній і наступний).</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Команда чергування не існує.</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>Спочатку прив’яжіть до команди правило планування.</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>Виберіть повний семиденний цикл чергування, що починається з початкової дати команди.</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>Будь ласка, вкажіть період розкладу за часом UTC.</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Мінімальна кількість працівників у розкладі некоректна або неузгоджена.</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>Тривалість відпочинку в розкладі недійсна або не узгоджується.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>Команда або розклад були змінені іншим адміністратором. Оновіть сторінку та спробуйте ще раз.</value>
+  </data>
+
+</root>

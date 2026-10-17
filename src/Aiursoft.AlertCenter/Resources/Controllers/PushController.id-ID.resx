@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>Notifikasi uji saluran</value>
+  </data>
+  <data name="Enter a valid HTTP or HTTPS URL. Usernames, passwords, and URL fragments are not supported." xml:space="preserve">
+    <value>Masukkan URL HTTP atau HTTPS yang valid. Nama pengguna, kata sandi, dan fragmen URL tidak didukung.</value>
+  </data>
+  <data name="In-app notification details" xml:space="preserve">
+    <value>Detail notifikasi dalam aplikasi</value>
+  </data>
+  <data name="Invalid channel configuration. Please refresh the page and try again." xml:space="preserve">
+    <value>Konfigurasi kanal tidak valid. Silakan muat ulang halaman dan coba lagi.</value>
+  </data>
+  <data name="Invalid filter criteria. Please refresh the page and try again." xml:space="preserve">
+    <value>Kriteria filter tidak valid. Silakan muat ulang halaman dan coba lagi.</value>
+  </data>
+  <data name="Only on-call emails with valid OCE snapshots or failed records with custom channels enabled can be retried. You cannot reselect recipients to resend old alerts if OCE or email is missing." xml:space="preserve">
+    <value>Hanya email siaga dengan snapshot OCE yang valid atau catatan gagal dengan kanal khusus yang diaktifkan yang dapat dicoba ulang. Anda tidak dapat memilih ulang penerima untuk mengirim ulang pemberitahuan lama jika OCE atau email tidak tersedia.</value>
+  </data>
+  <data name="Please enable the channel first." xml:space="preserve">
+    <value>Harap aktifkan kanal terlebih dahulu.</value>
+  </data>
+  <data name="Please select an available channel type." xml:space="preserve">
+    <value>Silakan pilih jenis saluran yang tersedia.</value>
+  </data>
+  <data name="Select at least one recipient user or user group." xml:space="preserve">
+    <value>Pilih setidaknya satu pengguna penerima atau grup pengguna.</value>
+  </data>
+  <data name="Test message content cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
+    <value>Konten pesan uji tidak boleh kosong dan tidak boleh melebihi 4.000 karakter.</value>
+  </data>
+  <data name="The recipient does not need to be added to the CC list again." xml:space="preserve">
+    <value>Penerima tidak perlu ditambahkan lagi ke daftar CC.</value>
+  </data>
+  <data name="The selected bindable user does not exist. Please select again." xml:space="preserve">
+    <value>Pengguna yang dapat diikat yang dipilih tidak ditemukan. Silakan pilih lagi.</value>
+  </data>
+  <data name="The selected bindable user group does not exist. Please select again." xml:space="preserve">
+    <value>Grup pengguna yang dapat diikat yang dipilih tidak ada. Silakan pilih lagi.</value>
+  </data>
+  <data name="The selected channel no longer exists. Please refresh the page and try again." xml:space="preserve">
+    <value>Saluran yang dipilih sudah tidak ada. Silakan muat ulang halaman dan coba lagi.</value>
+  </data>
+  <data name="The selected recipient user does not exist. Please select again." xml:space="preserve">
+    <value>Pengguna penerima yang dipilih tidak ada. Silakan pilih lagi.</value>
+  </data>
+  <data name="The selected recipient user group does not exist. Please select again." xml:space="preserve">
+    <value>Grup pengguna penerima yang dipilih tidak ada. Silakan pilih lagi.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Ini adalah pesan uji untuk kanal push.</value>
+  </data>
+  <data name="Type of an existing channel cannot be changed; please create a new channel." xml:space="preserve">
+    <value>Jenis kanal yang sudah ada tidak dapat diubah; silakan buat kanal baru.</value>
+  </data>
+  <data name="Unable to protect Webhook custom request headers. Please check the Webhook:HeaderProtectionKey configuration." xml:space="preserve">
+    <value>Tidak dapat melindungi header permintaan kustom Webhook. Periksa konfigurasi Webhook:HeaderProtectionKey.</value>
+  </data>
+  <data name="Unable to read saved Webhook request headers. Please check the data protection key and try again." xml:space="preserve">
+    <value>Tidak dapat membaca header permintaan Webhook yang tersimpan. Periksa kunci perlindungan data dan coba lagi.</value>
+  </data>
+  <data name="Webhook:HeaderProtectionKey must be configured for custom request headers. Provide this key via a protected environment variable." xml:space="preserve">
+    <value>Webhook:HeaderProtectionKey harus dikonfigurasi agar header permintaan kustom dapat digunakan. Sediakan kunci ini melalui variabel lingkungan yang dilindungi.</value>
+  </data>
+
+</root>

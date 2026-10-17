@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>Cố định 3 ca mỗi ngày, mỗi ca 8 giờ.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>Thời gian nghỉ tối thiểu phải từ 0–168 giờ.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>Số nhân viên tối thiểu mỗi ca phải từ 1 đến 200.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>Vui lòng nhập tên quy tắc.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>Vui lòng nhập tên nhóm.</value>
+  </data>
+  <data name="Please select a time zone." xml:space="preserve">
+    <value>Vui lòng chọn múi giờ.</value>
+  </data>
+  <data name="Please select a UTC start time." xml:space="preserve">
+    <value>Vui lòng chọn thời gian bắt đầu theo UTC.</value>
+  </data>
+  <data name="Rule name must not exceed 100 characters." xml:space="preserve">
+    <value>Tên quy tắc không được vượt quá 100 ký tự.</value>
+  </data>
+  <data name="Target staff per shift must be 1–200." xml:space="preserve">
+    <value>Số nhân viên mục tiêu mỗi ca phải từ 1 đến 200.</value>
+  </data>
+  <data name="Team name cannot exceed 100 characters." xml:space="preserve">
+    <value>Tên nhóm không được vượt quá 100 ký tự.</value>
+  </data>
+  <data name="The on-call email CC configuration must not exceed 8,000 characters." xml:space="preserve">
+    <value>Cấu hình danh sách email CC trực ca không được vượt quá 8.000 ký tự.</value>
+  </data>
+  <data name="Time zone ID cannot exceed 100 characters." xml:space="preserve">
+    <value>Mã múi giờ không được vượt quá 100 ký tự.</value>
+  </data>
+
+</root>

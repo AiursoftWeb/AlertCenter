@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Channel test notification" xml:space="preserve">
+    <value>चैनल परीक्षण सूचना</value>
+  </data>
+  <data name="Custom request body contains unknown or incompletely used placeholders." xml:space="preserve">
+    <value>कस्टम अनुरोध बॉडी में अज्ञात या अधूरे रूप से उपयोग किए गए प्लेसहोल्डर हैं।</value>
+  </data>
+  <data name="Custom request body must be a JSON object." xml:space="preserve">
+    <value>कस्टम अनुरोध बॉडी एक JSON ऑब्जेक्ट होनी चाहिए।</value>
+  </data>
+  <data name="Custom request body must be valid JSON." xml:space="preserve">
+    <value>कस्टम अनुरोध बॉडी मान्य JSON होनी चाहिए।</value>
+  </data>
+  <data name="Custom request header values must be non-empty strings." xml:space="preserve">
+    <value>कस्टम अनुरोध हेडर के मान खाली स्ट्रिंग नहीं होने चाहिए।</value>
+  </data>
+  <data name="Custom request headers contain disallowed names." xml:space="preserve">
+    <value>कस्टम अनुरोध हेडर में अस्वीकृत नाम हैं।</value>
+  </data>
+  <data name="Custom request headers contain invalid or duplicate values." xml:space="preserve">
+    <value>कस्टम अनुरोध हेडर में अमान्य या डुप्लिकेट मान हैं।</value>
+  </data>
+  <data name="Custom request headers must be a JSON object." xml:space="preserve">
+    <value>कस्टम अनुरोध हेडर JSON ऑब्जेक्ट होने चाहिए।</value>
+  </data>
+  <data name="Custom request headers must be valid JSON." xml:space="preserve">
+    <value>कस्टम अनुरोध हेडर मान्य JSON होने चाहिए।</value>
+  </data>
+  <data name="Invalid Webhook custom configuration. Please check channel configuration." xml:space="preserve">
+    <value>Webhook का कस्टम कॉन्फ़िगरेशन अमान्य है। कृपया चैनल कॉन्फ़िगरेशन जाँचें।</value>
+  </data>
+  <data name="Invalid Webhook custom headers. Please check channel configuration." xml:space="preserve">
+    <value>अमान्य Webhook कस्टम हेडर। कृपया चैनल कॉन्फ़िगरेशन जाँचें।</value>
+  </data>
+  <data name="Invalid Webhook URL. Please check channel configuration." xml:space="preserve">
+    <value>अमान्य Webhook URL। कृपया चैनल कॉन्फ़िगरेशन जाँचें।</value>
+  </data>
+  <data name="Send JSON messages to a specified HTTP address, suitable for connecting to existing systems." xml:space="preserve">
+    <value>JSON संदेश किसी निर्दिष्ट HTTP पते पर भेजें, जो मौजूदा सिस्टम से जुड़ने के लिए उपयुक्त है।</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>यह पुश चैनल के लिए एक परीक्षण संदेश है।</value>
+  </data>
+  <data name="Unable to connect to Webhook. Please check the address, network, or receiving service." xml:space="preserve">
+    <value>Webhook से कनेक्ट नहीं हो पा रहा है। कृपया पता, नेटवर्क या प्राप्तकर्ता सेवा की जाँच करें।</value>
+  </data>
+  <data name="Webhook request timed out. The receiver may have received the message. Please verify and retry." xml:space="preserve">
+    <value>वेबहुक अनुरोध का समय समाप्त हो गया। संभव है कि प्राप्तकर्ता को संदेश मिल गया हो। कृपया पुष्टि करें और फिर से प्रयास करें।</value>
+  </data>
+  <data name="Webhook returned HTTP {0}. Please check the receiver and retry manually." xml:space="preserve">
+    <value>वेबहुक ने HTTP {0} लौटाया। कृपया रिसीवर की जाँच करें और मैन्युअल रूप से फिर से प्रयास करें।</value>
+  </data>
+
+</root>

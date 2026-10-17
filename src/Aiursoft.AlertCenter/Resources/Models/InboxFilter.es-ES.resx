@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="The start date cannot be later than the end date." xml:space="preserve">
+      <data name="Keywords cannot exceed 200 characters." xml:space="preserve">
+    <value>Las palabras clave no pueden superar los 200 caracteres.</value>
+  </data>
+  <data name="Please select a valid alert level." xml:space="preserve">
+    <value>Selecciona un nivel de alerta válido.</value>
+  </data>
+  <data name="Please select a valid read status." xml:space="preserve">
+    <value>Selecciona un estado de lectura válido.</value>
+  </data>
+  <data name="The start date cannot be later than the end date." xml:space="preserve">
     <value>La fecha de inicio no puede ser posterior a la fecha de fin.</value>
   </data>
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
+    <value>하루 3교대, 각 교대 8시간으로 고정됩니다.</value>
+  </data>
+  <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
+    <value>최소 휴식 시간은 0~168시간이어야 합니다.</value>
+  </data>
+  <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
+    <value>교대당 최소 인원은 1~200명이어야 합니다.</value>
+  </data>
+  <data name="Please enter the rule name." xml:space="preserve">
+    <value>규칙 이름을 입력해 주세요.</value>
+  </data>
+  <data name="Please enter the team name." xml:space="preserve">
+    <value>팀 이름을 입력해 주세요.</value>
+  </data>
+  <data name="Please select a time zone." xml:space="preserve">
+    <value>시간대를 선택해 주세요.</value>
+  </data>
+  <data name="Please select a UTC start time." xml:space="preserve">
+    <value>UTC 시작 시간을 선택해 주세요.</value>
+  </data>
+  <data name="Rule name must not exceed 100 characters." xml:space="preserve">
+    <value>규칙 이름은 100자를 초과할 수 없습니다.</value>
+  </data>
+  <data name="Target staff per shift must be 1–200." xml:space="preserve">
+    <value>교대당 목표 인원은 1~200명이어야 합니다.</value>
+  </data>
+  <data name="Team name cannot exceed 100 characters." xml:space="preserve">
+    <value>팀 이름은 100자를 초과할 수 없습니다.</value>
+  </data>
+  <data name="The on-call email CC configuration must not exceed 8,000 characters." xml:space="preserve">
+    <value>온콜 이메일 참조(CC) 설정은 8,000자를 초과할 수 없습니다.</value>
+  </data>
+  <data name="Time zone ID cannot exceed 100 characters." xml:space="preserve">
+    <value>시간대 ID는 100자를 초과할 수 없습니다.</value>
+  </data>
+
+</root>

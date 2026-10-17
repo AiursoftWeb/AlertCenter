@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="A saved schedule exists for this week. Please use manual adjustments; auto-generation will not overwrite existing arrangements." xml:space="preserve">
+    <value>इस सप्ताह के लिए एक शेड्यूल पहले से सेव है। कृपया मैन्युअल बदलाव करें; स्वचालित रूप से शेड्यूल बनाने पर मौजूदा व्यवस्थाएँ ओवरराइट नहीं होंगी।</value>
+  </data>
+  <data name="Adjacent weeks can only be the previous or next week relative to the current week, and must not be duplicated." xml:space="preserve">
+    <value>सन्निकट सप्ताह केवल वर्तमान सप्ताह से पहले वाला या उसके बाद वाला सप्ताह हो सकता है, और उन्हें दोहराया नहीं जाना चाहिए।</value>
+  </data>
+  <data name="After auto-scheduling skips members of multi-on-call groups, only {0} remain, but at least {1} are required. Please add members to single groups or arrange manually." xml:space="preserve">
+    <value>स्वचालित शेड्यूलिंग द्वारा एक से अधिक ऑन-कॉल समूहों के सदस्यों को छोड़ने के बाद, केवल {0} सदस्य बचे हैं, जबकि कम से कम {1} की आवश्यकता है। कृपया एकल समूहों में सदस्य जोड़ें या मैन्युअल रूप से शेड्यूल बनाएँ।</value>
+  </data>
+  <data name="All 21 shifts for this week must be submitted, and each time slot must appear only once." xml:space="preserve">
+    <value>इस सप्ताह की सभी 21 शिफ्ट जमा करनी होंगी, और प्रत्येक समय स्लॉट केवल एक बार ही दिखाई देना चाहिए।</value>
+  </data>
+  <data name="Auto-generation cannot modify adjacent weekly schedules simultaneously." xml:space="preserve">
+    <value>स्वचालित रूप से शेड्यूल बनाने की प्रक्रिया पास-पास के साप्ताहिक शेड्यूल में एक साथ बदलाव नहीं कर सकती।</value>
+  </data>
+  <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
+    <value>जो कर्मचारी टीम छोड़ चुके हैं या टीम के सदस्य नहीं हैं, उन्हें जोड़ा नहीं जा सकता।</value>
+  </data>
+  <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
+    <value>मौजूदा शेड्यूल की समय-सीमाएँ अधूरी हैं; इन्हें ओवरराइट नहीं किया जा सकता।</value>
+  </data>
+  <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
+    <value>आसन्न सप्ताहों के शेड्यूल अनुरोध का प्रारूप अमान्य है; आप अधिकतम दो सप्ताह (पिछला और अगला) सबमिट कर सकते हैं।</value>
+  </data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>ऑन-कॉल टीम मौजूद नहीं है।</value>
+  </data>
+  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
+    <value>कृपया पहले टीम के साथ शेड्यूलिंग नियम जोड़ें।</value>
+  </data>
+  <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
+    <value>कृपया टीम के आधार समय से शुरू होने वाला पूरा सात-दिवसीय ऑन-कॉल चक्र चुनें।</value>
+  </data>
+  <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
+    <value>कृपया शेड्यूलिंग अवधि UTC समय के अनुसार निर्दिष्ट करें।</value>
+  </data>
+  <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>शेड्यूल में न्यूनतम कर्मचारियों की संख्या अमान्य या असंगत है।</value>
+  </data>
+  <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
+    <value>शेड्यूल में विश्राम अवधि अमान्य या असंगत है।</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>टीम या शेड्यूल को किसी अन्य व्यवस्थापक ने संशोधित किया है। कृपया पेज को रीफ़्रेश करें और फिर से कोशिश करें।</value>
+  </data>
+
+</root>

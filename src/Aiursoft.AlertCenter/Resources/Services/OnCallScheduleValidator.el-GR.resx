@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0}&apos;s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." xml:space="preserve">
+    <value>Η βάρδια του/της {0} στις {1:yyyy-MM-dd HH:mm} UTC συμπίπτει με άλλη βάρδια ή δεν μεσολαβεί επαρκής χρόνος ανάπαυσης (τουλάχιστον {2} ώρες αυτή την εβδομάδα, τηρώντας παράλληλα τις απαιτήσεις ανάπαυσης μεταξύ διαδοχικών βαρδιών).</value>
+  </data>
+  <data name="{0}&apos;s shift is outside the designated 8-hour window." xml:space="preserve">
+    <value>Η βάρδια του/της {0} είναι εκτός του καθορισμένου οκτάωρου χρονικού διαστήματος.</value>
+  </data>
+  <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
+    <value>Εντοπίστηκε κενή βάρδια στις {0:yyyy-MM-dd HH:mm} UTC. Απαιτείται τουλάχιστον ένα μέλος του προσωπικού.</value>
+  </data>
+  <data name="Includes employees not belonging to the current team." xml:space="preserve">
+    <value>Περιλαμβάνει εργαζομένους που δεν ανήκουν στην τρέχουσα ομάδα.</value>
+  </data>
+  <data name="Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." xml:space="preserve">
+    <value>Μόνο {0} μέλη του προσωπικού έχουν προγραμματιστεί για τις {1:yyyy-MM-dd HH:mm} UTC, λιγότερα από το ελάχιστο των {2}. Η χειροκίνητη αποθήκευση εξακολουθεί να επιτρέπεται παρά την ανεπαρκή στελέχωση, εκτός από τις κενές βάρδιες.</value>
+  </data>
+
+</root>
