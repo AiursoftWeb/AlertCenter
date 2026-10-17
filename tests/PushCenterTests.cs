@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using Aiursoft.AiurProtocol.Models;
 using Aiursoft.AlertCenter.SDK.Models;
 using Aiursoft.AlertCenter.Authorization;
@@ -44,7 +45,7 @@ public partial class PushCenterTests
                 ["Webhook:HeaderProtectionKey"] = Convert.ToBase64String(new byte[32])
             }).Build());
         _email = new FakeEmailSender();
-        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector, localizer: TestLocalization.For<WebhookChannelAdapter>()), new InAppChannelAdapter(_db, localizer: TestLocalization.For<InAppChannelAdapter>()), new EmailChannelAdapter(_email, localizer: TestLocalization.For<EmailChannelAdapter>(), options: Microsoft.Extensions.Options.Options.Create(new Aiursoft.AlertCenter.Configuration.EmailSettings()))];
+        _adapters = [new WebhookChannelAdapter(new FakeClientFactory(_http), _webhookConfigurationProtector, localizer: TestLocalization.For<WebhookChannelAdapter>()), new InAppChannelAdapter(_db, localizer: TestLocalization.For<InAppChannelAdapter>()), new EmailChannelAdapter(_email, localizer: TestLocalization.For<EmailChannelAdapter>(), options: Options.Create(new EmailSettings()))];
         _processor = new PushDeliveryProcessor(_db, _adapters, NullLogger<PushDeliveryProcessor>.Instance, localizer: TestLocalization.For<PushDeliveryProcessor>());
         _channelAccess = new PushChannelAccessService(_db);
     }
@@ -660,7 +661,7 @@ public partial class PushCenterTests
             } : null
         };
         var adapter = new EmailChannelAdapter(_email, TestLocalization.For<EmailChannelAdapter>(),
-            Microsoft.Extensions.Options.Options.Create(new EmailSettings { PublicBaseUrl = "https://alerts.example.com/portal/" }));
+            Options.Create(new EmailSettings { PublicBaseUrl = "https://alerts.example.com/portal/" }));
         var result = await adapter.DeliverAsync(delivery);
         Assert.IsTrue(result.Succeeded, result.ErrorMessage);
         var mail = _email.Messages.Single();
@@ -683,7 +684,7 @@ public partial class PushCenterTests
     public async Task EmailRejectsInvalidPublicSiteAddress(string url)
     {
         var adapter = new EmailChannelAdapter(_email, TestLocalization.For<EmailChannelAdapter>(),
-            Microsoft.Extensions.Options.Options.Create(new EmailSettings { PublicBaseUrl = url }));
+            Options.Create(new EmailSettings { PublicBaseUrl = url }));
         var result = await adapter.DeliverAsync(new PushDelivery
         {
             Channel = new PushChannel { EmailRecipient = "anduin@example.com" }
