@@ -30,8 +30,14 @@
   <data name="Content: " xml:space="preserve">
     <value>Konten:</value>
   </data>
+  <data name="Context" xml:space="preserve">
+    <value>Konteks</value>
+  </data>
   <data name="Context:" xml:space="preserve">
     <value>Konteks:</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>ID Pengiriman</value>
   </data>
   <data name="Delivery ID: {0}" xml:space="preserve">
     <value>ID Pengiriman: {0}</value>
@@ -47,6 +53,15 @@
   </data>
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Waktu pengiriman email habis. Server email mungkin telah menerima pesan tersebut; harap periksa dan coba lagi.</value>
+  </data>
+  <data name="If the button does not work, open this link:" xml:space="preserve">
+    <value>Jika tombol tidak berfungsi, buka tautan ini:</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Rincian Insiden</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>ID Insiden</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>ID Insiden: {0}</value>
@@ -69,6 +84,9 @@
   <data name="None" xml:space="preserve">
     <value>Tidak ada</value>
   </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>Terjadi pada (UTC)</value>
+  </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Terjadi pada (UTC): {0:O}</value>
   </data>
@@ -78,14 +96,26 @@
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Grup piket: {0}</value>
   </data>
+  <data name="On-call team" xml:space="preserve">
+    <value>Tim Siaga</value>
+  </data>
   <data name="On-call time (UTC): {0:O} — {1:O}" xml:space="preserve">
     <value>Waktu piket (UTC): {0:O} — {1:O}</value>
+  </data>
+  <data name="Open in AlertCenter" xml:space="preserve">
+    <value>Buka di AlertCenter</value>
   </data>
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Silakan masukkan alamat email penerima.</value>
   </data>
+  <data name="Reopen note" xml:space="preserve">
+    <value>Catatan pembukaan kembali</value>
+  </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Catatan pembukaan kembali: {0}</value>
+  </data>
+  <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
+    <value>Kirim notifikasi insiden ke alamat email yang ditentukan melalui server SMTP global.</value>
   </data>
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Kirimkan pemberitahuan teks biasa ke alamat email yang ditentukan melalui server SMTP global.</value>
