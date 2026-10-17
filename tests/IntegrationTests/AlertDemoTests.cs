@@ -35,15 +35,27 @@ public partial class AlertDemoTests : TestBase
     {
         var webRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
             "../../../../src/Aiursoft.AlertCenter/wwwroot"));
-        Server = await AppAsync<AlertDemoStartup>(["--webroot", webRoot], port: Port);
-        using (var scope = Server.Services.CreateScope())
+        using var reservation = new TestPortReservation();
+        Http.BaseAddress = new Uri($"http://localhost:{reservation.Port}");
+        Server = await AppAsync<AlertDemoStartup>(["--webroot", webRoot], port: reservation.Port);
+        try
         {
-            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            _databasePath = db.Database.GetDbConnection().DataSource;
+            reservation.ConfigureServer(Server);
+            using (var scope = Server.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+                _databasePath = db.Database.GetDbConnection().DataSource;
+            }
+            await Server.UpdateDbAsync<TemplateDbContext>();
+            await Server.SeedAsync();
+            await Server.StartAsync();
         }
-        await Server.UpdateDbAsync<TemplateDbContext>();
-        await Server.SeedAsync();
-        await Server.StartAsync();
+        catch
+        {
+            Server.Dispose();
+            Server = null;
+            throw;
+        }
     }
 
     [TestCleanup]
