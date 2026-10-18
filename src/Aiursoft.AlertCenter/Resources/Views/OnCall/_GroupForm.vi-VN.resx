@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="All roles" xml:space="preserve">
+    <value>Tất cả vai trò</value>
+  </data>
+  <data name="Browse all employees by role" xml:space="preserve">
+    <value>Duyệt tất cả nhân viên theo vai trò</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>Nhân viên đã bị xóa</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>Không áp dụng mẫu (lên lịch thủ công)</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Nhân viên đã bị xóa</value>
+  </data>
+  <data name="Enter a keyword to search, or select a role to immediately view all employees in that role." xml:space="preserve">
+    <value>Nhập từ khóa để tìm kiếm hoặc chọn một vai trò để xem ngay tất cả nhân viên thuộc vai trò đó.</value>
+  </data>
+  <data name="Enter a name/account to search, or select a role to automatically paginate and list all employees in that role. Paging does not clear selected members. The member order below represents the rotation order." xml:space="preserve">
+    <value>Nhập tên/tài khoản để tìm kiếm hoặc chọn một vai trò để tự động phân trang và liệt kê tất cả nhân viên thuộc vai trò đó. Việc chuyển trang không xóa các thành viên đã chọn. Thứ tự thành viên bên dưới là thứ tự luân phiên.</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>Nhập theo giờ UTC; thời gian sẽ không được tự động chuyển đổi theo múi giờ của nhóm. Sau khi một ca trực được lưu, không thể thay đổi thời điểm bắt đầu lịch trực.</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Tìm</value>
+  </data>
+  <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
+    <value>Có thể thêm hoặc xóa thành viên bất cứ lúc nào; việc xóa một thành viên chỉ xóa các ca trực đã lên lịch nhưng chưa bắt đầu, còn các ca đã bắt đầu và các ca trong quá khứ vẫn được giữ lại. Mọi ca trực bị bỏ trống do đó phải được phân công thủ công.</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>Nhiều nhóm có thể dùng chung một mẫu. Việc chuyển đổi hoặc chỉnh sửa mẫu sẽ không tạo lại các ca trực đã lưu.</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>Tên hoặc tài khoản</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Trang sau</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>Email CC trực ca</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured here; it does not automatically CC all team members. Supports line breaks, commas, or semicolons as separators, up to 50 addresses; leave blank to omit CC. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>Email trực ca sẽ tự động được gửi đến hộp thư người dùng (To) của tất cả Kỹ sư trực ca (OCE) trong ca trực hiện đã lưu. CC chỉ sử dụng hộp thư nhóm hoặc địa chỉ danh sách gửi thư được cấu hình rõ ràng tại đây; hệ thống không tự động CC tất cả thành viên trong nhóm. Có thể phân tách tối đa 50 địa chỉ bằng dấu xuống dòng, dấu phẩy hoặc dấu chấm phẩy; để trống nếu không muốn CC. Các kênh đẩy tùy chỉnh được cấu hình trong ứng dụng vẫn sẽ gửi thêm thông báo.</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Trang trước</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>Luân phiên thành viên</value>
+  </data>
+  <data name="Save team" xml:space="preserve">
+    <value>Lưu nhóm</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>Mẫu quy tắc lập lịch</value>
+  </data>
+  <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
+    <value>Tìm kiếm theo tên múi giờ, thành phố hoặc độ lệch UTC. Mốc thời gian của lịch được lưu theo UTC và hiển thị theo múi giờ của nhóm.</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>Tìm kiếm nhân viên</value>
+  </data>
+  <data name="Selected members (can be empty, max 200)" xml:space="preserve">
+    <value>Thành viên đã chọn (có thể để trống, tối đa 200)</value>
+  </data>
+  <data name="Shift Start Time (UTC)" xml:space="preserve">
+    <value>Thời gian bắt đầu ca trực (UTC)</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>Tên nhóm</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>Múi giờ</value>
+  </data>
+
+</root>

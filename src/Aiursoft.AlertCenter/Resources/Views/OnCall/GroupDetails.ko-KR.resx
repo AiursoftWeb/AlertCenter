@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" members" xml:space="preserve">
+    <value>명</value>
+  </data>
+  <data name="Back to Team List" xml:space="preserve">
+    <value>팀 목록으로 돌아가기</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="CC address not configured." xml:space="preserve">
+    <value>참조(CC) 주소가 설정되지 않았습니다.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>닫기</value>
+  </data>
+  <data name="Confirm team deletion" xml:space="preserve">
+    <value>팀 삭제 확인</value>
+  </data>
+  <data name="Delete on-call team" xml:space="preserve">
+    <value>당직 팀 삭제</value>
+  </data>
+  <data name="Delete team" xml:space="preserve">
+    <value>팀 삭제</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>팀 수정</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="hours · Min rest " xml:space="preserve">
+    <value>시간 · 최소 휴식</value>
+  </data>
+  <data name="No team members." xml:space="preserve">
+    <value>팀원이 없습니다.</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>온콜 이메일 참조(CC)</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>현재 저장된 교대 근무의 모든 온콜 엔지니어(OCE) 사용자 메일함으로 온콜 이메일이 자동 발송됩니다(To). 참조(CC)에는 관리자가 명시적으로 설정한 팀 메일함 또는 메일링 리스트 주소만 사용되며, 모든 팀원이 자동으로 참조에 추가되지는 않습니다. 애플리케이션에 설정된 사용자 지정 푸시 채널을 통해 추가 알림은 계속 전송됩니다.</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>교대당</value>
+  </data>
+  <data name="Rotate Members (Sequential)" xml:space="preserve">
+    <value>구성원 순환(순차)</value>
+  </data>
+  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>규칙 템플릿이 연결되지 않았습니다. 수동으로 일정을 편성할 수 있습니다.</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>규칙 템플릿:</value>
+  </data>
+  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>규칙 템플릿은 삭제할 수 없습니다. 저장된 근무 일정이 없고 연결된 애플리케이션이 없는 팀만 삭제할 수 있습니다. 이 작업은 되돌릴 수 없습니다.</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>일정 시작 기준점:</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>팀 구성</value>
+  </data>
+  <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
+    <value>템플릿은 여러 팀에서 공유할 수 있으며, 템플릿을 수정하거나 변경해도 저장된 근무 일정은 다시 생성되지 않습니다.</value>
+  </data>
+  <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
+    <value>이 팀에는 저장된 근무 일정이 있어 일정 이력을 보존하기 위해 삭제할 수 없습니다.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group before deleting the team." xml:space="preserve">
+    <value>이 팀은 연동된 앱에 연결되어 있습니다. 팀을 삭제하기 전에 앱의 당직 그룹을 재할당하거나 연결을 해제하세요.</value>
+  </data>
+  <data name="Time zone: " xml:space="preserve">
+    <value>시간대:</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>당직 일정 보기</value>
+  </data>
+
+</root>

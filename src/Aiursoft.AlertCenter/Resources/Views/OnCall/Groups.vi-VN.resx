@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Thao tác</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="Create Team" xml:space="preserve">
+    <value>Tạo nhóm</value>
+  </data>
+  <data name="Manage team members, rotation order, timezone, and scheduling start point. You can bind a shared rule template, but actual shifts are saved by the team." xml:space="preserve">
+    <value>Quản lý thành viên nhóm, thứ tự luân phiên, múi giờ và thời điểm bắt đầu lập lịch. Bạn có thể gắn một mẫu quy tắc dùng chung, nhưng lịch trực thực tế sẽ được lưu theo nhóm.</value>
+  </data>
+  <data name="Member Count" xml:space="preserve">
+    <value>Số lượng thành viên</value>
+  </data>
+  <data name="No teams available. Please create a team first." xml:space="preserve">
+    <value>Không có nhóm nào. Vui lòng tạo nhóm trước.</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>Mẫu quy tắc</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Nhóm</value>
+  </data>
+  <data name="Team management" xml:space="preserve">
+    <value>Quản lý nhóm</value>
+  </data>
+  <data name="Team saved" xml:space="preserve">
+    <value>Đội đã được lưu</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>Múi giờ</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>Chưa liên kết</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>Xem lịch trực</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>Xem nhóm</value>
+  </data>
+
+</root>

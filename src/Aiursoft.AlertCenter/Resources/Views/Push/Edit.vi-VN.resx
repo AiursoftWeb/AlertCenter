@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>, có thể được sử dụng ở phía bên nhận cùng với</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: Hỗ trợ chỉ định đồng thời nhiều người dùng và nhóm người dùng (vai trò). Hệ thống tự động loại bỏ các mục trùng lặp, đảm bảo mỗi thành viên chỉ nhận được một thông báo chưa đọc.</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: Hệ thống sử dụng thống nhất cấu hình dịch vụ Email toàn cục. Vui lòng sử dụng</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Chọn loại kênh</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Thêm</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>Thêm địa chỉ email CC</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>Thêm địa chỉ email</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>Thêm ít nhất một người dùng hoặc nhóm người dùng; sẽ không gửi thông báo nếu nhóm không có thành viên.</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>Thêm kênh thông báo đẩy</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>Thêm người nhận và nhóm người dùng</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>Yêu cầu tùy chỉnh nâng cao (tiêu đề và mẫu tùy chỉnh)</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>và</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>Ủy quyền liên kết ứng dụng</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>Quyền liên kết ứng dụng chưa được cấp</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>Ngoại trừ quản trị viên kênh đẩy, hiện không người dùng nào có thể liên kết với kênh này.</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>Loại ủy quyền</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>Quay lại danh sách kênh</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>Nhập hàng loạt email CC</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>Không thể ghi đè.</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Danh sách CC</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Tên kênh</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>Nhấp vào nút bên phải để xóa</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>Nhấp để chèn chỗ giữ chỗ:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>Chi tiết cấu hình</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>Mô tả định dạng yêu cầu mặc định</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>Mỗi tác vụ gửi có một mã cố định duy nhất</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>Chỉnh sửa kênh thông báo đẩy</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>Email sẽ được gửi trực tiếp đến địa chỉ email này.</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>Bật kênh đẩy này ngay</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>Các biến môi trường cung cấp thông tin xác thực.</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>Ví dụ: Nhóm trực hỗ trợ môi trường sản xuất, bot báo sự cố Feishu, Webhook vận hành…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>Tiêu đề HTTP bổ sung (đối tượng JSON)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>Dịch vụ email SMTP toàn cục</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>Tên header tối đa 128 ký tự; giá trị phải là một chuỗi hợp lệ.</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>Loại bỏ trùng lặp một cách bất biến.</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>Nếu để trống, hệ thống sẽ gửi JSON tiêu chuẩn theo mặc định. Các tiêu đề tùy chỉnh được mã hóa và lưu lại;</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>Phạm vi thông báo trong ứng dụng</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>Đang chỉnh sửa các thông số gửi cho kênh &quot;{0}&quot;.</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>Chưa có người nhận CC nào được thêm.</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>Chưa có người nhận nào được thêm. Vui lòng chọn nhóm vai trò hoặc chỉ định người dùng ở trên.</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>Mỗi địa chỉ email trên một dòng; cũng có thể dùng dấu phẩy hoặc dấu chấm phẩy kiểu tiếng Anh, tối đa 50 người nhận CC.</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>Chỉ những người dùng sau đây hoặc thành viên của nhóm người dùng mới có thể xem và liên kết kênh này trong các ứng dụng do họ quản lý. Quyền này không cấp quyền truy cập vào người nhận, webhook hoặc cấu hình kiểm thử.</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>Phân tích thành danh sách</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>Người nhận CC đã được phân tích</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>Các chỗ giữ chỗ phải là giá trị duy nhất của một chuỗi JSON.</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Email người nhận</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>Loại người nhận</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Xóa {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Xóa quyền</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>Mẫu nội dung yêu cầu (mẫu JSON)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>Nhóm vai trò</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>Lưu cấu hình kênh</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Tìm kiếm theo tên người dùng hoặc tên hiển thị...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>Tìm kiếm người dùng</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Chọn loại kênh thông báo và cấu hình địa chỉ người nhận hoặc những người nhận mục tiêu.</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Chọn nhóm người dùng</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>Chọn nhóm người dùng...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Chọn người dùng...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>Danh sách người nhận đã chọn</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Chỉ định người dùng cụ thể</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>Chỉ định người dùng</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>Chỉ định người dùng (Người dùng)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>Bên nhận phải hỗ trợ HTTP POST với JSON. Phản hồi có mã trạng thái 2xx được xem là gửi thành công. Thời gian chờ yêu cầu của hệ thống là 10 giây và không theo chuyển hướng khác nguồn gốc.</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>Sắp thêm</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>Dùng để nhanh chóng nhận biết các mức độ và bản ghi gửi thông báo của ứng dụng.</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>Nhóm người dùng</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Nhóm người dùng · Thành viên tự động kế thừa quyền liên kết</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>Nhóm người dùng (Vai trò)</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>URL nhận webhook</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>Sẽ phân tích cú pháp và giữ nguyên kiểu dữ liệu của các đối tượng gốc.</value>
+  </data>
+
+</root>

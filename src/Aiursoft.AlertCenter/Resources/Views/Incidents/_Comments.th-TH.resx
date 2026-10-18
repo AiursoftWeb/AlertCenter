@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+    <value>หลังจากลบแล้ว ระบบจะเก็บไว้เฉพาะผู้เขียน เวลาเผยแพร่ ผู้ลบ และเวลาที่ลบเท่านั้น ข้อความความคิดเห็นต้นฉบับจะไม่แสดงอีกต่อไปและไม่สามารถกู้คืนได้</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="Comment editor view" xml:space="preserve">
+    <value>มุมมองตัวแก้ไขความคิดเห็น</value>
+  </data>
+  <data name="Comment pagination" xml:space="preserve">
+    <value>การแบ่งหน้าความคิดเห็น</value>
+  </data>
+  <data name="Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them." xml:space="preserve">
+    <value>ความคิดเห็นแยกจากบันทึกการตอบสนองต่อเหตุการณ์ และสามารถเผยแพร่ได้ในทุกสถานะของเหตุการณ์ เมื่อเผยแพร่แล้วจะไม่สามารถแก้ไขได้ โดยมีเพียงผู้เขียนหรือผู้ดูแลระบบแอปเท่านั้นที่สามารถลบได้</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>ยืนยันการลบ</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="Delete comment" xml:space="preserve">
+    <value>ลบความคิดเห็น</value>
+  </data>
+  <data name="Deleted by: " xml:space="preserve">
+    <value>ลบโดย:</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="Incident discussion" xml:space="preserve">
+    <value>การอภิปรายเกี่ยวกับเหตุการณ์</value>
+  </data>
+  <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
+    <value>รองรับ Markdown โดยมีความยาวสูงสุด 4,000 อักขระ UTF-16 (อีโมจิบางตัวอาจนับเป็น 2 อักขระ)</value>
+  </data>
+  <data name="Newest first · 20 items per page" xml:space="preserve">
+    <value>ใหม่สุดก่อน · 20 รายการต่อหน้า</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>หน้าถัดไป</value>
+  </data>
+  <data name="No comments on the current page." xml:space="preserve">
+    <value>ไม่มีความคิดเห็นในหน้านี้</value>
+  </data>
+  <data name="No. " xml:space="preserve">
+    <value>ลำดับที่</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>เปิด</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>หน้า</value>
+  </data>
+  <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
+    <value>วางหรือ拖รูปภาพลงในตัวแก้ไขเพื่ออัปโหลด</value>
+  </data>
+  <data name="Post comment" xml:space="preserve">
+    <value>แสดงความคิดเห็น</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>แสดงตัวอย่าง</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>หน้าก่อนหน้า</value>
+  </data>
+  <data name="Publish comment" xml:space="preserve">
+    <value>เผยแพร่ความคิดเห็น</value>
+  </data>
+  <data name="Published comment?" xml:space="preserve">
+    <value>ความคิดเห็นที่เผยแพร่เมื่อ?</value>
+  </data>
+  <data name="Split View" xml:space="preserve">
+    <value>มุมมองแบบแบ่งหน้าจอ</value>
+  </data>
+  <data name="This comment has been deleted." xml:space="preserve">
+    <value>ความคิดเห็นนี้ถูกลบแล้ว</value>
+  </data>
+  <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
+    <value>ใช้ Markdown เพื่อแบ่งปันเบาะแสในการแก้ไขปัญหา ข้อเสนอแนะ หรือการพูดคุย…</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>ผู้ใช้ถูกลบ</value>
+  </data>
+
+</root>

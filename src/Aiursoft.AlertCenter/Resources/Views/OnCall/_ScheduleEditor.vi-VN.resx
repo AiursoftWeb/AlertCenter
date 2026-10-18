@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· Đã rời nhóm</value>
+  </data>
+  <data name="Add or remove personnel by shift" xml:space="preserve">
+    <value>Thêm hoặc xóa nhân sự theo ca</value>
+  </data>
+  <data name="Add shift" xml:space="preserve">
+    <value>Thêm ca trực</value>
+  </data>
+  <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
+    <value>Các đề xuất tự động chưa được lưu. Khi tạo lịch, các lịch liền kề sẽ được xác thực lại; các lịch đã lưu hiện có sẽ không bị ghi đè.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Cancel, keep next week" xml:space="preserve">
+    <value>Hủy, giữ nguyên lịch tuần tới</value>
+  </data>
+  <data name="Confirm draft replacement" xml:space="preserve">
+    <value>Xác nhận thay thế bản nháp</value>
+  </data>
+  <data name="Copy Current Week to Next Week" xml:space="preserve">
+    <value>Sao chép tuần hiện tại sang tuần tiếp theo</value>
+  </data>
+  <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
+    <value>Sao chép bản nháp của tuần hiện tại sang tuần tiếp theo. Nếu tuần tiếp theo đã có ca trực hoặc thay đổi, cần xác nhận trước khi sao chép; sau khi sao chép vẫn cần lưu. Các nút dọc ở hai bên có thể mở rộng để hiển thị 36 giờ trước và sau tuần hiện tại; các vùng màu xám chỉ đọc. Biểu đồ và biểu mẫu trên trang này chỉ chỉnh sửa tuần hiện tại; để điều chỉnh các tuần liền kề, hãy chuyển sang tuần tương ứng. Bản nháp của tuần tiếp theo sau khi sao chép cũng được xem trước ở chế độ chỉ đọc. Các thay đổi trong tuần hiện tại và bản sao đều được lưu, hoàn tác và khôi phục theo cùng một cách; thu gọn không làm mất bản nháp.</value>
+  </data>
+  <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Hiện đang ở chế độ Di chuyển/Hoán đổi. Hãy chuyển sang chế độ ở trên trước khi thêm hoặc xóa ca trực.</value>
+  </data>
+  <data name="Delete shift" xml:space="preserve">
+    <value>Xóa ca trực</value>
+  </data>
+  <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
+    <value>Kéo một khối màu sang ca khác để đổi nhân sự, hoặc kéo vào ô trống để chuyển ca; kéo “Đổi cả tuần” để hoán đổi lịch làm việc trong tuần của hai người. Bạn cũng có thể nhấp để chọn, rồi nhấp vào vị trí đích; nhấn Esc để hủy. Các thay đổi được hiển thị ngay lập tức và có thể lưu hàng loạt sau khi thực hiện nhiều điều chỉnh.</value>
+  </data>
+  <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
+    <value>Tạo và lưu lịch làm việc tuần này</value>
+  </data>
+  <data name="Move / Swap" xml:space="preserve">
+    <value>Di chuyển / Hoán đổi</value>
+  </data>
+  <data name="Next week already has a saved schedule or unsaved changes. Copying will replace the full 21 shifts of next week with the current draft of this week. You can still undo after confirmation; changes are only written when you click Save." xml:space="preserve">
+    <value>Tuần tới đã có lịch được lưu hoặc các thay đổi chưa lưu. Việc sao chép sẽ thay thế toàn bộ 21 ca của tuần tới bằng bản nháp hiện tại của tuần này. Bạn vẫn có thể hoàn tác sau khi xác nhận; các thay đổi chỉ được ghi lại khi bạn nhấn Lưu.</value>
+  </data>
+  <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
+    <value>Nhân sự trực (có thể chọn nhiều người, ít nhất một người)</value>
+  </data>
+  <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
+    <value>Cảnh báo màu đỏ cho biết ca trực còn trống, thời gian nghỉ không đủ hoặc số nhân sự ít hơn mức tối thiểu, nhưng không ngăn bạn tiếp tục điều chỉnh. Bạn vẫn có thể lưu khi số nhân sự ít hơn mức tối thiểu, nhưng không thể lưu nếu còn ca trực trống hoặc thời gian nghỉ không đủ. Khi lưu, việc xác thực được áp dụng đồng nhất cho tuần đã chỉnh sửa, các tuần liền kề và các nhóm khác. Nếu bất kỳ tuần nào không đạt yêu cầu xác thực, sẽ không có thay đổi nào được lưu. Thành viên đã rời nhóm chỉ có thể giữ lại các ca trực ban đầu; không thể thêm hoặc sao chép ca trực mới.</value>
+  </data>
+  <data name="Replace next week&apos;s draft?" xml:space="preserve">
+    <value>Thay thế bản nháp của tuần tới?</value>
+  </data>
+  <data name="Reset All" xml:space="preserve">
+    <value>Đặt lại tất cả</value>
+  </data>
+  <data name="Save schedule adjustments" xml:space="preserve">
+    <value>Lưu các điều chỉnh lịch trình</value>
+  </data>
+  <data name="Scheduling Operation Mode" xml:space="preserve">
+    <value>Chế độ thao tác lập lịch</value>
+  </data>
+  <data name="Select Shift" xml:space="preserve">
+    <value>Chọn ca trực</value>
+  </data>
+  <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
+    <value>Chọn các khung giờ để thêm hoặc xóa nhân sự trực; biểu đồ sẽ được cập nhật ngay lập tức. Bạn cũng có thể dùng biểu mẫu này để điều hướng bằng bàn phím. Có thể chọn thủ công thành viên thuộc nhóm khác; các ca trực chỉ đọc có màu xám của nhóm khác sẽ không bị thay đổi, và các ca trùng giờ cũng như thời gian nghỉ giữa các nhóm vẫn được kiểm tra khi lưu.</value>
+  </data>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Hoàn tác bước cuối</value>
+  </data>
+
+</root>

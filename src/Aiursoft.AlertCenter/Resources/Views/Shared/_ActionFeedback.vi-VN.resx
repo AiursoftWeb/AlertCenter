@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Tuần liền kề (chỉ đọc)</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· Đã nghỉ việc</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· bao gồm cả tuần sau</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· bao gồm tuần trước</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Thời gian nghỉ không đủ</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Chỉ đọc)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} chỉ có {1} nhân viên, thấp hơn mức tối thiểu là {2}. Vẫn có thể lưu thủ công.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} giờ</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>Ca {0} cho {1} · {2}; chưa được lưu. Bạn có thể hoàn tác.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} ca / {1} giờ</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Chỉ có {1} giờ nghỉ giữa {2} và {3}. Thời gian nghỉ tối thiểu cần thiết là {4} giờ.</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 giờ · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>Thao tác chưa hoàn tất</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>Chế độ thêm: Nhấp vào khoảng trống trong hàng của kỹ sư để thêm một ca làm việc 8 giờ; nhiều người có thể cùng làm một ca.</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>Thêm ca trực</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Đã thêm</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>Quay lại chỉnh sửa</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>Hủy làm mới</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>Thu gọn {0} 36 giờ</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>Nội dung bình luận (Markdown)</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>Bình luận không được vượt quá 4.000 ký tự UTF-16. Vui lòng rút ngắn nội dung trước khi đăng.</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>Xác nhận làm mới trang?</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Đã sao chép</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>Đã sao chép bản nháp hiện tại của tuần này vào tất cả 21 ca của tuần tới. Chưa lưu; bạn có thể hoàn tác. Bạn có thể mở rộng để xem trước chỉ đọc 36 giờ tiếp theo; sau khi lưu, hãy chuyển sang tuần tới để xem hoặc chỉnh sửa cả tuần.</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>Đã sao chép vào khay nhớ tạm.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Sao chép</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>Sao chép không thành công. Vui lòng chọn và sao chép nội dung theo cách thủ công. Để thử lại, hãy kiểm tra quyền truy cập vào bảng nhớ tạm của trình duyệt.</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>Đang sao chép…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Hiện đang ở chế độ Di chuyển/Hoán đổi. Hãy chuyển sang chế độ phù hợp ở phía trên trước khi thêm hoặc xóa ca làm.</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>Chế độ xóa: Nhấp vào ô màu để xóa ca làm hiện tại của kỹ sư này. Có thể hoàn tác thao tác này; thay đổi sẽ có hiệu lực sau khi lưu tất cả thay đổi.</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>Xóa nội dung đã nhập và tải lại</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Kết thúc</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>Vui lòng nhập nội dung bình luận; không được chỉ chứa khoảng trắng.</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>Nhập chính xác tên ứng dụng để xác nhận xóa.</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>Mở rộng {0} 36 giờ</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>Không thể tìm kiếm nhân viên. Vui lòng thử lại.</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>Tải ảnh lên không thành công. Vui lòng thử lại.</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Từ</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>Phát hiện thiếu nhân sự tại {0}. Vui lòng bổ sung nhân viên (mỗi tuần cần đủ 21 ca).</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>Có thể quản lý</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>Đã chỉnh sửa {0} ca trực{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>Chuyển / đổi ca làm</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Đã hủy thao tác di chuyển; lịch vẫn giữ nguyên.</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>Đã hủy thao tác di chuyển.</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>Chuyển ca đã chọn đến đây</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>Chuyển đến</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>Lỗi mạng; chưa thể xác nhận kết quả thao tác. Vui lòng kiểm tra trạng thái trước khi gửi lại để tránh thao tác trùng lặp.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>tiếp theo</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Chưa có ca làm nào được phân công.</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>Không tìm thấy nhân viên phù hợp.</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>Không tìm thấy múi giờ phù hợp</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>Không tìm thấy người dùng phù hợp.</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>Không có ca làm nào để xóa trong ô này.</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Trang {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>Thông tin trang đã được cập nhật</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>Vui lòng kiểm tra định dạng email CC.</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>Nhấn Ctrl+C để sao chép khóa đã chọn.</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>trước</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>Đã hoàn tác bước trước.</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>Làm mới trang</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>Tải lại sẽ làm mất dữ liệu chưa lưu. Chọn &quot;Hủy tải lại&quot; để quay lại xem chi tiết lỗi và giữ nguyên dữ liệu hiện tại.</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>Đang tải lại trang...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Xóa {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Xóa quyền</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Đã xóa</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>Yêu cầu không hợp lệ hoặc thông tin xác thực của trang đã hết hạn. Hãy kiểm tra thông tin nhập và làm mới trang để thử lại nếu cần.</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>Đang khởi động lại... ({0} giây)</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>Đã khôi phục lịch trình về trạng thái khi trang được mở.</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>Nhóm vai trò · Tất cả thành viên trong nhóm tự động được kế thừa các quyền</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>Lưu không thành công. Vui lòng tải lại trang và thử lại.</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>Đang tìm kiếm nhân viên…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>Chọn vai trò</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Chọn tối đa 200 nhân viên cho mỗi nhóm.</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>Chọn người dùng</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>Chọn người dùng</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Chọn nhóm người dùng</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Đã chọn {0} · {1}. Kéo đến hoặc nhấp vào ô màu để hoán đổi, nhấn Space để di chuyển; nhấn Esc để hủy.</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>Đã chọn {0} người dùng; tối đa 20 người dùng mỗi trang.</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>Đã chọn lịch làm việc cả tuần của {0}. Kéo đến hoặc nhấp vào kỹ sư khác.</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>Đã hủy lựa chọn.</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>Ca đã được điều chỉnh; bạn có thể tiếp tục kéo để xử lý các cảnh báo màu đỏ, sau đó lưu tất cả thay đổi.</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Chỉ định người dùng cụ thể</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>Đã điều chỉnh nhân sự và cập nhật biểu đồ; chưa lưu.</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>Đã sao chép vào bộ nhớ tạm thành công!</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>Hoán đổi</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>Đã hủy hoán đổi.</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>Hoán đổi cả tuần: {0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>Hoán đổi cả tuần</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>Đã hoán đổi lịch cả tuần của {0} và {1}. Chưa lưu.</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>Hiện chưa thể xác nhận kết quả của thao tác. Vui lòng kiểm tra trạng thái trang trước khi gửi lại.</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>Lịch trình còn {0} vấn đề chưa được giải quyết (mở rộng để xem); bạn vẫn có thể tiếp tục điều chỉnh.</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>Đối tượng mục tiêu không còn tồn tại. Vui lòng làm mới trang.</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>Kỹ sư này đã được phân công vào ca này. Không cần thêm họ lần nữa.</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>Tuần này có thành viên đã nghỉ. Vui lòng thay thế họ trong bản nháp tuần này trước khi sao chép sang tuần tiếp theo.</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>Hai địa điểm đã có cùng cách sắp xếp; không cần đổi chỗ.</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>Không thể hiển thị xác nhận thay thế. Vui lòng làm mới trang và thử lại. Bản nháp của tuần tới vẫn không thay đổi.</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>Không thể truy vấn nhân viên.</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>Không thể đổi ca trực tiếp: một người đã có mặt trong ca đích. Trước tiên, hãy điều chỉnh thành viên của cùng ca bằng chức năng &quot;Thêm/Xóa thành viên theo ca&quot;.</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>Chưa lưu · Bản nháp điều chỉnh</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Nhóm người dùng · Thành viên tự động kế thừa các quyền đã gán</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Chỉ xem</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>Bạn không có quyền thực hiện thao tác này.</value>
+  </data>
+
+</root>

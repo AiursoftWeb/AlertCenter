@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>การดำเนินการ</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>ทุกช่องทาง</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>สถานะทั้งหมด</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>จำนวนครั้งที่พยายาม</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>อีเมลแจ้งเวรที่มีมาให้ในตัว</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>อีเมลแจ้งเวรที่มีมาให้ · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>การแจ้งเตดสอบช่องทาง</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>ล้างตัวกรองทั้งหมด</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>ติดตามสถานะการส่งแบบอะซิงโครนัสและการลองส่งซ้ำเมื่อเกิดข้อผิดพลาดอย่างครบถ้วน สำหรับ Webhook อีเมล และการแจ้งเตือนภายในแอป</value>
+  </data>
+  <data name="Creation Time (UTC)" xml:space="preserve">
+    <value>เวลาที่สร้าง (UTC)</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>กำลังแสดงหน้าที่</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>กำลังจัดส่ง</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>กำลังส่ง (กำลังจัดส่ง)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>การส่งล้มเหลว</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>การจัดส่งล้มเหลว (ล้มเหลว)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>สถานะการจัดส่ง</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>ส่งสำเร็จ</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>ส่งสำเร็จ (สำเร็จ)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>ตัวกรอง</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>ไปที่</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>ไปที่ศูนย์การแจ้งเตือนเพื่อกำหนดค่าช่องทาง</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>เหตุการณ์ / ข้อความทดสอบ</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>เปิดเหตุการณ์อีกครั้ง: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>ไป</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>ไปยังหมายเลขหน้า</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>การทดสอบด้วยตนเอง</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>หน้าถัดไป</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>ไม่พบรายการนำส่งที่ตรงกับตัวกรองปัจจุบัน โปรดปรับเงื่อนไขการกรอง</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>ไม่มีประวัติการส่งการแจ้งเตือน</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>หน้า</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>รายการของหน้า</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>รอการจัดส่ง</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>รอส่ง (Pending)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>หน้าก่อนหน้า</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>บันทึกการส่งการแจ้งเตือนแบบพุช</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>การแบ่งหน้าเรกคอร์ดการส่ง</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>รีเฟรชรายการ</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>รีเซ็ตตัวกรอง</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>ช่องทางเป้าหมาย</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>ทดสอบ</value>
+  </data>
+  <data name="UTC Real-Time Trace" xml:space="preserve">
+    <value>การติดตามแบบเรียลไทม์ตามเวลา UTC</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>ดูรายละเอียดการจัดส่ง</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>เมื่อระบบส่งการแจ้งเตือนเหตุขัดข้องหรือทดสอบช่องทางด้วยตนเอง รายละเอียดการส่งและสถานะทั้งหมดจะถูกบันทึกไว้ที่นี่</value>
+  </data>
+
+</root>

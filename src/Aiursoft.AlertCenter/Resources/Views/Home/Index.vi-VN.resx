@@ -21,6 +21,12 @@
       <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Hỗ trợ kiểu &quot;Fire-and-forget&quot; cho các tác vụ dài hạn (như email hoặc AI), đi kèm giao diện người dùng đồ họa (GUI) để quản lý hàng đợi, xử lý song song và hủy bỏ.</value>
   </data>
+  <data name="2 minutes ago" xml:space="preserve">
+    <value>2 phút trước</value>
+  </data>
+  <data name="8 minutes ago" xml:space="preserve">
+    <value>8 phút trước</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Hệ thống Kiểm soát Truy cập Dựa trên Vai trò (RBAC) được tích hợp sẵn để quản lý quyền chi tiết.</value>
   </data>
@@ -38,6 +44,9 @@
   </data>
   <data name="Achieve more with Aiursoft Template" xml:space="preserve">
     <value>Đạt được nhiều hơn với Aiursoft Template</value>
+  </data>
+  <data name="Action Required" xml:space="preserve">
+    <value>Cần xử lý</value>
   </data>
   <data name="Actuator health endpoints built-in" xml:space="preserve">
     <value>Các điểm cuối sức khỏe của Actuator được tích hợp sẵn</value>
@@ -59,6 +68,12 @@
   </data>
   <data name="Aiursoft Template is our definitive choice for enterprise projects! It&apos;s built for developers and is lightweight yet powerful. We can skip all the boilerplate for authentication and user management." xml:space="preserve">
     <value>Aiursoft Template là lựa chọn tối ưu cho các dự án doanh nghiệp! Nó được xây dựng cho nhà phát triển, nhẹ nhàng nhưng mạnh mẽ. Chúng ta có thể bỏ qua tất cả các mã mẫu cho xác thực và quản lý người dùng.</value>
+  </data>
+  <data name="AlertCenter centrally receives, classifies, and reliably delivers incidents for business systems. Connect all services with a single API to keep your team informed of the real-time production status." xml:space="preserve">
+    <value>AlertCenter tiếp nhận tập trung, phân loại và chuyển tiếp đáng tin cậy các sự cố của hệ thống doanh nghiệp. Kết nối mọi dịch vụ chỉ bằng một API để nhóm của bạn luôn nắm được trạng thái vận hành theo thời gian thực.</value>
+  </data>
+  <data name="AlertCenter correlates sources, severity levels, push configurations, and delivery results to help teams quickly assess impact and decide on next steps." xml:space="preserve">
+    <value>AlertCenter tổng hợp các nguồn, mức độ nghiêm trọng, cấu hình gửi thông báo và kết quả gửi để giúp các nhóm nhanh chóng đánh giá mức độ ảnh hưởng và quyết định các bước tiếp theo.</value>
   </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Tất cả các dependency đều được tự động đăng ký và luôn sẵn sàng thông qua constructor injection.</value>
@@ -120,6 +135,9 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>Hướng dẫn song ngữ</value>
   </data>
+  <data name="Build a Reliable Incident Channel in Three Steps" xml:space="preserve">
+    <value>Xây dựng kênh xử lý sự cố đáng tin cậy chỉ với ba bước</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>Xây dựng một lần, chạy ở bất kỳ đâu. Kiến trúc được đóng gói hoàn toàn trong container.</value>
   </data>
@@ -171,6 +189,12 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Quản lý Người dùng Tích hợp sẵn</value>
   </data>
+  <data name="Centrally manage sources, incident levels, notification channels, and delivery results so service anomalies are not buried in logs." xml:space="preserve">
+    <value>Quản lý tập trung các nguồn, mức độ sự cố, kênh thông báo và kết quả gửi để các bất thường của dịch vụ không bị chìm trong nhật ký.</value>
+  </data>
+  <data name="Centrally track each notification delivery status to quickly locate issues upon failure and prevent important information from being silently lost." xml:space="preserve">
+    <value>Theo dõi tập trung trạng thái gửi của từng thông báo để nhanh chóng xác định sự cố khi xảy ra lỗi và ngăn thông tin quan trọng âm thầm bị thất lạc.</value>
+  </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Cần Checkstyle hoặc tương tự</value>
   </data>
@@ -192,6 +216,12 @@
   <data name="Concise Docs" xml:space="preserve">
     <value>Tài liệu ngắn gọn</value>
   </data>
+  <data name="Configure independent push channels for sev0 to sev4 to ensure the most urgent issues receive the highest priority response." xml:space="preserve">
+    <value>Cấu hình các kênh thông báo riêng biệt cho các mức sev0 đến sev4 để đảm bảo những sự cố khẩn cấp nhất được ưu tiên xử lý cao nhất.</value>
+  </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Cấu hình kênh thông báo</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Xác thực tính nhất quán</value>
   </data>
@@ -203,6 +233,24 @@
   </data>
   <data name="Coverage Report" xml:space="preserve">
     <value>Báo cáo độ bao phủ</value>
+  </data>
+  <data name="Create and handle incidents" xml:space="preserve">
+    <value>Tạo và xử lý sự cố</value>
+  </data>
+  <data name="Create independent API Keys for each business application to report structured incidents and context via standard HTTP APIs." xml:space="preserve">
+    <value>Tạo Khóa API riêng cho từng ứng dụng nghiệp vụ để gửi báo cáo sự cố có cấu trúc và thông tin ngữ cảnh thông qua các API HTTP tiêu chuẩn.</value>
+  </data>
+  <data name="Create Integration App" xml:space="preserve">
+    <value>Tạo ứng dụng tích hợp</value>
+  </data>
+  <data name="Create your first integration app, send your first incident, and establish your reliable notification loop." xml:space="preserve">
+    <value>Tạo ứng dụng tích hợp đầu tiên, gửi sự cố đầu tiên và thiết lập quy trình thông báo đáng tin cậy.</value>
+  </data>
+  <data name="Critical / Error" xml:space="preserve">
+    <value>Nghiêm trọng / Lỗi</value>
+  </data>
+  <data name="Critical incidents should not be buried in logs." xml:space="preserve">
+    <value>Các sự cố nghiêm trọng không nên bị chôn vùi trong nhật ký.</value>
   </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>Đa nền tảng</value>
@@ -222,6 +270,9 @@
   <data name="Dashboard Website" xml:space="preserve">
     <value>Trang Tổng quan</value>
   </data>
+  <data name="Database backup completed" xml:space="preserve">
+    <value>Sao lưu cơ sở dữ liệu đã hoàn tất</value>
+  </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Tuần lễ 1 Tuân thủ &amp; Bảo mật.</value>
   </data>
@@ -237,8 +288,14 @@
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>Cơ sở dữ liệu SQLite mặc định, không cần cấu hình</value>
   </data>
+  <data name="Delivery records are fully traceable" xml:space="preserve">
+    <value>Các bản ghi gửi đi đều có thể được truy xuất đầy đủ</value>
+  </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>Thiết kế dành cho mọi người, từ người mới bắt đầu đến chuyên gia.</value>
+  </data>
+  <data name="Designed for response" xml:space="preserve">
+    <value>Được thiết kế để ứng phó</value>
   </data>
   <data name="Designed for the container era. Includes pre-configured CI/CD pipelines for GitLab. Push code, pass strictly linting, auto-test, and deploy to Docker Swarm or Kubernetes automatically." xml:space="preserve">
     <value>Thiết kế cho thời đại container. Bao gồm các pipeline CI/CD đã được cấu hình sẵn cho GitLab. Đẩy mã nguồn, vượt qua kiểm tra lint nghiêm ngặt, kiểm thử tự động và triển khai lên Docker Swarm hoặc Kubernetes một cách tự động.</value>
@@ -285,6 +342,9 @@
   <data name="Enforced quality gate" xml:space="preserve">
     <value>Rào cản chất lượng được thực thi</value>
   </data>
+  <data name="Enter Console" xml:space="preserve">
+    <value>Truy cập bảng điều khiển</value>
+  </data>
   <data name="Enterprise C#" xml:space="preserve">
     <value>Enterprise C#</value>
   </data>
@@ -297,8 +357,14 @@
   <data name="Enterprise Security" xml:space="preserve">
     <value>Bảo mật doanh nghiệp</value>
   </data>
+  <data name="Enterprise-grade incidents" xml:space="preserve">
+    <value>Sự cố cấp doanh nghiệp</value>
+  </data>
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Đã bao gồm Entity Framework Core</value>
+  </data>
+  <data name="Establish a response path suitable for your team using Webhooks, emails, and in-app notifications." xml:space="preserve">
+    <value>Thiết lập kênh phản hồi phù hợp với nhóm của bạn bằng Webhook, email và thông báo trong ứng dụng.</value>
   </data>
   <data name="FAQ" xml:space="preserve">
     <value>Câu hỏi thường gặp</value>
@@ -350,6 +416,12 @@
   </data>
   <data name="Frequently asked questions" xml:space="preserve">
     <value>Các câu hỏi thường gặp</value>
+  </data>
+  <data name="From exception occurrence to team response, always clear and controllable." xml:space="preserve">
+    <value>Từ khi sự cố phát sinh đến khi nhóm phản hồi, mọi thứ luôn rõ ràng và trong tầm kiểm soát.</value>
+  </data>
+  <data name="From ingestion to delivery, all configurations are completed in the console, eliminating the need to switch between multiple systems." xml:space="preserve">
+    <value>Từ khâu tiếp nhận đến khâu gửi đi, mọi cấu hình đều được thực hiện trên bảng điều khiển, không cần chuyển đổi qua lại giữa nhiều hệ thống.</value>
   </data>
   <data name="From the Architect" xml:space="preserve">
     <value>Từ kiến trúc sư</value>
@@ -408,6 +480,9 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Xin chào thế giới!</value>
   </data>
+  <data name="Help your team detect issues earlier and restore services faster." xml:space="preserve">
+    <value>Giúp nhóm của bạn phát hiện sự cố sớm hơn và khôi phục dịch vụ nhanh hơn.</value>
+  </data>
   <data name="Here are some of the answers you might be looking for." xml:space="preserve">
     <value>Dưới đây là một số câu trả lời bạn có thể đang tìm kiếm.</value>
   </data>
@@ -438,6 +513,12 @@
   <data name="In-memory DB, temp FS, and HTTP simulation" xml:space="preserve">
     <value>Cơ sở dữ liệu trong bộ nhớ, hệ thống tệp tạm thời và mô phỏng HTTP</value>
   </data>
+  <data name="Incident overview" xml:space="preserve">
+    <value>Tổng quan sự cố</value>
+  </data>
+  <data name="Incident synchronously delivered to Webhook and in-app notification" xml:space="preserve">
+    <value>Sự cố được gửi đồng thời đến Webhook và thông báo trong ứng dụng</value>
+  </data>
   <data name="Included" xml:space="preserve">
     <value>Đã bao gồm</value>
   </data>
@@ -446,6 +527,12 @@
   </data>
   <data name="Includes Tutorials" xml:space="preserve">
     <value>Bao gồm Hướng dẫn</value>
+  </data>
+  <data name="Info / Notification" xml:space="preserve">
+    <value>Thông tin / Thông báo</value>
+  </data>
+  <data name="Infrastructure · backup-2026-09-14" xml:space="preserve">
+    <value>Hạ tầng · backup-2026-09-14</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Quản lý Tập tin Tích hợp</value>
@@ -465,6 +552,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Có phải Aiursoft Template được sử dụng miễn phí không?</value>
   </data>
+  <data name="Issue dedicated API Keys for services to isolate sources and precisely manage reporting permissions." xml:space="preserve">
+    <value>Cấp API Key riêng cho các dịch vụ để tách biệt nguồn và quản lý chính xác quyền gửi báo cáo.</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>Có sẵn API java.time</value>
   </data>
@@ -480,8 +570,17 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>Tham gia cộng đồng phát triển đang ngày càng lớn mạnh của chúng tôi để xây dựng thế hệ ứng dụng web tiếp theo.</value>
   </data>
+  <data name="Just now" xml:space="preserve">
+    <value>Vừa xong</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>Sẵn sàng cho K8s / Swarm</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Sự cố mới nhất</value>
+  </data>
+  <data name="Let every critical incident" xml:space="preserve">
+    <value>Để mọi sự cố nghiêm trọng</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Kiểm tra Lint</value>
@@ -489,11 +588,17 @@
   <data name="Maintain High Code Quality" xml:space="preserve">
     <value>Duy trì chất lượng mã nguồn cao</value>
   </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Quản lý ứng dụng tích hợp</value>
+  </data>
   <data name="Management Dashboard" xml:space="preserve">
     <value>Bảng Điều Khiển Quản Lý</value>
   </data>
   <data name="Markdown To HTML" xml:space="preserve">
     <value>Chuyển Đổi Markdown Sang HTML</value>
+  </data>
+  <data name="Message Center · 8,420 pending" xml:space="preserve">
+    <value>Trung tâm tin nhắn · 8.420 đang chờ xử lý</value>
   </data>
   <data name="MIT Licence" xml:space="preserve">
     <value>Giấy phép MIT</value>
@@ -503,6 +608,9 @@
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Các mô hình được xác thực ở cả phía khách và phía máy chủ dựa trên các chú thích dữ liệu.</value>
+  </data>
+  <data name="Multi-channel Push" xml:space="preserve">
+    <value>Gửi thông báo đa kênh</value>
   </data>
   <data name="Multi-timezone Handling" xml:space="preserve">
     <value>Xử lý đa múi giờ</value>
@@ -573,11 +681,20 @@
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="One Center, Closed-Loop Handling" xml:space="preserve">
+    <value>Một trung tâm, xử lý khép kín</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>Một Click Bắt Đầu</value>
   </data>
+  <data name="Open Push Center" xml:space="preserve">
+    <value>Mở Trung tâm thông báo</value>
+  </data>
   <data name="Open Source" xml:space="preserve">
     <value>Mã nguồn mở</value>
+  </data>
+  <data name="Open source and self-hostable" xml:space="preserve">
+    <value>Mã nguồn mở và có thể tự lưu trữ</value>
   </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Tích hợp OpenID Connect</value>
@@ -585,14 +702,23 @@
   <data name="Optimized Docker &amp; K8s config" xml:space="preserve">
     <value>Cấu hình Docker &amp; K8s được tối ưu hóa</value>
   </data>
+  <data name="Order Service · trace-7e9a" xml:space="preserve">
+    <value>Order Service · trace-7e9a</value>
+  </data>
   <data name="ORM &amp; Migrations" xml:space="preserve">
     <value>ORM &amp; Di chuyển dữ liệu</value>
   </data>
   <data name="Out-of-the-box" xml:space="preserve">
     <value>Sẵn sàng sử dụng ngay</value>
   </data>
+  <data name="Payment service response timeout" xml:space="preserve">
+    <value>Dịch vụ thanh toán hết thời gian chờ phản hồi</value>
+  </data>
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>Phát hiện và đồng bộ quyền</value>
+  </data>
+  <data name="Persistent incident storage" xml:space="preserve">
+    <value>Lưu trữ sự cố lâu dài</value>
   </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Cần Pint hoặc tương tự</value>
@@ -609,8 +735,14 @@
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Quy trình đã cấu hình sẵn cho môi trường phát triển/sản xuất</value>
   </data>
+  <data name="Private deployment" xml:space="preserve">
+    <value>Triển khai riêng tư</value>
+  </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>Cổng chất lượng</value>
+  </data>
+  <data name="Queue backlog approaching threshold" xml:space="preserve">
+    <value>Số lượng tin nhắn tồn đọng trong hàng đợi sắp đạt ngưỡng</value>
   </data>
   <data name="Quick setup with H2 database" xml:space="preserve">
     <value>Cài đặt nhanh với cơ sở dữ liệu H2</value>
@@ -618,11 +750,23 @@
   <data name="Quick setup with NuGet packages" xml:space="preserve">
     <value>Cài đặt nhanh với các gói NuGet</value>
   </data>
+  <data name="Quickly locate by severity level" xml:space="preserve">
+    <value>Nhanh chóng tìm theo mức độ nghiêm trọng</value>
+  </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Ủy quyền RBAC</value>
   </data>
+  <data name="Reach the right person promptly." xml:space="preserve">
+    <value>Đến đúng người kịp thời.</value>
+  </data>
   <data name="Read the document" xml:space="preserve">
     <value>Đọc tài liệu</value>
+  </data>
+  <data name="Record title, severity, occurrence time, and context; duplicate reports are handled idempotently." xml:space="preserve">
+    <value>Ghi lại tiêu đề, mức độ nghiêm trọng, thời điểm xảy ra và ngữ cảnh; các báo cáo trùng lặp được xử lý theo cách bảo đảm tính lũy đẳng.</value>
+  </data>
+  <data name="Reliable delivery" xml:space="preserve">
+    <value>Gửi thông báo đáng tin cậy</value>
   </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Yêu cầu cấu hình Laravel Socialite</value>
@@ -638,6 +782,9 @@
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Kiểm thử tích hợp mạnh mẽ</value>
+  </data>
+  <data name="Route by severity level" xml:space="preserve">
+    <value>Định tuyến theo mức độ nghiêm trọng</value>
   </data>
   <data name="Runs without any internet connection required." xml:space="preserve">
     <value>Chạy mà không cần kết nối internet.</value>
@@ -675,6 +822,12 @@
   <data name="Start a new project" xml:space="preserve">
     <value>Bắt đầu một dự án mới</value>
   </data>
+  <data name="Start Integration" xml:space="preserve">
+    <value>Bắt đầu tích hợp</value>
+  </data>
+  <data name="Start now" xml:space="preserve">
+    <value>Bắt đầu ngay</value>
+  </data>
   <data name="Start Shipping Value." xml:space="preserve">
     <value>Bắt đầu Giao hàng Giá trị.</value>
   </data>
@@ -707,6 +860,12 @@
   </data>
   <data name="Supports JetBrains Rider for easy code style fixes." xml:space="preserve">
     <value>Hỗ trợ JetBrains Rider để dễ dàng sửa lỗi định dạng mã nguồn.</value>
+  </data>
+  <data name="Synced" xml:space="preserve">
+    <value>Đã đồng bộ</value>
+  </data>
+  <data name="System normal" xml:space="preserve">
+    <value>Hệ thống bình thường</value>
   </data>
   <data name="Task Runner" xml:space="preserve">
     <value>Trình chạy tác vụ</value>
@@ -744,11 +903,17 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Đây là một dự án mẫu, nơi chúng ta bắt đầu hành trình khám phá...</value>
   </data>
+  <data name="Tiered Routing" xml:space="preserve">
+    <value>Định tuyến theo cấp độ</value>
+  </data>
   <data name="Timezone-aware fields" xml:space="preserve">
     <value>Trường nhận biết múi giờ</value>
   </data>
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>API TimeZoneInfo có sẵn</value>
+  </data>
+  <data name="Track the success, pending, or failure status of every channel." xml:space="preserve">
+    <value>Theo dõi trạng thái thành công, đang chờ hoặc thất bại của từng kênh.</value>
   </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>Được tin tưởng bởi các ứng dụng sản xuất cấp độ cao, bao gồm AnduinOS, StatHub, và Warp. Chúng tôi không chỉ chia sẻ mã nguồn này; chúng tôi vận hành toàn bộ doanh nghiệp của mình dựa trên nó.</value>
@@ -759,14 +924,26 @@
   <data name="Unified Identity" xml:space="preserve">
     <value>Đăng nhập thống nhất</value>
   </data>
+  <data name="Unified intake" xml:space="preserve">
+    <value>Tiếp nhận tập trung</value>
+  </data>
   <data name="Usage" xml:space="preserve">
     <value>Cách sử dụng</value>
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>Hãy sử dụng nó làm nền tảng cho SaaS của bạn, backend cho ứng dụng di động, trang web doanh nghiệp, hoặc blog cá nhân. Các khả năng là vô tận.</value>
   </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Xem sự cố</value>
+  </data>
+  <data name="View integration guide" xml:space="preserve">
+    <value>Xem hướng dẫn tích hợp</value>
+  </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>Xem trên GitHub</value>
+  </data>
+  <data name="Visual workflow" xml:space="preserve">
+    <value>Quy trình trực quan</value>
   </data>
   <data name="WebApplicationFactory available" xml:space="preserve">
     <value>WebApplicationFactory có sẵn</value>
