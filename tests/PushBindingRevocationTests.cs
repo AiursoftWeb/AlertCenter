@@ -20,7 +20,7 @@ public partial class PushCenterTests
         Assert.IsInstanceOfType<RedirectToActionResult>(await BindAllLevels(application.Id, granted.Id, hidden.Id));
         _db.ApplicationUserAccesses.Add(new ApplicationUserAccess
         {
-            ApplicationId = application.Id, UserId = "ordinary-user", CanManage = true
+            ApplicationId = application.Id, UserId = "ordinary-user", CanViewIncidents = true, CanUpdateIncidents = true, CanManageApiKeys = true, CanManageApplication = true
         });
         string? roleId = null;
         if (roleGrant)

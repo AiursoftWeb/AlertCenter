@@ -70,7 +70,22 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<bool>("CanManage")
+                    b.Property<bool>("CanCreateIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanDeleteIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanManageApiKeys")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanManageApplication")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanUpdateIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanViewIncidents")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("ApplicationId", "RoleId");
@@ -88,7 +103,22 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<bool>("CanManage")
+                    b.Property<bool>("CanCreateIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanDeleteIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanManageApiKeys")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanManageApplication")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanUpdateIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanViewIncidents")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("ApplicationId", "UserId");
@@ -727,6 +757,10 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<Guid?>("OnCallGroupId")
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("OwnerId")
+                        .HasMaxLength(450)
+                        .HasColumnType("varchar(450)");
+
                     b.Property<string>("SecretHash")
                         .IsRequired()
                         .HasMaxLength(512)
@@ -735,6 +769,8 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OnCallGroupId");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("SourceApplications");
                 });
@@ -1292,7 +1328,14 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasForeignKey("OnCallGroupId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("OnCallGroup");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

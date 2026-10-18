@@ -24,28 +24,64 @@ public class ApplicationAccessServiceTests
     [TestCleanup]
     public async Task Cleanup() => await _db.DisposeAsync();
 
+    private static ClaimsPrincipal Actor(string id) => new(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, id)], "test"));
+
     [TestMethod]
-    public async Task DirectAndRoleGrantsRemainScopedAndPlatformPermissionGrantsGlobalAccess()
+    public async Task OwnershipAndExplicitGrantsAreScopedAndPlatformPermissionDoesNotBypassThem()
     {
-        var application = new SourceApplication { Name = "Orders" };
-        var role = new IdentityRole("OnCall");
-        var user = new User { Id = "on-call", UserName = "on-call", DisplayName = "On-call" };
-        _db.AddRange(application, role, user);
-        _db.UserRoles.Add(new IdentityUserRole<string> { UserId = user.Id, RoleId = role.Id });
-        _db.ApplicationUserAccesses.Add(new ApplicationUserAccess { Application = application, User = user, CanManage = false });
-        _db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { Application = application, Role = role, CanManage = true });
+        var owner = new User { Id = "owner", UserName = "owner", DisplayName = "Owner" };
+        var member = new User { Id = "member", UserName = "member", DisplayName = "Member" };
+        var role = new IdentityRole("Engineers");
+        var application = new SourceApplication { Name = "Orders", Owner = owner };
+        var other = new SourceApplication { Name = "Private" };
+        _db.AddRange(application, other, member, role);
+        _db.UserRoles.Add(new IdentityUserRole<string> { UserId = member.Id, RoleId = role.Id });
+        _db.ApplicationUserAccesses.Add(new ApplicationUserAccess { Application = application, User = member, CanViewIncidents = true });
+        _db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { Application = application, Role = role, CanUpdateIncidents = true });
         await _db.SaveChangesAsync();
         var service = new ApplicationAccessService(_db);
-        var onCall = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, user.Id)], "test"));
-        var administrator = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators")], "test"));
+        foreach (var permission in Enum.GetValues<ApplicationPermission>())
+        {
+            Assert.IsTrue(await service.CanAccessAsync(Actor(owner.Id), application.Id, permission));
+            Assert.IsFalse(await service.CanAccessAsync(Actor(owner.Id), other.Id, permission));
+        }
+        Assert.IsTrue(await service.CanAccessAsync(Actor(member.Id), application.Id, ApplicationPermission.UpdateIncidents));
+        Assert.IsFalse(await service.CanAccessAsync(Actor(member.Id), application.Id, ApplicationPermission.ManageApiKeys));
+        var manager = Actor("platform-manager");
+        ((ClaimsIdentity)manager.Identity!).AddClaim(new Claim(AppPermissions.Type, AppPermissionNames.CanManageApplications));
+        ((ClaimsIdentity)manager.Identity!).AddClaim(new Claim(ClaimTypes.Role, "Administrators"));
+        Assert.IsTrue(service.CanManageApplications(manager));
+        Assert.IsFalse(await service.CanAccessAsync(manager, application.Id));
+        Assert.AreEqual(0, (await service.GetAccessibleApplicationIdsAsync(manager)).Count);
+        _db.UserRoles.Remove(await _db.UserRoles.SingleAsync());
+        await _db.SaveChangesAsync();
+        Assert.IsFalse(await service.CanAccessAsync(Actor(member.Id), application.Id, ApplicationPermission.UpdateIncidents));
+        Assert.IsTrue(await service.CanAccessAsync(Actor(member.Id), application.Id));
+    }
 
-        Assert.IsTrue(await service.CanAccessAsync(onCall, application.Id));
-        Assert.IsTrue(await service.CanAccessAsync(onCall, application.Id, requireManage: true));
-        CollectionAssert.AreEquivalent(new[] { application.Id }, await service.GetAccessibleApplicationIdsAsync(onCall, true));
-        Assert.IsFalse(await service.CanAccessAsync(administrator, application.Id, requireManage: true));
-        var manager = new ClaimsPrincipal(new ClaimsIdentity(
-            [new Claim(AppPermissions.Type, AppPermissionNames.CanManageApplications)], "test"));
-        Assert.IsTrue(await service.CanAccessAsync(manager, application.Id, requireManage: true));
-        CollectionAssert.AreEquivalent(new[] { application.Id }, await service.GetAccessibleApplicationIdsAsync(manager, true));
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task EveryPermissionIsIndependentForUserAndRoleGrants(bool roleGrant)
+    {
+        var member = new User { Id = "member", UserName = "member", DisplayName = "Member" };
+        var role = new IdentityRole("Operators");
+        var application = new SourceApplication { Name = "App" };
+        _db.AddRange(member, role, application);
+        _db.UserRoles.Add(new IdentityUserRole<string> { UserId = member.Id, RoleId = role.Id });
+        var direct = new ApplicationUserAccess { Application = application, User = member };
+        var inherited = new ApplicationRoleAccess { Application = application, Role = role };
+        object grant = roleGrant ? inherited : direct;
+        _db.Add(grant);
+        var service = new ApplicationAccessService(_db);
+        foreach (var selected in Enum.GetValues<ApplicationPermission>())
+        {
+            foreach (var property in grant.GetType().GetProperties().Where(property => property.PropertyType == typeof(bool)))
+                property.SetValue(grant, property.Name == "Can" + selected || property.Name == nameof(ApplicationUserAccess.CanViewIncidents));
+            await _db.SaveChangesAsync();
+            foreach (var permission in Enum.GetValues<ApplicationPermission>())
+                Assert.AreEqual(permission == selected || permission == ApplicationPermission.ViewIncidents,
+                    await service.CanAccessAsync(Actor(member.Id), application.Id, permission), permission.ToString());
+        }
     }
 }

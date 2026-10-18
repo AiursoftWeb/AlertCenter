@@ -154,10 +154,10 @@ public partial class IncidentPagesTests
                 var role = new IdentityRole("OnCallApplicationViewers");
                 db.Roles.Add(role);
                 db.UserRoles.Add(new IdentityUserRole<string> { UserId = user.Id, RoleId = role.Id });
-                db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = id, RoleId = role.Id });
+                db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { CanViewIncidents = true, ApplicationId = id, RoleId = role.Id });
             }
             else
-                db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = id, UserId = user.Id });
+                db.ApplicationUserAccesses.Add(new ApplicationUserAccess { CanViewIncidents = true, ApplicationId = id, UserId = user.Id });
             await db.SaveChangesAsync();
         }
         var applications = await Http.GetStringAsync("/Applications/Applications");
@@ -172,8 +172,8 @@ public partial class IncidentPagesTests
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            if (roleGrant) (await db.ApplicationRoleAccesses.SingleAsync(item => item.ApplicationId == id)).CanManage = true;
-            else (await db.ApplicationUserAccesses.SingleAsync(item => item.ApplicationId == id)).CanManage = true;
+            if (roleGrant) (await db.ApplicationRoleAccesses.SingleAsync(item => item.ApplicationId == id)).CanManageApplication = true;
+            else (await db.ApplicationUserAccesses.SingleAsync(item => item.ApplicationId == id)).CanManageApplication = true;
             await db.SaveChangesAsync();
         }
         Assert.Contains(settingsUrl, await Http.GetStringAsync("/Applications/Applications"));
@@ -214,7 +214,7 @@ public partial class IncidentPagesTests
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            var other = new SourceApplication { Name = "Other bound application", OnCallGroupId = groupId };
+            var other = new SourceApplication { Name = "Other bound application", OwnerId = await db.Users.Where(user => user.Email == "admin@default.com").Select(user => user.Id).SingleAsync(), OnCallGroupId = groupId };
             db.SourceApplications.Add(other);
             await db.SaveChangesAsync();
             otherId = other.Id;

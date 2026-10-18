@@ -62,7 +62,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             .SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
         if (incident == null) return new(404);
         var now = DateTime.UtcNow;
-        if (!await new IncidentAccessService(db, applicationAccess, localizerFactory).CanManageAsync(user, incident, now, cancellationToken)) return new(403);
+        if (!await new IncidentAccessService(applicationAccess).CanManageAsync(user, incident, now, cancellationToken)) return new(403);
         if (request.Version == Guid.Empty) return new(400, localizer["The incident version cannot be empty. Please refresh the page."].Value);
         if (request.Version != incident.Version) return new(409, localizer["The incident has been modified by another engineer. Please refresh and try again."].Value);
         var note = string.IsNullOrWhiteSpace(request.Note) ? null : request.Note.Trim();

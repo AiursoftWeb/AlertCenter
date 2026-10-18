@@ -36,6 +36,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.Entity<SourceApplication>().HasOne(application => application.Owner).WithMany()
+            .HasForeignKey(application => application.OwnerId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<PushChannel>().Property(channel => channel.WebhookHeadersProtected).HasColumnType("text");
         builder.Entity<PushChannel>().Property(channel => channel.WebhookPayloadTemplate).HasColumnType("text");
         builder.Entity<PushChannel>().Property(channel => channel.EmailCcRecipients).HasColumnType("text");

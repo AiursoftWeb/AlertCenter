@@ -119,10 +119,11 @@ public partial class IncidentPagesTests
         }
         foreach (var id in new[] { ownId, otherId })
         {
-            AssertForbidden(await Http.GetAsync($"/Applications/Access/{id}"));
+            if (id == ownId && manage) Assert.AreEqual(HttpStatusCode.OK, (await Http.GetAsync($"/Applications/Access/{id}")).StatusCode);
+            else AssertForbidden(await Http.GetAsync($"/Applications/Access/{id}"));
             AssertForbidden(await PostForm("/Applications/SaveAccess", new()
             {
-                ["ApplicationId"] = id.ToString(), ["ManageUserIds"] = userId
+                ["ApplicationId"] = id.ToString(), ["UserId"] = userId, ["CanDeleteIncidents"] = "true", ["CanViewIncidents"] = "true"
             }, "/Manage/ChangePassword"));
         }
         AssertForbidden(await PostForm("/Applications/CreateApplication", new() { ["Name"] = "Unauthorized application" }, "/Manage/ChangePassword"));
@@ -137,8 +138,8 @@ public partial class IncidentPagesTests
             Assert.AreEqual(roleGrant ? 0 : 1, await db.ApplicationUserAccesses.CountAsync());
             Assert.AreEqual(roleGrant ? 1 : 0, await db.ApplicationRoleAccesses.CountAsync());
             Assert.AreEqual(manage, roleGrant
-                ? (await db.ApplicationRoleAccesses.SingleAsync()).CanManage
-                : (await db.ApplicationUserAccesses.SingleAsync()).CanManage);
+                ? (await db.ApplicationRoleAccesses.SingleAsync()).CanManageApplication
+                : (await db.ApplicationUserAccesses.SingleAsync()).CanManageApplication);
         }
 
         if (manage)
@@ -182,7 +183,7 @@ public partial class IncidentPagesTests
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var userId = await db.Users.Where(user => user.Email == email).Select(user => user.Id).SingleAsync();
             await AddBoundaryApplicationGrant(db, id, userId, roleGrant, true);
-            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = otherId, UserId = userId });
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { CanViewIncidents = true, ApplicationId = otherId, UserId = userId });
             await db.SaveChangesAsync();
             incidentId = await db.Incidents.Where(incident => incident.ApplicationId == id).Select(incident => incident.Id).SingleAsync();
         }
@@ -219,7 +220,7 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
-    public async Task IncidentOwnershipGrantsAccessOnlyToThatIncidentAndItsAssociatedAlerts()
+    public async Task IncidentAssignmentDoesNotGrantAccess()
     {
         var key = await CreateApplication();
         var applicationId = Guid.Parse(key.Split('.')[0]);
@@ -252,12 +253,12 @@ public partial class IncidentPagesTests
         foreach (var url in new[] { $"/Incidents/Details/{ownedIncidentId}", $"/Incidents/Details/{ownedIncidentId}" })
         {
             using var allowed = await Http.GetAsync(url);
-            Assert.AreEqual(HttpStatusCode.OK, allowed.StatusCode);
+            AssertForbidden(allowed);
         }
         foreach (var url in new[] { $"/Incidents/Details/{otherIncidentId}", $"/Incidents/Details/{otherIncidentId}", $"/Incidents/Details/{unassociatedId}" })
             AssertForbidden(await Http.GetAsync(url));
         var incidents = await Http.GetStringAsync("/Incidents");
-        Assert.Contains("Owned incident marker", incidents);
+        Assert.DoesNotContain("Owned incident marker", incidents);
         Assert.DoesNotContain("Unrelated incident marker", incidents);
         Assert.DoesNotContain("Unrelated incident marker", await Http.GetStringAsync("/Incidents?keyword=Unrelated"));
         AssertForbidden(await PostForm("/Applications/SetEnabled", new()
@@ -284,10 +285,10 @@ public partial class IncidentPagesTests
             var role = new IdentityRole("Boundary application role");
             db.Roles.Add(role);
             db.UserRoles.Add(new IdentityUserRole<string> { UserId = userId, RoleId = role.Id });
-            db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = applicationId, RoleId = role.Id, CanManage = manage });
+            db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = applicationId, RoleId = role.Id, CanViewIncidents = true, CanUpdateIncidents = manage, CanManageApiKeys = manage, CanManageApplication = manage });
         }
         else
-            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = applicationId, UserId = userId, CanManage = manage });
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = applicationId, UserId = userId, CanViewIncidents = true, CanUpdateIncidents = manage, CanManageApiKeys = manage, CanManageApplication = manage });
         await db.SaveChangesAsync();
     }
 }

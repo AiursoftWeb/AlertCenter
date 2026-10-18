@@ -16,6 +16,7 @@ public class IncidentsViewModel : UiStackLayoutViewModel
     public Incident? Incident { get; set; }
     public string FormattedContext => IncidentContextPresentation.Format(Incident?.ContextJson);
     public List<IncidentTimelineEntry> TimelineEntries { get; set; } = [];
+    public bool CanDelete { get; set; }
     public bool CanManage { get; set; }
     public IReadOnlyList<OnCallOce> CurrentOces { get; set; } = [];
     public string? CurrentOceError { get; set; }

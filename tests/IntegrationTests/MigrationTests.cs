@@ -21,7 +21,7 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(2, context.Database.GetMigrations().Count());
+        Assert.AreEqual(3, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
@@ -110,7 +110,7 @@ public class MigrationTests
         var migrator = context.GetService<IMigrator>();
         await migrator.MigrateAsync(context.Database.GetMigrations().First());
         var application = new SourceApplication { Name = "Existing app", SecretHash = "preserved-hash" };
-        context.SourceApplications.Add(application);
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO SourceApplications (Id, Name, SecretHash, IsEnabled, CreatedAtUtc) VALUES ({application.Id}, {application.Name}, {application.SecretHash}, {true}, {application.CreatedAtUtc})");
         context.Users.Add(new User { Id = "existing-user", UserName = "existing", DisplayName = "Existing user" });
         await context.SaveChangesAsync();
         await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO Incidents (Id, ApplicationId, Title, AlertTitle, AlertLevel, MatchLevel, Status, Version, TriggeredAtUtc) VALUES ({Guid.NewGuid()}, {application.Id}, {"Old incident"}, {"Old report"}, {"sev1"}, {"sev1"}, {"new"}, {Guid.NewGuid()}, {DateTime.UtcNow})");
@@ -205,7 +205,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(2, context.Database.GetMigrations().Count());
+        Assert.AreEqual(3, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");

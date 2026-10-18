@@ -1,0 +1,10 @@
+@model Aiursoft.AlertCenter.Models.CreateIncidentViewModel
+<h1 class="h3 mb-3">@Localizer["Create Incident"]</h1>
+<div class="card"><div class="card-body"><form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input asp-for="ApplicationId" type="hidden" />
+    <label asp-for="Title" class="form-label">@Localizer["Title"]</label><input asp-for="Title" class="form-control mb-3" maxlength="200" required />
+    <label asp-for="Level" class="form-label">@Localizer["Severity"]</label><select asp-for="Level" class="form-select mb-3"><option>sev0</option><option>sev1</option><option>sev2</option><option>sev3</option><option>sev4</option></select>
+    <label asp-for="Content" class="form-label">@Localizer["Content"]</label><textarea asp-for="Content" class="form-control mb-3" rows="6" maxlength="4000"></textarea>
+    <button type="submit" class="btn btn-primary">@Localizer["Create Incident"]</button>
+</form></div></div>

@@ -38,7 +38,7 @@ public partial class IncidentPagesTests
                 Status = PushDelivery.Succeeded, Attempts = 1
             };
             db.PushDeliveries.Add(delivery);
-            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = applicationId, UserId = userId, CanManage = true });
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = applicationId, UserId = userId, CanViewIncidents = true, CanUpdateIncidents = true, CanManageApiKeys = true, CanManageApplication = true });
             db.PushChannelBindingUsers.Add(new PushChannelBindingUser { Channel = channel, UserId = userId });
             db.ApplicationPushChannels.Add(new ApplicationPushChannel
             {

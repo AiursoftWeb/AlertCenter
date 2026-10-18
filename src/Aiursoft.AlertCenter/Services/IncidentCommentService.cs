@@ -8,14 +8,14 @@ namespace Aiursoft.AlertCenter.Services;
 
 public sealed record IncidentCommentResult(int StatusCode, string? Error = null);
 
-public class IncidentCommentService(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizer<IncidentCommentService> localizer, IStringLocalizerFactory localizerFactory)
+public class IncidentCommentService(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizer<IncidentCommentService> localizer)
 {
     public async Task<IncidentCommentResult> AddAsync(ClaimsPrincipal user, AddIncidentCommentRequest request,
         CancellationToken cancellationToken = default)
     {
         var incident = await db.Incidents.AsNoTracking().SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
         if (incident == null) return new(404);
-        if (!await new IncidentAccessService(db, applicationAccess, localizerFactory).CanViewAsync(user, incident, DateTime.UtcNow, cancellationToken)) return new(403);
+        if (!await new IncidentAccessService(applicationAccess).CanManageAsync(user, incident, DateTime.UtcNow, cancellationToken)) return new(403);
         if (string.IsNullOrWhiteSpace(request.Markdown) || request.Markdown.Length > 4000)
             return new(400, localizer["Comment cannot be empty and must not exceed 4,000 characters."].Value);
         var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -35,10 +35,9 @@ public class IncidentCommentService(TemplateDbContext db, IApplicationAccessServ
         var comment = await db.IncidentComments.Include(item => item.Incident)
             .SingleOrDefaultAsync(item => item.Id == request.CommentId && item.IncidentId == request.IncidentId, cancellationToken);
         if (comment == null) return new(404);
-        if (!await new IncidentAccessService(db, applicationAccess, localizerFactory).CanViewAsync(user, comment.Incident, DateTime.UtcNow, cancellationToken)) return new(403);
+        if (!await new IncidentAccessService(applicationAccess).CanManageAsync(user, comment.Incident, DateTime.UtcNow, cancellationToken)) return new(403);
         var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (userId == null || (comment.AuthorId != userId &&
-            !await applicationAccess.CanAccessAsync(user, comment.Incident.ApplicationId, true, cancellationToken))) return new(403);
+        if (userId == null) return new(403);
         if (comment.DeletedAtUtc.HasValue) return new(409, localizer["This comment has been deleted. Please refresh the page."].Value);
         var actor = await db.Users.AsNoTracking().SingleOrDefaultAsync(item => item.Id == userId, cancellationToken);
         if (actor == null) return new(403);

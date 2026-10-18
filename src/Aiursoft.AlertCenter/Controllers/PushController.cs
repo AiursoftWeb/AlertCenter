@@ -218,6 +218,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             .Include(item => item.Delivery).ThenInclude(delivery => delivery.Incident).ThenInclude(message => message!.Application)
             .SingleOrDefaultAsync(item => item.Id == id && item.UserId == userId);
         if (notification == null) return NotFound();
+        if (notification.Delivery.Incident != null &&
+            !await applicationAccess.CanAccessAsync(User, notification.Delivery.Incident.ApplicationId)) return Forbid();
         return this.StackView(new PushViewModel { PageTitle = localizer["In-app notification details"].Value, Notifications = [notification] });
     }
 
@@ -246,7 +248,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var application = await db.SourceApplications.Include(item => item.OnCallGroup)
             .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (application == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
+        if (!await applicationAccess.CanAccessAsync(User, id, permission: ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
         var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
         var bindings = await db.ApplicationPushChannels.AsNoTracking()
             .Where(link => link.ApplicationId == id && bindableChannelIds.Contains(link.ChannelId)).ToListAsync(cancellationToken);
@@ -270,7 +272,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
     public async Task<IActionResult> SaveBindings(Guid id, ApplicationPushBindingsRequest bindings, CancellationToken cancellationToken = default)
     {
         if (!await db.SourceApplications.AnyAsync(application => application.Id == id, cancellationToken)) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
+        if (!await applicationAccess.CanAccessAsync(User, id, permission: ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
         if (!ModelState.IsValid) return BadRequest(localizer["Invalid channel configuration. Please refresh the page and try again."].Value);
         var sev0 = bindings.Sev0ChannelIds.ToHashSet();
         var sev1 = bindings.Sev1ChannelIds.ToHashSet();
@@ -333,8 +335,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush);
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
         var query = db.PushDeliveries.AsNoTracking().Where(delivery =>
-            (delivery.Incident != null && (canManagePush || accessibleIds.Contains(delivery.Incident.ApplicationId))) ||
-            (delivery.IncidentEvent != null && (canManagePush || accessibleIds.Contains(delivery.IncidentEvent.Incident.ApplicationId))));
+            (delivery.Incident != null && accessibleIds.Contains(delivery.Incident.ApplicationId)) ||
+            (delivery.IncidentEvent != null && accessibleIds.Contains(delivery.IncidentEvent.Incident.ApplicationId)));
         if (channelId == Guid.Empty) query = query.Where(delivery => delivery.OnCallEmail != null);
         else if (channelId.HasValue) query = query.Where(delivery => delivery.ChannelId == channelId);
         if (!canManagePush)
@@ -368,7 +370,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         if (delivery == null) return NotFound();
         var canManagePush = User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush);
         var sourceApplicationId = delivery.Incident?.ApplicationId ?? delivery.IncidentEvent?.Incident.ApplicationId;
-        if (!sourceApplicationId.HasValue || (!canManagePush && !await applicationAccess.CanAccessAsync(
+        if (!sourceApplicationId.HasValue || (!await applicationAccess.CanAccessAsync(
                 User, sourceApplicationId.Value, cancellationToken: cancellationToken))) return Forbid();
         if (!canManagePush && delivery.OnCallEmail == null &&
             (!delivery.ChannelId.HasValue || !await channelAccess.CanBindAsync(User, delivery.ChannelId.Value, cancellationToken))) return Forbid();
@@ -376,12 +378,12 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         {
             Delivery = delivery,
             ChannelTypes = Types,
-            CanManagePush = canManagePush
+            CanManagePush = canManagePush,
+            CanRetryDelivery = (delivery.OnCallEmail != null || canManagePush) && await applicationAccess.CanAccessAsync(User, sourceApplicationId.Value, ApplicationPermission.ManageApplication, cancellationToken)
         });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    [Authorize(Policy = AppPermissionNames.CanManagePush)]
     public async Task<IActionResult> Retry(Guid id, CancellationToken cancellationToken = default)
     {
         var deliveryAccess = await db.PushDeliveries.Where(delivery => delivery.Id == id &&
@@ -390,7 +392,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
                 ApplicationId = delivery.Incident != null ? delivery.Incident.ApplicationId : delivery.IncidentEvent!.Incident.ApplicationId })
             .SingleOrDefaultAsync(cancellationToken);
         if (deliveryAccess == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, deliveryAccess.ApplicationId, requireManage: true, cancellationToken) ||
+        if (!deliveryAccess.BuiltIn && !User.HasClaim(AppPermissions.Type, AppPermissionNames.CanManagePush)) return Forbid();
+        if (!await applicationAccess.CanAccessAsync(User, deliveryAccess.ApplicationId, permission: ApplicationPermission.ManageApplication, cancellationToken) ||
             (!deliveryAccess.BuiltIn && (!deliveryAccess.ChannelId.HasValue ||
                 !await channelAccess.CanBindAsync(User, deliveryAccess.ChannelId.Value, cancellationToken)))) return Forbid();
         var updated = await db.PushDeliveries.Where(delivery => delivery.Id == id &&
@@ -412,7 +415,9 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return Unauthorized();
         filter.Normalize();
-        var ownNotifications = db.InAppNotifications.AsNoTracking().Where(notification => notification.UserId == userId);
+        var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User);
+        var ownNotifications = db.InAppNotifications.AsNoTracking().Where(notification => notification.UserId == userId &&
+            (notification.Delivery.Incident == null || accessibleIds.Contains(notification.Delivery.Incident.ApplicationId)));
         var model = new PushViewModel
         {
             InboxFilter = filter, Page = filter.Page,

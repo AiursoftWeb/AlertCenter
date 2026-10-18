@@ -37,7 +37,7 @@ public partial class IncidentWorkflowTests
 
     private async Task<SourceApplication> CreateApplication()
     {
-        var application = new SourceApplication { Name = "Orders" };
+        var application = new SourceApplication { Name = "Orders", OwnerId = "admin" };
         application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, Secret);
         _db.SourceApplications.Add(application);
         var channel = new PushChannel { Type = "webhook", Name = "Operations", Endpoint = "https://example.test/hook" };

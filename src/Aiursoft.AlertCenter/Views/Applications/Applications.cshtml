@@ -205,9 +205,16 @@
                         </td>
                         <td class="text-end pe-4">
                             <div class="d-flex justify-content-end align-items-center flex-wrap gap-2">
+                                @if (Model.CreatableApplicationIds.Contains(application.Id))
+                                {
+                                    <a asp-controller="Incidents" asp-action="Create" asp-route-applicationId="@application.Id" class="btn btn-sm btn-outline-primary">@Localizer["Create Incident"]</a>
+                                }
+                                @if (Model.ViewableApplicationIds.Contains(application.Id))
+                                {
                                 <a asp-controller="Incidents" asp-action="Index" asp-route-applicationId="@application.Id" class="btn btn-sm btn-primary text-nowrap">
                                     <i class="align-middle me-1" data-lucide="list"></i>@Localizer["View incident"]
                                 </a>
+                                }
                                 @if (Model.ManageableApplicationIds.Contains(application.Id))
                                 {
                                     <a asp-action="OnCall" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">
@@ -223,14 +230,20 @@
                                             @(application.IsEnabled ? @Localizer["Disable"].Value : @Localizer["Enable"].Value)
                                         </button>
                                     </form>
+                                }
+                                @if (Model.KeyManageableApplicationIds.Contains(application.Id))
+                                {
                                     <button type="button" class="btn btn-sm btn-outline-warning text-nowrap" data-bs-toggle="modal" data-bs-target="#reset-api-key" data-application-id="@application.Id" data-application-name="@application.Name">
                                         <i class="align-middle me-1" data-lucide="key"></i>@Localizer["Reset Key"]
                                     </button>
+                                }
+                                @if (Model.OwnedApplicationIds.Contains(application.Id))
+                                {
                                     <button type="button" class="btn btn-sm btn-outline-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#delete-application" data-application-id="@application.Id" data-application-name="@application.Name">
                                         <i class="align-middle me-1" data-lucide="trash-2"></i>@Localizer["Delete"]
                                     </button>
                                 }
-                                @if (Model.CanManageApplications)
+                                @if (Model.ManageableApplicationIds.Contains(application.Id))
                                 {
                                     <a asp-action="Access" asp-route-id="@application.Id" class="btn btn-sm btn-outline-secondary text-nowrap">
                                         <i class="align-middle me-1" data-lucide="shield"></i>@Localizer["Permissions"]

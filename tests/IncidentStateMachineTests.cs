@@ -141,26 +141,26 @@ public partial class IncidentWorkflowTests
     }
 
     [TestMethod]
-    public async Task OwnerCanActWithoutApplicationGrantButViewerAndOffDutyEngineerCannot()
+    public async Task IncidentAssigneeCannotActWithoutAnApplicationGrant()
     {
         var incident = await StateIncident(Incident.Acked);
         _db.Users.AddRange(new User { Id = "viewer", UserName = "viewer", DisplayName = "Viewer" },
             new User { Id = "outsider", UserName = "outsider", DisplayName = "Outsider" });
-        _db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = incident.ApplicationId, UserId = "viewer" });
+        _db.ApplicationUserAccesses.Add(new ApplicationUserAccess { CanViewIncidents = true, ApplicationId = incident.ApplicationId, UserId = "viewer" });
         await _db.SaveChangesAsync();
         foreach (var id in new[] { "viewer", "outsider" })
             Assert.AreEqual(403, (await Workflow().ExecuteAsync(Actor(id), new IncidentNoteRequest
             {
                 IncidentId = incident.Id, Version = incident.Version, Note = "Attempt"
             }, IncidentTimelineEntry.Mitigated, default)).StatusCode);
-        Assert.AreEqual(200, (await Workflow().ExecuteAsync(Actor("engineer"), new IncidentNoteRequest
+        Assert.AreEqual(403, (await Workflow().ExecuteAsync(Actor("engineer"), new IncidentNoteRequest
         {
             IncidentId = incident.Id, Version = incident.Version, Note = "Owner mitigation"
         }, IncidentTimelineEntry.Mitigated, default)).StatusCode);
     }
 
     [TestMethod]
-    public async Task CurrentOceCanAckAndOwnershipMovesOnlyOnExplicitTakeOwnership()
+    public async Task ExplicitlyAuthorizedOceCanAckAndOwnershipMovesOnlyOnExplicitTakeOwnership()
     {
         var incident = await StateIncident();
         var group = new OnCallGroup { Name = "Current team" };
@@ -171,6 +171,10 @@ public partial class IncidentWorkflowTests
             Members = [new OnCallShiftMember { UserId = "engineer" }, new OnCallShiftMember { UserId = "next" }]
         });
         (await _db.SourceApplications.SingleAsync()).OnCallGroup = group;
+        await _db.SaveChangesAsync();
+        _db.ApplicationUserAccesses.AddRange(
+            new ApplicationUserAccess { ApplicationId = incident.ApplicationId, UserId = "engineer", CanViewIncidents = true, CanUpdateIncidents = true },
+            new ApplicationUserAccess { ApplicationId = incident.ApplicationId, UserId = "next", CanViewIncidents = true, CanUpdateIncidents = true });
         await _db.SaveChangesAsync();
         var service = Workflow();
         Assert.AreEqual(200, (await service.ExecuteAsync(Actor("engineer"), new IncidentNoteRequest
@@ -220,6 +224,7 @@ public partial class IncidentWorkflowTests
             IncidentId = incident.Id, Version = incident.Version
         }, IncidentTimelineEntry.OwnershipChanged, default);
         _db.ChangeTracker.Clear();
+        await _db.SourceApplications.ExecuteUpdateAsync(update => update.SetProperty(application => application.OwnerId, "engineer"));
         _db.Users.Remove(await _db.Users.SingleAsync(user => user.Id == "admin"));
         await _db.SaveChangesAsync();
         _db.ChangeTracker.Clear();
@@ -263,6 +268,7 @@ public partial class IncidentWorkflowTests
         Assert.AreEqual("Administrator", audit.ActorDisplayName);
 
         _db.ChangeTracker.Clear();
+        await _db.SourceApplications.ExecuteUpdateAsync(update => update.SetProperty(application => application.OwnerId, "engineer"));
         _db.Users.Remove(await _db.Users.SingleAsync(user => user.Id == "admin"));
         await _db.SaveChangesAsync();
         _db.ChangeTracker.Clear();
@@ -314,7 +320,7 @@ public partial class IncidentWorkflowTests
             {
                 IncidentId = incident.Id, Version = incident.Version, Note = "Reason", Level = level
             }, IncidentTimelineEntry.LevelChanged, default)).StatusCode);
-        Assert.AreEqual(400, (await Workflow().ExecuteAsync(Actor("engineer"), new IncidentNoteRequest
+        Assert.AreEqual(403, (await Workflow().ExecuteAsync(Actor("engineer"), new IncidentNoteRequest
         {
             IncidentId = incident.Id, Version = incident.Version
         }, IncidentTimelineEntry.OwnershipChanged, default)).StatusCode);
@@ -332,7 +338,7 @@ public partial class IncidentWorkflowTests
         var role = new Microsoft.AspNetCore.Identity.IdentityRole("Responders");
         _db.Roles.Add(role);
         _db.UserRoles.Add(new Microsoft.AspNetCore.Identity.IdentityUserRole<string> { UserId = "engineer", RoleId = role.Id });
-        _db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = incident.ApplicationId, RoleId = role.Id, CanManage = true });
+        _db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = incident.ApplicationId, RoleId = role.Id, CanViewIncidents = true, CanUpdateIncidents = true, CanManageApiKeys = true, CanManageApplication = true });
         await _db.SaveChangesAsync();
         Assert.AreEqual(200, (await Workflow().ExecuteAsync(Actor("engineer"), new IncidentNoteRequest
         {

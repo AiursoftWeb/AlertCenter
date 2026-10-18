@@ -12,8 +12,8 @@ public partial class IncidentPagesTests
         await LoginAsAdmin();
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        var orders = new SourceApplication { Name = "Orders application" };
-        var inventory = new SourceApplication { Name = "Inventory application" };
+        var orders = new SourceApplication { OwnerId = db.Users.Single(user => user.Email == "admin@default.com").Id, Name = "Orders application" };
+        var inventory = new SourceApplication { OwnerId = db.Users.Single(user => user.Email == "admin@default.com").Id, Name = "Inventory application" };
         var start = new DateTime(2026, 9, 8, 0, 0, 0, DateTimeKind.Utc);
         var messages = new[]
         {

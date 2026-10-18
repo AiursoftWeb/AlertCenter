@@ -141,8 +141,8 @@ public partial class IncidentPagesTests : TestBase
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             db.SourceApplications.AddRange(
-                new SourceApplication { Name = "Orders service" },
-                new SourceApplication { Name = "Inventory service" });
+                new SourceApplication { Name = "Orders service", OwnerId = db.Users.Single(user => user.Email == "admin@default.com").Id },
+                new SourceApplication { Name = "Inventory service", OwnerId = db.Users.Single(user => user.Email == "admin@default.com").Id });
             await db.SaveChangesAsync();
         }
 
@@ -320,6 +320,7 @@ public partial class IncidentPagesTests : TestBase
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var user = await db.Users.SingleAsync(item => item.Email == "admin@default.com");
+        if (message != null) message.Application.OwnerId = user.Id;
         var notification = new InAppNotification
         {
             UserId = user.Id,
