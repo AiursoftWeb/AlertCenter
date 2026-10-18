@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>작업</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>닫기</value>
+  </data>
+  <data name="Create Team" xml:space="preserve">
+    <value>팀 만들기</value>
+  </data>
+  <data name="Manage team members, rotation order, timezone, and scheduling start point. You can bind a shared rule template, but actual shifts are saved by the team." xml:space="preserve">
+    <value>팀원, 순번, 시간대 및 일정 시작 지점을 관리합니다. 공용 규칙 템플릿을 연결할 수 있지만, 실제 근무 일정은 팀별로 저장됩니다.</value>
+  </data>
+  <data name="Member Count" xml:space="preserve">
+    <value>구성원 수</value>
+  </data>
+  <data name="No teams available. Please create a team first." xml:space="preserve">
+    <value>사용 가능한 팀이 없습니다. 먼저 팀을 만들어 주세요.</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>규칙 템플릿</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>팀</value>
+  </data>
+  <data name="Team management" xml:space="preserve">
+    <value>팀 관리</value>
+  </data>
+  <data name="Team saved" xml:space="preserve">
+    <value>팀이 저장되었습니다</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>시간대</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>연결되지 않음</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>일정 보기</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>팀 보기</value>
+  </data>
+
+</root>

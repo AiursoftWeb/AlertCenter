@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>配信</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>未読のサイト内通知</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>長期実行タスク（メールやAIなど）に対する「ファイア・アンド・フォーゲット」サポート。キュー管理、並列処理、キャンセルに対応するGUIを備えています。</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
@@ -36,17 +42,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>モダンで機能豊富、そして高い拡張性を備えた、次世代のWebアプリケーションの基盤。</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>確認済み</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>AIによる翻訳</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter アラート・運用センター · グローバルステータスとクローズドループ追跡</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>すべての</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>すべての依存関係は自動的に登録され、コンストラクタインジェクションを通じて常に利用可能です。</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>すべての記録</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>アプリケーション</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>自動ダークモード</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>自動依存性注入</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>メッセージの自動配信とトラブルシューティング</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>自動タイムゾーン処理</value>
@@ -57,8 +81,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>自動、AI駆動の28言語への翻訳</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>利用可能なチャンネル ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>バックグラウンドジョブ処理</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>オンコールグループおよび重要なメールアドレスへの一括配信</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>組み込みユーザー管理</value>
@@ -72,11 +102,41 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>包括的なドキュメント</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>プッシュチャネルを設定</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>整合性検証</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>アプリケーションを作成してキーを取得</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>API または SDK を使って最初のインシデントを作成してください。ここに表示されます。</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>重大</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>致命的 ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>専用APIキー認証</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>配信記録</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>詳細な連携ドキュメント</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>UTCで専用に開発し、システムが自動的に日付をユーザーのローカルタイムゾーンに変換して表示します。</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>担当者やユーザーグループと直接連携し、協力して対応できます</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Docker化によるデプロイ</value>
@@ -96,6 +156,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>メモリ内データベース、一時ファイルシステム、組み込みモック、そして現実世界のHTTPリクエストシミュレーションを使用して、ストレスフリーで統合テストを記述できます。</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>エラー</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>自動アバターの圧縮とプライバシー保護機能を備えた内蔵ファイル管理システムを搭載しています。</value>
   </data>
@@ -108,14 +174,59 @@
   <data name="Hello World!" xml:space="preserve">
     <value>こんにちは、世界！</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>アプリ内通知受信箱</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>インシデント対応</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>インシデントのタイトル</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>インシデントの発生と協働による解決</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>豊富なドキュメントと実用的なサンプルが含まれており、素早く使い始めることができます。</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>情報</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>統合ファイル管理</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>統合ガイド</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>「統合アプリ」で専用の認証情報を発行します。</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>最新のインシデント</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>関連するインシデント</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>プッシュチャネルを連携する</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>重大</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>重大 ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>アプリケーションを管理</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>軽減済み</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>モデルはデータ注釈に基づいて、クライアントおよびサーバーの両方で検証されます。</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>監視ダッシュボード</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>複数のデータベースプロバイダーサポート</value>
@@ -123,8 +234,38 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>複数データベースサポート</value>
   </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>インシデントはまだありません</value>
+  </data>
+  <data name="No unresolved incidents currently" xml:space="preserve">
+    <value>未解決のインシデントはありません</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>通知プッシュセンター</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>進行中のインシデント</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>対応が必要な進行中のインシデント</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect連携</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>運用対応の完了</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>対応待ち</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>プッシュ成功率</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>簡単なレポートの例</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>クイックスタート連携</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC認可</value>
@@ -132,17 +273,38 @@
   <data name="Read the document" xml:space="preserve">
     <value>ドキュメントを読む</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>最近作成されたインシデント</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>報告の詳細、対応履歴、解決状況。</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>直ちに対応が必要</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>解決済み</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>レスポンシブデザイン</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>堅牢な統合テスト</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>アプリのプッシュ設定で、Sev0～Sev4に応じた振り分けを設定します。</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>スケジュールタスク管理</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>あらゆるOpenID Connectプロバイダーとシームレスに統合し、ロールの自動同期を実現します。</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>重大度</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>重要度で絞り込み：</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>スマート設定オーバーライド</value>
@@ -153,17 +315,53 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>ユーザーのシステム設定に自動的に適応するスマートダークモード。</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTPメールチャネル</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>ソース</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>送信元アプリケーション</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>新規プロジェクトを開始</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>.NET SDK / Go / Webhook に対応</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>環境変数とデータベースバックエンド設定の両方をサポートしており、環境変数に自動的に優先順位が与えられ、スムーズな上書きが可能になります。</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>カスタムリクエストヘッダーとJSONテンプレートに対応</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>センターは通知を非同期で配信し、記録の追跡と再試行に対応します。</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>ナビゲーションバーはユーザーの役割と権限に基づいて自動的に調整されます。</value>
   </data>
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>これはテンプレートプロジェクトです。ここから航海が始まります...</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>時刻</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>インシデント総数</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>テストインシデントの報告には、Bearer認証を使用してください：</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>すべてのインシデントを表示</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Webhookの自動スケジューリング</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>ようこそ</value>

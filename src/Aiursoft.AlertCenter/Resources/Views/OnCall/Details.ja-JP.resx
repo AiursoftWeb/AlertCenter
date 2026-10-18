@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
+    <value>7日間のオンコールスケジュール</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>自動割り当て</value>
+  </data>
+  <data name="Back to Schedule List" xml:space="preserve">
+    <value>スケジュール一覧に戻る</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>早番・中番・遅番をできるだけ均等に割り当てる</value>
+  </data>
+  <data name="Close, prioritize fixed time slots" xml:space="preserve">
+    <value>固定の時間帯を優先して配置</value>
+  </data>
+  <data name="Cross-on-call-group members require manual scheduling" xml:space="preserve">
+    <value>複数のオンコールグループに所属するメンバーは手動でスケジュールする必要があります</value>
+  </data>
+  <data name="Current On-Call" xml:space="preserve">
+    <value>現在のオンコール担当</value>
+  </data>
+  <data name="Current Week" xml:space="preserve">
+    <value>今週</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>チームを編集</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>従業員は削除されました</value>
+  </data>
+  <data name="First class at " xml:space="preserve">
+    <value>最初の担当開始時刻：</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>時間 · 基準時刻</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>時間 · シフトの最小人数</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>時間・週間最低人数</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>時間。</value>
+  </data>
+  <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
+    <value>スタッフ不足の警告（空のシフトを除き、手動保存が可能）</value>
+  </data>
+  <data name="Minimum template cooldown " xml:space="preserve">
+    <value>テンプレートの最小休止時間</value>
+  </data>
+  <data name="Modifying templates, re-binding templates, or adding/removing members will not regenerate saved shifts. After removing a member, upcoming assignments are cleared; empty shifts must be filled manually." xml:space="preserve">
+    <value>テンプレートの変更や再バインド、メンバーの追加・削除を行っても、保存済みのシフトは再生成されません。メンバーを削除すると、今後の割り当ては解除されます。空のシフトは手動で埋めてください。</value>
+  </data>
+  <data name="Next Week" xml:space="preserve">
+    <value>来週</value>
+  </data>
+  <data name="No rule template bound, manual scheduling available; new shifts default to min rest " xml:space="preserve">
+    <value>ルールテンプレートが紐付けられていません。手動でスケジュールを作成できます。新しいシフトには最小休息時間がデフォルトで適用されます</value>
+  </data>
+  <data name="No shifts are currently assigned this week. You can add personnel manually." xml:space="preserve">
+    <value>今週はシフトが割り当てられていません。担当者を手動で追加できます。</value>
+  </data>
+  <data name="No team members. Please edit the team to add members before manually filling empty shifts." xml:space="preserve">
+    <value>チームメンバーがいません。空のシフトを手動で埋める前に、チームを編集してメンバーを追加してください。</value>
+  </data>
+  <data name="No valid scheduling weeks. Please check the team&apos;s scheduling start point." xml:space="preserve">
+    <value>有効なスケジュール週がありません。チームのスケジュール開始日を確認してください。</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>オンコールスケジュール</value>
+  </data>
+  <data name="Other teams: " xml:space="preserve">
+    <value>他のチーム：</value>
+  </data>
+  <data name="Override duration" xml:space="preserve">
+    <value>上書き時間</value>
+  </data>
+  <data name="Participating employees" xml:space="preserve">
+    <value>参加従業員数</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>人 · 今週の最短休息時間</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>人 · 時間帯のローテーション：</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>人、目標人数</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>シフトあたり</value>
+  </data>
+  <data name="Previous Week" xml:space="preserve">
+    <value>前の週</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>メンバーのローテーション</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>ルールテンプレート：</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>保存済み</value>
+  </data>
+  <data name="Shift covered" xml:space="preserve">
+    <value>担当シフト数</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="Starting soon" xml:space="preserve">
+    <value>まもなく開始</value>
+  </data>
+  <data name="Status is based on page load time)" xml:space="preserve">
+    <value>ステータスはページの読み込み時点に基づきます)</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>チーム設定</value>
+  </data>
+  <data name="The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available." xml:space="preserve">
+    <value>以下の従業員は複数のオンコールグループに所属しているため、自動プレビューおよび自動スケジュールの対象外となります。保存済みの割り当ては変更されません。手動でのスケジュール設定と、グループ間の競合チェックは引き続き利用できます。</value>
+  </data>
+  <data name="This shift ends at " xml:space="preserve">
+    <value>このシフトの終了時刻：</value>
+  </data>
+  <data name="This week&apos;s schedule" xml:space="preserve">
+    <value>今週のスケジュール</value>
+  </data>
+  <data name="Three shifts per day, supporting multiple members per shift. Actual shifts are stored under the team." xml:space="preserve">
+    <value>1日3交代制で、各シフトに複数のメンバーを配置できます。実際のシフトはチームに登録されます。</value>
+  </data>
+  <data name="Unsaved · Auto-suggested" xml:space="preserve">
+    <value>未保存 · 自動提案</value>
+  </data>
+  <data name="Unsaved · Manual schedule" xml:space="preserve">
+    <value>未保存 · 手動スケジュール</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>チームを表示</value>
+  </data>
+
+</root>

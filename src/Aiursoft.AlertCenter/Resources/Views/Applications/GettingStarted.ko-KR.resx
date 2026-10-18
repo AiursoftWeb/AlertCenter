@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API 키는 생성 또는 재설정이 성공하면 한 번만 표시됩니다. 운영 환경의 환경 변수(예:</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. 푸시 예약이 비동기적으로 시작됩니다.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. 첫 번째 레코드를 유지하고 중복 푸시를 실행하지 않습니다.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. 센터에서는 이 필드를 사용해 보고 및 전달 네트워크 지연 시간을 추정할 수 있습니다.</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(치명적, 최우선 순위),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(오류),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(일반 정보). 센터는 이 심각도 수준에 따라 라우팅하고 푸시합니다.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(주요),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(경고),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) 또는 키 관리 서비스(KMS). 프런트엔드, 로그 또는 코드 저장소에 하드코딩하는 것은 엄격히 금지됩니다.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>1~200자</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 수락됨(멱등성)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 매개변수 오류</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 인증 실패</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>실제 업무 발생 시각(예:,</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Bearer 인증 정보가 없거나 키가 일치하지 않거나 애플리케이션이 비활성화되어 있습니다. 애플리케이션 설정을 확인하세요.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>푸시 센터 채널 설정</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>코드 복사</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>연동 앱을 만들고 API 키 받기</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>개발자 연동 가이드</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>동일한 ReportId를 사용하는 중복 보고서,</value>
+  </data>
+  <data name="Each business system authenticates requests using its own API key." xml:space="preserve">
+    <value>각 업무 시스템은 자체 API 키를 사용해 요청을 인증합니다.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>엄격한 동시성 멱등성을 보장하려면 재시도 시 동일한 ID를 사용하세요.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>새 보고서 ID는 각각 독립적인 인시던트를 생성합니다. 동일한 요청을 재시도할 때만 같은 보고서 ID를 재사용하세요. 보고서를 발생 원본에서 속도 제한하세요.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>필드명</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>앱 생성과 키 인증부터 최초 장애 보고까지, 4단계로 안정적인 시스템 장애 접수 채널을 구축하세요.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>앱을 만들고 인증 정보를 받으러 가기</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>HTTP 보고 요청 필드 사양</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>HTTP 응답 상태 코드 및 모범 엔지니어링 사례</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>예제 코드에서,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>인시던트 본문 상세 내용입니다. 문제 해결 가이드, 예외 스택 또는 진단 요약을 포함할 수 있습니다. XSS 삽입을 방지하기 위해 프레젠테이션 계층에서 HTML을 자동으로 이스케이프 처리합니다.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>장애 요약 제목입니다. 장애 내용을 간략히 설명하세요. 예: “주문 결제 채널 응답 시간 초과.”</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>최초 저장에 성공했습니다. 생성된 기본 키 ID를 반환합니다,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>JSON 객체; 전체 요청 최대 64KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>정보 유출 방지 안내</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>연동된 애플리케이션 관리</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>최대 4,000자</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>선택 사항</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>또는 환경 변수를 포함하면 상세 페이지에서 한 번의 클릭으로 위치를 파악하고 문제를 해결할 수 있습니다.</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>이전 단계에서 생성한 애플리케이션 키로 바꾸면 테스트를 바로 전송할 수 있습니다.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>필수</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>필수 필드가 누락되었거나 레벨 형식이 올바르지 않거나 요청 본문이 64 KiB 제한을 초과했습니다.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>응답은 Code, Message, ProtocolVersion을 포함하는 AiurProtocol 형식을 사용합니다. 유효성 검사에 실패하면 Items 배열이 포함됩니다. SDK는 형식이 지정된 영수증을 반환하거나 AiurProtocol 예외를 발생시킵니다.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>규칙 및 제약 조건</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>첫 번째 인시던트 메시지 보내기</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>심각도:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>표준 UUID 형식</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>구조화된 비즈니스 컨텍스트입니다. 다음 항목을 포함하는 것이 좋습니다.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>클라이언트의 전역적으로 고유한 보고서 ID입니다. 센터는 이를 사용합니다</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>SDK는 각 보고서를 한 번만 전송합니다. 네트워크 오류로 처리 결과가 불확실한 경우, 동일한 ReportId와 발생 시각을 사용해 같은 요청을 다시 시도하세요.</value>
+  </data>
+  <data name="This format identifies the application and lets the server verify its secret hash." xml:space="preserve">
+    <value>이 형식은 애플리케이션을 식별하고 서버가 비밀 키의 해시를 검증할 수 있도록 합니다.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>유형</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>인시던트 보기</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>시간대 오프셋 또는 Z 식별자 포함</value>
+  </data>
+
+</root>

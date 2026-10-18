@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} applications" xml:space="preserve">
+    <value>{0}件のアプリケーション</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
+    <value>検索キーワードを変更するか、検索をクリアしてすべてのアプリを表示してください。</value>
+  </data>
+  <data name="API Key has been reset" xml:space="preserve">
+    <value>APIキーがリセットされました</value>
+  </data>
+  <data name="App connected" xml:space="preserve">
+    <value>アプリ連携</value>
+  </data>
+  <data name="App ID" xml:space="preserve">
+    <value>アプリID</value>
+  </data>
+  <data name="App ID, historical incident records, push channel bindings, and enable/disable status remain unchanged." xml:space="preserve">
+    <value>アプリID、過去のインシデント記録、プッシュチャネルの紐付け、および有効／無効の状態は変更されません。</value>
+  </data>
+  <data name="App information" xml:space="preserve">
+    <value>アプリ情報</value>
+  </data>
+  <data name="Application Access Credentials (API Key)" xml:space="preserve">
+    <value>アプリケーションアクセス認証情報（APIキー）</value>
+  </data>
+  <data name="Application Name" xml:space="preserve">
+    <value>アプリケーション名</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>アプリケーション</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>クリア</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="Confirm app and all data deletion" xml:space="preserve">
+    <value>アプリとすべてのデータを削除</value>
+  </data>
+  <data name="Confirm app deletion" xml:space="preserve">
+    <value>アプリの削除を確認</value>
+  </data>
+  <data name="Confirm as application" xml:space="preserve">
+    <value>アプリケーションとして確認</value>
+  </data>
+  <data name="Confirm key reset" xml:space="preserve">
+    <value>キーのリセットを確認</value>
+  </data>
+  <data name="Copy API key" xml:space="preserve">
+    <value>APIキーをコピー</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>上記でビジネスアプリを作成し、専用のAPIキーを発行してください。</value>
+  </data>
+  <data name="Create Application" xml:space="preserve">
+    <value>アプリケーションを作成</value>
+  </data>
+  <data name="Create new integration app" xml:space="preserve">
+    <value>新しい連携アプリを作成</value>
+  </data>
+  <data name="Created on" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="Credentials are displayed only once after this operation. The original key cannot be viewed again after refreshing or leaving this page." xml:space="preserve">
+    <value>認証情報はこの操作の完了後、一度だけ表示されます。ページを再読み込みしたり、ページを離れたりすると、元のキーを再度確認することはできません。</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Delete integrated application" xml:space="preserve">
+    <value>連携アプリケーションを削除</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>無効</value>
+  </data>
+  <data name="Distribute independent API credentials for business services and manage reporting permissions and push routing." xml:space="preserve">
+    <value>業務サービス向けに個別のAPI認証情報を発行し、レポート送信の権限とプッシュ通知の振り分けを管理します。</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>オンコールグループを紐付けない</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>有効</value>
+  </data>
+  <data name="Enter the app name to confirm deletion:" xml:space="preserve">
+    <value>削除を確認するため、アプリ名を入力してください：</value>
+  </data>
+  <data name="Example: Order payment service, User Center, Edge Gateway…" xml:space="preserve">
+    <value>例：注文決済サービス、ユーザーセンター、エッジゲートウェイ…</value>
+  </data>
+  <data name="Filter by application name..." xml:space="preserve">
+    <value>アプリケーション名で絞り込む...</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Find application" xml:space="preserve">
+    <value>アプリケーションを検索</value>
+  </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>連携ガイド</value>
+  </data>
+  <data name="New application created" xml:space="preserve">
+    <value>新しいアプリケーションが作成されました</value>
+  </data>
+  <data name="No connected apps yet" xml:space="preserve">
+    <value>接続済みのアプリはまだありません</value>
+  </data>
+  <data name="No matching applications found" xml:space="preserve">
+    <value>一致するアプリケーションが見つかりません</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>オンコールグループ</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>オンコールグループ（任意）</value>
+  </data>
+  <data name="On-call group is optional; if bound, the on-duty engineer is automatically notified by email, and the on-call group configuration address is CC&apos;d. Custom push channels can still be configured independently." xml:space="preserve">
+    <value>オンコールグループの設定は任意です。設定すると、当番のエンジニアにメールで自動通知され、オンコールグループに設定されたアドレスがCCに追加されます。カスタムのプッシュ通知チャネルは、引き続き個別に設定できます。</value>
+  </data>
+  <data name="On-call settings" xml:space="preserve">
+    <value>オンコール設定</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>権限</value>
+  </data>
+  <data name="Please store the key securely in environment variables or a key service." xml:space="preserve">
+    <value>キーは、環境変数またはキー管理サービスに安全に保管してください。</value>
+  </data>
+  <data name="Push Settings" xml:space="preserve">
+    <value>プッシュ設定</value>
+  </data>
+  <data name="Reset API Key" xml:space="preserve">
+    <value>APIキーをリセット</value>
+  </data>
+  <data name="Reset integration key?" xml:space="preserve">
+    <value>連携キーをリセットしますか？</value>
+  </data>
+  <data name="Reset Key" xml:space="preserve">
+    <value>キーをリセット</value>
+  </data>
+  <data name="Running Status" xml:space="preserve">
+    <value>稼働状況</value>
+  </data>
+  <data name="The name must match exactly (case-sensitive)." xml:space="preserve">
+    <value>名前は完全に一致している必要があります（大文字と小文字を区別します）。</value>
+  </data>
+  <data name="The old key has been invalidated immediately. All reporting clients must be updated. The new key is displayed only once; please save it now." xml:space="preserve">
+    <value>古いキーは直ちに無効化されました。すべてのレポートクライアントを更新する必要があります。新しいキーが表示されるのは一度だけです。今すぐ保存してください。</value>
+  </data>
+  <data name="The old key will become invalid immediately. All reporting clients must be updated. The new key is displayed only once on this page." xml:space="preserve">
+    <value>古いキーは直ちに無効になります。すべてのレポート送信クライアントを更新してください。新しいキーがこのページに表示されるのは一度だけです。</value>
+  </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and the API Key will be immediately invalidated." xml:space="preserve">
+    <value>この操作は取り消せません！このアプリケーションの過去のインシデント、関連する配信記録、サイト内通知はすべて削除され、APIキーは直ちに無効になります。</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>未割り当て</value>
+  </data>
+  <data name="Use a concise and clear business system name; the system will automatically generate the corresponding prefix ID and random Secret." xml:space="preserve">
+    <value>簡潔で分かりやすい業務システム名を入力してください。対応するプレフィックスIDとランダムなシークレットは、システムによって自動生成されます。</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>インシデントをすべて表示</value>
+  </data>
+  <data name="View incident" xml:space="preserve">
+    <value>インシデントを表示</value>
+  </data>
+  <data name="View integration guide to send the first test message " xml:space="preserve">
+    <value>初回のテストメッセージを送信するための連携ガイドを見る</value>
+  </data>
+
+</root>

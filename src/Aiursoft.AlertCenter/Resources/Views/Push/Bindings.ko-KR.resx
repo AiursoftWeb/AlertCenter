@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· 비활성화됨, 발송되지 않음</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - 푸시 라우팅 설정</value>
+  </data>
+  <data name="Application Push Routing" xml:space="preserve">
+    <value>애플리케이션 푸시 라우팅</value>
+  </data>
+  <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
+    <value>저장 후 발생하는 새 인시던트에만 적용됩니다. 채널을 비활성화해도 라우팅 설정은 유지되지만 새 인시던트는 해당 채널로 전송되지 않습니다.</value>
+  </data>
+  <data name="Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident." xml:space="preserve">
+    <value>sev0~sev4에 적용되며 채널을 선택할 필요가 없습니다. 아래 채널은 새 인시던트가 발생할 때마다 별도의 추가 알림을 제공합니다.</value>
+  </data>
+  <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
+    <value>자동 활성화됨 · 개별적으로 비활성화할 수 없음</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>사용 가능한 채널</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>연결된 앱으로 돌아가기</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>기본 제공 당직 이메일</value>
+  </data>
+  <data name="CC addresses configured for the on-call group." xml:space="preserve">
+    <value>당직 그룹에 설정된 참조(CC) 주소입니다.</value>
+  </data>
+  <data name="Critical (P0)" xml:space="preserve">
+    <value>치명적 (P0)</value>
+  </data>
+  <data name="Custom channel-to-severity match matrix" xml:space="preserve">
+    <value>사용자 지정 채널-심각도 매칭 매트릭스</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>사용 중지됨</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>활성화됨</value>
+  </data>
+  <data name="Error (P2)" xml:space="preserve">
+    <value>오류 (P2)</value>
+  </data>
+  <data name="Info (P4)" xml:space="preserve">
+    <value>정보 (P4)</value>
+  </data>
+  <data name="Major (P1)" xml:space="preserve">
+    <value>주요 (P1)</value>
+  </data>
+  <data name="Multiple supplementary channels can be selected per level; unchecked items only indicate no custom notifications will be sent, without affecting built-in on-call emails. Strict exact matching is applied, with no automatic expansion to higher or lower levels." xml:space="preserve">
+    <value>각 레벨마다 여러 보조 채널을 선택할 수 있습니다. 선택하지 않은 항목은 사용자 지정 알림을 보내지 않는다는 의미일 뿐, 기본 온콜 이메일에는 영향을 주지 않습니다. 상위 또는 하위 레벨로 자동 확장되지 않으며, 레벨이 정확히 일치하는 경우에만 적용됩니다.</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>푸시 채널이 아직 설정되지 않았습니다</value>
+  </data>
+  <data name="On-call group:" xml:space="preserve">
+    <value>당직 그룹:</value>
+  </data>
+  <data name="Please contact the push channel administrator to grant channel binding permissions." xml:space="preserve">
+    <value>채널 바인딩 권한을 부여받으려면 푸시 채널 관리자에게 문의하세요.</value>
+  </data>
+  <data name="Precisely match receiving channels by incident level · Matrix Routing Engine" xml:space="preserve">
+    <value>사고 심각도별 수신 채널 정밀 매칭 · 매트릭스 라우팅 엔진</value>
+  </data>
+  <data name="Push Channel and Type" xml:space="preserve">
+    <value>푸시 채널 및 유형</value>
+  </data>
+  <data name="Save routing configuration" xml:space="preserve">
+    <value>라우팅 설정 저장</value>
+  </data>
+  <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
+    <value>알림 시점에 시스템에 등록된 모든 당직 엔지니어(OCE)의 이메일 주소;</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="Warning (P3)" xml:space="preserve">
+    <value>경고 (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
+    <value>필요에 따라 보완용 웹훅, 이메일 또는 앱 내 알림 채널을 만들 수 있습니다. 온콜 그룹에 연결된 애플리케이션은 사용자 지정 채널이 없어도 기본 온콜 이메일을 발송합니다.</value>
+  </data>
+
+</root>

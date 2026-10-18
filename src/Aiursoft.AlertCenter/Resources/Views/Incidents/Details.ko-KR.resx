@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledged" xml:space="preserve">
+    <value>확인됨</value>
+  </data>
+  <data name="Acknowledged (Acked)" xml:space="preserve">
+    <value>확인됨 (Acked)</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>인시던트 심각도 조정</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>심각도 조정</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
+    <value>이 인시던트의 심각도를 조정하고 사유를 기록하세요.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>인시던트 자동 생성</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>자동 생성 시각</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>인시던트 목록으로 돌아가기</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>종료</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>종결 피드백 기반 복구</value>
+  </data>
+  <data name="Confirm and claim" xml:space="preserve">
+    <value>확인 및 담당하기</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>인시던트 확인 및 담당 처리</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>사고 완화 조치 확인</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>인시던트 다시 열기 확인</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>인시던트 해결 확인</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>심각도 변경 확인</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>확인 메모(선택 사항)</value>
+  </data>
+  <data name="Confirmation time (UTC)" xml:space="preserve">
+    <value>확인 시간(UTC)</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>내용 복사</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>JSON 복사</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>현재 당직 OCE</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>현재 당직 중</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>완화 조치, 영향 범위 및 복구 상태를 설명해 주세요.</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>변경으로 인한 영향과 심각도 조정의 근거를 설명해 주세요.</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>각 독립적인 보고서는 새로운 인시던트를 생성합니다. 이 인시던트를 확인하거나 완화하거나 해결해도 다른 인시던트나 해당 알림에는 영향을 주지 않습니다.</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>예: 핵심 데이터베이스 연결 풀이 복구되고 서비스 응답이 정상화되었으며 부하 테스트를 통과했습니다.</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>예: 모니터링에서 동일한 장애가 다시 감지되어 재조사가 필요합니다.</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>수정 후 종료됨</value>
+  </data>
+  <data name="Full context" xml:space="preserve">
+    <value>전체 컨텍스트</value>
+  </data>
+  <data name="Full-cycle handling timeline" xml:space="preserve">
+    <value>전체 처리 타임라인</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>처리 단계</value>
+  </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>인시던트 이벤트</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>인시던트 ID</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>인시던트 담당자:</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>장애 대응 상황실 - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>독립적인 인시던트</value>
+  </data>
+  <data name="Log investigation and handling progress" xml:space="preserve">
+    <value>조사 및 대응 진행 상황 기록</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>사고 완화</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>완화됨</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>완화됨(완화됨)</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>완화 사유 (필수)</value>
+  </data>
+  <data name="Mitigation time (UTC)" xml:space="preserve">
+    <value>완화 시간(UTC)</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>새 등급</value>
+  </data>
+  <data name="No additional context was reported." xml:space="preserve">
+    <value>추가 컨텍스트가 보고되지 않았습니다.</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>현재 당직 중인 OCE가 없습니다.</value>
+  </data>
+  <data name="Not set" xml:space="preserve">
+    <value>설정되지 않음</value>
+  </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>발생 시각(UTC)</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>담당자:</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>응답 대기</value>
+  </data>
+  <data name="Pending Response (New)" xml:space="preserve">
+    <value>응답 대기 중(신규)</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>진행 상황</value>
+  </data>
+  <data name="Publish progress" xml:space="preserve">
+    <value>진행 상황 게시</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>쿼리에 실패했습니다:</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>조정 사유 (필수)</value>
+  </data>
+  <data name="Received at (UTC)" xml:space="preserve">
+    <value>수신 시각(UTC)</value>
+  </data>
+  <data name="Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..." xml:space="preserve">
+    <value>조사 단서, 긴급 완화 조치, 영향 범위 평가 또는 시스템 복구 진행 상황을 실시간으로 기록하세요...</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE." xml:space="preserve">
+    <value>완화 조치를 기록한 다음 해결 사유를 입력하세요. 이 인시던트를 다시 열면 상태가 ‘응답 대기’로 변경되고 담당자가 해제되며, 현재 대기 중인 OCE에게 이메일이 발송됩니다.</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>취한 완화 조치를 기록하세요. 수정이 완료된 후 이 인시던트를 해결하세요.</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>인시던트 다시 열기</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>재개 메모(선택 사항)</value>
+  </data>
+  <data name="Reopening restores the &quot;Pending Response&quot; status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed." xml:space="preserve">
+    <value>다시 열면 상태가 &apos;응답 대기&apos;로 변경되고 담당자가 지정 해제되며, 현재 당직 중인 OCE에게 이메일이 발송됩니다. 해당 인시던트는 다시 확인하고 담당자로 지정해야 합니다.</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>신고 ID</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>보고 정보</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>해결 사유 (필수)</value>
+  </data>
+  <data name="Resolution time (UTC)" xml:space="preserve">
+    <value>해결 시간(UTC)</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>사건 해결</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>해결됨</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>해결됨(Resolved)</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>이 인시던트를 해결하면 해당 워크플로가 완료됩니다. 다른 인시던트는 각각 독립적으로 처리됩니다.</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>대응 메커니즘 설명</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 치명적 (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 주요 (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · 오류 (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 경고(P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 정보 (P4)</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>심각도:</value>
+  </data>
+  <data name="Status: " xml:space="preserve">
+    <value>상태:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>시스템</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>인시던트 인계</value>
+  </data>
+  <data name="Take Over Notes (Optional)" xml:space="preserve">
+    <value>인수인계 메모(선택 사항)</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>총</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>미지정</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>삭제된 사용자</value>
+  </data>
+
+</root>

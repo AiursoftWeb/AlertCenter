@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" members" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="Back to Team List" xml:space="preserve">
+    <value>チーム一覧に戻る</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CC address not configured." xml:space="preserve">
+    <value>CCアドレスが設定されていません。</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="Confirm team deletion" xml:space="preserve">
+    <value>チームの削除を確認</value>
+  </data>
+  <data name="Delete on-call team" xml:space="preserve">
+    <value>オンコールチームを削除</value>
+  </data>
+  <data name="Delete team" xml:space="preserve">
+    <value>チームを削除</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>チームを編集</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="hours · Min rest " xml:space="preserve">
+    <value>時間 · 最低休息時間</value>
+  </data>
+  <data name="No team members." xml:space="preserve">
+    <value>チームメンバーはいません。</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>オンコールメールのCC</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>現在保存されているシフトのオンコールエンジニア（OCE）全員のユーザーメールボックス（To）に、オンコールメールが自動送信されます。CCには、管理者が明示的に設定したチームのメールボックスまたはメーリングリストのアドレスのみが使用され、チームメンバー全員が自動的にCCに追加されることはありません。アプリケーションで設定されたカスタムのプッシュ通知チャネルからも、追加の通知が送信されます。</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>1シフトあたり</value>
+  </data>
+  <data name="Rotate Members (Sequential)" xml:space="preserve">
+    <value>メンバーの順次ローテーション</value>
+  </data>
+  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>ルールテンプレートは紐付けられていません。手動でのスケジュール設定は引き続き可能です。</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>ルールテンプレート：</value>
+  </data>
+  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>ルールテンプレートは削除できません。保存済みのシフトがなく、連携アプリが紐付けられていないチームのみ削除できます。この操作は取り消せません。</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>スケジュールの開始日時：</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>チーム設定</value>
+  </data>
+  <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
+    <value>テンプレートは複数のチームで共有できます。テンプレートを変更または切り替えても、保存済みのシフトは再生成されません。</value>
+  </data>
+  <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
+    <value>このチームには保存済みのシフトがあるため、スケジュール履歴を保持する目的で削除できません。</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group before deleting the team." xml:space="preserve">
+    <value>このチームは連携アプリに紐付けられています。チームを削除する前に、アプリのオンコールグループを再割り当てするか、紐付けを解除してください。</value>
+  </data>
+  <data name="Time zone: " xml:space="preserve">
+    <value>タイムゾーン：</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>オンコールスケジュールを表示</value>
+  </data>
+
+</root>

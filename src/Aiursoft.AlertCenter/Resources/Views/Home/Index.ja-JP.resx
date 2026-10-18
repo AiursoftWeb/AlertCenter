@@ -21,6 +21,12 @@
       <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>長時間実行タスク（メールやAIなど）に対する「Fire-and-forget」サポート。キュー管理、並列処理、キャンセルを備えたGUIを備えています。</value>
   </data>
+  <data name="2 minutes ago" xml:space="preserve">
+    <value>2分前</value>
+  </data>
+  <data name="8 minutes ago" xml:space="preserve">
+    <value>8分前</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>きめ細かい権限管理のための組み込みのロールベースアクセス制御（RBAC）システム。</value>
   </data>
@@ -38,6 +44,9 @@
   </data>
   <data name="Achieve more with Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Templateでさらに多くのことを実現</value>
+  </data>
+  <data name="Action Required" xml:space="preserve">
+    <value>要対応</value>
   </data>
   <data name="Actuator health endpoints built-in" xml:space="preserve">
     <value>組み込みのアクチュエータヘルスエンドポイント</value>
@@ -59,6 +68,12 @@
   </data>
   <data name="Aiursoft Template is our definitive choice for enterprise projects! It&apos;s built for developers and is lightweight yet powerful. We can skip all the boilerplate for authentication and user management." xml:space="preserve">
     <value>Aiursoft Templateは、エンタープライズプロジェクトにおける私たちの確固たる選択です！開発者のために構築されており、軽量でありながら強力です。認証やユーザー管理に関する定型コードをすべて省略できます。</value>
+  </data>
+  <data name="AlertCenter centrally receives, classifies, and reliably delivers incidents for business systems. Connect all services with a single API to keep your team informed of the real-time production status." xml:space="preserve">
+    <value>AlertCenterは、業務システムのインシデントを一元的に受信・分類し、確実に配信します。単一のAPIですべてのサービスを接続し、本番環境のリアルタイムの状況をチームに共有できます。</value>
+  </data>
+  <data name="AlertCenter correlates sources, severity levels, push configurations, and delivery results to help teams quickly assess impact and decide on next steps." xml:space="preserve">
+    <value>AlertCenterは、ソース、重要度レベル、プッシュ通知の設定、配信結果を関連付け、チームが影響をすばやく評価し、次の対応を判断できるよう支援します。</value>
   </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>すべての依存関係は自動的に登録され、コンストラクタインジェクションを通じて常に利用可能です。</value>
@@ -120,6 +135,9 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>二か国語チュートリアル</value>
   </data>
+  <data name="Build a Reliable Incident Channel in Three Steps" xml:space="preserve">
+    <value>信頼性の高いインシデント通知チャネルを3ステップで構築</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>一度構築すれば、どこでも実行可能。完全にコンテナ化されたアーキテクチャ。</value>
   </data>
@@ -171,6 +189,12 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>組み込みユーザー管理</value>
   </data>
+  <data name="Centrally manage sources, incident levels, notification channels, and delivery results so service anomalies are not buried in logs." xml:space="preserve">
+    <value>サービスの異常がログに埋もれないよう、発生元、インシデントレベル、通知チャネル、配信結果を一元管理します。</value>
+  </data>
+  <data name="Centrally track each notification delivery status to quickly locate issues upon failure and prevent important information from being silently lost." xml:space="preserve">
+    <value>各通知の配信状況を一元的に追跡し、失敗時の問題をすばやく特定するとともに、重要な情報が気づかれないまま失われるのを防ぎます。</value>
+  </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Checkstyleまたは同等のツールが必要</value>
   </data>
@@ -192,6 +216,12 @@
   <data name="Concise Docs" xml:space="preserve">
     <value>簡潔なドキュメント</value>
   </data>
+  <data name="Configure independent push channels for sev0 to sev4 to ensure the most urgent issues receive the highest priority response." xml:space="preserve">
+    <value>sev0からsev4まで、それぞれ独立したプッシュチャネルを設定し、最も緊急度の高い問題に最優先で対応できるようにします。</value>
+  </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>プッシュチャネルを設定</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>整合性検証</value>
   </data>
@@ -203,6 +233,24 @@
   </data>
   <data name="Coverage Report" xml:space="preserve">
     <value>カバレッジレポート</value>
+  </data>
+  <data name="Create and handle incidents" xml:space="preserve">
+    <value>インシデントの作成と対応</value>
+  </data>
+  <data name="Create independent API Keys for each business application to report structured incidents and context via standard HTTP APIs." xml:space="preserve">
+    <value>各業務アプリケーション用に個別のAPIキーを作成し、標準的なHTTP APIを通じて、構造化されたインシデント情報とコンテキストを報告できます。</value>
+  </data>
+  <data name="Create Integration App" xml:space="preserve">
+    <value>連携アプリを作成</value>
+  </data>
+  <data name="Create your first integration app, send your first incident, and establish your reliable notification loop." xml:space="preserve">
+    <value>最初の連携アプリを作成し、最初のインシデントを送信して、信頼性の高い通知ループを構築しましょう。</value>
+  </data>
+  <data name="Critical / Error" xml:space="preserve">
+    <value>重大 / エラー</value>
+  </data>
+  <data name="Critical incidents should not be buried in logs." xml:space="preserve">
+    <value>重大なインシデントをログに埋もれさせてはなりません。</value>
   </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>クロスプラットフォーム</value>
@@ -222,6 +270,9 @@
   <data name="Dashboard Website" xml:space="preserve">
     <value>ダッシュボードウェブサイト</value>
   </data>
+  <data name="Database backup completed" xml:space="preserve">
+    <value>データベースのバックアップが完了しました</value>
+  </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Day 1 コンプライアンス &amp; セキュリティ。</value>
   </data>
@@ -237,8 +288,14 @@
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>デフォルトのSQLiteデータベース、設定は不要です。</value>
   </data>
+  <data name="Delivery records are fully traceable" xml:space="preserve">
+    <value>配信記録をすべて追跡できます</value>
+  </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>初心者から専門家まで、誰もが使えるように設計されています。</value>
+  </data>
+  <data name="Designed for response" xml:space="preserve">
+    <value>迅速な対応を実現する設計</value>
   </data>
   <data name="Designed for the container era. Includes pre-configured CI/CD pipelines for GitLab. Push code, pass strictly linting, auto-test, and deploy to Docker Swarm or Kubernetes automatically." xml:space="preserve">
     <value>コンテナ時代に最適化されています。GitLab用の事前設定済みCI/CDパイプラインを備えています。コードをプッシュし、厳密なLintチェックを通過させ、自動テストを行い、Docker SwarmまたはKubernetesに自動デプロイします。</value>
@@ -285,6 +342,9 @@
   <data name="Enforced quality gate" xml:space="preserve">
     <value>強制された品質ゲート</value>
   </data>
+  <data name="Enter Console" xml:space="preserve">
+    <value>コンソールに入る</value>
+  </data>
   <data name="Enterprise C#" xml:space="preserve">
     <value>Enterprise C#</value>
   </data>
@@ -297,8 +357,14 @@
   <data name="Enterprise Security" xml:space="preserve">
     <value>エンタープライズセキュリティ</value>
   </data>
+  <data name="Enterprise-grade incidents" xml:space="preserve">
+    <value>エンタープライズ品質のインシデント</value>
+  </data>
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Entity Framework Core 搭載</value>
+  </data>
+  <data name="Establish a response path suitable for your team using Webhooks, emails, and in-app notifications." xml:space="preserve">
+    <value>Webhook、メール、アプリ内通知を活用して、チームに適した対応フローを構築しましょう。</value>
   </data>
   <data name="FAQ" xml:space="preserve">
     <value>よくある質問</value>
@@ -350,6 +416,12 @@
   </data>
   <data name="Frequently asked questions" xml:space="preserve">
     <value>よくある質問</value>
+  </data>
+  <data name="From exception occurrence to team response, always clear and controllable." xml:space="preserve">
+    <value>例外の発生からチームの対応まで、常に状況を明確に把握し、適切に管理できます。</value>
+  </data>
+  <data name="From ingestion to delivery, all configurations are completed in the console, eliminating the need to switch between multiple systems." xml:space="preserve">
+    <value>取り込みから配信まで、すべての設定をコンソール上で完了できるため、複数のシステムを切り替える必要はありません。</value>
   </data>
   <data name="From the Architect" xml:space="preserve">
     <value>アーキテクトから</value>
@@ -408,6 +480,9 @@
   <data name="Hello World!" xml:space="preserve">
     <value>こんにちは、世界！</value>
   </data>
+  <data name="Help your team detect issues earlier and restore services faster." xml:space="preserve">
+    <value>チームが問題を早期に検知し、サービスをより迅速に復旧できるよう支援します。</value>
+  </data>
   <data name="Here are some of the answers you might be looking for." xml:space="preserve">
     <value>以下に、お探しの回答の一部をご紹介します。</value>
   </data>
@@ -438,6 +513,12 @@
   <data name="In-memory DB, temp FS, and HTTP simulation" xml:space="preserve">
     <value>インメモリDB、一時ファイルシステム、HTTPシミュレーション</value>
   </data>
+  <data name="Incident overview" xml:space="preserve">
+    <value>インシデント概要</value>
+  </data>
+  <data name="Incident synchronously delivered to Webhook and in-app notification" xml:space="preserve">
+    <value>インシデントはWebhookとアプリ内通知に同時に配信されます</value>
+  </data>
   <data name="Included" xml:space="preserve">
     <value>含まれる</value>
   </data>
@@ -446,6 +527,12 @@
   </data>
   <data name="Includes Tutorials" xml:space="preserve">
     <value>チュートリアルを含む</value>
+  </data>
+  <data name="Info / Notification" xml:space="preserve">
+    <value>情報 / 通知</value>
+  </data>
+  <data name="Infrastructure · backup-2026-09-14" xml:space="preserve">
+    <value>インフラストラクチャ · backup-2026-09-14</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>統合ファイル管理</value>
@@ -465,6 +552,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Aiursoft Templateは無料で使用できますか？</value>
   </data>
+  <data name="Issue dedicated API Keys for services to isolate sources and precisely manage reporting permissions." xml:space="preserve">
+    <value>サービスごとに専用のAPIキーを発行して送信元を分離し、報告権限をきめ細かく管理できます。</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>java.time API 利用可能</value>
   </data>
@@ -480,8 +570,17 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>次世代のWebアプリケーションを構築している開発者の増加するコミュニティに参加しましょう。</value>
   </data>
+  <data name="Just now" xml:space="preserve">
+    <value>たった今</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>K8s / Swarm 対応済み</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>最新のインシデント</value>
+  </data>
+  <data name="Let every critical incident" xml:space="preserve">
+    <value>あらゆる重大なインシデントを</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Lintチェック</value>
@@ -489,11 +588,17 @@
   <data name="Maintain High Code Quality" xml:space="preserve">
     <value>高品質なコードを維持する</value>
   </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>連携アプリケーションを管理</value>
+  </data>
   <data name="Management Dashboard" xml:space="preserve">
     <value>管理ダッシュボード</value>
   </data>
   <data name="Markdown To HTML" xml:space="preserve">
     <value>MarkdownからHTMLへ</value>
+  </data>
+  <data name="Message Center · 8,420 pending" xml:space="preserve">
+    <value>メッセージセンター · 保留中 8,420 件</value>
   </data>
   <data name="MIT Licence" xml:space="preserve">
     <value>MITライセンス</value>
@@ -503,6 +608,9 @@
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>モデルはデータ注釈に基づいて、クライアントおよびサーバーの両方で検証されます。</value>
+  </data>
+  <data name="Multi-channel Push" xml:space="preserve">
+    <value>マルチチャネル通知</value>
   </data>
   <data name="Multi-timezone Handling" xml:space="preserve">
     <value>マルチタイムゾーン処理</value>
@@ -573,11 +681,20 @@
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="One Center, Closed-Loop Handling" xml:space="preserve">
+    <value>一元管理、クローズドループ対応</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>ワンクリックスタート</value>
   </data>
+  <data name="Open Push Center" xml:space="preserve">
+    <value>プッシュセンターを開く</value>
+  </data>
   <data name="Open Source" xml:space="preserve">
     <value>オープンソース</value>
+  </data>
+  <data name="Open source and self-hostable" xml:space="preserve">
+    <value>オープンソースでセルフホスト可能</value>
   </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect 連携</value>
@@ -585,14 +702,23 @@
   <data name="Optimized Docker &amp; K8s config" xml:space="preserve">
     <value>最適化された Docker &amp; K8s 設定</value>
   </data>
+  <data name="Order Service · trace-7e9a" xml:space="preserve">
+    <value>注文サービス · trace-7e9a</value>
+  </data>
   <data name="ORM &amp; Migrations" xml:space="preserve">
     <value>ORM とマイグレーション</value>
   </data>
   <data name="Out-of-the-box" xml:space="preserve">
     <value>すぐに使える</value>
   </data>
+  <data name="Payment service response timeout" xml:space="preserve">
+    <value>決済サービスの応答タイムアウト</value>
+  </data>
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>権限の検出と同期</value>
+  </data>
+  <data name="Persistent incident storage" xml:space="preserve">
+    <value>インシデントの永続保存</value>
   </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Pintまたは同等のものが必要</value>
@@ -609,8 +735,14 @@
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>開発/本番環境用の事前設定済みパイプライン</value>
   </data>
+  <data name="Private deployment" xml:space="preserve">
+    <value>プライベート環境へのデプロイ</value>
+  </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>品質ゲート</value>
+  </data>
+  <data name="Queue backlog approaching threshold" xml:space="preserve">
+    <value>キューの滞留がしきい値に近づいています</value>
   </data>
   <data name="Quick setup with H2 database" xml:space="preserve">
     <value>H2データベースでクイックセットアップ</value>
@@ -618,11 +750,23 @@
   <data name="Quick setup with NuGet packages" xml:space="preserve">
     <value>NuGet パッケージでクイックセットアップ</value>
   </data>
+  <data name="Quickly locate by severity level" xml:space="preserve">
+    <value>重大度別にすばやく確認</value>
+  </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC認可</value>
   </data>
+  <data name="Reach the right person promptly." xml:space="preserve">
+    <value>適切な担当者に速やかに届けます。</value>
+  </data>
   <data name="Read the document" xml:space="preserve">
     <value>ドキュメントを読む</value>
+  </data>
+  <data name="Record title, severity, occurrence time, and context; duplicate reports are handled idempotently." xml:space="preserve">
+    <value>タイトル、重大度、発生時刻、コンテキストを記録し、重複した報告は冪等に処理されます。</value>
+  </data>
+  <data name="Reliable delivery" xml:space="preserve">
+    <value>確実な通知配信</value>
   </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Laravel Socialite の設定が必要です</value>
@@ -638,6 +782,9 @@
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>堅牢な統合テスト</value>
+  </data>
+  <data name="Route by severity level" xml:space="preserve">
+    <value>重大度に応じたルーティング</value>
   </data>
   <data name="Runs without any internet connection required." xml:space="preserve">
     <value>インターネット接続は必要ありません。</value>
@@ -675,6 +822,12 @@
   <data name="Start a new project" xml:space="preserve">
     <value>新規プロジェクトを開始</value>
   </data>
+  <data name="Start Integration" xml:space="preserve">
+    <value>連携を開始</value>
+  </data>
+  <data name="Start now" xml:space="preserve">
+    <value>今すぐ開始</value>
+  </data>
   <data name="Start Shipping Value." xml:space="preserve">
     <value>価値を迅速に提供し始めましょう。</value>
   </data>
@@ -707,6 +860,12 @@
   </data>
   <data name="Supports JetBrains Rider for easy code style fixes." xml:space="preserve">
     <value>JetBrains Rider のサポートにより、コードスタイルの修正が簡単に行えます。</value>
+  </data>
+  <data name="Synced" xml:space="preserve">
+    <value>同期済み</value>
+  </data>
+  <data name="System normal" xml:space="preserve">
+    <value>システムは正常です</value>
   </data>
   <data name="Task Runner" xml:space="preserve">
     <value>タスクランナー</value>
@@ -744,11 +903,17 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>これはテンプレートプロジェクトであり、ここからボイジャーの旅が始まります...</value>
   </data>
+  <data name="Tiered Routing" xml:space="preserve">
+    <value>段階的なルーティング</value>
+  </data>
   <data name="Timezone-aware fields" xml:space="preserve">
     <value>タイムゾーン対応フィールド</value>
   </data>
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>TimeZoneInfo API 利用可能</value>
+  </data>
+  <data name="Track the success, pending, or failure status of every channel." xml:space="preserve">
+    <value>各チャネルの成功・保留・失敗のステータスを追跡できます。</value>
   </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>AnduinOS、StatHub、Warpを含むプロダクショングレードのアプリケーションに信頼されています。このコードを単に共有するだけでなく、私たちのビジネス全体をこのコードで運用しています。</value>
@@ -759,14 +924,26 @@
   <data name="Unified Identity" xml:space="preserve">
     <value>統合ID</value>
   </data>
+  <data name="Unified intake" xml:space="preserve">
+    <value>一元化された受付</value>
+  </data>
   <data name="Usage" xml:space="preserve">
     <value>使用方法</value>
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>SaaSの基盤として、モバイルアプリのバックエンドとして、コーポレートサイトとして、個人ブログとしてお使いいただけます。可能性は無限大です。</value>
   </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>インシデントを表示</value>
+  </data>
+  <data name="View integration guide" xml:space="preserve">
+    <value>連携ガイドを見る</value>
+  </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>GitHubで表示</value>
+  </data>
+  <data name="Visual workflow" xml:space="preserve">
+    <value>ビジュアルワークフロー</value>
   </data>
   <data name="WebApplicationFactory available" xml:space="preserve">
     <value>WebApplicationFactory が利用可能</value>

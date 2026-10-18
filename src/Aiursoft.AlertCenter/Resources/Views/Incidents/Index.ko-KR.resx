@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" items" xml:space="preserve">
+    <value>항목</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>확인됨</value>
+  </data>
+  <data name="Acknowledged (Acked)" xml:space="preserve">
+    <value>확인됨(Acked)</value>
+  </data>
+  <data name="Adjust filter conditions or reset to view all records." xml:space="preserve">
+    <value>필터 조건을 조정하거나 초기화하여 전체 기록을 확인하세요.</value>
+  </data>
+  <data name="All applications" xml:space="preserve">
+    <value>모든 애플리케이션</value>
+  </data>
+  <data name="All incidents" xml:space="preserve">
+    <value>전체 사고</value>
+  </data>
+  <data name="All severities" xml:space="preserve">
+    <value>모든 심각도</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>모든 상태</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>모든 필터 지우기</value>
+  </data>
+  <data name="Each new incident automatically creates or associates an incident; confirm, record progress, and resolve issues here." xml:space="preserve">
+    <value>새로운 인시던트가 발생할 때마다 인시던트가 자동으로 생성되거나 기존 인시던트에 연결됩니다. 여기에서 내용을 확인하고 진행 상황을 기록하며 문제를 해결하세요.</value>
+  </data>
+  <data name="Each report creates an independent incident. Acknowledge and assign, mitigate, resolve, and track progress here." xml:space="preserve">
+    <value>각 신고는 별개의 사고로 등록됩니다. 여기에서 신고를 확인하고 담당자를 지정한 뒤, 피해를 완화하고 문제를 해결하며 진행 상황을 추적하세요.</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>열기</value>
+  </data>
+  <data name="Enter Response War Room" xml:space="preserve">
+    <value>대응 상황실 입장</value>
+  </data>
+  <data name="Incident" xml:space="preserve">
+    <value>인시던트</value>
+  </data>
+  <data name="Incident Handling Center" xml:space="preserve">
+    <value>사고 대응 센터</value>
+  </data>
+  <data name="Incident log list" xml:space="preserve">
+    <value>인시던트 로그 목록</value>
+  </data>
+  <data name="Incident pages" xml:space="preserve">
+    <value>인시던트 페이지</value>
+  </data>
+  <data name="Incident severity" xml:space="preserve">
+    <value>인시던트 심각도</value>
+  </data>
+  <data name="Incident status" xml:space="preserve">
+    <value>인시던트 상태</value>
+  </data>
+  <data name="Incidents and emergency response" xml:space="preserve">
+    <value>사고 및 비상 대응</value>
+  </data>
+  <data name="Keyword Search" xml:space="preserve">
+    <value>키워드 검색</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>완화됨</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>완화됨 (Mitigated)</value>
+  </data>
+  <data name="Next page" xml:space="preserve">
+    <value>다음 페이지</value>
+  </data>
+  <data name="No incident records yet" xml:space="preserve">
+    <value>아직 인시던트 기록이 없습니다</value>
+  </data>
+  <data name="No matching incidents" xml:space="preserve">
+    <value>일치하는 사고가 없습니다</value>
+  </data>
+  <data name="ongoing incidents" xml:space="preserve">
+    <value>진행 중인 사고</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>담당자</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>응답 대기</value>
+  </data>
+  <data name="Pending Response (New)" xml:space="preserve">
+    <value>응답 대기(신규)</value>
+  </data>
+  <data name="Please correct the filter conditions." xml:space="preserve">
+    <value>필터 조건을 수정해 주세요.</value>
+  </data>
+  <data name="Previous page" xml:space="preserve">
+    <value>이전 페이지</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>필터 초기화</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>해결됨</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>해결됨 (해결됨)</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>검색</value>
+  </data>
+  <data name="Search incident titles, content, or applications..." xml:space="preserve">
+    <value>인시던트 제목, 내용 또는 애플리케이션 검색...</value>
+  </data>
+  <data name="Service operating normally · No ongoing incidents" xml:space="preserve">
+    <value>서비스가 정상적으로 운영 중입니다 · 진행 중인 인시던트가 없습니다</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 심각 (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 주요 (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · 오류 (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 경고 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 정보 (P4)</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>원본 애플리케이션</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="The selected application is inaccessible" xml:space="preserve">
+    <value>선택한 애플리케이션에 접근할 수 없습니다</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>총</value>
+  </data>
+  <data name="Trigger end date (UTC, inclusive)" xml:space="preserve">
+    <value>트리거 종료 날짜(UTC, 해당 날짜 포함)</value>
+  </data>
+  <data name="Trigger start date (UTC)" xml:space="preserve">
+    <value>트리거 시작일(UTC)</value>
+  </data>
+  <data name="Trigger time (UTC)" xml:space="preserve">
+    <value>트리거 시간(UTC)</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>미할당</value>
+  </data>
+
+</root>

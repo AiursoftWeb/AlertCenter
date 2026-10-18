@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": Additionally allows modifying push bindings, resetting keys, and handling incidents." xml:space="preserve">
+    <value>: 추가로 푸시 바인딩을 수정하고, 키를 재설정하며, 인시던트를 처리할 수 있습니다.</value>
+  </data>
+  <data name=": Allows browsing incident messages, related incidents, and delivery records for this application;" xml:space="preserve">
+    <value>: 이 애플리케이션의 인시던트 메시지, 관련 인시던트 및 전송 기록을 조회할 수 있습니다;</value>
+  </data>
+  <data name="Add authorization" xml:space="preserve">
+    <value>권한 추가</value>
+  </data>
+  <data name="Application Access Permissions" xml:space="preserve">
+    <value>애플리케이션 접근 권한</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>권한 부여 유형</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>연결된 앱으로 돌아가기</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Grant New Permissions" xml:space="preserve">
+    <value>새 권한 부여</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>관리 가능</value>
+  </data>
+  <data name="Manageable (Manage)" xml:space="preserve">
+    <value>관리 가능 (Manage)</value>
+  </data>
+  <data name="No additional access permissions have been granted to regular users or roles yet" xml:space="preserve">
+    <value>아직 일반 사용자나 역할에 추가 액세스 권한이 부여되지 않았습니다</value>
+  </data>
+  <data name="Only users with the application management permission can access this application." xml:space="preserve">
+    <value>애플리케이션 관리 권한이 있는 사용자만 이 애플리케이션에 액세스할 수 있습니다.</value>
+  </data>
+  <data name="Permission level" xml:space="preserve">
+    <value>권한 수준</value>
+  </data>
+  <data name="Permissions granted" xml:space="preserve">
+    <value>부여된 권한</value>
+  </data>
+  <data name="Precisely control view and management permissions for team members and roles." xml:space="preserve">
+    <value>팀원과 역할별로 조회 및 관리 권한을 세밀하게 제어하세요.</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>제거</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>권한 제거</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>역할 그룹</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>역할 그룹 · 그룹의 모든 구성원은 권한을 자동으로 상속합니다</value>
+  </data>
+  <data name="Role-based authorization automatically applies to all members of that role. If a user has both direct and role-based authorization, the system prioritizes the highest permission, which is &apos;Manageable&apos;." xml:space="preserve">
+    <value>역할 기반 권한은 해당 역할의 모든 구성원에게 자동으로 적용됩니다. 사용자에게 직접 권한과 역할 기반 권한이 모두 있는 경우, 시스템은 가장 높은 권한인 &apos;관리 가능&apos;을 우선 적용합니다.</value>
+  </data>
+  <data name="Save permission changes" xml:space="preserve">
+    <value>권한 변경 사항 저장</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>역할 선택</value>
+  </data>
+  <data name="Select role..." xml:space="preserve">
+    <value>역할 선택...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>사용자를 선택하세요...</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>개별 사용자 지정</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>사용자 지정</value>
+  </data>
+  <data name="Users with the application management permission have full management access to all applications." xml:space="preserve">
+    <value>애플리케이션 관리 권한이 있는 사용자는 모든 애플리케이션을 완전히 관리할 수 있습니다.</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>보기 전용</value>
+  </data>
+  <data name="View only (View)" xml:space="preserve">
+    <value>보기 전용(View)</value>
+  </data>
+
+</root>
