@@ -22,6 +22,56 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
+    public async Task SeverityChangesRequireTheirOwnScopeAndPreserveHistoryWithoutEmail()
+    {
+        var originalKey = await CreateApplication();
+        var app = Guid.Parse(originalKey.Split('.')[0]);
+        await using var originalServices = ReportingClient(originalKey);
+        var original = originalServices.GetRequiredService<AlertCenterApiClient>();
+        var receipt = await original.CreateIncidentAsync(new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(), Title = "Sustained warning", Level = "sev3", OccurredAtUtc = DateTimeOffset.UtcNow
+        });
+        var before = (await original.QueryIncidentsAsync(new QueryIncidentsRequest())).Items.Single();
+        var request = new ChangeIncidentSeverityRequest { Version = before.Version, Level = "sev2", Reason = "Yellow persisted for 100 minutes." };
+        var denied = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => original.ChangeIncidentSeverityAsync(receipt.IncidentId, request));
+        Assert.AreEqual(Code.Unauthorized, denied.Response.Code);
+        var scopedKey = await CreateApplicationKey(app, severity: true);
+        await using var services = ReportingClient(scopedKey);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var changed = await client.ChangeIncidentSeverityAsync(receipt.IncidentId, request);
+        Assert.AreEqual(Code.JobDone, changed.Code);
+        Assert.AreEqual("sev2", changed.Level);
+        Assert.AreNotEqual(before.Version, changed.Version);
+        Assert.AreEqual(Code.NoActionTaken, (await client.ChangeIncidentSeverityAsync(receipt.IncidentId, request)).Code);
+        var stale = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ChangeIncidentSeverityAsync(receipt.IncidentId,
+            new ChangeIncidentSeverityRequest { Version = before.Version, Level = "sev1", Reason = "Escalate" }));
+        Assert.AreEqual(Code.Conflict, stale.Response.Code);
+        await using var otherServices = ReportingClient(await CreateApplicationKey(Guid.Parse((await CreateApplication()).Split('.')[0]), severity: true));
+        var other = otherServices.GetRequiredService<AlertCenterApiClient>();
+        var foreign = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => other.ChangeIncidentSeverityAsync(receipt.IncidentId, request));
+        Assert.AreEqual(Code.NotFound, foreign.Response.Code);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var entry = await db.IncidentTimelineEntries.SingleAsync(item => item.Type == IncidentTimelineEntry.LevelChanged);
+            Assert.AreEqual("sev3", entry.PreviousLevel);
+            Assert.AreEqual("sev2", entry.NewLevel);
+            Assert.AreEqual(request.Reason, entry.Note);
+            Assert.AreEqual($"application:{app}", entry.ActorIdSnapshot);
+            Assert.IsNull(entry.ActorId);
+            Assert.AreEqual(Incident.New, entry.NewStatus);
+            Assert.AreEqual(0, await db.PushDeliveries.CountAsync(item => item.IncidentEventId == entry.Id));
+        }
+        await client.ResolveIncidentAsync(receipt.IncidentId, new ResolveIncidentRequest { Version = changed.Version, Reason = "Green" });
+        var resolved = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ChangeIncidentSeverityAsync(receipt.IncidentId,
+            new ChangeIncidentSeverityRequest { Version = changed.Version, Level = "sev1", Reason = "Late update" }));
+        Assert.AreEqual(Code.Conflict, resolved.Response.Code);
+        await Assert.ThrowsAsync<AiurBadApiInputException>(() => client.ChangeIncidentSeverityAsync(receipt.IncidentId,
+            new ChangeIncidentSeverityRequest { Version = changed.Version, Level = "sev5", Reason = "Invalid" }));
+    }
+
+    [TestMethod]
     [DataRow("", 400, false)]
     [DataRow("{broken", 400, false)]
     [DataRow("oversized", 413, false)]

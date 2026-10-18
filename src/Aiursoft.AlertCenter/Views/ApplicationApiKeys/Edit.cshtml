@@ -23,6 +23,7 @@
                 <p class="text-muted">@Localizer["Grant only the operations this integration needs. You can grant permissions that you hold for this application."]</p>
                 <div class="form-check"><input asp-for="CanQueryIncidents" class="form-check-input" /><label asp-for="CanQueryIncidents" class="form-check-label">@Localizer["Query incidents"]</label></div>
                 <div class="form-check"><input asp-for="CanCreateIncidents" class="form-check-input" /><label asp-for="CanCreateIncidents" class="form-check-label">@Localizer["Create incidents"]</label></div>
+                <div class="form-check"><input asp-for="CanChangeIncidentSeverity" class="form-check-input" /><label asp-for="CanChangeIncidentSeverity" class="form-check-label">@Localizer["Change incident severity"]</label></div>
                 <div class="form-check"><input asp-for="CanResolveIncidents" class="form-check-input" /><label asp-for="CanResolveIncidents" class="form-check-label">@Localizer["Resolve incidents"]</label></div>
             </fieldset>
             <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>

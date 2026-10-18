@@ -129,6 +129,33 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         });
     }
 
+    [HttpPost("{incidentId:guid}/severity")]
+    [RequestSizeLimit(65536)]
+    public async Task<IActionResult> ChangeSeverity(Guid incidentId, [FromBody] ChangeIncidentSeverityRequest request,
+        CancellationToken cancellationToken)
+    {
+        var key = await AuthenticateKeyAsync(cancellationToken);
+        if (key == null)
+            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
+        if (!key.CanChangeIncidentSeverity)
+            return this.Protocol(Code.Unauthorized, "The API key does not permit this operation.");
+        var applicationId = key.ApplicationId;
+
+        var result = await IncidentWorkflowService.ChangeSeverityForApplicationAsync(
+            db, applicationId, incidentId, request.Version, request.Reason, request.Level, cancellationToken);
+        if (result.StatusCode == 404) return this.Protocol(Code.NotFound, "The incident was not found.");
+        if (result.StatusCode == 409)
+            return this.Protocol(Code.Conflict, "The incident changed. Query it again before deciding whether to change its severity. Resolved incidents cannot change severity.");
+        var incident = result.Incident!;
+        return this.Protocol(new ChangeIncidentSeverityResponse
+        {
+            Code = result.StatusCode == 202 ? Code.NoActionTaken : Code.JobDone,
+            Message = result.StatusCode == 202 ? "The incident already has this severity." : "The incident severity was changed by its application.",
+            IncidentId = incident.Id, Version = incident.Version,
+            Level = incident.Level
+        });
+    }
+
     private async Task<ApplicationApiKey?> AuthenticateKeyAsync(CancellationToken cancellationToken)
     {
         if (!AuthenticationHeaderValue.TryParse(Request.Headers.Authorization, out var header) ||

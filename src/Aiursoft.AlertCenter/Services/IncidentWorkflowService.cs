@@ -51,6 +51,45 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         return new(200, incident);
     }
 
+    public static async Task<ApplicationIncidentResolutionResult> ChangeSeverityForApplicationAsync(
+        TemplateDbContext context, Guid applicationId, Guid incidentId, Guid version, string reason, string level,
+        CancellationToken cancellationToken)
+    {
+        var incident = await context.Incidents.Include(item => item.Owner)
+            .SingleOrDefaultAsync(item => item.Id == incidentId && item.ApplicationId == applicationId, cancellationToken);
+        if (incident == null) return new(404);
+        if (incident.Status == Incident.Resolved) return new(409);
+        if (incident.Level == level) return new(202, incident);
+        if (incident.Version != version) return new(409);
+
+        var now = DateTime.UtcNow;
+        now = now.AddTicks(-(now.Ticks % 10));
+        var ownerName = incident.Owner?.DisplayName ?? incident.OwnerDisplayName;
+        var entry = new IncidentTimelineEntry
+        {
+            Incident = incident, Type = IncidentTimelineEntry.LevelChanged,
+            ActorName = "Application", ActorIdSnapshot = $"application:{applicationId}",
+            Note = reason.Trim(), CreatedAtUtc = now,
+            PreviousStatus = incident.Status, NewStatus = incident.Status,
+            PreviousOwnerId = incident.OwnerId, NewOwnerId = incident.OwnerId,
+            PreviousOwnerName = ownerName, NewOwnerName = ownerName,
+            PreviousLevel = incident.Level, NewLevel = level
+        };
+        context.IncidentTimelineEntries.Add(entry);
+        incident.Level = level;
+        incident.Version = Guid.NewGuid();
+        try
+        {
+            await context.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            context.ChangeTracker.Clear();
+            return new(409);
+        }
+        return new(200, incident);
+    }
+
     private static void ApplyResolution(Incident incident, DateTime now)
     {
         incident.Status = Incident.Resolved;

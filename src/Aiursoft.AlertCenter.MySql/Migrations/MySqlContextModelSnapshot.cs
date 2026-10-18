@@ -31,6 +31,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<Guid>("ApplicationId")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("CanChangeIncidentSeverity")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool>("CanCreateIncidents")
                         .HasColumnType("tinyint(1)");
 
