@@ -25,7 +25,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         var now = DateTime.UtcNow;
         now = now.AddTicks(-(now.Ticks % 10));
         var ownerName = incident.Owner?.DisplayName ?? incident.OwnerDisplayName;
-        context.IncidentTimelineEntries.Add(new IncidentTimelineEntry
+        var entry = new IncidentTimelineEntry
         {
             Incident = incident, Type = IncidentTimelineEntry.Resolved,
             ActorName = "Application", ActorIdSnapshot = $"application:{applicationId}",
@@ -34,9 +34,11 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             PreviousOwnerId = incident.OwnerId, NewOwnerId = incident.OwnerId,
             PreviousOwnerName = ownerName, NewOwnerName = ownerName,
             PreviousLevel = incident.Level, NewLevel = incident.Level
-        });
+        };
+        context.IncidentTimelineEntries.Add(entry);
         ApplyResolution(incident, now);
         incident.Version = Guid.NewGuid();
+        await QueuedIncidentDispatcher.DispatchEmailEventAsync(context, entry, cancellationToken);
         try
         {
             await context.SaveChangesAsync(cancellationToken);
@@ -137,11 +139,12 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         entry.NewLevel = incident.Level;
         incident.Version = Guid.NewGuid();
         db.IncidentTimelineEntries.Add(entry);
+        var emailEvent = entry;
         if (resolveImmediately)
         {
             // Keep both timeline events ordered at MySQL's microsecond precision.
             var resolvedAt = now.AddTicks(10);
-            db.IncidentTimelineEntries.Add(new IncidentTimelineEntry
+            emailEvent = new IncidentTimelineEntry
             {
                 Incident = incident, Type = IncidentTimelineEntry.Resolved,
                 ActorId = entry.ActorId, ActorIdSnapshot = entry.ActorIdSnapshot, ActorName = entry.ActorName,
@@ -150,11 +153,11 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
                 PreviousOwnerId = entry.NewOwnerId, NewOwnerId = entry.NewOwnerId,
                 PreviousOwnerName = entry.NewOwnerName, NewOwnerName = entry.NewOwnerName,
                 PreviousLevel = incident.Level, NewLevel = incident.Level
-            });
+            };
+            db.IncidentTimelineEntries.Add(emailEvent);
             ApplyResolution(incident, resolvedAt);
         }
-        if (action == IncidentTimelineEntry.Reopened)
-            await OnCallEmailQueue.CreateReopenAsync(db, entry, cancellationToken, localizer: localizerFactory.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
+        await QueuedIncidentDispatcher.DispatchEmailEventAsync(db, emailEvent, cancellationToken, localizerFactory);
         try
         {
             await db.SaveChangesAsync(cancellationToken);

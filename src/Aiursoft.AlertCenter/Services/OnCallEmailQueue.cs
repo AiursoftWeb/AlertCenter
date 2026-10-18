@@ -12,7 +12,7 @@ public static class OnCallEmailQueue
             DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc), cancellationToken, localizer: localizer, localizerFactory: localizerFactory);
     }
 
-    public static Task CreateReopenAsync(TemplateDbContext db, IncidentTimelineEntry entry, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null) =>
+    public static Task CreateEventAsync(TemplateDbContext db, IncidentTimelineEntry entry, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null) =>
         CreateAsync(db, entry.Incident.ApplicationId, new PushDelivery { IncidentEvent = entry, IncidentEventId = entry.Id },
             entry.CreatedAtUtc, cancellationToken, localizer: localizer, localizerFactory: localizerFactory);
 

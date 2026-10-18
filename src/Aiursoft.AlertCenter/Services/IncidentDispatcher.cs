@@ -24,13 +24,7 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
     public async Task DispatchAsync(Incident incident, CancellationToken cancellationToken = default)
     {
         await OnCallEmailQueue.CreateAsync(db, incident, cancellationToken, localizer: localizerFactory.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
-        var channels = await db.ApplicationPushChannels.AsNoTracking()
-            .Where(link => link.ApplicationId == incident.ApplicationId && link.Channel.IsEnabled &&
-                ((incident.Level == "sev0" && link.ReceiveSev0) ||
-                 (incident.Level == "sev1" && link.ReceiveSev1) ||
-                 (incident.Level == "sev2" && link.ReceiveSev2) ||
-                 (incident.Level == "sev3" && link.ReceiveSev3) ||
-                 (incident.Level == "sev4" && link.ReceiveSev4)))
+        var channels = await MatchingChannels(db, incident)
             .Select(link => new { link.ChannelId, link.Channel.Type }).ToListAsync(cancellationToken);
         // Commit the incident, pending deliveries and recipient snapshots together.
         foreach (var channel in channels)
@@ -44,4 +38,35 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
             await InAppRecipientSnapshot.CreateAsync(db, delivery, cancellationToken);
         }
     }
+
+    public static async Task DispatchEmailEventAsync(TemplateDbContext db, IncidentTimelineEntry entry,
+        CancellationToken cancellationToken, IStringLocalizerFactory? localizerFactory = null)
+    {
+        if (entry.Type is not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved)) return;
+        // Timeline history survives channel deletion. Each lifecycle stage is notified only once,
+        // including after reopening; optimistic incident concurrency commits state and queue together.
+        if (await db.IncidentTimelineEntries.AsNoTracking().AnyAsync(previous =>
+                previous.IncidentId == entry.Incident.Id && previous.Type == entry.Type, cancellationToken)) return;
+        await OnCallEmailQueue.CreateEventAsync(db, entry, cancellationToken,
+            localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
+        var incident = entry.Incident;
+        var channels = await MatchingChannels(db, incident).Where(link => link.Channel.Type == "email")
+            .Select(link => link.ChannelId).ToListAsync(cancellationToken);
+        foreach (var channelId in channels)
+            db.PushDeliveries.Add(new PushDelivery
+            {
+                ChannelId = channelId, IncidentEvent = entry, IncidentEventId = entry.Id,
+                CreatedAtUtc = entry.CreatedAtUtc
+            });
+    }
+
+    private static IQueryable<ApplicationPushChannel> MatchingChannels(TemplateDbContext db, Incident incident) =>
+        db.ApplicationPushChannels.AsNoTracking()
+            .Where(link => link.ApplicationId == incident.ApplicationId && link.Channel.IsEnabled &&
+                ((incident.Level == "sev0" && link.ReceiveSev0) ||
+                 (incident.Level == "sev1" && link.ReceiveSev1) ||
+                 (incident.Level == "sev2" && link.ReceiveSev2) ||
+                 (incident.Level == "sev3" && link.ReceiveSev3) ||
+                 (incident.Level == "sev4" && link.ReceiveSev4)));
+
 }

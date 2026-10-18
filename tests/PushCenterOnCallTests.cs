@@ -72,6 +72,8 @@ public partial class PushCenterTests
         await _processor.ProcessAsync(delivery.Id, default);
         await _processor.ProcessAsync(delivery.Id, default);
         var sent = _email.Messages.Single();
+        Assert.Contains("#b42318", sent.HtmlBody!);
+        Assert.DoesNotContain("#175cd3", sent.HtmlBody!);
         CollectionAssert.AreEquivalent(new[] { "alice@example.com", "bob@example.com" }, sent.Recipients.ToArray());
         CollectionAssert.AreEqual(new[] { "team@example.com" }, sent.CcRecipients.ToArray());
         Assert.AreEqual(PushDelivery.Succeeded, (await BuiltInDelivery()).Status);
