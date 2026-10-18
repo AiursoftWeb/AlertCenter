@@ -91,10 +91,8 @@ public partial class IncidentPagesTests
         Assert.AreEqual(query ? 2 : -8, JObject.Parse(await queried.Content.ReadAsStringAsync()).Value<int>("Code"));
         using var created = await Report(limited, Guid.NewGuid());
         Assert.AreEqual(create ? 2 : -8, JObject.Parse(await created.Content.ReadAsStringAsync()).Value<int>("Code"));
-        using var close = new HttpRequestMessage(HttpMethod.Post, $"/api/v1/incidents/{id}/resolve")
-        {
-            Content = JsonContent.Create(new { Version = version, Reason = "Scope test" })
-        };
+        using var close = new HttpRequestMessage(HttpMethod.Post, $"/api/v1/incidents/{id}/resolve");
+        close.Content = JsonContent.Create(new { Version = version, Reason = "Scope test" });
         close.Headers.Authorization = new AuthenticationHeaderValue("Bearer", limited);
         using var closed = await Http.SendAsync(close);
         Assert.AreEqual(resolve ? 2 : -8, JObject.Parse(await closed.Content.ReadAsStringAsync()).Value<int>("Code"));
