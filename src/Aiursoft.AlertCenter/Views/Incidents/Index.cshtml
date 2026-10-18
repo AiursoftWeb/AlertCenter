@@ -106,11 +106,15 @@
                 <label for="incident-level" class="form-label small text-muted mb-1">@Localizer["Incident severity"]</label>
                 <select id="incident-level" name="level" class="form-select">
                     <option value="">@Localizer["All severities"]</option>
-                    <option value="sev0" selected="@(filter.Level == "sev0")">@Localizer["sev0 · Critical (P0)"]</option>
-                    <option value="sev1" selected="@(filter.Level == "sev1")">@Localizer["sev1 · Major (P1)"]</option>
-                    <option value="sev2" selected="@(filter.Level == "sev2")">@Localizer["sev2 · Error (P2)"]</option>
-                    <option value="sev3" selected="@(filter.Level == "sev3")">@Localizer["sev3 · Warning (P3)"]</option>
-                    <option value="sev4" selected="@(filter.Level == "sev4")">@Localizer["sev4 · Info (P4)"]</option>
+                    <option value="sev0" selected="@(filter.Level == "sev0")">= @Localizer["sev0 · Critical (P0)"]</option>
+                    <option value="sev1" selected="@(filter.Level == "sev1")">= @Localizer["sev1 · Major (P1)"]</option>
+                    <option value="lte-sev1" selected="@(filter.Level == "lte-sev1")">≤ @Localizer["sev1 · Major (P1)"]</option>
+                    <option value="sev2" selected="@(filter.Level == "sev2")">= @Localizer["sev2 · Error (P2)"]</option>
+                    <option value="lte-sev2" selected="@(filter.Level == "lte-sev2")">≤ @Localizer["sev2 · Error (P2)"]</option>
+                    <option value="sev3" selected="@(filter.Level == "sev3")">= @Localizer["sev3 · Warning (P3)"]</option>
+                    <option value="lte-sev3" selected="@(filter.Level == "lte-sev3")">≤ @Localizer["sev3 · Warning (P3)"]</option>
+                    <option value="sev4" selected="@(filter.Level == "sev4")">= @Localizer["sev4 · Info (P4)"]</option>
+                    <option value="lte-sev4" selected="@(filter.Level == "lte-sev4")">≤ @Localizer["sev4 · Info (P4)"]</option>
                 </select>
             </div>
             <div class="col-sm-6 col-xl-3">
