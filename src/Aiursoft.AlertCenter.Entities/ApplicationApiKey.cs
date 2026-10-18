@@ -13,6 +13,7 @@ public class ApplicationApiKey
     public bool CanQueryIncidents { get; set; }
     public bool CanCreateIncidents { get; set; }
     public bool CanResolveIncidents { get; set; }
+    public bool CanChangeIncidentSeverity { get; set; }
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
     public DateTime? LastUsedAtUtc { get; set; }
     public long TotalCalls { get; set; }

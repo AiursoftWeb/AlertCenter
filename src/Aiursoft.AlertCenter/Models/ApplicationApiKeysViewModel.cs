@@ -22,4 +22,5 @@ public class ApplicationApiKeyEditViewModel : UiStackLayoutViewModel
     public bool CanQueryIncidents { get; set; }
     public bool CanCreateIncidents { get; set; }
     public bool CanResolveIncidents { get; set; }
+    public bool CanChangeIncidentSeverity { get; set; }
 }

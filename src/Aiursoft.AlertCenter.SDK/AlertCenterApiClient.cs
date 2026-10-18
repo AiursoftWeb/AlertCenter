@@ -27,6 +27,15 @@ public sealed class AlertCenterApiClient(
             autoRetry: false, headers: await AuthorizationHeadersAsync());
     }
 
+    public async Task<ChangeIncidentSeverityResponse> ChangeIncidentSeverityAsync(Guid incidentId, ChangeIncidentSeverityRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        return await http.Post<ChangeIncidentSeverityResponse>(
+            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), $"/api/v1/incidents/{incidentId}/severity", new { }),
+            new AiurApiPayload(request), BodyFormat.HttpJsonBody,
+            autoRetry: false, headers: await AuthorizationHeadersAsync());
+    }
+
     private async Task<Dictionary<string, string>> AuthorizationHeadersAsync()
     {
         var key = await keyProvider.GetApiKeyAsync();

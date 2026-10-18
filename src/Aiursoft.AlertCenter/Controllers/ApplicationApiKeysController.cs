@@ -62,7 +62,7 @@ public class ApplicationApiKeysController(TemplateDbContext db, IApplicationAcce
         {
             ApplicationId = applicationId, Id = key.Id, Name = key.Name, IsEnabled = key.IsEnabled,
             CanQueryIncidents = key.CanQueryIncidents, CanCreateIncidents = key.CanCreateIncidents,
-            CanResolveIncidents = key.CanResolveIncidents
+            CanResolveIncidents = key.CanResolveIncidents, CanChangeIncidentSeverity = key.CanChangeIncidentSeverity
         });
     }
 
@@ -98,6 +98,7 @@ public class ApplicationApiKeysController(TemplateDbContext db, IApplicationAcce
     private async Task<bool> CanGrant(ApplicationApiKeyEditViewModel model, ApplicationApiKey? existing, CancellationToken cancellationToken) =>
         (!model.CanQueryIncidents || existing?.CanQueryIncidents == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.ViewIncidents, cancellationToken)) &&
         (!model.CanCreateIncidents || existing?.CanCreateIncidents == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.CreateIncidents, cancellationToken)) &&
+        (!model.CanChangeIncidentSeverity || existing?.CanChangeIncidentSeverity == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken)) &&
         (!model.CanResolveIncidents || existing?.CanResolveIncidents == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken));
 
     private static void Apply(ApplicationApiKeyEditViewModel model, ApplicationApiKey key)
@@ -107,5 +108,6 @@ public class ApplicationApiKeysController(TemplateDbContext db, IApplicationAcce
         key.CanQueryIncidents = model.CanQueryIncidents;
         key.CanCreateIncidents = model.CanCreateIncidents;
         key.CanResolveIncidents = model.CanResolveIncidents;
+        key.CanChangeIncidentSeverity = model.CanChangeIncidentSeverity;
     }
 }

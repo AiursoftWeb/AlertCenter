@@ -12,13 +12,13 @@ public partial class IncidentPagesTests
     private static readonly HttpClient AnonymousClient = new(
         new HttpClientHandler { AllowAutoRedirect = false, UseCookies = false });
 
-    private async Task<string> CreateApplicationKey(Guid applicationId, bool query = true, bool create = true, bool resolve = true)
+    private async Task<string> CreateApplicationKey(Guid applicationId, bool query = true, bool create = true, bool resolve = true, bool severity = false)
     {
         var url = $"/ApplicationApiKeys?applicationId={applicationId}";
         using var response = await PostForm("/ApplicationApiKeys/Create", new()
         {
             ["ApplicationId"] = applicationId.ToString(), ["Name"] = "Integration key", ["IsEnabled"] = "true",
-            ["CanQueryIncidents"] = query.ToString(), ["CanCreateIncidents"] = create.ToString(), ["CanResolveIncidents"] = resolve.ToString()
+            ["CanQueryIncidents"] = query.ToString(), ["CanCreateIncidents"] = create.ToString(), ["CanResolveIncidents"] = resolve.ToString(), ["CanChangeIncidentSeverity"] = severity.ToString()
         }, $"/ApplicationApiKeys/Create?applicationId={applicationId}");
         AssertRedirect(response, url);
         var html = await Http.GetStringAsync(response.Headers.Location);
