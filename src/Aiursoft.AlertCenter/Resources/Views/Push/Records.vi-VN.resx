@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Thao tác</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>Tất cả kênh</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>Tất cả trạng thái</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Số lần thử</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>Email trực tổng đài tích hợp sẵn</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Email trực ca tích hợp sẵn · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Thông báo kiểm tra kênh</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Xóa tất cả bộ lọc</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>Theo dõi toàn diện trạng thái gửi bất đồng bộ và các lần thử lại khi xảy ra lỗi đối với Webhook, email và thông báo trong ứng dụng</value>
+  </data>
+  <data name="Creation Time (UTC)" xml:space="preserve">
+    <value>Thời gian tạo (UTC)</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>Hiện đang hiển thị trang</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>Đang gửi</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>Đang gửi (Sending)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Gửi thất bại</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>Gửi thất bại (Thất bại)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>Trạng thái gửi hàng</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>Gửi thành công</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>Gửi thành công (Đã gửi)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>Đi đến</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>Đi đến Trung tâm thông báo đẩy để cấu hình các kênh</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>Sự cố / tin nhắn kiểm tra</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Sự cố được mở lại: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>Đi đến</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>Chuyển đến số trang</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Kiểm thử thủ công</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Trang tiếp theo</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>Không tìm thấy bản ghi gửi nào phù hợp với bộ lọc hiện tại. Vui lòng điều chỉnh tiêu chí lọc.</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>Không có bản ghi gửi thông báo đẩy</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>Bản ghi trang</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>Đang chờ gửi</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>Đang chờ gửi (Đang chờ)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Trang trước</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>Bản ghi gửi thông báo</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>Phân trang bản ghi đẩy</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>Làm mới danh sách</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>Đặt lại bộ lọc</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Kênh đích</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Kiểm tra</value>
+  </data>
+  <data name="UTC Real-Time Trace" xml:space="preserve">
+    <value>Theo dõi theo thời gian thực (UTC)</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>Xem chi tiết lần gửi</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>Khi hệ thống gửi thông báo sự cố hoặc thực hiện kiểm tra kênh thủ công, toàn bộ nhật ký gửi và trạng thái đều được ghi lại tại đây.</value>
+  </data>
+
+</root>

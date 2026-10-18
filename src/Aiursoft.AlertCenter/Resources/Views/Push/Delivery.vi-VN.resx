@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>Tác vụ không đồng bộ đã được đưa vào hàng đợi. Vui lòng làm mới trạng thái sau.</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Số lần thử</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>Quay lại danh sách bản ghi thông báo đẩy</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Email trực ca tích hợp sẵn · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>Hệ thống tích hợp sẵn · Không thể tắt riêng lẻ</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>Trạng thái bật kênh</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>Kiểm tra kênh</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Thông báo kiểm tra kênh</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>Hoàn tất ngay lập tức</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>Hoàn tất lúc</value>
+  </data>
+  <data name="Completion Time (UTC)" xml:space="preserve">
+    <value>Thời gian hoàn tất (UTC)</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>Sao chép toàn bộ mã ID gửi</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>Sao chép ID đầy đủ</value>
+  </data>
+  <data name="Creation Time (UTC)" xml:space="preserve">
+    <value>Thời gian tạo (UTC)</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Gửi thành công</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>Nội dung gửi đi</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>Chi tiết giao hàng</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Chi tiết gửi - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Gửi không thành công</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Gửi không thành công vĩnh viễn</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>Mã giao hàng</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>Mã giao hàng:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>Đã tạo tác vụ gửi</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Đã tắt</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>Số lần gửi</value>
+  </data>
+  <data name="Dispatch timeline (UTC)" xml:space="preserve">
+    <value>Dòng thời gian gửi (UTC)</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>Đang gửi các thông báo ở chế độ nền</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Thời lượng</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Đã bật</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>Đưa vào hàng đợi gửi</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Sự cố đã được mở lại: {0}</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Chưa hoàn tất</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>Bắt đầu yêu cầu gửi đi</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>Ảnh chụp danh sách người nhận không hợp lệ. Không thể gửi lại các sự cố cũ.</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Kiểm thử thủ công</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>Tin nhắn kiểm tra thủ công</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>Không có nội dung</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Không có</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Các lần gửi lại email trực ca luôn sử dụng ảnh chụp nhanh OCE và CC tại thời điểm đưa thư vào hàng đợi, không chuyển hướng đến nhân sự trực ca hiện tại. Không thể gửi lại nếu không có ảnh chụp nhanh hợp lệ.</value>
+  </data>
+  <data name="Pending dispatch" xml:space="preserve">
+    <value>Đang chờ gửi</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>Vui lòng bật kênh đích trước.</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>Gửi lại</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>Gửi lại sẽ sử dụng cấu hình kênh mới nhất.</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>Làm mới trạng thái</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>Đang xử lý...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>Ca trực:</value>
+  </data>
+  <data name="Snapshot time (" xml:space="preserve">
+    <value>Thời điểm chụp nhanh (</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>Ứng dụng tích hợp nguồn</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Kênh đích</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>Đối tượng nhận có thể đã nhận được thông báo khi xảy ra hết thời gian chờ hoặc gián đoạn. Vui lòng xác minh trước khi thử lại.</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>Siêu dữ liệu tác vụ</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Đây là tin nhắn thử nghiệm dành cho kênh thông báo đẩy.</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>lần</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>Tổng số lần thử:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>Xem thông báo trong ứng dụng</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>Xem hoặc chỉnh sửa cấu hình kênh</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>Xem sự cố ban đầu</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>Xem sự cố đã được mở lại</value>
+  </data>
+
+</root>

@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>lượt gửi</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>thông báo chưa đọc trên trang</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Hỗ trợ &quot;Fire-and-forget&quot; cho các tác vụ dài hạn (như email hoặc AI), đi kèm giao diện người dùng (GUI) để quản lý hàng đợi, xử lý song song và hủy bỏ.</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
@@ -36,17 +42,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Một nền tảng hiện đại, đầy đủ tính năng và có khả năng mở rộng cao cho ứng dụng web tiếp theo của bạn.</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Đã xác nhận</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Bản dịch hỗ trợ bởi AI</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>Trung tâm Cảnh báo và Vận hành AlertCenter · Trạng thái toàn cầu &amp; Theo dõi khép kín</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Tất cả các dependency đều được tự động đăng ký và luôn sẵn sàng để sử dụng thông qua constructor injection.</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>Tất cả bản ghi</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Ứng dụng</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Chế độ Tối Tự động</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Tiêm phụ thuộc tự động</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Gửi tin nhắn tự động và khắc phục sự cố</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Xử lý múi giờ tự động</value>
@@ -57,8 +81,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Dịch tự động, được hỗ trợ bởi AI sang 28 ngôn ngữ.</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>kênh khả dụng ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Xử lý công việc nền</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>Gửi hàng loạt đến các nhóm trực và địa chỉ email quan trọng</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Quản lý Người dùng Tích hợp sẵn</value>
@@ -72,11 +102,41 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>Tài liệu Toàn diện</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Cấu hình kênh thông báo đẩy</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Xác thực tính nhất quán</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Sao chép</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Tạo ứng dụng và lấy khóa</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>Tạo sự cố đầu tiên thông qua API hoặc SDK. Sự cố sẽ xuất hiện tại đây.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Nghiêm trọng</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>Nghiêm trọng ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>Xác thực bằng khóa API riêng</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>Lịch sử gửi</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>Tài liệu tích hợp chi tiết</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Phát triển riêng biệt bằng múi giờ UTC, trong khi hệ thống tự động chuyển đổi và hiển thị ngày tháng theo múi giờ địa phương của người dùng.</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>Kết nối trực tiếp với các bên chịu trách nhiệm và nhóm người dùng để phối hợp xử lý</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Đã được Docker hóa để Triển khai</value>
@@ -96,6 +156,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>Viết thử nghiệm tích hợp một cách dễ dàng bằng cách sử dụng cơ sở dữ liệu trong bộ nhớ, hệ thống tệp tạm thời, mô phỏng tích hợp sẵn và mô phỏng yêu cầu HTTP thực tế.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>Tích hợp hệ thống quản lý tập tin tích hợp sẵn với nén ảnh đại diện tự động và bảo vệ quyền riêng tư.</value>
   </data>
@@ -108,14 +174,59 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Xin chào Thế giới!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>Hộp thư thông báo trong ứng dụng</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>Ứng phó sự cố</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Tiêu đề sự cố</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>Kích hoạt sự cố và phối hợp xử lý</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Bao gồm tài liệu phong phú và các ví dụ thực tế để giúp bạn bắt đầu nhanh chóng.</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>Thông tin</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Quản lý Tập tin Tích hợp</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Hướng dẫn tích hợp</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>Cấp thông tin xác thực riêng trong “Ứng dụng tích hợp”.</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Sự cố mới nhất</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>Sự cố liên kết</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>Kênh thông báo đẩy được liên kết</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Nghiêm trọng</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>Nghiêm trọng ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>Quản lý ứng dụng</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Đã giảm thiểu</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Các mô hình được xác thực ở cả phía client và phía server dựa trên các chú thích dữ liệu.</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>Bảng điều khiển giám sát</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>Hỗ trợ nhiều nhà cung cấp cơ sở dữ liệu</value>
@@ -123,8 +234,38 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Hỗ trợ Đa Cơ sở Dữ liệu</value>
   </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>Chưa có sự cố nào</value>
+  </data>
+  <data name="No unresolved incidents currently" xml:space="preserve">
+    <value>Hiện không có sự cố nào chưa được xử lý</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>Trung tâm gửi thông báo</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>Sự cố đang diễn ra</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>Sự cố đang diễn ra cần được xử lý</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Tích hợp OpenID Connect</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>Hoàn tất xử lý sự cố vận hành</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>Chờ phản hồi</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>Tỷ lệ gửi thông báo thành công</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>Ví dụ báo cáo nhanh</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>Tích hợp nhanh</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Ủy quyền RBAC</value>
@@ -132,17 +273,38 @@
   <data name="Read the document" xml:space="preserve">
     <value>Đọc tài liệu</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>Sự cố mới được tạo gần đây</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>Chi tiết sự cố, lịch sử xử lý và trạng thái giải quyết.</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>Cần xử lý ngay lập tức</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Đã giải quyết</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Thiết kế đáp ứng</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Kiểm thử tích hợp mạnh mẽ</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>Định tuyến theo mức độ nghiêm trọng từ Sev0 đến Sev4 trong phần cài đặt thông báo đẩy của ứng dụng.</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Quản lý tác vụ định kỳ</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Tích hợp liền mạch với mọi nhà cung cấp OpenID Connect, kèm theo đồng bộ hóa vai trò tự động.</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Mức độ nghiêm trọng</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>Lọc theo mức độ nghiêm trọng:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Ghi đè cấu hình thông minh</value>
@@ -153,17 +315,53 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Chế độ tối thông minh tự động điều chỉnh theo cài đặt hệ thống của người dùng.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Kênh email SMTP</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Nguồn</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Ứng dụng nguồn</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>Bắt đầu một dự án mới</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>Hỗ trợ .NET SDK / Go / Webhook</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>Hỗ trợ cả biến môi trường và cài đặt dựa trên cơ sở dữ liệu, với ưu tiên tự động dành cho biến môi trường để ghi đè một cách liền mạch.</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>Hỗ trợ tiêu đề yêu cầu tùy chỉnh và mẫu JSON</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>Trung tâm gửi thông báo theo phương thức bất đồng bộ, hỗ trợ theo dõi bản ghi và thử gửi lại.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Thanh điều hướng sẽ tự động điều chỉnh dựa trên vai trò và quyền của người dùng.</value>
   </data>
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Đây là một dự án mẫu, nơi chúng ta bắt đầu hành trình khám phá...</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Thời gian</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>Tổng số sự cố</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>Sử dụng xác thực Bearer để gửi báo cáo sự cố thử nghiệm:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Xem tất cả sự cố</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>Cảnh báo</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Lên lịch Webhook tự động</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Chào mừng</value>

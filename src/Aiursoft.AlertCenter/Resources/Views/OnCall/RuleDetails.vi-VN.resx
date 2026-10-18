@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-assign" xml:space="preserve">
+    <value>Tự động phân công</value>
+  </data>
+  <data name="Back to Rule List" xml:space="preserve">
+    <value>Quay lại danh sách quy tắc</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Phân bổ các ca sớm, giữa và muộn đồng đều nhất có thể</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="Close, prioritize fixed time slots" xml:space="preserve">
+    <value>Gần nhau, ưu tiên các khung giờ cố định</value>
+  </data>
+  <data name="Edit rule" xml:space="preserve">
+    <value>Chỉnh sửa quy tắc</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>giờ</value>
+  </data>
+  <data name="hours · Min rest " xml:space="preserve">
+    <value>giờ · Thời gian nghỉ tối thiểu</value>
+  </data>
+  <data name="Minimum per shift " xml:space="preserve">
+    <value>Tối thiểu mỗi ca</value>
+  </data>
+  <data name="Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team." xml:space="preserve">
+    <value>Việc chỉnh sửa mẫu sẽ không tạo lại các ca trực đã lưu cho nhóm. Thành viên và thời điểm bắt đầu lịch được từng nhóm quản lý riêng.</value>
+  </data>
+  <data name="No teams are bound to this template." xml:space="preserve">
+    <value>Không có nhóm nào được liên kết với mẫu này.</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>người</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>người · Mục tiêu</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>Mỗi ca</value>
+  </data>
+  <data name="Reusable shift rule template · " xml:space="preserve">
+    <value>Mẫu quy tắc ca trực có thể tái sử dụng ·</value>
+  </data>
+  <data name="Rule configuration" xml:space="preserve">
+    <value>Cấu hình quy tắc</value>
+  </data>
+  <data name="teams using" xml:space="preserve">
+    <value>nhóm đang sử dụng</value>
+  </data>
+  <data name="Teams using this template" xml:space="preserve">
+    <value>Các nhóm đang sử dụng mẫu này</value>
+  </data>
+  <data name="Time slot rotation: " xml:space="preserve">
+    <value>Luân phiên khung giờ:</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>Xem lịch trực</value>
+  </data>
+
+</root>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>, สามารถใช้ที่ฝั่งรับร่วมกับ</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: รองรับการกำหนดผู้ใช้หลายคนและกลุ่มผู้ใช้ (บทบาท) พร้อมกัน ระบบจะลบรายการซ้ำโดยอัตโนมัติ เพื่อให้สมาชิกแต่ละคนได้รับการแจ้งเตือนที่ยังไม่ได้อ่านเพียงรายการเดียว</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: ระบบจะใช้การตั้งค่าบริการอีเมลส่วนกลางร่วมกัน โปรดใช้</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. เลือกประเภทช่องทาง</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>เพิ่ม</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>เพิ่มที่อยู่อีเมล CC</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>เพิ่มที่อยู่อีเมล</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>เพิ่มผู้ใช้อย่างน้อยหนึ่งคนหรือกลุ่มผู้ใช้ หากกลุ่มไม่มีสมาชิก ระบบจะไม่ส่งการแจ้งเตือน</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>เพิ่มช่องทางพุช</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>เพิ่มผู้รับและกลุ่มผู้ใช้</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>คำขอแบบกำหนดเองขั้นสูง (ส่วนหัวและเทมเพลตที่กำหนดเอง)</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>และ</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>การอนุญาตให้ผูกแอปพลิเคชัน</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>ยังไม่มีการกำหนดสิทธิ์การผูกแอปพลิเคชัน</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>นอกเหนือจากผู้ดูแลช่องทางพุชแล้ว ขณะนี้ยังไม่มีผู้ใช้รายใดที่สามารถผูกช่องทางนี้ได้</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>ประเภทการอนุญาต</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>กลับไปยังรายการช่องทาง</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>ป้อนอีเมล CC หลายรายการ</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>ไม่สามารถเขียนทับได้</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>รายชื่อผู้รับสำเนา (CC)</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>ชื่อช่องทาง</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>คลิกปุ่มทางขวาเพื่อลบ</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>คลิกเพื่อแทรกตัวแทน:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>รายละเอียดการกำหนดค่า</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>คำอธิบายรูปแบบคำขอเริ่มต้น</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>งานส่งแต่ละรายการมีรหัสเฉพาะที่กำหนดไว้ตายตัว</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>แก้ไขช่องทางการแจ้งเตือนแบบพุช</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>อีเมลจะถูกส่งไปยังที่อยู่อีเมลนี้โดยตรง</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>เปิดใช้งานช่องทางพุชนี้ทันที</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>ตัวแปรสภาพแวดล้อมใช้ระบุข้อมูลรับรองการยืนยันตัวตน</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>ตัวอย่าง: ทีมเวรฝ่ายผลิต บอตแจ้งเหตุ Feishu, Ops Webhook…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>ส่วนหัวคำขอเพิ่มเติม (ออบเจ็กต์ JSON)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>บริการอีเมล SMTP ส่วนกลาง</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>ชื่อ Header ต้องไม่เกิน 128 อักขระ และค่าต้องเป็นสตริงที่ถูกต้อง</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>การป้องกันการประมวลผลซ้ำ</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>หากเว้นว่างไว้ ระบบจะส่ง JSON มาตรฐานตามค่าเริ่มต้น ส่วนหัวที่กำหนดเองจะถูกเข้ารหัสและบันทึกไว้;</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>ขอบเขตการแจ้งเตือนในแอป</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>กำลังแก้ไขพารามิเตอร์การส่งของช่องทาง &quot;{0}&quot;.</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>ยังไม่มีผู้รับสำเนา (CC) เพิ่ม</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>ยังไม่มีการเพิ่มผู้รับ โปรดเลือกกลุ่มบทบาทหรือระบุผู้ใช้ด้านบน</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>ใส่ที่อยู่อีเมลหนึ่งรายการต่อบรรทัด รองรับการคั่นด้วยเครื่องหมายจุลภาคหรืออัฒภาคแบบอังกฤษได้เช่นกัน โดยเพิ่มผู้รับสำเนา (CC) ได้สูงสุด 50 ราย</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>เฉพาะผู้ใช้ต่อไปนี้หรือสมาชิกของกลุ่มผู้ใช้เท่านั้นที่สามารถดูและผูกช่องทางนี้ในแอปพลิเคชันที่ตนดูแลได้ สิทธิ์นี้ไม่ได้ให้สิทธิ์เข้าถึงผู้รับ Webhooks หรือการตั้งค่าการทดสอบ</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>แยกวิเคราะห์เป็นรายการ</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>ผู้รับสำเนาที่แยกวิเคราะห์แล้ว</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>ตัวแทนต้องเป็นค่าเดียวในสตริง JSON เท่านั้น</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>อีเมลผู้รับ</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>ประเภทผู้รับ</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>นำ {0} ออก</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>ลบสิทธิ์</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>เทมเพลตเนื้อหาคำขอ (เทมเพลต JSON)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>กลุ่มบทบาท</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>บันทึกการตั้งค่าช่องทาง</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>ค้นหาด้วยชื่อผู้ใช้หรือชื่อที่แสดง...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>ค้นหาผู้ใช้</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>เลือกประเภทช่องทางการแจ้งเตือน แล้วกำหนดที่อยู่ผู้รับหรือผู้รับเป้าหมาย</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>เลือกกลุ่มผู้ใช้</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>เลือกกลุ่มผู้ใช้...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>เลือกผู้ใช้...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>รายชื่อผู้รับที่เลือก</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>ระบุผู้ใช้รายบุคคล</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>ระบุผู้ใช้</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>ระบุผู้ใช้ (ผู้ใช้)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>ปลายทางต้องรองรับ HTTP POST JSON การตอบกลับรหัส 2xx จะถือว่าส่งข้อมูลสำเร็จ ระบบกำหนดเวลาหมดอายุของคำขอไว้ที่ 10 วินาที และจะไม่ติดตามการเปลี่ยนเส้นทางข้ามต้นทาง</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>รอเพิ่ม</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>ใช้สำหรับระบุระดับการแจ้งเตือนและบันทึกการส่งของแอปพลิเคชันได้อย่างรวดเร็ว</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>กลุ่มผู้ใช้</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>กลุ่มผู้ใช้ · สมาชิกจะได้รับสิทธิ์ที่ผูกไว้โดยอัตโนมัติ</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>กลุ่มผู้ใช้ (บทบาท)</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>URL สำหรับรับ Webhook</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>จะแยกวิเคราะห์และคงประเภทออบเจ็กต์ดั้งเดิมไว้</value>
+  </data>
+
+</root>

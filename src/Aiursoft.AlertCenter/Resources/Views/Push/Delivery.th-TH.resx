@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>งานแบบอะซิงโครนัสเข้าคิวแล้ว โปรดรีเฟรชสถานะอีกครั้งในภายหลัง</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>จำนวนครั้งที่พยายาม</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>กลับไปยังบันทึกการส่งข้อความพุช</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>อีเมลแจ้งเวรที่มีมาในระบบ · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>ระบบที่มีมาให้ · ไม่สามารถปิดใช้งานแยกได้</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>สถานะการเปิดใช้งานช่องทาง</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>ทดสอบช่องทาง</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>การแจ้งเตือนทดสอบช่องทาง</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>เสร็จสิ้นทันที</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>เสร็จเมื่อ</value>
+  </data>
+  <data name="Completion Time (UTC)" xml:space="preserve">
+    <value>เวลาที่ดำเนินการเสร็จสิ้น (UTC)</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>คัดลอกรหัสการจัดส่งฉบับเต็ม</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>คัดลอกรหัสเต็ม</value>
+  </data>
+  <data name="Creation Time (UTC)" xml:space="preserve">
+    <value>เวลาที่สร้าง (UTC)</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>ส่งสำเร็จเรียบร้อยแล้ว</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>เนื้อหาการจัดส่ง</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>รายละเอียดการจัดส่ง</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>รายละเอียดการจัดส่ง - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>การส่งไม่สำเร็จ</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>การส่งไม่สำเร็จอย่างถาวร</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>รหัสการส่ง</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>รหัสการนำส่ง:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>สร้างงานจัดส่งแล้ว</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>ปิดใช้งาน</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>จำนวนครั้งที่ส่ง</value>
+  </data>
+  <data name="Dispatch timeline (UTC)" xml:space="preserve">
+    <value>ไทม์ไลน์การจัดส่ง (UTC)</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>กำลังส่งการแจ้งเตือนอยู่เบื้องหลัง</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>ระยะเวลา</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>เปิดใช้งาน</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>เข้าสู่คิวการจัดส่ง</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>เปิดเหตุการณ์อีกครั้ง: {0}</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>ไม่สมบูรณ์</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>เริ่มส่งคำขอ</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>สแนปช็อตผู้รับไม่ถูกต้อง ไม่สามารถส่งเหตุการณ์เก่าซ้ำได้</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>ทดสอบด้วยตนเอง</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>ข้อความทดสอบด้วยตนเอง</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>ไม่มีเนื้อหาในข้อความ</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>การลองส่งอีเมลแจ้งเวรซ้ำจะใช้ข้อมูล OCE และ CC ที่บันทึกไว้ตอนเข้าคิวข้อความเสมอ และจะไม่เปลี่ยนไปส่งให้เจ้าหน้าที่เวรปัจจุบัน หากไม่มีข้อมูลที่บันทึกไว้ซึ่งถูกต้อง จะไม่สามารถลองส่งซ้ำได้</value>
+  </data>
+  <data name="Pending dispatch" xml:space="preserve">
+    <value>รอดำเนินการจัดส่ง</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>โปรดเปิดใช้งานช่องทางเป้าหมายก่อน</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>ส่งซ้ำ</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>การส่งซ้ำจะใช้การกำหนดค่าช่องทางล่าสุด</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>รีเฟรชสถานะ</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>กำลังดำเนินการ...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>เวร:</value>
+  </data>
+  <data name="Snapshot time (" xml:space="preserve">
+    <value>เวลาที่บันทึกภาพรวม (</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>แอปพลิเคชันต้นทางที่เชื่อมต่อ</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>ช่องทางเป้าหมาย</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>ระบบปลายทางอาจได้รับข้อความแล้วเมื่อเกิดการหมดเวลาหรือการหยุดชะงัก โปรดตรวจสอบก่อนลองอีกครั้ง</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>ข้อมูลเมตาของงาน</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>นี่คือข้อความทดสอบสำหรับช่องทางพุช</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>ครั้ง</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>จำนวนครั้งทั้งหมด:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>ดูการแจ้งเตือนในแอป</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>ดูหรือแก้ไขการตั้งค่าช่องทาง</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>ดูเหตุการณ์ต้นฉบับ</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>ดูเหตุการณ์ที่เปิดอีกครั้ง</value>
+  </data>
+
+</root>

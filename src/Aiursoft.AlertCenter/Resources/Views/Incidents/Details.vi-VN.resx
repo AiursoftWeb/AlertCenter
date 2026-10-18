@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledged" xml:space="preserve">
+    <value>Đã xác nhận</value>
+  </data>
+  <data name="Acknowledged (Acked)" xml:space="preserve">
+    <value>Đã xác nhận (Acked)</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Điều chỉnh mức độ nghiêm trọng của sự cố</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>Điều chỉnh mức độ nghiêm trọng</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
+    <value>Điều chỉnh mức độ nghiêm trọng của sự cố này và ghi lại lý do.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>Tự động tạo sự cố</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>Được tự động tạo lúc</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>Quay lại danh sách sự cố</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>Khôi phục theo quy trình khép kín</value>
+  </data>
+  <data name="Confirm and claim" xml:space="preserve">
+    <value>Xác nhận và tiếp nhận</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>Xác nhận và tiếp nhận sự cố</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>Xác nhận việc ứng phó sự cố</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>Xác nhận mở lại sự cố</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>Xác nhận giải quyết sự cố</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>Xác nhận điều chỉnh mức độ nghiêm trọng</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>Ghi chú xác nhận (không bắt buộc)</value>
+  </data>
+  <data name="Confirmation time (UTC)" xml:space="preserve">
+    <value>Thời gian xác nhận (UTC)</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Sao chép nội dung</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>Sao chép JSON</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>Nhân viên OCE trực hiện tại</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>Hiện đang trực</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>Mô tả các biện pháp giảm thiểu, phạm vi ảnh hưởng và tình trạng khôi phục.</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>Mô tả những thay đổi về tác động và cơ sở để điều chỉnh mức độ nghiêm trọng.</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>Mỗi báo cáo độc lập tạo ra một sự cố mới. Việc xác nhận, giảm thiểu hoặc giải quyết sự cố này không ảnh hưởng đến các sự cố khác hoặc thông báo của chúng.</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>Ví dụ: Đã khôi phục nhóm kết nối cơ sở dữ liệu lõi, phản hồi của dịch vụ bình thường, kiểm thử tải đạt yêu cầu.</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>Ví dụ: Hệ thống giám sát phát hiện lỗi tương tự xảy ra lần nữa, cần điều tra lại.</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>Đã khắc phục và đóng</value>
+  </data>
+  <data name="Full context" xml:space="preserve">
+    <value>Toàn bộ ngữ cảnh</value>
+  </data>
+  <data name="Full-cycle handling timeline" xml:space="preserve">
+    <value>Dòng thời gian xử lý toàn diện</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>các bước xử lý</value>
+  </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>Sự kiện sự cố</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Mã sự cố</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>Người phụ trách sự cố:</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Phòng ứng phó sự cố - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>Các sự cố độc lập</value>
+  </data>
+  <data name="Log investigation and handling progress" xml:space="preserve">
+    <value>Ghi lại tiến độ điều tra và xử lý</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Giảm nhẹ sự cố</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Đã giảm thiểu</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Đã giảm thiểu (Đã giảm thiểu)</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>Lý do giảm thiểu (bắt buộc)</value>
+  </data>
+  <data name="Mitigation time (UTC)" xml:space="preserve">
+    <value>Thời gian giảm thiểu sự cố (UTC)</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>Cấp độ mới</value>
+  </data>
+  <data name="No additional context was reported." xml:space="preserve">
+    <value>Không có thông tin bổ sung nào được báo cáo.</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>Hiện không có OCE nào đang trực.</value>
+  </data>
+  <data name="Not set" xml:space="preserve">
+    <value>Chưa đặt</value>
+  </data>
+  <data name="Occurred at (UTC)" xml:space="preserve">
+    <value>Thời điểm xảy ra (UTC)</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>Người phụ trách:</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>Chờ phản hồi</value>
+  </data>
+  <data name="Pending Response (New)" xml:space="preserve">
+    <value>Chờ phản hồi (Mới)</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Tiến triển</value>
+  </data>
+  <data name="Publish progress" xml:space="preserve">
+    <value>Đăng tiến độ</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>Truy vấn không thành công:</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>Lý do điều chỉnh (bắt buộc)</value>
+  </data>
+  <data name="Received at (UTC)" xml:space="preserve">
+    <value>Thời gian tiếp nhận (UTC)</value>
+  </data>
+  <data name="Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..." xml:space="preserve">
+    <value>Ghi lại theo thời gian thực các manh mối điều tra, biện pháp giảm thiểu khẩn cấp, đánh giá phạm vi ảnh hưởng hoặc tiến độ khôi phục hệ thống...</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE." xml:space="preserve">
+    <value>Ghi lại các biện pháp giảm thiểu, sau đó ghi lý do giải quyết. Khi mở lại sự cố này, trạng thái sẽ được chuyển về Chờ phản hồi, người được giao xử lý sẽ bị xóa và OCE đang trực sẽ nhận được email.</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>Ghi lại các biện pháp giảm thiểu đã thực hiện. Giải quyết sự cố này sau khi khắc phục xong.</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Mở lại sự cố</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>Ghi chú khi mở lại (không bắt buộc)</value>
+  </data>
+  <data name="Reopening restores the &quot;Pending Response&quot; status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed." xml:space="preserve">
+    <value>Mở lại sự cố sẽ đưa trạng thái về “Đang chờ phản hồi”, xóa người được phân công và gửi email cho OCE trực hiện tại. Sự cố cần được xác nhận và nhận xử lý lại.</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>Mã báo cáo</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>Thông tin báo cáo</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>Lý do giải quyết (bắt buộc)</value>
+  </data>
+  <data name="Resolution time (UTC)" xml:space="preserve">
+    <value>Thời gian xử lý (UTC)</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Giải quyết sự cố</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Đã giải quyết</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Đã xử lý (Đã xử lý)</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>Việc giải quyết sự cố này sẽ hoàn tất quy trình xử lý sự cố đó. Các sự cố khác được xử lý độc lập.</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>Mô tả cơ chế ứng phó</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Nghiêm trọng (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Nghiêm trọng (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Lỗi (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Cảnh báo (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Thông tin (P4)</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>Mức độ nghiêm trọng:</value>
+  </data>
+  <data name="Status: " xml:space="preserve">
+    <value>Trạng thái:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Hệ thống</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>Tiếp nhận sự cố</value>
+  </data>
+  <data name="Take Over Notes (Optional)" xml:space="preserve">
+    <value>Ghi chú tiếp quản (không bắt buộc)</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>Tổng số</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Chưa được phân công</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>Người dùng đã bị xóa</value>
+  </data>
+
+</root>

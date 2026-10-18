@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· 퇴사</value>
+  </data>
+  <data name=" · On call" xml:space="preserve">
+    <value>· 대기 중</value>
+  </data>
+  <data name=" · On duty" xml:space="preserve">
+    <value>· 근무 중</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · 선택한 교대 근무를 여기로 이동</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · 다른 팀 (읽기 전용) · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (읽기 전용)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>근무 {0}회 / {1:0.##}시간</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>{0}님의 온콜 근무</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##}시간 · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · 인접한 주(읽기 전용) · {3}</value>
+  </data>
+  <data name="36 hours after this week (read-only)" xml:space="preserve">
+    <value>이번 주 이후 36시간 (읽기 전용)</value>
+  </data>
+  <data name="36 hours before this week (read-only)" xml:space="preserve">
+    <value>이번 주 시작 36시간 전(읽기 전용)</value>
+  </data>
+  <data name="7-Day On-Call Gantt Chart" xml:space="preserve">
+    <value>7일 당직 간트 차트</value>
+  </data>
+  <data name="Departed" xml:space="preserve">
+    <value>퇴사함</value>
+  </data>
+  <data name="Drag to another engineer to swap the entire week, or click to select a target employee." xml:space="preserve">
+    <value>전체 주간 일정을 교환하려면 다른 엔지니어에게 끌어다 놓거나, 클릭하여 대상 직원을 선택하세요.</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>삭제된 직원</value>
+  </data>
+  <data name="Employee on-call timeline" xml:space="preserve">
+    <value>직원 온콜 일정</value>
+  </data>
+  <data name="End time" xml:space="preserve">
+    <value>종료 시간</value>
+  </data>
+  <data name="Expand next 36 hours" xml:space="preserve">
+    <value>향후 36시간 펼치기</value>
+  </data>
+  <data name="Expand previous 36 hours" xml:space="preserve">
+    <value>이전 36시간 펼치기</value>
+  </data>
+  <data name="From " xml:space="preserve">
+    <value>부터</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>시간 ·</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>할당된 근무가 없습니다.</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>지금</value>
+  </data>
+  <data name="On-call staff" xml:space="preserve">
+    <value>당직 직원</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>읽기 전용</value>
+  </data>
+  <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
+    <value>전체 일정을 보려면 가로로 스크롤하세요. 색상 블록에 마우스를 올리거나, 포커스를 맞추거나, 클릭하면 근무 세부 정보를 볼 수 있습니다. 빨간색 선은 페이지가 로드된 시점의 현재 시간을 나타냅니다. 직원 열 오른쪽과 타임라인 맨 오른쪽에 있는 세로 버튼을 누르면 주 시작 전과 종료 후의 36시간 구간이 펼쳐집니다. 이 구간은 기본적으로 접혀 있으며, DST 변경을 포함한 실제 UTC 시간 기준으로 36시간입니다. 펼친 영역에는 현재 주와 동일한 날짜 머리글, 6시간 간격 표시 및 그리드가 적용됩니다. 양쪽의 회색 근무는 보기 전용이며 수정할 수 없고 주간 통계에 포함되지 않습니다. 수정하려면 해당 주로 이동하세요. 현재 팀과 다른 팀의 근무는 같은 행에 표시됩니다. 관리자는 자신의 그룹에 속한 색상 근무를 수정할 수 있으며, 다른 팀의 회색 근무에는 참고용으로 팀과 시간만 표시됩니다. 빈 시간대는 &apos;근무 추가&apos; 모드에서 직접 일정을 등록할 수 있습니다.</value>
+  </data>
+  <data name="Shift / Total Duration" xml:space="preserve">
+    <value>근무 시간 / 총 시간</value>
+  </data>
+  <data name="Start Time" xml:space="preserve">
+    <value>시작 시간</value>
+  </data>
+  <data name="Swap full week" xml:space="preserve">
+    <value>한 주 전체 바꾸기</value>
+  </data>
+  <data name="Swap full-week shifts with {0}" xml:space="preserve">
+    <value>{0}과 한 주 전체 교대 근무를 맞바꾸세요</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="Until " xml:space="preserve">
+    <value>까지</value>
+  </data>
+
+</root>

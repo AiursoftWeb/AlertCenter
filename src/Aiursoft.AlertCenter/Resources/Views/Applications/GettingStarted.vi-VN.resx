@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: Khóa API chỉ được hiển thị một lần sau khi tạo hoặc đặt lại thành công. Vui lòng cấu hình khóa ngay trong các biến môi trường của môi trường production (ví dụ:</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>Lên lịch gửi đẩy được kích hoạt không đồng bộ.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Giữ lại bản ghi đầu tiên và không kích hoạt gửi thông báo trùng lặp.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Trung tâm có thể sử dụng trường này để ước tính độ trễ mạng khi gửi báo cáo và chuyển tiếp báo cáo.</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(Cực kỳ nghiêm trọng, mức độ ưu tiên cao nhất),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(Lỗi),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(Thông tin chung). Trung tâm định tuyến và gửi thông báo dựa trên cấp độ này.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(Lớn),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(Cảnh báo),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) hoặc Dịch vụ quản lý khóa (KMS). Nghiêm cấm ghi cứng khóa trong giao diện người dùng, nhật ký hoặc kho lưu trữ mã nguồn.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>Từ 1 đến 200 ký tự</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 Đã chấp nhận (Có tính lũy đẳng)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 Lỗi tham số</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 Xác thực thất bại</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>Thời điểm thực tế phát sinh sự việc kinh doanh, ví dụ:</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Thiếu thông tin xác thực Bearer, các khóa không khớp hoặc ứng dụng đã bị vô hiệu hóa. Vui lòng kiểm tra cài đặt ứng dụng.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>Cấu hình kênh Trung tâm Push</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>Sao chép mã</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>Tạo ứng dụng tích hợp và lấy khóa API</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>Hướng dẫn tích hợp dành cho nhà phát triển</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>Báo cáo trùng lặp có cùng ReportId,</value>
+  </data>
+  <data name="Each business system authenticates requests using its own API key." xml:space="preserve">
+    <value>Mỗi hệ thống nghiệp vụ xác thực các yêu cầu bằng khóa API riêng của mình.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>Đảm bảo tính lũy đẳng nghiêm ngặt khi xử lý đồng thời; sử dụng cùng một ID cho các lần thử lại.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>Mỗi mã báo cáo mới sẽ tạo ra một sự cố độc lập. Chỉ sử dụng lại cùng một mã báo cáo khi thử lại cùng một yêu cầu. Giới hạn tần suất gửi báo cáo ngay tại nguồn.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>Tên trường</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>Từ việc tạo ứng dụng và xác thực khóa đến báo cáo sự cố đầu tiên, hãy thiết lập kênh báo cáo sự cố ổn định cho hệ thống chỉ với 4 bước.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>Đi tới để tạo ứng dụng và lấy thông tin xác thực</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>Đặc tả các trường trong yêu cầu báo cáo HTTP</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>Mã trạng thái phản hồi HTTP và các thực tiễn kỹ thuật tốt nhất</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>Trong đoạn mã mẫu,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>Chi tiết nội dung sự cố. Hỗ trợ hướng dẫn khắc phục sự cố, dấu vết ngăn xếp ngoại lệ hoặc bản tóm tắt chẩn đoán. Lớp trình bày tự động mã hóa HTML để ngăn chặn tấn công XSS.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>Tiêu đề tóm tắt sự cố. Mô tả ngắn gọn lỗi, ví dụ: “Hết thời gian chờ phản hồi từ kênh thanh toán đơn hàng.”</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>Lưu lần đầu thành công. Trả về ID khóa chính được tạo,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>Đối tượng JSON; toàn bộ yêu cầu tối đa 64 KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>Thông báo phòng ngừa rò rỉ</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Quản lý các ứng dụng đã tích hợp</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>Tối đa 4.000 ký tự</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Không bắt buộc</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>hoặc các biến môi trường, giúp dễ dàng xác định vị trí và khắc phục sự cố chỉ bằng một cú nhấp chuột trên trang chi tiết.</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>Hãy thay bằng khóa ứng dụng được tạo ở bước trước để gửi thử trực tiếp.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Bắt buộc</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>Thiếu các trường bắt buộc, định dạng cấp độ không hợp lệ hoặc nội dung yêu cầu vượt quá giới hạn 64 KiB.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>Phản hồi sử dụng AiurProtocol với Code, Message và ProtocolVersion. Các lỗi xác thực bao gồm một mảng Items. SDK trả về một biên nhận có kiểu dữ liệu hoặc ném ra ngoại lệ AiurProtocol.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>Quy tắc và ràng buộc</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>Gửi thông báo sự cố đầu tiên</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>Mức độ nghiêm trọng:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>Định dạng UUID chuẩn</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>Ngữ cảnh nghiệp vụ có cấu trúc. Bạn nên bao gồm</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Mã báo cáo duy nhất trên toàn cầu của ứng dụng khách. Trung tâm sử dụng</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>SDK chỉ gửi mỗi báo cáo một lần. Nếu sự cố mạng khiến kết quả không thể xác định, hãy gửi lại cùng yêu cầu với cùng ReportId và thời điểm xảy ra.</value>
+  </data>
+  <data name="This format identifies the application and lets the server verify its secret hash." xml:space="preserve">
+    <value>Định dạng này xác định ứng dụng và cho phép máy chủ xác minh hàm băm bí mật của ứng dụng.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Loại</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Xem sự cố</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>Có độ lệch múi giờ hoặc ký hiệu Z</value>
+  </data>
+
+</root>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· Đã tắt, không gửi thông báo</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>Cài đặt định tuyến thông báo đẩy của {0}</value>
+  </data>
+  <data name="Application Push Routing" xml:space="preserve">
+    <value>Định tuyến thông báo đẩy của ứng dụng</value>
+  </data>
+  <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
+    <value>Chỉ áp dụng cho các sự cố mới sau khi lưu. Nếu một kênh bị tắt, cấu hình định tuyến vẫn được giữ nguyên nhưng các sự cố mới sẽ bị bỏ qua.</value>
+  </data>
+  <data name="Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident." xml:space="preserve">
+    <value>Áp dụng cho sev0–sev4; không cần chọn kênh. Các kênh bên dưới gửi thông báo bổ sung độc lập cho mỗi sự cố mới.</value>
+  </data>
+  <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
+    <value>Tự động bật · Không thể tắt riêng lẻ</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>các kênh hiện có</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>Quay lại Ứng dụng đã kết nối</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>Email trực ca được tích hợp sẵn</value>
+  </data>
+  <data name="CC addresses configured for the on-call group." xml:space="preserve">
+    <value>Các địa chỉ CC được cấu hình cho nhóm trực.</value>
+  </data>
+  <data name="Critical (P0)" xml:space="preserve">
+    <value>Nghiêm trọng (P0)</value>
+  </data>
+  <data name="Custom channel-to-severity match matrix" xml:space="preserve">
+    <value>Ma trận ghép kênh tùy chỉnh theo mức độ nghiêm trọng</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Đã tắt</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Đã bật</value>
+  </data>
+  <data name="Error (P2)" xml:space="preserve">
+    <value>Lỗi (P2)</value>
+  </data>
+  <data name="Info (P4)" xml:space="preserve">
+    <value>Thông tin (P4)</value>
+  </data>
+  <data name="Major (P1)" xml:space="preserve">
+    <value>Mức độ nghiêm trọng cao (P1)</value>
+  </data>
+  <data name="Multiple supplementary channels can be selected per level; unchecked items only indicate no custom notifications will be sent, without affecting built-in on-call emails. Strict exact matching is applied, with no automatic expansion to higher or lower levels." xml:space="preserve">
+    <value>Có thể chọn nhiều kênh bổ sung cho mỗi cấp độ; các mục không được chọn chỉ có nghĩa là sẽ không gửi thông báo tùy chỉnh, không ảnh hưởng đến email trực ca tích hợp sẵn. Việc đối sánh chính xác tuyệt đối được áp dụng, không tự động mở rộng lên cấp độ cao hơn hoặc xuống cấp độ thấp hơn.</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>Chưa có kênh gửi thông báo nào được cấu hình</value>
+  </data>
+  <data name="On-call group:" xml:space="preserve">
+    <value>Nhóm trực:</value>
+  </data>
+  <data name="Please contact the push channel administrator to grant channel binding permissions." xml:space="preserve">
+    <value>Vui lòng liên hệ với quản trị viên kênh thông báo để được cấp quyền liên kết kênh.</value>
+  </data>
+  <data name="Precisely match receiving channels by incident level · Matrix Routing Engine" xml:space="preserve">
+    <value>Khớp chính xác kênh nhận theo mức độ sự cố · Công cụ định tuyến ma trận</value>
+  </data>
+  <data name="Push Channel and Type" xml:space="preserve">
+    <value>Kênh thông báo đẩy và loại</value>
+  </data>
+  <data name="Save routing configuration" xml:space="preserve">
+    <value>Lưu cấu hình định tuyến</value>
+  </data>
+  <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
+    <value>Địa chỉ email mà hệ thống đã đăng ký của tất cả kỹ sư đang trực (OCE) tại thời điểm gửi thông báo;</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>Tổng số</value>
+  </data>
+  <data name="Warning (P3)" xml:space="preserve">
+    <value>Cảnh báo (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
+    <value>Bạn có thể tạo các kênh thông báo Webhook, email hoặc trong ứng dụng để bổ sung khi cần. Các ứng dụng được liên kết với nhóm trực sẽ gửi email trực tích hợp ngay cả khi không có kênh tùy chỉnh.</value>
+  </data>
+
+</root>
