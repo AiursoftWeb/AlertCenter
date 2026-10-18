@@ -19,7 +19,7 @@ On an empty database, the default local account is `admin@default.com` with pass
 - On-call teams, reusable scheduling rules, and an interactive schedule editor with overlap and rest validation.
 - Severity-based notification routing, personal inboxes, and delivery history.
 - Application access grants for users and roles, with separate permissions for application, on-call, and push management.
-- SQLite for standalone use, MySQL support, and local or OIDC authentication through [Aiursoft Template](https://gitlab.aiursoft.com/aiursoft/template).
+- SQLite for standalone use, MySQL support, and local or OIDC authentication through [Aiursoft Template](https://github.com/AiursoftWeb/template).
 
 ## Run manually
 
@@ -89,7 +89,7 @@ curl -i 'http://localhost:5000/api/v1/incidents' \
 
 Use your server's HTTPS URL for remote reporting and keep API keys outside source control. Reuse a `reportId` only when retrying the same report. A new report returns `201 Created`; a duplicate returns `202 Accepted` with `Code: 1` and `Duplicate: true`. Invalid credentials return `401`; invalid fields return `400`. Requests are limited to 64 KiB, titles to 200 characters, and content to 4,000 characters.
 
-The API uses [AiurProtocol](https://gitlab.aiursoft.com/aiursoft/aiurprotocol). Receipts contain `Code`, `Message`, `ProtocolVersion`, `ReportId`, `ReceivedAtUtc`, `IncidentId`, and `Duplicate`. A new report uses `Code: 2` (`JobDone`); a duplicate uses `Code: 1` (`NoActionTaken`). Invalid credentials use `Code: -1` (`WrongKey`); invalid input uses `Code: -10` (`InvalidInput`) with an `Items` array describing errors. Oversized requests return HTTP `413` with the same invalid-input envelope.
+The API uses [AiurProtocol](https://github.com/AiursoftWeb/aiurprotocol). Receipts contain `Code`, `Message`, `ProtocolVersion`, `ReportId`, `ReceivedAtUtc`, `IncidentId`, and `Duplicate`. A new report uses `Code: 2` (`JobDone`); a duplicate uses `Code: 1` (`NoActionTaken`). Invalid credentials use `Code: -1` (`WrongKey`); invalid input uses `Code: -10` (`InvalidInput`) with an `Items` array describing errors. Oversized requests return HTTP `413` with the same invalid-input envelope.
 
 ### .NET SDK
 
