@@ -12,7 +12,7 @@ public class IncidentFilter : IValidatableObject
     public Guid? ApplicationId { get; set; }
     [RegularExpression("^(new|acked|mitigated|resolved|all)$", ErrorMessage = "Please select a valid incident status.")]
     public string? Status { get; set; }
-    [RegularExpression("^sev[0-4]$", ErrorMessage = "Please select a valid incident level.")]
+    [RegularExpression("^(sev[0-4]|lte-sev[1-4])$", ErrorMessage = "Please select a valid incident level.")]
     public string? Level { get; set; }
     public DateOnly? FromDate { get; set; }
     public DateOnly? ToDate { get; set; }
