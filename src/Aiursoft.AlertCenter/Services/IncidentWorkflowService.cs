@@ -79,6 +79,10 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             _ => false
         };
         if (!allowed) return new(400, localizer["The current incident status does not allow this operation."].Value);
+        var resolveImmediately = action == IncidentTimelineEntry.Mitigated &&
+            request is IncidentMitigationRequest { ResolveImmediately: true };
+        if (resolveImmediately && incident.Level is not ("sev2" or "sev3" or "sev4"))
+            return new(400, localizer["Only sev2, sev3 and sev4 incidents can be resolved during mitigation."].Value);
         var actorId = user.FindFirstValue(ClaimTypes.NameIdentifier)!;
         var actor = await db.Users.AsNoTracking().SingleOrDefaultAsync(item => item.Id == actorId, cancellationToken);
         if (actor == null) return new(403);
@@ -133,6 +137,22 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         entry.NewLevel = incident.Level;
         incident.Version = Guid.NewGuid();
         db.IncidentTimelineEntries.Add(entry);
+        if (resolveImmediately)
+        {
+            // Keep both timeline events ordered at MySQL's microsecond precision.
+            var resolvedAt = now.AddTicks(10);
+            db.IncidentTimelineEntries.Add(new IncidentTimelineEntry
+            {
+                Incident = incident, Type = IncidentTimelineEntry.Resolved,
+                ActorId = entry.ActorId, ActorIdSnapshot = entry.ActorIdSnapshot, ActorName = entry.ActorName,
+                Note = note, CreatedAtUtc = resolvedAt,
+                PreviousStatus = Incident.Mitigated, NewStatus = Incident.Resolved,
+                PreviousOwnerId = entry.NewOwnerId, NewOwnerId = entry.NewOwnerId,
+                PreviousOwnerName = entry.NewOwnerName, NewOwnerName = entry.NewOwnerName,
+                PreviousLevel = incident.Level, NewLevel = incident.Level
+            });
+            ApplyResolution(incident, resolvedAt);
+        }
         if (action == IncidentTimelineEntry.Reopened)
             await OnCallEmailQueue.CreateReopenAsync(db, entry, cancellationToken, localizer: localizerFactory.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
         try

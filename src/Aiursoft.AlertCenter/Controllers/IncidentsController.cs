@@ -178,7 +178,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         Execute(request, IncidentTimelineEntry.OwnershipChanged, cancellationToken);
 
     [HttpPost, ValidateAntiForgeryToken]
-    public Task<IActionResult> Mitigate(IncidentNoteRequest request, CancellationToken cancellationToken) =>
+    public Task<IActionResult> Mitigate(IncidentMitigationRequest request, CancellationToken cancellationToken) =>
         Execute(request, IncidentTimelineEntry.Mitigated, cancellationToken);
 
     [HttpPost, ValidateAntiForgeryToken]
