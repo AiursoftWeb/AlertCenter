@@ -53,7 +53,8 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
             if (userId != null)
             {
                 model.UnreadNotifications = await db.InAppNotifications.AsNoTracking()
-                    .CountAsync(n => n.UserId == userId && n.ReadAtUtc == null, cancellationToken);
+                    .CountAsync(n => n.UserId == userId && n.ReadAtUtc == null &&
+                        (n.Delivery.Incident == null || accessibleIds.Contains(n.Delivery.Incident.ApplicationId)), cancellationToken);
             }
 
             model.ChannelsCount = await db.PushChannels.AsNoTracking().CountAsync(c => c.IsEnabled, cancellationToken);

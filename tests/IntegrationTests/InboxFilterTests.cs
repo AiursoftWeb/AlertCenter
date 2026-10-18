@@ -16,8 +16,8 @@ public partial class IncidentPagesTests
         var userId = await db.Users.Where(user => user.Email == "admin@default.com").Select(user => user.Id).SingleAsync();
         var otherUser = new User { UserName = "other-reader", DisplayName = "Other reader" };
         db.Users.Add(otherUser);
-        var application = new SourceApplication { Name = "Orders application" };
-        var otherApplication = new SourceApplication { Name = "Translation application" };
+        var application = new SourceApplication { Name = "Orders application", OwnerId = userId };
+        var otherApplication = new SourceApplication { Name = "Translation application", OwnerId = userId };
         var privateApplication = new SourceApplication { Name = "Other reader private application" };
         var channel = new PushChannel { Name = "Orders inbox", Type = "inapp" };
         var otherChannel = new PushChannel { Name = "Translation inbox", Type = "inapp" };

@@ -35,6 +35,7 @@ public partial class IncidentPagesTests
         Assert.AreEqual(HttpStatusCode.Found, created.StatusCode);
         Assert.Contains("/Incidents/Details/", created.Headers.Location!.OriginalString);
         Guid incidentId;
+        Guid notificationId;
         Guid version;
         using (var scope = Server!.Services.CreateScope())
         {
@@ -43,7 +44,16 @@ public partial class IncidentPagesTests
             incidentId = incident.Id; version = incident.Version;
             Assert.AreEqual("sev2", incident.Level);
             Assert.AreEqual(recipient, (await db.IncidentTimelineEntries.SingleAsync()).ActorId);
+            var notification = new InAppNotification
+            {
+                UserId = recipient, Delivery = new PushDelivery { Incident = incident, Status = PushDelivery.Succeeded }
+            };
+            db.InAppNotifications.Add(notification);
+            await db.SaveChangesAsync();
+            notificationId = notification.Id;
         }
+        Assert.Contains("Human report", await Http.GetStringAsync("/Push/Inbox"));
+        Assert.AreEqual(HttpStatusCode.OK, (await Http.GetAsync($"/Push/Notification/{notificationId}")).StatusCode);
         var details = $"/Incidents/Details/{incidentId}";
         AssertForbidden(await PostForm("/Incidents/Acknowledge", new() { ["IncidentId"] = incidentId.ToString(), ["Version"] = version.ToString() }, "/Manage/ChangePassword"));
         AssertForbidden(await PostForm("/Incidents/Delete", new() { ["id"] = incidentId.ToString(), ["version"] = version.ToString(), ["confirmationTitle"] = "Human report" }, "/Manage/ChangePassword"));
@@ -54,6 +64,8 @@ public partial class IncidentPagesTests
         await PostForm("/Account/Login", new() { ["EmailOrUserName"] = email, ["Password"] = password });
         AssertForbidden(await Http.GetAsync(details));
         AssertForbidden(await Http.GetAsync(createUrl));
+        AssertForbidden(await Http.GetAsync($"/Push/Notification/{notificationId}"));
+        Assert.DoesNotContain("Human report", await Http.GetStringAsync("/Push/Inbox"));
     }
 
     [TestMethod]

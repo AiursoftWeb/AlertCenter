@@ -218,6 +218,8 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             .Include(item => item.Delivery).ThenInclude(delivery => delivery.Incident).ThenInclude(message => message!.Application)
             .SingleOrDefaultAsync(item => item.Id == id && item.UserId == userId);
         if (notification == null) return NotFound();
+        if (notification.Delivery.Incident != null &&
+            !await applicationAccess.CanAccessAsync(User, notification.Delivery.Incident.ApplicationId)) return Forbid();
         return this.StackView(new PushViewModel { PageTitle = localizer["In-app notification details"].Value, Notifications = [notification] });
     }
 
@@ -413,7 +415,9 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return Unauthorized();
         filter.Normalize();
-        var ownNotifications = db.InAppNotifications.AsNoTracking().Where(notification => notification.UserId == userId);
+        var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User);
+        var ownNotifications = db.InAppNotifications.AsNoTracking().Where(notification => notification.UserId == userId &&
+            (notification.Delivery.Incident == null || accessibleIds.Contains(notification.Delivery.Incident.ApplicationId)));
         var model = new PushViewModel
         {
             InboxFilter = filter, Page = filter.Page,
