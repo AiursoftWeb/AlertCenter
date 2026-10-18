@@ -91,6 +91,39 @@ Use your server's HTTPS URL for remote reporting and keep API keys outside sourc
 
 The API uses [AiurProtocol](https://gitlab.aiursoft.com/aiursoft/aiurprotocol). Receipts contain `Code`, `Message`, `ProtocolVersion`, `ReportId`, `ReceivedAtUtc`, `IncidentId`, and `Duplicate`. A new report uses `Code: 2` (`JobDone`); a duplicate uses `Code: 1` (`NoActionTaken`). Invalid credentials use `Code: -1` (`WrongKey`); invalid input uses `Code: -10` (`InvalidInput`) with an `Items` array describing errors. Oversized requests return HTTP `413` with the same invalid-input envelope.
 
+### Command-line client
+
+Install the .NET 10 tool:
+
+```bash
+dotnet tool install --global Aiursoft.AlertCenter.Client
+```
+
+Every business command requires an explicit `--server` and `--api-key`. The key
+selects the application and its permitted operations; credentials are never saved
+or automatically read from environment variables. The shell variable below is
+passed explicitly. Use `--json` for the complete AiurProtocol response.
+
+```bash
+alertcenter list --server https://alertcenter.example.com --api-key "$APP_API_KEY" --active-only --page 1 --page-size 50 --json
+alertcenter get --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --json
+alertcenter create --server https://alertcenter.example.com --api-key "$APP_API_KEY" --report-id "$REPORT_ID" --title "Main branch build failed" --level sev2 --occurred-at "2026-10-18T12:00:00Z" --content "Compiler error" --context '{"pipeline":42}' --json
+alertcenter severity --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --version "$INCIDENT_VERSION" --level sev1 --reason "Failure persisted" --json
+alertcenter resolve --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --version "$INCIDENT_VERSION" --reason "Build recovered" --json
+```
+
+List and detail queries require the key's query scope and only return its own
+application's incidents. A missing or other-application incident returns the same
+`NotFound`. Detail responses include `incident.version`, content and Context;
+`GET /api/v1/incidents/{incidentId}` and SDK `GetIncidentAsync` expose the same data.
+
+Retain the report ID and occurrence time before reporting; reuse them after an
+uncertain outcome. Duplicate reports and already resolved incidents exit
+successfully. Resolve and severity commands require the version from a prior
+query and a reason. A conflict fails without automatically fetching a new version
+or retrying. Results go to stdout; errors go to stderr with a nonzero exit code.
+Use `alertcenter <command> --help` for options. CLI and detail SDK version: `10.4.0`.
+
 ### .NET SDK
 
 Install the .NET 10 reporting client:

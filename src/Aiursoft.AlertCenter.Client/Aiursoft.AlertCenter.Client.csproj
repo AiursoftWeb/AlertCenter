@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <Version>10.4.0</Version>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>alertcenter</AssemblyName>
+    <RootNamespace>Aiursoft.AlertCenter.Client</RootNamespace>
+    <IsTestProject>false</IsTestProject>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>alertcenter</ToolCommandName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Company>Aiursoft</Company>
+    <Product>AlertCenter command-line client</Product>
+    <Description>Create, query, resolve and change severity of application-scoped AlertCenter incidents.</Description>
+    <PackageId>Aiursoft.AlertCenter.Client</PackageId>
+    <PackageTags>alertcenter alerts incidents cli</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/aiursoftweb/alertcenter</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/aiursoftweb/alertcenter.git</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Aiursoft.CommandFramework" Version="10.0.16" />
+    <ProjectReference Include="../Aiursoft.AlertCenter.SDK/Aiursoft.AlertCenter.SDK.csproj" />
+    <None Include="../../README.md" Pack="true" PackagePath="." />
+  </ItemGroup>
+</Project>

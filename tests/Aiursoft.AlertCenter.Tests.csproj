@@ -19,5 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\Aiursoft.AlertCenter\Aiursoft.AlertCenter.csproj" />
+    <ProjectReference Include="..\src\Aiursoft.AlertCenter.Client\Aiursoft.AlertCenter.Client.csproj" />
   </ItemGroup>
 </Project>
