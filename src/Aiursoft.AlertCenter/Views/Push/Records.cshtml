@@ -162,7 +162,12 @@
                                     }
                                     <div class="min-w-0">
                                         <a asp-action="Delivery" asp-route-id="@delivery.Id" class="fw-semibold text-decoration-none text-break d-block">
-                                            @(delivery.Incident?.Title ?? (delivery.IncidentEvent != null ? string.Format(@Localizer["Incident reopened: {0}"].Value, delivery.IncidentEvent.Incident.Title) : @Localizer["Channel test notification"].Value))
+                                            @(delivery.Incident?.Title ?? (delivery.IncidentEvent != null ? (delivery.IncidentEvent.Type switch
+                                                {
+                                                    IncidentTimelineEntry.Mitigated => string.Format(Localizer["Incident mitigated: {0}"].Value, delivery.IncidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Resolved => string.Format(Localizer["Incident resolved: {0}"].Value, delivery.IncidentEvent.Incident.Title),
+                                                    _ => delivery.IncidentEvent.Incident.Title
+                                                }) : @Localizer["Channel test notification"].Value))
                                         </a>
                                         <small class="text-muted d-flex align-items-center gap-1 mt-0.5">
                                             <i data-lucide="layers" style="width: 12px; height: 12px;" aria-hidden="true"></i>

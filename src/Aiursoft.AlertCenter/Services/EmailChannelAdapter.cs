@@ -109,6 +109,8 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
 
     public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
     {
+        if (delivery.IncidentEvent is { Type: not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved) })
+            return new(false, ErrorMessage: localizer["Email notifications are only sent when an incident is created, mitigated or resolved."].Value);
         List<string> recipients;
         List<string> ccRecipients;
         if (delivery.OnCallEmail is { } snapshot)
@@ -159,7 +161,12 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
     {
         var message = delivery.Incident;
         var incidentEvent = delivery.IncidentEvent;
-        var title = message?.Title ?? (incidentEvent != null ? string.Format(localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title) : localizer["Channel test notification"].Value);
+        var title = incidentEvent?.Type switch
+        {
+            IncidentTimelineEntry.Mitigated => string.Format(localizer["Incident mitigated: {0}"].Value, incidentEvent.Incident.Title),
+            IncidentTimelineEntry.Resolved => string.Format(localizer["Incident resolved: {0}"].Value, incidentEvent.Incident.Title),
+            _ => message?.Title ?? localizer["Channel test notification"].Value
+        };
         var level = message?.Level ?? incidentEvent?.NewLevel ?? "sev3";
         var subject = $"[AlertCenter][{level}] {SanitizeSubject(title)}";
         var incidentId = message?.Id ?? incidentEvent?.IncidentId;
@@ -171,7 +178,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         var url = new Uri(new Uri(site.AbsoluteUri.TrimEnd('/') + "/"),
             incidentId.HasValue ? $"Incidents/Details/{incidentId.Value}" : "").AbsoluteUri;
         var body = new StringBuilder()
-            .AppendLine(incidentEvent != null ? localizer["The incident has been reopened. Please respond, on-call engineer."].Value : message == null ? delivery.TestContent ?? localizer["This is a test message for the push channel."].Value : localizer["A new incident has been reported."].Value)
+            .AppendLine(Introduction(delivery, localizer))
             .AppendLine()
             .AppendLine(string.Format(localizer["Title: {0}"].Value, title))
             .AppendLine(string.Format(localizer["Severity: {0}"].Value, level))
@@ -179,7 +186,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             .AppendLine(string.Format(localizer["Delivery ID: {0}"].Value, delivery.Id));
         if (incidentEvent != null)
             body.AppendLine(string.Format(localizer["Incident ID: {0}"].Value, incidentEvent.IncidentId)).AppendLine(string.Format(localizer["Action time (UTC): {0:O}"].Value, incidentEvent.CreatedAtUtc))
-                .AppendLine(string.Format(localizer["Reopen note: {0}"].Value, incidentEvent.Note ?? localizer["None"].Value));
+                .AppendLine(string.Format(localizer["Reason: {0}"].Value, incidentEvent.Note ?? localizer["None"].Value));
         if (message?.Content is not null) body.AppendLine().AppendLine(localizer["Content: "].Value).AppendLine(message.Content);
         var context = IncidentContextPresentation.ScalarFields((message ?? incidentEvent?.Incident)?.ContextJson);
         if (context.Count > 0)
@@ -198,28 +205,40 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             RenderHtml(delivery, title, level, url, localizer, context));
     }
 
+    private static string Introduction(PushDelivery delivery, IStringLocalizer localizer) => delivery.IncidentEvent?.Type switch
+    {
+        IncidentTimelineEntry.Mitigated => localizer["The incident has been mitigated."].Value,
+        IncidentTimelineEntry.Resolved => localizer["The incident has been resolved."].Value,
+        _ => delivery.Incident != null ? localizer["A new incident has been reported."].Value
+            : delivery.TestContent ?? localizer["This is a test message for the push channel."].Value
+    };
+
     private static string SanitizeSubject(string value) => value.Replace('\r', ' ').Replace('\n', ' ');
 
     private static string RenderHtml(PushDelivery delivery, string title, string level, string url,
         IStringLocalizer localizer, IReadOnlyList<KeyValuePair<string, string>> context)
     {
         var incident = delivery.Incident ?? delivery.IncidentEvent?.Incident;
-        var color = level switch
+        var color = delivery.IncidentEvent?.Type switch
         {
-            "sev0" => "#b42318",
-            "sev1" => "#c4320a",
-            "sev2" => "#854d0e",
-            _ => "#175cd3"
+            IncidentTimelineEntry.Mitigated => "#facc15",
+            IncidentTimelineEntry.Resolved => "#15803d",
+            _ => incident != null ? "#b42318" : "#175cd3"
         };
-        var introduction = delivery.IncidentEvent != null
-            ? localizer["The incident has been reopened. Please respond, on-call engineer."].Value
-            : incident != null ? localizer["A new incident has been reported."].Value
-            : delivery.TestContent ?? localizer["This is a test message for the push channel."].Value;
+        var foreground = delivery.IncidentEvent?.Type == IncidentTimelineEntry.Mitigated ? "#422006" : "#ffffff";
+        var linkColor = delivery.IncidentEvent?.Type == IncidentTimelineEntry.Mitigated ? "#854d0e" : color;
+        var status = delivery.IncidentEvent?.Type switch
+        {
+            IncidentTimelineEntry.Mitigated => localizer["Mitigated"].Value,
+            IncidentTimelineEntry.Resolved => localizer["Resolved"].Value,
+            _ => incident != null ? localizer["New incident"].Value : localizer["Test notification"].Value
+        };
+        var introduction = Introduction(delivery, localizer);
         var sections = new StringBuilder();
         if (!string.IsNullOrWhiteSpace(incident?.Content))
             sections.Append(Section(localizer["Incident details"].Value, incident.Content));
         if (delivery.IncidentEvent is { } entry)
-            sections.Append(Section(localizer["Reopen note"].Value, entry.Note ?? localizer["None"].Value));
+            sections.Append(Section(localizer["Reason"].Value, entry.Note ?? localizer["None"].Value));
         if (delivery.OnCallEmail is { } snapshot)
         {
             var engineers = string.Join(", ", snapshot.Recipients.Select(person => person.DisplayName));
@@ -246,19 +265,19 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
             <body style="margin:0;padding:0;background-color:#f1f5f9;color:#172b4d;font-family:Arial,Helvetica,sans-serif;">
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#f1f5f9;"><tr><td align="center" style="padding:24px 12px;">
-            <table role="presentation" width="640" cellspacing="0" cellpadding="0" style="width:100%;max-width:640px;background-color:#ffffff;border:1px solid #dce3ed;border-radius:12px;">
-            <tr><td style="padding:24px 28px;background-color:#102a43;border-radius:12px 12px 0 0;color:#ffffff;font-size:20px;font-weight:bold;">AlertCenter</td></tr>
+            <table role="presentation" width="640" cellspacing="0" cellpadding="0" style="width:100%;max-width:640px;background-color:{{foreground}};border:1px solid #dce3ed;border-radius:12px;">
+            <tr><td style="padding:24px 28px;background-color:{{color}};border-radius:12px 12px 0 0;color:{{foreground}};font-size:20px;font-weight:bold;">AlertCenter · {{Encode(status)}}</td></tr>
             <tr><td style="padding:28px;">
-                <span style="display:inline-block;padding:6px 12px;background-color:{{color}};border-radius:6px;color:#ffffff;font-size:12px;font-weight:bold;">{{Encode(level.ToUpperInvariant())}}</span>
+                <span style="display:inline-block;padding:6px 12px;background-color:{{color}};border-radius:6px;color:{{foreground}};font-size:12px;font-weight:bold;">{{Encode(level.ToUpperInvariant())}}</span>
                 <h1 style="margin:18px 0 12px;font-size:24px;line-height:1.35;color:#102a43;overflow-wrap:anywhere;word-break:break-word;">{{Encode(title)}}</h1>
                 <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:#526579;">{{Encode(introduction)}}</p>
-                <table role="presentation" cellspacing="0" cellpadding="0"><tr><td bgcolor="#175cd3" style="border-radius:6px;">
-                    <a href="{{Encode(url)}}" style="display:inline-block;border:1px solid #175cd3;padding:13px 22px;color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Open in AlertCenter"].Value)}}</a>
+                <table role="presentation" cellspacing="0" cellpadding="0"><tr><td bgcolor="{{color}}" style="border-radius:6px;">
+                    <a href="{{Encode(url)}}" style="display:inline-block;border:1px solid {{color}};padding:13px 22px;color:{{foreground}};text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Open in AlertCenter"].Value)}}</a>
                 </td></tr></table>
                 <p style="margin:20px 0 0;font-size:12px;line-height:1.6;color:#526579;">{{Encode(localizer["Occurred at (UTC)"].Value)}}: {{occurredAt:yyyy-MM-dd HH:mm:ss}}</p>
                 {{sections}}
                 <p style="margin:24px 0 8px;font-size:12px;line-height:1.6;color:#526579;">{{Encode(localizer["If the button does not work, open this link:"].Value)}}<br>
-                    <a href="{{Encode(url)}}" style="color:#175cd3;overflow-wrap:anywhere;word-break:break-all;">{{Encode(url)}}</a>
+                    <a href="{{Encode(url)}}" style="color:{{linkColor}};overflow-wrap:anywhere;word-break:break-all;">{{Encode(url)}}</a>
                 </p>
             </td></tr>
             <tr><td style="padding:18px 28px;background-color:#f8fafc;border-top:1px solid #e2e8f0;font-size:11px;line-height:1.8;color:#526579;overflow-wrap:anywhere;word-break:break-all;">

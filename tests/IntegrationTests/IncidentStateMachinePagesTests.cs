@@ -82,10 +82,17 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
-    public async Task IncidentPagesEnforceStateControlsReasonsAntiforgeryAndReopenDeliveryHistory()
+    public async Task IncidentPagesEnforceStateControlsAndLifecycleDeliveryHistory()
     {
         var key = await CreateApplication();
         var applicationId = Guid.Parse(key.Split('.')[0]);
+        var team = await CreateOnCallTeam("Lifecycle team");
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            (await db.SourceApplications.SingleAsync()).OnCallGroupId = team;
+            await db.SaveChangesAsync();
+        }
         using var report = await Report(key, Guid.NewGuid());
         Guid id;
         using (var scope = Server!.Services.CreateScope())
@@ -128,13 +135,6 @@ public partial class IncidentPagesTests
         page = await Http.GetStringAsync(url);
         Assert.DoesNotContain("action=\"/Incidents/ChangeLevel\"", page);
         Assert.Contains("action=\"/Incidents/Reopen\"", page);
-        var team = await CreateOnCallTeam("Reopened team");
-        using (var scope = Server!.Services.CreateScope())
-        {
-            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            (await db.SourceApplications.SingleAsync()).OnCallGroupId = team;
-            await db.SaveChangesAsync();
-        }
         AssertRedirect(await PostForm("/Incidents/Reopen", await IncidentForm(id, "Failure returned"), url), url);
         Guid deliveryId;
         using (var scope = Server!.Services.CreateScope())
@@ -145,15 +145,17 @@ public partial class IncidentPagesTests
             Assert.IsNull(incident.OwnerId);
             Assert.AreEqual("sev0", incident.Level);
             Assert.AreEqual(1, await db.Incidents.CountAsync());
-            deliveryId = (await db.PushDeliveries.SingleAsync()).Id;
+            Assert.AreEqual(3, await db.PushDeliveries.CountAsync());
+            deliveryId = await db.PushDeliveries.Where(d => d.IncidentEvent != null && d.IncidentEvent.Type == IncidentTimelineEntry.Resolved).Select(d => d.Id).SingleAsync();
         }
         var deliveryPage = WebUtility.HtmlDecode(await Http.GetStringAsync($"/Push/Delivery/{deliveryId}"));
-        Assert.Contains("Incident reopened", deliveryPage);
-        Assert.Contains("Reopened team", deliveryPage);
-        Assert.Contains("Failure returned", deliveryPage);
-        Assert.Contains("Incident reopened", WebUtility.HtmlDecode(await Http.GetStringAsync("/Push/Records")));
-        using var invalidRetry = await PostForm("/Push/Retry", new() { ["id"] = deliveryId.ToString() }, $"/Push/Delivery/{deliveryId}");
-        Assert.AreEqual(HttpStatusCode.Conflict, invalidRetry.StatusCode);
+        Assert.Contains("Incident resolved", deliveryPage);
+        Assert.Contains("Lifecycle team", deliveryPage);
+        Assert.Contains("Root cause fixed", deliveryPage);
+        var records = WebUtility.HtmlDecode(await Http.GetStringAsync("/Push/Records"));
+        Assert.Contains("Incident mitigated", records);
+        Assert.Contains("Incident resolved", records);
+        Assert.DoesNotContain("Incident reopened:", records);
         foreach (var state in new[] { "new", "acked", "mitigated", "resolved" })
         {
             var list = await Http.GetStringAsync($"/Incidents/Index?status={state}");

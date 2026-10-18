@@ -654,7 +654,7 @@ public partial class PushCenterTests
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
-    public async Task EmailContextContainsOnlyTopLevelScalarFields(bool reopened)
+    public async Task EmailContextContainsOnlyTopLevelScalarFields(bool stateChanged)
     {
         var incident = new Incident
         {
@@ -668,8 +668,8 @@ public partial class PushCenterTests
         var result = await _adapters.Single(adapter => adapter.Definition.Key == "email").DeliverAsync(new PushDelivery
         {
             Channel = new PushChannel { EmailRecipient = "anduin@example.com" },
-            Incident = reopened ? null : incident,
-            IncidentEvent = reopened ? new IncidentTimelineEntry { Incident = incident, IncidentId = incident.Id } : null
+            Incident = stateChanged ? null : incident,
+            IncidentEvent = stateChanged ? new IncidentTimelineEntry { Incident = incident, IncidentId = incident.Id, Type = IncidentTimelineEntry.Mitigated } : null
         });
         Assert.IsTrue(result.Succeeded, result.ErrorMessage);
         var mail = _email.Messages.Single();
@@ -711,7 +711,7 @@ public partial class PushCenterTests
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
-    public async Task IncidentEmailsLinkToDetailsAndEncodeUntrustedContent(bool reopened)
+    public async Task IncidentEmailsLinkToDetailsAndEncodeUntrustedContent(bool resolved)
     {
         var incident = new Incident
         {
@@ -722,10 +722,10 @@ public partial class PushCenterTests
         var delivery = new PushDelivery
         {
             Channel = new PushChannel { EmailRecipient = "anduin@example.com" },
-            Incident = reopened ? null : incident,
-            IncidentEvent = reopened ? new IncidentTimelineEntry
+            Incident = resolved ? null : incident,
+            IncidentEvent = resolved ? new IncidentTimelineEntry
             {
-                Incident = incident, IncidentId = incident.Id, NewLevel = "sev1", Note = "<b>Reopened</b>"
+                Incident = incident, IncidentId = incident.Id, NewLevel = "sev1", Type = IncidentTimelineEntry.Resolved, Note = "<b>Resolved</b>"
             } : null
         };
         var adapter = new EmailChannelAdapter(_email, TestLocalization.For<EmailChannelAdapter>(),
@@ -742,7 +742,7 @@ public partial class PushCenterTests
         Assert.Contains("&lt;iframe&gt;", mail.HtmlBody);
         Assert.DoesNotContain("<script>", mail.HtmlBody);
         Assert.DoesNotContain("<img", mail.HtmlBody);
-        if (reopened) Assert.Contains("&lt;b&gt;Reopened&lt;/b&gt;", mail.HtmlBody);
+        if (resolved) Assert.Contains("&lt;b&gt;Resolved&lt;/b&gt;", mail.HtmlBody);
     }
 
     [TestMethod]
