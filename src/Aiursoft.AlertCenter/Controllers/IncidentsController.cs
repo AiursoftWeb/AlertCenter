@@ -49,7 +49,12 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         if (filter.Status is Incident.New or Incident.Acked or Incident.Mitigated or Incident.Resolved)
             incidents = incidents.Where(incident => incident.Status == filter.Status);
         if (filter.Level != null)
-            incidents = incidents.Where(incident => incident.Level == filter.Level);
+        {
+            var levels = filter.Level.StartsWith("lte-", StringComparison.Ordinal)
+                ? new[] { "sev0", "sev1", "sev2", "sev3", "sev4" }.Take(filter.Level[^1] - '0' + 1).ToArray()
+                : [filter.Level];
+            incidents = incidents.Where(incident => levels.Contains(incident.Level));
+        }
         if (filter.Keyword != null)
         {
             var keyword = filter.Keyword.ToLowerInvariant();

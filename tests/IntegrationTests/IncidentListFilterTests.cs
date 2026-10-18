@@ -49,7 +49,9 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
-    public async Task AlertMessageFiltersRenderControlsAndPersistThroughPagination()
+    [DataRow("sev1")]
+    [DataRow("lte-sev3")]
+    public async Task AlertMessageFiltersRenderControlsAndPersistThroughPagination(string level)
     {
         var messages = await SeedIncidentFilters();
         using (var scope = Server!.Services.CreateScope())
@@ -66,7 +68,7 @@ public partial class IncidentPagesTests
             await db.SaveChangesAsync();
         }
 
-        var query = $"keyword=needle&applicationId={messages[0].ApplicationId}&level=sev1&fromDate=2026-09-08&toDate=2026-09-08";
+        var query = $"keyword=needle&applicationId={messages[0].ApplicationId}&level={level}&fromDate=2026-09-08&toDate=2026-09-08";
         var html = await Http.GetStringAsync("/Incidents?" + query);
         Assert.Contains("id=\"incident-keyword\"", html);
         Assert.Contains("id=\"incident-from-date\"", html);
@@ -82,11 +84,52 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
+    [DataRow("sev0", 0, 0)]
+    [DataRow("sev1", 1, 1)]
+    [DataRow("sev2", 2, 2)]
+    [DataRow("sev3", 3, 3)]
+    [DataRow("sev4", 4, 4)]
+    [DataRow("lte-sev1", 0, 1)]
+    [DataRow("lte-sev2", 0, 2)]
+    [DataRow("lte-sev3", 0, 3)]
+    [DataRow("lte-sev4", 0, 4)]
+    public async Task SeverityFiltersIncludeExactlyTheRequestedLevels(string level, int first, int last)
+    {
+        await LoginAsAdmin();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var application = new SourceApplication
+        {
+            OwnerId = db.Users.Single(user => user.Email == "admin@default.com").Id,
+            Name = "Severity filter application"
+        };
+        var incidents = Enumerable.Range(0, 5).Select(index => new Incident
+        {
+            Application = application, ReportId = Guid.NewGuid(), Title = "Severity " + index,
+            Level = "sev" + index
+        }).ToArray();
+        db.Incidents.AddRange(incidents);
+        db.Incidents.Add(new Incident
+        {
+            Application = new SourceApplication { Name = "Unshared application" },
+            ReportId = Guid.NewGuid(), Title = "Private critical incident", Level = "sev0"
+        });
+        await db.SaveChangesAsync();
+
+        var html = await Http.GetStringAsync("/Incidents?level=" + level);
+        CollectionAssert.AreEquivalent(incidents.Skip(first).Take(last - first + 1).Select(incident => incident.Id).ToArray(),
+            AlertIncidentIds(html));
+        Assert.IsTrue(Regex.IsMatch(html, "<option value=\"" + level + "\" selected(?:=\"selected\")?>"));
+    }
+
+    [TestMethod]
     [DataRow("keyword=" + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")]
     [DataRow("fromDate=invalid")]
     [DataRow("fromDate=2026-09-09&toDate=2026-09-08")]
     [DataRow("applicationId=invalid")]
     [DataRow("level=sev5")]
+    [DataRow("level=lte-sev5")]
+    [DataRow("level=gt-sev3")]
     public async Task AlertMessageInvalidFiltersShowValidationInsteadOfUnfilteredResults(string query)
     {
         await SeedIncidentFilters();
