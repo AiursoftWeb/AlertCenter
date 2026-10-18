@@ -92,6 +92,10 @@ public class NotificationRecipientsTests : TestBase
             };
             var other = new InAppNotification { UserId = admin.Id, Delivery = new PushDelivery { Channel = channel } };
             db.InAppNotifications.AddRange(own, other);
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess
+            {
+                Application = own.Delivery.Incident!.Application, User = user, CanViewIncidents = true
+            });
             await db.SaveChangesAsync();
             ownId = own.Id;
             otherId = other.Id;
