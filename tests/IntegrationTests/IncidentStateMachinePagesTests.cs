@@ -18,6 +18,70 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
+    [DataRow("sev0", true)]
+    [DataRow("sev1", true)]
+    [DataRow("sev2", true)]
+    [DataRow("sev3", true)]
+    [DataRow("sev4", true)]
+    [DataRow("sev2", false)]
+    [DataRow("sev3", false)]
+    [DataRow("sev4", false)]
+    public async Task MitigationCanResolveLowerSeverityIncidentsWithTheSameReason(string level, bool resolveImmediately)
+    {
+        var key = await CreateApplication();
+        using var report = await Report(key, Guid.NewGuid());
+        Guid id;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var incident = await db.Incidents.SingleAsync();
+            incident.Level = level;
+            await db.SaveChangesAsync();
+            id = incident.Id;
+        }
+        var url = $"/Incidents/Details/{id}";
+        AssertRedirect(await PostForm("/Incidents/Acknowledge", await IncidentForm(id), url), url);
+        var eligible = level is "sev2" or "sev3" or "sev4";
+        var page = await Http.GetStringAsync(url);
+        Assert.AreEqual(eligible, page.Contains("id=\"resolve-immediately\""));
+        Assert.DoesNotContain("checked", page.Split("id=\"resolve-immediately\"").Last().Split('>').First());
+        var form = await IncidentForm(id, "  Fixed the underlying cause.  ");
+        form["ResolveImmediately"] = resolveImmediately.ToString();
+        using var response = await PostForm("/Incidents/Mitigate", form, url);
+        if (!eligible)
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        else
+        {
+            AssertRedirect(response, url);
+            using var stale = await PostForm("/Incidents/Mitigate", form, url);
+            Assert.AreEqual(HttpStatusCode.Conflict, stale.StatusCode);
+        }
+        using var after = Server!.Services.CreateScope();
+        var database = after.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var saved = await database.Incidents.SingleAsync();
+        var events = await database.IncidentTimelineEntries.Where(entry => entry.Type == IncidentTimelineEntry.Mitigated || entry.Type == IncidentTimelineEntry.Resolved)
+            .OrderBy(entry => entry.CreatedAtUtc).ToListAsync();
+        Assert.AreEqual(!eligible ? Incident.Acked : resolveImmediately ? Incident.Resolved : Incident.Mitigated, saved.Status);
+        Assert.AreEqual(!eligible ? 0 : resolveImmediately ? 2 : 1, events.Count);
+        if (!eligible) return;
+        Assert.AreEqual(IncidentTimelineEntry.Mitigated, events[0].Type);
+        Assert.AreEqual(Incident.Acked, events[0].PreviousStatus);
+        Assert.AreEqual(Incident.Mitigated, events[0].NewStatus);
+        Assert.AreEqual("Fixed the underlying cause.", events[0].Note);
+        Assert.IsNotNull(saved.MitigatedAtUtc);
+        if (resolveImmediately)
+        {
+            Assert.AreEqual(IncidentTimelineEntry.Resolved, events[1].Type);
+            Assert.AreEqual(Incident.Mitigated, events[1].PreviousStatus);
+            Assert.AreEqual(Incident.Resolved, events[1].NewStatus);
+            Assert.AreEqual(events[0].Note, events[1].Note);
+            Assert.AreEqual(events[0].ActorId, events[1].ActorId);
+            Assert.IsNotNull(saved.ResolvedAtUtc);
+        }
+        else Assert.IsNull(saved.ResolvedAtUtc);
+    }
+
+    [TestMethod]
     public async Task IncidentPagesEnforceStateControlsReasonsAntiforgeryAndReopenDeliveryHistory()
     {
         var key = await CreateApplication();

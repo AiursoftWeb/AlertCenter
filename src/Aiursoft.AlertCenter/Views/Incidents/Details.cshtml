@@ -341,6 +341,14 @@
                     <p class="text-muted small mb-3">@Localizer["Record the mitigation measures taken. Resolve this incident after the fix is complete."]</p>
                     <label for="mitigate-note" class="form-label small text-muted">@Localizer["Mitigation reason (required)"]</label>
                     <textarea id="mitigate-note" name="note" maxlength="4000" rows="4" class="form-control" required placeholder="@Localizer["Describe mitigation measures, impact scope, and recovery status."]"></textarea>
+                    @if (incident.Level is "sev2" or "sev3" or "sev4")
+                    {
+                        <div class="form-check mt-3">
+                            <input id="resolve-immediately" name="ResolveImmediately" type="checkbox" value="true" class="form-check-input" aria-describedby="resolve-immediately-hint" />
+                            <label for="resolve-immediately" class="form-check-label">@Localizer["I confirm that this incident has been fully resolved and will not recur."]</label>
+                        </div>
+                        <p id="resolve-immediately-hint" class="text-muted small mt-2 mb-0">@Localizer["Also resolve this incident immediately, using the mitigation reason as the resolution reason."]</p>
+                    }
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>

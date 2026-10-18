@@ -38,3 +38,8 @@ public class IncidentLevelRequest : IncidentNoteRequest
 {
     [Required, RegularExpression("^sev[0-4]$")] public string Level { get; set; } = string.Empty;
 }
+
+public class IncidentMitigationRequest : IncidentNoteRequest
+{
+    public bool ResolveImmediately { get; set; }
+}
