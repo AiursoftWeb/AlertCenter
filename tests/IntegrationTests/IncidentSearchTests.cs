@@ -14,8 +14,8 @@ public class IncidentSearchTests : TestBase
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            var orders = new SourceApplication { Name = "Orders" };
-            var billing = new SourceApplication { Name = "Billing" };
+            var orders = new SourceApplication { OwnerId = db.Users.Single(user => user.Email == "admin@default.com").Id, Name = "Orders" };
+            var billing = new SourceApplication { OwnerId = db.Users.Single(user => user.Email == "admin@default.com").Id, Name = "Billing" };
             db.Incidents.AddRange(
                 new Incident
                 {

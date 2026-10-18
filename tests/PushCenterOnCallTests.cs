@@ -232,10 +232,10 @@ public partial class PushCenterTests
         await Report(application, Guid.NewGuid());
         var id = (await BuiltInDelivery()).Id;
         Assert.IsInstanceOfType<ForbidResult>(await Controller("ordinary-user", false).Delivery(id, default));
-        _db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = application.Id, UserId = "ordinary-user" });
+        _db.ApplicationUserAccesses.Add(new ApplicationUserAccess { CanViewIncidents = true, ApplicationId = application.Id, UserId = "ordinary-user" });
         await _db.SaveChangesAsync();
         Assert.IsInstanceOfType<ForbidResult>(await Controller("ordinary-user", false).Retry(id));
-        (await _db.ApplicationUserAccesses.SingleAsync()).CanManage = true;
+        (await _db.ApplicationUserAccesses.SingleAsync()).CanManageApplication = true;
         var failed = await BuiltInDelivery();
         failed.Status = PushDelivery.Failed;
         await _db.SaveChangesAsync();

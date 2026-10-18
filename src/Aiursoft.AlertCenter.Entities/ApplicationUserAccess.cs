@@ -6,5 +6,10 @@ public class ApplicationUserAccess
     public SourceApplication Application { get; set; } = null!;
     public string UserId { get; set; } = string.Empty;
     public User User { get; set; } = null!;
-    public bool CanManage { get; set; }
+    public bool CanViewIncidents { get; set; }
+    public bool CanCreateIncidents { get; set; }
+    public bool CanUpdateIncidents { get; set; }
+    public bool CanManageApiKeys { get; set; }
+    public bool CanDeleteIncidents { get; set; }
+    public bool CanManageApplication { get; set; }
 }

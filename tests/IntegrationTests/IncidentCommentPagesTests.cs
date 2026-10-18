@@ -252,7 +252,7 @@ public partial class IncidentPagesTests
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             userId = (await db.Users.SingleAsync(user => user.Email == email)).Id;
-            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = (await db.Incidents.SingleAsync()).ApplicationId, UserId = userId });
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { CanViewIncidents = true, ApplicationId = (await db.Incidents.SingleAsync()).ApplicationId, UserId = userId });
             await db.SaveChangesAsync();
         }
         var first = await Http.GetStringAsync(url);
@@ -264,15 +264,11 @@ public partial class IncidentPagesTests
         Assert.DoesNotContain($"data-comment-id=\"{adminCommentId}\"", first);
         Assert.DoesNotContain("action=\"/Incidents/DeleteComment\"", first);
         Assert.DoesNotContain("action=\"/Incidents/Resolve\"", first);
-        Assert.Contains("action=\"/Incidents/AddComment\"", first);
-        using var deleteOther = await PostForm("/Incidents/DeleteComment", new() { ["IncidentId"] = id.ToString(), ["CommentId"] = adminCommentId.ToString() }, url);
+        Assert.DoesNotContain("action=\"/Incidents/AddComment\"", first);
+        using var deleteOther = await PostForm("/Incidents/DeleteComment", new() { ["IncidentId"] = id.ToString(), ["CommentId"] = adminCommentId.ToString() }, "/Manage/ChangePassword");
         Assert.AreEqual(HttpStatusCode.Found, deleteOther.StatusCode);
         Assert.Contains("Code403", deleteOther.Headers.Location!.OriginalString);
-        AssertRedirect(await PostForm("/Incidents/AddComment", new() { ["IncidentId"] = id.ToString(), ["Markdown"] = "viewer own comment" }, url), url + "?commentsPage=1#incident-comments");
-        Guid ownId;
-        using (var scope = Server!.Services.CreateScope())
-            ownId = (await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().IncidentComments.SingleAsync(comment => comment.AuthorId == userId)).Id;
-        AssertRedirect(await PostForm("/Incidents/DeleteComment", new() { ["IncidentId"] = id.ToString(), ["CommentId"] = ownId.ToString() }, url), url + "?commentsPage=1#incident-comments");
+        AssertForbidden(await PostForm("/Incidents/AddComment", new() { ["IncidentId"] = id.ToString(), ["Markdown"] = "viewer own comment" }, "/Manage/ChangePassword"));
         await LoginAsAdmin();
         using var deletedApplication = await PostForm("/Applications/DeleteApplication", new()
         {

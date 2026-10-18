@@ -75,7 +75,13 @@ public partial class PushCenterTests
 
     private async Task<SourceApplication> Application()
     {
-        var application = new SourceApplication { Name = "Test application" };
+        var owner = await _db.Users.FindAsync("admin-one");
+        if (owner == null)
+        {
+            owner = new User { Id = "admin-one", UserName = "admin-one", DisplayName = "admin-one" };
+            _db.Users.Add(owner);
+        }
+        var application = new SourceApplication { Name = "Test application", Owner = owner };
         application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, Secret);
         _db.SourceApplications.Add(application);
         await _db.SaveChangesAsync();
@@ -105,7 +111,8 @@ public partial class PushCenterTests
         _db.Roles.Add(role);
         foreach (var id in new[] { "admin-one", "admin-two", "ordinary-user" })
         {
-            _db.Users.Add(new User { Id = id, DisplayName = id, UserName = id, NormalizedUserName = id.ToUpperInvariant() });
+            if (!await _db.Users.AnyAsync(user => user.Id == id))
+                _db.Users.Add(new User { Id = id, DisplayName = id, UserName = id, NormalizedUserName = id.ToUpperInvariant() });
             if (id != "ordinary-user") _db.UserRoles.Add(new IdentityUserRole<string> { UserId = id, RoleId = role.Id });
         }
         await _db.SaveChangesAsync();
@@ -424,7 +431,7 @@ public partial class PushCenterTests
         {
             ApplicationId = application.Id,
             UserId = "ordinary-user",
-            CanManage = true
+            CanViewIncidents = true, CanUpdateIncidents = true, CanManageApiKeys = true, CanManageApplication = true
         });
         _db.PushChannelBindingUsers.Add(new PushChannelBindingUser
         {
@@ -454,7 +461,7 @@ public partial class PushCenterTests
         {
             ApplicationId = application.Id,
             RoleId = role.Id,
-            CanManage = true
+            CanViewIncidents = true, CanUpdateIncidents = true, CanManageApiKeys = true, CanManageApplication = true
         });
         _db.PushChannelBindingRoles.Add(new PushChannelBindingRole { ChannelId = channel.Id, RoleId = role.Id });
         await _db.SaveChangesAsync();
@@ -484,7 +491,7 @@ public partial class PushCenterTests
         {
             ApplicationId = application.Id,
             UserId = "ordinary-user",
-            CanManage = true
+            CanViewIncidents = true, CanUpdateIncidents = true, CanManageApiKeys = true, CanManageApplication = true
         });
         await _db.SaveChangesAsync();
 
@@ -498,6 +505,8 @@ public partial class PushCenterTests
         _db.PushChannelBindingUsers.Add(new PushChannelBindingUser { ChannelId = channel.Id, UserId = "ordinary-user" });
         await _db.SaveChangesAsync();
         Assert.IsTrue(await _channelAccess.CanBindAsync(manager.User, channel.Id));
+        Assert.IsInstanceOfType<ForbidResult>(await manager.Retry(delivery.Id));
+        ((ClaimsIdentity)manager.User.Identity!).AddClaim(new Claim(AppPermissions.Type, AppPermissionNames.CanManagePush));
         Assert.IsInstanceOfType<RedirectToActionResult>(await manager.Retry(delivery.Id));
         _db.ChangeTracker.Clear();
         Assert.AreEqual(PushDelivery.Pending, (await _db.PushDeliveries.SingleAsync()).Status);
@@ -560,7 +569,7 @@ public partial class PushCenterTests
             {
                 HttpContext = new DefaultHttpContext
                 {
-                    User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key))], "test"))
+                    User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, "admin-one"), new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key))], "test"))
                 }
             }
         }.DeleteApplication(application.Id, application.Name, CancellationToken.None);

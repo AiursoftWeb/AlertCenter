@@ -65,7 +65,22 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("CanManage")
+                    b.Property<bool>("CanCreateIncidents")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanDeleteIncidents")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanManageApiKeys")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanManageApplication")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanUpdateIncidents")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanViewIncidents")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ApplicationId", "RoleId");
@@ -83,7 +98,22 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("CanManage")
+                    b.Property<bool>("CanCreateIncidents")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanDeleteIncidents")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanManageApiKeys")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanManageApplication")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanUpdateIncidents")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CanViewIncidents")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ApplicationId", "UserId");
@@ -722,6 +752,10 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<Guid?>("OnCallGroupId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("OwnerId")
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SecretHash")
                         .IsRequired()
                         .HasMaxLength(512)
@@ -730,6 +764,8 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OnCallGroupId");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("SourceApplications");
                 });
@@ -1283,7 +1319,14 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasForeignKey("OnCallGroupId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("OnCallGroup");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -132,7 +132,7 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
-    public async Task OcesAndOwnersSeeOnlyRelevantIncidentsWithoutApplicationManagementRights()
+    public async Task OnCallAssignmentsRequireExplicitApplicationPermissions()
     {
         var key = await CreateApplication();
         var applicationId = Guid.Parse(key.Split('.')[0]);
@@ -157,6 +157,14 @@ public partial class IncidentPagesTests
             await db.SaveChangesAsync();
         }
         var url = $"/Incidents/Details/{incidentId}";
+        AssertForbidden(await Http.GetAsync(url));
+        AssertForbidden(await PostForm("/Incidents/Acknowledge", await IncidentForm(incidentId), "/Manage/ChangePassword"));
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = applicationId, UserId = userId, CanViewIncidents = true, CanUpdateIncidents = true });
+            await db.SaveChangesAsync();
+        }
         Assert.Contains("Order timeout", await Http.GetStringAsync("/Incidents/Index"));
         AssertRedirect(await PostForm("/Incidents/Acknowledge", await IncidentForm(incidentId), url), url);
         using var deniedManage = await Http.GetAsync($"/Applications/OnCall/{applicationId}");

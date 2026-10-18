@@ -193,11 +193,11 @@ recovery detection runs inside AlertCenter; the caller decides when to invoke th
 
 Platform capabilities use `Permission` claims. Roles collect permissions; the name `Administrators` does not grant privileges by itself.
 
-- `CanManageApplications` permits creating applications, managing their access grants, and managing all applications. Otherwise, per-application user or role grants provide view or manage access.
+- `CanManageApplications` permits creating applications. It does not bypass per-application ownership or user/role grants.
 - `CanManageOnCall` permits managing teams, scheduling rules, and schedules. Saved shifts determine the current on-call engineers (OCEs); a rule preview alone does not provide coverage.
 - `CanManagePush` permits managing channels and sensitive delivery configuration. A user's channel binding access and recipient membership are separate; binding a channel also requires application manage access.
 
-The current OCEs, incident owner, and application managers may handle an incident. A view grant alone does not permit incident handling. Default identity initialization runs only when both users and roles are empty; restarting an existing installation does not restore revoked permissions or grant newly introduced permissions.
+Only the application owner or users explicitly granted incident update permission may handle an incident. OCE duty and incident assignment do not grant access. A view grant alone does not permit incident handling. Default identity initialization runs only when both users and roles are empty; restarting an existing installation does not restore revoked permissions or grant newly introduced permissions.
 
 Applications may bind an on-call team. Each new incident and explicit incident reopen queues built-in email to that team's current OCEs, independently of custom severity routes. Delivery recipients are snapshotted when queued. Missing coverage or invalid recipient configuration produces a visible delivery failure without rejecting the alert. There are no automatic email retries; inspect delivery records before manually retrying an SMTP failure.
 
@@ -226,3 +226,11 @@ dotnet test tests/Aiursoft.AlertCenter.Tests.csproj
 node --test tests/Frontend/*.test.cjs
 ./lint.sh
 ```
+
+### Application sharing
+
+An application owner has every application permission. Sharing grants independent permissions to users or roles: view, create, update incidents (including comments and status), manage API keys, permanently delete incidents, and manage application settings/sharing. Direct and role grants are combined. Updating or deleting incidents also requires view access. Application creation uses the existing platform permission; platform permissions, incident assignment, and on-call duty do not grant access to another application's incidents.
+
+Only the owner can transfer ownership or delete the application. Sharing managers cannot grant permissions they do not have. Permanent incident deletion requires its exact title and current version. Existing explicit view/manage grants are preserved by the migration; older applications have no inferred owner and need an explicit ownership assignment before owner-only operations. Owner accounts must transfer their applications before deletion.
+
+This change covers user/role access. Applications still have one API key; multiple scoped keys are a separate follow-up.

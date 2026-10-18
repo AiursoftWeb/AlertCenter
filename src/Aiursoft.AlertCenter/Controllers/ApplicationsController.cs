@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Security.Cryptography;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
@@ -47,7 +48,7 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
             model.ApplicationInput = request;
             return this.StackView(model, "Applications");
         }
-        var application = new SourceApplication { Name = request.Name.Trim(), OnCallGroupId = request.OnCallGroupId };
+        var application = new SourceApplication { Name = request.Name.Trim(), OnCallGroupId = request.OnCallGroupId, OwnerId = User.FindFirstValue(ClaimTypes.NameIdentifier) };
         var secret = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
         application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, secret);
         db.SourceApplications.Add(application);
@@ -70,9 +71,9 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
 
     public async Task<IActionResult> OnCall(Guid id, CancellationToken cancellationToken)
     {
-        var application = await db.SourceApplications.AsNoTracking().SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
+        var application = await db.SourceApplications.AsNoTracking().Include(item => item.Owner).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (application == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
+        if (!await applicationAccess.CanAccessAsync(User, id, permission: ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
         return this.StackView(await OnCallModel(application, application.OnCallGroupId, cancellationToken));
     }
 
@@ -81,7 +82,7 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
     {
         var application = await db.SourceApplications.SingleOrDefaultAsync(item => item.Id == request.ApplicationId, cancellationToken);
         if (application == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, application.Id, requireManage: true, cancellationToken)) return Forbid();
+        if (!await applicationAccess.CanAccessAsync(User, application.Id, permission: ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
         if (!await OnCallGroupExists(request.OnCallGroupId, cancellationToken))
             ModelState.AddModelError(nameof(request.OnCallGroupId), localizer["The selected on-call group does not exist. Please select again."].Value);
         if (!ModelState.IsValid)
@@ -118,7 +119,7 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
         if (!ModelState.IsValid || id == Guid.Empty) return BadRequest(localizer["Please select a valid application."].Value);
         var application = await db.SourceApplications.SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (application == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, id, true, cancellationToken)) return Forbid();
+        if (!await applicationAccess.CanAccessAsync(User, id, ApplicationPermission.ManageApiKeys, cancellationToken)) return Forbid();
         var secret = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
         application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, secret);
         await db.SaveChangesAsync(cancellationToken);
@@ -132,7 +133,7 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
     {
         var application = await db.SourceApplications.FindAsync([id], cancellationToken);
         if (application == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, cancellationToken)) return Forbid();
+        if (!await applicationAccess.CanAccessAsync(User, id, permission: ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
         application.IsEnabled = enabled;
         await db.SaveChangesAsync(cancellationToken);
         return RedirectToAction(nameof(Applications));
@@ -150,7 +151,7 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
                 .Where(application => application.Id == id)
                 .Select(application => application.Name).SingleOrDefaultAsync(retryToken);
             if (applicationName == null) return NotFound();
-            if (!await applicationAccess.CanAccessAsync(User, id, requireManage: true, retryToken)) return Forbid();
+            if (!await applicationAccess.IsOwnerAsync(User, id, retryToken)) return Forbid();
             if (!ModelState.IsValid || string.IsNullOrEmpty(confirmationName) ||
                 !string.Equals(applicationName, confirmationName, StringComparison.Ordinal))
             {
@@ -159,21 +160,28 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
             // Delete the application and its history atomically without loading every message.
             await db.Incidents.Where(incident => incident.ApplicationId == id)
                 .ExecuteDeleteAsync(retryToken);
-            var deleted = await db.SourceApplications.Where(application => application.Id == id)
+            var ownerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var deleted = await db.SourceApplications.Where(application => application.Id == id && application.OwnerId == ownerId)
                 .ExecuteDeleteAsync(retryToken);
+            if (deleted == 0)
+            {
+                await transaction.RollbackAsync(retryToken);
+                return Conflict();
+            }
             await transaction.CommitAsync(retryToken);
-            return deleted == 0 ? NotFound() : RedirectToAction(nameof(Applications));
+            return RedirectToAction(nameof(Applications));
         }, cancellationToken);
     }
 
     public async Task<IActionResult> Access(Guid id, CancellationToken cancellationToken)
     {
-        if (!applicationAccess.CanManageApplications(User)) return Forbid();
-        var application = await db.SourceApplications.AsNoTracking().SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (!await applicationAccess.CanAccessAsync(User, id, ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
+        var application = await db.SourceApplications.AsNoTracking().Include(item => item.Owner).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (application == null) return NotFound();
         return this.StackView(new ApplicationAccessViewModel
         {
             Application = application,
+            IsOwner = await applicationAccess.IsOwnerAsync(User, id, cancellationToken),
             UserAccesses = await db.ApplicationUserAccesses.AsNoTracking().Include(access => access.User)
                 .Where(access => access.ApplicationId == id).OrderBy(access => access.User.DisplayName).ToListAsync(cancellationToken),
             RoleAccesses = await db.ApplicationRoleAccesses.AsNoTracking().Include(access => access.Role)
@@ -188,39 +196,84 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> SaveAccess(SaveApplicationAccessRequest request, CancellationToken cancellationToken)
     {
-        if (!applicationAccess.CanManageApplications(User)) return Forbid();
-        if (!await db.SourceApplications.AnyAsync(application => application.Id == request.ApplicationId, cancellationToken)) return NotFound();
-        var viewUsers = request.ViewUserIds.Concat(request.ManageUserIds).Distinct().ToHashSet();
-        var manageUsers = request.ManageUserIds.ToHashSet();
-        var viewRoles = request.ViewRoleIds.Concat(request.ManageRoleIds).Distinct().ToHashSet();
-        var manageRoles = request.ManageRoleIds.ToHashSet();
-        if (await db.Users.CountAsync(user => viewUsers.Contains(user.Id), cancellationToken) != viewUsers.Count ||
-            await db.Roles.CountAsync(role => viewRoles.Contains(role.Id), cancellationToken) != viewRoles.Count)
-            return BadRequest(localizer["The selected user or role does not exist. Please refresh the page and try again."].Value);
-        var users = await db.ApplicationUserAccesses.Where(access => access.ApplicationId == request.ApplicationId).ToListAsync(cancellationToken);
-        var roles = await db.ApplicationRoleAccesses.Where(access => access.ApplicationId == request.ApplicationId).ToListAsync(cancellationToken);
-        db.ApplicationUserAccesses.RemoveRange(users.Where(access => !viewUsers.Contains(access.UserId)));
-        db.ApplicationRoleAccesses.RemoveRange(roles.Where(access => !viewRoles.Contains(access.RoleId)));
-        foreach (var userId in viewUsers)
+        if (!await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
+        if (!ModelState.IsValid || (string.IsNullOrWhiteSpace(request.UserId) == string.IsNullOrWhiteSpace(request.RoleId))) return BadRequest();
+        if ((request.CanUpdateIncidents || request.CanDeleteIncidents) && !request.CanViewIncidents)
+            return BadRequest(localizer["Viewing incidents is required to update or delete them."].Value);
+        // Delegates cannot grant permissions they do not possess, including through API keys later.
+        if (request.CanViewIncidents && !await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.ViewIncidents, cancellationToken)) return Forbid();
+        if (request.CanCreateIncidents && !await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.CreateIncidents, cancellationToken)) return Forbid();
+        if (request.CanUpdateIncidents && !await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken)) return Forbid();
+        if (request.CanManageApiKeys && !await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.ManageApiKeys, cancellationToken)) return Forbid();
+        if (request.CanDeleteIncidents && !await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.DeleteIncidents, cancellationToken)) return Forbid();
+        if (request.CanManageApplication && !await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
+
+        if (request.UserId != null)
         {
-            var access = users.SingleOrDefault(item => item.UserId == userId);
-            if (access == null) db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = request.ApplicationId, UserId = userId, CanManage = manageUsers.Contains(userId) });
-            else access.CanManage = manageUsers.Contains(userId);
+            if (!await db.Users.AnyAsync(user => user.Id == request.UserId, cancellationToken)) return BadRequest();
+            var grant = await db.ApplicationUserAccesses.SingleOrDefaultAsync(access => access.ApplicationId == request.ApplicationId && access.UserId == request.UserId, cancellationToken);
+            if (grant == null)
+            {
+                grant = new ApplicationUserAccess { ApplicationId = request.ApplicationId, UserId = request.UserId };
+                db.ApplicationUserAccesses.Add(grant);
+            }
+            grant.CanViewIncidents = request.CanViewIncidents;
+            grant.CanCreateIncidents = request.CanCreateIncidents;
+            grant.CanUpdateIncidents = request.CanUpdateIncidents;
+            grant.CanManageApiKeys = request.CanManageApiKeys;
+            grant.CanDeleteIncidents = request.CanDeleteIncidents;
+            grant.CanManageApplication = request.CanManageApplication;
         }
-        foreach (var roleId in viewRoles)
+        else
         {
-            var access = roles.SingleOrDefault(item => item.RoleId == roleId);
-            if (access == null) db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = request.ApplicationId, RoleId = roleId, CanManage = manageRoles.Contains(roleId) });
-            else access.CanManage = manageRoles.Contains(roleId);
+            if (!await db.Roles.AnyAsync(role => role.Id == request.RoleId, cancellationToken)) return BadRequest();
+            var grant = await db.ApplicationRoleAccesses.SingleOrDefaultAsync(access => access.ApplicationId == request.ApplicationId && access.RoleId == request.RoleId, cancellationToken);
+            if (grant == null)
+            {
+                grant = new ApplicationRoleAccess { ApplicationId = request.ApplicationId, RoleId = request.RoleId! };
+                db.ApplicationRoleAccesses.Add(grant);
+            }
+            grant.CanViewIncidents = request.CanViewIncidents;
+            grant.CanCreateIncidents = request.CanCreateIncidents;
+            grant.CanUpdateIncidents = request.CanUpdateIncidents;
+            grant.CanManageApiKeys = request.CanManageApiKeys;
+            grant.CanDeleteIncidents = request.CanDeleteIncidents;
+            grant.CanManageApplication = request.CanManageApplication;
         }
         await db.SaveChangesAsync(cancellationToken);
         return RedirectToAction(nameof(Access), new { id = request.ApplicationId });
     }
 
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> RemoveAccess(Guid id, string? userId, string? roleId, CancellationToken cancellationToken)
+    {
+        if (!await applicationAccess.CanAccessAsync(User, id, ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
+        if ((userId == null) == (roleId == null)) return BadRequest();
+        if (userId != null)
+            await db.ApplicationUserAccesses.Where(access => access.ApplicationId == id && access.UserId == userId).ExecuteDeleteAsync(cancellationToken);
+        else
+            await db.ApplicationRoleAccesses.Where(access => access.ApplicationId == id && access.RoleId == roleId).ExecuteDeleteAsync(cancellationToken);
+        return RedirectToAction(nameof(Access), new { id });
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> TransferOwnership(Guid id, string ownerId, CancellationToken cancellationToken)
+    {
+        if (!await applicationAccess.IsOwnerAsync(User, id, cancellationToken)) return Forbid();
+        if (!await db.Users.AnyAsync(user => user.Id == ownerId, cancellationToken)) return BadRequest();
+        var currentOwnerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var changed = await db.SourceApplications.Where(application => application.Id == id && application.OwnerId == currentOwnerId)
+            .ExecuteUpdateAsync(update => update.SetProperty(application => application.OwnerId, ownerId), cancellationToken);
+        return changed == 1 ? RedirectToAction(nameof(Applications)) : Conflict();
+    }
+
     private async Task<ApplicationsViewModel> ApplicationsModel(string? keyword = null, CancellationToken cancellationToken = default)
     {
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
-        var applications = db.SourceApplications.AsNoTracking().Where(application => accessibleIds.Contains(application.Id));
+        var visibleIds = new HashSet<Guid>(accessibleIds);
+        foreach (var permission in Enum.GetValues<ApplicationPermission>())
+            visibleIds.UnionWith(await applicationAccess.GetAccessibleApplicationIdsAsync(User, permission, cancellationToken));
+        var applications = db.SourceApplications.AsNoTracking().Where(application => visibleIds.Contains(application.Id));
         if (!string.IsNullOrEmpty(keyword)) applications = applications.Where(application => application.Name.Contains(keyword));
         return new ApplicationsViewModel
         {
@@ -230,7 +283,11 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
                 ? await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken) : [],
             ApplicationSearchKeyword = keyword,
             CanManageApplications = applicationAccess.CanManageApplications(User),
-            ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, true, cancellationToken)).ToHashSet()
+            CreatableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, ApplicationPermission.CreateIncidents, cancellationToken)).ToHashSet(),
+            ViewableApplicationIds = accessibleIds.ToHashSet(),
+            KeyManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, ApplicationPermission.ManageApiKeys, cancellationToken)).ToHashSet(),
+            OwnedApplicationIds = (await db.SourceApplications.Where(application => application.OwnerId == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(application => application.Id).ToListAsync(cancellationToken)).ToHashSet(),
+            ManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, ApplicationPermission.ManageApplication, cancellationToken)).ToHashSet()
         };
     }
 }

@@ -26,8 +26,8 @@ public class AppPermissions
         List<PermissionDescriptor> allPermission =
         [
             new(AppPermissionNames.CanManageApplications,
-                localizer["Manage Applications"],
-                localizer["Allows creating applications and managing access to all applications."]),
+                localizer["Create Applications"],
+                localizer["Allows creating applications. Access to existing applications requires ownership or an explicit grant."]),
             new(AppPermissionNames.CanManageOnCall,
                 localizer["Manage On-Call"],
                 localizer["Allows managing on-call teams, scheduling rules, and schedules."]),

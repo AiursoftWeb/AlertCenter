@@ -127,7 +127,7 @@ public class RetryingTransactionTests
                 { UserId = $"u{index}", RotationOrder = index }).ToList()
         };
         db.OnCallGroups.Add(group);
-        var application = new SourceApplication { Name = "Delete me" };
+        var application = new SourceApplication { Name = "Delete me", OwnerId = "u0" };
         db.SourceApplications.Add(application);
         db.Incidents.Add(new Incident
         {
@@ -217,7 +217,7 @@ public class RetryingTransactionTests
     {
         var http = new DefaultHttpContext
         {
-            User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key))], "test"))
+            User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, "u0"), new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key))], "test"))
         };
         return new OnCallController(db, new OnCallScheduleGenerator(TestLocalization.For<OnCallScheduleGenerator>()),
             TestLocalization.For<OnCallController>(), TestLocalization.Factory)

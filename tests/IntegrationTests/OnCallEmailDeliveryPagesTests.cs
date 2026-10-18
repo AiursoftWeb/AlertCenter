@@ -56,7 +56,7 @@ public partial class IncidentPagesTests
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var user = await db.Users.SingleAsync(item => item.Email == email);
-            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = applicationId, UserId = user.Id });
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { CanViewIncidents = true, ApplicationId = applicationId, UserId = user.Id });
             await db.SaveChangesAsync();
         }
         var viewer = WebUtility.HtmlDecode(await Http.GetStringAsync(url));
@@ -68,7 +68,16 @@ public partial class IncidentPagesTests
         using var deniedRetry = await PostForm("/Push/Retry", new() { ["id"] = deliveryId.ToString() }, "/Manage/ChangePassword");
         Assert.AreEqual(HttpStatusCode.Found, deniedRetry.StatusCode);
         Assert.Contains("Code403", deniedRetry.Headers.Location!.OriginalString);
-        await LoginAsAdmin();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            (await db.ApplicationUserAccesses.SingleAsync()).CanManageApplication = true;
+            await db.SaveChangesAsync();
+        }
+        var manager = WebUtility.HtmlDecode(await Http.GetStringAsync(url));
+        Assert.Contains("/Push/Retry", manager);
+        Assert.DoesNotContain("private-oce@example.com", manager);
+        Assert.DoesNotContain("private-team@example.com", manager);
         using var missingToken = await PostForm("/Push/Retry", new() { ["id"] = deliveryId.ToString() }, includeToken: false);
         Assert.AreEqual(HttpStatusCode.BadRequest, missingToken.StatusCode);
         AssertRedirect(await PostForm("/Push/Retry", new() { ["id"] = deliveryId.ToString() }, url), url);

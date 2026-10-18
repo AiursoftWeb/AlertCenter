@@ -29,9 +29,9 @@ public class IncidentCommentServiceTests
         incident = new Incident { Application = application, ApplicationId = application.Id, Title = "Outage", OwnerId = "owner" };
         db.Incidents.Add(incident);
         foreach (var id in new[] { "author", "viewer", "manager" })
-            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = incident.ApplicationId, UserId = id, CanManage = id == "manager" });
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = incident.ApplicationId, UserId = id, CanViewIncidents = true, CanUpdateIncidents = id != "viewer", CanManageApiKeys = id == "manager", CanManageApplication = id == "manager" });
         await db.SaveChangesAsync();
-        service = new IncidentCommentService(db, new ApplicationAccessService(db), localizer: TestLocalization.For<IncidentCommentService>(), localizerFactory: TestLocalization.Factory);
+        service = new IncidentCommentService(db, new ApplicationAccessService(db), localizer: TestLocalization.For<IncidentCommentService>());
     }
 
     [TestCleanup]
@@ -45,18 +45,18 @@ public class IncidentCommentServiceTests
     [DataRow(Incident.Acked)]
     [DataRow(Incident.Mitigated)]
     [DataRow(Incident.Resolved)]
-    public async Task ViewersCanCommentInEveryStateWithoutChangingWorkflowOrSendingNotifications(string state)
+    public async Task EditorsCanCommentInEveryStateWithoutChangingWorkflowOrSendingNotifications(string state)
     {
         incident.Status = state;
         await db.SaveChangesAsync();
         var version = incident.Version;
         const string markdown = "  # 排查\n\n**影响**：数据库错误\n```sql\nSELECT 1;\n```\n ";
-        Assert.AreEqual(200, (await service.AddAsync(Actor("viewer"), Request(markdown))).StatusCode);
+        Assert.AreEqual(200, (await service.AddAsync(Actor("author"), Request(markdown))).StatusCode);
         db.ChangeTracker.Clear();
         var saved = await db.IncidentComments.SingleAsync();
         Assert.AreEqual(markdown, saved.Markdown);
-        Assert.AreEqual("viewer", saved.AuthorId);
-        Assert.AreEqual("viewer name", saved.AuthorName);
+        Assert.AreEqual("author", saved.AuthorId);
+        Assert.AreEqual("author name", saved.AuthorName);
         Assert.IsTrue(saved.CreatedAtUtc > DateTime.UtcNow.AddMinutes(-1));
         Assert.AreEqual(version, (await db.Incidents.SingleAsync()).Version);
         Assert.AreEqual(state, (await db.Incidents.SingleAsync()).Status);
@@ -65,37 +65,24 @@ public class IncidentCommentServiceTests
     }
 
     [TestMethod]
-    public async Task OwnersAndCurrentOcesCanCommentButOffDutyAndUnrelatedUsersCannot()
+    public async Task IncidentAssignmentAndCurrentDutyDoNotGrantCommentAccess()
     {
-        Assert.AreEqual(200, (await service.AddAsync(Actor("owner"), Request())).StatusCode);
         var group = new OnCallGroup { Name = "OCE" };
-        db.OnCallShifts.Add(new OnCallShift
-        {
-            Group = group, StartsAtUtc = DateTime.UtcNow.AddHours(-1), EndsAtUtc = DateTime.UtcNow.AddHours(7),
-            Members = [new OnCallShiftMember { UserId = "oce" }]
-        });
+        db.OnCallShifts.Add(new OnCallShift { Group = group, StartsAtUtc = DateTime.UtcNow.AddHours(-1), EndsAtUtc = DateTime.UtcNow.AddHours(1), Members = [new OnCallShiftMember { UserId = "oce" }] });
         incident.Application.OnCallGroup = group;
         await db.SaveChangesAsync();
-        Assert.AreEqual(200, (await service.AddAsync(Actor("oce"), Request())).StatusCode);
-        var ownerComment = await db.IncidentComments.SingleAsync(comment => comment.AuthorId == "owner");
-        Assert.AreEqual(403, (await service.DeleteAsync(Actor("oce"), new DeleteIncidentCommentRequest
-        {
-            IncidentId = incident.Id, CommentId = ownerComment.Id
-        })).StatusCode);
-        (await db.OnCallShifts.SingleAsync()).EndsAtUtc = DateTime.UtcNow.AddMinutes(-1);
-        await db.SaveChangesAsync();
-        Assert.AreEqual(403, (await service.AddAsync(Actor("oce"), Request())).StatusCode);
-        Assert.AreEqual(403, (await service.AddAsync(Actor("outsider"), Request())).StatusCode);
-        Assert.AreEqual(2, await db.IncidentComments.CountAsync());
+        foreach (var id in new[] { "viewer", "owner", "oce", "outsider" })
+            Assert.AreEqual(403, (await service.AddAsync(Actor(id), Request())).StatusCode);
+        Assert.AreEqual(0, await db.IncidentComments.CountAsync());
     }
 
     [TestMethod]
-    public async Task RoleViewAccessAllowsCommentsAndRevocationBlocksPostingAndDeleting()
+    public async Task RoleEditAccessAllowsCommentsAndRevocationBlocksPostingAndDeleting()
     {
         var role = new IdentityRole("Readers");
         db.Roles.Add(role);
         db.UserRoles.Add(new IdentityUserRole<string> { UserId = "outsider", RoleId = role.Id });
-        db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = incident.ApplicationId, RoleId = role.Id });
+        db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = incident.ApplicationId, RoleId = role.Id, CanViewIncidents = true, CanUpdateIncidents = true });
         await db.SaveChangesAsync();
         Assert.AreEqual(200, (await service.AddAsync(Actor("outsider"), Request())).StatusCode);
         var comment = await db.IncidentComments.SingleAsync();
@@ -175,7 +162,7 @@ public class IncidentCommentServiceTests
         await second.IncidentComments.SingleAsync();
         var request = new DeleteIncidentCommentRequest { IncidentId = incident.Id, CommentId = comment.Id };
         Assert.AreEqual(200, (await service.DeleteAsync(Actor("author"), request)).StatusCode);
-        Assert.AreEqual(409, (await new IncidentCommentService(second, new ApplicationAccessService(second), localizer: TestLocalization.For<IncidentCommentService>(), localizerFactory: TestLocalization.Factory).DeleteAsync(Actor("manager"), request)).StatusCode);
+        Assert.AreEqual(409, (await new IncidentCommentService(second, new ApplicationAccessService(second), localizer: TestLocalization.For<IncidentCommentService>()).DeleteAsync(Actor("manager"), request)).StatusCode);
         db.ChangeTracker.Clear();
         db.Users.Remove(await db.Users.SingleAsync(user => user.Id == "author"));
         await db.SaveChangesAsync();

@@ -1,180 +1,64 @@
 @model Aiursoft.AlertCenter.Models.ApplicationAccessViewModel
-
-@section styles {
-    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
-}
-
-@{
-    var accessCount = Model.UserAccesses.Count + Model.RoleAccesses.Count;
-}
-
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-    <div>
-        <div class="d-flex align-items-center gap-2 mb-1">
-            <div class="ac-stat-icon icon-primary" style="width: 36px; height: 36px;">
-                <i data-lucide="shield-check" aria-hidden="true"></i>
-            </div>
-            <h1 class="h3 mb-0">@Localizer["Application Access Permissions"]</h1>
-        </div>
-        <p class="text-muted mb-0">@Model.Application.Name · @Localizer["Precisely control view and management permissions for team members and roles."]</p>
-    </div>
-    <a asp-action="Applications" class="btn btn-outline-secondary">
-        <i class="align-middle me-1" data-lucide="arrow-left" aria-hidden="true"></i>@Localizer["Back to Connected Apps"]
-    </a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">@Localizer["Manage Sharing"]: @Model.Application.Name</h1>
+    <a asp-action="Applications" class="btn btn-outline-secondary">@Localizer["Back to Applications"]</a>
 </div>
-
-<div class="alert alert-info mb-4" role="alert">
-    <div class="alert-icon">
-        <i class="align-middle" data-lucide="info" aria-hidden="true"></i>
-    </div>
-    <div class="alert-message">
-        <strong>@Localizer["Users with the application management permission have full management access to all applications."]</strong>
-        <div class="small mt-1">@Localizer["Role-based authorization automatically applies to all members of that role. If a user has both direct and role-based authorization, the system prioritizes the highest permission, which is 'Manageable'."]</div>
+<p>@Localizer["Owner"]: @(Model.Application.Owner?.DisplayName ?? Localizer["Unassigned"].Value)</p>
+<div class="alert alert-info" role="alert"><div class="alert-icon"><i data-lucide="info" aria-hidden="true"></i></div><div class="alert-message">@Localizer["The owner has all permissions. Direct user grants and role grants are combined. On-call assignments do not grant access."]</div></div>
+<div class="card mb-4">
+    <div class="card-header"><h5 class="card-title mb-0">@Localizer["Add or Update Share"]</h5></div>
+    <div class="card-body">
+        <form asp-action="SaveAccess" method="post">
+            <input type="hidden" name="ApplicationId" value="@Model.Application.Id" />
+            <p class="text-muted">@Localizer["Select either a user or a role. Saving replaces that recipient's permissions."]</p>
+            <div class="row g-3 mb-3">
+                <div class="col-md-6"><label for="share-user" class="form-label">@Localizer["User"]</label><select id="share-user" name="UserId" asp-items="Model.Users" class="form-select"><option value="">@Localizer["Select user..."]</option></select></div>
+                <div class="col-md-6"><label for="share-role" class="form-label">@Localizer["Role"]</label><select id="share-role" name="RoleId" asp-items="Model.Roles" class="form-select"><option value="">@Localizer["Select role..."]</option></select></div>
+            </div>
+            <div class="form-check mb-2"><input id="CanViewIncidents" name="CanViewIncidents" value="true" type="checkbox" class="form-check-input" /><label for="CanViewIncidents" class="form-check-label">@Localizer["View incidents"]</label></div>
+            <div class="form-check mb-2"><input id="CanCreateIncidents" name="CanCreateIncidents" value="true" type="checkbox" class="form-check-input" /><label for="CanCreateIncidents" class="form-check-label">@Localizer["Create incidents"]</label></div>
+            <div class="form-check mb-2"><input id="CanUpdateIncidents" name="CanUpdateIncidents" value="true" type="checkbox" class="form-check-input" /><label for="CanUpdateIncidents" class="form-check-label">@Localizer["Update incidents and status"]</label></div>
+            <div class="form-check mb-2"><input id="CanManageApiKeys" name="CanManageApiKeys" value="true" type="checkbox" class="form-check-input" /><label for="CanManageApiKeys" class="form-check-label">@Localizer["Manage API keys"]</label></div>
+            <div class="form-check mb-2"><input id="CanDeleteIncidents" name="CanDeleteIncidents" value="true" type="checkbox" class="form-check-input" /><label for="CanDeleteIncidents" class="form-check-label">@Localizer["Permanently delete incidents"]</label></div>
+            <div class="form-check mb-2"><input id="CanManageApplication" name="CanManageApplication" value="true" type="checkbox" class="form-check-input" /><label for="CanManageApplication" class="form-check-label">@Localizer["Manage application and sharing"]</label></div>
+            <button class="btn btn-primary mt-3" type="submit">@Localizer["Save permissions"]</button>
+        </form>
     </div>
 </div>
-
-<form asp-action="SaveAccess" method="post" data-action-feedback id="application-access-form">
-    <input type="hidden" name="applicationId" value="@Model.Application.Id" />
-
-    <!-- Add Permission Section -->
-    <section class="card mb-4" aria-labelledby="add-access-heading">
-        <div class="card-header">
-            <h2 id="add-access-heading" class="card-title mb-0">
-                <i class="align-middle me-2 text-primary" data-lucide="user-plus" aria-hidden="true"></i>@Localizer["Grant New Permissions"]
-            </h2>
-        </div>
-        <div class="card-body pt-0">
-            <div class="row g-3 align-items-end">
-                <div class="col-md-3">
-                    <label class="form-label small fw-medium d-block">@Localizer["Authorization Type"]</label>
-                    <div class="btn-group w-100" role="group">
-                        <input type="radio" class="btn-check" name="access-kind" id="access-role" value="role" checked />
-                        <label class="btn btn-outline-primary" for="access-role">
-                            <i class="align-middle me-1" data-lucide="users" aria-hidden="true"></i>@Localizer["Role group"]
-                        </label>
-                        <input type="radio" class="btn-check" name="access-kind" id="access-user" value="user" />
-                        <label class="btn btn-outline-primary" for="access-user">
-                            <i class="align-middle me-1" data-lucide="user" aria-hidden="true"></i>@Localizer["Specify User"]
-                        </label>
-                    </div>
-                </div>
-
-                <div class="col-md-5">
-                    <label for="access-role-select" class="form-label small fw-medium" id="access-subject-label">@Localizer["Select Role"]</label>
-                    <select id="access-role-select" class="form-select">
-                        <option value="">@Localizer["Select role..."]</option>
-                        @foreach (var role in Model.Roles)
-                        {
-                            <option value="@role.Value">@role.Text</option>
-                        }
-                    </select>
-                    <select id="access-user-select" class="form-select d-none">
-                        <option value="">@Localizer["Select user..."]</option>
-                        @foreach (var user in Model.Users)
-                        {
-                            <option value="@user.Value">@user.Text</option>
-                        }
-                    </select>
-                </div>
-
-                <div class="col-md-2">
-                    <label for="access-level" class="form-label small fw-medium">@Localizer["Permission level"]</label>
-                    <select id="access-level" class="form-select">
-                        <option value="view">@Localizer["View only (View)"]</option>
-                        <option value="manage">@Localizer["Manageable (Manage)"]</option>
-                    </select>
-                </div>
-
-                <div class="col-md-2">
-                    <button type="button" id="add-access" class="btn btn-primary w-100">
-                        <i class="align-middle me-1" data-lucide="plus" aria-hidden="true"></i>@Localizer["Add authorization"]
-                    </button>
-                </div>
-            </div>
-            <p class="form-text text-muted mb-0 mt-3 small">
-                <i class="align-middle me-1" data-lucide="shield"></i><strong>@Localizer["View only"]</strong>@Localizer[": Allows browsing incident messages, related incidents, and delivery records for this application;"]<strong>@Localizer["Manageable"]</strong>@Localizer[": Additionally allows modifying push bindings, resetting keys, and handling incidents."]
-            </p>
-        </div>
-    </section>
-
-    <!-- Granted Permissions List -->
-    <section class="card" aria-labelledby="granted-heading">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h2 id="granted-heading" class="card-title mb-0">
-                <i class="align-middle me-2 text-primary" data-lucide="shield" aria-hidden="true"></i>@Localizer["Permissions granted"]
-            </h2>
-            <span id="access-count" class="badge bg-secondary-subtle text-secondary border">@accessCount</span>
-        </div>
-        <div class="card-body pt-0">
-            <div id="access-empty" class="ac-empty-state py-4 @(accessCount > 0 ? "d-none" : "")">
-                <div class="ac-empty-icon" style="width: 48px; height: 48px;">
-                    <i data-lucide="users" aria-hidden="true"></i>
-                </div>
-                <h3 class="h6 text-muted">@Localizer["No additional access permissions have been granted to regular users or roles yet"]</h3>
-                <p class="text-muted small mb-0">@Localizer["Only users with the application management permission can access this application."]</p>
-            </div>
-
-            <div id="access-list" class="list-group list-group-flush">
-                @foreach (var access in Model.RoleAccesses)
-                {
-                    <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3" data-kind="role" data-id="@access.RoleId">
-                        <div class="d-flex align-items-center gap-3 min-w-0">
-                            <div class="ac-stat-icon icon-primary" style="width: 40px; height: 40px;">
-                                <i data-lucide="users" aria-hidden="true"></i>
-                            </div>
-                            <div class="text-truncate">
-                                <strong class="d-block text-truncate">@access.Role.Name</strong>
-                                <small class="text-muted">@Localizer["Role group · All members in the group automatically inherit permissions"]</small>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge @(access.CanManage ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border")">
-                                @(access.CanManage ? @Localizer["Manageable"].Value : @Localizer["View only"].Value)
-                            </span>
-                            <input type="hidden" name="@(access.CanManage ? "manageRoleIds" : "viewRoleIds")" value="@access.RoleId" />
-                            <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="@Localizer["Remove permission"]">
-                                <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
-                                <span class="visually-hidden">@Localizer["Remove "]@access.Role.Name</span>
-                            </button>
-                        </div>
-                    </div>
-                }
-
-                @foreach (var access in Model.UserAccesses)
-                {
-                    <div class="list-group-item d-flex align-items-center justify-content-between gap-3 px-0 py-3" data-kind="user" data-id="@access.UserId">
-                        <div class="d-flex align-items-center gap-3 min-w-0">
-                            <div class="ac-stat-icon icon-indigo" style="width: 40px; height: 40px;">
-                                <i data-lucide="user" aria-hidden="true"></i>
-                            </div>
-                            <div class="text-truncate">
-                                <strong class="d-block text-truncate">@access.User.DisplayName</strong>
-                                <small class="text-muted">@access.User.UserName · @Localizer["Specify Individual User"]</small>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="badge @(access.CanManage ? "bg-success-subtle text-success border border-success-subtle" : "bg-secondary-subtle text-secondary border")">
-                                @(access.CanManage ? @Localizer["Manageable"].Value : @Localizer["View only"].Value)
-                            </span>
-                            <input type="hidden" name="@(access.CanManage ? "manageUserIds" : "viewUserIds")" value="@access.UserId" />
-                            <button type="button" class="btn btn-sm btn-outline-danger remove-access" title="@Localizer["Remove permission"]">
-                                <i class="align-middle" data-lucide="x" aria-hidden="true"></i>
-                                <span class="visually-hidden">@Localizer["Remove "]@access.User.DisplayName</span>
-                            </button>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-        <div class="card-footer bg-transparent d-flex justify-content-end gap-2">
-            <a asp-action="Applications" class="btn btn-outline-secondary">@Localizer["Cancel"]</a>
-            <button class="btn btn-primary" type="submit">
-                <i class="align-middle me-1" data-lucide="save" aria-hidden="true"></i>@Localizer["Save permission changes"]
-            </button>
-        </div>
-    </section>
-</form>
-
-@section scripts {
-<script src="~/scripts/alerts-access.js" asp-append-version="true" defer></script>
+<div class="card">
+    <div class="card-header"><h5 class="card-title mb-0">@Localizer["Shared With"]</h5></div>
+    <div class="card-body"><div class="table-responsive"><table class="table table-hover align-middle">
+        <thead><tr><th>@Localizer["User or Role"]</th><th>@Localizer["Permissions"]</th><th>@Localizer["Actions"]</th></tr></thead>
+        <tbody>
+        @foreach (var access in Model.UserAccesses)
+        {
+            <tr><td>@access.User.DisplayName <span class="badge bg-secondary">@Localizer["User"]</span></td><td>
+                @if (access.CanViewIncidents) { <span class="badge bg-primary me-1">@Localizer["View incidents"]</span> }
+                @if (access.CanCreateIncidents) { <span class="badge bg-primary me-1">@Localizer["Create incidents"]</span> }
+                @if (access.CanUpdateIncidents) { <span class="badge bg-primary me-1">@Localizer["Update incidents and status"]</span> }
+                @if (access.CanManageApiKeys) { <span class="badge bg-primary me-1">@Localizer["Manage API keys"]</span> }
+                @if (access.CanDeleteIncidents) { <span class="badge bg-primary me-1">@Localizer["Permanently delete incidents"]</span> }
+                @if (access.CanManageApplication) { <span class="badge bg-primary me-1">@Localizer["Manage application and sharing"]</span> }
+            </td><td><form asp-action="RemoveAccess" method="post"><input type="hidden" name="id" value="@Model.Application.Id" /><input type="hidden" name="userId" value="@access.UserId" /><button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Remove"]</button></form></td></tr>
+        }
+        @foreach (var access in Model.RoleAccesses)
+        {
+            <tr><td>@access.Role.Name <span class="badge bg-secondary">@Localizer["Role"]</span></td><td>
+                @if (access.CanViewIncidents) { <span class="badge bg-primary me-1">@Localizer["View incidents"]</span> }
+                @if (access.CanCreateIncidents) { <span class="badge bg-primary me-1">@Localizer["Create incidents"]</span> }
+                @if (access.CanUpdateIncidents) { <span class="badge bg-primary me-1">@Localizer["Update incidents and status"]</span> }
+                @if (access.CanManageApiKeys) { <span class="badge bg-primary me-1">@Localizer["Manage API keys"]</span> }
+                @if (access.CanDeleteIncidents) { <span class="badge bg-primary me-1">@Localizer["Permanently delete incidents"]</span> }
+                @if (access.CanManageApplication) { <span class="badge bg-primary me-1">@Localizer["Manage application and sharing"]</span> }
+            </td><td><form asp-action="RemoveAccess" method="post"><input type="hidden" name="id" value="@Model.Application.Id" /><input type="hidden" name="roleId" value="@access.RoleId" /><button type="submit" class="btn btn-sm btn-outline-danger">@Localizer["Remove"]</button></form></td></tr>
+        }
+        </tbody>
+    </table></div></div>
+</div>
+@if (Model.IsOwner)
+{
+    <div class="card mt-4"><div class="card-header"><h5 class="card-title mb-0">@Localizer["Transfer Ownership"]</h5></div><div class="card-body">
+        <p>@Localizer["Transferring ownership gives the selected user all permissions. You will lose owner privileges."]</p>
+        <form asp-action="TransferOwnership" method="post"><input type="hidden" name="id" value="@Model.Application.Id" /><label for="new-owner" class="form-label">@Localizer["New owner"]</label><select id="new-owner" name="ownerId" asp-items="Model.Users" class="form-select mb-3" required><option value="">@Localizer["Select user..."]</option></select><button type="submit" class="btn btn-warning">@Localizer["Transfer Ownership"]</button></form>
+    </div></div>
 }

@@ -25,6 +25,8 @@ public class ApplicationDeletionTests
             .UseSqlite("DataSource=:memory:").Options);
         await _db.Database.OpenConnectionAsync();
         await _db.Database.MigrateAsync();
+        _db.Users.Add(new User { Id = "owner", UserName = "owner", DisplayName = "Owner" });
+        await _db.SaveChangesAsync();
     }
 
     [TestCleanup]
@@ -40,8 +42,8 @@ public class ApplicationDeletionTests
     [DataRow(1, "订单服务 <Orders> & \"通知\"")]
     public async Task DeleteRemovesOnlySelectedApplicationAndItsMessages(int messageCount, string name)
     {
-        var application = new SourceApplication { Name = name };
-        var other = new SourceApplication { Name = "Keep this application" };
+        var application = new SourceApplication { OwnerId = "owner", Name = name };
+        var other = new SourceApplication { OwnerId = "owner", Name = "Keep this application" };
         _db.SourceApplications.AddRange(application, other);
         for (var index = 0; index < messageCount; index++)
         {
@@ -75,7 +77,7 @@ public class ApplicationDeletionTests
     [TestMethod]
     public async Task UnknownApplicationReturnsNotFoundAndPreservesMessages()
     {
-        var application = new SourceApplication { Name = "Keep this application" };
+        var application = new SourceApplication { OwnerId = "owner", Name = "Keep this application" };
         _db.SourceApplications.Add(application);
         _db.Incidents.Add(Message(application.Id));
         await _db.SaveChangesAsync();
@@ -98,7 +100,7 @@ public class ApplicationDeletionTests
     [DataRow("Another application")]
     public async Task IncorrectConfirmationPreservesApplicationAndMessages(string? confirmationName)
     {
-        var application = new SourceApplication { Name = "Delete this application" };
+        var application = new SourceApplication { OwnerId = "owner", Name = "Delete this application" };
         _db.SourceApplications.Add(application);
         _db.Incidents.Add(Message(application.Id));
         await _db.SaveChangesAsync();
@@ -114,7 +116,7 @@ public class ApplicationDeletionTests
     [TestMethod]
     public async Task FailedApplicationDeletionRollsBackMessageDeletion()
     {
-        var application = new SourceApplication { Name = "Preserve on failure" };
+        var application = new SourceApplication { OwnerId = "owner", Name = "Preserve on failure" };
         _db.SourceApplications.Add(application);
         _db.Incidents.Add(Message(application.Id));
         await _db.SaveChangesAsync();
@@ -137,7 +139,7 @@ public class ApplicationDeletionTests
         {
             HttpContext = new DefaultHttpContext
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key))], "test"))
+                User = new ClaimsPrincipal(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, "owner"), new Claim(ClaimTypes.Role, "Administrators"), .. AppPermissions.GetAllPermissions().Select(permission => new Claim(AppPermissions.Type, permission.Key))], "test"))
             }
         }
     };

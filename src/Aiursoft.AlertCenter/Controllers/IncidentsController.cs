@@ -21,13 +21,9 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
     {
         filter.Normalize();
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
-        var oceIds = await new IncidentAccessService(db, applicationAccess, localizerFactory).GetOceApplicationIdsAsync(User, DateTime.UtcNow, cancellationToken);
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var accessibleIncidents = db.Incidents.AsNoTracking().Include(incident => incident.Application).Include(incident => incident.Owner)
-            .Where(incident => accessibleIds.Contains(incident.ApplicationId) || oceIds.Contains(incident.ApplicationId) ||
-                (userId != null && incident.OwnerId == userId));
+            .Where(incident => accessibleIds.Contains(incident.ApplicationId));
         if (filter.ApplicationId.HasValue && !accessibleIds.Contains(filter.ApplicationId.Value) &&
-            !oceIds.Contains(filter.ApplicationId.Value) &&
             !await accessibleIncidents.AnyAsync(incident => incident.ApplicationId == filter.ApplicationId.Value, cancellationToken)) return Forbid();
         var model = new IncidentsViewModel
         {
@@ -79,13 +75,12 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (incident == null) return NotFound();
         var now = DateTime.UtcNow;
-        var access = new IncidentAccessService(db, applicationAccess, localizerFactory);
+        var access = new IncidentAccessService(applicationAccess);
         if (!await access.CanViewAsync(User, incident, now, cancellationToken)) return Forbid();
         var oce = incident.Application.OnCallGroupId.HasValue
             ? await new OnCallOceService(db, localizer: new StringLocalizer<OnCallOceService>(localizerFactory)).QueryAsync(incident.Application.OnCallGroupId.Value, now, cancellationToken) : null;
         commentsPage = Math.Clamp(commentsPage, 1, 1000000);
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var canManageApplication = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, true, cancellationToken);
+        var canManageApplication = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken);
         var comments = await db.IncidentComments.AsNoTracking().Where(comment => comment.IncidentId == id)
             .OrderByDescending(comment => comment.CreatedAtUtc).ThenByDescending(comment => comment.Id)
             .Skip((commentsPage - 1) * 20).Take(21).Select(comment => new IncidentCommentViewModel
@@ -94,26 +89,66 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
                 AuthorAvatarRelativePath = comment.Author != null ? comment.Author.AvatarRelativePath : Entities.User.DefaultAvatarPath,
                 Markdown = comment.DeletedAtUtc == null ? comment.Markdown : null,
                 DeletedAtUtc = comment.DeletedAtUtc, DeletedByName = comment.DeletedByName,
-                CanDelete = comment.DeletedAtUtc == null && (comment.AuthorId == userId || canManageApplication)
+                CanDelete = comment.DeletedAtUtc == null && canManageApplication
             }).ToListAsync(cancellationToken);
         return this.StackView(new IncidentsViewModel
         {
             Incident = incident,
             Comments = comments.Take(20).ToList(), CommentsPage = commentsPage, HasMoreComments = comments.Count > 20,
-            CanComment = userId != null,
+            CanComment = canManageApplication,
             TimelineEntries = await db.IncidentTimelineEntries.AsNoTracking().Include(entry => entry.Actor)
                 .Where(entry => entry.IncidentId == id).OrderByDescending(entry => entry.CreatedAtUtc).ToListAsync(cancellationToken),
+            CanDelete = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.DeleteIncidents, cancellationToken),
             CanManage = await access.CanManageAsync(User, incident, now, cancellationToken),
             CurrentOces = oce?.Engineers ?? [],
             CurrentOceError = oce?.Error
         });
     }
 
+    public async Task<IActionResult> Create(Guid applicationId, CancellationToken cancellationToken)
+    {
+        if (!await applicationAccess.CanAccessAsync(User, applicationId, ApplicationPermission.CreateIncidents, cancellationToken)) return Forbid();
+        return this.StackView(new CreateIncidentViewModel { ApplicationId = applicationId });
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(CreateIncidentViewModel request, [FromServices] IIncidentDispatcher dispatcher, CancellationToken cancellationToken)
+    {
+        if (!await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.CreateIncidents, cancellationToken)) return Forbid();
+        if (!ModelState.IsValid) return this.StackView(request);
+        var application = await db.SourceApplications.SingleAsync(item => item.Id == request.ApplicationId, cancellationToken);
+        if (!application.IsEnabled) return BadRequest(localizer["This application is disabled."].Value);
+        var now = DateTime.UtcNow;
+        now = now.AddTicks(-(now.Ticks % 10));
+        var incident = new Incident { ApplicationId = request.ApplicationId, Title = request.Title.Trim(), Content = request.Content,
+            Level = request.Level, OccurredAtUtc = now, ReceivedAtUtc = now };
+        db.Incidents.Add(incident);
+        db.IncidentTimelineEntries.Add(new IncidentTimelineEntry { Incident = incident, Type = IncidentTimelineEntry.Created,
+            ActorId = User.FindFirstValue(ClaimTypes.NameIdentifier), ActorName = User.Identity?.Name ?? "User",
+            NewStatus = Incident.New, NewLevel = incident.Level, CreatedAtUtc = now });
+        await dispatcher.DispatchAsync(incident, cancellationToken);
+        await db.SaveChangesAsync(cancellationToken);
+        return await applicationAccess.CanAccessAsync(User, request.ApplicationId, cancellationToken: cancellationToken)
+            ? RedirectToAction(nameof(Details), new { id = incident.Id }) : RedirectToAction("Applications", "Applications");
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(Guid id, Guid version, string? confirmationTitle, CancellationToken cancellationToken)
+    {
+        var incident = await db.Incidents.AsNoTracking().SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (incident == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.DeleteIncidents, cancellationToken)) return Forbid();
+        if (!ModelState.IsValid || !string.Equals(confirmationTitle, incident.Title, StringComparison.Ordinal))
+            return BadRequest(localizer["Enter the exact incident title to confirm permanent deletion."].Value);
+        var deleted = await db.Incidents.Where(item => item.Id == id && item.Version == version).ExecuteDeleteAsync(cancellationToken);
+        return deleted == 1 ? RedirectToAction(nameof(Index)) : Conflict();
+    }
+
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> AddComment(AddIncidentCommentRequest request, CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid) return BadRequest(localizer["Comment cannot be empty and must not exceed 4,000 characters."].Value);
-        var result = await new IncidentCommentService(db, applicationAccess, localizer: new StringLocalizer<IncidentCommentService>(localizerFactory), localizerFactory: localizerFactory).AddAsync(User, request, cancellationToken);
+        var result = await new IncidentCommentService(db, applicationAccess, localizer: new StringLocalizer<IncidentCommentService>(localizerFactory)).AddAsync(User, request, cancellationToken);
         return CommentResult(result, request.IncidentId, 1);
     }
 
@@ -121,7 +156,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
     public async Task<IActionResult> DeleteComment(DeleteIncidentCommentRequest request, CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid) return BadRequest(localizer["Invalid comment parameters. Please refresh the page."].Value);
-        var result = await new IncidentCommentService(db, applicationAccess, localizer: new StringLocalizer<IncidentCommentService>(localizerFactory), localizerFactory: localizerFactory).DeleteAsync(User, request, cancellationToken);
+        var result = await new IncidentCommentService(db, applicationAccess, localizer: new StringLocalizer<IncidentCommentService>(localizerFactory)).DeleteAsync(User, request, cancellationToken);
         return CommentResult(result, request.IncidentId, Math.Clamp(request.CommentsPage, 1, 1000000));
     }
 

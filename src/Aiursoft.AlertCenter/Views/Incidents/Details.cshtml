@@ -455,3 +455,11 @@
     <script src="~/node_modules/monaco-editor/min/vs/loader.js" asp-append-version="true"></script>
     <script defer src="~/scripts/incident-comments.js" asp-append-version="true"></script>
 }
+
+@if (Model.CanDelete && Model.Incident != null)
+{
+    <div class="card mt-4"><div class="card-header"><h5 class="card-title">@Localizer["Permanently Delete Incident"]</h5></div><div class="card-body">
+        <p>@Localizer["This permanently deletes the incident and its history. Enter its exact title to confirm."]</p>
+        <form asp-action="Delete" method="post"><input type="hidden" name="id" value="@Model.Incident.Id" /><input type="hidden" name="version" value="@Model.Incident.Version" /><label for="delete-title" class="form-label">@Localizer["Incident title"]</label><input id="delete-title" name="confirmationTitle" class="form-control mb-3" required /><button type="submit" class="btn btn-danger">@Localizer["Permanently Delete"]</button></form>
+    </div></div>
+}

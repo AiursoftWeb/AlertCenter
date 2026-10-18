@@ -14,6 +14,10 @@ public class ApplicationsViewModel : UiStackLayoutViewModel
     public CreateApplicationRequest ApplicationInput { get; set; } = new();
     public List<OnCallGroup> OnCallGroups { get; set; } = [];
     public bool CanManageApplications { get; set; }
+    public HashSet<Guid> CreatableApplicationIds { get; set; } = [];
+    public HashSet<Guid> ViewableApplicationIds { get; set; } = [];
+    public HashSet<Guid> KeyManageableApplicationIds { get; set; } = [];
+    public HashSet<Guid> OwnedApplicationIds { get; set; } = [];
     public HashSet<Guid> ManageableApplicationIds { get; set; } = [];
 }
 
