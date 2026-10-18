@@ -21,7 +21,7 @@ public partial class IncidentPagesTests
         var access = AssertUiStackAlerts(await Http.GetStringAsync($"/Applications/Access/{applicationId}"));
         Assert.IsTrue(access.Any(alert => alert.Classes.Contains("alert-info") && alert.Root.Contains("class=\"alert-icon")));
         var applications = AssertUiStackAlerts(await Http.GetStringAsync("/Applications/Applications"));
-        foreach (var id in new[] { "reset-api-key-description", "delete-application-description" })
+        foreach (var id in new[] { "delete-application-description" })
         {
             var alert = applications.Single(item => item.Root.Contains($"id=\"{id}\""));
             Assert.Contains("class=\"alert-icon", alert.Root);

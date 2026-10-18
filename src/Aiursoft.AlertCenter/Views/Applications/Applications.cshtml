@@ -25,45 +25,6 @@
     </div>
 </div>
 
-<!-- High-Priority API Key One-Time Reveal Banner -->
-@if (Model.ApiKey != null)
-{
-    <section class="card border-warning mb-4 shadow-sm" aria-labelledby="api-key-heading">
-        <div class="card-header bg-warning-subtle d-flex align-items-center gap-3 py-3">
-            <div class="ac-stat-icon icon-warning">
-                <i data-lucide="key-round" aria-hidden="true"></i>
-            </div>
-            <div>
-                <h2 id="api-key-heading" class="card-title text-warning-emphasis mb-1">
-                    @(Model.ApiKeyWasReset ? @Localizer["API Key has been reset"].Value : @Localizer["New application created"].Value)
-                </h2>
-                <p class="text-warning-emphasis small mb-0">
-                    @(Model.ApiKeyWasReset
-                        ? @Localizer["The old key has been invalidated immediately. All reporting clients must be updated. The new key is displayed only once; please save it now."].Value
-                        : @Localizer["Credentials are displayed only once after this operation. The original key cannot be viewed again after refreshing or leaving this page."].Value)
-                </p>
-            </div>
-        </div>
-        <div class="card-body">
-            <label for="api-key" class="form-label fw-semibold">@Localizer["Application Access Credentials (API Key)"]</label>
-            <div class="input-group mb-2">
-                <span class="input-group-text bg-body-tertiary text-muted font-monospace"><i data-lucide="lock" class="align-middle"></i></span>
-                <input id="api-key" class="form-control font-monospace fs-6" readonly value="@Model.ApiKey" aria-describedby="api-key-hint" spellcheck="false" />
-                <button type="button" class="btn btn-primary" id="copy-key">
-                    <i class="align-middle me-1" data-lucide="copy" aria-hidden="true"></i>@Localizer["Copy API key"]
-                </button>
-            </div>
-            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-                <small id="api-key-hint" class="text-muted">
-                    @Localizer["Please store the key securely in environment variables or a key service."]<a asp-action="GettingStarted" class="fw-medium">@Localizer["View integration guide to send the first test message "]&rarr;</a>
-                </small>
-                <small id="copy-status" class="text-success fw-semibold" role="status"></small>
-            </div>
-        </div>
-    </section>
-}
-
-<!-- Create Application Card (Admin Only) -->
 @if (Model.CanManageApplications)
 {
     <div class="card mb-4">
@@ -98,7 +59,7 @@
                         </button>
                     </div>
                 </div>
-                <small id="name-hint" class="text-muted d-block mt-2">@Localizer["Use a concise and clear business system name; the system will automatically generate the corresponding prefix ID and random Secret."]</small>
+                <small id="name-hint" class="text-muted d-block mt-2">@Localizer["Use a concise business system name. Create its API keys separately after creating the application."]</small>
                 <small id="oncall-group-hint" class="text-muted d-block mt-1">@Localizer["On-call group is optional; if bound, the on-duty engineer is automatically notified by email, and the on-call group configuration address is CC'd. Custom push channels can still be configured independently."]</small>
                 <div asp-validation-summary="All" class="text-danger mt-2"></div>
             </form>
@@ -204,50 +165,43 @@
                             }
                         </td>
                         <td class="text-end pe-4">
-                            <div class="d-flex justify-content-end align-items-center flex-wrap gap-2">
-                                @if (Model.CreatableApplicationIds.Contains(application.Id))
-                                {
-                                    <a asp-controller="Incidents" asp-action="Create" asp-route-applicationId="@application.Id" class="btn btn-sm btn-outline-primary">@Localizer["Create Incident"]</a>
-                                }
+                            <div class="d-flex flex-wrap justify-content-end gap-2">
                                 @if (Model.ViewableApplicationIds.Contains(application.Id))
                                 {
-                                <a asp-controller="Incidents" asp-action="Index" asp-route-applicationId="@application.Id" class="btn btn-sm btn-primary text-nowrap">
-                                    <i class="align-middle me-1" data-lucide="list"></i>@Localizer["View incident"]
-                                </a>
-                                }
-                                @if (Model.ManageableApplicationIds.Contains(application.Id))
-                                {
-                                    <a asp-action="OnCall" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">
-                                        <i class="align-middle me-1" data-lucide="calendar-clock"></i>@Localizer["On-call settings"]
-                                    </a>
-                                    <a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="btn btn-sm btn-outline-primary text-nowrap">
-                                        <i class="align-middle me-1" data-lucide="sliders"></i>@Localizer["Push Settings"]
-                                    </a>
-                                    <form asp-action="SetEnabled" method="post" data-action-feedback class="d-inline">
-                                        <input type="hidden" name="id" value="@application.Id" />
-                                        <input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" />
-                                        <button class="btn btn-sm btn-outline-secondary text-nowrap" type="submit">
-                                            @(application.IsEnabled ? @Localizer["Disable"].Value : @Localizer["Enable"].Value)
-                                        </button>
-                                    </form>
+                                    <a asp-controller="Incidents" asp-action="Index" asp-route-applicationId="@application.Id" class="btn btn-sm btn-primary">@Localizer["View incidents"]</a>
                                 }
                                 @if (Model.KeyManageableApplicationIds.Contains(application.Id))
                                 {
-                                    <button type="button" class="btn btn-sm btn-outline-warning text-nowrap" data-bs-toggle="modal" data-bs-target="#reset-api-key" data-application-id="@application.Id" data-application-name="@application.Name">
-                                        <i class="align-middle me-1" data-lucide="key"></i>@Localizer["Reset Key"]
-                                    </button>
+                                    <a asp-controller="ApplicationApiKeys" asp-action="Index" asp-route-applicationId="@application.Id" class="btn btn-sm btn-outline-primary">@Localizer["API Key Management"]</a>
                                 }
-                                @if (Model.OwnedApplicationIds.Contains(application.Id))
+                                @if (Model.CreatableApplicationIds.Contains(application.Id) || Model.ManageableApplicationIds.Contains(application.Id) || Model.OwnedApplicationIds.Contains(application.Id))
                                 {
-                                    <button type="button" class="btn btn-sm btn-outline-danger text-nowrap" data-bs-toggle="modal" data-bs-target="#delete-application" data-application-id="@application.Id" data-application-name="@application.Name">
-                                        <i class="align-middle me-1" data-lucide="trash-2"></i>@Localizer["Delete"]
-                                    </button>
-                                }
-                                @if (Model.ManageableApplicationIds.Contains(application.Id))
-                                {
-                                    <a asp-action="Access" asp-route-id="@application.Id" class="btn btn-sm btn-outline-secondary text-nowrap">
-                                        <i class="align-middle me-1" data-lucide="shield"></i>@Localizer["Permissions"]
-                                    </a>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-config='{"popperConfig":{"strategy":"fixed"}}' aria-expanded="false">@Localizer["Actions"]</button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            @if (Model.CreatableApplicationIds.Contains(application.Id))
+                                            {
+                                                <li><a asp-controller="Incidents" asp-action="Create" asp-route-applicationId="@application.Id" class="dropdown-item">@Localizer["Create Incident"]</a></li>
+                                            }
+                                            @if (Model.ManageableApplicationIds.Contains(application.Id))
+                                            {
+                                                <li><h3 class="dropdown-header">@Localizer["Application settings"]</h3></li>
+                                                <li><a asp-action="OnCall" asp-route-id="@application.Id" class="dropdown-item">@Localizer["On-call settings"]</a></li>
+                                                <li><a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="dropdown-item">@Localizer["Push Settings"]</a></li>
+                                                <li><a asp-action="Access" asp-route-id="@application.Id" class="dropdown-item">@Localizer["Permissions"]</a></li>
+                                                <li><form asp-action="SetEnabled" method="post" data-action-feedback>
+                                                    <input type="hidden" name="id" value="@application.Id" />
+                                                    <input type="hidden" name="enabled" value="@((!application.IsEnabled).ToString().ToLowerInvariant())" />
+                                                    <button class="dropdown-item" type="submit">@(application.IsEnabled ? Localizer["Disable"] : Localizer["Enable"])</button>
+                                                </form></li>
+                                            }
+                                            @if (Model.OwnedApplicationIds.Contains(application.Id))
+                                            {
+                                                <li><hr class="dropdown-divider" /></li>
+                                                <li><button type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-application" data-application-id="@application.Id" data-application-name="@application.Name">@Localizer["Delete application"]</button></li>
+                                            }
+                                        </ul>
+                                    </div>
                                 }
                             </div>
                         </td>
@@ -259,34 +213,6 @@
     }
 </div>
 
-<!-- Reset API Key Modal -->
-<div class="modal fade" id="reset-api-key" tabindex="-1" aria-labelledby="reset-api-key-title" aria-describedby="reset-api-key-description" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <form asp-action="ResetApiKey" method="post" data-action-feedback class="modal-content" id="reset-api-key-form">
-            <div class="modal-header">
-                <h2 class="modal-title h5 d-flex align-items-center gap-2" id="reset-api-key-title">
-                    <i class="align-middle text-warning" data-lucide="key"></i>@Localizer["Reset API Key"]
-                </h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
-            </div>
-            <div class="modal-body">
-                <p>@Localizer["Confirm as application"] <strong id="reset-api-key-name" class="text-break"></strong> @Localizer["Reset integration key?"]</p>
-                <div class="alert alert-warning small" id="reset-api-key-description" role="alert">
-                    <div class="alert-icon">
-                        <i class="align-middle" data-lucide="alert-triangle" aria-hidden="true"></i>
-                    </div>
-                    <div class="alert-message">@Localizer["The old key will become invalid immediately. All reporting clients must be updated. The new key is displayed only once on this page."]</div>
-                </div>
-                <p class="small text-muted mb-0">@Localizer["App ID, historical incident records, push channel bindings, and enable/disable status remain unchanged."]</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
-                <input type="hidden" id="reset-api-key-id" name="id" />
-                <button type="submit" class="btn btn-warning" id="confirm-reset-api-key" disabled>@Localizer["Confirm key reset"]</button>
-            </div>
-        </form>
-    </div>
-</div>
 <script src="~/scripts/alerts-applications.js" asp-append-version="true" defer></script>
 
 <!-- Delete Application Modal -->
@@ -305,7 +231,7 @@
                     <div class="alert-icon">
                         <i class="align-middle" data-lucide="alert-octagon" aria-hidden="true"></i>
                     </div>
-                    <div class="alert-message">@Localizer["This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and the API Key will be immediately invalidated."]</div>
+                    <div class="alert-message">@Localizer["This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated."]</div>
                 </div>
                 <label for="delete-application-confirmation" class="form-label small fw-medium">
                     @Localizer["Enter the app name to confirm deletion:"]

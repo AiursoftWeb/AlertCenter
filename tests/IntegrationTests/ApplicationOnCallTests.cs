@@ -73,10 +73,12 @@ public partial class IncidentPagesTests
         Assert.Contains(groupId.ToString(), applications);
         foreach (var name in new[] { "Orders", "Billing" })
         {
-            AssertRedirect(await PostForm("/Applications/CreateApplication", new()
+            using var created = await PostForm("/Applications/CreateApplication", new()
             {
                 ["Name"] = name, ["OnCallGroupId"] = groupId.ToString()
-            }, "/Applications/Applications"), "/Applications/Applications");
+            }, "/Applications/Applications");
+            Assert.AreEqual(HttpStatusCode.Redirect, created.StatusCode);
+            Assert.IsTrue(created.Headers.Location!.OriginalString.StartsWith("/ApplicationApiKeys?applicationId="));
         }
         foreach (var group in new[] { Guid.NewGuid().ToString(), Guid.Empty.ToString(), "invalid-guid" })
         {

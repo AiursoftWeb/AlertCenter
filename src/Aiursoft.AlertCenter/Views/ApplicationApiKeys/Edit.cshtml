@@ -1,0 +1,31 @@
+@model Aiursoft.AlertCenter.Models.ApplicationApiKeyEditViewModel
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+    <h1 class="h3 mb-0">@(Model.Id.HasValue ? Localizer["Edit API Key"] : Localizer["Create API Key"])</h1>
+    <a asp-action="Index" asp-route-applicationId="@Model.ApplicationId" class="btn btn-outline-secondary">@Localizer["Back to API Keys"]</a>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form asp-action="@(Model.Id.HasValue ? "Edit" : "Create")" method="post">
+            <input asp-for="ApplicationId" type="hidden" />
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">@Localizer["Key name"]</label>
+                <input asp-for="Name" class="form-control" maxlength="100" required />
+            </div>
+            <div class="form-check mb-3">
+                <input asp-for="IsEnabled" class="form-check-input" />
+                <label asp-for="IsEnabled" class="form-check-label">@Localizer["Enabled"]</label>
+            </div>
+            <fieldset class="mb-3">
+                <legend class="h5">@Localizer["API permissions"]</legend>
+                <p class="text-muted">@Localizer["Grant only the operations this integration needs. You can grant permissions that you hold for this application."]</p>
+                <div class="form-check"><input asp-for="CanQueryIncidents" class="form-check-input" /><label asp-for="CanQueryIncidents" class="form-check-label">@Localizer["Query incidents"]</label></div>
+                <div class="form-check"><input asp-for="CanCreateIncidents" class="form-check-input" /><label asp-for="CanCreateIncidents" class="form-check-label">@Localizer["Create incidents"]</label></div>
+                <div class="form-check"><input asp-for="CanResolveIncidents" class="form-check-input" /><label asp-for="CanResolveIncidents" class="form-check-label">@Localizer["Resolve incidents"]</label></div>
+            </fieldset>
+            <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+        </form>
+    </div>
+</div>

@@ -8,8 +8,6 @@ public class ApplicationsViewModel : UiStackLayoutViewModel
 {
     public ApplicationsViewModel() { PageTitle = "Alert Center"; }
     public List<SourceApplication> Applications { get; set; } = [];
-    public string? ApiKey { get; set; }
-    public bool ApiKeyWasReset { get; set; }
     public string? ApplicationSearchKeyword { get; set; }
     public CreateApplicationRequest ApplicationInput { get; set; } = new();
     public List<OnCallGroup> OnCallGroups { get; set; } = [];

@@ -1,11 +1,9 @@
 using System.Security.Claims;
-using System.Security.Cryptography;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
 using Aiursoft.UiStack.Navigation;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -16,9 +14,6 @@ namespace Aiursoft.AlertCenter.Controllers;
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
 public class ApplicationsController(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizer<ApplicationsController> localizer) : Controller
 {
-    private const string CreatedApplicationApiKey = "CreatedApplicationApiKey";
-    private const string ApiKeyWasReset = "ApiKeyWasReset";
-
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
         LinkText = "Applications", LinkOrder = 1)]
@@ -26,8 +21,6 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
     {
         keyword = string.IsNullOrWhiteSpace(keyword) ? null : keyword.Trim();
         var model = await ApplicationsModel(keyword, cancellationToken);
-        model.ApiKey = TempData[CreatedApplicationApiKey] as string;
-        model.ApiKeyWasReset = TempData[ApiKeyWasReset] is true;
         return this.StackView(model);
     }
 
@@ -49,8 +42,6 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
             return this.StackView(model, "Applications");
         }
         var application = new SourceApplication { Name = request.Name.Trim(), OnCallGroupId = request.OnCallGroupId, OwnerId = User.FindFirstValue(ClaimTypes.NameIdentifier) };
-        var secret = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
-        application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, secret);
         db.SourceApplications.Add(application);
         try
         {
@@ -64,9 +55,7 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
             model.ApplicationInput = request;
             return this.StackView(model, "Applications");
         }
-        TempData[CreatedApplicationApiKey] = $"{application.Id}.{secret}";
-        TempData[ApiKeyWasReset] = false;
-        return RedirectToAction(nameof(Applications));
+        return RedirectToAction("Index", "ApplicationApiKeys", new { applicationId = application.Id });
     }
 
     public async Task<IActionResult> OnCall(Guid id, CancellationToken cancellationToken)
@@ -112,21 +101,6 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
         OnCallGroupId = groupId,
         Groups = await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken)
     };
-
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> ResetApiKey(Guid id, CancellationToken cancellationToken)
-    {
-        if (!ModelState.IsValid || id == Guid.Empty) return BadRequest(localizer["Please select a valid application."].Value);
-        var application = await db.SourceApplications.SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
-        if (application == null) return NotFound();
-        if (!await applicationAccess.CanAccessAsync(User, id, ApplicationPermission.ManageApiKeys, cancellationToken)) return Forbid();
-        var secret = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
-        application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, secret);
-        await db.SaveChangesAsync(cancellationToken);
-        TempData[CreatedApplicationApiKey] = $"{application.Id}.{secret}";
-        TempData[ApiKeyWasReset] = true;
-        return RedirectToAction(nameof(Applications));
-    }
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> SetEnabled(Guid id, bool enabled, CancellationToken cancellationToken)

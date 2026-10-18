@@ -21,7 +21,7 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(3, context.Database.GetMigrations().Count());
+        Assert.AreEqual(4, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
@@ -42,12 +42,11 @@ public class MigrationTests
         await context.Database.MigrateAsync();
         var applicationId = Guid.NewGuid();
         var createdAt = new DateTime(2026, 10, 1, 0, 0, 0, DateTimeKind.Utc);
-        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO SourceApplications (Id, Name, SecretHash, IsEnabled, CreatedAtUtc) VALUES ({applicationId}, {"Existing application"}, {"existing-hash"}, {false}, {createdAt})");
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO SourceApplications (Id, Name, IsEnabled, CreatedAtUtc) VALUES ({applicationId}, {"Existing application"}, {false}, {createdAt})");
         await context.Database.MigrateAsync();
         var application = await context.SourceApplications.SingleAsync();
         Assert.AreEqual(applicationId, application.Id);
         Assert.AreEqual("Existing application", application.Name);
-        Assert.AreEqual("existing-hash", application.SecretHash);
         Assert.IsFalse(application.IsEnabled);
         Assert.AreEqual(createdAt, application.CreatedAtUtc);
         Assert.IsNull(application.OnCallGroupId);
@@ -109,14 +108,15 @@ public class MigrationTests
         await context.Database.OpenConnectionAsync();
         var migrator = context.GetService<IMigrator>();
         await migrator.MigrateAsync(context.Database.GetMigrations().First());
-        var application = new SourceApplication { Name = "Existing app", SecretHash = "preserved-hash" };
-        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO SourceApplications (Id, Name, SecretHash, IsEnabled, CreatedAtUtc) VALUES ({application.Id}, {application.Name}, {application.SecretHash}, {true}, {application.CreatedAtUtc})");
+        var application = new SourceApplication { Name = "Existing app" };
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO SourceApplications (Id, Name, SecretHash, IsEnabled, CreatedAtUtc) VALUES ({application.Id}, {application.Name}, {"discarded-old-hash"}, {true}, {application.CreatedAtUtc})");
         context.Users.Add(new User { Id = "existing-user", UserName = "existing", DisplayName = "Existing user" });
         await context.SaveChangesAsync();
         await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO Incidents (Id, ApplicationId, Title, AlertTitle, AlertLevel, MatchLevel, Status, Version, TriggeredAtUtc) VALUES ({Guid.NewGuid()}, {application.Id}, {"Old incident"}, {"Old report"}, {"sev1"}, {"sev1"}, {"new"}, {Guid.NewGuid()}, {DateTime.UtcNow})");
         await migrator.MigrateAsync();
         context.ChangeTracker.Clear();
-        Assert.AreEqual("preserved-hash", (await context.SourceApplications.SingleAsync()).SecretHash);
+        Assert.AreEqual("Existing app", (await context.SourceApplications.SingleAsync()).Name);
+        Assert.AreEqual(0, await context.ApplicationApiKeys.CountAsync());
         Assert.AreEqual("Existing user", (await context.Users.SingleAsync()).DisplayName);
         Assert.AreEqual(0, await context.Incidents.CountAsync());
         Assert.AreEqual(0, await context.Database.SqlQueryRaw<int>("SELECT COUNT(*) AS Value FROM sqlite_master WHERE type = 'table' AND name = 'ReportedMessages'").SingleAsync());
@@ -205,7 +205,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(3, context.Database.GetMigrations().Count());
+        Assert.AreEqual(4, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");

@@ -69,7 +69,7 @@ The image copies its default configuration to `/data/appsettings.json` on first 
 
 ## Creating incidents
 
-Open **Applications** to create an application and save its API key. The key is shown only on creation or reset; resetting it immediately invalidates the old key. The built-in **Integration Guide** at `/Applications/GettingStarted` provides examples for the current server.
+Open **Applications**, create an application, then open **API Key Management** to create named keys for its integrations. Each key has independent query, create and resolve permissions. A secret is shown only once; edit, disable or delete individual keys without rotating the others. The built-in **Integration Guide** at `/Applications/GettingStarted` provides examples for the current server.
 
 Create an incident using `POST /api/v1/incidents`:
 
@@ -233,4 +233,6 @@ An application owner has every application permission. Sharing grants independen
 
 Only the owner can transfer ownership or delete the application. Sharing managers cannot grant permissions they do not have. Permanent incident deletion requires its exact title and current version. Existing explicit view/manage grants are preserved by the migration; older applications have no inferred owner and need an explicit ownership assignment before owner-only operations. Owner accounts must transfer their applications before deletion.
 
-This change covers user/role access. Applications still have one API key; multiple scoped keys are a separate follow-up.
+Each application owns multiple API keys. Owners and users/roles granted API key management can list, create, edit and delete its keys; newly granted key permissions cannot exceed the manager's application permissions. Keys authenticate as `<applicationId>.<keyId>.<secret>` and cannot access another application. The key list shows persistent authenticated-call totals and last-use timestamps (UTC). Counts include permission denials and business failures after valid input/authentication, but exclude malformed requests and invalid credentials.
+
+The multiple-key migration removes the old application-level secret hash without migrating credentials. Create new scoped keys and update integration configuration after upgrading. EmployeeCenter audit synchronization needs query, create and resolve permissions.

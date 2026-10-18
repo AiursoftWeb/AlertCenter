@@ -82,7 +82,9 @@ public partial class PushCenterTests
             _db.Users.Add(owner);
         }
         var application = new SourceApplication { Name = "Test application", Owner = owner };
-        application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, Secret);
+        var key = new ApplicationApiKey { Id = application.Id, Application = application, Name = "Test key", CanQueryIncidents = true, CanCreateIncidents = true, CanResolveIncidents = true };
+        key.SecretHash = new PasswordHasher<ApplicationApiKey>().HashPassword(key, Secret);
+        _db.ApplicationApiKeys.Add(key);
         _db.SourceApplications.Add(application);
         await _db.SaveChangesAsync();
         return application;
@@ -132,7 +134,7 @@ public partial class PushCenterTests
         {
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { RequestServices = _apiServices } }
         };
-        controller.Request.Headers.Authorization = $"Bearer {application.Id}.{Secret}";
+        controller.Request.Headers.Authorization = $"Bearer {application.Id}.{application.Id}.{Secret}";
         return await controller.Create(new CreateIncidentRequest
         {
             ReportId = reportId, Title = "<script>unsafe</script>", Content = null, Level = level,

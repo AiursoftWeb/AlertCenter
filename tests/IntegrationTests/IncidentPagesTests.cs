@@ -106,17 +106,10 @@ public partial class IncidentPagesTests : TestBase
     {
         await LoginAsAdmin();
         using var created = await PostForm("/Applications/CreateApplication", new() { ["Name"] = "Demo Orders" }, "/Applications/Applications");
-        AssertRedirect(created, "/Applications/Applications");
-        Assert.IsTrue(created.Headers.CacheControl?.NoStore);
-        using var response = await Http.GetAsync(created.Headers.Location);
-        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-        Assert.IsTrue(response.Headers.CacheControl?.NoStore);
-        var html = await response.Content.ReadAsStringAsync();
-        var key = Regex.Match(html, "value=\"([a-fA-F0-9-]{36}\\.[A-F0-9]{64})\"").Groups[1].Value;
-        Assert.IsFalse(string.IsNullOrEmpty(key));
-        var applications = await Http.GetStringAsync("/Applications/Applications");
-        Assert.DoesNotContain(key, applications);
-        return key;
+        Assert.AreEqual(HttpStatusCode.Redirect, created.StatusCode);
+        var parameters = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, created.Headers.Location!).Query);
+        var applicationId = Guid.Parse(parameters["applicationId"].ToString());
+        return await CreateApplicationKey(applicationId);
     }
 
     private Task<HttpResponseMessage> Report(string? key, Guid reportId, string title = "Order timeout", string level = "sev1")
@@ -311,8 +304,8 @@ public partial class IncidentPagesTests : TestBase
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(1, await db.Incidents.CountAsync());
-        var application = await db.SourceApplications.SingleAsync();
-        Assert.AreNotEqual(key.Split('.')[1], application.SecretHash);
+        var apiKey = await db.ApplicationApiKeys.SingleAsync();
+        Assert.AreNotEqual(key.Split('.')[2], apiKey.SecretHash);
     }
 
     private async Task<InAppNotification> CreateInboxNotification(Incident? message = null)

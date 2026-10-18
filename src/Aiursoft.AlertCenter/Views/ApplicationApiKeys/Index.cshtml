@@ -1,0 +1,68 @@
+@model Aiursoft.AlertCenter.Models.ApplicationApiKeysViewModel
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div><h1 class="h3 mb-1">@Localizer["API Key Management"]</h1><p class="text-muted mb-0">@Model.Application.Name</p></div>
+    <div class="d-flex gap-2">
+        <a asp-controller="Applications" asp-action="Applications" class="btn btn-outline-secondary">@Localizer["Back to applications"]</a>
+        <a asp-action="Create" asp-route-applicationId="@Model.Application.Id" class="btn btn-primary">@Localizer["Create API Key"]</a>
+    </div>
+</div>
+@if (Model.NewKey != null)
+{
+    <div class="alert alert-warning" role="alert"><div class="alert-message">
+        <h2 class="h5">@Localizer["API Key created"]</h2>
+        <p>@Localizer["This key is displayed only once. Save it in your private application configuration."]</p>
+        <label for="api-key" class="form-label">@Localizer["API Key"]</label>
+        <input id="api-key" class="form-control font-monospace" value="@Model.NewKey" readonly autocomplete="off" />
+    </div></div>
+}
+@if (!Model.Application.IsEnabled)
+{
+    <div class="alert alert-warning" role="alert"><div class="alert-message">@Localizer["This application is disabled. All of its API keys are inactive."]</div></div>
+}
+<div class="card">
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Application API Keys"]</h2></div>
+    <div class="card-body">
+        <p class="text-muted">@Localizer["Calls include authenticated requests, including rejected operations. Times are shown in UTC."]</p>
+        @if (Model.Keys.Count == 0)
+        {
+            <p class="mb-0">@Localizer["No API keys yet. Create a key for each integration."]</p>
+        }
+        else
+        {
+            <div class="table-responsive"><table class="table align-middle">
+                <thead><tr><th>@Localizer["Key"]</th><th>@Localizer["Permissions"]</th><th>@Localizer["Status"]</th><th>@Localizer["Calls"]</th><th>@Localizer["Last used (UTC)"]</th><th>@Localizer["Actions"]</th></tr></thead>
+                <tbody>
+                @foreach (var key in Model.Keys)
+                {
+                    <tr>
+                        <td><strong class="d-block">@key.Name</strong><code class="d-none d-md-block text-muted">@key.Id</code><small class="d-block text-muted">@Localizer["Created on"]: @key.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</small></td>
+                        <td>
+                            @if (key.CanQueryIncidents) { <span class="badge bg-secondary">@Localizer["Query"]</span> }
+                            @if (key.CanCreateIncidents) { <span class="badge bg-secondary">@Localizer["Create"]</span> }
+                            @if (key.CanResolveIncidents) { <span class="badge bg-secondary">@Localizer["Resolve"]</span> }
+                            @if (!key.CanQueryIncidents && !key.CanCreateIncidents && !key.CanResolveIncidents) { <span class="text-muted">@Localizer["None"]</span> }
+                        </td>
+                        <td>@(key.IsEnabled ? Localizer["Enabled"] : Localizer["Disabled"])</td>
+                        <td>@key.TotalCalls.ToString("N0")</td>
+                        <td>@(key.LastUsedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? Localizer["Never"].Value)</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-applicationId="@Model.Application.Id" asp-route-id="@key.Id" class="btn btn-sm btn-outline-primary">@Localizer["Edit"]</a>
+                            <details class="mt-2">
+                                <summary class="text-danger">@Localizer["Delete key"]</summary>
+                                <form asp-action="Delete" method="post" class="mt-2">
+                                    <input type="hidden" name="applicationId" value="@Model.Application.Id" />
+                                    <input type="hidden" name="id" value="@key.Id" />
+                                    <label for="confirm-@key.Id" class="form-label small">@Localizer["Enter the exact key name to confirm deletion."]</label>
+                                    <input id="confirm-@key.Id" name="confirmationName" class="form-control form-control-sm mb-2" required maxlength="100" autocomplete="off" />
+                                    <button class="btn btn-sm btn-danger" type="submit">@Localizer["Delete permanently"]</button>
+                                </form>
+                            </details>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table></div>
+        }
+    </div>
+</div>

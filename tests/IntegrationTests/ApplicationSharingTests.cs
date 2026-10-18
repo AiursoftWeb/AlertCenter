@@ -57,7 +57,7 @@ public partial class IncidentPagesTests
         var details = $"/Incidents/Details/{incidentId}";
         AssertForbidden(await PostForm("/Incidents/Acknowledge", new() { ["IncidentId"] = incidentId.ToString(), ["Version"] = version.ToString() }, "/Manage/ChangePassword"));
         AssertForbidden(await PostForm("/Incidents/Delete", new() { ["id"] = incidentId.ToString(), ["version"] = version.ToString(), ["confirmationTitle"] = "Human report" }, "/Manage/ChangePassword"));
-        AssertForbidden(await PostForm("/Applications/ResetApiKey", new() { ["id"] = applicationId.ToString() }, "/Manage/ChangePassword"));
+        AssertForbidden(await PostForm("/ApplicationApiKeys/Create", new() { ["ApplicationId"] = applicationId.ToString() }, "/Manage/ChangePassword"));
         AssertForbidden(await Http.GetAsync(url));
         await LoginAsAdmin();
         AssertRedirect(await PostForm("/Applications/RemoveAccess", new() { ["id"] = applicationId.ToString(), ["userId"] = recipient }, url), url);
