@@ -246,7 +246,7 @@ public partial class IncidentPagesTests
             app.IsEnabled = true;
             await db.SaveChangesAsync();
         }
-        await ResetApplicationKey(Guid.Parse(key.Split('.')[0]));
+        await ReplaceApplicationKey(Guid.Parse(key.Split('.')[0]));
         var revoked = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.QueryIncidentsAsync(new QueryIncidentsRequest()));
         Assert.AreEqual(Code.WrongKey, revoked.Response.Code);
     }
@@ -327,7 +327,7 @@ public partial class IncidentPagesTests
         {
             ReportId = Guid.NewGuid(), Title = "SDK authorization", OccurredAtUtc = DateTimeOffset.UtcNow
         };
-        await ResetApplicationKey(Guid.Parse(key.Split('.')[0]));
+        await ReplaceApplicationKey(Guid.Parse(key.Split('.')[0]));
         var rejected = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.CreateIncidentAsync(request));
         Assert.AreEqual(Code.WrongKey, rejected.Response.Code);
         using var scope = Server!.Services.CreateScope();

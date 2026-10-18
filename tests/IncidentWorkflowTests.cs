@@ -38,7 +38,9 @@ public partial class IncidentWorkflowTests
     private async Task<SourceApplication> CreateApplication()
     {
         var application = new SourceApplication { Name = "Orders", OwnerId = "admin" };
-        application.SecretHash = new PasswordHasher<SourceApplication>().HashPassword(application, Secret);
+        var key = new ApplicationApiKey { Id = application.Id, Application = application, Name = "Test key", CanQueryIncidents = true, CanCreateIncidents = true, CanResolveIncidents = true };
+        key.SecretHash = new PasswordHasher<ApplicationApiKey>().HashPassword(key, Secret);
+        _db.ApplicationApiKeys.Add(key);
         _db.SourceApplications.Add(application);
         var channel = new PushChannel { Type = "webhook", Name = "Operations", Endpoint = "https://example.test/hook" };
         _db.PushChannels.Add(channel);
@@ -54,7 +56,7 @@ public partial class IncidentWorkflowTests
         {
             ControllerContext = new ControllerContext { HttpContext = new DefaultHttpContext { RequestServices = _apiServices } }
         };
-        controller.Request.Headers.Authorization = new($"Bearer {application.Id}.{Secret}");
+        controller.Request.Headers.Authorization = new($"Bearer {application.Id}.{application.Id}.{Secret}");
         var result = await controller.Create(new CreateIncidentRequest
         {
             ReportId = Guid.NewGuid(), Title = title, Level = level,

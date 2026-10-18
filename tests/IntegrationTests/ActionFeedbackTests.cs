@@ -63,7 +63,7 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
-    public async Task DialogValidationPreservesCreationFormAndOneTimeKeyIsNotConsumedByFetch()
+    public async Task DialogValidationPreservesCreationFormAndRedirectsToKeyManagement()
     {
         await LoginAsAdmin();
         using var invalid = await DialogPost("/Applications/CreateApplication", new() { ["Name"] = "   " }, "/Applications/Applications");
@@ -73,7 +73,7 @@ public partial class IncidentPagesTests
         Assert.AreEqual(HttpStatusCode.OK, created.StatusCode);
         var redirect = JObject.Parse(await created.Content.ReadAsStringAsync())["redirectUrl"]!.Value<string>()!;
         var page = await Http.GetStringAsync(redirect);
-        Assert.Contains("id=\"api-key\"", page);
+        Assert.Contains("No API keys yet", page);
         Assert.Contains("Dialog application", page);
         Assert.DoesNotContain("id=\"api-key\"", await Http.GetStringAsync(redirect));
     }

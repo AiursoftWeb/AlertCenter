@@ -26,13 +26,13 @@
         <h2 class="card-title mb-0">@Localizer["Create Integration App and Get API Key"]</h2>
     </div>
     <div class="card-body pt-0">
-        <p class="mb-2">@Localizer["Each business system authenticates requests using its own API key."] <code>&lt;applicationId&gt;.&lt;secret&gt;</code> @Localizer["This format identifies the application and lets the server verify its secret hash."]</p>
+        <p class="mb-2">@Localizer["Open API Key Management for an application to create named keys with query, create and resolve permissions."] <code>&lt;applicationId&gt;.&lt;keyId&gt;.&lt;secret&gt;</code> @Localizer["Each key belongs to an application. The server verifies the secret hash and the permission required by each operation."]</p>
         <div class="alert alert-warning small mb-3" role="alert">
             <div class="alert-icon">
                 <i class="align-middle" data-lucide="shield-alert" aria-hidden="true"></i>
             </div>
             <div class="alert-message text-break">
-                <strong>@Localizer["Leak Prevention Notice"]</strong>@Localizer[": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.,"] <code>ALERTCENTER_API_KEY</code>@Localizer[") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited."]
+                <strong>@Localizer["Leak Prevention Notice"]</strong>@Localizer[": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.,"] <code>ALERTCENTER_API_KEY</code>@Localizer[") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited."]
             </div>
         </div>
         <a asp-action="Applications" class="btn btn-sm btn-outline-primary">

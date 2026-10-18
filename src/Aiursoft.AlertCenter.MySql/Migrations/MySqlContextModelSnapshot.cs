@@ -22,6 +22,53 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationApiKey", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("CanCreateIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanQueryIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("CanResolveIncidents")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LastUsedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("SecretHash")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
+
+                    b.Property<long>("TotalCalls")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("ApplicationApiKeys");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationPushChannel", b =>
                 {
                     b.Property<Guid>("ApplicationId")
@@ -761,11 +808,6 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("varchar(450)");
 
-                    b.Property<string>("SecretHash")
-                        .IsRequired()
-                        .HasMaxLength(512)
-                        .HasColumnType("varchar(512)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OnCallGroupId");
@@ -982,6 +1024,17 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationApiKey", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.SourceApplication", "Application")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationPushChannel", b =>

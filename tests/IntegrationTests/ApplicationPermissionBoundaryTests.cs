@@ -58,7 +58,11 @@ public partial class IncidentPagesTests
         if (canManagePush) Assert.AreEqual(HttpStatusCode.OK, pushSettings.StatusCode);
         else AssertForbidden(pushSettings);
         using var create = await PostForm("/Applications/CreateApplication", new() { ["Name"] = "Permission-managed app" }, "/Manage/ChangePassword");
-        if (canManageApplications) AssertRedirect(create, "/Applications/Applications");
+        if (canManageApplications)
+        {
+            Assert.AreEqual(HttpStatusCode.Redirect, create.StatusCode);
+            Assert.IsTrue(create.Headers.Location!.OriginalString.StartsWith("/ApplicationApiKeys?applicationId="));
+        }
         else AssertForbidden(create);
         using var verifyScope = Server.Services.CreateScope();
         var db = verifyScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -92,7 +96,7 @@ public partial class IncidentPagesTests
             (await db.SourceApplications.SingleAsync(application => application.Id == ownId)).Name = "Allowed application";
             (await db.SourceApplications.SingleAsync(application => application.Id == otherId)).Name = "Private other application";
             await db.SaveChangesAsync();
-            hashes = await db.SourceApplications.ToDictionaryAsync(application => application.Id, application => application.SecretHash);
+            hashes = await db.ApplicationApiKeys.ToDictionaryAsync(key => key.ApplicationId, key => key.SecretHash);
             otherIncidentId = await db.Incidents.Where(message => message.ApplicationId == otherId).Select(message => message.Id).SingleAsync();
         }
 
@@ -107,7 +111,7 @@ public partial class IncidentPagesTests
 
         foreach (var id in manage ? new[] { otherId } : new[] { ownId, otherId })
         {
-            AssertForbidden(await PostForm("/Applications/ResetApiKey", new() { ["id"] = id.ToString() }, "/Manage/ChangePassword"));
+            AssertForbidden(await PostForm("/ApplicationApiKeys/Create", new() { ["ApplicationId"] = id.ToString() }, "/Manage/ChangePassword"));
             AssertForbidden(await PostForm("/Applications/SetEnabled", new()
             {
                 ["id"] = id.ToString(), ["enabled"] = "false"
@@ -133,7 +137,8 @@ public partial class IncidentPagesTests
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var saved = await db.SourceApplications.ToListAsync();
             Assert.AreEqual(2, saved.Count);
-            Assert.IsTrue(saved.All(application => application.IsEnabled && application.SecretHash == hashes[application.Id]));
+            Assert.IsTrue(saved.All(application => application.IsEnabled));
+            Assert.IsTrue((await db.ApplicationApiKeys.ToListAsync()).All(key => key.SecretHash == hashes[key.ApplicationId]));
             Assert.AreEqual(2, await db.Incidents.CountAsync());
             Assert.AreEqual(roleGrant ? 0 : 1, await db.ApplicationUserAccesses.CountAsync());
             Assert.AreEqual(roleGrant ? 1 : 0, await db.ApplicationRoleAccesses.CountAsync());
@@ -144,7 +149,7 @@ public partial class IncidentPagesTests
 
         if (manage)
         {
-            var newKey = await ResetApplicationKey(ownId);
+            var newKey = await ReplaceApplicationKey(ownId);
             using var rejectedOldKey = await Report(ownKey, Guid.NewGuid());
             using var acceptedNewKey = await Report(newKey, Guid.NewGuid());
             Assert.AreEqual(HttpStatusCode.Unauthorized, rejectedOldKey.StatusCode);
@@ -159,7 +164,7 @@ public partial class IncidentPagesTests
         Assert.AreEqual(HttpStatusCode.Created, acceptedOtherKey.StatusCode);
         using var finalScope = Server!.Services.CreateScope();
         var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        Assert.AreEqual(hashes[otherId], await finalDb.SourceApplications.Where(application => application.Id == otherId)
+        Assert.AreEqual(hashes[otherId], await finalDb.ApplicationApiKeys.Where(application => application.ApplicationId == otherId)
             .Select(application => application.SecretHash).SingleAsync());
     }
 
@@ -208,7 +213,7 @@ public partial class IncidentPagesTests
 
         foreach (var url in new[] { $"/Incidents/Details/{incidentId}", $"/Applications/OnCall/{id}", $"/Incidents?applicationId={id}" })
             AssertForbidden(await Http.GetAsync(url));
-        AssertForbidden(await PostForm("/Applications/ResetApiKey", new() { ["id"] = id.ToString() }, "/Manage/ChangePassword"));
+        AssertForbidden(await PostForm("/ApplicationApiKeys/Create", new() { ["ApplicationId"] = id.ToString() }, "/Manage/ChangePassword"));
         var alerts = await Http.GetStringAsync("/Incidents");
         Assert.DoesNotContain("Revoked application alert", alerts);
         Assert.Contains("Retained application alert", alerts);
@@ -285,10 +290,10 @@ public partial class IncidentPagesTests
             var role = new IdentityRole("Boundary application role");
             db.Roles.Add(role);
             db.UserRoles.Add(new IdentityUserRole<string> { UserId = userId, RoleId = role.Id });
-            db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = applicationId, RoleId = role.Id, CanViewIncidents = true, CanUpdateIncidents = manage, CanManageApiKeys = manage, CanManageApplication = manage });
+            db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { ApplicationId = applicationId, RoleId = role.Id, CanViewIncidents = true, CanCreateIncidents = manage, CanUpdateIncidents = manage, CanManageApiKeys = manage, CanManageApplication = manage });
         }
         else
-            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = applicationId, UserId = userId, CanViewIncidents = true, CanUpdateIncidents = manage, CanManageApiKeys = manage, CanManageApplication = manage });
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = applicationId, UserId = userId, CanViewIncidents = true, CanCreateIncidents = manage, CanUpdateIncidents = manage, CanManageApiKeys = manage, CanManageApplication = manage });
         await db.SaveChangesAsync();
     }
 }

@@ -11,6 +11,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
 {
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<SourceApplication> SourceApplications => Set<SourceApplication>();
+    public DbSet<ApplicationApiKey> ApplicationApiKeys => Set<ApplicationApiKey>();
     public DbSet<Incident> Incidents => Set<Incident>();
     public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
     public DbSet<IncidentComment> IncidentComments => Set<IncidentComment>();
@@ -36,6 +37,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.Entity<ApplicationApiKey>().HasOne(key => key.Application).WithMany()
+            .HasForeignKey(key => key.ApplicationId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<SourceApplication>().HasOne(application => application.Owner).WithMany()
             .HasForeignKey(application => application.OwnerId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<PushChannel>().Property(channel => channel.WebhookHeadersProtected).HasColumnType("text");
