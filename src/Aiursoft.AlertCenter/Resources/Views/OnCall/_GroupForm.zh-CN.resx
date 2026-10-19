@@ -168,6 +168,9 @@
   <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
     <value>收件人：通知时已保存班次中的人员。抄送：以下可选地址，无论谁当值。请使用逗号、分号或换行符分隔；最多 50 个地址。</value>
   </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>收件人：事件发生时分配给已保存班次的人员。原始 OCE 收件人将保留用于后续事件邮件。抄送适用于每个事件邮件，无论班次如何。请使用逗号、分号或换行符；最多 50 个抄送地址。</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>使用“上移”和“下移”来选择今后自动排班所采用的顺序。现有班次不会重新排序。最多可选择 200 名成员。</value>
   </data>

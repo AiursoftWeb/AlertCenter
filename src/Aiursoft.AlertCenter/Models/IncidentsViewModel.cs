@@ -18,6 +18,7 @@ public class IncidentsViewModel : UiStackLayoutViewModel
     public List<IncidentActivityViewModel> Activities { get; set; } = [];
     public bool CanDelete { get; set; }
     public bool CanManage { get; set; }
+    public OnCallEmailSnapshot? OriginalOceSnapshot { get; set; }
     public IReadOnlyList<OnCallOce> CurrentOces { get; set; } = [];
     public string? CurrentOceError { get; set; }
     public List<IncidentCommentViewModel> Comments { get; set; } = [];

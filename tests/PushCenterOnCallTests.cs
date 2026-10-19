@@ -61,7 +61,7 @@ public partial class PushCenterTests
         Assert.AreEqual(group.Id, snapshot.GroupId);
         Assert.AreEqual("Production OCE", snapshot.GroupName);
         Assert.AreEqual("team@example.com", snapshot.CcRecipients);
-        Assert.AreEqual((await _db.Incidents.SingleAsync()).ReceivedAtUtc, snapshot.NotificationAtUtc);
+        Assert.AreEqual((await _db.Incidents.SingleAsync()).OccurredAtUtc, snapshot.NotificationAtUtc);
         Assert.AreEqual((await _db.OnCallShifts.SingleAsync()).Id, snapshot.ShiftId);
         CollectionAssert.AreEquivalent(new[] { "oce-alice", "oce-bob" }, snapshot.Recipients.Select(recipient => recipient.UserId).ToArray());
         Assert.AreEqual(0, await _db.PushChannels.CountAsync());
@@ -78,6 +78,99 @@ public partial class PushCenterTests
         CollectionAssert.AreEqual(new[] { "team@example.com" }, sent.CcRecipients.ToArray());
         Assert.AreEqual(PushDelivery.Succeeded, (await BuiltInDelivery()).Status);
         Assert.AreEqual(1, (await BuiltInDelivery()).Attempts);
+    }
+
+    [TestMethod]
+    public async Task DelayedReportUsesOccurrenceRosterAndLifecycleRetainsItAfterChanges()
+    {
+        var application = await Application();
+        await OnCallTeam(application);
+        var incident = new Incident
+        {
+            ApplicationId = application.Id, Title = "Delayed report",
+            OccurredAtUtc = DateTime.UtcNow.AddHours(-2), ReceivedAtUtc = DateTime.UtcNow
+        };
+        var current = await _db.OnCallShifts.SingleAsync();
+        _db.OnCallShifts.Add(new OnCallShift
+        {
+            GroupId = current.GroupId, StartsAtUtc = incident.OccurredAtUtc.AddHours(-1),
+            EndsAtUtc = current.StartsAtUtc, Members = [new OnCallShiftMember { UserId = "off-duty" }]
+        });
+        _db.Incidents.Add(incident);
+        await _db.SaveChangesAsync();
+        await new QueuedIncidentDispatcher(_db, TestLocalization.Factory).DispatchAsync(incident);
+        await _db.SaveChangesAsync();
+        var original = (await BuiltInDelivery()).OnCallEmail!;
+        Assert.AreEqual("off-duty", original.Recipients.Single().UserId);
+        Assert.AreEqual(incident.OccurredAtUtc, original.NotificationAtUtc);
+        Assert.AreEqual(incident.ReceivedAtUtc, original.Delivery.CreatedAtUtc);
+        (await _db.SourceApplications.SingleAsync()).OnCallGroupId = null;
+        (await _db.Users.SingleAsync(user => user.Id == "off-duty")).Email = "changed@example.com";
+        (await _db.OnCallGroups.SingleAsync()).EmailCcRecipients = "changed-cc@example.com";
+        _db.OnCallShifts.RemoveRange(await _db.OnCallShifts.ToListAsync());
+        await _db.SaveChangesAsync();
+        Assert.AreEqual(200, (await IncidentWorkflowService.ResolveForApplicationAsync(_db,
+            application.Id, incident.Id, incident.Version, "Recovered", default)).StatusCode);
+        var later = await _db.PushDeliveries.Include(delivery => delivery.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
+            .SingleAsync(delivery => delivery.IncidentEventId != null);
+        Assert.AreEqual("off@example.com", later.OnCallEmail!.Recipients.Single().Email);
+        Assert.AreEqual("changed-cc@example.com", later.OnCallEmail.CcRecipients);
+        (await _db.OnCallGroups.SingleAsync()).EmailCcRecipients = "edited-after-queue@example.com";
+        await _db.SaveChangesAsync();
+        Assert.AreEqual(original.ShiftId, later.OnCallEmail.ShiftId);
+        await _processor.ProcessAsync(later.Id, default);
+        CollectionAssert.AreEqual(new[] { "off@example.com" }, _email.Messages.Single().Recipients.ToArray());
+        Assert.Contains(incident.OccurredAtUtc.ToString("O"), _email.Messages.Single().Body);
+        CollectionAssert.AreEqual(new[] { "changed-cc@example.com" }, _email.Messages.Single().CcRecipients.ToArray());
+        Assert.IsNull((await _db.SourceApplications.SingleAsync()).OnCallGroupId);
+    }
+
+    [TestMethod]
+    [DataRow("cc")]
+    [DataRow("original-to")]
+    [DataRow("deleted-cc-team")]
+    public async Task CorrectedCcRecoversLaterEmailWithoutReplacingInvalidOriginalOce(string scenario)
+    {
+        var application = await Application();
+        var group = await OnCallTeam(application, scenario == "original-to" ? "not-an-email" : "bob@example.com");
+        if (scenario != "original-to")
+        {
+            group.EmailCcRecipients = "invalid-cc";
+            await _db.SaveChangesAsync();
+        }
+        await Report(application, Guid.NewGuid());
+        var original = await BuiltInDelivery();
+        Assert.AreEqual(PushDelivery.Failed, original.Status);
+        (await _db.OnCallGroups.SingleAsync()).EmailCcRecipients = "fixed-cc@example.com";
+        (await _db.Users.SingleAsync(user => user.Id == "oce-bob")).Email = "new-profile@example.com";
+        await _db.SaveChangesAsync();
+        if (scenario == "deleted-cc-team")
+        {
+            (await _db.SourceApplications.SingleAsync()).OnCallGroupId = null;
+            await _db.SaveChangesAsync();
+            _db.OnCallGroups.Remove(await _db.OnCallGroups.SingleAsync());
+            await _db.SaveChangesAsync();
+        }
+        var incident = await _db.Incidents.SingleAsync();
+        Assert.AreEqual(200, (await IncidentWorkflowService.ResolveForApplicationAsync(_db,
+            application.Id, incident.Id, incident.Version, "Recovered", default)).StatusCode);
+        var later = await _db.PushDeliveries.Include(delivery => delivery.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
+            .SingleAsync(delivery => delivery.IncidentEventId != null);
+        if (scenario == "cc")
+        {
+            Assert.IsNull(later.OnCallEmail!.ValidationError);
+            await _processor.ProcessAsync(later.Id, default);
+            Assert.AreEqual(PushDelivery.Succeeded, later.Status);
+            CollectionAssert.AreEquivalent(new[] { "alice@example.com", "bob@example.com" }, _email.Messages.Single().Recipients.ToArray());
+            CollectionAssert.AreEqual(new[] { "fixed-cc@example.com" }, _email.Messages.Single().CcRecipients.ToArray());
+        }
+        else
+        {
+            Assert.AreEqual(PushDelivery.Failed, later.Status);
+            await _processor.ProcessAsync(later.Id, default);
+            Assert.AreEqual(0, _email.Messages.Count);
+        }
+        Assert.AreEqual(PushDelivery.Failed, original.Status);
     }
 
     [TestMethod]
