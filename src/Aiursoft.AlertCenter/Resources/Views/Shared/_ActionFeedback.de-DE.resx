@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Benachbarte Woche (schreibgeschützt)</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· Ausgeschieden</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· umfasst die nächste Woche</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· umfasst die Vorwoche</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Unzureichende Ruhezeit</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Nur lesbar)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} hat nur {1} Mitarbeitende und liegt damit unter dem Mindestwert von {2}. Das manuelle Speichern ist weiterhin möglich.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} Stunden</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} Schicht für {1} · {2}; noch nicht gespeichert. Sie können dies rückgängig machen.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} Schichten / {1} Stunden</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Nur {1} Stunden Ruhezeit zwischen {2} und {3}. Erforderlich sind mindestens {4} Stunden.</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 Stunden · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>Aktion nicht abgeschlossen</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>Hinzufügen-Modus: Klicken Sie auf einen freien Bereich in der Zeile des Mitarbeiters, um eine 8-Stunden-Schicht hinzuzufügen. Eine Schicht kann von mehreren Personen geteilt werden.</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>Rufbereitschaft hinzufügen</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Hinzugefügt</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>Zurück zur Bearbeitung</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>Aktualisierung abbrechen</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>{0} 36 Stunden einklappen</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>Kommentarinhalt (Markdown)</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>Der Kommentar darf 4.000 UTF-16-Zeichen nicht überschreiten. Bitte kürzen Sie den Inhalt, bevor Sie ihn veröffentlichen.</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>Seitenaktualisierung bestätigen?</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Kopiert</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>Aktueller Entwurf für diese Woche wurde auf alle 21 Schichten der nächsten Woche kopiert. Noch nicht gespeichert; Sie können die Aktion rückgängig machen. Sie können die nächsten 36 Stunden für eine schreibgeschützte Vorschau erweitern; nach dem Speichern zur nächsten Woche wechseln, um die komplette Woche anzuzeigen oder zu bearbeiten.</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>In die Zwischenablage kopiert.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>Kopieren fehlgeschlagen. Bitte markieren und kopieren Sie den Inhalt manuell. Überprüfen Sie zum erneuten Versuch die Zwischenablageberechtigungen Ihres Browsers.</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>Wird kopiert …</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Derzeit im Verschieben/Tauschen-Modus. Wechseln Sie oben den Modus, bevor Sie Schichten hinzufügen oder entfernen.</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>Löschmodus: Klicken Sie auf einen farbigen Block, um die aktuelle Schicht dieses Engineers zu entfernen. Diese Aktion kann rückgängig gemacht werden und wird wirksam, sobald alle Änderungen gespeichert sind.</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>Eingaben verwerfen und aktualisieren</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Ende</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>Geben Sie einen Kommentar ein; er darf nicht ausschließlich aus Leerzeichen bestehen.</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>Geben Sie den exakten App-Namen ein, um das Löschen zu bestätigen.</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>{0} 36 Stunden aufklappen</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>Mitarbeiter konnte nicht abgefragt werden. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>Fehler beim Hochladen des Bildes. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Von</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>Lücke bei {0} erkannt. Bitte fügen Sie Personal hinzu (für die Woche sind insgesamt 21 Schichten erforderlich).</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>Handhabbar</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>{0} Schichten geändert{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>Schichten verschieben / tauschen</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Verschieben abgebrochen; Zeitplan unverändert.</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>Verschieben abgebrochen.</value>
+  </data>
+  <data name="Move down" xml:space="preserve">
+    <value>Nach unten verschieben</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>Ausgewählte Schicht hierher verschieben</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>Verschieben nach</value>
+  </data>
+  <data name="Move up" xml:space="preserve">
+    <value>Nach oben verschieben</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>Netzwerkfehler; das Ergebnis der Operation kann noch nicht bestätigt werden. Bitte überprüfen Sie den Status, bevor Sie erneut einreichen, um Duplikate zu vermeiden.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>nächste</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Keine zugewiesenen Schichten.</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>Keine passenden Mitarbeiter gefunden.</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>Keine passende Zeitzone gefunden</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>Keine passenden Benutzer gefunden.</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>In dieser Zelle gibt es keine Schichten zum Löschen.</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Seite {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>Seiteninformationen aktualisiert</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>Bitte überprüfen Sie das CC-E-Mail-Format.</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>Drücken Sie Strg+C, um den ausgewählten Schlüssel zu kopieren.</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>Vorheriger Schritt rückgängig gemacht.</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>Seite aktualisieren</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>Beim Aktualisieren gehen nicht gespeicherte Eingaben verloren. Wählen Sie „Aktualisierung abbrechen“, um zu den Fehlerdetails zurückzukehren und die aktuellen Eingaben beizubehalten.</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>Seite wird neu geladen...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>{0} entfernen</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Berechtigung entfernen</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Entfernt</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>Die Anfrage ist ungültig oder die Anmeldedaten der Seite sind abgelaufen. Überprüfen Sie Ihre Eingaben und aktualisieren Sie die Seite, um es bei Bedarf erneut zu versuchen.</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>Neustart... ({0}s)</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>Der Zeitplan wurde auf den Stand zum Zeitpunkt des Öffnens der Seite zurückgesetzt.</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>Rollen-Gruppe · Alle Mitglieder der Gruppe erhalten automatisch die Berechtigungen</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>Speichern fehlgeschlagen. Bitte laden Sie die Seite neu und versuchen Sie es erneut.</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>Mitarbeiter werden gesucht…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Auswählen</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>Rolle auswählen</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Wählen Sie bis zu 200 Mitarbeiter pro Team aus.</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>Benutzer auswählen</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>Benutzer auswählen</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Benutzergruppe auswählen</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Ausgewählt: {0} · {1}. Ziehen Sie auf einen Farbblock oder klicken Sie darauf, um zu tauschen; Leertaste zum Verschieben; Esc zum Abbrechen.</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>{0} Benutzer ausgewählt; maximal 20 pro Seite.</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>Wochenplan für {0} ausgewählt. Ziehen Sie auf oder klicken Sie auf einen anderen Ingenieur.</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>Auswahl abgebrochen.</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>Schicht angepasst; Sie können weiter ziehen, um die roten Warnungen aufzulösen, und anschließend alle Änderungen speichern.</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Einzeln benutzer angeben</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>Personalbesetzung angepasst und Diagramm aktualisiert; noch nicht gespeichert.</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>Erfolgreich in die Zwischenablage kopiert!</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>Tausch</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>Tausch abgebrochen.</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>Volle Woche tauschen: {0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>Ganze Woche tauschen</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>Wochenplan für {0} und {1} getauscht. Noch nicht gespeichert.</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>Das Ergebnis der Aktion kann derzeit nicht bestätigt werden. Bitte überprüfen Sie den Seitenstatus, bevor Sie den Vorgang erneut absenden.</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>Der Zeitplan weist {0} ungelöste Probleme auf (zum Anzeigen erweitern); Sie können die Anpassungen fortsetzen.</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>Das Zielobjekt existiert nicht mehr. Bitte aktualisieren Sie die Seite.</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>Dieser Ingenieur ist bereits dieser Schicht zugewiesen. Es ist nicht nötig, ihn/sie erneut hinzuzufügen.</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>Diese Woche sind Mitglieder enthalten, die ausgeschieden sind. Bitte ersetzen Sie sie im Entwurf für diese Woche, bevor Sie ihn in die nächste Woche kopieren.</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>Zwei Stellen haben bereits dieselbe Zuordnung; ein Tausch ist nicht erforderlich.</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>Die Bestätigung für das Ersetzen kann nicht angezeigt werden. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut. Der Entwurf für die nächste Woche bleibt unverändert.</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>Mitarbeiter konnte nicht abgefragt werden.</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>Direkter Tausch nicht möglich: Eine Person befindet sich bereits im Zielschicht. Bitte passen Sie zuerst die Mitglieder derselben Schicht über „Mitglieder nach Schicht hinzufügen/entfernen“ an.</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>Ungespeichert · Anpassungsentwurf</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Benutzergruppe · Mitglieder erben dynamisch die zugewiesenen Berechtigungen</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Nur Ansicht</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>Sie sind nicht berechtigt, diese Aktion auszuführen.</value>
+  </data>
+
+</root>

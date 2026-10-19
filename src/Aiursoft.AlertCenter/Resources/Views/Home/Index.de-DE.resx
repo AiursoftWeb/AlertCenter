@@ -21,6 +21,12 @@
       <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>&quot;Fire-and-forget&quot;-Unterstützung für langlaufende Aufgaben (z. B. E-Mails oder KI), mit einer GUI für die Warteschlangenverwaltung, paralleler Verarbeitung und Abbruchfunktion.</value>
   </data>
+  <data name="2 minutes ago" xml:space="preserve">
+    <value>vor 2 Minuten</value>
+  </data>
+  <data name="8 minutes ago" xml:space="preserve">
+    <value>vor 8 Minuten</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Ein integriertes rollenbasiertes Zugriffskontrollsystem (RBAC) für eine feingranulare Berechtigungsverwaltung.</value>
   </data>
@@ -38,6 +44,9 @@
   </data>
   <data name="Achieve more with Aiursoft Template" xml:space="preserve">
     <value>Erreichen Sie mehr mit Aiursoft Template</value>
+  </data>
+  <data name="Action Required" xml:space="preserve">
+    <value>Maßnahme erforderlich</value>
   </data>
   <data name="Actuator health endpoints built-in" xml:space="preserve">
     <value>Actuator-Gesundheitsendpunkte integriert</value>
@@ -59,6 +68,12 @@
   </data>
   <data name="Aiursoft Template is our definitive choice for enterprise projects! It&apos;s built for developers and is lightweight yet powerful. We can skip all the boilerplate for authentication and user management." xml:space="preserve">
     <value>Aiursoft Template ist unsere endgültige Wahl für Unternehmensprojekte! Er wurde für Entwickler entwickelt und ist leichtgewichtig, aber dennoch leistungsstark. Wir können den gesamten Standardcode für Authentifizierung und Benutzerverwaltung überspringen.</value>
+  </data>
+  <data name="AlertCenter centrally receives, classifies, and reliably delivers incidents for business systems. Connect all services with a single API to keep your team informed of the real-time production status." xml:space="preserve">
+    <value>AlertCenter nimmt Incidents für Geschäftssysteme zentral entgegen, klassifiziert sie und liefert sie zuverlässig aus. Verbinden Sie alle Dienste über eine einzige API, um Ihr Team über den Echtzeit-Produktionsstatus zu informieren.</value>
+  </data>
+  <data name="AlertCenter correlates sources, severity levels, push configurations, and delivery results to help teams quickly assess impact and decide on next steps." xml:space="preserve">
+    <value>AlertCenter führt Quellen, Schweregrade, Push-Konfigurationen und Zustellergebnisse zusammen, damit Teams die Auswirkungen schnell einschätzen und die nächsten Schritte festlegen können.</value>
   </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Alle Abhängigkeiten werden automatisch registriert und sind stets über Constructor Injection verfügbar.</value>
@@ -120,6 +135,9 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>Zweisprachige Tutorials</value>
   </data>
+  <data name="Build a Reliable Incident Channel in Three Steps" xml:space="preserve">
+    <value>Ein zuverlässiger Incident-Kanal in drei Schritten</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>Einmal erstellen, überall ausführen. Vollständig containerisierte Architektur.</value>
   </data>
@@ -171,6 +189,12 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Integriertes Benutzerverwaltungssystem</value>
   </data>
+  <data name="Centrally manage sources, incident levels, notification channels, and delivery results so service anomalies are not buried in logs." xml:space="preserve">
+    <value>Verwalten Sie Quellen, Incident-Stufen, Benachrichtigungskanäle und Zustellergebnisse zentral, damit Dienststörungen nicht in Logs versinken.</value>
+  </data>
+  <data name="Centrally track each notification delivery status to quickly locate issues upon failure and prevent important information from being silently lost." xml:space="preserve">
+    <value>Verfolgen Sie zentral den Zustellstatus jeder Benachrichtigung, um bei Fehlern schnell Probleme zu lokalisieren und zu verhindern, dass wichtige Informationen still verloren gehen.</value>
+  </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Checkstyle oder ähnliches erforderlich</value>
   </data>
@@ -192,6 +216,12 @@
   <data name="Concise Docs" xml:space="preserve">
     <value>Klare Dokumentation</value>
   </data>
+  <data name="Configure independent push channels for sev0 to sev4 to ensure the most urgent issues receive the highest priority response." xml:space="preserve">
+    <value>Konfigurieren Sie separate Push-Kanäle für sev0 bis sev4, damit die dringendsten Probleme mit höchster Priorität bearbeitet werden.</value>
+  </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Push-Kanal konfigurieren</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Konsistenzüberprüfung</value>
   </data>
@@ -203,6 +233,24 @@
   </data>
   <data name="Coverage Report" xml:space="preserve">
     <value>Abdeckungsbericht</value>
+  </data>
+  <data name="Create and handle incidents" xml:space="preserve">
+    <value>Vorfälle erstellen und bearbeiten</value>
+  </data>
+  <data name="Create independent API Keys for each business application to report structured incidents and context via standard HTTP APIs." xml:space="preserve">
+    <value>Erstellen Sie für jede Geschäftsanwendung einen eigenen API-Schlüssel, um strukturierte Vorfälle und Kontext über standardisierte HTTP-APIs zu melden.</value>
+  </data>
+  <data name="Create Integration App" xml:space="preserve">
+    <value>Integrations-App erstellen</value>
+  </data>
+  <data name="Create your first integration app, send your first incident, and establish your reliable notification loop." xml:space="preserve">
+    <value>Erstellen Sie Ihre erste Integrationsanwendung, senden Sie Ihren ersten Vorfall und richten Sie einen zuverlässigen Benachrichtigungsablauf ein.</value>
+  </data>
+  <data name="Critical / Error" xml:space="preserve">
+    <value>Kritisch / Fehler</value>
+  </data>
+  <data name="Critical incidents should not be buried in logs." xml:space="preserve">
+    <value>Kritische Vorfälle dürfen nicht in Protokollen untergehen.</value>
   </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>Plattformübergreifend</value>
@@ -222,6 +270,9 @@
   <data name="Dashboard Website" xml:space="preserve">
     <value>Dashboard-Website</value>
   </data>
+  <data name="Database backup completed" xml:space="preserve">
+    <value>Datenbanksicherung abgeschlossen</value>
+  </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Tag 1 Compliance &amp; Sicherheit.</value>
   </data>
@@ -237,8 +288,14 @@
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>Standard-SQLite-Datenbank, keine Konfiguration erforderlich.</value>
   </data>
+  <data name="Delivery records are fully traceable" xml:space="preserve">
+    <value>Lieferungsnachweise sind vollständig nachverfolgbar</value>
+  </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>Entwickelt für jedermann, von Anfängern bis zu Experten.</value>
+  </data>
+  <data name="Designed for response" xml:space="preserve">
+    <value>Für Reaktionen konzipiert</value>
   </data>
   <data name="Designed for the container era. Includes pre-configured CI/CD pipelines for GitLab. Push code, pass strictly linting, auto-test, and deploy to Docker Swarm or Kubernetes automatically." xml:space="preserve">
     <value>Entwickelt für die Container-Ära. Enthält vorkonfigurierte CI/CD-Pipelines für GitLab. Code pushen, strikte Linting-Prüfung bestehen, automatisierte Tests durchführen und automatisch in Docker Swarm oder Kubernetes bereitstellen.</value>
@@ -285,6 +342,9 @@
   <data name="Enforced quality gate" xml:space="preserve">
     <value>Durchgesetzte Qualitätsprüfung</value>
   </data>
+  <data name="Enter Console" xml:space="preserve">
+    <value>Konsole öffnen</value>
+  </data>
   <data name="Enterprise C#" xml:space="preserve">
     <value>Enterprise C#</value>
   </data>
@@ -297,8 +357,14 @@
   <data name="Enterprise Security" xml:space="preserve">
     <value>Unternehmenssicherheit</value>
   </data>
+  <data name="Enterprise-grade incidents" xml:space="preserve">
+    <value>Enterprise-Vorfälle</value>
+  </data>
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Entity Framework Core enthalten</value>
+  </data>
+  <data name="Establish a response path suitable for your team using Webhooks, emails, and in-app notifications." xml:space="preserve">
+    <value>Richten Sie mit Webhooks, E-Mails und In-App-Benachrichtigungen einen für Ihr Team geeigneten Reaktionsweg ein.</value>
   </data>
   <data name="FAQ" xml:space="preserve">
     <value>FAQ</value>
@@ -350,6 +416,12 @@
   </data>
   <data name="Frequently asked questions" xml:space="preserve">
     <value>Häufig gestellte Fragen</value>
+  </data>
+  <data name="From exception occurrence to team response, always clear and controllable." xml:space="preserve">
+    <value>Vom Auftreten eines Vorfalls bis zur Reaktion des Teams – stets transparent und kontrollierbar.</value>
+  </data>
+  <data name="From ingestion to delivery, all configurations are completed in the console, eliminating the need to switch between multiple systems." xml:space="preserve">
+    <value>Von der Erfassung bis zur Zustellung werden alle Einstellungen in der Konsole vorgenommen, sodass ein Wechsel zwischen mehreren Systemen entfällt.</value>
   </data>
   <data name="From the Architect" xml:space="preserve">
     <value>Vom Architekten</value>
@@ -408,6 +480,9 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Hallo Welt!</value>
   </data>
+  <data name="Help your team detect issues earlier and restore services faster." xml:space="preserve">
+    <value>Helfen Sie Ihrem Team, Probleme früher zu erkennen und Dienste schneller wiederherzustellen.</value>
+  </data>
   <data name="Here are some of the answers you might be looking for." xml:space="preserve">
     <value>Hier sind einige der Antworten, nach denen Sie möglicherweise suchen.</value>
   </data>
@@ -438,6 +513,12 @@
   <data name="In-memory DB, temp FS, and HTTP simulation" xml:space="preserve">
     <value>In-Memory-Datenbank, temporäres Dateisystem und HTTP-Simulation</value>
   </data>
+  <data name="Incident overview" xml:space="preserve">
+    <value>Vorfallsübersicht</value>
+  </data>
+  <data name="Incident synchronously delivered to Webhook and in-app notification" xml:space="preserve">
+    <value>Der Vorfall wurde synchron per Webhook und In-App-Benachrichtigung zugestellt.</value>
+  </data>
   <data name="Included" xml:space="preserve">
     <value>Enthalten</value>
   </data>
@@ -446,6 +527,12 @@
   </data>
   <data name="Includes Tutorials" xml:space="preserve">
     <value>Enthält Tutorials</value>
+  </data>
+  <data name="Info / Notification" xml:space="preserve">
+    <value>Info / Benachrichtigung</value>
+  </data>
+  <data name="Infrastructure · backup-2026-09-14" xml:space="preserve">
+    <value>Infrastruktur · backup-2026-09-14</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Integriertes Dateimanagement</value>
@@ -465,6 +552,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Ist die Nutzung von Aiursoft Template kostenlos?</value>
   </data>
+  <data name="Issue dedicated API Keys for services to isolate sources and precisely manage reporting permissions." xml:space="preserve">
+    <value>Erstellen Sie dedizierte API-Keys für Dienste, um Quellen zu isolieren und die Meldeberechtigungen präzise zu verwalten.</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>java.time-API verfügbar</value>
   </data>
@@ -480,8 +570,17 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>Treten Sie unserer wachsenden Community von Entwicklern bei, die die nächste Generation von Webanwendungen erstellen.</value>
   </data>
+  <data name="Just now" xml:space="preserve">
+    <value>Gerade eben</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>K8s / Swarm bereit</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Neueste Vorfälle</value>
+  </data>
+  <data name="Let every critical incident" xml:space="preserve">
+    <value>Lassen Sie jeden kritischen Vorfall</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Lint-Prüfung</value>
@@ -489,11 +588,17 @@
   <data name="Maintain High Code Quality" xml:space="preserve">
     <value>Hohen Code-Qualität aufrechterhalten</value>
   </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Integrierte Anwendungen verwalten</value>
+  </data>
   <data name="Management Dashboard" xml:space="preserve">
     <value>Verwaltungs-Dashboard</value>
   </data>
   <data name="Markdown To HTML" xml:space="preserve">
     <value>Markdown zu HTML</value>
+  </data>
+  <data name="Message Center · 8,420 pending" xml:space="preserve">
+    <value>Nachrichten-Zentrum · 8.420 ausstehend</value>
   </data>
   <data name="MIT Licence" xml:space="preserve">
     <value>MIT-Lizenz</value>
@@ -503,6 +608,9 @@
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modelle werden auf Client- und Serverseite basierend auf Datenanmerkungen validiert.</value>
+  </data>
+  <data name="Multi-channel Push" xml:space="preserve">
+    <value>Multikanal-Push</value>
   </data>
   <data name="Multi-timezone Handling" xml:space="preserve">
     <value>Umgang mit mehreren Zeitzonen</value>
@@ -573,11 +681,20 @@
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="One Center, Closed-Loop Handling" xml:space="preserve">
+    <value>Eine zentrale Anlaufstelle für die lückenlose Bearbeitung</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>Einfach-Start</value>
   </data>
+  <data name="Open Push Center" xml:space="preserve">
+    <value>Push-Zentrum öffnen</value>
+  </data>
   <data name="Open Source" xml:space="preserve">
     <value>Open Source</value>
+  </data>
+  <data name="Open source and self-hostable" xml:space="preserve">
+    <value>Open Source und selbst hostbar</value>
   </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect-Integration</value>
@@ -585,14 +702,23 @@
   <data name="Optimized Docker &amp; K8s config" xml:space="preserve">
     <value>Optimierte Docker- &amp; K8s-Konfiguration</value>
   </data>
+  <data name="Order Service · trace-7e9a" xml:space="preserve">
+    <value>Bestellservice · trace-7e9a</value>
+  </data>
   <data name="ORM &amp; Migrations" xml:space="preserve">
     <value>ORM &amp; Migrations</value>
   </data>
   <data name="Out-of-the-box" xml:space="preserve">
     <value>Sofort einsatzbereit</value>
   </data>
+  <data name="Payment service response timeout" xml:space="preserve">
+    <value>Zahlungsdienst-Timeout bei der Antwort</value>
+  </data>
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>Berechtigungsfindung und -synchronisation</value>
+  </data>
+  <data name="Persistent incident storage" xml:space="preserve">
+    <value>Dauerhafte Incident-Speicherung</value>
   </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Pint oder ähnliches erforderlich</value>
@@ -609,8 +735,14 @@
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Vorkonfigurierte Pipelines für Entwicklung/Produktion</value>
   </data>
+  <data name="Private deployment" xml:space="preserve">
+    <value>Private Bereitstellung</value>
+  </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>Qualitätsgate</value>
+  </data>
+  <data name="Queue backlog approaching threshold" xml:space="preserve">
+    <value>Warteschlangenrückstau nähert sich dem Schwellenwert</value>
   </data>
   <data name="Quick setup with H2 database" xml:space="preserve">
     <value>Schnelle Einrichtung mit H2-Datenbank</value>
@@ -618,11 +750,23 @@
   <data name="Quick setup with NuGet packages" xml:space="preserve">
     <value>Schnelle Einrichtung mit NuGet-Paketen</value>
   </data>
+  <data name="Quickly locate by severity level" xml:space="preserve">
+    <value>Schnelle Filterung nach Schweregrad</value>
+  </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC-Autorisierung</value>
   </data>
+  <data name="Reach the right person promptly." xml:space="preserve">
+    <value>Erreicht die richtige Person sofort.</value>
+  </data>
   <data name="Read the document" xml:space="preserve">
     <value>Dokumentation lesen</value>
+  </data>
+  <data name="Record title, severity, occurrence time, and context; duplicate reports are handled idempotently." xml:space="preserve">
+    <value>Titel, Schweregrad, Eintrittszeit und Kontext werden aufgezeichnet; doppelte Meldungen werden idempotent verarbeitet.</value>
+  </data>
+  <data name="Reliable delivery" xml:space="preserve">
+    <value>Zuverlässige Zustellung</value>
   </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Erfordert Laravel Socialite-Konfiguration</value>
@@ -638,6 +782,9 @@
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Robuste Integrationstests</value>
+  </data>
+  <data name="Route by severity level" xml:space="preserve">
+    <value>Weiterleitung nach Schweregrad</value>
   </data>
   <data name="Runs without any internet connection required." xml:space="preserve">
     <value>Läuft ohne Internetverbindung erforderlich.</value>
@@ -675,6 +822,12 @@
   <data name="Start a new project" xml:space="preserve">
     <value>Ein neues Projekt starten</value>
   </data>
+  <data name="Start Integration" xml:space="preserve">
+    <value>Integration starten</value>
+  </data>
+  <data name="Start now" xml:space="preserve">
+    <value>Jetzt starten</value>
+  </data>
   <data name="Start Shipping Value." xml:space="preserve">
     <value>Wert liefern starten.</value>
   </data>
@@ -707,6 +860,12 @@
   </data>
   <data name="Supports JetBrains Rider for easy code style fixes." xml:space="preserve">
     <value>Unterstützt JetBrains Rider für einfache Code-Stilkorrekturen.</value>
+  </data>
+  <data name="Synced" xml:space="preserve">
+    <value>Synchronisiert</value>
+  </data>
+  <data name="System normal" xml:space="preserve">
+    <value>System normal</value>
   </data>
   <data name="Task Runner" xml:space="preserve">
     <value>Aufgaben-Runner</value>
@@ -744,11 +903,17 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Dies ist ein Template-Projekt, in dem wir die Reise des Voyagers beginnen...</value>
   </data>
+  <data name="Tiered Routing" xml:space="preserve">
+    <value>Stufenweises Routing</value>
+  </data>
   <data name="Timezone-aware fields" xml:space="preserve">
     <value>Zeitzone-bewusste Felder</value>
   </data>
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>TimeZoneInfo-API verfügbar</value>
+  </data>
+  <data name="Track the success, pending, or failure status of every channel." xml:space="preserve">
+    <value>Verfolgen Sie den Erfolg-, Ausstehende- oder Fehlerstatus jedes Kanals.</value>
   </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>Vertraut von produktionsreifen Anwendungen wie AnduinOS, StatHub und Warp. Wir teilen diesen Code nicht nur; wir betreiben unseren gesamten Geschäftsbetrieb damit.</value>
@@ -759,14 +924,26 @@
   <data name="Unified Identity" xml:space="preserve">
     <value>Einheitliche Identität</value>
   </data>
+  <data name="Unified intake" xml:space="preserve">
+    <value>Zentrale Erfassung</value>
+  </data>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung</value>
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>Nutzen Sie es als Grundlage für Ihr SaaS, als Backend für Ihre mobile App, als Unternehmenswebsite oder als persönlichen Blog. Die Möglichkeiten sind endlos.</value>
   </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Vorfälle anzeigen</value>
+  </data>
+  <data name="View integration guide" xml:space="preserve">
+    <value>Integrationsanleitung ansehen</value>
+  </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>Auf GitHub ansehen</value>
+  </data>
+  <data name="Visual workflow" xml:space="preserve">
+    <value>Visueller Workflow</value>
   </data>
   <data name="WebApplicationFactory available" xml:space="preserve">
     <value>WebApplicationFactory verfügbar</value>

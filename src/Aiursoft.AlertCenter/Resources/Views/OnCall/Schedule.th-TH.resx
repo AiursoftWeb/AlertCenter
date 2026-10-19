@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>การดำเนินการ</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>สร้างขึ้นใน</value>
+  </data>
+  <data name="Manage scheduling rules" xml:space="preserve">
+    <value>จัดการกฎการจัดตารางเวร</value>
+  </data>
+  <data name="Member Count" xml:space="preserve">
+    <value>จำนวนสมาชิก</value>
+  </data>
+  <data name="No teams available. Please go to" xml:space="preserve">
+    <value>ไม่มีทีมที่พร้อมใช้งาน กรุณาไปที่</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>ตารางเวรยาม</value>
+  </data>
+  <data name="Rule" xml:space="preserve">
+    <value>กฎ</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>เลือกทีมเพื่อดูตารางเวร 7 วัน สร้างหรือปรับแต่งเวรด้วยตนเอง ทีมที่ไม่มีเทมเพลตที่ผูกไว้สามารถกำหนดตารางเวรด้วยตนเองได้เช่นกัน เวรที่บันทึกไว้ยังไม่มีผลต่อการกำหนดเส้นทางเหตุการณ์ในขณะนี้</value>
+  </data>
+  <data name="Select On-Call Team" xml:space="preserve">
+    <value>เลือกทีมเวร</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>ทีม</value>
+  </data>
+  <data name="Team management" xml:space="preserve">
+    <value>การจัดการทีม</value>
+  </data>
+  <data name="Template not bound" xml:space="preserve">
+    <value>ยังไม่ได้ผูกเทมเพลต</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>ดูตารางเวร</value>
+  </data>
+
+</root>

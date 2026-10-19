@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Aktion</value>
+  </data>
+  <data name="Add first channel" xml:space="preserve">
+    <value>Ersten Kanal hinzufügen</value>
+  </data>
+  <data name="Add new channel" xml:space="preserve">
+    <value>Neuen Kanal hinzufügen</value>
+  </data>
+  <data name="Application Tier Association" xml:space="preserve">
+    <value>Zuordnung der Anwendungsebenen</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Kanalname</value>
+  </data>
+  <data name="Channel Type" xml:space="preserve">
+    <value>Kanaltyp</value>
+  </data>
+  <data name="channels" xml:space="preserve">
+    <value>Kanäle</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
+  <data name="Configure " xml:space="preserve">
+    <value>Konfigurieren</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Löschen bestätigen</value>
+  </data>
+  <data name="Confirm push channel deletion" xml:space="preserve">
+    <value>Löschung des Push-Kanals bestätigen</value>
+  </data>
+  <data name="Confirm sending to channel" xml:space="preserve">
+    <value>Senden an den Kanal bestätigen</value>
+  </data>
+  <data name="Current Status" xml:space="preserve">
+    <value>Aktueller Status</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Delete push channel" xml:space="preserve">
+    <value>Push-Kanal löschen</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Deaktivieren</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Aktivieren</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Aktiviert</value>
+  </data>
+  <data name="Linked application push configurations, historical delivery records, and corresponding in-app notifications will be deleted. This action cannot be undone." xml:space="preserve">
+    <value>Die verknüpften Push-Einstellungen der Anwendung, historische Zustellungsprotokolle und die entsprechenden In-App-Benachrichtigungen werden gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>Protokoll</value>
+  </data>
+  <data name="Manage notification delivery channels to deliver incidents to responsible parties and external systems accurately based on severity levels." xml:space="preserve">
+    <value>Verwalten Sie die Benachrichtigungskanäle, um Vorfälle anhand ihres Schweregrads zuverlässig an die zuständigen Stellen und externe Systeme weiterzuleiten.</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>Noch keine Push-Kanäle konfiguriert</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Benachrichtigungen</value>
+  </data>
+  <data name="Push channel configured" xml:space="preserve">
+    <value>Push-Kanal konfiguriert</value>
+  </data>
+  <data name="Select the channel type above (e.g., Webhook, in-app notification, or email) and configure it to associate with the integrated application." xml:space="preserve">
+    <value>Wählen Sie oben den Kanaltyp aus (z. B. Webhook, In-App-Benachrichtigung oder E-Mail) und konfigurieren Sie ihn, um ihn der integrierten Anwendung zuzuordnen.</value>
+  </data>
+  <data name="Send test message" xml:space="preserve">
+    <value>Testnachricht senden</value>
+  </data>
+  <data name="Send test message and view delivery result" xml:space="preserve">
+    <value>Testnachricht senden und Zustellergebnis anzeigen</value>
+  </data>
+  <data name="Send test notification?" xml:space="preserve">
+    <value>Testbenachrichtigung senden?</value>
+  </data>
+  <data name="Send test now" xml:space="preserve">
+    <value>Jetzt testen und senden</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="Test message content" xml:space="preserve">
+    <value>Inhalt der Testnachricht</value>
+  </data>
+  <data name="The system will immediately create a delivery task and invoke the corresponding channel adapter. After execution, you will be redirected to the delivery details page to view the results." xml:space="preserve">
+    <value>Das System erstellt sofort eine Zustellungsaufgabe und ruft den entsprechenden Kanaladapter auf. Nach der Ausführung werden Sie zur Detailseite der Zustellung weitergeleitet, um die Ergebnisse anzuzeigen.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Dies ist eine Testnachricht für den Push-Kanal.</value>
+  </data>
+  <data name="View all delivery records" xml:space="preserve">
+    <value>Alle Zustellungsprotokolle anzeigen</value>
+  </data>
+
+</root>
