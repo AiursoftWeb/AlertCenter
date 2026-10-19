@@ -1,5 +1,86 @@
 /* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
 
+.ac-create-alert {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border-radius: 1rem;
+    background: linear-gradient(115deg, #183a75, #2856a2);
+    color: #fff;
+    box-shadow: 0 0.5rem 1.5rem rgba(24, 58, 117, 0.18);
+}
+
+.ac-create-alert h2 {
+    color: inherit;
+}
+
+.ac-create-alert-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.ac-create-alert-icon svg {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.ac-create-alert-action {
+    flex: 0 1 18rem;
+}
+
+.ac-create-alert-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    min-height: 4rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    --bs-btn-color: #183a75;
+    --bs-btn-bg: #fff;
+    --bs-btn-border-color: #fff;
+    --bs-btn-hover-color: #183a75;
+    --bs-btn-hover-bg: #e8efff;
+    --bs-btn-hover-border-color: #e8efff;
+    --bs-btn-active-color: #183a75;
+    --bs-btn-active-bg: #d7e4ff;
+    --bs-btn-disabled-color: #344054;
+    --bs-btn-disabled-bg: #e2e8f0;
+    --bs-btn-disabled-border-color: #e2e8f0;
+    --bs-btn-disabled-opacity: 1;
+}
+
+.ac-create-alert-button:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 4px;
+}
+
+.ac-create-alert-link {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.ac-create-alert-link:hover {
+    color: #d7e4ff;
+}
+
+@media (max-width: 767.98px) {
+    .ac-create-alert-action {
+        flex-basis: 100%;
+    }
+}
+
 .alert-message {
     min-width: 0;
 }

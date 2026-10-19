@@ -37,7 +37,7 @@ public class ApplicationAccessServiceTests
         _db.AddRange(application, other, member, role);
         _db.UserRoles.Add(new IdentityUserRole<string> { UserId = member.Id, RoleId = role.Id });
         _db.ApplicationUserAccesses.Add(new ApplicationUserAccess { Application = application, User = member, CanViewIncidents = true });
-        _db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { Application = application, Role = role, CanUpdateIncidents = true });
+        _db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { Application = application, Role = role, CanUpdateIncidents = true, CanDeleteIncidents = true });
         await _db.SaveChangesAsync();
         var service = new ApplicationAccessService(_db);
         foreach (var permission in Enum.GetValues<ApplicationPermission>())
@@ -47,10 +47,18 @@ public class ApplicationAccessServiceTests
         }
         Assert.IsTrue(await service.CanAccessAsync(Actor(member.Id), application.Id, ApplicationPermission.UpdateIncidents));
         Assert.IsFalse(await service.CanAccessAsync(Actor(member.Id), application.Id, ApplicationPermission.ManageApiKeys));
+        Assert.IsTrue(await service.CanAccessAsync(Actor(member.Id), application.Id, ApplicationPermission.DeleteIncidents));
+        foreach (var permission in Enum.GetValues<ApplicationPermission>())
+        {
+            var listed = await service.GetAccessibleApplicationIdsAsync(Actor(member.Id), permission);
+            Assert.AreEqual(await service.CanAccessAsync(Actor(member.Id), application.Id, permission), listed.Contains(application.Id));
+            Assert.IsFalse(listed.Contains(other.Id));
+        }
+        Assert.IsFalse(await service.CanAccessAsync(Actor(owner.Id), application.Id, (ApplicationPermission)999));
         var manager = Actor("platform-manager");
-        ((ClaimsIdentity)manager.Identity!).AddClaim(new Claim(AppPermissions.Type, AppPermissionNames.CanManageApplications));
+        ((ClaimsIdentity)manager.Identity!).AddClaim(new Claim(AppPermissions.Type, "CanManageApplications"));
         ((ClaimsIdentity)manager.Identity!).AddClaim(new Claim(ClaimTypes.Role, "Administrators"));
-        Assert.IsTrue(service.CanManageApplications(manager));
+        Assert.IsTrue(service.CanCreateApplications(manager));
         Assert.IsFalse(await service.CanAccessAsync(manager, application.Id));
         Assert.AreEqual(0, (await service.GetAccessibleApplicationIdsAsync(manager)).Count);
         _db.UserRoles.Remove(await _db.UserRoles.SingleAsync());

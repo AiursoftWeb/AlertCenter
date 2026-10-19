@@ -150,17 +150,36 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         });
     }
 
-    public async Task<IActionResult> Create(Guid applicationId, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create(Guid? applicationId, CancellationToken cancellationToken)
     {
-        if (!await applicationAccess.CanAccessAsync(User, applicationId, ApplicationPermission.CreateIncidents, cancellationToken)) return Forbid();
-        return this.StackView(new CreateIncidentViewModel { ApplicationId = applicationId });
+        if (applicationId.HasValue && !await applicationAccess.CanAccessAsync(User, applicationId.Value, ApplicationPermission.CreateIncidents, cancellationToken)) return Forbid();
+        var model = new CreateIncidentViewModel { ApplicationId = applicationId ?? Guid.Empty };
+        await PopulateCreatableApplications(model, cancellationToken);
+        if (!applicationId.HasValue && model.Applications.Count == 1)
+            model.ApplicationId = Guid.Parse(model.Applications[0].Value);
+        return this.StackView(model);
+    }
+
+    private async Task PopulateCreatableApplications(CreateIncidentViewModel model, CancellationToken cancellationToken)
+    {
+        var ids = await applicationAccess.GetAccessibleApplicationIdsAsync(User, ApplicationPermission.CreateIncidents, cancellationToken);
+        model.Applications = await db.SourceApplications.AsNoTracking()
+            .Where(application => application.IsEnabled && ids.Contains(application.Id)).OrderBy(application => application.Name)
+            .Select(application => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem(application.Name, application.Id.ToString()))
+            .ToListAsync(cancellationToken);
     }
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreateIncidentViewModel request, [FromServices] IIncidentDispatcher dispatcher, CancellationToken cancellationToken)
     {
-        if (!await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.CreateIncidents, cancellationToken)) return Forbid();
-        if (!ModelState.IsValid) return this.StackView(request);
+        if (request.ApplicationId == Guid.Empty)
+            ModelState.AddModelError(nameof(request.ApplicationId), localizer["Please select an application."].Value);
+        else if (!await applicationAccess.CanAccessAsync(User, request.ApplicationId, ApplicationPermission.CreateIncidents, cancellationToken)) return Forbid();
+        if (!ModelState.IsValid)
+        {
+            await PopulateCreatableApplications(request, cancellationToken);
+            return this.StackView(request);
+        }
         var application = await db.SourceApplications.SingleAsync(item => item.Id == request.ApplicationId, cancellationToken);
         if (!application.IsEnabled) return BadRequest(localizer["This application is disabled."].Value);
         var now = DateTime.UtcNow;

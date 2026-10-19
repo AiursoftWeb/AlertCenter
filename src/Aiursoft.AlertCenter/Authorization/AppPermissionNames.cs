@@ -5,7 +5,8 @@ namespace Aiursoft.AlertCenter.Authorization;
 /// </summary>
 public static class AppPermissionNames
 {
-    public const string CanManageApplications = nameof(CanManageApplications);
+    // Preserve the stored claim key so existing creation grants remain valid.
+    public const string CanCreateApplications = "CanManageApplications";
     public const string CanManageOnCall = nameof(CanManageOnCall);
 
     public const string CanManagePush = nameof(CanManagePush);

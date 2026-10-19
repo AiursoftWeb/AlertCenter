@@ -103,7 +103,7 @@ public class ViewModelArgsInjector(
     
         _ = localizer["API Key"];
         _ = localizer["API Key Management"];
-        _ = localizer["Create Incident"];
+        _ = localizer["New alert"];
     }
 
     public void InjectSimple(

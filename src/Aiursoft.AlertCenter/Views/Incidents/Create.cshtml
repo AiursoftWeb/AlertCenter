@@ -1,10 +1,61 @@
 @model Aiursoft.AlertCenter.Models.CreateIncidentViewModel
-<h1 class="h3 mb-3">@Localizer["Create Incident"]</h1>
-<div class="card"><div class="card-body"><form asp-action="Create" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <input asp-for="ApplicationId" type="hidden" />
-    <label asp-for="Title" class="form-label">@Localizer["Title"]</label><input asp-for="Title" class="form-control mb-3" maxlength="200" required />
-    <label asp-for="Level" class="form-label">@Localizer["Severity"]</label><select asp-for="Level" class="form-select mb-3"><option>sev0</option><option>sev1</option><option>sev2</option><option>sev3</option><option>sev4</option></select>
-    <label asp-for="Content" class="form-label">@Localizer["Content"]</label><textarea asp-for="Content" class="form-control mb-3" rows="6" maxlength="4000"></textarea>
-    <button type="submit" class="btn btn-primary">@Localizer["Create Incident"]</button>
-</form></div></div>
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-2">@Localizer["New alert"]</h1>
+        <p class="text-muted mb-0">@Localizer["Describe what happened so responders can take action."]</p>
+    </div>
+    <a asp-controller="Dashboard" asp-action="Index" class="btn btn-outline-secondary">@Localizer["Back to dashboard"]</a>
+</div>
+
+@if (Model.Applications.Count == 0)
+{
+    <div class="alert alert-info" role="status">
+        <div class="alert-message">@Localizer["No enabled applications are available. Ask an application owner for create-alert access."]</div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="All" class="text-danger mb-3" role="alert"></div>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-8">
+                        <label asp-for="ApplicationId" class="form-label">@Localizer["Application"]</label>
+                        <select asp-for="ApplicationId" asp-items="Model.Applications" class="form-select" required aria-describedby="application-help">
+                            <option value="">@Localizer["Select an application"]</option>
+                        </select>
+                        <div id="application-help" class="form-text">@Localizer["Only enabled applications where you can create alerts are listed."]</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Level" class="form-label">@Localizer["Severity"]</label>
+                        <select asp-for="Level" class="form-select">
+                            <option value="sev0">sev0 — @Localizer["Critical"]</option>
+                            <option value="sev1">sev1 — @Localizer["Major"]</option>
+                            <option value="sev2">sev2 — @Localizer["Error"]</option>
+                            <option value="sev3">sev3 — @Localizer["Warning"]</option>
+                            <option value="sev4">sev4 — @Localizer["Informational"]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label">@Localizer["Title"]</label>
+                    <input asp-for="Title" class="form-control" maxlength="200" required />
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Content" class="form-label">@Localizer["Content"]</label>
+                    <textarea asp-for="Content" class="form-control" rows="6" maxlength="4000"></textarea>
+                </div>
+                <div class="alert alert-info mb-4" role="note">
+                    <div class="alert-icon"><i data-lucide="send" aria-hidden="true"></i></div>
+                    <div class="alert-message">@Localizer["Creating this alert will queue notifications using the application's on-call and push settings."]</div>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg px-4"><i class="align-middle me-2" data-lucide="bell-plus" aria-hidden="true"></i>@Localizer["Create alert"]</button>
+                    <a asp-controller="Dashboard" asp-action="Index" class="btn btn-outline-secondary btn-lg">@Localizer["Cancel"]</a>
+                </div>
+            </form>
+        </div>
+    </div>
+}
