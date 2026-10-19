@@ -33,6 +33,9 @@
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>ปรับระดับความรุนแรงของเหตุการณ์นี้และบันทึกเหตุผล</value>
   </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>ปรับระดับความรุนแรงของเหตุการณ์นี้และบันทึกเหตุผล การเพิ่มระดับความรุนแรงจะทำให้ระบบจัดคิวส่งอีเมล ส่วนการลดระดับจะไม่ส่งอีเมล</value>
+  </data>
   <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
     <value>ดำเนินการแก้ไขเหตุการณ์นี้ทันทีด้วย โดยใช้เหตุผลในการบรรเทาปัญหาเป็นเหตุผลในการแก้ไข</value>
   </data>
@@ -102,6 +105,9 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>ฉันยืนยันว่าเหตุการณ์นี้ได้รับการแก้ไขอย่างสมบูรณ์แล้วและจะไม่เกิดขึ้นอีก</value>
   </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>อีเมลแจ้งเหตุการณ์จะใช้ข้อมูล OCE ต้นฉบับชุดนี้ แม้จะมีการเปลี่ยนเวรผู้รับผิดชอบแล้วก็ตาม การรับทราบเหตุการณ์จะกำหนดผู้รับผิดชอบเหตุการณ์ แต่จะไม่เปลี่ยนผู้รับอีเมล</value>
+  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>รหัสเหตุการณ์</value>
   </data>
@@ -141,11 +147,17 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>ไม่มี OCE ประจำการในขณะนี้</value>
   </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>ไม่มีสแนปช็อต OCE ต้นฉบับ ขณะนี้จึงไม่สามารถใช้ OCE ปัจจุบันแทนผู้รับอีเมลในอดีตได้</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>ยังไม่ได้รับทราบ</value>
   </data>
   <data name="Occurred at" xml:space="preserve">
     <value>เกิดขึ้นเมื่อ</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE ณ เวลาที่เกิดเหตุ</value>
   </data>
   <data name="Permanently Delete" xml:space="preserve">
     <value>ลบอย่างถาวร</value>

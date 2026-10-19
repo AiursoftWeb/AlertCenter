@@ -24,6 +24,9 @@
   <data name="A new incident has been reported." xml:space="preserve">
     <value>새 인시던트가 보고되었습니다.</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>확인</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>조치 시간(UTC): {0:O}</value>
   </data>
@@ -51,6 +54,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>이메일(SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>이메일 알림은 인시던트가 생성, 에스컬레이션, 완화, 해결 또는 재개된 경우에만 전송됩니다.</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>이메일 알림은 사고가 생성, 완화, 해결 또는 재개된 경우에만 전송됩니다.</value>
   </data>
@@ -60,11 +66,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>이메일 전송 시간이 초과되었습니다. 메일 서버가 메시지를 수신했을 수 있으니 확인 후 다시 시도해 주세요.</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>심각도 상승</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>버튼이 작동하지 않으면 이 링크를 여세요:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>인시던트 세부 정보</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>사건이 격상되었습니다({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>인시던트 ID</value>
@@ -150,6 +162,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>전역 SMTP 서버를 통해 지정된 이메일 주소로 일반 텍스트 알림을 보냅니다.</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>심각도 에스컬레이션</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>심각도 상승: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>심각도: {0}</value>
   </data>
@@ -167,6 +185,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>사건이 해결되었습니다.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>사건의 심각도가 증가하여 조치가 필요합니다.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>당직 이메일 수신자 스냅샷이 유효하지 않아 현재 OCE 전송을 다시 선택할 수 없습니다.</value>

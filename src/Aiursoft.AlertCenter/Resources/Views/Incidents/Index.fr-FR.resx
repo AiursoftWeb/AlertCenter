@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} incidents sur cette page</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0} incidents en cours dans les applications accessibles</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Pris en compte</value>
+  </data>
+  <data name="Acknowledgement" xml:space="preserve">
+    <value>Prise en compte</value>
+  </data>
+  <data name="Adjust filter conditions or reset to view all records." xml:space="preserve">
+    <value>Ajustez les conditions de filtre ou réinitialisez pour afficher tous les enregistrements.</value>
+  </data>
+  <data name="All acknowledgements" xml:space="preserve">
+    <value>Toutes les accusés de réception</value>
+  </data>
+  <data name="All applications" xml:space="preserve">
+    <value>Toutes les applications</value>
+  </data>
+  <data name="All incidents" xml:space="preserve">
+    <value>Tous les incidents</value>
+  </data>
+  <data name="All severities" xml:space="preserve">
+    <value>Toutes les sévérités</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>Tous les statuts</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Effacer tous les filtres</value>
+  </data>
+  <data name="Each new incident automatically creates or associates an incident; confirm, record progress, and resolve issues here." xml:space="preserve">
+    <value>Chaque nouvel incident crée ou associe automatiquement un incident ; confirmez-le, consignez son avancement et résolvez les problèmes ici.</value>
+  </data>
+  <data name="Each report creates an independent incident. Acknowledge and assign, mitigate, resolve, and track progress here." xml:space="preserve">
+    <value>Chaque rapport crée un incident indépendant. Prenez en charge et affectez, atténué, résolvez et suivez la progression ici.</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Entrer</value>
+  </data>
+  <data name="Enter Response War Room" xml:space="preserve">
+    <value>Accéder à la salle de crise</value>
+  </data>
+  <data name="Incident" xml:space="preserve">
+    <value>Incident</value>
+  </data>
+  <data name="Incident Handling Center" xml:space="preserve">
+    <value>Centre de gestion des incidents</value>
+  </data>
+  <data name="Incident log list" xml:space="preserve">
+    <value>Liste des incidents</value>
+  </data>
+  <data name="Incident pages" xml:space="preserve">
+    <value>Pages d&apos;incidents</value>
+  </data>
+  <data name="Incident severity" xml:space="preserve">
+    <value>Gravité de l&apos;incident</value>
+  </data>
+  <data name="Incident status" xml:space="preserve">
+    <value>Statut de l’incident</value>
+  </data>
+  <data name="Incidents and emergency response" xml:space="preserve">
+    <value>Incidents et gestion des urgences</value>
+  </data>
+  <data name="Keyword Search" xml:space="preserve">
+    <value>Recherche par mots-clés</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Atténué</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Mitigé (Mitigé)</value>
+  </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Mes incidents</value>
+  </data>
+  <data name="Next page" xml:space="preserve">
+    <value>Page suivante</value>
+  </data>
+  <data name="No incident records yet" xml:space="preserve">
+    <value>Aucun enregistrement d&apos;incident pour le moment</value>
+  </data>
+  <data name="No matching incidents" xml:space="preserve">
+    <value>Aucun incident correspondant</value>
+  </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>Aucun OCE de garde</value>
+  </data>
+  <data name="No unresolved incidents in this queue" xml:space="preserve">
+    <value>Aucun incident non résolu dans cette file</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Non acquitté</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>Non renseigné</value>
+  </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>OCE d’astreinte initial</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>Responsable (dernier ACK)</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Page {0}</value>
+  </data>
+  <data name="Please correct the filter conditions." xml:space="preserve">
+    <value>Veuillez corriger les critères de filtrage.</value>
+  </data>
+  <data name="Previous page" xml:space="preserve">
+    <value>Page précédente</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Reçu le</value>
+  </data>
+  <data name="Received from (UTC)" xml:space="preserve">
+    <value>Reçue à partir de (UTC)</value>
+  </data>
+  <data name="Received through (UTC, inclusive)" xml:space="preserve">
+    <value>Reçu jusqu’au (UTC, inclus)</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>Réinitialiser les filtres</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Résolu</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Résolu (Résolu)</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+  <data name="Search incident titles, content, or applications..." xml:space="preserve">
+    <value>Rechercher des titres d&apos;incidents, du contenu ou des applications...</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Critique (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Majeur (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Erreur (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Avertissement (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Informations (P4)</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Application source</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="The selected application is inaccessible" xml:space="preserve">
+    <value>L’application sélectionnée est inaccessible</value>
+  </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>Ces incidents vous appartiennent car vous avez été la dernière personne à les reconnaître. Seules les applications auxquelles vous avez accès sont incluses.</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Non pris en charge</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>Aucun incident ne vous a été attribué</value>
+  </data>
+
+</root>

@@ -18,17 +18,62 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Content" xml:space="preserve">
+      <data name="Application" xml:space="preserve">
+    <value>Ứng dụng</value>
+  </data>
+  <data name="Back to dashboard" xml:space="preserve">
+    <value>Quay lại bảng điều khiển</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Content" xml:space="preserve">
     <value>Nội dung</value>
+  </data>
+  <data name="Create alert" xml:space="preserve">
+    <value>Tạo cảnh báo</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Tạo sự cố</value>
+  </data>
+  <data name="Creating this alert will queue notifications using the application&apos;s on-call and push settings." xml:space="preserve">
+    <value>Việc tạo cảnh báo này sẽ xếp hàng thông báo bằng cách sử dụng cài đặt trực ca và đẩy thông báo của ứng dụng.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Nghiêm trọng</value>
+  </data>
+  <data name="Describe what happened so responders can take action." xml:space="preserve">
+    <value>Mô tả những gì đã xảy ra để người phản ứng có thể thực hiện các biện pháp.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
+  <data name="Informational" xml:space="preserve">
+    <value>Thông tin</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Nghiêm trọng</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Cảnh báo mới</value>
+  </data>
+  <data name="No enabled applications are available. Ask an application owner for create-alert access." xml:space="preserve">
+    <value>Không có ứng dụng nào được bật. Vui lòng liên hệ với chủ sở hữu ứng dụng để được cấp quyền tạo cảnh báo.</value>
+  </data>
+  <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
+    <value>Chỉ liệt kê các ứng dụng đã bật mà bạn có thể tạo cảnh báo.</value>
+  </data>
+  <data name="Select an application" xml:space="preserve">
+    <value>Chọn một ứng dụng</value>
   </data>
   <data name="Severity" xml:space="preserve">
     <value>Mức độ nghiêm trọng</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Tiêu đề</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Cảnh báo</value>
   </data>
 
 </root>

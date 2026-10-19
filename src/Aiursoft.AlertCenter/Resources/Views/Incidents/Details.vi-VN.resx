@@ -36,6 +36,9 @@
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>Điều chỉnh mức độ nghiêm trọng của sự cố này và ghi lại lý do.</value>
   </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>Điều chỉnh mức độ nghiêm trọng của sự cố này và ghi lại lý do. Việc tăng mức độ nghiêm trọng sẽ đưa email vào hàng đợi gửi; việc giảm mức độ thì không.</value>
+  </data>
   <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
     <value>Đồng thời giải quyết sự cố này ngay lập tức, sử dụng lý do giảm thiểu làm lý do giải quyết.</value>
   </data>
@@ -123,6 +126,9 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>Tôi xác nhận rằng sự cố này đã được giải quyết hoàn toàn và sẽ không tái diễn.</value>
   </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Email sự cố sử dụng ảnh chụp nhanh OCE ban đầu này, ngay cả khi ca trực thay đổi. Việc xác nhận sẽ chỉ định người phụ trách sự cố; thao tác này không thay đổi người nhận email.</value>
+  </data>
   <data name="Incident event" xml:space="preserve">
     <value>Sự kiện sự cố</value>
   </data>
@@ -174,6 +180,9 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>Hiện không có OCE nào đang trực.</value>
   </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>Không có ảnh chụp nhanh OCE ban đầu. OCE hiện tại không được dùng thay thế cho người nhận email trước đây.</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>Chưa xác nhận</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Thời điểm xảy ra (UTC)</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE tại thời điểm sự cố xảy ra</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>Người phụ trách:</value>

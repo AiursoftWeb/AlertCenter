@@ -24,6 +24,9 @@
   <data name="A new incident has been reported." xml:space="preserve">
     <value>A fost raportat un incident nou.</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>Confirmă primirea</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>Ora acțiunii (UTC): {0:O}</value>
   </data>
@@ -51,6 +54,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>E-mail (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>Notificările prin e-mail sunt trimise doar atunci când un incident este creat, escaladat, atenuat, rezolvat sau redeschis.</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>Notificările prin e-mail sunt trimise doar atunci când un incident este creat, atenuat, rezolvat sau redeschis.</value>
   </data>
@@ -60,11 +66,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Trimiterea e-mailului a expirat. Este posibil ca serverul de e-mail să fi primit mesajul; vă rugăm să verificați și să încercați din nou.</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>Escalat</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Dacă butonul nu funcționează, deschideți acest link:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>Detalii despre incident</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident escalat ({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>ID incident</value>
@@ -150,6 +162,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Trimite alerte în format text simplu la adresele de e-mail specificate, prin serverul SMTP global.</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>Escalare severitate</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>Severitatea a crescut: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>Severitate: {0}</value>
   </data>
@@ -167,6 +185,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>Incidentul a fost rezolvat.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>Severitatea incidentului a crescut și necesită atenție.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Instantaneul destinatarilor e-mail de permanență este invalid; nu se poate reselecta livrarea OCE curentă.</value>

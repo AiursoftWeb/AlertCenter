@@ -135,6 +135,9 @@
   <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
     <value>An: die Personen, die zum Zeitpunkt der Benachrichtigung der gespeicherten Schicht zugewiesen sind. CC: die optionalen Adressen unten, unabhängig davon, wer gerade Dienst hat. Verwenden Sie Kommas, Semikolons oder Zeilenumbrüche; bis zu 50 Adressen.</value>
   </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>An: die Personen, die zum Zeitpunkt des Vorfalls der gespeicherten Schicht zugewiesen waren. Die ursprünglichen OCE-Empfänger bleiben für spätere Vorfall-E-Mails erhalten. CC gilt für alle Vorfall-E-Mails, unabhängig von der Schicht. Verwenden Sie Kommas, Semikolons oder Zeilenumbrüche; bis zu 50 CC-Adressen.</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Verwenden Sie „Nach oben“ und „Nach unten“, um die Reihenfolge für die zukünftige automatische Planung festzulegen. Bestehende Schichten werden nicht neu sortiert. Wählen Sie bis zu 200 Mitglieder aus.</value>
   </data>

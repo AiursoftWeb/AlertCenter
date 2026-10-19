@@ -99,6 +99,9 @@
   <data name="Mitigated (Mitigated)" xml:space="preserve">
     <value>บรรเทาผลกระทบ (Mitigated)</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>เหตุการณ์ของฉัน</value>
+  </data>
   <data name="Next page" xml:space="preserve">
     <value>หน้าถัดไป</value>
   </data>
@@ -108,14 +111,29 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>ไม่พบเหตุการณ์ที่ตรงกัน</value>
   </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>ไม่มี OCE ที่เข้าเวร</value>
+  </data>
+  <data name="No unresolved incidents in this queue" xml:space="preserve">
+    <value>ไม่มีเหตุการณ์ที่ยังไม่ได้รับการแก้ไขในคิวนี้</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>ยังไม่ได้รับทราบ</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>ไม่พบข้อมูล</value>
   </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>เหตุการณ์ที่กำลังดำเนินอยู่</value>
   </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>ผู้รับเวร OCE เดิม</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>ผู้รับผิดชอบ</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>ผู้รับผิดชอบ (ACK ล่าสุด)</value>
   </data>
   <data name="Page {0}" xml:space="preserve">
     <value>หน้า {0}</value>
@@ -183,6 +201,9 @@
   <data name="The selected application is inaccessible" xml:space="preserve">
     <value>แอปพลิเคชันที่เลือกไม่สามารถเข้าถึงได้</value>
   </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>เหตุการณ์เหล่านี้เป็นของคุณเพราะคุณเป็นคนสุดท้ายที่รับทราบเหตุการณ์เหล่านี้ โดยจะแสดงเฉพาะแอปพลิเคชันที่คุณมีสิทธิ์เข้าถึงเท่านั้น</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>ทั้งหมด</value>
   </data>
@@ -200,6 +221,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>ยังไม่ได้รับการบรรเทา</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>คุณไม่มีเหตุการณ์ที่ถูกมอบหมาย</value>
   </data>
 
 </root>

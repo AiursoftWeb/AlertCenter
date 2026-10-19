@@ -36,6 +36,9 @@
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>調整此事件的嚴重程度，並記錄原因。</value>
   </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>調整此事故嚴重程度並記錄原因。提高嚴重程度會加入發送電郵的佇列；降低則不會。</value>
+  </data>
   <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
     <value>另外，請立即解決此事件，並以緩解原因作為解決原因。</value>
   </data>
@@ -123,6 +126,9 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>本人確認此事件已完全解決，並不會再次發生。</value>
   </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>即使值班輪班已更替，事故電郵仍會使用這份原始 OCE 快照。確認接收事故會指派事故負責人，但不會更改電郵收件人。</value>
+  </data>
   <data name="Incident event" xml:space="preserve">
     <value>事故事件</value>
   </data>
@@ -174,6 +180,9 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>目前沒有當值 OCE。</value>
   </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>未有原始 OCE 快照。現時的 OCE 不會取代歷史電郵收件人資料。</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>未確認</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>發生時間（UTC）</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>事故發生時的 OCE</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>負責人：</value>

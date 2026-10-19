@@ -24,6 +24,9 @@
   <data name="A new incident has been reported." xml:space="preserve">
     <value>Zgłoszono nowy incydent.</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>Potwierdź</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>Czas działania (UTC): {0:O}</value>
   </data>
@@ -51,6 +54,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>E-mail (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>Powiadomienia e-mail są wysyłane wyłącznie wtedy, gdy incydent zostanie utworzony, eskalowany, złagodzony, rozwiązany lub ponownie otwarty.</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>Powiadomienia e-mail są wysyłane wyłącznie wtedy, gdy incydent zostanie utworzony, złagodzony, rozwiązany lub ponownie otwarty.</value>
   </data>
@@ -60,11 +66,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Upłynął limit czasu wysyłania wiadomości e-mail. Serwer pocztowy mógł otrzymać wiadomość; sprawdź to i ponów próbę.</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>Podwyższono poziom ważności</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Jeśli przycisk nie działa, otwórz ten link:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>Szczegóły incydentu</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incydent eskalował ({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Identyfikator zgłoszenia</value>
@@ -150,6 +162,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Wysyłaj powiadomienia w postaci zwykłego tekstu na wskazane adresy e-mail za pośrednictwem globalnego serwera SMTP.</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>Podwyższenie poziomu ważności</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>Zwiększono poważność: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>Poziom ważności: {0}</value>
   </data>
@@ -167,6 +185,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>Incydent został rozwiązany.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>Waga incydentu została zwiększona i wymaga uwagi.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Migawka adresatów wiadomości e-mail do osoby dyżurującej jest nieprawidłowa; nie można ponownie wybrać bieżącej dostawy OCE.</value>

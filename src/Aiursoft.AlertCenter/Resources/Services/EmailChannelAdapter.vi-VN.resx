@@ -24,6 +24,9 @@
   <data name="A new incident has been reported." xml:space="preserve">
     <value>Một sự cố mới đã được báo cáo.</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>Thời gian thao tác (UTC): {0:O}</value>
   </data>
@@ -51,6 +54,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>Thư điện tử (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>Thông báo qua email chỉ được gửi khi sự cố được tạo, nâng cấp, giảm nhẹ, giải quyết hoặc mở lại.</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>Thông báo qua email chỉ được gửi khi một sự cố được tạo, giảm thiểu tác động, giải quyết hoặc mở lại.</value>
   </data>
@@ -60,11 +66,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Đã hết thời gian chờ khi gửi email. Máy chủ thư có thể đã nhận được thư; vui lòng kiểm tra và thử lại.</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>Đã nâng mức độ nghiêm trọng</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Nếu nút không hoạt động, hãy mở liên kết này:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>Chi tiết sự cố</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Sự cố được nâng cấp ({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Mã sự cố</value>
@@ -150,6 +162,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Gửi cảnh báo dạng văn bản thuần đến các địa chỉ email được chỉ định thông qua máy chủ SMTP toàn cục.</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>Mức độ nghiêm trọng tăng</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>Độ nghiêm trọng tăng: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>Mức độ nghiêm trọng: {0}</value>
   </data>
@@ -167,6 +185,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>Sự cố đã được giải quyết.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>Mức độ nghiêm trọng của sự cố đã tăng lên và cần được chú ý.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Bản chụp danh sách người nhận email trực ca không hợp lệ; không thể chọn lại lần gửi OCE hiện tại.</value>

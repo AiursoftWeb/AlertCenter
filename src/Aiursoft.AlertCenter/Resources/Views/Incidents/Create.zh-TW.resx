@@ -18,17 +18,62 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Content" xml:space="preserve">
+      <data name="Application" xml:space="preserve">
+    <value>應用程式</value>
+  </data>
+  <data name="Back to dashboard" xml:space="preserve">
+    <value>返回儀表板</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Content" xml:space="preserve">
     <value>內容</value>
+  </data>
+  <data name="Create alert" xml:space="preserve">
+    <value>建立警示</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>建立事件</value>
+  </data>
+  <data name="Creating this alert will queue notifications using the application&apos;s on-call and push settings." xml:space="preserve">
+    <value>建立此警報將使用應用程式的輪值與推送設定排入通知佇列。</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>嚴重</value>
+  </data>
+  <data name="Describe what happened so responders can take action." xml:space="preserve">
+    <value>請描述發生的狀況，以便回應人員採取行動。</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="Informational" xml:space="preserve">
+    <value>資訊</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>主要</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>新增警示</value>
+  </data>
+  <data name="No enabled applications are available. Ask an application owner for create-alert access." xml:space="preserve">
+    <value>沒有可用的已啟用應用程式。請向應用程式擁有者申請建立警報的權限。</value>
+  </data>
+  <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
+    <value>僅列出已啟用且您有權建立警示的應用程式。</value>
+  </data>
+  <data name="Select an application" xml:space="preserve">
+    <value>選擇應用程式</value>
   </data>
   <data name="Severity" xml:space="preserve">
     <value>嚴重程度</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>標題</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
   </data>
 
 </root>

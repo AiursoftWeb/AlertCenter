@@ -99,6 +99,9 @@
   <data name="Mitigated (Mitigated)" xml:space="preserve">
     <value>Mitigated (Mitigated)</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>My incidents</value>
+  </data>
   <data name="Next page" xml:space="preserve">
     <value>Next page</value>
   </data>
@@ -108,14 +111,29 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>No matching incidents</value>
   </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>No on-call OCE</value>
+  </data>
+  <data name="No unresolved incidents in this queue" xml:space="preserve">
+    <value>No unresolved incidents in this queue</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>Not acknowledged</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>Not recorded</value>
   </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>ongoing incidents</value>
   </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>Original on-call OCE</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>Owner (last ACK)</value>
   </data>
   <data name="Page {0}" xml:space="preserve">
     <value>Page {0}</value>
@@ -183,6 +201,9 @@
   <data name="The selected application is inaccessible" xml:space="preserve">
     <value>The selected application is inaccessible</value>
   </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>These incidents are assigned to you because you were the last person to acknowledge them. Only applications you can access are included.</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>Total</value>
   </data>
@@ -200,6 +221,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>Not mitigated</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>You have no assigned incidents</value>
   </data>
 
 </root>

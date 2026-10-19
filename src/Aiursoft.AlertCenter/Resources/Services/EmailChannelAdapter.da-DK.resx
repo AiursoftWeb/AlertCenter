@@ -24,6 +24,9 @@
   <data name="A new incident has been reported." xml:space="preserve">
     <value>En ny hændelse er blevet indberettet.</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>Bekræft</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>Handlingstidspunkt (UTC): {0:O}</value>
   </data>
@@ -51,6 +54,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>E-mail (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>E-mailnotifikationer sendes kun, når en incident oprettes, eskaleres, dæmpes, løses eller genåbnes.</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>E-mailnotifikationer sendes kun, når en incident oprettes, mitigeres, løses eller genåbnes.</value>
   </data>
@@ -60,11 +66,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Afsendelse af e-mail fik timeout. Mailserveren kan have modtaget beskeden; kontrollér venligst, og prøv igen.</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>Eskaleret</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Hvis knappen ikke virker, skal du åbne dette link:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>Hændelsesdetaljer</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident eskaleret ({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Hændelses-id</value>
@@ -150,6 +162,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Send alarmer i ren tekst til angivne e-mailadresser via den globale SMTP-server.</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>Eskaleret alvorlighedsgrad</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>Alvorlighedsgraden er steget: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>Alvorlighedsgrad: {0}</value>
   </data>
@@ -167,6 +185,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>Hændelsen er blevet løst.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>Hændelsens alvorlighedsgrad er steget og kræver opmærksomhed.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Snapshot af e-mailmodtagerne for vagtordningen er ugyldigt; den aktuelle OCE-levering kan ikke vælges igen.</value>

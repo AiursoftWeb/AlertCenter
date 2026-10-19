@@ -99,6 +99,9 @@
   <data name="Mitigated (Mitigated)" xml:space="preserve">
     <value>Đã giảm thiểu (Mitigated)</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Sự cố của tôi</value>
+  </data>
   <data name="Next page" xml:space="preserve">
     <value>Trang tiếp theo</value>
   </data>
@@ -108,14 +111,29 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>Không có sự cố nào phù hợp</value>
   </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>Không có OCE trực</value>
+  </data>
+  <data name="No unresolved incidents in this queue" xml:space="preserve">
+    <value>Không có sự cố nào chưa được giải quyết trong hàng đợi này</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>Chưa xác nhận</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>Chưa được ghi nhận</value>
   </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>sự cố đang diễn ra</value>
   </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>Nhân viên OCE trực ban ban đầu</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Người phụ trách</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>Người phụ trách (ACK cuối)</value>
   </data>
   <data name="Page {0}" xml:space="preserve">
     <value>Trang {0}</value>
@@ -183,6 +201,9 @@
   <data name="The selected application is inaccessible" xml:space="preserve">
     <value>Ứng dụng được chọn không thể truy cập</value>
   </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>Các sự cố này thuộc về bạn vì bạn là người cuối cùng xác nhận chúng. Chỉ bao gồm các ứng dụng mà bạn có quyền truy cập.</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>Tổng số</value>
   </data>
@@ -200,6 +221,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>Chưa được xử lý</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>Bạn không có sự cố nào được phân công.</value>
   </data>
 
 </root>

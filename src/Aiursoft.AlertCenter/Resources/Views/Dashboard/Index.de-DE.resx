@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>Lieferungen</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>ungelesene In-App-Benachrichtigungen</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>&quot;Fire-and-forget&quot;-Unterstützung für langlaufende Aufgaben (z. B. E-Mails oder KI), mit einer GUI zur Warteschlangenverwaltung, paralleler Verarbeitung und Abbruchfunktion.</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} insgesamt zugewiesen</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Ein integriertes rollenbasiertes Zugriffskontrollsystem (RBAC) für feingranulare Berechtigungsverwaltung.</value>
@@ -36,17 +45,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Eine moderne, funktionsreiche und hochgradig erweiterbare Grundlage für Ihre nächste Webanwendung.</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Bestätigt</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>KI-gestützte Übersetzungen</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter Alarmierungs- und Einsatzzentrale · Globaler Status und lückenlose Nachverfolgung</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>Alle</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Alle Abhängigkeiten werden automatisch registriert und sind stets über Constructor Injection verfügbar.</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>Alle Datensätze</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Anwendungen</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Automatischer Dunkelmodus</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Automatische Dependency Injection</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Automatische Nachrichtenübermittlung und Fehlerbehebung</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Automatische Zeitzone-Verwaltung</value>
@@ -57,8 +84,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Automatische, künstliche Intelligenz-gestützte Übersetzung in 28 Sprachen.</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>verfügbare Kanäle ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Hintergrund-Aufgabenverarbeitung</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>Gebündelter Versand an Bereitschaftsgruppen und wichtige E-Mail-Adressen</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Integrierte Benutzerverwaltung</value>
@@ -72,11 +105,47 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>Umfassende Dokumentation</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Push-Kanal konfigurieren</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Konsistenzprüfung</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Erstellen Sie eine Benachrichtigung für Ihre Anwendung und informieren Sie die konfigurierten Empfänger.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Anwendung erstellen</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Anwendung erstellen und Schlüssel abrufen</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>Erstellen Sie den ersten Vorfall über die API oder das SDK. Er wird hier angezeigt.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Kritisch</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>Kritisch ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>Authentifizierung über dedizierten API-Schlüssel</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>Zustellungsprotokolle</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>Ausführliche Integrationsdokumentation</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Entwickeln Sie ausschließlich in UTC, während das System Daten automatisch in die lokale Zeitzone des Benutzers konvertiert und anzeigt.</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>Direkte Einbindung der zuständigen Parteien und Nutzergruppen zur gemeinsamen Bearbeitung</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Für Bereitstellung in Docker verpackt</value>
@@ -96,6 +165,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>Schreiben Sie Integrationstests mühelos mit Hilfe von In-Memory-Datenbanken, temporären Dateisystemen, integriertem Mocking und Simulation echter HTTP-Anfragen.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>Fehler</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>Verfügt über ein integriertes Dateiverwaltungssystem mit automatischer Avatar-Komprimierung und Datenschutzschutz.</value>
   </data>
@@ -108,14 +183,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Hallo Welt!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>Posteingang für In-App-Benachrichtigungen</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>Incident-Bearbeitung</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Incident-Titel</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>Auslösung von Vorfällen und collaborative Lösung</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Umfangreiche Dokumentation und praktische Beispiele für einen schnellen Einstieg.</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Integriertes Dateimanagement</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Integrationsleitfaden</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>Stellen Sie dedizierte Zugangsdaten in „Integrierte Apps“ aus.</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Neueste Vorfälle</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>Verknüpfter Vorfall</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>Verknüpften Push-Kanal</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>Lokale Zeit</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Schwerwiegend</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>Schwerwiegend ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>Anwendungen verwalten</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Abgemildert</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modelle werden sowohl auf Client- als auch auf Serverseite anhand von Datenannotationen validiert.</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>Überwachungs-Dashboard</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>Unterstützung mehrerer Datenbankanbieter</value>
@@ -123,8 +246,44 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Unterstützung mehrerer Datenbanken</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Meine Vorfälle</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Neuer Alarm</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>Keine Vorfälle, die sofortiges Handeln erfordern</value>
+  </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>Noch keine Vorfälle</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Nicht bestätigt</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>Zentrale für Push-Benachrichtigungen</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>Aktive Störung</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>Laufender Vorfall erfordert Reaktion</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect-Integration</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>Abschluss der Störungsbearbeitung</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>Push-Erfolgsrate</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>Beispiel für eine Schnellmeldung</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>Schnelleinstieg zur Integration</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC-Autorisierung</value>
@@ -132,17 +291,41 @@
   <data name="Read the document" xml:space="preserve">
     <value>Dokumentation lesen</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>Kürzlich erstellte Vorfälle</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Ein Problem melden. Eine Reaktion einleiten.</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>Berichtsdetails, Bearbeitungsverlauf und Lösungsstatus.</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>Erfordert sofortiges Handeln</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Behoben</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Responsives Design</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Robuste Integrationstests</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>Nach Sev0–Sev4 in den Push-Einstellungen der App weiterleiten.</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Geplante Aufgabenverwaltung</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Nahtlose Integration mit jedem OpenID Connect-Anbieter, mit automatischer Rollensynchronisation.</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Schweregrad</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>Schweregradfilter:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Intelligente Konfigurationsoverrides</value>
@@ -153,11 +336,32 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Intelligenter Dunkelmodus, der sich automatisch an die Systemeinstellungen des Benutzers anpasst.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP-E-Mail-Kanal</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Quelle</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Quellanwendung</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>Ein neues Projekt starten</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>Unterstützt .NET SDK / Go / Webhook</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>Unterstützt sowohl Umgebungsvariablen als auch datenbankbasierte Einstellungen, wobei Umgebungsvariablen automatisch Vorrang erhalten, um nahtlose Überschreibungen zu ermöglichen.</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>Unterstützt benutzerdefinierte Anfrage-Header und JSON-Vorlagen</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>Das Zentrum versendet Benachrichtigungen asynchron und unterstützt dabei die Nachverfolgung von Datensätzen und erneute Zustellversuche.</value>
+  </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>Die Vorfälle, für die du durch Bestätigung die Verantwortung übernimmst. Behalte alle Maßnahmen zur Reaktion an einem Ort im Blick.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Die Navigationsleiste passt sich automatisch basierend auf Benutzerrollen und Berechtigungen an.</value>
@@ -165,11 +369,38 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Dies ist ein Template-Projekt, in dem wir die Reise beginnen...</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Zeit</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>Insgesamt Vorfälle</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Ungebremst</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Ungelöst</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>Verwenden Sie die Bearer-Authentifizierung, um Testvorfälle zu melden:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Alle Vorfälle anzeigen</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>Warnung</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Automatische Webhook-Planung</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Willkommen</value>
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Warum das Aiursoft Template verwenden?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>Sie benötigen create-alert-Zugriff auf eine aktivierte Anwendung.</value>
   </data>
 
 </root>

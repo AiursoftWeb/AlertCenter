@@ -21,6 +21,9 @@
       <data name="A new incident has been reported." xml:space="preserve">
     <value>Αναφέρθηκε ένα νέο περιστατικό.</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>Επιβεβαίωση</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>Ώρα ενέργειας (UTC): {0:O}</value>
   </data>
@@ -48,6 +51,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>Ηλεκτρονικό ταχυδρομείο (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>Τα email ειδοποιήσεις αποστέλλονται μόνο όταν δημιουργηθεί, αναβαθμιστεί, μετριαστεί, επιλυθεί ή ξανανοιχθεί ένα περιστατικό.</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>Οι ειδοποιήσεις μέσω email αποστέλλονται μόνο όταν δημιουργείται, μετριάζεται, επιλύεται ή ανοίγει ξανά ένα περιστατικό.</value>
   </data>
@@ -57,11 +63,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Η αποστολή του email έληξε λόγω χρονικού ορίου. Ο διακομιστής αλληλογραφίας ενδέχεται να έχει λάβει το μήνυμα· παρακαλούμε ελέγξτε και δοκιμάστε ξανά.</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>Κλιμακώθηκε</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Αν το κουμπί δεν λειτουργεί, ανοίξτε αυτόν τον σύνδεσμο:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>Λεπτομέρειες συμβάντος</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Επείγος αναβαθμίστηκε ({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Αναγνωριστικό περιστατικού</value>
@@ -147,6 +159,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Αποστολή ειδοποιήσεων απλού κειμένου σε καθορισμένες διευθύνσεις email μέσω του καθολικού διακομιστή SMTP.</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>Εξάσκηση σοβαρότητας</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>Αύξηση σοβαρότητας: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>Σοβαρότητα: {0}</value>
   </data>
@@ -164,6 +182,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>Το περιστατικό έχει επιλυθεί.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>Η σοβαρότητα του περιστατικού έχει αυξηθεί και απαιτείται προσοχή.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Το στιγμιότυπο των παραληπτών του email εφημερίας δεν είναι έγκυρο· δεν είναι δυνατή η εκ νέου επιλογή της τρέχουσας παράδοσης OCE.</value>

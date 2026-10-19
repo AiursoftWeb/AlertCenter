@@ -36,6 +36,9 @@
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>Adjust the severity of this incident and record the reason.</value>
   </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not.</value>
+  </data>
   <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
     <value>Also resolve this incident immediately, using the mitigation reason as the resolution reason.</value>
   </data>
@@ -123,6 +126,9 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>I confirm that this incident has been fully resolved and will not recur.</value>
   </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients.</value>
+  </data>
   <data name="Incident event" xml:space="preserve">
     <value>Incident event</value>
   </data>
@@ -174,6 +180,9 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>No OCE currently on call.</value>
   </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>No original OCE snapshot is available. The current OCE is not substituted for historical email recipients.</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>Not acknowledged</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Occurred at (UTC)</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE at the time of the incident</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>Owner:</value>

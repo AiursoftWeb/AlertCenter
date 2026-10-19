@@ -24,6 +24,9 @@
   <data name="A new incident has been reported." xml:space="preserve">
     <value>Yeni bir olay bildirildi.</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>Onayla</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>İşlem zamanı (UTC): {0:O}</value>
   </data>
@@ -51,6 +54,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>E-posta (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>E-posta bildirimleri yalnızca bir olay oluşturulduğunda, üst makama iletildiğinde, etkisi azaltıldığında, çözüme kavuşturulduğunda veya yeniden açıldığında gönderilir.</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>E-posta bildirimleri yalnızca bir olay oluşturulduğunda, etkisi azaltıldığında, çözüme kavuşturulduğunda veya yeniden açıldığında gönderilir.</value>
   </data>
@@ -60,11 +66,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>E-posta gönderimi zaman aşımına uğradı. Posta sunucusu mesajı almış olabilir; lütfen kontrol edip yeniden deneyin.</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>Tırmandı</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Düğme çalışmazsa bu bağlantıyı açın:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>Olay ayrıntıları</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Olay yükseltildi ({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Olay Kimliği</value>
@@ -150,6 +162,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Belirtilen e-posta adreslerine genel SMTP sunucusu üzerinden düz metin uyarıları gönderin.</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>Önem derecesi yükseltme</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>Önem arttı: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>Önem derecesi: {0}</value>
   </data>
@@ -167,6 +185,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>Olay çözüldü.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>Olayın önem derecesi arttı ve müdahale edilmesi gerekiyor.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Nöbetçi e-posta alıcı anlık görüntüsü geçersiz; geçerli OCE teslimatı yeniden seçilemiyor.</value>

@@ -21,6 +21,9 @@
       <data name="A new incident has been reported." xml:space="preserve">
     <value>एक नई घटना की सूचना दी गई है।</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>स्वीकार करें</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>कार्रवाई का समय (UTC): {0:O}</value>
   </data>
@@ -48,6 +51,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>ईमेल (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>ईमेल सूचनाएं केवल तभी भेजी जाती हैं जब किसी घटना (incident) को बनाया, तीव्र (escalated), कम किया (mitigated), सुलझाया या फिर से खोला गया हो।</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>ईमेल सूचनाएं केवल तभी भेजी जाती हैं जब किसी घटना को बनाया, कम किया, हल किया या फिर से खोला जाता है।</value>
   </data>
@@ -57,11 +63,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>ईमेल भेजने में समय सीमा समाप्त हो गई। मेल सर्वर को संदेश मिल गया हो सकता है; कृपया पुष्टि करें और फिर से प्रयास करें।</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>बढ़ाया गया</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>यदि बटन काम न करे, तो इस लिंक को खोलें:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>घटना का विवरण</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>घटना बढ़ गई ({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>घटना आईडी</value>
@@ -147,6 +159,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>वैश्विक SMTP सर्वर के माध्यम से निर्दिष्ट ईमेल पतों पर सादे टेक्स्ट अलर्ट भेजें।</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>गंभीरता बढ़ना</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>गंभीरता बढ़ी: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>गंभीरता: {0}</value>
   </data>
@@ -164,6 +182,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>घटना का समाधान कर दिया गया है।</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>घटना की गंभीरता बढ़ गई है और इसका ध्यान देने की आवश्यकता है।</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>ऑन-कॉल ईमेल प्राप्तकर्ता स्नैपशॉट अमान्य है; वर्तमान OCE डिलीवरी को फिर से चुनना संभव नहीं है।</value>

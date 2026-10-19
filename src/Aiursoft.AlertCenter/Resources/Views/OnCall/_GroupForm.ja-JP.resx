@@ -168,6 +168,9 @@
   <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
     <value>宛先：通知時点で保存済みのシフトに割り当てられている人に送信されます。CC：勤務担当者にかかわらず、以下の任意のアドレスに送信されます。アドレスはカンマ、セミコロン、または改行で区切ってください（最大50件）。</value>
   </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>宛先: インシデント発生時に保存されたシフトに割り当てられた方々。元のOCE受信者は、後日のインシデントメールのために保持されます。CCは、シフトに関係なく、すべてのインシデントメールに適用されます。カンマ、セミコロン、または改行を使用してください。最大50件のCCアドレスまで。</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>「上へ移動」と「下へ移動」を使用して、将来の自動スケジューリングで使用する順序を選択します。既存のシフトは並べ替えられません。最大200人のメンバーを選択できます。</value>
   </data>

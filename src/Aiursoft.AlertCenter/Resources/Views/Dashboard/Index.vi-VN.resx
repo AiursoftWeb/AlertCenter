@@ -27,6 +27,9 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Hỗ trợ &quot;Fire-and-forget&quot; cho các tác vụ dài hạn (như email hoặc AI), đi kèm giao diện người dùng (GUI) để quản lý hàng đợi, xử lý song song và hủy bỏ.</value>
   </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} được phân công tổng cộng</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Hệ thống Kiểm soát Truy cập Dựa trên Vai trò (RBAC) được tích hợp sẵn để quản lý quyền chi tiết.</value>
   </data>
@@ -110,6 +113,12 @@
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Sao chép</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Tạo cảnh báo cho ứng dụng của bạn và thông báo cho những người nhận đã được cấu hình.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Tạo ứng dụng</value>
   </data>
   <data name="Create Application and Get Key" xml:space="preserve">
     <value>Tạo ứng dụng và lấy khóa</value>
@@ -237,6 +246,15 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Hỗ trợ Đa Cơ sở Dữ liệu</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Sự cố của tôi</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Cảnh báo mới</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>Không có sự cố nào cần xử lý ngay</value>
+  </data>
   <data name="No incidents yet" xml:space="preserve">
     <value>Chưa có sự cố nào</value>
   </data>
@@ -281,6 +299,9 @@
   </data>
   <data name="Recently created incidents" xml:space="preserve">
     <value>Sự cố mới được tạo gần đây</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Báo cáo sự cố. Khởi động phản hồi.</value>
   </data>
   <data name="Report details, handling history, and resolution status." xml:space="preserve">
     <value>Chi tiết sự cố, lịch sử xử lý và trạng thái giải quyết.</value>
@@ -345,6 +366,9 @@
   <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
     <value>Trung tâm gửi thông báo theo phương thức bất đồng bộ, hỗ trợ theo dõi bản ghi và thử gửi lại.</value>
   </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>Các sự cố bạn phụ trách sau khi xác nhận tiếp nhận. Tập trung mọi công việc ứng phó của bạn tại một nơi.</value>
+  </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Thanh điều hướng sẽ tự động điều chỉnh dựa trên vai trò và quyền của người dùng.</value>
   </data>
@@ -359,6 +383,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>Chưa được giảm nhẹ</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Chưa được giải quyết</value>
   </data>
   <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
     <value>Sử dụng xác thực Bearer để gửi báo cáo sự cố thử nghiệm:</value>
@@ -377,6 +404,9 @@
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Tại sao nên sử dụng Mẫu Aiursoft?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>Bạn cần quyền truy cập tạo cảnh báo vào một ứng dụng đã được bật.</value>
   </data>
 
 </root>

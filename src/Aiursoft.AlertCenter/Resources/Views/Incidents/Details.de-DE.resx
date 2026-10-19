@@ -33,6 +33,9 @@
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>Passen Sie den Schweregrad dieses Vorfalls an und geben Sie den Grund an.</value>
   </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>Passen Sie den Schweregrad dieses Vorfalls an und geben Sie den Grund an. Bei einer Erhöhung des Schweregrads wird eine E-Mail in die Warteschlange gestellt; bei einer Verringerung nicht.</value>
+  </data>
   <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
     <value>Schließen Sie diesen Vorfall außerdem sofort ab und verwenden Sie den Minderungsgrund als Abschlussgrund.</value>
   </data>
@@ -102,6 +105,9 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>Ich bestätige, dass dieser Vorfall vollständig behoben wurde und sich nicht wiederholen wird.</value>
   </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Incident-E-Mails verwenden diesen ursprünglichen OCE-Snapshot, auch nach Änderungen des Bereitschaftsdienstes. Die Bestätigung weist den Incident-Betreuer zu; sie ändert jedoch nicht die E-Mail-Empfänger.</value>
+  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Vorfall-ID</value>
   </data>
@@ -141,11 +147,17 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>Derzeit ist kein OCE im Bereitschaftsdienst.</value>
   </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>Es ist kein ursprünglicher OCE-Snapshot verfügbar. Die aktuelle OCE ersetzt nicht die historischen E-Mail-Empfänger.</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>Nicht bestätigt</value>
   </data>
   <data name="Occurred at" xml:space="preserve">
     <value>Aufgetreten am</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE zum Zeitpunkt des Vorfalls</value>
   </data>
   <data name="Permanently Delete" xml:space="preserve">
     <value>Endgültig löschen</value>

@@ -18,17 +18,62 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Content" xml:space="preserve">
+      <data name="Application" xml:space="preserve">
+    <value>Anwendung</value>
+  </data>
+  <data name="Back to dashboard" xml:space="preserve">
+    <value>Zurück zum Dashboard</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Content" xml:space="preserve">
     <value>Inhalt</value>
+  </data>
+  <data name="Create alert" xml:space="preserve">
+    <value>Alert erstellen</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Vorfall erstellen</value>
+  </data>
+  <data name="Creating this alert will queue notifications using the application&apos;s on-call and push settings." xml:space="preserve">
+    <value>Beim Erstellen dieses Alerts werden Benachrichtigungen gemäß den Bereitschafts- und Push-Einstellungen der Anwendung in die Warteschlange gestellt.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Kritisch</value>
+  </data>
+  <data name="Describe what happened so responders can take action." xml:space="preserve">
+    <value>Beschreiben Sie, was passiert ist, damit die Verantwortlichen Maßnahmen ergreifen können.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="Informational" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Schwerwiegend</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Neue Warnung</value>
+  </data>
+  <data name="No enabled applications are available. Ask an application owner for create-alert access." xml:space="preserve">
+    <value>Es sind keine aktivierten Anwendungen verfügbar. Wenden Sie sich an einen Anwendungseigentümer, um Zugriff zum Erstellen von Warnungen zu erhalten.</value>
+  </data>
+  <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
+    <value>Nur aktivierte Anwendungen, für die Sie Alerts erstellen können, werden aufgelistet.</value>
+  </data>
+  <data name="Select an application" xml:space="preserve">
+    <value>Anwendung auswählen</value>
   </data>
   <data name="Severity" xml:space="preserve">
     <value>Schweregrad</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Titel</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warnung</value>
   </data>
 
 </root>

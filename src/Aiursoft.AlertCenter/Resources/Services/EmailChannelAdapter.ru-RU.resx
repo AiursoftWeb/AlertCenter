@@ -24,6 +24,9 @@
   <data name="A new incident has been reported." xml:space="preserve">
     <value>Поступило сообщение о новом инциденте.</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>Время действия (UTC): {0:O}</value>
   </data>
@@ -51,6 +54,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>Электронная почта (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>Электронные письма с уведомлениями отправляются только при создании, эскалации, смягчении, разрешении или повторном открытии инцидента.</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>Уведомления по электронной почте отправляются только при создании, смягчении, разрешении или повторном открытии инцидента.</value>
   </data>
@@ -60,11 +66,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Время ожидания при отправке письма истекло. Возможно, почтовый сервер получил сообщение; проверьте это и повторите попытку.</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>Эскалировано</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Если кнопка не работает, перейдите по этой ссылке:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>Подробности инцидента</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Инцидент эскалирован ({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>ID инцидента</value>
@@ -150,6 +162,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Отправляйте текстовые уведомления на указанные адреса электронной почты через глобальный SMTP-сервер.</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>Повышение уровня серьёзности</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>Повышена критичность: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>Уровень важности: {0}</value>
   </data>
@@ -167,6 +185,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>Инцидент разрешён.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>Уровень критичности инцидента повысился и требует внимания.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Снимок получателей дежурной рассылки недействителен; невозможно повторно выбрать текущую доставку OCE.</value>
