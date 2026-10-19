@@ -864,7 +864,7 @@
 }
 
 /* ==========================================================================
-   Delivery Status Badges
+   Incident & Delivery Status Badges
    ========================================================================== */
 .ac-status-pill {
     display: inline-flex;
@@ -889,16 +889,30 @@
     border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
-.ac-status-pill-succeeded {
+.ac-status-pill-succeeded,
+.ac-incident-status-resolved {
     background-color: rgba(16, 185, 129, 0.12);
     color: #059669;
     border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-.ac-status-pill-failed {
+.ac-status-pill-failed,
+.ac-incident-status-new {
     background-color: rgba(239, 68, 68, 0.12);
     color: #dc2626;
     border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.ac-incident-status-mitigated {
+    background-color: rgba(245, 158, 11, 0.12);
+    color: #92400e;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+[data-bs-theme="dark"] .ac-incident-status-mitigated {
+    background-color: rgba(245, 158, 11, 0.18);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.35);
 }
 
 [data-bs-theme="dark"] .ac-status-pill-pending {
@@ -913,13 +927,15 @@
     border-color: rgba(59, 130, 246, 0.35);
 }
 
-[data-bs-theme="dark"] .ac-status-pill-succeeded {
+[data-bs-theme="dark"] .ac-status-pill-succeeded,
+[data-bs-theme="dark"] .ac-incident-status-resolved {
     background-color: rgba(16, 185, 129, 0.18);
     color: #34d399;
     border-color: rgba(16, 185, 129, 0.35);
 }
 
-[data-bs-theme="dark"] .ac-status-pill-failed {
+[data-bs-theme="dark"] .ac-status-pill-failed,
+[data-bs-theme="dark"] .ac-incident-status-new {
     background-color: rgba(239, 68, 68, 0.18);
     color: #f87171;
     border-color: rgba(239, 68, 68, 0.35);
