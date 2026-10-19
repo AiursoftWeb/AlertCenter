@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:schema id="root">
-    <xs:element name="root" ns1:IsDataSet="true">
 
-        </xs:element>
-  </xs:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>1.3</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="Add members" xml:space="preserve">
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Add members" xml:space="preserve">
     <value>添加成员</value>
   </data>
   <data name="Adding members does not assign shifts." xml:space="preserve">
@@ -137,7 +138,7 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>可按姓名或账号搜索，或选择角色。</value>
   </data>
-  <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team's timezone." xml:space="preserve">
+  <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>可按时区名称、城市或 UTC 偏移量搜索。排班锚点以 UTC 存储，并按团队时区显示。</value>
   </data>
   <data name="Search Employees" xml:space="preserve">
@@ -167,6 +168,9 @@
   <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
     <value>收件人：通知时已保存班次中的人员。抄送：以下可选地址，无论谁当值。请使用逗号、分号或换行符分隔；最多 50 个地址。</value>
   </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>收件人：事件发生时分配给已保存班次的人员。原始 OCE 收件人将保留用于后续事件邮件。抄送适用于每个事件邮件，无论班次如何。请使用逗号、分号或换行符；最多 50 个抄送地址。</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>使用“上移”和“下移”来选择今后自动排班所采用的顺序。现有班次不会重新排序。最多可选择 200 名成员。</value>
   </data>
@@ -176,49 +180,5 @@
   <data name="View schedule" xml:space="preserve">
     <value>查看排班表</value>
   </data>
-  <data name="1. Set up the group and notifications" xml:space="preserve">
-    <value>1. 设置团队和通知</value>
-  </data>
-  <data name="2. Choose who can be on call" xml:space="preserve">
-    <value>2. 选择值班人员</value>
-  </data>
-  <data name="3. Prepare the schedule" xml:space="preserve">
-    <value>3. 准备排班</value>
-  </data>
-  <data name="Find people to add" xml:space="preserve">
-    <value>查找要添加的人员</value>
-  </data>
-  <data name="No members selected. Find people above and tick their names to add them." xml:space="preserve">
-    <value>尚未选择成员。请在上方查找人员并勾选其姓名以添加。</value>
-  </data>
-  <data name="Save group settings and members" xml:space="preserve">
-    <value>保存群组设置和成员</value>
-  </data>
-  <data name="Save this group first, then open its schedule to assign people to shifts. Only saved shifts determine who receives on-call emails." xml:space="preserve">
-    <value>请先保存此组，然后打开其排班表以将人员分配至班次。只有已保存的班次才能确定谁将收到值班邮件。</value>
-  </data>
-  <data name="Saving this form updates the group and its member list. It does not generate or publish a schedule. Removing a member clears their future assignments; review the schedule for gaps." xml:space="preserve">
-    <value>保存此表单将更新该组及其成员列表。此操作不会生成或发布排班表。移除成员将清除其未来的排班分配；请检查排班表是否有空缺。</value>
-  </data>
-  <data name="Scheduling options: rule template and UTC start point" xml:space="preserve">
-    <value>排班选项：规则模板和 UTC 起始时间点</value>
-  </data>
-  <data name="Search by name or account, or browse a role. Tick individual people to add them. Selecting a role only filters the search; membership is not synchronized with that role." xml:space="preserve">
-    <value>按姓名或账号搜索，或按角色浏览。勾选要添加的人员。选择角色仅用于筛选搜索结果；成员不会与该角色同步。</value>
-  </data>
-  <data name="Selected members in rotation order (maximum 200)" xml:space="preserve">
-    <value>已选成员（按轮换顺序，最多 200 人）</value>
-  </data>
-  <data name="These are the people available for scheduling. Joining this list does not put someone on duty or send them an incident email." xml:space="preserve">
-    <value>这些是可参与排班的人员。加入此列表并不会使某人进入值班状态，也不会向其发送事件邮件。</value>
-  </data>
-  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
-    <value>收件人：事件发生时分配给已保存班次的人员。原始 OCE 收件人将保留用于后续事件邮件。抄送适用于每个事件邮件，无论班次如何。请使用逗号、分号或换行符；最多 50 个抄送地址。</value>
-  </data>
-  <data name="To: the people assigned to the saved shift when the incident occurred. The original recipients and CC addresses are retained for later incident emails. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
-    <value>收件人：事故发生时已分配到已保存班次的人员。后续事故邮件将保留原收件人和抄送地址。请使用逗号、分号或换行分隔，最多可填写 50 个抄送地址。</value>
-  </data>
-  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered." xml:space="preserve">
-    <value>使用“上移”和“下移”来选择未来自动排班的顺序。现有的班次不会重新排序。</value>
-  </data>
+
 </root>
