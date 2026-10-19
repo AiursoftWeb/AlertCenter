@@ -138,12 +138,23 @@ public partial class IncidentPagesTests
         Assert.AreEqual(20, AlertIncidentIds(html).Length);
         Assert.DoesNotContain("Hidden owned needle", html);
         Assert.DoesNotContain("Unassigned needle", html);
+        Assert.Contains("aria-current=\"page\">Page 1</span>", html);
+        Assert.Contains("aria-disabled=\"true\">Previous page</span>", html);
         var next = WebUtility.HtmlDecode(Regex.Match(html, "href=\"([^\"]+)\"[^>]*>Next page</a>").Groups[1].Value);
         Assert.Contains("/Incidents/Mine", next);
         var parameters = QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, next).Query);
         foreach (var parameter in QueryHelpers.ParseQuery("?" + query))
             Assert.AreEqual(parameter.Value.ToString(), parameters[parameter.Key].ToString());
-        Assert.AreEqual(2, AlertIncidentIds(await Http.GetStringAsync(next)).Length);
+        var secondPage = await Http.GetStringAsync(next);
+        Assert.AreEqual(2, AlertIncidentIds(secondPage).Length);
+        Assert.Contains("aria-current=\"page\">Page 2</span>", secondPage);
+        Assert.Contains("aria-disabled=\"true\">Next page</span>", secondPage);
+        var previous = WebUtility.HtmlDecode(Regex.Match(secondPage, "href=\"([^\"]+)\"[^>]*>Previous page</a>").Groups[1].Value);
+        Assert.Contains("/Incidents/Mine", previous);
+        var previousParameters = QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, previous).Query);
+        foreach (var parameter in QueryHelpers.ParseQuery("?" + query))
+            Assert.AreEqual(parameter.Value.ToString(), previousParameters[parameter.Key].ToString());
+        Assert.AreEqual(20, AlertIncidentIds(await Http.GetStringAsync(previous)).Length);
         var dashboard = await Http.GetStringAsync("/Dashboard");
         Assert.Contains("id=\"my-incidents-card\"", dashboard);
         Assert.Contains("data-my-active-count=\"22\"", dashboard);
