@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using Aiursoft.AlertCenter.Entities
 @{
@@ -94,7 +95,7 @@ else if (delivery.Status == PushDelivery.Succeeded)
                 </small>
             </div>
             <div class="small font-monospace">
-                @Localizer["Completed at "]@(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "—") UTC
+                @Localizer["Completed at "]<span data-utc-time="@delivery.CompletedAtUtc?.ToHtmlDateTime()">@(delivery.CompletedAtUtc == null ? "—" : "")</span>
             </div>
         </div>
     </div>
@@ -147,8 +148,9 @@ else
             <div class="card-body">
                 <h3 class="h5 mb-3 text-break">@(delivery.Incident?.Title ?? (incidentEvent != null ? (incidentEvent.Type switch
                                                 {
-                                                    IncidentTimelineEntry.Mitigated => string.Format(Localizer["Incident mitigated: {0}"].Value, incidentEvent.Incident.Title),
-                                                    IncidentTimelineEntry.Resolved => string.Format(Localizer["Incident resolved: {0}"].Value, incidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Mitigated => string.Format(@Localizer["Incident mitigated: {0}"].Value, incidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Reopened => string.Format(@Localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Resolved => string.Format(@Localizer["Incident resolved: {0}"].Value, incidentEvent.Incident.Title),
                                                     _ => incidentEvent.Incident.Title
                                                 }) : @Localizer["Channel test notification"].Value))</h3>
                 @{
@@ -163,7 +165,7 @@ else
             <div class="card-header bg-transparent py-3">
                 <h2 class="card-title h5 mb-0">
                     <i data-lucide="clock" style="width: 18px; height: 18px;" class="text-primary me-2" aria-hidden="true"></i>
-                    @Localizer["Dispatch timeline (UTC)"]
+                    @Localizer["Dispatch timeline"]
                 </h2>
             </div>
             <div class="card-body">
@@ -176,7 +178,7 @@ else
                         <div class="ac-timeline-content">
                             <div class="d-flex justify-content-between align-items-center">
                                 <strong>@Localizer["Delivery task created"]</strong>
-                                <small class="text-muted font-monospace">@delivery.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</small>
+                                <small class="text-muted font-monospace"><span data-utc-time="@delivery.CreatedAtUtc.ToHtmlDateTime()"></span></small>
                             </div>
                             <small class="text-muted d-block mt-1">@Localizer["Enter Delivery Queue"]</small>
                         </div>
@@ -190,7 +192,7 @@ else
                         <div class="ac-timeline-content">
                             <div class="d-flex justify-content-between align-items-center">
                                 <strong>@Localizer["Initiate dispatch request"]</strong>
-                                <small class="text-muted font-monospace">@(delivery.AttemptedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? @Localizer["Pending dispatch"].Value)</small>
+                                <small class="text-muted font-monospace"><span data-utc-time="@delivery.AttemptedAtUtc?.ToHtmlDateTime()">@(delivery.AttemptedAtUtc == null ? Localizer["Pending dispatch"].Value : "")</span></small>
                             </div>
                             <small class="text-muted d-block mt-1">@Localizer["Total attempts: "]@delivery.Attempts @Localizer["times"]</small>
                         </div>
@@ -217,7 +219,7 @@ else
                                 <strong>
                                     @(delivery.Status == PushDelivery.Succeeded ? @Localizer["Delivery completed successfully"].Value : delivery.Status == PushDelivery.Failed ? @Localizer["Delivery failed permanently"].Value : @Localizer["Running..."].Value)
                                 </strong>
-                                <small class="text-muted font-monospace">@(delivery.CompletedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? @Localizer["Incomplete"].Value)</small>
+                                <small class="text-muted font-monospace"><span data-utc-time="@delivery.CompletedAtUtc?.ToHtmlDateTime()">@(delivery.CompletedAtUtc == null ? Localizer["Incomplete"].Value : "")</span></small>
                             </div>
                             @if (delivery.Status == PushDelivery.Failed && !string.IsNullOrEmpty(delivery.Error))
                             {
@@ -265,8 +267,8 @@ else
                 @if (snapshot != null)
                 {
                     <div class="border-top pt-3 small">
-                        <p class="mb-1">@Localizer["Snapshot time ("]UTC）：@snapshot.NotificationAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</p>
-                        <p class="mb-1">@Localizer["Shift: "]@snapshot.StartsAtUtc?.ToString("yyyy-MM-dd HH:mm") — @snapshot.EndsAtUtc?.ToString("yyyy-MM-dd HH:mm") UTC</p>
+                        <p class="mb-1">@Localizer["Snapshot time"]: <span data-utc-time="@snapshot.NotificationAtUtc.ToHtmlDateTime()"></span></p>
+                        <p class="mb-1">@Localizer["Shift: "]<span data-utc-time="@snapshot.StartsAtUtc?.ToHtmlDateTime()"></span> — <span data-utc-time="@snapshot.EndsAtUtc?.ToHtmlDateTime()"></span></p>
                         <p class="mb-1">OCE：@string.Join("、", snapshot.Recipients.Select(recipient => recipient.DisplayName))</p>
                         @if (Model.CanManagePush)
                         {
@@ -308,14 +310,14 @@ else
                         <span class="badge bg-secondary-subtle text-secondary font-monospace">@delivery.Attempts @Localizer["times"]</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                        <span class="text-muted">@Localizer["Creation Time (UTC)"]</span>
-                        <span class="font-monospace">@delivery.CreatedAtUtc.ToString("HH:mm:ss")</span>
+                        <span class="text-muted">@Localizer["Creation Time"]</span>
+                        <span class="font-monospace"><span data-utc-time="@delivery.CreatedAtUtc.ToHtmlDateTime()"></span></span>
                     </li>
                     @if (delivery.CompletedAtUtc.HasValue)
                     {
                         <li class="list-group-item d-flex justify-content-between align-items-center py-3">
-                            <span class="text-muted">@Localizer["Completion Time (UTC)"]</span>
-                            <span class="font-monospace">@delivery.CompletedAtUtc.Value.ToString("HH:mm:ss")</span>
+                            <span class="text-muted">@Localizer["Completion Time"]</span>
+                            <span class="font-monospace"><span data-utc-time="@delivery.CompletedAtUtc.Value.ToHtmlDateTime()"></span></span>
                         </li>
                     }
                 </ul>

@@ -12,7 +12,7 @@
         const id = trigger.dataset.commentId || '';
         document.getElementById('delete-incident-comment-id').value = id;
         document.getElementById('delete-incident-comment-author').textContent = trigger.dataset.commentAuthor || '';
-        document.getElementById('delete-incident-comment-created').textContent = trigger.dataset.commentCreated || '';
+        document.getElementById('delete-incident-comment-created').textContent = trigger.closest('.ac-timeline-item')?.querySelector('[data-utc-time]')?.textContent || '';
         document.getElementById('delete-incident-comment-confirm').disabled = !id;
     });
 

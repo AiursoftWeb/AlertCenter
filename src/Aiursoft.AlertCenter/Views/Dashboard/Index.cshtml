@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.DashboardViewModels.IndexViewModel
 @using Aiursoft.AlertCenter.Entities
 
@@ -31,7 +32,7 @@
     </div>
     <div class="d-flex flex-wrap align-items-center gap-2">
         <span class="badge bg-body-secondary text-body border px-3 py-2">
-            <i class="align-middle me-1" data-lucide="clock"></i><span id="utc-clock">@DateTime.UtcNow.ToString("HH:mm:ss") UTC</span>
+            <i class="align-middle me-1" data-lucide="clock"></i><span id="local-clock" aria-label="@Localizer["Local time"]"><span data-utc-time="@DateTime.UtcNow.ToHtmlDateTime()"></span></span>
         </span>
         <a asp-controller="Applications" asp-action="GettingStarted" class="btn btn-outline-primary">
             <i class="align-middle me-1" data-lucide="book-open"></i>@Localizer["Integration Guide"]
@@ -209,7 +210,7 @@
                                 </div>
                                 <small class="text-muted">@Localizer["Source"]: @incident.Application.Name</small>
                             </div>
-                            <span class="text-muted small text-nowrap">@incident.ReceivedAtUtc.ToString("HH:mm:ss") UTC</span>
+                            <span class="text-muted small text-nowrap"><span data-utc-time="@incident.ReceivedAtUtc.ToHtmlDateTime()"></span></span>
                         </a>
                     }
                 </div>
@@ -295,7 +296,7 @@
                                             <span class="badge bg-secondary-subtle text-secondary">@(message.IsAcknowledged ? @Localizer["Acknowledged"].Value : @Localizer["Not acknowledged"].Value)</span>
                                     </td>
                                     <td class="text-end pe-3 text-muted small text-nowrap">
-                                        @message.ReceivedAtUtc.ToString("MM-dd HH:mm:ss")
+                                        <span data-utc-time="@message.ReceivedAtUtc.ToHtmlDateTime()"></span>
                                     </td>
                                 </tr>
                             }

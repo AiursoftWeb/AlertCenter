@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.IncidentsViewModel
 @using Aiursoft.AlertCenter.Entities
 @using System.Globalization
@@ -182,7 +183,7 @@
                         <th class="py-3" style="min-width: 260px;">@Localizer["Incident"]</th>
                         <th class="py-3">@Localizer["Source application"]</th>
                         <th class="py-3">@Localizer["Owner"]</th>
-                        <th class="pe-4 py-3 text-end" style="min-width: 160px;">@Localizer["Trigger time (UTC)"]</th>
+                        <th class="pe-4 py-3 text-end" style="min-width: 160px;">@Localizer["Trigger time"]</th>
                         <th class="py-3 text-center" style="width: 80px;">@Localizer["Enter"]</th>
                     </tr>
                 </thead>
@@ -231,7 +232,7 @@
                                 @(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? @Localizer["Unassigned"].Value)
                             </td>
                             <td class="pe-4 py-3 text-end text-nowrap text-muted small font-monospace">
-                                @incident.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")
+                                <span data-utc-time="@incident.ReceivedAtUtc.ToHtmlDateTime()"></span>
                             </td>
                             <td class="py-3 text-center">
                                 <a asp-action="Details" asp-route-id="@incident.Id" class="btn btn-sm btn-outline-primary" title="@Localizer["Enter Response War Room"]">

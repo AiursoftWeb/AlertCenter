@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using Aiursoft.AlertCenter.Entities
 @{
@@ -12,7 +13,7 @@
     <div>
         <div class="d-flex align-items-center gap-2">
             <h1 class="h3 mb-0">@Localizer["Push Delivery Records"]</h1>
-            <span class="badge bg-secondary-subtle text-secondary small">@Localizer["UTC Real-Time Trace"]</span>
+            <span class="badge bg-secondary-subtle text-secondary small">@Localizer["Real-Time Trace"]</span>
         </div>
         <p class="text-muted mb-0 small">@Localizer["Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications"]</p>
     </div>
@@ -125,7 +126,7 @@
                         <th class="py-3">@Localizer["Target Channel"]</th>
                         <th class="py-3 text-center">@Localizer["Status"]</th>
                         <th class="py-3 text-center">@Localizer["Attempts"]</th>
-                        <th class="py-3 text-end pe-4" style="min-width: 160px;">@Localizer["Creation Time (UTC)"]</th>
+                        <th class="py-3 text-end pe-4" style="min-width: 160px;">@Localizer["Creation Time"]</th>
                         <th class="py-3 text-center" style="width: 70px;">@Localizer["Action"]</th>
                     </tr>
                 </thead>
@@ -164,8 +165,9 @@
                                         <a asp-action="Delivery" asp-route-id="@delivery.Id" class="fw-semibold text-decoration-none text-break d-block">
                                             @(delivery.Incident?.Title ?? (delivery.IncidentEvent != null ? (delivery.IncidentEvent.Type switch
                                                 {
-                                                    IncidentTimelineEntry.Mitigated => string.Format(Localizer["Incident mitigated: {0}"].Value, delivery.IncidentEvent.Incident.Title),
-                                                    IncidentTimelineEntry.Resolved => string.Format(Localizer["Incident resolved: {0}"].Value, delivery.IncidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Mitigated => string.Format(@Localizer["Incident mitigated: {0}"].Value, delivery.IncidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Reopened => string.Format(@Localizer["Incident reopened: {0}"].Value, delivery.IncidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Resolved => string.Format(@Localizer["Incident resolved: {0}"].Value, delivery.IncidentEvent.Incident.Title),
                                                     _ => delivery.IncidentEvent.Incident.Title
                                                 }) : @Localizer["Channel test notification"].Value))
                                         </a>
@@ -189,7 +191,7 @@
                                 <span class="badge bg-light text-secondary border font-monospace">@delivery.Attempts</span>
                             </td>
                             <td class="text-end pe-4 py-3 text-nowrap text-muted small font-monospace">
-                                @delivery.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")
+                                <span data-utc-time="@delivery.CreatedAtUtc.ToHtmlDateTime()"></span>
                             </td>
                             <td class="py-3 text-center">
                                 <a asp-action="Delivery" asp-route-id="@delivery.Id" class="btn btn-sm btn-outline-secondary" title="@Localizer["View delivery details"]">
