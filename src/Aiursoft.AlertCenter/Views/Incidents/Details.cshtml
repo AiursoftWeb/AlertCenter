@@ -6,9 +6,9 @@
     ViewData["Title"] = string.Format(@Localizer["Incident War Room - {0}"].Value, incident.Title);
     var (statusPill, statusIcon, statusText, bannerClass) = incident.Status switch
     {
-        Incident.New => ("ac-status-pill-failed", "alert-triangle", @Localizer["Unmitigated"].Value, "ac-incident-banner-triggered"),
-        Incident.Mitigated => ("ac-status-pill-sending", "shield-check", @Localizer["Mitigated (Mitigated)"].Value, "ac-incident-banner-acknowledged"),
-        Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", @Localizer["Resolved (Resolved)"].Value, "ac-incident-banner-resolved"),
+        Incident.New => ("ac-incident-status-new", "alert-triangle", @Localizer["Unmitigated"].Value, "ac-incident-banner-triggered"),
+        Incident.Mitigated => ("ac-incident-status-mitigated", "shield-check", @Localizer["Mitigated (Mitigated)"].Value, "ac-incident-banner-acknowledged"),
+        Incident.Resolved => ("ac-incident-status-resolved", "check-circle-2", @Localizer["Resolved (Resolved)"].Value, "ac-incident-banner-resolved"),
         _ => ("ac-status-pill-pending", "circle-help", incident.Status, "")
     };
     var isActive = incident.Status != Incident.Resolved;
@@ -72,7 +72,7 @@
             }
             @if (Model.CanManage && incident.Status == Incident.New && incident.IsAcknowledged)
             {
-                <button class="btn btn-sm btn-primary text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#mitigate-incident">
+                <button class="btn btn-sm btn-warning text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#mitigate-incident">
                     <i class="align-middle me-1" data-lucide="shield-check" aria-hidden="true"></i>@Localizer["Mitigate incident"]
                 </button>
             }
@@ -276,7 +276,7 @@
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
-                    <button type="submit" class="btn btn-primary">@Localizer["Confirm incident mitigation"]</button>
+                    <button type="submit" class="btn btn-warning">@Localizer["Confirm incident mitigation"]</button>
                 </div>
             </form>
         </div>

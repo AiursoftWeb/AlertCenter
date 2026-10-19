@@ -11,9 +11,9 @@
 
     (string PillClass, string Icon, string Text) StatusInfo(string status) => status switch
     {
-        Incident.New => ("ac-status-pill-failed", "alert-triangle", @Localizer["Unmitigated"].Value),
-        Incident.Mitigated => ("ac-status-pill-sending", "shield-check", @Localizer["Mitigated"].Value),
-        Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", @Localizer["Resolved"].Value),
+        Incident.New => ("ac-incident-status-new", "alert-triangle", @Localizer["Unmitigated"].Value),
+        Incident.Mitigated => ("ac-incident-status-mitigated", "shield-check", @Localizer["Mitigated"].Value),
+        Incident.Resolved => ("ac-incident-status-resolved", "check-circle-2", @Localizer["Resolved"].Value),
         _ => ("ac-status-pill-pending", "circle-help", status)
     };
 }
@@ -60,7 +60,7 @@
         <span>@Localizer["Acknowledged"]</span>
     </a>
     <a asp-action="@listAction" asp-route-status="mitigated" class="ac-chip @(filter.Status == Incident.Mitigated ? "active" : "")">
-        <i data-lucide="shield-check" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
+        <i data-lucide="shield-check" style="width: 14px; height: 14px;" class="text-warning" aria-hidden="true"></i>
         <span>@Localizer["Mitigated"]</span>
     </a>
     <a asp-action="@listAction" asp-route-status="resolved" class="ac-chip @(filter.Status == Incident.Resolved ? "active" : "")">
@@ -203,7 +203,8 @@
                         var rowBorder = incident.Status switch
                         {
                             Incident.New => "border-start border-3 border-danger",
-                            Incident.Mitigated => "border-start border-3 border-info",
+                            Incident.Mitigated => "border-start border-3 border-warning",
+                            Incident.Resolved => "border-start border-3 border-success",
                             _ => ""
                         };
 
