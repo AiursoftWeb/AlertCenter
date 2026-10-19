@@ -137,6 +137,8 @@ public partial class IncidentPagesTests
         Assert.DoesNotContain("action=\"/Incidents/ChangeLevel\"", page);
         Assert.Contains("action=\"/Incidents/Reopen\"", page);
         Assert.Contains("Previous acknowledgement and ownership are preserved", page);
+        Assert.Contains("Email is queued for configured recipients.", page);
+        Assert.DoesNotContain("no notification is sent", page);
         Assert.DoesNotContain("clears the assignee", page);
         AssertRedirect(await PostForm("/Incidents/Reopen", await IncidentForm(id, "Failure returned"), url), url);
         Guid deliveryId;
