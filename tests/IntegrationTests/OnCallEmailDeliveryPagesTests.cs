@@ -68,6 +68,7 @@ public partial class IncidentPagesTests
         var incidentPage = WebUtility.HtmlDecode(await Http.GetStringAsync($"/Incidents/Details/{incidentId}"));
         Assert.Contains("Current On-Call OCE", incidentPage);
         Assert.Contains("OCE at incident occurrence", incidentPage);
+        Assert.Contains("OCE Production · <span data-utc-time=", incidentPage);
         Assert.Contains("Original OCE", incidentPage);
         Assert.DoesNotContain("private-oce@example.com", incidentPage);
         var viewer = WebUtility.HtmlDecode(await Http.GetStringAsync(url));

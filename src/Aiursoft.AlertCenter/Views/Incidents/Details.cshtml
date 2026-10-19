@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.IncidentsViewModel
 @using Aiursoft.AlertCenter.Entities
 @{
@@ -143,7 +144,7 @@
                 <h3 class="h6">@Localizer["OCE at incident occurrence"]</h3>
                 @if (Model.OriginalOceSnapshot is { } original)
                 {
-                    <p class="text-muted mb-2">@original.GroupName · @original.NotificationAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</p>
+                    <p class="text-muted mb-2">@original.GroupName · <span data-utc-time="@original.NotificationAtUtc.ToHtmlDateTime()"></span></p>
                     <ul class="list-unstyled mb-2">
                         @foreach (var person in original.Recipients)
                         {
