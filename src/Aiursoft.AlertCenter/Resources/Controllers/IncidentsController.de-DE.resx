@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>Der Kommentar darf nicht leer sein und höchstens 4.000 Zeichen lang sein.</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>Geben Sie den exakten Vorfalltitel ein, um die endgültige Löschung zu bestätigen.</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>Ungültige Aktionsparameter. Die Begründung darf höchstens 4.000 Zeichen umfassen, und die Schweregradstufe muss zwischen sev0 und sev4 liegen.</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>Ungültige Kommentarparameter. Bitte laden Sie die Seite neu.</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>Diese Anwendung ist deaktiviert.</value>
   </data>
 
 </root>

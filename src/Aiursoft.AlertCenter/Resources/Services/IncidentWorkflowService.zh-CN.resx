@@ -24,6 +24,9 @@
   <data name="An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened." xml:space="preserve">
     <value>已存在具有相同关联规则的事件。请先解决该事件；无法合并或重新打开。</value>
   </data>
+  <data name="Only sev2, sev3 and sev4 incidents can be resolved during mitigation." xml:space="preserve">
+    <value>仅 sev2、sev3 和 sev4 级别的事件可以在缓解期间解决。</value>
+  </data>
   <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
     <value>请选择事件严重级别（sev0 至 sev4）。</value>
   </data>

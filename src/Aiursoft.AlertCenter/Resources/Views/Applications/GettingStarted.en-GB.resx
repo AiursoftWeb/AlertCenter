@@ -21,6 +21,9 @@
       <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
     <value>: The API key is displayed only once, after it has been successfully created or reset. Please configure it immediately in your production environment variables (e.g.,</value>
   </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: The API key is displayed only once upon successful creation. Please configure it immediately in the production environment variables (e.g.,</value>
+  </data>
   <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
     <value>. Push scheduling was triggered asynchronously.</value>
   </data>
@@ -87,6 +90,9 @@
   <data name="Each business system authenticates requests using its own API key." xml:space="preserve">
     <value>Each business system authenticates requests using its own API key.</value>
   </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Each key is associated with an application. The server verifies the secret hash and the permission required for each operation.</value>
+  </data>
   <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
     <value>Ensure strict concurrent idempotency; use the same ID for retries.</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="Max 4,000 characters" xml:space="preserve">
     <value>Maximum 4,000 characters</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Open API Key Management for an application to create named keys with query, create, and resolve permissions.</value>
   </data>
   <data name="Optional" xml:space="preserve">
     <value>Optional</value>

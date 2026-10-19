@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>टिप्पणी खाली नहीं हो सकती और उसमें 4,000 से अधिक वर्ण नहीं होने चाहिए।</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>स्थायी रूप से हटाने की पुष्टि करने के लिए घटना का सटीक शीर्षक दर्ज करें।</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>कार्रवाई के पैरामीटर अमान्य हैं। कारण 4,000 अक्षरों से अधिक नहीं होना चाहिए, और गंभीरता का स्तर sev0 से sev4 के बीच होना चाहिए।</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>टिप्पणी के पैरामीटर अमान्य हैं। कृपया पृष्ठ रीफ़्रेश करें।</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>यह एप्लिकेशन अक्षम है।</value>
   </data>
 
 </root>

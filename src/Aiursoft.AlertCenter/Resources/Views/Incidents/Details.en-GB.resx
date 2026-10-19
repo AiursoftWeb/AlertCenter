@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Acknowledged" xml:space="preserve">
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>Acknowledge and take ownership</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
     <value>Acknowledged</value>
   </data>
   <data name="Acknowledged (Acked)" xml:space="preserve">
@@ -32,6 +35,9 @@
   </data>
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>Adjust the severity of this incident and record the reason.</value>
+  </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>Also resolve this incident immediately, using the mitigation reason as the resolution reason.</value>
   </data>
   <data name="Auto-create incident" xml:space="preserve">
     <value>Automatically create incident</value>
@@ -114,6 +120,9 @@
   <data name="handling nodes" xml:space="preserve">
     <value>handling steps</value>
   </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>I confirm that this incident has been fully resolved and will not recur.</value>
+  </data>
   <data name="Incident event" xml:space="preserve">
     <value>Incident event</value>
   </data>
@@ -123,11 +132,17 @@
   <data name="Incident owner:" xml:space="preserve">
     <value>Incident owner:</value>
   </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Incident title</value>
+  </data>
   <data name="Incident War Room - {0}" xml:space="preserve">
     <value>Incident response room - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>Independent incidents</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>Last acknowledgement time</value>
   </data>
   <data name="Log investigation and handling progress" xml:space="preserve">
     <value>Record investigation and response progress</value>
@@ -144,6 +159,9 @@
   <data name="Mitigation reason (required)" xml:space="preserve">
     <value>Mitigation reason (required)</value>
   </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>Mitigation time</value>
+  </data>
   <data name="Mitigation time (UTC)" xml:space="preserve">
     <value>Mitigation time (UTC)</value>
   </data>
@@ -156,8 +174,14 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>No OCE currently on call.</value>
   </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Not acknowledged</value>
+  </data>
   <data name="Not set" xml:space="preserve">
     <value>Not set</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Occurred at</value>
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Occurred at (UTC)</value>
@@ -171,6 +195,12 @@
   <data name="Pending Response (New)" xml:space="preserve">
     <value>Awaiting response (new)</value>
   </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>Permanently Delete</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>Permanently Delete Incident</value>
+  </data>
   <data name="Progress" xml:space="preserve">
     <value>Progress</value>
   </data>
@@ -183,11 +213,17 @@
   <data name="Reason for adjustment (required)" xml:space="preserve">
     <value>Reason for adjustment (required)</value>
   </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Received at</value>
+  </data>
   <data name="Received at (UTC)" xml:space="preserve">
     <value>Received at (UTC)</value>
   </data>
   <data name="Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..." xml:space="preserve">
     <value>Record investigation findings, emergency mitigation measures, the extent of the impact, or system recovery progress in real time...</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership.</value>
   </data>
   <data name="Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE." xml:space="preserve">
     <value>Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE.</value>
@@ -204,6 +240,9 @@
   <data name="Reopening restores the &quot;Pending Response&quot; status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed." xml:space="preserve">
     <value>Reopening restores the “Pending Response” status, clears the assignee and emails the current on-call OCE. The incident must be acknowledged and claimed again.</value>
   </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients.</value>
+  </data>
   <data name="Report ID" xml:space="preserve">
     <value>Report ID</value>
   </data>
@@ -212,6 +251,9 @@
   </data>
   <data name="Resolution reason (required)" xml:space="preserve">
     <value>Resolution reason (required)</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>Time of resolution</value>
   </data>
   <data name="Resolution time (UTC)" xml:space="preserve">
     <value>Resolution time (UTC)</value>
@@ -261,11 +303,17 @@
   <data name="Take Over Notes (Optional)" xml:space="preserve">
     <value>Takeover notes (optional)</value>
   </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>This permanently deletes the incident and its history. Enter its exact title to confirm.</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>Total</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Unassigned</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Unmitigated</value>
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>User deleted</value>

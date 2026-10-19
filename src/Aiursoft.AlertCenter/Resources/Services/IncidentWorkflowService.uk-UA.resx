@@ -21,6 +21,9 @@
       <data name="A reason or progress update is required for this action." xml:space="preserve">
     <value>Для виконання цієї дії потрібно вказати причину або описати перебіг робіт.</value>
   </data>
+  <data name="Only sev2, sev3 and sev4 incidents can be resolved during mitigation." xml:space="preserve">
+    <value>Під час усунення наслідків можна вирішити лише інциденти рівня sev2, sev3 та sev4.</value>
+  </data>
   <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
     <value>Виберіть рівень критичності інциденту від sev0 до sev4.</value>
   </data>

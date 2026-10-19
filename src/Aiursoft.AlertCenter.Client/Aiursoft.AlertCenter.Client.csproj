@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <Version>10.8.0</Version>
+    <Version>10.8.1</Version>
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>alertcenter</AssemblyName>
     <RootNamespace>Aiursoft.AlertCenter.Client</RootNamespace>
@@ -24,7 +24,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Aiursoft.CommandFramework" Version="10.0.16" />
+    <PackageReference Include="Aiursoft.CommandFramework" Version="10.0.17" />
     <ProjectReference Include="../Aiursoft.AlertCenter.SDK/Aiursoft.AlertCenter.SDK.csproj" />
     <None Include="../../README.md" Pack="true" PackagePath="." />
   </ItemGroup>

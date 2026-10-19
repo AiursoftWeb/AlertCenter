@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="All roles" xml:space="preserve">
+      <data name="Add members" xml:space="preserve">
+    <value>Add members</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>Adding members does not assign shifts.</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>Advanced scheduling settings</value>
+  </data>
+  <data name="All roles" xml:space="preserve">
     <value>All roles</value>
   </data>
   <data name="Browse all employees by role" xml:space="preserve">
@@ -45,8 +54,29 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Enter in UTC; it will not be converted automatically based on team time zones. Once a shift has been saved, the scheduling start time cannot be changed.</value>
   </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>Filter by role</value>
+  </data>
   <data name="Find" xml:space="preserve">
     <value>Find</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>Help: notification CC</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>Help: role filter</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>Help: rotation order</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>Help: scheduling start point</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>Help: scheduling template</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>Help: team time zone</value>
   </data>
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed.</value>
@@ -59,6 +89,12 @@
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Next Page</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>No members yet. Open Add members to find people.</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>Notification CC (optional)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>On-call email CC</value>
@@ -75,11 +111,32 @@
   <data name="Rotate Members" xml:space="preserve">
     <value>Rotate Members</value>
   </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>Rotation order</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
   <data name="Save team" xml:space="preserve">
     <value>Save team</value>
   </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>Saving updates the team and its members. Manage shifts separately in the schedule.</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>Saving will remove these members from shifts that have not started. Check the rota for gaps.</value>
+  </data>
   <data name="Scheduling Rule Template" xml:space="preserve">
     <value>Scheduling rule template</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>Scheduling start time (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>Search by name instead</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>Search by name or account, or select a role.</value>
   </data>
   <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>Search by time zone name, city or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s time zone.</value>
@@ -90,14 +147,35 @@
   <data name="Selected members (can be empty, max 200)" xml:space="preserve">
     <value>Selected members (can be left empty, maximum 200)</value>
   </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronised with that role.</value>
+  </data>
   <data name="Shift Start Time (UTC)" xml:space="preserve">
     <value>Shift Start Time (UTC)</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>Team members</value>
   </data>
   <data name="Team name" xml:space="preserve">
     <value>Team name</value>
   </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>Team settings</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>Time zone</value>
+  </data>
+  <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
+    <value>To: the people assigned to the saved shift at the time the notification is sent. CC: the optional addresses below, regardless of who is on duty. Separate addresses with commas, semicolons or new lines; up to 50 addresses.</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>Use Move up and Move down to choose the order for future automatic scheduling. Existing shifts will not be reordered. Select up to 200 members.</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>Used to display the schedule. The advanced scheduling start point below is entered separately in UTC.</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>View schedule</value>
   </data>
 
 </root>

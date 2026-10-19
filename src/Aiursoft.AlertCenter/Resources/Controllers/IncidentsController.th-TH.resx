@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>ความคิดเห็นต้องไม่เว้นว่างและต้องมีความยาวไม่เกิน 4,000 อักขระ</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>กรอกชื่อเหตุการณ์ที่ถูกต้องเพื่อยืนยันการลบถาวร</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>พารามิเตอร์การดำเนินการไม่ถูกต้อง เหตุผลต้องมีความยาวไม่เกิน 4,000 อักขระ และระดับความรุนแรงต้องอยู่ระหว่าง sev0 ถึง sev4</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>พารามิเตอร์ความคิดเห็นไม่ถูกต้อง โปรดรีเฟรชหน้า</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>แอปพลิเคชันนี้ถูกปิดใช้งาน</value>
   </data>
 
 </root>

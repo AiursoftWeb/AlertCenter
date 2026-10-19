@@ -24,11 +24,17 @@
   <data name="Action" xml:space="preserve">
     <value>操作</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>调整搜索关键词或清除搜索条件以查看所有应用。</value>
   </data>
   <data name="API Key has been reset" xml:space="preserve">
     <value>API 密钥已重置</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>API 密钥管理</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>已连接的应用</value>
@@ -47,6 +53,9 @@
   </data>
   <data name="Application Name" xml:space="preserve">
     <value>应用名称</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>应用设置</value>
   </data>
   <data name="Applications" xml:space="preserve">
     <value>应用</value>
@@ -81,6 +90,9 @@
   <data name="Create Application" xml:space="preserve">
     <value>创建应用程序</value>
   </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>创建事件</value>
+  </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>创建新的集成应用</value>
   </data>
@@ -92,6 +104,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>删除应用程序</value>
   </data>
   <data name="Delete integrated application" xml:space="preserve">
     <value>删除集成应用</value>
@@ -183,6 +198,9 @@
   <data name="The old key will become invalid immediately. All reporting clients must be updated. The new key is displayed only once on this page." xml:space="preserve">
     <value>旧密钥将立即失效。所有上报客户端都必须更新。新密钥仅在此页面显示一次。</value>
   </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>此操作不可逆！该应用的所有历史事件、相关交付记录以及站内通知都将被删除，所有 API 密钥将立即失效。</value>
+  </data>
   <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and the API Key will be immediately invalidated." xml:space="preserve">
     <value>此操作不可撤销！此应用的所有历史事件、相关投递记录和站内通知都将被删除，API 密钥也将立即失效。</value>
   </data>
@@ -192,10 +210,16 @@
   <data name="Use a concise and clear business system name; the system will automatically generate the corresponding prefix ID and random Secret." xml:space="preserve">
     <value>请使用简洁明了的业务系统名称；系统将自动生成对应的前缀 ID 和随机 Secret。</value>
   </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>请使用简洁的业务系统名称。创建应用后，请单独创建其 API 密钥。</value>
+  </data>
   <data name="View all incidents" xml:space="preserve">
     <value>查看所有事件</value>
   </data>
   <data name="View incident" xml:space="preserve">
+    <value>查看事件</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
     <value>查看事件</value>
   </data>
   <data name="View integration guide to send the first test message " xml:space="preserve">

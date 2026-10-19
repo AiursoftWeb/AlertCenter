@@ -45,6 +45,9 @@
   <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
     <value>全面追蹤 Webhook、電子郵件及應用程式內通知的非同步派送狀態與錯誤重試情形</value>
   </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>建立時間</value>
+  </data>
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>建立時間（UTC）</value>
   </data>
@@ -84,8 +87,14 @@
   <data name="Incident / Test message" xml:space="preserve">
     <value>事件／測試訊息</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>事件已緩解：{0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>事件已重新開啟：{0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>事件已解決：{0}</value>
   </data>
   <data name="Jump" xml:space="preserve">
     <value>跳至</value>
@@ -125,6 +134,9 @@
   </data>
   <data name="Push Record Pagination" xml:space="preserve">
     <value>推送記錄分頁導覽</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>即時追蹤</value>
   </data>
   <data name="Refresh list" xml:space="preserve">
     <value>重新整理清單</value>
