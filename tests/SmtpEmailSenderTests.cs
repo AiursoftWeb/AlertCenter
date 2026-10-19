@@ -81,10 +81,10 @@ public class SmtpEmailSenderTests
             } : null
         };
 
-        async Task<Dictionary<string, string>> Send(PushDelivery delivery)
+        async Task<Dictionary<string, string>> Send(PushDelivery delivery, TcpListener smtpListener, CancellationToken token)
         {
-            var received = ReceiveMessage(listener, timeout.Token);
-            Assert.IsTrue((await adapter.DeliverAsync(delivery, timeout.Token)).Succeeded);
+            var received = ReceiveMessage(smtpListener, token);
+            Assert.IsTrue((await adapter.DeliverAsync(delivery, token)).Succeeded);
             var (recipients, data) = await received;
             CollectionAssert.AreEquivalent(new[] { "alice@example.com", "team@example.com" }, recipients.ToArray());
             return data.Split("\r\n\r\n", 2)[0].Split("\r\n")
@@ -93,27 +93,27 @@ public class SmtpEmailSenderTests
                     line => line[(line.IndexOf(": ", StringComparison.Ordinal) + 2)..], StringComparer.OrdinalIgnoreCase);
         }
 
-        var original = await Send(Delivery(incident));
+        var original = await Send(Delivery(incident), listener, timeout.Token);
         var rootId = original["Message-ID"];
         StringAssert.Matches(rootId, new System.Text.RegularExpressions.Regex(@"^<alertcenter\.[a-z0-9.]+@example\.com>$"));
         Assert.IsFalse(original.ContainsKey("In-Reply-To"));
         Assert.IsFalse(original.ContainsKey("References"));
-        Assert.AreEqual(rootId, (await Send(Delivery(incident)))["Message-ID"]);
+        Assert.AreEqual(rootId, (await Send(Delivery(incident), listener, timeout.Token))["Message-ID"]);
         var ids = new HashSet<string> { rootId };
         foreach (var type in new[] { IncidentTimelineEntry.Mitigated, IncidentTimelineEntry.Resolved, IncidentTimelineEntry.Reopened })
         {
-            var entry = new IncidentTimelineEntry { Incident = incident, IncidentId = incident.Id, Type = type, NewLevel = "sev2" };
-            var reply = await Send(Delivery(incident, entry));
+            var entry = new IncidentTimelineEntry { Incident = incident, IncidentId = incident.Id, Type = type, PreviousLevel = "sev3", NewLevel = "sev2" };
+            var reply = await Send(Delivery(incident, entry), listener, timeout.Token);
             Assert.IsTrue(ids.Add(reply["Message-ID"]), "Different notifications must not suppress each other as duplicates.");
             Assert.AreEqual(rootId, reply["In-Reply-To"]);
             Assert.AreEqual(rootId, reply["References"]);
-            Assert.AreEqual(reply["Message-ID"], (await Send(Delivery(incident, entry)))["Message-ID"]);
+            Assert.AreEqual(reply["Message-ID"], (await Send(Delivery(incident, entry), listener, timeout.Token))["Message-ID"]);
         }
-        Assert.AreNotEqual(rootId, (await Send(Delivery(new Incident { Title = incident.Title })))["Message-ID"]);
+        Assert.AreNotEqual(rootId, (await Send(Delivery(new Incident { Title = incident.Title }), listener, timeout.Token))["Message-ID"]);
         if (!onCall)
         {
             channel.Id = Guid.NewGuid();
-            Assert.AreNotEqual(rootId, (await Send(Delivery(incident)))["Message-ID"],
+            Assert.AreNotEqual(rootId, (await Send(Delivery(incident), listener, timeout.Token))["Message-ID"],
                 "Separate channels must not suppress each other's messages.");
         }
     }
