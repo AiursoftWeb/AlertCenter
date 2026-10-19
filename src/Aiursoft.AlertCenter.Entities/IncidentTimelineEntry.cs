@@ -33,5 +33,9 @@ public class IncidentTimelineEntry
     [MaxLength(30)] public string? NewOwnerName { get; set; }
     [MaxLength(4)] public string? PreviousLevel { get; set; }
     [MaxLength(4)] public string? NewLevel { get; set; }
+    [NotMapped] public bool IsEscalation => Type == LevelChanged &&
+        PreviousLevel is "sev0" or "sev1" or "sev2" or "sev3" or "sev4" &&
+        NewLevel is "sev0" or "sev1" or "sev2" or "sev3" or "sev4" &&
+        string.CompareOrdinal(NewLevel, PreviousLevel) < 0;
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
 }

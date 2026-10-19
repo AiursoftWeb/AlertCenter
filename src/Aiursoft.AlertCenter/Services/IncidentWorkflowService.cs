@@ -117,6 +117,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         context.IncidentTimelineEntries.Add(entry);
         incident.Level = level;
         incident.Version = Guid.NewGuid();
+        await QueuedIncidentDispatcher.DispatchEmailEventAsync(context, entry, cancellationToken);
         try
         {
             await context.SaveChangesAsync(cancellationToken);

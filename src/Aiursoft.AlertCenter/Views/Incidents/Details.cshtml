@@ -274,7 +274,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted small mb-3">@Localizer["Adjust the severity of this incident and record the reason."]</p>
+                    <p class="text-muted small mb-3">@Localizer["Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not."]</p>
                     <label for="incident-new-level" class="form-label small text-muted">@Localizer["New level"]</label>
                     <select id="incident-new-level" name="level" class="form-select mb-3" required>
                         <option value="sev0" selected="@(incident.Level == "sev0")">@Localizer["sev0 · Critical (P0)"]</option>

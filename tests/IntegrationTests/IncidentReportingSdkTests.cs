@@ -72,7 +72,7 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
-    public async Task SeverityChangesRequireTheirOwnScopeAndPreserveHistoryWithoutEmail()
+    public async Task SeverityChangesRequireTheirOwnScopeAndQueueOneEscalationEmail()
     {
         var originalKey = await CreateApplication();
         var app = Guid.Parse(originalKey.Split('.')[0]);
@@ -83,6 +83,16 @@ public partial class IncidentPagesTests
             ReportId = Guid.NewGuid(), Title = "Sustained warning", Level = "sev3", OccurredAtUtc = DateTimeOffset.UtcNow
         });
         var before = (await original.QueryIncidentsAsync(new QueryIncidentsRequest())).Items.Single();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            db.ApplicationPushChannels.Add(new ApplicationPushChannel
+            {
+                ApplicationId = app,
+                Channel = new PushChannel { Name = "Severity email", Type = "email", EmailRecipient = "ops@example.com" }
+            });
+            await db.SaveChangesAsync();
+        }
         var request = new ChangeIncidentSeverityRequest { Version = before.Version, Level = "sev2", Reason = "Yellow persisted for 100 minutes." };
         var denied = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => original.ChangeIncidentSeverityAsync(receipt.IncidentId, request));
         Assert.AreEqual(Code.Unauthorized, denied.Response.Code);
@@ -111,8 +121,11 @@ public partial class IncidentPagesTests
             Assert.AreEqual($"application:{app}", entry.ActorIdSnapshot);
             Assert.IsNull(entry.ActorId);
             Assert.AreEqual(Incident.New, entry.NewStatus);
-            Assert.AreEqual(0, await db.PushDeliveries.CountAsync(item => item.IncidentEventId == entry.Id));
+            Assert.AreEqual(1, await db.PushDeliveries.CountAsync(item => item.IncidentEventId == entry.Id));
+            var deliveryId = await db.PushDeliveries.Where(item => item.IncidentEventId == entry.Id).Select(item => item.Id).SingleAsync();
+            Assert.Contains("Incident escalated (SEV3 → SEV2)", WebUtility.HtmlDecode(await Http.GetStringAsync($"/Push/Delivery/{deliveryId}")));
         }
+        Assert.Contains("Incident escalated (SEV3 → SEV2)", WebUtility.HtmlDecode(await Http.GetStringAsync("/Push/Records")));
         await client.ResolveIncidentAsync(receipt.IncidentId, new ResolveIncidentRequest { Version = changed.Version, Reason = "Green" });
         var resolved = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ChangeIncidentSeverityAsync(receipt.IncidentId,
             new ChangeIncidentSeverityRequest { Version = changed.Version, Level = "sev1", Reason = "Late update" }));
