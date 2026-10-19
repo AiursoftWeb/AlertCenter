@@ -94,6 +94,12 @@
                     <i class="align-middle me-1" data-lucide="rotate-ccw" aria-hidden="true"></i>@Localizer["Reopen Incident"]
                 </button>
             }
+            @if (Model.CanDelete)
+            {
+                <button class="btn btn-sm btn-outline-danger text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#delete-incident">
+                    <i class="align-middle me-1" data-lucide="trash-2" aria-hidden="true"></i>@Localizer["Permanently Delete"]
+                </button>
+            }
             @if (!isActive)
             {
                 <span class="badge bg-success text-white px-3 py-2 d-inline-flex align-items-center gap-1.5">
@@ -301,7 +307,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted small mb-3">@Localizer["Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved, and no notification is sent."]</p>
+                    <p class="text-muted small mb-3">@Localizer["Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients."]</p>
                     <label for="reopen-note" class="form-label small text-muted">@Localizer["Reopen Notes (Optional)"]</label>
                     <textarea id="reopen-note" name="note" maxlength="4000" rows="4" class="form-control" placeholder="@Localizer["Example: Monitoring detected the same failure again, re-investigation required."]"></textarea>
                 </div>
@@ -361,10 +367,27 @@
     <script defer src="~/scripts/incident-comments.js" asp-append-version="true"></script>
 }
 
-@if (Model.CanDelete && Model.Incident != null)
+@if (Model.CanDelete)
 {
-    <div class="card mt-4"><div class="card-header"><h5 class="card-title">@Localizer["Permanently Delete Incident"]</h5></div><div class="card-body">
-        <p>@Localizer["This permanently deletes the incident and its history. Enter its exact title to confirm."]</p>
-        <form asp-action="Delete" method="post"><input type="hidden" name="id" value="@Model.Incident.Id" /><input type="hidden" name="version" value="@Model.Incident.Version" /><label for="delete-title" class="form-label">@Localizer["Incident title"]</label><input id="delete-title" name="confirmationTitle" class="form-control mb-3" required /><button type="submit" class="btn btn-danger">@Localizer["Permanently Delete"]</button></form>
-    </div></div>
+    <div class="modal fade" id="delete-incident" tabindex="-1" aria-labelledby="delete-incident-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <form asp-action="Delete" method="post" class="modal-content border-0 shadow">
+                <input type="hidden" name="id" value="@incident.Id" />
+                <input type="hidden" name="version" value="@incident.Version" />
+                <div class="modal-header">
+                    <h2 class="modal-title h5 mb-0" id="delete-incident-title">@Localizer["Permanently Delete Incident"]</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
+                </div>
+                <div class="modal-body">
+                    <p>@Localizer["This permanently deletes the incident and its history. Enter its exact title to confirm."]</p>
+                    <label for="delete-title" class="form-label">@Localizer["Incident title"]</label>
+                    <input id="delete-title" name="confirmationTitle" class="form-control" required />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-danger">@Localizer["Permanently Delete"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
 }
