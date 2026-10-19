@@ -167,3 +167,44 @@ test('submitting prevents duplicate requests and restores each button disabled s
     assert.equal(ui.submitter.disabled, false);
     assert.equal(ui.disabledButton.disabled, true);
 });
+
+const acknowledgeScript = fs.readFileSync(path.resolve(__dirname,
+    '../../src/Aiursoft.AlertCenter/wwwroot/scripts/incident-ack.js'), 'utf8');
+
+for (const [query, canManage, expected] of [
+    ['?ack=true&commentsPage=2#incident-comments', true, 1],
+    ['?ack=false', true, 0], ['', true, 0], ['?ack=true', false, 0]
+]) {
+    test(`Email acknowledgement ${query || 'without flag'}, manage=${canManage}`, () => {
+        let onLoad;
+        let submitted = 0;
+        const location = { href: 'https://alerts.example.test/Incidents/Details/123' + query };
+        const state = { retained: true };
+        const context = {
+            URL,
+            window: { location, history: { state, replaceState(current, unused, url) {
+                assert.equal(current, state);
+                location.href = url.href;
+            } } },
+            document: {
+                addEventListener(name, listener) { assert.equal(name, 'DOMContentLoaded'); onLoad = listener; },
+                getElementById(id) {
+                    assert.equal(id, 'acknowledge-incident');
+                    return canManage ? { requestSubmit() {
+                        assert.equal(new URL(location.href).searchParams.has('ack'), false);
+                        submitted++;
+                    } } : null;
+                }
+            }
+        };
+        vm.runInNewContext(acknowledgeScript, context);
+        onLoad();
+        assert.equal(submitted, expected);
+        if (expected) {
+            assert.equal(new URL(location.href).searchParams.get('commentsPage'), '2');
+            assert.equal(new URL(location.href).hash, '#incident-comments');
+            onLoad();
+            assert.equal(submitted, 1);
+        }
+    });
+}

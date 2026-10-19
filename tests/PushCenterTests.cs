@@ -737,6 +737,9 @@ public partial class PushCenterTests
         Assert.Contains(url, mail.Body);
         Assert.IsNotNull(mail.HtmlBody);
         Assert.Contains($"href=\"{url}\"", mail.HtmlBody);
+        Assert.Contains("Acknowledge", mail.Body);
+        Assert.Contains(url + "?ack=true", mail.Body);
+        Assert.Contains($"href=\"{url}?ack=true\"", mail.HtmlBody);
         Assert.Contains("&lt;img", mail.HtmlBody);
         Assert.Contains("&lt;script&gt;", mail.HtmlBody);
         Assert.Contains("&lt;iframe&gt;", mail.HtmlBody);
@@ -788,6 +791,8 @@ public partial class PushCenterTests
         Assert.Contains("https://alertcenter.aiursoft.com/", sent.Body);
         Assert.IsNotNull(sent.HtmlBody);
         Assert.Contains("href=\"https://alertcenter.aiursoft.com/\"", sent.HtmlBody);
+        Assert.DoesNotContain("?ack=true", sent.Body);
+        Assert.DoesNotContain("?ack=true", sent.HtmlBody);
 
         Assert.IsFalse(EmailChannelAdapter.TryParseRecipient("", out _, out _));
         Assert.IsFalse(EmailChannelAdapter.TryParseRecipient("not-an-email", out _, out _));
