@@ -136,6 +136,8 @@ public partial class IncidentPagesTests
         page = await Http.GetStringAsync(url);
         Assert.DoesNotContain("action=\"/Incidents/ChangeLevel\"", page);
         Assert.Contains("action=\"/Incidents/Reopen\"", page);
+        Assert.Contains("Previous acknowledgement and ownership are preserved", page);
+        Assert.DoesNotContain("clears the assignee", page);
         AssertRedirect(await PostForm("/Incidents/Reopen", await IncidentForm(id, "Failure returned"), url), url);
         Guid deliveryId;
         using (var scope = Server!.Services.CreateScope())

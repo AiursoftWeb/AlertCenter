@@ -256,7 +256,7 @@ Platform capabilities use `Permission` claims. Roles collect permissions; the na
 
 Only the application owner or users explicitly granted incident update permission may handle an incident. OCE duty and incident assignment do not grant access. A view grant alone does not permit incident handling. Default identity initialization runs only when both users and roles are empty; restarting an existing installation does not restore revoked permissions or grant newly introduced permissions.
 
-Applications may bind an on-call team. Each new incident and explicit incident reopen queues built-in email to that team's current OCEs, independently of custom severity routes. Delivery recipients are snapshotted when queued. Missing coverage or invalid recipient configuration produces a visible delivery failure without rejecting the alert. There are no automatic email retries; inspect delivery records before manually retrying an SMTP failure.
+Applications may bind an on-call team. Each new incident queues built-in email to that team's current OCEs, independently of custom severity routes. Delivery recipients are snapshotted when queued. Missing coverage or invalid recipient configuration produces a visible delivery failure without rejecting the alert. There are no automatic email retries; inspect delivery records before manually retrying an SMTP failure.
 
 ## Configuration
 

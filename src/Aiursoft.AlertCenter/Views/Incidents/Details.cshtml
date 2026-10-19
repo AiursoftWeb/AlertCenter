@@ -290,7 +290,7 @@
                     <i data-lucide="rotate-ccw" style="width: 18px; height: 18px;" class="text-success flex-shrink-0 mt-0.5" aria-hidden="true"></i>
                     <div>
                         <strong class="text-dark d-block mb-0.5">@Localizer["Closed-loop Recovery"]</strong>
-                        @Localizer["Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE."]
+                        @Localizer["Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership."]
                     </div>
                 </div>
             </div>
@@ -398,7 +398,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted small mb-3">@Localizer["Reopening restores the \"Pending Response\" status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed."]</p>
+                    <p class="text-muted small mb-3">@Localizer["Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved, and no notification is sent."]</p>
                     <label for="reopen-note" class="form-label small text-muted">@Localizer["Reopen Notes (Optional)"]</label>
                     <textarea id="reopen-note" name="note" maxlength="4000" rows="4" class="form-control" placeholder="@Localizer["Example: Monitoring detected the same failure again, re-investigation required."]"></textarea>
                 </div>
