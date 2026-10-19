@@ -21,6 +21,16 @@ On an empty database, the default local account is `admin@default.com` with pass
 - Application access grants for users and roles, with separate permissions for application, on-call, and push management.
 - SQLite for standalone use, MySQL support, and local or OIDC authentication through [Aiursoft Template](https://gitlab.aiursoft.com/aiursoft/template).
 
+## Install with Docker
+
+Run the installer with the desired port (omit it to choose an available port):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aiursoftweb/alertcenter/master/install.sh | sudo bash -s -- 8080
+```
+
+Installation starts after three seconds; press Ctrl+C to cancel. Then open `http://localhost:8080`.
+
 ## Run manually
 
 1. Install the .NET 10 SDK and Node.js/npm.
