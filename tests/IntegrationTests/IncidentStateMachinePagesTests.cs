@@ -61,11 +61,11 @@ public partial class IncidentPagesTests
         var saved = await database.Incidents.SingleAsync();
         var events = await database.IncidentTimelineEntries.Where(entry => entry.Type == IncidentTimelineEntry.Mitigated || entry.Type == IncidentTimelineEntry.Resolved)
             .OrderBy(entry => entry.CreatedAtUtc).ToListAsync();
-        Assert.AreEqual(!eligible ? Incident.Acked : resolveImmediately ? Incident.Resolved : Incident.Mitigated, saved.Status);
+        Assert.AreEqual(!eligible ? Incident.New : resolveImmediately ? Incident.Resolved : Incident.Mitigated, saved.Status);
         Assert.AreEqual(!eligible ? 0 : resolveImmediately ? 2 : 1, events.Count);
         if (!eligible) return;
         Assert.AreEqual(IncidentTimelineEntry.Mitigated, events[0].Type);
-        Assert.AreEqual(Incident.Acked, events[0].PreviousStatus);
+        Assert.AreEqual(Incident.New, events[0].PreviousStatus);
         Assert.AreEqual(Incident.Mitigated, events[0].NewStatus);
         Assert.AreEqual("Fixed the underlying cause.", events[0].Note);
         Assert.IsNotNull(saved.MitigatedAtUtc);
@@ -115,7 +115,8 @@ public partial class IncidentPagesTests
         using var repeated = await PostForm("/Incidents/Acknowledge", stale, url);
         Assert.AreEqual(HttpStatusCode.Conflict, repeated.StatusCode);
         page = await Http.GetStringAsync(url);
-        Assert.Contains("action=\"/Incidents/TakeOwnership\"", page);
+        Assert.Contains("action=\"/Incidents/Acknowledge\"", page);
+        Assert.DoesNotContain("action=\"/Incidents/TakeOwnership\"", page);
         Assert.Contains("action=\"/Incidents/Mitigate\"", page);
         Assert.DoesNotContain("action=\"/Incidents/Resolve\"", page);
         using var noReason = await PostForm("/Incidents/Mitigate", await IncidentForm(id, "   "), url);
@@ -135,6 +136,8 @@ public partial class IncidentPagesTests
         page = await Http.GetStringAsync(url);
         Assert.DoesNotContain("action=\"/Incidents/ChangeLevel\"", page);
         Assert.Contains("action=\"/Incidents/Reopen\"", page);
+        Assert.Contains("Previous acknowledgement and ownership are preserved", page);
+        Assert.DoesNotContain("clears the assignee", page);
         AssertRedirect(await PostForm("/Incidents/Reopen", await IncidentForm(id, "Failure returned"), url), url);
         Guid deliveryId;
         using (var scope = Server!.Services.CreateScope())
@@ -142,7 +145,8 @@ public partial class IncidentPagesTests
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var incident = await db.Incidents.SingleAsync();
             Assert.AreEqual(Incident.New, incident.Status);
-            Assert.IsNull(incident.OwnerId);
+            Assert.IsNotNull(incident.OwnerId);
+            Assert.IsTrue(incident.IsAcknowledged);
             Assert.AreEqual("sev0", incident.Level);
             Assert.AreEqual(1, await db.Incidents.CountAsync());
             Assert.AreEqual(3, await db.PushDeliveries.CountAsync());
@@ -159,7 +163,7 @@ public partial class IncidentPagesTests
         foreach (var state in new[] { "new", "acked", "mitigated", "resolved" })
         {
             var list = await Http.GetStringAsync($"/Incidents/Index?status={state}");
-            Assert.AreEqual(state == "new", list.Contains("Order timeout"));
+            Assert.AreEqual(state is "new" or "acked", list.Contains("Order timeout"));
         }
         AssertRedirect(await PostForm("/Applications/DeleteApplication", new()
         {
@@ -192,7 +196,8 @@ public partial class IncidentPagesTests
         using var finalScope = Server!.Services.CreateScope();
         var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var incident = await finalDb.Incidents.SingleAsync();
-        Assert.AreEqual(Incident.Acked, incident.Status);
+        Assert.AreEqual(Incident.New, incident.Status);
+        Assert.IsTrue(incident.IsAcknowledged);
         Assert.IsNotNull(incident.OwnerId);
         Assert.AreEqual(1, await finalDb.IncidentTimelineEntries.CountAsync(entry => entry.Type == IncidentTimelineEntry.Acked));
     }
@@ -255,4 +260,48 @@ public partial class IncidentPagesTests
         var dbAfter = scopeAfter.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(userId, (await dbAfter.Incidents.SingleAsync()).OwnerId);
     }
+    [TestMethod]
+    [DataRow(Incident.New)]
+    [DataRow(Incident.Mitigated)]
+    [DataRow(Incident.Resolved)]
+    public async Task AcknowledgementCanBeRepeatedAndFilteredIndependentlyOfProgress(string state)
+    {
+        var key = await CreateApplication();
+        using var report = await Report(key, Guid.NewGuid(), title: "Repeatable acknowledgement");
+        Guid id;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var incident = await db.Incidents.SingleAsync();
+            incident.Status = state;
+            await db.SaveChangesAsync();
+            id = incident.Id;
+        }
+        var url = $"/Incidents/Details/{id}";
+        foreach (var action in new[] { "Acknowledge", "Acknowledge", "TakeOwnership" })
+        {
+            var page = await Http.GetStringAsync(url);
+            Assert.Contains("action=\"/Incidents/Acknowledge\"", page);
+            AssertRedirect(await PostForm($"/Incidents/{action}", await IncidentForm(id), url), url);
+        }
+        Assert.Contains("data-acknowledged=\"true\"", await Http.GetStringAsync(url));
+        Assert.Contains("Repeatable acknowledgement", await Http.GetStringAsync($"/Incidents?status={state}&acknowledged=true"));
+        Assert.DoesNotContain("Repeatable acknowledgement", await Http.GetStringAsync($"/Incidents?status={state}&acknowledged=false"));
+        Assert.Contains("Repeatable acknowledgement", await Http.GetStringAsync("/Incidents?status=acked"));
+        using var finalScope = Server!.Services.CreateScope();
+        var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var saved = await finalDb.Incidents.SingleAsync();
+        Assert.AreEqual(state, saved.Status);
+        Assert.IsTrue(saved.IsAcknowledged);
+        Assert.IsNotNull(saved.OwnerId);
+        Assert.AreEqual(3, await finalDb.IncidentTimelineEntries.CountAsync(entry => entry.Type == IncidentTimelineEntry.Acked));
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<SDK.AlertCenterApiClient>();
+        var details = (await client.GetIncidentAsync(id)).Incident;
+        Assert.AreEqual(state, details.Status);
+        Assert.IsTrue(details.IsAcknowledged);
+        Assert.AreEqual(saved.OwnerId, details.OwnerId);
+        Assert.AreEqual(new DateTimeOffset(DateTime.SpecifyKind(saved.AcknowledgedAtUtc!.Value, DateTimeKind.Utc)), details.AcknowledgedAtUtc);
+    }
+
 }

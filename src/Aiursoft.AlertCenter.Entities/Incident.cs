@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aiursoft.AlertCenter.Entities;
 
 public class Incident
 {
     public const string New = "new";
+    // Legacy status retained for old filter links and data migration only.
     public const string Acked = "acked";
     public const string Mitigated = "mitigated";
     public const string Resolved = "resolved";
@@ -25,6 +27,7 @@ public class Incident
     [MaxLength(30)] public string? OwnerDisplayName { get; set; }
     public Guid Version { get; set; } = Guid.NewGuid();
     public DateTime? AcknowledgedAtUtc { get; set; }
+    [NotMapped] public bool IsAcknowledged => AcknowledgedAtUtc.HasValue;
     public DateTime? MitigatedAtUtc { get; set; }
     public DateTime? ResolvedAtUtc { get; set; }
     public ICollection<IncidentTimelineEntry> TimelineEntries { get; set; } = [];

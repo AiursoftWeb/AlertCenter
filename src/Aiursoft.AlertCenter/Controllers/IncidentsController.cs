@@ -46,8 +46,10 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
     {
         if (filter.ApplicationId.HasValue)
             incidents = incidents.Where(incident => incident.ApplicationId == filter.ApplicationId.Value);
-        if (filter.Status is Incident.New or Incident.Acked or Incident.Mitigated or Incident.Resolved)
+        if (filter.Status is Incident.New or Incident.Mitigated or Incident.Resolved)
             incidents = incidents.Where(incident => incident.Status == filter.Status);
+        if (filter.Acknowledged.HasValue)
+            incidents = incidents.Where(incident => (incident.AcknowledgedAtUtc != null) == filter.Acknowledged.Value);
         if (filter.Level != null)
         {
             var levels = filter.Level.StartsWith("lte-", StringComparison.Ordinal)

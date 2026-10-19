@@ -7,7 +7,7 @@
 
     string StatusText(string? status) => status switch
     {
-        Incident.New => @Localizer["Pending Response"].Value,
+        Incident.New => @Localizer["Unmitigated"].Value,
         Incident.Acked => @Localizer["Acknowledged"].Value,
         Incident.Mitigated => @Localizer["Mitigated"].Value,
         Incident.Resolved => @Localizer["Resolved"].Value,

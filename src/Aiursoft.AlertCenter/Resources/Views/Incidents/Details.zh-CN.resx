@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Acknowledged" xml:space="preserve">
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>确认并承担责任</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
     <value>已确认</value>
   </data>
   <data name="Acknowledged (Acked)" xml:space="preserve">
@@ -129,6 +132,9 @@
   <data name="Independent incidents" xml:space="preserve">
     <value>独立事件</value>
   </data>
+  <data name="Last acknowledgement time (UTC)" xml:space="preserve">
+    <value>上次确认时间（UTC）</value>
+  </data>
   <data name="Log investigation and handling progress" xml:space="preserve">
     <value>记录调查与处理进展</value>
   </data>
@@ -155,6 +161,9 @@
   </data>
   <data name="No current on-call OCE." xml:space="preserve">
     <value>目前没有值班 OCE。</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>未确认</value>
   </data>
   <data name="Not set" xml:space="preserve">
     <value>未设置</value>
@@ -189,6 +198,9 @@
   <data name="Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..." xml:space="preserve">
     <value>实时记录调查线索、紧急缓解措施、影响范围评估或系统恢复进度……</value>
   </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>记录缓解措施，然后填写解决原因。重新打开后，此事件将恢复为未缓解状态，同时保留已确认状态和责任归属。</value>
+  </data>
   <data name="Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE." xml:space="preserve">
     <value>记录所采取的缓解措施，然后填写解决原因。重新打开此事件会将其状态恢复为“待响应”，清除受派人，并向当前值班的 OCE 发送邮件。</value>
   </data>
@@ -203,6 +215,9 @@
   </data>
   <data name="Reopening restores the &quot;Pending Response&quot; status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed." xml:space="preserve">
     <value>重新打开后，事件状态将恢复为“待响应”，负责人将被清除，并向当前值班的 OCE 发送电子邮件。必须重新确认并认领该事件。</value>
+  </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved, and no notification is sent." xml:space="preserve">
+    <value>重新打开会使此事件恢复到未缓解状态。此前的确认和负责人信息会予以保留，且不会发送通知。</value>
   </data>
   <data name="Report ID" xml:space="preserve">
     <value>报告 ID</value>
@@ -266,6 +281,9 @@
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>未分配</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>未缓解</value>
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>用户已删除</value>

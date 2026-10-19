@@ -70,7 +70,7 @@ public class FilterModelTests
     [TestMethod]
     [DataRow(null, "all")]
     [DataRow("new", "new")]
-    [DataRow("acked", "acked")]
+    [DataRow("acked", "all")]
     [DataRow("mitigated", "mitigated")]
     [DataRow("resolved", "resolved")]
     [DataRow("all", "all")]
@@ -81,6 +81,7 @@ public class FilterModelTests
         filter.Normalize();
 
         Assert.AreEqual(expected, filter.Status);
+        Assert.AreEqual(status == "acked" ? true : null, filter.Acknowledged);
     }
 
     [TestMethod]

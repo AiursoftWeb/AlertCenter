@@ -21,7 +21,8 @@ public partial class IncidentWorkflowTests
         _db.Users.Add(new User { Id = "engineer", UserName = "engineer", DisplayName = "Engineer", Email = "engineer@example.com" });
         var incident = new Incident
         {
-            ApplicationId = application.Id, Title = "Outage", Level = "sev2", Status = status,
+            ApplicationId = application.Id, Title = "Outage", Level = "sev2", Status = status == Incident.Acked ? Incident.New : status,
+            AcknowledgedAtUtc = status == Incident.New ? null : DateTime.UtcNow.AddMinutes(-5),
             OwnerId = status == Incident.New ? null : "engineer", OwnerDisplayName = status == Incident.New ? null : "Engineer"
         };
         _db.Incidents.Add(incident);
@@ -31,28 +32,28 @@ public partial class IncidentWorkflowTests
 
     [TestMethod]
     [DataRow(Incident.New, IncidentTimelineEntry.Acked, true)]
-    [DataRow(Incident.New, IncidentTimelineEntry.OwnershipChanged, false)]
+    [DataRow(Incident.New, IncidentTimelineEntry.OwnershipChanged, true)]
     [DataRow(Incident.New, IncidentTimelineEntry.Mitigated, false)]
     [DataRow(Incident.New, IncidentTimelineEntry.Resolved, false)]
     [DataRow(Incident.New, IncidentTimelineEntry.Reopened, false)]
     [DataRow(Incident.New, IncidentTimelineEntry.LevelChanged, true)]
     [DataRow(Incident.New, IncidentTimelineEntry.Updated, true)]
-    [DataRow(Incident.Acked, IncidentTimelineEntry.Acked, false)]
+    [DataRow(Incident.Acked, IncidentTimelineEntry.Acked, true)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.OwnershipChanged, true)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.Mitigated, true)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.Resolved, false)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.Reopened, false)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.LevelChanged, true)]
     [DataRow(Incident.Acked, IncidentTimelineEntry.Updated, true)]
-    [DataRow(Incident.Mitigated, IncidentTimelineEntry.Acked, false)]
-    [DataRow(Incident.Mitigated, IncidentTimelineEntry.OwnershipChanged, false)]
+    [DataRow(Incident.Mitigated, IncidentTimelineEntry.Acked, true)]
+    [DataRow(Incident.Mitigated, IncidentTimelineEntry.OwnershipChanged, true)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.Mitigated, false)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.Resolved, true)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.Reopened, true)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.LevelChanged, true)]
     [DataRow(Incident.Mitigated, IncidentTimelineEntry.Updated, true)]
-    [DataRow(Incident.Resolved, IncidentTimelineEntry.Acked, false)]
-    [DataRow(Incident.Resolved, IncidentTimelineEntry.OwnershipChanged, false)]
+    [DataRow(Incident.Resolved, IncidentTimelineEntry.Acked, true)]
+    [DataRow(Incident.Resolved, IncidentTimelineEntry.OwnershipChanged, true)]
     [DataRow(Incident.Resolved, IncidentTimelineEntry.Mitigated, false)]
     [DataRow(Incident.Resolved, IncidentTimelineEntry.Resolved, false)]
     [DataRow(Incident.Resolved, IncidentTimelineEntry.Reopened, true)]
@@ -61,6 +62,8 @@ public partial class IncidentWorkflowTests
     public async Task EnforcesTransitionMatrixAndAuditsSuccessfulActions(string state, string action, bool allowed)
     {
         var incident = await StateIncident(state);
+        state = incident.Status;
+        var acknowledgedAt = incident.AcknowledgedAtUtc;
         var version = incident.Version;
         var oldOwner = incident.OwnerId;
         IncidentNoteRequest request = action == IncidentTimelineEntry.LevelChanged
@@ -94,14 +97,13 @@ public partial class IncidentWorkflowTests
         {
             Assert.AreEqual("admin", saved.OwnerId);
             Assert.AreEqual("Administrator", saved.OwnerDisplayName);
-            Assert.AreEqual(Incident.Acked, saved.Status);
+            Assert.AreEqual(state, saved.Status);
         }
         if (action == IncidentTimelineEntry.Reopened)
         {
             Assert.AreEqual(Incident.New, saved.Status);
-            Assert.IsNull(saved.OwnerId);
-            Assert.IsNull(saved.OwnerDisplayName);
-            Assert.IsNull(saved.AcknowledgedAtUtc);
+            Assert.AreEqual(oldOwner, saved.OwnerId);
+            Assert.AreEqual(acknowledgedAt, saved.AcknowledgedAtUtc);
             Assert.IsNull(saved.MitigatedAtUtc);
             Assert.IsNull(saved.ResolvedAtUtc);
         }
@@ -160,7 +162,7 @@ public partial class IncidentWorkflowTests
     }
 
     [TestMethod]
-    public async Task ExplicitlyAuthorizedOceCanAckAndOwnershipMovesOnlyOnExplicitTakeOwnership()
+    public async Task ExplicitlyAuthorizedOceCanRepeatedlyAckAndLatestAcknowledgementOwnsIncident()
     {
         var incident = await StateIncident();
         var group = new OnCallGroup { Name = "Current team" };
@@ -185,12 +187,20 @@ public partial class IncidentWorkflowTests
         Assert.AreEqual(200, (await service.ExecuteAsync(Actor("next"), new IncidentNoteRequest
         {
             IncidentId = incident.Id, Version = incident.Version
-        }, IncidentTimelineEntry.OwnershipChanged, default)).StatusCode);
+        }, IncidentTimelineEntry.Acked, default)).StatusCode);
         Assert.AreEqual("next", incident.OwnerId);
-        Assert.AreEqual(Incident.Acked, incident.Status);
-        var entry = await _db.IncidentTimelineEntries.SingleAsync(item => item.Type == IncidentTimelineEntry.OwnershipChanged);
+        Assert.AreEqual(Incident.New, incident.Status);
+        var entry = await _db.IncidentTimelineEntries.SingleAsync(item => item.Type == IncidentTimelineEntry.Acked && item.ActorId == "next");
         Assert.AreEqual("engineer", entry.PreviousOwnerId);
         Assert.AreEqual("next", entry.NewOwnerId);
+        var previousVersion = incident.Version;
+        Assert.AreEqual(200, (await service.ExecuteAsync(Actor("next"), new IncidentNoteRequest
+        {
+            IncidentId = incident.Id, Version = incident.Version
+        }, IncidentTimelineEntry.Acked, default)).StatusCode);
+        Assert.AreNotEqual(previousVersion, incident.Version);
+        Assert.IsTrue(incident.IsAcknowledged);
+        Assert.AreEqual(3, await _db.IncidentTimelineEntries.CountAsync(item => item.Type == IncidentTimelineEntry.Acked));
     }
 
     [TestMethod]
@@ -385,4 +395,73 @@ public partial class IncidentWorkflowTests
         }, IncidentTimelineEntry.Acked, default)).StatusCode);
         Assert.AreEqual(1, await _db.IncidentTimelineEntries.CountAsync(item => item.Type == IncidentTimelineEntry.LevelChanged));
     }
+    [TestMethod]
+    [DataRow(Incident.New, false)]
+    [DataRow(Incident.New, true)]
+    [DataRow(Incident.Mitigated, false)]
+    [DataRow(Incident.Mitigated, true)]
+    [DataRow(Incident.Resolved, false)]
+    [DataRow(Incident.Resolved, true)]
+    public async Task RepeatedAcknowledgementsKeepProgressAndAssignTheLastActor(string state, bool previouslyAcknowledged)
+    {
+        var incident = await StateIncident(state);
+        incident.AcknowledgedAtUtc = previouslyAcknowledged ? DateTime.UtcNow.AddHours(-1) : null;
+        incident.MitigatedAtUtc = state == Incident.New ? null : DateTime.UtcNow.AddMinutes(-30);
+        incident.ResolvedAtUtc = state == Incident.Resolved ? DateTime.UtcNow.AddMinutes(-20) : null;
+        _db.ApplicationUserAccesses.Add(new ApplicationUserAccess
+        {
+            ApplicationId = incident.ApplicationId, UserId = "engineer", CanViewIncidents = true, CanUpdateIncidents = true
+        });
+        await _db.SaveChangesAsync();
+        var mitigatedAt = incident.MitigatedAtUtc;
+        var resolvedAt = incident.ResolvedAtUtc;
+        var originalVersion = incident.Version;
+        foreach (var actor in new[] { "admin", "admin", "engineer" })
+        {
+            var previousVersion = incident.Version;
+            Assert.AreEqual(200, (await Workflow().ExecuteAsync(Actor(actor), new IncidentNoteRequest
+            {
+                IncidentId = incident.Id, Version = previousVersion, Note = "Reviewed"
+            }, IncidentTimelineEntry.Acked, default)).StatusCode);
+            Assert.AreEqual(actor, incident.OwnerId);
+            Assert.AreNotEqual(previousVersion, incident.Version);
+            Assert.IsTrue(incident.IsAcknowledged);
+            Assert.AreEqual(state, incident.Status);
+            Assert.AreEqual(mitigatedAt, incident.MitigatedAtUtc);
+            Assert.AreEqual(resolvedAt, incident.ResolvedAtUtc);
+        }
+        Assert.AreEqual("Engineer", incident.OwnerDisplayName);
+        var entries = await _db.IncidentTimelineEntries.ToListAsync();
+        Assert.AreEqual(3, entries.Count);
+        Assert.AreEqual(2, entries.Count(entry => entry.ActorIdSnapshot == "admin"));
+        Assert.IsTrue(entries.All(entry => entry.Type == IncidentTimelineEntry.Acked && entry.PreviousStatus == state && entry.NewStatus == state));
+        Assert.AreEqual(incident.AcknowledgedAtUtc, entries.Single(entry => entry.ActorIdSnapshot == "engineer").CreatedAtUtc);
+        Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
+        Assert.AreEqual(409, (await Workflow().ExecuteAsync(Actor("admin"), new IncidentNoteRequest
+        {
+            IncidentId = incident.Id, Version = originalVersion
+        }, IncidentTimelineEntry.Acked, default)).StatusCode);
+        Assert.AreEqual(3, await _db.IncidentTimelineEntries.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task AcknowledgementAuditFailureRollsBackOwnershipAndConfirmationTogether()
+    {
+        var incident = await StateIncident(Incident.Resolved);
+        var version = incident.Version;
+        var acknowledgedAt = incident.AcknowledgedAtUtc;
+        await _db.Database.ExecuteSqlRawAsync("CREATE TRIGGER RejectAcknowledgement BEFORE INSERT ON IncidentTimelineEntries BEGIN SELECT RAISE(ABORT, 'Audit failed'); END");
+        await Assert.ThrowsAsync<DbUpdateException>(() => Workflow().ExecuteAsync(Actor("admin"), new IncidentNoteRequest
+        {
+            IncidentId = incident.Id, Version = version
+        }, IncidentTimelineEntry.Acked, default));
+        _db.ChangeTracker.Clear();
+        var saved = await _db.Incidents.SingleAsync();
+        Assert.AreEqual(version, saved.Version);
+        Assert.AreEqual("engineer", saved.OwnerId);
+        Assert.AreEqual(acknowledgedAt, saved.AcknowledgedAtUtc);
+        Assert.AreEqual(Incident.Resolved, saved.Status);
+        Assert.AreEqual(0, await _db.IncidentTimelineEntries.CountAsync());
+    }
+
 }
