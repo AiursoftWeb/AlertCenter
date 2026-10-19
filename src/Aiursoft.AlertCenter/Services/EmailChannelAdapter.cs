@@ -109,8 +109,8 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
 
     public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
     {
-        if (delivery.IncidentEvent is { Type: not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.Reopened) })
-            return new(false, ErrorMessage: localizer["Email notifications are only sent when an incident is created, mitigated, resolved or reopened."].Value);
+        if (delivery.IncidentEvent is { Type: not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.Reopened), IsEscalation: false })
+            return new(false, ErrorMessage: localizer["Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened."].Value);
         List<string> recipients;
         List<string> ccRecipients;
         if (delivery.OnCallEmail is { } snapshot)
@@ -163,6 +163,8 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         var incidentEvent = delivery.IncidentEvent;
         var title = incidentEvent?.Type switch
         {
+            IncidentTimelineEntry.LevelChanged => string.Format(localizer["Incident escalated ({0} → {1}): {2}"].Value,
+                incidentEvent.PreviousLevel!.ToUpperInvariant(), incidentEvent.NewLevel!.ToUpperInvariant(), incidentEvent.Incident.Title),
             IncidentTimelineEntry.Mitigated => string.Format(localizer["Incident mitigated: {0}"].Value, incidentEvent.Incident.Title),
             IncidentTimelineEntry.Reopened => string.Format(localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title),
             IncidentTimelineEntry.Resolved => string.Format(localizer["Incident resolved: {0}"].Value, incidentEvent.Incident.Title),
@@ -188,6 +190,9 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         if (incidentEvent != null)
             body.AppendLine(string.Format(localizer["Incident ID: {0}"].Value, incidentEvent.IncidentId)).AppendLine(string.Format(localizer["Action time (UTC): {0:O}"].Value, incidentEvent.CreatedAtUtc))
                 .AppendLine(string.Format(localizer["Reason: {0}"].Value, incidentEvent.Note ?? localizer["None"].Value));
+        if (incidentEvent is { IsEscalation: true })
+            body.AppendLine(string.Format(localizer["Severity increased: {0} → {1}"].Value,
+                incidentEvent.PreviousLevel!.ToUpperInvariant(), incidentEvent.NewLevel!.ToUpperInvariant()));
         if (message?.Content is not null) body.AppendLine().AppendLine(localizer["Content: "].Value).AppendLine(message.Content);
         var context = IncidentContextPresentation.ScalarFields((message ?? incidentEvent?.Incident)?.ContextJson);
         if (context.Count > 0)
@@ -208,6 +213,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
 
     private static string Introduction(PushDelivery delivery, IStringLocalizer localizer) => delivery.IncidentEvent?.Type switch
     {
+        IncidentTimelineEntry.LevelChanged => localizer["The incident severity has increased and requires attention."].Value,
         IncidentTimelineEntry.Mitigated => localizer["The incident has been mitigated."].Value,
         IncidentTimelineEntry.Resolved => localizer["The incident has been resolved."].Value,
         IncidentTimelineEntry.Reopened => localizer["The incident has been reopened and requires attention."].Value,
@@ -231,6 +237,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         var linkColor = delivery.IncidentEvent?.Type == IncidentTimelineEntry.Mitigated ? "#854d0e" : color;
         var status = delivery.IncidentEvent?.Type switch
         {
+            IncidentTimelineEntry.LevelChanged => localizer["Escalated"].Value,
             IncidentTimelineEntry.Mitigated => localizer["Mitigated"].Value,
             IncidentTimelineEntry.Resolved => localizer["Resolved"].Value,
             IncidentTimelineEntry.Reopened => localizer["Reopened"].Value,
@@ -241,7 +248,12 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         if (!string.IsNullOrWhiteSpace(incident?.Content))
             sections.Append(Section(localizer["Incident details"].Value, incident.Content));
         if (delivery.IncidentEvent is { } entry)
+        {
+            if (entry.IsEscalation)
+                sections.Append(Section(localizer["Severity escalation"].Value,
+                    $"{entry.PreviousLevel!.ToUpperInvariant()} → {entry.NewLevel!.ToUpperInvariant()}"));
             sections.Append(Section(localizer["Reason"].Value, entry.Note ?? localizer["None"].Value));
+        }
         if (delivery.OnCallEmail is { } snapshot)
         {
             var engineers = string.Join(", ", snapshot.Recipients.Select(person => person.DisplayName));
