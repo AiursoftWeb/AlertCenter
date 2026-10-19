@@ -164,6 +164,7 @@ public partial class IncidentPagesTests
     [DataRow("missing")]
     [DataRow("property-null")]
     [DataRow("oversized")]
+    [DataRow("undefined")]
     public async Task MetadataPatchRejectsInvalidBodiesWithoutWriting(string input)
     {
         var original = await CreateApplication();
@@ -174,6 +175,7 @@ public partial class IncidentPagesTests
         var version = (await client.GetIncidentAsync(receipt.IncidentId)).Incident.Version;
         var body = input switch
         {
+            "undefined" => new JObject { ["Version"] = version, ["Property"] = "ci", ["Value"] = JValue.CreateUndefined() }.ToString(),
             "missing" => new JObject { ["Version"] = version, ["Property"] = "ci" }.ToString(),
             "property-null" => new JObject { ["Version"] = version, ["Property"] = null, ["Value"] = 1 }.ToString(),
             "oversized" => new JObject { ["Version"] = version, ["Property"] = "ci", ["Value"] = new string('x', 17000) }.ToString(),
