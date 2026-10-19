@@ -8,6 +8,63 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
 public partial class IncidentPagesTests
 {
+    [TestMethod]
+    [DataRow(2)]
+    [DataRow(0)]
+    public async Task DashboardRequiresActionOnlyForVisibleUnmitigatedIncidents(int activeCount)
+    {
+        await LoginAsAdmin();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var owner = db.Users.Single(user => user.Email == "admin@default.com");
+            var application = new SourceApplication { Name = "Visible incidents", OwnerId = owner.Id };
+            for (var index = 0; index < activeCount; index++)
+                db.Incidents.Add(new Incident
+                {
+                    Application = application, Title = "Needs action " + index,
+                    AcknowledgedAtUtc = index == 0 ? DateTime.UtcNow : null
+                });
+            for (var index = 0; index < 4; index++)
+                db.Incidents.Add(new Incident
+                {
+                    Application = application, Title = "Already mitigated " + index,
+                    Status = Incident.Mitigated
+                });
+            db.Incidents.Add(new Incident { Application = application, Title = "Already resolved", Status = Incident.Resolved });
+            db.Incidents.Add(new Incident { Application = new SourceApplication { Name = "Private application" }, Title = "Hidden incident" });
+            await db.SaveChangesAsync();
+        }
+
+        var html = WebUtility.HtmlDecode(await Http.GetStringAsync("/Dashboard"));
+        var count = Regex.Match(html, "Ongoing Incident.*?<h2[^>]*>([0-9]+)</h2>", RegexOptions.Singleline);
+        Assert.IsTrue(count.Success);
+        Assert.AreEqual(activeCount.ToString(), count.Groups[1].Value);
+        Assert.Contains("href=\"/Incidents?status=new\"", html);
+        Assert.DoesNotContain("Hidden incident", html);
+        var urgent = Regex.Match(html, "Ongoing Incident Requires Response(.*?)<!-- Recent Incidents Stream -->", RegexOptions.Singleline);
+        Assert.AreEqual(activeCount > 0, urgent.Success);
+        if (activeCount > 0)
+        {
+            Assert.Contains("Requires Immediate Action", html);
+            Assert.Contains("Needs action 0", urgent.Value);
+            Assert.Contains("Needs action 1", urgent.Value);
+            Assert.DoesNotContain("Already mitigated", urgent.Value);
+            Assert.DoesNotContain("Already resolved", urgent.Value);
+        }
+        else
+        {
+            Assert.DoesNotContain("Requires Immediate Action", html);
+            Assert.Contains("No incidents requiring immediate action", html);
+        }
+        var allIncidents = await Http.GetStringAsync("/Incidents");
+        Assert.Contains("Already mitigated", allIncidents);
+        Assert.Contains("Already resolved", allIncidents);
+        var filtered = await Http.GetStringAsync("/Incidents?status=new");
+        Assert.DoesNotContain("Already mitigated", filtered);
+        Assert.DoesNotContain("Already resolved", filtered);
+    }
+
     private async Task<Incident[]> SeedIncidentFilters()
     {
         await LoginAsAdmin();

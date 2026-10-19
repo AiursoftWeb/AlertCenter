@@ -48,7 +48,7 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
         model.Sev4Count = await messagesQuery.CountAsync(m => m.Level == "sev4", cancellationToken);
 
         model.ActiveIncidents = await messagesQuery
-            .CountAsync(i => i.Status != Incident.Resolved, cancellationToken);
+            .CountAsync(i => i.Status == Incident.New, cancellationToken);
 
         var deliveriesQuery = db.PushDeliveries.AsNoTracking()
             .Where(d => d.Incident != null && accessibleIds.Contains(d.Incident.ApplicationId));
@@ -71,7 +71,7 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
             .ToListAsync(cancellationToken);
 
         model.RecentIncidents = await messagesQuery
-            .Where(i => i.Status != Incident.Resolved)
+            .Where(i => i.Status == Incident.New)
             .Include(i => i.Application)
             .OrderByDescending(i => i.ReceivedAtUtc)
             .Take(4)
