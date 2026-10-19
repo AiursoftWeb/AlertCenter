@@ -12,6 +12,7 @@ public class ApplicationApiKey
     public bool IsEnabled { get; set; } = true;
     public bool CanQueryIncidents { get; set; }
     public bool CanCreateIncidents { get; set; }
+    public bool CanMitigateIncidents { get; set; }
     public bool CanResolveIncidents { get; set; }
     public bool CanChangeIncidentSeverity { get; set; }
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;

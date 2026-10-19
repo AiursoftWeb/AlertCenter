@@ -121,6 +121,34 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         Context = incident.ContextJson == null ? null : JObject.Parse(incident.ContextJson)
     };
 
+    [HttpPost("{incidentId:guid}/mitigate")]
+    [RequestSizeLimit(65536)]
+    public async Task<IActionResult> Mitigate(Guid incidentId, [FromBody] MitigateIncidentRequest request,
+        CancellationToken cancellationToken)
+    {
+        var key = await AuthenticateKeyAsync(cancellationToken);
+        if (key == null)
+            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
+        if (!key.CanMitigateIncidents)
+            return this.Protocol(Code.Unauthorized, "The API key does not permit this operation.");
+        var applicationId = key.ApplicationId;
+
+        var result = await IncidentWorkflowService.MitigateForApplicationAsync(
+            db, applicationId, incidentId, request.Version, request.Reason, cancellationToken);
+        if (result.StatusCode == 404) return this.Protocol(Code.NotFound, "The incident was not found.");
+        if (result.StatusCode == 409)
+            return this.Protocol(Code.Conflict, "The incident changed or is resolved. Query it again before deciding whether to mitigate it.");
+        var incident = result.Incident!;
+        return this.Protocol(new MitigateIncidentResponse
+        {
+            Code = result.StatusCode == 202 ? Code.NoActionTaken : Code.JobDone,
+            Message = result.StatusCode == 202 ? "The incident is already mitigated." : "The incident was mitigated by its application.",
+            IncidentId = incident.Id, Version = incident.Version,
+            MitigatedAtUtc = incident.MitigatedAtUtc.HasValue
+                ? new DateTimeOffset(DateTime.SpecifyKind(incident.MitigatedAtUtc.Value, DateTimeKind.Utc)) : null
+        });
+    }
+
     [HttpPost("{incidentId:guid}/resolve")]
     [RequestSizeLimit(65536)]
     public async Task<IActionResult> Resolve(Guid incidentId, [FromBody] ResolveIncidentRequest request,

@@ -41,8 +41,9 @@
                             @if (key.CanQueryIncidents) { <span class="badge bg-secondary">@Localizer["Query"]</span> }
                             @if (key.CanCreateIncidents) { <span class="badge bg-secondary">@Localizer["Create"]</span> }
                             @if (key.CanChangeIncidentSeverity) { <span class="badge bg-secondary">@Localizer["Change severity"]</span> }
+                            @if (key.CanMitigateIncidents) { <span class="badge bg-secondary">@Localizer["Mitigate"]</span> }
                             @if (key.CanResolveIncidents) { <span class="badge bg-secondary">@Localizer["Resolve"]</span> }
-                            @if (!key.CanQueryIncidents && !key.CanCreateIncidents && !key.CanResolveIncidents && !key.CanChangeIncidentSeverity) { <span class="text-muted">@Localizer["None"]</span> }
+                            @if (!key.CanQueryIncidents && !key.CanCreateIncidents && !key.CanMitigateIncidents && !key.CanResolveIncidents && !key.CanChangeIncidentSeverity) { <span class="text-muted">@Localizer["None"]</span> }
                         </td>
                         <td>@(key.IsEnabled ? Localizer["Enabled"] : Localizer["Disabled"])</td>
                         <td>@key.TotalCalls.ToString("N0")</td>

@@ -25,6 +25,15 @@ public sealed class AlertCenterApiClient(
             autoRetry: false, headers: await AuthorizationHeadersAsync());
     }
 
+    public async Task<MitigateIncidentResponse> MitigateIncidentAsync(Guid incidentId, MitigateIncidentRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        return await http.Post<MitigateIncidentResponse>(
+            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), $"/api/v1/incidents/{incidentId}/mitigate", new { }),
+            new AiurApiPayload(request), BodyFormat.HttpJsonBody,
+            autoRetry: false, headers: await AuthorizationHeadersAsync());
+    }
+
     public async Task<ResolveIncidentResponse> ResolveIncidentAsync(Guid incidentId, ResolveIncidentRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);

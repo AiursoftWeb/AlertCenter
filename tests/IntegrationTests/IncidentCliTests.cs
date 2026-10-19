@@ -11,6 +11,7 @@ public partial class IncidentPagesTests
         .WithFeature(new ListHandler())
         .WithFeature(new GetHandler())
         .WithFeature(new CreateHandler())
+        .WithFeature(new MitigateHandler())
         .WithFeature(new ResolveHandler())
         .WithFeature(new SeverityHandler());
 
@@ -22,6 +23,41 @@ public partial class IncidentPagesTests
         Assert.AreEqual(0, result.ProgramReturn, result.StdErr);
         Assert.AreEqual(string.Empty, result.StdErr);
         return JObject.Parse(result.StdOut);
+    }
+
+    [TestMethod]
+    public async Task CliMitigatesWithoutResolvingAndRequiresExplicitScopeAndVersion()
+    {
+        var full = await CreateApplication();
+        var key = await CreateApplicationKey(Guid.Parse(full.Split('.')[0]), mitigate: true);
+        var report = CliJson(await RunIncidentCli(key, "create", "--report-id", Guid.NewGuid().ToString(), "--title", "Build failed",
+            "--level", "sev3", "--occurred-at", "2026-10-19T00:00:00Z", "--json"));
+        var id = report.Value<string>("incidentId")!;
+        var incident = CliJson(await RunIncidentCli(key, "get", "--id", id, "--json"))["incident"]!;
+        var version = incident.Value<string>("version")!;
+        var denied = await RunIncidentCli(full, "mitigate", "--id", id, "--version", version, "--reason", "Recovered");
+        Assert.AreNotEqual(0, denied.ProgramReturn);
+        Assert.Contains("Unauthorized", denied.StdErr);
+        var missingKey = await IncidentCli().TestRunAsync(["mitigate", "--server", Http.BaseAddress!.ToString(), "--id", id, "--version", version, "--reason", "Recovered"]);
+        Assert.AreNotEqual(0, missingKey.ProgramReturn);
+        Assert.Contains("--api-key", missingKey.StdErr);
+        var missingVersion = await RunIncidentCli(key, "mitigate", "--id", id, "--reason", "Recovered");
+        Assert.AreNotEqual(0, missingVersion.ProgramReturn);
+        Assert.Contains("--version", missingVersion.StdErr);
+        var stale = await RunIncidentCli(key, "mitigate", "--id", id, "--version", Guid.NewGuid().ToString(), "--reason", "Stale result");
+        Assert.AreNotEqual(0, stale.ProgramReturn);
+        Assert.Contains("Conflict", stale.StdErr);
+        var result = CliJson(await RunIncidentCli(key, "mitigate", "--id", id, "--version", version, "--reason", "Build recovered", "--json"));
+        Assert.AreEqual(2, result.Value<int>("code"));
+        Assert.IsNotNull(result.Value<string>("mitigatedAtUtc"));
+        var repeated = await RunIncidentCli(key, "mitigate", "--id", id, "--version", version, "--reason", "Build recovered");
+        Assert.AreEqual(0, repeated.ProgramReturn, repeated.StdErr);
+        Assert.Contains("already mitigated", repeated.StdOut);
+        Assert.Contains("Mitigated:", repeated.StdOut);
+        var after = CliJson(await RunIncidentCli(key, "get", "--id", id, "--json"))["incident"]!;
+        Assert.AreEqual("mitigated", after.Value<string>("status"));
+        Assert.AreEqual(1, CliJson(await RunIncidentCli(key, "list", "--active-only", "--json")).Value<int>("totalCount"));
+        Assert.DoesNotContain(key, repeated.StdOut + repeated.StdErr);
     }
 
     [TestMethod]
