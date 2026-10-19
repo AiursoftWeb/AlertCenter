@@ -159,9 +159,41 @@ acknowledgement, ownership or Context. Changes update the incident Version and a
 an application-attributed activity entry without notifications. A stale Version
 always conflicts, even for the same value; an unchanged value with the current
 Version returns NoActionTaken. Query again and recompute after conflicts or uncertain
-responses; neither the SDK nor CLI automatically retries writes.
+responses; the low-level SDK and CLI commands do not automatically retry writes. The higher-level `ci report` command re-reads persisted state when retrying.
 
-Use `alertcenter <command> --help` for options. CLI and SDK version: `10.5.0`.
+### GitLab pipeline reporting
+
+Report the final pipeline result with the application key on every invocation:
+
+```bash
+alertcenter ci report --result failed --server "$ALERTCENTER_SERVER" --api-key "$ALERTCENTER_API_KEY"
+alertcenter ci report --result success --server "$ALERTCENTER_SERVER" --api-key "$ALERTCENTER_API_KEY"
+```
+
+The command reads `CI_SERVER_URL`, `CI_PROJECT_ID`, `CI_PROJECT_PATH`,
+`CI_COMMIT_BRANCH`, `CI_PIPELINE_ID`, `CI_PIPELINE_URL`, `CI_COMMIT_SHA` and
+`CI_PIPELINE_CREATED_AT` from GitLab. Missing or invalid inputs fail before reporting.
+The key needs query, create, metadata patch, severity and mitigate permissions.
+Each server/project/branch has its own incident metadata stream. The first failure
+creates Sev3; the third consecutive reported failure escalates to Sev2. Success
+mitigates an existing incident and resets the count, or does nothing when no incident
+exists. The next failure after recovery starts a new incident at Sev3. Manual Sev0/Sev1
+escalations are preserved.
+
+Use separate `on_failure` and `on_success` jobs on the main branch, sharing a
+`resource_group` per branch. Duplicate reports do not increment the count; success
+supersedes failure for the same pipeline, and older results are ignored after a newer
+result has been recorded. No incident is created to remember an initial success, so
+an older failure arriving before any incident exists can still create one. Only
+received reports count; GitLab history is not queried.
+
+The command preserves the existing `source` and `ci` metadata format, resumes pending
+actions and re-reads after version conflicts or transport failures, with at most 32
+attempts (at most 5 transport failures). Applied, duplicate, stale and unnecessary reports exit 0; invalid input,
+authorization failures and exhausted retries exit nonzero. `--json` returns the usual
+AiurProtocol response. API keys are never saved.
+
+Use `alertcenter <command> --help` for options. CLI version: `10.8.0`.
 
 ### .NET SDK
 
