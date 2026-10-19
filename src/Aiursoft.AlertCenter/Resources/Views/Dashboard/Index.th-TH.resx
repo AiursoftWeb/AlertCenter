@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>การจัดส่ง</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>การแจ้งเตือนที่ยังไม่ได้อ่านบนเว็บไซต์</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>การสนับสนุนแบบ &quot;Fire-and-forget&quot; สำหรับงานที่ใช้เวลานาน (เช่น อีเมลหรือปัญญาประดิษฐ์) พร้อมด้วยอินเทอร์เฟซกราฟิกสำหรับการจัดการคิว การประมวลผลแบบขนาน และการยกเลิก</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
@@ -36,17 +42,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>พื้นฐานที่ทันสมัย อุดมไปด้วยคุณสมบัติ และสามารถขยายได้สูงสำหรับเว็บแอปพลิเคชันถัดไปของคุณ</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>รับทราบแล้ว</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>การแปลด้วยพลังปัญญาประดิษฐ์</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>ศูนย์แจ้งเตือนและปฏิบัติการ AlertCenter · สถานะทั่วโลกและการติดตามผลแบบครบวงจร</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>ทั้งหมด</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>การอ้างอิงทั้งหมดจะถูกลงทะเบียนโดยอัตโนมัติและพร้อมใช้งานเสมอผ่านการฉีดคอนสตรัคเตอร์</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>บันทึกทั้งหมด</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>แอปพลิเคชัน</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>โหมดมืดอัตโนมัติ</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>การฉีดกำหนดการอัตโนมัติ</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>การส่งข้อความอัตโนมัติและการแก้ไขปัญหา</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>การจัดการเขตเวลาอัตโนมัติ</value>
@@ -57,8 +81,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>การแปลอัตโนมัติแบบขับเคลื่อนด้วยปัญญาประดิษฐ์ สำหรับ 28 ภาษา</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>ช่องทางที่ใช้ได้ ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>การประมวลผลงานหลังบ้าน</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>ส่งอีเมลแจ้งเตือนเป็นชุดไปยังกลุ่มผู้ปฏิบัติงานเวรและอีเมลสำคัญ</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>การจัดการผู้ใช้ในตัว</value>
@@ -72,11 +102,41 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>เอกสารประกอบที่ครอบคลุม</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>ตั้งค่าช่องทางการแจ้งเตือน</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>การตรวจสอบความสอดคล้อง</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>คัดลอก</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>สร้างแอปพลิเคชันและรับคีย์</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>สร้างเหตุการณ์แรกผ่าน API หรือ SDK และจะแสดงที่นี่</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>วิกฤต</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>วิกฤต ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>การรับรองสิทธิ์ด้วยคีย์ API เฉพาะ</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>บันทึกการจัดส่ง</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>เอกสารการผสานรวมโดยละเอียด</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>พัฒนาเฉพาะในเวลา UTC โดยระบบจะแปลงและแสดงวันที่โดยอัตโนมัติเป็นเขตเวลาท้องถิ่นของผู้ใช้</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>ประสานงานกับผู้รับผิดชอบและกลุ่มผู้ใช้โดยตรง เพื่อร่วมกันจัดการ</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>พร้อมใช้งานด้วย Docker</value>
@@ -96,6 +156,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>เขียนการทดสอบการผสานรวมได้อย่างง่ายดาย โดยใช้ฐานข้อมูลในหน่วยความจำ ระบบไฟล์ชั่วคราว การจำลองแบบที่มีอยู่ในตัว และการจำลองการร้องขอ HTTP แบบจริงในโลกแห่งความเป็นจริง</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>ข้อผิดพลาด</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>ข้อผิดพลาด</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>มีระบบจัดการไฟล์ภายในพร้อมการบีบอัดภาพประจำตัวอัตโนมัติและป้องกันความเป็นส่วนตัว</value>
   </data>
@@ -108,14 +174,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>สวัสดีชาวโลก!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>กล่องข้อความแจ้งเตือนในแอป</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>การตอบสนองต่อเหตุการณ์</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>ชื่อเหตุการณ์</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>การแจ้งเหตุและการร่วมกันแก้ไขปัญหา</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>ประกอบด้วยเอกสารประกอบที่ครอบคลุมและตัวอย่างเชิงปฏิบัติเพื่อช่วยให้คุณเริ่มต้นได้อย่างรวดเร็ว</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>ข้อมูล</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>การจัดการไฟล์แบบบูรณาการ</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>คู่มือการเชื่อมต่อ</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>ออกข้อมูลรับรองเฉพาะสำหรับแอปใน “แอปที่ผสานรวม”</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>เหตุการณ์ล่าสุด</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>เหตุขัดข้องที่เชื่อมโยง</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>ช่องทางพุชที่เชื่อมโยง</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>เวลาท้องถิ่น</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>ร้ายแรง</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>ร้ายแรง ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>จัดการแอปพลิเคชัน</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>บรรเทาแล้ว</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>โมเดลจะได้รับการตรวจสอบความถูกต้องทั้งในด้านไคลเอนต์และเซิร์ฟเวอร์ตามการตั้งค่าข้อมูล</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>แดชบอร์ดการตรวจสอบ</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>การรองรับผู้ให้บริการฐานข้อมูลหลายตัว</value>
@@ -123,8 +237,38 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>รองรับหลายฐานข้อมูล</value>
   </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>ยังไม่มีเหตุการณ์</value>
+  </data>
+  <data name="No unresolved incidents currently" xml:space="preserve">
+    <value>ไม่มีเหตุการณ์ที่ไม่ได้รับการแก้ไขในปัจจุบัน</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>ยังไม่ได้รับทราบ</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>ศูนย์ส่งการแจ้งเตือน</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>เหตุการณ์ที่กำลังดำเนินการ</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>เหตุการณ์ที่ยังดำเนินอยู่ต้องได้รับการแก้ไข</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>การผสานรวม OpenID Connect</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>วงจรปิดการตอบสนองด้านปฏิบัติการ</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>อัตราความสำเร็จในการส่ง Push</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>ตัวอย่างรายงานด่วน</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>เริ่มต้นการผสานการทำงานอย่างรวดเร็ว</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>การอนุญาตตามบทบาท RBAC</value>
@@ -132,17 +276,38 @@
   <data name="Read the document" xml:space="preserve">
     <value>อ่านเอกสาร</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>เหตุการณ์ที่สร้างล่าสุด</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>รายละเอียดรายงาน ประวัติการจัดการ และสถานะการแก้ไข</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>ต้องดำเนินการทันที</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>ได้รับการแก้ไข</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>การออกแบบที่ตอบสนอง</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>การทดสอบการผสานรวมที่มั่นคง</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>กำหนดเส้นทางตามระดับ Sev0-Sev4 ในการตั้งค่าการแจ้งเตือนของแอป</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>การจัดการงานที่กำหนดเวลา</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>ผสานรวมได้อย่างราบรื่นกับผู้ให้บริการ OpenID Connect ใดก็ได้ พร้อมการซิงโครไนซ์บทบาทอัตโนมัติ</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>ระดับความรุนแรง</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>ระดับความรุนแรง:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>การแทนที่การตั้งค่าอัจฉริยะ</value>
@@ -153,17 +318,56 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>โหมดมืดอัจฉริยะที่ปรับเปลี่ยนให้เข้ากับการตั้งค่าระบบของผู้ใช้โดยอัตโนมัติ</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>ช่องทางอีเมล SMTP</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>แหล่งที่มา</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>แอปพลิเคชันต้นทาง</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>เริ่มต้นโปรเจกต์ใหม่</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>รองรับ .NET SDK / Go / Webhook</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>รองรับตัวแปรสภาพแวดล้อมและตั้งค่าที่เก็บไว้ในฐานข้อมูลทั้งสองแบบ โดยให้ลำดับความสำคัญอัตโนมัติแก่ตัวแปรสภาพแวดล้อมเพื่อให้สามารถแทนที่ได้อย่างราบรื่น</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>รองรับการกำหนด Request Headers และเทมเพลต JSON ตามความต้องการ</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>ศูนย์ส่งการแจ้งเตือนแบบไม่ซิงโครนัส รองรับการทำบันทึกติดตามและพยายามใหม่</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>แถบนำทางจะปรับเปลี่ยนโดยอัตโนมัติตามบทบาทและสิทธิ์ของผู้ใช้</value>
   </data>
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>นี่คือโปรเจกต์เทมเพลต ซึ่งเป็นจุดเริ่มต้นของการเดินทางของเรา...</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>เวลา</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>จำนวนเหตุการณ์ทั้งหมด</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>ยังไม่ได้แก้ไข</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>ใช้การยืนยันตัวตนแบบ Bearer เพื่อรายงานเหตุการณ์ทดสอบ:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>ดูเหตุการณ์ทั้งหมด</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>คำเตือน</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>การจัดตารางเวลาการทำงานของ Webhook อัตโนมัติ</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>ยินดีต้อนรับ</value>

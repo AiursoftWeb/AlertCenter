@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
+    <value>7-Tage-Bereitschaftsplan</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>Automatisch zuweisen</value>
+  </data>
+  <data name="Back to Schedule List" xml:space="preserve">
+    <value>Zurück zur Dienstplanübersicht</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Verteilen Sie Frühschicht, Mittagschicht und Spätschicht so gleichmäßig wie möglich</value>
+  </data>
+  <data name="Choose a week, generate a preview or assign members manually, then save the schedule. Unsaved previews do not change who receives notifications. Saved shifts determine the on-call engineers (OCEs)." xml:space="preserve">
+    <value>Wählen Sie eine Woche aus, erstellen Sie eine Vorschau oder weisen Sie Mitglieder manuell zu und speichern Sie anschließend den Dienstplan. Nicht gespeicherte Vorschauen ändern nicht, wer Benachrichtigungen erhält. Die gespeicherten Schichten bestimmen, welche Ingenieure Bereitschaftsdienst haben (OCEs).</value>
+  </data>
+  <data name="Close, prioritize fixed time slots" xml:space="preserve">
+    <value>Geschlossen, priorisierte feste Zeitfenster</value>
+  </data>
+  <data name="Cross-on-call-group members require manual scheduling" xml:space="preserve">
+    <value>Mitglieder von On-Call-Gruppen über Gruppen hinweg erfordern manuelle Planung</value>
+  </data>
+  <data name="Current On-Call" xml:space="preserve">
+    <value>Aktueller Bereitschaftsdienst</value>
+  </data>
+  <data name="Current Week" xml:space="preserve">
+    <value>Aktuelle Woche</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>Team bearbeiten</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Mitarbeiter gelöscht</value>
+  </data>
+  <data name="First class at " xml:space="preserve">
+    <value>Erste Schicht um</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>Stunden</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>Stunden · Anker</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>Stunden · Mindestschicht</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>Stunden · Wochenminimum</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>Stunden.</value>
+  </data>
+  <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
+    <value>Warnung bei unzureichendem Personal (manuelles Speichern erlaubt, mit Ausnahme leerer Schichten)</value>
+  </data>
+  <data name="Minimum template cooldown " xml:space="preserve">
+    <value>Minimale Vorlagenabkühlzeit</value>
+  </data>
+  <data name="Modifying templates, re-binding templates, or adding/removing members will not regenerate saved shifts. After removing a member, upcoming assignments are cleared; empty shifts must be filled manually." xml:space="preserve">
+    <value>Änderungen an Vorlagen, das Neu-Zuordnen von Vorlagen oder das Hinzufügen/Entfernen von Mitgliedern führen nicht zur Neuverwendung gespeicherter Schichten. Nach der Entfernung eines Mitglieds werden kommende Zuweisungen gelöscht; leere Schichten müssen manuell besetzt werden.</value>
+  </data>
+  <data name="Next Week" xml:space="preserve">
+    <value>Nächste Woche</value>
+  </data>
+  <data name="No rule template bound, manual scheduling available; new shifts default to min rest " xml:space="preserve">
+    <value>Keine Regelvorlage zugeordnet, manuelle Planung möglich; neue Schichten haben standardmäßig die Mindestruhezeit</value>
+  </data>
+  <data name="No shifts are currently assigned this week. You can add personnel manually." xml:space="preserve">
+    <value>Derzeit sind für diese Woche keine Schichten zugewiesen. Sie können Personal manuell hinzufügen.</value>
+  </data>
+  <data name="No team members. Please edit the team to add members before manually filling empty shifts." xml:space="preserve">
+    <value>Keine Teammitglieder. Bitte bearbeiten Sie das Team, um Mitglieder hinzuzufügen, bevor Sie leere Schichten manuell belegen.</value>
+  </data>
+  <data name="No valid scheduling weeks. Please check the team&apos;s scheduling start point." xml:space="preserve">
+    <value>Keine gültigen Planungswochen. Bitte überprüfen Sie den Planungsbeginn des Teams.</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>Bereitschaftsplan</value>
+  </data>
+  <data name="Other teams: " xml:space="preserve">
+    <value>Andere Teams:</value>
+  </data>
+  <data name="Override duration" xml:space="preserve">
+    <value>Override-Dauer</value>
+  </data>
+  <data name="Participating employees" xml:space="preserve">
+    <value>Beteiligte Mitarbeitende</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>Personen · Kürzeste Ruhezeit diese Woche</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>Personen · Zeitfensterrotation:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>Personen, Ziel</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>Pro Schicht</value>
+  </data>
+  <data name="Previous Week" xml:space="preserve">
+    <value>Vorherige Woche</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>Mitglieder rotieren</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>Regelvorlage:</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Gespeichert</value>
+  </data>
+  <data name="Shift covered" xml:space="preserve">
+    <value>Abgedeckte Schichten</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Starting soon" xml:space="preserve">
+    <value>Beginnt in Kürze</value>
+  </data>
+  <data name="Status is based on page load time)" xml:space="preserve">
+    <value>Der Status basiert auf dem Zeitpunkt des Seitenaufrufs)</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Teamkonfiguration</value>
+  </data>
+  <data name="The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available." xml:space="preserve">
+    <value>Die folgenden Mitarbeiter gehören mehreren Bereitschaftsgruppen an; automatische Vorschau und Planung werden sie überspringen. Gespeicherte Aufteilungen bleiben unverändert; manuelle Planung und Konfliktprüfung zwischen Gruppen sind weiterhin möglich.</value>
+  </data>
+  <data name="This shift ends at " xml:space="preserve">
+    <value>Dieser Schicht endet um</value>
+  </data>
+  <data name="This week&apos;s schedule" xml:space="preserve">
+    <value>Zeitplan für diese Woche</value>
+  </data>
+  <data name="Three shifts per day, supporting multiple members per shift. Actual shifts are stored under the team." xml:space="preserve">
+    <value>Drei Schichten pro Tag, mit Unterstützung mehrerer Mitglieder pro Schicht. Die tatsächlichen Schichten werden unter dem Team gespeichert.</value>
+  </data>
+  <data name="Unsaved · Auto-suggested" xml:space="preserve">
+    <value>Nicht gespeichert · Automatisch vorgeschlagen</value>
+  </data>
+  <data name="Unsaved · Manual schedule" xml:space="preserve">
+    <value>Nicht gespeichert · Manueller Dienstplan</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>Team anzeigen</value>
+  </data>
+
+</root>

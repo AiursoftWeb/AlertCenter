@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· Abgewandert</value>
+  </data>
+  <data name="Add or remove personnel by shift" xml:space="preserve">
+    <value>Personalien nach Schicht hinzufügen oder entfernen</value>
+  </data>
+  <data name="Add shift" xml:space="preserve">
+    <value>Schicht hinzufügen</value>
+  </data>
+  <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
+    <value>Automatische Vorschläge wurden nicht gespeichert. Benachbarte Dienstpläne werden bei der Generierung erneut validiert; bereits gespeicherte Pläne werden nicht überschrieben.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Cancel, keep next week" xml:space="preserve">
+    <value>Abbrechen, nächste Woche beibehalten</value>
+  </data>
+  <data name="Confirm draft replacement" xml:space="preserve">
+    <value>Entwurfsersetzung bestätigen</value>
+  </data>
+  <data name="Copy Current Week to Next Week" xml:space="preserve">
+    <value>Aktuelle Woche in die nächste Woche kopieren</value>
+  </data>
+  <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
+    <value>Kopieren Sie den Entwurf der aktuellen Woche in die nächste Woche. Wenn die nächste Woche bereits Schichten oder Änderungen enthält, ist vor dem Kopieren eine Bestätigung erforderlich; nach dem Kopieren muss dennoch gespeichert werden. Die vertikalen Schaltflächen an den Seiten können die 36 Stunden vor und nach der aktuellen Woche erweitern; graue Bereiche sind schreibgeschützt. Diagramme und Formulare auf dieser Seite bearbeiten nur die aktuelle Woche; um benachbarte Wochen anzupassen, wechseln Sie zur entsprechenden Woche. Der Entwurf der nächsten Woche wird nach dem Kopieren ebenfalls im schreibgeschützten Modus angezeigt. Änderungen an der aktuellen Woche und an Kopien werden einheitlich gespeichert, rückgängig gemacht und wiederhergestellt; das Zusammenklappen führt nicht zum Verlust von Entwürfen.</value>
+  </data>
+  <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Derzeit im Verschieben-/Tauschen-Modus. Wechseln Sie oben den Modus, bevor Sie Schichten hinzufügen oder entfernen.</value>
+  </data>
+  <data name="Delete shift" xml:space="preserve">
+    <value>Schicht löschen</value>
+  </data>
+  <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
+    <value>Ziehen Sie einen farbigen Block auf eine andere Schicht, um das Personal auszutauschen, oder auf einen freien Platz, um die Schicht zu verschieben. Ziehen Sie „Swap Entire Week“ auf eine andere Person, um die Wochenpläne der beiden Personen auszutauschen. Sie können auch auf einen Eintrag und anschließend auf das Ziel klicken. Drücken Sie Esc, um abzubrechen. Änderungen werden sofort angezeigt und können nach mehreren Anpassungen gesammelt gespeichert werden.</value>
+  </data>
+  <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
+    <value>Plan der aktuellen Woche generieren und speichern</value>
+  </data>
+  <data name="Move / Swap" xml:space="preserve">
+    <value>Verschieben / Tauschen</value>
+  </data>
+  <data name="Next week already has a saved schedule or unsaved changes. Copying will replace the full 21 shifts of next week with the current draft of this week. You can still undo after confirmation; changes are only written when you click Save." xml:space="preserve">
+    <value>Für nächste Woche liegt bereits ein gespeicherter Dienstplan oder ungespeicherte Änderungen vor. Durch das Kopieren werden alle 21 Dienste der nächsten Woche durch den aktuellen Entwurf dieser Woche ersetzt. Nach der Bestätigung können Sie die Aktion noch rückgängig machen; Änderungen werden erst beim Klick auf „Speichern“ gespeichert.</value>
+  </data>
+  <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
+    <value>Bereitschaftspersonal (mehrere möglich, mindestens eine Person)</value>
+  </data>
+  <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
+    <value>Rote Warnhinweise weisen auf unbesetzte Schichten, unzureichende Ruhezeiten oder eine Unterschreitung der Mindestbesetzung hin, verhindern aber keine weiteren Anpassungen. Das Speichern ist auch bei einer Unterschreitung der Mindestbesetzung möglich; unbesetzte Schichten und unzureichende Ruhezeiten können jedoch nicht gespeichert werden. Beim Speichern wird die Validierung einheitlich auf die bearbeitete Woche, angrenzende Wochen und andere Teams angewendet. Schlägt die Validierung für eine Woche fehl, wird nichts gespeichert. Ausgetretene Mitglieder können nur ihre ursprünglichen Schichten behalten; neue Schichten können weder hinzugefügt noch kopiert werden.</value>
+  </data>
+  <data name="Replace next week&apos;s draft?" xml:space="preserve">
+    <value>Entwurf der nächsten Woche ersetzen?</value>
+  </data>
+  <data name="Reset All" xml:space="preserve">
+    <value>Alles zurücksetzen</value>
+  </data>
+  <data name="Save schedule adjustments" xml:space="preserve">
+    <value>Zeitanpassungen speichern</value>
+  </data>
+  <data name="Scheduling Operation Mode" xml:space="preserve">
+    <value>Planungsmodus</value>
+  </data>
+  <data name="Select Shift" xml:space="preserve">
+    <value>Schicht auswählen</value>
+  </data>
+  <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
+    <value>Wählen Sie Zeitfenster aus, um Personal im Dienst hinzuzufügen oder zu entfernen; das Diagramm wird synchron aktualisiert. Sie können dieses Formular auch für die Tastaturnavigation verwenden. Mitglieder aus anderen Gruppen können manuell ausgewählt werden; graue schreibgeschützte Schichten anderer Teams werden nicht geändert, und Überlappungen sowie Pausen zwischen Gruppen werden beim Speichern weiterhin validiert.</value>
+  </data>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Letzten Schritt rückgängig machen</value>
+  </data>
+
+</root>
