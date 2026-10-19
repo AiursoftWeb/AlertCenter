@@ -16,13 +16,11 @@ document.getElementById('copy-dashboard-curl')?.addEventListener('click', async 
             }
         });
 
-        // Update UTC clock every second
-        setInterval(() => {
-            const clock = document.getElementById('utc-clock');
-            if (clock) {
-                const now = new Date();
-                const pad = n => String(n).padStart(2, '0');
-                clock.textContent = `${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}:${pad(now.getUTCSeconds())} UTC`;
-            }
-        }, 1000);
+        // Display the live clock in the browser's local time zone.
+        const clock = document.getElementById('local-clock');
+        if (clock) {
+            const updateClock = () => { clock.textContent = new Date().toLocaleString(); };
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
 })();
