@@ -84,8 +84,14 @@
   <data name="Incident / Test message" xml:space="preserve">
     <value>事件 / 测试消息</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>事件已缓解：{0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>事件已重新开启：{0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>事件已解决：{0}</value>
   </data>
   <data name="Jump" xml:space="preserve">
     <value>跳转</value>
