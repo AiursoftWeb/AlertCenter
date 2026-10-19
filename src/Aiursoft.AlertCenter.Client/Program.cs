@@ -2,6 +2,7 @@ using Aiursoft.AlertCenter.Client;
 using Aiursoft.CommandFramework;
 
 return await new NestedCommandApp()
+    .WithFeature(new CiHandler())
     .WithFeature(new MetadataHandler())
     .WithFeature(new ListHandler())
     .WithFeature(new GetHandler())

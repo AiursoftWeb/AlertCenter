@@ -24,6 +24,9 @@
   <data name="An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened." xml:space="preserve">
     <value>Já existe um incidente associado à mesma regra. Resolva primeiro esse incidente; não é possível fundi-lo nem reabri-lo.</value>
   </data>
+  <data name="Only sev2, sev3 and sev4 incidents can be resolved during mitigation." xml:space="preserve">
+    <value>Apenas incidentes sev2, sev3 e sev4 podem ser resolvidos durante a mitigação.</value>
+  </data>
   <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
     <value>Selecione um nível de gravidade do incidente entre sev0 e sev4.</value>
   </data>

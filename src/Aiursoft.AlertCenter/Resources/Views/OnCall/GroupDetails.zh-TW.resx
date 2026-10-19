@@ -51,6 +51,15 @@
   <data name="hours · Min rest " xml:space="preserve">
     <value>小時 · 最短休息時間</value>
   </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>管理成員</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>可排班的成員（輪值順序）</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>下一步：指派人員至班別</value>
+  </data>
   <data name="No team members." xml:space="preserve">
     <value>沒有團隊成員。</value>
   </data>
@@ -59,6 +68,9 @@
   </data>
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>值班通知電子郵件會自動寄送至目前已儲存班表中所有值班工程師（OCE）的使用者信箱（收件者）。副本（CC）僅會寄送至管理員明確設定的團隊信箱或郵寄清單地址，不會自動副本給所有團隊成員。應用程式中設定的自訂推播管道仍會另外發送通知。</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>開啟排班</value>
   </data>
   <data name="Per shift " xml:space="preserve">
     <value>每班次</value>
@@ -83,6 +95,9 @@
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>範本可由多個團隊共用；修改或切換範本不會重新產生已儲存的班次。</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>成員清單列出哪些人可以排班。已儲存的班表則列出目前值班並會收到事件通知電子郵件的人員。副本收件者不受群組成員身分限制，也會收到一份副本。</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>此團隊已有已儲存的班表，為保留排班紀錄，無法刪除。</value>

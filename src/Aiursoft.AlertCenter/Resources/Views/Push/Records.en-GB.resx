@@ -45,6 +45,9 @@
   <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
     <value>Comprehensive tracking of asynchronous dispatch status and error retries for webhooks, emails and in-app notifications</value>
   </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Creation time</value>
+  </data>
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>Creation Time (UTC)</value>
   </data>
@@ -84,8 +87,14 @@
   <data name="Incident / Test message" xml:space="preserve">
     <value>Incident / test message</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incident mitigated: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>Incident reopened: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incident resolved: {0}</value>
   </data>
   <data name="Jump" xml:space="preserve">
     <value>Go</value>
@@ -125,6 +134,9 @@
   </data>
   <data name="Push Record Pagination" xml:space="preserve">
     <value>Pagination for push records</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>Real-Time Trace</value>
   </data>
   <data name="Refresh list" xml:space="preserve">
     <value>Refresh list</value>

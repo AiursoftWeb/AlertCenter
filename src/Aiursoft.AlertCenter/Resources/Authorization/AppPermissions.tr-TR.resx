@@ -33,6 +33,9 @@
   <data name="Allows creating applications and managing access to all applications." xml:space="preserve">
     <value>Uygulama oluşturmaya ve tüm uygulamalara erişimi yönetmeye olanak tanır.</value>
   </data>
+  <data name="Allows creating applications. Access to existing applications requires ownership or an explicit grant." xml:space="preserve">
+    <value>Uygulama oluşturulmasına izin verir. Mevcut uygulamalara erişmek için uygulamanın sahibi olmak veya açıkça yetkilendirilmiş olmak gerekir.</value>
+  </data>
   <data name="Allows managing on-call teams, scheduling rules, and schedules." xml:space="preserve">
     <value>Çağrı nöbeti ekiplerinin, zamanlama kurallarının ve çizelgelerin yönetilmesini sağlar.</value>
   </data>
@@ -68,6 +71,9 @@
   </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>Kullanıcılara Rol Atama</value>
+  </data>
+  <data name="Create Applications" xml:space="preserve">
+    <value>Uygulamaları Oluştur</value>
   </data>
   <data name="Delete Roles" xml:space="preserve">
     <value>Rolleri Sil</value>

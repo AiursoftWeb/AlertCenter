@@ -33,6 +33,9 @@
   <data name="Allows creating applications and managing access to all applications." xml:space="preserve">
     <value>애플리케이션을 생성하고 모든 애플리케이션에 대한 액세스를 관리할 수 있습니다.</value>
   </data>
+  <data name="Allows creating applications. Access to existing applications requires ownership or an explicit grant." xml:space="preserve">
+    <value>애플리케이션을 생성할 수 있습니다. 기존 애플리케이션에 접근하려면 소유권이 있거나 명시적으로 권한을 부여받아야 합니다.</value>
+  </data>
   <data name="Allows managing on-call teams, scheduling rules, and schedules." xml:space="preserve">
     <value>온콜 팀, 일정 규칙 및 일정을 관리할 수 있습니다.</value>
   </data>
@@ -68,6 +71,9 @@
   </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>사용자에게 역할 할당</value>
+  </data>
+  <data name="Create Applications" xml:space="preserve">
+    <value>애플리케이션 생성</value>
   </data>
   <data name="Delete Roles" xml:space="preserve">
     <value>역할 삭제</value>

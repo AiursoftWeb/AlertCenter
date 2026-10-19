@@ -33,6 +33,9 @@
   <data name="Allows creating applications and managing access to all applications." xml:space="preserve">
     <value>Дозволяє створювати застосунки та керувати доступом до всіх застосунків.</value>
   </data>
+  <data name="Allows creating applications. Access to existing applications requires ownership or an explicit grant." xml:space="preserve">
+    <value>Дозволяє створювати застосунки. Доступ до наявних застосунків потребує права власності або окремо наданого дозволу.</value>
+  </data>
   <data name="Allows managing on-call teams, scheduling rules, and schedules." xml:space="preserve">
     <value>Дозволяє керувати командами чергових, правилами планування та графіками.</value>
   </data>
@@ -68,6 +71,9 @@
   </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>Призначити ролі користувачам</value>
+  </data>
+  <data name="Create Applications" xml:space="preserve">
+    <value>Створення застосунків</value>
   </data>
   <data name="Delete Roles" xml:space="preserve">
     <value>Видалити ролі</value>

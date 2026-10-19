@@ -33,6 +33,9 @@
   <data name="Allows creating applications and managing access to all applications." xml:space="preserve">
     <value>允許建立應用程式，並管理所有應用程式的存取權限。</value>
   </data>
+  <data name="Allows creating applications. Access to existing applications requires ownership or an explicit grant." xml:space="preserve">
+    <value>允許建立應用程式。存取現有應用程式需要擁有權或明確授權。</value>
+  </data>
   <data name="Allows managing on-call teams, scheduling rules, and schedules." xml:space="preserve">
     <value>允許管理候命團隊、排程規則及排程。</value>
   </data>
@@ -68,6 +71,9 @@
   </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>為用戶分配角色</value>
+  </data>
+  <data name="Create Applications" xml:space="preserve">
+    <value>建立應用程式</value>
   </data>
   <data name="Delete Roles" xml:space="preserve">
     <value>刪除角色</value>

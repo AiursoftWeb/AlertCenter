@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
+    <value>Acknowledged</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Adjust incident severity</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
     <value>After deletion, only the author, publication date, person who deleted it and deletion date will be retained. The original comment text will no longer be displayed and cannot be recovered.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>Automatically create incident</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -35,6 +44,9 @@
   </data>
   <data name="Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them." xml:space="preserve">
     <value>Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them.</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>Acknowledge and take ownership of incident</value>
   </data>
   <data name="Confirm deletion" xml:space="preserve">
     <value>Confirm deletion</value>
@@ -54,8 +66,20 @@
   <data name="Incident discussion" xml:space="preserve">
     <value>Incident discussion</value>
   </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>Incident event</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>Incident timeline</value>
+  </data>
   <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
     <value>Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2).</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Mitigate incident</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Mitigated</value>
   </data>
   <data name="Newest first · 20 items per page" xml:space="preserve">
     <value>Newest first · 20 items per page</value>
@@ -63,20 +87,32 @@
   <data name="Next Page" xml:space="preserve">
     <value>Next page</value>
   </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>No activity on the current page.</value>
+  </data>
   <data name="No comments on the current page." xml:space="preserve">
     <value>No comments on the current page.</value>
   </data>
   <data name="No. " xml:space="preserve">
     <value>No.</value>
   </data>
+  <data name="Not set" xml:space="preserve">
+    <value>Not set</value>
+  </data>
   <data name="On" xml:space="preserve">
     <value>On</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>Owner:</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>Page</value>
   </data>
   <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
     <value>Paste or drag images into the editor to upload them.</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>Awaiting response</value>
   </data>
   <data name="Post comment" xml:space="preserve">
     <value>Post comment</value>
@@ -87,17 +123,50 @@
   <data name="Previous Page" xml:space="preserve">
     <value>Previous page</value>
   </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
   <data name="Publish comment" xml:space="preserve">
     <value>Publish comment</value>
   </data>
   <data name="Published comment?" xml:space="preserve">
     <value>Comment published?</value>
   </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Reopen incident</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Resolve incident</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Resolved</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>Severity:</value>
+  </data>
   <data name="Split View" xml:space="preserve">
     <value>Split view</value>
   </data>
+  <data name="Status: " xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>Take over incident</value>
+  </data>
   <data name="This comment has been deleted." xml:space="preserve">
     <value>This comment has been deleted.</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>Timeline pagination</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Unassigned</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Not mitigated</value>
   </data>
   <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
     <value>Use Markdown to share troubleshooting clues, suggestions or discussions…</value>
@@ -106,61 +175,4 @@
     <value>User deleted</value>
   </data>
 
-    <data name="Acknowledged" xml:space="preserve">
-    <value>Acknowledged</value>
-  </data>
-    <data name="Adjust Incident Severity" xml:space="preserve">
-    <value>Adjust incident severity</value>
-  </data>
-    <data name="Auto-create incident" xml:space="preserve">
-    <value>Automatically create incident</value>
-  </data>
-    <data name="Confirm and claim incident" xml:space="preserve">
-    <value>Acknowledge and take ownership of incident</value>
-  </data>
-    <data name="Incident event" xml:space="preserve">
-    <value>Incident event</value>
-  </data>
-    <data name="Mitigate incident" xml:space="preserve">
-    <value>Mitigate incident</value>
-  </data>
-    <data name="Mitigated" xml:space="preserve">
-    <value>Mitigated</value>
-  </data>
-    <data name="Not set" xml:space="preserve">
-    <value>Not set</value>
-  </data>
-    <data name="Owner: " xml:space="preserve">
-    <value>Owner:</value>
-  </data>
-    <data name="Pending Response" xml:space="preserve">
-    <value>Awaiting response</value>
-  </data>
-    <data name="Progress" xml:space="preserve">
-    <value>Progress</value>
-  </data>
-    <data name="Reopen Incident" xml:space="preserve">
-    <value>Reopen incident</value>
-  </data>
-    <data name="Resolve incident" xml:space="preserve">
-    <value>Resolve incident</value>
-  </data>
-    <data name="Resolved" xml:space="preserve">
-    <value>Resolved</value>
-  </data>
-    <data name="Severity: " xml:space="preserve">
-    <value>Severity:</value>
-  </data>
-    <data name="Status: " xml:space="preserve">
-    <value>Status:</value>
-  </data>
-    <data name="System" xml:space="preserve">
-    <value>System</value>
-  </data>
-    <data name="Take Over Incident" xml:space="preserve">
-    <value>Take over incident</value>
-  </data>
-    <data name="Unassigned" xml:space="preserve">
-    <value>Unassigned</value>
-  </data>
 </root>

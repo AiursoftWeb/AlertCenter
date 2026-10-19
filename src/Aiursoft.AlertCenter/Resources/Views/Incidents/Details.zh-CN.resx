@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:element name="root" ns1:IsDataSet="true">
 
-<root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
-
-        </xsd:element>
-    </xsd:schema>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>1.3</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-      <data name="Acknowledge and take ownership" xml:space="preserve">
+        </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Acknowledge and take ownership" xml:space="preserve">
     <value>确认并承担责任</value>
   </data>
   <data name="Acknowledged" xml:space="preserve">
@@ -37,7 +36,7 @@
     <value>调整此事件的严重级别并记录原因。</value>
   </data>
   <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
-    <value>同时立即解决此事件，并将缓解原因作为解决原因。</value>
+    <value>同时立即解决此事件，将缓解原因作为解决原因。</value>
   </data>
   <data name="Auto-create incident" xml:space="preserve">
     <value>自动创建事件</value>
@@ -121,10 +120,7 @@
     <value>处理节点</value>
   </data>
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
-    <value>我确认该事件已彻底解决，且不会再次发生。</value>
-  </data>
-  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
-    <value>事件邮件使用此原始 OCE 快照，即使值班轮班发生变化也是如此。确认事件会指定事件负责人，但不会更改邮件收件人。</value>
+    <value>我确认此事件已彻底解决，且不会再次发生。</value>
   </data>
   <data name="Incident event" xml:space="preserve">
     <value>事件动态</value>
@@ -144,6 +140,9 @@
   <data name="Independent incidents" xml:space="preserve">
     <value>独立事件</value>
   </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>最后确认时间</value>
+  </data>
   <data name="Last acknowledgement time (UTC)" xml:space="preserve">
     <value>上次确认时间（UTC）</value>
   </data>
@@ -162,6 +161,9 @@
   <data name="Mitigation reason (required)" xml:space="preserve">
     <value>缓解原因（必填）</value>
   </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>缓解时间</value>
+  </data>
   <data name="Mitigation time (UTC)" xml:space="preserve">
     <value>缓解时间（UTC）</value>
   </data>
@@ -174,20 +176,17 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>目前没有值班 OCE。</value>
   </data>
-  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
-    <value>没有可用的原始 OCE 快照。当前 OCE 不会替代历史邮件收件人。</value>
-  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>未确认</value>
   </data>
   <data name="Not set" xml:space="preserve">
     <value>未设置</value>
   </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>发生时间</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>发生时间（UTC）</value>
-  </data>
-  <data name="OCE at incident occurrence" xml:space="preserve">
-    <value>事故发生时的 OCE</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>负责人：</value>
@@ -215,6 +214,9 @@
   </data>
   <data name="Reason for adjustment (required)" xml:space="preserve">
     <value>调整原因（必填）</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>接收时间</value>
   </data>
   <data name="Received at (UTC)" xml:space="preserve">
     <value>接收时间（UTC）</value>
@@ -254,6 +256,9 @@
   </data>
   <data name="Resolution reason (required)" xml:space="preserve">
     <value>解决原因（必填）</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>解决时间</value>
   </data>
   <data name="Resolution time (UTC)" xml:space="preserve">
     <value>解决时间（UTC）</value>
@@ -304,7 +309,7 @@
     <value>接手备注（可选）</value>
   </data>
   <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
-    <value>此操作将永久删除该事件及其历史记录。请输入其准确标题以确认。</value>
+    <value>此操作将永久删除该事件及其历史记录。请输入事件的准确标题以确认。</value>
   </data>
   <data name="Total " xml:space="preserve">
     <value>总计</value>
@@ -318,5 +323,13 @@
   <data name="User deleted" xml:space="preserve">
     <value>用户已删除</value>
   </data>
-
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>事件邮件使用此原始 OCE 快照，即使值班轮班发生变化也是如此。确认事件会指定事件负责人，但不会更改邮件收件人。</value>
+  </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>没有可用的原始 OCE 快照。当前 OCE 不会替代历史邮件收件人。</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>事故发生时的 OCE</value>
+  </data>
 </root>
