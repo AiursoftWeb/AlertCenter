@@ -66,6 +66,39 @@ public partial class IncidentPagesTests : TestBase
     }
 
     [TestMethod]
+    public async Task EmailAcknowledgementUsesProtectedPostWithoutMutatingOnGet()
+    {
+        var key = await CreateApplication();
+        using var report = await Report(key, Guid.NewGuid());
+        Guid id, version;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var incident = await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Incidents.SingleAsync();
+            id = incident.Id;
+            version = incident.Version;
+        }
+        var url = $"/Incidents/Details/{id}";
+        var html = await Http.GetStringAsync(url + "?ack=true");
+        Assert.Contains("id=\"acknowledge-incident\"", html);
+        Assert.Contains("/scripts/incident-ack.js", html);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var incident = await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().Incidents.SingleAsync();
+            Assert.IsFalse(incident.IsAcknowledged);
+            Assert.AreEqual(version, incident.Version);
+        }
+        var data = new Dictionary<string, string> { ["IncidentId"] = id.ToString(), ["Version"] = version.ToString() };
+        using var rejected = await PostForm("/Incidents/Acknowledge", data, includeToken: false);
+        Assert.AreEqual(HttpStatusCode.BadRequest, rejected.StatusCode);
+        using var acknowledged = await PostForm("/Incidents/Acknowledge", data, url);
+        AssertRedirect(acknowledged, url);
+        using var finalScope = Server!.Services.CreateScope();
+        var db = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.IsTrue((await db.Incidents.SingleAsync()).IsAcknowledged);
+        Assert.AreEqual(1, await db.IncidentTimelineEntries.CountAsync(entry => entry.Type == IncidentTimelineEntry.Acked));
+    }
+
+    [TestMethod]
     public async Task IncidentDetailsShowCompleteIndentedAndEscapedContext()
     {
         await LoginAsAdmin();

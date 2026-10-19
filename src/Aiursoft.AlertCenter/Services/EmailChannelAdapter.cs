@@ -221,6 +221,8 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
                 .AppendLine(string.Format(localizer["On-call time (UTC): {0:O} — {1:O}"].Value, snapshot.StartsAtUtc, snapshot.EndsAtUtc));
         }
         body.AppendLine().AppendLine(localizer["Open in AlertCenter"].Value).AppendLine(url);
+        if (incidentId.HasValue)
+            body.AppendLine().AppendLine(localizer["Acknowledge"].Value).AppendLine(url + "?ack=true");
         return new(recipients, ccRecipients, subject, body.ToString(),
             RenderHtml(delivery, title, level, url, localizer, context))
         {
@@ -293,6 +295,11 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             ? $"{localizer["Incident ID"].Value}: {incidentId.Value}"
             : localizer["Channel test notification"].Value;
         var occurredAt = incident?.OccurredAtUtc ?? delivery.CreatedAtUtc;
+        var acknowledgeButton = incidentId.HasValue ? $$"""
+            <td style="padding-left:12px;">
+                <a href="{{Encode(url + "?ack=true")}}" style="display:inline-block;border:1px solid #526579;padding:13px 16px;color:#334155;background-color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Acknowledge"].Value)}}</a>
+            </td>
+            """ : string.Empty;
         // Tables and inline styles also work when email clients strip stylesheets.
         // Encode every external value; only the markup in this renderer is trusted.
         return $$"""
@@ -308,7 +315,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
                 <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:#526579;">{{Encode(introduction)}}</p>
                 <table role="presentation" cellspacing="0" cellpadding="0"><tr><td bgcolor="{{color}}" style="border-radius:6px;">
                     <a href="{{Encode(url)}}" style="display:inline-block;border:1px solid {{color}};padding:13px 22px;color:{{foreground}};text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Open in AlertCenter"].Value)}}</a>
-                </td></tr></table>
+                </td>{{acknowledgeButton}}</tr></table>
                 <p style="margin:20px 0 0;font-size:12px;line-height:1.6;color:#526579;">{{Encode(localizer["Occurred at (UTC)"].Value)}}: {{occurredAt:yyyy-MM-dd HH:mm:ss}}</p>
                 {{sections}}
                 <p style="margin:24px 0 8px;font-size:12px;line-height:1.6;color:#526579;">{{Encode(localizer["If the button does not work, open this link:"].Value)}}<br>
