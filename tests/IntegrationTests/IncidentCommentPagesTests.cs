@@ -359,7 +359,7 @@ public partial class IncidentPagesTests
         Assert.DoesNotContain("action=\"/Incidents/AddNote\"", first);
         var sidebar = first[first.IndexOf("<aside", StringComparison.Ordinal)..];
         Assert.IsTrue(sidebar.IndexOf("Current On-Call OCE", StringComparison.Ordinal) < sidebar.IndexOf("id=\"incident-context-heading\"", StringComparison.Ordinal));
-        Assert.IsTrue(sidebar.IndexOf("id=\"incident-context-heading\"", StringComparison.Ordinal) < sidebar.IndexOf("Incident ID", StringComparison.Ordinal));
+        Assert.IsTrue(sidebar.IndexOf("Incident ID", StringComparison.Ordinal) < sidebar.IndexOf("id=\"incident-context-heading\"", StringComparison.Ordinal));
         Assert.Contains("<code>{", sidebar);
 
     }

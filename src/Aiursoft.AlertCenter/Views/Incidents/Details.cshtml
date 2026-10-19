@@ -168,6 +168,21 @@
             </div>
         </section>
 
+        <section class="card shadow-sm border-0 mb-4">
+            <div class="card-header"><h2 class="card-title h6 mb-0">@Localizer["Report information"]</h2></div>
+            <div class="card-body">
+                <dl>
+                    <dt>@Localizer["Incident ID"]</dt><dd class="text-break">@incident.Id</dd>
+                    <dt>@Localizer["Report ID"]</dt><dd class="text-break">@incident.ReportId</dd>
+                    <dt>@Localizer["Occurred at (UTC)"]</dt><dd>@incident.OccurredAtUtc.ToString("O")</dd>
+                    <dt>@Localizer["Received at (UTC)"]</dt><dd>@incident.ReceivedAtUtc.ToString("O")</dd>
+                </dl>
+                <div id="incident-copy-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="incident-content" data-copy-feedback="incident-copy-feedback">@Localizer["Copy content"]</button>
+                <p id="incident-content" class="text-break" style="white-space: pre-wrap">@incident.Content</p>
+            </div>
+        </section>
+
         <section class="card shadow-sm border-0 mb-4" aria-labelledby="incident-context-heading">
             <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2 py-3">
                 <h2 id="incident-context-heading" class="card-title h6 mb-0">@Localizer["Full context"] <span class="badge bg-secondary ms-2">JSON</span></h2>
@@ -185,21 +200,6 @@
                 {
                     <pre id="incident-context" class="ac-context-json m-0 p-4" tabindex="0" aria-labelledby="incident-context-heading"><code>@Model.FormattedContext</code></pre>
                 }
-            </div>
-        </section>
-
-        <section class="card shadow-sm border-0 mb-4">
-            <div class="card-header"><h2 class="card-title h6 mb-0">@Localizer["Report information"]</h2></div>
-            <div class="card-body">
-                <dl>
-                    <dt>@Localizer["Incident ID"]</dt><dd class="text-break">@incident.Id</dd>
-                    <dt>@Localizer["Report ID"]</dt><dd class="text-break">@incident.ReportId</dd>
-                    <dt>@Localizer["Occurred at (UTC)"]</dt><dd>@incident.OccurredAtUtc.ToString("O")</dd>
-                    <dt>@Localizer["Received at (UTC)"]</dt><dd>@incident.ReceivedAtUtc.ToString("O")</dd>
-                </dl>
-                <div id="incident-copy-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="incident-content" data-copy-feedback="incident-copy-feedback">@Localizer["Copy content"]</button>
-                <p id="incident-content" class="text-break" style="white-space: pre-wrap">@incident.Content</p>
             </div>
         </section>
 
