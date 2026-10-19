@@ -21,6 +21,9 @@
       <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
     <value>: API 키는 생성 또는 재설정이 성공하면 한 번만 표시됩니다. 운영 환경의 환경 변수(예:</value>
   </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API 키는 생성 성공 시 1회만 표시됩니다. 프로덕션 환경 변수(예:</value>
+  </data>
   <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
     <value>. 푸시 예약이 비동기적으로 시작됩니다.</value>
   </data>
@@ -87,6 +90,9 @@
   <data name="Each business system authenticates requests using its own API key." xml:space="preserve">
     <value>각 업무 시스템은 자체 API 키를 사용해 요청을 인증합니다.</value>
   </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>각 키는 애플리케이션에 속합니다. 서버는 시크릿 해시와 각 작업에 필요한 권한을 검증합니다.</value>
+  </data>
   <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
     <value>엄격한 동시성 멱등성을 보장하려면 재시도 시 동일한 ID를 사용하세요.</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="Max 4,000 characters" xml:space="preserve">
     <value>최대 4,000자</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>애플리케이션의 API 키 관리에서 이름이 지정된 키를 만들고 조회, 생성 및 해결 권한을 설정하세요.</value>
   </data>
   <data name="Optional" xml:space="preserve">
     <value>선택 사항</value>

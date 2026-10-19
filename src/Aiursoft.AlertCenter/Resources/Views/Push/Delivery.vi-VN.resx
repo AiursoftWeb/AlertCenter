@@ -48,6 +48,9 @@
   <data name="Completed at " xml:space="preserve">
     <value>Hoàn tất lúc</value>
   </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>Thời gian hoàn tất</value>
+  </data>
   <data name="Completion Time (UTC)" xml:space="preserve">
     <value>Thời gian hoàn tất (UTC)</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Copy Full ID" xml:space="preserve">
     <value>Sao chép ID đầy đủ</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Thời gian tạo</value>
   </data>
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>Thời gian tạo (UTC)</value>
@@ -93,6 +99,9 @@
   <data name="Dispatch attempts" xml:space="preserve">
     <value>Số lần gửi</value>
   </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>Dòng thời gian gửi thông báo</value>
+  </data>
   <data name="Dispatch timeline (UTC)" xml:space="preserve">
     <value>Dòng thời gian gửi (UTC)</value>
   </data>
@@ -108,8 +117,14 @@
   <data name="Enter Delivery Queue" xml:space="preserve">
     <value>Đưa vào hàng đợi gửi</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Sự cố đã được giảm thiểu: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>Sự cố đã được mở lại: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Sự cố đã được giải quyết: {0}</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Chưa hoàn tất</value>
@@ -155,6 +170,9 @@
   </data>
   <data name="Shift: " xml:space="preserve">
     <value>Ca trực:</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>Thời điểm chụp nhanh</value>
   </data>
   <data name="Snapshot time (" xml:space="preserve">
     <value>Thời điểm chụp nhanh (</value>

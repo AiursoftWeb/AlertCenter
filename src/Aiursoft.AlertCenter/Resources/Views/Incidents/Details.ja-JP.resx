@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Acknowledged" xml:space="preserve">
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>確認して担当者になる</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
     <value>確認済み</value>
   </data>
   <data name="Acknowledged (Acked)" xml:space="preserve">
@@ -32,6 +35,9 @@
   </data>
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>このインシデントの深刻度を調整し、その理由を記録してください。</value>
+  </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>また、是正理由を解決理由として使用し、このインシデントを即時解決してください。</value>
   </data>
   <data name="Auto-create incident" xml:space="preserve">
     <value>インシデントを自動作成</value>
@@ -114,6 +120,9 @@
   <data name="handling nodes" xml:space="preserve">
     <value>対応履歴項目</value>
   </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>このインシデントが完全に解決され、再発しないことを確認します。</value>
+  </data>
   <data name="Incident event" xml:space="preserve">
     <value>インシデントイベント</value>
   </data>
@@ -123,11 +132,17 @@
   <data name="Incident owner:" xml:space="preserve">
     <value>インシデント担当者:</value>
   </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>インシデントタイトル</value>
+  </data>
   <data name="Incident War Room - {0}" xml:space="preserve">
     <value>インシデント対応ルーム - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>独立したインシデント</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>最終確認時刻</value>
   </data>
   <data name="Log investigation and handling progress" xml:space="preserve">
     <value>調査・対応の進捗を記録</value>
@@ -144,6 +159,9 @@
   <data name="Mitigation reason (required)" xml:space="preserve">
     <value>緩和理由（必須）</value>
   </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>緩和時刻</value>
+  </data>
   <data name="Mitigation time (UTC)" xml:space="preserve">
     <value>緩和時刻（UTC）</value>
   </data>
@@ -156,8 +174,14 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>現在オンコール中のOCEはいません。</value>
   </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>未確認</value>
+  </data>
   <data name="Not set" xml:space="preserve">
     <value>未設定</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>発生時刻</value>
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>発生日時（UTC）</value>
@@ -171,6 +195,12 @@
   <data name="Pending Response (New)" xml:space="preserve">
     <value>対応待ち（新規）</value>
   </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>完全に削除</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>インシデントを恒久的に削除</value>
+  </data>
   <data name="Progress" xml:space="preserve">
     <value>進捗</value>
   </data>
@@ -183,11 +213,17 @@
   <data name="Reason for adjustment (required)" xml:space="preserve">
     <value>変更理由（必須）</value>
   </data>
+  <data name="Received at" xml:space="preserve">
+    <value>受信日時</value>
+  </data>
   <data name="Received at (UTC)" xml:space="preserve">
     <value>受信日時（UTC）</value>
   </data>
   <data name="Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..." xml:space="preserve">
     <value>調査の手がかり、緊急時の被害軽減策、影響範囲の評価、またはシステムの復旧状況をリアルタイムで記録してください...</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>緩和措置を記録し、次に解決理由を記録します。再オープンすると、このインシデントは未緩和の進行状態に戻りますが、確認済みステータスと責任者情報は保持されます。</value>
   </data>
   <data name="Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE." xml:space="preserve">
     <value>緩和措置を記録し、その後に解決理由を記録してください。このインシデントを再オープンすると、ステータスは「対応待ち」に戻り、担当者が解除され、現在オンコール中のOCEにメールが送信されます。</value>
@@ -204,6 +240,9 @@
   <data name="Reopening restores the &quot;Pending Response&quot; status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed." xml:space="preserve">
     <value>再オープンするとステータスが「対応待ち」に戻り、担当者が解除され、現在のオンコール担当OCEにメールが送信されます。インシデントには再度確認応答し、担当者として引き受ける必要があります。</value>
   </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>再オープンすると、このインシデントは未緩和の状態に戻ります。以前の承認状況と担当者は維持されます。設定された宛先へのメールは送信待ちになります。</value>
+  </data>
   <data name="Report ID" xml:space="preserve">
     <value>レポートID</value>
   </data>
@@ -212,6 +251,9 @@
   </data>
   <data name="Resolution reason (required)" xml:space="preserve">
     <value>解決理由（必須）</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>解決時刻</value>
   </data>
   <data name="Resolution time (UTC)" xml:space="preserve">
     <value>解決時刻（UTC）</value>
@@ -261,11 +303,17 @@
   <data name="Take Over Notes (Optional)" xml:space="preserve">
     <value>引き継ぎメモ（任意）</value>
   </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>このインシデントとその履歴は完全に削除されます。確認のため、タイトルを正確に入力してください。</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>合計</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>未割り当て</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>未緩和</value>
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>ユーザーは削除されました</value>

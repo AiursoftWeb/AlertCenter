@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="All roles" xml:space="preserve">
+      <data name="Add members" xml:space="preserve">
+    <value>メンバーを追加</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>メンバーを追加してもシフトは割り当てられません。</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>スケジュールの詳細設定</value>
+  </data>
+  <data name="All roles" xml:space="preserve">
     <value>すべての役割</value>
   </data>
   <data name="Browse all employees by role" xml:space="preserve">
@@ -45,8 +54,29 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>UTCで入力してください。チームのタイムゾーンに基づいて自動変換されることはありません。シフトを保存すると、スケジュールの開始時点は変更できません。</value>
   </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>ロールで絞り込み</value>
+  </data>
   <data name="Find" xml:space="preserve">
     <value>検索</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>ヘルプ: 通知CC</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>ヘルプ：ロールフィルター</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>ヘルプ: 交代順序</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>ヘルプ: スケジューリング開始時点</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>ヘルプ: スケジューリングテンプレート</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>チームのタイムゾーンに関するヘルプ</value>
   </data>
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>メンバーはいつでも追加・削除できます。メンバーを削除すると、開始前の予定シフトのみが解除され、開始済みのシフトや過去のシフトは保持されます。その結果、担当者が不在となったシフトには、手動で担当者を割り当てる必要があります。</value>
@@ -59,6 +89,12 @@
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>次のページ</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>メンバーはまだいません。「メンバーを追加」を開いて、人を探してください。</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>通知用CC（任意）</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>オンコールメールのCC</value>
@@ -75,11 +111,32 @@
   <data name="Rotate Members" xml:space="preserve">
     <value>メンバーのローテーション</value>
   </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>ローテーション順序</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>変更を保存</value>
+  </data>
   <data name="Save team" xml:space="preserve">
     <value>チームを保存</value>
   </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>保存するとチームとメンバーが更新されます。シフトはスケジュールで個別に管理してください。</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>保存すると、未開始のシフトからこれらのメンバーが削除されます。スケジュールに空きがないか確認してください。</value>
+  </data>
   <data name="Scheduling Rule Template" xml:space="preserve">
     <value>スケジュールルールテンプレート</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>スケジューリング開始点 (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>名前で検索する</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>名前またはアカウントで検索するか、役割を選択してください。</value>
   </data>
   <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>タイムゾーン名、都市名、またはUTCオフセットで検索できます。スケジュールの基準時刻はUTCで保存され、チームのタイムゾーンで表示されます。</value>
@@ -90,14 +147,35 @@
   <data name="Selected members (can be empty, max 200)" xml:space="preserve">
     <value>選択済みメンバー（空でも可、最大200人）</value>
   </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>役割を選択すると、検索結果が絞り込まれるだけです。追加するには個別のメンバーを選択してください。チームのメンバーシップは、その役割と同期されません。</value>
+  </data>
   <data name="Shift Start Time (UTC)" xml:space="preserve">
     <value>シフト開始時刻（UTC）</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>チームメンバー</value>
   </data>
   <data name="Team name" xml:space="preserve">
     <value>チーム名</value>
   </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>チーム設定</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>タイムゾーン</value>
+  </data>
+  <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
+    <value>宛先：通知時点で保存済みのシフトに割り当てられている人に送信されます。CC：勤務担当者にかかわらず、以下の任意のアドレスに送信されます。アドレスはカンマ、セミコロン、または改行で区切ってください（最大50件）。</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>「上へ移動」と「下へ移動」を使用して、将来の自動スケジューリングで使用する順序を選択します。既存のシフトは並べ替えられません。最大200人のメンバーを選択できます。</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>スケジュールの表示に使用します。下にある詳細なスケジューリング開始点は、UTCで個別に入力されます。</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>スケジュールを表示</value>
   </data>
 
 </root>

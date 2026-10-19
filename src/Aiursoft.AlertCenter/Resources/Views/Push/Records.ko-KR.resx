@@ -45,6 +45,9 @@
   <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
     <value>웹훅, 이메일 및 앱 내 알림의 비동기 전송 상태와 오류 재시도에 대한 종합적인 추적</value>
   </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>생성 시간</value>
+  </data>
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>생성 시간(UTC)</value>
   </data>
@@ -84,8 +87,14 @@
   <data name="Incident / Test message" xml:space="preserve">
     <value>인시던트 / 테스트 메시지</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>인시던트 완화됨: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>인시던트가 다시 열렸습니다: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>사고 해결됨: {0}</value>
   </data>
   <data name="Jump" xml:space="preserve">
     <value>이동</value>
@@ -125,6 +134,9 @@
   </data>
   <data name="Push Record Pagination" xml:space="preserve">
     <value>푸시 기록 페이지 탐색</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>실시간 추적</value>
   </data>
   <data name="Refresh list" xml:space="preserve">
     <value>목록 새로고침</value>

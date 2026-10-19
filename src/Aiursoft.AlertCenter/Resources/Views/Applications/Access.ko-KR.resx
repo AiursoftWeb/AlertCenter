@@ -24,8 +24,14 @@
   <data name=": Allows browsing incident messages, related incidents, and delivery records for this application;" xml:space="preserve">
     <value>: 이 애플리케이션의 인시던트 메시지, 관련 인시던트 및 전송 기록을 조회할 수 있습니다;</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>작업</value>
+  </data>
   <data name="Add authorization" xml:space="preserve">
     <value>권한 추가</value>
+  </data>
+  <data name="Add or Update Share" xml:space="preserve">
+    <value>공유 추가 또는 업데이트</value>
   </data>
   <data name="Application Access Permissions" xml:space="preserve">
     <value>애플리케이션 접근 권한</value>
@@ -33,14 +39,29 @@
   <data name="Authorization Type" xml:space="preserve">
     <value>권한 부여 유형</value>
   </data>
+  <data name="Back to Applications" xml:space="preserve">
+    <value>애플리케이션으로 돌아가기</value>
+  </data>
   <data name="Back to Connected Apps" xml:space="preserve">
     <value>연결된 앱으로 돌아가기</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
   </data>
+  <data name="Create incidents" xml:space="preserve">
+    <value>인시던트 생성</value>
+  </data>
   <data name="Grant New Permissions" xml:space="preserve">
     <value>새 권한 부여</value>
+  </data>
+  <data name="Manage API keys" xml:space="preserve">
+    <value>API 키 관리</value>
+  </data>
+  <data name="Manage application and sharing" xml:space="preserve">
+    <value>애플리케이션 및 공유 관리</value>
+  </data>
+  <data name="Manage Sharing" xml:space="preserve">
+    <value>공유 관리</value>
   </data>
   <data name="Manageable" xml:space="preserve">
     <value>관리 가능</value>
@@ -48,14 +69,26 @@
   <data name="Manageable (Manage)" xml:space="preserve">
     <value>관리 가능 (Manage)</value>
   </data>
+  <data name="New owner" xml:space="preserve">
+    <value>새 소유자</value>
+  </data>
   <data name="No additional access permissions have been granted to regular users or roles yet" xml:space="preserve">
     <value>아직 일반 사용자나 역할에 추가 액세스 권한이 부여되지 않았습니다</value>
   </data>
   <data name="Only users with the application management permission can access this application." xml:space="preserve">
     <value>애플리케이션 관리 권한이 있는 사용자만 이 애플리케이션에 액세스할 수 있습니다.</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>소유자</value>
+  </data>
+  <data name="Permanently delete incidents" xml:space="preserve">
+    <value>인시던트를 영구 삭제합니다</value>
+  </data>
   <data name="Permission level" xml:space="preserve">
     <value>권한 수준</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>권한</value>
   </data>
   <data name="Permissions granted" xml:space="preserve">
     <value>부여된 권한</value>
@@ -63,11 +96,17 @@
   <data name="Precisely control view and management permissions for team members and roles." xml:space="preserve">
     <value>팀원과 역할별로 조회 및 관리 권한을 세밀하게 제어하세요.</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>제거</value>
+  </data>
   <data name="Remove " xml:space="preserve">
     <value>제거</value>
   </data>
   <data name="Remove permission" xml:space="preserve">
     <value>권한 제거</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>역할</value>
   </data>
   <data name="Role group" xml:space="preserve">
     <value>역할 그룹</value>
@@ -81,6 +120,12 @@
   <data name="Save permission changes" xml:space="preserve">
     <value>권한 변경 사항 저장</value>
   </data>
+  <data name="Save permissions" xml:space="preserve">
+    <value>권한 저장</value>
+  </data>
+  <data name="Select either a user or a role. Saving replaces that recipient&apos;s permissions." xml:space="preserve">
+    <value>사용자 또는 역할을 선택하세요. 저장 시 해당 수신자의 권한이 교체됩니다.</value>
+  </data>
   <data name="Select Role" xml:space="preserve">
     <value>역할 선택</value>
   </data>
@@ -90,14 +135,38 @@
   <data name="Select user..." xml:space="preserve">
     <value>사용자를 선택하세요...</value>
   </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>공유된 사용자</value>
+  </data>
   <data name="Specify Individual User" xml:space="preserve">
     <value>개별 사용자 지정</value>
   </data>
   <data name="Specify User" xml:space="preserve">
     <value>사용자 지정</value>
   </data>
+  <data name="The owner has all permissions. Direct user grants and role grants are combined. On-call assignments do not grant access." xml:space="preserve">
+    <value>소유자는 모든 권한을 보유합니다. 사용자에게 직접 부여된 권한과 역할에 부여된 권한이 합산됩니다. 당직 배정은 접근 권한을 부여하지 않습니다.</value>
+  </data>
+  <data name="Transfer Ownership" xml:space="preserve">
+    <value>소유권 이전</value>
+  </data>
+  <data name="Transferring ownership gives the selected user all permissions. You will lose owner privileges." xml:space="preserve">
+    <value>소유권 이전 시 선택된 사용자에게 모든 권한이 부여됩니다. 소유자 권한은 상실됩니다.</value>
+  </data>
+  <data name="Update incidents and status" xml:space="preserve">
+    <value>사건 및 상태 업데이트</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>사용자</value>
+  </data>
+  <data name="User or Role" xml:space="preserve">
+    <value>사용자 또는 역할</value>
+  </data>
   <data name="Users with the application management permission have full management access to all applications." xml:space="preserve">
     <value>애플리케이션 관리 권한이 있는 사용자는 모든 애플리케이션을 완전히 관리할 수 있습니다.</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>인시던트 보기</value>
   </data>
   <data name="View only" xml:space="preserve">
     <value>보기 전용</value>

@@ -21,6 +21,9 @@
       <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
     <value>: APIキーは作成またはリセットが正常に完了した際に一度だけ表示されます。本番環境の環境変数（例：</value>
   </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>：APIキーは作成に成功した際に一度のみ表示されます。本番環境の環境変数（例：</value>
+  </data>
   <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
     <value>。プッシュのスケジュール設定が非同期で開始されます。</value>
   </data>
@@ -87,6 +90,9 @@
   <data name="Each business system authenticates requests using its own API key." xml:space="preserve">
     <value>各業務システムは、それぞれ固有のAPIキーを使用してリクエストを認証します。</value>
   </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>各キーはアプリケーションに属します。サーバーはシークレットのハッシュと、各操作に必要な権限を検証します。</value>
+  </data>
   <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
     <value>厳密な同時実行時の冪等性を確保するため、再試行時には同じIDを使用してください。</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="Max 4,000 characters" xml:space="preserve">
     <value>最大4,000文字</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>アプリケーションの API キー管理を開き、クエリ、作成、解決の権限を設定した名前付きキーを作成します。</value>
   </data>
   <data name="Optional" xml:space="preserve">
     <value>任意</value>

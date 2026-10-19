@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
+    <value>Đã xác nhận</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Điều chỉnh mức độ nghiêm trọng của sự cố</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
     <value>Sau khi xóa, chỉ giữ lại tên tác giả, thời gian đăng, người xóa và thời gian xóa. Nội dung bình luận gốc sẽ không còn được hiển thị và không thể khôi phục.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>Tự động tạo sự cố</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
@@ -35,6 +44,9 @@
   </data>
   <data name="Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them." xml:space="preserve">
     <value>Bình luận độc lập với nhật ký ứng phó sự cố và có thể được đăng ở bất kỳ trạng thái nào của sự cố. Sau khi đăng, bình luận không thể chỉnh sửa; chỉ tác giả hoặc quản trị viên ứng dụng mới có thể xóa bình luận.</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>Xác nhận và tiếp nhận sự cố</value>
   </data>
   <data name="Confirm deletion" xml:space="preserve">
     <value>Xác nhận xóa</value>
@@ -54,8 +66,20 @@
   <data name="Incident discussion" xml:space="preserve">
     <value>Thảo luận về sự cố</value>
   </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>Sự kiện sự cố</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>Dòng thời gian sự cố</value>
+  </data>
   <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
     <value>Hỗ trợ Markdown. Tối đa 4.000 ký tự UTF-16 (emoji có thể được tính là 2 ký tự).</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Giảm nhẹ sự cố</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Đã giảm thiểu</value>
   </data>
   <data name="Newest first · 20 items per page" xml:space="preserve">
     <value>Mới nhất trước · 20 mục mỗi trang</value>
@@ -63,20 +87,32 @@
   <data name="Next Page" xml:space="preserve">
     <value>Trang sau</value>
   </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>Không có hoạt động nào trên trang hiện tại.</value>
+  </data>
   <data name="No comments on the current page." xml:space="preserve">
     <value>Không có bình luận nào trên trang hiện tại.</value>
   </data>
   <data name="No. " xml:space="preserve">
     <value>Số</value>
   </data>
+  <data name="Not set" xml:space="preserve">
+    <value>Chưa đặt</value>
+  </data>
   <data name="On" xml:space="preserve">
     <value>Bật</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>Người phụ trách:</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>Trang</value>
   </data>
   <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
     <value>Dán hoặc kéo hình ảnh vào trình chỉnh sửa để tải lên.</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>Chờ phản hồi</value>
   </data>
   <data name="Post comment" xml:space="preserve">
     <value>Đăng bình luận</value>
@@ -87,17 +123,50 @@
   <data name="Previous Page" xml:space="preserve">
     <value>Trang trước</value>
   </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Tiến triển</value>
+  </data>
   <data name="Publish comment" xml:space="preserve">
     <value>Đăng bình luận</value>
   </data>
   <data name="Published comment?" xml:space="preserve">
     <value>Bình luận đã đăng?</value>
   </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Mở lại sự cố</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Giải quyết sự cố</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Đã giải quyết</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>Mức độ nghiêm trọng:</value>
+  </data>
   <data name="Split View" xml:space="preserve">
     <value>Chế độ xem chia đôi</value>
   </data>
+  <data name="Status: " xml:space="preserve">
+    <value>Trạng thái:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Hệ thống</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>Tiếp nhận sự cố</value>
+  </data>
   <data name="This comment has been deleted." xml:space="preserve">
     <value>Bình luận này đã bị xóa.</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>Phân trang dòng thời gian</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Chưa được phân công</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Chưa xử lý</value>
   </data>
   <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
     <value>Dùng Markdown để chia sẻ manh mối khắc phục sự cố, đề xuất hoặc thảo luận…</value>
@@ -106,61 +175,4 @@
     <value>Người dùng đã xóa</value>
   </data>
 
-    <data name="Acknowledged" xml:space="preserve">
-    <value>Đã xác nhận</value>
-  </data>
-    <data name="Adjust Incident Severity" xml:space="preserve">
-    <value>Điều chỉnh mức độ nghiêm trọng của sự cố</value>
-  </data>
-    <data name="Auto-create incident" xml:space="preserve">
-    <value>Tự động tạo sự cố</value>
-  </data>
-    <data name="Confirm and claim incident" xml:space="preserve">
-    <value>Xác nhận và tiếp nhận sự cố</value>
-  </data>
-    <data name="Incident event" xml:space="preserve">
-    <value>Sự kiện sự cố</value>
-  </data>
-    <data name="Mitigate incident" xml:space="preserve">
-    <value>Giảm nhẹ sự cố</value>
-  </data>
-    <data name="Mitigated" xml:space="preserve">
-    <value>Đã giảm thiểu</value>
-  </data>
-    <data name="Not set" xml:space="preserve">
-    <value>Chưa đặt</value>
-  </data>
-    <data name="Owner: " xml:space="preserve">
-    <value>Người phụ trách:</value>
-  </data>
-    <data name="Pending Response" xml:space="preserve">
-    <value>Chờ phản hồi</value>
-  </data>
-    <data name="Progress" xml:space="preserve">
-    <value>Tiến triển</value>
-  </data>
-    <data name="Reopen Incident" xml:space="preserve">
-    <value>Mở lại sự cố</value>
-  </data>
-    <data name="Resolve incident" xml:space="preserve">
-    <value>Giải quyết sự cố</value>
-  </data>
-    <data name="Resolved" xml:space="preserve">
-    <value>Đã giải quyết</value>
-  </data>
-    <data name="Severity: " xml:space="preserve">
-    <value>Mức độ nghiêm trọng:</value>
-  </data>
-    <data name="Status: " xml:space="preserve">
-    <value>Trạng thái:</value>
-  </data>
-    <data name="System" xml:space="preserve">
-    <value>Hệ thống</value>
-  </data>
-    <data name="Take Over Incident" xml:space="preserve">
-    <value>Tiếp nhận sự cố</value>
-  </data>
-    <data name="Unassigned" xml:space="preserve">
-    <value>Chưa được phân công</value>
-  </data>
 </root>

@@ -24,8 +24,14 @@
   <data name=": Allows browsing incident messages, related incidents, and delivery records for this application;" xml:space="preserve">
     <value>: Cho phép xem các tin nhắn sự cố, sự cố liên quan và bản ghi gửi của ứng dụng này;</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Thao tác</value>
+  </data>
   <data name="Add authorization" xml:space="preserve">
     <value>Thêm quyền truy cập</value>
+  </data>
+  <data name="Add or Update Share" xml:space="preserve">
+    <value>Thêm hoặc Cập nhật Chia sẻ</value>
   </data>
   <data name="Application Access Permissions" xml:space="preserve">
     <value>Quyền truy cập ứng dụng</value>
@@ -33,14 +39,29 @@
   <data name="Authorization Type" xml:space="preserve">
     <value>Loại ủy quyền</value>
   </data>
+  <data name="Back to Applications" xml:space="preserve">
+    <value>Quay lại Danh sách ứng dụng</value>
+  </data>
   <data name="Back to Connected Apps" xml:space="preserve">
     <value>Quay lại ứng dụng đã kết nối</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
+  <data name="Create incidents" xml:space="preserve">
+    <value>Tạo sự cố</value>
+  </data>
   <data name="Grant New Permissions" xml:space="preserve">
     <value>Cấp quyền mới</value>
+  </data>
+  <data name="Manage API keys" xml:space="preserve">
+    <value>Quản lý khóa API</value>
+  </data>
+  <data name="Manage application and sharing" xml:space="preserve">
+    <value>Quản lý ứng dụng và quyền chia sẻ</value>
+  </data>
+  <data name="Manage Sharing" xml:space="preserve">
+    <value>Quản lý chia sẻ</value>
   </data>
   <data name="Manageable" xml:space="preserve">
     <value>Có thể quản lý</value>
@@ -48,14 +69,26 @@
   <data name="Manageable (Manage)" xml:space="preserve">
     <value>Có quyền quản lý (Quản lý)</value>
   </data>
+  <data name="New owner" xml:space="preserve">
+    <value>Chủ sở hữu mới</value>
+  </data>
   <data name="No additional access permissions have been granted to regular users or roles yet" xml:space="preserve">
     <value>Chưa cấp thêm quyền truy cập nào cho người dùng thông thường hoặc vai trò.</value>
   </data>
   <data name="Only users with the application management permission can access this application." xml:space="preserve">
     <value>Chỉ người dùng có quyền quản lý ứng dụng mới có thể truy cập ứng dụng này.</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Chủ sở hữu</value>
+  </data>
+  <data name="Permanently delete incidents" xml:space="preserve">
+    <value>Xóa sự cố vĩnh viễn</value>
+  </data>
   <data name="Permission level" xml:space="preserve">
     <value>Cấp độ quyền</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Quyền</value>
   </data>
   <data name="Permissions granted" xml:space="preserve">
     <value>Quyền đã được cấp</value>
@@ -63,11 +96,17 @@
   <data name="Precisely control view and management permissions for team members and roles." xml:space="preserve">
     <value>Kiểm soát chính xác quyền xem và quản lý dành cho thành viên nhóm và các vai trò.</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
   <data name="Remove " xml:space="preserve">
     <value>Xóa</value>
   </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Xóa quyền truy cập</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Vai trò</value>
   </data>
   <data name="Role group" xml:space="preserve">
     <value>Nhóm vai trò</value>
@@ -81,6 +120,12 @@
   <data name="Save permission changes" xml:space="preserve">
     <value>Lưu thay đổi quyền</value>
   </data>
+  <data name="Save permissions" xml:space="preserve">
+    <value>Lưu quyền</value>
+  </data>
+  <data name="Select either a user or a role. Saving replaces that recipient&apos;s permissions." xml:space="preserve">
+    <value>Chọn một người dùng hoặc một vai trò. Việc lưu sẽ thay thế các quyền của người nhận đó.</value>
+  </data>
   <data name="Select Role" xml:space="preserve">
     <value>Chọn vai trò</value>
   </data>
@@ -90,14 +135,38 @@
   <data name="Select user..." xml:space="preserve">
     <value>Chọn người dùng...</value>
   </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>Được chia sẻ với</value>
+  </data>
   <data name="Specify Individual User" xml:space="preserve">
     <value>Chỉ định người dùng cụ thể</value>
   </data>
   <data name="Specify User" xml:space="preserve">
     <value>Chỉ định người dùng</value>
   </data>
+  <data name="The owner has all permissions. Direct user grants and role grants are combined. On-call assignments do not grant access." xml:space="preserve">
+    <value>Người sở hữu có tất cả các quyền. Các cấp quyền trực tiếp cho người dùng và cấp quyền cho vai trò được kết hợp. Việc phân công trực không cấp quyền truy cập.</value>
+  </data>
+  <data name="Transfer Ownership" xml:space="preserve">
+    <value>Chuyển quyền sở hữu</value>
+  </data>
+  <data name="Transferring ownership gives the selected user all permissions. You will lose owner privileges." xml:space="preserve">
+    <value>Chuyển quyền sở hữu sẽ cấp tất cả các quyền cho người dùng được chọn. Bạn sẽ mất đặc quyền của chủ sở hữu.</value>
+  </data>
+  <data name="Update incidents and status" xml:space="preserve">
+    <value>Cập nhật sự cố và trạng thái</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Người dùng</value>
+  </data>
+  <data name="User or Role" xml:space="preserve">
+    <value>Người dùng hoặc vai trò</value>
+  </data>
   <data name="Users with the application management permission have full management access to all applications." xml:space="preserve">
     <value>Người dùng có quyền quản lý ứng dụng có toàn quyền quản lý tất cả ứng dụng.</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Xem sự cố</value>
   </data>
   <data name="View only" xml:space="preserve">
     <value>Chỉ xem</value>

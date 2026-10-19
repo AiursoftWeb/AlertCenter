@@ -51,6 +51,15 @@
   <data name="hours · Min rest " xml:space="preserve">
     <value>時間 · 最低休息時間</value>
   </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>メンバー管理</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>スケジュール対象メンバー（ローテーション順）</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>次のステップ：シフトに担当者を割り当てる</value>
+  </data>
   <data name="No team members." xml:space="preserve">
     <value>チームメンバーはいません。</value>
   </data>
@@ -59,6 +68,9 @@
   </data>
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>現在保存されているシフトのオンコールエンジニア（OCE）全員のユーザーメールボックス（To）に、オンコールメールが自動送信されます。CCには、管理者が明示的に設定したチームのメールボックスまたはメーリングリストのアドレスのみが使用され、チームメンバー全員が自動的にCCに追加されることはありません。アプリケーションで設定されたカスタムのプッシュ通知チャネルからも、追加の通知が送信されます。</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>スケジュールを開く</value>
   </data>
   <data name="Per shift " xml:space="preserve">
     <value>1シフトあたり</value>
@@ -83,6 +95,9 @@
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>テンプレートは複数のチームで共有できます。テンプレートを変更または切り替えても、保存済みのシフトは再生成されません。</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>メンバーリストにはシフトに割り当て可能なメンバーが記載されています。保存されたスケジュールには当直のメンバーとインシデントメールの受信者が記載されています。CC受信者はグループメンバーシップに関係なく、メールの副本を受信します。</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>このチームには保存済みのシフトがあるため、スケジュール履歴を保持する目的で削除できません。</value>

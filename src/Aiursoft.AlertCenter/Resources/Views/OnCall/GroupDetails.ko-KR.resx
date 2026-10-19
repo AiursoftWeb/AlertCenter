@@ -51,6 +51,15 @@
   <data name="hours · Min rest " xml:space="preserve">
     <value>시간 · 최소 휴식</value>
   </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>구성원 관리</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>일정 편성 가능 멤버 (순환 순서)</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>다음: 교대 근무에 담당자 배정</value>
+  </data>
   <data name="No team members." xml:space="preserve">
     <value>팀원이 없습니다.</value>
   </data>
@@ -59,6 +68,9 @@
   </data>
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>현재 저장된 교대 근무의 모든 온콜 엔지니어(OCE) 사용자 메일함으로 온콜 이메일이 자동 발송됩니다(To). 참조(CC)에는 관리자가 명시적으로 설정한 팀 메일함 또는 메일링 리스트 주소만 사용되며, 모든 팀원이 자동으로 참조에 추가되지는 않습니다. 애플리케이션에 설정된 사용자 지정 푸시 채널을 통해 추가 알림은 계속 전송됩니다.</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>일정 열기</value>
   </data>
   <data name="Per shift " xml:space="preserve">
     <value>교대당</value>
@@ -83,6 +95,9 @@
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>템플릿은 여러 팀에서 공유할 수 있으며, 템플릿을 수정하거나 변경해도 저장된 근무 일정은 다시 생성되지 않습니다.</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>멤버 목록은 스케줄링이 가능한 사람을 나타냅니다. 저장된 스케줄은 당직 중인 사람과 인시던트 이메일을 받는 사람을 나타냅니다. CC 수신자는 그룹 멤버십과 무관하게 사본을 받습니다.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>이 팀에는 저장된 근무 일정이 있어 일정 이력을 보존하기 위해 삭제할 수 없습니다.</value>

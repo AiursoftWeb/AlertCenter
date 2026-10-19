@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="All roles" xml:space="preserve">
+      <data name="Add members" xml:space="preserve">
+    <value>구성원 추가</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>구성원을 추가해도 교대 근무가 배정되지는 않습니다.</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>고급 일정 설정</value>
+  </data>
+  <data name="All roles" xml:space="preserve">
     <value>모든 역할</value>
   </data>
   <data name="Browse all employees by role" xml:space="preserve">
@@ -45,8 +54,29 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>UTC 기준으로 입력하세요. 팀 시간대에 따라 자동 변환되지 않습니다. 근무가 저장되면 일정 시작 시점은 변경할 수 없습니다.</value>
   </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>역할로 필터링</value>
+  </data>
   <data name="Find" xml:space="preserve">
     <value>검색</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>도움말: 알림 CC</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>도움말: 역할 필터</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>도움말: 순번 순서</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>도움말: 일정 시작 시점</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>도움말: 일정 템플릿</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>도움말: 팀 시간대</value>
   </data>
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>구성원은 언제든지 추가하거나 제거할 수 있습니다. 구성원을 제거하면 아직 시작되지 않은 예약 근무만 취소되며, 이미 시작된 근무와 과거 근무 기록은 유지됩니다. 이로 인해 발생한 공석은 직접 인원을 배정해야 합니다.</value>
@@ -59,6 +89,12 @@
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>다음 페이지</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>아직 구성원이 없습니다. 사람을 찾으려면 ‘구성원 추가’를 여세요.</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>알림 CC (선택 사항)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>당직 이메일 참조</value>
@@ -75,11 +111,32 @@
   <data name="Rotate Members" xml:space="preserve">
     <value>순환 담당자</value>
   </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>순환 순서</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>변경 사항 저장</value>
+  </data>
   <data name="Save team" xml:space="preserve">
     <value>팀 저장</value>
   </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>저장하면 팀과 구성원이 업데이트됩니다. 근무 일정은 일정 페이지에서 별도로 관리하세요.</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>저장하면 아직 시작되지 않은 근무에서 이 구성원들이 제외됩니다. 일정에 공백이 생기는지 확인하세요.</value>
+  </data>
   <data name="Scheduling Rule Template" xml:space="preserve">
     <value>근무 일정 규칙 템플릿</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>스케줄링 시작점 (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>대신 이름으로 검색</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>이름 또는 계정으로 검색하거나 역할을 선택하세요.</value>
   </data>
   <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>시간대 이름, 도시 또는 UTC 오프셋으로 검색하세요. 일정 기준 시각은 UTC로 저장되며 팀의 시간대를 기준으로 표시됩니다.</value>
@@ -90,14 +147,35 @@
   <data name="Selected members (can be empty, max 200)" xml:space="preserve">
     <value>선택된 구성원 (비워 둘 수 있음, 최대 200명)</value>
   </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>역할을 선택하면 검색 결과만 필터링됩니다. 추가하려면 개별 사람을 선택하세요. 팀 소속은 해당 역할과 동기화되지 않습니다.</value>
+  </data>
   <data name="Shift Start Time (UTC)" xml:space="preserve">
     <value>교대 시작 시간(UTC)</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>팀 멤버</value>
   </data>
   <data name="Team name" xml:space="preserve">
     <value>팀 이름</value>
   </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>팀 설정</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>시간대</value>
+  </data>
+  <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
+    <value>받는 사람: 알림 발송 시점에 저장된 교대 근무에 배정된 사람입니다. 참조: 당번이 누구인지와 관계없이 아래에 입력한 선택적 주소로 보냅니다. 쉼표, 세미콜론 또는 줄바꿈으로 구분해 최대 50개 주소를 입력할 수 있습니다.</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>위로 이동 및 아래로 이동을 사용하여 향후 자동 일정 편성에 적용할 순서를 선택하세요. 기존 근무 일정의 순서는 변경되지 않습니다. 구성원은 최대 200명까지 선택할 수 있습니다.</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>일정 표시에 사용됩니다. 아래에 있는 고급 스케줄링 시작점은 별도로 UTC로 입력됩니다.</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>일정 보기</value>
   </data>
 
 </root>

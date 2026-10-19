@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: คีย์ API จะแสดงให้เห็นเพียงครั้งเดียวหลังจากสร้างสำเร็จ โปรดกำหนดค่าในตัวแปรสภาพแวดล้อมของระบบที่ใช้งานจริงทันที (เช่น</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. การกำหนดเวลาส่งแบบ push ถูกกระตุ้นแบบไม่ซิงโครนัส</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>เก็บระเบียนแรกไว้และอย่าส่งการแจ้งเตือนแบบพุชซ้ำ</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. ศูนย์สามารถใช้ฟิลด์นี้เพื่อประมาณค่าความหน่วงของเครือข่ายในการรายงานและการส่งมอบ</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(วิกฤต, ความสำคัญสูงสุด),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(ข้อผิดพลาด),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(ข้อมูลทั่วไป) ศูนย์จะดำเนินการจัดเส้นทางและแจ้งเตือนตามระดับนี้</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(รุนแรง),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(คำเตือน),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) หรือ Key Management Service (KMS) การ Hardcode ลงใน frontend, log หรือ code repositories เป็นสิ่งที่ห้ามทำโดยเด็ดขาด</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>1 ถึง 200 ตัวอักษร</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 ยอมรับแล้ว (ทำงานซ้ำได้โดยไม่เกิดผลซ้ำ)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 ข้อผิดพลาดของพารามิเตอร์</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 การยืนยันตัวตนล้มเหลว</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>เวลาที่เกิดเหตุการณ์จริงทางธุรกิจ เช่น</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>ไม่มีข้อมูลรับรองแบบ Bearer คีย์ไม่ตรงกัน หรือแอปพลิเคชันถูกปิดใช้งาน โปรดตรวจสอบการตั้งค่าแอปพลิเคชัน</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>ตั้งค่าช่องทาง Push Center</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>คัดลอกโค้ด</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>สร้างแอปพลิเคชันเชื่อมต่อและรับ API Key</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>คำอธิบาย</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>คู่มือการเชื่อมต่อสำหรับนักพัฒนา</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>รายงานซ้ำที่มี ReportId เดียวกัน</value>
+  </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>คีย์แต่ละรายการจะผูกกับแอปพลิเคชันหนึ่งรายการ เซิร์ฟเวอร์จะตรวจสอบแฮชของ Secret และสิทธิ์ที่จำเป็นสำหรับการดำเนินการแต่ละรายการ</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>รับรองความสม่ำเสมอ (Idempotency) ที่เข้มงวดภายใต้การประมวลผลแบบขนาน; ใช้ ID เดิมซ้ำสำหรับการส่งซ้ำ</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>รายงาน ID ใหม่แต่ละรายการจะสร้างเหตุการณ์แยกต่างหาก ใช้ ID รายงานเดิมซ้ำเฉพาะเมื่อลองส่งคำขอเดิมอีกครั้งเท่านั้น จำกัดอัตราการส่งรายงานที่ต้นทาง</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>ชื่อฟิลด์</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>ตั้งแต่การสร้างแอปและยืนยันตัวตนด้วยคีย์ ไปจนถึงการรายงานเหตุขัดข้องครั้งแรก สร้างช่องทางรับแจ้งเหตุขัดข้องของระบบที่เสถียรได้ใน 4 ขั้นตอน</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>ไปสร้างแอปและรับข้อมูลรับรอง</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>คำอธิบายรายละเอียดฟิลด์ของคำขอรายงาน HTTP</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>รหัสสถานะ HTTP และแนวทางปฏิบัติด้านวิศวกรรมที่ดีที่สุด</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>ในโค้ดตัวอย่าง</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>รายละเอียดเนื้อหาเหตุการณ์ รองรับคู่มือการแก้ปัญหา (troubleshooting) スタ็กของข้อยกเว้น (exception stacks) หรือสรุปการวินิจฉัย (diagnostic summaries) ชั้นการนำเสนอจะทำการ escape HTML อัตโนมัติเพื่อป้องกัน XSS injection</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>ชื่อสรุปเหตุการณ์ อธิบายข้อขัดข้องโดยย่อ เช่น “การตอบสนองจากช่องทางชำระเงินสำหรับคำสั่งซื้อหมดเวลา”</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>บันทึกครั้งแรกสำเร็จ คืนค่ารหัสหลัก (Primary Key ID) ที่สร้างขึ้น,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>ออบเจ็กต์ JSON; คำขอทั้งหมดมีขนาดไม่เกิน 64 KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>คำเตือนป้องกันการรั่วไหล</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>จัดการแอปพลิเคชันที่บูรณาการ</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>สูงสุด 4,000 ตัวอักษร</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>เปิดการจัดการคีย์ API สำหรับแอปพลิเคชันเพื่อสร้างคีย์ที่ตั้งชื่อได้ พร้อมสิทธิ์ในการค้นหา สร้าง และแก้ไขเป็นสถานะที่แก้ไขแล้ว</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>ไม่บังคับ</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>หรือตัวแปรสภาพแวดล้อม เพื่อให้สามารถค้นหาและตรวจสอบปัญหาได้ในคลิกเดียวจากหน้ารายละเอียด</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>แทนที่ด้วยคีย์แอปพลิเคชันที่สร้างไว้ในขั้นตอนก่อนหน้า เพื่อส่งการทดสอบได้โดยตรง</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>จำเป็น</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>ไม่มีฟิลด์ที่จำเป็น รูปแบบระดับไม่ถูกต้อง หรือเนื้อหาในคำขอเกินขีดจำกัด 64 KiB</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>การตอบกลับใช้ AiurProtocol ซึ่งประกอบด้วย Code, Message และ ProtocolVersion การตรวจสอบความถูกต้องที่ล้มเหลวจะรวมถึงอาร์เรย์ Items SDK จะคืนค่าใบรับที่จัดประเภทไว้ หรือส่งข้อยกเว้น AiurProtocol</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>กฎและข้อจำกัด</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>ส่งข้อความแจ้งเหตุการณ์แรก</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>ระดับความรุนแรง:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>รูปแบบ UUID มาตรฐาน</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>บริบททางธุรกิจที่มีโครงสร้าง ขอแนะนำให้ระบุ</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>รหัสรายงานที่ไม่ซ้ำกันทั่วโลกของไคลเอ็นต์ ศูนย์ใช้</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>SDK ส่งรายงานแต่ละรายการเพียงครั้งเดียว หากการเชื่อมต่อเครือข่ายล้มเหลวจนทำให้ผลลัพธ์ไม่แน่นอน ให้ลองส่งคำขอเดิมซ้ำโดยใช้ ReportId และเวลาเกิดเหตุการณ์เดิม</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>ดูเหตุการณ์</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>พร้อมระบุค่าออฟเซ็ตเขตเวลาหรืออักขระ Z</value>
+  </data>
+
+</root>

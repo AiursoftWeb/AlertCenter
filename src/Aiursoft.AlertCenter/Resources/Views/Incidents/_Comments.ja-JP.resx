@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
+    <value>確認済み</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>インシデントの重大度を調整</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
     <value>削除後は、投稿者、投稿日時、削除者、削除日時のみが保持されます。元のコメント本文は表示されなくなり、復元できません。</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>インシデントを自動作成</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
@@ -35,6 +44,9 @@
   </data>
   <data name="Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them." xml:space="preserve">
     <value>コメントはインシデント対応ログとは独立しており、インシデントの状態にかかわらず公開できます。公開後は編集できません。削除できるのは投稿者またはアプリ管理者のみです。</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>インシデントを確認して担当する</value>
   </data>
   <data name="Confirm deletion" xml:space="preserve">
     <value>削除を確認</value>
@@ -54,8 +66,20 @@
   <data name="Incident discussion" xml:space="preserve">
     <value>インシデントに関する議論</value>
   </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>インシデントイベント</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>インシデントのタイムライン</value>
+  </data>
   <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
     <value>Markdownに対応しています。最大4,000 UTF-16文字（絵文字は2文字としてカウントされる場合があります）。</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>インシデントを緩和</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>軽減済み</value>
   </data>
   <data name="Newest first · 20 items per page" xml:space="preserve">
     <value>新しい順 · 1ページあたり20件</value>
@@ -63,20 +87,32 @@
   <data name="Next Page" xml:space="preserve">
     <value>次のページ</value>
   </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>現在のページにアクティビティはありません。</value>
+  </data>
   <data name="No comments on the current page." xml:space="preserve">
     <value>現在のページにはコメントがありません。</value>
   </data>
   <data name="No. " xml:space="preserve">
     <value>第</value>
   </data>
+  <data name="Not set" xml:space="preserve">
+    <value>未設定</value>
+  </data>
   <data name="On" xml:space="preserve">
     <value>オン</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>所有者：</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>ページ</value>
   </data>
   <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
     <value>画像をエディターに貼り付けるかドラッグしてアップロードできます。</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>対応待ち</value>
   </data>
   <data name="Post comment" xml:space="preserve">
     <value>コメントを投稿</value>
@@ -87,17 +123,50 @@
   <data name="Previous Page" xml:space="preserve">
     <value>前のページ</value>
   </data>
+  <data name="Progress" xml:space="preserve">
+    <value>進捗</value>
+  </data>
   <data name="Publish comment" xml:space="preserve">
     <value>コメントを投稿</value>
   </data>
   <data name="Published comment?" xml:space="preserve">
     <value>コメントを投稿した時刻ですか？</value>
   </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>インシデントを再開</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>インシデントを解決</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>解決済み</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>重大度：</value>
+  </data>
   <data name="Split View" xml:space="preserve">
     <value>分割表示</value>
   </data>
+  <data name="Status: " xml:space="preserve">
+    <value>ステータス：</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>システム</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>インシデントを引き継ぐ</value>
+  </data>
   <data name="This comment has been deleted." xml:space="preserve">
     <value>このコメントは削除されました。</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>タイムラインのページネーション</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未割り当て</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>未対応</value>
   </data>
   <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
     <value>Markdownを使って、トラブルシューティングの手がかりや提案、議論を共有しましょう…</value>
@@ -106,61 +175,4 @@
     <value>ユーザー削除済み</value>
   </data>
 
-    <data name="Acknowledged" xml:space="preserve">
-    <value>確認済み</value>
-  </data>
-    <data name="Adjust Incident Severity" xml:space="preserve">
-    <value>インシデントの重大度を調整</value>
-  </data>
-    <data name="Auto-create incident" xml:space="preserve">
-    <value>インシデントを自動作成</value>
-  </data>
-    <data name="Confirm and claim incident" xml:space="preserve">
-    <value>インシデントを確認して担当する</value>
-  </data>
-    <data name="Incident event" xml:space="preserve">
-    <value>インシデントイベント</value>
-  </data>
-    <data name="Mitigate incident" xml:space="preserve">
-    <value>インシデントを緩和</value>
-  </data>
-    <data name="Mitigated" xml:space="preserve">
-    <value>軽減済み</value>
-  </data>
-    <data name="Not set" xml:space="preserve">
-    <value>未設定</value>
-  </data>
-    <data name="Owner: " xml:space="preserve">
-    <value>所有者：</value>
-  </data>
-    <data name="Pending Response" xml:space="preserve">
-    <value>対応待ち</value>
-  </data>
-    <data name="Progress" xml:space="preserve">
-    <value>進捗</value>
-  </data>
-    <data name="Reopen Incident" xml:space="preserve">
-    <value>インシデントを再開</value>
-  </data>
-    <data name="Resolve incident" xml:space="preserve">
-    <value>インシデントを解決</value>
-  </data>
-    <data name="Resolved" xml:space="preserve">
-    <value>解決済み</value>
-  </data>
-    <data name="Severity: " xml:space="preserve">
-    <value>重大度：</value>
-  </data>
-    <data name="Status: " xml:space="preserve">
-    <value>ステータス：</value>
-  </data>
-    <data name="System" xml:space="preserve">
-    <value>システム</value>
-  </data>
-    <data name="Take Over Incident" xml:space="preserve">
-    <value>インシデントを引き継ぐ</value>
-  </data>
-    <data name="Unassigned" xml:space="preserve">
-    <value>未割り当て</value>
-  </data>
 </root>

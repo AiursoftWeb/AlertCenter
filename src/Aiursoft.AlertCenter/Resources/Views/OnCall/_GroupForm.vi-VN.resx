@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="All roles" xml:space="preserve">
+      <data name="Add members" xml:space="preserve">
+    <value>Thêm thành viên</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>Thêm thành viên không đồng nghĩa với việc phân công ca trực.</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>Cài đặt lịch nâng cao</value>
+  </data>
+  <data name="All roles" xml:space="preserve">
     <value>Tất cả vai trò</value>
   </data>
   <data name="Browse all employees by role" xml:space="preserve">
@@ -45,8 +54,29 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Nhập theo giờ UTC; thời gian sẽ không được tự động chuyển đổi theo múi giờ của nhóm. Sau khi một ca trực được lưu, không thể thay đổi thời điểm bắt đầu lịch trực.</value>
   </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>Lọc theo vai trò</value>
+  </data>
   <data name="Find" xml:space="preserve">
     <value>Tìm</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>Trợ giúp: người nhận CC thông báo</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>Trợ giúp: bộ lọc vai trò</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>Trợ giúp: thứ tự luân phiên</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>Trợ giúp: thời điểm bắt đầu lập lịch</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>Trợ giúp: mẫu lịch làm việc</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>Trợ giúp: múi giờ của nhóm</value>
   </data>
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>Có thể thêm hoặc xóa thành viên bất cứ lúc nào; việc xóa một thành viên chỉ xóa các ca trực đã lên lịch nhưng chưa bắt đầu, còn các ca đã bắt đầu và các ca trong quá khứ vẫn được giữ lại. Mọi ca trực bị bỏ trống do đó phải được phân công thủ công.</value>
@@ -59,6 +89,12 @@
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Trang sau</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>Chưa có thành viên nào. Mở Thêm thành viên để tìm người.</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>CC thông báo (tùy chọn)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>Email CC trực ca</value>
@@ -75,11 +111,32 @@
   <data name="Rotate Members" xml:space="preserve">
     <value>Luân phiên thành viên</value>
   </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>Thứ tự luân phiên</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Lưu thay đổi</value>
+  </data>
   <data name="Save team" xml:space="preserve">
     <value>Lưu nhóm</value>
   </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>Lưu lại sẽ cập nhật nhóm và các thành viên. Quản lý ca riêng trong lịch.</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>Lưu lại sẽ xóa các thành viên này khỏi những ca chưa bắt đầu. Hãy kiểm tra lịch để tìm các ca còn trống.</value>
+  </data>
   <data name="Scheduling Rule Template" xml:space="preserve">
     <value>Mẫu quy tắc lập lịch</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>Điểm bắt đầu lên lịch (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>Tìm kiếm theo tên thay vì</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>Tìm theo tên hoặc tài khoản, hoặc chọn một vai trò.</value>
   </data>
   <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>Tìm kiếm theo tên múi giờ, thành phố hoặc độ lệch UTC. Mốc thời gian của lịch được lưu theo UTC và hiển thị theo múi giờ của nhóm.</value>
@@ -90,14 +147,35 @@
   <data name="Selected members (can be empty, max 200)" xml:space="preserve">
     <value>Thành viên đã chọn (có thể để trống, tối đa 200)</value>
   </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>Việc chọn một vai trò chỉ lọc kết quả tìm kiếm. Đánh dấu chọn từng người để thêm họ; thành viên nhóm không được đồng bộ với vai trò đó.</value>
+  </data>
   <data name="Shift Start Time (UTC)" xml:space="preserve">
     <value>Thời gian bắt đầu ca trực (UTC)</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>Thành viên nhóm</value>
   </data>
   <data name="Team name" xml:space="preserve">
     <value>Tên nhóm</value>
   </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>Cài đặt nhóm</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>Múi giờ</value>
+  </data>
+  <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
+    <value>Gửi đến: những người được phân công ca trực đã lưu tại thời điểm thông báo. CC: các địa chỉ tùy chọn bên dưới, bất kể ai đang trực. Sử dụng dấu phẩy, dấu chấm phẩy hoặc xuống dòng; tối đa 50 địa chỉ.</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>Sử dụng Di chuyển lên và Di chuyển xuống để chọn thứ tự dùng cho lịch tự động trong tương lai. Các ca trực hiện có sẽ không bị sắp xếp lại. Chọn tối đa 200 thành viên.</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>Dùng để hiển thị lịch trực. Mốc bắt đầu lập lịch nâng cao bên dưới được nhập riêng theo giờ UTC.</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>Xem lịch trình</value>
   </data>
 
 </root>

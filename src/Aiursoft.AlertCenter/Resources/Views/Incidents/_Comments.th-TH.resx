@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
+    <value>ได้รับการยืนยัน</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>ปรับระดับความรุนแรงของเหตุการณ์</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
     <value>หลังจากลบแล้ว ระบบจะเก็บไว้เฉพาะผู้เขียน เวลาเผยแพร่ ผู้ลบ และเวลาที่ลบเท่านั้น ข้อความความคิดเห็นต้นฉบับจะไม่แสดงอีกต่อไปและไม่สามารถกู้คืนได้</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>สร้างเหตุการณ์โดยอัตโนมัติ</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>ยกเลิก</value>
@@ -35,6 +44,9 @@
   </data>
   <data name="Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them." xml:space="preserve">
     <value>ความคิดเห็นแยกจากบันทึกการตอบสนองต่อเหตุการณ์ และสามารถเผยแพร่ได้ในทุกสถานะของเหตุการณ์ เมื่อเผยแพร่แล้วจะไม่สามารถแก้ไขได้ โดยมีเพียงผู้เขียนหรือผู้ดูแลระบบแอปเท่านั้นที่สามารถลบได้</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>ยืนยันและรับหน้าที่จัดการเหตุการณ์</value>
   </data>
   <data name="Confirm deletion" xml:space="preserve">
     <value>ยืนยันการลบ</value>
@@ -54,8 +66,20 @@
   <data name="Incident discussion" xml:space="preserve">
     <value>การอภิปรายเกี่ยวกับเหตุการณ์</value>
   </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>เหตุการณ์</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>ไทม์ไลน์เหตุการณ์</value>
+  </data>
   <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
     <value>รองรับ Markdown โดยมีความยาวสูงสุด 4,000 อักขระ UTF-16 (อีโมจิบางตัวอาจนับเป็น 2 อักขระ)</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>บรรเทาเหตุการณ์</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>บรรเทาแล้ว</value>
   </data>
   <data name="Newest first · 20 items per page" xml:space="preserve">
     <value>ใหม่สุดก่อน · 20 รายการต่อหน้า</value>
@@ -63,14 +87,23 @@
   <data name="Next Page" xml:space="preserve">
     <value>หน้าถัดไป</value>
   </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>ไม่มีกิจกรรมในหน้านี้</value>
+  </data>
   <data name="No comments on the current page." xml:space="preserve">
     <value>ไม่มีความคิดเห็นในหน้านี้</value>
   </data>
   <data name="No. " xml:space="preserve">
     <value>ลำดับที่</value>
   </data>
+  <data name="Not set" xml:space="preserve">
+    <value>ไม่ได้ตั้งค่า</value>
+  </data>
   <data name="On" xml:space="preserve">
     <value>เปิด</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>ผู้รับผิดชอบ:</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>หน้า</value>
@@ -87,17 +120,50 @@
   <data name="Previous Page" xml:space="preserve">
     <value>หน้าก่อนหน้า</value>
   </data>
+  <data name="Progress" xml:space="preserve">
+    <value>ความคืบหน้า</value>
+  </data>
   <data name="Publish comment" xml:space="preserve">
     <value>เผยแพร่ความคิดเห็น</value>
   </data>
   <data name="Published comment?" xml:space="preserve">
     <value>ความคิดเห็นที่เผยแพร่เมื่อ?</value>
   </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>เปิดเหตุการณ์ใหม่</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>แก้ไขเหตุการณ์ให้เสร็จสิ้น</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>แก้ไขแล้ว</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>ระดับความรุนแรง:</value>
+  </data>
   <data name="Split View" xml:space="preserve">
     <value>มุมมองแบบแบ่งหน้าจอ</value>
   </data>
+  <data name="Status: " xml:space="preserve">
+    <value>สถานะ:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>ระบบ</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>รับเรื่องรับผิดชอบ</value>
+  </data>
   <data name="This comment has been deleted." xml:space="preserve">
     <value>ความคิดเห็นนี้ถูกลบแล้ว</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>การแบ่งหน้าไทม์ไลน์</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>ไม่ได้กำหนด</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>ยังไม่ได้รับการแก้ไข</value>
   </data>
   <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
     <value>ใช้ Markdown เพื่อแบ่งปันเบาะแสในการแก้ไขปัญหา ข้อเสนอแนะ หรือการพูดคุย…</value>

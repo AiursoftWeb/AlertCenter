@@ -51,6 +51,15 @@
   <data name="hours · Min rest " xml:space="preserve">
     <value>giờ · Thời gian nghỉ tối thiểu</value>
   </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>Quản lý thành viên</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>Thành viên có thể được xếp lịch (theo thứ tự luân phiên)</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>Tiếp theo: phân công người vào ca trực</value>
+  </data>
   <data name="No team members." xml:space="preserve">
     <value>Không có thành viên nào trong nhóm.</value>
   </data>
@@ -59,6 +68,9 @@
   </data>
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>Email trực ca sẽ được tự động gửi đến hộp thư người dùng (To) của tất cả Kỹ sư trực (OCE) trong ca trực đã lưu hiện tại. CC chỉ sử dụng hộp thư của nhóm hoặc địa chỉ danh sách gửi thư được quản trị viên cấu hình rõ ràng; hệ thống không tự động CC tất cả thành viên nhóm. Các kênh thông báo đẩy tùy chỉnh được cấu hình trong ứng dụng vẫn sẽ gửi thêm thông báo.</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>Mở lịch</value>
   </data>
   <data name="Per shift " xml:space="preserve">
     <value>Mỗi ca</value>
@@ -83,6 +95,9 @@
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Các mẫu có thể được nhiều nhóm dùng chung; việc chỉnh sửa hoặc chuyển đổi mẫu sẽ không tạo lại các ca trực đã lưu.</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>Danh sách thành viên cho biết ai có thể được xếp lịch. Lịch đã lưu cho biết ai đang trực và nhận email thông báo sự cố. Người nhận CC sẽ nhận được bản sao, независимо với tư cách thành viên nhóm.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>Nhóm này đã có các ca trực được lưu nên không thể xóa để bảo toàn lịch sử phân ca.</value>
