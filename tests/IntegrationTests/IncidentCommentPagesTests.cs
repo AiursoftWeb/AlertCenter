@@ -357,6 +357,11 @@ public partial class IncidentPagesTests
         Assert.IsTrue(first.IndexOf("id=\"incident-comment-form\"", StringComparison.Ordinal) < first.IndexOf("id=\"incident-timeline\"", StringComparison.Ordinal));
         Assert.IsTrue(first.IndexOf("id=\"incident-timeline\"", StringComparison.Ordinal) < first.IndexOf("id=\"incident-details\"", StringComparison.Ordinal));
         Assert.DoesNotContain("action=\"/Incidents/AddNote\"", first);
+        var sidebar = first[first.IndexOf("<aside", StringComparison.Ordinal)..];
+        Assert.IsTrue(sidebar.IndexOf("Current On-Call OCE", StringComparison.Ordinal) < sidebar.IndexOf("id=\"incident-context-heading\"", StringComparison.Ordinal));
+        Assert.IsTrue(sidebar.IndexOf("id=\"incident-context-heading\"", StringComparison.Ordinal) < sidebar.IndexOf("Incident ID", StringComparison.Ordinal));
+        Assert.Contains("<code>{", sidebar);
+
     }
 
     private async Task<Guid> CommentApplicationId(Guid id)

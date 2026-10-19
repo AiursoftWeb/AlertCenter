@@ -110,11 +110,11 @@
     </div>
 </div>
 
-<partial name="_Comments" model="Model" />
-
-<details class="mb-4" id="incident-details">
-    <summary class="h6 py-3">@Localizer["Report and on-call details"]</summary>
-    <div class="mt-3">
+<div class="row g-4">
+    <div class="col-lg-8">
+        <partial name="_Comments" model="Model" />
+    </div>
+    <aside class="col-lg-4" id="incident-details" aria-label="@Localizer["Report information"]">
         <section class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-transparent py-3">
                 <h2 class="card-title h6 mb-0">@Localizer["Current On-Call OCE"]</h2>
@@ -168,6 +168,26 @@
             </div>
         </section>
 
+        <section class="card shadow-sm border-0 mb-4" aria-labelledby="incident-context-heading">
+            <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2 py-3">
+                <h2 id="incident-context-heading" class="card-title h6 mb-0">@Localizer["Full context"] <span class="badge bg-secondary ms-2">JSON</span></h2>
+                @if (!string.IsNullOrWhiteSpace(incident.ContextJson))
+                {
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="incident-context" data-copy-feedback="incident-copy-feedback">@Localizer["Copy JSON"]</button>
+                }
+            </div>
+            <div class="card-body p-0">
+                @if (string.IsNullOrWhiteSpace(incident.ContextJson))
+                {
+                    <p class="text-muted p-4 mb-0">@Localizer["No additional context was reported."]</p>
+                }
+                else
+                {
+                    <pre id="incident-context" class="ac-context-json m-0 p-4" tabindex="0" aria-labelledby="incident-context-heading"><code>@Model.FormattedContext</code></pre>
+                }
+            </div>
+        </section>
+
         <section class="card shadow-sm border-0 mb-4">
             <div class="card-header"><h2 class="card-title h6 mb-0">@Localizer["Report information"]</h2></div>
             <div class="card-body">
@@ -205,29 +225,8 @@
                 </div>
             </div>
         </section>
-    </div>
-
-    <section class="card shadow-sm border-0 mb-4" aria-labelledby="incident-context-heading">
-        <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2 py-3">
-            <h2 id="incident-context-heading" class="card-title h6 mb-0">@Localizer["Full context"] <span class="badge bg-secondary ms-2">JSON</span></h2>
-            @if (!string.IsNullOrWhiteSpace(incident.ContextJson))
-            {
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="incident-context" data-copy-feedback="incident-copy-feedback">@Localizer["Copy JSON"]</button>
-            }
-        </div>
-        <div class="card-body p-0">
-            @if (string.IsNullOrWhiteSpace(incident.ContextJson))
-            {
-                <p class="text-muted p-4 mb-0">@Localizer["No additional context was reported."]</p>
-            }
-            else
-            {
-                <pre id="incident-context" class="ac-context-json m-0 p-4" tabindex="0" aria-labelledby="incident-context-heading"><code>@Model.FormattedContext</code></pre>
-            }
-        </div>
-    </section>
-
-</details>
+    </aside>
+</div>
 
 @if (Model.CanManage && incident.Status == Incident.Acked)
 {
