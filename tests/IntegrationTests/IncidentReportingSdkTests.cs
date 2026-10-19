@@ -22,6 +22,56 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
+    public async Task SdkGetsOwnIncidentAndHidesForeignOrMissingIncidents()
+    {
+        var key = await CreateApplication();
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var request = new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(), Title = "Build failed", Content = "Compiler error", Level = "sev2",
+            OccurredAtUtc = DateTimeOffset.UtcNow, Context = JObject.Parse("{\"pipeline\":42}")
+        };
+        var receipt = await client.CreateIncidentAsync(request);
+        var response = await client.GetIncidentAsync(receipt.IncidentId);
+        Assert.AreEqual(Code.JobDone, response.Code);
+        Assert.IsNotNull(response.ProtocolVersion);
+        var details = response.Incident;
+        Assert.AreEqual(receipt.IncidentId, details.IncidentId);
+        Assert.AreEqual(request.ReportId, details.ReportId);
+        Assert.AreEqual(request.Title, details.Title);
+        Assert.AreEqual(request.Content, details.Content);
+        Assert.AreEqual(request.Level, details.Level);
+        Assert.AreEqual(Incident.New, details.Status);
+        Assert.AreNotEqual(Guid.Empty, details.Version);
+        Assert.AreEqual(TimeSpan.Zero, details.OccurredAtUtc.Offset);
+        Assert.AreEqual(receipt.ReceivedAtUtc, details.ReceivedAtUtc);
+        Assert.IsTrue(JToken.DeepEquals(request.Context, details.Context));
+        await using var otherServices = ReportingClient(await CreateApplication());
+        var foreign = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() =>
+            otherServices.GetRequiredService<AlertCenterApiClient>().GetIncidentAsync(receipt.IncidentId));
+        var missing = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.GetIncidentAsync(Guid.NewGuid()));
+        Assert.AreEqual(Code.NotFound, foreign.Response.Code);
+        Assert.AreEqual(missing.Response.Code, foreign.Response.Code);
+        Assert.AreEqual(missing.Response.Message, foreign.Response.Message);
+
+        var limitedKey = await CreateApplicationKey(Guid.Parse(key.Split('.')[0]), query: false);
+        await using var limitedServices = ReportingClient(limitedKey);
+        var denied = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() =>
+            limitedServices.GetRequiredService<AlertCenterApiClient>().GetIncidentAsync(receipt.IncidentId));
+        Assert.AreEqual(Code.Unauthorized, denied.Response.Code);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var storedKey = await db.ApplicationApiKeys.SingleAsync(item => item.Id == Guid.Parse(key.Split('.')[1]));
+            storedKey.IsEnabled = false;
+            await db.SaveChangesAsync();
+        }
+        var revoked = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.GetIncidentAsync(receipt.IncidentId));
+        Assert.AreEqual(Code.WrongKey, revoked.Response.Code);
+    }
+
+    [TestMethod]
     public async Task SeverityChangesRequireTheirOwnScopeAndPreserveHistoryWithoutEmail()
     {
         var originalKey = await CreateApplication();

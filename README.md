@@ -21,6 +21,16 @@ On an empty database, the default local account is `admin@default.com` with pass
 - Application access grants for users and roles, with separate permissions for application, on-call, and push management.
 - SQLite for standalone use, MySQL support, and local or OIDC authentication through [Aiursoft Template](https://github.com/AiursoftWeb/template).
 
+## Install with Docker
+
+Run the installer with the desired port (omit it to choose an available port):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aiursoftweb/alertcenter/master/install.sh | sudo bash -s -- 8080
+```
+
+Installation starts after three seconds; press Ctrl+C to cancel. Then open `http://localhost:8080`.
+
 ## Run manually
 
 1. Install the .NET 10 SDK and Node.js/npm.
@@ -90,6 +100,39 @@ curl -i 'http://localhost:5000/api/v1/incidents' \
 Use your server's HTTPS URL for remote reporting and keep API keys outside source control. Reuse a `reportId` only when retrying the same report. A new report returns `201 Created`; a duplicate returns `202 Accepted` with `Code: 1` and `Duplicate: true`. Invalid credentials return `401`; invalid fields return `400`. Requests are limited to 64 KiB, titles to 200 characters, and content to 4,000 characters.
 
 The API uses [AiurProtocol](https://github.com/AiursoftWeb/aiurprotocol). Receipts contain `Code`, `Message`, `ProtocolVersion`, `ReportId`, `ReceivedAtUtc`, `IncidentId`, and `Duplicate`. A new report uses `Code: 2` (`JobDone`); a duplicate uses `Code: 1` (`NoActionTaken`). Invalid credentials use `Code: -1` (`WrongKey`); invalid input uses `Code: -10` (`InvalidInput`) with an `Items` array describing errors. Oversized requests return HTTP `413` with the same invalid-input envelope.
+
+### Command-line client
+
+Install the .NET 10 tool:
+
+```bash
+dotnet tool install --global Aiursoft.AlertCenter.Client
+```
+
+Every business command requires an explicit `--server` and `--api-key`. The key
+selects the application and its permitted operations; credentials are never saved
+or automatically read from environment variables. The shell variable below is
+passed explicitly. Use `--json` for the complete AiurProtocol response.
+
+```bash
+alertcenter list --server https://alertcenter.example.com --api-key "$APP_API_KEY" --active-only --page 1 --page-size 50 --json
+alertcenter get --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --json
+alertcenter create --server https://alertcenter.example.com --api-key "$APP_API_KEY" --report-id "$REPORT_ID" --title "Main branch build failed" --level sev2 --occurred-at "2026-10-18T12:00:00Z" --content "Compiler error" --context '{"pipeline":42}' --json
+alertcenter severity --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --version "$INCIDENT_VERSION" --level sev1 --reason "Failure persisted" --json
+alertcenter resolve --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --version "$INCIDENT_VERSION" --reason "Build recovered" --json
+```
+
+List and detail queries require the key's query scope and only return its own
+application's incidents. A missing or other-application incident returns the same
+`NotFound`. Detail responses include `incident.version`, content and Context;
+`GET /api/v1/incidents/{incidentId}` and SDK `GetIncidentAsync` expose the same data.
+
+Retain the report ID and occurrence time before reporting; reuse them after an
+uncertain outcome. Duplicate reports and already resolved incidents exit
+successfully. Resolve and severity commands require the version from a prior
+query and a reason. A conflict fails without automatically fetching a new version
+or retrying. Results go to stdout; errors go to stderr with a nonzero exit code.
+Use `alertcenter <command> --help` for options. CLI and detail SDK version: `10.4.0`.
 
 ### .NET SDK
 

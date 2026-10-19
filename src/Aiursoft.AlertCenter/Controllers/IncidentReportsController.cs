@@ -90,16 +90,36 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         {
             Code = Code.JobDone, Message = "Incidents retrieved.",
             Page = request.Page, PageSize = request.PageSize, TotalCount = total,
-            Items = incidents.Select(incident => new IncidentDetails
-            {
-                IncidentId = incident.Id, ReportId = incident.ReportId, Version = incident.Version,
-                Title = incident.Title, Content = incident.Content, Level = incident.Level, Status = incident.Status,
-                OccurredAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.OccurredAtUtc, DateTimeKind.Utc)),
-                ReceivedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc)),
-                Context = incident.ContextJson == null ? null : JObject.Parse(incident.ContextJson)
-            }).ToList()
+            Items = incidents.Select(Details).ToList()
         });
     }
+
+    [HttpGet("{incidentId:guid}")]
+    public async Task<IActionResult> Get(Guid incidentId, CancellationToken cancellationToken)
+    {
+        var key = await AuthenticateKeyAsync(cancellationToken);
+        if (key == null)
+            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
+        if (!key.CanQueryIncidents)
+            return this.Protocol(Code.Unauthorized, "The API key does not permit this operation.");
+        var incident = await db.Incidents.AsNoTracking().SingleOrDefaultAsync(
+            item => item.ApplicationId == key.ApplicationId && item.Id == incidentId, cancellationToken);
+        if (incident == null)
+            return this.Protocol(Code.NotFound, "The incident was not found.");
+        return this.Protocol(new GetIncidentResponse
+        {
+            Code = Code.JobDone, Message = "Incident retrieved.", Incident = Details(incident)
+        });
+    }
+
+    private static IncidentDetails Details(Incident incident) => new()
+    {
+        IncidentId = incident.Id, ReportId = incident.ReportId, Version = incident.Version,
+        Title = incident.Title, Content = incident.Content, Level = incident.Level, Status = incident.Status,
+        OccurredAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.OccurredAtUtc, DateTimeKind.Utc)),
+        ReceivedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc)),
+        Context = incident.ContextJson == null ? null : JObject.Parse(incident.ContextJson)
+    };
 
     [HttpPost("{incidentId:guid}/resolve")]
     [RequestSizeLimit(65536)]

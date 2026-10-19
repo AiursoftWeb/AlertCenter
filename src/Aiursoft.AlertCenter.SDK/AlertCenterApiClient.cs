@@ -18,6 +18,13 @@ public sealed class AlertCenterApiClient(
             autoRetry: false, headers: await AuthorizationHeadersAsync());
     }
 
+    public async Task<GetIncidentResponse> GetIncidentAsync(Guid incidentId)
+    {
+        return await http.Get<GetIncidentResponse>(
+            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), $"/api/v1/incidents/{incidentId}", new { }),
+            autoRetry: false, headers: await AuthorizationHeadersAsync());
+    }
+
     public async Task<ResolveIncidentResponse> ResolveIncidentAsync(Guid incidentId, ResolveIncidentRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
