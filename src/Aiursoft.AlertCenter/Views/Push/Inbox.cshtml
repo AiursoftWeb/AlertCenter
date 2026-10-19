@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using System.Globalization
 @{
@@ -202,7 +203,7 @@
                         </div>
                         <small class="text-muted text-nowrap font-monospace small">
                             <i data-lucide="clock" style="width: 12px; height: 12px;" class="align-middle me-1" aria-hidden="true"></i>
-                            @notification.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+                            <span data-utc-time="@notification.CreatedAtUtc.ToHtmlDateTime()"></span>
                         </small>
                     </div>
 

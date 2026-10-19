@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.IncidentsViewModel
 @using Aiursoft.AlertCenter.Entities
 @{
@@ -29,7 +30,7 @@
     <div class="d-flex align-items-center gap-2">
         <span class="text-muted small font-monospace">
             <i data-lucide="clock" style="width: 13px; height: 13px;" class="align-middle me-1" aria-hidden="true"></i>
-            @Localizer["Auto-created at "]@incident.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+            @Localizer["Auto-created at "]<span data-utc-time="@incident.ReceivedAtUtc.ToHtmlDateTime()"></span>
         </span>
     </div>
 </div>
@@ -144,18 +145,18 @@
                     <dl class="mb-0 mt-3 pt-3 border-top text-muted">
                         @if (incident.AcknowledgedAtUtc.HasValue)
                         {
-                            <dt>@Localizer["Last acknowledgement time (UTC)"]</dt>
-                            <dd class="font-monospace">@incident.AcknowledgedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                            <dt>@Localizer["Last acknowledgement time"]</dt>
+                            <dd class="font-monospace"><span data-utc-time="@incident.AcknowledgedAtUtc.Value.ToHtmlDateTime()"></span></dd>
                         }
                         @if (incident.MitigatedAtUtc.HasValue)
                         {
-                            <dt>@Localizer["Mitigation time (UTC)"]</dt>
-                            <dd class="font-monospace">@incident.MitigatedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                            <dt>@Localizer["Mitigation time"]</dt>
+                            <dd class="font-monospace"><span data-utc-time="@incident.MitigatedAtUtc.Value.ToHtmlDateTime()"></span></dd>
                         }
                         @if (incident.ResolvedAtUtc.HasValue)
                         {
-                            <dt>@Localizer["Resolution time (UTC)"]</dt>
-                            <dd class="font-monospace">@incident.ResolvedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                            <dt>@Localizer["Resolution time"]</dt>
+                            <dd class="font-monospace"><span data-utc-time="@incident.ResolvedAtUtc.Value.ToHtmlDateTime()"></span></dd>
                         }
                     </dl>
                 }
@@ -168,8 +169,8 @@
                 <dl>
                     <dt>@Localizer["Incident ID"]</dt><dd class="text-break">@incident.Id</dd>
                     <dt>@Localizer["Report ID"]</dt><dd class="text-break">@incident.ReportId</dd>
-                    <dt>@Localizer["Occurred at (UTC)"]</dt><dd>@incident.OccurredAtUtc.ToString("O")</dd>
-                    <dt>@Localizer["Received at (UTC)"]</dt><dd>@incident.ReceivedAtUtc.ToString("O")</dd>
+                    <dt>@Localizer["Occurred at"]</dt><dd><span data-utc-time="@incident.OccurredAtUtc.ToHtmlDateTime()"></span></dd>
+                    <dt>@Localizer["Received at"]</dt><dd><span data-utc-time="@incident.ReceivedAtUtc.ToHtmlDateTime()"></span></dd>
                 </dl>
                 <div id="incident-copy-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="incident-content" data-copy-feedback="incident-copy-feedback">@Localizer["Copy content"]</button>

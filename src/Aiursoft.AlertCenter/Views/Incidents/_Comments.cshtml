@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @using Aiursoft.AlertCenter.Entities
 @using Aiursoft.AlertCenter.Services.FileStorage
 @model Aiursoft.AlertCenter.Models.IncidentsViewModel
@@ -99,7 +100,7 @@
                                             <span class="badge bg-light text-secondary border small">@(entry.ActorName ?? entry.Actor?.DisplayName ?? (entry.Type == IncidentTimelineEntry.Created && entry.ActorId == null && entry.ActorIdSnapshot == null ? @Localizer["System"].Value : @Localizer["User deleted"].Value))</span>
                                         </div>
                                         <small class="text-muted font-monospace small">
-                                            @entry.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+                                            <span data-utc-time="@entry.CreatedAtUtc.ToHtmlDateTime()"></span>
                                         </small>
                                     </div>
                                     @if (entry.PreviousStatus != entry.NewStatus && (entry.PreviousStatus != null || entry.NewStatus != null))
@@ -131,11 +132,11 @@
                                     <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
                                         <div class="text-break">
                                             <strong>@comment.AuthorName</strong>
-                                            <time class="text-muted small d-block font-monospace" datetime="@comment.CreatedAtUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")">@comment.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</time>
+                                            <time class="text-muted small d-block font-monospace" datetime="@comment.CreatedAtUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")"><span data-utc-time="@comment.CreatedAtUtc.ToHtmlDateTime()"></span></time>
                                         </div>
                                         @if (!comment.DeletedAtUtc.HasValue && comment.CanDelete)
                                         {
-                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-incident-comment" data-comment-id="@comment.Id" data-comment-author="@comment.AuthorName" data-comment-created="@comment.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC">@Localizer["Delete"]</button>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-incident-comment" data-comment-id="@comment.Id" data-comment-author="@comment.AuthorName">@Localizer["Delete"]</button>
                                         }
                                     </div>
                                     @if (comment.DeletedAtUtc.HasValue)
@@ -143,7 +144,7 @@
                                         <div class="incident-comment-tombstone text-muted small">
                                             <p class="mb-1">@Localizer["This comment has been deleted."]</p>
                                             <span class="text-break">@Localizer["Deleted by: "]@(comment.DeletedByName ?? @Localizer["User deleted"].Value)</span>
-                                            <time class="d-block font-monospace" datetime="@comment.DeletedAtUtc.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")">@comment.DeletedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") UTC</time>
+                                            <time class="d-block font-monospace" datetime="@comment.DeletedAtUtc.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")"><span data-utc-time="@comment.DeletedAtUtc.Value.ToHtmlDateTime()"></span></time>
                                         </div>
                                     }
                                     else
