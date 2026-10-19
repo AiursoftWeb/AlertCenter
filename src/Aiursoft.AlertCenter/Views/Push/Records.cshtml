@@ -164,8 +164,9 @@
                                         <a asp-action="Delivery" asp-route-id="@delivery.Id" class="fw-semibold text-decoration-none text-break d-block">
                                             @(delivery.Incident?.Title ?? (delivery.IncidentEvent != null ? (delivery.IncidentEvent.Type switch
                                                 {
-                                                    IncidentTimelineEntry.Mitigated => string.Format(Localizer["Incident mitigated: {0}"].Value, delivery.IncidentEvent.Incident.Title),
-                                                    IncidentTimelineEntry.Resolved => string.Format(Localizer["Incident resolved: {0}"].Value, delivery.IncidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Mitigated => string.Format(@Localizer["Incident mitigated: {0}"].Value, delivery.IncidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Reopened => string.Format(@Localizer["Incident reopened: {0}"].Value, delivery.IncidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Resolved => string.Format(@Localizer["Incident resolved: {0}"].Value, delivery.IncidentEvent.Incident.Title),
                                                     _ => delivery.IncidentEvent.Incident.Title
                                                 }) : @Localizer["Channel test notification"].Value))
                                         </a>

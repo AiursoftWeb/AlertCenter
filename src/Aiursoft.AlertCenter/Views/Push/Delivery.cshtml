@@ -147,8 +147,9 @@ else
             <div class="card-body">
                 <h3 class="h5 mb-3 text-break">@(delivery.Incident?.Title ?? (incidentEvent != null ? (incidentEvent.Type switch
                                                 {
-                                                    IncidentTimelineEntry.Mitigated => string.Format(Localizer["Incident mitigated: {0}"].Value, incidentEvent.Incident.Title),
-                                                    IncidentTimelineEntry.Resolved => string.Format(Localizer["Incident resolved: {0}"].Value, incidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Mitigated => string.Format(@Localizer["Incident mitigated: {0}"].Value, incidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Reopened => string.Format(@Localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title),
+                                                    IncidentTimelineEntry.Resolved => string.Format(@Localizer["Incident resolved: {0}"].Value, incidentEvent.Incident.Title),
                                                     _ => incidentEvent.Incident.Title
                                                 }) : @Localizer["Channel test notification"].Value))</h3>
                 @{
