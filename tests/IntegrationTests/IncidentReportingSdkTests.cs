@@ -122,7 +122,10 @@ public partial class IncidentPagesTests
             Assert.IsNull(entry.ActorId);
             Assert.AreEqual(Incident.New, entry.NewStatus);
             Assert.AreEqual(1, await db.PushDeliveries.CountAsync(item => item.IncidentEventId == entry.Id));
+            var deliveryId = await db.PushDeliveries.Where(item => item.IncidentEventId == entry.Id).Select(item => item.Id).SingleAsync();
+            Assert.Contains("Incident escalated (SEV3 → SEV2)", WebUtility.HtmlDecode(await Http.GetStringAsync($"/Push/Delivery/{deliveryId}")));
         }
+        Assert.Contains("Incident escalated (SEV3 → SEV2)", WebUtility.HtmlDecode(await Http.GetStringAsync("/Push/Records")));
         await client.ResolveIncidentAsync(receipt.IncidentId, new ResolveIncidentRequest { Version = changed.Version, Reason = "Green" });
         var resolved = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ChangeIncidentSeverityAsync(receipt.IncidentId,
             new ChangeIncidentSeverityRequest { Version = changed.Version, Level = "sev1", Reason = "Late update" }));
