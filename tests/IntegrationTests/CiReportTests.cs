@@ -57,9 +57,9 @@ public partial class IncidentPagesTests
         CliJson(await ReportPipeline(key, 6, "failed"));
         var incidents = await ReportedIncidents(key);
         Assert.AreEqual(2, incidents.Count);
-        Assert.AreNotEqual(recovered.Value<string>("incidentId"), incidents[0]!.Value<string>("incidentId"));
-        Assert.AreEqual("sev3", incidents[0]!.Value<string>("level"));
-        Assert.AreEqual(1, incidents[0]!["metadata"]!["ci"]!.Value<int>("consecutiveFailures"));
+        Assert.AreNotEqual(recovered.Value<string>("incidentId"), incidents[0].Value<string>("incidentId"));
+        Assert.AreEqual("sev3", incidents[0].Value<string>("level"));
+        Assert.AreEqual(1, incidents[0]["metadata"]!["ci"]!.Value<int>("consecutiveFailures"));
     }
 
     [TestMethod]
@@ -99,8 +99,8 @@ public partial class IncidentPagesTests
         var incidents = await ReportedIncidents(key);
         Assert.AreEqual(2, incidents.Count);
         Assert.AreEqual("mitigated", incidents.Single(i => i.Value<string>("incidentId") == id).Value<string>("status"));
-        Assert.AreEqual("sev3", incidents[0]!.Value<string>("level"));
-        Assert.AreEqual(1, incidents[0]!["metadata"]!["ci"]!.Value<int>("consecutiveFailures"));
+        Assert.AreEqual("sev3", incidents[0].Value<string>("level"));
+        Assert.AreEqual(1, incidents[0]["metadata"]!["ci"]!.Value<int>("consecutiveFailures"));
     }
 
     [TestMethod]
