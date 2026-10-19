@@ -106,6 +106,10 @@ public partial class IncidentPagesTests
         var alerts = await Http.GetStringAsync("/Incidents");
         Assert.Contains("Allowed application alert", alerts);
         Assert.DoesNotContain("Private other application alert", alerts);
+        var dashboard = await Http.GetStringAsync("/Dashboard/Index");
+        Assert.Contains("Allowed application alert", dashboard);
+        Assert.DoesNotContain("Private other application", dashboard);
+        Assert.Contains("All  (1)", WebUtility.HtmlDecode(dashboard));
         AssertForbidden(await Http.GetAsync($"/Incidents?applicationId={otherId}"));
         AssertForbidden(await Http.GetAsync($"/Incidents/Details/{otherIncidentId}"));
 

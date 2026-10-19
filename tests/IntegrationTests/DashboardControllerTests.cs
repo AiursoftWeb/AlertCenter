@@ -1,21 +1,28 @@
+using System.Net;
+
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
 [TestClass]
 public class DashboardControllerTests : TestBase
 {
     [TestMethod]
-    public async Task GetIndex()
+    [DataRow("/Dashboard")]
+    [DataRow("/Dashboard/Index")]
+    public async Task AnonymousDashboardRedirectsToLogin(string url)
     {
-        // This is a basic test to ensure the controller is reachable.
-        // Adjust the path as necessary for specific controllers.
-        var url = "/Dashboard/Index";
-        
-        var response = await Http.GetAsync(url);
-        
-        // Assert
-        // For some controllers, it might redirect to login, which is 302.
-        // For others, it might be 200.
-        // We just check if we get a response.
-        Assert.IsNotNull(response);
+        using var response = await Http.GetAsync(url);
+        AssertRedirect(response, $"/Account/Login?ReturnUrl={Uri.EscapeDataString(url)}");
+        Assert.DoesNotContain("Monitoring Dashboard", await response.Content.ReadAsStringAsync());
+    }
+
+    [TestMethod]
+    public async Task AuthenticatedDashboardIsNotCached()
+    {
+        await LoginAsAdmin();
+        using var response = await Http.GetAsync("/Dashboard/Index");
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        Assert.Contains("Monitoring Dashboard", await response.Content.ReadAsStringAsync());
+        Assert.IsTrue(response.Headers.CacheControl?.NoStore == true);
+        Assert.IsTrue(response.Headers.CacheControl?.NoCache == true);
     }
 }
