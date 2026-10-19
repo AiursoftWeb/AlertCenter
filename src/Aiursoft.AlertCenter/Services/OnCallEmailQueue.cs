@@ -62,6 +62,11 @@ public static class OnCallEmailQueue
             // Capture the current configuration for this delivery; retries retain it.
             var group = await db.OnCallGroups.AsNoTracking().Where(item => item.Id == original.GroupId)
                 .Select(item => new { item.EmailCcRecipients }).SingleOrDefaultAsync(cancellationToken);
+            // A corrected CC configuration can recover later notifications. Invalid or missing
+            // original OCE addresses remain frozen and cannot be replaced by today's roster.
+            if (group != null && original.Recipients.Count > 0 && original.Recipients.All(person =>
+                    EmailChannelAdapter.TryParseRecipient(person.Email, out _, out _)))
+                delivery.OnCallEmail!.ValidationError = null;
             var ccSource = group == null ? original.CcRecipients : group.EmailCcRecipients;
             if (!EmailChannelAdapter.TryParseCcRecipients(ccSource, out var cc, out _,
                     localizer: localizerFactory?.Create(typeof(EmailChannelAdapter))))

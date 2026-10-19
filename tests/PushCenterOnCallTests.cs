@@ -126,6 +126,54 @@ public partial class PushCenterTests
     }
 
     [TestMethod]
+    [DataRow("cc")]
+    [DataRow("original-to")]
+    [DataRow("deleted-cc-team")]
+    public async Task CorrectedCcRecoversLaterEmailWithoutReplacingInvalidOriginalOce(string scenario)
+    {
+        var application = await Application();
+        var group = await OnCallTeam(application, scenario == "original-to" ? "not-an-email" : "bob@example.com");
+        if (scenario != "original-to")
+        {
+            group.EmailCcRecipients = "invalid-cc";
+            await _db.SaveChangesAsync();
+        }
+        await Report(application, Guid.NewGuid());
+        var original = await BuiltInDelivery();
+        Assert.AreEqual(PushDelivery.Failed, original.Status);
+        (await _db.OnCallGroups.SingleAsync()).EmailCcRecipients = "fixed-cc@example.com";
+        (await _db.Users.SingleAsync(user => user.Id == "oce-bob")).Email = "new-profile@example.com";
+        await _db.SaveChangesAsync();
+        if (scenario == "deleted-cc-team")
+        {
+            (await _db.SourceApplications.SingleAsync()).OnCallGroupId = null;
+            await _db.SaveChangesAsync();
+            _db.OnCallGroups.Remove(await _db.OnCallGroups.SingleAsync());
+            await _db.SaveChangesAsync();
+        }
+        var incident = await _db.Incidents.SingleAsync();
+        Assert.AreEqual(200, (await IncidentWorkflowService.ResolveForApplicationAsync(_db,
+            application.Id, incident.Id, incident.Version, "Recovered", default)).StatusCode);
+        var later = await _db.PushDeliveries.Include(delivery => delivery.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
+            .SingleAsync(delivery => delivery.IncidentEventId != null);
+        if (scenario == "cc")
+        {
+            Assert.IsNull(later.OnCallEmail!.ValidationError);
+            await _processor.ProcessAsync(later.Id, default);
+            Assert.AreEqual(PushDelivery.Succeeded, later.Status);
+            CollectionAssert.AreEquivalent(new[] { "alice@example.com", "bob@example.com" }, _email.Messages.Single().Recipients.ToArray());
+            CollectionAssert.AreEqual(new[] { "fixed-cc@example.com" }, _email.Messages.Single().CcRecipients.ToArray());
+        }
+        else
+        {
+            Assert.AreEqual(PushDelivery.Failed, later.Status);
+            await _processor.ProcessAsync(later.Id, default);
+            Assert.AreEqual(0, _email.Messages.Count);
+        }
+        Assert.AreEqual(PushDelivery.Failed, original.Status);
+    }
+
+    [TestMethod]
     public async Task CustomWebhookInAppAndEmailFanOutRemainsAdditiveAndIndependent()
     {
         await AddAdministrators();
