@@ -15,13 +15,39 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 public class MigrationTests
 {
     [TestMethod]
+    public async Task MitigationScopeMigrationPreservesExistingKeysWithoutGrantingNewPermission()
+    {
+        await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await context.Database.OpenConnectionAsync();
+        await context.GetService<IMigrator>().MigrateAsync("20261018173719_IncidentSeverityScope");
+        var applicationId = Guid.NewGuid();
+        var keyId = Guid.NewGuid();
+        var createdAt = new DateTime(2026, 10, 18, 12, 0, 0, DateTimeKind.Utc);
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO SourceApplications (Id, Name, IsEnabled, CreatedAtUtc) VALUES ({applicationId}, {"Existing app"}, {true}, {createdAt})");
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO ApplicationApiKeys (Id, ApplicationId, Name, SecretHash, IsEnabled, CanQueryIncidents, CanCreateIncidents, CanResolveIncidents, CanChangeIncidentSeverity, CreatedAtUtc, TotalCalls) VALUES ({keyId}, {applicationId}, {"Existing key"}, {"existing-hash"}, {true}, {true}, {false}, {true}, {true}, {createdAt}, {5L})");
+        await context.Database.MigrateAsync();
+        var key = await context.ApplicationApiKeys.SingleAsync();
+        Assert.AreEqual(keyId, key.Id);
+        Assert.AreEqual(applicationId, key.ApplicationId);
+        Assert.AreEqual("existing-hash", key.SecretHash);
+        Assert.AreEqual(5L, key.TotalCalls);
+        Assert.IsTrue(key.IsEnabled);
+        Assert.IsTrue(key.CanQueryIncidents);
+        Assert.IsFalse(key.CanCreateIncidents);
+        Assert.IsTrue(key.CanResolveIncidents);
+        Assert.IsTrue(key.CanChangeIncidentSeverity);
+        Assert.IsFalse(key.CanMitigateIncidents);
+    }
+
+    [TestMethod]
     public async Task SqliteMigrationsCreateCurrentSchema()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(5, context.Database.GetMigrations().Count());
+        Assert.AreEqual(6, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
@@ -205,7 +231,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(5, context.Database.GetMigrations().Count());
+        Assert.AreEqual(6, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");

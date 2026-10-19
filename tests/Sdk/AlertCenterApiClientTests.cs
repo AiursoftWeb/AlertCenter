@@ -11,6 +11,31 @@ namespace Aiursoft.AlertCenter.Tests.Sdk;
 public sealed class AlertCenterApiClientTests
 {
     [TestMethod]
+    public async Task MitigationUsesVersionedJsonAndCurrentCredentialWithoutRetries()
+    {
+        using var handler = new RecordingHandler();
+        var keys = new RotatingKeyProvider();
+        await using var services = BuildProvider(handler, keys);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var id = Guid.NewGuid();
+        var request = new MitigateIncidentRequest { Version = Guid.NewGuid(), Reason = "Build recovered" };
+        await client.MitigateIncidentAsync(id, request);
+        Assert.AreEqual($"https://alerts.example/center/api/v1/incidents/{id}/mitigate", handler.RequestUri?.ToString());
+        Assert.AreEqual(HttpMethod.Post, handler.Method);
+        Assert.AreEqual("application/json", handler.ContentType);
+        Assert.AreEqual(request.Version, JObject.Parse(handler.Body!)["version"]!.ToObject<Guid>());
+        Assert.AreEqual(request.Reason, JObject.Parse(handler.Body!)["reason"]!.Value<string>());
+        keys.Key = "rotated-key";
+        await client.MitigateIncidentAsync(id, request);
+        Assert.AreEqual("Bearer rotated-key", handler.Authorization);
+        using var failedHandler = new RecordingHandler { Fail = true };
+        await using var failedServices = BuildProvider(failedHandler, keys);
+        await Assert.ThrowsAsync<HttpRequestException>(() =>
+            failedServices.GetRequiredService<AlertCenterApiClient>().MitigateIncidentAsync(id, request));
+        Assert.AreEqual(1, failedHandler.CallCount);
+    }
+
+    [TestMethod]
     public async Task DetailQueriesUseConfiguredBasePathAndCurrentKeyWithoutRetries()
     {
         using var handler = new RecordingHandler();

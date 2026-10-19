@@ -75,6 +75,9 @@ public abstract class IncidentCommandHandler : ExecutableCommandHandlerBuilder
             case CreateIncidentResponse created:
                 output.WriteLine($"Incident: {created.IncidentId}\nReport ID: {created.ReportId}\nDuplicate: {created.Duplicate}");
                 break;
+            case MitigateIncidentResponse mitigated:
+                output.WriteLine($"Incident: {mitigated.IncidentId}\nVersion: {mitigated.Version}\nMitigated: {mitigated.MitigatedAtUtc:O}");
+                break;
             case ResolveIncidentResponse resolved:
                 output.WriteLine($"Incident: {resolved.IncidentId}\nVersion: {resolved.Version}\nResolved: {resolved.ResolvedAtUtc:O}");
                 break;

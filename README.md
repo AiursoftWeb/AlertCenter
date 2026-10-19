@@ -79,7 +79,7 @@ The image copies its default configuration to `/data/appsettings.json` on first 
 
 ## Creating incidents
 
-Open **Applications**, create an application, then open **API Key Management** to create named keys for its integrations. Each key has independent query, create and resolve permissions. A secret is shown only once; edit, disable or delete individual keys without rotating the others. The built-in **Integration Guide** at `/Applications/GettingStarted` provides examples for the current server.
+Open **Applications**, create an application, then open **API Key Management** to create named keys for its integrations. Each key has independent query, create, mitigate, resolve and severity permissions. A secret is shown only once; edit, disable or delete individual keys without rotating the others. The built-in **Integration Guide** at `/Applications/GettingStarted` provides examples for the current server.
 
 Create an incident using `POST /api/v1/incidents`:
 
@@ -119,6 +119,7 @@ alertcenter list --server https://alertcenter.example.com --api-key "$APP_API_KE
 alertcenter get --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --json
 alertcenter create --server https://alertcenter.example.com --api-key "$APP_API_KEY" --report-id "$REPORT_ID" --title "Main branch build failed" --level sev2 --occurred-at "2026-10-18T12:00:00Z" --content "Compiler error" --context '{"pipeline":42}' --json
 alertcenter severity --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --version "$INCIDENT_VERSION" --level sev1 --reason "Failure persisted" --json
+alertcenter mitigate --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --version "$INCIDENT_VERSION" --reason "Build recovered" --json
 alertcenter resolve --server https://alertcenter.example.com --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --version "$INCIDENT_VERSION" --reason "Build recovered" --json
 ```
 
@@ -129,10 +130,10 @@ application's incidents. A missing or other-application incident returns the sam
 
 Retain the report ID and occurrence time before reporting; reuse them after an
 uncertain outcome. Duplicate reports and already resolved incidents exit
-successfully. Resolve and severity commands require the version from a prior
+successfully. Mitigate, resolve and severity commands require the version from a prior
 query and a reason. A conflict fails without automatically fetching a new version
 or retrying. Results go to stdout; errors go to stderr with a nonzero exit code.
-Use `alertcenter <command> --help` for options. CLI and detail SDK version: `10.4.0`.
+Use `alertcenter <command> --help` for options. CLI and SDK version: `10.5.0`.
 
 ### .NET SDK
 
@@ -231,6 +232,19 @@ re-evaluate recovery rather than blindly retrying with a new version. This also 
 request from closing a subsequently reopened incident. Missing and other-application incidents
 both return `NotFound`. SDK protocol exceptions match reporting. No automatic resolution or
 recovery detection runs inside AlertCenter; the caller decides when to invoke this method.
+
+### Mitigating incidents
+
+`POST /api/v1/incidents/{incidentId}/mitigate`, SDK `MitigateIncidentAsync`, and
+CLI `alertcenter mitigate` move a `new` or `acked` incident to `mitigated` without
+resolving it or changing its assignee or acknowledgement. Supply the queried
+`Version` and a nonempty `Reason` (up to 4,000 characters). This requires the
+separate **Mitigate incidents** API key permission, disabled on existing keys.
+An already mitigated incident returns `NoActionTaken` without another event or
+email. Resolved, reopened-with-a-new-version, and concurrently changed incidents
+return `Conflict`; callers must query and re-evaluate rather than blindly retry.
+The application-scoped timeline records the reason, and the existing once-per-stage
+yellow mitigation email is queued. No recovery detection or CI counter runs here.
 
 ## Permissions and on-call response
 
