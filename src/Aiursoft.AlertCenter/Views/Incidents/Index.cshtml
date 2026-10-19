@@ -3,7 +3,8 @@
 @using Aiursoft.AlertCenter.Entities
 @using System.Globalization
 @{
-    ViewData["Title"] = @Localizer["Incident Handling Center"].Value;
+    ViewData["Title"] = Model.Filter.OnlyMine ? @Localizer["My incidents"].Value : @Localizer["Incident Handling Center"].Value;
+    var listAction = Model.Filter.OnlyMine ? "Mine" : "Index";
     var filter = Model.Filter;
     var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Status != "all" || filter.Level != null ||
         filter.FromDate.HasValue || filter.ToDate.HasValue || filter.Acknowledged.HasValue;
@@ -20,10 +21,11 @@
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
 }
 
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 @(filter.OnlyMine ? "card border-primary shadow-sm p-4" : "")">
     <div>
         <div class="d-flex align-items-center gap-2">
-            <h1 class="h3 mb-0">@Localizer["Incidents and emergency response"]</h1>
+            <h1 class="h3 mb-0">
+                @if (filter.OnlyMine) { <i data-lucide="user-check" class="text-primary me-2" aria-hidden="true"></i> }@(filter.OnlyMine ? @Localizer["My incidents"].Value : @Localizer["Incidents and emergency response"].Value)</h1>
             @if (Model.ActiveCount > 0)
             {
                 <span class="badge bg-danger text-white px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
@@ -35,33 +37,33 @@
             {
                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
                     <span class="ac-status-dot dot-success ac-pulse"></span>
-                    <span>@Localizer["Service operating normally · No ongoing incidents"]</span>
+                    <span>@Localizer["No unresolved incidents in this queue"]</span>
                 </span>
             }
         </div>
-        <p class="text-muted mb-0 small">@Localizer["Each report creates an independent incident. Acknowledge and assign, mitigate, resolve, and track progress here."]</p>
+        <p class="text-muted mb-0 small">@(filter.OnlyMine ? @Localizer["These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included."].Value : @Localizer["Each report creates an independent incident. Acknowledge and assign, mitigate, resolve, and track progress here."].Value)</p>
     </div>
 </div>
 
 <!-- Quick Status Filter Chips -->
 <div class="ac-filter-chips mb-3">
-    <a asp-action="Index" asp-route-status="all" class="ac-chip @(filter.Status == "all" || string.IsNullOrEmpty(filter.Status) ? "active" : "")">
+    <a asp-action="@listAction" asp-route-status="all" class="ac-chip @(filter.Status == "all" || string.IsNullOrEmpty(filter.Status) ? "active" : "")">
         <i data-lucide="layers" style="width: 14px; height: 14px;" aria-hidden="true"></i>
         <span>@Localizer["All incidents"]</span>
     </a>
-    <a asp-action="Index" asp-route-status="new" class="ac-chip @(filter.Status == Incident.New ? "active" : "")">
+    <a asp-action="@listAction" asp-route-status="new" class="ac-chip @(filter.Status == Incident.New ? "active" : "")">
         <i data-lucide="alert-triangle" style="width: 14px; height: 14px;" class="text-danger" aria-hidden="true"></i>
         <span>@Localizer["Unmitigated"]</span>
     </a>
-    <a asp-action="Index" asp-route-acknowledged="true" class="ac-chip @(filter.Acknowledged == true ? "active" : "")">
+    <a asp-action="@listAction" asp-route-acknowledged="true" class="ac-chip @(filter.Acknowledged == true ? "active" : "")">
         <i data-lucide="user-check" style="width: 14px; height: 14px;" class="text-warning" aria-hidden="true"></i>
         <span>@Localizer["Acknowledged"]</span>
     </a>
-    <a asp-action="Index" asp-route-status="mitigated" class="ac-chip @(filter.Status == Incident.Mitigated ? "active" : "")">
+    <a asp-action="@listAction" asp-route-status="mitigated" class="ac-chip @(filter.Status == Incident.Mitigated ? "active" : "")">
         <i data-lucide="shield-check" style="width: 14px; height: 14px;" class="text-primary" aria-hidden="true"></i>
         <span>@Localizer["Mitigated"]</span>
     </a>
-    <a asp-action="Index" asp-route-status="resolved" class="ac-chip @(filter.Status == Incident.Resolved ? "active" : "")">
+    <a asp-action="@listAction" asp-route-status="resolved" class="ac-chip @(filter.Status == Incident.Resolved ? "active" : "")">
         <i data-lucide="check-circle-2" style="width: 14px; height: 14px;" class="text-success" aria-hidden="true"></i>
         <span>@Localizer["Resolved"]</span>
     </a>
@@ -70,7 +72,7 @@
 <!-- Search & Filter Card -->
 <div class="card shadow-sm border-0 mb-4">
     <div class="card-body p-3">
-        <form asp-action="Index" method="get" class="row g-3 align-items-end">
+        <form asp-action="@listAction" method="get" class="row g-3 align-items-end">
             <div class="col-md-6 col-xl-4">
                 <label for="incident-keyword" class="form-label small text-muted mb-1">@Localizer["Keyword Search"]</label>
                 <div class="input-group">
@@ -138,7 +140,7 @@
                 </button>
                 @if (hasFilters)
                 {
-                    <a asp-action="Index" class="btn btn-outline-secondary" title="@Localizer["Reset Filters"]">
+                    <a asp-action="@listAction" class="btn btn-outline-secondary" title="@Localizer["Reset Filters"]">
                         <i data-lucide="rotate-ccw" style="width: 15px; height: 15px;" aria-hidden="true"></i>
                     </a>
                 }
@@ -161,13 +163,13 @@
             <div class="ac-empty-icon text-success">
                 <i data-lucide="shield-check" aria-hidden="true"></i>
             </div>
-            <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? @Localizer["Please correct the filter conditions."].Value : hasFilters ? @Localizer["No matching incidents"].Value : @Localizer["No incident records yet"].Value)</h2>
+            <h2 class="h5 mb-2">@(!ViewData.ModelState.IsValid ? @Localizer["Please correct the filter conditions."].Value : hasFilters ? @Localizer["No matching incidents"].Value : filter.OnlyMine ? @Localizer["You have no assigned incidents"].Value : @Localizer["No incident records yet"].Value)</h2>
             <p class="text-muted mb-3" style="max-width: 26rem; margin-inline: auto;">
                 @(hasFilters ? @Localizer["Adjust filter conditions or reset to view all records."].Value : @Localizer["Each new incident automatically creates or associates an incident; confirm, record progress, and resolve issues here."].Value)
             </p>
             @if (hasFilters)
             {
-                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">@Localizer["Clear all filters"]</a>
+                <a asp-action="@listAction" class="btn btn-outline-secondary btn-sm">@Localizer["Clear all filters"]</a>
             }
         </div>
     }
@@ -250,7 +252,7 @@
     <nav aria-label="@Localizer["Incident pages"]" class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3">
         @if (Model.Filter.Page > 1)
         {
-            <a asp-action="Index" asp-all-route-data="Model.Filter.ToRouteValues(Model.Filter.Page - 1)" class="btn btn-outline-secondary">@Localizer["Previous page"]</a>
+            <a asp-action="@listAction" asp-all-route-data="Model.Filter.ToRouteValues(Model.Filter.Page - 1)" class="btn btn-outline-secondary">@Localizer["Previous page"]</a>
         }
         else
         {
@@ -259,7 +261,7 @@
         <span class="text-muted small" aria-current="page">@string.Format(@Localizer["Page {0}"].Value, Model.Filter.Page)</span>
         @if (Model.HasNextPage)
         {
-            <a asp-action="Index" asp-all-route-data="Model.Filter.ToRouteValues(Model.Filter.Page + 1)" class="btn btn-outline-secondary">@Localizer["Next page"]</a>
+            <a asp-action="@listAction" asp-all-route-data="Model.Filter.ToRouteValues(Model.Filter.Page + 1)" class="btn btn-outline-secondary">@Localizer["Next page"]</a>
         }
         else
         {

@@ -99,6 +99,9 @@
   <data name="Mitigated (Mitigated)" xml:space="preserve">
     <value>已缓解（Mitigated）</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>我的事件</value>
+  </data>
   <data name="Next page" xml:space="preserve">
     <value>下一页</value>
   </data>
@@ -107,6 +110,9 @@
   </data>
   <data name="No matching incidents" xml:space="preserve">
     <value>没有匹配的事件</value>
+  </data>
+  <data name="No unresolved incidents in this queue" xml:space="preserve">
+    <value>此队列中没有未解决的事件</value>
   </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>未确认</value>
@@ -186,6 +192,9 @@
   <data name="The selected application is inaccessible" xml:space="preserve">
     <value>所选应用无法访问</value>
   </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>这些事件归您负责，因为您是最后一个确认这些事件的人。仅包含您有权访问的应用程序。</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>总计</value>
   </data>
@@ -203,6 +212,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>未缓解</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>您没有分配的事故</value>
   </data>
 
 </root>
