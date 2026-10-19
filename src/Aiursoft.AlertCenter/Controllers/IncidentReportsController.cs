@@ -44,7 +44,8 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
             ApplicationId = applicationId, ReportId = request.ReportId, Title = request.Title,
             ReceivedAtUtc = receivedAtUtc,
             Content = request.Content, Level = request.Level,
-            OccurredAtUtc = request.OccurredAtUtc.UtcDateTime, ContextJson = request.Context?.ToString(Formatting.None)
+            OccurredAtUtc = request.OccurredAtUtc.UtcDateTime, ContextJson = request.Context?.ToString(Formatting.None),
+            MetadataJson = request.Metadata?.ToString(Formatting.None)
         };
 
         db.Incidents.Add(incident);
@@ -78,7 +79,22 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
             return this.Protocol(Code.Unauthorized, "The API key does not permit this operation.");
         var applicationId = key.ApplicationId;
 
-        var query = db.Incidents.AsNoTracking().Where(incident => incident.ApplicationId == applicationId);
+        // Compare JSON strings in the database before counting and paginating. Parameters are
+        // never SQL fragments. JSON paths use a quoted and escaped literal property name.
+        var source = db.Incidents.AsQueryable();
+        if (request.MetadataKey != null)
+        {
+            if (db.Database.IsSqlite())
+                source = db.Incidents.FromSqlInterpolated($"SELECT i.* FROM Incidents AS i WHERE EXISTS (SELECT 1 FROM json_each(COALESCE(i.MetadataJson, '{{}}')) AS m WHERE m.key COLLATE BINARY = {request.MetadataKey} AND m.type = 'text' AND m.value COLLATE BINARY = {request.MetadataValue})");
+            else if (db.Database.IsMySql())
+            {
+                var path = "$." + JsonConvert.SerializeObject(request.MetadataKey);
+                source = db.Incidents.FromSqlInterpolated($"SELECT * FROM Incidents WHERE JSON_TYPE(JSON_EXTRACT(MetadataJson, {path})) = 'STRING' AND BINARY JSON_UNQUOTE(JSON_EXTRACT(MetadataJson, {path})) = BINARY {request.MetadataValue}");
+            }
+            else
+                throw new NotSupportedException("Metadata queries require SQLite or MySQL.");
+        }
+        var query = source.AsNoTracking().Where(incident => incident.ApplicationId == applicationId);
         if (request.ActiveOnly)
             query = query.Where(incident => incident.Status != Incident.Resolved);
         var total = await query.CountAsync(cancellationToken);
@@ -121,8 +137,63 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         AcknowledgedAtUtc = incident.AcknowledgedAtUtc is { } acknowledgedAt
             ? new DateTimeOffset(DateTime.SpecifyKind(acknowledgedAt, DateTimeKind.Utc)) : null,
         OwnerId = incident.OwnerId, OwnerDisplayName = incident.OwnerDisplayName,
-        Context = incident.ContextJson == null ? null : JObject.Parse(incident.ContextJson)
+        Context = incident.ContextJson == null ? null : JObject.Parse(incident.ContextJson),
+        Metadata = IncidentMetadata.Read(incident.MetadataJson)
     };
+
+    [HttpPatch("{incidentId:guid}/metadata")]
+    [RequestSizeLimit(65536)]
+    public async Task<IActionResult> PatchMetadata(Guid incidentId, [FromBody] PatchIncidentMetadataRequest request,
+        CancellationToken cancellationToken)
+    {
+        var key = await AuthenticateKeyAsync(cancellationToken);
+        if (key == null)
+            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
+        if (!key.CanPatchIncidentMetadata)
+            return this.Protocol(Code.Unauthorized, "The API key does not permit this operation.");
+        var incident = await db.Incidents.Include(item => item.Owner).SingleOrDefaultAsync(
+            item => item.ApplicationId == key.ApplicationId && item.Id == incidentId, cancellationToken);
+        if (incident == null) return this.Protocol(Code.NotFound, "The incident was not found.");
+        if (incident.Version != request.Version)
+            return this.Protocol(Code.Conflict, "The incident changed. Query it again before deciding whether to patch its metadata.");
+        var metadata = IncidentMetadata.Read(incident.MetadataJson);
+        var value = request.Value?.DeepClone() ?? JValue.CreateNull();
+        var unchanged = metadata.TryGetValue(request.Property, StringComparison.Ordinal, out var previous) && JToken.DeepEquals(previous, value);
+        metadata[request.Property] = value;
+        if (IncidentMetadata.Validate(metadata) is { } error)
+            return this.Protocol(new AiurCollection<string>([error]) { Code = Code.InvalidInput, Message = error });
+        if (!unchanged)
+        {
+            incident.MetadataJson = metadata.ToString(Formatting.None);
+            incident.Version = Guid.NewGuid();
+            var ownerName = incident.Owner?.DisplayName ?? incident.OwnerDisplayName;
+            db.IncidentTimelineEntries.Add(new IncidentTimelineEntry
+            {
+                Incident = incident, Type = IncidentTimelineEntry.Updated,
+                ActorName = "Application", ActorIdSnapshot = $"application:{key.ApplicationId}",
+                Note = $"Metadata property '{request.Property}' updated.",
+                PreviousStatus = incident.Status, NewStatus = incident.Status,
+                PreviousLevel = incident.Level, NewLevel = incident.Level,
+                PreviousOwnerId = incident.OwnerId, NewOwnerId = incident.OwnerId,
+                PreviousOwnerName = ownerName, NewOwnerName = ownerName
+            });
+            try
+            {
+                await db.SaveChangesAsync(cancellationToken);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                db.ChangeTracker.Clear();
+                return this.Protocol(Code.Conflict, "The incident changed. Query it again before deciding whether to patch its metadata.");
+            }
+        }
+        return this.Protocol(new PatchIncidentMetadataResponse
+        {
+            Code = unchanged ? Code.NoActionTaken : Code.JobDone,
+            Message = unchanged ? "The metadata property already has this value." : "The incident metadata was patched by its application.",
+            IncidentId = incident.Id, Version = incident.Version, Metadata = metadata
+        });
+    }
 
     [HttpPost("{incidentId:guid}/mitigate")]
     [RequestSizeLimit(65536)]

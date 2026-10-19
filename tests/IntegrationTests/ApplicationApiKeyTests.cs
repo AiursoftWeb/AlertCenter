@@ -12,13 +12,13 @@ public partial class IncidentPagesTests
     private static readonly HttpClient AnonymousClient = new(
         new HttpClientHandler { AllowAutoRedirect = false, UseCookies = false });
 
-    private async Task<string> CreateApplicationKey(Guid applicationId, bool query = true, bool create = true, bool resolve = true, bool severity = false, bool mitigate = false)
+    private async Task<string> CreateApplicationKey(Guid applicationId, bool query = true, bool create = true, bool resolve = true, bool severity = false, bool mitigate = false, bool metadata = false)
     {
         var url = $"/ApplicationApiKeys?applicationId={applicationId}";
         using var response = await PostForm("/ApplicationApiKeys/Create", new()
         {
             ["ApplicationId"] = applicationId.ToString(), ["Name"] = "Integration key", ["IsEnabled"] = "true",
-            ["CanQueryIncidents"] = query.ToString(), ["CanCreateIncidents"] = create.ToString(), ["CanResolveIncidents"] = resolve.ToString(), ["CanChangeIncidentSeverity"] = severity.ToString(), ["CanMitigateIncidents"] = mitigate.ToString()
+            ["CanQueryIncidents"] = query.ToString(), ["CanCreateIncidents"] = create.ToString(), ["CanResolveIncidents"] = resolve.ToString(), ["CanChangeIncidentSeverity"] = severity.ToString(), ["CanMitigateIncidents"] = mitigate.ToString(), ["CanPatchIncidentMetadata"] = metadata.ToString()
         }, $"/ApplicationApiKeys/Create?applicationId={applicationId}");
         AssertRedirect(response, url);
         var html = await Http.GetStringAsync(response.Headers.Location);
@@ -152,6 +152,10 @@ public partial class IncidentPagesTests
         AssertForbidden(await PostForm("/ApplicationApiKeys/Create", new()
         {
             ["ApplicationId"] = app, ["Name"] = "Mitigation privilege escalation", ["CanMitigateIncidents"] = "true"
+        }, "/Manage/ChangePassword"));
+        AssertForbidden(await PostForm("/ApplicationApiKeys/Create", new()
+        {
+            ["ApplicationId"] = app, ["Name"] = "Metadata privilege escalation", ["CanPatchIncidentMetadata"] = "true"
         }, "/Manage/ChangePassword"));
         var emptyScope = await CreateApplicationKey(Guid.Parse(app), false, false, false);
         Assert.AreEqual(-8, JObject.Parse(await (await Report(emptyScope, Guid.NewGuid())).Content.ReadAsStringAsync()).Value<int>("Code"));

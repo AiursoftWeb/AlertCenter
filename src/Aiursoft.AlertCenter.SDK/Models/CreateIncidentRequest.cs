@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json.Linq;
 
@@ -11,9 +12,13 @@ public sealed class CreateIncidentRequest : IValidatableObject
     [Required, RegularExpression("^sev[0-4]$")] public string Level { get; set; } = "sev3";
     public DateTimeOffset OccurredAtUtc { get; set; }
     public JObject? Context { get; set; }
+    [JsonConverter(typeof(IncidentMetadataConverter))]
+    public JObject? Metadata { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
+        if (Metadata != null && IncidentMetadata.Validate(Metadata) is { } error)
+            yield return new ValidationResult(error, [nameof(Metadata)]);
         if (ReportId == Guid.Empty)
             yield return new ValidationResult("A non-empty report ID is required.", [nameof(ReportId)]);
         if (OccurredAtUtc == default)

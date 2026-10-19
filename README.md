@@ -133,6 +133,34 @@ uncertain outcome. Duplicate reports and already resolved incidents exit
 successfully. Mitigate, resolve and severity commands require the version from a prior
 query and a reason. A conflict fails without automatically fetching a new version
 or retrying. Results go to stdout; errors go to stderr with a nonzero exit code.
+Incident metadata is a mutable JSON object, separate from the original Context.
+Use `create --metadata '{"source":"gitlab:550:master","ci":{"count":1}}'` to initialize it.
+
+```bash
+alertcenter list --server "$SERVER" --api-key "$APP_API_KEY" --metadata-key source --metadata-value gitlab:550:master --json
+alertcenter metadata patch --server "$SERVER" --api-key "$APP_API_KEY" --id "$INCIDENT_ID" --version "$INCIDENT_VERSION" --property ci --value '{"count":2}' --json
+```
+
+`get` and `list` return Metadata. Metadata filters must be supplied together and
+match one literal top-level property and string value exactly, including case and
+whitespace; numbers, arrays, null and nested properties do not match. Filtering
+occurs before pagination. `ActiveOnly` also includes mitigated incidents.
+
+`PATCH /api/v1/incidents/{id}/metadata`, SDK `PatchIncidentMetadataAsync`, and CLI
+`metadata patch` require the independent **Patch incident metadata** key permission
+(default off for existing and new keys). Initial metadata uses the create permission.
+The patch body contains Version, Property and Value. A patch replaces just that
+top-level property; objects are replaced in full, other properties are preserved,
+and JSON null sets a value rather than deleting a property. Property names are
+literal, not JSON paths. Metadata is limited to 16 KiB of UTF-8 JSON, 16 nesting
+levels, and nonblank top-level names of up to 128 characters without control characters.
+All incident states permit metadata edits without changing lifecycle, severity,
+acknowledgement, ownership or Context. Changes update the incident Version and add
+an application-attributed activity entry without notifications. A stale Version
+always conflicts, even for the same value; an unchanged value with the current
+Version returns NoActionTaken. Query again and recompute after conflicts or uncertain
+responses; neither the SDK nor CLI automatically retries writes.
+
 Use `alertcenter <command> --help` for options. CLI and SDK version: `10.5.0`.
 
 ### .NET SDK

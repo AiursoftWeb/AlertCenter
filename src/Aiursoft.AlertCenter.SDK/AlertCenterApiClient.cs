@@ -14,7 +14,7 @@ public sealed class AlertCenterApiClient(
     {
         ArgumentNullException.ThrowIfNull(request);
         return await http.Get<QueryIncidentsResponse>(
-            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), "/api/v1/incidents", request),
+            new IncidentQueryEndpoint(options.Value.Endpoint.TrimEnd('/'), request),
             autoRetry: false, headers: await AuthorizationHeadersAsync());
     }
 
@@ -22,6 +22,15 @@ public sealed class AlertCenterApiClient(
     {
         return await http.Get<GetIncidentResponse>(
             new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), $"/api/v1/incidents/{incidentId}", new { }),
+            autoRetry: false, headers: await AuthorizationHeadersAsync());
+    }
+
+    public async Task<PatchIncidentMetadataResponse> PatchIncidentMetadataAsync(Guid incidentId, PatchIncidentMetadataRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        return await http.Patch<PatchIncidentMetadataResponse>(
+            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), $"/api/v1/incidents/{incidentId}/metadata", new { }),
+            new AiurApiPayload(request), BodyFormat.HttpJsonBody,
             autoRetry: false, headers: await AuthorizationHeadersAsync());
     }
 
@@ -50,6 +59,19 @@ public sealed class AlertCenterApiClient(
             new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), $"/api/v1/incidents/{incidentId}/severity", new { }),
             new AiurApiPayload(request), BodyFormat.HttpJsonBody,
             autoRetry: false, headers: await AuthorizationHeadersAsync());
+    }
+
+    private sealed class IncidentQueryEndpoint(string host, QueryIncidentsRequest request)
+        : AiurApiEndpoint(host, "/api/v1/incidents", request)
+    {
+        public override string ToString()
+        {
+            var url = base.ToString();
+            // AiurProtocol omits whitespace query values. An exact metadata filter must preserve them.
+            return request.MetadataValue != null && string.IsNullOrWhiteSpace(request.MetadataValue)
+                ? url + (url.Contains('?') ? "&" : "?") + "metadatavalue=" + Uri.EscapeDataString(request.MetadataValue)
+                : url;
+        }
     }
 
     private async Task<Dictionary<string, string>> AuthorizationHeadersAsync()

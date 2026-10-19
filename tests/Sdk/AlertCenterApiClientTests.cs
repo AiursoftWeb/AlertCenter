@@ -109,6 +109,30 @@ public sealed class AlertCenterApiClientTests
         Assert.AreEqual(1, handler.CallCount);
     }
 
+    [TestMethod]
+    public async Task MetadataPatchUsesPatchJsonVersionAndCurrentKeyWithoutRetries()
+    {
+        using var handler = new RecordingHandler();
+        var keys = new RotatingKeyProvider();
+        await using var services = BuildProvider(handler, keys);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var id = Guid.NewGuid();
+        var request = new PatchIncidentMetadataRequest { Version = Guid.NewGuid(), Property = "ci", Value = new JObject { ["count"] = 3 } };
+        await client.PatchIncidentMetadataAsync(id, request);
+        Assert.AreEqual(HttpMethod.Patch, handler.Method);
+        Assert.AreEqual($"https://alerts.example/center/api/v1/incidents/{id}/metadata", handler.RequestUri?.ToString());
+        Assert.AreEqual("application/json", handler.ContentType);
+        Assert.AreEqual(request.Version, JObject.Parse(handler.Body!)["version"]!.ToObject<Guid>());
+        Assert.AreEqual(3, JObject.Parse(handler.Body!)["value"]!.Value<int>("count"));
+        keys.Key = "rotated-key";
+        await client.PatchIncidentMetadataAsync(id, request);
+        Assert.AreEqual("Bearer rotated-key", handler.Authorization);
+        using var failing = new RecordingHandler { Fail = true };
+        await using var failed = BuildProvider(failing, keys);
+        await Assert.ThrowsAsync<HttpRequestException>(() => failed.GetRequiredService<AlertCenterApiClient>().PatchIncidentMetadataAsync(id, request));
+        Assert.AreEqual(1, failing.CallCount);
+    }
+
     private static CreateIncidentRequest ValidRequest() => new()
     {
         ReportId = Guid.NewGuid(), Title = "Database unavailable", OccurredAtUtc = DateTimeOffset.UtcNow

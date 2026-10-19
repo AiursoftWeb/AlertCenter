@@ -17,6 +17,7 @@ public class Incident
     public DateTime OccurredAtUtc { get; set; }
     public DateTime ReceivedAtUtc { get; set; } = DateTime.UtcNow;
     public string? ContextJson { get; set; }
+    public string? MetadataJson { get; set; }
     public Guid ApplicationId { get; set; }
     public SourceApplication Application { get; set; } = null!;
     [Required, MaxLength(200)] public string Title { get; set; } = string.Empty;

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Aiursoft.AiurProtocol.Models;
 using Newtonsoft.Json.Linq;
 
@@ -27,4 +28,6 @@ public sealed class IncidentDetails
     public DateTimeOffset OccurredAtUtc { get; set; }
     public DateTimeOffset ReceivedAtUtc { get; set; }
     public JObject? Context { get; set; }
+    [JsonConverter(typeof(IncidentMetadataConverter))]
+    public JObject Metadata { get; set; } = new();
 }
