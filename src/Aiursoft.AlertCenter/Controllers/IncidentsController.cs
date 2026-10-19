@@ -47,6 +47,9 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         return this.StackView(model, nameof(Index));
     }
 
+    [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
+        CascadedLinksGroupName = "Alert Center", CascadedLinksIcon = "bell", CascadedLinksOrder = 1,
+        LinkText = "My incidents", LinkOrder = 3)]
     public Task<IActionResult> Mine([FromQuery] IncidentFilter filter, CancellationToken cancellationToken)
     {
         filter.OnlyMine = true;

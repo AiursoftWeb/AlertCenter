@@ -91,6 +91,7 @@ public class ViewModelArgsInjector(
         _ = localizer["Incident handling"];
         _ = localizer["Integration Guide"];
         _ = localizer["Message list"];
+        _ = localizer["My incidents"];
         _ = localizer["Notifications"];
         _ = localizer["On-call"];
         _ = localizer["On-call schedule"];

@@ -34,6 +34,28 @@ public partial class IncidentPagesTests
         .Select(match => Guid.Parse(match.Groups[1].Value)).Distinct().ToArray();
 
     [TestMethod]
+    [DataRow("/Dashboard", "en-US", "My incidents")]
+    [DataRow("/Dashboard", "zh-CN", "我的事件")]
+    [DataRow("/Incidents", "en-US", "My incidents")]
+    [DataRow("/Incidents", "zh-CN", "我的事件")]
+    [DataRow("/Incidents/Mine", "en-US", "My incidents")]
+    [DataRow("/Incidents/Mine", "zh-CN", "我的事件")]
+    public async Task MyIncidentsSidebarEntryIsAvailableAndLocalized(string url, string culture, string expectedText)
+    {
+        await LoginAsAdmin();
+        using var cultureResponse = await Http.GetAsync($"/Culture/Set?culture={culture}&returnUrl=/");
+        Assert.AreEqual(HttpStatusCode.Found, cultureResponse.StatusCode);
+
+        var html = await Http.GetStringAsync(url);
+        var alertCenterMenu = Regex.Match(html, "<ul id=\"alert-center\"[^>]*>(.*?)</ul>", RegexOptions.Singleline);
+        Assert.IsTrue(alertCenterMenu.Success);
+        var entry = Regex.Match(alertCenterMenu.Groups[1].Value,
+            "<a[^>]*href=\"/Incidents/Mine\"[^>]*>\\s*(.*?)\\s*</a>", RegexOptions.Singleline);
+        Assert.IsTrue(entry.Success, "The Alert Center sidebar must link to My incidents.");
+        Assert.AreEqual(expectedText, WebUtility.HtmlDecode(entry.Groups[1].Value).Trim());
+    }
+
+    [TestMethod]
     public async Task MyIncidentsUsesCurrentOwnerAndApplicationAccessAndPreservesScopeAcrossPages()
     {
         var incidents = await SeedIncidentFilters();
