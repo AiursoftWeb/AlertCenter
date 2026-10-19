@@ -51,6 +51,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>البريد الإلكتروني (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
+    <value>لا تُرسل إشعارات البريد الإلكتروني إلا عند إنشاء حادثة أو احتوائها أو حلّها أو إعادة فتحها.</value>
+  </data>
   <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
     <value>تعذّر إرسال البريد الإلكتروني. يُرجى التحقق من إعدادات SMTP والشبكة أو خادم البريد.</value>
   </data>
@@ -69,8 +72,14 @@
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>معرّف الحادث: {0}</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>تم التخفيف من الحادثة: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>إعادة فتح البلاغ: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>تم حل الحادث: {0}</value>
   </data>
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>تنسيق بريد إلكتروني غير صحيح في خانة النسخة (CC). لا تُدعم أسماء العرض.</value>
@@ -83,6 +92,12 @@
   </data>
   <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
     <value>إعدادات SMTP غير صالحة. يُرجى التحقق من إعدادات البريد الإلكتروني.</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>مُعالَج</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>حادث جديد</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>لا يوجد</value>
@@ -111,11 +126,23 @@
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>يرجى إدخال عنوان البريد الإلكتروني للمستلم.</value>
   </data>
+  <data name="Reason" xml:space="preserve">
+    <value>السبب</value>
+  </data>
+  <data name="Reason: {0}" xml:space="preserve">
+    <value>السبب: {0}</value>
+  </data>
   <data name="Reopen note" xml:space="preserve">
     <value>ملاحظة إعادة الفتح</value>
   </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>ملاحظة إعادة الفتح: {0}</value>
+  </data>
+  <data name="Reopened" xml:space="preserve">
+    <value>أُعيد فتحه</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>تم حلها</value>
   </data>
   <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>إرسال إشعارات الحوادث إلى عناوين البريد الإلكتروني المحددة عبر خادم SMTP العام.</value>
@@ -126,8 +153,20 @@
   <data name="Severity: {0}" xml:space="preserve">
     <value>مستوى الخطورة: {0}</value>
   </data>
+  <data name="Test notification" xml:space="preserve">
+    <value>إشعار تجريبي</value>
+  </data>
+  <data name="The incident has been mitigated." xml:space="preserve">
+    <value>تم احتواء الحادث.</value>
+  </data>
+  <data name="The incident has been reopened and requires attention." xml:space="preserve">
+    <value>تمت إعادة فتح الحادث ويتطلب الانتباه.</value>
+  </data>
   <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
     <value>تمت إعادة فتح الحادثة. يُرجى الاستجابة، أيها المهندس المناوب.</value>
+  </data>
+  <data name="The incident has been resolved." xml:space="preserve">
+    <value>تم حل الحادث.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>لقطة مستلمي البريد الإلكتروني للمناوبة غير صالحة؛ يتعذر إعادة اختيار عملية التسليم الحالية لـ OCE.</value>

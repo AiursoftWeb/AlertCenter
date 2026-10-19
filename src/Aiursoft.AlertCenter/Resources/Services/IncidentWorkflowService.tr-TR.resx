@@ -24,6 +24,9 @@
   <data name="An incident with the same linked rule already exists. Please resolve that incident first; it cannot be merged or reopened." xml:space="preserve">
     <value>Aynı bağlantılı kurala sahip bir olay zaten mevcut. Lütfen önce bu olayı çözüme kavuşturun; bu olay birleştirilemez veya yeniden açılamaz.</value>
   </data>
+  <data name="Only sev2, sev3 and sev4 incidents can be resolved during mitigation." xml:space="preserve">
+    <value>Azaltma sırasında yalnızca sev2, sev3 ve sev4 olayları çözülebilir.</value>
+  </data>
   <data name="Please select an incident severity level from sev0 to sev4." xml:space="preserve">
     <value>Lütfen sev0 ile sev4 arasında bir olay önem düzeyi seçin.</value>
   </data>

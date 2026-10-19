@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>评论不能为空，且不得超过 4,000 个字符。</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>请输入准确的事件标题以确认永久删除。</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>操作参数无效。原因不得超过 4,000 个字符，严重级别必须介于 sev0 和 sev4 之间。</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>评论参数无效。请刷新页面。</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>此应用程序已禁用。</value>
   </data>
 
 </root>

@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>لا يمكن أن يكون التعليق فارغًا، ويجب ألا يتجاوز 4,000 حرف.</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>أدخل عنوان الحادثة الدقيق لتأكيد الحذف الدائم.</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>معلمات الإجراء غير صالحة. يجب ألا يتجاوز السبب 4,000 حرف، ويجب أن يكون مستوى الخطورة بين sev0 وsev4.</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>معلمات التعليق غير صالحة. يُرجى تحديث الصفحة.</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>هذا التطبيق معطّل.</value>
   </data>
 
 </root>

@@ -51,6 +51,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>Email (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
+    <value>Email notifications are only sent when an incident is created, mitigated, resolved or reopened.</value>
+  </data>
   <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
     <value>Email sending failed. Please check the SMTP configuration, network or mail server.</value>
   </data>
@@ -69,8 +72,14 @@
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Incident ID: {0}</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incident mitigated: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>Incident reopened: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incident resolved: {0}</value>
   </data>
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Invalid CC email format. Display names are not supported.</value>
@@ -83,6 +92,12 @@
   </data>
   <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
     <value>Invalid SMTP configuration. Please check the email settings.</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Mitigated</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>New incident</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>None</value>
@@ -111,11 +126,23 @@
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Please enter the recipient&apos;s email address.</value>
   </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="Reason: {0}" xml:space="preserve">
+    <value>Reason: {0}</value>
+  </data>
   <data name="Reopen note" xml:space="preserve">
     <value>Reopen note</value>
   </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Note on reopening: {0}</value>
+  </data>
+  <data name="Reopened" xml:space="preserve">
+    <value>Reopened</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Resolved</value>
   </data>
   <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Send incident notifications to the specified email addresses via the global SMTP server.</value>
@@ -126,8 +153,20 @@
   <data name="Severity: {0}" xml:space="preserve">
     <value>Severity: {0}</value>
   </data>
+  <data name="Test notification" xml:space="preserve">
+    <value>Test notification</value>
+  </data>
+  <data name="The incident has been mitigated." xml:space="preserve">
+    <value>The incident has been mitigated.</value>
+  </data>
+  <data name="The incident has been reopened and requires attention." xml:space="preserve">
+    <value>The incident has been reopened and requires attention.</value>
+  </data>
   <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
     <value>The incident has been reopened. Please respond, on-call engineer.</value>
+  </data>
+  <data name="The incident has been resolved." xml:space="preserve">
+    <value>The incident has been resolved.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery.</value>

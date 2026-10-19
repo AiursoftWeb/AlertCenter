@@ -33,6 +33,9 @@
   <data name="Allows creating applications and managing access to all applications." xml:space="preserve">
     <value>Hiermee kunnen applicaties worden aangemaakt en kan de toegang tot alle applicaties worden beheerd.</value>
   </data>
+  <data name="Allows creating applications. Access to existing applications requires ownership or an explicit grant." xml:space="preserve">
+    <value>Sta het maken van toepassingen toe. Toegang tot bestaande toepassingen vereist eigenaarschap of een expliciete machtiging.</value>
+  </data>
   <data name="Allows managing on-call teams, scheduling rules, and schedules." xml:space="preserve">
     <value>Maakt het mogelijk om oproepteams, roostervoorschriften en roosters te beheren.</value>
   </data>
@@ -68,6 +71,9 @@
   </data>
   <data name="Assign Roles to Users" xml:space="preserve">
     <value>Rollen toewijzen aan gebruikers</value>
+  </data>
+  <data name="Create Applications" xml:space="preserve">
+    <value>Apps maken</value>
   </data>
   <data name="Delete Roles" xml:space="preserve">
     <value>Rollen verwijderen</value>

@@ -24,8 +24,14 @@
   <data name=": Allows browsing incident messages, related incidents, and delivery records for this application;" xml:space="preserve">
     <value>：可瀏覽此應用程式的事件訊息、相關事件及傳送記錄；</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
   <data name="Add authorization" xml:space="preserve">
     <value>新增授權</value>
+  </data>
+  <data name="Add or Update Share" xml:space="preserve">
+    <value>新增或更新共享設定</value>
   </data>
   <data name="Application Access Permissions" xml:space="preserve">
     <value>應用程式存取權限</value>
@@ -33,14 +39,29 @@
   <data name="Authorization Type" xml:space="preserve">
     <value>授權類型</value>
   </data>
+  <data name="Back to Applications" xml:space="preserve">
+    <value>返回應用程式</value>
+  </data>
   <data name="Back to Connected Apps" xml:space="preserve">
     <value>返回已連接的應用程式</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Create incidents" xml:space="preserve">
+    <value>建立事故</value>
+  </data>
   <data name="Grant New Permissions" xml:space="preserve">
     <value>授予新權限</value>
+  </data>
+  <data name="Manage API keys" xml:space="preserve">
+    <value>管理 API 金鑰</value>
+  </data>
+  <data name="Manage application and sharing" xml:space="preserve">
+    <value>管理應用程式及分享</value>
+  </data>
+  <data name="Manage Sharing" xml:space="preserve">
+    <value>管理共享</value>
   </data>
   <data name="Manageable" xml:space="preserve">
     <value>可管理</value>
@@ -48,14 +69,26 @@
   <data name="Manageable (Manage)" xml:space="preserve">
     <value>可管理（管理）</value>
   </data>
+  <data name="New owner" xml:space="preserve">
+    <value>新擁有者</value>
+  </data>
   <data name="No additional access permissions have been granted to regular users or roles yet" xml:space="preserve">
     <value>尚未向一般使用者或角色授予額外存取權限</value>
   </data>
   <data name="Only users with the application management permission can access this application." xml:space="preserve">
     <value>只有具備應用程式管理權限的使用者才能存取此應用程式。</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>擁有人</value>
+  </data>
+  <data name="Permanently delete incidents" xml:space="preserve">
+    <value>永久刪除事件</value>
+  </data>
   <data name="Permission level" xml:space="preserve">
     <value>權限級別</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>權限</value>
   </data>
   <data name="Permissions granted" xml:space="preserve">
     <value>已授予的權限</value>
@@ -63,11 +96,17 @@
   <data name="Precisely control view and management permissions for team members and roles." xml:space="preserve">
     <value>精確控制團隊成員及角色的檢視和管理權限。</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
   <data name="Remove " xml:space="preserve">
     <value>移除</value>
   </data>
   <data name="Remove permission" xml:space="preserve">
     <value>移除權限</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>角色</value>
   </data>
   <data name="Role group" xml:space="preserve">
     <value>角色群組</value>
@@ -81,6 +120,12 @@
   <data name="Save permission changes" xml:space="preserve">
     <value>儲存權限變更</value>
   </data>
+  <data name="Save permissions" xml:space="preserve">
+    <value>儲存權限</value>
+  </data>
+  <data name="Select either a user or a role. Saving replaces that recipient&apos;s permissions." xml:space="preserve">
+    <value>請選擇使用者或角色。儲存後會取代該對象的權限。</value>
+  </data>
   <data name="Select Role" xml:space="preserve">
     <value>選擇角色</value>
   </data>
@@ -90,14 +135,38 @@
   <data name="Select user..." xml:space="preserve">
     <value>選擇使用者...</value>
   </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>共享對象</value>
+  </data>
   <data name="Specify Individual User" xml:space="preserve">
     <value>指定個別使用者</value>
   </data>
   <data name="Specify User" xml:space="preserve">
     <value>指定使用者</value>
   </data>
+  <data name="The owner has all permissions. Direct user grants and role grants are combined. On-call assignments do not grant access." xml:space="preserve">
+    <value>擁有者具有所有權限。直接用戶授權和角色授權會合併計算。當值分配不會授予存取權限。</value>
+  </data>
+  <data name="Transfer Ownership" xml:space="preserve">
+    <value>轉移擁有權</value>
+  </data>
+  <data name="Transferring ownership gives the selected user all permissions. You will lose owner privileges." xml:space="preserve">
+    <value>轉讓擁有權會授予所選使用者所有權限。您將失去擁有者權限。</value>
+  </data>
+  <data name="Update incidents and status" xml:space="preserve">
+    <value>更新事故及狀態</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>使用者</value>
+  </data>
+  <data name="User or Role" xml:space="preserve">
+    <value>使用者或角色</value>
+  </data>
   <data name="Users with the application management permission have full management access to all applications." xml:space="preserve">
     <value>擁有應用程式管理權限的使用者，可全面管理所有應用程式。</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>檢視事件</value>
   </data>
   <data name="View only" xml:space="preserve">
     <value>唯讀</value>

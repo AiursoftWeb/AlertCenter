@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>Komentarz nie może być pusty i nie może przekraczać 4000 znaków.</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>Wpisz dokładny tytuł incydentu, aby potwierdzić jego trwałe usunięcie.</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>Nieprawidłowe parametry działania. Uzasadnienie nie może przekraczać 4000 znaków, a poziom ważności musi mieścić się w zakresie od sev0 do sev4.</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>Nieprawidłowe parametry komentarza. Odśwież stronę.</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>Ta aplikacja jest wyłączona.</value>
   </data>
 
 </root>

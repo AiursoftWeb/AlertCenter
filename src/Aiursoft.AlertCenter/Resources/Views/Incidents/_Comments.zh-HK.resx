@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
+    <value>已確認</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>調整事故嚴重程度</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
     <value>刪除後，只會保留作者、發佈時間、刪除者及刪除時間。原有留言內容將不再顯示，亦無法復原。</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>自動建立事故</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
@@ -35,6 +44,9 @@
   </data>
   <data name="Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them." xml:space="preserve">
     <value>留言獨立於事故應變記錄，並可在事故的任何狀態下發佈。發佈後便不能修改；只有留言作者或應用程式管理員可以刪除。</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>確認並接手事故</value>
   </data>
   <data name="Confirm deletion" xml:space="preserve">
     <value>確認刪除</value>
@@ -54,8 +66,20 @@
   <data name="Incident discussion" xml:space="preserve">
     <value>事故討論</value>
   </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>事故事件</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>事件時間線</value>
+  </data>
   <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
     <value>支援 Markdown。最多 4,000 個 UTF-16 字元（表情符號可能會計算為 2 個字元）。</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>緩解事故</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>已緩解</value>
   </data>
   <data name="Newest first · 20 items per page" xml:space="preserve">
     <value>最新項目在前 · 每頁 20 項</value>
@@ -63,20 +87,32 @@
   <data name="Next Page" xml:space="preserve">
     <value>下一頁</value>
   </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>目前頁面沒有任何活動。</value>
+  </data>
   <data name="No comments on the current page." xml:space="preserve">
     <value>目前頁面沒有留言。</value>
   </data>
   <data name="No. " xml:space="preserve">
     <value>編號</value>
   </data>
+  <data name="Not set" xml:space="preserve">
+    <value>未設定</value>
+  </data>
   <data name="On" xml:space="preserve">
     <value>啟用</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>負責人：</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>頁</value>
   </data>
   <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
     <value>將圖片貼上或拖曳至編輯器以上載。</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>等待回應</value>
   </data>
   <data name="Post comment" xml:space="preserve">
     <value>發表評論</value>
@@ -87,17 +123,50 @@
   <data name="Previous Page" xml:space="preserve">
     <value>上一頁</value>
   </data>
+  <data name="Progress" xml:space="preserve">
+    <value>進度</value>
+  </data>
   <data name="Publish comment" xml:space="preserve">
     <value>發佈留言</value>
   </data>
   <data name="Published comment?" xml:space="preserve">
     <value>已發佈的留言？</value>
   </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>重新開啟事故</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>解決事故</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>已解決</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>嚴重程度：</value>
+  </data>
   <data name="Split View" xml:space="preserve">
     <value>分割檢視</value>
   </data>
+  <data name="Status: " xml:space="preserve">
+    <value>狀態：</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>系統</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>接手事故</value>
+  </data>
   <data name="This comment has been deleted." xml:space="preserve">
     <value>此評論已被刪除。</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>時間軸分頁</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未指派</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>未緩解</value>
   </data>
   <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
     <value>使用 Markdown 分享疑難排解線索、建議或討論……</value>
@@ -106,61 +175,4 @@
     <value>用戶已刪除</value>
   </data>
 
-    <data name="Acknowledged" xml:space="preserve">
-    <value>已確認</value>
-  </data>
-    <data name="Adjust Incident Severity" xml:space="preserve">
-    <value>調整事故嚴重程度</value>
-  </data>
-    <data name="Auto-create incident" xml:space="preserve">
-    <value>自動建立事故</value>
-  </data>
-    <data name="Confirm and claim incident" xml:space="preserve">
-    <value>確認並接手事故</value>
-  </data>
-    <data name="Incident event" xml:space="preserve">
-    <value>事故事件</value>
-  </data>
-    <data name="Mitigate incident" xml:space="preserve">
-    <value>緩解事故</value>
-  </data>
-    <data name="Mitigated" xml:space="preserve">
-    <value>已緩解</value>
-  </data>
-    <data name="Not set" xml:space="preserve">
-    <value>未設定</value>
-  </data>
-    <data name="Owner: " xml:space="preserve">
-    <value>負責人：</value>
-  </data>
-    <data name="Pending Response" xml:space="preserve">
-    <value>等待回應</value>
-  </data>
-    <data name="Progress" xml:space="preserve">
-    <value>進度</value>
-  </data>
-    <data name="Reopen Incident" xml:space="preserve">
-    <value>重新開啟事故</value>
-  </data>
-    <data name="Resolve incident" xml:space="preserve">
-    <value>解決事故</value>
-  </data>
-    <data name="Resolved" xml:space="preserve">
-    <value>已解決</value>
-  </data>
-    <data name="Severity: " xml:space="preserve">
-    <value>嚴重程度：</value>
-  </data>
-    <data name="Status: " xml:space="preserve">
-    <value>狀態：</value>
-  </data>
-    <data name="System" xml:space="preserve">
-    <value>系統</value>
-  </data>
-    <data name="Take Over Incident" xml:space="preserve">
-    <value>接手事故</value>
-  </data>
-    <data name="Unassigned" xml:space="preserve">
-    <value>未指派</value>
-  </data>
 </root>

@@ -24,8 +24,14 @@
   <data name=": Allows browsing incident messages, related incidents, and delivery records for this application;" xml:space="preserve">
     <value>: Allows users to view incident messages, related incidents and delivery records for this application;</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
   <data name="Add authorization" xml:space="preserve">
     <value>Add authorisation</value>
+  </data>
+  <data name="Add or Update Share" xml:space="preserve">
+    <value>Add or Update Share</value>
   </data>
   <data name="Application Access Permissions" xml:space="preserve">
     <value>Application Access Permissions</value>
@@ -33,14 +39,29 @@
   <data name="Authorization Type" xml:space="preserve">
     <value>Authorisation type</value>
   </data>
+  <data name="Back to Applications" xml:space="preserve">
+    <value>Back to Applications</value>
+  </data>
   <data name="Back to Connected Apps" xml:space="preserve">
     <value>Back to Connected Apps</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Create incidents" xml:space="preserve">
+    <value>Create incidents</value>
+  </data>
   <data name="Grant New Permissions" xml:space="preserve">
     <value>Grant New Permissions</value>
+  </data>
+  <data name="Manage API keys" xml:space="preserve">
+    <value>Manage API keys</value>
+  </data>
+  <data name="Manage application and sharing" xml:space="preserve">
+    <value>Manage application and sharing</value>
+  </data>
+  <data name="Manage Sharing" xml:space="preserve">
+    <value>Manage Sharing</value>
   </data>
   <data name="Manageable" xml:space="preserve">
     <value>Manage</value>
@@ -48,14 +69,26 @@
   <data name="Manageable (Manage)" xml:space="preserve">
     <value>Can manage (Manage)</value>
   </data>
+  <data name="New owner" xml:space="preserve">
+    <value>New owner</value>
+  </data>
   <data name="No additional access permissions have been granted to regular users or roles yet" xml:space="preserve">
     <value>No additional access permissions have yet been granted to standard users or roles.</value>
   </data>
   <data name="Only users with the application management permission can access this application." xml:space="preserve">
     <value>Only users with the application management permission can access this application.</value>
   </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="Permanently delete incidents" xml:space="preserve">
+    <value>Permanently delete incidents</value>
+  </data>
   <data name="Permission level" xml:space="preserve">
     <value>Permission level</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permissions</value>
   </data>
   <data name="Permissions granted" xml:space="preserve">
     <value>Permissions granted</value>
@@ -63,11 +96,17 @@
   <data name="Precisely control view and management permissions for team members and roles." xml:space="preserve">
     <value>Precisely control viewing and management permissions for team members and roles.</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
   <data name="Remove " xml:space="preserve">
     <value>Remove</value>
   </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Remove permission</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
   </data>
   <data name="Role group" xml:space="preserve">
     <value>Role group</value>
@@ -81,6 +120,12 @@
   <data name="Save permission changes" xml:space="preserve">
     <value>Save permission changes</value>
   </data>
+  <data name="Save permissions" xml:space="preserve">
+    <value>Save permissions</value>
+  </data>
+  <data name="Select either a user or a role. Saving replaces that recipient&apos;s permissions." xml:space="preserve">
+    <value>Select either a user or a role. Saving replaces that recipient&apos;s permissions.</value>
+  </data>
   <data name="Select Role" xml:space="preserve">
     <value>Select role</value>
   </data>
@@ -90,14 +135,38 @@
   <data name="Select user..." xml:space="preserve">
     <value>Select user...</value>
   </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>Shared With</value>
+  </data>
   <data name="Specify Individual User" xml:space="preserve">
     <value>Specify an individual user</value>
   </data>
   <data name="Specify User" xml:space="preserve">
     <value>Select user</value>
   </data>
+  <data name="The owner has all permissions. Direct user grants and role grants are combined. On-call assignments do not grant access." xml:space="preserve">
+    <value>The owner has all permissions. Direct user grants and role grants are combined. On-call assignments do not grant access.</value>
+  </data>
+  <data name="Transfer Ownership" xml:space="preserve">
+    <value>Transfer ownership</value>
+  </data>
+  <data name="Transferring ownership gives the selected user all permissions. You will lose owner privileges." xml:space="preserve">
+    <value>Transferring ownership gives the selected user all permissions. You will lose owner privileges.</value>
+  </data>
+  <data name="Update incidents and status" xml:space="preserve">
+    <value>Update incidents and status</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="User or Role" xml:space="preserve">
+    <value>User or role</value>
+  </data>
   <data name="Users with the application management permission have full management access to all applications." xml:space="preserve">
     <value>Users with the application management permission have full management access to all applications.</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>View incidents</value>
   </data>
   <data name="View only" xml:space="preserve">
     <value>View only</value>

@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>留言不可為空，且不得超過 4,000 個字元。</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>請輸入精確的事件標題以確認永久刪除。</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>動作參數無效。原因不得超過 4,000 個字元，嚴重性等級必須介於 sev0 和 sev4 之間。</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>留言參數無效。請重新整理頁面。</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>此應用程式已停用。</value>
   </data>
 
 </root>

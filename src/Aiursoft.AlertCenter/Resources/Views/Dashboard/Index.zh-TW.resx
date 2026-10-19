@@ -210,6 +210,9 @@
   <data name="Linked Push Channel" xml:space="preserve">
     <value>已連結推播管道</value>
   </data>
+  <data name="Local time" xml:space="preserve">
+    <value>當地時間</value>
+  </data>
   <data name="Major" xml:space="preserve">
     <value>重大</value>
   </data>
@@ -239,6 +242,9 @@
   </data>
   <data name="No unresolved incidents currently" xml:space="preserve">
     <value>目前沒有尚未解決的事件</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>未確認</value>
   </data>
   <data name="Notification Push Center" xml:space="preserve">
     <value>通知推播中心</value>
@@ -350,6 +356,9 @@
   </data>
   <data name="Total incidents" xml:space="preserve">
     <value>事件總數</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>未緩解</value>
   </data>
   <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
     <value>使用 Bearer 驗證回報測試事件：</value>

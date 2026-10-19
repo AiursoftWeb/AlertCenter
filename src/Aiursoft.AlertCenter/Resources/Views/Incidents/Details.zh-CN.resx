@@ -36,6 +36,9 @@
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>调整此事件的严重级别并记录原因。</value>
   </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>同时立即解决此事件，将缓解原因作为解决原因。</value>
+  </data>
   <data name="Auto-create incident" xml:space="preserve">
     <value>自动创建事件</value>
   </data>
@@ -117,6 +120,9 @@
   <data name="handling nodes" xml:space="preserve">
     <value>处理节点</value>
   </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>我确认此事件已彻底解决，且不会再次发生。</value>
+  </data>
   <data name="Incident event" xml:space="preserve">
     <value>事件动态</value>
   </data>
@@ -126,11 +132,17 @@
   <data name="Incident owner:" xml:space="preserve">
     <value>事件负责人：</value>
   </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>事件标题</value>
+  </data>
   <data name="Incident War Room - {0}" xml:space="preserve">
     <value>事件处理中心 - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>独立事件</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>最后确认时间</value>
   </data>
   <data name="Last acknowledgement time (UTC)" xml:space="preserve">
     <value>上次确认时间（UTC）</value>
@@ -150,6 +162,9 @@
   <data name="Mitigation reason (required)" xml:space="preserve">
     <value>缓解原因（必填）</value>
   </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>缓解时间</value>
+  </data>
   <data name="Mitigation time (UTC)" xml:space="preserve">
     <value>缓解时间（UTC）</value>
   </data>
@@ -168,6 +183,9 @@
   <data name="Not set" xml:space="preserve">
     <value>未设置</value>
   </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>发生时间</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>发生时间（UTC）</value>
   </data>
@@ -180,6 +198,12 @@
   <data name="Pending Response (New)" xml:space="preserve">
     <value>待处理响应（新建）</value>
   </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>永久删除</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>永久删除事件</value>
+  </data>
   <data name="Progress" xml:space="preserve">
     <value>进展</value>
   </data>
@@ -191,6 +215,9 @@
   </data>
   <data name="Reason for adjustment (required)" xml:space="preserve">
     <value>调整原因（必填）</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>接收时间</value>
   </data>
   <data name="Received at (UTC)" xml:space="preserve">
     <value>接收时间（UTC）</value>
@@ -230,6 +257,9 @@
   </data>
   <data name="Resolution reason (required)" xml:space="preserve">
     <value>解决原因（必填）</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>解决时间</value>
   </data>
   <data name="Resolution time (UTC)" xml:space="preserve">
     <value>解决时间（UTC）</value>
@@ -278,6 +308,9 @@
   </data>
   <data name="Take Over Notes (Optional)" xml:space="preserve">
     <value>接手备注（可选）</value>
+  </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>此操作将永久删除该事件及其历史记录。请输入事件的准确标题以确认。</value>
   </data>
   <data name="Total " xml:space="preserve">
     <value>总计</value>

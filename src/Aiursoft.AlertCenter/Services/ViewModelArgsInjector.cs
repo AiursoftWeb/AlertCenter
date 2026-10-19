@@ -100,6 +100,10 @@ public class ViewModelArgsInjector(
         _ = localizer["Team management"];
     
         _ = localizer["Incidents"];
+    
+        _ = localizer["API Key"];
+        _ = localizer["API Key Management"];
+        _ = localizer["Create Incident"];
     }
 
     public void InjectSimple(

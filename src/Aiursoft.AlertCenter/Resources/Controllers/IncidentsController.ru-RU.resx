@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>Комментарий не может быть пустым и не должен превышать 4 000 символов.</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>Введите точное название инцидента для подтверждения безвозвратного удаления.</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>Недопустимые параметры действия. Причина не должна превышать 4 000 символов, а уровень серьёзности должен быть от sev0 до sev4.</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>Недопустимые параметры комментария. Обновите страницу.</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>Это приложение отключено.</value>
   </data>
 
 </root>

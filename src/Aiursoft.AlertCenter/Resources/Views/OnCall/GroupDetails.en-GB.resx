@@ -51,6 +51,15 @@
   <data name="hours · Min rest " xml:space="preserve">
     <value>hours · Minimum rest</value>
   </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>Manage members</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>Members available for scheduling (rotation order)</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>Next: assign people to shifts</value>
+  </data>
   <data name="No team members." xml:space="preserve">
     <value>No team members.</value>
   </data>
@@ -59,6 +68,9 @@
   </data>
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications.</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>Open schedule</value>
   </data>
   <data name="Per shift " xml:space="preserve">
     <value>Per shift</value>
@@ -83,6 +95,9 @@
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Templates can be shared by multiple teams; changing or switching templates will not regenerate saved shifts.</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>The member list shows who can be scheduled. The saved schedule shows who is on duty and receives incident emails. CC recipients receive a copy regardless of group membership.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>This team has saved shifts and cannot be deleted to preserve the scheduling history.</value>

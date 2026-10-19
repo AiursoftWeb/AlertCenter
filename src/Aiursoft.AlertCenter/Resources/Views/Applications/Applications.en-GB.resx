@@ -24,11 +24,17 @@
   <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Adjust the search keywords or clear the search to view all apps.</value>
   </data>
   <data name="API Key has been reset" xml:space="preserve">
     <value>API key has been reset</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>API Key Management</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>Connected applications</value>
@@ -47,6 +53,9 @@
   </data>
   <data name="Application Name" xml:space="preserve">
     <value>Application name</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>Application settings</value>
   </data>
   <data name="Applications" xml:space="preserve">
     <value>Applications</value>
@@ -81,6 +90,9 @@
   <data name="Create Application" xml:space="preserve">
     <value>Create application</value>
   </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>Create Incident</value>
+  </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Create new integration app</value>
   </data>
@@ -92,6 +104,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>Delete application</value>
   </data>
   <data name="Delete integrated application" xml:space="preserve">
     <value>Delete integrated application</value>
@@ -183,6 +198,9 @@
   <data name="The old key will become invalid immediately. All reporting clients must be updated. The new key is displayed only once on this page." xml:space="preserve">
     <value>The old key will become invalid immediately. All reporting clients must be updated. The new key is displayed only once on this page.</value>
   </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated.</value>
+  </data>
   <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and the API Key will be immediately invalidated." xml:space="preserve">
     <value>This action is irreversible! All historical incidents, associated delivery records and in-site notifications for this application will be deleted, and the API key will be invalidated immediately.</value>
   </data>
@@ -192,11 +210,17 @@
   <data name="Use a concise and clear business system name; the system will automatically generate the corresponding prefix ID and random Secret." xml:space="preserve">
     <value>Use a concise, clear business system name; the system will automatically generate the corresponding prefix ID and a random secret.</value>
   </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>Use a concise business system name. Create its API keys separately after creating the application.</value>
+  </data>
   <data name="View all incidents" xml:space="preserve">
     <value>View all incidents</value>
   </data>
   <data name="View incident" xml:space="preserve">
     <value>View incident</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>View incidents</value>
   </data>
   <data name="View integration guide to send the first test message " xml:space="preserve">
     <value>View the integration guide to send your first test message</value>
