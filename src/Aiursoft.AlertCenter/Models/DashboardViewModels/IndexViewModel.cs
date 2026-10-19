@@ -24,6 +24,5 @@ public class IndexViewModel : UiStackLayoutViewModel
     public int Sev4Count { get; set; }
     public List<Incident> LatestIncidents { get; set; } = [];
     public List<Incident> RecentIncidents { get; set; } = [];
-    public bool IsAuthenticated { get; set; }
     public bool CanManageApplications { get; set; }
 }
