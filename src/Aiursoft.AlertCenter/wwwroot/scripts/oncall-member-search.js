@@ -22,12 +22,15 @@
 
     function renderSelected() {
         selected.replaceChildren();
-        for (const user of selectedUsers.values()) {
+        document.getElementById('oncall-members-empty').hidden = selectedUsers.size > 0;
+        const users = [...selectedUsers.values()];
+        for (const [index, user] of users.entries()) {
             const item = document.createElement('li');
-            item.className = 'list-group-item d-flex justify-content-between align-items-center';
+            item.className = 'list-group-item d-flex flex-wrap gap-2 justify-content-between align-items-center';
             item.dataset.userId = user.id;
             const label = document.createElement('span');
             label.textContent = `${user.name} (${user.username || ''})`;
+            label.className = 'text-break me-auto';
             const remove = document.createElement('button');
             remove.type = 'button';
             remove.className = 'btn btn-sm btn-outline-danger';
@@ -42,7 +45,26 @@
             input.name = 'GroupInput.UserIds';
             input.value = user.id;
             input.className = 'oncall-member-id';
-            item.append(input, label, remove);
+            const actions = document.createElement('div');
+            actions.className = 'd-flex flex-wrap gap-1';
+            for (const [offset, key, fallback] of [[-1, 'oncall-move-up', 'Move up'], [1, 'oncall-move-down', 'Move down']]) {
+                const move = document.createElement('button');
+                move.type = 'button';
+                move.className = 'btn btn-sm btn-outline-secondary';
+                move.textContent = getLocalizedText(key, fallback);
+                move.disabled = index + offset < 0 || index + offset >= users.length;
+                move.addEventListener('click', () => {
+                    const target = index + offset;
+                    [users[index], users[target]] = [users[target], users[index]];
+                    selectedUsers.clear();
+                    for (const entry of users) selectedUsers.set(entry.id, entry);
+                    renderSelected();
+                    selected.children[target].querySelectorAll('button')[offset < 0 ? 0 : 1].focus();
+                });
+                actions.append(move);
+            }
+            actions.append(remove);
+            item.append(input, label, actions);
             selected.append(item);
         }
     }
