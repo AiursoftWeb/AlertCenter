@@ -1,11 +1,130 @@
 using System.Net;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
 public partial class IncidentPagesTests
 {
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task DashboardCreationUsesOnlyEnabledApplicationsWithExplicitCreateAccess(bool roleGrant)
+    {
+        var key = await CreateApplication();
+        var applicationId = Guid.Parse(key.Split('.')[0]);
+        var (email, _) = await RegisterAndLoginAsync();
+        Guid privateId;
+        Guid disabledId;
+        string userId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            userId = await db.Users.Where(user => user.Email == email).Select(user => user.Id).SingleAsync();
+            var application = await db.SourceApplications.SingleAsync();
+            application.Name = "Allowed create-only application";
+            var other = new SourceApplication { Name = "Private application", OwnerId = application.OwnerId };
+            var disabled = new SourceApplication { Name = "Disabled application", OwnerId = application.OwnerId, IsEnabled = false };
+            db.AddRange(other, disabled);
+            privateId = other.Id;
+            disabledId = disabled.Id;
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { Application = disabled, UserId = userId, CanCreateIncidents = true });
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { Application = other, UserId = userId, CanViewIncidents = true });
+            if (roleGrant)
+            {
+                var role = new IdentityRole("Incident reporters");
+                db.UserRoles.Add(new IdentityUserRole<string> { UserId = userId, RoleId = role.Id });
+                db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { Application = application, Role = role, CanCreateIncidents = true });
+            }
+            else
+                db.ApplicationUserAccesses.Add(new ApplicationUserAccess { Application = application, UserId = userId, CanCreateIncidents = true });
+            var channel = new PushChannel { Name = "Reporter inbox", Type = "inapp", IsEnabled = true };
+            db.ApplicationPushChannels.Add(new ApplicationPushChannel { Application = application, Channel = channel });
+            db.PushChannelUsers.Add(new PushChannelUser { Channel = channel, UserId = userId });
+            await db.SaveChangesAsync();
+        }
+        var dashboard = await Http.GetStringAsync("/Dashboard");
+        Assert.Contains("id=\"new-alert\"", dashboard);
+        Assert.Contains("href=\"/Incidents/Create\"", dashboard);
+        var page = await Http.GetStringAsync("/Incidents/Create");
+        Assert.Contains("Allowed create-only application", page);
+        Assert.DoesNotContain("Private application", page);
+        Assert.DoesNotContain("Disabled application", page);
+        AssertForbidden(await Http.GetAsync($"/Incidents/Create?applicationId={privateId}"));
+        AssertForbidden(await PostForm("/Incidents/Create", new() { ["ApplicationId"] = privateId.ToString(), ["Title"] = "Forged report" }, "/Incidents/Create"));
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/Incidents/Create", new() { ["ApplicationId"] = disabledId.ToString(), ["Title"] = "Disabled report" }, "/Incidents/Create")).StatusCode);
+        var invalid = await PostForm("/Incidents/Create", new() { ["ApplicationId"] = applicationId.ToString(), ["Title"] = "", ["Level"] = "sev9" }, "/Incidents/Create");
+        Assert.AreEqual(HttpStatusCode.OK, invalid.StatusCode);
+        Assert.Contains("Allowed create-only application", await invalid.Content.ReadAsStringAsync());
+        var missing = await PostForm("/Incidents/Create", new() { ["Title"] = "Missing app" }, "/Incidents/Create");
+        Assert.AreEqual(HttpStatusCode.OK, missing.StatusCode);
+        Assert.Contains("Please select an application.", await missing.Content.ReadAsStringAsync());
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/Incidents/Create", new() { ["ApplicationId"] = applicationId.ToString(), ["Title"] = "No CSRF" }, includeToken: false)).StatusCode);
+        AssertRedirect(await PostForm("/Incidents/Create", new()
+        {
+            ["ApplicationId"] = applicationId.ToString(), ["Title"] = "Manual report", ["Level"] = "sev2", ["Content"] = "<script>unsafe</script>"
+        }, "/Incidents/Create"), "/Applications/Applications");
+        Guid incidentId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var incident = await db.Incidents.SingleAsync();
+            incidentId = incident.Id;
+            Assert.AreEqual(applicationId, incident.ApplicationId);
+            Assert.AreEqual("sev2", incident.Level);
+            Assert.AreEqual(userId, (await db.IncidentTimelineEntries.SingleAsync()).ActorId);
+            Assert.AreEqual(1, await db.PushDeliveries.CountAsync(delivery => delivery.IncidentId == incidentId));
+            Assert.AreEqual(1, await db.PushDeliveryRecipients.CountAsync(recipient => recipient.UserId == userId));
+            db.ApplicationUserAccesses.RemoveRange(db.ApplicationUserAccesses.Where(access => access.UserId == userId));
+            db.UserRoles.RemoveRange(db.UserRoles.Where(link => link.UserId == userId));
+            await db.SaveChangesAsync();
+        }
+        AssertForbidden(await Http.GetAsync($"/Incidents/Details/{incidentId}"));
+        AssertForbidden(await PostForm("/Incidents/Create", new() { ["ApplicationId"] = applicationId.ToString(), ["Title"] = "Revoked report" }, "/Manage/ChangePassword"));
+        Assert.Contains("new-alert-unavailable", await Http.GetStringAsync("/Dashboard"));
+        page = await Http.GetStringAsync("/Incidents/Create");
+        Assert.Contains("No enabled applications are available.", page);
+        Assert.DoesNotContain("Allowed create-only application", page);
+    }
+
+    [TestMethod]
+    public async Task ApplicationManagerCanBindAnyPublicTeamButCannotEditItOrAnotherApplication()
+    {
+        var key = await CreateApplication();
+        var applicationId = Guid.Parse(key.Split('.')[0]);
+        var (email, _) = await RegisterAndLoginAsync();
+        Guid teamId;
+        Guid otherId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var userId = await db.Users.Where(user => user.Email == email).Select(user => user.Id).SingleAsync();
+            var team = new OnCallGroup { Name = "Public shared on-call team" };
+            var other = new SourceApplication { Name = "Another customer's application" };
+            db.AddRange(team, other);
+            teamId = team.Id;
+            otherId = other.Id;
+            db.ApplicationUserAccesses.Add(new ApplicationUserAccess { ApplicationId = applicationId, UserId = userId, CanManageApplication = true });
+            await db.SaveChangesAsync();
+        }
+        var url = $"/Applications/OnCall/{applicationId}";
+        Assert.Contains("Public shared on-call team", await Http.GetStringAsync(url));
+        AssertRedirect(await PostForm("/Applications/SaveOnCall", new()
+        {
+            ["ApplicationId"] = applicationId.ToString(), ["OnCallGroupId"] = teamId.ToString()
+        }, url), url);
+        AssertForbidden(await Http.GetAsync($"/OnCall/GroupEdit/{teamId}"));
+        AssertForbidden(await PostForm("/Applications/SaveOnCall", new()
+        {
+            ["ApplicationId"] = otherId.ToString(), ["OnCallGroupId"] = teamId.ToString()
+        }, url));
+        using var after = Server!.Services.CreateScope();
+        var verify = after.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(teamId, (await verify.SourceApplications.SingleAsync(application => application.Id == applicationId)).OnCallGroupId);
+        Assert.IsNull((await verify.SourceApplications.SingleAsync(application => application.Id == otherId)).OnCallGroupId);
+    }
+
     [TestMethod]
     public async Task OwnerCanGrantIndividualOperationsAndRevocationTakesEffectImmediately()
     {

@@ -18,7 +18,7 @@ On an empty database, the default local account is `admin@default.com` with pass
 - Independent incidents, acknowledgement, ownership, mitigation, resolution, and Markdown discussions.
 - On-call teams, reusable scheduling rules, and an interactive schedule editor with overlap and rest validation.
 - Severity-based notification routing, personal inboxes, and delivery history.
-- Application access grants for users and roles, with separate permissions for application, on-call, and push management.
+- Application owners grant users and roles access to incidents, API keys, and application settings. Platform permissions control application creation and shared on-call/push administration; application managers can bind any visible on-call team.
 - SQLite for standalone use, MySQL support, and local or OIDC authentication through [Aiursoft Template](https://github.com/AiursoftWeb/template).
 
 ## Install with Docker

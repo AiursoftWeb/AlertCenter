@@ -32,7 +32,7 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateApplication(CreateApplicationRequest request, CancellationToken cancellationToken)
     {
-        if (!applicationAccess.CanManageApplications(User)) return Forbid();
+        if (!applicationAccess.CanCreateApplications(User)) return Forbid();
         if (!await OnCallGroupExists(request.OnCallGroupId, cancellationToken))
             ModelState.AddModelError(nameof(request.OnCallGroupId), localizer["The selected on-call group does not exist. Please select again."].Value);
         if (!ModelState.IsValid)
@@ -91,6 +91,7 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
         return RedirectToAction(nameof(OnCall), new { id = application.Id });
     }
 
+    // All visible teams are public binding targets. Editing them still requires the on-call platform permission.
     private async Task<bool> OnCallGroupExists(Guid? id, CancellationToken cancellationToken) =>
         !id.HasValue || await db.OnCallGroups.AnyAsync(group => group.Id == id, cancellationToken);
 
@@ -253,10 +254,10 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
         {
             Applications = await applications.Include(application => application.OnCallGroup)
                 .OrderByDescending(application => application.CreatedAtUtc).ToListAsync(cancellationToken),
-            OnCallGroups = applicationAccess.CanManageApplications(User)
+            OnCallGroups = applicationAccess.CanCreateApplications(User)
                 ? await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken) : [],
             ApplicationSearchKeyword = keyword,
-            CanManageApplications = applicationAccess.CanManageApplications(User),
+            CanCreateApplications = applicationAccess.CanCreateApplications(User),
             CreatableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, ApplicationPermission.CreateIncidents, cancellationToken)).ToHashSet(),
             ViewableApplicationIds = accessibleIds.ToHashSet(),
             KeyManageableApplicationIds = (await applicationAccess.GetAccessibleApplicationIdsAsync(User, ApplicationPermission.ManageApiKeys, cancellationToken)).ToHashSet(),

@@ -37,11 +37,41 @@
         <a asp-controller="Applications" asp-action="GettingStarted" class="btn btn-outline-primary">
             <i class="align-middle me-1" data-lucide="book-open"></i>@Localizer["Integration Guide"]
         </a>
-        <a asp-controller="Applications" asp-action="Applications" class="btn btn-primary">
-            <i class="align-middle me-1" data-lucide="plus"></i>@Localizer["Applications"]
+        <a asp-controller="Applications" asp-action="Applications" class="btn btn-outline-primary">
+            <i class="align-middle me-1" data-lucide="app-window"></i>@Localizer["Applications"]
         </a>
     </div>
 </div>
+
+<section class="ac-create-alert mb-4" aria-labelledby="create-alert-title">
+    <div class="d-flex align-items-center gap-3">
+        <span class="ac-create-alert-icon" aria-hidden="true"><i data-lucide="bell-plus"></i></span>
+        <div>
+            <h2 id="create-alert-title" class="h3 mb-2">@Localizer["Report an issue. Start a response."]</h2>
+            <p class="mb-0">@Localizer["Create an alert for your application and notify its configured recipients."]</p>
+        </div>
+    </div>
+    <div class="ac-create-alert-action">
+        @if (Model.CanCreateIncidents)
+        {
+            <a id="new-alert" asp-controller="Incidents" asp-action="Create" class="btn ac-create-alert-button">
+                <i data-lucide="plus" aria-hidden="true"></i><span>@Localizer["New alert"]</span>
+                <i data-lucide="arrow-right" aria-hidden="true"></i>
+            </a>
+        }
+        else
+        {
+            <button id="new-alert" type="button" class="btn ac-create-alert-button" disabled aria-describedby="new-alert-unavailable">
+                <i data-lucide="plus" aria-hidden="true"></i>@Localizer["New alert"]
+            </button>
+            <p id="new-alert-unavailable" class="small mt-2 mb-0">@Localizer["You need create-alert access to an enabled application."]</p>
+            @if (Model.CanCreateApplications)
+            {
+                <a asp-controller="Applications" asp-action="Applications" class="ac-create-alert-link">@Localizer["Create an application"]</a>
+            }
+        }
+    </div>
+</section>
 
 <!-- KPI Metrics Grid -->
 <div class="row g-3 mb-4">

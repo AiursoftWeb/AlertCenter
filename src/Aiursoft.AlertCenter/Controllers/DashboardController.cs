@@ -27,9 +27,11 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
     {
         var model = new IndexViewModel
         {
-            CanManageApplications = applicationAccess.CanManageApplications(User)
+            CanCreateApplications = applicationAccess.CanCreateApplications(User)
         };
 
+        var creatableIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, ApplicationPermission.CreateIncidents, cancellationToken);
+        model.CanCreateIncidents = await db.SourceApplications.AnyAsync(application => application.IsEnabled && creatableIds.Contains(application.Id), cancellationToken);
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
         model.TotalApplications = await db.SourceApplications.AsNoTracking()
             .CountAsync(a => accessibleIds.Contains(a.Id), cancellationToken);

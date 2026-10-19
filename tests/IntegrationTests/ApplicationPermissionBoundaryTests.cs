@@ -26,7 +26,7 @@ public partial class IncidentPagesTests
             if (administratorRole) Assert.IsTrue((await users.AddToRoleAsync(user, "Administrators")).Succeeded);
             var keys = capability switch
             {
-                "applications" => new[] { AppPermissionNames.CanManageApplications },
+                "applications" => new[] { AppPermissionNames.CanCreateApplications },
                 "on-call" => new[] { AppPermissionNames.CanManageOnCall },
                 "push" => new[] { AppPermissionNames.CanManagePush },
                 "all" => AppPermissions.GetAllPermissions().Select(permission => permission.Key).ToArray(),

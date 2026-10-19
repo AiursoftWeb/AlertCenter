@@ -25,7 +25,7 @@ public class AppPermissions
         var localizer = new FakeLocalizer();
         List<PermissionDescriptor> allPermission =
         [
-            new(AppPermissionNames.CanManageApplications,
+            new(AppPermissionNames.CanCreateApplications,
                 localizer["Create Applications"],
                 localizer["Allows creating applications. Access to existing applications requires ownership or an explicit grant."]),
             new(AppPermissionNames.CanManageOnCall,
