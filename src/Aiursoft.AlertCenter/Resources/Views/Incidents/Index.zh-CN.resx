@@ -111,17 +111,29 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>没有匹配的事件</value>
   </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>无值班 OCE</value>
+  </data>
   <data name="No unresolved incidents in this queue" xml:space="preserve">
     <value>此队列中没有未解决的事件</value>
   </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>未确认</value>
   </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>未记录</value>
+  </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>正在处理的事件</value>
   </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>原始值班 OCE</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>负责人</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>负责人（最近一次确认）</value>
   </data>
   <data name="Page {0}" xml:space="preserve">
     <value>第 {0} 页</value>

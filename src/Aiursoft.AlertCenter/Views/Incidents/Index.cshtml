@@ -182,7 +182,8 @@
                         <th class="ps-4 py-3" style="width: 120px;">@Localizer["Status"]</th>
                         <th class="py-3" style="min-width: 260px;">@Localizer["Incident"]</th>
                         <th class="py-3">@Localizer["Source application"]</th>
-                        <th class="py-3">@Localizer["Owner"]</th>
+                        <th class="py-3" style="min-width: 140px;">@Localizer["Owner (last ACK)"]</th>
+                        <th class="py-3" style="min-width: 160px;">@Localizer["Original on-call OCE"]</th>
                         <th class="pe-4 py-3 text-end" style="min-width: 160px;">@Localizer["Received at"]</th>
                         <th class="py-3 text-center" style="width: 80px;">@Localizer["Enter"]</th>
                     </tr>
@@ -228,8 +229,18 @@
                             <td class="py-3">
                                 <span class="badge bg-secondary-subtle text-secondary font-monospace">@incident.Application.Name</span>
                             </td>
-                            <td class="py-3 text-break">
-                                @(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? @Localizer["Unassigned"].Value)
+                            <td class="py-3 text-break fw-semibold" data-incident-owner="@incident.Id">
+                                @(incident.IsAcknowledged ? incident.Owner?.DisplayName ?? incident.OwnerDisplayName : null)
+                            </td>
+                            <td class="py-3 text-break" data-incident-oce="@incident.Id">
+                                @if (Model.OriginalOceNames.TryGetValue(incident.Id, out var originalOce))
+                                {
+                                    @(string.IsNullOrWhiteSpace(originalOce) ? @Localizer["No on-call OCE"].Value : originalOce)
+                                }
+                                else
+                                {
+                                    <span class="text-muted">@Localizer["Not recorded"]</span>
+                                }
                             </td>
                             <td class="pe-4 py-3 text-end text-nowrap text-muted small font-monospace">
                                 <span data-utc-time="@incident.ReceivedAtUtc.ToHtmlDateTime()"></span>

@@ -43,6 +43,20 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             .Skip((filter.Page - 1) * 20).Take(21)
             .ToListAsync(cancellationToken);
         model.Incidents = incidents.Take(20).ToList();
+        var incidentIds = model.Incidents.Select(incident => incident.Id).ToArray();
+        if (incidentIds.Length > 0)
+        {
+            // Read the original saved roster in one batch; later shifts and notification events are not the original OCE.
+            var snapshots = await db.OnCallEmailSnapshots.AsNoTracking()
+                .Include(snapshot => snapshot.Delivery).Include(snapshot => snapshot.Recipients)
+                .Where(snapshot => snapshot.Delivery.IncidentId.HasValue && incidentIds.Contains(snapshot.Delivery.IncidentId.Value))
+                .OrderBy(snapshot => snapshot.Delivery.CreatedAtUtc).ThenBy(snapshot => snapshot.DeliveryId)
+                .ToListAsync(cancellationToken);
+            model.OriginalOceNames = snapshots.GroupBy(snapshot => snapshot.Delivery.IncidentId!.Value)
+                .ToDictionary(group => group.Key, group => string.Join(", ", group.First().Recipients
+                    .OrderBy(recipient => recipient.DisplayName).ThenBy(recipient => recipient.UserId)
+                    .Select(recipient => recipient.DisplayName)));
+        }
         model.HasNextPage = incidents.Count > 20;
         return this.StackView(model, nameof(Index));
     }
