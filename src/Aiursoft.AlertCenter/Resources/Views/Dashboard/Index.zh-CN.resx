@@ -27,6 +27,9 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>“火速发送”支持长时间运行的任务（如邮件或AI），配备用于队列管理、并行处理和取消的图形化界面。</value>
   </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>总计已分配 {0} 项</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>内置基于角色的访问控制（RBAC）系统，用于细粒度权限管理。</value>
   </data>
@@ -237,6 +240,9 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>多数据库支持</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>我的事件</value>
+  </data>
   <data name="No incidents yet" xml:space="preserve">
     <value>暂无事件</value>
   </data>
@@ -345,6 +351,9 @@
   <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
     <value>中心会异步发送通知，并支持记录追踪和重试。</value>
   </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>通过确认接手的事件。将响应工作集中在一处。</value>
+  </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>导航栏会根据用户角色和权限自动调整。</value>
   </data>
@@ -359,6 +368,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>未缓解</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>未解决</value>
   </data>
   <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
     <value>使用 Bearer 身份验证来上报测试事件：</value>
