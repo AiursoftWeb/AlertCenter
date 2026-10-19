@@ -13,17 +13,15 @@ public static class IncidentMetadata
             return "Incident metadata must not exceed 16 KiB of UTF-8 JSON.";
         try
         {
-            using var document = System.Text.Json.JsonDocument.Parse(json);
+            using var document = System.Text.Json.JsonDocument.Parse(json, new System.Text.Json.JsonDocumentOptions { MaxDepth = 16 });
         }
         catch (System.Text.Json.JsonException)
         {
-            return "Incident metadata must contain valid JSON values.";
+            return "Incident metadata must contain valid JSON with at most 16 levels of nesting.";
         }
         foreach (var property in metadata.Properties())
             if (string.IsNullOrWhiteSpace(property.Name) || property.Name.Length > 128 || property.Name.Any(char.IsControl))
                 return "Metadata property names must contain 1 to 128 characters without control characters.";
-        if (metadata.Descendants().Any(token => token.Ancestors().Count() > 16))
-            return "Incident metadata must not exceed 16 levels of nesting.";
         return null;
     }
 

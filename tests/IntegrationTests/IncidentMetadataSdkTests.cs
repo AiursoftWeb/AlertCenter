@@ -266,4 +266,32 @@ public partial class IncidentPagesTests
         Assert.AreEqual(patch.Version, (await client.GetIncidentAsync(receipt.IncidentId)).Incident.Version);
     }
 
+    [TestMethod]
+    public async Task MetadataAcceptsSixteenJsonContainerLevelsAndRejectsSeventeen()
+    {
+        static JObject Nested(int depth)
+        {
+            var value = new JObject();
+            for (var i = 1; i < depth; i++) value = new JObject { ["child"] = value };
+            return value;
+        }
+        var full = await CreateApplication();
+        var key = await CreateApplicationKey(Guid.Parse(full.Split('.')[0]), metadata: true);
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var metadata = Nested(16);
+        var receipt = await client.CreateIncidentAsync(new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(), Title = "Metadata depth", OccurredAtUtc = DateTimeOffset.UtcNow, Metadata = metadata
+        });
+        var before = (await client.GetIncidentAsync(receipt.IncidentId)).Incident;
+        Assert.IsTrue(JToken.DeepEquals(metadata, before.Metadata));
+        await Assert.ThrowsAsync<AiurBadApiInputException>(() => client.PatchIncidentMetadataAsync(receipt.IncidentId,
+            new PatchIncidentMetadataRequest { Version = before.Version, Property = "other", Value = Nested(16) }));
+        Assert.AreEqual(before.Version, (await client.GetIncidentAsync(receipt.IncidentId)).Incident.Version);
+        var patched = await client.PatchIncidentMetadataAsync(receipt.IncidentId,
+            new PatchIncidentMetadataRequest { Version = before.Version, Property = "other", Value = Nested(15) });
+        Assert.IsTrue(JToken.DeepEquals(Nested(15), patched.Metadata["other"]));
+    }
+
 }
