@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.ApplicationApiKeysViewModel
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
@@ -23,7 +24,7 @@
 <div class="card">
     <div class="card-header"><h2 class="card-title mb-0">@Localizer["Application API Keys"]</h2></div>
     <div class="card-body">
-        <p class="text-muted">@Localizer["Calls include authenticated requests, including rejected operations. Times are shown in UTC."]</p>
+        <p class="text-muted">@Localizer["Calls include authenticated requests, including rejected operations. Times are shown in your local time zone."]</p>
         @if (Model.Keys.Count == 0)
         {
             <p class="mb-0">@Localizer["No API keys yet. Create a key for each integration."]</p>
@@ -31,12 +32,12 @@
         else
         {
             <div class="table-responsive"><table class="table align-middle">
-                <thead><tr><th>@Localizer["Key"]</th><th>@Localizer["Permissions"]</th><th>@Localizer["Status"]</th><th>@Localizer["Calls"]</th><th>@Localizer["Last used (UTC)"]</th><th>@Localizer["Actions"]</th></tr></thead>
+                <thead><tr><th>@Localizer["Key"]</th><th>@Localizer["Permissions"]</th><th>@Localizer["Status"]</th><th>@Localizer["Calls"]</th><th>@Localizer["Last used"]</th><th>@Localizer["Actions"]</th></tr></thead>
                 <tbody>
                 @foreach (var key in Model.Keys)
                 {
                     <tr>
-                        <td><strong class="d-block">@key.Name</strong><code class="d-none d-md-block text-muted">@key.Id</code><small class="d-block text-muted">@Localizer["Created on"]: @key.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss")</small></td>
+                        <td><strong class="d-block">@key.Name</strong><code class="d-none d-md-block text-muted">@key.Id</code><small class="d-block text-muted">@Localizer["Created on"]: <span data-utc-time="@key.CreatedAtUtc.ToHtmlDateTime()"></span></small></td>
                         <td>
                             @if (key.CanQueryIncidents) { <span class="badge bg-secondary">@Localizer["Query"]</span> }
                             @if (key.CanCreateIncidents) { <span class="badge bg-secondary">@Localizer["Create"]</span> }
@@ -48,7 +49,7 @@
                         </td>
                         <td>@(key.IsEnabled ? Localizer["Enabled"] : Localizer["Disabled"])</td>
                         <td>@key.TotalCalls.ToString("N0")</td>
-                        <td>@(key.LastUsedAtUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? Localizer["Never"].Value)</td>
+                        <td><span data-utc-time="@key.LastUsedAtUtc?.ToHtmlDateTime()">@(key.LastUsedAtUtc == null ? Localizer["Never"].Value : "")</span></td>
                         <td>
                             <a asp-action="Edit" asp-route-applicationId="@Model.Application.Id" asp-route-id="@key.Id" class="btn btn-sm btn-outline-primary">@Localizer["Edit"]</a>
                             <details class="mt-2">

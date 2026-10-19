@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @{
     var notification = Model.Notifications.Single();
@@ -64,7 +65,7 @@
             }
             <span class="text-muted small ms-auto font-monospace">
                 <i data-lucide="clock" style="width: 13px; height: 13px;" class="align-middle me-1" aria-hidden="true"></i>
-                @notification.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+                <span data-utc-time="@notification.CreatedAtUtc.ToHtmlDateTime()"></span>
             </span>
         </div>
         <h1 class="h3 mb-1 text-break">@(message?.Title ?? @Localizer["Channel test notification"].Value)</h1>
@@ -72,7 +73,7 @@
             @(notification.Delivery.Channel != null ? string.Format(@Localizer["Dispatched via in-app notification channel {0}"].Value, notification.Delivery.Channel.Name) : @Localizer["In-app notification dispatch"].Value)
             @if (notification.ReadAtUtc != null)
             {
-                <span> · @Localizer["At "]@notification.ReadAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") UTC @Localizer["Read"]</span>
+                <span> · @Localizer["At "]<span data-utc-time="@notification.ReadAtUtc.Value.ToHtmlDateTime()"></span> @Localizer["Read"]</span>
             }
         </small>
     </div>

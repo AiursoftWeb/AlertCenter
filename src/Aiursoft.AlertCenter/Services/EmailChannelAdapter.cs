@@ -109,8 +109,8 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
 
     public async Task<NotificationDeliveryResult> DeliverAsync(PushDelivery delivery, CancellationToken cancellationToken = default)
     {
-        if (delivery.IncidentEvent is { Type: not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved) })
-            return new(false, ErrorMessage: localizer["Email notifications are only sent when an incident is created, mitigated or resolved."].Value);
+        if (delivery.IncidentEvent is { Type: not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.Reopened) })
+            return new(false, ErrorMessage: localizer["Email notifications are only sent when an incident is created, mitigated, resolved or reopened."].Value);
         List<string> recipients;
         List<string> ccRecipients;
         if (delivery.OnCallEmail is { } snapshot)
@@ -164,6 +164,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         var title = incidentEvent?.Type switch
         {
             IncidentTimelineEntry.Mitigated => string.Format(localizer["Incident mitigated: {0}"].Value, incidentEvent.Incident.Title),
+            IncidentTimelineEntry.Reopened => string.Format(localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title),
             IncidentTimelineEntry.Resolved => string.Format(localizer["Incident resolved: {0}"].Value, incidentEvent.Incident.Title),
             _ => message?.Title ?? localizer["Channel test notification"].Value
         };
@@ -209,6 +210,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
     {
         IncidentTimelineEntry.Mitigated => localizer["The incident has been mitigated."].Value,
         IncidentTimelineEntry.Resolved => localizer["The incident has been resolved."].Value,
+        IncidentTimelineEntry.Reopened => localizer["The incident has been reopened and requires attention."].Value,
         _ => delivery.Incident != null ? localizer["A new incident has been reported."].Value
             : delivery.TestContent ?? localizer["This is a test message for the push channel."].Value
     };
@@ -231,6 +233,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         {
             IncidentTimelineEntry.Mitigated => localizer["Mitigated"].Value,
             IncidentTimelineEntry.Resolved => localizer["Resolved"].Value,
+            IncidentTimelineEntry.Reopened => localizer["Reopened"].Value,
             _ => incident != null ? localizer["New incident"].Value : localizer["Test notification"].Value
         };
         var introduction = Introduction(delivery, localizer);

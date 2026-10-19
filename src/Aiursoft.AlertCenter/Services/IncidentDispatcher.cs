@@ -42,11 +42,9 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
     public static async Task DispatchEmailEventAsync(TemplateDbContext db, IncidentTimelineEntry entry,
         CancellationToken cancellationToken, IStringLocalizerFactory? localizerFactory = null)
     {
-        if (entry.Type is not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved)) return;
-        // Timeline history survives channel deletion. Each lifecycle stage is notified only once,
-        // including after reopening; optimistic incident concurrency commits state and queue together.
-        if (await db.IncidentTimelineEntries.AsNoTracking().AnyAsync(previous =>
-                previous.IncidentId == entry.Incident.Id && previous.Type == entry.Type, cancellationToken)) return;
+        if (entry.Type is not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.Reopened)) return;
+        // Each committed transition queues its own email. Version checks prevent stale retries
+        // from committing another transition; reopening starts another notification cycle.
         await OnCallEmailQueue.CreateEventAsync(db, entry, cancellationToken,
             localizer: localizerFactory?.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
         var incident = entry.Incident;

@@ -243,6 +243,9 @@
   <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved, and no notification is sent." xml:space="preserve">
     <value>重新打开会使此事件恢复到未缓解状态。此前的确认和负责人信息会予以保留，且不会发送通知。</value>
   </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>重新打开后，此事件将恢复为未缓解状态。此前的确认和负责人信息将予以保留。邮件已排队，等待发送给已配置的收件人。</value>
+  </data>
   <data name="Report ID" xml:space="preserve">
     <value>报告 ID</value>
   </data>

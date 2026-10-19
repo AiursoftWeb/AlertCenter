@@ -51,6 +51,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>电子邮件（SMTP）</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
+    <value>仅当事件被创建、缓解、解决或重新打开时，才会发送电子邮件通知。</value>
+  </data>
   <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
     <value>邮件发送失败。请检查 SMTP 配置、网络或邮件服务器。</value>
   </data>
@@ -69,8 +72,14 @@
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>事件 ID：{0}</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>事故已缓解：{0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>事件已重新打开：{0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>事件已解决：{0}</value>
   </data>
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>抄送电子邮件格式无效。不支持显示名称。</value>
@@ -83,6 +92,12 @@
   </data>
   <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
     <value>SMTP 配置无效。请检查电子邮件设置。</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>已缓解</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>新事件</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>无</value>
@@ -111,11 +126,23 @@
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>请输入收件人电子邮件地址。</value>
   </data>
+  <data name="Reason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="Reason: {0}" xml:space="preserve">
+    <value>原因：{0}</value>
+  </data>
   <data name="Reopen note" xml:space="preserve">
     <value>重新开启备注</value>
   </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>重新打开备注：{0}</value>
+  </data>
+  <data name="Reopened" xml:space="preserve">
+    <value>Reopened</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Resolved</value>
   </data>
   <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>通过全局 SMTP 服务器向指定的电子邮件地址发送事件通知。</value>
@@ -126,8 +153,20 @@
   <data name="Severity: {0}" xml:space="preserve">
     <value>严重程度：{0}</value>
   </data>
+  <data name="Test notification" xml:space="preserve">
+    <value>测试通知</value>
+  </data>
+  <data name="The incident has been mitigated." xml:space="preserve">
+    <value>事件已得到控制。</value>
+  </data>
+  <data name="The incident has been reopened and requires attention." xml:space="preserve">
+    <value>事件已重新开启，需要处理。</value>
+  </data>
   <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
     <value>事件已重新开启。请值班工程师响应。</value>
+  </data>
+  <data name="The incident has been resolved." xml:space="preserve">
+    <value>事件已解决。</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>值班邮件收件人快照无效；无法重新选择当前的 OCE 投递。</value>

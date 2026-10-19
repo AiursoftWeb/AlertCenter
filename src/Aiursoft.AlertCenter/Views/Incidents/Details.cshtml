@@ -30,7 +30,7 @@
     <div class="d-flex align-items-center gap-2">
         <span class="text-muted small font-monospace">
             <i data-lucide="clock" style="width: 13px; height: 13px;" class="align-middle me-1" aria-hidden="true"></i>
-            @Localizer["Auto-created at "]@incident.ReceivedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+            @Localizer["Auto-created at "]<span data-utc-time="@incident.ReceivedAtUtc.ToHtmlDateTime()"></span>
         </span>
     </div>
 </div>
@@ -92,6 +92,12 @@
             {
                 <button class="btn btn-sm btn-outline-danger text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#reopen-incident">
                     <i class="align-middle me-1" data-lucide="rotate-ccw" aria-hidden="true"></i>@Localizer["Reopen Incident"]
+                </button>
+            }
+            @if (Model.CanDelete)
+            {
+                <button class="btn btn-sm btn-outline-danger text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#delete-incident">
+                    <i class="align-middle me-1" data-lucide="trash-2" aria-hidden="true"></i>@Localizer["Permanently Delete"]
                 </button>
             }
             @if (!isActive)
@@ -166,18 +172,18 @@
                     <dl class="mb-0 mt-3 pt-3 border-top text-muted">
                         @if (incident.AcknowledgedAtUtc.HasValue)
                         {
-                            <dt>@Localizer["Last acknowledgement time (UTC)"]</dt>
-                            <dd class="font-monospace">@incident.AcknowledgedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                            <dt>@Localizer["Last acknowledgement time"]</dt>
+                            <dd class="font-monospace"><span data-utc-time="@incident.AcknowledgedAtUtc.Value.ToHtmlDateTime()"></span></dd>
                         }
                         @if (incident.MitigatedAtUtc.HasValue)
                         {
-                            <dt>@Localizer["Mitigation time (UTC)"]</dt>
-                            <dd class="font-monospace">@incident.MitigatedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                            <dt>@Localizer["Mitigation time"]</dt>
+                            <dd class="font-monospace"><span data-utc-time="@incident.MitigatedAtUtc.Value.ToHtmlDateTime()"></span></dd>
                         }
                         @if (incident.ResolvedAtUtc.HasValue)
                         {
-                            <dt>@Localizer["Resolution time (UTC)"]</dt>
-                            <dd class="font-monospace">@incident.ResolvedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+                            <dt>@Localizer["Resolution time"]</dt>
+                            <dd class="font-monospace"><span data-utc-time="@incident.ResolvedAtUtc.Value.ToHtmlDateTime()"></span></dd>
                         }
                     </dl>
                 }
@@ -190,8 +196,8 @@
                 <dl>
                     <dt>@Localizer["Incident ID"]</dt><dd class="text-break">@incident.Id</dd>
                     <dt>@Localizer["Report ID"]</dt><dd class="text-break">@incident.ReportId</dd>
-                    <dt>@Localizer["Occurred at (UTC)"]</dt><dd>@incident.OccurredAtUtc.ToString("O")</dd>
-                    <dt>@Localizer["Received at (UTC)"]</dt><dd>@incident.ReceivedAtUtc.ToString("O")</dd>
+                    <dt>@Localizer["Occurred at"]</dt><dd><span data-utc-time="@incident.OccurredAtUtc.ToHtmlDateTime()"></span></dd>
+                    <dt>@Localizer["Received at"]</dt><dd><span data-utc-time="@incident.ReceivedAtUtc.ToHtmlDateTime()"></span></dd>
                 </dl>
                 <div id="incident-copy-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="incident-content" data-copy-feedback="incident-copy-feedback">@Localizer["Copy content"]</button>
@@ -322,7 +328,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted small mb-3">@Localizer["Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved, and no notification is sent."]</p>
+                    <p class="text-muted small mb-3">@Localizer["Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients."]</p>
                     <label for="reopen-note" class="form-label small text-muted">@Localizer["Reopen Notes (Optional)"]</label>
                     <textarea id="reopen-note" name="note" maxlength="4000" rows="4" class="form-control" placeholder="@Localizer["Example: Monitoring detected the same failure again, re-investigation required."]"></textarea>
                 </div>
@@ -382,10 +388,27 @@
     <script defer src="~/scripts/incident-comments.js" asp-append-version="true"></script>
 }
 
-@if (Model.CanDelete && Model.Incident != null)
+@if (Model.CanDelete)
 {
-    <div class="card mt-4"><div class="card-header"><h5 class="card-title">@Localizer["Permanently Delete Incident"]</h5></div><div class="card-body">
-        <p>@Localizer["This permanently deletes the incident and its history. Enter its exact title to confirm."]</p>
-        <form asp-action="Delete" method="post"><input type="hidden" name="id" value="@Model.Incident.Id" /><input type="hidden" name="version" value="@Model.Incident.Version" /><label for="delete-title" class="form-label">@Localizer["Incident title"]</label><input id="delete-title" name="confirmationTitle" class="form-control mb-3" required /><button type="submit" class="btn btn-danger">@Localizer["Permanently Delete"]</button></form>
-    </div></div>
+    <div class="modal fade" id="delete-incident" tabindex="-1" aria-labelledby="delete-incident-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <form asp-action="Delete" method="post" class="modal-content border-0 shadow">
+                <input type="hidden" name="id" value="@incident.Id" />
+                <input type="hidden" name="version" value="@incident.Version" />
+                <div class="modal-header">
+                    <h2 class="modal-title h5 mb-0" id="delete-incident-title">@Localizer["Permanently Delete Incident"]</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
+                </div>
+                <div class="modal-body">
+                    <p>@Localizer["This permanently deletes the incident and its history. Enter its exact title to confirm."]</p>
+                    <label for="delete-title" class="form-label">@Localizer["Incident title"]</label>
+                    <input id="delete-title" name="confirmationTitle" class="form-control" required />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="submit" class="btn btn-danger">@Localizer["Permanently Delete"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
 }

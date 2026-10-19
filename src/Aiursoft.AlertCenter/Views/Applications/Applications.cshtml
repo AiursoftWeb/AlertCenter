@@ -1,3 +1,4 @@
+@using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.ApplicationsViewModel
 
 @section styles {
@@ -133,7 +134,7 @@
                                 <span class="ac-app-avatar">@initial</span>
                                 <div>
                                     <strong class="d-block text-break">@application.Name</strong>
-                                    <small class="text-muted">@Localizer["Created on"]: @application.CreatedAtUtc.ToString("yyyy-MM-dd")</small>
+                                    <small class="text-muted">@Localizer["Created on"]: <span data-utc-time="@application.CreatedAtUtc.ToHtmlDateTime()"></span></small>
                                 </div>
                             </div>
                         </td>
