@@ -297,7 +297,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         var occurredAt = incident?.OccurredAtUtc ?? delivery.CreatedAtUtc;
         var acknowledgeButton = incidentId.HasValue ? $$"""
             <td style="padding-left:12px;">
-                <a href="{{Encode(url + "?ack=true")}}" style="display:inline-block;border:1px solid #526579;padding:13px 22px;color:#334155;background-color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Acknowledge"].Value)}}</a>
+                <a href="{{Encode(url + "?ack=true")}}" style="display:inline-block;border:1px solid #526579;padding:13px 16px;color:#334155;background-color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Acknowledge"].Value)}}</a>
             </td>
             """ : string.Empty;
         // Tables and inline styles also work when email clients strip stylesheets.
