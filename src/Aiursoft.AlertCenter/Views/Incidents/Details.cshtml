@@ -14,27 +14,7 @@
     var canChangeLevel = Model.CanManage && (incident.Status == Incident.New || incident.Status == Incident.Mitigated);
     var canReopen = Model.CanManage && (incident.Status == Incident.Mitigated || incident.Status == Incident.Resolved);
 
-    string StatusText(string? status) => status switch
-    {
-        Incident.New => @Localizer["Unmitigated"].Value,
-        Incident.Acked => @Localizer["Acknowledged"].Value,
-        Incident.Mitigated => @Localizer["Mitigated"].Value,
-        Incident.Resolved => @Localizer["Resolved"].Value,
-        _ => status ?? @Localizer["Not set"].Value
-    };
 
-    (string Icon, string BadgeClass, string Text) EntryStyle(string type) => type switch
-    {
-        IncidentTimelineEntry.Created => ("alert-triangle", "badge-triggered", @Localizer["Auto-create incident"].Value),
-        IncidentTimelineEntry.Acked => ("user-check", "badge-acknowledged", @Localizer["Confirm and claim incident"].Value),
-        IncidentTimelineEntry.OwnershipChanged => ("user-round-check", "badge-acknowledged", @Localizer["Take Over Incident"].Value),
-        IncidentTimelineEntry.Mitigated => ("shield-check", "badge-acknowledged", @Localizer["Mitigate incident"].Value),
-        IncidentTimelineEntry.Resolved => ("check-circle", "badge-resolved", @Localizer["Resolve incident"].Value),
-        IncidentTimelineEntry.Reopened => ("rotate-ccw", "badge-triggered", @Localizer["Reopen Incident"].Value),
-        IncidentTimelineEntry.LevelChanged => ("sliders-horizontal", "badge-updated", @Localizer["Adjust Incident Severity"].Value),
-        IncidentTimelineEntry.Updated => ("message-square", "badge-updated", @Localizer["Progress"].Value),
-        _ => ("activity", "badge-updated", @Localizer["Incident event"].Value)
-    };
 }
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
@@ -124,87 +104,11 @@
     </div>
 </div>
 
-<!-- Progress Update Entry (Only for active incidents & managers) -->
-@if (Model.CanManage && isActive)
-{
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-header bg-transparent py-3">
-            <h2 class="card-title h6 mb-0 d-flex align-items-center gap-2">
-                <i data-lucide="edit-3" style="width: 16px; height: 16px;" class="text-primary" aria-hidden="true"></i>
-                <span>@Localizer["Log investigation and handling progress"]</span>
-            </h2>
-        </div>
-        <div class="card-body pt-0">
-            <form asp-action="AddNote" method="post" data-action-feedback class="d-flex flex-column gap-3">
-                <input type="hidden" name="incidentId" value="@incident.Id" />
-                <input type="hidden" name="version" value="@incident.Version" />
-                <textarea class="form-control" name="note" maxlength="4000" rows="3" required placeholder="@Localizer["Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..."]"></textarea>
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-outline-primary btn-sm px-4">
-                        <i class="align-middle me-1" data-lucide="send" aria-hidden="true"></i>@Localizer["Publish progress"]
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-}
-
 <div class="row g-4">
-    <!-- Left Column: Incident Timeline -->
     <div class="col-lg-8">
-        <section class="card shadow-sm border-0">
-            <div class="card-header bg-transparent py-3 d-flex justify-content-between align-items-center">
-                <h2 class="card-title h5 mb-0 d-flex align-items-center gap-2">
-                    <i data-lucide="git-commit" style="width: 18px; height: 18px;" class="text-primary" aria-hidden="true"></i>
-                    <span>@Localizer["Full-cycle handling timeline"]</span>
-                </h2>
-                <span class="badge bg-light text-secondary border">@Localizer["Total "]@Model.TimelineEntries.Count @Localizer["handling nodes"]</span>
-            </div>
-            <div class="card-body">
-                <div class="ac-timeline">
-                    @foreach (var entry in Model.TimelineEntries)
-                    {
-                        var entryStyle = EntryStyle(entry.Type);
-                        <div class="ac-timeline-item">
-                            <div class="ac-timeline-badge @entryStyle.BadgeClass">
-                                <i data-lucide="@entryStyle.Icon" style="width: 15px; height: 15px;" aria-hidden="true"></i>
-                            </div>
-                            <div class="ac-timeline-content">
-                                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-1">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <strong class="text-dark">@entryStyle.Text</strong>
-                                        <span class="badge bg-light text-secondary border small">@(entry.ActorName ?? entry.Actor?.DisplayName ?? (entry.Type == IncidentTimelineEntry.Created && entry.ActorId == null && entry.ActorIdSnapshot == null ? @Localizer["System"].Value : @Localizer["User deleted"].Value))</span>
-                                    </div>
-                                    <small class="text-muted font-monospace small">
-                                        @entry.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
-                                    </small>
-                                </div>
-                                @if (entry.PreviousStatus != entry.NewStatus && (entry.PreviousStatus != null || entry.NewStatus != null))
-                                {
-                                    <div class="text-muted small mt-1">@Localizer["Status: "]@StatusText(entry.PreviousStatus) → @StatusText(entry.NewStatus)</div>
-                                }
-                                @if (entry.PreviousOwnerId != entry.NewOwnerId || entry.PreviousOwnerName != entry.NewOwnerName)
-                                {
-                                    <div class="text-muted small mt-1 text-break">@Localizer["Owner: "]@(entry.PreviousOwnerName ?? entry.PreviousOwnerId ?? @Localizer["Unassigned"].Value) → @(entry.NewOwnerName ?? entry.NewOwnerId ?? @Localizer["Unassigned"].Value)</div>
-                                }
-                                @if (entry.PreviousLevel != entry.NewLevel && (entry.PreviousLevel != null || entry.NewLevel != null))
-                                {
-                                    <div class="text-muted small mt-1">@Localizer["Severity: "]@(entry.PreviousLevel ?? @Localizer["Not set"].Value) → @(entry.NewLevel ?? @Localizer["Not set"].Value)</div>
-                                }
-                                @if (!string.IsNullOrEmpty(entry.Note))
-                                {
-                                    <div class="ac-prose ac-prose-note mt-2">@entry.Note</div>
-                                }
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-        </section>
+        <partial name="_Comments" model="Model" />
     </div>
-
-    <!-- Right Column: Report & Facts -->
-    <div class="col-lg-4">
+    <aside class="col-lg-4" id="incident-details" aria-label="@Localizer["Report information"]">
         <section class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-transparent py-3">
                 <h2 class="card-title h6 mb-0">@Localizer["Current On-Call OCE"]</h2>
@@ -273,6 +177,26 @@
             </div>
         </section>
 
+        <section class="card shadow-sm border-0 mb-4" aria-labelledby="incident-context-heading">
+            <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2 py-3">
+                <h2 id="incident-context-heading" class="card-title h6 mb-0">@Localizer["Full context"] <span class="badge bg-secondary ms-2">JSON</span></h2>
+                @if (!string.IsNullOrWhiteSpace(incident.ContextJson))
+                {
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="incident-context" data-copy-feedback="incident-copy-feedback">@Localizer["Copy JSON"]</button>
+                }
+            </div>
+            <div class="card-body p-0">
+                @if (string.IsNullOrWhiteSpace(incident.ContextJson))
+                {
+                    <p class="text-muted p-4 mb-0">@Localizer["No additional context was reported."]</p>
+                }
+                else
+                {
+                    <pre id="incident-context" class="ac-context-json m-0 p-4" tabindex="0" aria-labelledby="incident-context-heading"><code>@Model.FormattedContext</code></pre>
+                }
+            </div>
+        </section>
+
         <!-- Incident Quick Info -->
         <section class="card shadow-sm border-0">
             <div class="card-header bg-transparent py-3">
@@ -295,30 +219,8 @@
                 </div>
             </div>
         </section>
-    </div>
+    </aside>
 </div>
-
-<section class="card shadow-sm border-0 mb-4" aria-labelledby="incident-context-heading">
-    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2 py-3">
-        <h2 id="incident-context-heading" class="card-title h6 mb-0">@Localizer["Full context"] <span class="badge bg-secondary ms-2">JSON</span></h2>
-        @if (!string.IsNullOrWhiteSpace(incident.ContextJson))
-        {
-            <button type="button" class="btn btn-sm btn-outline-secondary" data-copy-target="incident-context" data-copy-feedback="incident-copy-feedback">@Localizer["Copy JSON"]</button>
-        }
-    </div>
-    <div class="card-body p-0">
-        @if (string.IsNullOrWhiteSpace(incident.ContextJson))
-        {
-            <p class="text-muted p-4 mb-0">@Localizer["No additional context was reported."]</p>
-        }
-        else
-        {
-            <pre id="incident-context" class="ac-context-json m-0 p-4" tabindex="0" aria-labelledby="incident-context-heading"><code>@Model.FormattedContext</code></pre>
-        }
-    </div>
-</section>
-
-<partial name="_Comments" model="Model" />
 
 @if (Model.CanManage && incident.Status == Incident.New && incident.IsAcknowledged)
 {

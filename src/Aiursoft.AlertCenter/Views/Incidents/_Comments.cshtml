@@ -1,117 +1,183 @@
+@using Aiursoft.AlertCenter.Entities
 @using Aiursoft.AlertCenter.Services.FileStorage
 @model Aiursoft.AlertCenter.Models.IncidentsViewModel
 @inject StorageService StorageService
 @{
     var incidentId = Model.Incident!.Id;
+
+    string StatusText(string? status) => status switch
+    {
+        Incident.New => @Localizer["Unmitigated"].Value,
+        Incident.Acked => @Localizer["Acknowledged"].Value,
+        Incident.Mitigated => @Localizer["Mitigated"].Value,
+        Incident.Resolved => @Localizer["Resolved"].Value,
+        _ => status ?? @Localizer["Not set"].Value
+    };
+
+    (string Icon, string BadgeClass, string Text) EntryStyle(string type) => type switch
+    {
+        IncidentTimelineEntry.Created => ("alert-triangle", "badge-triggered", @Localizer["Auto-create incident"].Value),
+        IncidentTimelineEntry.Acked => ("user-check", "badge-acknowledged", @Localizer["Confirm and claim incident"].Value),
+        IncidentTimelineEntry.OwnershipChanged => ("user-round-check", "badge-acknowledged", @Localizer["Take Over Incident"].Value),
+        IncidentTimelineEntry.Mitigated => ("shield-check", "badge-acknowledged", @Localizer["Mitigate incident"].Value),
+        IncidentTimelineEntry.Resolved => ("check-circle", "badge-resolved", @Localizer["Resolve incident"].Value),
+        IncidentTimelineEntry.Reopened => ("rotate-ccw", "badge-triggered", @Localizer["Reopen Incident"].Value),
+        IncidentTimelineEntry.LevelChanged => ("sliders-horizontal", "badge-updated", @Localizer["Adjust Incident Severity"].Value),
+        IncidentTimelineEntry.Updated => ("message-square", "badge-updated", @Localizer["Progress"].Value),
+        _ => ("activity", "badge-updated", @Localizer["Incident event"].Value)
+    };
 }
 
-<section data-monaco-path="@Url.Content("~/node_modules/monaco-editor/min/vs")" id="incident-comments" class="card shadow-sm border-0 mt-4 incident-comments" aria-labelledby="incident-comments-title">
-    <div class="card-header bg-transparent py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
-        <h2 class="card-title h5 mb-0 d-flex align-items-center gap-2" id="incident-comments-title">
-            <i data-lucide="messages-square" class="text-primary" aria-hidden="true"></i>
-            <span>@Localizer["Incident discussion"]</span>
-        </h2>
-        <span class="text-muted small">@Localizer["Newest first · 20 items per page"]</span>
-    </div>
-    <div class="card-body">
-        <p class="text-muted small mb-3">@Localizer["Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them."]</p>
-        @if (Model.CanComment)
-        {
-            <form asp-action="AddComment" method="post" data-action-feedback data-image-upload-url="@StorageService.GetUploadUrl("incident-images")" id="incident-comment-form" class="mb-4 pb-4 border-bottom">
-                <input type="hidden" name="IncidentId" value="@incidentId" />
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
-                    <label for="incident-comment-source" class="form-label mb-0">@Localizer["Post comment"]</label>
-                    <div id="incident-comment-view-modes" hidden>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="@Localizer["Comment editor view"]">
-                            <button type="button" class="btn btn-outline-secondary" data-comment-view-mode="editor" aria-pressed="false">@Localizer["Edit"]</button>
-                            <button type="button" class="btn btn-outline-secondary active" data-comment-view-mode="split" aria-pressed="true">@Localizer["Split View"]</button>
-                            <button type="button" class="btn btn-outline-secondary" data-comment-view-mode="preview" aria-pressed="false">@Localizer["Preview"]</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="incident-comment-workspace">
-                    <div id="incident-comment-editor-pane" class="incident-comment-editor-pane">
-                        <div id="incident-comment-editor" class="incident-comment-editor" hidden></div>
-                        <textarea id="incident-comment-source" name="Markdown" class="form-control incident-comment-input" rows="10" required maxlength="4000" aria-describedby="incident-comment-help incident-comment-error" placeholder="@Localizer["Use Markdown to share troubleshooting clues, suggestions, or discussions…"]">@Model.CommentInput</textarea>
-                    </div>
-                    <div id="incident-comment-preview-pane" class="incident-comment-preview-pane" hidden>
-                        <h3 class="h6 text-muted mb-3">@Localizer["Preview"]</h3>
-                        <div id="incident-comment-preview" class="comment-markdown-body"></div>
-                    </div>
-                </div>
-                <div id="incident-comment-upload-error" class="text-danger small mt-2" role="alert" hidden></div>
-                <div id="incident-comment-error" class="text-danger small mt-2" role="alert" hidden></div>
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2">
-                    <small id="incident-comment-help" class="text-muted">@Localizer["Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)."] @Localizer["Paste or drag images into the editor to upload them."] <span id="incident-comment-count">@Model.CommentInput.Length / 4000</span></small>
-                    <button type="submit" class="btn btn-primary btn-sm px-4">
-                        <i data-lucide="send" class="align-middle me-1" aria-hidden="true"></i>@Localizer["Publish comment"]
-                    </button>
-                </div>
-            </form>
-        }
-
-        @if (Model.Comments.Count == 0)
-        {
-            <p class="text-muted text-center py-3 mb-0">@Localizer["No comments on the current page."]</p>
-        }
-        else
-        {
-            <div class="ac-timeline incident-comment-list">
-                @foreach (var comment in Model.Comments)
-                {
-                    <article class="ac-timeline-item" id="incident-comment-@comment.Id">
-                        <div class="ac-timeline-badge">
-                            <img src="@StorageService.RelativePathToInternetUrl(comment.AuthorAvatarRelativePath)?w=64&square=true" alt="@comment.AuthorName" class="rounded-circle incident-comment-avatar" width="28" height="28" loading="lazy" />
-                        </div>
-                        <div class="ac-timeline-content">
-                            <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
-                                <div class="text-break">
-                                    <strong>@comment.AuthorName</strong>
-                                    <time class="text-muted small d-block font-monospace" datetime="@comment.CreatedAtUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")">@comment.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</time>
-                                </div>
-                                @if (!comment.DeletedAtUtc.HasValue && comment.CanDelete)
-                                {
-                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-incident-comment" data-comment-id="@comment.Id" data-comment-author="@comment.AuthorName" data-comment-created="@comment.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC">@Localizer["Delete"]</button>
-                                }
+<div data-monaco-path="@Url.Content("~/node_modules/monaco-editor/min/vs")" id="incident-comments" class="incident-comments">
+    @if (Model.CanComment)
+    {
+        <section class="card shadow-sm border-0 mb-4" aria-labelledby="incident-comments-title">
+            <div class="card-body">
+                <form asp-action="AddComment" method="post" data-action-feedback data-image-upload-url="@StorageService.GetUploadUrl("incident-images")" id="incident-comment-form" class="mb-0">
+                    <input type="hidden" name="IncidentId" value="@incidentId" />
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                        <h2 class="h5 mb-0" id="incident-comments-title"><label for="incident-comment-source" class="form-label mb-0">@Localizer["Post comment"]</label></h2>
+                        <div id="incident-comment-view-modes" hidden>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="@Localizer["Comment editor view"]">
+                                <button type="button" class="btn btn-outline-secondary" data-comment-view-mode="editor" aria-pressed="false">@Localizer["Edit"]</button>
+                                <button type="button" class="btn btn-outline-secondary active" data-comment-view-mode="split" aria-pressed="true">@Localizer["Split View"]</button>
+                                <button type="button" class="btn btn-outline-secondary" data-comment-view-mode="preview" aria-pressed="false">@Localizer["Preview"]</button>
                             </div>
-                            @if (comment.DeletedAtUtc.HasValue)
-                            {
-                                <div class="incident-comment-tombstone text-muted small">
-                                    <p class="mb-1">@Localizer["This comment has been deleted."]</p>
-                                    <span class="text-break">@Localizer["Deleted by: "]@(comment.DeletedByName ?? @Localizer["User deleted"].Value)</span>
-                                    <time class="d-block font-monospace" datetime="@comment.DeletedAtUtc.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")">@comment.DeletedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") UTC</time>
-                                </div>
-                            }
-                            else
-                            {
-                                <textarea class="comment-markdown-source" readonly hidden aria-hidden="true">@comment.Markdown</textarea>
-                                <div class="comment-markdown-body comment-markdown-fallback">@comment.Markdown</div>
-                            }
                         </div>
-                    </article>
-                }
+                    </div>
+                    <div class="incident-comment-workspace">
+                        <div id="incident-comment-editor-pane" class="incident-comment-editor-pane">
+                            <div id="incident-comment-editor" class="incident-comment-editor" hidden></div>
+                            <textarea id="incident-comment-source" name="Markdown" class="form-control incident-comment-input" rows="10" required maxlength="4000" aria-describedby="incident-comment-help incident-comment-error" placeholder="@Localizer["Use Markdown to share troubleshooting clues, suggestions, or discussions…"]">@Model.CommentInput</textarea>
+                        </div>
+                        <div id="incident-comment-preview-pane" class="incident-comment-preview-pane" hidden>
+                            <h3 class="h6 text-muted mb-3">@Localizer["Preview"]</h3>
+                            <div id="incident-comment-preview" class="comment-markdown-body"></div>
+                        </div>
+                    </div>
+                    <div id="incident-comment-upload-error" class="text-danger small mt-2" role="alert" hidden></div>
+                    <div id="incident-comment-error" class="text-danger small mt-2" role="alert" hidden></div>
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-2">
+                        <small id="incident-comment-help" class="text-muted">@Localizer["Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)."] @Localizer["Paste or drag images into the editor to upload them."] <span id="incident-comment-count">@Model.CommentInput.Length / 4000</span></small>
+                        <button type="submit" class="btn btn-primary btn-sm px-4">
+                            <i data-lucide="send" class="align-middle me-1" aria-hidden="true"></i>@Localizer["Publish comment"]
+                        </button>
+                    </div>
+                </form>
             </div>
-        }
-        @if (Model.CommentsPage > 1 || Model.HasMoreComments)
-        {
-            <nav class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-4 pt-3 border-top" aria-label="@Localizer["Comment pagination"]">
-                <div>
-                    @if (Model.CommentsPage > 1)
+        </section>
+    }
+    <section class="card shadow-sm border-0 mb-4" id="incident-timeline" aria-labelledby="incident-timeline-title">
+        <div class="card-header bg-transparent py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <h2 class="card-title h5 mb-0 d-flex align-items-center gap-2" id="incident-timeline-title">
+                <i data-lucide="activity" class="text-primary" aria-hidden="true"></i>
+                <span>@Localizer["Incident timeline"]</span>
+            </h2>
+            <span class="text-muted small">@Localizer["Newest first · 20 items per page"]</span>
+        </div>
+        <div class="card-body">
+            @if (Model.Activities.Count == 0)
+            {
+                <p class="text-muted text-center py-3 mb-0">@Localizer["No activity on the current page."]</p>
+            }
+            else
+            {
+                <div class="ac-timeline incident-comment-list">
+                    @foreach (var activity in Model.Activities)
                     {
-                        <a asp-action="Details" asp-route-id="@incidentId" asp-route-commentsPage="@(Model.CommentsPage - 1)" asp-fragment="incident-comments" class="btn btn-sm btn-outline-secondary">@Localizer["Previous Page"]</a>
+                        if (activity.Entry is { } entry)
+                        {
+                            var entryStyle = EntryStyle(entry.Type);
+                            <article class="ac-timeline-item" id="incident-event-@entry.Id">
+                                <div class="ac-timeline-badge @entryStyle.BadgeClass">
+                                    <i data-lucide="@entryStyle.Icon" style="width: 15px; height: 15px;" aria-hidden="true"></i>
+                                </div>
+                                <div class="ac-timeline-content">
+                                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-1">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <strong class="text-dark">@entryStyle.Text</strong>
+                                            <span class="badge bg-light text-secondary border small">@(entry.ActorName ?? entry.Actor?.DisplayName ?? (entry.Type == IncidentTimelineEntry.Created && entry.ActorId == null && entry.ActorIdSnapshot == null ? @Localizer["System"].Value : @Localizer["User deleted"].Value))</span>
+                                        </div>
+                                        <small class="text-muted font-monospace small">
+                                            @entry.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC
+                                        </small>
+                                    </div>
+                                    @if (entry.PreviousStatus != entry.NewStatus && (entry.PreviousStatus != null || entry.NewStatus != null))
+                                    {
+                                        <div class="text-muted small mt-1">@Localizer["Status: "]@StatusText(entry.PreviousStatus) → @StatusText(entry.NewStatus)</div>
+                                    }
+                                    @if (entry.PreviousOwnerId != entry.NewOwnerId || entry.PreviousOwnerName != entry.NewOwnerName)
+                                    {
+                                        <div class="text-muted small mt-1 text-break">@Localizer["Owner: "]@(entry.PreviousOwnerName ?? entry.PreviousOwnerId ?? @Localizer["Unassigned"].Value) → @(entry.NewOwnerName ?? entry.NewOwnerId ?? @Localizer["Unassigned"].Value)</div>
+                                    }
+                                    @if (entry.PreviousLevel != entry.NewLevel && (entry.PreviousLevel != null || entry.NewLevel != null))
+                                    {
+                                        <div class="text-muted small mt-1">@Localizer["Severity: "]@(entry.PreviousLevel ?? @Localizer["Not set"].Value) → @(entry.NewLevel ?? @Localizer["Not set"].Value)</div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(entry.Note))
+                                    {
+                                        <div class="ac-prose ac-prose-note mt-2">@entry.Note</div>
+                                    }
+                                </div>
+                            </article>
+                        }
+                        else if (activity.Comment is { } comment)
+                        {
+                            <article class="ac-timeline-item" id="incident-comment-@comment.Id">
+                                <div class="ac-timeline-badge">
+                                    <img src="@StorageService.RelativePathToInternetUrl(comment.AuthorAvatarRelativePath)?w=64&square=true" alt="@comment.AuthorName" class="rounded-circle incident-comment-avatar" width="28" height="28" loading="lazy" />
+                                </div>
+                                <div class="ac-timeline-content">
+                                    <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
+                                        <div class="text-break">
+                                            <strong>@comment.AuthorName</strong>
+                                            <time class="text-muted small d-block font-monospace" datetime="@comment.CreatedAtUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")">@comment.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC</time>
+                                        </div>
+                                        @if (!comment.DeletedAtUtc.HasValue && comment.CanDelete)
+                                        {
+                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-incident-comment" data-comment-id="@comment.Id" data-comment-author="@comment.AuthorName" data-comment-created="@comment.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm:ss") UTC">@Localizer["Delete"]</button>
+                                        }
+                                    </div>
+                                    @if (comment.DeletedAtUtc.HasValue)
+                                    {
+                                        <div class="incident-comment-tombstone text-muted small">
+                                            <p class="mb-1">@Localizer["This comment has been deleted."]</p>
+                                            <span class="text-break">@Localizer["Deleted by: "]@(comment.DeletedByName ?? @Localizer["User deleted"].Value)</span>
+                                            <time class="d-block font-monospace" datetime="@comment.DeletedAtUtc.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")">@comment.DeletedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss") UTC</time>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <textarea class="comment-markdown-source" readonly hidden aria-hidden="true">@comment.Markdown</textarea>
+                                        <div class="comment-markdown-body comment-markdown-fallback">@comment.Markdown</div>
+                                    }
+                                </div>
+                            </article>
+                        }
                     }
                 </div>
-                <span class="small text-muted">@Localizer["No. "]@Model.CommentsPage @Localizer["Page"]</span>
-                <div>
-                    @if (Model.HasMoreComments)
-                    {
-                        <a asp-action="Details" asp-route-id="@incidentId" asp-route-commentsPage="@(Model.CommentsPage + 1)" asp-fragment="incident-comments" class="btn btn-sm btn-outline-primary">@Localizer["Next Page"]</a>
-                    }
-                </div>
-            </nav>
-        }
-    </div>
-</section>
+            }
+            @if (Model.CommentsPage > 1 || Model.HasMoreActivities)
+            {
+                <nav class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-4 pt-3 border-top" aria-label="@Localizer["Timeline pagination"]">
+                    <div>
+                        @if (Model.CommentsPage > 1)
+                        {
+                            <a asp-action="Details" asp-route-id="@incidentId" asp-route-commentsPage="@(Model.CommentsPage - 1)" asp-fragment="incident-timeline" class="btn btn-sm btn-outline-secondary">@Localizer["Previous Page"]</a>
+                        }
+                    </div>
+                    <span class="small text-muted">@Localizer["No. "]@Model.CommentsPage @Localizer["Page"]</span>
+                    <div>
+                        @if (Model.HasMoreActivities)
+                        {
+                            <a asp-action="Details" asp-route-id="@incidentId" asp-route-commentsPage="@(Model.CommentsPage + 1)" asp-fragment="incident-timeline" class="btn btn-sm btn-outline-primary">@Localizer["Next Page"]</a>
+                        }
+                    </div>
+                </nav>
+            }
+        </div>
+    </section>
+</div>
 
 @if (Model.Comments.Any(comment => comment.CanDelete && !comment.DeletedAtUtc.HasValue))
 {

@@ -88,9 +88,18 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             ? await new OnCallOceService(db, localizer: new StringLocalizer<OnCallOceService>(localizerFactory)).QueryAsync(incident.Application.OnCallGroupId.Value, now, cancellationToken) : null;
         commentsPage = Math.Clamp(commentsPage, 1, 1000000);
         var canManageApplication = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken);
-        var comments = await db.IncidentComments.AsNoTracking().Where(comment => comment.IncidentId == id)
-            .OrderByDescending(comment => comment.CreatedAtUtc).ThenByDescending(comment => comment.Id)
-            .Skip((commentsPage - 1) * 20).Take(21).Select(comment => new IncidentCommentViewModel
+        // Keep the existing commentsPage URL parameter for bookmarked discussion links.
+        var activityKeys = await db.IncidentTimelineEntries.AsNoTracking().Where(entry => entry.IncidentId == id)
+            .Select(entry => new { entry.Id, entry.CreatedAtUtc, IsComment = false })
+            .Concat(db.IncidentComments.AsNoTracking().Where(comment => comment.IncidentId == id)
+                .Select(comment => new { comment.Id, comment.CreatedAtUtc, IsComment = true }))
+            .OrderByDescending(item => item.CreatedAtUtc).ThenByDescending(item => item.IsComment).ThenByDescending(item => item.Id)
+            .Skip((commentsPage - 1) * 20).Take(21).ToListAsync(cancellationToken);
+        var pageKeys = activityKeys.Take(20).ToList();
+        var commentIds = pageKeys.Where(item => item.IsComment).Select(item => item.Id).ToList();
+        var entryIds = pageKeys.Where(item => !item.IsComment).Select(item => item.Id).ToList();
+        var comments = await db.IncidentComments.AsNoTracking().Where(comment => comment.IncidentId == id && commentIds.Contains(comment.Id))
+            .Select(comment => new IncidentCommentViewModel
             {
                 Id = comment.Id, AuthorName = comment.AuthorName, CreatedAtUtc = comment.CreatedAtUtc,
                 AuthorAvatarRelativePath = comment.Author != null ? comment.Author.AvatarRelativePath : Entities.User.DefaultAvatarPath,
@@ -98,13 +107,16 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
                 DeletedAtUtc = comment.DeletedAtUtc, DeletedByName = comment.DeletedByName,
                 CanDelete = comment.DeletedAtUtc == null && canManageApplication
             }).ToListAsync(cancellationToken);
+        var entries = await db.IncidentTimelineEntries.AsNoTracking().Include(entry => entry.Actor)
+            .Where(entry => entry.IncidentId == id && entryIds.Contains(entry.Id)).ToListAsync(cancellationToken);
         return this.StackView(new IncidentsViewModel
         {
             Incident = incident,
-            Comments = comments.Take(20).ToList(), CommentsPage = commentsPage, HasMoreComments = comments.Count > 20,
+            Comments = comments, CommentsPage = commentsPage, HasMoreActivities = activityKeys.Count > 20,
+            Activities = pageKeys.Select(item => new IncidentActivityViewModel(
+                item.IsComment ? null : entries.SingleOrDefault(entry => entry.Id == item.Id),
+                item.IsComment ? comments.SingleOrDefault(comment => comment.Id == item.Id) : null)).ToList(),
             CanComment = canManageApplication,
-            TimelineEntries = await db.IncidentTimelineEntries.AsNoTracking().Include(entry => entry.Actor)
-                .Where(entry => entry.IncidentId == id).OrderByDescending(entry => entry.CreatedAtUtc).ToListAsync(cancellationToken),
             CanDelete = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.DeleteIncidents, cancellationToken),
             CanManage = await access.CanManageAsync(User, incident, now, cancellationToken),
             CurrentOces = oce?.Engineers ?? [],
