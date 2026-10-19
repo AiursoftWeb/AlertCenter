@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.AspNetCore.WebUtilities;
@@ -31,6 +32,67 @@ public partial class IncidentPagesTests
 
     private static Guid[] AlertIncidentIds(string html) => Regex.Matches(html, "href=\"/Incidents/Details/([a-fA-F0-9-]+)\"")
         .Select(match => Guid.Parse(match.Groups[1].Value)).Distinct().ToArray();
+
+    [TestMethod]
+    public async Task MyIncidentsUsesCurrentOwnerAndApplicationAccessAndPreservesScopeAcrossPages()
+    {
+        var incidents = await SeedIncidentFilters();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var userId = (await db.Users.SingleAsync(user => user.Email == "admin@default.com")).Id;
+            var inaccessible = new SourceApplication { Name = "Private application" };
+            for (var index = 0; index < 22; index++)
+                db.Incidents.Add(new Incident
+                {
+                    ApplicationId = incidents[0].ApplicationId, Title = "Owned needle " + index,
+                    OwnerId = userId, Level = "sev1", ReceivedAtUtc = incidents[0].ReceivedAtUtc.AddMinutes(index)
+                });
+            db.Incidents.Add(new Incident { Application = inaccessible, Title = "Hidden owned needle", OwnerId = userId });
+            db.Incidents.Add(new Incident { ApplicationId = incidents[0].ApplicationId, Title = "Unassigned needle" });
+            await db.SaveChangesAsync();
+        }
+        var query = $"applicationId={incidents[0].ApplicationId}&keyword=needle&level=sev1&acknowledged=false&fromDate=2026-09-08&toDate=2026-09-08";
+        var html = await Http.GetStringAsync("/Incidents/Mine?" + query);
+        Assert.Contains("My incidents", html);
+        Assert.AreEqual(20, AlertIncidentIds(html).Length);
+        Assert.DoesNotContain("Hidden owned needle", html);
+        Assert.DoesNotContain("Unassigned needle", html);
+        var next = WebUtility.HtmlDecode(Regex.Match(html, "href=\"([^\"]+)\"[^>]*>Next page</a>").Groups[1].Value);
+        Assert.Contains("/Incidents/Mine", next);
+        var parameters = QueryHelpers.ParseQuery(new Uri(Http.BaseAddress!, next).Query);
+        foreach (var parameter in QueryHelpers.ParseQuery("?" + query))
+            Assert.AreEqual(parameter.Value.ToString(), parameters[parameter.Key].ToString());
+        Assert.AreEqual(2, AlertIncidentIds(await Http.GetStringAsync(next)).Length);
+        var dashboard = await Http.GetStringAsync("/Dashboard");
+        Assert.Contains("id=\"my-incidents-card\"", dashboard);
+        Assert.Contains("data-my-active-count=\"22\"", dashboard);
+        Assert.Contains("href=\"/Incidents/Mine\"", dashboard);
+    }
+
+    [TestMethod]
+    public async Task MyIncidentsUpdatesAfterOwnershipChangesAndSupportsResolvedFilter()
+    {
+        var incidents = await SeedIncidentFilters();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var userId = (await db.Users.SingleAsync(user => user.Email == "admin@default.com")).Id;
+            var item = await db.Incidents.SingleAsync(incident => incident.Id == incidents[0].Id);
+            item.OwnerId = userId;
+            item.Status = Incident.Resolved;
+            await db.SaveChangesAsync();
+        }
+        CollectionAssert.AreEqual(new[] { incidents[0].Id }, AlertIncidentIds(await Http.GetStringAsync("/Incidents/Mine?status=resolved")));
+        Assert.Contains("data-my-active-count=\"0\"", await Http.GetStringAsync("/Dashboard"));
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            (await db.Incidents.SingleAsync(incident => incident.Id == incidents[0].Id)).OwnerId = null;
+            await db.SaveChangesAsync();
+        }
+        Assert.AreEqual(0, AlertIncidentIds(await Http.GetStringAsync("/Incidents/Mine")).Length);
+    }
 
     [TestMethod]
     public async Task AlertMessagesSupportCombinedFiltersWithInclusiveDatesAndLiteralKeywords()

@@ -36,6 +36,9 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var messagesQuery = db.Incidents.AsNoTracking().Where(incident => accessibleIds.Contains(incident.ApplicationId));
         model.TotalIncidents = await messagesQuery.CountAsync(cancellationToken);
+        model.MyIncidents = await messagesQuery.CountAsync(incident => incident.OwnerId != null && incident.OwnerId == userId, cancellationToken);
+        model.MyActiveIncidents = await messagesQuery.CountAsync(incident => incident.OwnerId != null && incident.OwnerId == userId &&
+            incident.Status != Incident.Resolved, cancellationToken);
         model.Sev0Count = await messagesQuery.CountAsync(m => m.Level == "sev0", cancellationToken);
         model.Sev1Count = await messagesQuery.CountAsync(m => m.Level == "sev1", cancellationToken);
         model.Sev2Count = await messagesQuery.CountAsync(m => m.Level == "sev2", cancellationToken);

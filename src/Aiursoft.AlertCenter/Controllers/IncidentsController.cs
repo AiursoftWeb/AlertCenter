@@ -23,6 +23,11 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         var accessibleIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, cancellationToken: cancellationToken);
         var accessibleIncidents = db.Incidents.AsNoTracking().Include(incident => incident.Application).Include(incident => incident.Owner)
             .Where(incident => accessibleIds.Contains(incident.ApplicationId));
+        if (filter.OnlyMine)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            accessibleIncidents = accessibleIncidents.Where(incident => incident.OwnerId != null && incident.OwnerId == userId);
+        }
         if (filter.ApplicationId.HasValue && !accessibleIds.Contains(filter.ApplicationId.Value) &&
             !await accessibleIncidents.AnyAsync(incident => incident.ApplicationId == filter.ApplicationId.Value, cancellationToken)) return Forbid();
         var model = new IncidentsViewModel
@@ -32,14 +37,20 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             Applications = await db.SourceApplications.AsNoTracking().Where(application => accessibleIncidents.Any(incident => incident.ApplicationId == application.Id))
                 .OrderBy(application => application.Name).ToListAsync(cancellationToken)
         };
-        if (!ModelState.IsValid) return this.StackView(model);
+        if (!ModelState.IsValid) return this.StackView(model, nameof(Index));
         var incidents = await FilterIncidents(accessibleIncidents, filter)
             .OrderBy(incident => incident.Status == Incident.Resolved).ThenByDescending(incident => incident.ReceivedAtUtc).ThenByDescending(incident => incident.Id)
             .Skip((filter.Page - 1) * 20).Take(21)
             .ToListAsync(cancellationToken);
         model.Incidents = incidents.Take(20).ToList();
         model.HasNextPage = incidents.Count > 20;
-        return this.StackView(model);
+        return this.StackView(model, nameof(Index));
+    }
+
+    public Task<IActionResult> Mine([FromQuery] IncidentFilter filter, CancellationToken cancellationToken)
+    {
+        filter.OnlyMine = true;
+        return Index(filter, cancellationToken);
     }
 
     private static IQueryable<Incident> FilterIncidents(IQueryable<Incident> incidents, IncidentFilter filter)

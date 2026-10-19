@@ -13,6 +13,8 @@ public class IndexViewModel : UiStackLayoutViewModel
     public int TotalApplications { get; set; }
     public int TotalIncidents { get; set; }
     public int ActiveIncidents { get; set; }
+    public int MyIncidents { get; set; }
+    public int MyActiveIncidents { get; set; }
     public int TotalDeliveries { get; set; }
     public int SuccessfulDeliveries { get; set; }
     public int UnreadNotifications { get; set; }

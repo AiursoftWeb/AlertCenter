@@ -330,3 +330,5 @@ been acknowledged. Reopening preserves acknowledgement and ownership. SDK 10.6.0
 query/detail responses also expose these fields and the current owner. Legacy
 `status=acked` web links select acknowledged incidents across all progress states;
 use `acknowledged=true` or `false` to combine confirmation with a progress filter.
+
+The dashboard links to **My incidents** (`/Incidents/Mine`), showing incidents whose current owner is the signed-in user, within that user's accessible applications. Status, severity, acknowledgement, keyword and date filters remain available; pagination retains the personal scope. Ownership does not grant application access.

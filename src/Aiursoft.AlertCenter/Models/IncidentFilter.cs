@@ -13,6 +13,7 @@ public class IncidentFilter : IValidatableObject
     [RegularExpression("^(new|acked|mitigated|resolved|all)$", ErrorMessage = "Please select a valid incident status.")]
     public string? Status { get; set; }
     public bool? Acknowledged { get; set; }
+    public bool OnlyMine { get; set; }
     [RegularExpression("^(sev[0-4]|lte-sev[1-4])$", ErrorMessage = "Please select a valid incident level.")]
     public string? Level { get; set; }
     public DateOnly? FromDate { get; set; }
@@ -39,6 +40,7 @@ public class IncidentFilter : IValidatableObject
         if (FromDate.HasValue) values["fromDate"] = FromDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         if (ToDate.HasValue) values["toDate"] = ToDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         if ((page ?? Page) > 1) values["page"] = (page ?? Page).ToString(CultureInfo.InvariantCulture);
+        if (OnlyMine) values["onlyMine"] = "true";
         if (Acknowledged.HasValue) values["acknowledged"] = Acknowledged.Value ? "true" : "false";
         if (Status is not (null or "all")) values["status"] = Status;
         return values;

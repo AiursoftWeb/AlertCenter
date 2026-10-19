@@ -132,6 +132,25 @@
     </div>
 </div>
 
+<a asp-controller="Incidents" asp-action="Mine" class="card border-primary shadow-sm text-decoration-none mb-4" id="my-incidents-card">
+    <div class="card-body d-flex flex-wrap align-items-center justify-content-between gap-3 p-4">
+        <div class="d-flex align-items-center gap-3">
+            <div class="ac-stat-icon icon-primary"><i data-lucide="user-check" aria-hidden="true"></i></div>
+            <div>
+                <h2 class="h4 text-body mb-1">@Localizer["My incidents"]</h2>
+                <p class="text-muted mb-0">@Localizer["The incidents you own through acknowledgement. Keep your response work in one place."]</p>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap align-items-center gap-3">
+            <div class="text-end">
+                <strong class="h3 text-primary mb-0 d-block" data-my-active-count="@Model.MyActiveIncidents">@Model.MyActiveIncidents</strong>
+                <span class="text-muted small">@Localizer["Unresolved"] · @string.Format(@Localizer["{0} assigned in total"].Value, Model.MyIncidents)</span>
+            </div>
+            <i data-lucide="arrow-right" class="text-primary" aria-hidden="true"></i>
+        </div>
+    </div>
+</a>
+
 <!-- Severity Quick Filter Pills -->
 <div class="card mb-4">
     <div class="card-body py-3">
