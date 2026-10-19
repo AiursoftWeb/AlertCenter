@@ -81,7 +81,7 @@ public class FilterModelTests
         filter.Normalize();
 
         Assert.AreEqual(expected, filter.Status);
-        Assert.AreEqual(status == "acked" ? true : (bool?)null, filter.Acknowledged);
+        Assert.AreEqual(status == "acked" ? true : null, filter.Acknowledged);
     }
 
     [TestMethod]

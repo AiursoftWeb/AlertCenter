@@ -296,7 +296,7 @@ public partial class IncidentPagesTests
         Assert.IsNotNull(saved.OwnerId);
         Assert.AreEqual(3, await finalDb.IncidentTimelineEntries.CountAsync(entry => entry.Type == IncidentTimelineEntry.Acked));
         await using var services = ReportingClient(key);
-        var client = services.GetRequiredService<Aiursoft.AlertCenter.SDK.AlertCenterApiClient>();
+        var client = services.GetRequiredService<SDK.AlertCenterApiClient>();
         var details = (await client.GetIncidentAsync(id)).Incident;
         Assert.AreEqual(state, details.Status);
         Assert.IsTrue(details.IsAcknowledged);
