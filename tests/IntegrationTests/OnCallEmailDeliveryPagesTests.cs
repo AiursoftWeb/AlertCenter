@@ -59,6 +59,17 @@ public partial class IncidentPagesTests
             db.ApplicationUserAccesses.Add(new ApplicationUserAccess { CanViewIncidents = true, ApplicationId = applicationId, UserId = user.Id });
             await db.SaveChangesAsync();
         }
+        Guid incidentId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            incidentId = (await db.Incidents.SingleAsync()).Id;
+        }
+        var incidentPage = WebUtility.HtmlDecode(await Http.GetStringAsync($"/Incidents/Details/{incidentId}"));
+        Assert.Contains("Current On-Call OCE", incidentPage);
+        Assert.Contains("OCE at incident occurrence", incidentPage);
+        Assert.Contains("Original OCE", incidentPage);
+        Assert.DoesNotContain("private-oce@example.com", incidentPage);
         var viewer = WebUtility.HtmlDecode(await Http.GetStringAsync(url));
         Assert.Contains("Original OCE", viewer);
         Assert.DoesNotContain("private-oce@example.com", viewer);

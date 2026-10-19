@@ -119,6 +119,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
             CanComment = canManageApplication,
             CanDelete = await applicationAccess.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.DeleteIncidents, cancellationToken),
             CanManage = await access.CanManageAsync(User, incident, now, cancellationToken),
+            OriginalOceSnapshot = await OnCallEmailQueue.GetOriginalSnapshotAsync(db, incident.Id, cancellationToken),
             CurrentOces = oce?.Engineers ?? [],
             CurrentOceError = oce?.Error
         });

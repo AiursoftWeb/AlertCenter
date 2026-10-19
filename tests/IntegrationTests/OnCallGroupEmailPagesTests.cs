@@ -75,7 +75,7 @@ public class OnCallGroupEmailPagesTests : TestBase
         Assert.Contains("On-call email CC", createPage);
         Assert.Contains("name=\"GroupInput.EmailCcRecipients\"", createPage);
         Assert.Contains("maxlength=\"8000\"", createPage);
-        Assert.Contains("To: the people assigned to the saved shift at notification time.", createPage);
+        Assert.Contains("To: the people assigned to the saved shift when the incident occurred.", createPage);
         Assert.Contains("CC: the optional addresses below, regardless of who is on duty.", createPage);
         Assert.Contains("Use commas, semicolons or new lines; up to 50 addresses.", createPage);
         var created = await PostForm("/OnCall/CreateGroup", new()

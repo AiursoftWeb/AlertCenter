@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="All roles" xml:space="preserve">
+      <data name="1. Set up the group and notifications" xml:space="preserve">
+    <value>1. 设置团队和通知</value>
+  </data>
+  <data name="2. Choose who can be on call" xml:space="preserve">
+    <value>2. 选择值班人员</value>
+  </data>
+  <data name="3. Prepare the schedule" xml:space="preserve">
+    <value>3. 准备排班</value>
+  </data>
+  <data name="All roles" xml:space="preserve">
     <value>所有角色</value>
   </data>
   <data name="Browse all employees by role" xml:space="preserve">
@@ -48,6 +57,9 @@
   <data name="Find" xml:space="preserve">
     <value>查找</value>
   </data>
+  <data name="Find people to add" xml:space="preserve">
+    <value>查找要添加的人员</value>
+  </data>
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>成员可随时添加或移除；移除成员仅会清除尚未开始的排班，已开始和历史排班将予以保留。由此产生的空缺班次必须手动安排人员。</value>
   </data>
@@ -59,6 +71,9 @@
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>下一页</value>
+  </data>
+  <data name="No members selected. Find people above and tick their names to add them." xml:space="preserve">
+    <value>尚未选择成员。请在上方查找人员并勾选其姓名以添加。</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>值班邮件抄送</value>
@@ -75,11 +90,32 @@
   <data name="Rotate Members" xml:space="preserve">
     <value>轮换成员</value>
   </data>
+  <data name="Save group settings and members" xml:space="preserve">
+    <value>保存群组设置和成员</value>
+  </data>
   <data name="Save team" xml:space="preserve">
     <value>保存团队</value>
   </data>
+  <data name="Save this group first, then open its schedule to assign people to shifts. Only saved shifts determine who receives on-call emails." xml:space="preserve">
+    <value>请先保存此组，然后打开其排班表以将人员分配至班次。只有已保存的班次才能确定谁将收到值班邮件。</value>
+  </data>
+  <data name="Saving this form updates the group and its member list. It does not generate or publish a schedule. Removing a member clears their future assignments; review the schedule for gaps." xml:space="preserve">
+    <value>保存此表单将更新该组及其成员列表。此操作不会生成或发布排班表。移除成员将清除其未来的排班分配；请检查排班表是否有空缺。</value>
+  </data>
+  <data name="Scheduling options: rule template and UTC start point" xml:space="preserve">
+    <value>排班选项：规则模板和 UTC 起始时间点</value>
+  </data>
   <data name="Scheduling Rule Template" xml:space="preserve">
     <value>排班规则模板</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>排班起始时间（UTC）</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>改为按名称搜索</value>
+  </data>
+  <data name="Search by name or account, or browse a role. Tick individual people to add them. Selecting a role only filters the search; membership is not synchronized with that role." xml:space="preserve">
+    <value>按姓名或账号搜索，或按角色浏览。勾选要添加的人员。选择角色仅用于筛选搜索结果；成员不会与该角色同步。</value>
   </data>
   <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>可按时区名称、城市或 UTC 偏移量搜索。排班锚点以 UTC 存储，并按团队时区显示。</value>
@@ -90,14 +126,29 @@
   <data name="Selected members (can be empty, max 200)" xml:space="preserve">
     <value>已选成员（可为空，最多 200 人）</value>
   </data>
+  <data name="Selected members in rotation order (maximum 200)" xml:space="preserve">
+    <value>已选成员（按轮换顺序，最多 200 人）</value>
+  </data>
   <data name="Shift Start Time (UTC)" xml:space="preserve">
     <value>轮班开始时间（UTC）</value>
   </data>
   <data name="Team name" xml:space="preserve">
     <value>团队名称</value>
   </data>
+  <data name="These are the people available for scheduling. Joining this list does not put someone on duty or send them an incident email." xml:space="preserve">
+    <value>这些是可参与排班的人员。加入此列表并不会使某人进入值班状态，也不会向其发送事件邮件。</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>时区</value>
+  </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original recipients and CC addresses are retained for later incident emails. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>收件人：事故发生时已分配到已保存班次的人员。后续事故邮件将保留原收件人和抄送地址。请使用逗号、分号或换行分隔，最多可填写 50 个抄送地址。</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered." xml:space="preserve">
+    <value>使用“上移”和“下移”来选择未来自动排班的顺序。现有的班次不会重新排序。</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>用于显示排班。下方的高级排班起始时间需单独以 UTC 输入。</value>
   </data>
 
 </root>

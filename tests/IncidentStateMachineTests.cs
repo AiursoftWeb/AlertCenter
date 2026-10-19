@@ -21,7 +21,7 @@ public partial class IncidentWorkflowTests
         _db.Users.Add(new User { Id = "engineer", UserName = "engineer", DisplayName = "Engineer", Email = "engineer@example.com" });
         var incident = new Incident
         {
-            ApplicationId = application.Id, Title = "Outage", Level = "sev2", Status = status == Incident.Acked ? Incident.New : status,
+            ApplicationId = application.Id, OccurredAtUtc = DateTime.UtcNow, Title = "Outage", Level = "sev2", Status = status == Incident.Acked ? Incident.New : status,
             AcknowledgedAtUtc = status == Incident.New ? null : DateTime.UtcNow.AddMinutes(-5),
             OwnerId = status == Incident.New ? null : "engineer", OwnerDisplayName = status == Incident.New ? null : "Engineer"
         };

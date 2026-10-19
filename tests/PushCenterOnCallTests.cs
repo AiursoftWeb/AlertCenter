@@ -61,7 +61,7 @@ public partial class PushCenterTests
         Assert.AreEqual(group.Id, snapshot.GroupId);
         Assert.AreEqual("Production OCE", snapshot.GroupName);
         Assert.AreEqual("team@example.com", snapshot.CcRecipients);
-        Assert.AreEqual((await _db.Incidents.SingleAsync()).ReceivedAtUtc, snapshot.NotificationAtUtc);
+        Assert.AreEqual((await _db.Incidents.SingleAsync()).OccurredAtUtc, snapshot.NotificationAtUtc);
         Assert.AreEqual((await _db.OnCallShifts.SingleAsync()).Id, snapshot.ShiftId);
         CollectionAssert.AreEquivalent(new[] { "oce-alice", "oce-bob" }, snapshot.Recipients.Select(recipient => recipient.UserId).ToArray());
         Assert.AreEqual(0, await _db.PushChannels.CountAsync());
@@ -78,6 +78,47 @@ public partial class PushCenterTests
         CollectionAssert.AreEqual(new[] { "team@example.com" }, sent.CcRecipients.ToArray());
         Assert.AreEqual(PushDelivery.Succeeded, (await BuiltInDelivery()).Status);
         Assert.AreEqual(1, (await BuiltInDelivery()).Attempts);
+    }
+
+    [TestMethod]
+    public async Task DelayedReportUsesOccurrenceRosterAndLifecycleRetainsItAfterChanges()
+    {
+        var application = await Application();
+        await OnCallTeam(application);
+        var incident = new Incident
+        {
+            ApplicationId = application.Id, Title = "Delayed report",
+            OccurredAtUtc = DateTime.UtcNow.AddHours(-2), ReceivedAtUtc = DateTime.UtcNow
+        };
+        var current = await _db.OnCallShifts.SingleAsync();
+        _db.OnCallShifts.Add(new OnCallShift
+        {
+            GroupId = current.GroupId, StartsAtUtc = incident.OccurredAtUtc.AddHours(-1),
+            EndsAtUtc = current.StartsAtUtc, Members = [new OnCallShiftMember { UserId = "off-duty" }]
+        });
+        _db.Incidents.Add(incident);
+        await _db.SaveChangesAsync();
+        await new QueuedIncidentDispatcher(_db, TestLocalization.Factory).DispatchAsync(incident);
+        await _db.SaveChangesAsync();
+        var original = (await BuiltInDelivery()).OnCallEmail!;
+        Assert.AreEqual("off-duty", original.Recipients.Single().UserId);
+        Assert.AreEqual(incident.OccurredAtUtc, original.NotificationAtUtc);
+        Assert.AreEqual(incident.ReceivedAtUtc, original.Delivery.CreatedAtUtc);
+        (await _db.SourceApplications.SingleAsync()).OnCallGroupId = null;
+        (await _db.Users.SingleAsync(user => user.Id == "off-duty")).Email = "changed@example.com";
+        (await _db.OnCallGroups.SingleAsync()).EmailCcRecipients = "changed-cc@example.com";
+        _db.OnCallShifts.RemoveRange(await _db.OnCallShifts.ToListAsync());
+        await _db.SaveChangesAsync();
+        Assert.AreEqual(200, (await IncidentWorkflowService.ResolveForApplicationAsync(_db,
+            application.Id, incident.Id, incident.Version, "Recovered", default)).StatusCode);
+        var later = await _db.PushDeliveries.Include(delivery => delivery.OnCallEmail)!.ThenInclude(snapshot => snapshot!.Recipients)
+            .SingleAsync(delivery => delivery.IncidentEventId != null);
+        Assert.AreEqual("off@example.com", later.OnCallEmail!.Recipients.Single().Email);
+        Assert.AreEqual(original.CcRecipients, later.OnCallEmail.CcRecipients);
+        Assert.AreEqual(original.ShiftId, later.OnCallEmail.ShiftId);
+        await _processor.ProcessAsync(later.Id, default);
+        CollectionAssert.AreEqual(new[] { "off@example.com" }, _email.Messages.Single().Recipients.ToArray());
+        Assert.IsNull((await _db.SourceApplications.SingleAsync()).OnCallGroupId);
     }
 
     [TestMethod]
