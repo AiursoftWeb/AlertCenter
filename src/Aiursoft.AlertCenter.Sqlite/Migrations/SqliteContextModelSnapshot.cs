@@ -35,6 +35,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<bool>("CanMitigateIncidents")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("CanPatchIncidentMetadata")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("CanQueryIncidents")
                         .HasColumnType("INTEGER");
 
@@ -240,6 +243,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<string>("Level")
                         .IsRequired()
                         .HasMaxLength(4)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MetadataJson")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("MitigatedAtUtc")

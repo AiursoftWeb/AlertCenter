@@ -71,6 +71,12 @@ public abstract class IncidentCommandHandler : ExecutableCommandHandlerBuilder
                 output.WriteLine($"Occurred: {incident.OccurredAtUtc:O}\nReceived: {incident.ReceivedAtUtc:O}");
                 output.WriteLine(incident.Content);
                 if (incident.Context != null) output.WriteLine(incident.Context.ToString(Formatting.Indented));
+                output.WriteLine("Metadata:");
+                output.WriteLine(incident.Metadata.ToString(Formatting.Indented));
+                break;
+            case PatchIncidentMetadataResponse patched:
+                output.WriteLine($"Incident: {patched.IncidentId}\nVersion: {patched.Version}");
+                output.WriteLine(patched.Metadata.ToString(Formatting.Indented));
                 break;
             case CreateIncidentResponse created:
                 output.WriteLine($"Incident: {created.IncidentId}\nReport ID: {created.ReportId}\nDuplicate: {created.Duplicate}");

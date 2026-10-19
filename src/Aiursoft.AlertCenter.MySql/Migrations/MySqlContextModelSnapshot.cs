@@ -40,6 +40,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<bool>("CanMitigateIncidents")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<bool>("CanPatchIncidentMetadata")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool>("CanQueryIncidents")
                         .HasColumnType("tinyint(1)");
 
@@ -246,6 +249,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                         .IsRequired()
                         .HasMaxLength(4)
                         .HasColumnType("varchar(4)");
+
+                    b.Property<string>("MetadataJson")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("MitigatedAtUtc")
                         .HasColumnType("datetime(6)");

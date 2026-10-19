@@ -8,6 +8,7 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 public partial class IncidentPagesTests
 {
     private static NestedCommandApp IncidentCli() => new NestedCommandApp()
+        .WithFeature(new MetadataHandler())
         .WithFeature(new ListHandler())
         .WithFeature(new GetHandler())
         .WithFeature(new CreateHandler())

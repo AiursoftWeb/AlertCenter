@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <Version>10.6.0</Version>
+    <Version>10.7.0</Version>
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>Aiursoft.AlertCenter.SDK</AssemblyName>
     <RootNamespace>Aiursoft.AlertCenter.SDK</RootNamespace>
@@ -12,7 +12,7 @@
     <Nullable>enable</Nullable>
     <Company>Aiursoft</Company>
     <Product>AlertCenter.SDK</Product>
-    <Description>Create, query, change severity, mitigate and resolve incidents in Aiursoft AlertCenter using AiurProtocol.</Description>
+    <Description>Create, query, patch metadata, change severity, mitigate and resolve incidents in Aiursoft AlertCenter using AiurProtocol.</Description>
     <PackageId>Aiursoft.AlertCenter.SDK</PackageId>
     <PackageTags>alerts notifications aiursoft sdk</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
