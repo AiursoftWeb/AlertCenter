@@ -5,19 +5,18 @@
     ViewData["Title"] = string.Format(@Localizer["Incident War Room - {0}"].Value, incident.Title);
     var (statusPill, statusIcon, statusText, bannerClass) = incident.Status switch
     {
-        Incident.New => ("ac-status-pill-failed", "alert-triangle", @Localizer["Pending Response (New)"].Value, "ac-incident-banner-triggered"),
-        Incident.Acked => ("ac-status-pill-sending", "user-check", @Localizer["Acknowledged (Acked)"].Value, "ac-incident-banner-acknowledged"),
+        Incident.New => ("ac-status-pill-failed", "alert-triangle", @Localizer["Unmitigated"].Value, "ac-incident-banner-triggered"),
         Incident.Mitigated => ("ac-status-pill-sending", "shield-check", @Localizer["Mitigated (Mitigated)"].Value, "ac-incident-banner-acknowledged"),
         Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", @Localizer["Resolved (Resolved)"].Value, "ac-incident-banner-resolved"),
         _ => ("ac-status-pill-pending", "circle-help", incident.Status, "")
     };
     var isActive = incident.Status != Incident.Resolved;
-    var canChangeLevel = Model.CanManage && (incident.Status == Incident.New || incident.Status == Incident.Acked || incident.Status == Incident.Mitigated);
+    var canChangeLevel = Model.CanManage && (incident.Status == Incident.New || incident.Status == Incident.Mitigated);
     var canReopen = Model.CanManage && (incident.Status == Incident.Mitigated || incident.Status == Incident.Resolved);
 
     string StatusText(string? status) => status switch
     {
-        Incident.New => @Localizer["Pending Response"].Value,
+        Incident.New => @Localizer["Unmitigated"].Value,
         Incident.Acked => @Localizer["Acknowledged"].Value,
         Incident.Mitigated => @Localizer["Mitigated"].Value,
         Incident.Resolved => @Localizer["Resolved"].Value,
@@ -70,33 +69,28 @@
                 <span class="badge @(incident.Level == "sev0" ? "ac-badge-sev0" : incident.Level == "sev1" ? "ac-badge-sev1" : incident.Level == "sev2" ? "ac-badge-sev2" : incident.Level == "sev3" ? "ac-badge-sev3" : "ac-badge-sev4") font-monospace">@incident.Level</span>
             </div>
             <h1 class="h3 mb-2 text-break fw-bold">@incident.Title</h1>
+            <span class="badge bg-secondary-subtle text-secondary mb-2" data-acknowledged="@(incident.IsAcknowledged ? "true" : "false")">
+                @(incident.IsAcknowledged ? @Localizer["Acknowledged"].Value : @Localizer["Not acknowledged"].Value)
+            </span>
             <p class="text-muted small mb-2 text-break">@Localizer["Incident owner:"]<strong>@(incident.Owner?.DisplayName ?? incident.OwnerDisplayName ?? @Localizer["Unassigned"].Value)</strong></p>
 
         </div>
 
         <!-- War Room Action Forms -->
         <div class="d-flex flex-wrap align-items-center gap-2">
-            @if (Model.CanManage && incident.Status == Incident.New)
+            @if (Model.CanManage)
             {
                 <form asp-action="Acknowledge" method="post" data-action-feedback class="d-flex flex-wrap gap-2">
                     <input type="hidden" name="incidentId" value="@incident.Id" />
                     <input type="hidden" name="version" value="@incident.Version" />
                     <input name="note" maxlength="4000" class="form-control form-control-sm" style="max-width: 18rem;" placeholder="@Localizer["Confirmation note (optional)"]" aria-label="@Localizer["Confirmation note (optional)"]" />
                     <button type="submit" class="btn btn-sm btn-warning text-nowrap">
-                        <i class="align-middle me-1" data-lucide="user-check" aria-hidden="true"></i>@Localizer["Confirm and claim"]
+                        <i class="align-middle me-1" data-lucide="user-check" aria-hidden="true"></i>@Localizer["Acknowledge and take ownership"]
                     </button>
                 </form>
             }
-            @if (Model.CanManage && incident.Status == Incident.Acked)
+            @if (Model.CanManage && incident.Status == Incident.New && incident.IsAcknowledged)
             {
-                <form asp-action="TakeOwnership" method="post" data-action-feedback class="d-flex flex-wrap gap-2">
-                    <input type="hidden" name="incidentId" value="@incident.Id" />
-                    <input type="hidden" name="version" value="@incident.Version" />
-                    <input name="note" maxlength="4000" class="form-control form-control-sm" style="max-width: 18rem;" placeholder="@Localizer["Take Over Notes (Optional)"]" aria-label="@Localizer["Take Over Notes (Optional)"]" />
-                    <button type="submit" class="btn btn-sm btn-outline-warning text-nowrap">
-                        <i class="align-middle me-1" data-lucide="user-round-check" aria-hidden="true"></i>@Localizer["Take Over Incident"]
-                    </button>
-                </form>
                 <button class="btn btn-sm btn-primary text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#mitigate-incident">
                     <i class="align-middle me-1" data-lucide="shield-check" aria-hidden="true"></i>@Localizer["Mitigate incident"]
                 </button>
@@ -246,7 +240,7 @@
                     <dl class="mb-0 mt-3 pt-3 border-top text-muted">
                         @if (incident.AcknowledgedAtUtc.HasValue)
                         {
-                            <dt>@Localizer["Confirmation time (UTC)"]</dt>
+                            <dt>@Localizer["Last acknowledgement time (UTC)"]</dt>
                             <dd class="font-monospace">@incident.AcknowledgedAtUtc.Value.ToString("yyyy-MM-dd HH:mm:ss")</dd>
                         }
                         @if (incident.MitigatedAtUtc.HasValue)
@@ -296,7 +290,7 @@
                     <i data-lucide="rotate-ccw" style="width: 18px; height: 18px;" class="text-success flex-shrink-0 mt-0.5" aria-hidden="true"></i>
                     <div>
                         <strong class="text-dark d-block mb-0.5">@Localizer["Closed-loop Recovery"]</strong>
-                        @Localizer["Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE."]
+                        @Localizer["Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership."]
                     </div>
                 </div>
             </div>
@@ -326,7 +320,7 @@
 
 <partial name="_Comments" model="Model" />
 
-@if (Model.CanManage && incident.Status == Incident.Acked)
+@if (Model.CanManage && incident.Status == Incident.New && incident.IsAcknowledged)
 {
     <div class="modal fade" id="mitigate-incident" tabindex="-1" aria-labelledby="mitigate-incident-title" aria-hidden="true">
         <div class="modal-dialog">
@@ -404,7 +398,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted small mb-3">@Localizer["Reopening restores the \"Pending Response\" status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed."]</p>
+                    <p class="text-muted small mb-3">@Localizer["Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved, and no notification is sent."]</p>
                     <label for="reopen-note" class="form-label small text-muted">@Localizer["Reopen Notes (Optional)"]</label>
                     <textarea id="reopen-note" name="note" maxlength="4000" rows="4" class="form-control" placeholder="@Localizer["Example: Monitoring detected the same failure again, re-investigation required."]"></textarea>
                 </div>

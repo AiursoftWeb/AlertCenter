@@ -43,7 +43,8 @@ public partial class IncidentPagesTests
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var incident = await db.Incidents.SingleAsync();
-            incident.Status = status;
+            incident.Status = status == Incident.Acked ? Incident.New : status;
+            incident.AcknowledgedAtUtc = status == Incident.Acked ? DateTime.UtcNow : null;
             if (status == Incident.Acked)
             {
                 var owner = await db.Users.FirstAsync();
@@ -82,7 +83,7 @@ public partial class IncidentPagesTests
         Assert.AreEqual("Application", entry.ActorName);
         Assert.AreEqual($"application:{applicationId}", entry.ActorIdSnapshot);
         Assert.AreEqual("Main branch build recovered.", entry.Note);
-        Assert.AreEqual(status, entry.PreviousStatus);
+        Assert.AreEqual(status == Incident.Acked ? Incident.New : status, entry.PreviousStatus);
         Assert.AreEqual(Incident.Mitigated, entry.NewStatus);
         Assert.AreEqual(ownerId, entry.PreviousOwnerId);
         Assert.AreEqual(ownerId, entry.NewOwnerId);

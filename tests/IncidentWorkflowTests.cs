@@ -74,7 +74,8 @@ public partial class IncidentWorkflowTests
     {
         var application = await CreateApplication();
         var first = await Report(application, "Outage", "sev1");
-        first.Status = status;
+        first.Status = status == Incident.Acked ? Incident.New : status;
+        first.AcknowledgedAtUtc = status == Incident.Acked ? DateTime.UtcNow : null;
         await _db.SaveChangesAsync();
         var second = await Report(application, "Outage", "sev1");
         Assert.AreNotEqual(first.Id, second.Id);

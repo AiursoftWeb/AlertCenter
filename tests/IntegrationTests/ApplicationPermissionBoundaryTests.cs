@@ -248,7 +248,7 @@ public partial class IncidentPagesTests
             var owned = await db.Incidents.SingleAsync(incident => incident.Title == "Owned incident marker");
             owned.OwnerId = user.Id;
             owned.OwnerDisplayName = user.DisplayName;
-            owned.Status = Incident.Acked;
+            owned.AcknowledgedAtUtc = DateTime.UtcNow;
             ownedIncidentId = owned.Id;
             otherIncidentId = await db.Incidents.Where(incident => incident.Id != owned.Id).Select(incident => incident.Id).SingleAsync();
             var unassociated = new Incident

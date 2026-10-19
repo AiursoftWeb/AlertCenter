@@ -41,7 +41,8 @@ public partial class IncidentPagesTests
             {
                 var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
                 var incident = await db.Incidents.SingleAsync();
-                incident.Status = state;
+                incident.Status = state == Incident.Acked ? Incident.New : state;
+        incident.AcknowledgedAtUtc = state == Incident.Acked ? DateTime.UtcNow : null;
                 version = incident.Version;
                 await db.SaveChangesAsync();
             }

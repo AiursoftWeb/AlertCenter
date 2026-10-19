@@ -20,7 +20,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             .SingleOrDefaultAsync(item => item.Id == incidentId && item.ApplicationId == applicationId, cancellationToken);
         if (incident == null) return new(404);
         if (incident.Status == Incident.Mitigated) return new(202, incident);
-        if (incident.Status is not (Incident.New or Incident.Acked) || incident.Version != version) return new(409);
+        if (incident.Status != Incident.New || incident.Version != version) return new(409);
 
         var now = DateTime.UtcNow;
         now = now.AddTicks(-(now.Ticks % 10));
@@ -144,10 +144,12 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
     public async Task<IncidentActionResult> ExecuteAsync(ClaimsPrincipal user, IncidentNoteRequest request, string action,
         CancellationToken cancellationToken)
     {
+        if (action == IncidentTimelineEntry.OwnershipChanged) action = IncidentTimelineEntry.Acked;
         var incident = await db.Incidents.Include(item => item.Owner)
             .SingleOrDefaultAsync(item => item.Id == request.IncidentId, cancellationToken);
         if (incident == null) return new(404);
         var now = DateTime.UtcNow;
+        now = now.AddTicks(-(now.Ticks % 10));
         if (!await new IncidentAccessService(applicationAccess).CanManageAsync(user, incident, now, cancellationToken)) return new(403);
         if (request.Version == Guid.Empty) return new(400, localizer["The incident version cannot be empty. Please refresh the page."].Value);
         if (request.Version != incident.Version) return new(409, localizer["The incident has been modified by another engineer. Please refresh and try again."].Value);
@@ -157,11 +159,11 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             return new(400, localizer["A reason or progress update is required for this action."].Value);
         var allowed = action switch
         {
-            IncidentTimelineEntry.Acked => incident.Status == Incident.New,
-            IncidentTimelineEntry.OwnershipChanged or IncidentTimelineEntry.Mitigated => incident.Status == Incident.Acked,
+            IncidentTimelineEntry.Acked => incident.Status is Incident.New or Incident.Mitigated or Incident.Resolved,
+            IncidentTimelineEntry.Mitigated => incident.Status == Incident.New && incident.IsAcknowledged,
             IncidentTimelineEntry.Resolved => incident.Status == Incident.Mitigated,
             IncidentTimelineEntry.Reopened => incident.Status is Incident.Mitigated or Incident.Resolved,
-            IncidentTimelineEntry.LevelChanged or IncidentTimelineEntry.Updated => incident.Status is Incident.New or Incident.Acked or Incident.Mitigated,
+            IncidentTimelineEntry.LevelChanged or IncidentTimelineEntry.Updated => incident.Status is Incident.New or Incident.Mitigated,
             _ => false
         };
         if (!allowed) return new(400, localizer["The current incident status does not allow this operation."].Value);
@@ -177,8 +179,6 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
             return new(400, localizer["Please select an incident severity level from sev0 to sev4."].Value);
         if (action == IncidentTimelineEntry.LevelChanged && level == incident.Level)
             return new(400, localizer["The incident is already at the selected level."].Value);
-        if (action == IncidentTimelineEntry.OwnershipChanged && incident.OwnerId == actorId)
-            return new(400, localizer["You are already the current assignee."].Value);
         var entry = new IncidentTimelineEntry
         {
             Incident = incident, Type = action, ActorId = actor.Id, ActorIdSnapshot = actor.Id,
@@ -189,12 +189,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         switch (action)
         {
             case IncidentTimelineEntry.Acked:
-                incident.Status = Incident.Acked;
                 incident.AcknowledgedAtUtc = now;
-                incident.OwnerId = actorId;
-                incident.OwnerDisplayName = actor.DisplayName;
-                break;
-            case IncidentTimelineEntry.OwnershipChanged:
                 incident.OwnerId = actorId;
                 incident.OwnerDisplayName = actor.DisplayName;
                 break;
@@ -206,9 +201,6 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
                 break;
             case IncidentTimelineEntry.Reopened:
                 incident.Status = Incident.New;
-                incident.OwnerId = null;
-                incident.OwnerDisplayName = null;
-                incident.AcknowledgedAtUtc = null;
                 incident.MitigatedAtUtc = null;
                 incident.ResolvedAtUtc = null;
                 break;
@@ -218,7 +210,7 @@ public class IncidentWorkflowService(TemplateDbContext db, IApplicationAccessSer
         }
         entry.NewStatus = incident.Status;
         entry.NewOwnerId = incident.OwnerId;
-        entry.NewOwnerName = incident.OwnerId == entry.PreviousOwnerId ? entry.PreviousOwnerName : incident.OwnerDisplayName;
+        entry.NewOwnerName = action == IncidentTimelineEntry.Acked ? actor.DisplayName : entry.PreviousOwnerName;
         entry.NewLevel = incident.Level;
         incident.Version = Guid.NewGuid();
         db.IncidentTimelineEntries.Add(entry);

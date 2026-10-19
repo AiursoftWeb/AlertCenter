@@ -47,7 +47,8 @@ public class IncidentCommentServiceTests
     [DataRow(Incident.Resolved)]
     public async Task EditorsCanCommentInEveryStateWithoutChangingWorkflowOrSendingNotifications(string state)
     {
-        incident.Status = state;
+        incident.Status = state == Incident.Acked ? Incident.New : state;
+        incident.AcknowledgedAtUtc = state == Incident.Acked ? DateTime.UtcNow : null;
         await db.SaveChangesAsync();
         var version = incident.Version;
         const string markdown = "  # 排查\n\n**影响**：数据库错误\n```sql\nSELECT 1;\n```\n ";
@@ -59,7 +60,7 @@ public class IncidentCommentServiceTests
         Assert.AreEqual("author name", saved.AuthorName);
         Assert.IsTrue(saved.CreatedAtUtc > DateTime.UtcNow.AddMinutes(-1));
         Assert.AreEqual(version, (await db.Incidents.SingleAsync()).Version);
-        Assert.AreEqual(state, (await db.Incidents.SingleAsync()).Status);
+        Assert.AreEqual(state == Incident.Acked ? Incident.New : state, (await db.Incidents.SingleAsync()).Status);
         Assert.AreEqual(0, await db.IncidentTimelineEntries.CountAsync());
         Assert.AreEqual(0, await db.PushDeliveries.CountAsync());
     }
