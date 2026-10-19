@@ -8,7 +8,12 @@ using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public sealed record EmailMessage(IReadOnlyList<string> Recipients, IReadOnlyList<string> CcRecipients, string Subject, string Body, string? HtmlBody = null);
+public sealed record EmailMessage(IReadOnlyList<string> Recipients, IReadOnlyList<string> CcRecipients, string Subject, string Body, string? HtmlBody = null)
+{
+    public Guid NotificationId { get; init; } = Guid.NewGuid();
+    public Guid? ParentNotificationId { get; init; }
+    public Guid? ChannelId { get; init; }
+}
 
 public interface IEmailSender
 {
@@ -23,6 +28,15 @@ public sealed class SmtpEmailSender(IOptions<EmailSettings> options) : IEmailSen
         if (!settings.TryValidate(out var error)) throw new InvalidOperationException(error);
         using var mail = new MailMessage();
         mail.From = new MailAddress(settings.From);
+        // Stable per notification and channel, shared by all To/CC recipients and retries.
+        string MessageId(Guid id) => $"<alertcenter.{message.ChannelId?.ToString("N") ?? "oncall"}.{id:N}@{mail.From.Host.ToLowerInvariant()}>";
+        mail.Headers.Add("Message-ID", MessageId(message.NotificationId));
+        if (message.ParentNotificationId is { } parentId)
+        {
+            var parent = MessageId(parentId);
+            mail.Headers.Add("In-Reply-To", parent);
+            mail.Headers.Add("References", parent);
+        }
         mail.Subject = message.Subject;
         mail.SubjectEncoding = Encoding.UTF8;
         mail.Body = message.Body;
@@ -208,7 +222,13 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         }
         body.AppendLine().AppendLine(localizer["Open in AlertCenter"].Value).AppendLine(url);
         return new(recipients, ccRecipients, subject, body.ToString(),
-            RenderHtml(delivery, title, level, url, localizer, context));
+            RenderHtml(delivery, title, level, url, localizer, context))
+        {
+            // The first incident email is the thread root; lifecycle events are distinct replies.
+            NotificationId = incidentEvent?.Id ?? incidentId ?? delivery.Id,
+            ParentNotificationId = incidentEvent?.IncidentId,
+            ChannelId = delivery.ChannelId
+        };
     }
 
     private static string Introduction(PushDelivery delivery, IStringLocalizer localizer) => delivery.IncidentEvent?.Type switch
