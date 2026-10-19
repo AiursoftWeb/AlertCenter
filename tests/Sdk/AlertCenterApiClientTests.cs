@@ -11,6 +11,29 @@ namespace Aiursoft.AlertCenter.Tests.Sdk;
 public sealed class AlertCenterApiClientTests
 {
     [TestMethod]
+    public async Task DetailQueriesUseConfiguredBasePathAndCurrentKeyWithoutRetries()
+    {
+        using var handler = new RecordingHandler();
+        var keys = new RotatingKeyProvider();
+        await using var services = BuildProvider(handler, keys);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var incidentId = Guid.NewGuid();
+        await client.GetIncidentAsync(incidentId);
+        Assert.AreEqual($"https://alerts.example/center/api/v1/incidents/{incidentId}", handler.RequestUri?.ToString());
+        Assert.AreEqual(HttpMethod.Get, handler.Method);
+        Assert.AreEqual("Bearer first-key", handler.Authorization);
+        keys.Key = "rotated-key";
+        await client.GetIncidentAsync(incidentId);
+        Assert.AreEqual("Bearer rotated-key", handler.Authorization);
+        Assert.AreEqual(2, handler.CallCount);
+        using var failedHandler = new RecordingHandler { Fail = true };
+        await using var failedServices = BuildProvider(failedHandler, keys);
+        await Assert.ThrowsAsync<HttpRequestException>(() =>
+            failedServices.GetRequiredService<AlertCenterApiClient>().GetIncidentAsync(incidentId));
+        Assert.AreEqual(1, failedHandler.CallCount);
+    }
+
+    [TestMethod]
     public async Task ReportsUseConfiguredBasePathAndFetchCurrentCredentialForEveryCall()
     {
         using var handler = new RecordingHandler();
