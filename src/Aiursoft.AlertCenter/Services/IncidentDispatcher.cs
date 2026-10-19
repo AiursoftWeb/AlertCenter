@@ -42,7 +42,7 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
     public static async Task DispatchEmailEventAsync(TemplateDbContext db, IncidentTimelineEntry entry,
         CancellationToken cancellationToken, IStringLocalizerFactory? localizerFactory = null)
     {
-        if (entry.Type is not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.Reopened)) return;
+        if (entry.Type is not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.Reopened) && !entry.IsEscalation) return;
         // Each committed transition queues its own email. Version checks prevent stale retries
         // from committing another transition; reopening starts another notification cycle.
         await OnCallEmailQueue.CreateEventAsync(db, entry, cancellationToken,

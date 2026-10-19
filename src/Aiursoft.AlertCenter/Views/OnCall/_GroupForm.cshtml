@@ -32,7 +32,7 @@
                 <summary class="mb-2">@Localizer["Notification CC (optional)"]</summary>
                 <div class="mb-3">
                     <label asp-for="GroupInput.EmailCcRecipients" class="form-label">@Localizer["On-call email CC"]</label>
-                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@Localizer["To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses."].Value" aria-label="@Localizer["Help: notification CC"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@Localizer["To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses."].Value" aria-label="@Localizer["Help: notification CC"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
                     <textarea asp-for="GroupInput.EmailCcRecipients" class="form-control" rows="2" maxlength="8000"></textarea>
                     <span asp-validation-for="GroupInput.EmailCcRecipients" class="text-danger"></span>
                 </div>

@@ -165,6 +165,7 @@
                                         <a asp-action="Delivery" asp-route-id="@delivery.Id" class="fw-semibold text-decoration-none text-break d-block">
                                             @(delivery.Incident?.Title ?? (delivery.IncidentEvent != null ? (delivery.IncidentEvent.Type switch
                                                 {
+                                                    IncidentTimelineEntry.LevelChanged => string.Format(@Localizer["Incident escalated ({0} → {1}): {2}"].Value, delivery.IncidentEvent.PreviousLevel?.ToUpperInvariant(), delivery.IncidentEvent.NewLevel?.ToUpperInvariant(), delivery.IncidentEvent.Incident.Title),
                                                     IncidentTimelineEntry.Mitigated => string.Format(@Localizer["Incident mitigated: {0}"].Value, delivery.IncidentEvent.Incident.Title),
                                                     IncidentTimelineEntry.Reopened => string.Format(@Localizer["Incident reopened: {0}"].Value, delivery.IncidentEvent.Incident.Title),
                                                     IncidentTimelineEntry.Resolved => string.Format(@Localizer["Incident resolved: {0}"].Value, delivery.IncidentEvent.Incident.Title),

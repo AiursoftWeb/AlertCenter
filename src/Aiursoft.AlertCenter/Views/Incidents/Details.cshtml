@@ -146,6 +146,27 @@
                         }
                     </ul>
                 }
+                <hr />
+                <h3 class="h6">@Localizer["OCE at incident occurrence"]</h3>
+                @if (Model.OriginalOceSnapshot is { } original)
+                {
+                    <p class="text-muted mb-2">@original.GroupName · <span data-utc-time="@original.NotificationAtUtc.ToHtmlDateTime()"></span></p>
+                    <ul class="list-unstyled mb-2">
+                        @foreach (var person in original.Recipients)
+                        {
+                            <li class="text-break"><strong>@person.DisplayName</strong></li>
+                        }
+                    </ul>
+                    @if (original.ValidationError != null)
+                    {
+                        <div class="alert alert-warning mb-2" role="alert"><div class="alert-message text-break">@original.ValidationError</div></div>
+                    }
+                    <p class="text-muted mb-0">@Localizer["Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients."]</p>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">@Localizer["No original OCE snapshot is available. The current OCE is not substituted for historical email recipients."]</p>
+                }
                 @if (incident.AcknowledgedAtUtc.HasValue || incident.MitigatedAtUtc.HasValue || incident.ResolvedAtUtc.HasValue)
                 {
                     <dl class="mb-0 mt-3 pt-3 border-top text-muted">
@@ -274,7 +295,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-muted small mb-3">@Localizer["Adjust the severity of this incident and record the reason."]</p>
+                    <p class="text-muted small mb-3">@Localizer["Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not."]</p>
                     <label for="incident-new-level" class="form-label small text-muted">@Localizer["New level"]</label>
                     <select id="incident-new-level" name="level" class="form-select mb-3" required>
                         <option value="sev0" selected="@(incident.Level == "sev0")">@Localizer["sev0 · Critical (P0)"]</option>

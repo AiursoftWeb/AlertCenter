@@ -151,7 +151,7 @@ public partial class IncidentPagesTests
             Assert.IsTrue(incident.IsAcknowledged);
             Assert.AreEqual("sev0", incident.Level);
             Assert.AreEqual(1, await db.Incidents.CountAsync());
-            Assert.AreEqual(4, await db.PushDeliveries.CountAsync());
+            Assert.AreEqual(5, await db.PushDeliveries.CountAsync());
             deliveryId = await db.PushDeliveries.Where(d => d.IncidentEvent != null && d.IncidentEvent.Type == IncidentTimelineEntry.Resolved).Select(d => d.Id).SingleAsync();
         }
         var deliveryPage = WebUtility.HtmlDecode(await Http.GetStringAsync($"/Push/Delivery/{deliveryId}"));

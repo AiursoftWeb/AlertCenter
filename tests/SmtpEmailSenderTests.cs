@@ -100,7 +100,7 @@ public class SmtpEmailSenderTests
         Assert.IsFalse(original.ContainsKey("References"));
         Assert.AreEqual(rootId, (await Send(Delivery(incident), listener, timeout.Token))["Message-ID"]);
         var ids = new HashSet<string> { rootId };
-        foreach (var type in new[] { IncidentTimelineEntry.Mitigated, IncidentTimelineEntry.Resolved, IncidentTimelineEntry.Reopened })
+        foreach (var type in new[] { IncidentTimelineEntry.LevelChanged, IncidentTimelineEntry.Mitigated, IncidentTimelineEntry.Resolved, IncidentTimelineEntry.Reopened })
         {
             var entry = new IncidentTimelineEntry { Incident = incident, IncidentId = incident.Id, Type = type, PreviousLevel = "sev3", NewLevel = "sev2" };
             var reply = await Send(Delivery(incident, entry), listener, timeout.Token);
