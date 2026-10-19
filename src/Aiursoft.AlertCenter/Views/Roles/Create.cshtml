@@ -9,9 +9,16 @@
 @* The critical OIDC warning is preserved and placed prominently at the top of the page. *@
 @if (AppSettings.Value.OIDCEnabled)
 {
-    @await Html.PartialAsync("_NoticeDialog", new Aiursoft.AlertCenter.Models.NoticeDialogViewModel(
-        "page-notice", Localizer["Warning!"].Value,
-        Localizer["OpenID Connect (OIDC) is enabled. Roles are synchronized from an external identity provider. We strongly recommend creating new roles or groups on your OIDC provider to ensure they are managed centrally. This form will create a local-only role that exists solely within this application."].Value, OpenOnLoad: true))
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Close"].Value"></button>
+        <div class="alert-icon">
+            <i class="align-middle" data-lucide="alert-triangle" aria-hidden="true"></i>
+        </div>
+        <div class="alert-message">
+            <strong>@Localizer["Warning!"]</strong>
+            @Localizer["OpenID Connect (OIDC) is enabled. Roles are synchronized from an external identity provider. We strongly recommend creating new roles or groups on your OIDC provider to ensure they are managed centrally. This form will create a local-only role that exists solely within this application."]
+        </div>
+    </div>
 }
 
 <div class="row justify-content-center">
