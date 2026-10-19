@@ -1,8 +1,9 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
     <h1 class="h3 mb-0">@Localizer["Edit team"]</h1>
     <a asp-action="GroupDetails" asp-route-id="@Model.SelectedGroupId" class="btn btn-outline-secondary">@Localizer["Back to Team Details"]</a>
 </div>
+<p class="text-muted">@Localizer["Set up the group, select its members, then save a schedule. An on-call engineer (OCE) is a person assigned to a saved shift, not every member of the group."]</p>
 <div class="card"><div class="card-body"><partial name="_GroupForm" model="Model" /></div></div>
 
 @section scripts {

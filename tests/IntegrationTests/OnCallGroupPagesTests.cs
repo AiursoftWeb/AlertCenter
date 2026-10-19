@@ -13,7 +13,7 @@ public class OnCallGroupPagesTests : TestBase
         await LoginAsAdmin();
         var groups = await Http.GetStringAsync("/OnCall/Groups");
         Assert.Contains("Create Team", groups);
-        Assert.Contains("Team saved", groups);
+        Assert.Contains("On-call groups", groups);
         var create = await Http.GetStringAsync("/OnCall/GroupCreate");
         Assert.Contains("/OnCall/CreateGroup", create);
         Assert.Contains("/scripts/oncall-group-form.js", create);
