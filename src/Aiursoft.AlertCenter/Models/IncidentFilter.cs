@@ -12,6 +12,7 @@ public class IncidentFilter : IValidatableObject
     public Guid? ApplicationId { get; set; }
     [RegularExpression("^(new|acked|mitigated|resolved|all)$", ErrorMessage = "Please select a valid incident status.")]
     public string? Status { get; set; }
+    public bool? Acknowledged { get; set; }
     [RegularExpression("^(sev[0-4]|lte-sev[1-4])$", ErrorMessage = "Please select a valid incident level.")]
     public string? Level { get; set; }
     public DateOnly? FromDate { get; set; }
@@ -21,6 +22,11 @@ public class IncidentFilter : IValidatableObject
     {
         Keyword = string.IsNullOrWhiteSpace(Keyword) ? null : Keyword.Trim();
         Page = Math.Clamp(Page, 1, 1000000);
+        if (Status == "acked")
+        {
+            Status = "all";
+            Acknowledged = true;
+        }
         Status ??= "all";
     }
 
@@ -33,6 +39,7 @@ public class IncidentFilter : IValidatableObject
         if (FromDate.HasValue) values["fromDate"] = FromDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         if (ToDate.HasValue) values["toDate"] = ToDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         if ((page ?? Page) > 1) values["page"] = (page ?? Page).ToString(CultureInfo.InvariantCulture);
+        if (Acknowledged.HasValue) values["acknowledged"] = Acknowledged.Value ? "true" : "false";
         if (Status is not (null or "all")) values["status"] = Status;
         return values;
     }

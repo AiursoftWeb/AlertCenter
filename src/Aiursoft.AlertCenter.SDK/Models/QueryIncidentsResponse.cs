@@ -20,6 +20,10 @@ public sealed class IncidentDetails
     public string? Content { get; set; }
     public string Level { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
+    public DateTimeOffset? AcknowledgedAtUtc { get; set; }
+    public bool IsAcknowledged => AcknowledgedAtUtc.HasValue;
+    public string? OwnerId { get; set; }
+    public string? OwnerDisplayName { get; set; }
     public DateTimeOffset OccurredAtUtc { get; set; }
     public DateTimeOffset ReceivedAtUtc { get; set; }
     public JObject? Context { get; set; }

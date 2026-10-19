@@ -118,6 +118,9 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         Title = incident.Title, Content = incident.Content, Level = incident.Level, Status = incident.Status,
         OccurredAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.OccurredAtUtc, DateTimeKind.Utc)),
         ReceivedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc)),
+        AcknowledgedAtUtc = incident.AcknowledgedAtUtc is { } acknowledgedAt
+            ? new DateTimeOffset(DateTime.SpecifyKind(acknowledgedAt, DateTimeKind.Utc)) : null,
+        OwnerId = incident.OwnerId, OwnerDisplayName = incident.OwnerDisplayName,
         Context = incident.ContextJson == null ? null : JObject.Parse(incident.ContextJson)
     };
 

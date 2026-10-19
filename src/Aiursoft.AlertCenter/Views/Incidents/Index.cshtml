@@ -5,12 +5,11 @@
     ViewData["Title"] = @Localizer["Incident Handling Center"].Value;
     var filter = Model.Filter;
     var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Status != "all" || filter.Level != null ||
-        filter.FromDate.HasValue || filter.ToDate.HasValue;
+        filter.FromDate.HasValue || filter.ToDate.HasValue || filter.Acknowledged.HasValue;
 
     (string PillClass, string Icon, string Text) StatusInfo(string status) => status switch
     {
-        Incident.New => ("ac-status-pill-failed", "alert-triangle", @Localizer["Pending Response"].Value),
-        Incident.Acked => ("ac-status-pill-sending", "user-check", @Localizer["Acknowledged"].Value),
+        Incident.New => ("ac-status-pill-failed", "alert-triangle", @Localizer["Unmitigated"].Value),
         Incident.Mitigated => ("ac-status-pill-sending", "shield-check", @Localizer["Mitigated"].Value),
         Incident.Resolved => ("ac-status-pill-succeeded", "check-circle-2", @Localizer["Resolved"].Value),
         _ => ("ac-status-pill-pending", "circle-help", status)
@@ -51,9 +50,9 @@
     </a>
     <a asp-action="Index" asp-route-status="new" class="ac-chip @(filter.Status == Incident.New ? "active" : "")">
         <i data-lucide="alert-triangle" style="width: 14px; height: 14px;" class="text-danger" aria-hidden="true"></i>
-        <span>@Localizer["Pending Response"]</span>
+        <span>@Localizer["Unmitigated"]</span>
     </a>
-    <a asp-action="Index" asp-route-status="acked" class="ac-chip @(filter.Status == Incident.Acked ? "active" : "")">
+    <a asp-action="Index" asp-route-acknowledged="true" class="ac-chip @(filter.Acknowledged == true ? "active" : "")">
         <i data-lucide="user-check" style="width: 14px; height: 14px;" class="text-warning" aria-hidden="true"></i>
         <span>@Localizer["Acknowledged"]</span>
     </a>
@@ -96,10 +95,17 @@
                 <label for="incident-status" class="form-label small text-muted mb-1">@Localizer["Incident status"]</label>
                 <select id="incident-status" name="status" class="form-select">
                     <option value="all" selected="@(filter.Status == "all")">@Localizer["All statuses"]</option>
-                    <option value="new" selected="@(filter.Status == Incident.New)">@Localizer["Pending Response (New)"]</option>
-                    <option value="acked" selected="@(filter.Status == Incident.Acked)">@Localizer["Acknowledged (Acked)"]</option>
+                    <option value="new" selected="@(filter.Status == Incident.New)">@Localizer["Unmitigated"]</option>
                     <option value="mitigated" selected="@(filter.Status == Incident.Mitigated)">@Localizer["Mitigated (Mitigated)"]</option>
                     <option value="resolved" selected="@(filter.Status == Incident.Resolved)">@Localizer["Resolved (Resolved)"]</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-xl-2">
+                <label for="incident-acknowledged" class="form-label small text-muted mb-1">@Localizer["Acknowledgement"]</label>
+                <select id="incident-acknowledged" name="acknowledged" class="form-select">
+                    <option value="">@Localizer["All acknowledgements"]</option>
+                    <option value="true" selected="@(filter.Acknowledged == true)">@Localizer["Acknowledged"]</option>
+                    <option value="false" selected="@(filter.Acknowledged == false)">@Localizer["Not acknowledged"]</option>
                 </select>
             </div>
             <div class="col-sm-6 col-xl-2">
@@ -193,7 +199,6 @@
                         var rowBorder = incident.Status switch
                         {
                             Incident.New => "border-start border-3 border-danger",
-                            Incident.Acked => "border-start border-3 border-warning",
                             Incident.Mitigated => "border-start border-3 border-info",
                             _ => ""
                         };
@@ -203,6 +208,9 @@
                                 <span class="ac-status-pill @status.PillClass">
                                     <i data-lucide="@status.Icon" style="width: 13px; height: 13px;" aria-hidden="true"></i>
                                     <span>@status.Text</span>
+                                </span>
+                                <span class="badge bg-secondary-subtle text-secondary" data-acknowledged="@(incident.IsAcknowledged ? "true" : "false")">
+                                    @(incident.IsAcknowledged ? @Localizer["Acknowledged"].Value : @Localizer["Not acknowledged"].Value)
                                 </span>
                             </td>
                             <td class="py-3">

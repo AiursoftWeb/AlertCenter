@@ -47,7 +47,7 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(6, context.Database.GetMigrations().Count());
+        Assert.AreEqual(7, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
@@ -231,7 +231,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(6, context.Database.GetMigrations().Count());
+        Assert.AreEqual(7, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");
@@ -258,4 +258,54 @@ public class MigrationTests
         StringAssert.Contains(script, "FK_IncidentComments_AspNetUsers_DeletedById");
         Assert.DoesNotContain("OnCallRuleMembers", script);
     }
+    [TestMethod]
+    public async Task IndependentAcknowledgementMigrationPreservesProgressOwnershipAndAuditHistory()
+    {
+        await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await context.Database.OpenConnectionAsync();
+        await context.GetService<IMigrator>().MigrateAsync("20261019033852_IncidentMitigationScope");
+        var owner = new User { UserName = "historical-owner", DisplayName = "Historical owner" };
+        var application = new SourceApplication { Name = "Existing application" };
+        var oldTime = new DateTime(2026, 10, 18, 1, 0, 0, DateTimeKind.Utc);
+        var latestTime = oldTime.AddHours(1);
+        var legacy = new Incident { Application = application, Title = "Legacy acknowledged", Status = Incident.Acked,
+            Owner = owner, OwnerDisplayName = owner.DisplayName, AcknowledgedAtUtc = oldTime };
+        var reopened = new Incident { Application = application, Title = "Previously reopened", Status = Incident.New };
+        var resolved = new Incident { Application = application, Title = "Already resolved", Status = Incident.Resolved,
+            AcknowledgedAtUtc = latestTime.AddHours(1), MitigatedAtUtc = oldTime, ResolvedAtUtc = latestTime };
+        context.Incidents.AddRange(legacy, reopened, resolved);
+        foreach (var item in new[] { legacy, reopened, resolved })
+            context.IncidentTimelineEntries.Add(new IncidentTimelineEntry { Incident = item, Type = IncidentTimelineEntry.Acked,
+                Actor = owner, ActorIdSnapshot = owner.Id, ActorName = owner.DisplayName, CreatedAtUtc = latestTime });
+        await context.SaveChangesAsync();
+        var version = legacy.Version;
+        await context.Database.MigrateAsync();
+        context.ChangeTracker.Clear();
+        var saved = await context.Incidents.SingleAsync(item => item.Id == legacy.Id);
+        Assert.AreEqual(Incident.New, saved.Status);
+        Assert.IsTrue(saved.IsAcknowledged);
+        Assert.AreEqual(latestTime, saved.AcknowledgedAtUtc);
+        Assert.AreEqual(owner.Id, saved.OwnerId);
+        Assert.AreEqual(owner.DisplayName, saved.OwnerDisplayName);
+        Assert.AreEqual(version, saved.Version);
+        saved = await context.Incidents.SingleAsync(item => item.Id == reopened.Id);
+        Assert.AreEqual(Incident.New, saved.Status);
+        Assert.AreEqual(latestTime, saved.AcknowledgedAtUtc);
+        Assert.IsNull(saved.OwnerId);
+        saved = await context.Incidents.SingleAsync(item => item.Id == resolved.Id);
+        Assert.AreEqual(Incident.Resolved, saved.Status);
+        Assert.AreEqual(latestTime.AddHours(1), saved.AcknowledgedAtUtc);
+        Assert.AreEqual(oldTime, saved.MitigatedAtUtc);
+        Assert.AreEqual(latestTime, saved.ResolvedAtUtc);
+        Assert.AreEqual(3, await context.IncidentTimelineEntries.CountAsync());
+        Assert.IsTrue(await context.IncidentTimelineEntries.AllAsync(entry => entry.Type == IncidentTimelineEntry.Acked && entry.ActorIdSnapshot == owner.Id));
+        await context.GetService<IMigrator>().MigrateAsync("20261019033852_IncidentMitigationScope");
+        context.ChangeTracker.Clear();
+        Assert.AreEqual(Incident.Acked, (await context.Incidents.SingleAsync(item => item.Id == legacy.Id)).Status);
+        await context.Database.MigrateAsync();
+        context.ChangeTracker.Clear();
+        Assert.IsTrue((await context.Incidents.SingleAsync(item => item.Id == legacy.Id)).IsAcknowledged);
+    }
+
 }

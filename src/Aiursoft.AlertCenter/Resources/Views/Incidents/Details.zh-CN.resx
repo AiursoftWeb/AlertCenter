@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Acknowledged" xml:space="preserve">
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>确认并承担责任</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
     <value>已确认</value>
   </data>
   <data name="Acknowledged (Acked)" xml:space="preserve">
@@ -129,6 +132,9 @@
   <data name="Independent incidents" xml:space="preserve">
     <value>独立事件</value>
   </data>
+  <data name="Last acknowledgement time (UTC)" xml:space="preserve">
+    <value>上次确认时间（UTC）</value>
+  </data>
   <data name="Log investigation and handling progress" xml:space="preserve">
     <value>记录调查与处理进展</value>
   </data>
@@ -155,6 +161,9 @@
   </data>
   <data name="No current on-call OCE." xml:space="preserve">
     <value>目前没有值班 OCE。</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>未确认</value>
   </data>
   <data name="Not set" xml:space="preserve">
     <value>未设置</value>
@@ -266,6 +275,9 @@
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>未分配</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>未缓解</value>
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>用户已删除</value>

@@ -50,14 +50,14 @@ public partial class IncidentPagesTests
         using var ack = await DialogPost("/Incidents/Acknowledge", await IncidentForm(id), url);
         Assert.AreEqual(HttpStatusCode.OK, ack.StatusCode);
         Assert.AreEqual(url, JObject.Parse(await ack.Content.ReadAsStringAsync())["redirectUrl"]!.Value<string>());
-        using var alreadyOwner = await DialogPost("/Incidents/TakeOwnership", await IncidentForm(id), url);
+        using var alreadyOwner = await DialogPost("/Incidents/ChangeLevel", await IncidentForm(id, "Reason", "sev5"), url);
         Assert.AreEqual(HttpStatusCode.BadRequest, alreadyOwner.StatusCode);
         Assert.AreEqual("application/json", alreadyOwner.Content.Headers.ContentType!.MediaType);
-        Assert.AreEqual("You are already the current assignee.", JObject.Parse(await alreadyOwner.Content.ReadAsStringAsync())["message"]!.Value<string>());
+        Assert.IsFalse(string.IsNullOrWhiteSpace(JObject.Parse(await alreadyOwner.Content.ReadAsStringAsync())["message"]!.Value<string>()));
         using var staleResponse = await DialogPost("/Incidents/Mitigate", stale, url);
         Assert.AreEqual(HttpStatusCode.Conflict, staleResponse.StatusCode);
         Assert.IsTrue(JObject.Parse(await staleResponse.Content.ReadAsStringAsync())["refresh"]!.Value<bool>());
-        using var normal = await PostForm("/Incidents/TakeOwnership", await IncidentForm(id), url);
+        using var normal = await PostForm("/Incidents/ChangeLevel", await IncidentForm(id, "Reason", "sev5"), url);
         Assert.AreEqual(HttpStatusCode.BadRequest, normal.StatusCode);
         Assert.AreNotEqual("application/json", normal.Content.Headers.ContentType!.MediaType);
     }

@@ -27,8 +27,14 @@
   <data name="Acknowledged (Acked)" xml:space="preserve">
     <value>已确认（Acked）</value>
   </data>
+  <data name="Acknowledgement" xml:space="preserve">
+    <value>致谢</value>
+  </data>
   <data name="Adjust filter conditions or reset to view all records." xml:space="preserve">
     <value>请调整筛选条件或重置筛选，以查看所有记录。</value>
+  </data>
+  <data name="All acknowledgements" xml:space="preserve">
+    <value>所有确认</value>
   </data>
   <data name="All applications" xml:space="preserve">
     <value>所有应用程序</value>
@@ -95,6 +101,9 @@
   </data>
   <data name="No matching incidents" xml:space="preserve">
     <value>没有匹配的事件</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>未确认</value>
   </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>正在处理的事件</value>
@@ -170,6 +179,9 @@
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>未分配</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>未缓解</value>
   </data>
 
 </root>

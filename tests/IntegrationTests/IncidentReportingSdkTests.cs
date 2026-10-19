@@ -158,7 +158,8 @@ public partial class IncidentPagesTests
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var incident = await db.Incidents.SingleAsync();
-            incident.Status = status;
+            incident.Status = status == Incident.Acked ? Incident.New : status;
+            incident.AcknowledgedAtUtc = status == Incident.Acked ? DateTime.UtcNow : null;
             await db.SaveChangesAsync();
         }
         var before = (await client.QueryIncidentsAsync(new QueryIncidentsRequest())).Items.Single();
@@ -184,7 +185,7 @@ public partial class IncidentPagesTests
             Assert.AreEqual("Application", entry.ActorName);
             Assert.AreEqual($"application:{incident.ApplicationId}", entry.ActorIdSnapshot);
             Assert.AreEqual("Audit run 42 confirmed recovery.", entry.Note);
-            Assert.AreEqual(status, entry.PreviousStatus);
+            Assert.AreEqual(status == Incident.Acked ? Incident.New : status, entry.PreviousStatus);
             Assert.AreEqual(Incident.Resolved, entry.NewStatus);
             Assert.AreEqual(incident.ResolvedAtUtc, entry.CreatedAtUtc);
             Assert.AreEqual(2, await db.IncidentTimelineEntries.CountAsync());
@@ -273,7 +274,8 @@ public partial class IncidentPagesTests
             using var scope = Server!.Services.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var incident = await db.Incidents.SingleAsync(item => item.Id == receipt.IncidentId);
-            incident.Status = status;
+            incident.Status = status == Incident.Acked ? Incident.New : status;
+            incident.AcknowledgedAtUtc = status == Incident.Acked ? DateTime.UtcNow : null;
             // Equal timestamps exercise the stable secondary ordering across pages.
             incident.ReceivedAtUtc = first.ReceivedAtUtc.UtcDateTime;
             await db.SaveChangesAsync();
@@ -290,7 +292,8 @@ public partial class IncidentPagesTests
         Assert.HasCount(1, second.Items);
         var combined = active.Items.Concat(second.Items).ToList();
         Assert.HasCount(3, combined.Select(item => item.IncidentId).Distinct().ToList());
-        CollectionAssert.AreEquivalent(new[] { Incident.New, Incident.Acked, Incident.Mitigated }, combined.Select(item => item.Status).ToArray());
+        CollectionAssert.AreEquivalent(new[] { Incident.New, Incident.New, Incident.Mitigated }, combined.Select(item => item.Status).ToArray());
+        Assert.AreEqual(1, combined.Count(item => item.IsAcknowledged));
         foreach (var item in combined)
         {
             Assert.Contains(item.IncidentId, ids);

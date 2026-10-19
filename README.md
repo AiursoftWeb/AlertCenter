@@ -195,7 +195,7 @@ foreach (var incident in page.Items)
 }
 ```
 
-`ActiveOnly` defaults to false; true includes `new`, `acked`, and `mitigated`, excluding
+`ActiveOnly` defaults to false; true includes `new` and `mitigated`, excluding
 `resolved`. Pages start at 1 (maximum 1,000,000); page sizes range from 1 to 100 and default
 to 50. Responses include `Page`, `PageSize`, and `TotalCount`, with newest received incidents
 first and incident ID as the tie-breaker. Read all relevant pages before deciding no match
@@ -236,7 +236,7 @@ recovery detection runs inside AlertCenter; the caller decides when to invoke th
 ### Mitigating incidents
 
 `POST /api/v1/incidents/{incidentId}/mitigate`, SDK `MitigateIncidentAsync`, and
-CLI `alertcenter mitigate` move a `new` or `acked` incident to `mitigated` without
+CLI `alertcenter mitigate` move a `new` incident to `mitigated` without
 resolving it or changing its assignee or acknowledgement. Supply the queried
 `Version` and a nonempty `Reason` (up to 4,000 characters). This requires the
 separate **Mitigate incidents** API key permission, disabled on existing keys.
@@ -293,3 +293,12 @@ Only the owner can transfer ownership or delete the application. Sharing manager
 Each application owns multiple API keys. Owners and users/roles granted API key management can list, create, edit and delete its keys; newly granted key permissions cannot exceed the manager's application permissions. Keys authenticate as `<applicationId>.<keyId>.<secret>` and cannot access another application. The key list shows persistent authenticated-call totals and last-use timestamps (UTC). Counts include permission denials and business failures after valid input/authentication, but exclude malformed requests and invalid credentials.
 
 Applications can change an active incident severity through `POST /api/v1/incidents/{incidentId}/severity` or SDK `ChangeIncidentSeverityAsync`. Supply the queried `Version`, a `Level` from `sev0` to `sev4`, and a `Reason`. This requires the separate **Change incident severity** API key scope (disabled on existing keys). Changes are application-scoped, concurrency-checked and recorded in the timeline without sending email. SDK version: `10.3.0`.
+
+Acknowledgement is independent of incident progress (`new`, `mitigated`, `resolved`).
+Any authorized user may acknowledge repeatedly; each acknowledgement assigns the
+incident to that user without changing its progress. `AcknowledgedAtUtc` is the
+latest acknowledgement time, and `IsAcknowledged` reports whether it has ever
+been acknowledged. Reopening preserves acknowledgement and ownership. SDK 10.6.0
+query/detail responses also expose these fields and the current owner. Legacy
+`status=acked` web links select acknowledged incidents across all progress states;
+use `acknowledged=true` or `false` to combine confirmation with a progress filter.
