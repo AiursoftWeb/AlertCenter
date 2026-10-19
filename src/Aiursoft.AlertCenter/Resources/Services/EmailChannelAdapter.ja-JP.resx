@@ -51,6 +51,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>メール（SMTP）</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
+    <value>インシデントが作成、軽減、解決、または再開された場合のみ、メール通知が送信されます。</value>
+  </data>
   <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
     <value>メールの送信に失敗しました。SMTPの設定、ネットワーク、またはメールサーバーを確認してください。</value>
   </data>
@@ -69,8 +72,14 @@
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>インシデント ID: {0}</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>インシデント緩和済み: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>インシデントが再開されました: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>インシデント解決済み: {0}</value>
   </data>
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>CCメールの形式が無効です。表示名には対応していません。</value>
@@ -83,6 +92,12 @@
   </data>
   <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
     <value>SMTPの設定が無効です。メールの設定を確認してください。</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>軽減済み</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>新規インシデント</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>なし</value>
@@ -111,11 +126,23 @@
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>宛先のメールアドレスを入力してください。</value>
   </data>
+  <data name="Reason" xml:space="preserve">
+    <value>理由</value>
+  </data>
+  <data name="Reason: {0}" xml:space="preserve">
+    <value>理由: {0}</value>
+  </data>
   <data name="Reopen note" xml:space="preserve">
     <value>再オープン時のメモ</value>
   </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>再開時のメモ：{0}</value>
+  </data>
+  <data name="Reopened" xml:space="preserve">
+    <value>再開</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>解決済み</value>
   </data>
   <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>インシデント通知を、共通のSMTPサーバー経由で指定されたメールアドレスに送信します。</value>
@@ -126,8 +153,20 @@
   <data name="Severity: {0}" xml:space="preserve">
     <value>重大度: {0}</value>
   </data>
+  <data name="Test notification" xml:space="preserve">
+    <value>テスト通知</value>
+  </data>
+  <data name="The incident has been mitigated." xml:space="preserve">
+    <value>インシデントは緩和されました。</value>
+  </data>
+  <data name="The incident has been reopened and requires attention." xml:space="preserve">
+    <value>インシデントが再開され、対応が必要です。</value>
+  </data>
   <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
     <value>インシデントが再開されました。オンコール担当者は対応してください。</value>
+  </data>
+  <data name="The incident has been resolved." xml:space="preserve">
+    <value>インシデントは解決しました。</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>オンコールメールの受信者スナップショットが無効です。現在の OCE 配信を再選択できません。</value>

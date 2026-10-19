@@ -21,6 +21,12 @@
       <data name=" items" xml:space="preserve">
     <value>条目</value>
   </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>本页 {0} 个事件</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>可访问应用中有 {0} 起正在处理的事件</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>已确认</value>
   </data>
@@ -117,6 +123,9 @@
   <data name="Owner" xml:space="preserve">
     <value>负责人</value>
   </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>第 {0} 页</value>
+  </data>
   <data name="Pending Response" xml:space="preserve">
     <value>待响应</value>
   </data>
@@ -128,6 +137,18 @@
   </data>
   <data name="Previous page" xml:space="preserve">
     <value>上一页</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>接收时间</value>
+  </data>
+  <data name="Received at (UTC)" xml:space="preserve">
+    <value>接收时间（UTC）</value>
+  </data>
+  <data name="Received from (UTC)" xml:space="preserve">
+    <value>接收时间（UTC）</value>
+  </data>
+  <data name="Received through (UTC, inclusive)" xml:space="preserve">
+    <value>接收截至（UTC，含当日）</value>
   </data>
   <data name="Reset Filters" xml:space="preserve">
     <value>重置筛选条件</value>

@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>Kommentti ei voi olla tyhjä, eikä siinä saa olla yli 4 000 merkkiä.</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>Syötä täsmällinen tapahtuman otsikko vahvistaaksesi pysyvän poiston.</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>Virheelliset toimintoparametrit. Perustelun pituus saa olla enintään 4 000 merkkiä, ja vakavuustason on oltava välillä sev0–sev4.</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>Virheelliset kommentin parametrit. Päivitä sivu.</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>Tämä sovellus on poistettu käytöstä.</value>
   </data>
 
 </root>

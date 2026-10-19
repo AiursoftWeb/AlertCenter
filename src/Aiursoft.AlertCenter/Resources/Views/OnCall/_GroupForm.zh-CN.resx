@@ -18,7 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="All roles" xml:space="preserve">
+      <data name="Add members" xml:space="preserve">
+    <value>添加成员</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>添加成员不会分配班次。</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>高级排班设置</value>
+  </data>
+  <data name="All roles" xml:space="preserve">
     <value>所有角色</value>
   </data>
   <data name="Browse all employees by role" xml:space="preserve">
@@ -45,8 +54,29 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>请以 UTC 时间输入；系统不会根据团队时区自动转换。保存排班后，排班起始时间将无法更改。</value>
   </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>按角色筛选</value>
+  </data>
   <data name="Find" xml:space="preserve">
     <value>查找</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>帮助：通知抄送</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>帮助：角色筛选</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>帮助：轮换顺序</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>帮助：排班起始时间</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>帮助：排班模板</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>帮助：团队时区</value>
   </data>
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>成员可随时添加或移除；移除成员仅会清除尚未开始的排班，已开始和历史排班将予以保留。由此产生的空缺班次必须手动安排人员。</value>
@@ -59,6 +89,12 @@
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>下一页</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>目前还没有成员。打开“添加成员”以查找人员。</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>通知抄送（可选）</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>值班邮件抄送</value>
@@ -75,11 +111,32 @@
   <data name="Rotate Members" xml:space="preserve">
     <value>轮换成员</value>
   </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>轮换顺序</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
   <data name="Save team" xml:space="preserve">
     <value>保存团队</value>
   </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>保存将更新团队及成员。请在排班表中单独管理班次。</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>保存后，这些成员将从尚未开始的班次中移除。请检查排班表以填补空缺。</value>
+  </data>
   <data name="Scheduling Rule Template" xml:space="preserve">
     <value>排班规则模板</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>排班起始点（UTC）</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>改为按姓名搜索</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>可按姓名或账号搜索，或选择角色。</value>
   </data>
   <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>可按时区名称、城市或 UTC 偏移量搜索。排班锚点以 UTC 存储，并按团队时区显示。</value>
@@ -90,14 +147,35 @@
   <data name="Selected members (can be empty, max 200)" xml:space="preserve">
     <value>已选成员（可为空，最多 200 人）</value>
   </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>选择角色仅用于筛选搜索结果。请勾选具体人员以将其添加；团队成员身份不会与该角色保持同步。</value>
+  </data>
   <data name="Shift Start Time (UTC)" xml:space="preserve">
     <value>轮班开始时间（UTC）</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>团队成员</value>
   </data>
   <data name="Team name" xml:space="preserve">
     <value>团队名称</value>
   </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>团队设置</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>时区</value>
+  </data>
+  <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
+    <value>收件人：通知时已保存班次中的人员。抄送：以下可选地址，无论谁当值。请使用逗号、分号或换行符分隔；最多 50 个地址。</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>使用“上移”和“下移”来选择今后自动排班所采用的顺序。现有班次不会重新排序。最多可选择 200 名成员。</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>用于显示排班表。下方的高级排班起始时间点需单独以 UTC 时区输入。</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>查看排班表</value>
   </data>
 
 </root>

@@ -21,6 +21,9 @@
       <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
     <value>：API 密钥仅在成功创建或重置时显示一次。请立即将其配置到生产环境变量中（例如，</value>
   </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>：API 密钥成功创建后仅显示一次。请立即将其配置到生产环境变量中（例如，</value>
+  </data>
   <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
     <value>。推送调度已异步触发。</value>
   </data>
@@ -87,6 +90,9 @@
   <data name="Each business system authenticates requests using its own API key." xml:space="preserve">
     <value>每个业务系统都使用自己的 API 密钥对请求进行身份验证。</value>
   </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>每个密钥都属于一个应用程序。服务器会验证密钥哈希，并检查每项操作所需的权限。</value>
+  </data>
   <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
     <value>确保严格的并发幂等性；重试时使用相同的 ID。</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="Max 4,000 characters" xml:space="preserve">
     <value>最多 4,000 个字符</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>打开应用程序的 API 密钥管理，以创建具有查询、创建和解决权限的命名密钥。</value>
   </data>
   <data name="Optional" xml:space="preserve">
     <value>可选</value>

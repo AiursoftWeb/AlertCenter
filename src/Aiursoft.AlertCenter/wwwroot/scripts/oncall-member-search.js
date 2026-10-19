@@ -20,8 +20,11 @@
         selectedUsers.set(item.dataset.userId, { id: item.dataset.userId, name: item.dataset.name, username: item.dataset.username });
     }
 
+    const originalMembers = new Set([...form.querySelectorAll('[data-original-member-id]')].map(element => element.dataset.originalMemberId));
+
     function renderSelected() {
         selected.replaceChildren();
+        document.getElementById('oncall-removal-warning').classList.toggle('d-none', ![...originalMembers].some(id => !selectedUsers.has(id)));
         document.getElementById('oncall-members-empty').hidden = selectedUsers.size > 0;
         const users = [...selectedUsers.values()];
         for (const [index, user] of users.entries()) {
@@ -100,6 +103,7 @@
         }
         if (!users.length) status.textContent = getLocalizedText("no-matching-employees", "No matching employees.");
         pageLabel.textContent = users.length ? getLocalizedText("page", "Page {0}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(page)][Number(index)] ?? placeholder) : '';
+        document.getElementById('oncall-search-pagination').hidden = page === 1 && !hasMore;
         prev.disabled = page === 1;
         next.disabled = !hasMore;
     }

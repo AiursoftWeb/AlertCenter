@@ -42,5 +42,8 @@
   <data name="The selected user or role does not exist. Please refresh the page and try again." xml:space="preserve">
     <value>ไม่พบผู้ใช้หรือบทบาทที่เลือก โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
   </data>
+  <data name="Viewing incidents is required to update or delete them." xml:space="preserve">
+    <value>ต้องมีสิทธิ์ดูเหตุการณ์ก่อนจึงจะอัปเดตหรือลบเหตุการณ์ได้</value>
+  </data>
 
 </root>

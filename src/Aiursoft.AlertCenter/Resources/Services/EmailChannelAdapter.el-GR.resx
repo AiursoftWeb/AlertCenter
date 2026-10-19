@@ -48,6 +48,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>Ηλεκτρονικό ταχυδρομείο (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
+    <value>Οι ειδοποιήσεις μέσω email αποστέλλονται μόνο όταν δημιουργείται, μετριάζεται, επιλύεται ή ανοίγει ξανά ένα περιστατικό.</value>
+  </data>
   <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
     <value>Η αποστολή του email απέτυχε. Ελέγξτε τις ρυθμίσεις SMTP, το δίκτυο ή τον διακομιστή αλληλογραφίας.</value>
   </data>
@@ -66,8 +69,14 @@
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Αναγνωριστικό συμβάντος: {0}</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Επίλυση συμβάντος: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>Το περιστατικό άνοιξε ξανά: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Το περιστατικό επιλύθηκε: {0}</value>
   </data>
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Μη έγκυρη μορφή email κοινοποίησης (CC). Δεν υποστηρίζονται εμφανιζόμενα ονόματα.</value>
@@ -80,6 +89,12 @@
   </data>
   <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
     <value>Μη έγκυρη διαμόρφωση SMTP. Ελέγξτε τις ρυθμίσεις email.</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Ελεγχόμενη</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Νέο περιστατικό</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Κανένα</value>
@@ -108,11 +123,23 @@
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Παρακαλώ εισαγάγετε τη διεύθυνση email του παραλήπτη.</value>
   </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Αιτιολογία</value>
+  </data>
+  <data name="Reason: {0}" xml:space="preserve">
+    <value>Αιτία: {0}</value>
+  </data>
   <data name="Reopen note" xml:space="preserve">
     <value>Σημείωση επανανοίγματος</value>
   </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Σημείωση επανανοίγματος: {0}</value>
+  </data>
+  <data name="Reopened" xml:space="preserve">
+    <value>Επαναάνοιξη</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Resolved</value>
   </data>
   <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Αποστολή ειδοποιήσεων για περιστατικά στις καθορισμένες διευθύνσεις email μέσω του καθολικού διακομιστή SMTP.</value>
@@ -123,8 +150,20 @@
   <data name="Severity: {0}" xml:space="preserve">
     <value>Σοβαρότητα: {0}</value>
   </data>
+  <data name="Test notification" xml:space="preserve">
+    <value>Ειδοποίηση δοκιμής</value>
+  </data>
+  <data name="The incident has been mitigated." xml:space="preserve">
+    <value>Το περιστατικό έχει μετριαστεί.</value>
+  </data>
+  <data name="The incident has been reopened and requires attention." xml:space="preserve">
+    <value>Το περιστατικό άνοιξε ξανά και απαιτεί προσοχή.</value>
+  </data>
   <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
     <value>Το περιστατικό άνοιξε ξανά. Παρακαλώ ανταποκριθείτε, μηχανικέ σε εφημερία.</value>
+  </data>
+  <data name="The incident has been resolved." xml:space="preserve">
+    <value>Το περιστατικό έχει επιλυθεί.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Το στιγμιότυπο των παραληπτών του email εφημερίας δεν είναι έγκυρο· δεν είναι δυνατή η εκ νέου επιλογή της τρέχουσας παράδοσης OCE.</value>

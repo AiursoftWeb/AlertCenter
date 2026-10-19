@@ -21,11 +21,17 @@
       <data name="Comment cannot be empty and must not exceed 4,000 characters." xml:space="preserve">
     <value>コメントは空欄にできません。また、4,000文字以内で入力してください。</value>
   </data>
+  <data name="Enter the exact incident title to confirm permanent deletion." xml:space="preserve">
+    <value>恒久的な削除を確認するには、正確なインシデントタイトルを入力してください。</value>
+  </data>
   <data name="Invalid action parameters. The reason must not exceed 4,000 characters, and the severity level must be between sev0 and sev4." xml:space="preserve">
     <value>アクションパラメーターが無効です。理由は4,000文字以内で、重大度レベルはsev0からsev4の範囲で指定してください。</value>
   </data>
   <data name="Invalid comment parameters. Please refresh the page." xml:space="preserve">
     <value>コメントのパラメーターが無効です。ページを再読み込みしてください。</value>
+  </data>
+  <data name="This application is disabled." xml:space="preserve">
+    <value>このアプリケーションは無効になっています。</value>
   </data>
 
 </root>

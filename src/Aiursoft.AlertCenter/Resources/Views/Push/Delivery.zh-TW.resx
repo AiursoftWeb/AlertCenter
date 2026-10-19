@@ -48,6 +48,9 @@
   <data name="Completed at " xml:space="preserve">
     <value>完成時間：</value>
   </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>完成時間</value>
+  </data>
   <data name="Completion Time (UTC)" xml:space="preserve">
     <value>完成時間（UTC）</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Copy Full ID" xml:space="preserve">
     <value>複製完整 ID</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>建立時間</value>
   </data>
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>建立時間（UTC）</value>
@@ -93,6 +99,9 @@
   <data name="Dispatch attempts" xml:space="preserve">
     <value>派送嘗試次數</value>
   </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>派送時間軸</value>
+  </data>
   <data name="Dispatch timeline (UTC)" xml:space="preserve">
     <value>派送時間軸（UTC）</value>
   </data>
@@ -108,8 +117,14 @@
   <data name="Enter Delivery Queue" xml:space="preserve">
     <value>進入傳送佇列</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>事件已緩解：{0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>事件已重新開啟：{0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>事故已解決：{0}</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>未完成</value>
@@ -155,6 +170,9 @@
   </data>
   <data name="Shift: " xml:space="preserve">
     <value>值班時段：</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>快照時間</value>
   </data>
   <data name="Snapshot time (" xml:space="preserve">
     <value>快照時間（</value>

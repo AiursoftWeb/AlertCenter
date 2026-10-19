@@ -51,6 +51,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>Email (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
+    <value>Le notifiche email vengono inviate solo quando un incidente viene creato, mitigato, risolto o riaperto.</value>
+  </data>
   <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
     <value>Invio dell&apos;e-mail non riuscito. Controlla la configurazione SMTP, la rete o il server di posta.</value>
   </data>
@@ -69,8 +72,14 @@
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>ID incidente: {0}</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incidente mitigato: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>Incidente riaperto: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incidente risolto: {0}</value>
   </data>
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Formato dell’indirizzo email CC non valido. I nomi visualizzati non sono supportati.</value>
@@ -83,6 +92,12 @@
   </data>
   <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
     <value>Configurazione SMTP non valida. Controllare le impostazioni dell’email.</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Mitigated</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Nuovo incidente</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Nessuno</value>
@@ -111,11 +126,23 @@
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Inserisci l’indirizzo email del destinatario.</value>
   </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Motivo</value>
+  </data>
+  <data name="Reason: {0}" xml:space="preserve">
+    <value>Motivo: {0}</value>
+  </data>
   <data name="Reopen note" xml:space="preserve">
     <value>Nota di riapertura</value>
   </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Nota della riapertura: {0}</value>
+  </data>
+  <data name="Reopened" xml:space="preserve">
+    <value>Reopened</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Risolto</value>
   </data>
   <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Invia notifiche di incidenti agli indirizzi email specificati tramite il server SMTP globale.</value>
@@ -126,8 +153,20 @@
   <data name="Severity: {0}" xml:space="preserve">
     <value>Gravità: {0}</value>
   </data>
+  <data name="Test notification" xml:space="preserve">
+    <value>Notifica di test</value>
+  </data>
+  <data name="The incident has been mitigated." xml:space="preserve">
+    <value>L’incidente è stato mitigato.</value>
+  </data>
+  <data name="The incident has been reopened and requires attention." xml:space="preserve">
+    <value>L&apos;incidente è stato riaperto e richiede attenzione.</value>
+  </data>
   <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
     <value>L&apos;incidente è stato riaperto. Si prega di intervenire, ingegnere reperibile.</value>
+  </data>
+  <data name="The incident has been resolved." xml:space="preserve">
+    <value>L’incidente è stato risolto.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Lo snapshot dei destinatari dell’email di reperibilità non è valido; impossibile riselezionare la consegna OCE corrente.</value>

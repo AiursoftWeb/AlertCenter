@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="API Key" xml:space="preserve">
+    <value>API 金鑰</value>
+  </data>
+  <data name="API Key created" xml:space="preserve">
+    <value>API 金鑰已建立</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>API 金鑰管理</value>
+  </data>
+  <data name="Application API Keys" xml:space="preserve">
+    <value>應用程式 API 金鑰</value>
+  </data>
+  <data name="Back to applications" xml:space="preserve">
+    <value>返回應用程式列表</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>呼叫次數</value>
+  </data>
+  <data name="Calls include authenticated requests, including rejected operations. Times are shown in your local time zone." xml:space="preserve">
+    <value>呼叫次數包含已驗證的請求，也包含遭拒絕的操作。時間會以您的當地時區顯示。</value>
+  </data>
+  <data name="Change severity" xml:space="preserve">
+    <value>變更嚴重程度</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>建立</value>
+  </data>
+  <data name="Create API Key" xml:space="preserve">
+    <value>建立 API 金鑰</value>
+  </data>
+  <data name="Created on" xml:space="preserve">
+    <value>建立於</value>
+  </data>
+  <data name="Delete key" xml:space="preserve">
+    <value>刪除金鑰</value>
+  </data>
+  <data name="Delete permanently" xml:space="preserve">
+    <value>永久刪除</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="Enter the exact key name to confirm deletion." xml:space="preserve">
+    <value>請輸入完全相同的金鑰名稱以確認刪除。</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>金鑰</value>
+  </data>
+  <data name="Last used" xml:space="preserve">
+    <value>上次使用</value>
+  </data>
+  <data name="Mitigate" xml:space="preserve">
+    <value>緩解</value>
+  </data>
+  <data name="No API keys yet. Create a key for each integration." xml:space="preserve">
+    <value>目前還沒有 API 金鑰。請為每個整合建立一個金鑰。</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="Patch metadata" xml:space="preserve">
+    <value>修補中繼資料</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>權限</value>
+  </data>
+  <data name="Query" xml:space="preserve">
+    <value>查詢</value>
+  </data>
+  <data name="Resolve" xml:space="preserve">
+    <value>解決</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="This application is disabled. All of its API keys are inactive." xml:space="preserve">
+    <value>此應用程式已停用。其所有 API 金鑰皆已失效。</value>
+  </data>
+  <data name="This key is displayed only once. Save it in your private application configuration." xml:space="preserve">
+    <value>此金鑰僅顯示一次。請將其儲存在您的私人應用程式設定中。</value>
+  </data>
+
+</root>

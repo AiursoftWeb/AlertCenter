@@ -6,9 +6,15 @@
         <input type="hidden" name="id" value="@Model.SelectedGroupId" />
     }
     <input asp-for="GroupInput.Version" type="hidden" />
+    <div hidden>
+        @foreach (var member in Model.Groups.SingleOrDefault(group => group.Id == Model.SelectedGroupId)?.Members ?? [])
+        {
+            <span data-original-member-id="@member.UserId"></span>
+        }
+    </div>
     <div asp-validation-summary="All" class="text-danger mb-3"></div>
     <fieldset class="border rounded p-3 mb-4" id="group-settings">
-        <legend class="float-none w-auto px-2 h5">@Localizer["1. Set up the group and notifications"]</legend>
+        <legend class="float-none w-auto px-2 h5">@Localizer["Team settings"]</legend>
         <div class="row g-3 mb-3">
             <div class="col-md-6">
                 <label asp-for="GroupInput.Name" class="form-label">@Localizer["Team name"]</label>
@@ -16,53 +22,29 @@
             </div>
             <div class="col-md-6">
                 <label asp-for="GroupInput.TimeZoneId" class="form-label">@Localizer["Time Zone"]</label>
+                <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@Localizer["Used to display the schedule. The advanced scheduling start point below is entered separately in UTC."].Value" aria-label="@Localizer["Help: team time zone"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
                 <select asp-for="GroupInput.TimeZoneId" asp-items="Model.TimeZones" class="form-select" required></select>
-                <div class="form-text">@Localizer["Used to display the schedule. The advanced scheduling start point below is entered separately in UTC."]</div>
             </div>
         </div>
         @if (Model.CanManageOnCall)
         {
-            <div class="mb-3">
-                <label asp-for="GroupInput.EmailCcRecipients" class="form-label">@Localizer["On-call email CC"]</label>
-                <textarea asp-for="GroupInput.EmailCcRecipients" class="form-control" rows="4" maxlength="8000" aria-describedby="oncall-email-cc-help"></textarea>
-                <span asp-validation-for="GroupInput.EmailCcRecipients" class="text-danger"></span>
-                <div id="oncall-email-cc-help" class="form-text">@Localizer["To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses."]</div>
-            </div>
+            <details open="@(ViewData.ModelState["GroupInput.EmailCcRecipients"]?.Errors.Count > 0)">
+                <summary class="mb-2">@Localizer["Notification CC (optional)"]</summary>
+                <div class="mb-3">
+                    <label asp-for="GroupInput.EmailCcRecipients" class="form-label">@Localizer["On-call email CC"]</label>
+                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@Localizer["To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses."].Value" aria-label="@Localizer["Help: notification CC"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
+                    <textarea asp-for="GroupInput.EmailCcRecipients" class="form-control" rows="2" maxlength="8000"></textarea>
+                    <span asp-validation-for="GroupInput.EmailCcRecipients" class="text-danger"></span>
+                </div>
+            </details>
         }
     </fieldset>
     <fieldset class="border rounded p-3 mb-4" id="group-members">
-        <legend class="float-none w-auto px-2 h5">@Localizer["2. Choose who can be on call"]</legend>
-        <p>@Localizer["These are the people available for scheduling. Joining this list does not put someone on duty or send them an incident email."]</p>
-        <h3 class="h6">@Localizer["Find people to add"]</h3>
-        <p class="text-muted small">@Localizer["Search by name or account, or browse a role. Tick individual people to add them. Selecting a role only filters the search; membership is not synchronized with that role."]</p>
-        <p class="text-muted small">@Localizer["Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed."]</p>
-        <div class="row g-2 mb-2">
-            <div class="col-md-5">
-                <label for="oncall-user-search" class="form-label">@Localizer["Search Employees"]</label>
-                <input id="oncall-user-search" type="search" maxlength="100" class="form-control" placeholder="@Localizer["Name or Account"]" autocomplete="off" />
-            </div>
-            <div class="col-md-5">
-                <label for="oncall-role" class="form-label">@Localizer["Browse all employees by role"]</label>
-                <select id="oncall-role" class="form-select">
-                    <option value="">@Localizer["Search by name instead"]</option>
-                    @foreach (var role in Model.Roles)
-                    {
-                        <option value="@role.Value">@role.Text</option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-2 align-self-end"><button id="oncall-search-button" type="button" class="btn btn-outline-primary w-100">@Localizer["Find"]</button></div>
-        </div>
-        <div id="oncall-search-status" class="small text-muted mb-2" role="status">@Localizer["Enter a keyword to search, or select a role to immediately view all employees in that role."]</div>
-        <div id="oncall-search-results" class="list-group mb-2"></div>
-        <div class="d-flex gap-2 mb-3">
-            <button type="button" id="oncall-prev" class="btn btn-sm btn-outline-secondary" disabled>@Localizer["Previous Page"]</button>
-            <span id="oncall-page" class="small align-self-center"></span>
-            <button type="button" id="oncall-next" class="btn btn-sm btn-outline-secondary" disabled>@Localizer["Next Page"]</button>
-        </div>
-        <h4 class="h6">@Localizer["Selected members in rotation order (maximum 200)"]</h4>
-        <p id="oncall-members-empty" class="text-muted" hidden="@((Model.GroupInput.UserIds?.Count ?? 0) > 0)">@Localizer["No members selected. Find people above and tick their names to add them."]</p>
-        <p class="small text-muted">@Localizer["Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered."]</p>
+        <legend class="float-none w-auto px-2 h5">@Localizer["Team members"]</legend>
+        <p class="text-muted small">@Localizer["Adding members does not assign shifts."]</p>
+        <h3 class="h6 d-inline">@Localizer["Rotation order"]</h3>
+        <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@Localizer["Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members."].Value" aria-label="@Localizer["Help: rotation order"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
+        <p id="oncall-members-empty" class="text-muted" hidden="@((Model.GroupInput.UserIds?.Count ?? 0) > 0)">@Localizer["No members yet. Open Add members to find people."]</p>
         <ol id="oncall-selected" class="list-group list-group-numbered mb-3">
             @foreach (var userId in Model.GroupInput.UserIds ?? [])
             {
@@ -74,15 +56,43 @@
                 </li>
             }
         </ol>
+        <div id="oncall-removal-warning" class="alert alert-warning d-none" role="status"><div class="alert-message">@Localizer["Saving will remove these members from shifts that have not started. Review the schedule for gaps."]</div></div>
+        <details id="oncall-add-members">
+            <summary class="mb-3">@Localizer["Add members"]</summary>
+            <div class="row g-2 mb-2">
+                <div class="col-md-5">
+                    <label for="oncall-user-search" class="form-label">@Localizer["Search Employees"]</label>
+                    <input id="oncall-user-search" type="search" maxlength="100" class="form-control" placeholder="@Localizer["Name or Account"]" autocomplete="off" />
+                </div>
+                <div class="col-md-5">
+                    <label for="oncall-role" class="form-label">@Localizer["Filter by role"]</label>
+                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@Localizer["Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role."].Value" aria-label="@Localizer["Help: role filter"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
+                    <select id="oncall-role" class="form-select">
+                        <option value="">@Localizer["Search by name instead"]</option>
+                        @foreach (var role in Model.Roles)
+                        {
+                            <option value="@role.Value">@role.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2 align-self-end"><button id="oncall-search-button" type="button" class="btn btn-outline-primary w-100">@Localizer["Find"]</button></div>
+            </div>
+            <div id="oncall-search-status" class="small text-muted mb-2" role="status">@Localizer["Search by name or account, or choose a role."]</div>
+            <div id="oncall-search-results" class="list-group mb-2"></div>
+            <div id="oncall-search-pagination" hidden><div class="d-flex gap-2 mb-3">
+                <button type="button" id="oncall-prev" class="btn btn-sm btn-outline-secondary" disabled>@Localizer["Previous Page"]</button>
+                <span id="oncall-page" class="small align-self-center"></span>
+                <button type="button" id="oncall-next" class="btn btn-sm btn-outline-secondary" disabled>@Localizer["Next Page"]</button>
+            </div></div>
+        </details>
     </fieldset>
-    <fieldset class="border rounded p-3 mb-4" id="group-scheduling">
-        <legend class="float-none w-auto px-2 h5">@Localizer["3. Prepare the schedule"]</legend>
-        <p>@Localizer["Save this group first, then open its schedule to assign people to shifts. Only saved shifts determine who receives on-call emails."]</p>
-        <details open="@(!Model.GroupHasSavedSchedule)">
-            <summary class="mb-3">@Localizer["Scheduling options: rule template and UTC start point"]</summary>
+    <div class="mb-4" id="group-scheduling">
+        <details id="oncall-scheduling-options" open="@(ViewData.ModelState["GroupInput.AnchorUtc"]?.Errors.Count > 0 || ViewData.ModelState["GroupInput.RuleId"]?.Errors.Count > 0)">
+            <summary class="mb-3">@Localizer["Advanced scheduling settings"]</summary>
             <div class="row g-3 mb-3">
                 <div class="col-md-6">
                     <label asp-for="GroupInput.RuleId" class="form-label">@Localizer["Scheduling Rule Template"]</label>
+                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@Localizer["Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts."].Value" aria-label="@Localizer["Help: scheduling template"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
                     <select asp-for="GroupInput.RuleId" class="form-select">
                         <option value="">@Localizer["Do not bind template (manual scheduling)"]</option>
                         @foreach (var rule in Model.Rules)
@@ -90,10 +100,10 @@
                             <option value="@rule.Id">@rule.Name</option>
                         }
                     </select>
-                    <div class="form-text">@Localizer["Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts."]</div>
                 </div>
                 <div class="col-md-6">
                     <label for="anchor-utc" class="form-label">@Localizer["Scheduling start point (UTC)"]</label>
+                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@Localizer["Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed."].Value" aria-label="@Localizer["Help: scheduling start point"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
                     @if (Model.GroupHasSavedSchedule)
                     {
                         <input type="hidden" name="GroupInput.AnchorUtc" value="@Model.GroupInput.AnchorUtc?.ToString("O")" />
@@ -103,14 +113,17 @@
                     {
                         <input id="anchor-utc" name="GroupInput.AnchorUtc" type="datetime-local" class="form-control" required value="@Model.GroupInput.AnchorUtc?.ToString("yyyy-MM-ddTHH:mm")" />
                     }
-                    <div class="form-text">@Localizer["Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed."]</div>
                 </div>
             </div>
         </details>
-    </fieldset>
-    <div class="alert alert-info" role="note"><div class="alert-message">@Localizer["Saving this form updates the group and its member list. It does not generate or publish a schedule. Removing a member clears their future assignments; review the schedule for gaps."]</div></div>
+    </div>
+    <p class="small text-muted">@Localizer["Saving updates the team and members. Manage shifts separately in the schedule."]</p>
     <div class="d-flex flex-wrap gap-2">
-        <button type="submit" class="btn btn-primary">@Localizer["Save group settings and members"]</button>
+        <button type="submit" class="btn btn-primary">@Localizer["Save changes"]</button>
         <a asp-action="Groups" class="btn btn-outline-secondary">@Localizer["Cancel"]</a>
+        @if (Model.SelectedGroupId.HasValue)
+        {
+            <a asp-action="ScheduleDetails" asp-route-id="@Model.SelectedGroupId" class="btn btn-outline-secondary">@Localizer["View schedule"]</a>
+        }
     </div>
 </form>

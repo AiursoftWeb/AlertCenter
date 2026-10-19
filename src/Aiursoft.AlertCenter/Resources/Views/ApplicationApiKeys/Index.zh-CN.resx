@@ -42,6 +42,9 @@
   <data name="Calls include authenticated requests, including rejected operations. Times are shown in UTC." xml:space="preserve">
     <value>调用次数包含经过身份验证的请求，包括被拒绝的操作。时间以 UTC 显示。</value>
   </data>
+  <data name="Calls include authenticated requests, including rejected operations. Times are shown in your local time zone." xml:space="preserve">
+    <value>调用次数包括已通过身份验证的请求，也包括被拒绝的操作。时间均以您的本地时区显示。</value>
+  </data>
   <data name="Change severity" xml:space="preserve">
     <value>更改严重程度</value>
   </data>
@@ -68,6 +71,9 @@
   </data>
   <data name="Key" xml:space="preserve">
     <value>密钥</value>
+  </data>
+  <data name="Last used" xml:space="preserve">
+    <value>最后使用时间</value>
   </data>
   <data name="Last used (UTC)" xml:space="preserve">
     <value>最后使用时间（UTC）</value>

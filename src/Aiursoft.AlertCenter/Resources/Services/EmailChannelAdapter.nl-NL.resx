@@ -51,6 +51,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>E-mail (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
+    <value>E-mailmeldingen worden alleen verzonden wanneer een incident is aangemaakt, gemitigeerd, opgelost of opnieuw geopend.</value>
+  </data>
   <data name="Email sending failed. Please check SMTP configuration, network, or mail server." xml:space="preserve">
     <value>E-mail verzenden is mislukt. Controleer de SMTP-configuratie, het netwerk of de mailserver.</value>
   </data>
@@ -69,8 +72,14 @@
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Incident-ID: {0}</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incident gemitigeerd: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>Incident heropend: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incident opgelost: {0}</value>
   </data>
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Ongeldig CC-e-mailformaat. Weergavenamen worden niet ondersteund.</value>
@@ -83,6 +92,12 @@
   </data>
   <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
     <value>Ongeldige SMTP-configuratie. Controleer de e-mailinstellingen.</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Gemitigeerd</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>Nieuwe incident</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Geen</value>
@@ -111,11 +126,23 @@
   <data name="Please enter the recipient email address." xml:space="preserve">
     <value>Voer het e-mailadres van de ontvanger in.</value>
   </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reden</value>
+  </data>
+  <data name="Reason: {0}" xml:space="preserve">
+    <value>Reden: {0}</value>
+  </data>
   <data name="Reopen note" xml:space="preserve">
     <value>Notitie bij heropening</value>
   </data>
   <data name="Reopen note: {0}" xml:space="preserve">
     <value>Notitie bij heropening: {0}</value>
+  </data>
+  <data name="Reopened" xml:space="preserve">
+    <value>Opnieuw geopend</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Opgelost</value>
   </data>
   <data name="Send incident notifications to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Stuur incidentmeldingen naar opgegeven e-mailadressen via de centrale SMTP-server.</value>
@@ -126,8 +153,20 @@
   <data name="Severity: {0}" xml:space="preserve">
     <value>Ernst: {0}</value>
   </data>
+  <data name="Test notification" xml:space="preserve">
+    <value>Testmelding</value>
+  </data>
+  <data name="The incident has been mitigated." xml:space="preserve">
+    <value>Het incident is onder controle gebracht.</value>
+  </data>
+  <data name="The incident has been reopened and requires attention." xml:space="preserve">
+    <value>Het incident is heropend en vereist aandacht.</value>
+  </data>
   <data name="The incident has been reopened. Please respond, on-call engineer." xml:space="preserve">
     <value>Het incident is heropend. Reageer alstublieft, dienstdoende technicus.</value>
+  </data>
+  <data name="The incident has been resolved." xml:space="preserve">
+    <value>Het incident is opgelost.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>De momentopname van de e-mailontvangers voor de dienstdoende medewerker is ongeldig; de huidige OCE-levering kan niet opnieuw worden geselecteerd.</value>

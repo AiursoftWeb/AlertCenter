@@ -18,7 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Acknowledged" xml:space="preserve">
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>確認並承擔責任</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
     <value>已確認</value>
   </data>
   <data name="Acknowledged (Acked)" xml:space="preserve">
@@ -32,6 +35,9 @@
   </data>
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>調整此事件的嚴重程度，並記錄原因。</value>
+  </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>另外，請立即解決此事件，並以緩解原因作為解決原因。</value>
   </data>
   <data name="Auto-create incident" xml:space="preserve">
     <value>自動建立事故</value>
@@ -114,6 +120,9 @@
   <data name="handling nodes" xml:space="preserve">
     <value>處理節點</value>
   </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>本人確認此事件已完全解決，並不會再次發生。</value>
+  </data>
   <data name="Incident event" xml:space="preserve">
     <value>事故事件</value>
   </data>
@@ -123,11 +132,17 @@
   <data name="Incident owner:" xml:space="preserve">
     <value>事故負責人：</value>
   </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>事件標題</value>
+  </data>
   <data name="Incident War Room - {0}" xml:space="preserve">
     <value>事故應變室 - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>獨立事故</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>最後確認時間</value>
   </data>
   <data name="Log investigation and handling progress" xml:space="preserve">
     <value>記錄調查及處理進度</value>
@@ -144,6 +159,9 @@
   <data name="Mitigation reason (required)" xml:space="preserve">
     <value>緩解原因（必填）</value>
   </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>緩解時間</value>
+  </data>
   <data name="Mitigation time (UTC)" xml:space="preserve">
     <value>緩解時間（UTC）</value>
   </data>
@@ -156,8 +174,14 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>目前沒有當值 OCE。</value>
   </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>未確認</value>
+  </data>
   <data name="Not set" xml:space="preserve">
     <value>未設定</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>發生時間</value>
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>發生時間（UTC）</value>
@@ -171,6 +195,12 @@
   <data name="Pending Response (New)" xml:space="preserve">
     <value>等待回應（新建）</value>
   </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>永久刪除</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>永久刪除事件</value>
+  </data>
   <data name="Progress" xml:space="preserve">
     <value>進度</value>
   </data>
@@ -183,11 +213,17 @@
   <data name="Reason for adjustment (required)" xml:space="preserve">
     <value>調整原因（必填）</value>
   </data>
+  <data name="Received at" xml:space="preserve">
+    <value>接收時間</value>
+  </data>
   <data name="Received at (UTC)" xml:space="preserve">
     <value>接收時間（UTC）</value>
   </data>
   <data name="Record investigation clues, emergency mitigation measures, impact scope assessment, or system recovery progress in real-time..." xml:space="preserve">
     <value>即時記錄調查線索、緊急緩解措施、影響範圍評估或系統復原進度……</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>記錄緩解措施，然後填寫解決原因。重新開啟將使此事件回到未緩解狀態，同時保留確認及負責人資訊。</value>
   </data>
   <data name="Record mitigation measures, then a resolution reason. Reopening this incident restores Pending Response, clears the assignee, and emails the current on-call OCE." xml:space="preserve">
     <value>記錄緩解措施，然後填寫解決原因。重新開啟此事故會將狀態恢復為「等待回應」、清除負責人，並向目前當值的 OCE 發送電郵。</value>
@@ -204,6 +240,9 @@
   <data name="Reopening restores the &quot;Pending Response&quot; status and clears the assignee, and emails the current on-call OCE. The incident must be re-acknowledged and claimed." xml:space="preserve">
     <value>重新開啟後，事件會恢復為「等待回應」狀態，並清除負責人，同時電郵通知目前當值的 OCE。事件必須重新確認並認領。</value>
   </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>重新開啟此事件會使其回復至尚未緩解的處理狀態。先前的確認及負責人資料會保留。電郵將排入佇列，發送給已設定的收件者。</value>
+  </data>
   <data name="Report ID" xml:space="preserve">
     <value>報告 ID</value>
   </data>
@@ -212,6 +251,9 @@
   </data>
   <data name="Resolution reason (required)" xml:space="preserve">
     <value>解決原因（必填）</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>解決時間</value>
   </data>
   <data name="Resolution time (UTC)" xml:space="preserve">
     <value>解決時間（UTC）</value>
@@ -261,11 +303,17 @@
   <data name="Take Over Notes (Optional)" xml:space="preserve">
     <value>接手備註（可選）</value>
   </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>此操作會永久刪除事件及其歷史記錄。請輸入事件的完整標題以確認。</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>總計</value>
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>未指派</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>未緩解</value>
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>用戶已刪除</value>

@@ -21,14 +21,26 @@
       <data name=" items" xml:space="preserve">
     <value>items</value>
   </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} incidents on this page</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0} ongoing incidents across accessible applications</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>Acknowledged</value>
   </data>
   <data name="Acknowledged (Acked)" xml:space="preserve">
     <value>Acknowledged (Acked)</value>
   </data>
+  <data name="Acknowledgement" xml:space="preserve">
+    <value>Acknowledgement</value>
+  </data>
   <data name="Adjust filter conditions or reset to view all records." xml:space="preserve">
     <value>Adjust the filter criteria or reset them to view all records.</value>
+  </data>
+  <data name="All acknowledgements" xml:space="preserve">
+    <value>All acknowledgements</value>
   </data>
   <data name="All applications" xml:space="preserve">
     <value>All applications</value>
@@ -96,11 +108,17 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>No matching incidents</value>
   </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Not acknowledged</value>
+  </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>ongoing incidents</value>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Page {0}</value>
   </data>
   <data name="Pending Response" xml:space="preserve">
     <value>Awaiting response</value>
@@ -113,6 +131,15 @@
   </data>
   <data name="Previous page" xml:space="preserve">
     <value>Previous page</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Received at</value>
+  </data>
+  <data name="Received from (UTC)" xml:space="preserve">
+    <value>Received from (UTC)</value>
+  </data>
+  <data name="Received through (UTC, inclusive)" xml:space="preserve">
+    <value>Received up to (UTC, inclusive)</value>
   </data>
   <data name="Reset Filters" xml:space="preserve">
     <value>Reset filters</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Unassigned</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Not mitigated</value>
   </data>
 
 </root>
