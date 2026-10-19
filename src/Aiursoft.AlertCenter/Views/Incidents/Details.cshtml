@@ -146,6 +146,27 @@
                         }
                     </ul>
                 }
+                <hr />
+                <h3 class="h6">@Localizer["OCE at incident occurrence"]</h3>
+                @if (Model.OriginalOceSnapshot is { } original)
+                {
+                    <p class="text-muted mb-2">@original.GroupName · <span data-utc-time="@original.NotificationAtUtc.ToHtmlDateTime()"></span></p>
+                    <ul class="list-unstyled mb-2">
+                        @foreach (var person in original.Recipients)
+                        {
+                            <li class="text-break"><strong>@person.DisplayName</strong></li>
+                        }
+                    </ul>
+                    @if (original.ValidationError != null)
+                    {
+                        <div class="alert alert-warning mb-2" role="alert"><div class="alert-message text-break">@original.ValidationError</div></div>
+                    }
+                    <p class="text-muted mb-0">@Localizer["Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients."]</p>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">@Localizer["No original OCE snapshot is available. The current OCE is not substituted for historical email recipients."]</p>
+                }
                 @if (incident.AcknowledgedAtUtc.HasValue || incident.MitigatedAtUtc.HasValue || incident.ResolvedAtUtc.HasValue)
                 {
                     <dl class="mb-0 mt-3 pt-3 border-top text-muted">

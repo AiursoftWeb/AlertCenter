@@ -183,7 +183,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             .AppendLine()
             .AppendLine(string.Format(localizer["Title: {0}"].Value, title))
             .AppendLine(string.Format(localizer["Severity: {0}"].Value, level))
-            .AppendLine(string.Format(localizer["Occurred at (UTC): {0:O}"].Value, message?.OccurredAtUtc ?? delivery.CreatedAtUtc))
+            .AppendLine(string.Format(localizer["Occurred at (UTC): {0:O}"].Value, (message ?? incidentEvent?.Incident)?.OccurredAtUtc ?? delivery.CreatedAtUtc))
             .AppendLine(string.Format(localizer["Delivery ID: {0}"].Value, delivery.Id));
         if (incidentEvent != null)
             body.AppendLine(string.Format(localizer["Incident ID: {0}"].Value, incidentEvent.IncidentId)).AppendLine(string.Format(localizer["Action time (UTC): {0:O}"].Value, incidentEvent.CreatedAtUtc))
