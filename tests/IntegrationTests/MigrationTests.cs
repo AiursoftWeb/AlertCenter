@@ -298,10 +298,17 @@ public class MigrationTests
         var reopened = new Incident { Application = application, Title = "Previously reopened", Status = Incident.New };
         var resolved = new Incident { Application = application, Title = "Already resolved", Status = Incident.Resolved,
             AcknowledgedAtUtc = latestTime.AddHours(1), MitigatedAtUtc = oldTime, ResolvedAtUtc = latestTime };
-        context.Incidents.AddRange(legacy, reopened, resolved);
+        context.Users.Add(owner);
+        context.SourceApplications.Add(application);
+        await context.SaveChangesAsync();
+        // Seed the historical schema explicitly; the current entity also contains newer columns.
         foreach (var item in new[] { legacy, reopened, resolved })
-            context.IncidentTimelineEntries.Add(new IncidentTimelineEntry { Incident = item, Type = IncidentTimelineEntry.Acked,
-                Actor = owner, ActorIdSnapshot = owner.Id, ActorName = owner.DisplayName, CreatedAtUtc = latestTime });
+        {
+            var ownerId = item.Owner?.Id;
+            await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO Incidents (Id, ApplicationId, ReportId, Title, Level, Status, Version, OccurredAtUtc, ReceivedAtUtc, OwnerId, OwnerDisplayName, AcknowledgedAtUtc, MitigatedAtUtc, ResolvedAtUtc) VALUES ({item.Id}, {application.Id}, {item.ReportId}, {item.Title}, {item.Level}, {item.Status}, {item.Version}, {item.OccurredAtUtc}, {item.ReceivedAtUtc}, {ownerId}, {item.OwnerDisplayName}, {item.AcknowledgedAtUtc}, {item.MitigatedAtUtc}, {item.ResolvedAtUtc})");
+            context.IncidentTimelineEntries.Add(new IncidentTimelineEntry { IncidentId = item.Id, Type = IncidentTimelineEntry.Acked,
+                ActorId = owner.Id, ActorIdSnapshot = owner.Id, ActorName = owner.DisplayName, CreatedAtUtc = latestTime });
+        }
         await context.SaveChangesAsync();
         var version = legacy.Version;
         await context.Database.MigrateAsync();
@@ -326,7 +333,7 @@ public class MigrationTests
         Assert.IsTrue(await context.IncidentTimelineEntries.AllAsync(entry => entry.Type == IncidentTimelineEntry.Acked && entry.ActorIdSnapshot == owner.Id));
         await context.GetService<IMigrator>().MigrateAsync("20261019033852_IncidentMitigationScope");
         context.ChangeTracker.Clear();
-        Assert.AreEqual(Incident.Acked, (await context.Incidents.SingleAsync(item => item.Id == legacy.Id)).Status);
+        Assert.AreEqual(Incident.Acked, await context.Database.SqlQuery<string>($"SELECT Status AS Value FROM Incidents WHERE Id = {legacy.Id}").SingleAsync());
         await context.Database.MigrateAsync();
         context.ChangeTracker.Clear();
         Assert.IsTrue((await context.Incidents.SingleAsync(item => item.Id == legacy.Id)).IsAcknowledged);
