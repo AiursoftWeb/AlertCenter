@@ -280,6 +280,91 @@ public partial class IncidentPagesTests
         Assert.AreEqual(0, await afterScope.ServiceProvider.GetRequiredService<TemplateDbContext>().IncidentComments.CountAsync());
     }
 
+    [TestMethod]
+    public async Task TimelineMixesEventsAndCommentsAcrossPagesWithStableTiesAndDeletedPlaceholders()
+    {
+        var id = await CreateCommentIncident();
+        var url = $"/Incidents/Details/{id}";
+        var start = new DateTime(2026, 10, 1, 12, 0, 0, DateTimeKind.Utc);
+        var expected = new List<string>();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var created = await db.IncidentTimelineEntries.SingleAsync();
+            created.CreatedAtUtc = start.AddMinutes(-1);
+            for (var index = 23; index >= 0; index--)
+            {
+                var itemId = Guid.Parse($"00000000-0000-0000-0000-{index + 100:D12}");
+                if (index == 4)
+                {
+                    foreach (var suffix in new[] { 2, 1 })
+                    {
+                        var tiedId = Guid.Parse($"00000000-0000-0000-0000-{suffix:D12}");
+                        db.IncidentComments.Add(new IncidentComment
+                        {
+                            Id = tiedId, IncidentId = id, AuthorName = "Engineer", Markdown = $"Tied comment {suffix}",
+                            CreatedAtUtc = start.AddMinutes(index)
+                        });
+                        expected.Add($"incident-comment-{tiedId}");
+                    }
+                }
+                if (index % 2 == 0)
+                {
+                    db.IncidentTimelineEntries.Add(new IncidentTimelineEntry
+                    {
+                        Id = itemId, IncidentId = id, Type = IncidentTimelineEntry.Updated,
+                        Note = $"Progress {index}", CreatedAtUtc = start.AddMinutes(index)
+                    });
+                    expected.Add($"incident-event-{itemId}");
+                }
+                else
+                {
+                    db.IncidentComments.Add(new IncidentComment
+                    {
+                        Id = itemId, IncidentId = id, AuthorName = "Engineer", Markdown = $"Evidence {index}",
+                        CreatedAtUtc = start.AddMinutes(index),
+                        DeletedAtUtc = index == 13 ? start.AddDays(1) : null,
+                        DeletedByName = index == 13 ? "Reviewer" : null
+                    });
+                    expected.Add($"incident-comment-{itemId}");
+                }
+            }
+            expected.Add($"incident-event-{created.Id}");
+            var other = new Incident { ApplicationId = (await db.Incidents.SingleAsync()).ApplicationId, Title = "Other incident" };
+            db.Incidents.Add(other);
+            db.IncidentComments.Add(new IncidentComment { Incident = other, AuthorName = "Engineer", Markdown = "Other incident evidence" });
+            db.IncidentTimelineEntries.Add(new IncidentTimelineEntry { Incident = other, Note = "Other incident event" });
+            await db.SaveChangesAsync();
+        }
+        static List<string> ActivityIds(string html) => Regex.Matches(html, "<article[^>]*id=\"(incident-(?:event|comment)-[^\"]+)\"")
+            .Select(match => match.Groups[1].Value).ToList();
+        var first = await Http.GetStringAsync(url);
+        var second = await Http.GetStringAsync(url + "?commentsPage=2");
+        CollectionAssert.AreEqual(expected.Take(20).ToList(), ActivityIds(first));
+        CollectionAssert.AreEqual(expected.Skip(20).ToList(), ActivityIds(second));
+        CollectionAssert.AreEqual(expected.Take(20).ToList(), ActivityIds(await Http.GetStringAsync(url)));
+        Assert.Contains("?commentsPage=2#incident-timeline", first);
+        Assert.DoesNotContain("?commentsPage=3", second);
+        Assert.Contains("This comment has been deleted.", first);
+        Assert.Contains("Reviewer", first);
+        Assert.DoesNotContain("Evidence 13", first);
+        Assert.DoesNotContain("Other incident evidence", first + second);
+        Assert.DoesNotContain("Other incident event", first + second);
+        CollectionAssert.AreEqual(expected.Take(20).ToList(), ActivityIds(await Http.GetStringAsync(url + "?commentsPage=-1")));
+        var empty = await Http.GetStringAsync(url + "?commentsPage=1000000");
+        Assert.AreEqual(0, ActivityIds(empty).Count);
+        Assert.Contains("No activity on the current page.", empty);
+        Assert.IsTrue(first.IndexOf("ac-incident-banner ", StringComparison.Ordinal) < first.IndexOf("id=\"incident-comment-form\"", StringComparison.Ordinal));
+        Assert.IsTrue(first.IndexOf("id=\"incident-comment-form\"", StringComparison.Ordinal) < first.IndexOf("id=\"incident-timeline\"", StringComparison.Ordinal));
+        Assert.IsTrue(first.IndexOf("id=\"incident-timeline\"", StringComparison.Ordinal) < first.IndexOf("id=\"incident-details\"", StringComparison.Ordinal));
+        Assert.DoesNotContain("action=\"/Incidents/AddNote\"", first);
+        var sidebar = first[first.IndexOf("<aside", StringComparison.Ordinal)..];
+        Assert.IsTrue(sidebar.IndexOf("Current On-Call OCE", StringComparison.Ordinal) < sidebar.IndexOf("id=\"incident-context-heading\"", StringComparison.Ordinal));
+        Assert.IsTrue(sidebar.IndexOf("Incident ID", StringComparison.Ordinal) < sidebar.IndexOf("id=\"incident-context-heading\"", StringComparison.Ordinal));
+        Assert.Contains("<code>{", sidebar);
+
+    }
+
     private async Task<Guid> CommentApplicationId(Guid id)
     {
         using var scope = Server!.Services.CreateScope();
