@@ -56,6 +56,22 @@ public static class OnCallEmailQueue
                 }).ToList()
             };
         }
+        if (original != null)
+        {
+            // CC is team configuration, independent of the incident's original shift.
+            // Capture the current configuration for this delivery; retries retain it.
+            var group = await db.OnCallGroups.AsNoTracking().Where(item => item.Id == original.GroupId)
+                .Select(item => new { item.EmailCcRecipients }).SingleOrDefaultAsync(cancellationToken);
+            var ccSource = group == null ? original.CcRecipients : group.EmailCcRecipients;
+            if (!EmailChannelAdapter.TryParseCcRecipients(ccSource, out var cc, out _,
+                    localizer: localizerFactory?.Create(typeof(EmailChannelAdapter))))
+            {
+                delivery.OnCallEmail!.ValidationError ??= localizer is null ? "On-call group CC email configuration is invalid."
+                    : localizer["On-call group CC email configuration is invalid."].Value;
+            }
+            var to = original.Recipients.Select(person => person.Email).ToHashSet(StringComparer.OrdinalIgnoreCase);
+            delivery.OnCallEmail!.CcRecipients = string.Join('\n', cc.Where(address => !to.Contains(address)));
+        }
         AddDelivery(db, delivery);
     }
 

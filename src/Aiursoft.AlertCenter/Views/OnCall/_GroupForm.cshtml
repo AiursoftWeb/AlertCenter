@@ -26,7 +26,7 @@
                 <label asp-for="GroupInput.EmailCcRecipients" class="form-label">@Localizer["On-call email CC"]</label>
                 <textarea asp-for="GroupInput.EmailCcRecipients" class="form-control" rows="4" maxlength="8000" aria-describedby="oncall-email-cc-help"></textarea>
                 <span asp-validation-for="GroupInput.EmailCcRecipients" class="text-danger"></span>
-                <div id="oncall-email-cc-help" class="form-text">@Localizer["To: the people assigned to the saved shift when the incident occurred. The original recipients and CC addresses are retained for later incident emails. Use commas, semicolons or new lines; up to 50 CC addresses."]</div>
+                <div id="oncall-email-cc-help" class="form-text">@Localizer["To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses."]</div>
             </div>
         }
     </fieldset>

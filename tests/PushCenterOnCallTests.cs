@@ -111,13 +111,17 @@ public partial class PushCenterTests
         await _db.SaveChangesAsync();
         Assert.AreEqual(200, (await IncidentWorkflowService.ResolveForApplicationAsync(_db,
             application.Id, incident.Id, incident.Version, "Recovered", default)).StatusCode);
-        var later = await _db.PushDeliveries.Include(delivery => delivery.OnCallEmail)!.ThenInclude(snapshot => snapshot!.Recipients)
+        var later = await _db.PushDeliveries.Include(delivery => delivery.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
             .SingleAsync(delivery => delivery.IncidentEventId != null);
         Assert.AreEqual("off@example.com", later.OnCallEmail!.Recipients.Single().Email);
-        Assert.AreEqual(original.CcRecipients, later.OnCallEmail.CcRecipients);
+        Assert.AreEqual("changed-cc@example.com", later.OnCallEmail.CcRecipients);
+        (await _db.OnCallGroups.SingleAsync()).EmailCcRecipients = "edited-after-queue@example.com";
+        await _db.SaveChangesAsync();
         Assert.AreEqual(original.ShiftId, later.OnCallEmail.ShiftId);
         await _processor.ProcessAsync(later.Id, default);
         CollectionAssert.AreEqual(new[] { "off@example.com" }, _email.Messages.Single().Recipients.ToArray());
+        Assert.Contains(incident.OccurredAtUtc.ToString("O"), _email.Messages.Single().Body);
+        CollectionAssert.AreEqual(new[] { "changed-cc@example.com" }, _email.Messages.Single().CcRecipients.ToArray());
         Assert.IsNull((await _db.SourceApplications.SingleAsync()).OnCallGroupId);
     }
 
