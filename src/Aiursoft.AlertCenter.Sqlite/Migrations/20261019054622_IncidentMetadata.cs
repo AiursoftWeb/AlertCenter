@@ -27,13 +27,12 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "MetadataJson",
-                table: "Incidents");
-
-            migrationBuilder.DropColumn(
-                name: "CanPatchIncidentMetadata",
-                table: "ApplicationApiKeys");
+            // The preceding data-only migration has no target model for EF's table rebuild.
+            // These unindexed columns can be dropped directly by the bundled SQLite version.
+            migrationBuilder.Sql("""
+                ALTER TABLE "Incidents" DROP COLUMN "MetadataJson";
+                ALTER TABLE "ApplicationApiKeys" DROP COLUMN "CanPatchIncidentMetadata";
+                """);
         }
     }
 }
