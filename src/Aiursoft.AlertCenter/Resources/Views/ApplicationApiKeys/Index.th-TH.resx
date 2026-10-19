@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>การดำเนินการ</value>
+  </data>
+  <data name="API Key" xml:space="preserve">
+    <value>คีย์ API</value>
+  </data>
+  <data name="API Key created" xml:space="preserve">
+    <value>สร้างคีย์ API แล้ว</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>การจัดการ API Key</value>
+  </data>
+  <data name="Application API Keys" xml:space="preserve">
+    <value>คีย์ API ของแอปพลิเคชัน</value>
+  </data>
+  <data name="Back to applications" xml:space="preserve">
+    <value>กลับไปยังแอปพลิเคชัน</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>จำนวนครั้งที่เรียกใช้</value>
+  </data>
+  <data name="Calls include authenticated requests, including rejected operations. Times are shown in your local time zone." xml:space="preserve">
+    <value>การเรียกใช้รวมถึงคำขอที่ผ่านการตรวจสอบสิทธิ์ รวมถึงการดำเนินการที่ถูกปฏิเสธ เวลาแสดงตามเขตเวลาท้องถิ่นของคุณ</value>
+  </data>
+  <data name="Change severity" xml:space="preserve">
+    <value>เปลี่ยนระดับความรุนแรง</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>สร้าง</value>
+  </data>
+  <data name="Create API Key" xml:space="preserve">
+    <value>สร้างคีย์ API</value>
+  </data>
+  <data name="Created on" xml:space="preserve">
+    <value>สร้างเมื่อ</value>
+  </data>
+  <data name="Delete key" xml:space="preserve">
+    <value>ลบคีย์</value>
+  </data>
+  <data name="Delete permanently" xml:space="preserve">
+    <value>ลบถาวร</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="Enter the exact key name to confirm deletion." xml:space="preserve">
+    <value>กรอกชื่อคีย์ที่ถูกต้องเพื่อยืนยันการลบ</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>คีย์</value>
+  </data>
+  <data name="Last used" xml:space="preserve">
+    <value>ใช้ล่าสุด</value>
+  </data>
+  <data name="Mitigate" xml:space="preserve">
+    <value>บรรเทา</value>
+  </data>
+  <data name="No API keys yet. Create a key for each integration." xml:space="preserve">
+    <value>ยังไม่มี API key สร้างคีย์สำหรับการเชื่อมต่อแต่ละรายการ</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="Patch metadata" xml:space="preserve">
+    <value>แก้ไขข้อมูลเมตา</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>สิทธิ์</value>
+  </data>
+  <data name="Query" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
+  <data name="Resolve" xml:space="preserve">
+    <value>แก้ไขให้เสร็จสิ้น</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="This application is disabled. All of its API keys are inactive." xml:space="preserve">
+    <value>แอปพลิเคชันนี้ถูกปิดใช้งาน คีย์ API ทั้งหมดของแอปพลิเคชันนี้ไม่สามารถใช้งานได้</value>
+  </data>
+  <data name="This key is displayed only once. Save it in your private application configuration." xml:space="preserve">
+    <value>คีย์นี้จะแสดงเพียงครั้งเดียว โปรดบันทึกไว้ในการกำหนดค่าส่วนตัวของแอปพลิเคชัน</value>
+  </data>
+
+</root>

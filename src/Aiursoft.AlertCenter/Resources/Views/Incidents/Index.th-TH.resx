@@ -21,14 +21,26 @@
       <data name=" items" xml:space="preserve">
     <value>รายการ</value>
   </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} เหตุการณ์ในหน้านี้</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0} เหตุขัดข้องที่กำลังดำเนินอยู่ในแอปพลิเคชันที่เข้าถึงได้</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>รับทราบแล้ว</value>
   </data>
   <data name="Acknowledged (Acked)" xml:space="preserve">
     <value>รับทราบ (Acked)</value>
   </data>
+  <data name="Acknowledgement" xml:space="preserve">
+    <value>การยอมรับ</value>
+  </data>
   <data name="Adjust filter conditions or reset to view all records." xml:space="preserve">
     <value>ปรับเงื่อนไขตัวกรองหรือรีเซ็ตเพื่อดูรายการทั้งหมด</value>
+  </data>
+  <data name="All acknowledgements" xml:space="preserve">
+    <value>การรับทราบทั้งหมด</value>
   </data>
   <data name="All applications" xml:space="preserve">
     <value>แอปพลิเคชันทั้งหมด</value>
@@ -96,11 +108,17 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>ไม่พบเหตุการณ์ที่ตรงกัน</value>
   </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>ยังไม่ได้รับทราบ</value>
+  </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>เหตุการณ์ที่กำลังดำเนินอยู่</value>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>ผู้รับผิดชอบ</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>หน้า {0}</value>
   </data>
   <data name="Pending Response" xml:space="preserve">
     <value>รอการตอบรับ</value>
@@ -113,6 +131,15 @@
   </data>
   <data name="Previous page" xml:space="preserve">
     <value>หน้าก่อนหน้า</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>เวลาที่รับ</value>
+  </data>
+  <data name="Received from (UTC)" xml:space="preserve">
+    <value>ได้รับตั้งแต่ (UTC)</value>
+  </data>
+  <data name="Received through (UTC, inclusive)" xml:space="preserve">
+    <value>ได้รับถึงวันที่ (UTC รวมวันดังกล่าว)</value>
   </data>
   <data name="Reset Filters" xml:space="preserve">
     <value>ล้างตัวกรอง</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>ยังไม่ได้มอบหมาย</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>ยังไม่ได้รับการบรรเทา</value>
   </data>
 
 </root>

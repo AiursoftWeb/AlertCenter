@@ -48,6 +48,9 @@
   <data name="Completed at " xml:space="preserve">
     <value>完了日時：</value>
   </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>完了時刻</value>
+  </data>
   <data name="Completion Time (UTC)" xml:space="preserve">
     <value>完了時刻（UTC）</value>
   </data>
@@ -56,6 +59,9 @@
   </data>
   <data name="Copy Full ID" xml:space="preserve">
     <value>ID全体をコピー</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>作成日時</value>
   </data>
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>作成時刻（UTC）</value>
@@ -93,6 +99,9 @@
   <data name="Dispatch attempts" xml:space="preserve">
     <value>配信試行回数</value>
   </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>配信履歴</value>
+  </data>
   <data name="Dispatch timeline (UTC)" xml:space="preserve">
     <value>配信タイムライン（UTC）</value>
   </data>
@@ -108,8 +117,14 @@
   <data name="Enter Delivery Queue" xml:space="preserve">
     <value>配信キューに登録</value>
   </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>インシデントを緩和しました: {0}</value>
+  </data>
   <data name="Incident reopened: {0}" xml:space="preserve">
     <value>インシデントが再開されました: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>インシデントが解決しました: {0}</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>未完了</value>
@@ -155,6 +170,9 @@
   </data>
   <data name="Shift: " xml:space="preserve">
     <value>シフト：</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>スナップショット時刻</value>
   </data>
   <data name="Snapshot time (" xml:space="preserve">
     <value>スナップショット時刻（</value>

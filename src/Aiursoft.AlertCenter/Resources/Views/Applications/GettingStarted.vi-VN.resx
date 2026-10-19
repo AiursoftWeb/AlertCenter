@@ -21,6 +21,9 @@
       <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
     <value>: Khóa API chỉ được hiển thị một lần sau khi tạo hoặc đặt lại thành công. Vui lòng cấu hình khóa ngay trong các biến môi trường của môi trường production (ví dụ:</value>
   </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API Key chỉ được hiển thị một lần sau khi tạo thành công. Vui lòng cấu hình ngay lập tức trong biến môi trường của môi trường sản xuất (ví dụ:</value>
+  </data>
   <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
     <value>Lên lịch gửi đẩy được kích hoạt không đồng bộ.</value>
   </data>
@@ -87,6 +90,9 @@
   <data name="Each business system authenticates requests using its own API key." xml:space="preserve">
     <value>Mỗi hệ thống nghiệp vụ xác thực các yêu cầu bằng khóa API riêng của mình.</value>
   </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Mỗi khóa thuộc về một ứng dụng. Máy chủ xác minh giá trị băm của khóa bí mật và quyền cần thiết cho từng thao tác.</value>
+  </data>
   <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
     <value>Đảm bảo tính lũy đẳng nghiêm ngặt khi xử lý đồng thời; sử dụng cùng một ID cho các lần thử lại.</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="Max 4,000 characters" xml:space="preserve">
     <value>Tối đa 4.000 ký tự</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Mở phần Quản lý khóa API của ứng dụng để tạo các khóa có tên với quyền truy vấn, tạo và xử lý.</value>
   </data>
   <data name="Optional" xml:space="preserve">
     <value>Không bắt buộc</value>

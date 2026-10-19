@@ -24,11 +24,17 @@
   <data name="Action" xml:space="preserve">
     <value>Thao tác</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Thao tác</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Điều chỉnh từ khóa tìm kiếm hoặc xóa nội dung tìm kiếm để xem tất cả ứng dụng.</value>
   </data>
   <data name="API Key has been reset" xml:space="preserve">
     <value>Khóa API đã được đặt lại</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>Quản lý khóa API</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>Ứng dụng đã kết nối</value>
@@ -47,6 +53,9 @@
   </data>
   <data name="Application Name" xml:space="preserve">
     <value>Tên ứng dụng</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>Cài đặt ứng dụng</value>
   </data>
   <data name="Applications" xml:space="preserve">
     <value>Ứng dụng</value>
@@ -81,6 +90,9 @@
   <data name="Create Application" xml:space="preserve">
     <value>Tạo ứng dụng</value>
   </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>Tạo sự cố</value>
+  </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Tạo ứng dụng tích hợp mới</value>
   </data>
@@ -92,6 +104,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Xóa</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>Xóa ứng dụng</value>
   </data>
   <data name="Delete integrated application" xml:space="preserve">
     <value>Xóa ứng dụng tích hợp</value>
@@ -183,6 +198,9 @@
   <data name="The old key will become invalid immediately. All reporting clients must be updated. The new key is displayed only once on this page." xml:space="preserve">
     <value>Khóa cũ sẽ mất hiệu lực ngay lập tức. Tất cả các ứng dụng khách gửi báo cáo phải được cập nhật. Khóa mới chỉ được hiển thị một lần trên trang này.</value>
   </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>Hành động này không thể hoàn tác! Tất cả sự cố trong quá khứ, các bản ghi giao hàng liên quan và thông báo trong trang web của ứng dụng này sẽ bị xóa, và tất cả các khóa API sẽ bị vô hiệu hóa ngay lập tức.</value>
+  </data>
   <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and the API Key will be immediately invalidated." xml:space="preserve">
     <value>Thao tác này không thể hoàn tác! Tất cả sự cố trong quá khứ, bản ghi gửi thông báo liên quan và thông báo trên trang web của ứng dụng này sẽ bị xóa, đồng thời Khóa API sẽ bị vô hiệu hóa ngay lập tức.</value>
   </data>
@@ -192,10 +210,16 @@
   <data name="Use a concise and clear business system name; the system will automatically generate the corresponding prefix ID and random Secret." xml:space="preserve">
     <value>Hãy đặt tên hệ thống nghiệp vụ ngắn gọn, rõ ràng; hệ thống sẽ tự động tạo ID tiền tố tương ứng và Secret ngẫu nhiên.</value>
   </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>Sử dụng tên hệ thống nghiệp vụ ngắn gọn. Tạo khóa API riêng sau khi tạo ứng dụng.</value>
+  </data>
   <data name="View all incidents" xml:space="preserve">
     <value>Xem tất cả sự cố</value>
   </data>
   <data name="View incident" xml:space="preserve">
+    <value>Xem sự cố</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
     <value>Xem sự cố</value>
   </data>
   <data name="View integration guide to send the first test message " xml:space="preserve">

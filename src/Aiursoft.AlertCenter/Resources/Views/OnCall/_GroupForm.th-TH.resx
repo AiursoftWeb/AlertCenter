@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Add members" xml:space="preserve">
+    <value>เพิ่มสมาชิก</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>การเพิ่มสมาชิกไม่มีการจัดสรรเวรทำงาน</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>การตั้งค่าการกำหนดตารางเวลาขั้นสูง</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>พนักงานที่ถูกลบ</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>ไม่ผูกกับแม่แบบ (จัดตารางเวลาด้วยตนเอง)</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>พนักงานถูกลบแล้ว</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>กรอกเวลาเป็น UTC โดยระบบจะไม่แปลงเวลาอัตโนมัติตามเขตเวลาของทีม เมื่อบันทึกกะแล้ว จะไม่สามารถเปลี่ยนเวลาเริ่มต้นการจัดตารางได้</value>
+  </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>กรองตามบทบาท</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>วิธีใช้: สำเนาถึงในการแจ้งเตือน</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>ความช่วยเหลือ: ตัวกรองบทบาท</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>ความช่วยเหลือ: ลำดับการหมุนเวียน</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>ความช่วยเหลือ: จุดเริ่มต้นการกำหนดตารางเวลา</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>คำแนะนำ: เทมเพลตการจัดตารางเวลา</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>ช่วยเหลือ: เขตเวลาของทีม</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>หลายทีมสามารถใช้เทมเพลตเดียวกันได้ การเปลี่ยนหรือแก้ไขเทมเพลตจะไม่สร้างกะที่บันทึกไว้ใหม่</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>ชื่อหรือบัญชี</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>หน้าถัดไป</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>ยังไม่มีสมาชิก เปิด &quot;เพิ่มสมาชิก&quot; เพื่อค้นหาผู้คน</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>CC สำหรับแจ้งการแจ้งเตือน (ไม่บังคับ)</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>อีเมลสำเนาถึงสำหรับเวรรับแจ้งเหตุ</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>หน้าก่อนหน้า</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>นำออก</value>
+  </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>ลำดับการหมุนเวียน</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>บันทึกการเปลี่ยนแปลง</value>
+  </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>การบันทึกจะอัปเดตทีมและสมาชิก ส่วนการจัดการกะให้ทำแยกต่างหากในตารางเวร</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>เมื่อบันทึก ระบบจะนำสมาชิกเหล่านี้ออกจากเวรที่ยังไม่เริ่มต้น โปรดตรวจสอบตารางเวรว่ามีช่วงที่ไม่มีผู้ปฏิบัติงานหรือไม่</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>เทมเพลตกฎการจัดตารางเวลา</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>จุดเริ่มต้นตารางเวร (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>ค้นหาด้วยชื่อแทน</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>ค้นหาด้วยชื่อหรือบัญชี หรือเลือกบทบาท</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>ค้นหาพนักงาน</value>
+  </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>การเลือกบทบาทจะใช้ในการกรองการค้นหาเท่านั้น ติ๊กชื่อแต่ละบุคคลเพื่อเพิ่มสมาชิก การเป็นสมาชิกของทีมจะไม่ซิงค์กับบทบาทนั้น</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>สมาชิกในทีม</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>ชื่อทีม</value>
+  </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>การตั้งค่าทีม</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>เขตเวลา</value>
+  </data>
+  <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
+    <value>ถึง: ผู้คนที่ถูกกำหนดไว้ในกะที่บันทึกไว้ ณ เวลาที่แจ้งเตือน คัดลอกถึง: ที่อยู่ทางเลือกด้านล่าง ไม่ว่าใครจะเป็นคนเวร ใช้เครื่องหมายจุลภาค เครื่องหมายจุดและเครื่องหมายจุลภาค หรือบรรทัดใหม่; สูงสุด 50 ที่อยู่</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>ใช้ปุ่มเลื่อนขึ้นและเลื่อนลงเพื่อเลือกลำดับที่ใช้สำหรับการจัดตารางเวลาอัตโนมัติในอนาคต หน้าที่การงานที่มีอยู่เดิมจะไม่ถูกลำดับใหม่ เลือกสมาชิกได้สูงสุด 200 คน</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>ใช้สำหรับแสดงตารางเวร โดยจุดเริ่มต้นของการจัดตารางเวรขั้นสูงด้านล่างจะต้องระบุแยกต่างหากเป็น UTC</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>ดูตารางเวลา</value>
+  </data>
+
+</root>

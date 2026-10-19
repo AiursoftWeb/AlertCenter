@@ -24,11 +24,17 @@
   <data name="Action" xml:space="preserve">
     <value>操作</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>検索キーワードを変更するか、検索をクリアしてすべてのアプリを表示してください。</value>
   </data>
   <data name="API Key has been reset" xml:space="preserve">
     <value>APIキーがリセットされました</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>APIキー管理</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>アプリ連携</value>
@@ -47,6 +53,9 @@
   </data>
   <data name="Application Name" xml:space="preserve">
     <value>アプリケーション名</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>アプリケーション設定</value>
   </data>
   <data name="Applications" xml:space="preserve">
     <value>アプリケーション</value>
@@ -81,6 +90,9 @@
   <data name="Create Application" xml:space="preserve">
     <value>アプリケーションを作成</value>
   </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>インシデントを作成</value>
+  </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>新しい連携アプリを作成</value>
   </data>
@@ -92,6 +104,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>削除</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>アプリケーションの削除</value>
   </data>
   <data name="Delete integrated application" xml:space="preserve">
     <value>連携アプリケーションを削除</value>
@@ -183,6 +198,9 @@
   <data name="The old key will become invalid immediately. All reporting clients must be updated. The new key is displayed only once on this page." xml:space="preserve">
     <value>古いキーは直ちに無効になります。すべてのレポート送信クライアントを更新してください。新しいキーがこのページに表示されるのは一度だけです。</value>
   </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>この操作は取り消せません！このアプリケーションに関するすべての過去のインシデント、関連する配信記録、サイト内通知が削除され、すべてのAPIキーが即座に無効化されます。</value>
+  </data>
   <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and the API Key will be immediately invalidated." xml:space="preserve">
     <value>この操作は取り消せません！このアプリケーションの過去のインシデント、関連する配信記録、サイト内通知はすべて削除され、APIキーは直ちに無効になります。</value>
   </data>
@@ -192,10 +210,16 @@
   <data name="Use a concise and clear business system name; the system will automatically generate the corresponding prefix ID and random Secret." xml:space="preserve">
     <value>簡潔で分かりやすい業務システム名を入力してください。対応するプレフィックスIDとランダムなシークレットは、システムによって自動生成されます。</value>
   </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>簡潔な業務システム名を入力してください。アプリケーションの作成後、APIキーは別途作成してください。</value>
+  </data>
   <data name="View all incidents" xml:space="preserve">
     <value>インシデントをすべて表示</value>
   </data>
   <data name="View incident" xml:space="preserve">
+    <value>インシデントを表示</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
     <value>インシデントを表示</value>
   </data>
   <data name="View integration guide to send the first test message " xml:space="preserve">

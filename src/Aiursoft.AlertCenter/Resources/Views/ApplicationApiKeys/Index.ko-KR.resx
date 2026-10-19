@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>작업</value>
+  </data>
+  <data name="API Key" xml:space="preserve">
+    <value>API 키</value>
+  </data>
+  <data name="API Key created" xml:space="preserve">
+    <value>API 키가 생성되었습니다</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>API 키 관리</value>
+  </data>
+  <data name="Application API Keys" xml:space="preserve">
+    <value>애플리케이션 API 키</value>
+  </data>
+  <data name="Back to applications" xml:space="preserve">
+    <value>애플리케이션 목록으로 돌아가기</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>호출 수</value>
+  </data>
+  <data name="Calls include authenticated requests, including rejected operations. Times are shown in your local time zone." xml:space="preserve">
+    <value>호출 수에는 거부된 작업을 포함한 인증된 요청이 포함됩니다. 시간은 현지 시간대로 표시됩니다.</value>
+  </data>
+  <data name="Change severity" xml:space="preserve">
+    <value>심각도 변경</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>생성</value>
+  </data>
+  <data name="Create API Key" xml:space="preserve">
+    <value>API 키 만들기</value>
+  </data>
+  <data name="Created on" xml:space="preserve">
+    <value>생성일</value>
+  </data>
+  <data name="Delete key" xml:space="preserve">
+    <value>키 삭제</value>
+  </data>
+  <data name="Delete permanently" xml:space="preserve">
+    <value>영구 삭제</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="Enter the exact key name to confirm deletion." xml:space="preserve">
+    <value>삭제를 확인하려면 키 이름을 정확히 입력하세요.</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>키</value>
+  </data>
+  <data name="Last used" xml:space="preserve">
+    <value>마지막 사용</value>
+  </data>
+  <data name="Mitigate" xml:space="preserve">
+    <value>완화</value>
+  </data>
+  <data name="No API keys yet. Create a key for each integration." xml:space="preserve">
+    <value>아직 API 키가 없습니다. 각 통합에 대해 키를 생성하세요.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="Patch metadata" xml:space="preserve">
+    <value>메타데이터 패치</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>권한</value>
+  </data>
+  <data name="Query" xml:space="preserve">
+    <value>조회</value>
+  </data>
+  <data name="Resolve" xml:space="preserve">
+    <value>해결</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="This application is disabled. All of its API keys are inactive." xml:space="preserve">
+    <value>이 애플리케이션은 비활성화되어 있습니다. 모든 API 키가 비활성 상태입니다.</value>
+  </data>
+  <data name="This key is displayed only once. Save it in your private application configuration." xml:space="preserve">
+    <value>이 키는 한 번만 표시됩니다. 애플리케이션의 비공개 설정에 저장하세요.</value>
+  </data>
+
+</root>

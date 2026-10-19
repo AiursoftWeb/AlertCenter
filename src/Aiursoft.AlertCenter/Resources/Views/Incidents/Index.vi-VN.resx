@@ -21,14 +21,26 @@
       <data name=" items" xml:space="preserve">
     <value>mục</value>
   </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} sự cố trên trang này</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0} sự cố đang diễn ra trên các ứng dụng bạn có quyền truy cập</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>Đã tiếp nhận</value>
   </data>
   <data name="Acknowledged (Acked)" xml:space="preserve">
     <value>Đã xác nhận (Acked)</value>
   </data>
+  <data name="Acknowledgement" xml:space="preserve">
+    <value>Xác nhận</value>
+  </data>
   <data name="Adjust filter conditions or reset to view all records." xml:space="preserve">
     <value>Điều chỉnh điều kiện lọc hoặc đặt lại bộ lọc để xem tất cả bản ghi.</value>
+  </data>
+  <data name="All acknowledgements" xml:space="preserve">
+    <value>Tất cả trạng thái xác nhận</value>
   </data>
   <data name="All applications" xml:space="preserve">
     <value>Tất cả ứng dụng</value>
@@ -96,11 +108,17 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>Không có sự cố nào phù hợp</value>
   </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Chưa xác nhận</value>
+  </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>sự cố đang diễn ra</value>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Người phụ trách</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Trang {0}</value>
   </data>
   <data name="Pending Response" xml:space="preserve">
     <value>Đang chờ phản hồi</value>
@@ -113,6 +131,15 @@
   </data>
   <data name="Previous page" xml:space="preserve">
     <value>Trang trước</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Thời gian tiếp nhận</value>
+  </data>
+  <data name="Received from (UTC)" xml:space="preserve">
+    <value>Nhận từ (UTC)</value>
+  </data>
+  <data name="Received through (UTC, inclusive)" xml:space="preserve">
+    <value>Nhận đến (UTC, bao gồm)</value>
   </data>
   <data name="Reset Filters" xml:space="preserve">
     <value>Đặt lại bộ lọc</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Chưa được phân công</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Chưa được xử lý</value>
   </data>
 
 </root>

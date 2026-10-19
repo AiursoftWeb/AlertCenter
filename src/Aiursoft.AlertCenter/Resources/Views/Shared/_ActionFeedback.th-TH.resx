@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · สัปดาห์ข้างเคียง (อ่านอย่างเดียว)</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· ออกจากงาน</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· รวมสัปดาห์ถัดไปด้วย</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· ครอบคลุมสัปดาห์ก่อนหน้า</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· พักผ่อนไม่เพียงพอ</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (อ่านอย่างเดียว)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} มีพนักงานเพียง {1} คน ซึ่งต่ำกว่าขั้นต่ำ {2} คน ยังสามารถบันทึกด้วยตนเองได้</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} ชั่วโมง</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>กะ {0} สำหรับ {1} · {2}; ยังไม่ได้บันทึก คุณสามารถเลิกทำได้</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} กะ / {1} ชั่วโมง</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: พักระหว่าง {2} ถึง {3} เพียง {1} ชั่วโมง ซึ่งน้อยกว่าขั้นต่ำที่กำหนดไว้ {4} ชั่วโมง</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 ชั่วโมง · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>การดำเนินการไม่เสร็จสมบูรณ์</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>โหมดเพิ่ม: คลิกพื้นที่ว่างในแถวของวิศวกรเพื่อเพิ่มกะ 8 ชั่วโมง โดยหลายคนสามารถทำงานกะเดียวกันได้</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>เพิ่มกะเฝ้าระวัง</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>เพิ่มแล้ว</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>กลับไปแก้ไข</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>ยกเลิกการรีเฟรช</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>ยุบ {0} 36 ชั่วโมง</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>เนื้อหาความคิดเห็น (Markdown)</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>ความคิดเห็นต้องไม่เกิน 4,000 ตัวอักษร UTF-16 กรุณาสั้นลงก่อนเผยแพร่</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>ยืนยันการรีเฟรชหน้า?</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>คัดลอกแล้ว</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>คัดลอกร่างปัจจุบันของสัปดาห์นี้ไปยังเวรทั้ง 21 กะของสัปดาห์ถัดไปแล้ว ยังไม่ได้บันทึก คุณสามารถเลิกทำได้ คุณสามารถขยายช่วง 36 ชั่วโมงถัดไปเพื่อดูตัวอย่างแบบอ่านอย่างเดียวได้ หลังจากบันทึกแล้ว ให้สลับไปยังสัปดาห์ถัดไปเพื่อดูหรือแก้ไขตารางงานทั้งสัปดาห์</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>คัดลอกไปยังคลิปบอร์ดแล้ว</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>คัดลอก</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>คัดลอกไม่สำเร็จ โปรดเลือกและคัดลอกเนื้อหาด้วยตนเอง หากต้องการลองอีกครั้ง โปรดตรวจสอบสิทธิ์การเข้าถึงคลิปบอร์ดของเบราว์เซอร์</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>กำลังคัดลอก…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>ปัจจุบันอยู่ในโหมดย้าย/สลับ เปลี่ยนโหมดด้านบนก่อนเพิ่มหรือลบกะ</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>โหมดลบ: คลิกที่บล็อกสีเพื่อยกเลิกกะปัจจุบันของวิศวกรคนนี้ การดำเนินการนี้สามารถยกเลิกได้และจะมีผลหลังจากบันทึกการเปลี่ยนแปลงทั้งหมดแล้ว</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>ละทิ้งข้อมูลที่กรอกและรีเฟรช</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>สิ้นสุด</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>กรุณากรอกเนื้อหาความคิดเห็น โดยต้องไม่เว้นว่างหรือมีเพียงช่องว่าง</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>ป้อนชื่อแอปให้ตรงทุกประการเพื่อยืนยันการลบ</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>ขยาย {0} 36 ชั่วโมง</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>ค้นหาข้อมูลพนักงานไม่สำเร็จ โปรดลองอีกครั้ง</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>อัปโหลดรูปภาพไม่สำเร็จ โปรดลองอีกครั้ง</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>จาก</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>พบช่องว่างที่ {0} โปรดเพิ่มเจ้าหน้าที่ (ตารางเวรประจำสัปดาห์ต้องมีครบ 21 กะ)</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>จัดการได้</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>แก้ไข {0} ชีฟต์{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>ย้าย / สลับกะ</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>ยกเลิกการย้ายแล้ว; ตารางเวลาไม่เปลี่ยนแปลง</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>ยกเลิกการย้ายแล้ว</value>
+  </data>
+  <data name="Move down" xml:space="preserve">
+    <value>เลื่อนลง</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>ย้ายกะที่เลือกมาที่นี่</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>ย้ายไปที่</value>
+  </data>
+  <data name="Move up" xml:space="preserve">
+    <value>เลื่อนขึ้น</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย ยังไม่สามารถยืนยันผลการดำเนินการได้ โปรดตรวจสอบสถานะก่อนส่งคำขออีกครั้ง เพื่อหลีกเลี่ยงการดำเนินการซ้ำ</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>ถัดไป</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>ไม่มีเวรที่ได้รับมอบหมาย</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>ไม่พบพนักงานที่ตรงตามเงื่อนไข</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>ไม่พบเขตเวลาที่เหมาะสม</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>ไม่พบผู้ใช้ที่ตรงตามเงื่อนไข</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>ไม่มีเวรให้ลบในช่องนี้</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>หน้า {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>อัปเดตข้อมูลหน้าแล้ว</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>กรุณาตรวจสอบรูปแบบอีเมล CC</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>กด Ctrl+C เพื่อคัดลอกคีย์ที่เลือก</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>ก่อนหน้า</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>เลิกทำขั้นตอนก่อนหน้าแล้ว</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>รีเฟรชหน้า</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>การรีเฟรชจะทำให้ข้อมูลที่ยังไม่ได้บันทึกสูญหาย เลือก &quot;ยกเลิกการรีเฟรช&quot; เพื่อย้อนกลับไปยังรายละเอียดข้อผิดพลาดและคงข้อมูลปัจจุบันไว้</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>กำลังโหลดหน้าเว็บใหม่...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>นำออก</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>นำออก</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>ลบ {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>ถอนสิทธิ์</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>ถูกลบ</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>คำขอไม่ถูกต้องหรือข้อมูลรับรองของหน้านี้หมดอายุ โปรดตรวจสอบข้อมูลที่กรอก แล้วรีเฟรชเพื่อลองอีกครั้งหากจำเป็น</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>กำลังเริ่มใหม่... ({0} วินาที)</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>คืนค่ากลับเป็นตารางเวลา ณ เวลาที่เปิดหน้า</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>กลุ่มบทบาท · สมาชิกทุกคนในกลุ่มจะสืบทอดสิทธิ์โดยอัตโนมัติ</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>บันทึกไม่สำเร็จ โปรดรีเฟรชหน้าเว็บแล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>กำลังค้นหาพนักงาน…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>เลือก</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>เลือกบทบาท</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>เลือกพนักงานได้สูงสุด 200 คนต่อทีม</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>เลือกผู้ใช้</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>เลือกผู้ใช้</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>เลือกกลุ่มผู้ใช้</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>เลือก {0} · {1} ลากไปยังบล็อกสีหรือคลิกบล็อกสีเพื่อสลับ กด Space เพื่อย้าย; กด Esc เพื่อยกเลิก</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>เลือกผู้ใช้ {0} แล้ว; สูงสุด 20 คนต่อหน้า</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>เลือกตารางงานทั้งสัปดาห์ของ {0} แล้ว ลากไปยังหรือคลิกที่วิศวกรคนอื่น</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>ยกเลิกการเลือกแล้ว</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>ปรับเปลี่ยนกะแล้ว คุณสามารถลากต่อเพื่อแก้ไขคำเตือนสีแดง จากนั้นบันทึกการเปลี่ยนแปลงทั้งหมด</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>ระบุผู้ใช้รายบุคคล</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>ปรับการจัดสรรกำลังคนและอัปเดตแผนภาพแล้ว; ยังไม่ได้บันทึก</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>คัดลอกไปยังคลิปบอร์ดเรียบร้อยแล้ว!</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>สลับ</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>ยกเลิกการสลับแล้ว</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>สลับตารางงานทั้งสัปดาห์: {0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>สลับตารางทั้งสัปดาห์</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>สลับตารางงานทั้งสัปดาห์ของ {0} และ {1} แล้ว ยังไม่ได้บันทึก</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>ขณะนี้ไม่สามารถยืนยันผลลัพธ์ของการดำเนินการได้ โปรดตรวจสอบสถานะของหน้าก่อนส่งอีกครั้ง</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>ตารางเวรมีปัญหาที่ยังไม่ได้รับการแก้ไข {0} รายการ (ขยายเพื่อดู); คุณสามารถดำเนินการปรับแต่งต่อได้</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>วัตถุมุ่งหมายไม่ได้อีกต่อไป กรุณารีเฟรชหน้า</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>วิศวกรคนนี้ถูกมอบหมายให้เข้ากะนี้แล้ว ไม่จำเป็นต้องเพิ่มอีก</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>สัปดาห์นี้ประกอบด้วยสมาชิกที่ลาออกแล้ว กรุณาแทนที่สมาชิกเหล่านี้ในร่างของสัปดาห์นี้ก่อนคัดลอกไปยังสัปดาห์ถัดไป</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>สองตำแหน่งนี้มีตารางเวรเหมือนกันอยู่แล้ว จึงไม่จำเป็นต้องสลับ</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>ไม่สามารถแสดงการยืนยันการเปลี่ยนตัวได้ กรุณารีเฟรชหน้าและลองใหม่อีกครั้ง ร่างสัปดาห์หน้ายังคงไม่มีการเปลี่ยนแปลง</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>ไม่สามารถค้นหาพนักงานได้</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>ไม่สามารถสลับได้โดยตรง: มีบุคคลหนึ่งอยู่ในกะเป้าหมายแล้ว โปรดปรับสมาชิกในกะเดียวกันโดยใช้ &quot;เพิ่ม/นำสมาชิกออกตามกะ&quot; ก่อน</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>ยังไม่ได้บันทึก · ร่างการปรับแต่ง</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>กลุ่มผู้ใช้ · สมาชิกจะได้รับสิทธิ์ที่ผูกไว้โดยอัตโนมัติ</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>ดูได้อย่างเดียว</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>คุณไม่มีสิทธิ์ดำเนินการนี้</value>
+  </data>
+
+</root>

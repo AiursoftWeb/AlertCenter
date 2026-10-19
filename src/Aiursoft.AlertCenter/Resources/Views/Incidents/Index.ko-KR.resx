@@ -21,14 +21,26 @@
       <data name=" items" xml:space="preserve">
     <value>항목</value>
   </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>이 페이지에 {0}건의 사고</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0}개의 진행 중 인시던트가 접근 가능한 애플리케이션에 걸쳐 발생 중입니다</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>확인됨</value>
   </data>
   <data name="Acknowledged (Acked)" xml:space="preserve">
     <value>확인됨(Acked)</value>
   </data>
+  <data name="Acknowledgement" xml:space="preserve">
+    <value>확인</value>
+  </data>
   <data name="Adjust filter conditions or reset to view all records." xml:space="preserve">
     <value>필터 조건을 조정하거나 초기화하여 전체 기록을 확인하세요.</value>
+  </data>
+  <data name="All acknowledgements" xml:space="preserve">
+    <value>모든 확인 상태</value>
   </data>
   <data name="All applications" xml:space="preserve">
     <value>모든 애플리케이션</value>
@@ -96,11 +108,17 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>일치하는 사고가 없습니다</value>
   </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>확인 안 됨</value>
+  </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>진행 중인 사고</value>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>담당자</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>페이지 {0}</value>
   </data>
   <data name="Pending Response" xml:space="preserve">
     <value>응답 대기</value>
@@ -113,6 +131,15 @@
   </data>
   <data name="Previous page" xml:space="preserve">
     <value>이전 페이지</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>수신 시각</value>
+  </data>
+  <data name="Received from (UTC)" xml:space="preserve">
+    <value>수신 시작일(UTC)</value>
+  </data>
+  <data name="Received through (UTC, inclusive)" xml:space="preserve">
+    <value>접수 종료일(UTC, 해당 일 포함)</value>
   </data>
   <data name="Reset Filters" xml:space="preserve">
     <value>필터 초기화</value>
@@ -170,6 +197,9 @@
   </data>
   <data name="Unassigned" xml:space="preserve">
     <value>미할당</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>미완화</value>
   </data>
 
 </root>

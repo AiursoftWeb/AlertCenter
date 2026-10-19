@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
+    <value>확인됨</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>인시던트 심각도 조정</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
     <value>삭제 후에는 작성자, 게시 시간, 삭제한 사람, 삭제 시간만 보존됩니다. 원래 댓글 내용은 더 이상 표시되지 않으며 복구할 수 없습니다.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>인시던트 자동 생성</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
@@ -35,6 +44,9 @@
   </data>
   <data name="Comments are independent of incident response logs and can be published in any incident state. Once published, they cannot be edited; only the author or an app administrator can delete them." xml:space="preserve">
     <value>댓글은 인시던트 대응 로그와 별개이며 인시던트 상태와 관계없이 게시할 수 있습니다. 게시한 댓글은 수정할 수 없으며, 작성자 또는 앱 관리자만 삭제할 수 있습니다.</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>인시던트 확인 및 담당 처리</value>
   </data>
   <data name="Confirm deletion" xml:space="preserve">
     <value>삭제 확인</value>
@@ -54,8 +66,20 @@
   <data name="Incident discussion" xml:space="preserve">
     <value>사고 논의</value>
   </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>인시던트 이벤트</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>사고 타임라인</value>
+  </data>
   <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
     <value>Markdown을 지원합니다. 최대 4,000 UTF-16자까지 입력할 수 있습니다(이모지는 2자로 계산될 수 있습니다).</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>사고 완화</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>완화됨</value>
   </data>
   <data name="Newest first · 20 items per page" xml:space="preserve">
     <value>최신순 · 페이지당 20개 항목</value>
@@ -63,20 +87,32 @@
   <data name="Next Page" xml:space="preserve">
     <value>다음 페이지</value>
   </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>현재 페이지에 활동이 없습니다.</value>
+  </data>
   <data name="No comments on the current page." xml:space="preserve">
     <value>현재 페이지에 댓글이 없습니다.</value>
   </data>
   <data name="No. " xml:space="preserve">
     <value>번호</value>
   </data>
+  <data name="Not set" xml:space="preserve">
+    <value>설정되지 않음</value>
+  </data>
   <data name="On" xml:space="preserve">
     <value>켜짐</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>담당자:</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>페이지</value>
   </data>
   <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
     <value>업로드하려면 이미지를 편집기에 붙여넣거나 끌어다 놓으세요.</value>
+  </data>
+  <data name="Pending Response" xml:space="preserve">
+    <value>응답 대기</value>
   </data>
   <data name="Post comment" xml:space="preserve">
     <value>댓글 작성</value>
@@ -87,17 +123,50 @@
   <data name="Previous Page" xml:space="preserve">
     <value>이전 페이지</value>
   </data>
+  <data name="Progress" xml:space="preserve">
+    <value>진행 상황</value>
+  </data>
   <data name="Publish comment" xml:space="preserve">
     <value>댓글 게시</value>
   </data>
   <data name="Published comment?" xml:space="preserve">
     <value>게시된 댓글인가요?</value>
   </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>인시던트 다시 열기</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>사건 해결</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>해결됨</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>심각도:</value>
+  </data>
   <data name="Split View" xml:space="preserve">
     <value>분할 보기</value>
   </data>
+  <data name="Status: " xml:space="preserve">
+    <value>상태:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>시스템</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>인시던트 인계</value>
+  </data>
   <data name="This comment has been deleted." xml:space="preserve">
     <value>이 댓글은 삭제되었습니다.</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>타임라인 페이지네이션</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>미지정</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>미완결</value>
   </data>
   <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
     <value>Markdown을 사용해 문제 해결 단서나 제안, 토론 내용을 공유하세요…</value>
@@ -106,61 +175,4 @@
     <value>사용자 삭제됨</value>
   </data>
 
-    <data name="Acknowledged" xml:space="preserve">
-    <value>확인됨</value>
-  </data>
-    <data name="Adjust Incident Severity" xml:space="preserve">
-    <value>인시던트 심각도 조정</value>
-  </data>
-    <data name="Auto-create incident" xml:space="preserve">
-    <value>인시던트 자동 생성</value>
-  </data>
-    <data name="Confirm and claim incident" xml:space="preserve">
-    <value>인시던트 확인 및 담당 처리</value>
-  </data>
-    <data name="Incident event" xml:space="preserve">
-    <value>인시던트 이벤트</value>
-  </data>
-    <data name="Mitigate incident" xml:space="preserve">
-    <value>사고 완화</value>
-  </data>
-    <data name="Mitigated" xml:space="preserve">
-    <value>완화됨</value>
-  </data>
-    <data name="Not set" xml:space="preserve">
-    <value>설정되지 않음</value>
-  </data>
-    <data name="Owner: " xml:space="preserve">
-    <value>담당자:</value>
-  </data>
-    <data name="Pending Response" xml:space="preserve">
-    <value>응답 대기</value>
-  </data>
-    <data name="Progress" xml:space="preserve">
-    <value>진행 상황</value>
-  </data>
-    <data name="Reopen Incident" xml:space="preserve">
-    <value>인시던트 다시 열기</value>
-  </data>
-    <data name="Resolve incident" xml:space="preserve">
-    <value>사건 해결</value>
-  </data>
-    <data name="Resolved" xml:space="preserve">
-    <value>해결됨</value>
-  </data>
-    <data name="Severity: " xml:space="preserve">
-    <value>심각도:</value>
-  </data>
-    <data name="Status: " xml:space="preserve">
-    <value>상태:</value>
-  </data>
-    <data name="System" xml:space="preserve">
-    <value>시스템</value>
-  </data>
-    <data name="Take Over Incident" xml:space="preserve">
-    <value>인시던트 인계</value>
-  </data>
-    <data name="Unassigned" xml:space="preserve">
-    <value>미지정</value>
-  </data>
 </root>

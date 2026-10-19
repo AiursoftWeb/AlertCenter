@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>การดำเนินการ</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>กำหนดอัตโนมัติ</value>
+  </data>
+  <data name="Bound, cannot be deleted" xml:space="preserve">
+    <value>ผูกอยู่ จึงไม่สามารถลบได้</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>ยืนยันการลบ</value>
+  </data>
+  <data name="Confirm rule deletion" xml:space="preserve">
+    <value>ยืนยันการลบกฎ</value>
+  </data>
+  <data name="Create Rule" xml:space="preserve">
+    <value>สร้างกฎ</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="Delete scheduling rule" xml:space="preserve">
+    <value>ลบกฎการกำหนดตารางเวลา</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ชั่วโมง</value>
+  </data>
+  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
+    <value>จัดการแม่แบบกฎที่ใช้ร่วมกันระหว่างหลายทีม การแก้ไขแม่แบบจะไม่สร้างกะที่บันทึกไว้ใหม่</value>
+  </data>
+  <data name="Min " xml:space="preserve">
+    <value>ขั้นต่ำ</value>
+  </data>
+  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>ยังไม่มีเทมเพลตกฎที่บันทึกไว้ สร้างเทมเพลตก่อน แล้วให้ทีมผูกและนำไปใช้งาน</value>
+  </data>
+  <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
+    <value>สามารถลบเทมเพลตที่ไม่ได้ผูกกับทีมเท่านั้น การเปลี่ยนกะที่บันทึกไว้และประวัติของทีมจะไม่ถูกลบ; เทมเพลตที่ถูกลบไม่สามารถกู้คืนได้</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>คน</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>คน · เป้าหมาย</value>
+  </data>
+  <data name="Please unbind the template from all teams first." xml:space="preserve">
+    <value>กรุณายกเลิกการผูกเทมเพลตกับทุกทีมก่อน</value>
+  </data>
+  <data name="Rule saved" xml:space="preserve">
+    <value>บันทึกกฎเรียบร้อยแล้ว</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>เทมเพลตกฎ</value>
+  </data>
+  <data name="Scheduling Rules" xml:space="preserve">
+    <value>กฎการจัดตารางเวลา</value>
+  </data>
+  <data name="Shift / Break" xml:space="preserve">
+    <value>กะงาน / เวลาพัก</value>
+  </data>
+  <data name="Teams using" xml:space="preserve">
+    <value>ทีมที่ใช้</value>
+  </data>
+  <data name="View rules" xml:space="preserve">
+    <value>ดูข้อกำหนด</value>
+  </data>
+
+</root>

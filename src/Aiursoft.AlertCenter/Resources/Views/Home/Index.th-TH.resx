@@ -21,6 +21,12 @@
       <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>การสนับสนุนแบบ &quot;Fire-and-forget&quot; สำหรับงานที่ใช้เวลานาน (เช่น อีเมลหรือ AI) พร้อมด้วย GUI สำหรับการจัดการคิว การประมวลผลแบบขนาน และการยกเลิก</value>
   </data>
+  <data name="2 minutes ago" xml:space="preserve">
+    <value>2 นาทีที่แล้ว</value>
+  </data>
+  <data name="8 minutes ago" xml:space="preserve">
+    <value>8 นาทีที่แล้ว</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>ระบบควบคุมการเข้าถึงตามบทบาท (RBAC) ในตัว สำหรับการจัดการสิทธิ์แบบละเอียด</value>
   </data>
@@ -38,6 +44,9 @@
   </data>
   <data name="Achieve more with Aiursoft Template" xml:space="preserve">
     <value>บรรลุผลได้มากขึ้นด้วย Aiursoft Template</value>
+  </data>
+  <data name="Action Required" xml:space="preserve">
+    <value>ต้องดำเนินการ</value>
   </data>
   <data name="Actuator health endpoints built-in" xml:space="preserve">
     <value>มี endpoints ตรวจสอบสุขภาพของ Actuator มาให้แล้ว</value>
@@ -59,6 +68,12 @@
   </data>
   <data name="Aiursoft Template is our definitive choice for enterprise projects! It&apos;s built for developers and is lightweight yet powerful. We can skip all the boilerplate for authentication and user management." xml:space="preserve">
     <value>Aiursoft Template คือตัวเลือกที่ดีที่สุดสำหรับโครงการระดับองค์กร! มันถูกสร้างขึ้นสำหรับนักพัฒนา มีน้ำหนักเบาแต่ทรงพลัง เราสามารถข้ามขั้นตอนพื้นฐานสำหรับการยืนยันตัวตนและการจัดการผู้ใช้ได้ทั้งหมด</value>
+  </data>
+  <data name="AlertCenter centrally receives, classifies, and reliably delivers incidents for business systems. Connect all services with a single API to keep your team informed of the real-time production status." xml:space="preserve">
+    <value>AlertCenter รับเหตุการณ์จากระบบธุรกิจไว้ที่ศูนย์กลาง จัดประเภท และส่งต่อได้อย่างเชื่อถือได้ เชื่อมต่อบริการทั้งหมดผ่าน API เดียว เพื่อให้ทีมของคุณทราบสถานะการทำงานจริงแบบเรียลไทม์</value>
+  </data>
+  <data name="AlertCenter correlates sources, severity levels, push configurations, and delivery results to help teams quickly assess impact and decide on next steps." xml:space="preserve">
+    <value>AlertCenter เชื่อมโยงแหล่งที่มา ระดับความรุนแรง การตั้งค่าการส่ง และผลลัพธ์การส่ง เพื่อช่วยให้ทีมประเมินผลกระทบและตัดสินใจขั้นตอนถัดไปได้อย่างรวดเร็ว</value>
   </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>การอ้างอิงทั้งหมดจะถูกลงทะเบียนโดยอัตโนมัติและพร้อมใช้งานเสมอผ่าน Constructor Injection</value>
@@ -120,6 +135,9 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>คู่มือสองภาษา</value>
   </data>
+  <data name="Build a Reliable Incident Channel in Three Steps" xml:space="preserve">
+    <value>สร้างช่องทางแจ้งเหตุขัดข้องที่เชื่อถือได้ใน 3 ขั้นตอน</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>สร้างครั้งเดียว รันได้ทุกที่ สถาปัตยกรรมที่ถูกบรรจุในคอนเทนเนอร์อย่างสมบูรณ์</value>
   </data>
@@ -171,6 +189,12 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>การจัดการผู้ใช้ในตัว</value>
   </data>
+  <data name="Centrally manage sources, incident levels, notification channels, and delivery results so service anomalies are not buried in logs." xml:space="preserve">
+    <value>จัดการแหล่งที่มา ระดับเหตุการณ์ ช่องทางแจ้งเตือน และผลการจัดส่งแบบรวมศูนย์ เพื่อให้ความผิดปกติของบริการไม่ถูกซ่อนอยู่ในบันทึก</value>
+  </data>
+  <data name="Centrally track each notification delivery status to quickly locate issues upon failure and prevent important information from being silently lost." xml:space="preserve">
+    <value>ติดตามสถานะการส่งการแจ้งเตือนแต่ละรายการแบบรวมศูนย์ เพื่อระบุปัญหาอย่างรวดเร็วเมื่อเกิดข้อผิดพลาด และป้องกันไม่ให้ข้อมูลสำคัญสูญหายไปอย่างเงียบ ๆ</value>
+  </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>จำเป็นต้องใช้ Checkstyle หรือเครื่องมือที่คล้ายกัน</value>
   </data>
@@ -192,6 +216,12 @@
   <data name="Concise Docs" xml:space="preserve">
     <value>เอกสารกระชับ</value>
   </data>
+  <data name="Configure independent push channels for sev0 to sev4 to ensure the most urgent issues receive the highest priority response." xml:space="preserve">
+    <value>กำหนดค่าช่องทางแจ้งเตือนอิสระสำหรับระดับความรุนแรง sev0 ถึง sev4 เพื่อให้ปัญหาที่เร่งด่วนที่สุดได้รับการตอบสนองอย่างเร่งด่วนที่สุด</value>
+  </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>กำหนดค่าช่องทาง Push</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>การตรวจสอบความสอดคล้อง</value>
   </data>
@@ -203,6 +233,24 @@
   </data>
   <data name="Coverage Report" xml:space="preserve">
     <value>รายงานการครอบคลุม</value>
+  </data>
+  <data name="Create and handle incidents" xml:space="preserve">
+    <value>สร้างและจัดการเหตุการณ์</value>
+  </data>
+  <data name="Create independent API Keys for each business application to report structured incidents and context via standard HTTP APIs." xml:space="preserve">
+    <value>สร้าง API Key แยกสำหรับแต่ละแอปพลิเคชันทางธุรกิจ เพื่อรายงานเหตุการณ์และบริบทในรูปแบบที่มีโครงสร้างผ่าน HTTP API มาตรฐาน</value>
+  </data>
+  <data name="Create Integration App" xml:space="preserve">
+    <value>สร้างแอปพลิเคชันการเชื่อมต่อ</value>
+  </data>
+  <data name="Create your first integration app, send your first incident, and establish your reliable notification loop." xml:space="preserve">
+    <value>สร้างแอปสำหรับเชื่อมต่อแอปแรกของคุณ ส่งเหตุการณ์ขัดข้องครั้งแรก และสร้างวงจรการแจ้งเตือนที่เชื่อถือได้</value>
+  </data>
+  <data name="Critical / Error" xml:space="preserve">
+    <value>วิกฤต / ข้อผิดพลาด</value>
+  </data>
+  <data name="Critical incidents should not be buried in logs." xml:space="preserve">
+    <value>เหตุการณ์ร้ายแรงไม่ควรถูกกลบไว้ในบันทึกล็อก</value>
   </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>ข้ามแพลตฟอร์ม</value>
@@ -222,6 +270,9 @@
   <data name="Dashboard Website" xml:space="preserve">
     <value>เว็บไซต์แดชบอร์ด</value>
   </data>
+  <data name="Database backup completed" xml:space="preserve">
+    <value>สำรองฐานข้อมูลเสร็จแล้ว</value>
+  </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>วันที่ 1 ความสอดคล้องและด้านความปลอดภัย</value>
   </data>
@@ -237,8 +288,14 @@
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>ฐานข้อมูล SQLite แบบเริ่มต้น ไม่ต้องตั้งค่า</value>
   </data>
+  <data name="Delivery records are fully traceable" xml:space="preserve">
+    <value>บันทึกการส่งมอบสามารถติดตามได้ครบถ้วน</value>
+  </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>ออกแบบมาเพื่อทุกคน ตั้งแต่มือใหม่จนถึงผู้เชี่ยวชาญ</value>
+  </data>
+  <data name="Designed for response" xml:space="preserve">
+    <value>ออกแบบเพื่อการตอบสนอง</value>
   </data>
   <data name="Designed for the container era. Includes pre-configured CI/CD pipelines for GitLab. Push code, pass strictly linting, auto-test, and deploy to Docker Swarm or Kubernetes automatically." xml:space="preserve">
     <value>ออกแบบมาสำหรับยุคของคอนเทนเนอร์ รวมถึงการกำหนดค่า CI/CD ล่วงหน้าสำหรับ GitLab การอัปโหลดโค้ด ผ่านการตรวจสอบลินติงอย่างเข้มงวด ทดสอบอัตโนมัติ และจัดส่งไปยัง Docker Swarm หรือ Kubernetes โดยอัตโนมัติ</value>
@@ -285,6 +342,9 @@
   <data name="Enforced quality gate" xml:space="preserve">
     <value>ประตูคุณภาพที่บังคับใช้</value>
   </data>
+  <data name="Enter Console" xml:space="preserve">
+    <value>เข้าสู่คอนโซล</value>
+  </data>
   <data name="Enterprise C#" xml:space="preserve">
     <value>Enterprise C#</value>
   </data>
@@ -297,8 +357,14 @@
   <data name="Enterprise Security" xml:space="preserve">
     <value>ความปลอดภัยสำหรับองค์กร</value>
   </data>
+  <data name="Enterprise-grade incidents" xml:space="preserve">
+    <value>เหตุขัดข้องระดับองค์กร</value>
+  </data>
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>รวม Entity Framework Core แล้ว</value>
+  </data>
+  <data name="Establish a response path suitable for your team using Webhooks, emails, and in-app notifications." xml:space="preserve">
+    <value>กำหนดเส้นทางตอบสนองที่เหมาะกับทีมของคุณโดยใช้ Webhooks อีเมล และการแจ้งเตือนภายในแอปพลิเคชัน</value>
   </data>
   <data name="FAQ" xml:space="preserve">
     <value>คำถามที่พบบ่อย</value>
@@ -350,6 +416,12 @@
   </data>
   <data name="Frequently asked questions" xml:space="preserve">
     <value>คำถามที่พบบ่อย</value>
+  </data>
+  <data name="From exception occurrence to team response, always clear and controllable." xml:space="preserve">
+    <value>ตั้งแต่การเกิดเหตุการณ์ผิดปกติจนถึงการตอบสนองของทีม ชัดเจนและควบคุมได้เสมอ</value>
+  </data>
+  <data name="From ingestion to delivery, all configurations are completed in the console, eliminating the need to switch between multiple systems." xml:space="preserve">
+    <value>ตั้งแต่การรับข้อมูลจนถึงการส่งมอบ การกำหนดค่าทั้งหมดจะเสร็จสิ้นภายในคอนโซล โดยไม่ต้องสลับไปมาระหว่างระบบหลายระบบ</value>
   </data>
   <data name="From the Architect" xml:space="preserve">
     <value>จากสถาปนิก</value>
@@ -408,6 +480,9 @@
   <data name="Hello World!" xml:space="preserve">
     <value>สวัสดีชาวโลก!</value>
   </data>
+  <data name="Help your team detect issues earlier and restore services faster." xml:space="preserve">
+    <value>ช่วยให้ทีมของคุณตรวจจับปัญหาได้เร็วขึ้น และกู้คืนบริการได้รวดเร็วยิ่งขึ้น</value>
+  </data>
   <data name="Here are some of the answers you might be looking for." xml:space="preserve">
     <value>นี่คือบางส่วนของคำตอบที่คุณอาจกำลังมองหา</value>
   </data>
@@ -438,6 +513,12 @@
   <data name="In-memory DB, temp FS, and HTTP simulation" xml:space="preserve">
     <value>ฐานข้อมูลในหน่วยความจำ, ระบบไฟล์ชั่วคราว, และการจำลอง HTTP</value>
   </data>
+  <data name="Incident overview" xml:space="preserve">
+    <value>ภาพรวมเหตุการณ์</value>
+  </data>
+  <data name="Incident synchronously delivered to Webhook and in-app notification" xml:space="preserve">
+    <value>ส่งต่อเหตุการณ์ไปยัง Webhook และระบบแจ้งเตือนภายในแอปพลิเคชันอย่างพร้อมกัน</value>
+  </data>
   <data name="Included" xml:space="preserve">
     <value>รวมไว้แล้ว</value>
   </data>
@@ -446,6 +527,12 @@
   </data>
   <data name="Includes Tutorials" xml:space="preserve">
     <value>รวมบทช่วยสอน</value>
+  </data>
+  <data name="Info / Notification" xml:space="preserve">
+    <value>ข้อมูล / การแจ้งเตือน</value>
+  </data>
+  <data name="Infrastructure · backup-2026-09-14" xml:space="preserve">
+    <value>โครงสร้างพื้นฐาน · backup-2026-09-14</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>การจัดการไฟล์แบบครบวงจร</value>
@@ -465,6 +552,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Aiursoft Template ใช้ฟรีหรือไม่?</value>
   </data>
+  <data name="Issue dedicated API Keys for services to isolate sources and precisely manage reporting permissions." xml:space="preserve">
+    <value>ออก API Keys เฉพาะสำหรับบริการเพื่อแยกแหล่งที่มาและจัดการสิทธิ์การรายงานอย่างแม่นยำ</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>มี java.time API ให้ใช้</value>
   </data>
@@ -480,8 +570,17 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>ร่วมกับชุมชนนักพัฒนาที่กำลังเติบโตของเรา ในการสร้างแอปพลิเคชันเว็บรุ่นถัดไป</value>
   </data>
+  <data name="Just now" xml:space="preserve">
+    <value>เมื่อสักครู่นี้</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>พร้อมใช้งานกับ K8s / Swarm</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>เหตุการณ์ล่าสุด</value>
+  </data>
+  <data name="Let every critical incident" xml:space="preserve">
+    <value>ให้ทุกเหตุการณ์สำคัญ</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>ตรวจสอบลินต์</value>
@@ -489,11 +588,17 @@
   <data name="Maintain High Code Quality" xml:space="preserve">
     <value>รักษาคุณภาพโค้ดให้อยู่ในระดับสูง</value>
   </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>จัดการแอปพลิเคชันที่ผสานรวม</value>
+  </data>
   <data name="Management Dashboard" xml:space="preserve">
     <value>แดชบอร์ดการจัดการ</value>
   </data>
   <data name="Markdown To HTML" xml:space="preserve">
     <value>มาร์กดาวน์เป็นเอชทีเอ็มแอล</value>
+  </data>
+  <data name="Message Center · 8,420 pending" xml:space="preserve">
+    <value>ศูนย์ข้อความ · 8,420 รายการรอดำเนินการ</value>
   </data>
   <data name="MIT Licence" xml:space="preserve">
     <value>สัญญาอนุญาต MIT</value>
@@ -503,6 +608,9 @@
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>โมเดลจะได้รับการตรวจสอบความถูกต้องทั้งในด้านไคลเอนต์และเซิร์ฟเวอร์โดยอิงจาก annotation ข้อมูล</value>
+  </data>
+  <data name="Multi-channel Push" xml:space="preserve">
+    <value>การแจ้งเตือนแบบหลายช่องทาง</value>
   </data>
   <data name="Multi-timezone Handling" xml:space="preserve">
     <value>การจัดการหลายเขตเวลา</value>
@@ -573,11 +681,20 @@
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="One Center, Closed-Loop Handling" xml:space="preserve">
+    <value>ศูนย์กลางเดียว จัดการแบบครบวงจร</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>เริ่มต้นด้วยคลิกเดียว</value>
   </data>
+  <data name="Open Push Center" xml:space="preserve">
+    <value>เปิดศูนย์การแจ้งเตือน</value>
+  </data>
   <data name="Open Source" xml:space="preserve">
     <value>โอเพนซอร์ส</value>
+  </data>
+  <data name="Open source and self-hostable" xml:space="preserve">
+    <value>โอเพนซอร์สและติดตั้งโฮสต์เองได้</value>
   </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>การผสานรวม OpenID Connect</value>
@@ -585,14 +702,23 @@
   <data name="Optimized Docker &amp; K8s config" xml:space="preserve">
     <value>การตั้งค่า Docker และ K8s ที่ได้รับการปรับให้เหมาะสม</value>
   </data>
+  <data name="Order Service · trace-7e9a" xml:space="preserve">
+    <value>บริการคำสั่งซื้อ · trace-7e9a</value>
+  </data>
   <data name="ORM &amp; Migrations" xml:space="preserve">
     <value>ORM และการย้ายฐานข้อมูล</value>
   </data>
   <data name="Out-of-the-box" xml:space="preserve">
     <value>พร้อมใช้งานทันที</value>
   </data>
+  <data name="Payment service response timeout" xml:space="preserve">
+    <value>หมดเวลารอการตอบกลับจากบริการชำระเงิน</value>
+  </data>
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>การค้นพบและการซิงค์สิทธิ์</value>
+  </data>
+  <data name="Persistent incident storage" xml:space="preserve">
+    <value>การเก็บข้อมูลเหตุการณ์แบบถาวร</value>
   </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>ต้องติดตั้ง Pint หรือเครื่องมือคล้ายกัน</value>
@@ -609,8 +735,14 @@
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>ท่อส่งงานที่พร้อมใช้งานสำหรับ dev/prod</value>
   </data>
+  <data name="Private deployment" xml:space="preserve">
+    <value>การติดตั้งใช้งานแบบส่วนตัว</value>
+  </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>เกตเวย์คุณภาพ</value>
+  </data>
+  <data name="Queue backlog approaching threshold" xml:space="preserve">
+    <value>รายการคิวค้างใกล้ถึงเกณฑ์ที่กำหนด</value>
   </data>
   <data name="Quick setup with H2 database" xml:space="preserve">
     <value>ติดตั้งง่ายด้วยฐานข้อมูล H2</value>
@@ -618,11 +750,23 @@
   <data name="Quick setup with NuGet packages" xml:space="preserve">
     <value>ติดตั้งด่วนด้วยแพ็คเกจ NuGet</value>
   </data>
+  <data name="Quickly locate by severity level" xml:space="preserve">
+    <value>ค้นหาได้ทันทีตามระดับความรุนแรง</value>
+  </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>การอนุญาตตามบทบาท RBAC</value>
   </data>
+  <data name="Reach the right person promptly." xml:space="preserve">
+    <value>เข้าถึงผู้รับผิดชอบที่ถูกต้องได้ทันที</value>
+  </data>
   <data name="Read the document" xml:space="preserve">
     <value>อ่านเอกสาร</value>
+  </data>
+  <data name="Record title, severity, occurrence time, and context; duplicate reports are handled idempotently." xml:space="preserve">
+    <value>บันทึกชื่อ ระดับความรุนแรง เวลาที่เกิด และบริบท; รายงานซ้ำจะถูกประมวลผลแบบไอดีโพเทนต์</value>
+  </data>
+  <data name="Reliable delivery" xml:space="preserve">
+    <value>การส่งมอบที่เชื่อถือได้</value>
   </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>ต้องมีการตั้งค่า Laravel Socialite</value>
@@ -638,6 +782,9 @@
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>การทดสอบการรวมระบบที่มั่นคง</value>
+  </data>
+  <data name="Route by severity level" xml:space="preserve">
+    <value>กำหนดเส้นทางตามระดับความรุนแรง</value>
   </data>
   <data name="Runs without any internet connection required." xml:space="preserve">
     <value>ทำงานได้โดยไม่ต้องใช้การเชื่อมต่ออินเทอร์เน็ต</value>
@@ -675,6 +822,12 @@
   <data name="Start a new project" xml:space="preserve">
     <value>เริ่มต้นโปรเจกต์ใหม่</value>
   </data>
+  <data name="Start Integration" xml:space="preserve">
+    <value>เริ่มต้นการเชื่อมต่อ</value>
+  </data>
+  <data name="Start now" xml:space="preserve">
+    <value>เริ่มต้นเลย</value>
+  </data>
   <data name="Start Shipping Value." xml:space="preserve">
     <value>เริ่มส่งมอบคุณค่า</value>
   </data>
@@ -707,6 +860,12 @@
   </data>
   <data name="Supports JetBrains Rider for easy code style fixes." xml:space="preserve">
     <value>รองรับ JetBrains Rider สำหรับการแก้ไขรูปแบบโค้ดอย่างง่าย</value>
+  </data>
+  <data name="Synced" xml:space="preserve">
+    <value>ซิงค์แล้ว</value>
+  </data>
+  <data name="System normal" xml:space="preserve">
+    <value>ระบบปกติ</value>
   </data>
   <data name="Task Runner" xml:space="preserve">
     <value>ผู้จัดการงาน</value>
@@ -744,11 +903,17 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>นี่คือโครงการเทมเพลต ซึ่งเป็นจุดเริ่มต้นของการเดินทาง...</value>
   </data>
+  <data name="Tiered Routing" xml:space="preserve">
+    <value>การกำหนดเส้นทางแบบแบ่งระดับ</value>
+  </data>
   <data name="Timezone-aware fields" xml:space="preserve">
     <value>ฟิลด์ที่ตระหนักถึงเขตเวลา</value>
   </data>
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>มี API TimeZoneInfo</value>
+  </data>
+  <data name="Track the success, pending, or failure status of every channel." xml:space="preserve">
+    <value>ติดตามสถานะของแต่ละช่องทางว่าเสร็จสิ้นแล้ว กำลังรอดำเนินการ หรือล้มเหลว</value>
   </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>ได้รับการไว้วางใจจากแอปพลิเคชันระดับการผลิต รวมถึง AnduinOS, StatHub, และ Warp เรายังไม่เพียงแค่แบ่งปันโค้ดเท่านั้น แต่เราใช้โค้ดนี้ในการดำเนินธุรกิจทั้งหมดของเรา</value>
@@ -759,14 +924,26 @@
   <data name="Unified Identity" xml:space="preserve">
     <value>เอกลักษณ์ที่เป็นหนึ่งเดียว</value>
   </data>
+  <data name="Unified intake" xml:space="preserve">
+    <value>การรับข้อมูลจากจุดเดียว</value>
+  </data>
   <data name="Usage" xml:space="preserve">
     <value>การใช้งาน</value>
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>ใช้เป็นพื้นฐานสำหรับ SaaS ของคุณ, แบ็กเอนด์สำหรับแอปมือถือ, เว็บไซต์องค์กร, หรือบล็อกส่วนตัว ความเป็นไปได้นั้นไม่มีที่สิ้นสุด</value>
   </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>ดูเหตุการณ์</value>
+  </data>
+  <data name="View integration guide" xml:space="preserve">
+    <value>ดูคู่มือการเชื่อมต่อ</value>
+  </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>ดูบน GitHub</value>
+  </data>
+  <data name="Visual workflow" xml:space="preserve">
+    <value>เวิร์กโฟลว์เชิงภาพ</value>
   </data>
   <data name="WebApplicationFactory available" xml:space="preserve">
     <value>มี WebApplicationFactory</value>

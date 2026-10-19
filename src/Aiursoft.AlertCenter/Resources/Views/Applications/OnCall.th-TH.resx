@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application On-Call Settings" xml:space="preserve">
+    <value>การตั้งค่ากลุ่มเวรฉุกเฉินของแอปพลิเคชัน</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>กลับไปที่แอปที่เชื่อมต่อ</value>
+  </data>
+  <data name="Binding automatically enables the built-in on-call email: To is the registered email addresses of all current on-call engineers (OCE), and CC is the on-call group&apos;s configured address. This cannot be disabled individually in push settings; unbinding stops new on-call emails. Application-specific custom channels remain independent, and binding does not grant the application access permissions." xml:space="preserve">
+    <value>การผูกกลุ่มจะเปิดใช้งานอีเมลแจ้งเวรในตัวโดยอัตโนมัติ โดยช่องถึง (To) จะเป็นที่อยู่อีเมลที่ลงทะเบียนไว้ของวิศวกรเวรปัจจุบันทุกคน (OCE) และช่องสำเนา (CC) จะเป็นที่อยู่ที่กำหนดค่าไว้สำหรับกลุ่มเวร ไม่สามารถปิดใช้งานการส่งอีเมลนี้แยกต่างหากในการตั้งค่าการแจ้งเตือนแบบพุชได้ การยกเลิกการผูกจะหยุดการส่งอีเมลแจ้งเวรใหม่ ช่องทางแบบกำหนดเองเฉพาะแอปพลิเคชันยังคงเป็นอิสระจากกัน และการผูกกลุ่มไม่ได้ให้สิทธิ์การเข้าถึงแก่แอปพลิเคชัน</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>ปิด</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>ไม่ต้องเชื่อมโยงกลุ่มเวร</value>
+  </data>
+  <data name="Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive incidents do not require on-call configuration." xml:space="preserve">
+    <value>แอปพลิเคชันแต่ละตัวสามารถผูกกับกลุ่มเวรได้เพียงกลุ่มเดียว แต่กลุ่มเวรหนึ่งกลุ่มสามารถรองรับแอปพลิเคชันได้หลายตัว เลือก “ไม่มีกลุ่มเวร” เพื่อยกเลิกการผูก แอปพลิเคชันที่เพียงรับเหตุการณ์เท่านั้นไม่จำเป็นต้องตั้งค่าเวร</value>
+  </data>
+  <data name="No on-duty groups available. Please contact the administrator to create a team in the On-Call Center." xml:space="preserve">
+    <value>ไม่มีกลุ่มเวรยามพร้อมใช้งาน กรุณาติดต่อผู้ดูแลระบบเพื่อสร้างทีมในศูนย์เวรยาม</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>กลุ่มเวรรับสาย</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>กลุ่มเวร (ไม่บังคับ)</value>
+  </data>
+  <data name="Save on-call settings" xml:space="preserve">
+    <value>บันทึกการตั้งค่าเวรยาม</value>
+  </data>
+  <data name="Select, replace, or unbind on-call group." xml:space="preserve">
+    <value>เลือก เปลี่ยน หรือยกเลิกการจับคู่กลุ่มเวร</value>
+  </data>
+
+</root>

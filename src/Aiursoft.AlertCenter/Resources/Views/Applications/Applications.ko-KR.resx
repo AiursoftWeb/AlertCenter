@@ -24,11 +24,17 @@
   <data name="Action" xml:space="preserve">
     <value>작업</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>작업</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>검색어를 수정하거나 검색을 지우면 모든 앱을 볼 수 있습니다.</value>
   </data>
   <data name="API Key has been reset" xml:space="preserve">
     <value>API 키가 재설정되었습니다</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>API 키 관리</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>연결된 앱</value>
@@ -47,6 +53,9 @@
   </data>
   <data name="Application Name" xml:space="preserve">
     <value>애플리케이션 이름</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>애플리케이션 설정</value>
   </data>
   <data name="Applications" xml:space="preserve">
     <value>애플리케이션</value>
@@ -81,6 +90,9 @@
   <data name="Create Application" xml:space="preserve">
     <value>애플리케이션 만들기</value>
   </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>인시던트 생성</value>
+  </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>새 연동 앱 만들기</value>
   </data>
@@ -92,6 +104,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>삭제</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>애플리케이션 삭제</value>
   </data>
   <data name="Delete integrated application" xml:space="preserve">
     <value>통합 애플리케이션 삭제</value>
@@ -183,6 +198,9 @@
   <data name="The old key will become invalid immediately. All reporting clients must be updated. The new key is displayed only once on this page." xml:space="preserve">
     <value>기존 키는 즉시 무효화됩니다. 모든 보고 클라이언트를 업데이트해야 합니다. 새 키는 이 페이지에 한 번만 표시됩니다.</value>
   </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>이 작업은 되돌릴 수 없습니다! 이 애플리케이션의 모든 과거 사고 기록, 관련 전송 기록 및 사이트 내 알림이 삭제되며, 모든 API 키가 즉시 무효화됩니다.</value>
+  </data>
   <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and the API Key will be immediately invalidated." xml:space="preserve">
     <value>이 작업은 되돌릴 수 없습니다! 이 애플리케이션의 모든 과거 인시던트, 관련 전송 기록 및 사이트 내 알림이 삭제되며 API 키는 즉시 무효화됩니다.</value>
   </data>
@@ -192,11 +210,17 @@
   <data name="Use a concise and clear business system name; the system will automatically generate the corresponding prefix ID and random Secret." xml:space="preserve">
     <value>간결하고 명확한 업무 시스템 이름을 입력하세요. 시스템에서 해당 접두사 ID와 임의의 Secret을 자동으로 생성합니다.</value>
   </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>간결한 비즈니스 시스템 이름을 사용하세요. 애플리케이션 생성 후 API 키는 별도로 생성하세요.</value>
+  </data>
   <data name="View all incidents" xml:space="preserve">
     <value>모든 인시던트 보기</value>
   </data>
   <data name="View incident" xml:space="preserve">
     <value>인시던트 보기</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>이슈 보기</value>
   </data>
   <data name="View integration guide to send the first test message " xml:space="preserve">
     <value>첫 테스트 메시지를 보내려면 연동 가이드를 확인하세요</value>
