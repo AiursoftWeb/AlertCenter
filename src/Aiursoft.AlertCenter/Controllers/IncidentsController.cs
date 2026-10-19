@@ -30,12 +30,15 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         }
         if (filter.ApplicationId.HasValue && !accessibleIds.Contains(filter.ApplicationId.Value) &&
             !await accessibleIncidents.AnyAsync(incident => incident.ApplicationId == filter.ApplicationId.Value, cancellationToken)) return Forbid();
+        var applications = db.SourceApplications.AsNoTracking().Where(application => accessibleIds.Contains(application.Id));
+        if (!filter.OnlyMine)
+            applications = applications.Where(application => accessibleIncidents.Any(incident => incident.ApplicationId == application.Id));
         var model = new IncidentsViewModel
         {
+            PageTitle = filter.OnlyMine ? "My incidents" : "Incidents",
             Filter = filter,
             ActiveCount = await accessibleIncidents.CountAsync(incident => incident.Status != Incident.Resolved, cancellationToken),
-            Applications = await db.SourceApplications.AsNoTracking().Where(application => accessibleIncidents.Any(incident => incident.ApplicationId == application.Id))
-                .OrderBy(application => application.Name).ToListAsync(cancellationToken)
+            Applications = await applications.OrderBy(application => application.Name).ToListAsync(cancellationToken)
         };
         if (!ModelState.IsValid) return this.StackView(model, nameof(Index));
         var incidents = await FilterIncidents(accessibleIncidents, filter)

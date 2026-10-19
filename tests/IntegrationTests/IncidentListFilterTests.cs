@@ -56,6 +56,64 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
+    [DataRow("/Incidents", "en-US", "Incidents")]
+    [DataRow("/Incidents", "zh-CN", "事件")]
+    [DataRow("/Incidents/Mine", "en-US", "My incidents")]
+    [DataRow("/Incidents/Mine", "zh-CN", "我的事件")]
+    [DataRow("/Incidents/Mine?level=invalid", "en-US", "My incidents")]
+    [DataRow("/Incidents/Mine?level=invalid", "zh-CN", "我的事件")]
+    [DataRow("/Incidents?onlyMine=true", "en-US", "My incidents")]
+    [DataRow("/Incidents?onlyMine=true", "zh-CN", "我的事件")]
+    public async Task IncidentListBrowserTitleMatchesTheLocalizedScope(string url, string culture, string expectedTitle)
+    {
+        await LoginAsAdmin();
+        using var cultureResponse = await Http.GetAsync($"/Culture/Set?culture={culture}&returnUrl=/");
+        Assert.AreEqual(HttpStatusCode.Found, cultureResponse.StatusCode);
+
+        var html = await Http.GetStringAsync(url);
+        var title = WebUtility.HtmlDecode(Regex.Match(html, "<title>(.*?)</title>", RegexOptions.Singleline).Groups[1].Value);
+        Assert.StartsWith(expectedTitle + " |", title);
+    }
+
+    [TestMethod]
+    [DataRow("/Incidents/Mine")]
+    [DataRow("/Incidents?onlyMine=true")]
+    public async Task MyIncidentsApplicationFilterUsesAccessRatherThanOwnedIncidents(string url)
+    {
+        var incidents = await SeedIncidentFilters();
+        Guid emptyApplicationId;
+        Guid inaccessibleApplicationId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var userId = (await db.Users.SingleAsync(user => user.Email == "admin@default.com")).Id;
+            (await db.Incidents.SingleAsync(incident => incident.Id == incidents[0].Id)).OwnerId = userId;
+            var empty = new SourceApplication { OwnerId = userId, Name = "Accessible empty application" };
+            var inaccessible = new SourceApplication { Name = "Private application" };
+            emptyApplicationId = empty.Id;
+            inaccessibleApplicationId = inaccessible.Id;
+            db.SourceApplications.Add(empty);
+            db.Incidents.Add(new Incident { Application = inaccessible, OwnerId = userId, Title = "Hidden owned incident" });
+            await db.SaveChangesAsync();
+        }
+
+        var html = await Http.GetStringAsync(QueryHelpers.AddQueryString(url, "applicationId", incidents[3].ApplicationId.ToString()));
+        var options = Regex.Match(html, "<select id=\"incident-application\"[^>]*>(.*?)</select>", RegexOptions.Singleline).Groups[1].Value;
+        Assert.IsTrue(options.Contains("Orders application", StringComparison.Ordinal));
+        Assert.IsTrue(options.Contains("Inventory application", StringComparison.Ordinal));
+        Assert.IsTrue(options.Contains("Accessible empty application", StringComparison.Ordinal));
+        Assert.IsFalse(options.Contains("Private application", StringComparison.Ordinal));
+        Assert.IsFalse(options.Contains("The selected application is inaccessible", StringComparison.Ordinal));
+        Assert.AreEqual(0, AlertIncidentIds(html).Length);
+
+        var emptyHtml = await Http.GetStringAsync(QueryHelpers.AddQueryString(url, "applicationId", emptyApplicationId.ToString()));
+        Assert.IsFalse(emptyHtml.Contains("The selected application is inaccessible", StringComparison.Ordinal));
+        Assert.AreEqual(0, AlertIncidentIds(emptyHtml).Length);
+        using var forbidden = await Http.GetAsync(QueryHelpers.AddQueryString(url, "applicationId", inaccessibleApplicationId.ToString()));
+        AssertForbidden(forbidden);
+    }
+
+    [TestMethod]
     public async Task MyIncidentsUsesCurrentOwnerAndApplicationAccessAndPreservesScopeAcrossPages()
     {
         var incidents = await SeedIncidentFilters();

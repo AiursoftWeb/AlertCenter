@@ -3,7 +3,6 @@
 @using Aiursoft.AlertCenter.Entities
 @using System.Globalization
 @{
-    ViewData["Title"] = Model.Filter.OnlyMine ? @Localizer["My incidents"].Value : @Localizer["Incident Handling Center"].Value;
     var listAction = Model.Filter.OnlyMine ? "Mine" : "Index";
     var filter = Model.Filter;
     var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Status != "all" || filter.Level != null ||
