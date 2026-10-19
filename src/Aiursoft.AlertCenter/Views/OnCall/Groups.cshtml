@@ -3,7 +3,7 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
         <h1 class="h3 mb-1">@Localizer["Team management"]</h1>
-        <p class="text-muted mb-0">@Localizer["Manage team members, rotation order, timezone, and scheduling start point. You can bind a shared rule template, but actual shifts are saved by the team."]</p>
+        <p class="text-muted mb-0">@Localizer["Start here: create a group, add members, then open its schedule and save the shifts. Applications route incidents to the people on duty in their assigned group."]</p>
     </div>
     @if (Model.CanManageOnCall)
     {
@@ -18,7 +18,7 @@
     </div>
 }
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Team saved"]</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["On-call groups"]</h2></div>
     <div class="table-responsive">
         <table class="table table-hover mb-0">
             <thead><tr><th>@Localizer["Team"]</th><th>@Localizer["Time Zone"]</th><th>@Localizer["Member Count"]</th><th>@Localizer["Rule template"]</th><th>@Localizer["Action"]</th></tr></thead>

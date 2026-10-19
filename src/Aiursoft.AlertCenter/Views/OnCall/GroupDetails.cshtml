@@ -24,6 +24,17 @@
     </div>
 }
 <div class="card mb-4">
+    <div class="card-body">
+        <h2 class="h5">@Localizer["Next: assign people to shifts"]</h2>
+        <p>@Localizer["The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership."]</p>
+        <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-primary">@Localizer["Open schedule"]</a>
+        @if (Model.CanManageOnCall)
+        {
+            <a asp-action="GroupEdit" asp-route-id="@group.Id" asp-fragment="group-members" class="btn btn-outline-secondary">@Localizer["Manage members"]</a>
+        }
+    </div>
+</div>
+<div class="card mb-4">
     <div class="card-header"><h2 class="card-title mb-0">@Localizer["Team configuration"]</h2></div>
     <div class="card-body">
         <p>@Localizer["Scheduling start point: "]@group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
@@ -54,7 +65,7 @@
             }
             <p class="small text-muted">@Localizer["On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications."]</p>
         }
-        <h3 class="h6">@Localizer["Rotate Members (Sequential)"]</h3>
+        <h3 class="h6">@Localizer["Members available for scheduling (rotation order)"]</h3>
         @if (group.Members.Count == 0)
         {
             <p class="text-muted mb-0">@Localizer["No team members."]</p>
