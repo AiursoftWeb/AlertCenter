@@ -179,7 +179,7 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th class="ps-4 py-3" style="width: 120px;">@Localizer["Status"]</th>
+                        <th class="ps-4 py-3" style="min-width: 120px;">@Localizer["Status"]</th>
                         <th class="py-3" style="min-width: 260px;">@Localizer["Incident"]</th>
                         <th class="py-3">@Localizer["Source application"]</th>
                         <th class="py-3" style="min-width: 140px;">@Localizer["Owner (last ACK)"]</th>
@@ -217,7 +217,7 @@
                                     @(incident.IsAcknowledged ? @Localizer["Acknowledged"].Value : @Localizer["Not acknowledged"].Value)
                                 </span>
                             </td>
-                            <td class="py-3">
+                            <td class="py-3" style="max-width: 300px;">
                                 <a asp-action="Details" asp-route-id="@incident.Id" class="fw-semibold text-decoration-none text-break d-block">
                                     @incident.Title
                                 </a>
