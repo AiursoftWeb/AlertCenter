@@ -24,6 +24,9 @@
   <data name="A new incident has been reported." xml:space="preserve">
     <value>有新的事件报告。</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>确认</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>操作时间（UTC）：{0:O}</value>
   </data>
@@ -51,6 +54,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>电子邮件（SMTP）</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>邮件通知仅在事件创建、升级、缓解、解决或重新打开时发送。</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>仅当事件被创建、缓解、解决或重新打开时，才会发送电子邮件通知。</value>
   </data>
@@ -60,11 +66,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>邮件发送超时。邮件服务器可能已收到该邮件；请确认后重试。</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>已升级</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>如果按钮无法使用，请打开此链接：</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>事件详情</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>事件级别升级（{0} → {1}）：{2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>事件 ID</value>
@@ -150,6 +162,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>通过全局 SMTP 服务器向指定的电子邮件地址发送纯文本提醒。</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>严重性升级</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>严重级别已提高：{0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>严重程度：{0}</value>
   </data>
@@ -168,6 +186,9 @@
   <data name="The incident has been resolved." xml:space="preserve">
     <value>事件已解决。</value>
   </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>事件严重性已升级，需要关注。</value>
+  </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>值班邮件收件人快照无效；无法重新选择当前的 OCE 投递。</value>
   </data>
@@ -178,7 +199,4 @@
     <value>标题：{0}</value>
   </data>
 
-  <data name="Acknowledge" xml:space="preserve">
-    <value>确认</value>
-  </data>
-  </root>
+</root>

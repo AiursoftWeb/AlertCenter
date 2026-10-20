@@ -27,6 +27,9 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>長期実行タスク（メールやAIなど）に対する「ファイア・アンド・フォーゲット」サポート。キュー管理、並列処理、キャンセルに対応するGUIを備えています。</value>
   </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>合計{0}件が割り当て済み</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>きめ細かい権限管理のための組み込みロールベースアクセス制御(RBAC)システム。</value>
   </data>
@@ -110,6 +113,12 @@
   </data>
   <data name="Copy" xml:space="preserve">
     <value>コピー</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>アプリケーションのアラートを作成し、設定済みの通知先に通知します。</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>アプリケーションを作成</value>
   </data>
   <data name="Create Application and Get Key" xml:space="preserve">
     <value>アプリケーションを作成してキーを取得</value>
@@ -237,6 +246,15 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>複数データベースサポート</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>自分のインシデント</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>新しいアラート</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>即時対応を要するインシデントはありません</value>
+  </data>
   <data name="No incidents yet" xml:space="preserve">
     <value>インシデントはまだありません</value>
   </data>
@@ -281,6 +299,9 @@
   </data>
   <data name="Recently created incidents" xml:space="preserve">
     <value>最近作成されたインシデント</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>問題を報告し、対応を開始しましょう。</value>
   </data>
   <data name="Report details, handling history, and resolution status." xml:space="preserve">
     <value>報告の詳細、対応履歴、解決状況。</value>
@@ -345,6 +366,9 @@
   <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
     <value>センターは通知を非同期で配信し、記録の追跡と再試行に対応します。</value>
   </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>承認によって担当するインシデント。対応業務を1つの場所にまとめましょう。</value>
+  </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>ナビゲーションバーはユーザーの役割と権限に基づいて自動的に調整されます。</value>
   </data>
@@ -359,6 +383,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>未対応</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>未解決</value>
   </data>
   <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
     <value>テストインシデントの報告には、Bearer認証を使用してください：</value>
@@ -377,6 +404,9 @@
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Aiursoftテンプレートを使用する理由</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>アラートを作成するには、有効なアプリケーションへのアクセス権が必要です。</value>
   </data>
 
 </root>

@@ -93,6 +93,9 @@
   <data name="Mitigated (Mitigated)" xml:space="preserve">
     <value>Gemildert (Gemildert)</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Meine Vorfälle</value>
+  </data>
   <data name="Next page" xml:space="preserve">
     <value>Nächste Seite</value>
   </data>
@@ -102,11 +105,26 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>Keine übereinstimmenden Vorfälle</value>
   </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>Kein On-Call-OCE</value>
+  </data>
+  <data name="No unresolved incidents in this queue" xml:space="preserve">
+    <value>Keine offenen Vorfälle in dieser Warteschlange</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>Nicht bestätigt</value>
   </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>Nicht erfasst</value>
+  </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>Ursprünglicher OCE im Bereitschaftsdienst</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Zuständig</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>Zuständig (letzte ACK)</value>
   </data>
   <data name="Page {0}" xml:space="preserve">
     <value>Seite {0}</value>
@@ -168,11 +186,17 @@
   <data name="The selected application is inaccessible" xml:space="preserve">
     <value>Die ausgewählte Anwendung ist nicht verfügbar</value>
   </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>Diese Vorfälle gehören zu Ihnen, da Sie die letzte Person waren, die sie bestätigt hat. Es sind nur Anwendungen enthalten, auf die Sie Zugriff haben.</value>
+  </data>
   <data name="Unassigned" xml:space="preserve">
     <value>Nicht zugewiesen</value>
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>Nicht behoben</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>Ihnen sind keine Vorfälle zugewiesen</value>
   </data>
 
 </root>

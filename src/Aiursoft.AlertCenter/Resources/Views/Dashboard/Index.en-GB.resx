@@ -27,6 +27,9 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation.</value>
   </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} assigned in total</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>A built-in Role-Based Access Control (RBAC) system for fine-grained permission management.</value>
   </data>
@@ -110,6 +113,12 @@
   </data>
   <data name="Copy" xml:space="preserve">
     <value>Copy</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Create an alert for your application and notify its configured recipients.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Create an application</value>
   </data>
   <data name="Create Application and Get Key" xml:space="preserve">
     <value>Create an application and get a key</value>
@@ -237,6 +246,15 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Multiple Database Support</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>My incidents</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>New alert</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>No incidents requiring immediate action</value>
+  </data>
   <data name="No incidents yet" xml:space="preserve">
     <value>No incidents yet</value>
   </data>
@@ -281,6 +299,9 @@
   </data>
   <data name="Recently created incidents" xml:space="preserve">
     <value>Recently created incidents</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Report an issue. Start a response.</value>
   </data>
   <data name="Report details, handling history, and resolution status." xml:space="preserve">
     <value>Report details, handling history and resolution status.</value>
@@ -345,6 +366,9 @@
   <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
     <value>The centre delivers notifications asynchronously, supporting record tracing and retries.</value>
   </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>The incidents you take ownership of by acknowledging them. Keep all your response work in one place.</value>
+  </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>The navigation bar automatically adjusts according to user roles and permissions.</value>
   </data>
@@ -359,6 +383,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>Unmitigated</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Unresolved</value>
   </data>
   <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
     <value>Use Bearer authentication to report test incidents:</value>
@@ -377,6 +404,9 @@
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Why use the Aiursoft Template?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>You need access to an enabled application with create-alert permissions.</value>
   </data>
 
 </root>

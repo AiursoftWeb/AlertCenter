@@ -135,6 +135,9 @@
   <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
     <value>ถึง: ผู้คนที่ถูกกำหนดไว้ในกะที่บันทึกไว้ ณ เวลาที่แจ้งเตือน คัดลอกถึง: ที่อยู่ทางเลือกด้านล่าง ไม่ว่าใครจะเป็นคนเวร ใช้เครื่องหมายจุลภาค เครื่องหมายจุดและเครื่องหมายจุลภาค หรือบรรทัดใหม่; สูงสุด 50 ที่อยู่</value>
   </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>ถึง: บุคคลที่ถูกกำหนดให้รับผิดชอบในกะที่บันทึกไว้เมื่อเกิดเหตุการณ์ ผู้รับ OCE เดิมยังคงถูกเก็บไว้สำหรับอีเมลเหตุการณ์ในภายหลัง CC ใช้กับอีเมลเหตุการณ์ทุกฉบับโดยไม่ขึ้นกับกะ ใช้เครื่องหมายจุลภาค เครื่องหมายเซมิโคลอน หรือบรรทัดใหม่; สูงสุด 50 ที่อยู่อีเมล CC</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>ใช้ปุ่มเลื่อนขึ้นและเลื่อนลงเพื่อเลือกลำดับที่ใช้สำหรับการจัดตารางเวลาอัตโนมัติในอนาคต หน้าที่การงานที่มีอยู่เดิมจะไม่ถูกลำดับใหม่ เลือกสมาชิกได้สูงสุด 200 คน</value>
   </data>

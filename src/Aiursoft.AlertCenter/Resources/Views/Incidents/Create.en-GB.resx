@@ -18,17 +18,62 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Content" xml:space="preserve">
+      <data name="Application" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="Back to dashboard" xml:space="preserve">
+    <value>Back to dashboard</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Content" xml:space="preserve">
     <value>Content</value>
+  </data>
+  <data name="Create alert" xml:space="preserve">
+    <value>Create alert</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Create incident</value>
+  </data>
+  <data name="Creating this alert will queue notifications using the application&apos;s on-call and push settings." xml:space="preserve">
+    <value>Creating this alert will queue notifications using the application&apos;s on-call and push settings.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="Describe what happened so responders can take action." xml:space="preserve">
+    <value>Describe what happened so responders can take action.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Informational" xml:space="preserve">
+    <value>Informational</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Major</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>New alert</value>
+  </data>
+  <data name="No enabled applications are available. Ask an application owner for create-alert access." xml:space="preserve">
+    <value>No enabled applications are available. Ask an application owner for create-alert access.</value>
+  </data>
+  <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
+    <value>Only enabled applications where you can create alerts are listed.</value>
+  </data>
+  <data name="Select an application" xml:space="preserve">
+    <value>Select an application</value>
   </data>
   <data name="Severity" xml:space="preserve">
     <value>Severity</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
   </data>
 
 </root>

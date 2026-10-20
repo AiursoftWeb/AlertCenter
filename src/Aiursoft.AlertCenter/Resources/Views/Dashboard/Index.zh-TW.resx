@@ -27,6 +27,9 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>「即發即忘」支援長時間執行的工作（如電子郵件或人工智慧），具備圖形使用者介面以管理佇列、平行處理及取消作業。</value>
   </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>總共指派 {0} 個</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>內建基於角色的存取控制（RBAC）系統，用於細粒度的權限管理。</value>
   </data>
@@ -110,6 +113,12 @@
   </data>
   <data name="Copy" xml:space="preserve">
     <value>複製</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>為您的應用程式建立警報，並通知其設定的收件者。</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>建立應用程式</value>
   </data>
   <data name="Create Application and Get Key" xml:space="preserve">
     <value>建立應用程式並取得金鑰</value>
@@ -237,6 +246,15 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>多種資料庫支援</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>我的事件</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>新增警報</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>沒有需要立即處理的事件</value>
+  </data>
   <data name="No incidents yet" xml:space="preserve">
     <value>尚無事件</value>
   </data>
@@ -281,6 +299,9 @@
   </data>
   <data name="Recently created incidents" xml:space="preserve">
     <value>最近建立的事件</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>回報問題，啟動回應。</value>
   </data>
   <data name="Report details, handling history, and resolution status." xml:space="preserve">
     <value>事件詳細資訊、處理歷程及解決狀態。</value>
@@ -345,6 +366,9 @@
   <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
     <value>中心會以非同步方式傳送通知，並支援記錄追蹤與重試。</value>
   </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>透過確認接收而由您負責的事件。將您的應變工作集中於一個地方。</value>
+  </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>導覽列會根據使用者角色和權限自動調整。</value>
   </data>
@@ -359,6 +383,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>未緩解</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>尚未解決</value>
   </data>
   <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
     <value>使用 Bearer 驗證回報測試事件：</value>
@@ -377,6 +404,9 @@
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>為什麼要使用 Aiursoft 模板？</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>您需要擁有已啟用應用程式的 create-alert 存取權限。</value>
   </data>
 
 </root>

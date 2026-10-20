@@ -60,6 +60,9 @@
   <data name="In-app notification pagination" xml:space="preserve">
     <value>Pagination des notifications dans l’application</value>
   </data>
+  <data name="Incident severity" xml:space="preserve">
+    <value>Sévérité de l&apos;incident</value>
+  </data>
   <data name="Jump" xml:space="preserve">
     <value>Accéder</value>
   </data>
@@ -107,6 +110,9 @@
   </data>
   <data name="Personal Alert and Notification Center · Independent Read Status Tracking" xml:space="preserve">
     <value>Centre personnel d’alertes et de notifications · Suivi indépendant des statuts de lecture</value>
+  </data>
+  <data name="Personal Incident and Notification Center · Independent Read Status Tracking" xml:space="preserve">
+    <value>Centre personnel des incidents et des notifications · Suivi indépendant de l’état de lecture</value>
   </data>
   <data name="Please correct the filter conditions." xml:space="preserve">
     <value>Veuillez corriger les critères de filtrage.</value>
@@ -185,6 +191,9 @@
   </data>
   <data name="When the system generates alerts bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>Lorsque le système génère des alertes destinées au canal interne, elles sont directement envoyées dans votre boîte de réception personnelle.</value>
+  </data>
+  <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
+    <value>Lorsque le système génère des incidents liés au canal interne, ils sont directement envoyés à votre boîte de réception personnelle.</value>
   </data>
 
 </root>

@@ -168,6 +168,9 @@
   <data name="To: the people assigned to the saved shift at notification time. CC: the optional addresses below, regardless of who is on duty. Use commas, semicolons or new lines; up to 50 addresses." xml:space="preserve">
     <value>Gửi đến: những người được phân công ca trực đã lưu tại thời điểm thông báo. CC: các địa chỉ tùy chọn bên dưới, bất kể ai đang trực. Sử dụng dấu phẩy, dấu chấm phẩy hoặc xuống dòng; tối đa 50 địa chỉ.</value>
   </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>Đến: những người được phân công vào ca trực đã lưu tại thời điểm sự cố xảy ra. Người nhận OCE ban đầu sẽ được giữ lại cho các email tiếp theo về sự cố. CC áp dụng cho mọi email về sự cố, bất kể ca trực nào. Phân tách địa chỉ bằng dấu phẩy, dấu chấm phẩy hoặc xuống dòng; tối đa 50 địa chỉ CC.</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Sử dụng Di chuyển lên và Di chuyển xuống để chọn thứ tự dùng cho lịch tự động trong tương lai. Các ca trực hiện có sẽ không bị sắp xếp lại. Chọn tối đa 200 thành viên.</value>
   </data>

@@ -99,6 +99,9 @@
   <data name="Mitigated (Mitigated)" xml:space="preserve">
     <value>已緩解（Mitigated）</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>我的事故</value>
+  </data>
   <data name="Next page" xml:space="preserve">
     <value>下一頁</value>
   </data>
@@ -108,14 +111,29 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>沒有符合的事故</value>
   </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>沒有當值 OCE</value>
+  </data>
+  <data name="No unresolved incidents in this queue" xml:space="preserve">
+    <value>此佇列中沒有尚未解決的事故</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>未確認</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>未有記錄</value>
   </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>正在處理中的事故</value>
   </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>原本當值的 OCE</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>負責人</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>負責人（最後確認）</value>
   </data>
   <data name="Page {0}" xml:space="preserve">
     <value>第 {0} 頁</value>
@@ -183,6 +201,9 @@
   <data name="The selected application is inaccessible" xml:space="preserve">
     <value>無法存取所選的應用程式</value>
   </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>這些事件屬於您，因為您是最後一位確認它們的人。只包括您可以存取的应用程序。</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>總計</value>
   </data>
@@ -200,6 +221,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>未緩解</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>您沒有已分配的緊急事件</value>
   </data>
 
 </root>

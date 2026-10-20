@@ -27,6 +27,9 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>การสนับสนุนแบบ &quot;Fire-and-forget&quot; สำหรับงานที่ใช้เวลานาน (เช่น อีเมลหรือปัญญาประดิษฐ์) พร้อมด้วยอินเทอร์เฟซกราฟิกสำหรับการจัดการคิว การประมวลผลแบบขนาน และการยกเลิก</value>
   </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>มอบหมายแล้ว {0} รายการ</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>ระบบควบคุมการเข้าถึงตามบทบาท (RBAC) ในตัว สำหรับการจัดการสิทธิ์แบบละเอียด</value>
   </data>
@@ -110,6 +113,12 @@
   </data>
   <data name="Copy" xml:space="preserve">
     <value>คัดลอก</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>สร้างการแจ้งเตือนสำหรับแอปพลิเคชันของคุณและแจ้งผู้รับที่กำหนดไว้</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>สร้างแอปพลิเคชัน</value>
   </data>
   <data name="Create Application and Get Key" xml:space="preserve">
     <value>สร้างแอปพลิเคชันและรับคีย์</value>
@@ -237,6 +246,15 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>รองรับหลายฐานข้อมูล</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>เหตุขัดข้องของฉัน</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>การแจ้งเตือนใหม่</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>ไม่มีเหตุขัดข้องที่ต้องดำเนินการทันที</value>
+  </data>
   <data name="No incidents yet" xml:space="preserve">
     <value>ยังไม่มีเหตุการณ์</value>
   </data>
@@ -278,6 +296,9 @@
   </data>
   <data name="Recently created incidents" xml:space="preserve">
     <value>เหตุการณ์ที่สร้างล่าสุด</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>รายงานปัญหา เริ่มดำเนินการแก้ไข</value>
   </data>
   <data name="Report details, handling history, and resolution status." xml:space="preserve">
     <value>รายละเอียดรายงาน ประวัติการจัดการ และสถานะการแก้ไข</value>
@@ -342,6 +363,9 @@
   <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
     <value>ศูนย์ส่งการแจ้งเตือนแบบไม่ซิงโครนัส รองรับการทำบันทึกติดตามและพยายามใหม่</value>
   </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>เหตุการณ์ที่คุณรับผิดชอบผ่านการยืนยัน รับรู้ จัดการงานตอบสนองของคุณไว้ในที่เดียว</value>
+  </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>แถบนำทางจะปรับเปลี่ยนโดยอัตโนมัติตามบทบาทและสิทธิ์ของผู้ใช้</value>
   </data>
@@ -356,6 +380,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>ยังไม่ได้แก้ไข</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>ยังไม่ได้รับการแก้ไข</value>
   </data>
   <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
     <value>ใช้การยืนยันตัวตนแบบ Bearer เพื่อรายงานเหตุการณ์ทดสอบ:</value>
@@ -374,6 +401,9 @@
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>ทำไมต้องใช้ Aiursoft Template?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>คุณต้องมีสิทธิ์เข้าถึง create-alert ในแอปพลิเคชันที่เปิดใช้งานแล้ว</value>
   </data>
 
 </root>

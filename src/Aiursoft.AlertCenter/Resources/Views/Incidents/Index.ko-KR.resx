@@ -99,6 +99,9 @@
   <data name="Mitigated (Mitigated)" xml:space="preserve">
     <value>완화됨 (Mitigated)</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>내 사고</value>
+  </data>
   <data name="Next page" xml:space="preserve">
     <value>다음 페이지</value>
   </data>
@@ -108,14 +111,29 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>일치하는 사고가 없습니다</value>
   </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>당직 OCE 없음</value>
+  </data>
+  <data name="No unresolved incidents in this queue" xml:space="preserve">
+    <value>해당 큐에 미해결 사고가 없습니다</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>확인 안 됨</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>기록되지 않음</value>
   </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>진행 중인 사고</value>
   </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>원본 온콜 OCE</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>담당자</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>담당자(마지막 ACK)</value>
   </data>
   <data name="Page {0}" xml:space="preserve">
     <value>페이지 {0}</value>
@@ -183,6 +201,9 @@
   <data name="The selected application is inaccessible" xml:space="preserve">
     <value>선택한 애플리케이션에 접근할 수 없습니다</value>
   </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>이 사건들은 귀하가 마지막으로 확인한 사람이므로 귀하에게 할당됩니다. 접근할 수 있는 애플리케이션만 포함됩니다.</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>총</value>
   </data>
@@ -200,6 +221,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>미완화</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>할당이된 사건이 없습니다.</value>
   </data>
 
 </root>

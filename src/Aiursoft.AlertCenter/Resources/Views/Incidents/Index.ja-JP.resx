@@ -99,6 +99,9 @@
   <data name="Mitigated (Mitigated)" xml:space="preserve">
     <value>緩和済み（Mitigated）</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>マイインシデント</value>
+  </data>
   <data name="Next page" xml:space="preserve">
     <value>次のページ</value>
   </data>
@@ -108,14 +111,29 @@
   <data name="No matching incidents" xml:space="preserve">
     <value>一致するインシデントはありません</value>
   </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>オンコールOCEなし</value>
+  </data>
+  <data name="No unresolved incidents in this queue" xml:space="preserve">
+    <value>このキューに未解決のインシデントはありません</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>未確認</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>未記録</value>
   </data>
   <data name="ongoing incidents" xml:space="preserve">
     <value>進行中のインシデント</value>
   </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>元のオンコール担当 OCE</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>担当者</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>担当者（最終ACK）</value>
   </data>
   <data name="Page {0}" xml:space="preserve">
     <value>{0}ページ目</value>
@@ -183,6 +201,9 @@
   <data name="The selected application is inaccessible" xml:space="preserve">
     <value>選択したアプリケーションにアクセスできません</value>
   </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>これらはあなたが最後に確認したインシデントのため、あなたに割り当てられています。表示されるのは、アクセス可能なアプリケーションのみです。</value>
+  </data>
   <data name="Total " xml:space="preserve">
     <value>合計</value>
   </data>
@@ -200,6 +221,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>未対応</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>割り当てられたインシデントはありません</value>
   </data>
 
 </root>

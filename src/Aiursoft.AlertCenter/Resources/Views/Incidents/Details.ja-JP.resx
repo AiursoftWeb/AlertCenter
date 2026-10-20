@@ -36,6 +36,9 @@
   <data name="Adjust the severity of this incident and record the reason." xml:space="preserve">
     <value>このインシデントの深刻度を調整し、その理由を記録してください。</value>
   </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>このインシデントの重大度を調整し、理由を記録してください。重大度を上げる場合はメールがキューに追加されますが、下げる場合は追加されません。</value>
+  </data>
   <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
     <value>また、是正理由を解決理由として使用し、このインシデントを即時解決してください。</value>
   </data>
@@ -123,6 +126,9 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>このインシデントが完全に解決され、再発しないことを確認します。</value>
   </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>インシデント発生時のこの元のOCEスナップショットは、オンコールの担当が交代した後も、インシデント通知メールに使用されます。確認応答を行うとインシデントの担当者が割り当てられますが、メールの宛先は変更されません。</value>
+  </data>
   <data name="Incident event" xml:space="preserve">
     <value>インシデントイベント</value>
   </data>
@@ -174,6 +180,9 @@
   <data name="No current on-call OCE." xml:space="preserve">
     <value>現在オンコール中のOCEはいません。</value>
   </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>元のOCEスナップショットは利用できません。現在のOCEは、過去のメール受信者の代わりに使用されません。</value>
+  </data>
   <data name="Not acknowledged" xml:space="preserve">
     <value>未確認</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>発生日時（UTC）</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>インシデント発生時のOCE</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>所有者：</value>

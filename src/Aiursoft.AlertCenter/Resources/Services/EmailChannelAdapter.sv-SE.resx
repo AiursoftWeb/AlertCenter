@@ -24,6 +24,9 @@
   <data name="A new incident has been reported." xml:space="preserve">
     <value>En ny incident har rapporterats.</value>
   </data>
+  <data name="Acknowledge" xml:space="preserve">
+    <value>Kvittera</value>
+  </data>
   <data name="Action time (UTC): {0:O}" xml:space="preserve">
     <value>Åtgärdstid (UTC): {0:O}</value>
   </data>
@@ -51,6 +54,9 @@
   <data name="Email (SMTP)" xml:space="preserve">
     <value>E-post (SMTP)</value>
   </data>
+  <data name="Email notifications are only sent when an incident is created, escalated, mitigated, resolved or reopened." xml:space="preserve">
+    <value>E-postaviseringar skickas endast när en incident skapas, eskaleras, begränsas, löses eller återöppnas.</value>
+  </data>
   <data name="Email notifications are only sent when an incident is created, mitigated, resolved or reopened." xml:space="preserve">
     <value>E-postaviseringar skickas endast när en incident skapas, begränsas, löses eller öppnas igen.</value>
   </data>
@@ -60,11 +66,17 @@
   <data name="Email sending timed out. The mail server may have received the message; please verify and retry." xml:space="preserve">
     <value>Tidsgränsen för e-postutskick överskreds. E-postservern kan ha tagit emot meddelandet. Kontrollera och försök igen.</value>
   </data>
+  <data name="Escalated" xml:space="preserve">
+    <value>Escalerad</value>
+  </data>
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Om knappen inte fungerar, öppna den här länken:</value>
   </data>
   <data name="Incident details" xml:space="preserve">
     <value>Incidentinformation</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident eskalerat ({0} → {1}): {2}</value>
   </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Incident-ID</value>
@@ -150,6 +162,12 @@
   <data name="Send plain text alerts to specified email addresses via the global SMTP server." xml:space="preserve">
     <value>Skicka aviseringar i oformaterad text till angivna e-postadresser via den globala SMTP-servern.</value>
   </data>
+  <data name="Severity escalation" xml:space="preserve">
+    <value>Allvarlighetsgradsescalation</value>
+  </data>
+  <data name="Severity increased: {0} → {1}" xml:space="preserve">
+    <value>Allvarlighetsgraden ökade: {0} → {1}</value>
+  </data>
   <data name="Severity: {0}" xml:space="preserve">
     <value>Allvarlighetsgrad: {0}</value>
   </data>
@@ -167,6 +185,9 @@
   </data>
   <data name="The incident has been resolved." xml:space="preserve">
     <value>Incidenten har lösts.</value>
+  </data>
+  <data name="The incident severity has increased and requires attention." xml:space="preserve">
+    <value>Incidentens allvarlighetsgrad har ökat och kräver åtgärd.</value>
   </data>
   <data name="The on-call email recipient snapshot is invalid; cannot re-select the current OCE delivery." xml:space="preserve">
     <value>Ögonblicksbilden av mottagarna för jourmejlet är ogiltig; det går inte att välja den aktuella OCE-leveransen på nytt.</value>

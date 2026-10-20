@@ -18,17 +18,62 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Content" xml:space="preserve">
+      <data name="Application" xml:space="preserve">
+    <value>แอปพลิเคชัน</value>
+  </data>
+  <data name="Back to dashboard" xml:space="preserve">
+    <value>กลับไปยังแดชบอร์ด</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Content" xml:space="preserve">
     <value>เนื้อหา</value>
+  </data>
+  <data name="Create alert" xml:space="preserve">
+    <value>สร้างการแจ้งเตือน</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>สร้างเหตุการณ์</value>
+  </data>
+  <data name="Creating this alert will queue notifications using the application&apos;s on-call and push settings." xml:space="preserve">
+    <value>การสร้างการแจ้งเตือนนี้จะจัดคิวการแจ้งเตือนโดยใช้การตั้งค่า on-call และ push ของแอปพลิเคชัน</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>วิกฤต</value>
+  </data>
+  <data name="Describe what happened so responders can take action." xml:space="preserve">
+    <value>อธิบายสิ่งที่เกิดขึ้นเพื่อให้ผู้รับแจ้งเหตุสามารถดำเนินการได้</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>ข้อผิดพลาด</value>
+  </data>
+  <data name="Informational" xml:space="preserve">
+    <value>ข้อมูล</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>ร้ายแรง</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>การแจ้งเตือนใหม่</value>
+  </data>
+  <data name="No enabled applications are available. Ask an application owner for create-alert access." xml:space="preserve">
+    <value>ไม่มีแอปพลิเคชันที่เปิดใช้งานอยู่ให้ใช้ ปรึกษาผู้ดูแลแอปพลิเคชันเพื่อขอสิทธิ์ในการสร้างการแจ้งเตือน</value>
+  </data>
+  <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
+    <value>แสดงเฉพาะแอปพลิเคชันที่เปิดใช้งานแล้วและคุณมีสิทธิ์สร้างการแจ้งเตือน</value>
+  </data>
+  <data name="Select an application" xml:space="preserve">
+    <value>เลือกแอปพลิเคชัน</value>
   </data>
   <data name="Severity" xml:space="preserve">
     <value>ระดับความรุนแรง</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>ชื่อเรื่อง</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>คำเตือน</value>
   </data>
 
 </root>
