@@ -186,8 +186,17 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         };
         var level = message?.Level ?? incidentEvent?.NewLevel ?? "sev3";
         var incident = message ?? incidentEvent?.Incident;
-        var reference = incident == null ? string.Empty : $"[#{incident.ShortId}]";
-        var subject = $"[AlertCenter][{level}]{reference} {SanitizeSubject(title)}";
+        var action = incidentEvent?.Type switch
+        {
+            IncidentTimelineEntry.Mitigated => "Mitigate",
+            IncidentTimelineEntry.Resolved => "Resolve",
+            IncidentTimelineEntry.Reopened => "Reopen",
+            IncidentTimelineEntry.LevelChanged => "Escalate",
+            _ => "New"
+        };
+        var subject = incident == null
+            ? $"[AlertCenter][{level}] {SanitizeSubject(title)}"
+            : $"[Alert {level}][{action} #{incident.ShortId}] {SanitizeSubject(incident.Title)}";
         var incidentId = message?.Id ?? incidentEvent?.IncidentId;
         var baseUrl = options.Value.PublicBaseUrl;
         if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var site) ||

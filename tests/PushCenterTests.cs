@@ -709,23 +709,27 @@ public partial class PushCenterTests
     }
 
     [TestMethod]
-    [DataRow(false)]
-    [DataRow(true)]
-    public async Task IncidentEmailsLinkToDetailsAndEncodeUntrustedContent(bool resolved)
+    [DataRow(null, "New")]
+    [DataRow(IncidentTimelineEntry.Mitigated, "Mitigate")]
+    [DataRow(IncidentTimelineEntry.Resolved, "Resolve")]
+    [DataRow(IncidentTimelineEntry.Reopened, "Reopen")]
+    [DataRow(IncidentTimelineEntry.LevelChanged, "Escalate")]
+    public async Task IncidentEmailsLinkToDetailsAndEncodeUntrustedContent(string? eventType, string action)
     {
         var incident = new Incident
         {
-            Title = "Database <img src=x onerror=alert(1)> & outage",
+            Id = Guid.Parse("00000000-0000-0000-0000-000000000036"),
+            Title = "Database <img src=x onerror=alert(1)> & outage\r\nExtra line",
             Content = "First line\n<script>alert(1)</script>",
-            ContextJson = "{\"value\":\"<iframe>\"}", Level = "sev1"
+            ContextJson = "{\"value\":\"<iframe>\"}", Level = eventType == null ? "sev1" : "sev4"
         };
         var delivery = new PushDelivery
         {
             Channel = new PushChannel { EmailRecipient = "anduin@example.com" },
-            Incident = resolved ? null : incident,
-            IncidentEvent = resolved ? new IncidentTimelineEntry
+            Incident = eventType == null ? incident : null,
+            IncidentEvent = eventType != null ? new IncidentTimelineEntry
             {
-                Incident = incident, IncidentId = incident.Id, NewLevel = "sev1", Type = IncidentTimelineEntry.Resolved, Note = "<b>Resolved</b>"
+                Incident = incident, IncidentId = incident.Id, PreviousLevel = "sev2", NewLevel = "sev1", Type = eventType, Note = "<b>Resolved</b>"
             } : null
         };
         var adapter = new EmailChannelAdapter(_email, TestLocalization.For<EmailChannelAdapter>(),
@@ -734,7 +738,9 @@ public partial class PushCenterTests
         Assert.IsTrue(result.Succeeded, result.ErrorMessage);
         var mail = _email.Messages.Single();
         var url = $"https://alerts.example.com/portal/Incidents/Details/{incident.Id}";
-        Assert.Contains($"[#{incident.ShortId}]", mail.Subject);
+        Assert.AreEqual($"[Alert sev1][{action} #000512] Database <img src=x onerror=alert(1)> & outage  Extra line", mail.Subject);
+        Assert.DoesNotContain("\r", mail.Subject);
+        Assert.DoesNotContain("\n", mail.Subject);
         Assert.Contains($"Incident ID: #{incident.ShortId} ({incident.Id})", mail.Body);
         Assert.Contains(url, mail.Body);
         Assert.IsNotNull(mail.HtmlBody);
@@ -748,7 +754,7 @@ public partial class PushCenterTests
         Assert.Contains("&lt;iframe&gt;", mail.HtmlBody);
         Assert.DoesNotContain("<script>", mail.HtmlBody);
         Assert.DoesNotContain("<img", mail.HtmlBody);
-        if (resolved) Assert.Contains("&lt;b&gt;Resolved&lt;/b&gt;", mail.HtmlBody);
+        if (eventType == IncidentTimelineEntry.Resolved) Assert.Contains("&lt;b&gt;Resolved&lt;/b&gt;", mail.HtmlBody);
     }
 
     [TestMethod]
