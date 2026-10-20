@@ -75,12 +75,7 @@ public partial class IncidentPagesTests : TestBase
             Application = new SourceApplication { Name = "Conversation reference" },
             Title = "Service unavailable", OccurredAtUtc = DateTime.UtcNow
         };
-        using (var scope = Server!.Services.CreateScope())
-        {
-            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            db.Incidents.Add(incident);
-            await db.SaveChangesAsync();
-        }
+        await CreateInboxNotification(incident);
         var html = await Http.GetStringAsync($"/Incidents/Details/{incident.Id}");
         Assert.Contains($"data-incident-short-id=\"{incident.ShortId}\"", html);
         Assert.Contains($"#{incident.ShortId}", html);
