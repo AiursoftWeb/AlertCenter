@@ -12,6 +12,7 @@ public partial class IncidentPagesTests
         .WithFeature(new ListHandler())
         .WithFeature(new GetHandler())
         .WithFeature(new CreateHandler())
+        .WithFeature(new CommentHandler())
         .WithFeature(new MitigateHandler())
         .WithFeature(new ResolveHandler())
         .WithFeature(new SeverityHandler());

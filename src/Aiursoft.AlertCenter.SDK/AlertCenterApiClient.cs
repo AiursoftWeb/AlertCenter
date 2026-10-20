@@ -18,6 +18,15 @@ public sealed class AlertCenterApiClient(
             autoRetry: false, headers: await AuthorizationHeadersAsync());
     }
 
+    public async Task<CreateIncidentCommentResponse> CreateIncidentCommentAsync(Guid incidentId, CreateIncidentCommentRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        return await http.Post<CreateIncidentCommentResponse>(
+            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), $"/api/v1/incidents/{incidentId}/comments", new { }),
+            new AiurApiPayload(request), BodyFormat.HttpJsonBody,
+            autoRetry: false, headers: await AuthorizationHeadersAsync());
+    }
+
     public async Task<GetIncidentResponse> GetIncidentAsync(Guid incidentId)
     {
         return await http.Get<GetIncidentResponse>(

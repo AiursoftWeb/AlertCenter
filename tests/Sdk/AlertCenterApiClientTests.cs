@@ -11,6 +11,29 @@ namespace Aiursoft.AlertCenter.Tests.Sdk;
 public sealed class AlertCenterApiClientTests
 {
     [TestMethod]
+    public async Task CommentUsesJsonCurrentCredentialAndDoesNotRetryAppends()
+    {
+        using var handler = new RecordingHandler();
+        var keys = new RotatingKeyProvider();
+        await using var services = BuildProvider(handler, keys);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var id = Guid.NewGuid();
+        var request = new CreateIncidentCommentRequest { Markdown = "**Investigation:** CI CPU contention" };
+        await client.CreateIncidentCommentAsync(id, request);
+        Assert.AreEqual($"https://alerts.example/center/api/v1/incidents/{id}/comments", handler.RequestUri?.ToString());
+        Assert.AreEqual(HttpMethod.Post, handler.Method);
+        Assert.AreEqual("application/json", handler.ContentType);
+        Assert.AreEqual(request.Markdown, JObject.Parse(handler.Body!)["markdown"]!.Value<string>());
+        keys.Key = "rotated-key";
+        await client.CreateIncidentCommentAsync(id, request);
+        Assert.AreEqual("Bearer rotated-key", handler.Authorization);
+        using var failedHandler = new RecordingHandler { Fail = true };
+        await using var failedServices = BuildProvider(failedHandler, keys);
+        await Assert.ThrowsAsync<HttpRequestException>(() => failedServices.GetRequiredService<AlertCenterApiClient>().CreateIncidentCommentAsync(id, request));
+        Assert.AreEqual(1, failedHandler.CallCount);
+    }
+
+    [TestMethod]
     public async Task MitigationUsesVersionedJsonAndCurrentCredentialWithoutRetries()
     {
         using var handler = new RecordingHandler();

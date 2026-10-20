@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <Version>10.8.2</Version>
+    <Version>10.9.0</Version>
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>alertcenter</AssemblyName>
     <RootNamespace>Aiursoft.AlertCenter.Client</RootNamespace>
@@ -14,7 +14,7 @@
     <Nullable>enable</Nullable>
     <Company>Aiursoft</Company>
     <Product>AlertCenter command-line client</Product>
-    <Description>Create, query, patch metadata, mitigate, resolve and change severity of application-scoped AlertCenter incidents.</Description>
+    <Description>Create, query, comment, patch metadata, mitigate, resolve and change severity of application-scoped AlertCenter incidents.</Description>
     <PackageId>Aiursoft.AlertCenter.Client</PackageId>
     <PackageTags>alertcenter alerts incidents cli</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

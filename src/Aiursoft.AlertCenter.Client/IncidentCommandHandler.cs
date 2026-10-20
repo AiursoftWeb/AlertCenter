@@ -78,6 +78,9 @@ public abstract class IncidentCommandHandler : ExecutableCommandHandlerBuilder
                 output.WriteLine($"Incident: {patched.IncidentId}\nVersion: {patched.Version}");
                 output.WriteLine(patched.Metadata.ToString(Formatting.Indented));
                 break;
+            case CreateIncidentCommentResponse commented:
+                output.WriteLine($"Incident: {commented.IncidentId}\nComment: {commented.CommentId}\nCreated: {commented.CreatedAtUtc:O}");
+                break;
             case CreateIncidentResponse created:
                 output.WriteLine($"Incident: {created.IncidentId}\nReport ID: {created.ReportId}\nDuplicate: {created.Duplicate}");
                 break;

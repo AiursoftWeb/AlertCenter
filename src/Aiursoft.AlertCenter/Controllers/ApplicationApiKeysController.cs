@@ -62,7 +62,7 @@ public class ApplicationApiKeysController(TemplateDbContext db, IApplicationAcce
         {
             ApplicationId = applicationId, Id = key.Id, Name = key.Name, IsEnabled = key.IsEnabled,
             CanQueryIncidents = key.CanQueryIncidents, CanCreateIncidents = key.CanCreateIncidents,
-            CanReopenIncidents = key.CanReopenIncidents, CanPatchIncidentMetadata = key.CanPatchIncidentMetadata, CanMitigateIncidents = key.CanMitigateIncidents, CanResolveIncidents = key.CanResolveIncidents, CanChangeIncidentSeverity = key.CanChangeIncidentSeverity
+            CanCommentIncidents = key.CanCommentIncidents, CanReopenIncidents = key.CanReopenIncidents, CanPatchIncidentMetadata = key.CanPatchIncidentMetadata, CanMitigateIncidents = key.CanMitigateIncidents, CanResolveIncidents = key.CanResolveIncidents, CanChangeIncidentSeverity = key.CanChangeIncidentSeverity
         });
     }
 
@@ -99,6 +99,7 @@ public class ApplicationApiKeysController(TemplateDbContext db, IApplicationAcce
         (!model.CanQueryIncidents || existing?.CanQueryIncidents == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.ViewIncidents, cancellationToken)) &&
         (!model.CanCreateIncidents || existing?.CanCreateIncidents == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.CreateIncidents, cancellationToken)) &&
         (!model.CanChangeIncidentSeverity || existing?.CanChangeIncidentSeverity == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken)) &&
+        (!model.CanCommentIncidents || existing?.CanCommentIncidents == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken)) &&
         (!model.CanPatchIncidentMetadata || existing?.CanPatchIncidentMetadata == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken)) &&
         (!model.CanReopenIncidents || existing?.CanReopenIncidents == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken)) &&
         (!model.CanMitigateIncidents || existing?.CanMitigateIncidents == true || await access.CanAccessAsync(User, model.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken)) &&
@@ -113,6 +114,7 @@ public class ApplicationApiKeysController(TemplateDbContext db, IApplicationAcce
         key.CanMitigateIncidents = model.CanMitigateIncidents;
         key.CanReopenIncidents = model.CanReopenIncidents;
         key.CanPatchIncidentMetadata = model.CanPatchIncidentMetadata;
+        key.CanCommentIncidents = model.CanCommentIncidents;
         key.CanResolveIncidents = model.CanResolveIncidents;
         key.CanChangeIncidentSeverity = model.CanChangeIncidentSeverity;
     }
