@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: La clave de API solo se muestra una vez, tras crearla correctamente. Configúrela de inmediato en las variables de entorno de producción (p. ej.,</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Programación de la publicación activada de forma asincrónica.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Conserva el primer registro y no actives envíos duplicados.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. El centro puede utilizar este campo para estimar la latencia de la red de informes y entrega.</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(Crítico, máxima prioridad),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(Error),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(Información general). El centro enruta y envía notificaciones en función de este nivel.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(Grave),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(Aviso),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) o un servicio de gestión de claves (KMS). Está terminantemente prohibido incluirla directamente en el frontend, los registros o los repositorios de código.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>De 1 a 200 caracteres</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 Aceptado (Idempotente)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 Error de parámetro</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 Error de autenticación</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>Hora real de la incidencia, p. ej.,</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Faltan las credenciales Bearer, las claves no coinciden o la aplicación está deshabilitada. Compruebe la configuración de la aplicación.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>Configurar canal de Push Center</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>Copiar código</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>Crear la aplicación de integración y obtener la clave API</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>Guía de integración para desarrolladores</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>Informe duplicado con el mismo ReportId,</value>
+  </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Cada clave pertenece a una aplicación. El servidor verifica el hash del secreto y el permiso requerido para cada operación.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>Garantiza una idempotencia estricta en operaciones concurrentes; utiliza el mismo ID en los reintentos.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>Cada nuevo ID de informe crea un incidente independiente. Reutilice el mismo ID de informe solo al reintentar la misma solicitud. Aplique limitación de tasa a los informes en el origen.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>Nombre del campo</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>Desde la creación de la aplicación y la autenticación de la clave hasta el primer informe de incidencias, configura en 4 pasos un canal estable para las incidencias del sistema.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>Ir a crear una aplicación y obtener credenciales</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>Especificación de los campos de la solicitud de informe HTTP</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>Códigos de estado de respuesta HTTP y mejores prácticas de ingeniería</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>En el código de ejemplo,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>Detalles del contenido de la incidencia. Admite guías de resolución de problemas, trazas de excepciones o resúmenes de diagnóstico. La capa de presentación escapa automáticamente el HTML para evitar ataques XSS.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>Título resumido del incidente. Describa brevemente la avería, p. ej., «Tiempo de espera de respuesta del canal de pago de pedidos».</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>Guardado inicial correcto. Devuelve el ID de clave principal generado,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>Objeto JSON; solicitud completa máx. 64 KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>Aviso para prevenir filtraciones</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Gestionar aplicaciones integradas</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>Máximo de 4.000 caracteres</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Abra la gestión de claves API de una aplicación para crear claves nombradas con permisos de consulta, creación y resolución.</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Opcional</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>o variables de entorno, facilitando la localización y resolución de problemas con un solo clic en la página de detalles.</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>Sustituya la clave de la aplicación generada en el paso anterior para enviar una prueba directamente.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Obligatorio</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>Faltan campos obligatorios, el formato del nivel no es válido o el cuerpo de la solicitud supera el límite de 64 KiB.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>Las respuestas utilizan AiurProtocol con Code, Message y ProtocolVersion. Los errores de validación incluyen una matriz Items. El SDK devuelve un recibo tipado o lanza una excepción AiurProtocol.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>Reglas y restricciones</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>Enviar el primer mensaje de incidencia</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>Gravedad:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>Formato estándar de UUID</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>Contexto de negocio estructurado. Se recomienda incluir</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>El identificador de informe globalmente único del cliente. El centro utiliza</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>El SDK envía cada informe una sola vez. Si un fallo de red deja el resultado en duda, vuelve a enviar la misma solicitud con el mismo ReportId y la misma hora de ocurrencia.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Ver incidencias</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>Con desfase horario o indicador Z</value>
+  </data>
+
+</root>

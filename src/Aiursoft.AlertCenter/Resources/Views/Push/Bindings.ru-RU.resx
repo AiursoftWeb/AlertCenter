@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· Отключено, не выполняется</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} — настройки маршрутизации push-уведомлений</value>
+  </data>
+  <data name="Application Push Routing" xml:space="preserve">
+    <value>Маршрутизация уведомлений приложения</value>
+  </data>
+  <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
+    <value>Применяется только к новым инцидентам после сохранения. Если канал отключен, маршрутизация сохраняется, но новые инциденты будут пропущены.</value>
+  </data>
+  <data name="Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident." xml:space="preserve">
+    <value>Применимо к sev0–sev4; выбор канала не требуется. Каналы ниже обеспечивают независимые дополнительные уведомления для каждого нового инцидента.</value>
+  </data>
+  <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
+    <value>Включено автоматически · Отключить по отдельности невозможно</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>доступных каналов</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>Вернуться к подключённым приложениям</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>Встроенная электронная почта для дежурных</value>
+  </data>
+  <data name="CC addresses configured for the on-call group." xml:space="preserve">
+    <value>Адреса для копии, настроенные для дежурной группы.</value>
+  </data>
+  <data name="Critical (P0)" xml:space="preserve">
+    <value>Критический (P0)</value>
+  </data>
+  <data name="Custom channel-to-severity match matrix" xml:space="preserve">
+    <value>Матрица настройки каналов для уровней критичности</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Error (P2)" xml:space="preserve">
+    <value>Ошибка (P2)</value>
+  </data>
+  <data name="Info (P4)" xml:space="preserve">
+    <value>Информация (P4)</value>
+  </data>
+  <data name="Major (P1)" xml:space="preserve">
+    <value>Серьёзный (P1)</value>
+  </data>
+  <data name="Multiple supplementary channels can be selected per level; unchecked items only indicate no custom notifications will be sent, without affecting built-in on-call emails. Strict exact matching is applied, with no automatic expansion to higher or lower levels." xml:space="preserve">
+    <value>Для каждого уровня можно выбрать несколько дополнительных каналов; снятый флажок означает лишь, что пользовательские уведомления отправляться не будут, и не влияет на встроенные письма для дежурных. Применяется строгое точное соответствие: автоматического расширения на более высокие или низкие уровни нет.</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>Каналы отправки уведомлений пока не настроены</value>
+  </data>
+  <data name="On-call group:" xml:space="preserve">
+    <value>Группа дежурных:</value>
+  </data>
+  <data name="Please contact the push channel administrator to grant channel binding permissions." xml:space="preserve">
+    <value>Обратитесь к администратору каналов уведомлений, чтобы он предоставил разрешение на привязку каналов.</value>
+  </data>
+  <data name="Precisely match receiving channels by incident level · Matrix Routing Engine" xml:space="preserve">
+    <value>Точно сопоставляйте каналы получения по уровню инцидента · движок маршрутизации по матрице</value>
+  </data>
+  <data name="Push Channel and Type" xml:space="preserve">
+    <value>Канал уведомлений и тип</value>
+  </data>
+  <data name="Save routing configuration" xml:space="preserve">
+    <value>Сохранить настройки маршрутизации</value>
+  </data>
+  <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
+    <value>Системные зарегистрированные адреса электронной почты всех инженеров, находящихся на дежурстве (OCE), на момент уведомления;</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>Всего</value>
+  </data>
+  <data name="Warning (P3)" xml:space="preserve">
+    <value>Предупреждение (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
+    <value>Вы можете создать каналы уведомлений Webhook, электронной почты или в приложении по мере необходимости для дополнения. Приложения, связанные с группами дежурства, будут отправлять встроенные письма о дежурстве даже без настраиваемых каналов.</value>
+  </data>
+
+</root>
