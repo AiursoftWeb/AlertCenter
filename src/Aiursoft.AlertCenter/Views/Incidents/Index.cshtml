@@ -30,14 +30,14 @@
             {
                 <span class="badge bg-danger text-white px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
                     <span class="ac-status-dot dot-danger ac-pulse-danger"></span>
-                    <span>@string.Format(@Localizer["{0} ongoing incidents across accessible applications"].Value, Model.ActiveCount)</span>
+                    <span>@string.Format(@Localizer["{0} unmitigated incidents across accessible applications"].Value, Model.ActiveCount)</span>
                 </span>
             }
             else
             {
                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
                     <span class="ac-status-dot dot-success ac-pulse"></span>
-                    <span>@Localizer["No unresolved incidents in this queue"]</span>
+                    <span>@Localizer["No unmitigated incidents in this queue"]</span>
                 </span>
             }
         </div>
