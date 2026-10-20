@@ -27,6 +27,9 @@
   <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
     <value>{0}件の進行中のインシデント（アクセス可能なアプリケーション全体）</value>
   </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>アクセス可能なアプリケーションに未対応のインシデントが{0}件あります</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>確認済み</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="No on-call OCE" xml:space="preserve">
     <value>オンコールOCEなし</value>
+  </data>
+  <data name="No unmitigated incidents in this queue" xml:space="preserve">
+    <value>このキューに未対応のインシデントはありません</value>
   </data>
   <data name="No unresolved incidents in this queue" xml:space="preserve">
     <value>このキューに未解決のインシデントはありません</value>

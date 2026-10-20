@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application On-Call Settings" xml:space="preserve">
+    <value>Paramètres de permanence de l&apos;application</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>Retour aux applications connectées</value>
+  </data>
+  <data name="Binding automatically enables the built-in on-call email: To is the registered email addresses of all current on-call engineers (OCE), and CC is the on-call group&apos;s configured address. This cannot be disabled individually in push settings; unbinding stops new on-call emails. Application-specific custom channels remain independent, and binding does not grant the application access permissions." xml:space="preserve">
+    <value>La liaison active automatiquement le e-mail intégré de garde : le champ « À » contient les adresses e-mail enregistrées de tous les ingénieurs actuellement en garde (OCE), et le champ « Cc » contient l&apos;adresse configurée du groupe de garde. Cette fonctionnalité ne peut pas être désactivée individuellement dans les paramètres de notification ; la suppression de la liaison arrête l&apos;envoi de nouveaux e-mails de garde. Les canaux personnalisés spécifiques à l&apos;application restent indépendants, et la liaison n&apos;accorde pas de permissions d&apos;accès à l&apos;application.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>Ne pas associer de groupe d’astreinte</value>
+  </data>
+  <data name="Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive incidents do not require on-call configuration." xml:space="preserve">
+    <value>Chaque application peut être associée à un seul groupe d’astreinte ; un groupe peut prendre en charge plusieurs applications. Sélectionnez « Aucun groupe d’astreinte » pour supprimer l’association. Les applications qui ne font que recevoir des incidents n’ont pas besoin d’une configuration d’astreinte.</value>
+  </data>
+  <data name="No on-duty groups available. Please contact the administrator to create a team in the On-Call Center." xml:space="preserve">
+    <value>Aucun groupe de garde disponible. Veuillez contacter l&apos;administrateur pour créer une équipe dans le Centre de garde.</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>Groupe de garde</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>Groupe d’astreinte (facultatif)</value>
+  </data>
+  <data name="Save on-call settings" xml:space="preserve">
+    <value>Enregistrer les paramètres d&apos;appel de garde</value>
+  </data>
+  <data name="Select, replace, or unbind on-call group." xml:space="preserve">
+    <value>Sélectionnez, remplacez ou déliez le groupe de garde.</value>
+  </data>
+
+</root>

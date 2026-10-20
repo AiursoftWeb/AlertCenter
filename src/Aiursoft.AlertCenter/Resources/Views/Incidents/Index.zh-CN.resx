@@ -27,6 +27,9 @@
   <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
     <value>可访问应用中有 {0} 起正在处理的事件</value>
   </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>可访问应用中有 {0} 起未缓解事件</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>已确认</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="No on-call OCE" xml:space="preserve">
     <value>无值班 OCE</value>
+  </data>
+  <data name="No unmitigated incidents in this queue" xml:space="preserve">
+    <value>当前队列中没有未缓解的事件</value>
   </data>
   <data name="No unresolved incidents in this queue" xml:space="preserve">
     <value>此队列中没有未解决的事件</value>

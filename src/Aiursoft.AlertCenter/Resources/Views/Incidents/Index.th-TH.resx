@@ -27,6 +27,9 @@
   <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
     <value>{0} เหตุขัดข้องที่กำลังดำเนินอยู่ในแอปพลิเคชันที่เข้าถึงได้</value>
   </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>พบเหตุการณ์ที่ยังไม่ได้แก้ไข {0} รายการในแอปพลิเคชันที่คุณเข้าถึงได้</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>รับทราบแล้ว</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="No on-call OCE" xml:space="preserve">
     <value>ไม่มี OCE ที่เข้าเวร</value>
+  </data>
+  <data name="No unmitigated incidents in this queue" xml:space="preserve">
+    <value>ไม่มีเหตุการณ์ที่ยังไม่ได้บรรเทาในคิวนี้</value>
   </data>
   <data name="No unresolved incidents in this queue" xml:space="preserve">
     <value>ไม่มีเหตุการณ์ที่ยังไม่ได้รับการแก้ไขในคิวนี้</value>

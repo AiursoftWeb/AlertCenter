@@ -27,6 +27,9 @@
   <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
     <value>{0}개의 진행 중 인시던트가 접근 가능한 애플리케이션에 걸쳐 발생 중입니다</value>
   </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>접근 가능한 애플리케이션에서 미조치된 인시던트 {0}건</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>확인됨</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="No on-call OCE" xml:space="preserve">
     <value>당직 OCE 없음</value>
+  </data>
+  <data name="No unmitigated incidents in this queue" xml:space="preserve">
+    <value>이 대기열에 완화되지 않은 사건이 없습니다</value>
   </data>
   <data name="No unresolved incidents in this queue" xml:space="preserve">
     <value>해당 큐에 미해결 사고가 없습니다</value>

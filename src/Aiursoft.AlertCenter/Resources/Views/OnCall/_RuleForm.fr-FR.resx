@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>La génération automatique doit respecter les exigences ; un effectif manuel insuffisant déclenche uniquement un avertissement, tandis qu’un poste vacant ne peut pas être enregistré.</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Répartissez les postes du matin, de l’après-midi et du soir aussi équitablement que possible</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Ne peut pas être inférieur au nombre minimum de personnel ; à satisfaire autant que possible lorsque les remplacements et les pauses le permettent. Laisser vide pour une affectation automatique.</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>La couverture et le repos sont prioritaires ; la redondance peut diminuer lors des échanges. La rotation n&apos;est pas autorisée pour les équipes de trois personnes disposant d&apos;au moins 16 heures de repos. L&apos;emploi du temps est basé sur des gardes continues effectives de 8 heures ; l&apos;heure locale peut changer lors des passages à l&apos;heure d&apos;été ou d&apos;hiver.</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>Trois shifts par jour fixes, au moins une personne par shift ; plusieurs personnes par shift autorisées.</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>Les créneaux horaires fixes ont la priorité</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>Repos minimum (heures)</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>Effectif minimal par quart</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>Préférence de rotation</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>Enregistrer le modèle</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>Durée du poste (heures)</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>Effectif cible par équipe</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>Nom du modèle</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>Il s’agit d’un modèle de règles qui peut être partagé entre plusieurs équipes. L’équipe gère les membres, l’ordre de rotation et les dates de début des plannings. La modification du modèle ne régénérera aucun poste déjà enregistré.</value>
+  </data>
+
+</root>

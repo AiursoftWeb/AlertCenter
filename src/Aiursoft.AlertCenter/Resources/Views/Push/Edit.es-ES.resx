@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>, puede usarse en el extremo receptor con</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: Permite asignar varios usuarios y grupos de usuarios (roles) a la vez. El sistema elimina automáticamente los duplicados para que cada miembro reciba una sola notificación sin leer.</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: El sistema utiliza la configuración global del servicio de correo electrónico. Utilice</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Seleccionar tipo de canal</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>Añadir una dirección de correo en CC</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>Añadir una dirección de correo electrónico</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>Añada al menos un usuario o grupo de usuarios; no se enviarán notificaciones si un grupo no tiene miembros.</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>Añadir canal de notificaciones push</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>Añadir destinatarios y grupos de usuarios</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>Solicitud personalizada avanzada (encabezados y plantillas personalizados)</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>y</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>Autorización de vinculación de aplicación</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>Aún no se han concedido los permisos de enlazamiento de la aplicación</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>Además de los administradores del canal de empuje, actualmente ningún usuario puede vincular este canal.</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>Tipo de autorización</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>Volver a la lista de canales</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>Introduzca varias direcciones de correo electrónico en CC</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>No se puede sobrescribir.</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Lista CC</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Nombre del canal</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>Haz clic en el botón de la derecha para eliminar</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>Haga clic para insertar un marcador de posición:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>Detalles de configuración</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>Descripción del formato de solicitud predeterminado</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>Cada tarea de entrega tiene un identificador único y fijo</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>Editar canal de notificaciones push</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>Los correos electrónicos se enviarán directamente a esta dirección de correo electrónico.</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>Activar este canal de empuje ahora</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>Las variables de entorno proporcionan las credenciales de autenticación.</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>Ejemplo: equipo de guardia de producción, bot de incidencias de Feishu, webhook de operaciones…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>Encabezados de solicitud adicionales (objeto JSON)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>Servicio de correo SMTP global</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>Nombre de la cabecera máx. 128 caracteres; el valor debe ser una cadena válida.</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>Deduplicación idempotente.</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>Si se deja en blanco, el sistema envía JSON estándar de forma predeterminada. Los encabezados personalizados se cifran y se almacenan;</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>Ámbito de las notificaciones en la aplicación</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>Modificando los parámetros de entrega del canal «{0}».</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>Aún no se han añadido destinatarios en CC.</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>Aún no se han añadido destinatarios. Selecciona grupos de roles o especifica usuarios en la parte superior.</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>Una dirección de correo electrónico por línea; también se admiten comas o puntos y coma en inglés, hasta un máximo de 50 destinatarios en copia.</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>Solo los siguientes usuarios o miembros de grupos de usuarios pueden ver y vincular este canal en las aplicaciones que gestionan. Este permiso no concede acceso a los destinatarios, los webhooks ni la configuración de pruebas.</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>Interpretar como lista</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>Destinatarios CC analizados</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>Los marcadores de posición deben ser el único valor de una cadena JSON.</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Correo electrónico del destinatario</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>Tipo de destinatario</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Eliminar {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Eliminar permiso</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>Plantilla del cuerpo de la solicitud (plantilla JSON)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>Grupo de roles</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>Guardar la configuración del canal</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Buscar por nombre de usuario o nombre visible...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>Buscar usuarios</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Selecciona un tipo de canal de notificación y configura la dirección del destinatario o los destinatarios de destino.</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Seleccionar grupo de usuarios</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>Seleccionar grupo de usuarios...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Selecciona un usuario...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>Lista de destinatarios seleccionados</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Especificar usuario individual</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>Especificar usuario</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>Especificar usuario (Usuario)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>El receptor debe admitir HTTP POST JSON. Una respuesta 2xx se considera una entrega exitosa. El tiempo de espera de la solicitud del sistema es de 10 segundos, y las redirecciones entre orígenes no se siguen.</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>Por añadir</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>Se utiliza para identificar rápidamente los niveles y registros de envío de notificaciones de la aplicación.</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>Grupo de usuarios</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Grupo de usuarios · Los miembros heredan dinámicamente los permisos vinculados</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>Grupo de usuarios (rol)</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>URL del receptor de webhook</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>Analizará y preservará los tipos de objeto originales.</value>
+  </data>
+
+</root>
