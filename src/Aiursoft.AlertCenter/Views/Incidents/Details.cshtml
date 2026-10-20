@@ -49,6 +49,7 @@
                 <span class="badge bg-secondary-subtle text-secondary font-monospace">@incident.Application.Name</span>
                 <span class="badge @(incident.Level == "sev0" ? "ac-badge-sev0" : incident.Level == "sev1" ? "ac-badge-sev1" : incident.Level == "sev2" ? "ac-badge-sev2" : incident.Level == "sev3" ? "ac-badge-sev3" : "ac-badge-sev4") font-monospace">@incident.Level</span>
             </div>
+            <p class="font-monospace fw-bold mb-2" data-incident-short-id="@incident.ShortId">@Localizer["Incident ID"]: #@incident.ShortId</p>
             <h1 class="h3 mb-2 text-break fw-bold">@incident.Title</h1>
             <span class="badge bg-secondary-subtle text-secondary mb-2" data-acknowledged="@(incident.IsAcknowledged ? "true" : "false")">
                 @(incident.IsAcknowledged ? @Localizer["Acknowledged"].Value : @Localizer["Not acknowledged"].Value)

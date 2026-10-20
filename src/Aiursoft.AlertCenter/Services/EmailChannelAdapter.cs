@@ -185,7 +185,9 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             _ => message?.Title ?? localizer["Channel test notification"].Value
         };
         var level = message?.Level ?? incidentEvent?.NewLevel ?? "sev3";
-        var subject = $"[AlertCenter][{level}] {SanitizeSubject(title)}";
+        var incident = message ?? incidentEvent?.Incident;
+        var reference = incident == null ? string.Empty : $"[#{incident.ShortId}]";
+        var subject = $"[AlertCenter][{level}]{reference} {SanitizeSubject(title)}";
         var incidentId = message?.Id ?? incidentEvent?.IncidentId;
         var baseUrl = options.Value.PublicBaseUrl;
         if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var site) ||
@@ -201,8 +203,10 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             .AppendLine(string.Format(localizer["Severity: {0}"].Value, level))
             .AppendLine(string.Format(localizer["Occurred at (UTC): {0:O}"].Value, (message ?? incidentEvent?.Incident)?.OccurredAtUtc ?? delivery.CreatedAtUtc))
             .AppendLine(string.Format(localizer["Delivery ID: {0}"].Value, delivery.Id));
+        if (incident != null)
+            body.AppendLine(string.Format(localizer["Incident ID: {0}"].Value, $"#{incident.ShortId} ({incident.Id})"));
         if (incidentEvent != null)
-            body.AppendLine(string.Format(localizer["Incident ID: {0}"].Value, incidentEvent.IncidentId)).AppendLine(string.Format(localizer["Action time (UTC): {0:O}"].Value, incidentEvent.CreatedAtUtc))
+            body.AppendLine(string.Format(localizer["Action time (UTC): {0:O}"].Value, incidentEvent.CreatedAtUtc))
                 .AppendLine(string.Format(localizer["Reason: {0}"].Value, incidentEvent.Note ?? localizer["None"].Value));
         if (incidentEvent is { IsEscalation: true })
             body.AppendLine(string.Format(localizer["Severity increased: {0} → {1}"].Value,
@@ -292,7 +296,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         }
         var incidentId = incident?.Id;
         var reference = incidentId.HasValue
-            ? $"{localizer["Incident ID"].Value}: {incidentId.Value}"
+            ? $"{localizer["Incident ID"].Value}: #{incident!.ShortId} ({incidentId.Value})"
             : localizer["Channel test notification"].Value;
         var occurredAt = incident?.OccurredAtUtc ?? delivery.CreatedAtUtc;
         var acknowledgeButton = incidentId.HasValue ? $$"""

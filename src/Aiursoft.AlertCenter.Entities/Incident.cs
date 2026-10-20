@@ -1,3 +1,6 @@
+using System.Buffers.Binary;
+using System.Globalization;
+using System.Security.Cryptography;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +15,11 @@ public class Incident
     public const string Resolved = "resolved";
 
     public Guid Id { get; set; } = Guid.NewGuid();
+    // A stable conversation reference; collisions are allowed. Identity and routing use Id.
+    [NotMapped]
+    public string ShortId => (BinaryPrimitives.ReadUInt32BigEndian(SHA256.HashData(Id.ToByteArray())) % 1_000_000)
+        .ToString("D6", CultureInfo.InvariantCulture);
+
     public Guid ReportId { get; set; } = Guid.NewGuid();
     [MaxLength(4000)] public string? Content { get; set; }
     public DateTime OccurredAtUtc { get; set; }
