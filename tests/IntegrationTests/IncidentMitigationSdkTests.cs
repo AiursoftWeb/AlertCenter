@@ -14,6 +14,140 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 public partial class IncidentPagesTests
 {
     [TestMethod]
+    [DataRow(Incident.Mitigated)]
+    [DataRow(Incident.Resolved)]
+    public async Task SdkReopensWithIndependentScopePreservingResponseAndRecoveryHistory(string status)
+    {
+        var original = await CreateApplication();
+        var app = Guid.Parse(original.Split('.')[0]);
+        await using var originalServices = ReportingClient(original);
+        var originalClient = originalServices.GetRequiredService<AlertCenterApiClient>();
+        var receipt = await originalClient.CreateIncidentAsync(new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(), Title = "Recurring performance issue", Level = "sev3", OccurredAtUtc = DateTimeOffset.UtcNow
+        });
+        var recoveredAt = new DateTime(2026, 10, 20, 1, 0, 0, DateTimeKind.Utc);
+        string ownerId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var incident = await db.Incidents.SingleAsync();
+            var owner = await db.Users.FirstAsync();
+            ownerId = incident.OwnerId = owner.Id;
+            incident.OwnerDisplayName = owner.DisplayName;
+            incident.AcknowledgedAtUtc = recoveredAt.AddMinutes(-10);
+            incident.Status = status;
+            incident.MitigatedAtUtc = recoveredAt;
+            incident.ResolvedAtUtc = status == Incident.Resolved ? recoveredAt.AddMinutes(5) : null;
+            db.ApplicationPushChannels.Add(new ApplicationPushChannel
+            {
+                ApplicationId = app,
+                Channel = new PushChannel { Name = "Recurrence", Type = "email", EmailRecipient = "test@example.com" }
+            });
+            await db.SaveChangesAsync();
+        }
+        var before = (await originalClient.GetIncidentAsync(receipt.IncidentId)).Incident;
+        Assert.AreEqual(new DateTimeOffset(recoveredAt), before.MitigatedAtUtc);
+        Assert.AreEqual(status == Incident.Resolved ? new DateTimeOffset(recoveredAt.AddMinutes(5)) : null, before.ResolvedAtUtc);
+        var listed = (await originalClient.QueryIncidentsAsync(new QueryIncidentsRequest())).Items.Single();
+        Assert.AreEqual(before.MitigatedAtUtc, listed.MitigatedAtUtc);
+        Assert.AreEqual(before.ResolvedAtUtc, listed.ResolvedAtUtc);
+        var request = new ReopenIncidentRequest { Version = before.Version, Reason = "  Server pressure returned.  " };
+        var denied = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => originalClient.ReopenIncidentAsync(receipt.IncidentId, request));
+        Assert.AreEqual(Code.Unauthorized, denied.Response.Code);
+        var key = await CreateApplicationKey(app, reopen: true);
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var stale = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ReopenIncidentAsync(receipt.IncidentId,
+            new ReopenIncidentRequest { Version = Guid.NewGuid(), Reason = "Stale observation" }));
+        Assert.AreEqual(Code.Conflict, stale.Response.Code);
+        foreach (var invalid in new[]
+                 {
+                     new ReopenIncidentRequest { Reason = "Returned" },
+                     new ReopenIncidentRequest { Version = before.Version, Reason = " " },
+                     new ReopenIncidentRequest { Version = before.Version, Reason = new string('x', 4001) }
+                 })
+            await Assert.ThrowsAsync<AiurBadApiInputException>(() => client.ReopenIncidentAsync(receipt.IncidentId, invalid));
+        var otherKey = await CreateApplicationKey(Guid.Parse((await CreateApplication()).Split('.')[0]), reopen: true);
+        await using var otherServices = ReportingClient(otherKey);
+        var foreign = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() =>
+            otherServices.GetRequiredService<AlertCenterApiClient>().ReopenIncidentAsync(receipt.IncidentId, request));
+        var missing = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ReopenIncidentAsync(Guid.NewGuid(), request));
+        Assert.AreEqual(Code.NotFound, foreign.Response.Code);
+        Assert.AreEqual(missing.Response.Message, foreign.Response.Message);
+        var reopened = await client.ReopenIncidentAsync(receipt.IncidentId, request);
+        Assert.AreEqual(Code.JobDone, reopened.Code);
+        Assert.AreNotEqual(before.Version, reopened.Version);
+        var retry = await client.ReopenIncidentAsync(receipt.IncidentId, request);
+        Assert.AreEqual(Code.NoActionTaken, retry.Code);
+        Assert.AreEqual(reopened.Version, retry.Version);
+        var after = (await client.GetIncidentAsync(receipt.IncidentId)).Incident;
+        Assert.AreEqual(Incident.New, after.Status);
+        Assert.AreEqual(before.AcknowledgedAtUtc, after.AcknowledgedAtUtc);
+        Assert.AreEqual(ownerId, after.OwnerId);
+        Assert.AreEqual(before.Level, after.Level);
+        Assert.IsNull(after.MitigatedAtUtc);
+        Assert.IsNull(after.ResolvedAtUtc);
+        using var finalScope = Server!.Services.CreateScope();
+        var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var entry = await finalDb.IncidentTimelineEntries.SingleAsync(item => item.Type == IncidentTimelineEntry.Reopened);
+        Assert.AreEqual(status, entry.PreviousStatus);
+        Assert.AreEqual(Incident.New, entry.NewStatus);
+        Assert.AreEqual($"application:{app}", entry.ActorIdSnapshot);
+        Assert.AreEqual("Server pressure returned.", entry.Note);
+        Assert.AreEqual(ownerId, entry.NewOwnerId);
+        Assert.AreEqual(1, await finalDb.PushDeliveries.CountAsync(item => item.IncidentEventId == entry.Id));
+        (await finalDb.ApplicationApiKeys.SingleAsync(item => item.Id == Guid.Parse(key.Split('.')[1]))).IsEnabled = false;
+        await finalDb.SaveChangesAsync();
+        var disabled = await Assert.ThrowsAsync<AiurUnexpectedServerResponseException>(() => client.ReopenIncidentAsync(receipt.IncidentId, request));
+        Assert.AreEqual(Code.WrongKey, disabled.Response.Code);
+    }
+
+    [TestMethod]
+    public async Task ConcurrentApplicationReopenCommitsOneEventAndEmail()
+    {
+        var original = await CreateApplication();
+        var app = Guid.Parse(original.Split('.')[0]);
+        var key = await CreateApplicationKey(app, reopen: true);
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var receipt = await client.CreateIncidentAsync(new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(), Title = "Recurring failure", OccurredAtUtc = DateTimeOffset.UtcNow
+        });
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var incident = await db.Incidents.SingleAsync();
+            incident.Status = Incident.Mitigated;
+            incident.MitigatedAtUtc = DateTime.UtcNow;
+            db.ApplicationPushChannels.Add(new ApplicationPushChannel
+            {
+                ApplicationId = app,
+                Channel = new PushChannel { Name = "Reopen concurrency", Type = "email", EmailRecipient = "test@example.com" }
+            });
+            await db.SaveChangesAsync();
+        }
+        var version = (await client.GetIncidentAsync(receipt.IncidentId)).Incident.Version;
+        async Task<Code> Reopen()
+        {
+            try
+            {
+                return (await client.ReopenIncidentAsync(receipt.IncidentId,
+                    new ReopenIncidentRequest { Version = version, Reason = "Failure returned" })).Code;
+            }
+            catch (AiurUnexpectedServerResponseException exception) { return exception.Response.Code; }
+        }
+        var results = await Task.WhenAll(Reopen(), Reopen());
+        Assert.AreEqual(1, results.Count(code => code == Code.JobDone));
+        Assert.IsTrue(results.All(code => code is Code.JobDone or Code.NoActionTaken or Code.Conflict));
+        using var finalScope = Server!.Services.CreateScope();
+        var finalDb = finalScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var entry = await finalDb.IncidentTimelineEntries.SingleAsync(item => item.Type == IncidentTimelineEntry.Reopened);
+        Assert.AreEqual(1, await finalDb.PushDeliveries.CountAsync(item => item.IncidentEventId == entry.Id));
+    }
+
+    [TestMethod]
     [DataRow(Incident.New)]
     [DataRow(Incident.Acked)]
     public async Task SdkMitigatesWithoutResolvingAndPreservesHumanResponseState(string status)

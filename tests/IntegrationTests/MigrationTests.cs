@@ -37,6 +37,7 @@ public class MigrationTests
         Assert.IsFalse(key.CanCreateIncidents);
         Assert.IsTrue(key.CanResolveIncidents);
         Assert.IsTrue(key.CanChangeIncidentSeverity);
+        Assert.IsFalse(key.CanReopenIncidents);
         Assert.IsFalse(key.CanMitigateIncidents);
         Assert.IsFalse(key.CanPatchIncidentMetadata);
     }
@@ -71,7 +72,7 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(8, context.Database.GetMigrations().Count());
+        Assert.AreEqual(9, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
@@ -255,7 +256,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(8, context.Database.GetMigrations().Count());
+        Assert.AreEqual(9, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");

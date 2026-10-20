@@ -43,6 +43,15 @@ public sealed class AlertCenterApiClient(
             autoRetry: false, headers: await AuthorizationHeadersAsync());
     }
 
+    public async Task<ReopenIncidentResponse> ReopenIncidentAsync(Guid incidentId, ReopenIncidentRequest request)
+    {
+        ArgumentNullException.ThrowIfNull(request);
+        return await http.Post<ReopenIncidentResponse>(
+            new AiurApiEndpoint(options.Value.Endpoint.TrimEnd('/'), $"/api/v1/incidents/{incidentId}/reopen", new { }),
+            new AiurApiPayload(request), BodyFormat.HttpJsonBody,
+            autoRetry: false, headers: await AuthorizationHeadersAsync());
+    }
+
     public async Task<ResolveIncidentResponse> ResolveIncidentAsync(Guid incidentId, ResolveIncidentRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);

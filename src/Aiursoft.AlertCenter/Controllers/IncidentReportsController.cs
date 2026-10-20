@@ -136,6 +136,10 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         ReceivedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc)),
         AcknowledgedAtUtc = incident.AcknowledgedAtUtc is { } acknowledgedAt
             ? new DateTimeOffset(DateTime.SpecifyKind(acknowledgedAt, DateTimeKind.Utc)) : null,
+        MitigatedAtUtc = incident.MitigatedAtUtc is { } mitigatedAt
+            ? new DateTimeOffset(DateTime.SpecifyKind(mitigatedAt, DateTimeKind.Utc)) : null,
+        ResolvedAtUtc = incident.ResolvedAtUtc is { } resolvedAt
+            ? new DateTimeOffset(DateTime.SpecifyKind(resolvedAt, DateTimeKind.Utc)) : null,
         OwnerId = incident.OwnerId, OwnerDisplayName = incident.OwnerDisplayName,
         Context = incident.ContextJson == null ? null : JObject.Parse(incident.ContextJson),
         Metadata = IncidentMetadata.Read(incident.MetadataJson)
@@ -192,6 +196,30 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
             Code = unchanged ? Code.NoActionTaken : Code.JobDone,
             Message = unchanged ? "The metadata property already has this value." : "The incident metadata was patched by its application.",
             IncidentId = incident.Id, Version = incident.Version, Metadata = metadata
+        });
+    }
+
+    [HttpPost("{incidentId:guid}/reopen")]
+    [RequestSizeLimit(65536)]
+    public async Task<IActionResult> Reopen(Guid incidentId, [FromBody] ReopenIncidentRequest request,
+        CancellationToken cancellationToken)
+    {
+        var key = await AuthenticateKeyAsync(cancellationToken);
+        if (key == null)
+            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
+        if (!key.CanReopenIncidents)
+            return this.Protocol(Code.Unauthorized, "The API key does not permit this operation.");
+        var result = await IncidentWorkflowService.ReopenForApplicationAsync(
+            db, key.ApplicationId, incidentId, request.Version, request.Reason, cancellationToken);
+        if (result.StatusCode == 404) return this.Protocol(Code.NotFound, "The incident was not found.");
+        if (result.StatusCode == 409)
+            return this.Protocol(Code.Conflict, "The incident changed. Query it again before deciding whether to reopen it.");
+        var incident = result.Incident!;
+        return this.Protocol(new ReopenIncidentResponse
+        {
+            Code = result.StatusCode == 202 ? Code.NoActionTaken : Code.JobDone,
+            Message = result.StatusCode == 202 ? "The incident is already open." : "The incident was reopened by its application.",
+            IncidentId = incident.Id, Version = incident.Version
         });
     }
 

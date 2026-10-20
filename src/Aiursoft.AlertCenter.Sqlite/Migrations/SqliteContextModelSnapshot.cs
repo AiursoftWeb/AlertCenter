@@ -41,6 +41,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<bool>("CanQueryIncidents")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("CanReopenIncidents")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("CanResolveIncidents")
                         .HasColumnType("INTEGER");
 
