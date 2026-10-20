@@ -46,6 +46,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<bool>("CanQueryIncidents")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<bool>("CanReopenIncidents")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<bool>("CanResolveIncidents")
                         .HasColumnType("tinyint(1)");
 

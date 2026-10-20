@@ -22,6 +22,8 @@ public sealed class IncidentDetails
     public string Level { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public DateTimeOffset? AcknowledgedAtUtc { get; set; }
+    public DateTimeOffset? MitigatedAtUtc { get; set; }
+    public DateTimeOffset? ResolvedAtUtc { get; set; }
     public bool IsAcknowledged => AcknowledgedAtUtc.HasValue;
     public string? OwnerId { get; set; }
     public string? OwnerDisplayName { get; set; }
