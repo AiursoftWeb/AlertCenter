@@ -304,11 +304,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
                 <a href="{{Encode(url + "?ack=true")}}" style="display:inline-block;border:1px solid #526579;padding:13px 16px;color:#334155;background-color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Acknowledge"].Value)}}</a>
             </td>
             """ : string.Empty;
-        var incidentReference = incident != null ? $$"""
-            <p style="margin:18px 0 0;font-size:13px;line-height:1.5;color:#526579;">{{Encode(localizer["Incident ID"].Value)}}<br>
-                <strong style="font-size:32px;line-height:1.3;font-family:Consolas,monospace;color:#102a43;">#{{incident.ShortId}}</strong>
-            </p>
-            """ : string.Empty;
+        var incidentReference = incident != null ? $" #{incident.ShortId}" : string.Empty;
         // Tables and inline styles also work when email clients strip stylesheets.
         // Encode every external value; only the markup in this renderer is trusted.
         return $$"""
@@ -317,10 +313,9 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             <body style="margin:0;padding:0;background-color:#f1f5f9;color:#172b4d;font-family:Arial,Helvetica,sans-serif;">
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#f1f5f9;"><tr><td align="center" style="padding:24px 12px;">
             <table role="presentation" width="640" cellspacing="0" cellpadding="0" style="width:100%;max-width:640px;background-color:{{foreground}};border:1px solid #dce3ed;border-radius:12px;">
-            <tr><td style="padding:24px 28px;background-color:{{color}};border-radius:12px 12px 0 0;color:{{foreground}};font-size:20px;font-weight:bold;">AlertCenter · {{Encode(status)}}</td></tr>
+            <tr><td style="padding:24px 28px;background-color:{{color}};border-radius:12px 12px 0 0;color:{{foreground}};font-size:20px;font-weight:bold;">AlertCenter · {{Encode(status)}}{{Encode(incidentReference)}}</td></tr>
             <tr><td style="padding:28px;">
                 <span style="display:inline-block;padding:6px 12px;background-color:{{color}};border-radius:6px;color:{{foreground}};font-size:12px;font-weight:bold;">{{Encode(level.ToUpperInvariant())}}</span>
-                {{incidentReference}}
                 <h1 style="margin:18px 0 12px;font-size:24px;line-height:1.35;color:#102a43;overflow-wrap:anywhere;word-break:break-word;">{{Encode(title)}}</h1>
                 <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:#526579;">{{Encode(introduction)}}</p>
                 <table role="presentation" cellspacing="0" cellpadding="0"><tr><td bgcolor="{{color}}" style="border-radius:6px;">
