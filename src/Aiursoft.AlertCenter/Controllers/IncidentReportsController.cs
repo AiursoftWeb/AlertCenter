@@ -97,6 +97,12 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         var query = source.AsNoTracking().Where(incident => incident.ApplicationId == applicationId);
         if (request.ActiveOnly)
             query = query.Where(incident => incident.Status != Incident.Resolved);
+        if (request.RecoveredSinceUtc is { } recoveredSince)
+        {
+            var cutoff = recoveredSince.UtcDateTime;
+            query = query.Where(incident => incident.Status != Incident.Mitigated && incident.Status != Incident.Resolved ||
+                incident.MitigatedAtUtc >= cutoff || incident.ResolvedAtUtc >= cutoff);
+        }
         var total = await query.CountAsync(cancellationToken);
         var incidents = await query.OrderByDescending(incident => incident.ReceivedAtUtc)
             .ThenBy(incident => incident.Id)

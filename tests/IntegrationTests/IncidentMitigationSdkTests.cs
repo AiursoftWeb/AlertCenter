@@ -14,6 +14,45 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 public partial class IncidentPagesTests
 {
     [TestMethod]
+    public async Task RecoveryCutoffQueryRetainsOpenIncidentsAndRecentMitigationOrResolution()
+    {
+        var key = await CreateApplication();
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var ids = new List<Guid>();
+        foreach (var title in new[] { "Open", "Old mitigation", "Recent mitigation", "Recent resolution" })
+            ids.Add((await client.CreateIncidentAsync(new CreateIncidentRequest
+            {
+                ReportId = Guid.NewGuid(), Title = title, OccurredAtUtc = DateTimeOffset.UtcNow
+            })).IncidentId);
+        var cutoff = new DateTimeOffset(2026, 10, 20, 4, 0, 0, TimeSpan.Zero);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            foreach (var incident in await db.Incidents.ToListAsync())
+            {
+                if (incident.Id == ids[0]) continue;
+                incident.Status = incident.Id == ids[3] ? Incident.Resolved : Incident.Mitigated;
+                incident.MitigatedAtUtc = incident.Id == ids[2] ? cutoff.UtcDateTime : cutoff.AddHours(-1).UtcDateTime;
+                incident.ResolvedAtUtc = incident.Id == ids[3] ? cutoff.UtcDateTime : null;
+            }
+            await db.SaveChangesAsync();
+        }
+        var result = await client.QueryIncidentsAsync(new QueryIncidentsRequest
+        {
+            RecoveredSinceUtc = cutoff.ToOffset(TimeSpan.FromHours(8)), PageSize = 2
+        });
+        Assert.AreEqual(3, result.TotalCount);
+        var second = await client.QueryIncidentsAsync(new QueryIncidentsRequest
+        {
+            RecoveredSinceUtc = cutoff, PageSize = 2, Page = 2
+        });
+        CollectionAssert.AreEquivalent(new[] { ids[0], ids[2], ids[3] }, result.Items.Concat(second.Items).Select(item => item.IncidentId).ToArray());
+        var activeOnly = await client.QueryIncidentsAsync(new QueryIncidentsRequest { ActiveOnly = true, RecoveredSinceUtc = cutoff });
+        CollectionAssert.AreEquivalent(new[] { ids[0], ids[2] }, activeOnly.Items.Select(item => item.IncidentId).ToArray());
+    }
+
+    [TestMethod]
     [DataRow(Incident.Mitigated)]
     [DataRow(Incident.Resolved)]
     public async Task SdkReopensWithIndependentScopePreservingResponseAndRecoveryHistory(string status)
