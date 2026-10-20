@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Azione</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>Tutti i canali</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>Tutti gli stati</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Tentativi</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>E-mail di reperibilità integrata</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Email integrata per reperibilità · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Notifica di test del canale</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Rimuovi tutti i filtri</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>Tracciamento completo dello stato di dispatch asincrono e dei tentativi di nuovo invio in caso di errore per Webhook, e-mail e notifiche in-app</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Data di creazione</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>Pagina attualmente visualizzata</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>In consegna</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>In consegna (Invio)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Consegna non riuscita</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>Consegna non riuscita (Non riuscita)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>Stato di consegna</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>Consegna riuscita</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>Consegna riuscita (Riuscita)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtro</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>Vai a</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>Vai al Push Center per configurare i canali</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>Messaggio dell’incidente / del test</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident aggravato ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incidente mitigato: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Incidente riaperto: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incidente risolto: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>Vai</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>Vai al numero di pagina</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Test manuale</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Pagina successiva</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>Nessun record di consegna corrisponde al filtro attuale. Modifica i criteri del filtro.</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>Nessun record di invio push</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Pagina</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>recordi di pagina</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>Consegna in attesa</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>Consegna in sospeso (In attesa)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Pagina precedente</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>Record di consegna push</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>Paginazione dei record di push</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>Tracciamento in tempo reale</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>Aggiorna elenco</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>Reimposta filtri</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Canale di destinazione</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Prova</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>Visualizza i dettagli della consegna</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>Quando il sistema invia notifiche per gli incidenti o avvia test manuali dei canali, qui vengono registrati tutti i dettagli e gli stati degli invii.</value>
+  </data>
+
+</root>

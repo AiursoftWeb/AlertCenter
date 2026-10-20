@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>Автоматически</value>
+  </data>
+  <data name="Bound, cannot be deleted" xml:space="preserve">
+    <value>Привязано, удаление невозможно</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Подтвердить удаление</value>
+  </data>
+  <data name="Confirm rule deletion" xml:space="preserve">
+    <value>Подтвердите удаление правила</value>
+  </data>
+  <data name="Create Rule" xml:space="preserve">
+    <value>Создать правило</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Delete scheduling rule" xml:space="preserve">
+    <value>Удалить правило расписания</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>часов</value>
+  </data>
+  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
+    <value>Управляйте шаблонами правил, используемыми несколькими командами. Изменение шаблона не приводит к повторной генерации сохранённых смен.</value>
+  </data>
+  <data name="Min " xml:space="preserve">
+    <value>Мин.</value>
+  </data>
+  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Сохранённых шаблонов правил пока нет. Сначала создайте шаблон, затем попросите команду привязать его и использовать.</value>
+  </data>
+  <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
+    <value>Можно удалять только шаблоны, не привязанные к командам. Сохранённые смены и история команд не удаляются; удалённые шаблоны нельзя восстановить.</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>чел.</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>чел. · Цель</value>
+  </data>
+  <data name="Please unbind the template from all teams first." xml:space="preserve">
+    <value>Сначала отвяжите шаблон от всех команд.</value>
+  </data>
+  <data name="Rule saved" xml:space="preserve">
+    <value>Правило сохранено</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>Шаблон правила</value>
+  </data>
+  <data name="Scheduling Rules" xml:space="preserve">
+    <value>Правила планирования</value>
+  </data>
+  <data name="Shift / Break" xml:space="preserve">
+    <value>Смена / перерыв</value>
+  </data>
+  <data name="Teams using" xml:space="preserve">
+    <value>Команды, использующие правило</value>
+  </data>
+  <data name="View rules" xml:space="preserve">
+    <value>Просмотреть правила</value>
+  </data>
+
+</root>
