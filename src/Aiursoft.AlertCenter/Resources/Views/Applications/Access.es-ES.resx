@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="Add or Update Share" xml:space="preserve">
+    <value>Añadir o actualizar acceso compartido</value>
+  </data>
+  <data name="Back to Applications" xml:space="preserve">
+    <value>Volver a las aplicaciones</value>
+  </data>
+  <data name="Create incidents" xml:space="preserve">
+    <value>Crear incidentes</value>
+  </data>
+  <data name="Manage API keys" xml:space="preserve">
+    <value>Gestionar claves de API</value>
+  </data>
+  <data name="Manage application and sharing" xml:space="preserve">
+    <value>Gestionar la aplicación y el compartimiento</value>
+  </data>
+  <data name="Manage Sharing" xml:space="preserve">
+    <value>Gestionar el uso compartido</value>
+  </data>
+  <data name="New owner" xml:space="preserve">
+    <value>Nuevo propietario</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Propietario</value>
+  </data>
+  <data name="Permanently delete incidents" xml:space="preserve">
+    <value>Eliminar incidentes permanentemente</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permisos</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="Save permissions" xml:space="preserve">
+    <value>Guardar permisos</value>
+  </data>
+  <data name="Select either a user or a role. Saving replaces that recipient&apos;s permissions." xml:space="preserve">
+    <value>Seleccione un usuario o un rol. Al guardar, se reemplazarán los permisos de ese destinatario.</value>
+  </data>
+  <data name="Select role..." xml:space="preserve">
+    <value>Seleccionar rol...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Seleccionar usuario...</value>
+  </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>Compartido con</value>
+  </data>
+  <data name="The owner has all permissions. Direct user grants and role grants are combined. On-call assignments do not grant access." xml:space="preserve">
+    <value>El propietario tiene todos los permisos. Se combinan los permisos concedidos directamente a usuarios y los concedidos a roles. Las asignaciones de guardia no conceden acceso.</value>
+  </data>
+  <data name="Transfer Ownership" xml:space="preserve">
+    <value>Transferir la propiedad</value>
+  </data>
+  <data name="Transferring ownership gives the selected user all permissions. You will lose owner privileges." xml:space="preserve">
+    <value>Al transferir la propiedad, el usuario seleccionado obtiene todos los permisos. Perderás los privilegios de propietario.</value>
+  </data>
+  <data name="Update incidents and status" xml:space="preserve">
+    <value>Actualizar incidentes y estado</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="User or Role" xml:space="preserve">
+    <value>Usuario o rol</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Ver incidencias</value>
+  </data>
+
+</root>

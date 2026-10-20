@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>Все каналы</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>Все статусы</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Попытки</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>Встроенная почта для дежурных</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Встроенная On-call Email · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Тестовое уведомление канала</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Сбросить все фильтры</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>Полный контроль асинхронной отправки и повторных попыток при ошибках для Webhooks, электронной почты и внутренних уведомлений</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Время создания</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>Сейчас отображается страница</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>Доставка</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>Отправляется (Sending)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Доставка не выполнена</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>Ошибка доставки (Failed)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>Статус доставки</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>Доставлено успешно</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>Доставка успешна (Выполнено)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>Перейти в</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>Перейдите в Центр уведомлений для настройки каналов</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>Инцидент / тестовое сообщение</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Инцидент эскалирован ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Инцидент устранён: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Инцидент повторно открыт: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Инцидент устранён: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>Перейти</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>Перейти к номеру страницы</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Ручное тестирование</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Следующая страница</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>Записей о доставке, соответствующих текущим фильтрам, нет. Измените критерии фильтрации.</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>Нет записей о push-уведомлениях</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Страница</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>Записей на странице</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>Ожидает доставки</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>Ожидает отправки (ожидает)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Предыдущая страница</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>Записи о доставке push-уведомлений</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>Постраничная навигация по записям отправки</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>Отслеживание в реальном времени</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>Обновить список</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>Сбросить фильтры</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Целевой канал</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Тест</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>Просмотреть детали доставки</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>Когда система отправляет уведомления об инцидентах или запускает ручное тестирование каналов, здесь фиксируются все сведения об отправке и её статусах.</value>
+  </data>
+
+</root>

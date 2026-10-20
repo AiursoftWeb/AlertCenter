@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" members" xml:space="preserve">
+    <value>miembros</value>
+  </data>
+  <data name="Back to Team List" xml:space="preserve">
+    <value>Volver a la lista de equipos</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="CC address not configured." xml:space="preserve">
+    <value>Dirección CC no configurada.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="Confirm team deletion" xml:space="preserve">
+    <value>Confirmar la eliminación del equipo</value>
+  </data>
+  <data name="Delete on-call team" xml:space="preserve">
+    <value>Eliminar equipo de guardia</value>
+  </data>
+  <data name="Delete team" xml:space="preserve">
+    <value>Eliminar equipo</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>Editar equipo</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>horas</value>
+  </data>
+  <data name="hours · Min rest " xml:space="preserve">
+    <value>horas · descanso mínimo</value>
+  </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>Gestionar miembros</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>Miembros disponibles para la programación (orden de rotación)</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>Siguiente: asignar personas a los turnos</value>
+  </data>
+  <data name="No team members." xml:space="preserve">
+    <value>Sin miembros en el equipo.</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>Con copia a direcciones de correo de guardia</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>Los correos de guardia se envían automáticamente a las direcciones de correo de usuario (Para) de todos los ingenieros de guardia (OCE) del turno guardado actualmente. En copia (CC) solo se incluyen buzones de equipo o direcciones de listas de distribución configurados explícitamente por el administrador; no se añade automáticamente en copia a todos los miembros del equipo. Los canales de notificación push personalizados configurados en la aplicación seguirán enviando notificaciones adicionales.</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>Abrir horario</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>Por turno</value>
+  </data>
+  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Plantilla de reglas no vinculada; todavía se puede programar manualmente.</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>Plantilla de reglas:</value>
+  </data>
+  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Las plantillas de reglas no se pueden eliminar. Solo se pueden eliminar los equipos que no tengan turnos guardados ni aplicaciones vinculadas. Esta acción es irreversible.</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>Inicio de la programación:</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Configuración del equipo</value>
+  </data>
+  <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
+    <value>Las plantillas pueden compartirse entre varios equipos; modificar o cambiar las plantillas no regenerará los turnos guardados.</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>La lista de miembros indica quién puede ser asignado a un turno. El calendario guardado indica quién está de servicio y recibe los correos electrónicos de incidencias. Los destinatarios en copia reciben una copia independientemente de si pertenecen al grupo.</value>
+  </data>
+  <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
+    <value>Este equipo tiene turnos guardados y no se puede eliminar para preservar el historial de planificación.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group before deleting the team." xml:space="preserve">
+    <value>Este equipo está vinculado a una aplicación integrada. Antes de eliminarlo, reasigna o desvincula el grupo de guardia de la aplicación.</value>
+  </data>
+  <data name="Time zone: " xml:space="preserve">
+    <value>Zona horaria:</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>Ver horario de guardia</value>
+  </data>
+
+</root>

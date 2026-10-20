@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Add members" xml:space="preserve">
+    <value>Añadir miembros</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>Añadir miembros no asigna turnos.</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>Configuración avanzada de la programación</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>Empleado eliminado</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>No vincular plantilla (programación manual)</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Empleado eliminado</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>Introduzca la hora en UTC; no se convertirá automáticamente según las zonas horarias de los equipos. Una vez guardado un turno, no se podrá cambiar el punto de inicio de la planificación.</value>
+  </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>Filtrar por rol</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>Ayuda: CC de notificación</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>Ayuda: filtro por rol</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>Ayuda: orden de rotación</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>Ayuda: punto de inicio de la programación</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>Ayuda: plantilla de planificación</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>Ayuda: zona horaria del equipo</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>Varios equipos pueden compartir la misma plantilla. Cambiar o modificar la plantilla no regenerará los turnos guardados.</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>Nombre o cuenta</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Página siguiente</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>Aún no hay miembros. Abra Añadir miembros para buscar personas.</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>CC de notificación (opcional)</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>CC del correo de guardia</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Página anterior</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Quitar</value>
+  </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>Orden de rotación</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Guardar cambios</value>
+  </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>Al guardar, se actualizan el equipo y sus miembros. Gestiona los turnos por separado en el calendario.</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>Al guardar, se eliminará a estos miembros de los turnos que aún no hayan comenzado. Revisa el calendario para detectar huecos.</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>Plantilla de reglas de programación</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>Punto de inicio de la programación (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>Buscar por nombre en su lugar</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>Busca por nombre o cuenta, o elige un rol.</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>Buscar empleados</value>
+  </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>Seleccionar un rol solo filtra la búsqueda. Marque a las personas individuales para añadirlas; la pertenencia al equipo no se sincroniza con ese rol.</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>Miembros del equipo</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>Nombre del equipo</value>
+  </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>Configuración del equipo</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>Zona horaria</value>
+  </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>A: las personas asignadas al turno guardado en el momento en que se produjo el incidente. Los destinatarios OCE originales se conservan para los correos electrónicos posteriores del incidente. CC se aplica a todos los correos electrónicos del incidente, independientemente del turno. Utilice comas, puntos y comas o saltos de línea; hasta 50 direcciones CC.</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>Usa «Subir» y «Bajar» para elegir el orden que se utilizará en la planificación automática futura. Los turnos existentes no se reordenarán. Selecciona hasta 200 miembros.</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>Se utiliza para mostrar el horario. El punto de inicio de la programación avanzada que se muestra a continuación se introduce por separado en UTC.</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>Ver el horario</value>
+  </data>
+
+</root>
