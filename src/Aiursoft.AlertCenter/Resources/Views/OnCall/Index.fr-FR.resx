@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>Affectation automatique</value>
+  </data>
+  <data name="Bound, cannot be deleted" xml:space="preserve">
+    <value>Lié, suppression impossible</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Confirmer la suppression</value>
+  </data>
+  <data name="Confirm rule deletion" xml:space="preserve">
+    <value>Confirmer la suppression de la règle</value>
+  </data>
+  <data name="Create Rule" xml:space="preserve">
+    <value>Créer une règle</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Delete scheduling rule" xml:space="preserve">
+    <value>Supprimer la règle de planification</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>heures</value>
+  </data>
+  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
+    <value>Gérez les modèles de règles partagés par plusieurs équipes. La modification d’un modèle ne régénère pas les shifts enregistrés.</value>
+  </data>
+  <data name="Min " xml:space="preserve">
+    <value>Minimum</value>
+  </data>
+  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Aucun modèle de règle enregistré pour le moment. Créez d&apos;abord un modèle, puis laissez l&apos;équipe le lier et l&apos;utiliser.</value>
+  </data>
+  <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
+    <value>Seuls les modèles non associés à des équipes peuvent être supprimés. Les créneaux enregistrés et l&apos;historique des équipes ne sont pas supprimés ; les modèles supprimés ne peuvent pas être récupérés.</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>personnes</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>personnes · Objectif</value>
+  </data>
+  <data name="Please unbind the template from all teams first." xml:space="preserve">
+    <value>Veuillez d’abord dissocier le modèle de toutes les équipes.</value>
+  </data>
+  <data name="Rule saved" xml:space="preserve">
+    <value>Règle enregistrée</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>Modèle de règle</value>
+  </data>
+  <data name="Scheduling Rules" xml:space="preserve">
+    <value>Règles de planification</value>
+  </data>
+  <data name="Shift / Break" xml:space="preserve">
+    <value>Équipe / Pause</value>
+  </data>
+  <data name="Teams using" xml:space="preserve">
+    <value>Équipes utilisant</value>
+  </data>
+  <data name="View rules" xml:space="preserve">
+    <value>Voir les règles</value>
+  </data>
+
+</root>

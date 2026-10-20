@@ -27,6 +27,9 @@
   <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
     <value>{0} sự cố đang diễn ra trên các ứng dụng bạn có quyền truy cập</value>
   </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>{0} sự cố chưa được khắc phục trong các ứng dụng bạn có thể truy cập</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>Đã tiếp nhận</value>
   </data>
@@ -113,6 +116,9 @@
   </data>
   <data name="No on-call OCE" xml:space="preserve">
     <value>Không có OCE trực</value>
+  </data>
+  <data name="No unmitigated incidents in this queue" xml:space="preserve">
+    <value>Không có sự cố nào chưa được xử lý trong hàng đợi này</value>
   </data>
   <data name="No unresolved incidents in this queue" xml:space="preserve">
     <value>Không có sự cố nào chưa được giải quyết trong hàng đợi này</value>

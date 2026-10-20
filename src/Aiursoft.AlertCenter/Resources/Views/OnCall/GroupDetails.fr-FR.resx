@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" members" xml:space="preserve">
+    <value>membres</value>
+  </data>
+  <data name="Back to Team List" xml:space="preserve">
+    <value>Retour à la liste des équipes</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="CC address not configured." xml:space="preserve">
+    <value>Adresse en copie (CC) non configurée.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="Confirm team deletion" xml:space="preserve">
+    <value>Confirmer la suppression de l&apos;équipe</value>
+  </data>
+  <data name="Delete on-call team" xml:space="preserve">
+    <value>Supprimer l’équipe d’astreinte</value>
+  </data>
+  <data name="Delete team" xml:space="preserve">
+    <value>Supprimer l&apos;équipe</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>Modifier l&apos;équipe</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>heures</value>
+  </data>
+  <data name="hours · Min rest " xml:space="preserve">
+    <value>heures · Repos min.</value>
+  </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>Gérer les membres</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>Membres disponibles pour la planification (ordre de rotation)</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>Étape suivante : affecter des personnes aux postes</value>
+  </data>
+  <data name="No team members." xml:space="preserve">
+    <value>Aucun membre de l&apos;équipe.</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>E-mails d’astreinte en copie</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>Les e-mails d’astreinte sont automatiquement envoyés aux boîtes mail personnelles (À) de tous les ingénieurs d’astreinte (OCE) figurant dans le planning actuellement enregistré. Les destinataires en copie (CC) sont uniquement les boîtes mail d’équipe ou les listes de diffusion explicitement configurées par l’administrateur ; tous les membres de l’équipe ne sont pas automatiquement mis en copie. Les canaux de notification push personnalisés configurés dans l’application continueront d’envoyer des notifications supplémentaires.</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>Ouvrir le planning</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>Par poste</value>
+  </data>
+  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Aucun modèle de règle n’est associé ; la planification manuelle reste disponible.</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>Modèle de règle :</value>
+  </data>
+  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Les modèles de règles ne peuvent pas être supprimés. Seules les équipes sans plage de garde enregistrée ni application associée peuvent être supprimées. Cette action est irréversible.</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>Début de la planification :</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Configuration de l’équipe</value>
+  </data>
+  <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
+    <value>Les modèles peuvent être partagés par plusieurs équipes ; la modification ou le changement de modèle ne régénérera pas les créneaux enregistrés.</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>La liste des membres indique qui peut être planifié. Le planning enregistré indique qui est en service et reçoit les e-mails d&apos;incident. Les destinataires en copie (Cc) reçoivent une copie indépendamment de leur appartenance au groupe.</value>
+  </data>
+  <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
+    <value>Cette équipe a des créneaux enregistrés et ne peut pas être supprimée afin de préserver l&apos;historique de planification.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group before deleting the team." xml:space="preserve">
+    <value>Cette équipe est associée à une application intégrée. Veuillez réaffecter le groupe d’astreinte de l’application ou le dissocier avant de supprimer l’équipe.</value>
+  </data>
+  <data name="Time zone: " xml:space="preserve">
+    <value>Fuseau horaire :</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>Voir le planning de garde</value>
+  </data>
+
+</root>

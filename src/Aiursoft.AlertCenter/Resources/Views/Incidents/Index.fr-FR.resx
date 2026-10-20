@@ -24,6 +24,9 @@
   <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
     <value>{0} incidents en cours dans les applications accessibles</value>
   </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>{0} incidents non atténués dans les applications accessibles</value>
+  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>Pris en compte</value>
   </data>
@@ -107,6 +110,9 @@
   </data>
   <data name="No on-call OCE" xml:space="preserve">
     <value>Aucun OCE de garde</value>
+  </data>
+  <data name="No unmitigated incidents in this queue" xml:space="preserve">
+    <value>Aucun incident non maîtrisé dans cette file d’attente</value>
   </data>
   <data name="No unresolved incidents in this queue" xml:space="preserve">
     <value>Aucun incident non résolu dans cette file</value>
