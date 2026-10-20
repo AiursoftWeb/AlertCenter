@@ -11,7 +11,7 @@ public partial class IncidentPagesTests
     [TestMethod]
     [DataRow(2)]
     [DataRow(0)]
-    public async Task DashboardRequiresActionOnlyForVisibleUnmitigatedIncidents(int activeCount)
+    public async Task DashboardAndIncidentListsCountOnlyVisibleUnmitigatedIncidents(int activeCount)
     {
         await LoginAsAdmin();
         using (var scope = Server!.Services.CreateScope())
@@ -23,7 +23,8 @@ public partial class IncidentPagesTests
                 db.Incidents.Add(new Incident
                 {
                     Application = application, Title = "Needs action " + index,
-                    AcknowledgedAtUtc = index == 0 ? DateTime.UtcNow : null
+                    AcknowledgedAtUtc = index == 0 ? DateTime.UtcNow : null,
+                    OwnerId = index == 0 ? owner.Id : null
                 });
             for (var index = 0; index < 4; index++)
                 db.Incidents.Add(new Incident
@@ -56,6 +57,28 @@ public partial class IncidentPagesTests
         {
             Assert.DoesNotContain("Requires Immediate Action", html);
             Assert.Contains("No incidents requiring immediate action", html);
+        }
+        foreach (var (path, expectedCount) in new[]
+        {
+            ("/Incidents", activeCount),
+            ("/Incidents?status=new", activeCount),
+            ("/Incidents?status=mitigated", activeCount),
+            ("/Incidents/Mine", activeCount > 0 ? 1 : 0)
+        })
+        {
+            var list = WebUtility.HtmlDecode(await Http.GetStringAsync(path));
+            var badge = Regex.Match(list, "([0-9]+) (?:ongoing|unmitigated) incidents across accessible applications");
+            if (expectedCount > 0)
+            {
+                Assert.IsTrue(badge.Success, path);
+                Assert.AreEqual(expectedCount.ToString(), badge.Groups[1].Value, path);
+                Assert.Contains($"{expectedCount} unmitigated incidents across accessible applications", list);
+            }
+            else
+            {
+                Assert.IsFalse(badge.Success, path);
+                Assert.Contains("No unmitigated incidents in this queue", list);
+            }
         }
         var allIncidents = await Http.GetStringAsync("/Incidents");
         Assert.Contains("Already mitigated", allIncidents);
