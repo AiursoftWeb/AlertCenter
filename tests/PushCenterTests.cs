@@ -734,8 +734,11 @@ public partial class PushCenterTests
         Assert.IsTrue(result.Succeeded, result.ErrorMessage);
         var mail = _email.Messages.Single();
         var url = $"https://alerts.example.com/portal/Incidents/Details/{incident.Id}";
+        Assert.Contains($"[#{incident.ShortId}]", mail.Subject);
+        Assert.Contains($"Incident ID: #{incident.ShortId} ({incident.Id})", mail.Body);
         Assert.Contains(url, mail.Body);
         Assert.IsNotNull(mail.HtmlBody);
+        Assert.Contains($"Incident ID: #{incident.ShortId} ({incident.Id})", mail.HtmlBody);
         Assert.Contains($"href=\"{url}\"", mail.HtmlBody);
         Assert.Contains("Acknowledge", mail.Body);
         Assert.Contains(url + "?ack=true", mail.Body);
@@ -791,6 +794,8 @@ public partial class PushCenterTests
         Assert.Contains("https://alertcenter.aiursoft.com/", sent.Body);
         Assert.IsNotNull(sent.HtmlBody);
         Assert.Contains("href=\"https://alertcenter.aiursoft.com/\"", sent.HtmlBody);
+        Assert.DoesNotContain("[#", sent.Subject);
+        Assert.DoesNotContain("Incident ID:", sent.Body);
         Assert.DoesNotContain("?ack=true", sent.Body);
         Assert.DoesNotContain("?ack=true", sent.HtmlBody);
 

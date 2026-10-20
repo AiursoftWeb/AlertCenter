@@ -66,6 +66,23 @@ public partial class IncidentPagesTests : TestBase
     }
 
     [TestMethod]
+    public async Task IncidentDetailsShowConversationReferenceAndRetainSystemGuid()
+    {
+        await LoginAsAdmin();
+        var incident = new Incident
+        {
+            Id = Guid.Parse("00112233-4455-6677-8899-aabbccddeeff"),
+            Application = new SourceApplication { Name = "Conversation reference" },
+            Title = "Service unavailable", OccurredAtUtc = DateTime.UtcNow
+        };
+        await CreateInboxNotification(incident);
+        var html = await Http.GetStringAsync($"/Incidents/Details/{incident.Id}");
+        Assert.Contains($"data-incident-short-id=\"{incident.ShortId}\"", html);
+        Assert.Contains($"#{incident.ShortId}", html);
+        Assert.Contains(incident.Id.ToString(), html);
+    }
+
+    [TestMethod]
     public async Task EmailAcknowledgementUsesProtectedPostWithoutMutatingOnGet()
     {
         var key = await CreateApplication();
