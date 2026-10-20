@@ -4,7 +4,6 @@ using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.SDK;
 using Aiursoft.AlertCenter.SDK.Models;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
