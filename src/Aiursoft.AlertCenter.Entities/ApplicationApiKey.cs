@@ -15,6 +15,7 @@ public class ApplicationApiKey
     public bool CanMitigateIncidents { get; set; }
     public bool CanReopenIncidents { get; set; }
     public bool CanPatchIncidentMetadata { get; set; }
+    public bool CanCommentIncidents { get; set; }
     public bool CanResolveIncidents { get; set; }
     public bool CanChangeIncidentSeverity { get; set; }
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;

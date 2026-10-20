@@ -29,6 +29,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<bool>("CanChangeIncidentSeverity")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("CanCommentIncidents")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("CanCreateIncidents")
                         .HasColumnType("INTEGER");
 

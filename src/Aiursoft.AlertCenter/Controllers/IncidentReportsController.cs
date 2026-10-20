@@ -151,6 +151,34 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
         Metadata = IncidentMetadata.Read(incident.MetadataJson)
     };
 
+    [HttpPost("{incidentId:guid}/comments")]
+    [RequestSizeLimit(65536)]
+    public async Task<IActionResult> Comment(Guid incidentId, [FromBody] CreateIncidentCommentRequest request,
+        CancellationToken cancellationToken)
+    {
+        var key = await AuthenticateKeyAsync(cancellationToken);
+        if (key == null)
+            return this.Protocol(Code.WrongKey, "The application API key is invalid or disabled.");
+        if (!key.CanCommentIncidents)
+            return this.Protocol(Code.Unauthorized, "The API key does not permit this operation.");
+        if (!await db.Incidents.AnyAsync(item => item.Id == incidentId && item.ApplicationId == key.ApplicationId, cancellationToken))
+            return this.Protocol(Code.NotFound, "The incident was not found.");
+        var now = DateTime.UtcNow;
+        var comment = new IncidentComment
+        {
+            IncidentId = incidentId, AuthorName = "Application", Markdown = request.Markdown,
+            CreatedAtUtc = now.AddTicks(-(now.Ticks % 10))
+        };
+        db.IncidentComments.Add(comment);
+        await db.SaveChangesAsync(cancellationToken);
+        return this.Protocol(new CreateIncidentCommentResponse
+        {
+            Code = Code.JobDone, Message = "The comment was added by its application.",
+            IncidentId = incidentId, CommentId = comment.Id,
+            CreatedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(comment.CreatedAtUtc, DateTimeKind.Utc))
+        });
+    }
+
     [HttpPatch("{incidentId:guid}/metadata")]
     [RequestSizeLimit(65536)]
     public async Task<IActionResult> PatchMetadata(Guid incidentId, [FromBody] PatchIncidentMetadataRequest request,
