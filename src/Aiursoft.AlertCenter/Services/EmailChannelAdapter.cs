@@ -268,7 +268,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             IncidentTimelineEntry.Resolved => "#15803d",
             _ => incident != null ? "#b42318" : "#175cd3"
         };
-        var foreground = delivery.IncidentEvent?.Type == IncidentTimelineEntry.Mitigated ? "#422006" : "#ffffff";
+        var accentForeground = delivery.IncidentEvent?.Type == IncidentTimelineEntry.Mitigated ? "#422006" : "#ffffff";
         var linkColor = delivery.IncidentEvent?.Type == IncidentTimelineEntry.Mitigated ? "#854d0e" : color;
         var status = delivery.IncidentEvent?.Type switch
         {
@@ -321,14 +321,14 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
             <body style="margin:0;padding:0;background-color:#f1f5f9;color:#172b4d;font-family:Arial,Helvetica,sans-serif;">
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#f1f5f9;"><tr><td align="center" style="padding:24px 12px;">
-            <table role="presentation" width="640" cellspacing="0" cellpadding="0" style="width:100%;max-width:640px;background-color:{{foreground}};border:1px solid #dce3ed;border-radius:12px;">
-            <tr><td style="padding:24px 28px;background-color:{{color}};border-radius:12px 12px 0 0;color:{{foreground}};font-size:20px;font-weight:bold;">AlertCenter · {{Encode(status)}}{{Encode(incidentReference)}}</td></tr>
-            <tr><td style="padding:28px;">
-                <span style="display:inline-block;padding:6px 12px;background-color:{{color}};border-radius:6px;color:{{foreground}};font-size:12px;font-weight:bold;">{{Encode(level.ToUpperInvariant())}}</span>
+            <table role="presentation" width="640" bgcolor="#ffffff" cellspacing="0" cellpadding="0" style="width:100%;max-width:640px;background-color:#ffffff;border:1px solid #dce3ed;border-radius:12px;">
+            <tr><td style="padding:24px 28px;background-color:{{color}};border-radius:12px 12px 0 0;color:{{accentForeground}};font-size:20px;font-weight:bold;">AlertCenter · {{Encode(status)}}{{Encode(incidentReference)}}</td></tr>
+            <tr><td bgcolor="#ffffff" style="padding:28px;background-color:#ffffff;color:#172b4d;">
+                <span style="display:inline-block;padding:6px 12px;background-color:{{color}};border-radius:6px;color:{{accentForeground}};font-size:12px;font-weight:bold;">{{Encode(level.ToUpperInvariant())}}</span>
                 <h1 style="margin:18px 0 12px;font-size:24px;line-height:1.35;color:#102a43;overflow-wrap:anywhere;word-break:break-word;">{{Encode(title)}}</h1>
                 <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:#526579;">{{Encode(introduction)}}</p>
                 <table role="presentation" cellspacing="0" cellpadding="0"><tr><td bgcolor="{{color}}" style="border-radius:6px;">
-                    <a href="{{Encode(url)}}" style="display:inline-block;border:1px solid {{color}};padding:13px 22px;color:{{foreground}};text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Open in AlertCenter"].Value)}}</a>
+                    <a href="{{Encode(url)}}" style="display:inline-block;border:1px solid {{color}};padding:13px 22px;color:{{accentForeground}};text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Open in AlertCenter"].Value)}}</a>
                 </td>{{acknowledgeButton}}</tr></table>
                 <p style="margin:20px 0 0;font-size:12px;line-height:1.6;color:#526579;">{{Encode(localizer["Occurred at (UTC)"].Value)}}: {{occurredAt:yyyy-MM-dd HH:mm:ss}}</p>
                 {{sections}}
