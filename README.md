@@ -9,6 +9,22 @@
 
 AlertCenter is a self-hosted alert management and notification platform built on ASP.NET Core (.NET 10). Business systems create incidents through one HTTP API; teams manage incidents, on-call schedules, and delivery through Webhook, email, and in-app notifications.
 
+## CLI & SDK
+
+Install the CLI with the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0):
+
+```bash
+dotnet tool install --global Aiursoft.AlertCenter.Client --add-source https://nuget.aiursoft.com/v3/index.json
+```
+
+Run `alertcenter --help` to explore commands. See [Integrations](#integrations) for authentication and usage.
+
+Add the SDK to your .NET project:
+
+```bash
+dotnet add package Aiursoft.AlertCenter.SDK --source https://nuget.aiursoft.com/v3/index.json
+```
+
 ![AlertCenter screenshot](./screenshot.png)
 
 On an empty database, the default local account is `admin@default.com` with password `Admin@123456!`. Change the password before exposing the application.
@@ -82,12 +98,7 @@ The image copies its default configuration to `/data/appsettings.json` on first 
 
 Create an application and API key in the web UI. Its **Integration Guide** provides HTTP API examples for your server.
 
-A .NET SDK and command-line client are also available:
-
-```bash
-dotnet add package Aiursoft.AlertCenter.SDK
-dotnet tool install --global Aiursoft.AlertCenter.Client
-```
+Install the CLI or SDK using the [commands above](#cli--sdk).
 
 The CLI can query and manage incidents, update metadata, and report GitLab pipeline results. Pass `--server` and `--api-key` with each command; use `alertcenter --help` to explore commands.
 
