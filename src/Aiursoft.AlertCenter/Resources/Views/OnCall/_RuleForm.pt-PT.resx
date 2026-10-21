@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>A geração automática deve cumprir os requisitos; a atribuição manual insuficiente apenas dispara um aviso, enquanto as turnos vazios não podem ser guardados.</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Distribuir os turnos da manhã, da tarde e da noite da forma mais equilibrada possível</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Não pode ser inferior ao número mínimo de pessoal; satisfazer o máximo possível quando as substituições e pausas o permitirem. Deixar em branco para atribuição automática.</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>A cobertura e o descanso têm prioridade; a redundância pode diminuir durante as trocas. Não é permitida a rotação em equipas de três pessoas com pelo menos 16 horas de descanso. A programação baseia-se em turnos contínuos reais de 8 horas; a hora local pode mudar durante as transições para o horário de verão.</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>Três turnos fixos por dia, pelo menos uma pessoa por turno; são permitidas várias pessoas por turno.</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>Janelas de tempo fixas têm prioridade</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>Período mínimo de descanso (horas)</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>Mínimo de pessoal por turno</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>Preferência de Rotação</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>Guardar modelo</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>Duração do turno (horas)</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>Pessoal alvo por turno</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>Nome do modelo</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>Este é um modelo de regras que pode ser partilhado por várias equipas. A equipa gere os membros, a ordem de rotação e os pontos de início dos horários. A alteração do modelo não irá gerar novamente quaisquer turnos já guardados.</value>
+  </data>
+
+</root>

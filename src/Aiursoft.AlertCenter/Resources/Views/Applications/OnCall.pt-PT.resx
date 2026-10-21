@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application On-Call Settings" xml:space="preserve">
+    <value>Definições de Plantão da Aplicação</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>Voltar às Aplicações Conectadas</value>
+  </data>
+  <data name="Binding automatically enables the built-in on-call email: To is the registered email addresses of all current on-call engineers (OCE), and CC is the on-call group&apos;s configured address. This cannot be disabled individually in push settings; unbinding stops new on-call emails. Application-specific custom channels remain independent, and binding does not grant the application access permissions." xml:space="preserve">
+    <value>A ligação ativa automaticamente o e-mail de plantão integrado: o campo &quot;Para&quot; contém os endereços de e-mail registados de todos os engenheiros atualmente em plantão (OCE), e o campo &quot;Cc&quot; contém o endereço configurado do grupo de plantão. Esta funcionalidade não pode ser desativada individualmente nas definições de notificações; ao desligar, deixam de ser enviados novos e-mails de plantão. Os canais personalizados específicos da aplicação permanecem independentes, e a ligação não concede à aplicação permissões de acesso.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>Não associar grupo de plantão</value>
+  </data>
+  <data name="Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive incidents do not require on-call configuration." xml:space="preserve">
+    <value>Cada aplicação pode ser associada a um grupo de prevenção; um grupo pode servir várias aplicações. Selecione «Sem grupo de prevenção» para remover a associação. As aplicações que apenas recebem incidentes não necessitam de configuração de prevenção.</value>
+  </data>
+  <data name="No on-duty groups available. Please contact the administrator to create a team in the On-Call Center." xml:space="preserve">
+    <value>Não existem grupos de prevenção disponíveis. Contacte o administrador para criar uma equipa no Centro de Prevenção.</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>Grupo de plantão</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>Grupo de prevenção (opcional)</value>
+  </data>
+  <data name="Save on-call settings" xml:space="preserve">
+    <value>Guardar as definições de prevenção</value>
+  </data>
+  <data name="Select, replace, or unbind on-call group." xml:space="preserve">
+    <value>Selecione, substitua ou desassocie o grupo de prevenção.</value>
+  </data>
+
+</root>
