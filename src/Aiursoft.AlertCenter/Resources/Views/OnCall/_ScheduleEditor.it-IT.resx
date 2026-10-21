@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· Dimesso</value>
+  </data>
+  <data name="Add or remove personnel by shift" xml:space="preserve">
+    <value>Aggiungi o rimuovi il personale per turno</value>
+  </data>
+  <data name="Add shift" xml:space="preserve">
+    <value>Aggiungi turno</value>
+  </data>
+  <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
+    <value>I suggerimenti automatici non sono stati salvati. Al momento della generazione, i turni adiacenti verranno convalidati nuovamente; le assegnazioni già salvate non verranno sovrascritte.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Cancel, keep next week" xml:space="preserve">
+    <value>Annulla, mantieni la prossima settimana</value>
+  </data>
+  <data name="Confirm draft replacement" xml:space="preserve">
+    <value>Conferma sostituzione bozza</value>
+  </data>
+  <data name="Copy Current Week to Next Week" xml:space="preserve">
+    <value>Copia la settimana corrente alla settimana successiva</value>
+  </data>
+  <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
+    <value>Copia la bozza della settimana corrente nella settimana successiva. Se la settimana successiva contiene già turni o modifiche, è necessario confermare prima di copiare; dopo la copia è comunque necessario salvare. I pulsanti verticali ai lati permettono di espandere la visualizzazione alle 36 ore precedenti e successive alla settimana corrente; le aree grigie sono di sola lettura. I grafici e i moduli di questa pagina consentono di modificare solo la settimana corrente; per modificare le settimane adiacenti, passa alla settimana corrispondente. Anche la bozza della settimana successiva, dopo la copia, viene mostrata in modalità di sola lettura. Le modifiche alla settimana corrente e le copie vengono salvate, annullate e ripristinate insieme; comprimere la visualizzazione non comporta la perdita delle bozze.</value>
+  </data>
+  <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Attualmente in modalità Spostamento/Scambio. Cambia la modalità sopra prima di aggiungere o rimuovere turni.</value>
+  </data>
+  <data name="Delete shift" xml:space="preserve">
+    <value>Elimina turno</value>
+  </data>
+  <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
+    <value>Trascina un blocco colore su un altro turno per scambiare il personale, oppure su uno slot vuoto per spostare il turno; trascina &apos;Scambia settimana intera&apos; per scambiare i programmi settimanali di due persone. Puoi anche fare clic per selezionare, quindi cliccare sulla destinazione; premi Esc per annullare. Le modifiche vengono visualizzate immediatamente e possono essere salvate in blocco dopo più regolazioni.</value>
+  </data>
+  <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
+    <value>Genera e salva il programma di questa settimana</value>
+  </data>
+  <data name="Move / Swap" xml:space="preserve">
+    <value>Sposta / Scambia</value>
+  </data>
+  <data name="Next week already has a saved schedule or unsaved changes. Copying will replace the full 21 shifts of next week with the current draft of this week. You can still undo after confirmation; changes are only written when you click Save." xml:space="preserve">
+    <value>La prossima settimana ha già un piano salvato o modifiche non salvate. La copia sostituirà le 21 turni della prossima settimana con la bozza attuale di questa settimana. Puoi ancora annullare dopo la conferma; le modifiche vengono scritte solo quando fai clic su Salva.</value>
+  </data>
+  <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
+    <value>Personale reperibile (selezione multipla consentita, almeno uno)</value>
+  </data>
+  <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
+    <value>Gli allarmi rossi indicano turni vuoti, riposo insufficiente o un numero di personale inferiore al minimo, ma non bloccano ulteriori regolazioni. Il salvataggio è consentito anche se il personale è inferiore al minimo, ma i turni vuoti e il riposo insufficiente non possono essere salvati. La convalida viene applicata uniformemente alla settimana modificata, alle settimane adiacenti e ad altri team al momento del salvataggio. Se una qualsiasi settimana non supera la convalida, nulla viene salvato. I membri cessati possono solo mantenere i loro turni originali; non è possibile aggiungere o copiare nuovi turni.</value>
+  </data>
+  <data name="Replace next week&apos;s draft?" xml:space="preserve">
+    <value>Sostituire la bozza della prossima settimana?</value>
+  </data>
+  <data name="Reset All" xml:space="preserve">
+    <value>Reimposta tutto</value>
+  </data>
+  <data name="Save schedule adjustments" xml:space="preserve">
+    <value>Salva le modifiche al piano</value>
+  </data>
+  <data name="Scheduling Operation Mode" xml:space="preserve">
+    <value>Modalità operativa di pianificazione</value>
+  </data>
+  <data name="Select Shift" xml:space="preserve">
+    <value>Seleziona turno</value>
+  </data>
+  <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
+    <value>Seleziona gli intervalli di tempo per aggiungere o rimuovere il personale in turno; il grafico si aggiornerà in modo sincrono. Puoi anche utilizzare questo modulo per la navigazione tramite tastiera. I membri di gruppi diversi possono essere selezionati manualmente; i turni grigi in sola lettura di altri team non verranno modificati, e le sovrapposizioni e le pause tra gruppi vengono comunque validate al momento del salvataggio.</value>
+  </data>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Annulla ultimo passaggio</value>
+  </data>
+
+</root>
