@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>La generazione automatica deve soddisfare i requisiti; un numero insufficiente di addetti assegnati manualmente genera solo un avviso, mentre non è possibile salvare turni vuoti.</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Bilanciare i turni di mattina, pomeriggio e notte in modo il più uniforme possibile</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Non può essere inferiore al numero minimo di personale; soddisfarlo il più possibile quando le sostituzioni e le pause lo consentono. Lasciare vuoto per l&apos;assegnazione automatica.</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>La copertura e il riposo sono prioritari; la ridondanza può diminuire durante gli scambi. La rotazione non è consentita per squadre di tre persone con almeno 16 ore di riposo. La pianificazione si basa su turni effettivi di 8 ore consecutive; l&apos;ora locale può cambiare durante i passaggi al fuso orario estivo.</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>Tre turni fissi al giorno, almeno una persona per turno; consentite più persone per turno.</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>Le fasce orarie fisse hanno la priorità</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>Pausa minima (ore)</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>Numero minimo di persone per turno</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>Preferenza di rotazione</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>Salva modello</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>Durata del turno (ore)</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>Personale previsto per turno</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>Nome del modello</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>Questo è un modello di regole disponibile per la condivisione tra più team. I membri, l&apos;ordine di rotazione e i punti di inizio della pianificazione sono gestiti dal team. La modifica del modello non rigenererà le turni salvati.</value>
+  </data>
+
+</root>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} applications" xml:space="preserve">
+    <value>{0} applicazioni</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Azioni</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Azioni</value>
+  </data>
+  <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
+    <value>Modifica le parole chiave di ricerca oppure cancella la ricerca per visualizzare tutte le app.</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>Gestione chiavi API</value>
+  </data>
+  <data name="App connected" xml:space="preserve">
+    <value>App collegate</value>
+  </data>
+  <data name="App ID" xml:space="preserve">
+    <value>ID app</value>
+  </data>
+  <data name="App information" xml:space="preserve">
+    <value>Informazioni sull&apos;app</value>
+  </data>
+  <data name="Application Name" xml:space="preserve">
+    <value>Nome dell&apos;applicazione</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>Impostazioni dell&apos;applicazione</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Applicazioni</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="Confirm app and all data deletion" xml:space="preserve">
+    <value>Conferma l’eliminazione dell’app e di tutti i dati</value>
+  </data>
+  <data name="Confirm app deletion" xml:space="preserve">
+    <value>Conferma eliminazione app</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Crea un&apos;app aziendale sopra ed emetti una chiave API dedicata.</value>
+  </data>
+  <data name="Create Application" xml:space="preserve">
+    <value>Crea applicazione</value>
+  </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>Crea incidente</value>
+  </data>
+  <data name="Create new integration app" xml:space="preserve">
+    <value>Crea una nuova app di integrazione</value>
+  </data>
+  <data name="Created on" xml:space="preserve">
+    <value>Creato il</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>Elimina applicazione</value>
+  </data>
+  <data name="Delete integrated application" xml:space="preserve">
+    <value>Elimina l&apos;applicazione integrata</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabilitato</value>
+  </data>
+  <data name="Distribute independent API credentials for business services and manage reporting permissions and push routing." xml:space="preserve">
+    <value>Distribuire credenziali API indipendenti per i servizi aziendali e gestire le autorizzazioni di reporting e il routing push.</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>Non associare gruppo on-call</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Abilitato</value>
+  </data>
+  <data name="Enter the app name to confirm deletion:" xml:space="preserve">
+    <value>Inserisci il nome dell’app per confermare l’eliminazione:</value>
+  </data>
+  <data name="Example: Order payment service, User Center, Edge Gateway…" xml:space="preserve">
+    <value>Esempio: Servizio di pagamento ordini, Centro utenti, Edge Gateway…</value>
+  </data>
+  <data name="Filter by application name..." xml:space="preserve">
+    <value>Filtra per nome dell’applicazione...</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="Find application" xml:space="preserve">
+    <value>Trova applicazione</value>
+  </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Guida all&apos;integrazione</value>
+  </data>
+  <data name="No connected apps yet" xml:space="preserve">
+    <value>Nessuna app collegata per ora</value>
+  </data>
+  <data name="No matching applications found" xml:space="preserve">
+    <value>Nessuna applicazione corrispondente trovata</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>Gruppo di reperibilità</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>Gruppo di reperibilità (facoltativo)</value>
+  </data>
+  <data name="On-call group is optional; if bound, the on-duty engineer is automatically notified by email, and the on-call group configuration address is CC&apos;d. Custom push channels can still be configured independently." xml:space="preserve">
+    <value>Il gruppo on-call è facoltativo; se associato, l&apos;ingegnere di turno viene notificato automaticamente via e-mail e l&apos;indirizzo di configurazione del gruppo on-call viene inserito in Cc. I canali di notifica personalizzati possono comunque essere configurati in modo indipendente.</value>
+  </data>
+  <data name="On-call settings" xml:space="preserve">
+    <value>Impostazioni di reperibilità</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permessi</value>
+  </data>
+  <data name="Push Settings" xml:space="preserve">
+    <value>Impostazioni Push</value>
+  </data>
+  <data name="Running Status" xml:space="preserve">
+    <value>Stato di esecuzione</value>
+  </data>
+  <data name="The name must match exactly (case-sensitive)." xml:space="preserve">
+    <value>Il nome deve corrispondere esattamente (distinguendo tra maiuscole e minuscole).</value>
+  </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>Questa operazione è irreversibile! Tutti gli incidenti storici, i registri di consegna associati e le notifiche in-app relative a questa applicazione verranno eliminati e tutte le chiavi API verranno invalidate immediatamente.</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>Non associata</value>
+  </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>Usa un nome breve per il sistema aziendale. Crea le relative chiavi API separatamente dopo aver creato l’applicazione.</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Visualizza tutti gli incidenti</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Visualizza incidenti</value>
+  </data>
+
+</root>
