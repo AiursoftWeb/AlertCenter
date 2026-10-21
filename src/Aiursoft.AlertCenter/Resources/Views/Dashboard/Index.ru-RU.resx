@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>доставок</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>непрочитанных уведомлений на сайте</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Поддержка &quot;fire-and-forget&quot; для длительных задач (например, электронной почты или ИИ), с графическим интерфейсом для управления очередями, параллельной обработки и отмены.</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>Всего назначено: {0}</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Встроенная система управления доступом на основе ролей (RBAC) для детального управления разрешениями.</value>
@@ -36,17 +45,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Современная, многофункциональная и легко расширяемая основа для вашего следующего веб-приложения.</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Подтверждено</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Переводы на основе ИИ</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter: центр оповещений и эксплуатации · глобальный статус и отслеживание замкнутого цикла</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>Все</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Все зависимости автоматически регистрируются и всегда доступны через внедрение в конструктор.</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>Все записи</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Приложения</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Автоматическая тёмная тема</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Автоматическое внедрение зависимостей</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Автоматическая доставка сообщений и устранение неполадок</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Автоматическое управление часовым поясом</value>
@@ -57,8 +84,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Автоматический перевод с использованием ИИ на 28 языков.</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>доступных каналов ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Обработка фоновых задач</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>Массовая рассылка в группы дежурных и на ключевые электронные адреса</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Встроенное управление пользователями</value>
@@ -72,11 +105,47 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>Полная документация</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Настроить канал push-уведомлений</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Проверка согласованности</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Создайте оповещение для вашего приложения и уведомите настроенных получателей.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Создать приложение</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Создайте приложение и получите ключ</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>Создайте первое инцидентное событие через API или SDK. Оно появится здесь.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Критический</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>Критический ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>Аутентификация с помощью отдельного API-ключа</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>Записи о доставке</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>Подробная документация по интеграции</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Разрабатывайте исключительно в UTC, а система автоматически преобразует и отображает даты в часовом поясе пользователя.</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>Прямо взаимодействуйте с ответственными лицами и группами пользователей для совместного решения задач</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Готово к развертыванию в Docker</value>
@@ -96,6 +165,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>Без усилий пишите интеграционные тесты с использованием баз данных в памяти, временных файловых систем, встроенных моков и симуляции реальных HTTP-запросов.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>Обладает встроенной системой управления файлами с автоматическим сжатием аватаров и защитой конфиденциальности.</value>
   </data>
@@ -108,14 +183,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Привет, мир!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>Встроенный почтовый ящик уведомлений</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>Реакция на инцидент</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Название инцидента</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>Создание инцидентов и совместное устранение</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Включает обширную документацию и практические примеры для быстрого начала работы.</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>Информация</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Встроенная система управления файлами</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Руководство по интеграции</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>Выдайте выделенные учетные данные в разделе «Интегрированные приложения».</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Последние инциденты</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>Связанное происшествие</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>Связанный канал пуша</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>Местное время</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Критический</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>Критический ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>Управление приложениями</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Устранено</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Модели проверяются на стороне клиента и сервера на основе аннотаций данных.</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>Панель мониторинга</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>Поддержка нескольких поставщиков баз данных</value>
@@ -123,8 +246,44 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Поддержка нескольких баз данных</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Мои инциденты</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Новое оповещение</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>Нет инцидентов, требующих немедленного реагирования</value>
+  </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>Инцидентов пока нет</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Не подтверждено</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>Центр отправки уведомлений</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>Текущее инцидент</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>Активная инцидент требует реагирования</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Интеграция OpenID Connect</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>Закрытие операционного инцидента</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>Доля успешно отправленных push-уведомлений</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>Пример быстрого отчёта</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>Быстрый старт интеграции</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Авторизация RBAC</value>
@@ -132,17 +291,41 @@
   <data name="Read the document" xml:space="preserve">
     <value>Прочитать документацию</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>Недавно созданные инциденты</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Сообщите о проблеме. Начните реагирование.</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>Подробности инцидента, история обработки и статус решения.</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>Требует немедленных действий</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Устранено</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Адаптивный дизайн</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Надежное интеграционное тестирование</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>Настройте маршрутизацию по уровням Sev0–Sev4 в параметрах push-уведомлений приложения.</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Планирование задач</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Беспрепятственная интеграция с любым провайдером OpenID Connect с автоматической синхронизацией ролей.</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Степень серьёзности</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>Фильтр по степени серьёзности:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Умные переопределения конфигурации</value>
@@ -153,11 +336,32 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Умный тёмный режим, который автоматически подстраивается под системные настройки пользователя.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Канал электронной почты SMTP</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Исходное приложение</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>Начать новый проект</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>Поддерживает .NET SDK / Go / Webhook</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>Поддерживает как переменные среды, так и настройки, хранящиеся в базе данных, при этом переменные среды автоматически получают приоритет для бесшовного переопределения.</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>Поддерживает пользовательские заголовки запросов и шаблоны JSON</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>Центр асинхронно доставляет уведомления, поддерживая отслеживание записей и повторные попытки.</value>
+  </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>Инциденты, за которые вы отвечаете после подтверждения. Все действия по их устранению — в одном месте.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Панель навигации автоматически адаптируется в зависимости от ролей и разрешений пользователя.</value>
@@ -165,11 +369,38 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Это шаблонный проект, с которого мы начинаем наше путешествие...</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>Всего инцидентов</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Не устранено</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Не решено</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>Используйте Bearer-аутентификацию для отчёта об инцидентах тестирования:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Просмотреть все инциденты</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Автоматическая настройка вебхуков</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Добро пожаловать</value>
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Зачем использовать шаблон Aiursoft?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>Для этого необходимо иметь право создавать оповещения для включённого приложения.</value>
   </data>
 
 </root>

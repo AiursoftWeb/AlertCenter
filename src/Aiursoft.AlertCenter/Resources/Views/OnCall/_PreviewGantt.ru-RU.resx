@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· Уволен</value>
+  </data>
+  <data name=" · On call" xml:space="preserve">
+    <value>· На связи</value>
+  </data>
+  <data name=" · On duty" xml:space="preserve">
+    <value>· На смене</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · Переместить выбранную смену сюда</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · Другая команда (только чтение) · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (только для чтения)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0} смен / {1:0.##} ч</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>дежурные смены {0}</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} ч. · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · Соседняя неделя (только для чтения) · {3}</value>
+  </data>
+  <data name="36 hours after this week (read-only)" xml:space="preserve">
+    <value>36 часов после этой недели (только чтение)</value>
+  </data>
+  <data name="36 hours before this week (read-only)" xml:space="preserve">
+    <value>36 часов до этой недели (только для чтения)</value>
+  </data>
+  <data name="7-Day On-Call Gantt Chart" xml:space="preserve">
+    <value>7-дневная диаграмма Ганта дежурств</value>
+  </data>
+  <data name="Departed" xml:space="preserve">
+    <value>Уволен</value>
+  </data>
+  <data name="Drag to another engineer to swap the entire week, or click to select a target employee." xml:space="preserve">
+    <value>Перетащите на другого инженера, чтобы поменять местами смены за всю неделю, или нажмите, чтобы выбрать сотрудника.</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Сотрудник удалён</value>
+  </data>
+  <data name="Employee on-call timeline" xml:space="preserve">
+    <value>График дежурств сотрудников</value>
+  </data>
+  <data name="End time" xml:space="preserve">
+    <value>Время окончания</value>
+  </data>
+  <data name="Expand next 36 hours" xml:space="preserve">
+    <value>Развернуть следующие 36 часов</value>
+  </data>
+  <data name="Expand previous 36 hours" xml:space="preserve">
+    <value>Развернуть предыдущие 36 часов</value>
+  </data>
+  <data name="From " xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>часов</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>часов ·</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Нет назначенных смен.</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>Сейчас</value>
+  </data>
+  <data name="On-call staff" xml:space="preserve">
+    <value>Дежурный персонал</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Только для чтения</value>
+  </data>
+  <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
+    <value>Прокручивайте по горизонтали, чтобы просмотреть всё расписание. Наведите курсор на цветной блок, перейдите на него с помощью клавиши Tab или щёлкните по нему, чтобы посмотреть подробности смены. Красная линия показывает время на момент загрузки страницы. Вертикальные кнопки справа от столбца сотрудников и в крайней правой части временной шкалы раскрывают интервалы длительностью 36 часов до начала и после окончания недели (фактическая длительность по UTC с учётом переходов на летнее и зимнее время); по умолчанию эти интервалы свёрнуты. В раскрытых областях используются те же заголовки дат, шаг в 6 часов и сетка, что и для текущей недели. Серые смены по обе стороны доступны только для просмотра, их нельзя редактировать, и они не учитываются в недельной статистике. Чтобы внести изменения, перейдите к соответствующей неделе. Смены текущей и других команд отображаются в одной строке: администраторы могут редактировать цветные смены своей группы, а серые смены других команд показывают только команду и время для справки. Пустые интервалы можно заполнить вручную в режиме «Добавить смену».</value>
+  </data>
+  <data name="Shift / Total Duration" xml:space="preserve">
+    <value>Смена / общая продолжительность</value>
+  </data>
+  <data name="Start Time" xml:space="preserve">
+    <value>Время начала</value>
+  </data>
+  <data name="Swap full week" xml:space="preserve">
+    <value>Обменять всю неделю</value>
+  </data>
+  <data name="Swap full-week shifts with {0}" xml:space="preserve">
+    <value>Поменять местами смены за всю неделю с {0}</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="Until " xml:space="preserve">
+    <value>До</value>
+  </data>
+
+</root>

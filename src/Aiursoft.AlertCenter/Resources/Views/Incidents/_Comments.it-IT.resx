@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledged" xml:space="preserve">
+    <value>Preso in carico</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Modifica la gravità dell&apos;incidente</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+    <value>Dopo la cancellazione, verranno mantenuti solo l&apos;autore, l&apos;ora di pubblicazione, l&apos;utente che ha eseguito la cancellazione e l&apos;ora di cancellazione. Il testo originale del commento non sarà più visualizzato e non potrà essere recuperato.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>Creazione automatica incidente</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
+  <data name="Comment editor view" xml:space="preserve">
+    <value>Visualizzazione dell’editor dei commenti</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>Conferma e assumi l&apos;incidente</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Conferma eliminazione</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Delete comment" xml:space="preserve">
+    <value>Elimina commento</value>
+  </data>
+  <data name="Deleted by: " xml:space="preserve">
+    <value>Eliminato da:</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>Evento di incidente</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>Cronologia dell’incidente</value>
+  </data>
+  <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
+    <value>Markdown è supportato. Massimo 4.000 caratteri UTF-16 (le emoji possono contare come 2).</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Mitigare incidente</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Mitigato</value>
+  </data>
+  <data name="Newest first · 20 items per page" xml:space="preserve">
+    <value>Più recenti prima · 20 elementi per pagina</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Pagina successiva</value>
+  </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>Nessuna attività nella pagina corrente.</value>
+  </data>
+  <data name="No. " xml:space="preserve">
+    <value>N.</value>
+  </data>
+  <data name="Not set" xml:space="preserve">
+    <value>Non impostato</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>il</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>Responsabile:</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Pagina</value>
+  </data>
+  <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
+    <value>Incolla o trascina le immagini nell&apos;editor per caricarle.</value>
+  </data>
+  <data name="Post comment" xml:space="preserve">
+    <value>Pubblica commento</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Anteprima</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Pagina precedente</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Avanzamento</value>
+  </data>
+  <data name="Publish comment" xml:space="preserve">
+    <value>Pubblica commento</value>
+  </data>
+  <data name="Published comment?" xml:space="preserve">
+    <value>Commento pubblicato?</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Riaprire l’incidente</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Risolvi incidente</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Risolto</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>Gravità:</value>
+  </data>
+  <data name="Split View" xml:space="preserve">
+    <value>Vista divisa</value>
+  </data>
+  <data name="Status: " xml:space="preserve">
+    <value>Stato:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>Assumi incidente</value>
+  </data>
+  <data name="This comment has been deleted." xml:space="preserve">
+    <value>Questo commento è stato eliminato.</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>Paginazione della cronologia</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Non assegnato</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Non mitigato</value>
+  </data>
+  <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
+    <value>Usa Markdown per condividere indizi utili alla risoluzione dei problemi, suggerimenti o discussioni…</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>Utente eliminato</value>
+  </data>
+
+</root>
