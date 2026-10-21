@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>إجراء</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>كل القنوات</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>جميع الحالات</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>المحاولات</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>البريد الإلكتروني المدمج للمناوبة</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>البريد الإلكتروني المدمج للاستجابة الفورية · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>إشعار اختبار القناة</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>مسح جميع عوامل التصفية</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>تتبّع شامل لحالة الإرسال غير المتزامن وإعادة المحاولة عند حدوث أخطاء لخطافات الويب ورسائل البريد الإلكتروني والإشعارات داخل التطبيق</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>وقت الإنشاء</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>يتم عرض الصفحة حاليًا</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>جارٍ الإرسال</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>جارٍ التسليم (الإرسال)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>فشل التسليم</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>فشل التسليم (فشل)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>حالة التسليم</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>تم التسليم بنجاح</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>تم التسليم بنجاح (ناجح)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>تصفية</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>انتقل إلى</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>انتقل إلى مركز الدفع لتكوين القنوات</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>الحادث / رسالة الاختبار</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>تصعيد الحادث ({0} ← {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>تم تخفيف الحادث: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>تمت إعادة فتح الحادثة: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>تم حل الحادث: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>انتقال</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>انتقل إلى رقم الصفحة</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>اختبار يدوي</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>الصفحة التالية</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>لا توجد سجلات تسليم مطابقة حسب المرشّح الحالي. يرجى تعديل معايير المرشّح.</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>لا توجد سجلات إرسال</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>صفحة</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>سجلات الصفحة</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>بانتظار التسليم</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>بانتظار التسليم (قيد الانتظار)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>الصفحة السابقة</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>سجلات تسليم الإرسال</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>ترقيم صفحات سجلات الإرسال</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>التتبّع في الوقت الفعلي</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>تحديث القائمة</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>إعادة تعيين عوامل التصفية</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>القناة المستهدفة</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>اختبار</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>عرض تفاصيل الإرسال</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>عند تشغيل النظام لإشعارات الحوادث أو اختبارات القنوات اليدوية، تُسجَّل هنا جميع تفاصيل الإرسال وحالاته.</value>
+  </data>
+
+</root>

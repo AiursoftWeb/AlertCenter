@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} applications" xml:space="preserve">
+    <value>{0} تطبيقات</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>الإجراء</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
+    <value>عدّل كلمات البحث أو امسح البحث لعرض جميع التطبيقات.</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>إدارة مفاتيح API</value>
+  </data>
+  <data name="App connected" xml:space="preserve">
+    <value>التطبيقات المتصلة</value>
+  </data>
+  <data name="App ID" xml:space="preserve">
+    <value>معرّف التطبيق</value>
+  </data>
+  <data name="App information" xml:space="preserve">
+    <value>معلومات التطبيق</value>
+  </data>
+  <data name="Application Name" xml:space="preserve">
+    <value>اسم التطبيق</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>إعدادات التطبيق</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>التطبيقات</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Confirm app and all data deletion" xml:space="preserve">
+    <value>تأكيد حذف التطبيق وجميع البيانات</value>
+  </data>
+  <data name="Confirm app deletion" xml:space="preserve">
+    <value>تأكيد حذف التطبيق</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>أنشئ تطبيقًا للأعمال أعلاه وأصدر له مفتاح API مخصصًا.</value>
+  </data>
+  <data name="Create Application" xml:space="preserve">
+    <value>إنشاء تطبيق</value>
+  </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>إنشاء حادث</value>
+  </data>
+  <data name="Create new integration app" xml:space="preserve">
+    <value>إنشاء تطبيق تكامل جديد</value>
+  </data>
+  <data name="Created on" xml:space="preserve">
+    <value>تم الإنشاء في</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>حذف التطبيق</value>
+  </data>
+  <data name="Delete integrated application" xml:space="preserve">
+    <value>حذف التطبيق المدمج</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>معطّل</value>
+  </data>
+  <data name="Distribute independent API credentials for business services and manage reporting permissions and push routing." xml:space="preserve">
+    <value>وزّع بيانات اعتماد مستقلة لواجهات API الخاصة بخدمات الأعمال، وأدِر أذونات إعداد التقارير وتوجيه الإشعارات الفورية.</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>لا تربط مجموعة الواجب</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>مفعّل</value>
+  </data>
+  <data name="Enter the app name to confirm deletion:" xml:space="preserve">
+    <value>أدخل اسم التطبيق لتأكيد الحذف:</value>
+  </data>
+  <data name="Example: Order payment service, User Center, Edge Gateway…" xml:space="preserve">
+    <value>مثال: خدمة دفع الطلبات، مركز المستخدم، البوابة الطرفية…</value>
+  </data>
+  <data name="Filter by application name..." xml:space="preserve">
+    <value>تصفية حسب اسم التطبيق...</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="Find application" xml:space="preserve">
+    <value>ابحث عن تطبيق</value>
+  </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>دليل التكامل</value>
+  </data>
+  <data name="No connected apps yet" xml:space="preserve">
+    <value>لا توجد تطبيقات متصلة حتى الآن</value>
+  </data>
+  <data name="No matching applications found" xml:space="preserve">
+    <value>لم يتم العثور على تطبيقات مطابقة</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>مجموعة المناوبة</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>مجموعة الاستدعاء (اختياري)</value>
+  </data>
+  <data name="On-call group is optional; if bound, the on-duty engineer is automatically notified by email, and the on-call group configuration address is CC&apos;d. Custom push channels can still be configured independently." xml:space="preserve">
+    <value>مجموعة المناوبة اختيارية؛ عند ربطها، يُخطر المهندس المناوب تلقائيًا عبر البريد الإلكتروني، وتُضاف نسخة إلى عنوان البريد الإلكتروني المُعدّ لمجموعة المناوبة. ويمكن إعداد قنوات إشعارات مخصصة بشكل مستقل.</value>
+  </data>
+  <data name="On-call settings" xml:space="preserve">
+    <value>إعدادات المناوبة</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>الصلاحيات</value>
+  </data>
+  <data name="Push Settings" xml:space="preserve">
+    <value>إعدادات الإشعارات الفورية</value>
+  </data>
+  <data name="Running Status" xml:space="preserve">
+    <value>حالة التشغيل</value>
+  </data>
+  <data name="The name must match exactly (case-sensitive)." xml:space="preserve">
+    <value>يجب أن يتطابق الاسم تمامًا (حساس لحالة الأحرف).</value>
+  </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>هذا الإجراء غير قابل للتراجع! سيتم حذف جميع الحوادث التاريخية، وسجلات التسليم المرتبطة، والإشعارات داخل الموقع لهذا التطبيق، وسيتم تعطيل جميع مفاتيح API فورًا.</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>غير مرتبط</value>
+  </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>استخدم اسمًا موجزًا لنظام العمل. أنشئ مفاتيح API الخاصة به بشكل منفصل بعد إنشاء التطبيق.</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>عرض جميع الحوادث</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>عرض الحوادث</value>
+  </data>
+
+</root>

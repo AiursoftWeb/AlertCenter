@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" members" xml:space="preserve">
+    <value>الأعضاء</value>
+  </data>
+  <data name="Back to Team List" xml:space="preserve">
+    <value>العودة إلى قائمة الفرق</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="CC address not configured." xml:space="preserve">
+    <value>لم يتم إعداد عنوان نسخة إلى.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Confirm team deletion" xml:space="preserve">
+    <value>تأكيد حذف الفريق</value>
+  </data>
+  <data name="Delete on-call team" xml:space="preserve">
+    <value>حذف فريق المناوبة</value>
+  </data>
+  <data name="Delete team" xml:space="preserve">
+    <value>حذف الفريق</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>تعديل الفريق</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ساعات</value>
+  </data>
+  <data name="hours · Min rest " xml:space="preserve">
+    <value>ساعات · الحد الأدنى للراحة</value>
+  </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>إدارة الأعضاء</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>الأعضاء المتاحون للجدولة (بترتيب الدوران)</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>التالي: إسناد الأشخاص إلى المناوبات</value>
+  </data>
+  <data name="No team members." xml:space="preserve">
+    <value>لا يوجد أعضاء في الفريق.</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>نسخ CC لبريد النداء</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>تُرسل رسائل البريد الإلكتروني الخاصة بالمناوبة تلقائيًا إلى عناوين البريد الإلكتروني للمستخدمين (في خانة «إلى») لجميع مهندسي المناوبة (OCEs) ضمن المناوبة المحفوظة حاليًا. تُستخدم في خانة «نسخة إلى» عناوين صناديق البريد الخاصة بالفريق أو عناوين القوائم البريدية التي ضبطها المسؤول صراحةً فقط؛ ولا تتم إضافة جميع أعضاء الفريق تلقائيًا إلى نسخة البريد. وستواصل قنوات الإشعارات الفورية المخصصة التي تم ضبطها في التطبيق إرسال إشعارات إضافية.</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>فتح الجدول</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>لكل وردية</value>
+  </data>
+  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>لم يتم ربط قالب القاعدة؛ لا يزال بإمكانك جدولة يدوية.</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>قالب القاعدة:</value>
+  </data>
+  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>لا يمكن حذف قوالب القواعد. لا يمكن حذف سوى الفرق التي لا تحتوي على مناوبات محفوظة أو تطبيقات مرتبطة بها. هذا الإجراء لا يمكن التراجع عنه.</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>نقطة بداية الجدولة:</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>إعدادات الفريق</value>
+  </data>
+  <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
+    <value>يمكن مشاركة القوالب بين عدة فرق، ولن يؤدي تعديل القوالب أو التبديل بينها إلى إعادة توليد الورديات المحفوظة.</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>قائمة الأعضاء تحدد من يمكن جدولة عمله. الجدول المحفوظ يحدد من هو على النوبة ويتلقى رسائل بريد الأحداث. المستلمون في الحقل &quot;إلى&quot; (CC) يتلقون نسخة بشكل مستقل عن عضويتهم في الفريق.</value>
+  </data>
+  <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
+    <value>هذا الفريق لديه ورديات محفوظة ولا يمكن حذفه للحفاظ على سجل الجدولة.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group before deleting the team." xml:space="preserve">
+    <value>هذا الفريق مرتبط بتطبيق متكامل. يُرجى إعادة تعيين مجموعة المناوبة الخاصة بالتطبيق أو إلغاء ربطها قبل حذف الفريق.</value>
+  </data>
+  <data name="Time zone: " xml:space="preserve">
+    <value>المنطقة الزمنية:</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>عرض جدول المناوبات</value>
+  </data>
+
+</root>

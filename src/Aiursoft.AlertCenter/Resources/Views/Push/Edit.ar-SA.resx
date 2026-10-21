@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>، يمكن استخدامه على جانب الاستقبال مع</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: يدعم ربط عدة مستخدمين ومجموعات مستخدمين (أدوار) في الوقت نفسه. ويزيل النظام التكرارات تلقائيًا، لضمان تلقي كل عضو إشعارًا واحدًا فقط غير مقروء.</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: يستخدم النظام إعدادات خدمة البريد الإلكتروني العامة بشكل موحّد. يُرجى استخدام</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>١. اختر نوع القناة</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>أضف عنوان بريد إلكتروني للمخاطب</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>أضف عنوان بريد إلكتروني</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>أضف مستخدمًا واحدًا على الأقل أو مجموعة مستخدمين؛ لن يتم إرسال أي إشعارات إذا لم تكن المجموعة تحتوي على أعضاء.</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>إضافة قناة إشعارات فورية</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>إضافة المستلمين ومجموعات المستخدمين</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>طلب مخصص متقدم (رؤوس وتنسيقات مخصصة)</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>و</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>تفويض ربط التطبيق</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>لم يتم منح أذونات ربط التطبيق بعد</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>باستثناء مسؤولي قناة الإشعارات الفورية، لا يمكن لأي مستخدم ربط هذه القناة حاليًا.</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>نوع التفويض</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>العودة إلى قائمة القنوات</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>إدخال رسائل البريد الإلكتروني للنسخة إلى دفعة واحدة</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>لا يمكن استبداله.</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>قائمة النسخ (CC)</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>اسم القناة</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>انقر على الزر الموجود على اليمين للإزالة</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>انقر لإدراج قيمة مكانية:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>تفاصيل الإعدادات</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>وصف تنسيق الطلب الافتراضي</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>يتميز كل مهمة تسليم بمعرّف ثابت وفريد</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>تعديل قناة الدفع</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>سيتم إرسال رسائل البريد الإلكتروني مباشرة إلى عنوان البريد الإلكتروني هذا.</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>فعّل قناة الإشعارات الفورية هذه الآن</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>توفر متغيرات البيئة بيانات الاعتماد الموثّقة.</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>مثال: فريق المناوبة الإنتاجي، بوت حوادث فيتشو، Webhook العمليات…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>ترويسات إضافية للطلب (كائن JSON)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>خدمة البريد العالمية عبر SMTP</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>الحد الأقصى لاسم الترويسة 128 حرفًا؛ يجب أن تكون القيمة سلسلة صالحة.</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>إزالة التكرار مع ضمان عدم تكرار الأثر.</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>إذا تُرك الحقل فارغًا، يرسل النظام JSON قياسيًا افتراضيًا. تُشفَّر الترويسات المخصصة وتُحفَظ؛</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>نطاق الإشعارات داخل التطبيق</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>تعديل معلمات التسليم للقناة &quot;{0}&quot;.</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>لم تتم إضافة أي مستلمين في الحقل &quot;CC&quot; بعد.</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>لم تتم إضافة أي مستلمين بعد. يُرجى اختيار مجموعات الأدوار أو تحديد المستخدمين أعلاه.</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>بريد إلكتروني واحد لكل سطر؛ يُقبل أيضًا استخدام الفواصل أو علامات النقطة والفاصلة الإنجليزية، بحد أقصى 50 مستلمًا في الحقل &quot;نسخة&quot; (CC).</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>يمكن للمستخدمين التاليين أو أعضاء مجموعات المستخدمين فقط عرض هذه القناة وربطها في التطبيقات التي يديرونها. لا يمنح هذا الإذن صلاحية الوصول إلى المستلمين أو خطافات الويب (Webhooks) أو إعدادات الاختبار.</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>تحليل كقائمة</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>مستلمو نسخة البريد (CC) بعد التحليل</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>يجب أن تكون العناصر النائبة القيمة الوحيدة في سلسلة JSON.</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>البريد الإلكتروني للمستلم</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>نوع المستلِم</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>إزالة {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>إزالة الإذن</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>قالب نص الطلب (قالب JSON)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>مجموعة الأدوار</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>حفظ إعدادات القناة</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>البحث بالاسم المستخدم أو الاسم المعروض...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>بحث عن المستخدمين</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>اختر نوع قناة الإشعارات وفعّل عنوان المستلم أو المستلمين المستهدفين.</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>اختر مجموعة المستخدمين</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>اختر مجموعة المستخدمين...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>اختر مستخدمًا...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>قائمة المستلمين المحددين</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>تحديد مستخدم بعينه</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>تحديد مستخدم</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>تحديد مستخدم (مستخدم)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>يجب أن يدعم المستلم بروتوكول HTTP POST بصيغة JSON. يُعتبر الاستجابة 2xx تسليمًا ناجحًا. حد مهلة طلب النظام هو 10 ثوانٍ، ولا يتم اتباع إعادة التوجيه عبر النطاقات.</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>سيتم إضافته</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>يُستخدم للتعرف السريع على مستويات الدفع والتسجيلات الخاصة بالتطبيق.</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>مجموعة مستخدمين</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>مجموعة المستخدمين · يرث الأعضاء الأذونات الممنوحة تلقائيًا</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>مجموعة المستخدمين (الدور)</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>عنوان URL لمستقبِل Webhook</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>سيحلّل أنواع الكائنات الأصلية ويحافظ عليها.</value>
+  </data>
+
+</root>
