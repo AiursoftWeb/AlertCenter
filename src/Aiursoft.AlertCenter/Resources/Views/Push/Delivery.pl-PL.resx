@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>Zadanie asynchroniczne zostało zakolejkowane. Odśwież status później.</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Liczba prób</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>Powrót do rekordów powiadomień push</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Wbudowana poczta on-call · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>System wbudowany · Nie można go wyłączyć indywidualnie</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>Status włączenia kanału</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>Test kanału</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Powiadomienie testowe kanału</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>Natychmiast</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>Ukończono o</value>
+  </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>Czas ukończenia</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>Kopiuj pełny ID dostawy</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>Kopiuj pełny identyfikator</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Czas utworzenia</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Dostawa zakończona pomyślnie</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>Treść dostawy</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>Szczegóły dostawy</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Szczegóły dostawy - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Dostarczenie nie powiodło się</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Dostarczenie trwale nie powiodło się</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>ID dostawy</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>ID dostawy:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>Utworzono zadanie dostarczenia</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Wyłączony</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>Liczba prób wysłania</value>
+  </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>Oś czasu wysyłki</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>Wysyłanie powiadomień w tle</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Czas trwania</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Włączony</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>Wejście do kolejki dostaw</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Podniesiono poziom incydentu ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incydent opanowany: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Wznowiono incydent: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incident resolved: {0}</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>Inicjuj żądanie wysyłki</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>Nieprawidłowy migawkowy odbiorca. Nie można ponownie wysłać starych incydentów.</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Test ręczny</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>Ręczna wiadomość testowa</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>Brak treści</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Brak</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Ponowne próby wysłania wiadomości e-mail do osób pełniących dyżur zawsze korzystają z migawki OCE i CC z chwili umieszczenia wiadomości w kolejce i nie przekierowują jej do aktualnie dyżurujących osób. Ponowna próba nie jest możliwa, jeśli nie ma prawidłowej migawki.</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>Najpierw włącz kanał docelowy.</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>Wysyłka ponowna</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>Ponowna dostawa użyje najnowszej konfiguracji kanału.</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>Odśwież status</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>W toku...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>Zmiana:</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>Czas zrzutu</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>Aplikacja źródłowa</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Kanał docelowy</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>Adresat mógł już otrzymać tę wiadomość w przypadku przekroczenia limitu czasu lub przerwania operacji. Przed ponowną próbą należy to sprawdzić.</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>Metadane zadania</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>To jest testowa wiadomość dla kanału push.</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>razy</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>Łączna liczba prób:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>Wyświetl powiadomienia w aplikacji</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>Wyświetl lub zmień konfigurację kanału</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>Wyświetl pierwotne zdarzenie</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>Wyświetl ponownie otwarte zgłoszenie</value>
+  </data>
+
+</root>
