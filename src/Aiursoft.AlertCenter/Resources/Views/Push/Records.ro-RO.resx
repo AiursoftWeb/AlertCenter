@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Acțiune</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>Toate canalele</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>Toate stările</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Încercări</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>E-mail de serviciu integrat</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>E-mail integrat pentru permanență · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Notificare de test pentru canal</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Ștergeți toate filtrele</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>Urmărire completă a stării de dispatch asincron și a repetărilor în caz de eroare pentru Webhooks, e-mailuri și notificări în aplicație</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Timpul de creare</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>Afișat în prezent pagina</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>În curs de livrare</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>În curs de trimitere (Se trimite)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Livrare eșuată</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>Livrare eșuată (Eșuată)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>Statusul livrării</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>Livrare reușită</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>Livrare reușită (Reușită)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtru</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>Accesați</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>Accesați Centrul de notificări push pentru a configura canalele</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>Incident / mesaj de test</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident escalat ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incident atenuat: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Incident redeschis: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incident rezolvat: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>Saltă</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>Salt la numărul paginii</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Test manual</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Pagina următoare</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>Nicio înregistrare de livrare care să corespundă filtrului actual. Vă rugăm să ajustați criteriile de filtrare.</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>Nu există înregistrări de notificări push</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Pagină</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>Înregistrări pagină</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>Livrare în așteptare</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>Livrare în așteptare (În așteptare)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Pagina anterioară</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>Registrări de livrare push</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>Paginarea înregistrărilor trimise</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>Urmărire în timp real</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>Reîmprospărează lista</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>Resetează filtrele</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Canal țintă</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>Vizualizați detaliile livrării</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>Când sistemul declanșează notificări push pentru incidente sau teste manuale ale canalelor, toate detaliile despre trimitere și stările acestora sunt înregistrate aici.</value>
+  </data>
+
+</root>

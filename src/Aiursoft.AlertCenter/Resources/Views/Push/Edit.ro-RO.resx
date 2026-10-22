@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>, poate fi utilizat la receptor împreună cu</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: Suportă asocierea simultană a mai multor utilizatori și grupuri de utilizatori (roluri). Sistemul elimină automat duplicările, asigurând că fiecare membru primește o singură notificare necitită.</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: Sistemul utilizează uniform configurația globală a serviciului de e-mail. Vă rugăm să folosiți</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Selectați tipul canalului</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>Adăugați o adresă de e-mail CC</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>Adăugați o adresă de e-mail</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>Adăugați cel puțin un utilizator sau un grup de utilizatori; nu se trimit notificări dacă grupul nu are membri.</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>Adăugare canal push</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>Adăugați destinatari și grupuri de utilizatori</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>Cerere personalizată avansată (Antete și șabloane personalizate)</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>și</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>Autorizare pentru asocierea aplicației</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>Permisiunile de legătură a aplicației nu au fost acordate încă</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>Cu excepția administratorilor canalului de push, în prezent niciun utilizator nu poate lega acest canal.</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>Tipul de autorizare</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>Înapoi la lista de canale</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>Introduceți în lot adresele de e-mail CC</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anulare</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>Nu pot fi suprascrise.</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Lista CC</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Numele canalului</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>Faceți clic pe butonul din dreapta pentru a elimina</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>Faceți clic pentru a insera un substituent:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>Detalii de configurare</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>Descrierea formatului implicit al solicitării</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>Fiecare sarcină de livrare are un unic fixat</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>Editați canalul de notificări push</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>E-mailurile vor fi trimise direct la această adresă de e-mail.</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>Activează acum acest canal push</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>Variabilele de mediu furnizează acreditările de autentificare.</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>Exemplu: echipa de permanență pentru producție, botul Feishu pentru incidente, webhook-ul Ops…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>Anteturi suplimentare de cerere (obiect JSON)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>Serviciu global de e-mail SMTP</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>Numele antetului poate avea maximum 128 de caractere; valoarea trebuie să fie un șir valid.</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>Eliminare duplicată idempotentă.</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>Dacă este lăsat gol, sistemul trimite standard JSON implicit. Anteturile personalizate sunt criptate și persistate;</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>Câmp de notificări în aplicație</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>Modificarea parametrilor de livrare pentru canalul „{0}”.</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>Nu a fost adăugat încă niciun destinatar în CC.</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>Nu a fost adăugat niciun destinatar. Selectați grupuri de roluri sau indicați utilizatori mai sus.</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>Un adresă de e-mail pe linie; virgulele sau punctele și virgulele engleze sunt, de asemenea, acceptate, cu un maxim de 50 de destinatari CC.</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>Doar utilizatorii de mai jos sau membrii grupurilor de utilizatori pot vizualiza și lega acest canal în aplicațiile lor gestionate. Această permisiune nu acordă acces la destinații, Webhooks sau configurare de testare.</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>Analizează ca listă</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>Destinatari CC extrași</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>Locurile rezervate trebuie să fie singura valoare a unui șir JSON.</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Adresă e-mail destinatar</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>Tipul destinatarului</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Elimină</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Elimină {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Elimină permisiunea</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>Șablon pentru corpul cererii (șablon JSON)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>Grup de roluri</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>Salvează configurația canalului</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Căutați după numele de utilizator sau numele afișat...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>Caută utilizatori</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Selectați tipul canalului de notificare și configurați adresa destinatarului sau destinatarii vizați.</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Selectați grupul de utilizatori</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>Selectați un grup de utilizatori...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Selectează utilizatorul...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>Lista destinatarilor selectați</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Specificați un utilizator individual</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>Utilizator specific</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>Specifică utilizatorul (utilizator)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>Receptorul trebuie să accepte cereri HTTP POST cu JSON. Un răspuns 2xx este considerat o livrare reușită. Timpul de expirare al cererii este de 10 secunde, iar redirecționările între origini diferite nu sunt urmate.</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>De adăugat</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>Utilizat pentru identificarea rapidă a nivelurilor de push ale aplicației și a înregistrărilor.</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>Grup de utilizatori</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Grup de utilizatori · Membrii moștenesc dinamic permisiunile de asociere</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>Grup de utilizatori (rol)</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>URL-ul de recepție Webhook</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>Va analiza și va păstra tipurile de obiect originale.</value>
+  </data>
+
+</root>
