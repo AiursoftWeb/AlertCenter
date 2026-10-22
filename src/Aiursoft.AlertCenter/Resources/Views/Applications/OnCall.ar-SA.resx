@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application On-Call Settings" xml:space="preserve">
+    <value>إعدادات الاستدعاء على مدار الساعة للتطبيق</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>العودة إلى التطبيقات المتصلة</value>
+  </data>
+  <data name="Binding automatically enables the built-in on-call email: To is the registered email addresses of all current on-call engineers (OCE), and CC is the on-call group&apos;s configured address. This cannot be disabled individually in push settings; unbinding stops new on-call emails. Application-specific custom channels remain independent, and binding does not grant the application access permissions." xml:space="preserve">
+    <value>يؤدي ربط التطبيق تلقائيًا إلى تفعيل البريد الإلكتروني المدمج للمناوبة: يُرسل إلى عناوين البريد الإلكتروني المسجلة لجميع مهندسي المناوبة الحاليين (OCE)، وتُضاف إلى نسخة (CC) العناوين المحددة لمجموعة المناوبة. لا يمكن تعطيل هذا الخيار بشكل منفصل من إعدادات الإشعارات؛ ويؤدي إلغاء الربط إلى إيقاف إرسال رسائل البريد الإلكتروني الجديدة للمناوبة. تظل قنوات الإشعارات المخصصة للتطبيق مستقلة، ولا يمنح الربط التطبيق أذونات الوصول.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>عدم ربط مجموعة الاستدعاء</value>
+  </data>
+  <data name="Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive incidents do not require on-call configuration." xml:space="preserve">
+    <value>يمكن ربط كل تطبيق بمجموعة واحدة للجاهزية فقط، بينما يمكن لمجموعة واحدة تقديم الخدمة لعدة تطبيقات. اختر &quot;لا توجد مجموعة جاهزية&quot; لفك الربط. التطبيقات التي تستقبل الحوادث فقط لا تتطلب إعدادات جاهزية.</value>
+  </data>
+  <data name="No on-duty groups available. Please contact the administrator to create a team in the On-Call Center." xml:space="preserve">
+    <value>لا توجد مجموعات مناوبة متاحة. يرجى التواصل مع المسؤول لإنشاء فريق في مركز المناوبة.</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>مجموعة المناوبة</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>مجموعة المناوبة (اختياري)</value>
+  </data>
+  <data name="Save on-call settings" xml:space="preserve">
+    <value>حفظ إعدادات الخدمة في وقت العمل</value>
+  </data>
+  <data name="Select, replace, or unbind on-call group." xml:space="preserve">
+    <value>اختر مجموعة المناوبة أو استبدلها أو ألغِ ربطها.</value>
+  </data>
+
+</root>

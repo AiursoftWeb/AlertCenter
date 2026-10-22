@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Add members" xml:space="preserve">
+    <value>إضافة أعضاء</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>إضافة الأعضاء لا تُسند المناوبات.</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>إعدادات الجدولة المتقدمة</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>موظف محذوف</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>عدم ربط قالب (جدولة يدوية)</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>تم حذف الموظف</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>أدخل الوقت بالتوقيت العالمي المنسق (UTC)؛ لن يتم تحويله تلقائيًا بناءً على مناطق توقيت الفريق. بمجرد حفظ الوردية، لا يمكن تغيير نقطة بداية الجدولة.</value>
+  </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>التصفية حسب الدور</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>مساعدة: النسخ الاحتياطي للإشعارات</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>مساعدة: عامل تصفية الدور</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>مساعدة: ترتيب الدور</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>مساعدة: نقطة بداية الجدولة</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>مساعدة: قالب الجدولة</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>مساعدة: المنطقة الزمنية للفريق</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>يمكن لعدة فرق استخدام القالب نفسه. لن تؤدي تبديل القالب أو تعديله إلى إعادة إنشاء المناوبات المحفوظة.</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>الاسم أو اسم الحساب</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>الصفحة التالية</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>لا يوجد أعضاء حتى الآن. افتح «إضافة أعضاء» للعثور على أشخاص.</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>نسخة الإخطار (اختياري)</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>نسخة CC للبريد الإلكتروني المناوب</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>الصف السابق</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>ترتيب التناوب</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>حفظ التغييرات</value>
+  </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>يؤدي الحفظ إلى تحديث الفريق وأعضائه. أدر الورديات بشكل منفصل من صفحة الجدول.</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>سيؤدي الحفظ إلى إزالة هؤلاء الأعضاء من المناوبات التي لم تبدأ بعد. راجع الجدول الزمني للتأكد من عدم وجود فجوات.</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>قالب قاعدة الجدولة</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>نقطة بدء الجدولة (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>البحث بالاسم بدلًا من ذلك</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>البحث بالاسم أو الحساب، أو اختيار دور.</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>البحث عن الموظفين</value>
+  </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>اختيار دور يصفّ البحث فقط. علّم على الأفراد لإضافتهم؛ فعضوية الفريق غير متزامنة مع ذلك الدور.</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>أعضاء الفريق</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>اسم الفريق</value>
+  </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>إعدادات الفريق</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>المنطقة الزمنية</value>
+  </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>إلى: الأشخاص المكلّفون بالمناوبة المحفوظة وقت وقوع الحادث. يُحتفَظ بمستلمي OCE الأصليين لاستخدامهم في رسائل البريد الإلكتروني اللاحقة المتعلقة بالحادث. تُضاف عناوين CC إلى كل رسالة بريد إلكتروني متعلقة بالحادث، بغض النظر عن المناوبة. استخدم الفواصل أو الفواصل المنقوطة أو أسطرًا جديدة؛ بحد أقصى 50 عنوانًا في CC.</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>استخدم «تحريك لأعلى» و«تحريك لأسفل» لاختيار الترتيب المستخدم للجدولة التلقائية مستقبلًا. لن يُعاد ترتيب المناوبات الحالية. حدّد ما يصل إلى 200 عضو.</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>تُستخدم لعرض الجدول الزمني. يتم إدخال نقطة بدء الجدولة المتقدمة أدناه بشكل منفصل بالتوقيت العالمي المنسق (UTC).</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>عرض الجدول</value>
+  </data>
+
+</root>

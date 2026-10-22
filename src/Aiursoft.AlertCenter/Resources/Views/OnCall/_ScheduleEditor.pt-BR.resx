@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· Desligado</value>
+  </data>
+  <data name="Add or remove personnel by shift" xml:space="preserve">
+    <value>Adicionar ou remover profissionais por turno</value>
+  </data>
+  <data name="Add shift" xml:space="preserve">
+    <value>Adicionar turno</value>
+  </data>
+  <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
+    <value>As sugestões automáticas não foram salvas. Os horários adjacentes serão revalidados na geração; os arranjos existentes salvos não serão sobrescritos.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Cancel, keep next week" xml:space="preserve">
+    <value>Cancelar e manter a próxima semana</value>
+  </data>
+  <data name="Confirm draft replacement" xml:space="preserve">
+    <value>Confirmar substituição do rascunho</value>
+  </data>
+  <data name="Copy Current Week to Next Week" xml:space="preserve">
+    <value>Copiar semana atual para a próxima semana</value>
+  </data>
+  <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
+    <value>Copie o rascunho da semana atual para a próxima semana. Se a próxima semana já tiver turnos ou modificações, será necessária confirmação antes de copiar; a gravação ainda será necessária após a cópia. Os botões verticais nas laterais podem expandir as 36 horas antes e depois da semana atual; as áreas cinzentas são somente leitura. Os gráficos e formulários desta página apenas editam a semana atual; para ajustar semanas adjacentes, alterne para a semana correspondente. O rascunho da próxima semana após a cópia também é pré-visualizado em modo somente leitura. As alterações na semana atual e nas cópias são salvas, desfeitas e restauradas de forma uniforme; o recolhimento não perde rascunhos.</value>
+  </data>
+  <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Atualmente no modo Mover/Trocar. Altere o modo acima antes de adicionar ou remover turnos.</value>
+  </data>
+  <data name="Delete shift" xml:space="preserve">
+    <value>Excluir turno</value>
+  </data>
+  <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
+    <value>Arraste um bloco colorido para outro turno para trocar os profissionais, ou para um horário vazio para mover o turno; arraste “Trocar semana inteira” para trocar as escalas semanais de duas pessoas. Você também pode clicar para selecionar e, em seguida, clicar no destino; pressione Esc para cancelar. As alterações são exibidas imediatamente e podem ser salvas em lote após vários ajustes.</value>
+  </data>
+  <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
+    <value>Gerar e salvar a escala desta semana</value>
+  </data>
+  <data name="Move / Swap" xml:space="preserve">
+    <value>Mover / Trocar</value>
+  </data>
+  <data name="Next week already has a saved schedule or unsaved changes. Copying will replace the full 21 shifts of next week with the current draft of this week. You can still undo after confirmation; changes are only written when you click Save." xml:space="preserve">
+    <value>A próxima semana já tem uma escala salva ou alterações não salvas. A cópia substituirá todos os 21 turnos da próxima semana pelo rascunho atual desta semana. Ainda será possível desfazer a ação após a confirmação; as alterações só serão gravadas quando você clicar em Salvar.</value>
+  </data>
+  <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
+    <value>Pessoal de plantão (vários permitidos, no mínimo um)</value>
+  </data>
+  <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
+    <value>Alertas em vermelho indicam turnos vazios, descanso insuficiente ou equipe abaixo do mínimo, mas não bloqueiam ajustes adicionais. A salvaguarda é permitida mesmo abaixo do número mínimo de pessoal, mas turnos vazios e descanso insuficiente não podem ser salvos. A validação é aplicada uniformemente na semana modificada, nas semanas adjacentes e em outras equipes no momento da salvaguarda. Se qualquer semana falhar na validação, nada será salvo. Membros desligados podem apenas reter seus turnos originais; novos turnos não podem ser adicionados ou copiados.</value>
+  </data>
+  <data name="Replace next week&apos;s draft?" xml:space="preserve">
+    <value>Substituir o rascunho da próxima semana?</value>
+  </data>
+  <data name="Reset All" xml:space="preserve">
+    <value>Redefinir tudo</value>
+  </data>
+  <data name="Save schedule adjustments" xml:space="preserve">
+    <value>Salvar ajustes da escala</value>
+  </data>
+  <data name="Scheduling Operation Mode" xml:space="preserve">
+    <value>Modo de operação do agendamento</value>
+  </data>
+  <data name="Select Shift" xml:space="preserve">
+    <value>Selecionar turno</value>
+  </data>
+  <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
+    <value>Selecione os horários para adicionar ou remover profissionais de plantão; o gráfico será atualizado em tempo real. Você também pode usar este formulário para navegar pelo teclado. Membros de outros grupos podem ser selecionados manualmente; os plantões em cinza, somente para leitura, de outras equipes não serão alterados, e sobreposições e intervalos entre plantões de diferentes grupos ainda serão validados ao salvar.</value>
+  </data>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Desfazer última etapa</value>
+  </data>
+
+</root>
