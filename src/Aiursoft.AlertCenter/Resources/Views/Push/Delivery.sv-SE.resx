@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>Den asynkrona uppgiften har lagts i kö. Uppdatera statusen senare.</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Försök</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>Tillbaka till pushposter</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Inbyggd On-call E-post · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>Inbyggt system · Kan inte inaktiveras separat</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>Kanalens aktiveringsstatus</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>Kanaltest</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Kanaltestavisering</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>Slutförd direkt</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>Slutförd kl.</value>
+  </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>Slutförandetid</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>Kopiera fullständigt leverans-ID</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>Kopiera hela ID:t</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Skapad den</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Leverans slutförd med framgång</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>Leveransinnehåll</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>Leveransdetaljer</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Leveransdetaljer - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Leverans misslyckades</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Leverans misslyckades permanent</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>Leverans-ID</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>Leverans-ID:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>Leveransuppgift skapad</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Inaktiverad</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>Utskickningsförsök</value>
+  </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>Utskickstidslinje</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>Skickar leveranser i bakgrunden</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Varaktighet</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Aktiverad</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>Lägg till i leveranskön</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident eskalerad ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incident dämpad: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Incident återöppnad: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incident löst: {0}</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>Starta utskicksbegäran</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>Ogiltig mottagarögonblicksbild. Det går inte att skicka om gamla incidenter.</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Manuellt test</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>Manuell testmeddelande</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>Inget innehåll</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Återupprepningar av e-post till den aktiva personalen använder alltid OCE- och CC-snapshoterna från när meddelandet lades i kön och omdirigerar inte till den aktuella personalen. Återupprepningar är inte tillgängliga om ingen giltig snapshot finns.</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>Aktivera målkanalen först.</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>Leverera igen</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>Vid omförsök används den senaste kanalkonfigurationen.</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>Uppdatera status</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>Körs...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>Jour:</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>Tidpunkt för ögonblicksbild</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>Källintegrerad applikation</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Målkanal</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>Mottagaren kan redan ha mottagit meddelandet vid tidslämnad eller avbrott. Kontrollera innan du försöker igen.</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>Uppgiftsmetadata</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Detta är ett testmeddelande för pushkanalen.</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>gånger</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>Totala försök:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>Visa in-app-meddelanden</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>Visa eller ändra kanalinställningar</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>Visa ursprungligt incident</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>Visa återöppnad händelse</value>
+  </data>
+
+</root>

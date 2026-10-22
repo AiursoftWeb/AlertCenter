@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} applications" xml:space="preserve">
+    <value>{0} applikationer</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Åtgärd</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Åtgärder</value>
+  </data>
+  <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
+    <value>Justera sökord eller rensa sökningen för att visa alla appar.</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>Hantering av API-nycklar</value>
+  </data>
+  <data name="App connected" xml:space="preserve">
+    <value>Anslutna appar</value>
+  </data>
+  <data name="App ID" xml:space="preserve">
+    <value>App-ID</value>
+  </data>
+  <data name="App information" xml:space="preserve">
+    <value>Appinformation</value>
+  </data>
+  <data name="Application Name" xml:space="preserve">
+    <value>Applikationsnamn</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>Applikationsinställningar</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Applikationer</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Rensa</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="Confirm app and all data deletion" xml:space="preserve">
+    <value>Bekräfta borttagning av app och all data</value>
+  </data>
+  <data name="Confirm app deletion" xml:space="preserve">
+    <value>Bekräfta app-torkning</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Skapa en företagsapp ovan och utfärda en särskild API-nyckel.</value>
+  </data>
+  <data name="Create Application" xml:space="preserve">
+    <value>Skapa applikation</value>
+  </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>Skapa incident</value>
+  </data>
+  <data name="Create new integration app" xml:space="preserve">
+    <value>Skapa en ny integrationsapp</value>
+  </data>
+  <data name="Created on" xml:space="preserve">
+    <value>Skapad den</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>Ta bort applikation</value>
+  </data>
+  <data name="Delete integrated application" xml:space="preserve">
+    <value>Ta bort integrerad applikation</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Inaktiverad</value>
+  </data>
+  <data name="Distribute independent API credentials for business services and manage reporting permissions and push routing." xml:space="preserve">
+    <value>Distribuera separata API-uppgifter för företagstjänster och hantera rapporteringsbehörigheter och push-routing.</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>Anslut ingen vakttidsgrupp</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Aktiverad</value>
+  </data>
+  <data name="Enter the app name to confirm deletion:" xml:space="preserve">
+    <value>Ange appens namn för att bekräfta borttagningen:</value>
+  </data>
+  <data name="Example: Order payment service, User Center, Edge Gateway…" xml:space="preserve">
+    <value>Exempel: Betalningstjänst för ordrar, Användarcenter, Edge Gateway…</value>
+  </data>
+  <data name="Filter by application name..." xml:space="preserve">
+    <value>Filtrera efter applikationsnamn...</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="Find application" xml:space="preserve">
+    <value>Hitta applikation</value>
+  </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Integrationsguide</value>
+  </data>
+  <data name="No connected apps yet" xml:space="preserve">
+    <value>Inga anslutna appar än</value>
+  </data>
+  <data name="No matching applications found" xml:space="preserve">
+    <value>Inga matchande applikationer hittades</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>Växelgrupp</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>Jourgrupp (valfritt)</value>
+  </data>
+  <data name="On-call group is optional; if bound, the on-duty engineer is automatically notified by email, and the on-call group configuration address is CC&apos;d. Custom push channels can still be configured independently." xml:space="preserve">
+    <value>Jourgruppen är valfri. Om en jourgrupp kopplas tilldelas den automatiskt jourhavande ingenjören ett e-postmeddelande, och jourgruppens konfigurerade adress sätts på kopia. Anpassade pushkanaler kan fortfarande konfigureras separat.</value>
+  </data>
+  <data name="On-call settings" xml:space="preserve">
+    <value>Inställningar för jour</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Behörigheter</value>
+  </data>
+  <data name="Push Settings" xml:space="preserve">
+    <value>Push-inställningar</value>
+  </data>
+  <data name="Running Status" xml:space="preserve">
+    <value>Driftstatus</value>
+  </data>
+  <data name="The name must match exactly (case-sensitive)." xml:space="preserve">
+    <value>Namnet måste matcha exakt (skiftlägeskänsligt).</value>
+  </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>Åtgärden går inte att ångra! Alla tidigare incidenter, tillhörande leveransposter och aviseringar i appen kommer att raderas, och alla API-nycklar kommer att ogiltigförklaras omedelbart.</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>Obunden</value>
+  </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>Använd ett kortfattat namn på verksamhetssystemet. Skapa dess API-nycklar separat efter att du har skapat applikationen.</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Visa alla incidenter</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Visa incidenter</value>
+  </data>
+
+</root>

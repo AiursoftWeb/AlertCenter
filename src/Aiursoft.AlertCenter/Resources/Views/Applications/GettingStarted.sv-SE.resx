@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API-nyckeln visas endast en gång vid lyckad skapning. Konfigurera den omedelbart i produktionsmiljövariabler (t.ex.</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Pushutskott har startats asynkront.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Behåll den första posten och utlös inte dubbla push-aviseringar.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Centret kan använda det här fältet för att uppskatta nätverksfördröjningen för rapportering och leverans.</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(Kritisk, högsta prioritet),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(Fel),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(Allmän information). Centret dirigerar och skickar aviseringar baserat på den här nivån.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(Större),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(Varning),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) eller en tjänst för nyckelhantering (KMS). Det är strängt förbjudet att hårdkoda den i frontend, loggar eller kodarkiv.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>1 till 200 tecken</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 Godkänd (Idempotent)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 parameterfel</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 Autentisering misslyckades</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>Faktisk tidpunkt för händelsen, t.ex.,</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Bearer-uppgifter saknas, nycklarna stämmer inte överens eller programmet är inaktiverat. Kontrollera programinställningarna.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>Konfigurera kanal för Push Center</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>Kopiera kod</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>Skapa integrationsapp och hämta API-nyckel</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>Utvecklardokumentation för integration</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>Dubblett rapport med samma ReportId,</value>
+  </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Varje nyckel tillhör en applikation. Servern verifierar den hemliga hashens värde och den behörighet som krävs för varje åtgärd.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>Se till att strikt samtidiga idempotens garanteras; använd samma ID för återförsök.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>Varje nytt rapport-ID skapar en separat incident. Återanvänd samma rapport-ID endast när du försöker skicka samma begäran igen. Begränsa antalet rapporter vid källan.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>Fältnamn</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>Från app-skapande och nyckelautentisering till den första incidentrapporten, etablera en stabil systemincidentkanal på 4 steg.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>Gå till att skapa en app och hämta autentiseringsuppgifter</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>Specifikation av fält i HTTP-rapporteringsbegäran</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>HTTP-svarsstatuskoder och bästa tekniska praxis</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>I exempelkoden,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>Incidentens detaljerade innehåll. Stöder felsökningsguides, undantagsstackar eller diagnostiska sammanfattningar. Presentationsskiktet undviker automatiskt HTML för att förhindra XSS-injektion.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>Titel för incidentöversikt. Beskriv kortfattat felet, t.ex. ”Timeout vid svar från betalningskanalen för en beställning.”</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>Initialt sparande lyckades. Returnerar den genererade primärnyckel-ID:t,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>JSON-objekt; hela begäran max 64 KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>Varning för läckage</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Hantera integrerade applikationer</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>Max 4 000 tecken</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Öppna API-nyckelhanteringen för ett program för att skapa namngivna nycklar med behörighet att läsa, skapa och lösa incidenter.</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Valfri</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>eller miljövariabler, vilket gör det möjligt att snabbt hitta och felsöka på detaljsidan.</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>Byt ut med den applikationsnyckel som genererades i föregående steg för att direkt skicka ett test.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Obligatorisk</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>Obligatoriska fält saknas, nivåformatet är ogiltigt eller så överskrider begärandekroppen gränsen på 64 KiB.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>Svar använder AiurProtocol med Code, Message och ProtocolVersion. Valideringsfel innehåller en Items-array. SDK:t returnerar ett typat kvitto eller kastar ett AiurProtocol-undantag.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>Regler och begränsningar</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>Skicka det första händelsemeddelandet</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>Allvarlighetsgrad:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>Standardformat för UUID</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>Strukturerad affärskontext. Det rekommenderas att inkludera</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Klientens globalt unika rapport-ID. Centrum använder</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>SDK:t skickar varje rapport en gång. Om ett nätverksfel gör att resultatet är osäkert skickar du samma begäran igen med samma ReportId och tidpunkt för händelsen.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Visa incidenter</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>Med tidszonsoffset eller Z-identifierare</value>
+  </data>
+
+</root>

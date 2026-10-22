@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Intilliggande vecka (skrivskyddad)</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· Har slutat</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· inkluderar nästa vecka</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· inkluderar föregående vecka</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Otillräcklig vila</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (skrivskyddad)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} har bara {1} anställda, vilket är under minimigränsen på {2}. Det går fortfarande att spara manuellt.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} timmar</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} pass för {1} · {2}; ej sparad ännu. Du kan ångra detta.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} pass / {1} timmar</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Endast {1} timmars vila mellan {2} och {3}. Minimikravet är {4} timmar.</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 timmar · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>Åtgärden slutfördes inte</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>Lägg till-läge: Klicka på det tomma området i ingenjörens rad för att lägga till en 8-timmarsskift; flera personer kan dela ett skift.</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>Lägg till jourpass</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Lagd till</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>Tillbaka till redigering</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>Avbryt uppdatering</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>Fäll ihop {0} 36 timmar</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>Kommentarens innehåll (Markdown)</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>Kommentaren får inte överstiga 4 000 UTF-16-tecken. Vänligen förkorta innehållet innan publicering.</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>Bekräfta att sidan ska uppdateras?</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Kopierad</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>Det aktuella utkastet för den här veckan kopierades till alla 21 passen nästa vecka. Det är inte sparat än, så du kan ångra. Du kan visa de kommande 36 timmarna i en skrivskyddad förhandsvisning. När du har sparat kan du växla till nästa vecka för att visa eller redigera hela veckan.</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>Kopierad till urklipp.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiera</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>Kopieringen misslyckades. Markera och kopiera innehållet manuellt. Kontrollera webbläsarens behörigheter för urklipp om du vill försöka igen.</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>Kopierar…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Du är just nu i flytta/bytesläge. Byt läge ovan innan du lägger till eller tar bort pass.</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>Raderingsläge: Klicka på en färgblock för att ta bort denna teknikers aktuella pass. Denna åtgärd kan ångras och blir tillämpad efter att alla ändringar har sparats.</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>Kasta bort inmatningen och uppdatera</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Slut</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>Ange kommentarsinnehåll; det får inte bara innehålla blanksteg.</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>Ange appens exakta namn för att bekräfta borttagningen.</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>Expandera {0} 36 timmar</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>Det gick inte att hämta anställd. Försök igen.</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>Det gick inte att ladda upp bilden. Försök igen.</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Från</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>Lucka upptäckt vid {0}. Lägg till personal (veckan kräver totalt 21 arbetspass).</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>Hanterbar</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>Ändrade {0} pass{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>Flytta / byt skift</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Flyttningen avbruten; schemat oförändrat.</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>Förflyttningen avbröts.</value>
+  </data>
+  <data name="Move down" xml:space="preserve">
+    <value>Flytta ner</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>Flytta det valda skiftet hit</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>Flytta till</value>
+  </data>
+  <data name="Move up" xml:space="preserve">
+    <value>Flytta upp</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>Nätverksfel; resultatet av åtgärden kan inte bekräftas ännu. Kontrollera statusen innan du skickar in igen för att undvika dubbletter.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>nästa</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Inga tilldelade skift.</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>Inga matchande anställda.</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>Ingen matchande tidszon hittades</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>Inga matchande användare hittades.</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>Inga arbetspass att ta bort i den här cellen.</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Sida {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>Sidinformationen har uppdaterats</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>Kontrollera CC-e-postformatet.</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>Tryck på Ctrl+C för att kopiera den valda nyckeln.</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>Föregående</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>Föregående steg har ångrats.</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>Uppdatera sidan</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>Om du uppdaterar sidan försvinner osparad inmatning. Välj ”Avbryt uppdatering” för att gå tillbaka till felinformationen och behålla den aktuella inmatningen.</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>Läser in sidan...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Ta bort {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Ta bort behörighet</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Borttagen</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>Ogiltig begäran eller sidans inloggningsuppgifter har löpt ut. Kontrollera inmatningen och uppdatera sidan för att försöka igen vid behov.</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>Startar om... ({0}s)</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>Återställd till schemat som det såg ut när sidan öppnades.</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>Rollgrupp · Alla medlemmar i gruppen ärver automatiskt behörigheter</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>Det gick inte att spara. Uppdatera sidan och försök igen.</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>Söker efter anställda…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>Välj roll</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Välj upp till 200 medarbetare per team.</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>Välj användare</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>Välj användare</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Välj användargrupp</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>{0} · {1} har valts. Dra till eller klicka på ett färgblock för att byta plats, tryck på blanksteg för att flytta; tryck på Esc för att avbryta.</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>Valde {0} användare; maximalt 20 per sida.</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>Valde {0}s schema för hela veckan. Dra till eller klicka på en annan ingenjör.</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>Markering avbruten.</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>Passet har justerats. Du kan fortsätta dra för att åtgärda röda varningar och sedan spara alla ändringar.</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Ange enskild användare</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>Personalbemanning justerad och diagram uppdaterat; inte sparad ännu.</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>Kopierades till urklipp!</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>Byt</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>Växlingen avbröts.</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>Byt hel vecka: {0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>Byt hela veckan</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>Bytte helvecksschemat för {0} och {1}. Ej sparad ännu.</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>Resultatet av åtgärden kan inte bekräftas just nu. Kontrollera sidans status innan du skickar in igen.</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>Schemat har {0} olösta problem (expanderar för att visa); du kan fortsätta justera.</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>Målobjectet finns inte längre. Uppdatera sidan.</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>Den här ingenjören är redan tilldelad till denna skift. Det finns inget behov av att lägga till dem igen.</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>Denna vecka inkluderar medlemmar som har lämnat. Vänligen ersätt dem i utkastet för denna vecka innan du kopierar till nästa vecka.</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>De två platserna har redan samma upplägg; ingen anledning att byta.</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>Det går inte att visa bekräftelsen av ersättningen. Uppdatera sidan och försök igen. Utkastet för nästa vecka förblir oförändrat.</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>Det gick inte att hämta anställd.</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>Det går inte att byta direkt: en person finns redan på målpassets skift. Justera först medlemmarna på samma skift via ”Lägg till/ta bort medlemmar efter skift”.</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>Osparat · Utkast till ändring</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Användargrupp · Medlemmar ärver dynamiskt tilldelade behörigheter</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Visning endast</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>Du har inte behörighet att utföra den här åtgärden.</value>
+  </data>
+
+</root>

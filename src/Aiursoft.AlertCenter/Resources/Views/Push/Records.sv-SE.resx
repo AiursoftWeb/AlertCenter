@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Åtgärd</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>Alla kanaler</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>Alla statusar</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Försök</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>Inbyggd e-post vid påkall</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Inbyggd jourmejl · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Kanaltestavisering</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Rensa alla filter</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>Övergripande spårning av asynk status och felåterförsök för Webhooks, e-postmeddelanden och in-app-notiser</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Skapad tid</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>Visar sida just nu</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>Skickar</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>Leverans (Sänds)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Leverans misslyckades</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>Leverans misslyckad (Misslyckad)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>Leveransstatus</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>Leverans lyckades</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>Leverans lyckades (Lyckad)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrera</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>Gå till</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>Gå till Push Center för att konfigurera kanaler</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>Incident / Testmeddelande</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident eskalerad ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incident dämpad: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Incident återöppnad: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incident åtgärdad: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>Hoppa</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>Hoppa till sidnummer</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Manuellt test</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Nästa sida</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>Inga leveransposter matchar det aktuella filtret. Justera filterkriterierna.</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>Inga pushposter</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>sidposter</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>Väntar på leverans</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>Väntande leverans (Väntande)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Föregående sida</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>Leveransloggar för pushmeddelanden</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>Paginering för pushposter</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>Realtime-spårning</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>Uppdatera lista</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>Återställ filter</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Målkanal</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>Visa leveransdetaljer</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>När systemet skickar incidentaviseringar eller utför manuella kanaltester registreras alla utskicksförsök och statusar här.</value>
+  </data>
+
+</root>
