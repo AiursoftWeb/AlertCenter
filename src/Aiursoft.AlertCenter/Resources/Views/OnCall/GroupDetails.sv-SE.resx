@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" members" xml:space="preserve">
+    <value>medlemmar</value>
+  </data>
+  <data name="Back to Team List" xml:space="preserve">
+    <value>Tillbaka till teamlistan</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="CC address not configured." xml:space="preserve">
+    <value>CC-adress har inte konfigurerats.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="Confirm team deletion" xml:space="preserve">
+    <value>Bekräfta radering av team</value>
+  </data>
+  <data name="Delete on-call team" xml:space="preserve">
+    <value>Ta bort jourteamet</value>
+  </data>
+  <data name="Delete team" xml:space="preserve">
+    <value>Ta bort team</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>Redigera team</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>timmar</value>
+  </data>
+  <data name="hours · Min rest " xml:space="preserve">
+    <value>timmar · Minsta vilotid</value>
+  </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>Hantera medlemmar</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>Medlemmar som kan schemaläggas (turordning)</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>Nästa: tilldela personer till arbetspass</value>
+  </data>
+  <data name="No team members." xml:space="preserve">
+    <value>Inga teammedlemmar.</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>CC på on-call-e-post</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>E-postmeddelanden till jourpersonal skickas automatiskt till användarlådorna (Till) för alla jourtekniker (OCE) i den aktuellt sparade skiftet. CC används endast för teamets e-postlådor eller distributionslistor som har konfigurerats uttryckligen av administratören; det kopieras inte automatiskt till alla teammedlemmar. Anpassade pushkanaler som konfigurerats i applikationen levererar fortfarande ytterligare aviseringar.</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>Öppna schema</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>Per skift</value>
+  </data>
+  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Regelmall ej kopplad; manuell schemaläggning är fortfarande tillgänglig.</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>Regelmall:</value>
+  </data>
+  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Regelmallar kan inte tas bort. Endast team utan sparade skift och utan bundna applikationer kan tas bort. Denna åtgärd är irreversibel.</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>Schemaläggningens startpunkt:</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Teaminställningar</value>
+  </data>
+  <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
+    <value>Mallar kan delas av flera team; att ändra eller byta mallar kommer inte att regenerera sparade skift.</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>Medlemslistan anger vilka som kan schemaläggas. Den sparade schemaläggningen anger vilka som är på tjänst och tar emot incidentmejl. CC-mottagare får en kopia oberoende av gruppmedlemskap.</value>
+  </data>
+  <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
+    <value>Detta team har sparade skift och kan inte tas bort för att bevara schemaläggningshistoriken.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group before deleting the team." xml:space="preserve">
+    <value>Detta team är kopplat till en integrerad app. Tilldela om eller koppla bort appens jourgrupp innan du tar bort teamet.</value>
+  </data>
+  <data name="Time zone: " xml:space="preserve">
+    <value>Tidszon:</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>Visa beredskapsschemat</value>
+  </data>
+
+</root>

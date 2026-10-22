@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Add members" xml:space="preserve">
+    <value>Lägg till medlemmar</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>Att lägga till medlemmar tilldelar inte pass.</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>Avancerade schemaläggningsinställningar</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>Borttagen anställd</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>Koppla inte till mall (manuell schemaläggning)</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Anställd borttagen</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>Ange tiden i UTC; den konverteras inte automatiskt utifrån teamets tidszoner. När ett skift har sparats går det inte att ändra schemaläggningens startpunkt.</value>
+  </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>Filtrera efter roll</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>Hjälp: meddelandekopia (kopia)</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>Hjälp: rollfilter</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>Hjälp: rotationsordning</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>Hjälp: schemaläggningens startpunkt</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>Hjälp: schemaläggingsmall</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>Hjälp: tidszon för team</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>Flera team kan dela på samma mall. Om mallen byts ut eller ändras skapas inte sparade arbetspass på nytt.</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>Namn eller konto</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Nästa sida</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>Inga medlemmar än. Öppna Lägg till medlemmar för att hitta personer.</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>通知副本（可选）</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>Kopia till (CC) för e-post om beredskap</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Föregående sida</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>Rotationsordning</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Spara ändringar</value>
+  </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>Sparandet uppdaterar teamet och medlemmarna. Hantera pass separerat i schemat.</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>När du sparar tas dessa medlemmar bort från pass som inte har börjat. Kontrollera schemat så att det inte uppstår luckor.</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>Mall för schemalägningsregel</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>Schemaläggningens startpunkt (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>Sök på namn istället</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>Sök efter namn eller konto, eller välj en roll.</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>Sök efter medarbetare</value>
+  </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>Att välja en roll filtrerar endast sökningen. Markera enskilda personer för att lägga till dem; lagmedlemskap synkroniseras inte med den rollen.</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>Teammedlemmar</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>Lagets namn</value>
+  </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>Teaminställningar</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>Tidszon</value>
+  </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>Till: personerna som är tilldelade den sparade skiften vid händelsestillfället. De ursprungliga OCE-mottagarna behålls för senare händelsemejl. CC tillämpas på alla händelsemejl oavsett skift. Använd kommatecken, semikolon eller nya rader; upp till 50 CC-adresser.</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>Använd Flytta upp och Flytta ned för att välja ordningen för framtida automatisk schemaläggning. Befintliga pass ändras inte. Välj upp till 200 medlemmar.</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>Används för att visa schemat. Startpunkten för den avancerade schemaläggningen nedan anges separat i UTC.</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>Visa schema</value>
+  </data>
+
+</root>
