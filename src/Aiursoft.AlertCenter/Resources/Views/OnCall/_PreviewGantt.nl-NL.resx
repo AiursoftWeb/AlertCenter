@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· Vertrokken</value>
+  </data>
+  <data name=" · On call" xml:space="preserve">
+    <value>· Piketdienst</value>
+  </data>
+  <data name=" · On duty" xml:space="preserve">
+    <value>· Dienstdoend</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · Verplaatst geselecteerde shift hier</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · Ander team (alleen-lezen) · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Alleen-lezen)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0} diensten / {1:0.##} uur</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>On-calldiensten van {0}</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} uur · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · Aanliggende week (alleen-lezen) · {3}</value>
+  </data>
+  <data name="36 hours after this week (read-only)" xml:space="preserve">
+    <value>36 uur na deze week (alleen-lezen)</value>
+  </data>
+  <data name="36 hours before this week (read-only)" xml:space="preserve">
+    <value>36 uur vóór deze week (alleen-lezen)</value>
+  </data>
+  <data name="7-Day On-Call Gantt Chart" xml:space="preserve">
+    <value>7-daagse on-call-Gantt-diagram</value>
+  </data>
+  <data name="Departed" xml:space="preserve">
+    <value>Vertrokken</value>
+  </data>
+  <data name="Drag to another engineer to swap the entire week, or click to select a target employee." xml:space="preserve">
+    <value>Sleep naar een andere engineer om de hele week te ruilen, of klik om een doelmedewerker te selecteren.</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Werknemer verwijderd</value>
+  </data>
+  <data name="Employee on-call timeline" xml:space="preserve">
+    <value>Tijdlijn van bereikbaarheidsdiensten van medewerkers</value>
+  </data>
+  <data name="End time" xml:space="preserve">
+    <value>Eindtijd</value>
+  </data>
+  <data name="Expand next 36 hours" xml:space="preserve">
+    <value>Vouw de komende 36 uur uit</value>
+  </data>
+  <data name="Expand previous 36 hours" xml:space="preserve">
+    <value>Vouw de vorige 36 uur uit</value>
+  </data>
+  <data name="From " xml:space="preserve">
+    <value>Van</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>uren</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>uur ·</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Geen toegewezen diensten.</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="On-call staff" xml:space="preserve">
+    <value>Bereid schakelend personeel</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Alleen-lezen</value>
+  </data>
+  <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
+    <value>Scroll horizontaal om het volledige rooster te bekijken; beweeg de muis over een gekleurd blok, geef het de focus of klik erop om de dienstgegevens te bekijken. De rode lijn geeft de huidige tijd aan op het moment dat de pagina werd geladen. Met de verticale knoppen aan de rechterkant van de medewerkerskolom en helemaal rechts van de tijdlijn kun je 36 uur vóór het begin en na het einde van de week uitklappen (de werkelijke duur in UTC, inclusief wijzigingen door de zomertijd); standaard zijn deze gedeelten ingeklapt. De uitgeklapte gedeelten gebruiken dezelfde datumkoppen, intervallen van 6 uur en hetzelfde raster als de huidige week. Grijze diensten aan beide kanten zijn alleen ter inzage, kunnen niet worden bewerkt en tellen niet mee voor de weekstatistieken; ga naar de betreffende week om wijzigingen aan te brengen. Diensten van het huidige team en andere teams worden op dezelfde rij weergegeven: beheerders kunnen gekleurde diensten van hun eigen groep bewerken, terwijl grijze diensten van andere teams alleen ter referentie het team en de tijd tonen. Lege tijdvakken kunnen handmatig worden ingepland in de modus &apos;Dienst toevoegen&apos;.</value>
+  </data>
+  <data name="Shift / Total Duration" xml:space="preserve">
+    <value>Dienst / totale duur</value>
+  </data>
+  <data name="Start Time" xml:space="preserve">
+    <value>Begintijd</value>
+  </data>
+  <data name="Swap full week" xml:space="preserve">
+    <value>Wissel hele week</value>
+  </data>
+  <data name="Swap full-week shifts with {0}" xml:space="preserve">
+    <value>Wissel diensten voor de hele week met {0}</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="Until " xml:space="preserve">
+    <value>Tot</value>
+  </data>
+
+</root>

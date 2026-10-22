@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>Erken en neem de eigenaarschap over</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Bevestigd</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Incidenternst aanpassen</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>Ernstigheid aanpassen</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>Pas de ernst van deze incident aan en noteer de reden. Een verhoging van de ernst leidt tot het versturen van een e-mail; een vermindering niet.</value>
+  </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>Los dit incident ook onmiddellijk op, met de mitigatiereden als reden voor de oplossing.</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>Automatisch aangemaakt op</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>Terug naar de incidentenlijst</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>Gesloten-loopherstel</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>Bevestig incidentmitigatie</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>Bevestig het opnieuw openen van het incident</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>Bevestig incidentoplossing</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>Bevestig ernstigheidsaanpassing</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>Bevestigingsnotitie (optioneel)</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Inhoud kopiëren</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>JSON kopiëren</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>Huidige on-call OCE</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>Huidig on-call</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>Beschrijf de genomen maatregelen, de omvang van de impact en de herstelstatus.</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>Beschrijf de wijzigingen in impact en de onderbouwing voor de ernstaanpassingen.</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>Elk onafhankelijk rapport resulteert in een nieuw incident. Het bevestigen, afzwakken of oplossen van dit incident heeft geen invloed op andere incidenten of hun meldingen.</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>Voorbeeld: De verbindingenpool van de kerndatabase is hersteld, de service reageert normaal en de belastingstest is geslaagd.</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>Voorbeeld: De monitoring heeft dezelfde storing opnieuw gedetecteerd; verder onderzoek is nodig.</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>Verholpen en gesloten</value>
+  </data>
+  <data name="Full context" xml:space="preserve">
+    <value>Volledige context</value>
+  </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>Ik bevestig dat deze incident volledig is opgelost en niet zal terugkeren.</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Incident-e-mails maken gebruik van deze originele OCE-snapshot, zelfs na wijziging van de on-duty-rooster. Erkennen wijst de incident-eigenaar toe; het wijzigt de e-mailontvangers niet.</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Incident-ID</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>Verantwoordelijke voor incident:</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Incidenttitel</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Incident War Room - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>Onafhankelijke incidenten</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>Tijdstip van laatste bevestiging</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Incident beperken</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Gemitigeerd (Gemitigeerd)</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>Reduceringsreden (verplicht)</value>
+  </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>Mitigeringsduur</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>Nieuw niveau</value>
+  </data>
+  <data name="No additional context was reported." xml:space="preserve">
+    <value>Er is geen extra context gemeld.</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>Geen huidige dienstdoende OCE.</value>
+  </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>Er is geen oorspronkelijk OCE-momentopname beschikbaar. De huidige OCE wordt niet vervangen voor historische e-mailontvangers.</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Niet bevestigd</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Voorgevallen op</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE bij incidentoptreden</value>
+  </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>Permanent verwijderen</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>Incident permanent verwijderen</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>Query mislukt:</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>Reden voor aanpassing (verplicht)</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Ontvangen op</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>Leg de genomen herstelmaatregelen vast en vermeld vervolgens een reden voor de oplossing. Als dit incident opnieuw wordt geopend, gaat het terug naar de status waarin de maatregelen nog niet zijn genomen, terwijl de bevestiging en het eigenaarschap behouden blijven.</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>Leg de genomen beheersmaatregelen vast. Los dit incident op zodra de oplossing is voltooid.</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Incident heropenen</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>Opnieuw openen notities (optioneel)</value>
+  </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>Bij heropening keert deze incident terug naar onbeheerste voortgang. Eerdere bevestiging en eigenaarschap blijven behouden. E-mail staat in de wachtrij voor de geconfigureerde ontvangers.</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>Rapport-ID</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>Rapportinformatie</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>Reden voor afsluiting (verplicht)</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>Oplostijd</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Incident oplossen</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Opgelost (Opgelost)</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>Het oplossen van deze incident voltooid de workflow ervan. Andere incidenten worden onafhankelijk afgehandeld.</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>Beschrijving reactiemechanisme</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Kritiek (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Ernstig (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Fout (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Waarschuwing (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Informatie (P4)</value>
+  </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Hiermee worden het incident en de bijbehorende geschiedenis definitief verwijderd. Voer de exacte titel in ter bevestiging.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Niet toegewezen</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Niet gemitigeerd</value>
+  </data>
+
+</root>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Aangrenzende week (alleen-lezen)</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· Uit dienst</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· inclusief volgende week</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· bevat vorige week</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Onvoldoende rust</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Alleen-lezen)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} heeft slechts {1} personeel, onder het minimum van {2}. Handmatig opslaan is nog steeds toegestaan.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} uur</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} shift voor {1} · {2}; nog niet opgeslagen. Je kunt dit ongedaan maken.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} diensten / {1} uur</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Alleen {1} uur rust tussen {2} en {3}. Vereist minimum is {4} uur.</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 uur · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>Actie niet voltooid</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>Toevoegmodus: Klik op de lege ruimte in de rij van de engineer om een 8-urige shift toe te voegen; meerdere personen kunnen een shift delen.</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>Piketdienst toevoegen</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Toegevoegd</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>Terug naar bewerken</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>Vernieuwing annuleren</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>Vouw {0} 36 uur in</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>Commentinhoud (Markdown)</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>Een opmerking mag niet langer zijn dan 4.000 UTF-16-tekens. Kort de tekst in voordat je deze publiceert.</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>Pagina verversen bevestigen?</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Gekopieerd</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>Het huidige concept voor deze week is gekopieerd naar alle 21 diensten van volgende week. Nog niet opgeslagen; je kunt dit ongedaan maken. Je kunt de komende 36 uur uitbreiden voor een alleen-lezenvoorbeeld; schakel na het opslaan over naar volgende week om de volledige week te bekijken of te bewerken.</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>Gekopieerd naar klembord.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>Kopiëren mislukt. Selecteer en kopieer de inhoud handmatig. Controleer de klembordrechten van de browser om opnieuw te proberen.</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>Kopiëren…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>U bevindt zich momenteel in Verplaatsen/Wisselen-modus. Wissel de modus hierboven voordat u diensten toevoegt of verwijdert.</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>Verwijdermodus: klik op een gekleurd blok om de huidige dienst van deze medewerker te verwijderen. Deze actie kan ongedaan worden gemaakt en wordt van kracht nadat alle wijzigingen zijn opgeslagen.</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>Invoer verwerpen en vernieuwen</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Einde</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>Voer commentaar in; dit mag niet alleen uit witruimte bestaan.</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>Typ de exacte appnaam in om de verwijdering te bevestigen.</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>Uitvouwen {0} 36 uur</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>Medewerker opvragen mislukt. Probeer het opnieuw.</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>Afbeelding uploaden mislukt. Probeer het opnieuw.</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Van</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>Gap gedetecteerd op {0}. Voeg personeel toe (de week vereist een volledig aantal van 21 diensten).</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>Beheersbaar</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>{0} diensten gewijzigd{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>Diensten verplaatsen / ruilen</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Verplaatsing geannuleerd; rooster ongewijzigd.</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>Verplaatsen geannuleerd.</value>
+  </data>
+  <data name="Move down" xml:space="preserve">
+    <value>Omlaag verplaatsen</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>Verplaats geselecteerde shift hier</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>Verplaatsen naar</value>
+  </data>
+  <data name="Move up" xml:space="preserve">
+    <value>Omhoog verplaatsen</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>Netwerkfout; het resultaat van de handeling kan nog niet worden bevestigd. Verifieer de status voordat u opnieuw indient om duplicaten te voorkomen.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>volgende</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Geen toegewezen diensten.</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>Geen overeenkomende medewerkers.</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>Geen overeenkomende tijdzone gevonden</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>Geen overeenkomende gebruikers gevonden.</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>Geen diensten om in deze cel te verwijderen.</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Pagina {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>Pagina-informatie bijgewerkt</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>Controleer het CC-e-mailformaat.</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>Druk op Ctrl+C om de geselecteerde sleutel te kopiëren.</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>vorige</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>Vorige stap ongedaan gemaakt.</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>Pagina vernieuwen</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>Vernieuwen verwijdert niet-opgeslagen invoer. Selecteer ‘Vernieuwen annuleren’ om terug te gaan naar de foutdetails en de huidige invoer te behouden.</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>Pagina wordt herladen...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Verwijder {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Rechten verwijderen</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Verwijderd</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>Verzoek ongeldig of de paginagegevens zijn verlopen. Controleer de invoer en vernieuw de pagina om het opnieuw te proberen, indien nodig.</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>Opnieuw starten... ({0}s)</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>Teruggezet naar de roosterstatus op het moment dat de pagina werd geopend.</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>Rolgroep · Alle leden in de groep erven automatisch machtigingen</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>Opslaan mislukt. Vernieuw de pagina en probeer het opnieuw.</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>Zoeken naar medewerkers…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selecteren</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>Rol selecteren</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Selecteer maximaal 200 medewerkers per team.</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>Gebruiker selecteren</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>Gebruiker selecteren</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Gebruikersgroep selecteren</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Geselecteerd {0} · {1}. Sleep naar of klik op een kleurblok om te verwisselen, spatie om te verplaatsen; Esc om te annuleren.</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>{0} gebruikers geselecteerd; maximaal 20 per pagina.</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>Het volledige weekschema van {0} is geselecteerd. Sleep het naar een andere technicus of klik op een andere technicus.</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>Selectie geannuleerd.</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>Shift aangepast; u kunt doorgaan met slepen om de rode waarschuwingen op te lossen en vervolgens alle wijzigingen op te slaan.</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Specificeer individuele gebruiker</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>Bemanning aangepast en grafiek bijgewerkt; nog niet opgeslagen.</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>Met succes naar klembord gekopieerd!</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>Ruilen</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>Ruilen geannuleerd.</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>Wissel volledige week: {0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>Hele week omwisselen</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>Wissel van het volledige weekrooster voor {0} en {1}. Nog niet opgeslagen.</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>Het resultaat van de actie kan op dit moment niet worden bevestigd. Controleer de paginastatus voordat u de actie opnieuw indient.</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>Het rooster heeft {0} onopgeloste problemen (uitklappen om te bekijken); u kunt doorgaan met aanpassen.</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>Het doelobject bestaat niet meer. Vernieuw de pagina.</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>Deze technicus is al toegewezen aan deze shift. Er is geen noodzaak om deze persoon opnieuw toe te voegen.</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>Deze week bevat leden die zijn vertrokken. Vervang ze in het concept van deze week voordat u naar de volgende week kopieert.</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>Twee locaties hebben al dezelfde indeling; wisselen is niet nodig.</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>Kan de bevestiging van de vervanging niet weergeven. Vernieuw de pagina en probeer het opnieuw. Het concept voor de volgende week blijft ongewijzigd.</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>Kan medewerker niet opvragen.</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>Direct ruilen niet mogelijk: één persoon staat al in de doelshift. Pas eerst de leden van dezelfde shift aan met &quot;Leden toevoegen/verwijderen per shift&quot;.</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>Niet opgeslagen · Conceptaanpassing</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Gebruikersgroep · Leden erven automatisch de gekoppelde machtigingen</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Alleen bekijken</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>U heeft geen toestemming om deze actie uit te voeren.</value>
+  </data>
+
+</root>

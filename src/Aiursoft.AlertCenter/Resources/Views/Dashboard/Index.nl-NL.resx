@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>leveringen</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>ongelezen in-site meldingen</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Ondersteuning voor &quot;fire-and-forget&quot; bij langlopende taken (zoals e-mails of AI), met een GUI voor wachtrijbeheer, parallelle verwerking en annulering.</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>In totaal {0} toegewezen</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Een ingebouwd Role-Based Access Control (RBAC)-systeem voor gedetailleerd rechtenbeheer.</value>
@@ -36,17 +45,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Een moderne, functierijke en zeer uitbreidbare basis voor uw volgende webapplicatie.</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Erkend</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>AI-gestuurde vertalingen</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter meld- en operatiecentrum · Globale status &amp; gesloten-kring tracking</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>Alle</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Alle afhankelijkheden worden automatisch geregistreerd en zijn altijd beschikbaar via constructorinjectie.</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>Alle meldingen</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Apps</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Automatische Donkere Modus</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Automatische Dependency Injection</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Automatische berichtbezorging en probleemoplossing</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Automatische tijdzonebehandeling</value>
@@ -57,8 +84,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Automatische, AI-gebaseerde vertaling in 28 talen.</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>beschikbare kanalen ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Achtergrondtaakverwerking</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>Batchversturing naar on-callgroepen en belangrijke e-mailadressen</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Ingebouwd gebruikersbeheer</value>
@@ -72,11 +105,47 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>Uitgebreide documentatie</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Pushkanaal configureren</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Consistentievalidatie</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Maak een melding voor uw applicatie en stel de geconfigureerde ontvangers ervan in kennis.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Een applicatie maken</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Applicatie maken en sleutel ophalen</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>Maak het eerste incident aan via de API of SDK. Het verschijnt hier.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Kritiek</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>Kritiek ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>Dedicated API Key-authenticatie</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>Bezorgingsgegevens</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>Gedetailleerde integratiedocumentatie</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Ontwikkel uitsluitend in UTC terwijl het systeem data automatisch converteert en weergeeft in de lokale tijdzone van de gebruiker.</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>Betrek verantwoordelijken en gebruikersgroepen direct voor gezamenlijke afhandeling</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Gedockeriseerd voor implementatie</value>
@@ -96,6 +165,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>Schrijf eenvoudig integratietests met behulp van in-memory databases, tijdelijke bestandssystemen, ingebouwde mocking en realistische HTTP-aanvraag-simulatie.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>Fout</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>Heeft een ingebouwd bestandsbeheersysteem met automatische avatarcompressie en privacybescherming.</value>
   </data>
@@ -108,14 +183,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Hallo Wereld!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>Postvak IN voor meldingen in de app</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>Incidentreactie</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Incidenttitel</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>Incidenten initiëren en gezamenlijk oplossen</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Bevat uitgebreide documentatie en praktische voorbeelden om je snel op weg te helpen.</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Geïntegreerd Bestandsbeheer</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Integratiehandleiding</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>Stel specifieke inloggegevens in voor “Geïntegreerde apps.”</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Recentste incidenten</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>Gelinkte incident</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>Gekoppelde pushkanaal</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>Lokale tijd</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Majoor</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>Zwaar ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>Beheer toepassingen</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Afgehandeld</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modellen worden gevalideerd aan zowel de client- als de serverside op basis van dataannotaties.</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>Monitoringdashboard</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>Ondersteuning voor meerdere databaseproviders</value>
@@ -123,8 +246,44 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Ondersteuning voor meerdere databases</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Mijn incidenten</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Nieuwe melding</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>Geen incidenten die onmiddellijke actie vereisen</value>
+  </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>Nog geen incidenten</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Niet bevestigd</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>Meldingenpushcentrum</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>Lopende incident</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>Lopend incident vereist actie</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect-integratie</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>Sluiting van de operatieve reactie</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>Push succesratio</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>Voorbeeld van een snelle melding</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>Snelle integratie</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC-autorisatie</value>
@@ -132,17 +291,41 @@
   <data name="Read the document" xml:space="preserve">
     <value>Lees het document</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>Recent aangemaakte incidenten</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Meld een probleem. Start een reactie.</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>Meldingsdetails, behandelgeschiedenis en oplosstatus.</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>Vereist onmiddellijke actie</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Opgelost</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Responsief Ontwerp</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Robuuste integratietests</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>Stel de routering in op basis van Sev0-Sev4 bij de pushinstellingen van de app.</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Geplande taakbeheer</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Integreer naadloos met elke OpenID Connect-provider, met automatische rol-synchronisatie.</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Ernst</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>Zwaartepunt:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Slimme configuratie-overschrijvingen</value>
@@ -153,11 +336,32 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Slimme donkere modus die automatisch aanpast aan de systeeminstellingen van de gebruiker.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP-e-mailkanaal</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Bron</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Bronapplicatie</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>Start een nieuw project</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>Ondersteunt .NET SDK / Go / Webhook</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>Ondersteunt zowel omgevingsvariabelen als database-gebaseerde instellingen, met automatische prioriteit voor omgevingsvariabelen voor naadloze overschrijvingen.</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>Ondersteunt aangepaste requestheaders en JSON-sjablonen</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>Het centrum verstuurt meldingen asynchroon en ondersteunt het traceren van records en het opnieuw proberen.</value>
+  </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>De incidenten die u bezit door bevestiging. Houd uw reactiewerk op één plek.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>De navigatiebalk past zich automatisch aan op basis van gebruikersrollen en machtigingen.</value>
@@ -165,11 +369,38 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Dit is een sjabloonproject, waar we de verkenner starten...</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Tijd</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>Totaal aantal incidenten</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Onmitigéerd</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Onopgelost</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>Gebruik Bearer-authenticatie om testincidenten te melden:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Alle incidenten bekijken</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>Waarschuwing</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Webhook automatisch inplannen</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welkom</value>
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Waarom de Aiursoft Template gebruiken?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>U hebt toegang tot het aanmaken van meldingen nodig voor een ingeschakelde applicatie.</value>
   </data>
 
 </root>
