@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>, kan aan de ontvangkant worden gebruikt met</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: Ondersteunt het gelijktijdig linken van meerdere gebruikers en gebruikersgroepen (rollen). Het systeem dedupliceert automatisch, zodat elk lid slechts één ongelezen melding ontvangt.</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: Het systeem gebruikt uniform de globale e-maildienstconfiguratie. Gebruik</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Kanaaltyp selecteren</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>Voeg een CC-e-mailadres toe</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>E-mailadres toevoegen</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>Voeg ten minste één gebruiker of gebruikersgroep toe; er worden geen meldingen verzonden als een groep geen leden heeft.</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>Pushkanaal toevoegen</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>Ontvangers en gebruikersgroepen toevoegen</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>Geavanceerd aangepast verzoek (aangepaste headers en sjablonen)</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>Autorisatie voor applicatiekoppeling</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>Er zijn nog geen rechten verleend om applicaties te koppelen.</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>Behalve beheerders van het pushkanaal kunnen momenteel geen gebruikers dit kanaal koppelen.</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>Autorisatietype</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>Terug naar kanaallijst</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>Voer CC-e-mailadressen in één keer in</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>Kan niet worden overschreven.</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>CC-lijst</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Kanaalnaam</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>Klik op de knop rechts om te verwijderen</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>Klik om een plaatsaanduiding in te voegen:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>Configuratiedetails</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>Beschrijving van de standaardaanvraagindeling</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>Elke leveringsopdracht heeft een unieke vaste</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>Pushkanaal bewerken</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>E-mails worden rechtstreeks naar dit e-mailadres verzonden.</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>Dit pushkanaal nu inschakelen</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>Omgevingsvariabelen bevatten de verificatiegegevens.</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>Bijvoorbeeld: productie-piketteam, Feishu-incidentbot, Ops-webhook…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>Extra aanvraagheaders (JSON-object)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>Globale SMTP-mailservice</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>Headernaam max. 128 tekens; waarde moet een geldige string zijn.</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>Idempotente deduplicatie.</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>Indien leeg, verzendt het systeem standaard JSON. Aangepaste headers worden versleuteld en bewaard;</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>Bereik van in-appmeldingen</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>Leveringsparameters voor kanaal &quot;{0}&quot; worden gewijzigd.</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>Nog geen CC-ontvangers toegevoegd.</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>Nog geen ontvangers toegevoegd. Selecteer bovenstaande rolgroepen of geef gebruikers op.</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>Eén e-mailadres per regel; komma&apos;s of puntkomma&apos;s zijn ook toegestaan, met maximaal 50 CC-ontvangers.</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>Alleen de volgende gebruikers of leden van gebruikersgroepen kunnen dit kanaal bekijken en eraan koppelen in de applicaties die zij beheren. Deze machtiging geeft geen toegang tot ontvangers, webhooks of de testconfiguratie.</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>Parseren als lijst</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>Geparseerde CC-ontvangers</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>Placeholders mogen uitsluitend de waarde van een JSON-string zijn.</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>E-mailadres ontvanger</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>Type ontvanger</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>{0} verwijderen</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Machtiging verwijderen</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>Lichaam van het verzoek (JSON-sjabloon)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>Rollengroep</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>Kanalenconfiguratie opslaan</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Zoek op gebruikersnaam of weergavenaam...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>Gebruikers zoeken</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Selecteer een meldingkanaaltype en configureer het adres van de ontvanger of de beoogde ontvangers.</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Selecteer gebruikersgroep</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>Gebruikersgroep selecteren...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Selecteer gebruiker...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>Geselecteerde ontvangerslijst</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Specifieke gebruiker</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>Specificeer gebruiker</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>Gebruiker opgeven (gebruiker)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>De ontvanger moet HTTP POST JSON ondersteunen. Een 2xx-respons wordt beschouwd als een succesvolle levering. De systeemverzoekstime-out is 10 seconden, en cross-origin redirects worden niet gevolgd.</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>Wordt toegevoegd</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>Gebruikt om snel de pushniveaus en -records van de applicatie te identificeren.</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>Gebruikersgroep</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Gebruikersgroep · Leden erfen dynamisch gekoppelde machtigingen</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>Gebruikersgroep (Rol)</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>URL van de webhookontvanger</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>Wordt geparseerd en behoudt de oorspronkelijke objecttypes.</value>
+  </data>
+
+</root>

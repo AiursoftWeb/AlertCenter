@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application" xml:space="preserve">
+    <value>Toepassing</value>
+  </data>
+  <data name="Back to dashboard" xml:space="preserve">
+    <value>Terug naar het dashboard</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Inhoud</value>
+  </data>
+  <data name="Create alert" xml:space="preserve">
+    <value>Melding aanmaken</value>
+  </data>
+  <data name="Creating this alert will queue notifications using the application&apos;s on-call and push settings." xml:space="preserve">
+    <value>Het aanmaken van deze melding voegt meldingen toe aan de wachtrij op basis van de on-call- en pushinstellingen van de applicatie.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Kritiek</value>
+  </data>
+  <data name="Describe what happened so responders can take action." xml:space="preserve">
+    <value>Beschrijf wat er is gebeurd, zodat hulpverleners actie kunnen ondernemen.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="Informational" xml:space="preserve">
+    <value>Informatief</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Zwaar</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Nieuwe melding</value>
+  </data>
+  <data name="No enabled applications are available. Ask an application owner for create-alert access." xml:space="preserve">
+    <value>Er zijn geen actieve toepassingen beschikbaar. Vraag een eigenaar van een toepassing om toegang tot het maken van meldingen.</value>
+  </data>
+  <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
+    <value>Alleen ingeschakelde toepassingen waarin u meldingen kunt maken, worden weergegeven.</value>
+  </data>
+  <data name="Select an application" xml:space="preserve">
+    <value>Selecteer een applicatie</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Zwaarte</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Waarschuwing</value>
+  </data>
+
+</root>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} applications" xml:space="preserve">
+    <value>{0} toepassingen</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Actie</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acties</value>
+  </data>
+  <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
+    <value>Pas de zoektermen aan of wis de zoekopdracht om alle apps te bekijken.</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>API-sleutelbeheer</value>
+  </data>
+  <data name="App connected" xml:space="preserve">
+    <value>App verbonden</value>
+  </data>
+  <data name="App ID" xml:space="preserve">
+    <value>App-ID</value>
+  </data>
+  <data name="App information" xml:space="preserve">
+    <value>App-informatie</value>
+  </data>
+  <data name="Application Name" xml:space="preserve">
+    <value>Toepassingnaam</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>Applicatie-instellingen</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Applicaties</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Wissen</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="Confirm app and all data deletion" xml:space="preserve">
+    <value>Bevestig verwijdering van de app en alle gegevens</value>
+  </data>
+  <data name="Confirm app deletion" xml:space="preserve">
+    <value>Bevestig de verwijdering van de app</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Maak hierboven een zakelijke app aan en genereer een aparte API-sleutel.</value>
+  </data>
+  <data name="Create Application" xml:space="preserve">
+    <value>Toepassing maken</value>
+  </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>Incident aanmaken</value>
+  </data>
+  <data name="Create new integration app" xml:space="preserve">
+    <value>Nieuwe integratie-app maken</value>
+  </data>
+  <data name="Created on" xml:space="preserve">
+    <value>Aangemaakt op</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>Toepassing verwijderen</value>
+  </data>
+  <data name="Delete integrated application" xml:space="preserve">
+    <value>Geïntegreerde applicatie verwijderen</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Uitgeschakeld</value>
+  </data>
+  <data name="Distribute independent API credentials for business services and manage reporting permissions and push routing." xml:space="preserve">
+    <value>Verleen onafhankelijke API-gegevens voor zakelijke diensten en beheer rapportagebevoegdheden en pushrouting.</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>Geen on-call groep koppelen</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Ingeschakeld</value>
+  </data>
+  <data name="Enter the app name to confirm deletion:" xml:space="preserve">
+    <value>Voer de app-naam in om de verwijdering te bevestigen:</value>
+  </data>
+  <data name="Example: Order payment service, User Center, Edge Gateway…" xml:space="preserve">
+    <value>Voorbeeld: Bestelbetaaldienst, Gebruikerscentrum, Edge Gateway…</value>
+  </data>
+  <data name="Filter by application name..." xml:space="preserve">
+    <value>Filteren op toepassingsnaam...</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="Find application" xml:space="preserve">
+    <value>Toepassing zoeken</value>
+  </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Integratiehandleiding</value>
+  </data>
+  <data name="No connected apps yet" xml:space="preserve">
+    <value>Nog geen verbonden apps</value>
+  </data>
+  <data name="No matching applications found" xml:space="preserve">
+    <value>Geen overeenkomende toepassingen gevonden</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>On-call groep</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>On-callgroep (optioneel)</value>
+  </data>
+  <data name="On-call group is optional; if bound, the on-duty engineer is automatically notified by email, and the on-call group configuration address is CC&apos;d. Custom push channels can still be configured independently." xml:space="preserve">
+    <value>Een piketgroep is optioneel. Als er een is gekoppeld, wordt de dienstdoende engineer automatisch per e-mail op de hoogte gebracht en wordt het configuratieadres van de piketgroep in de cc opgenomen. Aangepaste pushkanalen kunnen nog steeds afzonderlijk worden ingesteld.</value>
+  </data>
+  <data name="On-call settings" xml:space="preserve">
+    <value>Instellingen voor on-call</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Rechten</value>
+  </data>
+  <data name="Push Settings" xml:space="preserve">
+    <value>Push-instellingen</value>
+  </data>
+  <data name="Running Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="The name must match exactly (case-sensitive)." xml:space="preserve">
+    <value>De naam moet exact overeenkomen (hoofdlettergevoelig).</value>
+  </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>Deze actie is onomkeerbaar! Alle historische incidenten, bijbehorende leveringsrecords en meldingen binnen de site voor deze toepassing worden verwijderd, en alle API-sleutels worden onmiddellijk ongeldig verklaard.</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>Niet gekoppeld</value>
+  </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>Gebruik een beknopte bedrijfsysteemnaam. Maak de API-sleutels apart aan nadat de applicatie is aangemaakt.</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Bekijk alle incidenten</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Incidenten bekijken</value>
+  </data>
+
+</root>

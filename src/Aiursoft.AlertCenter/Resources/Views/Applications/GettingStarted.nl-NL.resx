@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: De API-sleutel wordt na succesvolle aanmaak slechts één keer weergegeven. Stel deze onmiddellijk in als productieomgevingsvariabele (bijv.,</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Het plannen van pushmeldingen wordt asynchroon gestart.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Behoud het eerste record en verstuur geen dubbele pushmeldingen.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Het centrum kan dit veld gebruiken om de netwerklatentie voor rapportage en levering te schatten.</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(Kritiek, hoogste prioriteit),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(Fout),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(Algemene informatie). Het centrum roteert en stuurt op basis van dit niveau.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(Groot),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(Waarschuwing),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) of Key Management Service (KMS). Het hardcoden in frontends, logs of codeopslagplaatsen is strikt verboden.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>1 tot 200 tekens</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 Geaccepteerd (Idempotent)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 Parameterfout</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 Authenticatie mislukt</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>Het daadwerkelijke tijdstip waarop de zakelijke gebeurtenis plaatsvond, bijvoorbeeld:</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Bearer-gegevens ontbreken, sleutels komen niet overeen of de toepassing is uitgeschakeld. Controleer de toepassingsinstellingen.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>Push Center-kanaal configureren</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>Code kopiëren</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>Maak een integratie-app aan en verkrijg een API-sleutel</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>Ontwikkelaarintegratiegids</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>Dubbel rapport met dezelfde ReportId,</value>
+  </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Elke sleutel hoort bij een applicatie. De server controleert de hash van het geheim en de machtiging die voor elke bewerking vereist is.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>Zorg voor strikte idempotentie bij gelijktijdige verzoeken; gebruik voor nieuwe pogingen dezelfde ID.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>Elke nieuwe rapport-ID maakt een afzonderlijk incident aan. Gebruik dezelfde rapport-ID alleen wanneer je hetzelfde verzoek opnieuw probeert. Beperk het aantal rapporten bij de bron.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>Veldnaam</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>Van het aanmaken van een app en het verifiëren van een sleutel tot de eerste incidentmelding: stel in 4 stappen een stabiel kanaal voor systeemincidenten in.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>Ga een app aanmaken en inloggegevens ophalen</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>HTTP-meldingsverzoekveldspecificatie</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>HTTP-responsstatuscodes en beste engineeringpraktijken</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>In de voorbeeldcode,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>Details van de incidentinhoud. Geschikt voor handleidingen voor probleemoplossing, exception-traces of diagnostische samenvattingen. De presentatielaag escapt HTML automatisch om XSS-injecties te voorkomen.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>Titel van de incidentoverzicht. Beschrijf de fout kort, bijv. “Time-out van het antwoordkanaal voor orderbetaling.”</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>Eerste opslag geslaagd. Geeft de gegenereerde primaire sleutel-ID,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>JSON-object; maximaal 64 KiB voor de volledige aanvraag</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>Melding om gegevenslekken</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Geïntegreerde applicaties beheren</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>Maximaal 4.000 tekens</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Open het API-sleutelbeheer van een applicatie om sleutels met een naam aan te maken en de machtigingen voor opvragen, aanmaken en oplossen in te stellen.</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Optioneel</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>of omgevingsvariabelen, zodat u op de detailpagina met één klik de locatie kunt achterhalen en problemen kunt oplossen.</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>Vervang door de applicatie-sleutel die in de vorige stap is gegenereerd om direct een test te versturen.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Verplicht</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>Verplichte velden ontbreken, de niveau-indeling is ongeldig of de hoofdtekst van het verzoek overschrijdt de limiet van 64 KiB.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>Antwoorden gebruiken AiurProtocol met Code, Message en ProtocolVersion. Validatiefouten bevatten een Items-array. De SDK retourneert een getypeerd ontvangstbewijs of werpt een AiurProtocol-exceptie.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>Regels &amp; beperkingen</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>Stuur het eerste incidentbericht</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>Ernst:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>Standaard UUID-formaat</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>Gestructureerde bedrijfscontext. Het wordt aanbevolen om</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>De globaal unieke rapport-ID van de client. Het centrum gebruikt</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>De SDK verzendt elk rapport één keer. Als het resultaat onzeker blijft door een netwerkstoring, herhaal dan dezelfde aanvraag met dezelfde ReportId en gebeurtenistijd.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Incidenten bekijken</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>Met tijdzone-offset of Z-aanduiding</value>
+  </data>
+
+</root>

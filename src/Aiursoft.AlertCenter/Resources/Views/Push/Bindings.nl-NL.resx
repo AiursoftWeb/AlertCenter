@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· Ingeactiveerd, geen verzending</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - Push-routinginstellingen</value>
+  </data>
+  <data name="Application Push Routing" xml:space="preserve">
+    <value>Push-routing voor de applicatie</value>
+  </data>
+  <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
+    <value>Is alleen van toepassing op nieuwe incidenten nadat je hebt opgeslagen. Als een kanaal is uitgeschakeld, blijft de routering behouden, maar worden nieuwe incidenten overgeslagen.</value>
+  </data>
+  <data name="Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident." xml:space="preserve">
+    <value>Van toepassing op sev0–sev4; er is geen kanaalselectie nodig. De onderstaande kanalen sturen bij elk nieuw incident onafhankelijke aanvullende meldingen.</value>
+  </data>
+  <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
+    <value>Automatisch ingeschakeld · Kan niet afzonderlijk worden uitgeschakeld</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>beschikbare kanalen</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>Terug naar verbonden apps</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>Ingebouwde e-mail voor oproepdiensten</value>
+  </data>
+  <data name="CC addresses configured for the on-call group." xml:space="preserve">
+    <value>CC-adressen geconfigureerd voor de on-call groep.</value>
+  </data>
+  <data name="Critical (P0)" xml:space="preserve">
+    <value>Kritiek (P0)</value>
+  </data>
+  <data name="Custom channel-to-severity match matrix" xml:space="preserve">
+    <value>Aangepaste kanaal-naar-zwaartegradematrix</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Uitgeschakeld</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Ingeschakeld</value>
+  </data>
+  <data name="Error (P2)" xml:space="preserve">
+    <value>Fout (P2)</value>
+  </data>
+  <data name="Info (P4)" xml:space="preserve">
+    <value>Informatie (P4)</value>
+  </data>
+  <data name="Major (P1)" xml:space="preserve">
+    <value>Ernstig (P1)</value>
+  </data>
+  <data name="Multiple supplementary channels can be selected per level; unchecked items only indicate no custom notifications will be sent, without affecting built-in on-call emails. Strict exact matching is applied, with no automatic expansion to higher or lower levels." xml:space="preserve">
+    <value>Er kunnen meerdere aanvullende kanalen per niveau worden geselecteerd; ongekeurde items geven alleen aan dat er geen aangepaste meldingen worden verzonden, zonder invloed op ingebouwde on-call e-mails. Er wordt strikte exacte matching toegepast, zonder automatische uitbreiding naar hogere of lagere niveaus.</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>Nog geen pushkanalen geconfigureerd</value>
+  </data>
+  <data name="On-call group:" xml:space="preserve">
+    <value>On-call groep:</value>
+  </data>
+  <data name="Please contact the push channel administrator to grant channel binding permissions." xml:space="preserve">
+    <value>Neem contact op met de beheerder van de pushkanalen om machtigingen voor kanaalkoppelingen te verlenen.</value>
+  </data>
+  <data name="Precisely match receiving channels by incident level · Matrix Routing Engine" xml:space="preserve">
+    <value>Exacte match van ontvangstkanalen op incidentniveau · Matrix Routing Engine</value>
+  </data>
+  <data name="Push Channel and Type" xml:space="preserve">
+    <value>Pushkanaal en type</value>
+  </data>
+  <data name="Save routing configuration" xml:space="preserve">
+    <value>Opslaan van routeringsconfiguratie</value>
+  </data>
+  <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
+    <value>Door het systeem geregistreerde e-mailadressen van alle dienstdoende engineers (OCE) op het moment van de melding;</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>Totaal</value>
+  </data>
+  <data name="Warning (P3)" xml:space="preserve">
+    <value>Waarschuwing (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
+    <value>U kunt webhooks, e-mail- of in-app-meldingskanalen aanmaken zoals nodig is voor aanvulling. Applicaties die aan on-callgroepen zijn gekoppeld, sturen ingebouwde on-call e-mails, zelfs zonder aangepaste kanalen.</value>
+  </data>
+
+</root>

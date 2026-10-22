@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Add members" xml:space="preserve">
+    <value>Leden toevoegen</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>Het toevoegen van leden wijst geen ploegen toe.</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>Geavanceerde planningsinstellingen</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>Gewist werknemer</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>Geen sjabloon koppelen (handmatige planning)</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Medewerker verwijderd</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>Voer de tijd in UTC in; deze wordt niet automatisch aangepast aan de tijdzones van het team. Zodra een dienst is opgeslagen, kan het beginpunt van de planning niet meer worden gewijzigd.</value>
+  </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>Filter op rol</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>Hulp: melding CC</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>Hulp: rolfilter</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>Help: rotatievolgorde</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>Help: planningsstartpunt</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>Hulp: planningssjabloon</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>Help: teamtime zone</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>Meerdere teams kunnen dezelfde sjabloon delen. Het wisselen of wijzigen van de sjabloon zal opgeslagen ploegendiensten niet opnieuw genereren.</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>Naam of account</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Volgende pagina</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>Nog geen leden. Open Leden toevoegen om mensen te zoeken.</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>Melding CC (optioneel)</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>On-call e-mail CC</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Vorige pagina</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>Rotatievolgorde</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>Bij het opslaan worden het team en de leden bijgewerkt. Beheer ploegen afzonderlijk in de planning.</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>Bij het opslaan worden deze leden verwijderd uit shifts die nog niet zijn gestart. Controleer de planning op gaten.</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>Schedulingsjabloon</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>Startpunt van de planning (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>Zoek in plaats daarvan op naam</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>Zoek op naam of account, of kies een rol.</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>Zoek medewerkers</value>
+  </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>Het selecteren van een rol filtert alleen de zoekopdracht. Vink individuele personen aan om ze toe te voegen; teamledenstatus wordt niet gesynchroniseerd met die rol.</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>Teamleden</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>Teamnaam</value>
+  </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>Teaminstellingen</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>Tijdzone</value>
+  </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>Aan: de personen die waren toegewezen aan de opgeslagen dienst op het moment van het incident. De oorspronkelijke OCE-ontvangers blijven behouden voor latere incidentmails. CC is van toepassing op elke incidentmail, ongeacht de dienst. Gebruik komma&apos;s, puntkomma&apos;s of nieuwe regels; maximaal 50 CC-adressen.</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>Gebruik Omhoog en Omlaag om de volgorde voor toekomstige automatische planning te bepalen. Bestaande diensten worden niet opnieuw gerangschikt. Selecteer maximaal 200 teamleden.</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>Wordt gebruikt om het rooster weer te geven. Het onderstaande geavanceerde startpunt voor de planning wordt afzonderlijk in UTC ingevoerd.</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>Rooster bekijken</value>
+  </data>
+
+</root>

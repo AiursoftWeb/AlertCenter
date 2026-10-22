@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>Automatische generatie moet aan de vereisten voldoen; bij onvoldoende handmatige bezetting wordt alleen een waarschuwing gegeven, terwijl lege diensten niet kunnen worden opgeslagen.</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Verdeel de ochtend-, middag- en avonddiensten zo gelijkmatig mogelijk</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Mag niet lager zijn dan het minimum aantal medewerkers; vervul zoveel mogelijk wanneer wijzigingen en pauzes dit toelaten. Laat leeg voor automatische toewijzing.</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>Bezetting en rust krijgen prioriteit; tijdens wisselingen kan de overbezetting afnemen. Rouleren is niet toegestaan bij teams van drie personen met minstens 16 uur rust. De planning is gebaseerd op daadwerkelijke aaneengesloten diensten van 8 uur; de lokale tijd kan veranderen bij de overgang naar of van de zomertijd.</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>Vaste indeling met drie diensten per dag, minimaal één persoon per dienst; meerdere personen per dienst zijn toegestaan.</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>Vaste tijdvakken hebben voorrang</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>Minimale rust (uren)</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>Minimaal aantal medewerkers per dienst</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>Rotatievoorkeur</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>Sjabloon opslaan</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>Ploegenduur (uren)</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>Beoogd aantal medewerkers per dienst</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>Sjabloonnaam</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>Dit is een regeltemplate die met meerdere teams kan worden gedeeld. Het team beheert de teamleden, de volgorde van de roulatie en de beginpunten van het rooster. Als je de template wijzigt, worden opgeslagen diensten niet opnieuw gegenereerd.</value>
+  </data>
+
+</root>
