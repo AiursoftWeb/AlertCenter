@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>Automatyczne generowanie musi spełniać wymagania; niewystarczająca obsada ustalana ręcznie powoduje jedynie wyświetlenie ostrzeżenia, natomiast nie można zapisać pustych zmian.</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Równomiernie rozdzielaj zmiany poranne, popołudniowe i nocne</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Nie może być niższy niż minimalna liczba pracowników; realizowany w możliwie najszerszym zakresie, o ile pozwalają na to nadpisanie grafiku i przerwy. Pozostaw puste pole, aby dokonać automatycznego przypisania.</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>Priorytetem jest obsada i czas odpoczynku; nadwyżka personelu może się zmniejszać podczas wymian. Rotacja jest niedozwolona dla zespołów trzyosobowych, gdy minimalny czas odpoczynku wynosi co najmniej 16 godzin. Planowanie opiera się na faktycznych, ciągłych zmianach 8-godzinnych; czas lokalny może ulec zmianie w okresie przechodzenia na czas letni i zimowy.</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>Stałe trzy zmiany na dobę, co najmniej jedna osoba na zmianę; dopuszcza się więcej niż jedną osobę na zmianę.</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>Stałe sloty czasowe mają pierwszeństwo</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>Minimalny odpoczynek (godziny)</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>Minimalna liczba pracowników na zmianę</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>Preferencja rotacji</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>Zapisz szablon</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>Czas trwania zmiany (godziny)</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>Docelowa liczba osób na zmianę</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>Nazwa szablonu</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>To jest szablon reguł dostępny do udostępniania między wieloma zespołami. Członkowie, kolejność rotacji i punkty startowe harmonogramu są zarządzane przez zespół. Modyfikowanie szablonu nie spowoduje ponownego wygenerowania żadnych zapisanych zmian.</value>
+  </data>
+
+</root>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application On-Call Settings" xml:space="preserve">
+    <value>Ustawienia dyżurów aplikacji</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>Wróć do Połączonych Aplikacji</value>
+  </data>
+  <data name="Binding automatically enables the built-in on-call email: To is the registered email addresses of all current on-call engineers (OCE), and CC is the on-call group&apos;s configured address. This cannot be disabled individually in push settings; unbinding stops new on-call emails. Application-specific custom channels remain independent, and binding does not grant the application access permissions." xml:space="preserve">
+    <value>Powiązanie automatycznie włącza wbudowane powiadomienia e-mail o dyżurach: pole „Do” zawiera zarejestrowane adresy e-mail wszystkich aktualnie dyżurujących inżynierów (OCE), a pole „DW” — skonfigurowany adres grupy dyżurnej. Nie można wyłączyć tej funkcji osobno w ustawieniach powiadomień push; odłączenie grupy zatrzymuje wysyłanie nowych wiadomości e-mail o dyżurach. Niestandardowe kanały powiadomień przypisane do aplikacji działają niezależnie, a powiązanie nie przyznaje aplikacji uprawnień dostępu.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>Nie przypisuj grupy dyżurnej</value>
+  </data>
+  <data name="Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive incidents do not require on-call configuration." xml:space="preserve">
+    <value>Każdą aplikację można przypisać do jednej grupy dyżurnej, a jedna grupa może obsługiwać wiele aplikacji. Wybierz „Brak grupy dyżurnej”, aby usunąć przypisanie. Aplikacje, które tylko otrzymują zgłoszenia incydentów, nie wymagają konfiguracji dyżurów.</value>
+  </data>
+  <data name="No on-duty groups available. Please contact the administrator to create a team in the On-Call Center." xml:space="preserve">
+    <value>Brak dostępnych grup dyżurnych. Skontaktuj się z administratorem, aby utworzyć zespół w Centrum Dyżurów.</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>Grupa dyżurna</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>Grupa dyżurna (opcjonalnie)</value>
+  </data>
+  <data name="Save on-call settings" xml:space="preserve">
+    <value>Zapisz ustawienia dyżurów</value>
+  </data>
+  <data name="Select, replace, or unbind on-call group." xml:space="preserve">
+    <value>Wybierz, zamień lub odłącz grupę dyżurów.</value>
+  </data>
+
+</root>

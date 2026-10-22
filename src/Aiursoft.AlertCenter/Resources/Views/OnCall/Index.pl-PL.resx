@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Akcja</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>Przypisz automatycznie</value>
+  </data>
+  <data name="Bound, cannot be deleted" xml:space="preserve">
+    <value>Przypięte, nie można usunąć</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Potwierdź usunięcie</value>
+  </data>
+  <data name="Confirm rule deletion" xml:space="preserve">
+    <value>Potwierdź usunięcie reguły</value>
+  </data>
+  <data name="Create Rule" xml:space="preserve">
+    <value>Utwórz regułę</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="Delete scheduling rule" xml:space="preserve">
+    <value>Usuń regułę harmonogramu</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>godzin</value>
+  </data>
+  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
+    <value>Zarządzaj szablonami zasad współużywanymi przez wiele zespołów. Modyfikacja szablonu nie powoduje ponownego wygenerowania zapisanych zmian.</value>
+  </data>
+  <data name="Min " xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Brak zapisanych szablonów zasad. Najpierw utwórz szablon, a następnie pozwól zespołom go przypisać i korzystać z niego.</value>
+  </data>
+  <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
+    <value>Można usuwać tylko szablony nieprzypisane do zespołów. Zapisane zmiany i historia zespołów nie zostaną usunięte; usuniętych szablonów nie można odzyskać.</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>osoby</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>osób · Cel</value>
+  </data>
+  <data name="Please unbind the template from all teams first." xml:space="preserve">
+    <value>Najpierw odłącz szablon od wszystkich zespołów.</value>
+  </data>
+  <data name="Rule saved" xml:space="preserve">
+    <value>Zapisano regułę</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>Szablon reguły</value>
+  </data>
+  <data name="Scheduling Rules" xml:space="preserve">
+    <value>Zasady harmonogramowania</value>
+  </data>
+  <data name="Shift / Break" xml:space="preserve">
+    <value>Zmiana / przerwa</value>
+  </data>
+  <data name="Teams using" xml:space="preserve">
+    <value>Zespoły używające</value>
+  </data>
+  <data name="View rules" xml:space="preserve">
+    <value>Zobacz zasady</value>
+  </data>
+
+</root>
