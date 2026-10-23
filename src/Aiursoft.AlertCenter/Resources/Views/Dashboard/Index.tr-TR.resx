@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>teslimat</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>okunmamış site içi bildirimler</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Uzun süre çalışan görevler için &quot;fire-and-forget&quot; desteği (e-postalar veya AI gibi), kuyruk yönetimi, paralel işlem ve iptal için grafik arayüzle birlikte.</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>Toplamda {0} atandı</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Hassas izin yönetimi için yerleşik bir Rol Tabanlı Erişim Kontrolü (RBAC) sistemi.</value>
@@ -36,17 +45,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Modern, zengin özelliklere sahip ve bir sonraki web uygulamanız için oldukça genişletilebilir bir temel.</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Onaylandı</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Yapay Zeka Destekli Çeviriler</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter Uyarı ve Operasyon Merkezi · Küresel Durum ve Kapalı Döngü Takibi</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>Tüm</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Tüm bağımlılıklar otomatik olarak kaydedilir ve constructor injection yoluyla her zaman kullanılabilir.</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>Tüm kayıtlar</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Uygulamalar</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Otomatik Karanlık Mod</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Otomatik Bağımlılık Enjeksiyonu</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Otomatik mesaj iletimi ve sorun giderme</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Otomatik Saat Dilimi İşleme</value>
@@ -57,8 +84,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Otomatik, yapay zeka destekli 28 dilde çeviri.</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>kullanılabilir kanal ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Arka Plan İşlem İşleme</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>Nöbetçi gruplara ve önemli e-posta adreslerine toplu gönderim</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Dahili Kullanıcı Yönetimi</value>
@@ -72,11 +105,47 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>Kapsamlı Dokümantasyon</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>İtki Kanalı Yapılandırması</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Tutarlılık Doğrulaması</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopyala</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Uygulamanız için bir uyarı oluşturun ve yapılandırılmış alıcılarına bildirim gönderin.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Uygulama oluştur</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Uygulama Oluştur ve Anahtarı Al</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>API veya SDK üzerinden ilk olayı oluşturun. Burada görünecektir.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Kritik ·</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>Kritik ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>Özel API Anahtarı Kimlik Doğrulaması</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>Teslimat Kayıtları</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>Ayrıntılı Entegrasyon Belgeleri</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>UTC&apos;de yalnızca geliştirin, sistem tarihleri otomatik olarak kullanıcının yerel saat dilimine dönüştürür ve görüntüler.</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>Sorumlu tarafları ve kullanıcı gruplarını doğrudan iş birliği içinde ele almak için dahil edin</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Dağıtım İçin Dockerize Edildi</value>
@@ -96,6 +165,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>Hafifçe entegrasyon testleri yazın, bellekte çalışan veritabanları, geçici dosya sistemleri, yerleşik mocklama ve gerçek dünya HTTP isteği simülasyonu kullanarak.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>Hata</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>Gömülü dosya yönetim sistemi, otomatik avatar sıkıştırma ve gizlilik koruması ile birlikte gelir.</value>
   </data>
@@ -108,14 +183,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Merhaba Dünya!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>Uygulama içi bildirim kutusu</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>Olay müdahalesi</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Olay başlığı</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>Olay tetikleme ve iş birliğine dayalı çözüm</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Kapsamlı belgeler ve hızlı bir şekilde başlamanızı sağlayacak pratik örnekler içerir.</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>Bilgi</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Entegre Dosya Yönetimi</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Entegrasyon Kılavuzu</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>“Entegre Uygulamalar”da özel kimlik bilgileri dağıtın.</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>En son olaylar</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>İlişkili Olay</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>Bağlı Push Kanalı</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>Yerel saat</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Önemli</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>Önemli ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>Uygulamaları Yönet</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Hafifletildi</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modeller, veri eklemelerine dayalı olarak hem istemci hem de sunucu tarafında doğrulanır.</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>İzleme Paneli</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>Çoklu Veritabanı Sağlayıcı Desteği</value>
@@ -123,8 +246,44 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Çoklu Veritabanı Desteği</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Olaylarım</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Yeni uyarı</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>Acil müdahale gerektiren olay yok</value>
+  </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>Henüz olay yok</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Onaylanmadı</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>Bildirim İtme Merkezi</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>Devam Eden Olay</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>Devam Eden Olay Müdahale Gerektiriyor</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect Entegrasyonu</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>Operasyon Müdahalesinin Tamamlanması</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>Push Başarı Oranı</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>Hızlı Rapor Örneği</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>Hızlı Başlangıç Entegrasyonu</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC Yetkilendirmesi</value>
@@ -132,17 +291,41 @@
   <data name="Read the document" xml:space="preserve">
     <value>Belgeyi okuyun</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>Yakın zamanda oluşturulan olaylar</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Bir sorunu bildirin. Bir yanıt başlatın.</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>Rapor ayrıntıları, işlem geçmişi ve çözüm durumu.</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>Acil müdahale gerektiriyor</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Çözüldü</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Duyarlı Tasarım</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Güçlü Entegrasyon Testleri</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>Uygulamanın push ayarlarında Sev0-Sev4&apos;e göre yönlendirme yapın.</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Zamanlanmış Görev Yönetimi</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Herhangi bir OpenID Connect sağlayıcısıyla sorunsuz entegre olun, otomatik rol senkronizasyonu ile.</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Önem derecesi</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>Önem derecesine göre filtrele:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Akıllı Yapılandırma Geçersiz Kılma</value>
@@ -153,11 +336,32 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Kullanıcının sistem ayarlarına otomatik olarak uyum sağlayan akıllı karanlık mod.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP E-posta Kanalı</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Kaynak</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Kaynak uygulama</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>Yeni bir proje başlat</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>.NET SDK / Go / Webhook desteği sunar</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>Ortam değişkenleri ve veritabanı destekli ayarlar destekler, sorunsuz geçişler için otomatik olarak ortam değişkenlerine öncelik verilir.</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>Özel istek başlıkları ve JSON şablonlarını destekler</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>Merkez, bildirimleri asenkron olarak iletir; kayıt izleme ve yeniden denemeleri destekler.</value>
+  </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>Onayladığınız olaylar sizin sorumluluğunuzdadır. Yanıt çalışmalarınızı tek bir yerde toplayın.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Gezinme çubuğu, kullanıcı rollerine ve izinlerine göre otomatik olarak ayarlanır.</value>
@@ -165,11 +369,38 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Bu bir şablon projedir, yolculuğa buradan başlıyoruz...</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Saat</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>Toplam olay</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Giderilmedi</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Çözülmemiş</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>Test olaylarını raporlamak için Bearer kimlik doğrulaması kullanın:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Tüm olayları görüntüle</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>Uyarı</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Webhook Otomatik Zamanlama</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Hoş Geldiniz</value>
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Neden Aiursoft Template Kullanmalısınız?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>Etkinleştirilmiş bir uygulamada uyarı oluşturma erişimine sahip olmanız gerekir.</value>
   </data>
 
 </root>

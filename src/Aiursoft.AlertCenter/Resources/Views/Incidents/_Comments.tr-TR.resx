@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledged" xml:space="preserve">
+    <value>Onaylandı</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Olayın Önem Düzeyini Ayarla</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+    <value>Silme işleminden sonra yalnızca yazar, yayınlanma zamanı, silen kişi ve silme zamanı korunur. Orijinal yorum metni artık görüntülenmez ve kurtarılamaz.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>Otomatik Olay Oluşturma</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="Comment editor view" xml:space="preserve">
+    <value>Yorum düzenleyici görünümü</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>Olayı onayla ve üstlen</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Silme işlemini onayla</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Delete comment" xml:space="preserve">
+    <value>Yorumu sil</value>
+  </data>
+  <data name="Deleted by: " xml:space="preserve">
+    <value>Şunun tarafından silindi:</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>Olay olayı</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>Olay zaman çizelgesi</value>
+  </data>
+  <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
+    <value>Markdown desteklenmektedir. En fazla 4.000 UTF-16 karakter (emojiler 2 karakter olarak sayılabilir).</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Olayı hafiflet</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Etkisizleştirildi</value>
+  </data>
+  <data name="Newest first · 20 items per page" xml:space="preserve">
+    <value>En yeni önce · sayfa başına 20 öğe</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Sonraki Sayfa</value>
+  </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>Mevcut sayfada etkinlik yok.</value>
+  </data>
+  <data name="No. " xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="Not set" xml:space="preserve">
+    <value>Tanımlanmamış</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>tarihinde</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>Sahip:</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Sayfa</value>
+  </data>
+  <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
+    <value>Yüklemek için görselleri düzenleyiciye yapıştırın veya sürükleyin.</value>
+  </data>
+  <data name="Post comment" xml:space="preserve">
+    <value>Yorum yap</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Önizleme</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Önceki Sayfa</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>İlerleme</value>
+  </data>
+  <data name="Publish comment" xml:space="preserve">
+    <value>Yorumu yayımla</value>
+  </data>
+  <data name="Published comment?" xml:space="preserve">
+    <value>Yayınlanmış yorum?</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Olayı Yeniden Aç</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Olayı çözümlen</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Çözüldü</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>Önem:</value>
+  </data>
+  <data name="Split View" xml:space="preserve">
+    <value>Bölünmüş Görünüm</value>
+  </data>
+  <data name="Status: " xml:space="preserve">
+    <value>Durum:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>Olayı Devral</value>
+  </data>
+  <data name="This comment has been deleted." xml:space="preserve">
+    <value>Bu yorum silinmiştir.</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>Zaman çizelgesi sayfalama</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Atanmamış</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Müdahale Edilmemiş</value>
+  </data>
+  <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
+    <value>Sorun giderme ipuçlarını, önerileri veya tartışmaları paylaşmak için Markdown kullanın…</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>Kullanıcı silindi</value>
+  </data>
+
+</root>

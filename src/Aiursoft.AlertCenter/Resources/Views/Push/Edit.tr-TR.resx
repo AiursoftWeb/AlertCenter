@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>, alıcı tarafında ... ile birlikte kullanılabilir</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: Birden fazla kullanıcı ve kullanıcı grubunun (rolün) aynı anda eklenmesini destekler. Sistem yinelenen kayıtları otomatik olarak ayıklar ve her üyenin yalnızca bir okunmamış bildirim almasını sağlar.</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: Sistem, genel E-posta hizmeti yapılandırmasını tüm uygulamada kullanır. Lütfen</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Kanal türünü seçin</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>Bir CC e-posta adresi ekleyin</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>Bir e-posta adresi ekleyin</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>En az bir kullanıcı veya kullanıcı grubu ekleyin; bir grupta üye yoksa bildirim gönderilmez.</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>Anlık bildirim kanalı ekle</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>Alıcıları ve kullanıcı gruplarını ekle</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>Gelişmiş Özel İstek (Özel başlıklar ve şablonlar)</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>ve</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>Uygulama Bağlama Yetkilendirmesi</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>Uygulama bağlama izinleri henüz verilmedi</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>Anlık bildirim kanalı yöneticileri dışında şu anda hiçbir kullanıcı bu kanalı bağlayamaz.</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>Yetkilendirme Türü</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>Kanal Listesine Dön</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>CC e-postalarını toplu girin</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>Üzerine yazılamaz.</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>BCC Listesi</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Kanal adı</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>Kaldırmak için sağdaki düğmeye tıklayın</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>Yer tutucuyu eklemek için tıklayın:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>Yapılandırma ayrıntıları</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>Varsayılan istek biçimi açıklaması</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>Her teslimat görevinin kendine özgü, sabit bir</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>İtici kanalı düzenle</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>E-postalar doğrudan bu e-posta adresine gönderilecektir.</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>Bu push kanalını şimdi etkinleştir</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>Kimlik doğrulama bilgileri ortam değişkenleri aracılığıyla sağlanır.</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>Örnek: Üretim nöbetçi ekibi, Feishu olay botu, Ops Webhook…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>Ekstra İstek Başlıkları (JSON nesnesi)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>Küresel SMTP e-posta hizmeti</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>Başlık adı en fazla 128 karakter olabilir; değer geçerli bir dize olmalıdır.</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>Güçsüz yinelenme önleme.</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>Boş bırakılırsa sistem varsayılan olarak standart JSON gönderir. Özel başlıklar şifrelenir ve kalıcı olarak saklanır;</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>Uygulama içi bildirim kapsamı</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>&quot;{0}&quot; kanalı için teslimat parametreleri düzenleniyor.</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>Henüz BCC alıcısı eklenmedi.</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>Henüz alıcı eklenmedi. Lütfen yukarıdan rol gruplarını seçin veya kullanıcıları belirtin.</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>Her satıra bir e-posta adresi; İngilizce virgül veya noktalı virgül de desteklenir, en fazla 50 CC alıcısı.</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>Yalnızca aşağıdaki kullanıcılar veya kullanıcı grupları üyeleri, bu kanalı yönetilen uygulamalarında görüntüleyebilir ve bağlayabilir. Bu izin, alıcılara, Webhook&apos;lara veya test yapılandırmasına erişim sağlamaz.</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>Liste Olarak Ayrıştır</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>Ayrıştırılan CC alıcıları</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>Yer tutucular, JSON dizgesinin tek değeri olmalıdır.</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Alıcı e-posta</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>Alıcı Türü</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>{0} öğesini kaldır</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>İzin kaldır</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>İstek Gövdesi Şablonu (JSON Şablonu)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>Rol grubu</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>Kanal yapılandırmasını kaydet</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Kullanıcı adı veya görünen ada göre arayın...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>Kullanıcı Ara</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Bir bildirim kanalı türü seçin ve alıcı adresini veya hedef alıcıları yapılandırın.</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Kullanıcı Grubu Seçin</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>Kullanıcı grubu seçin...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Kullanıcı seçin...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>Seçili alıcı listesi</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Bireysel Kullanıcı Belirt</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>Kullanıcı Belirt</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>Belirli Kullanıcı (Kullanıcı)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>Alıcının HTTP POST JSON desteği sunması gerekir. 2xx yanıtı başarılı teslimat olarak kabul edilir. Sistem istek zaman aşımı 10 saniyedir ve kaynaklar arası yönlendirmeler izlenmez.</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>Eklenmek üzere</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>Uygulama itme seviyelerini ve kayıtlarını hızlı bir şekilde tanımlamak için kullanılır.</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>Kullanıcı Grubu</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Kullanıcı Grubu · Üyeler dinamik olarak bağlı izinleri devralır</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>Kullanıcı Grubu (Rol)</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>Webhook Alıcı URL&apos;si</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>Özgün nesne türlerini ayrıştırır ve korur.</value>
+  </data>
+
+</root>

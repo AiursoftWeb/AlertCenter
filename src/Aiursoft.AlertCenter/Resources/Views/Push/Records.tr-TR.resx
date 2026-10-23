@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>İşlem</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>Tüm kanallar</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>Tüm durumlar</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Denemeler</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>Dahili Nöbet E-postası</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Yerleşik Çağrı E-postası · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Kanal test bildirimi</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Tüm filtreleri temizle</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>Webhook&apos;lar, e-postalar ve uygulama içi bildirimler için asenkron gönderim durumunun ve hata durumunda yeniden denemelerin kapsamlı takibi</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Oluşturma Zamanı</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>Görüntülenen sayfa</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>Teslim Ediliyor</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>Teslim Ediliyor (Gönderiliyor)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Teslimat Başarısız</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>Teslimat Başarısız (Başarısız)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>Teslimat Durumu</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>Teslimat Başarılı</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>Teslimat Başarılı (Başarılı)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtre</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>Git</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>Kanalları yapılandırmak için Anlık Bildirim Merkezi&apos;ne gidin</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>Olay / Test mesajı</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Olay seviyesi yükseltildi ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Olay azaltıldı: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Olay yeniden açıldı: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Olay çözüldü: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>Atla</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>Sayfa numarasına git</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Elle Test</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Sonraki Sayfa</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>Geçerli filtreye uygun teslimat kaydı bulunamadı. Lütfen filtre ölçütlerini değiştirin.</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>Push kaydı yok</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Sayfa</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>Sayfa kayıtları</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>Bekleyen teslimat</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>Teslimat beklemede (Bekliyor)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Önceki Sayfa</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>İtiş Teslimat Kayıtları</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>Gönderim Kayıtları Sayfalandırması</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>Gerçek Zamanlı İzleme</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>Listeyi yenile</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>Filtreleri Sıfırla</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Hedef Kanal</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>Teslimat ayrıntılarını görüntüle</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>Sistem olay itişlerini veya manuel kanal testlerini tetiklediğinde, tüm dağıtım izleri ve durumları burada kaydedilir.</value>
+  </data>
+
+</root>

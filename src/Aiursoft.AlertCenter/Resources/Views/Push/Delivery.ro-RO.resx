@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>Sarcina asincronă a fost pusă în coadă. Reîmprospătați starea mai târziu.</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Încercări</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>Înapoi la înregistrările push</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>E-mail integrat pentru serviciul de gardă · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>Sistem integrat · Nu poate fi dezactivat individual</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>Starea canalului: activat sau dezactivat</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>Test de canal</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Notificare testare canal</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>Finalizat imediat</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>Completat la</value>
+  </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>Timp de finalizare</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>Copiază ID-ul complet de livrare</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>Copiază ID-ul complet</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Timp de creare</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Livrare finalizată cu succes</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>Conținutul livrării</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>Detalii de livrare</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Detalii despre livrare - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Livrarea a eșuat</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Livrarea a eșuat definitiv</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>ID-ul livrării</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>ID livrare:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>Sarcină de livrare creată</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Dezactivat</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>Tentative de distribuire</value>
+  </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>Cronologia expedierii</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>Se trimite livrarea în fundal</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Durată</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Activat</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>Intră în coada de livrare</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident escalat ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Incident atenuat: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Incident redeschis: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Incident rezolvat: {0}</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>Inițierea solicitării de expediere</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>Instantaneu nevalid al destinatarului. Incidentele vechi nu pot fi retrimise.</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Test manual</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>Mesaj de test manual</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>Fără conținut</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Niciuna</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Reîncercările e-mailurilor de on-call folosesc întotdeauna instantaneele OCE și CC de la momentul în care mesajul a fost pus în coadă și nu redirecționează către personalul on-call actual. Reîncercările nu sunt disponibile dacă nu există un instantaneu valid.</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>Vă rugăm să activați mai întâi canalul țintă.</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>Retrimite</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>Retrimiterea va folosi cea mai recentă configurație a canalului.</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>Actualizare stare</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>În curs...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>Tura:</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>Momentul instantaneei</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>Aplicația integrată sursă</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Canal țintă</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>Destinația ar putea fi deja primit notificarea în urma unei expirări a timpului limită sau a unei întreruperi. Vă rugăm să verificați înainte de a încerca din nou.</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>Metadatele sarcinii</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Acesta este un mesaj de test pentru canalul push.</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>ori</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>Număr total de încercări:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>Vizualizați notificările în aplicație</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>Vizualizați sau modificați configurația canalului</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>Vizualizați incidentul original</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>Vizualizați incidentul redeschis</value>
+  </data>
+
+</root>

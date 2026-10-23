@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Komşu hafta (salt okunur)</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· İşten ayrıldı</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· gelecek haftayı içerir</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· önceki haftayı da içerir</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Yetersiz dinlenme</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Salt okunur)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} yalnızca {1} personel içermekte olup asgari olan {2} değerinin altındadır. Manuel kayıt yine de izin verilir.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} saat</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0}, {1} için vardiya · {2}; henüz kaydedilmedi. Bunu geri alabilirsiniz.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} vardiya / {1} saat</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: {2} ve {3} arasında yalnızca {1} saat dinlenme var. Gerekli minimum {4} saattir.</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 saat · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>İşlem tamamlanmadı</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>Ekleme modu: 8 saatlik bir vardiya eklemek için mühendisin satırındaki boş alana tıklayın; bir vardiyayı birden fazla kişi paylaşabilir.</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>Acil çağrı vardiyası ekle</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Eklendi</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>Düzenlemeye Dön</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>Yenilemeyi iptal et</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>{0} 36 saati daralt</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>Yorum içeriği (Markdown)</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>Yorum 4.000 UTF-16 karakteri aşmamalıdır. Lütfen yayımlamadan önce içeriği kısaltın.</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>Sayfa yenileme onaylanıyor?</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Kopyalandı</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>Bu haftaki mevcut taslağı, gelecek haftaki tüm 21 vardiya için kopyalandı. Henüz kaydedilmedi; geri alabilirsiniz. Salt okunur önizleme için önümüzdeki 36 saati genişletebilirsiniz; kaydetmeden sonra, tüm haftayı görüntülemek veya düzenlemek için gelecek haftaya geçin.</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>Pano&apos;ya kopyalandı.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopyala</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>Kopyalama başarısız oldu. Lütfen içeriği elle seçip kopyalayın. Tekrar denemek için tarayıcı pano izinlerini kontrol edin.</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>Kopyalanıyor…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Şu anda Taşı/Değiştir modundasınız. Vardiya eklemeden veya kaldırmadan önce yukarıdaki modu değiştirin.</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>Silme modu: Bu mühendisin mevcut vardiyasını kaldırmak için renkli bloğa tıklayın. Bu işlem geri alınabilir ve tüm değişiklikler kaydedildikten sonra geçerli olur.</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>Girilenleri sil ve yenile</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Bitiş</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>Yorum içeriği girin; yalnızca boşluk içeremez.</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>Silme işlemini onaylamak için tam uygulama adını girin.</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>{0} 36 saati genişlet</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>Çalışan sorgulanamadı. Lütfen tekrar deneyin.</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>Görsel yüklenemedi. Lütfen tekrar deneyin.</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Başlangıç</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>{0} konumunda eksiklik tespit edildi. Lütfen personel ekleyin (hafta için tam 21 vardiya gereklidir).</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>Yönetilebilir</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>{0} vardiya değiştirildi{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>Vardiya taşı / değiştir</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Taşıma iptal edildi; program değişmedi.</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>Taşıma iptal edildi.</value>
+  </data>
+  <data name="Move down" xml:space="preserve">
+    <value>Aşağı taşı</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>Seçili vardiyayı buraya taşı</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>Şuraya taşı</value>
+  </data>
+  <data name="Move up" xml:space="preserve">
+    <value>Yukarı Taşı</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>Ağ hatası; işlemin sonucu henüz doğrulanamıyor. Yinelenen işlemleri önlemek için yeniden göndermeden önce durumu kontrol edin.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>sonraki</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Atanmış vardiya yok.</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>Eşleşen çalışan bulunamadı.</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>Eşleşen saat dilimi bulunamadı</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>Eşleşen kullanıcı bulunamadı.</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>Bu hücrede silinecek vardiya yok.</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Sayfa {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>Sayfa bilgileri güncellendi</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>Lütfen CC e-posta biçimini kontrol edin.</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>Seçilen anahtarı kopyalamak için Ctrl+C&apos;ye basın.</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>önceki</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>Önceki adım geri alındı.</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>Sayfayı yenile</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>Yenileme, kaydedilmemiş girdileri silecektir. Hata ayrıntılarına geri dönmek ve mevcut girdiyi korumak için &quot;Yenilemeyi iptal et&quot; seçeneğini seçin.</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>Sayfa yeniden yükleniyor...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Kaldır</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>{0} öğesini kaldır</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>İzin kaldır</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Kaldırıldı</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>İstek geçersiz veya sayfa kimlik bilgileri geçersiz. Gerekirse yeniden denemek için girdileri kontrol edip sayfayı yenileyin.</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>Yeniden başlatılıyor... ({0} sn)</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>Sayfa açıldığında alınan plan durumuna geri döndürüldü.</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>Rol grubu · Gruptaki tüm üyeler izinleri otomatik olarak devralır</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>Kaydedilemedi. Lütfen sayfayı yenileyip tekrar deneyin.</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>Çalışanlar aranıyor…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>Rol Seç</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Takım başına en fazla 200 çalışan seçin.</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>Kullanıcı Seç</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>Kullanıcı Seç</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Kullanıcı Grubu Seç</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Seçilen {0} · {1}. Değiştirmek için sürükleyin veya bir renk bloğuna tıklayın, taşımak için Boşluk; iptal etmek için Esc.</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>Seçilen kullanıcı sayısı: {0}; sayfa başına en fazla 20.</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>{0} adlı mühendisin tüm haftalık programı seçildi. Başka bir mühendise sürükleyin veya tıklayın.</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>Seçim iptal edildi.</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>Vardiya ayarlandı; kırmızı uyarıları gidermek için sürüklemeye devam edebilir, ardından tüm değişiklikleri kaydedebilirsiniz.</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Belirli Bir Kullanıcı Belirtin</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>Personel düzenlemesi yapıldı ve grafik güncellendi; henüz kaydedilmedi.</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>Panoya başarıyla kopyalandı!</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>Takas</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>Değişim iptal edildi.</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>Tüm haftayı değiştir: {0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>Tüm haftayı değiştir</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>{0} ve {1} için tüm haftalık plan değiştirildi. Henüz kaydedilmedi.</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>Bu eylemin sonucu şu anda doğrulanamıyor. Yeniden göndermeden önce lütfen sayfa durumunu doğrulayın.</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>Programda çözülmemiş {0} sorun var (görüntülemek için genişletin); ayarlamaya devam edebilirsiniz.</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>Hedef nesne artık mevcut değil. Lütfen sayfayı yenileyin.</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>Bu mühendis zaten bu vardiyaya atanmış. Tekrar eklemenize gerek yok.</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>Bu hafta, ayrılan üyeler de bulunuyor. Lütfen gelecek haftaya kopyalamadan önce bu haftanın taslağında onların yerine yenilerini ekleyin.</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>İki konum zaten aynı düzene sahip; takas etmeye gerek yok.</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>Değiştirme onayı görüntülenemiyor. Lütfen sayfayı yenileyip tekrar deneyin. Gelecek haftanın taslağı değişmeden kaldı.</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>Çalışan sorgulanamıyor.</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>Doğrudan takas yapılamıyor: bir kişi zaten hedef vardiyada. Önce aynı vardiyadaki üyeleri &quot;Vardiya üzerinden üye ekleme/kaldırma&quot; kullanarak ayarlayın.</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>Kaydedilmedi · Düzenleme taslağı</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Kullanıcı Grubu · Üyeler, bağlı izinleri dinamik olarak devralır</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Yalnızca görüntüle</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>Bu işlemi gerçekleştirme izniniz yok.</value>
+  </data>
+
+</root>
