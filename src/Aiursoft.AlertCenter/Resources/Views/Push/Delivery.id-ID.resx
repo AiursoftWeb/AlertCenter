@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>Tugas asinkron telah masuk antrean. Silakan perbarui status nanti.</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Percobaan</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>Kembali ke Catatan Push</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Email Piket Bawaan · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>Sistem bawaan · Tidak dapat dinonaktifkan secara terpisah</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>Status kanal aktif</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>Uji kanal</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Notifikasi uji saluran</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>Selesai seketika</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>Selesai pada</value>
+  </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>Waktu Penyelesaian</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>Salin ID Pengiriman Lengkap</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>Salin ID Lengkap</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Waktu Pembuatan</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Pengiriman berhasil diselesaikan</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>Konten Pengiriman</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>Detail Pengiriman</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Detail pengiriman - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Pengiriman Gagal</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Pengiriman gagal secara permanen</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>ID Pengiriman</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>ID Pengiriman:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>Tugas pengiriman dibuat</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Dinonaktifkan</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>Upaya pengiriman</value>
+  </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>Linimasa pengiriman</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>Mengirimkan pengiriman di latar belakang</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Durasi</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Diaktifkan</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>Masuk ke Antrean Pengiriman</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Insiden dinaikkan tingkatnya ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Insiden tertangani: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Insiden dibuka kembali: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Insiden terselesaikan: {0}</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>Mulai permintaan pengiriman</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>Snapshot penerima tidak valid. Insiden lama tidak dapat dikirim ulang.</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Tes Manual</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>Pesan Uji Manual</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>Tidak ada konten tubuh</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Tidak ada</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Pengiriman ulang email piket selalu menggunakan snapshot OCE dan CC dari saat pesan dimasukkan ke antrean, dan tidak dialihkan ke petugas piket saat ini. Pengiriman ulang tidak tersedia jika tidak ada snapshot valid.</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>Harap aktifkan saluran target terlebih dahulu.</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>Kirim ulang</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>Pengiriman ulang akan menggunakan konfigurasi kanal terbaru.</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>Perbarui status</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>Sedang diproses...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>Shift:</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>Waktu snapshot</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>Aplikasi terintegrasi sumber</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Saluran Tujuan</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>Target mungkin sudah menerimanya saat terjadi waktu habis atau gangguan. Harap verifikasi sebelum mencoba lagi.</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>Metadata tugas</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Ini adalah pesan uji untuk kanal push.</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>kali</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>Total percobaan:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>Lihat notifikasi dalam aplikasi</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>Lihat atau ubah konfigurasi kanal</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>Lihat insiden asli</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>Lihat insiden yang dibuka kembali</value>
+  </data>
+
+</root>

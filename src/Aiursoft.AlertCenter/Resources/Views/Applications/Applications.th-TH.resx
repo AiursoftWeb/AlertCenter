@@ -27,6 +27,9 @@
   <data name="Actions" xml:space="preserve">
     <value>การจัดการ</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>กำลังดำเนินการ</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>ปรับคำค้นหา หรือล้างการค้นหาเพื่อดูแอปทั้งหมด</value>
   </data>
@@ -114,14 +117,23 @@
   <data name="Find application" xml:space="preserve">
     <value>ค้นหาแอปพลิเคชัน</value>
   </data>
+  <data name="Incidents" xml:space="preserve">
+    <value>เหตุการณ์</value>
+  </data>
   <data name="Integration Guide" xml:space="preserve">
     <value>คู่มือการบูรณาการ</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>บรรเทาแล้ว</value>
   </data>
   <data name="No connected apps yet" xml:space="preserve">
     <value>ยังไม่มีแอปที่เชื่อมต่ออยู่</value>
   </data>
   <data name="No matching applications found" xml:space="preserve">
     <value>ไม่พบแอปพลิเคชันที่ตรงกัน</value>
+  </data>
+  <data name="No permission to view incidents" xml:space="preserve">
+    <value>ไม่มีสิทธิ์ดูเหตุขัดข้อง</value>
   </data>
   <data name="On-call group" xml:space="preserve">
     <value>กลุ่มเวร</value>

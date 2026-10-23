@@ -27,6 +27,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Thao tác</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>Đang hoạt động</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Điều chỉnh từ khóa tìm kiếm hoặc xóa nội dung tìm kiếm để xem tất cả ứng dụng.</value>
   </data>
@@ -144,8 +147,14 @@
   <data name="Find application" xml:space="preserve">
     <value>Tìm ứng dụng</value>
   </data>
+  <data name="Incidents" xml:space="preserve">
+    <value>Sự cố</value>
+  </data>
   <data name="Integration Guide" xml:space="preserve">
     <value>Hướng dẫn tích hợp</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Đã giảm thiểu</value>
   </data>
   <data name="New application created" xml:space="preserve">
     <value>Đã tạo ứng dụng mới</value>
@@ -155,6 +164,9 @@
   </data>
   <data name="No matching applications found" xml:space="preserve">
     <value>Không tìm thấy ứng dụng phù hợp</value>
+  </data>
+  <data name="No permission to view incidents" xml:space="preserve">
+    <value>Không có quyền xem sự cố</value>
   </data>
   <data name="On-call group" xml:space="preserve">
     <value>Nhóm trực</value>

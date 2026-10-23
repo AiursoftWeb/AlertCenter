@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>Автоматично згенерований розклад має відповідати вимогам; якщо вручну призначено недостатньо працівників, з’явиться лише попередження, а зберегти зміни з порожніми змінами неможливо.</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Рівномірно розподіляти ранні, середні та пізні зміни</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Не може бути меншим за мінімальну кількість працівників; за можливості досягайте цільового значення з урахуванням перевизначень і перерв. Залиште поле порожнім для автоматичного призначення.</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>Пріоритет надається укомплектованості змін і відпочинку; під час обмінів змінами надлишок персоналу може зменшитися. Для команд із трьох осіб ротація не дозволяється, якщо відпочинок становить щонайменше 16 годин. Графік складається з фактичних безперервних 8-годинних змін; місцевий час може змінюватися під час переходу на літній або зимовий час.</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>Фіксовано три зміни на день, щонайменше одна людина на зміну; допускається кілька людей на зміну.</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>Пріоритет мають фіксовані часові інтервали</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>Мінімальний відпочинок (години)</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>Мінімальна кількість працівників на зміну</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>Пріоритет ротації</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>Зберегти шаблон</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>Тривалість зміни (години)</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>Цільова кількість працівників на зміну</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>Назва шаблону</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>Це шаблон правила, яким можна ділитися між кількома командами. Склад команди, порядок ротації та початкові точки розкладу визначає команда. Зміна шаблону не призведе до повторного створення збережених змін.</value>
+  </data>
+
+</root>

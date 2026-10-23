@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledged" xml:space="preserve">
+    <value>Diakui</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Sesuaikan Tingkat Keparahan Insiden</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+    <value>Setelah dihapus, hanya nama penulis, waktu publikasi, nama penghapus, dan waktu penghapusan yang akan disimpan. Teks komentar asli tidak akan ditampilkan lagi dan tidak dapat dipulihkan.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>Buat insiden secara otomatis</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="Comment editor view" xml:space="preserve">
+    <value>Tampilan editor komentar</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>Konfirmasi dan ambil alih insiden</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Konfirmasi penghapusan</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="Delete comment" xml:space="preserve">
+    <value>Hapus komentar</value>
+  </data>
+  <data name="Deleted by: " xml:space="preserve">
+    <value>Dihapus oleh:</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>Peristiwa insiden</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>Linimasa Insiden</value>
+  </data>
+  <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
+    <value>Markdown didukung. Maksimal 4.000 karakter UTF-16 (emoji dapat dihitung sebagai 2 karakter).</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Mitigasi insiden</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Telah dimitigasi</value>
+  </data>
+  <data name="Newest first · 20 items per page" xml:space="preserve">
+    <value>Terbaru · 20 item per halaman</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Halaman Berikutnya</value>
+  </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>Tidak ada aktivitas di halaman ini.</value>
+  </data>
+  <data name="No. " xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="Not set" xml:space="preserve">
+    <value>Belum diatur</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>pada</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>Pemilik:</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Halaman</value>
+  </data>
+  <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
+    <value>Tempel atau seret gambar ke editor untuk mengunggahnya.</value>
+  </data>
+  <data name="Post comment" xml:space="preserve">
+    <value>Tulis komentar</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Halaman Sebelumnya</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Perkembangan</value>
+  </data>
+  <data name="Publish comment" xml:space="preserve">
+    <value>Kirim komentar</value>
+  </data>
+  <data name="Published comment?" xml:space="preserve">
+    <value>Komentar dipublikasikan?</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Buka Kembali Insiden</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Selesaikan insiden</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Terselesaikan</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>Tingkat keparahan:</value>
+  </data>
+  <data name="Split View" xml:space="preserve">
+    <value>Tampilan Terpisah</value>
+  </data>
+  <data name="Status: " xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>Ambil Alih Insiden</value>
+  </data>
+  <data name="This comment has been deleted." xml:space="preserve">
+    <value>Komentar ini telah dihapus.</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>Paginasi linimasa</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Belum ditetapkan</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Belum ditangani</value>
+  </data>
+  <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
+    <value>Gunakan Markdown untuk berbagi petunjuk pemecahan masalah, saran, atau diskusi…</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>Pengguna dihapus</value>
+  </data>
+
+</root>

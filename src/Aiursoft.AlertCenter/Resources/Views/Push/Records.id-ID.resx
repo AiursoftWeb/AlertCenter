@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Tindakan</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>Semua saluran</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>Semua status</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Percobaan</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>Email Panggilan Darurat Bawaan</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Email Panggilan Siaga Bawaan · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Notifikasi uji coba saluran</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Hapus semua filter</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>Pelacakan menyeluruh atas status pengiriman asinkron dan percobaan ulang akibat kesalahan untuk webhook, email, dan notifikasi dalam aplikasi</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Waktu Pembuatan</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>Sedang menampilkan halaman</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>Sedang mengirim</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>Sedang mengirim (Sending)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Pengiriman Gagal</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>Gagal Pengiriman (Gagal)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>Status Pengiriman</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>Pengiriman Berhasil</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>Pengiriman Berhasil (Succeeded)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>Buka</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>Buka Pusat Push untuk mengonfigurasi kanal</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>Insiden / Pesan Tes</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Insiden dinaikkan tingkat keparahannya ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Insiden telah dikendalikan: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Insiden dibuka kembali: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Insiden terselesaikan: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>Lompat</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>Lompat ke nomor halaman</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Uji Manual</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Halaman Berikutnya</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>Tidak ada catatan pengiriman yang cocok dengan filter saat ini. Silakan sesuaikan kriteria filter.</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>Tidak ada catatan pengiriman push</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Halaman</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>Catatan Halaman</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>Menunggu pengiriman</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>Menunggu pengiriman (Pending)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Halaman Sebelumnya</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>Catatan Pengiriman Push</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>Paginasi Catatan Push</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>Pelacakan Real-Time</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>Segarkan daftar</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>Atur Ulang Filter</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Saluran Tujuan</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Uji</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>Lihat detail pengiriman</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>Saat sistem mengirimkan notifikasi insiden atau menjalankan pengujian kanal secara manual, semua riwayat pengiriman dan statusnya dicatat di sini.</value>
+  </data>
+
+</root>
