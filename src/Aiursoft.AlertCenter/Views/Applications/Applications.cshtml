@@ -121,6 +121,7 @@
                         <th>@Localizer["App ID"]</th>
                         <th>@Localizer["On-call group"]</th>
                         <th>@Localizer["Running Status"]</th>
+                        <th>@Localizer["Incidents"]</th>
                         <th class="text-end pe-4">@Localizer["Action"]</th>
                     </tr>
                 </thead>
@@ -163,6 +164,24 @@
                                 <span class="badge bg-secondary-subtle text-secondary border">
                                     <span class="ac-status-dot dot-muted"></span>@Localizer["Disabled"]
                                 </span>
+                            }
+                        </td>
+                        <td>
+                            @if (Model.ViewableApplicationIds.Contains(application.Id))
+                            {
+                                var counts = Model.IncidentCounts.GetValueOrDefault(application.Id);
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a asp-controller="Incidents" asp-action="Index" asp-route-applicationId="@application.Id" asp-route-status="new" class="badge bg-danger-subtle text-danger border border-danger-subtle text-decoration-none text-nowrap">
+                                        @Localizer["Active"]: @(counts?.Active ?? 0)
+                                    </a>
+                                    <a asp-controller="Incidents" asp-action="Index" asp-route-applicationId="@application.Id" asp-route-status="mitigated" class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle text-decoration-none text-nowrap">
+                                        @Localizer["Mitigated"]: @(counts?.Mitigated ?? 0)
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="text-muted">@Localizer["No permission to view incidents"]</span>
                             }
                         </td>
                         <td class="text-end pe-4">
