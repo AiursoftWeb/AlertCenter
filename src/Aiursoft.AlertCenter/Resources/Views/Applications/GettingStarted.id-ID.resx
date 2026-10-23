@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: Kunci API hanya ditampilkan sekali setelah berhasil dibuat. Segera atur kunci tersebut di variabel lingkungan produksi (misalnya,</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Penjadwalan push dipicu secara asinkron.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Pertahankan catatan pertama dan jangan memicu pengiriman push duplikat.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>Pusat dapat menggunakan kolom ini untuk memperkirakan latensi jaringan pelaporan dan pengiriman.</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(Kritis, prioritas tertinggi),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(Kesalahan),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(Informasi umum). Pusat merutekan dan mengirimkan notifikasi berdasarkan level ini.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(Penting),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(Peringatan),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) atau Layanan Pengelolaan Kunci (KMS). Menyimpan kunci secara langsung di frontend, log, atau repositori kode sangat dilarang.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>1 hingga 200 karakter</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 Diterima (Idempoten)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 Kesalahan parameter</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 Autentikasi gagal</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>Waktu terjadinya kejadian bisnis yang sebenarnya, misalnya,</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Kredensial Bearer tidak tersedia, kunci tidak cocok, atau aplikasi dinonaktifkan. Harap periksa pengaturan aplikasi.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>Konfigurasikan Kanal Pusat Push</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>Salin Kode</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>Buat Aplikasi Integrasi dan Dapatkan Kunci API</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>Panduan Integrasi untuk Pengembang</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>Laporan duplikat dengan ReportId yang sama,</value>
+  </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Setiap kunci terkait dengan suatu aplikasi. Server memverifikasi hash rahasia dan izin yang diperlukan untuk setiap operasi.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>Pastikan idempotensi konkurensi yang ketat; gunakan ID yang sama untuk percobaan ulang.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>Setiap ID laporan baru membuat insiden tersendiri. Gunakan kembali ID laporan yang sama hanya saat mencoba ulang permintaan yang sama. Batasi laju laporan di sumbernya.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>Nama Field</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>Mulai dari pembuatan aplikasi dan autentikasi kunci hingga laporan insiden pertama, bangun saluran insiden sistem yang andal dalam 4 langkah.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>Buka untuk membuat aplikasi dan mendapatkan kredensial</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>Spesifikasi Kolom Permintaan Pelaporan HTTP</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>Kode Status Respons HTTP dan Praktik Rekayasa Terbaik</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>Pada contoh kode,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>Detail isi insiden. Mendukung panduan pemecahan masalah, tumpukan pengecualian, atau ringkasan diagnostik. Lapisan presentasi secara otomatis melakukan escape pada HTML untuk mencegah injeksi XSS.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>Judul ringkasan insiden. Jelaskan gangguan secara singkat, misalnya, “Waktu respons kanal pembayaran pesanan habis.”</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>Penyimpanan awal berhasil. Mengembalikan ID kunci utama yang dihasilkan,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>Objek JSON; seluruh permintaan maksimal 64 KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>Pemberitahuan Pencegahan Kebocoran</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Kelola aplikasi terintegrasi</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>Maks. 4.000 karakter</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Buka Manajemen Kunci API untuk aplikasi guna membuat kunci bernama dengan izin untuk melihat, membuat, dan menyelesaikan.</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Opsional</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>atau variabel lingkungan, sehingga memudahkan pencarian dan pemecahan masalah sekali klik di halaman detail.</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>Ganti dengan kunci aplikasi yang dibuat pada langkah sebelumnya untuk langsung mengirimkan pengujian.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Wajib</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>Kolom wajib belum diisi, format level tidak valid, atau isi permintaan melebihi batas 64 KiB.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>Respons menggunakan AiurProtocol dengan Code, Message, dan ProtocolVersion. Kegagalan validasi menyertakan array Items. SDK mengembalikan tanda terima bertipe atau melempar pengecualian AiurProtocol.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>Aturan &amp; batasan</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>Kirim pesan insiden pertama</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>Tingkat keparahan:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>Format UUID standar</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>Konteks bisnis terstruktur. Sebaiknya sertakan</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>ID laporan unik secara global milik klien. Pusat menggunakan</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>SDK mengirim setiap laporan satu kali. Jika kegagalan jaringan membuat hasilnya tidak pasti, kirim ulang permintaan yang sama dengan ReportId dan waktu kejadian yang sama.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Jenis</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Lihat insiden</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>Dengan offset zona waktu atau penanda Z</value>
+  </data>
+
+</root>

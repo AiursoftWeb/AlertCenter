@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Viereinen viikko (vain luku)</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· Lähtenyt</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· sisältää ensi viikon</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· sisältää edellisen viikon</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Riittämätön lepo</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Vain luku)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>Kohteessa {0} on vain {1} työntekijää, mikä alittaa vähimmäismäärän {2}. Tallennus manuaalisesti on silti sallittua.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} tuntia</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} vuoro henkilölle {1} · {2}; ei vielä tallennettu. Voit kumota tämän.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} vuoroa / {1} tuntia</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Vain {1} tuntia lepoa ajankohtien {2} ja {3} välillä. Vaadittu vähimmäislepoaika on {4} tuntia.</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 tuntia · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>Toimintoa ei suoritettu loppuun</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>Lisäystila: Lisää 8 tunnin työvuoro napsauttamalla työntekijän rivin tyhjää kohtaa; sama työvuoro voidaan jakaa usean henkilön kesken.</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>Lisää päivystysvuoro</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Lisätty</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>Takaisin muokkaamaan</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>Peruuta päivitys</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>Kutista {0} 36 tuntia</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>Kommentin sisältö (Markdown)</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>Kommentti saa olla enintään 4 000 UTF-16-merkkiä pitkä. Lyhennä sisältöä ennen julkaisemista.</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>Vahvistetaanko sivun päivittäminen?</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Kopioitu</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>Tämän viikon nykyinen luonnos kopioitiin ensi viikon kaikkiin 21 työvuoroon. Muutoksia ei ole vielä tallennettu, joten voit kumota ne. Voit laajentaa näkymän seuraaville 36 tunnille ja tarkastella sitä vain luku -tilassa. Kun olet tallentanut muutokset, siirry ensi viikkoon nähdäksesi tai muokataksesi koko viikon työvuoroja.</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>Kopioitu leikepöydälle.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopioi</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>Kopiointi epäonnistui. Valitse ja kopioi sisältö manuaalisesti. Yritä uudelleen tarkistamalla selaimen leikepöydän käyttöoikeudet.</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>Kopioidaan…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Käytössä on parhaillaan siirto-/vaihtotila. Vaihda yllä oleva tila ennen vuorojen lisäämistä tai poistamista.</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>Poistotila: Poista tämän insinöörin nykyinen työvuoro napsauttamalla värillistä ruutua. Toiminnon voi kumota, ja se tulee voimaan, kun kaikki muutokset on tallennettu.</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>Hylkää syöte ja päivitä sivu</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Loppu</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>Kirjoita kommentti; se ei voi sisältää pelkästään välilyöntejä.</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>Vahvista poisto kirjoittamalla sovelluksen tarkka nimi.</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>Laajenna {0} 36 tunnin ajaksi</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>Työntekijän haku epäonnistui. Yritä uudelleen.</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>Kuvan lataaminen epäonnistui. Yritä uudelleen.</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Alkaen</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>Aukko havaittu kohdassa {0}. Lisää henkilöstöä (viikolla on oltava yhteensä 21 työvuoroa).</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>Hallittavissa</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>Muokattiin {0} työvuoroa{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>Siirrä / vaihda vuoroja</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Siirto peruutettu; aikataulu ennallaan.</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>Siirto peruutettu.</value>
+  </data>
+  <data name="Move down" xml:space="preserve">
+    <value>Siirry alaspäin</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>Siirrä valittu työvuoro tähän</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>Siirrä kohteeseen</value>
+  </data>
+  <data name="Move up" xml:space="preserve">
+    <value>Siirrä ylöspäin</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>Verkkovirhe; toiminnon tulosta ei voida vielä vahvistaa. Tarkista tila ennen uudelleenlähetystä, jotta toiminto ei toistu.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Ei määritettyjä työvuoroja.</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>Ei vastaavia työntekijöitä.</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>Vastaavaa aikavyöhykettä ei löytynyt</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>Vastaavia käyttäjiä ei löytynyt.</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>Tässä solussa ei ole poistettavia työvuoroja.</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Sivu {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>Sivun tiedot päivitetty</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>Tarkista CC-sähköpostiosoitteen muoto.</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>Kopioi valittu avain painamalla Ctrl+C.</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>edellinen</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>Edellinen vaihe peruttu.</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>Päivitä sivu</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>Päivittäminen hylkää tallentamattoman syötteen. Valitse ”Peruuta päivitys”, niin palaat virheen tietoihin ja nykyinen syöte säilyy.</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>Ladataan sivua uudelleen...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Poista {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Poista käyttöoikeus</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Poistettu</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>Pyyntö on virheellinen tai sivun tunnistetiedot ovat vanhentuneet. Tarkista syöte ja päivitä sivu, jotta voit yrittää uudelleen tarvittaessa.</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>Käynnistetään uudelleen... ({0}s)</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>Palautettu sivun avaamishetken mukaiseen aikatauluun.</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>Rooliryhmä · Kaikki ryhmän jäsenet perivät käyttöoikeudet automaattisesti</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>Tallennus epäonnistui. Päivitä sivu ja yritä uudelleen.</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>Etsitään työntekijöitä…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>Valitse rooli</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Valitse tiimiä kohden enintään 200 työntekijää.</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>Valitse käyttäjä</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>Valitse käyttäjä</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Valitse käyttäjäryhmä</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Valittu {0} · {1}. Vaihda paikkaa vetämällä värilohkoon tai napsauttamalla sitä, siirrä välilyönnillä ja peruuta Esc-näppäimellä.</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>Valittu {0} käyttäjää; enintään 20 sivua kohden.</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>Valittu {0}:n koko viikon työvuorolista. Vedä toisen insinöörin kohdalle tai napsauta toista insinööriä.</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>Valinnan tekeminen peruutettu.</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>Työvuoroa on muokattu. Voit jatkaa vetämistä ja korjata punaisella merkityt varoitukset. Tallenna lopuksi kaikki muutokset.</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Määritä yksittäinen käyttäjä</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>Henkilöstömäärää on muutettu ja kaavio päivitetty; muutoksia ei ole vielä tallennettu.</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>Kopioitu leikepöydälle!</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>Vaihda</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>Vaihto peruutettu.</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>Vaihda koko viikon aikataulut: {0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>Vaihda koko viikko</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>Koko viikon aikataulut vaihdettiin: {0} ja {1}. Ei vielä tallennettu.</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>Toiminnon tulosta ei voida tällä hetkellä vahvistaa. Tarkista sivun tila ennen kuin yrität uudelleen.</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>Aikataulussa on {0} ratkaisematta olevaa ongelmaa (laajenna nähdäksesi); voit jatkaa muokkaamista.</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>Kohdeobjektia ei enää ole. Päivitä sivu.</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>Tämä insinööri on jo lisätty tähän työvuoroon. Häntä ei tarvitse lisätä uudelleen.</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>Tällä viikolla on mukana lähteneitä jäseniä. Korvaa heidät tämän viikon luonnoksessa ennen kuin kopioit sen seuraavalle viikolle.</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>Kahdessa sijainnissa on jo sama järjestely, joten niitä ei tarvitse vaihtaa.</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>Korvausvahvistusta ei voi näyttää. Päivitä sivu ja yritä uudelleen. Seuraavan viikon luonnos säilyy ennallaan.</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>Henkilöstön hakeminen epäonnistui.</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>Suoraa vaihtoa ei voi tehdä: toinen henkilö on jo kohdevuorossa. Muokkaa saman vuoron jäseniä ensin toiminnolla ”Lisää tai poista jäseniä vuoron mukaan”.</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>Tallentamaton · Muokkausluonnos</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Käyttäjäryhmä · Jäsenet perivät dynaamisesti niille määritetyt käyttöoikeudet</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Vain katselu</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>Sinulla ei ole oikeutta suorittaa tätä toimintoa.</value>
+  </data>
+
+</root>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· अक्षम, भेजा नहीं जा रहा</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - पुश रूटिंग सेटिंग्स</value>
+  </data>
+  <data name="Application Push Routing" xml:space="preserve">
+    <value>ऐप्लिकेशन पुश रूटिंग</value>
+  </data>
+  <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
+    <value>यह बदलाव सहेजने के बाद केवल नई घटनाओं पर लागू होगा। यदि कोई चैनल अक्षम है, तो रूटिंग बरकरार रहेगी, लेकिन नई घटनाओं को छोड़ दिया जाएगा।</value>
+  </data>
+  <data name="Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident." xml:space="preserve">
+    <value>sev0–sev4 पर लागू; किसी चैनल का चयन आवश्यक नहीं है। नीचे दिए गए चैनल हर नई घटना के लिए अलग से पूरक सूचनाएँ भेजते हैं।</value>
+  </data>
+  <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
+    <value>स्वतः सक्षम · अलग से अक्षम नहीं किया जा सकता</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>उपलब्ध चैनल</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>कनेक्ट किए गए ऐप्स पर वापस जाएँ</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>अंतर्निहित ऑन-कॉल ईमेल</value>
+  </data>
+  <data name="CC addresses configured for the on-call group." xml:space="preserve">
+    <value>ऑन-कॉल समूह के लिए कॉन्फ़िगर किए गए CC पते।</value>
+  </data>
+  <data name="Critical (P0)" xml:space="preserve">
+    <value>गंभीर (P0)</value>
+  </data>
+  <data name="Custom channel-to-severity match matrix" xml:space="preserve">
+    <value>कस्टम चैनल-गंभीरता मिलान मैट्रिक्स</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>अक्षम</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>सक्षम</value>
+  </data>
+  <data name="Error (P2)" xml:space="preserve">
+    <value>त्रुटि (P2)</value>
+  </data>
+  <data name="Info (P4)" xml:space="preserve">
+    <value>जानकारी (P4)</value>
+  </data>
+  <data name="Major (P1)" xml:space="preserve">
+    <value>प्रमुख (P1)</value>
+  </data>
+  <data name="Multiple supplementary channels can be selected per level; unchecked items only indicate no custom notifications will be sent, without affecting built-in on-call emails. Strict exact matching is applied, with no automatic expansion to higher or lower levels." xml:space="preserve">
+    <value>प्रत्येक स्तर के लिए कई पूरक चैनल चुने जा सकते हैं; जिन आइटम पर निशान नहीं है, उनका अर्थ केवल यह है कि कोई कस्टम सूचना नहीं भेजी जाएगी—इससे अंतर्निहित ऑन-कॉल ईमेल प्रभावित नहीं होंगे। सटीक मिलान सख्ती से लागू होता है; उच्च या निम्न स्तरों तक इसका स्वतः विस्तार नहीं किया जाता।</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>अभी तक कोई पुश चैनल कॉन्फ़िगर नहीं किया गया है</value>
+  </data>
+  <data name="On-call group:" xml:space="preserve">
+    <value>ऑन-कॉल समूह:</value>
+  </data>
+  <data name="Please contact the push channel administrator to grant channel binding permissions." xml:space="preserve">
+    <value>कृपया चैनल बाइंडिंग की अनुमति देने के लिए पुश चैनल व्यवस्थापक से संपर्क करें।</value>
+  </data>
+  <data name="Precisely match receiving channels by incident level · Matrix Routing Engine" xml:space="preserve">
+    <value>घटना के स्तर के अनुसार प्राप्ति चैनलों का सटीक मिलान · मैट्रिक्स रूटिंग इंजन</value>
+  </data>
+  <data name="Push Channel and Type" xml:space="preserve">
+    <value>पुश चैनल और प्रकार</value>
+  </data>
+  <data name="Save routing configuration" xml:space="preserve">
+    <value>रूटिंग कॉन्फ़िगरेशन सहेजें</value>
+  </data>
+  <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
+    <value>सूचना के समय ड्यूटी पर मौजूद सभी इंजीनियरों (OCE) के सिस्टम में पंजीकृत ईमेल पते;</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>कुल</value>
+  </data>
+  <data name="Warning (P3)" xml:space="preserve">
+    <value>चेतावनी (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
+    <value>आवश्यकतानुसार पूरक सूचनाओं के लिए आप Webhook, ईमेल या इन-ऐप सूचना चैनल बना सकते हैं। ऑन-कॉल समूहों से जुड़ी ऐप्लिकेशन, कस्टम चैनल न होने पर भी अंतर्निहित ऑन-कॉल ईमेल भेजेंगी।</value>
+  </data>
+
+</root>

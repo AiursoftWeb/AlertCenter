@@ -21,6 +21,12 @@
       <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Tuki pitkäkestoisille tehtäville (esimerkiksi sähköposteille tai AI:lle), jossa on käyttöliittymä jonon hallintaan, rinnakkaisprosessointiin ja peruutukseen.</value>
   </data>
+  <data name="2 minutes ago" xml:space="preserve">
+    <value>2 minuuttia sitten</value>
+  </data>
+  <data name="8 minutes ago" xml:space="preserve">
+    <value>8 minuuttia sitten</value>
+  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Sisäänrakennettu roolipohjainen käyttöoikeusjärjestelmä (RBAC) hienojakoista käyttöoikeudenhallintaa varten.</value>
   </data>
@@ -38,6 +44,9 @@
   </data>
   <data name="Achieve more with Aiursoft Template" xml:space="preserve">
     <value>Saavuta enemmän Aiursoft Templatella</value>
+  </data>
+  <data name="Action Required" xml:space="preserve">
+    <value>Toimenpiteitä vaaditaan</value>
   </data>
   <data name="Actuator health endpoints built-in" xml:space="preserve">
     <value>Actuatorin terveydentilan päätepisteet sisäänrakennettuna</value>
@@ -59,6 +68,12 @@
   </data>
   <data name="Aiursoft Template is our definitive choice for enterprise projects! It&apos;s built for developers and is lightweight yet powerful. We can skip all the boilerplate for authentication and user management." xml:space="preserve">
     <value>Aiursoft Template on ratkaiseva valintamme yritysprojekteihin! Se on rakennettu kehittäjille ja on kevyt mutta tehokas. Voimme ohittaa kaiken valmiin koodin todennukseen ja käyttäjien hallintaan.</value>
+  </data>
+  <data name="AlertCenter centrally receives, classifies, and reliably delivers incidents for business systems. Connect all services with a single API to keep your team informed of the real-time production status." xml:space="preserve">
+    <value>AlertCenter vastaanottaa, luokittelee ja toimittaa luotettavasti liiketoimintajärjestelmien häiriöt keskitetysti. Yhdistä kaikki palvelut yhdellä API-rajapinnalla, jotta tiimisi pysyy ajan tasalla tuotantoympäristön tilanteesta reaaliajassa.</value>
+  </data>
+  <data name="AlertCenter correlates sources, severity levels, push configurations, and delivery results to help teams quickly assess impact and decide on next steps." xml:space="preserve">
+    <value>AlertCenter yhdistää lähteet, vakavuustasot, push-ilmoitusten asetukset ja toimitustulokset, jotta tiimit voivat arvioida vaikutukset nopeasti ja päättää seuraavista toimenpiteistä.</value>
   </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Kaikki riippuvuudet rekisteröidään automaattisesti ja ne ovat aina saatavilla konstruktorin kautta tapahtuvan injektoinnin välityksellä.</value>
@@ -120,6 +135,9 @@
   <data name="Bilingual Tutorials" xml:space="preserve">
     <value>Kaksikieliset oppaat</value>
   </data>
+  <data name="Build a Reliable Incident Channel in Three Steps" xml:space="preserve">
+    <value>Luo luotettava häiriökanava kolmessa vaiheessa</value>
+  </data>
   <data name="Build once, run anywhere. Fully containerized architecture." xml:space="preserve">
     <value>Rakenna kerran, suorita missä tahansa. Täysin säiliöön paketoidu arkkitehtuuri.</value>
   </data>
@@ -171,6 +189,12 @@
   <data name="Built-in User Management" xml:space="preserve">
     <value>Sisäänrakennettu käyttäjienhallinta</value>
   </data>
+  <data name="Centrally manage sources, incident levels, notification channels, and delivery results so service anomalies are not buried in logs." xml:space="preserve">
+    <value>Hallinnoi keskitetysti lähteitä, häiriötasoja, ilmoituskanavia ja toimitustuloksia, jotta palvelupoikkeamat eivät huku lokien sekaan.</value>
+  </data>
+  <data name="Centrally track each notification delivery status to quickly locate issues upon failure and prevent important information from being silently lost." xml:space="preserve">
+    <value>Seuraa keskitetysti jokaisen ilmoituksen toimitustilaa, jotta voit paikantaa ongelmat nopeasti toimituksen epäonnistuessa ja estää tärkeiden tietojen katoamisen huomaamatta.</value>
+  </data>
   <data name="Checkstyle or similar needed" xml:space="preserve">
     <value>Tarkistus tai vastaava tarvitaan</value>
   </data>
@@ -192,6 +216,12 @@
   <data name="Concise Docs" xml:space="preserve">
     <value>Tiivistetty dokumentaatio</value>
   </data>
+  <data name="Configure independent push channels for sev0 to sev4 to ensure the most urgent issues receive the highest priority response." xml:space="preserve">
+    <value>Määritä sev0–sev4-tasoille erilliset push-kanavat, jotta kiireellisimmät ongelmat saavat korkeimman prioriteetin mukaisen vasteen.</value>
+  </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Määritä push-kanava</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Johdonmukaisuustarkistus</value>
   </data>
@@ -203,6 +233,24 @@
   </data>
   <data name="Coverage Report" xml:space="preserve">
     <value>Kattavuusraportti</value>
+  </data>
+  <data name="Create and handle incidents" xml:space="preserve">
+    <value>Luo ja käsittele häiriötilanteita</value>
+  </data>
+  <data name="Create independent API Keys for each business application to report structured incidents and context via standard HTTP APIs." xml:space="preserve">
+    <value>Luo kullekin liiketoimintasovellukselle oma API-avain, jolla voi lähettää jäsenneltyjä häiriötietoja ja niihin liittyvää kontekstia tavallisten HTTP-rajapintojen kautta.</value>
+  </data>
+  <data name="Create Integration App" xml:space="preserve">
+    <value>Luo integraatiosovellus</value>
+  </data>
+  <data name="Create your first integration app, send your first incident, and establish your reliable notification loop." xml:space="preserve">
+    <value>Luo ensimmäinen integraatiosovelluksesi, lähetä ensimmäinen häiriöilmoituksesi ja luo luotettava ilmoitusketju.</value>
+  </data>
+  <data name="Critical / Error" xml:space="preserve">
+    <value>Kriittinen / virhe</value>
+  </data>
+  <data name="Critical incidents should not be buried in logs." xml:space="preserve">
+    <value>Kriittisiä tapahtumia ei pidä haudata lokitietoihin.</value>
   </data>
   <data name="Cross Platform" xml:space="preserve">
     <value>Useita alustoja</value>
@@ -222,6 +270,9 @@
   <data name="Dashboard Website" xml:space="preserve">
     <value>Kojelauta-sivusto</value>
   </data>
+  <data name="Database backup completed" xml:space="preserve">
+    <value>Tietokannan varmuuskopiointi valmis</value>
+  </data>
   <data name="Day 1 Compliance &amp; Security." xml:space="preserve">
     <value>Päivä 1 täytäntöönpano ja turvallisuus.</value>
   </data>
@@ -237,8 +288,14 @@
   <data name="Default SQLite database, no configuration needed." xml:space="preserve">
     <value>Oletus SQLite-tietokanta, ei konfigurointia tarvita</value>
   </data>
+  <data name="Delivery records are fully traceable" xml:space="preserve">
+    <value>Toimitustietueet ovat täysin jäljitettävissä</value>
+  </data>
   <data name="Designed for everyone, from beginners to experts." xml:space="preserve">
     <value>Suunniteltu kaikille, aloittelijoista asiantuntijoihin.</value>
+  </data>
+  <data name="Designed for response" xml:space="preserve">
+    <value>Suunniteltu nopeaan reagointiin</value>
   </data>
   <data name="Designed for the container era. Includes pre-configured CI/CD pipelines for GitLab. Push code, pass strictly linting, auto-test, and deploy to Docker Swarm or Kubernetes automatically." xml:space="preserve">
     <value>Suunniteltu säiliöajan ajalle. Sisältää etukäteen määritellyt CI/CD -putkistot GitLab:lle. Lähetä koodi, läpäise tiukasti tarkistus, automaattitesti ja julkaise Docker Swarm - tai Kubernetes -ympäristöön automaattisesti.</value>
@@ -285,6 +342,9 @@
   <data name="Enforced quality gate" xml:space="preserve">
     <value>Pakotettu laadunvalvontaraja</value>
   </data>
+  <data name="Enter Console" xml:space="preserve">
+    <value>Siirry hallintapaneeliin</value>
+  </data>
   <data name="Enterprise C#" xml:space="preserve">
     <value>Enterprise C#</value>
   </data>
@@ -297,8 +357,14 @@
   <data name="Enterprise Security" xml:space="preserve">
     <value>Yritysturvallisuus</value>
   </data>
+  <data name="Enterprise-grade incidents" xml:space="preserve">
+    <value>Yritystason häiriöt</value>
+  </data>
   <data name="Entity Framework Core included" xml:space="preserve">
     <value>Entity Framework Core mukana</value>
+  </data>
+  <data name="Establish a response path suitable for your team using Webhooks, emails, and in-app notifications." xml:space="preserve">
+    <value>Luo tiimillesi sopiva toimintamalli Webhookien, sähköpostien ja sovelluksen sisäisten ilmoitusten avulla.</value>
   </data>
   <data name="FAQ" xml:space="preserve">
     <value>UKK</value>
@@ -350,6 +416,12 @@
   </data>
   <data name="Frequently asked questions" xml:space="preserve">
     <value>Usein kysytyt kysymykset</value>
+  </data>
+  <data name="From exception occurrence to team response, always clear and controllable." xml:space="preserve">
+    <value>Poikkeaman ilmenemisestä tiimin reagointiin – aina selkeästi ja hallitusti.</value>
+  </data>
+  <data name="From ingestion to delivery, all configurations are completed in the console, eliminating the need to switch between multiple systems." xml:space="preserve">
+    <value>Datan vastaanottamisesta sen toimittamiseen kaikki asetukset tehdään hallintakonsolissa, joten järjestelmästä toiseen ei tarvitse siirtyä.</value>
   </data>
   <data name="From the Architect" xml:space="preserve">
     <value>Arkkitehdin puolelta</value>
@@ -408,6 +480,9 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Hei maailma!</value>
   </data>
+  <data name="Help your team detect issues earlier and restore services faster." xml:space="preserve">
+    <value>Auta tiimiäsi havaitsemaan ongelmat aiemmin ja palauttamaan palvelut nopeammin.</value>
+  </data>
   <data name="Here are some of the answers you might be looking for." xml:space="preserve">
     <value>Tässä on joitain vastauksia, joita saatat etsiä.</value>
   </data>
@@ -438,6 +513,12 @@
   <data name="In-memory DB, temp FS, and HTTP simulation" xml:space="preserve">
     <value>In-memory-tietokanta, väliaikainen tiedostojärjestelmä ja HTTP-simulaatio</value>
   </data>
+  <data name="Incident overview" xml:space="preserve">
+    <value>Häiriöiden yleiskatsaus</value>
+  </data>
+  <data name="Incident synchronously delivered to Webhook and in-app notification" xml:space="preserve">
+    <value>Häiriö toimitetaan samanaikaisesti Webhookiin ja sovelluksen sisäisenä ilmoituksena</value>
+  </data>
   <data name="Included" xml:space="preserve">
     <value>Sisältyy</value>
   </data>
@@ -446,6 +527,12 @@
   </data>
   <data name="Includes Tutorials" xml:space="preserve">
     <value>Sisältää opetusmateriaaleja</value>
+  </data>
+  <data name="Info / Notification" xml:space="preserve">
+    <value>Tiedot / ilmoitus</value>
+  </data>
+  <data name="Infrastructure · backup-2026-09-14" xml:space="preserve">
+    <value>Infrastruktuuri · backup-2026-09-14</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Integroitu tiedostonhallinta</value>
@@ -465,6 +552,9 @@
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Onko Aiursoft Templaten käyttö ilmaista?</value>
   </data>
+  <data name="Issue dedicated API Keys for services to isolate sources and precisely manage reporting permissions." xml:space="preserve">
+    <value>Luo palveluille omat API-avaimet, jotta lähteet pysyvät erillään ja raportointioikeuksia voidaan hallita tarkasti.</value>
+  </data>
   <data name="java.time API available" xml:space="preserve">
     <value>java.time API käytettävissä</value>
   </data>
@@ -480,8 +570,17 @@
   <data name="Join our growing community of developers building the next generation of web applications." xml:space="preserve">
     <value>Liity kasvavaan kehittäjien yhteisöömme, joka rakentaa seuraavan sukupolven web-sovelluksia.</value>
   </data>
+  <data name="Just now" xml:space="preserve">
+    <value>Juuri nyt</value>
+  </data>
   <data name="K8s / Swarm Ready" xml:space="preserve">
     <value>K8s / Swarm -valmis</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Uusimmat häiriöt</value>
+  </data>
+  <data name="Let every critical incident" xml:space="preserve">
+    <value>Anna jokaisen kriittisen häiriön</value>
   </data>
   <data name="Lint Check" xml:space="preserve">
     <value>Lint-tarkistus</value>
@@ -489,11 +588,17 @@
   <data name="Maintain High Code Quality" xml:space="preserve">
     <value>Ylläpidä korkeaa koodin laatua</value>
   </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Hallitse integroituja sovelluksia</value>
+  </data>
   <data name="Management Dashboard" xml:space="preserve">
     <value>Hallintataulu</value>
   </data>
   <data name="Markdown To HTML" xml:space="preserve">
     <value>Markdownista HTML:ksi</value>
+  </data>
+  <data name="Message Center · 8,420 pending" xml:space="preserve">
+    <value>Viestikeskus · 8 420 odottaa käsittelyä</value>
   </data>
   <data name="MIT Licence" xml:space="preserve">
     <value>MIT-lisenssi</value>
@@ -503,6 +608,9 @@
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Mallit tarkistetaan molemmilla puolilla, asiakas- ja palvelinpuolella, tietojen annotaatioiden perusteella.</value>
+  </data>
+  <data name="Multi-channel Push" xml:space="preserve">
+    <value>Monikanavainen push-ilmoitus</value>
   </data>
   <data name="Multi-timezone Handling" xml:space="preserve">
     <value>Monen aikavyöhykkeen käsittely</value>
@@ -573,11 +681,20 @@
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
   </data>
+  <data name="One Center, Closed-Loop Handling" xml:space="preserve">
+    <value>Yksi keskus, suljetun kierron käsittely</value>
+  </data>
   <data name="One Click Start" xml:space="preserve">
     <value>Yksi napsautus käynnistää</value>
   </data>
+  <data name="Open Push Center" xml:space="preserve">
+    <value>Avaa push-keskus</value>
+  </data>
   <data name="Open Source" xml:space="preserve">
     <value>Avoin lähdekoodi</value>
+  </data>
+  <data name="Open source and self-hostable" xml:space="preserve">
+    <value>Avoimen lähdekoodin ja omalle palvelimelle asennettavissa</value>
   </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect -integraatio</value>
@@ -585,14 +702,23 @@
   <data name="Optimized Docker &amp; K8s config" xml:space="preserve">
     <value>Optimoitu Docker &amp; K8s-konfiguraatio</value>
   </data>
+  <data name="Order Service · trace-7e9a" xml:space="preserve">
+    <value>Tilauspalvelu · trace-7e9a</value>
+  </data>
   <data name="ORM &amp; Migrations" xml:space="preserve">
     <value>ORM ja migraatiot</value>
   </data>
   <data name="Out-of-the-box" xml:space="preserve">
     <value>Valmiina käytettävä</value>
   </data>
+  <data name="Payment service response timeout" xml:space="preserve">
+    <value>Maksupalvelu ei vastaa ajoissa</value>
+  </data>
   <data name="Permission discovery and sync" xml:space="preserve">
     <value>Oikeuksien havaitseminen ja synkronointi</value>
+  </data>
+  <data name="Persistent incident storage" xml:space="preserve">
+    <value>Pysyvä häiriöiden tallennus</value>
   </data>
   <data name="Pint or similar needed" xml:space="preserve">
     <value>Pint tai vastaava tarvitaan</value>
@@ -609,8 +735,14 @@
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>Ennalta määritellyt putket kehitys- ja tuotantoympäristöihin</value>
   </data>
+  <data name="Private deployment" xml:space="preserve">
+    <value>Yksityinen käyttöönotto</value>
+  </data>
   <data name="Quality Gate" xml:space="preserve">
     <value>Laatuportti</value>
+  </data>
+  <data name="Queue backlog approaching threshold" xml:space="preserve">
+    <value>Jonon viivejono lähestyy raja-arvoa</value>
   </data>
   <data name="Quick setup with H2 database" xml:space="preserve">
     <value>Nopea aset H2-tietokannalla</value>
@@ -618,11 +750,23 @@
   <data name="Quick setup with NuGet packages" xml:space="preserve">
     <value>Nopea asennus NuGet-pakettien avulla</value>
   </data>
+  <data name="Quickly locate by severity level" xml:space="preserve">
+    <value>Etsi nopeasti vakavuustason mukaan</value>
+  </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC-valtuutus</value>
   </data>
+  <data name="Reach the right person promptly." xml:space="preserve">
+    <value>Tavoita oikea henkilö nopeasti.</value>
+  </data>
   <data name="Read the document" xml:space="preserve">
     <value>Lue dokumentti</value>
+  </data>
+  <data name="Record title, severity, occurrence time, and context; duplicate reports are handled idempotently." xml:space="preserve">
+    <value>Kirjaa otsikko, vakavuusaste, tapahtuma-aika ja konteksti; kaksoisilmoitukset käsitellään idempotentisti.</value>
+  </data>
+  <data name="Reliable delivery" xml:space="preserve">
+    <value>Luotettava toimitus</value>
   </data>
   <data name="Requires Laravel Socialite config" xml:space="preserve">
     <value>Vaatii Laravel Socialite -konfiguraation</value>
@@ -638,6 +782,9 @@
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Vahva integrointitestaus</value>
+  </data>
+  <data name="Route by severity level" xml:space="preserve">
+    <value>Reititä vakavuustason mukaan</value>
   </data>
   <data name="Runs without any internet connection required." xml:space="preserve">
     <value>Toimii ilman että internet-yhteyttä vaaditaan.</value>
@@ -675,6 +822,12 @@
   <data name="Start a new project" xml:space="preserve">
     <value>Aloita uusi projekti</value>
   </data>
+  <data name="Start Integration" xml:space="preserve">
+    <value>Aloita integrointi</value>
+  </data>
+  <data name="Start now" xml:space="preserve">
+    <value>Aloita nyt</value>
+  </data>
   <data name="Start Shipping Value." xml:space="preserve">
     <value>Aloita arvon toimittaminen.</value>
   </data>
@@ -707,6 +860,12 @@
   </data>
   <data name="Supports JetBrains Rider for easy code style fixes." xml:space="preserve">
     <value>Tukee JetBrains Rideria helppoa koodin tyylin korjauksia varten.</value>
+  </data>
+  <data name="Synced" xml:space="preserve">
+    <value>Synkronoitu</value>
+  </data>
+  <data name="System normal" xml:space="preserve">
+    <value>Järjestelmä toimii normaalisti</value>
   </data>
   <data name="Task Runner" xml:space="preserve">
     <value>Tehtävän suorittaja</value>
@@ -744,11 +903,17 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Tämä on malliprojekti, josta aloitamme matkan...</value>
   </data>
+  <data name="Tiered Routing" xml:space="preserve">
+    <value>Tasoitettu reititys</value>
+  </data>
   <data name="Timezone-aware fields" xml:space="preserve">
     <value>Aikavyöhyketietoiset kentät</value>
   </data>
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>TimeZoneInfo API käytettävissä</value>
+  </data>
+  <data name="Track the success, pending, or failure status of every channel." xml:space="preserve">
+    <value>Seuraa jokaisen kanavan onnistumis-, odottaa- tai epäonnistumistilaa.</value>
   </data>
   <data name="Trusted by production-grade applications including AnduinOS, StatHub, and Warp. We don&apos;t just share this code; we run our entire business on it." xml:space="preserve">
     <value>Luotettu tuotantotasoisissa sovelluksissa, kuten AnduinOS, StatHub ja Warp. Emme vain jakaneet tätä koodia; käytämme sitä koko liiketoimintamme käynnistämiseen.</value>
@@ -759,14 +924,26 @@
   <data name="Unified Identity" xml:space="preserve">
     <value>Yhdenmukainen tunnistus</value>
   </data>
+  <data name="Unified intake" xml:space="preserve">
+    <value>Yhtenäinen vastaanotto</value>
+  </data>
   <data name="Usage" xml:space="preserve">
     <value>Käyttö</value>
   </data>
   <data name="Use it as a foundation for your SaaS, a backend for your mobile app, a corporate website, or a personal blog. The possibilities are endless." xml:space="preserve">
     <value>Käytä sitä perustana SaaS-palvelullesi, mobiilisovelluksesi taustajärjestelmänä, yrityssivustona tai henkilökohtaisena blogina. Mahdollisuudet ovat rajattomat.</value>
   </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Näytä häiriöt</value>
+  </data>
+  <data name="View integration guide" xml:space="preserve">
+    <value>Katso integrointiopas</value>
+  </data>
   <data name="View on GitHub" xml:space="preserve">
     <value>Näytä GitHubissa</value>
+  </data>
+  <data name="Visual workflow" xml:space="preserve">
+    <value>Visuaalinen työnkulku</value>
   </data>
   <data name="WebApplicationFactory available" xml:space="preserve">
     <value>WebApplicationFactory saatavilla</value>

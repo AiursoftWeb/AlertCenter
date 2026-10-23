@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>toimitukset</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>lukemattomat sivuston sisäiset ilmoitukset</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>&quot;Tule ja unohda&quot; -tuki pitkäkestoisille tehtäville (kuten sähköposteille tai AI:lle), jossa on käyttöliittymä jonon hallintaan, rinnakkaisprosessointiin ja peruutukseen.</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} määritetty yhteensä</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Sisäänrakennettu roolipohjainen käyttöoikeudenhallinta (RBAC) -järjestelmä hienojakoista käyttöoikeuksien hallintaa varten.</value>
@@ -36,17 +45,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Nykyaikainen, ominaisuuksiltaan monipuolinen ja erittäin laajennettavissa oleva perusta seuraavalle verkkosovelluksellesi.</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Kuitattu</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Tekoälyn voimaan perustuvat käännökset</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenterin hälytys- ja operointikeskus · maailmanlaajuinen tilannekuva ja suljetun palautesilmukan seuranta</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Kaikki riippuvuudet rekisteröidään automaattisesti ja ne ovat aina saatavilla konstruktorin kautta tapahtuvan injektoinnin avulla.</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>Kaikki tietueet</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Sovellukset</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Automaattinen tumma tila</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Automaattinen riippuvuuden injektointi</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Automaattinen viestien toimitus ja vianmääritys</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Automaattinen aikavyöhykkeen käsittely</value>
@@ -57,8 +84,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Automaattinen, AI-pohjainen käännös 28 kielelle.</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>käytettävissä olevaa kanavaa ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Taustatehtävien käsittely</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>Sähköpostien lähettäminen kerralla päivystysryhmille ja tärkeille yhteyshenkilöille</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Sisäänrakennettu käyttäjienhallinta</value>
@@ -72,11 +105,47 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>Laaja dokumentaatio</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Määritä push-kanava</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Konsistenssitarkistus</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopioi</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Luo sovelluksellesi hälytys ja ilmoita siitä määritetyille vastaanottajille.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Luo sovellus</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Luo sovellus ja hanki avain</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>Luo ensimmäinen häiriö API:n tai SDK:n kautta. Se näkyy täällä.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Kriittinen</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>Kriittinen ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>Erillinen API-avainautentikointi</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>Toimitustiedot</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>Yksityiskohtainen integraatiodokumentaatio</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Kehitä vain UTC:ssä, kunnes järjestelmä muuntaa ja näyttää päivämäärät käyttäjän paikalliseen aikavyöhön automaattisesti.</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>Ota suoraan yhteyttä vastuuhenkilöihin ja käyttäjäryhmiin, jotta asiaa voidaan käsitellä yhteistyössä.</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Dockeröity käyttöönottoa varten</value>
@@ -96,6 +165,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>Kirjoita integraatiotestejä helposti käyttämällä muistissa olevia tietokantoja, väliaikaisia tiedostojärjestelmiä, sisäänrakennettua mockausta ja todellisia HTTP-pyyntösimulaatioita.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>Virhe</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>Sisältää upotetun tiedostohallintajärjestelmän automaattisen avatarien kompressoinnin ja yksityisyyssuojauksen kanssa.</value>
   </data>
@@ -108,14 +183,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Hei maailma!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>Sovelluksen sisäisten ilmoitusten saapuneet-kansio</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>Häiriötilanteisiin reagointi</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Häiriön otsikko</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>Poikkeamien käynnistäminen ja yhteinen ratkaiseminen</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Sisältää laajan dokumentaation ja käytännön esimerkkejä, joiden avulla pääset nopeasti alkuun.</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>Tietoja</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Integroitu tiedostonhallinta</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Integrointiopas</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>Luo erilliset tunnistetiedot kohdassa ”Integroidut sovellukset”.</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Uusimmat häiriöt</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>Linkitetty häiriö</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>Yhdistetty push-kanava</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>Paikallinen aika</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Vakava</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>Vakava ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>Hallinnoi sovelluksia</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Lievennetty</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Mallit tarkistetaan molemmilla puolilla, asiakas- ja palvelinpuolella, tietojen annotaatioiden perusteella.</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>Valvontanäkymä</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>Useita tietokantapalveluntarjoajia tukeva tuki</value>
@@ -123,8 +246,44 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Usean tietokannan tuki</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Omat häiriötilanteeni</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Uusi hälytys</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>Ei välitöntä toimintaa vaativia häiriöitä</value>
+  </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>Ei ilmoituksia vielä</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Ei kuitattu</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>Ilmoitusten lähetyskeskus</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>Käynnissä oleva häiriö</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>Käynnissä oleva häiriö vaatii toimenpiteitä</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>OpenID Connect -integraatio</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>Operatiivisen toiminnan vasteen päättäminen</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>Push-lähetysten onnistumisprosentti</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>Pikaesimerkki raportista</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>Pika-aloitusintegraatio</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>RBAC-valtuutus</value>
@@ -132,17 +291,41 @@
   <data name="Read the document" xml:space="preserve">
     <value>Lue dokumentti</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>Äskettäin luodut häiriöt</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Ilmoita ongelmasta. Käynnistä reagointi.</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>Ilmoituksen tiedot, käsittelyhistoria ja ratkaisun tila.</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>Vaatii välittömiä toimia</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Ratkaistu</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Responsiivinen suunnittelu</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Vahva integraatiotestaus</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>Määritä reititys Sev0–Sev4-tasojen mukaan sovelluksen push-ilmoitusasetuksissa.</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Suunnitellun tehtävän hallinta</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Saatonta integrointi minkä tahansa OpenID Connect -palveluntarjoajan kanssa, automaattisella roolisynkronoinnilla.</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Vakavuus</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>Vakavuuden suodatin:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Älykäs asetusten ohittaminen</value>
@@ -153,11 +336,32 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Älykäs tumma tila, joka mukautuu automaattisesti käyttäjän järjestelmäasetuksiin.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP-sähköpostikanava</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Lähde</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Lähdesovellus</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>Aloita uusi projekti</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>Tukee .NET SDK:ta / Go:ta / webhookia</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>Tukee sekä ympäristömuuttujia että tietokantaperustaisia asetuksia, ja annetaan ympäristömuuttujille automaattisesti etusija, jotta ylikirjoitukset sujuvat ilman hankaluuksia.</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>Tukee mukautettuja pyyntöotsakkeita ja JSON-malleja</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>Keskus lähettää ilmoitukset asynkronisesti, mikä mahdollistaa tietueiden seurannan ja uudelleenyritykset.</value>
+  </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>Häiriöt, jotka otat vastuullesi kuittauksen kautta. Pidä kaikki häiriötilanteisiin liittyvä työsi yhdessä paikassa.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Navigointipalkki sopeutuu automaattisesti käyttäjän roolien ja käyttöoikeuksien perusteella.</value>
@@ -165,11 +369,38 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Tämä on malliprojekti, josta aloitamme matkamme...</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Aika</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>Tapahtumia yhteensä</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Ei lievennetty</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Ratkaisematta</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>Käytä Bearer-todennusta testihäiriöiden ilmoittamiseen:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Näytä kaikki häiriöt</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>Varoitus</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Webhookien automaattinen ajoitus</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Tervetuloa</value>
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Miksi käyttää Aiursoft Templatea?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>Tarvitset hälytysten luontioikeuden käytössä olevaan sovellukseen.</value>
   </data>
 
 </root>

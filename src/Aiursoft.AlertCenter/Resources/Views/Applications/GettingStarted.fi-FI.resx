@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API-avain näytetään onnistuneen luomisen jälkeen vain kerran. Määritä se heti tuotantoympäristön ympäristömuuttujiin (esim.,</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Push-ajoitus käynnistetään asynkronisesti.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Säilytä ensimmäinen tietue äläkä käynnistä päällekkäisiä push-ilmoituksia.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Keskus voi käyttää tätä kenttää ilmoituksen ja toimituksen verkkoviiveen arvioimiseen.</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(Kriittinen, korkein prioriteetti),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(Virhe),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(yleiset tiedot). Keskus reitittää ja lähettää ilmoituksia tämän tason perusteella.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(Suuri),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(Varoitus),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) tai avaintenhallintapalvelussa (KMS). Avainten kovakoodaus käyttöliittymään, lokeihin tai koodivarastoihin on ehdottomasti kielletty.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>1–200 merkkiä</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 Hyväksytty (idempotentti)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 Parametrivirhe</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 Todennus epäonnistui</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>Tapahtuman todellinen ajankohta, esim.</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Bearer-tunnistetiedot puuttuvat, avaimet eivät täsmää tai sovellus on poistettu käytöstä. Tarkista sovelluksen asetukset.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>Määritä Push Center -kanava</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>Kopioi koodi</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>Luo integrointisovellus ja hanki API-avain</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>Kehittäjän integraatio-opas</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>Kaksoiskappale samasta ReportId-tunnisteesta,</value>
+  </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Jokainen avain kuuluu sovellukseen. Palvelin tarkistaa salaisuuden tiivisteen ja kunkin toiminnon edellyttämän käyttöoikeuden.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>Varmista tiukka idempotenssi samanaikaisissa pyynnöissä; käytä uudelleenyrityksissä samaa tunnusta.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>Jokainen uusi raporttitunnus luo erillisen häiriön. Käytä samaa raporttitunnusta uudelleen vain, kun yrität lähettää saman pyynnön uudelleen. Rajoita raporttien lähetysnopeutta lähdejärjestelmässä.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>Kentän nimi</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>Sovelluksen luomisesta ja avaimen todentamisesta ensimmäiseen häiriöilmoitukseen – luo vakaa järjestelmähäiriökanava neljässä vaiheessa.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>Siirry luomaan sovellus ja hanki tunnistetiedot</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>HTTP-raportointipyynnön kenttämääritys</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>HTTP-vastauskoodit ja parhaat ohjelmistokehityskäytännöt</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>Esimerkkikoodissa,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>Tapaturman sisällön yksityiskohdat. Tukee vianmääritysohjeita, poikkeuspinokkaita tai diagnostisia yhteenvetoja. Esitystaso suojaa automaattisesti HTML-koodin estääkseen XSS-injektiot.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>Häiriön yhteenveto. Kuvaa vika lyhyesti, esimerkiksi: ”Tilauksen maksukanavan vastaus aikakatkaistiin.”</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>Ensimmäinen tallennus onnistui. Palauttaa luodun ensisijaisen avaimen tunnuksen,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>JSON-objekti; koko pyyntö enintään 64 KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>Tietovuodon estämistä koskeva huomautus</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Hallitse integroituja sovelluksia</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>Enintään 4 000 merkkiä</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Avaa sovelluksen API-avainten hallinta ja luo nimettyjä avaimia, joilla on kysely-, luonti- ja ratkaisuoikeudet.</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Valinnainen</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>tai ympäristömuuttujat, mikä helpottaa niiden paikantamista ja vianmääritystä yhdellä napsautuksella tietosivulla.</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>Korvaa edellisessä vaiheessa luodulla sovellusavaimella, jotta voit lähettää testiviestin suoraan.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Pakollinen</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>Pakollisia kenttiä puuttuu, tason muoto on virheellinen tai pyynnön sisältö ylittää 64 KiB:n rajan.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>Vastauksissa käytetään AiurProtocol-protokollaa, joka sisältää kentät Code, Message ja ProtocolVersion. Validointivirheissä on Items-taulukko. SDK palauttaa tyypitetyn kuitin tai heittää AiurProtocol-poikkeuksen.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>Säännöt ja rajoitukset</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>Lähetä ensimmäinen hälytysviesti</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>Vakavuus:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>Vakiomuotoinen UUID-muoto</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>Jäsennelty liiketoimintakonteksti. Suositeltavaa on sisällyttää</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Asiakkaan maailmanlaajuisesti yksilöllinen raporttitunnus. Keskus käyttää</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>SDK lähettää kunkin raportin vain kerran. Jos verkkohäiriön vuoksi lopputulos jää epävarmaksi, lähetä sama pyyntö uudelleen käyttäen samaa ReportId-tunnistetta ja tapahtuma-aikaa.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Näytä häiriöt</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>Aikavyöhyke-offsetin tai Z-tunnisteen kanssa</value>
+  </data>
+
+</root>

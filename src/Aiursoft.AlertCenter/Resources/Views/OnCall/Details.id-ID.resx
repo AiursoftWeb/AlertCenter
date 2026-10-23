@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
+    <value>Jadwal Piket 7 Hari</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>Tetapkan otomatis</value>
+  </data>
+  <data name="Back to Schedule List" xml:space="preserve">
+    <value>Kembali ke Daftar Jadwal</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Seimbangkan giliran pagi, tengah, dan malam seadil mungkin</value>
+  </data>
+  <data name="Choose a week, generate a preview or assign members manually, then save the schedule. Unsaved previews do not change who receives notifications. Saved shifts determine the on-call engineers (OCEs)." xml:space="preserve">
+    <value>Pilih satu minggu, buat pratinjau atau tetapkan anggota secara manual, lalu simpan jadwal. Pratinjau yang belum disimpan tidak mengubah siapa yang menerima notifikasi. Giliran yang tersimpan menentukan teknisi siaga (OCE).</value>
+  </data>
+  <data name="Close, prioritize fixed time slots" xml:space="preserve">
+    <value>Berimbang, prioritaskan slot waktu tetap</value>
+  </data>
+  <data name="Cross-on-call-group members require manual scheduling" xml:space="preserve">
+    <value>Anggota di beberapa grup piket harus dijadwalkan secara manual</value>
+  </data>
+  <data name="Current On-Call" xml:space="preserve">
+    <value>Sedang Bertugas Siaga</value>
+  </data>
+  <data name="Current Week" xml:space="preserve">
+    <value>Minggu Ini</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>Edit tim</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Karyawan dihapus</value>
+  </data>
+  <data name="First class at " xml:space="preserve">
+    <value>Kelas pertama pada</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>jam</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>jam · Waktu acuan</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>jam · Minimum per shift</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>jam · Minimum mingguan</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>jam.</value>
+  </data>
+  <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
+    <value>Peringatan staf tidak mencukupi (penyimpanan manual diizinkan, kecuali untuk giliran kosong)</value>
+  </data>
+  <data name="Minimum template cooldown " xml:space="preserve">
+    <value>Waktu jeda minimum templat</value>
+  </data>
+  <data name="Modifying templates, re-binding templates, or adding/removing members will not regenerate saved shifts. After removing a member, upcoming assignments are cleared; empty shifts must be filled manually." xml:space="preserve">
+    <value>Mengubah templat, mengaitkan ulang templat, atau menambahkan/menghapus anggota tidak akan membuat ulang giliran yang sudah disimpan. Setelah anggota dihapus, penugasan mendatang akan dihapus; giliran yang kosong harus diisi secara manual.</value>
+  </data>
+  <data name="Next Week" xml:space="preserve">
+    <value>Minggu Depan</value>
+  </data>
+  <data name="No rule template bound, manual scheduling available; new shifts default to min rest " xml:space="preserve">
+    <value>Tidak ada template aturan terikat, penjadwalan manual tersedia; shift baru secara default mengikuti istirahat minimum</value>
+  </data>
+  <data name="No shifts are currently assigned this week. You can add personnel manually." xml:space="preserve">
+    <value>Tidak ada giliran kerja yang dijadwalkan untuk minggu ini. Anda dapat menambahkan personel secara manual.</value>
+  </data>
+  <data name="No team members. Please edit the team to add members before manually filling empty shifts." xml:space="preserve">
+    <value>Tidak ada anggota tim. Silakan edit tim untuk menambahkan anggota sebelum mengisi shift yang kosong secara manual.</value>
+  </data>
+  <data name="No valid scheduling weeks. Please check the team&apos;s scheduling start point." xml:space="preserve">
+    <value>Tidak ada minggu penjadwalan yang valid. Harap periksa titik awal penjadwalan tim.</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>Jadwal Siaga</value>
+  </data>
+  <data name="Other teams: " xml:space="preserve">
+    <value>Tim lainnya:</value>
+  </data>
+  <data name="Override duration" xml:space="preserve">
+    <value>Durasi penimpaan</value>
+  </data>
+  <data name="Participating employees" xml:space="preserve">
+    <value>Karyawan yang berpartisipasi</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>orang · Waktu istirahat terpendek minggu ini</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>orang · Rotasi slot waktu:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>orang, target</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>Per giliran</value>
+  </data>
+  <data name="Previous Week" xml:space="preserve">
+    <value>Minggu Sebelumnya</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>Rotasi Anggota</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>Templat aturan:</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Tersimpan</value>
+  </data>
+  <data name="Shift covered" xml:space="preserve">
+    <value>Shift yang tercakup</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Mulai</value>
+  </data>
+  <data name="Starting soon" xml:space="preserve">
+    <value>Segera dimulai</value>
+  </data>
+  <data name="Status is based on page load time)" xml:space="preserve">
+    <value>Status berdasarkan waktu pemuatan halaman)</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Konfigurasi tim</value>
+  </data>
+  <data name="The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available." xml:space="preserve">
+    <value>Karyawan berikut tergabung dalam beberapa grup piket; pratinjau dan penjadwalan otomatis akan melewati mereka. Pengaturan yang tersimpan tidak akan berubah; penjadwalan manual dan validasi konflik antargrup tetap tersedia.</value>
+  </data>
+  <data name="This shift ends at " xml:space="preserve">
+    <value>Shift ini berakhir pada</value>
+  </data>
+  <data name="This week&apos;s schedule" xml:space="preserve">
+    <value>Jadwal minggu ini</value>
+  </data>
+  <data name="Three shifts per day, supporting multiple members per shift. Actual shifts are stored under the team." xml:space="preserve">
+    <value>Tiga giliran kerja per hari, dengan beberapa anggota di setiap giliran. Giliran kerja sebenarnya disimpan di bawah tim.</value>
+  </data>
+  <data name="Unsaved · Auto-suggested" xml:space="preserve">
+    <value>Belum disimpan · Disarankan otomatis</value>
+  </data>
+  <data name="Unsaved · Manual schedule" xml:space="preserve">
+    <value>Belum disimpan · Jadwal manual</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>Lihat tim</value>
+  </data>
+
+</root>

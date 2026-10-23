@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>Pembuatan otomatis harus memenuhi persyaratan; kekurangan personel pada penjadwalan manual hanya akan memunculkan peringatan, sedangkan giliran kerja yang kosong tidak dapat disimpan.</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Seimbangkan shift pagi, siang, dan malam sebisa mungkin</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>Tidak boleh lebih rendah dari jumlah minimum staf per giliran; penuhi semaksimal mungkin jika pengecualian dan waktu istirahat memungkinkan. Kosongkan untuk penugasan otomatis.</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>Cakupan dan waktu istirahat diprioritaskan; jumlah personel cadangan mungkin berkurang saat pertukaran shift. Rotasi tidak diperbolehkan untuk tim yang terdiri dari tiga orang dengan waktu istirahat minimal 16 jam. Penjadwalan didasarkan pada shift kontinu selama 8 jam; waktu setempat dapat berubah saat peralihan waktu musim panas.</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>Tiga shift tetap per hari, minimal satu orang per shift; setiap shift boleh diisi oleh lebih dari satu orang.</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>Slot waktu tetap diprioritaskan</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>Waktu Istirahat Minimum (Jam)</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>Jumlah minimum staf per sif</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>Preferensi rotasi</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>Simpan templat</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>Durasi giliran kerja (jam)</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>Jumlah staf yang ditargetkan per shift</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>Nama templat</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>Ini adalah templat aturan yang dapat dibagikan ke beberapa tim. Anggota, urutan rotasi, dan titik awal jadwal dikelola oleh tim. Mengubah templat tidak akan membuat ulang shift yang sudah tersimpan.</value>
+  </data>
+
+</root>

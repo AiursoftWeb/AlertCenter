@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application On-Call Settings" xml:space="preserve">
+    <value>Pengaturan Piket Aplikasi</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>Kembali ke Aplikasi Terhubung</value>
+  </data>
+  <data name="Binding automatically enables the built-in on-call email: To is the registered email addresses of all current on-call engineers (OCE), and CC is the on-call group&apos;s configured address. This cannot be disabled individually in push settings; unbinding stops new on-call emails. Application-specific custom channels remain independent, and binding does not grant the application access permissions." xml:space="preserve">
+    <value>Mengikat grup akan otomatis mengaktifkan email bawaan untuk piket: kolom To berisi alamat email terdaftar semua petugas piket (OCE) yang sedang bertugas, sedangkan kolom CC berisi alamat yang dikonfigurasi untuk grup piket. Fitur ini tidak dapat dinonaktifkan secara terpisah di pengaturan notifikasi push; melepas ikatan akan menghentikan pengiriman email piket baru. Kanal kustom khusus aplikasi tetap terpisah, dan mengikat grup tidak memberikan izin akses kepada aplikasi.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>Jangan ikat ke grup piket</value>
+  </data>
+  <data name="Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive incidents do not require on-call configuration." xml:space="preserve">
+    <value>Setiap aplikasi dapat dikaitkan dengan satu grup piket; satu grup dapat melayani beberapa aplikasi. Pilih “Tanpa grup piket” untuk membatalkan pengaitan. Aplikasi yang hanya menerima insiden tidak memerlukan konfigurasi piket.</value>
+  </data>
+  <data name="No on-duty groups available. Please contact the administrator to create a team in the On-Call Center." xml:space="preserve">
+    <value>Tidak ada grup piket yang tersedia. Silakan hubungi administrator untuk membuat tim di Pusat Piket.</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>Grup siaga</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>Grup on-call (opsional)</value>
+  </data>
+  <data name="Save on-call settings" xml:space="preserve">
+    <value>Simpan pengaturan siaga</value>
+  </data>
+  <data name="Select, replace, or unbind on-call group." xml:space="preserve">
+    <value>Pilih, ganti, atau lepaskan grup piket.</value>
+  </data>
+
+</root>
