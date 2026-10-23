@@ -27,6 +27,9 @@
   <data name="Actions" xml:space="preserve">
     <value>작업</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>활성</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>검색어를 수정하거나 검색을 지우면 모든 앱을 볼 수 있습니다.</value>
   </data>
@@ -144,8 +147,14 @@
   <data name="Find application" xml:space="preserve">
     <value>애플리케이션 찾기</value>
   </data>
+  <data name="Incidents" xml:space="preserve">
+    <value>사고</value>
+  </data>
   <data name="Integration Guide" xml:space="preserve">
     <value>통합 안내서</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>완화됨</value>
   </data>
   <data name="New application created" xml:space="preserve">
     <value>새 애플리케이션이 생성되었습니다</value>
@@ -155,6 +164,9 @@
   </data>
   <data name="No matching applications found" xml:space="preserve">
     <value>일치하는 애플리케이션을 찾을 수 없습니다</value>
+  </data>
+  <data name="No permission to view incidents" xml:space="preserve">
+    <value>사건을 볼 권한이 없습니다</value>
   </data>
   <data name="On-call group" xml:space="preserve">
     <value>당직 그룹</value>

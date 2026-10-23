@@ -27,6 +27,9 @@
   <data name="Actions" xml:space="preserve">
     <value>الإجراءات</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>نشط</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>عدّل كلمات البحث أو امسح البحث لعرض جميع التطبيقات.</value>
   </data>
@@ -114,14 +117,23 @@
   <data name="Find application" xml:space="preserve">
     <value>ابحث عن تطبيق</value>
   </data>
+  <data name="Incidents" xml:space="preserve">
+    <value>الحوادث</value>
+  </data>
   <data name="Integration Guide" xml:space="preserve">
     <value>دليل التكامل</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>تمت المعالجة</value>
   </data>
   <data name="No connected apps yet" xml:space="preserve">
     <value>لا توجد تطبيقات متصلة حتى الآن</value>
   </data>
   <data name="No matching applications found" xml:space="preserve">
     <value>لم يتم العثور على تطبيقات مطابقة</value>
+  </data>
+  <data name="No permission to view incidents" xml:space="preserve">
+    <value>لا توجد صلاحية لعرض البلاغات</value>
   </data>
   <data name="On-call group" xml:space="preserve">
     <value>مجموعة المناوبة</value>

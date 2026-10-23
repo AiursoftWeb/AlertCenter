@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: Ключ API відображається лише один раз після успішного створення. Негайно налаштуйте його у змінних середовища виробничого середовища (наприклад,</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Планування push-сповіщень запускається асинхронно.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Збережіть перший запис і не запускайте повторні push-сповіщення.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Центр може використовувати це поле для оцінки затримок мережі при звітуванні та доставці.</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(Критичний, найвищий пріоритет),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(Помилка),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(Загальна інформація). Центр маршрутизує та надсилає сповіщення відповідно до цього рівня.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(Високий пріоритет),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(Попередження),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) або службі керування ключами (KMS). Категорично заборонено вбудовувати ключ у фронтенд, журнали чи репозиторії коду.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>від 1 до 200 символів</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 Прийнято (ідемпотентний)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 Помилка параметрів</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 Помилка автентифікації</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>Фактичний час настання події, наприклад,</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Облікові дані Bearer відсутні, ключі не збігаються або програму вимкнено. Перевірте налаштування програми.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>Налаштувати канал Центру push-сповіщень</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>Копіювати код</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>Створіть інтеграційний застосунок і отримайте ключ API</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>Посібник з інтеграції для розробників</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>Дубльований звіт із таким самим ReportId,</value>
+  </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Кожен ключ належить до застосунку. Сервер перевіряє хеш секрету та дозвіл, необхідний для кожної операції.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>Забезпечте сувору ідемпотентність під час одночасних запитів; для повторних спроб використовуйте той самий ідентифікатор.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>Кожен новий ідентифікатор звіту створює окремий інцидент. Повторно використовуйте той самий ідентифікатор звіту лише під час повторного надсилання того самого запиту. Обмежуйте частоту надсилання звітів на джерелі.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>Назва поля</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>Від створення застосунку й автентифікації за ключем до першого звіту про інцидент — налаштуйте надійний канал системних інцидентів у 4 кроки.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>Перейдіть, щоб створити застосунок і отримати облікові дані</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>Специфікація полів HTTP-запиту на звітування</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>Коди стану відповіді HTTP та найкращі інженерні практики</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>У наведеному прикладі коду,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>Детальна інформація про інцидент. Можна додати інструкції з усунення несправностей, стеки винятків або діагностичні зведення. Рівень представлення автоматично екранує HTML, щоб запобігти XSS-ін’єкціям.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>Заголовок короткого опису інциденту. Коротко опишіть несправність, наприклад: «Час очікування відповіді платіжного каналу замовлення вичерпано».</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>Початкове збереження виконано успішно. Повертає згенерований ідентифікатор первинного ключа,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>Об’єкт JSON; увесь запит — максимум 64 КіБ</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>Повідомлення про запобігання витоку</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Керування інтегрованими застосунками</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>Максимум 4 000 символів</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Відкрийте керування ключами API для застосунку, щоб створювати іменовані ключі з дозволами на перегляд, створення та вирішення.</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Необов’язково</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>або змінні середовища, що дає змогу одним клацанням перейти до потрібного місця та усунути несправність на сторінці деталей.</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>Замініть на ключ застосунку, згенерований на попередньому кроці, щоб надіслати тестовий запит безпосередньо.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Обов’язкове</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>Не вказано обов&apos;язкові поля, формат рівня є некоректним, або тіло запиту перевищує ліміт у 64 КіБ.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>Відповіді використовують AiurProtocol із полями Code, Message і ProtocolVersion. Помилки перевірки містять масив Items. SDK повертає типізоване підтвердження або генерує виняток AiurProtocol.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>Правила та обмеження</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>Надіслати перше повідомлення про інцидент</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>Рівень критичності:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>Стандартний формат UUID</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>Структурований бізнес-контекст. Рекомендується включити</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Глобально унікальний ідентифікатор звіту клієнта. Центр використовує</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>SDK надсилає кожен звіт лише один раз. Якщо через збій мережі результат залишається невизначеним, повторіть той самий запит із тим самим ReportId і часом виникнення.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Переглянути інциденти</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>Зі зміщенням часового поясу або ідентифікатором Z</value>
+  </data>
+
+</root>

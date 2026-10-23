@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Суміжний тиждень (лише для читання)</value>
+  </data>
+  <data name=" · Departed" xml:space="preserve">
+    <value>· Звільнився</value>
+  </data>
+  <data name=" · includes next week" xml:space="preserve">
+    <value>· включає наступний тиждень</value>
+  </data>
+  <data name=" · includes previous week" xml:space="preserve">
+    <value>· включає попередній тиждень</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Недостатній відпочинок</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (лише для читання)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>У {0} лише {1} працівників, що менше за мінімум {2}. Зберегти вручну все ще можна.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} годин</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>Зміна {0} для {1} · {2}; ще не збережено. Це можна скасувати.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} змін / {1} годин</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Лише {1} годин відпочинку між {2} і {3}. Мінімально необхідно — {4} годин.</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 годин · {3}{4}</value>
+  </data>
+  <data name="Action not completed" xml:space="preserve">
+    <value>Дію не завершено</value>
+  </data>
+  <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
+    <value>Режим додавання: натисніть на вільне місце в рядку інженера, щоб додати 8-годинну зміну; одну зміну можуть розділити кілька людей.</value>
+  </data>
+  <data name="Add on-call shift" xml:space="preserve">
+    <value>Додати зміну чергування</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Додано</value>
+  </data>
+  <data name="Back to Edit" xml:space="preserve">
+    <value>Повернутися до редагування</value>
+  </data>
+  <data name="Cancel refresh" xml:space="preserve">
+    <value>Скасувати оновлення</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="Collapse {0} 36 hours" xml:space="preserve">
+    <value>Згорнути {0} за 36 годин</value>
+  </data>
+  <data name="Comment content (Markdown)" xml:space="preserve">
+    <value>Вміст коментаря (Markdown)</value>
+  </data>
+  <data name="Comment must not exceed 4,000 UTF-16 characters. Please shorten the content before publishing." xml:space="preserve">
+    <value>Коментар не має перевищувати 4 000 символів у UTF-16. Скоротіть його перед публікацією.</value>
+  </data>
+  <data name="Confirm page refresh?" xml:space="preserve">
+    <value>Підтвердити оновлення сторінки?</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Скопійовано</value>
+  </data>
+  <data name="Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week." xml:space="preserve">
+    <value>Поточний чернетковий графік на цей тиждень скопійовано на всі 21 зміни наступного тижня. Ще не збережено; ви можете скасувати цю дію. Можна розгорнути наступні 36 годин для попереднього перегляду без можливості редагування; після збереження перейдіть до наступного тижня, щоб переглянути або відредагувати весь тиждень.</value>
+  </data>
+  <data name="Copied to clipboard." xml:space="preserve">
+    <value>Скопійовано в буфер обміну.</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Копіювати</value>
+  </data>
+  <data name="Copy failed. Please select and copy the content manually. To retry, check browser clipboard permissions." xml:space="preserve">
+    <value>Не вдалося скопіювати. Будь ласка, виберіть і скопіюйте вміст вручну. Щоб спробувати знову, перевірте дозволи браузера на доступ до буфера обміну.</value>
+  </data>
+  <data name="Copying…" xml:space="preserve">
+    <value>Копіювання…</value>
+  </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Зараз увімкнено режим переміщення/обміну. Перш ніж додавати або видаляти зміни, перемкніть режим вище.</value>
+  </data>
+  <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
+    <value>Режим видалення: натисніть на кольоровий блок, щоб видалити поточну зміну цього інженера. Цю дію можна скасувати; зміни набудуть чинності після збереження всіх змін.</value>
+  </data>
+  <data name="Discard input and refresh" xml:space="preserve">
+    <value>Відхилити введені дані й оновити сторінку</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Кінець</value>
+  </data>
+  <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
+    <value>Введіть текст коментаря; він не може складатися лише з пробілів.</value>
+  </data>
+  <data name="Enter the exact app name to confirm deletion." xml:space="preserve">
+    <value>Введіть точну назву застосунку, щоб підтвердити видалення.</value>
+  </data>
+  <data name="Expand {0} 36 hours" xml:space="preserve">
+    <value>Розгорнути {0} за 36 годин</value>
+  </data>
+  <data name="Failed to query employee. Please try again." xml:space="preserve">
+    <value>Не вдалося знайти працівника. Спробуйте ще раз.</value>
+  </data>
+  <data name="Failed to upload image. Please try again." xml:space="preserve">
+    <value>Не вдалося завантажити зображення. Спробуйте ще раз.</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Від</value>
+  </data>
+  <data name="Gap detected at {0}. Please add staff (the week requires a full 21 shifts)." xml:space="preserve">
+    <value>У графіку є прогалина на {0}. Будь ласка, додайте працівників (у тижневому графіку має бути рівно 21 зміна).</value>
+  </data>
+  <data name="Manageable" xml:space="preserve">
+    <value>Керований</value>
+  </data>
+  <data name="Modified {0} shifts{1}{2}" xml:space="preserve">
+    <value>Змінено змін: {0}{1}{2}</value>
+  </data>
+  <data name="Move / swap shifts" xml:space="preserve">
+    <value>Перемістити / поміняти зміни</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Переміщення скасовано; розклад не змінено.</value>
+  </data>
+  <data name="Move cancelled." xml:space="preserve">
+    <value>Переміщення скасовано.</value>
+  </data>
+  <data name="Move down" xml:space="preserve">
+    <value>Перемістити вниз</value>
+  </data>
+  <data name="Move selected shift here" xml:space="preserve">
+    <value>Перемістити вибрану зміну сюди</value>
+  </data>
+  <data name="Move to" xml:space="preserve">
+    <value>Перемістити до</value>
+  </data>
+  <data name="Move up" xml:space="preserve">
+    <value>Перемістити вгору</value>
+  </data>
+  <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
+    <value>Помилка мережі; наразі неможливо підтвердити результат операції. Перевірте її статус, перш ніж надіслати запит повторно, щоб уникнути дублювання.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>наступний</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Не призначено жодної зміни.</value>
+  </data>
+  <data name="No matching employees." xml:space="preserve">
+    <value>Відповідних працівників не знайдено.</value>
+  </data>
+  <data name="No matching timezone found" xml:space="preserve">
+    <value>Відповідний часовий пояс не знайдено</value>
+  </data>
+  <data name="No matching users found." xml:space="preserve">
+    <value>Не знайдено користувачів, які відповідають критеріям.</value>
+  </data>
+  <data name="No shifts to delete in this cell." xml:space="preserve">
+    <value>У цій комірці немає змін, які можна видалити.</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Сторінка {0}</value>
+  </data>
+  <data name="Page information updated" xml:space="preserve">
+    <value>Інформацію сторінки оновлено</value>
+  </data>
+  <data name="Please check the CC email format." xml:space="preserve">
+    <value>Перевірте формат адреси електронної пошти в полі копії (CC).</value>
+  </data>
+  <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
+    <value>Натисніть Ctrl+C, щоб скопіювати вибраний ключ.</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>попередній</value>
+  </data>
+  <data name="Previous step undone." xml:space="preserve">
+    <value>Попередню дію скасовано.</value>
+  </data>
+  <data name="Refresh page" xml:space="preserve">
+    <value>Оновити сторінку</value>
+  </data>
+  <data name="Refreshing will discard unsaved input. Select &quot;Cancel refresh&quot; to return to error details and retain current input." xml:space="preserve">
+    <value>Оновлення призведе до втрати незбережених даних. Виберіть «Скасувати оновлення», щоб повернутися до відомостей про помилку й зберегти поточні дані.</value>
+  </data>
+  <data name="Reloading page..." xml:space="preserve">
+    <value>Перезавантаження сторінки...</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Видалити {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Відкликати дозвіл</value>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Видалено</value>
+  </data>
+  <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
+    <value>Запит недійсний або облікові дані сторінки застаріли. Перевірте введені дані й за потреби оновіть сторінку, щоб повторити спробу.</value>
+  </data>
+  <data name="Restarting... ({0}s)" xml:space="preserve">
+    <value>Перезапуск... ({0} с)</value>
+  </data>
+  <data name="Restored to the schedule from when the page was opened." xml:space="preserve">
+    <value>Відновлено розклад, який був на момент відкриття сторінки.</value>
+  </data>
+  <data name="Role group · All members in the group automatically inherit permissions" xml:space="preserve">
+    <value>Група ролей · Усі учасники групи автоматично успадковують дозволи</value>
+  </data>
+  <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
+    <value>Не вдалося зберегти. Оновіть сторінку та спробуйте ще раз.</value>
+  </data>
+  <data name="Searching for employees…" xml:space="preserve">
+    <value>Пошук працівників…</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Вибрати</value>
+  </data>
+  <data name="Select Role" xml:space="preserve">
+    <value>Виберіть роль</value>
+  </data>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Виберіть до 200 співробітників у кожній команді.</value>
+  </data>
+  <data name="Select User" xml:space="preserve">
+    <value>Виберіть користувача</value>
+  </data>
+  <data name="Select User " xml:space="preserve">
+    <value>Виберіть користувача</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Виберіть групу користувачів</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Вибрано {0} · {1}. Перетягніть на кольоровий блок або клацніть його, щоб поміняти місцями; натисніть пробіл, щоб перемістити, або Esc, щоб скасувати.</value>
+  </data>
+  <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
+    <value>Вибрано користувачів: {0}; максимум — 20 на сторінку.</value>
+  </data>
+  <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
+    <value>Вибрано розклад {0} на весь тиждень. Перетягніть його до іншого інженера або клацніть на ньому.</value>
+  </data>
+  <data name="Selection cancelled." xml:space="preserve">
+    <value>Вибір скасовано.</value>
+  </data>
+  <data name="Shift adjusted; you can continue dragging to resolve red warnings, then save all changes." xml:space="preserve">
+    <value>Зміну скориговано; ви можете й далі перетягувати, щоб усунути червоні попередження, а потім зберегти всі зміни.</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Укажіть конкретного користувача</value>
+  </data>
+  <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
+    <value>Укомплектування персоналом скориговано, діаграму оновлено; зміни ще не збережено.</value>
+  </data>
+  <data name="Successfully copied to clipboard!" xml:space="preserve">
+    <value>Успішно скопійовано в буфер обміну!</value>
+  </data>
+  <data name="Swap" xml:space="preserve">
+    <value>Замінити місцями</value>
+  </data>
+  <data name="Swap cancelled." xml:space="preserve">
+    <value>Обмін скасовано.</value>
+  </data>
+  <data name="Swap full week: {0} ↔ {1}" xml:space="preserve">
+    <value>Поміняти місцями весь тиждень: {0} ↔ {1}</value>
+  </data>
+  <data name="Swap whole week" xml:space="preserve">
+    <value>Поміняти місцями цілий тиждень</value>
+  </data>
+  <data name="Swapped the full-week schedule for {0} and {1}. Not saved yet." xml:space="preserve">
+    <value>Поміняно місцями розклад на весь тиждень для {0} і {1}. Ще не збережено.</value>
+  </data>
+  <data name="The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting." xml:space="preserve">
+    <value>Наразі не вдалося підтвердити результат дії. Перш ніж надсилати запит повторно, перевірте стан сторінки.</value>
+  </data>
+  <data name="The schedule has {0} unresolved issues (expand to view); you can continue adjusting." xml:space="preserve">
+    <value>У графіку є {0} невирішених проблем (розгорніть, щоб переглянути); ви можете продовжити коригування.</value>
+  </data>
+  <data name="The target object no longer exists. Please refresh the page." xml:space="preserve">
+    <value>Цільовий об’єкт більше не існує. Оновіть сторінку.</value>
+  </data>
+  <data name="This engineer is already assigned to this shift. No need to add them again." xml:space="preserve">
+    <value>Цього інженера вже призначено на цю зміну. Не потрібно додавати його ще раз.</value>
+  </data>
+  <data name="This week includes members who have left. Please replace them in this week&apos;s draft before copying to the next week." xml:space="preserve">
+    <value>Цей тиждень включає членів, які залишилися. Будь ласка, замініть їх у чернетці цього тижня перед копіюванням на наступний тиждень.</value>
+  </data>
+  <data name="Two locations already have the same arrangement; no need to swap." xml:space="preserve">
+    <value>У двох місцях уже однаковий розподіл; міняти місцями не потрібно.</value>
+  </data>
+  <data name="Unable to display replacement confirmation. Please refresh the page and try again. The next week&apos;s draft remains unchanged." xml:space="preserve">
+    <value>Не вдалося відобразити підтвердження заміни. Оновіть сторінку та спробуйте ще раз. Чернетка на наступний тиждень залишилася без змін.</value>
+  </data>
+  <data name="Unable to query employee." xml:space="preserve">
+    <value>Не вдалося знайти працівника.</value>
+  </data>
+  <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
+    <value>Не вдалося виконати обмін напряму: одна людина вже є в цільовій зміні. Спочатку змініть склад цієї зміни за допомогою функції «Додати/видалити учасників за зміною».</value>
+  </data>
+  <data name="Unsaved · Adjustment draft" xml:space="preserve">
+    <value>Не збережено · Чернетка коригувань</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Група користувачів · Учасники динамічно успадковують призначені дозволи</value>
+  </data>
+  <data name="View only" xml:space="preserve">
+    <value>Лише перегляд</value>
+  </data>
+  <data name="You do not have permission to perform this action." xml:space="preserve">
+    <value>У вас немає дозволу на виконання цієї дії.</value>
+  </data>
+
+</root>

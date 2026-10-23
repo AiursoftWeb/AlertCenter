@@ -27,6 +27,9 @@
   <data name="Actions" xml:space="preserve">
     <value>操作</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>進行中</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>請調整搜尋關鍵字或清除搜尋，以檢視所有應用程式。</value>
   </data>
@@ -144,8 +147,14 @@
   <data name="Find application" xml:space="preserve">
     <value>尋找應用程式</value>
   </data>
+  <data name="Incidents" xml:space="preserve">
+    <value>事件</value>
+  </data>
   <data name="Integration Guide" xml:space="preserve">
     <value>整合指南</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>已緩解</value>
   </data>
   <data name="New application created" xml:space="preserve">
     <value>已建立新應用程式</value>
@@ -155,6 +164,9 @@
   </data>
   <data name="No matching applications found" xml:space="preserve">
     <value>找不到符合條件的應用程式</value>
+  </data>
+  <data name="No permission to view incidents" xml:space="preserve">
+    <value>沒有權限檢視事件</value>
   </data>
   <data name="On-call group" xml:space="preserve">
     <value>值班群組</value>

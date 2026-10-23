@@ -27,6 +27,9 @@
   <data name="Actions" xml:space="preserve">
     <value>操作</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>アクティブ</value>
+  </data>
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>検索キーワードを変更するか、検索をクリアしてすべてのアプリを表示してください。</value>
   </data>
@@ -144,8 +147,14 @@
   <data name="Find application" xml:space="preserve">
     <value>アプリケーションを検索</value>
   </data>
+  <data name="Incidents" xml:space="preserve">
+    <value>Incidents</value>
+  </data>
   <data name="Integration Guide" xml:space="preserve">
     <value>連携ガイド</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>緩和済み</value>
   </data>
   <data name="New application created" xml:space="preserve">
     <value>新しいアプリケーションが作成されました</value>
@@ -155,6 +164,9 @@
   </data>
   <data name="No matching applications found" xml:space="preserve">
     <value>一致するアプリケーションが見つかりません</value>
+  </data>
+  <data name="No permission to view incidents" xml:space="preserve">
+    <value>インシデントを表示する権限がありません</value>
   </data>
   <data name="On-call group" xml:space="preserve">
     <value>オンコールグループ</value>

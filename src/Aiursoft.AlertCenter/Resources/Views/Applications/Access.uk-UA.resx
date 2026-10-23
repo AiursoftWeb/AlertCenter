@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Дії</value>
+  </data>
+  <data name="Add or Update Share" xml:space="preserve">
+    <value>Додати або оновити доступ</value>
+  </data>
+  <data name="Back to Applications" xml:space="preserve">
+    <value>Назад до застосунків</value>
+  </data>
+  <data name="Create incidents" xml:space="preserve">
+    <value>Створювати інциденти</value>
+  </data>
+  <data name="Manage API keys" xml:space="preserve">
+    <value>Керування ключами API</value>
+  </data>
+  <data name="Manage application and sharing" xml:space="preserve">
+    <value>Керування програмою та доступом до неї</value>
+  </data>
+  <data name="Manage Sharing" xml:space="preserve">
+    <value>Керування спільним доступом</value>
+  </data>
+  <data name="New owner" xml:space="preserve">
+    <value>Новий власник</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Власник</value>
+  </data>
+  <data name="Permanently delete incidents" xml:space="preserve">
+    <value>Остаточно видаляти інциденти</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Дозволи</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="Save permissions" xml:space="preserve">
+    <value>Зберегти дозволи</value>
+  </data>
+  <data name="Select either a user or a role. Saving replaces that recipient&apos;s permissions." xml:space="preserve">
+    <value>Виберіть користувача або роль. Після збереження дозволи для цього отримувача буде замінено.</value>
+  </data>
+  <data name="Select role..." xml:space="preserve">
+    <value>Виберіть роль...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Виберіть користувача...</value>
+  </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>Спільний доступ для</value>
+  </data>
+  <data name="The owner has all permissions. Direct user grants and role grants are combined. On-call assignments do not grant access." xml:space="preserve">
+    <value>Власник має всі дозволи. Прямі дозволи користувачам і дозволи, надані через ролі, об’єднуються. Призначення чергових не надають доступу.</value>
+  </data>
+  <data name="Transfer Ownership" xml:space="preserve">
+    <value>Передати право власності</value>
+  </data>
+  <data name="Transferring ownership gives the selected user all permissions. You will lose owner privileges." xml:space="preserve">
+    <value>Передача права власності надає вибраному користувачеві всі дозволи. Ви втратите права власника.</value>
+  </data>
+  <data name="Update incidents and status" xml:space="preserve">
+    <value>Оновлювати інциденти та їхній статус</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Користувач</value>
+  </data>
+  <data name="User or Role" xml:space="preserve">
+    <value>Користувач або роль</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Перегляд інцидентів</value>
+  </data>
+
+</root>
