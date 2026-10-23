@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledged" xml:space="preserve">
+    <value>Підтверджено</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Змінити важливість інциденту</value>
+  </data>
+  <data name="After deletion, only the author, publication time, deleter, and deletion time will be retained. The original comment text will no longer be displayed and cannot be recovered." xml:space="preserve">
+    <value>Після видалення зберігаються лише автор, час публікації, той, хто видалив, і час видалення. Початковий текст коментаря більше не відображатиметься і не може бути відновлений.</value>
+  </data>
+  <data name="Auto-create incident" xml:space="preserve">
+    <value>Автоматичне створення інциденту</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="Comment editor view" xml:space="preserve">
+    <value>Вигляд редактора коментарів</value>
+  </data>
+  <data name="Confirm and claim incident" xml:space="preserve">
+    <value>Підтвердити та взяти на себе інцидент</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Підтвердити видалення</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Delete comment" xml:space="preserve">
+    <value>Видалити коментар</value>
+  </data>
+  <data name="Deleted by: " xml:space="preserve">
+    <value>Видалив(ла):</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="Incident event" xml:space="preserve">
+    <value>Подія інциденту</value>
+  </data>
+  <data name="Incident timeline" xml:space="preserve">
+    <value>Хронологія інциденту</value>
+  </data>
+  <data name="Markdown is supported. Maximum 4,000 UTF-16 characters (emojis may count as 2)." xml:space="preserve">
+    <value>Підтримується Markdown. Максимум — 4 000 символів UTF-16 (емодзі можуть рахуватися як 2 символи).</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Мітигувати інцидент</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Усунено наслідки</value>
+  </data>
+  <data name="Newest first · 20 items per page" xml:space="preserve">
+    <value>Спочатку найновіші · 20 елементів на сторінці</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Наступна сторінка</value>
+  </data>
+  <data name="No activity on the current page." xml:space="preserve">
+    <value>Немає активності на поточній сторінці.</value>
+  </data>
+  <data name="No. " xml:space="preserve">
+    <value>№</value>
+  </data>
+  <data name="Not set" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>від</value>
+  </data>
+  <data name="Owner: " xml:space="preserve">
+    <value>Власник:</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Сторінка</value>
+  </data>
+  <data name="Paste or drag images into the editor to upload them." xml:space="preserve">
+    <value>Вставте зображення або перетягніть їх до редактора, щоб завантажити.</value>
+  </data>
+  <data name="Post comment" xml:space="preserve">
+    <value>Опублікувати коментар</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Попередній перегляд</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Попередня сторінка</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Оновлення</value>
+  </data>
+  <data name="Publish comment" xml:space="preserve">
+    <value>Опублікувати коментар</value>
+  </data>
+  <data name="Published comment?" xml:space="preserve">
+    <value>Опублікований коментар?</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Повторно відкрити інцидент</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Вирішити інцидент</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Вирішено</value>
+  </data>
+  <data name="Severity: " xml:space="preserve">
+    <value>Критичність:</value>
+  </data>
+  <data name="Split View" xml:space="preserve">
+    <value>Розділений перегляд</value>
+  </data>
+  <data name="Status: " xml:space="preserve">
+    <value>Статус:</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="Take Over Incident" xml:space="preserve">
+    <value>Взяти на себе інцидент</value>
+  </data>
+  <data name="This comment has been deleted." xml:space="preserve">
+    <value>Цей коментар було видалено.</value>
+  </data>
+  <data name="Timeline pagination" xml:space="preserve">
+    <value>Посторінкова навігація часової шкали</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Не призначено</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Не пом’якшено</value>
+  </data>
+  <data name="Use Markdown to share troubleshooting clues, suggestions, or discussions…" xml:space="preserve">
+    <value>Використовуйте Markdown, щоб ділитися підказками щодо усунення проблем, пропозиціями чи обговореннями…</value>
+  </data>
+  <data name="User deleted" xml:space="preserve">
+    <value>Користувача видалено</value>
+  </data>
+
+</root>

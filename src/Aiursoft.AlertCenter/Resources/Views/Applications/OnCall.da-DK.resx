@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application On-Call Settings" xml:space="preserve">
+    <value>Anvendelsesindstillinger for vagt</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>Tilbage til forbundne apps</value>
+  </data>
+  <data name="Binding automatically enables the built-in on-call email: To is the registered email addresses of all current on-call engineers (OCE), and CC is the on-call group&apos;s configured address. This cannot be disabled individually in push settings; unbinding stops new on-call emails. Application-specific custom channels remain independent, and binding does not grant the application access permissions." xml:space="preserve">
+    <value>Binding aktiverer automatisk den indbyggede on-call-e-mail: To-feltet er de registrerede e-mailadresser for alle aktuelle on-call-ingeniører (OCE), og CC-feltet er on-call-gruppens konfigurerede adresse. Dette kan ikke deaktiveres individuelt i push-indstillingerne; frakobling stopper nye on-call-e-mails. Applikationsspecifikke tilpassede kanaler forbliver uafhængige, og binding giver ikke applikationen adgangsrettigheder.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Luk</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>Bind ikke vagtgruppe</value>
+  </data>
+  <data name="Each application can be bound to one on-call group; a group can serve multiple applications. Select “No on-call group” to unbind. Applications that only receive incidents do not require on-call configuration." xml:space="preserve">
+    <value>Hver applikation kan bindes til én vagtgruppe; en gruppe kan betjene flere applikationer. Vælg &quot;Ingen vagtgruppe&quot; for at fjerne bindingen. Applikationer, der kun modtager hændelser, kræver ikke vagtconfiguration.</value>
+  </data>
+  <data name="No on-duty groups available. Please contact the administrator to create a team in the On-Call Center." xml:space="preserve">
+    <value>Ingen vagtholdingsgrupper er tilgængelige. Kontakt administrator for at oprette et hold i On-Call Center.</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>On-call-gruppe</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>Vagtgruppe (valgfri)</value>
+  </data>
+  <data name="Save on-call settings" xml:space="preserve">
+    <value>Gem on-call-indstillinger</value>
+  </data>
+  <data name="Select, replace, or unbind on-call group." xml:space="preserve">
+    <value>Vælg, erstat eller frigør vagtgruppe.</value>
+  </data>
+
+</root>

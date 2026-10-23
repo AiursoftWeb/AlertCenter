@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Handling</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>Tildeles automatisk</value>
+  </data>
+  <data name="Bound, cannot be deleted" xml:space="preserve">
+    <value>Bundet, kan ikke slettes</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annullér</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Luk</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Bekræft sletning</value>
+  </data>
+  <data name="Confirm rule deletion" xml:space="preserve">
+    <value>Bekræft sletning af regel</value>
+  </data>
+  <data name="Create Rule" xml:space="preserve">
+    <value>Opret regel</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Slet</value>
+  </data>
+  <data name="Delete scheduling rule" xml:space="preserve">
+    <value>Slet vagtplanregel</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>timer</value>
+  </data>
+  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
+    <value>Administrér regeltemplates, der deles af flere hold. Når en template ændres, oprettes de gemte vagter ikke på ny.</value>
+  </data>
+  <data name="Min " xml:space="preserve">
+    <value>Min.</value>
+  </data>
+  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Ingen gemte regel-skabeloner endnu. Opret en skabelon først, og lad holdet derefter binde og bruge den.</value>
+  </data>
+  <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
+    <value>Kun skabeloner, der ikke er knyttet til teams, kan slettes. Gemte vagter og historik for teams slettes ikke; slettede skabeloner kan ikke gendannes.</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>personer</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>personer · Mål</value>
+  </data>
+  <data name="Please unbind the template from all teams first." xml:space="preserve">
+    <value>Fjern først skabelonens tilknytning til alle teams.</value>
+  </data>
+  <data name="Rule saved" xml:space="preserve">
+    <value>Regel gemt</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>Regelmal</value>
+  </data>
+  <data name="Scheduling Rules" xml:space="preserve">
+    <value>Planlægningsregler</value>
+  </data>
+  <data name="Shift / Break" xml:space="preserve">
+    <value>Vagt / pause</value>
+  </data>
+  <data name="Teams using" xml:space="preserve">
+    <value>Teams, der bruger</value>
+  </data>
+  <data name="View rules" xml:space="preserve">
+    <value>Se regler</value>
+  </data>
+
+</root>

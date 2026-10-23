@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} applications" xml:space="preserve">
+    <value>{0} applikationer</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Handling</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Handlinger</value>
+  </data>
+  <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
+    <value>Justér søgeordene eller ryd søgningen for at se alle apps.</value>
+  </data>
+  <data name="API Key Management" xml:space="preserve">
+    <value>Administration af API-nøgler</value>
+  </data>
+  <data name="App connected" xml:space="preserve">
+    <value>Tilsluttede apps</value>
+  </data>
+  <data name="App ID" xml:space="preserve">
+    <value>App-id</value>
+  </data>
+  <data name="App information" xml:space="preserve">
+    <value>Appoplysninger</value>
+  </data>
+  <data name="Application Name" xml:space="preserve">
+    <value>Applikationsnavn</value>
+  </data>
+  <data name="Application settings" xml:space="preserve">
+    <value>Applikationsindstillinger</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Applikationer</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Ryd</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Luk</value>
+  </data>
+  <data name="Confirm app and all data deletion" xml:space="preserve">
+    <value>Bekræft sletning af appen og alle data</value>
+  </data>
+  <data name="Confirm app deletion" xml:space="preserve">
+    <value>Bekræft sletning af app</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Opret en virksomhedsapp ovenfor, og udsted en dedikeret API-nøgle.</value>
+  </data>
+  <data name="Create Application" xml:space="preserve">
+    <value>Opret applikation</value>
+  </data>
+  <data name="Create Incident" xml:space="preserve">
+    <value>Opret hændelse</value>
+  </data>
+  <data name="Create new integration app" xml:space="preserve">
+    <value>Opret ny integrationsapp</value>
+  </data>
+  <data name="Created on" xml:space="preserve">
+    <value>Oprettet den</value>
+  </data>
+  <data name="Delete application" xml:space="preserve">
+    <value>Slet applikation</value>
+  </data>
+  <data name="Delete integrated application" xml:space="preserve">
+    <value>Slet integreret applikation</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Deaktiveret</value>
+  </data>
+  <data name="Distribute independent API credentials for business services and manage reporting permissions and push routing." xml:space="preserve">
+    <value>Distribuér uafhængige API-legitimationsoplysninger til virksomhedstjenester, og administrér rapporteringstilladelser og push-routing.</value>
+  </data>
+  <data name="Do not bind on-call group" xml:space="preserve">
+    <value>Tilknyt ikke en tilkaldevagtgruppe</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Aktiveret</value>
+  </data>
+  <data name="Enter the app name to confirm deletion:" xml:space="preserve">
+    <value>Indtast app-navnet for at bekræfte sletning:</value>
+  </data>
+  <data name="Example: Order payment service, User Center, Edge Gateway…" xml:space="preserve">
+    <value>Eksempel: Ordrebetalingsservice, brugercenter, edge-gateway…</value>
+  </data>
+  <data name="Filter by application name..." xml:space="preserve">
+    <value>Filtrer efter applikationsnavn...</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="Find application" xml:space="preserve">
+    <value>Find applikation</value>
+  </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Integrationsvejledning</value>
+  </data>
+  <data name="No connected apps yet" xml:space="preserve">
+    <value>Ingen tilsluttede apps endnu</value>
+  </data>
+  <data name="No matching applications found" xml:space="preserve">
+    <value>Ingen matchende applikationer fundet</value>
+  </data>
+  <data name="On-call group" xml:space="preserve">
+    <value>On-call-gruppe</value>
+  </data>
+  <data name="On-call group (optional)" xml:space="preserve">
+    <value>Vagtgruppe (valgfri)</value>
+  </data>
+  <data name="On-call group is optional; if bound, the on-duty engineer is automatically notified by email, and the on-call group configuration address is CC&apos;d. Custom push channels can still be configured independently." xml:space="preserve">
+    <value>Vagtgruppe er valgfri; hvis den er tilknyttet, bliver vagthavende ingeniør automatisk notifieret via e-mail, og vagtgruppens konfigurationsadresse er tilføjet i CC. Tilpassede pushkanaler kan stadig konfigureres uafhængigt.</value>
+  </data>
+  <data name="On-call settings" xml:space="preserve">
+    <value>On-call-indstillinger</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Rettigheder</value>
+  </data>
+  <data name="Push Settings" xml:space="preserve">
+    <value>Push-indstillinger</value>
+  </data>
+  <data name="Running Status" xml:space="preserve">
+    <value>Driftsstatus</value>
+  </data>
+  <data name="The name must match exactly (case-sensitive)." xml:space="preserve">
+    <value>Navnet skal stemme nøjagtigt overens (der skelnes mellem store og små bogstaver).</value>
+  </data>
+  <data name="This action is irreversible! All historical incidents, associated delivery records, and in-site notifications for this application will be deleted, and all API keys will be immediately invalidated." xml:space="preserve">
+    <value>Denne handling er irreversibel! Alle historiske hændelser, tilknyttede leveringsposter og notifikationer på webstedet for denne applikation vil blive slettet, og alle API-nøgler vil blive straks ugyldiggjort.</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>Ikoblet</value>
+  </data>
+  <data name="Use a concise business system name. Create its API keys separately after creating the application." xml:space="preserve">
+    <value>Brug et kort og præcist navn på forretnings-systemet. Opret dets API-nøgler separat efter at have oprettet applikationen.</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Se alle hændelser</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Vis hændelser</value>
+  </data>
+
+</root>
