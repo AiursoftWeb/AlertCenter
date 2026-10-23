@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>Підтвердити та взяти відповідальність</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Визнано</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Змінити рівень серйозності інциденту</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>Змінити рівень серйозності</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>Змініть рівень серйозності цього інциденту та вкажіть причину. Підвищення рівня серйозності додає електронний лист до черги на надсилання; зниження — ні.</value>
+  </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>Також негайно вирішіть цю інциденту, використовуючи причину мітiguaції як причину вирішення.</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>Створено автоматично о</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>Назад до списку інцидентів</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>Закритий цикл відновлення</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>Підтвердити усунення інциденту</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>Підтвердити повторне відкриття інциденту</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>Підтвердити розв&apos;язання інциденту</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>Підтвердити зміну рівня важливості</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>Примітка для підтвердження (необов’язково)</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Копіювати вміст</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>Копіювати JSON</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>Поточний черговий OCE</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>Наразі на черговому</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>Опишіть вжиті заходи з пом’якшення наслідків, масштаб впливу та стан відновлення.</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>Опишіть зміни в наслідках та обґрунтування для коригування рівня важливості.</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>Кожен незалежний звіт створює нову інцидентну подію. Підтвердження, митигування або усунення цієї інцидентної події не впливає на інші інцидентні події або їхні сповіщення.</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>Приклад: пул з&apos;єднань із основною базою даних відновлено, відповіді служб у нормі, тест навантаження пройдено.</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>Приклад: Моніторинг знову виявив ту саму несправність, потрібне повторне розслідування.</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>Виправлено та закрито</value>
+  </data>
+  <data name="Full context" xml:space="preserve">
+    <value>Повний контекст</value>
+  </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>Я підтверджую, що ця інцидентна ситуація повністю вирішена і не повториться.</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Для листів про інцидент використовується цей початковий знімок OCE, навіть після зміни чергової зміни. Підтвердження призначає відповідального за інцидент, але не змінює отримувачів листів.</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Ідентифікатор інциденту</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>Власник інциденту:</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Назва інциденту</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Комната інцидентів - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>Незалежні інциденти</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>Час останнього підтвердження</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Пом’якшити наслідки інциденту</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Пом’якшено (пом’якшено)</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>Причина митигування (обов’язково)</value>
+  </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>Час мітигації</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>Новий рівень</value>
+  </data>
+  <data name="No additional context was reported." xml:space="preserve">
+    <value>Не надано додаткового контексту.</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>Наразі немає чергового OCE.</value>
+  </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>Немає доступного початкового знімка OCE. Поточний OCE не замінює історичних отримувачів електронної пошти.</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Не підтверджено</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Час події</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE на момент виникнення інциденту</value>
+  </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>Видалити назавжди</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>Назавжди видалити інцидент</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>Помилка запиту:</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>Причина коригування (обов’язково)</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Отримано</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>Зафіксуйте вжиті заходи з усунення наслідків, а потім укажіть причину вирішення. Повторне відкриття повертає цей інцидент до стану, у якому наслідки ще не усунуто, зберігаючи підтвердження отримання та відповідального.</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>Зафіксуйте вжиті заходи з пом&apos;якшення. Вирішіть цю інцидентну ситуацію після завершення виправлення.</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Повторно відкрити інцидент</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>Примітки щодо повторного відкриття (необов’язково)</value>
+  </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>Повторне відкриття повертає цей інцидент до стану, коли його наслідки ще не усунуто. Попереднє підтвердження та відповідальний залишаються без змін. Електронний лист буде поставлено в чергу для надсилання налаштованим адресатам.</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>Ідентифікатор звіту</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>Інформація про звіт</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>Причина вирішення (обов’язково)</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>Час вирішення</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Вирішити інцидент</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Вирішено (Вирішено)</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>Усунення цього інциденту завершує робочий процес для нього. Інші інциденти опрацьовуються незалежно.</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>Опис механізму реагування</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Критичний (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Серйозний (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Помилка (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Попередження (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Інформація (P4)</value>
+  </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Це назавжди видалить інцидент і всю його історію. Введіть його точну назву для підтвердження.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Не призначено</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Не врегульовано</value>
+  </data>
+
+</root>

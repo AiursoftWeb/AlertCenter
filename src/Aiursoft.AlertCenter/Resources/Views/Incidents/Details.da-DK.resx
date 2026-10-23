@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>Anerkend og tag ejerskab</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Anerkendt</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Justér hændelsens alvorlighedsgrad</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>Justér alvorlighedsgrad</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>Juster denne hændelses alvorlighedsgrad, og angiv årsagen. En forhøjelse af alvorlighedsgraden sætter en e-mail i kø; en nedsættelse gør ikke.</value>
+  </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>Løs også denne hændelse med det samme, og brug afhjælpningsårsagen som løsningsårsag.</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>Automatisk oprettet den</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>Tilbage til hændelseslisten</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Luk</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>Lukket sløjfe-genvinding</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>Bekræft håndteringen af hændelsen</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>Bekræft genåbning af hændelsen</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>Bekræft løsning af hændelsen</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>Bekræft tilpasning af alvorlighed</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>Bekræftelsesnote (valgfrit)</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Kopiér indhold</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>Kopiér JSON</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>Aktuel OCE på vagt</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>Aktuelt på vagt</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>Beskriv afværgeforanstaltninger, påvirkningens omfang og genopretningsstatus.</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>Beskriv ændringerne i påvirkningen og grundlaget for justering af alvorlighedsgraden.</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>Hver uafhængig rapport opretter en ny hændelse. At bekræfte, afbøde eller løse denne hændelse påvirker ikke andre hændelser eller deres meddelelser.</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>Eksempel: Genoprettet kernedatabaseforbindelsespulje, normale servicesvar, bestået belastningstest.</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>Eksempel: Overvågningen registrerede den samme fejl igen, og sagen skal undersøges på ny.</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>Retet og lukket</value>
+  </data>
+  <data name="Full context" xml:space="preserve">
+    <value>Fuld kontekst</value>
+  </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>Jeg bekræfter, at denne hændelse er fuldt ud løst og ikke vil gentage sig.</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Incident-e-mails bruger dette originale OCE-snapshot, selv efter at vagtskiftet er ændret. Bekræftelse tildeler incident-ejer; det ændrer ikke e-mailmodtagere.</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Hændelses-id</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>Incident-ejer:</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Incidenttitel</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Incidentkriseledelse - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>Uafhængige hændelser</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>Tidspunkt for seneste kvittering</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Afdæmp hændelse</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Afdæmpet (Afdæmpet)</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>Mitigeringsårsag (påkrævet)</value>
+  </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>Afhjælpningstidspunkt</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>Nyt niveau</value>
+  </data>
+  <data name="No additional context was reported." xml:space="preserve">
+    <value>Der blev ikke rapporteret yderligere kontekst.</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>Ingen aktuel OCE på vagt.</value>
+  </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>Der findes intet oprindeligt OCE-snapshot. Det aktuelle OCE bruges ikke i stedet for de historiske e-mailmodtagere.</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Ikke kvitteret</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Skete</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE ved hændelsens opståen</value>
+  </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>Slet permanent</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>Slet hændelse permanent</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>Forespørgsel mislykkedes:</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>Årsag til justering (obligatorisk)</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Modtaget den</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>Registrer afhjælpende foranstaltninger og derefter en begrundelse for løsning. Genåbning sætter hændelsen tilbage til status som ikke afhjulpet, samtidig med at kvittering og ejerskab bevares.</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>Registrér de gennemførte mitigationstiltag. Afslut denne hændelse, når rettelserne er fuldført.</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Genåbn hændelse</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>Genåbningsnoter (valgfrit)</value>
+  </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>Genåbning bringer denne hændelse tilbage til uafhjælpet fremdrift. Tidligere anerkendelse og ejerskab bevares. E-mail køer til konfigurerede modtagere.</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>Rapport-ID</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>Rapportoplysninger</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>Løsningsårsag (påkrævet)</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>Tidspunkt for løsning</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Løs hændelsen</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Løst (Løst)</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>Når du løser denne hændelse, afsluttes dens workflow. Andre hændelser håndteres uafhængigt.</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>Beskrivelse af responsmekanisme</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Kritisk (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Væsentlig (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Fejl (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Advarsel (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Info (P4)</value>
+  </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Dette sletter hændelsen og dens historik permanent. Indtast den nøjagtige titel for at bekræfte.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Ikke tildelt</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Udholdt</value>
+  </data>
+
+</root>

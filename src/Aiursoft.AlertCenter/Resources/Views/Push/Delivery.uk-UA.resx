@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>Асинхронне завдання поставлено в чергу. Оновіть статус пізніше.</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Спроби</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>Повернутися до записів сповіщень</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Вбудована email-пошта чергового · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>Вбудована система · Не можна вимкнути окремо</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>Стан увімкнення каналу</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>Тест каналу</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Тестове повідомлення каналу</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>Миттєво</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>Завершено:</value>
+  </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>Час завершення</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>Скопіювати повний ID доставки</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>Копіювати повний ID</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Час створення</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Доставку успішно завершено</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>Вміст сповіщення</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>Деталі доставки</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Деталі доставки — {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Невдала доставка</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Доставка невдалася остаточно</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>Ідентифікатор доставки</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>Ідентифікатор доставки:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>Завдання доставки створено</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Вимкнено</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>Спроби надсилання</value>
+  </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>Хронологія доставки</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>Надсилання поставок у фоновому режимі</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Тривалість</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Увімкнено</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>Додано до черги доставки</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Інцидент підвищено до рівня ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Інцидент локалізовано: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Інцидент повторно відкрито: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Інцидент усунуто: {0}</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>Ініціювати запит на розіслання</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>Недійсний знімок даних отримувача. Неможливо повторно надіслати старі інциденти.</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Ручне тестування</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>Ручне тестове повідомлення</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>Відсутній вміст</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Немає</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Повторні надсилання електронних листів чергової зміни завжди використовують знімки OCE та CC на момент додавання повідомлення до черги та не перенаправляють їх до поточного персоналу чергової зміни. Повторні надсилання недоступні, якщо не існує дійсного знімка.</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>Спочатку ввімкніть цільовий канал.</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>Доставити повторно</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>Повторна доставка використовуватиме найновішу конфігурацію каналу.</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>Оновити статус</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>Виконується...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>Зміна:</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>Час знімка</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>Інтегроване джерельне застосування</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Цільовий канал</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>Одержувач уже міг отримати повідомлення при перевищенні часу очікування або перерві. Будь ласка, переконатися, що воно не було отримане, перед повторною спробою.</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>Метадані завдання</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Це тестове повідомлення для push-каналу.</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>разів</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>Загальна кількість спроб:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>Переглянути сповіщення в додатку</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>Переглянути або змінити конфігурацію каналу</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>Переглянути початкову інцидент</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>Переглянути відновлену інцидент</value>
+  </data>
+
+</root>

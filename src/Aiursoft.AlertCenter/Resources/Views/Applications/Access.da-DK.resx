@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Actions" xml:space="preserve">
+    <value>Handlinger</value>
+  </data>
+  <data name="Add or Update Share" xml:space="preserve">
+    <value>Tilføj eller opdater deling</value>
+  </data>
+  <data name="Back to Applications" xml:space="preserve">
+    <value>Tilbage til applikationer</value>
+  </data>
+  <data name="Create incidents" xml:space="preserve">
+    <value>Opret incidents</value>
+  </data>
+  <data name="Manage API keys" xml:space="preserve">
+    <value>Administrér API-nøgler</value>
+  </data>
+  <data name="Manage application and sharing" xml:space="preserve">
+    <value>Administrér applikation og deling</value>
+  </data>
+  <data name="Manage Sharing" xml:space="preserve">
+    <value>Administrer deling</value>
+  </data>
+  <data name="New owner" xml:space="preserve">
+    <value>Ny ejer</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Ejer</value>
+  </data>
+  <data name="Permanently delete incidents" xml:space="preserve">
+    <value>Slet hændelser permanent</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Tilladelser</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rolle</value>
+  </data>
+  <data name="Save permissions" xml:space="preserve">
+    <value>Gem tilladelser</value>
+  </data>
+  <data name="Select either a user or a role. Saving replaces that recipient&apos;s permissions." xml:space="preserve">
+    <value>Vælg enten en bruger eller en rolle. Når du gemmer, erstattes modtagerens tilladelser.</value>
+  </data>
+  <data name="Select role..." xml:space="preserve">
+    <value>Vælg rolle...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Vælg bruger...</value>
+  </data>
+  <data name="Shared With" xml:space="preserve">
+    <value>Delt med</value>
+  </data>
+  <data name="The owner has all permissions. Direct user grants and role grants are combined. On-call assignments do not grant access." xml:space="preserve">
+    <value>Ejeren har alle tilladelser. Direkte tilladelser til brugere og tilladelser via roller kombineres. Vagtordninger giver ikke adgang.</value>
+  </data>
+  <data name="Transfer Ownership" xml:space="preserve">
+    <value>Overdrag ejerskab</value>
+  </data>
+  <data name="Transferring ownership gives the selected user all permissions. You will lose owner privileges." xml:space="preserve">
+    <value>Overdragelse af ejerskabet giver den valgte bruger alle tilladelser. Du mister ejerrettighederne.</value>
+  </data>
+  <data name="Update incidents and status" xml:space="preserve">
+    <value>Opdater hændelser og status</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Bruger</value>
+  </data>
+  <data name="User or Role" xml:space="preserve">
+    <value>Bruger eller rolle</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Se hændelser</value>
+  </data>
+
+</root>

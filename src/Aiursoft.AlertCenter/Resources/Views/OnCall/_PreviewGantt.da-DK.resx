@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· Fratrådt</value>
+  </data>
+  <data name=" · On call" xml:space="preserve">
+    <value>· På vagt</value>
+  </data>
+  <data name=" · On duty" xml:space="preserve">
+    <value>· På vagt</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · Flyt den valgte vagt hertil</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · Andet team (skrivebeskyttet) · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (kun læs)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0} vagter / {1:0.##} timer</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>{0}&apos;s vagtskifter</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} timer · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · Nærliggende uge (kun læsning) · {3}</value>
+  </data>
+  <data name="36 hours after this week (read-only)" xml:space="preserve">
+    <value>36 timer efter denne uge (skrivebeskyttet)</value>
+  </data>
+  <data name="36 hours before this week (read-only)" xml:space="preserve">
+    <value>36 timer før denne uge (skrivebeskyttet)</value>
+  </data>
+  <data name="7-Day On-Call Gantt Chart" xml:space="preserve">
+    <value>7-dages vagplan</value>
+  </data>
+  <data name="Departed" xml:space="preserve">
+    <value>Afgået</value>
+  </data>
+  <data name="Drag to another engineer to swap the entire week, or click to select a target employee." xml:space="preserve">
+    <value>Træk det til en anden ingeniør for at bytte hele ugen, eller klik for at vælge en medarbejder.</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Medarbejder slettet</value>
+  </data>
+  <data name="Employee on-call timeline" xml:space="preserve">
+    <value>Medarbejdernes vagttidsplan</value>
+  </data>
+  <data name="End time" xml:space="preserve">
+    <value>Sluttid</value>
+  </data>
+  <data name="Expand next 36 hours" xml:space="preserve">
+    <value>Udvid de næste 36 timer</value>
+  </data>
+  <data name="Expand previous 36 hours" xml:space="preserve">
+    <value>Udvid de foregående 36 timer</value>
+  </data>
+  <data name="From " xml:space="preserve">
+    <value>Fra</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>timer</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>timer ·</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>Ingen tildelte vagter.</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="On-call staff" xml:space="preserve">
+    <value>Vagt personale</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>Skrivebeskyttet</value>
+  </data>
+  <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
+    <value>Rul vandret for at se hele vagtplanen. Hold markøren over, fokuser på eller klik på en farvet blok for at se oplysninger om vagten. Den røde linje angiver det aktuelle tidspunkt, da siden blev indlæst. Lodrette knapper til højre for medarbejderkolonnen og helt ude til højre på tidslinjen udvider visningen med 36 timer før ugens start og efter dens afslutning (faktisk varighed i UTC, inklusive ændringer ved sommertid). Områderne er som standard sammenklappede. De udvidede områder bruger de samme datooverskrifter, intervaller på 6 timer og det samme gitter som den aktuelle uge. Grå vagter på begge sider er kun til visning, kan ikke redigeres og indgår ikke i ugens statistik. Gå til den tilsvarende uge for at foretage ændringer. Vagter for det aktuelle team og andre teams vises på samme række: Administratorer kan redigere farvede vagter for deres egen gruppe, mens grå vagter fra andre teams kun viser team og tidspunkt som reference. Tomme tidsrum kan planlægges manuelt i tilstanden &apos;Tilføj vagt&apos;.</value>
+  </data>
+  <data name="Shift / Total Duration" xml:space="preserve">
+    <value>Vagt / samlet varighed</value>
+  </data>
+  <data name="Start Time" xml:space="preserve">
+    <value>Starttid</value>
+  </data>
+  <data name="Swap full week" xml:space="preserve">
+    <value>Udskift hele uge</value>
+  </data>
+  <data name="Swap full-week shifts with {0}" xml:space="preserve">
+    <value>Udskift hele ugens vagter med {0}</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="Until " xml:space="preserve">
+    <value>Indtil</value>
+  </data>
+
+</root>

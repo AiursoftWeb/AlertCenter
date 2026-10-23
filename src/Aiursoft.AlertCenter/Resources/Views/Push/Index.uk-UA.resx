@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Дія</value>
+  </data>
+  <data name="Add first channel" xml:space="preserve">
+    <value>Додати перший канал</value>
+  </data>
+  <data name="Add new channel" xml:space="preserve">
+    <value>Додати новий канал</value>
+  </data>
+  <data name="Application Tier Association" xml:space="preserve">
+    <value>Асоціація рівнів застосунків</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Назва каналу</value>
+  </data>
+  <data name="Channel Type" xml:space="preserve">
+    <value>Тип каналу</value>
+  </data>
+  <data name="channels" xml:space="preserve">
+    <value>канали</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="Configure " xml:space="preserve">
+    <value>Налаштувати</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Підтвердити видалення</value>
+  </data>
+  <data name="Confirm push channel deletion" xml:space="preserve">
+    <value>Підтвердьте видалення push-каналу</value>
+  </data>
+  <data name="Confirm sending to channel" xml:space="preserve">
+    <value>Підтвердьте надсилання в канал</value>
+  </data>
+  <data name="Current Status" xml:space="preserve">
+    <value>Поточний стан</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Delete push channel" xml:space="preserve">
+    <value>Видалити push-канал</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Вимкнути</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Вимкнено</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Увімкнути</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Увімкнено</value>
+  </data>
+  <data name="Linked application push configurations, historical delivery records, and corresponding in-app notifications will be deleted. This action cannot be undone." xml:space="preserve">
+    <value>Конфігурації push-сповіщень пов&apos;язаних застосунків, історичні записи доставки та відповідні сповіщення в застосунку буде видалено. Цю дію неможливо скасувати.</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>Журнал</value>
+  </data>
+  <data name="Manage notification delivery channels to deliver incidents to responsible parties and external systems accurately based on severity levels." xml:space="preserve">
+    <value>Керуйте каналами надсилання сповіщень, щоб точно доставляти повідомлення про інциденти відповідальним особам і зовнішнім системам відповідно до рівня серйозності.</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>Ще не налаштовано жодного каналу push-сповіщень</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Сповіщення</value>
+  </data>
+  <data name="Push channel configured" xml:space="preserve">
+    <value>Налаштовано канал push-повідомлень</value>
+  </data>
+  <data name="Select the channel type above (e.g., Webhook, in-app notification, or email) and configure it to associate with the integrated application." xml:space="preserve">
+    <value>Виберіть тип каналу вище (наприклад, вебхук, сповіщення в застосунку або електронну пошту) та налаштуйте його для зв’язку з інтегрованим застосунком.</value>
+  </data>
+  <data name="Send test message" xml:space="preserve">
+    <value>Надіслати тестове повідомлення</value>
+  </data>
+  <data name="Send test message and view delivery result" xml:space="preserve">
+    <value>Надіслати тестове повідомлення та переглянути результат доставки</value>
+  </data>
+  <data name="Send test notification?" xml:space="preserve">
+    <value>Надіслати тестове сповіщення?</value>
+  </data>
+  <data name="Send test now" xml:space="preserve">
+    <value>Надіслати тестове повідомлення зараз</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Тест</value>
+  </data>
+  <data name="Test message content" xml:space="preserve">
+    <value>Зміст тестового повідомлення</value>
+  </data>
+  <data name="The system will immediately create a delivery task and invoke the corresponding channel adapter. After execution, you will be redirected to the delivery details page to view the results." xml:space="preserve">
+    <value>Система негайно створить завдання на доставлення та викличе відповідний адаптер каналу. Після виконання вас буде перенаправлено на сторінку з докладною інформацією про доставлення, де можна переглянути результати.</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Це тестове повідомлення для push-каналу.</value>
+  </data>
+  <data name="View all delivery records" xml:space="preserve">
+    <value>Переглянути всі записи про доставлення</value>
+  </data>
+
+</root>

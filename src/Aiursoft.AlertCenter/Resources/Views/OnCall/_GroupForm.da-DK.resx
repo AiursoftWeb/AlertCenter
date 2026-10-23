@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Add members" xml:space="preserve">
+    <value>Tilføj medlemmer</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>Tilføjelse af medlemmer tildeler ikke vagter.</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>Avancerede planlægningsindstillinger</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>Slettet ansat</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>Tilknyt ikke en skabelon (manuel planlægning)</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Medarbejder slettet</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>Indtast i UTC; den konverteres ikke automatisk baseret på holdets tidszoner. Når en vagt er gemt, kan startpunktet for planlægningen ikke ændres.</value>
+  </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>Filtrer efter rolle</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>Hjælp: meddelelses-CC</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>Hjælp: rollefiltret</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>Hjælp: rotationsrækkefølge</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>Hjælp: planlægningsstartpunkt</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>Hjælp: planlægningsmal</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>Hjælp: teamets tidszone</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>Flere hold kan dele den samme skabelon. Skift eller ændring af skabelonen vil ikke genskabe gemte vagter.</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>Navn eller konto</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Næste side</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>Ingen medlemmer endnu. Åbn Tilføj medlemmer for at finde personer.</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>Notificerings-CC (valgfri)</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>On-call e-mail CC</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Forrige side</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>Rotationsrækkefølge</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Gem ændringer</value>
+  </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>Når du gemmer, opdateres teamet og medlemmerne. Administrer vagter separat i vagtplanen.</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>Ved at gemme, fjernes disse medlemmer fra vagter, der ikke er startet. Gennemgå planen for huller.</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>Skabelon til vagtplanlægningsregel</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>Planlagt starttidspunkt (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>Søg i stedet efter navn</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>Søg efter navn eller konto, eller vælg en rolle.</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>Søg medarbejdere</value>
+  </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>Vælgelse af en rolle filtrerer kun søgningen. Markér enkelte personer for at tilføje dem; holdmedlemskab synkroniseres ikke med den rolle.</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>Teammedlemmer</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>Teamnavn</value>
+  </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>Teamindstillinger</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>Tidssone</value>
+  </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>Til: de personer, der var tildelt det gemte vagtskift, da hændelsen indtraf. De oprindelige OCE-modtagere bevares til senere e-mails om hændelsen. CC gælder for alle e-mails om hændelsen, uanset vagtskift. Brug kommaer, semikolon eller linjeskift; op til 50 CC-adresser.</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>Brug Flyt op og Flyt ned til at vælge rækkefølgen, der bruges til fremtidig automatisk planlægning. Eksisterende vagter bliver ikke omplaceret. Vælg op til 200 medlemmer.</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>Bruges til at vise vagtplanen. Starttidspunktet for den avancerede planlægning nedenfor angives separat i UTC.</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>Vis tidplan</value>
+  </data>
+
+</root>
