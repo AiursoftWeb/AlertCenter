@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" members" xml:space="preserve">
+    <value>membri</value>
+  </data>
+  <data name="Back to Team List" xml:space="preserve">
+    <value>Înapoi la lista echipelor</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
+  <data name="CC address not configured." xml:space="preserve">
+    <value>Adresa CC nu este configurată.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="Confirm team deletion" xml:space="preserve">
+    <value>Confirmați ștergerea echipei</value>
+  </data>
+  <data name="Delete on-call team" xml:space="preserve">
+    <value>Șterge echipa de gardă</value>
+  </data>
+  <data name="Delete team" xml:space="preserve">
+    <value>Șterge echipa</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>Editează echipa</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ore</value>
+  </data>
+  <data name="hours · Min rest " xml:space="preserve">
+    <value>ore · Pauză min.</value>
+  </data>
+  <data name="Manage members" xml:space="preserve">
+    <value>Gestionează membrii</value>
+  </data>
+  <data name="Members available for scheduling (rotation order)" xml:space="preserve">
+    <value>Membri disponibili pentru planificare (în ordinea rotației)</value>
+  </data>
+  <data name="Next: assign people to shifts" xml:space="preserve">
+    <value>Următorul pas: alocarea persoanelor pe ture</value>
+  </data>
+  <data name="No team members." xml:space="preserve">
+    <value>Niciun membru al echipei.</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>CC e-mailuri de gardă</value>
+  </data>
+  <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
+    <value>E-mailurile de serviciu sunt trimise automat către căsuțele poștale ale utilizatorilor (Către) pentru toți inginerii de gardă (OCE) din tura salvată în prezent. Câmpul CC folosește doar căsuțe poștale ale echipei sau adrese de liste de distribuție configurate explicit de administrator; nu adaugă automat în CC toți membrii echipei. Canalele push personalizate configurate în aplicație vor continua să trimită notificări suplimentare.</value>
+  </data>
+  <data name="Open schedule" xml:space="preserve">
+    <value>Deschide programul</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>Pe tură</value>
+  </data>
+  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Șablonul de regulă nu este asociat; programarea manuală rămâne disponibilă.</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>Șablon de regulă:</value>
+  </data>
+  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Șabloanele de reguli nu pot fi șterse. Doar echipele fără ture salvate și fără aplicații asociate pot fi șterse. Această acțiune este ireversibilă.</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>Începutul programării:</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Configurarea echipei</value>
+  </data>
+  <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
+    <value>Șabloanele pot fi partajate de mai multe echipe; modificarea sau schimbarea șabloanelor nu va regenera turele salvate.</value>
+  </data>
+  <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
+    <value>Lista de membri indică cine poate fi programat. Programul salvat indică cine este de serviciu și primește e-mailuri de incident. Destinatarii CC primesc o copie independent de apartenența la grup.</value>
+  </data>
+  <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
+    <value>Această echipă are ture salvate și nu poate fi ștearsă, pentru a păstra istoricul programărilor.</value>
+  </data>
+  <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group before deleting the team." xml:space="preserve">
+    <value>Această echipă este asociată cu o aplicație integrată. Înainte de a șterge echipa, reatribuiți grupul de gardă al aplicației sau eliminați asocierea.</value>
+  </data>
+  <data name="Time zone: " xml:space="preserve">
+    <value>Fus orar:</value>
+  </data>
+  <data name="View on-call schedule" xml:space="preserve">
+    <value>Vizualizați programul de permanență</value>
+  </data>
+
+</root>

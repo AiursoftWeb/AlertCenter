@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>livrări</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>notificări nelectite în sit</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Suport „fire-and-forget” pentru sarcini de lungă durată (cum ar fi emailurile sau AI), cu o interfață grafică pentru gestionarea cozii, procesare paralelă și anulare.</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} atribuite în total</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Un sistem integrat de Control al Accesului Bazat pe Roluri (RBAC) pentru gestionarea granulară a permisiunilor.</value>
@@ -36,17 +45,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>O fundație modernă, bogată în funcționalități și extrem de extensibilă pentru următoarea ta aplicație web.</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Confirmat</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Traduceri alimentate de Inteligență Artificială</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter – Centru de alertare și operațiuni · Stare globală și urmărire cu buclă închisă</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>Toate</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Toate dependențele sunt înregistrate automat și sunt întotdeauna disponibile prin injectare în constructor.</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>Toate înregistrările</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Aplicații</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Mod Întunecat Automat</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Injectare Automată de Dependințe</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Livrarea automată a mesajelor și depanarea</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Gestionare automată a fusurilor orare</value>
@@ -57,8 +84,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Traducere automată, alimentată de inteligență artificială, în 28 de limbi.</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>canale disponibile ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Procesare sarcini în fundal</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>Trimitere în bloc către grupurile de permanență și adresele de e-mail importante</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Gestionare Utilizatori Integrată</value>
@@ -72,11 +105,47 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>Documentație Cuprinzătoare</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Configurează canalul de push</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Validare de consistență</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Creează o alertă pentru aplicația ta și notifică destinatarii configurați pentru aceasta.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Creați o aplicație</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Creați aplicația și obțineți cheia</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>Creați primul incident prin API sau SDK. Acesta va apărea aici.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Critic</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>Critice ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>Autentificare cu cheie API dedicată</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>Înregistrări livrări</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>Documentație detaliată de integrare</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Dezvoltați exclusiv în UTC, în timp ce sistemul convertește și afișează automat datele în fusul orar local al utilizatorului.</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>Implică direct părțile responsabile și grupurile de utilizatori pentru gestionare colaborativă</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Containerizat pentru Implementare</value>
@@ -96,6 +165,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>Scrieți ușor teste de integrare folosind baze de date în memorie, sisteme de fișiere temporare, mocking integrat și simulare a cererilor HTTP din lumea reală.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Eroare</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>Eroare</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>Oferește un sistem integrat de gestionare a fișierelor cu comprimare automată a avatarelor și protecție a confidențialității.</value>
   </data>
@@ -108,14 +183,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Salut Lume!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>Mesaje primite în aplicație</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>Gestionarea incidentelor</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Titlul incidentului</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>Declanșarea incidentului și rezolvarea colaborativă</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Include documentație extinsă și exemple practice pentru a te pune rapid pe drum.</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Gestionare Integrată a Fișierelor</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Ghid de integrare</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>Emiteți credențiale dedicate în „Aplicații integrate.”</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Cele mai recente incidente</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>Incidentă asociată</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>Canal de Push asociat</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>Ora locală</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Major</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>Major ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>Gestionează aplicațiile</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Mitigat</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Modelele sunt validate pe ambele părți, client și server, pe baza anotărilor de date.</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>Panou de monitorizare</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>Suport pentru mai multe furnizori de baze de date</value>
@@ -123,8 +246,44 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Suport pentru Multiple Baze de Date</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Incidentele mele</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Alertă nouă</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>Niciun incident care necesită acțiune imediată</value>
+  </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>Încă nu există incidente</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Neconfirmat</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>Centrul de trimitere a notificărilor</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>Incident activ</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>Incident în desfășurare necesită intervenție</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Integrare OpenID Connect</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>Închiderea reacției operaționale</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>Rată de succes a push-ului</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>Exemplu de raportare rapidă</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>Integrare Rapidă</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Autorizare RBAC</value>
@@ -132,17 +291,41 @@
   <data name="Read the document" xml:space="preserve">
     <value>Citește documentația</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>Incidente create recent</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Raportați o problemă. Pornește o reacție.</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>Detalii despre incident, istoricul gestionării și starea rezolvării.</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>Necesită acțiune imediată</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Rezolvat</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Design Responsiv</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Testare de integrare robustă</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>Rutare pe Sev0-Sev4 în setările de push ale aplicației.</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Gestionarea sarcinilor programate</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Integrați-vă fără probleme cu orice furnizor OpenID Connect, cu sincronizare automată a rolurilor.</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Severitate</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>Filtru după severitate:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Supravățuiri inteligente de configurare</value>
@@ -153,11 +336,32 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Mod întunecat inteligent care se adaptează automat la setările de sistem ale utilizatorului.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Canal de e-mail SMTP</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Sursă</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Aplicația sursă</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>Începeți un proiect nou</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>Suportă .NET SDK / Go / Webhook</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>Suportă atât variabilele de mediu, cât și setările stocate în baza de date, cu prioritate automată acordată variabilelor de mediu pentru suprascrieri fără efort.</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>Suportă antete de solicitare personalizate și șabloane JSON</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>Centrul trimite notificări asincron, cu suport pentru urmărirea înregistrărilor și reîncercări.</value>
+  </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>Incidentele pe care le preiei prin confirmare. Gestionează-ți toate activitățile de răspuns într-un singur loc.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Bara de navigare se ajustează automat în funcție de rolurile și permisiunile utilizatorului.</value>
@@ -165,11 +369,38 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Acesta este un proiect tip, de unde începem călătoria...</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Oră</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>Incidente totale</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Nemitigat</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Nerezolvate</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>Utiliza autentificarea Bearer pentru a raporta incidente de testare:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Vizualizați toate incidentele</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>Avertizare</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Programare automată Webhook</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Bun venit</value>
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>De ce să folosești Șablonul Aiursoft?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>Aveți nevoie de acces create-alert la o aplicație activată.</value>
   </data>
 
 </root>

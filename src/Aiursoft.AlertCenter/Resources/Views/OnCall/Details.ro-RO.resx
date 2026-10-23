@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
+    <value>Programul de gardă pe 7 zile</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>Asignare automată</value>
+  </data>
+  <data name="Back to Schedule List" xml:space="preserve">
+    <value>Înapoi la lista de programări</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>Distribuiți turele de dimineață, de mijlocul zilei și de seară cât mai echitabil posibil</value>
+  </data>
+  <data name="Choose a week, generate a preview or assign members manually, then save the schedule. Unsaved previews do not change who receives notifications. Saved shifts determine the on-call engineers (OCEs)." xml:space="preserve">
+    <value>Alegeți o săptămână, generați o previzualizare sau atribuiți manual membrii, apoi salvați programul. Previzualizările nesalvate nu modifică persoanele care primesc notificări. Turele salvate determină inginerii de gardă (OCE).</value>
+  </data>
+  <data name="Close, prioritize fixed time slots" xml:space="preserve">
+    <value>Închide, priorizează intervalele de timp fixe</value>
+  </data>
+  <data name="Cross-on-call-group members require manual scheduling" xml:space="preserve">
+    <value>Membrii comuni mai multor grupuri de gardă trebuie programați manual</value>
+  </data>
+  <data name="Current On-Call" xml:space="preserve">
+    <value>Tură de permanență curentă</value>
+  </data>
+  <data name="Current Week" xml:space="preserve">
+    <value>Săptămâna curentă</value>
+  </data>
+  <data name="Edit team" xml:space="preserve">
+    <value>Modifică echipa</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Angajat șters</value>
+  </data>
+  <data name="First class at " xml:space="preserve">
+    <value>Prima tură la</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ore</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>ore · Ancoră</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>ore · Min. tura</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>ore · minim săptămânal</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>ore.</value>
+  </data>
+  <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
+    <value>Avertisment privind personalul insuficient (salvarea manuală este permisă, cu excepția turelor neacoperite)</value>
+  </data>
+  <data name="Minimum template cooldown " xml:space="preserve">
+    <value>Răcorire minimă a șablonului</value>
+  </data>
+  <data name="Modifying templates, re-binding templates, or adding/removing members will not regenerate saved shifts. After removing a member, upcoming assignments are cleared; empty shifts must be filled manually." xml:space="preserve">
+    <value>Modificarea șabloanelor, asocierea din nou a șabloanelor sau adăugarea/eliminarea membrilor nu va regenera turele salvate. După eliminarea unui membru, repartizările viitoare sunt șterse; turele rămase fără membri trebuie completate manual.</value>
+  </data>
+  <data name="Next Week" xml:space="preserve">
+    <value>Săptămâna viitoare</value>
+  </data>
+  <data name="No rule template bound, manual scheduling available; new shifts default to min rest " xml:space="preserve">
+    <value>Niciun șablon de reguli asociat, programare manuală disponibilă; schimburile noi implicit au pauza minimă</value>
+  </data>
+  <data name="No shifts are currently assigned this week. You can add personnel manually." xml:space="preserve">
+    <value>Săptămâna aceasta nu este alocată nicio tură. Puteți adăuga personal manual.</value>
+  </data>
+  <data name="No team members. Please edit the team to add members before manually filling empty shifts." xml:space="preserve">
+    <value>Niciun membru în echipă. Vă rugăm să modificați echipa pentru a adăuga membri înainte de a completa manual turele goale.</value>
+  </data>
+  <data name="No valid scheduling weeks. Please check the team&apos;s scheduling start point." xml:space="preserve">
+    <value>Nu există săptămâni de programare valide. Vă rugăm să verificați punctul de pornire al programării echipei.</value>
+  </data>
+  <data name="On-call schedule" xml:space="preserve">
+    <value>Programul de permanență</value>
+  </data>
+  <data name="Other teams: " xml:space="preserve">
+    <value>Alte echipe:</value>
+  </data>
+  <data name="Override duration" xml:space="preserve">
+    <value>Durata suprascrierii</value>
+  </data>
+  <data name="Participating employees" xml:space="preserve">
+    <value>Angajați participanți</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>persoane · Cel mai scurt odihnă din această săptămână</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>persoane · Rotația intervalelor orare:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>persoane, țintă</value>
+  </data>
+  <data name="Per shift " xml:space="preserve">
+    <value>Per schimb</value>
+  </data>
+  <data name="Previous Week" xml:space="preserve">
+    <value>Săptămâna precedentă</value>
+  </data>
+  <data name="Rotate Members" xml:space="preserve">
+    <value>Rotație membri</value>
+  </data>
+  <data name="Rule template:" xml:space="preserve">
+    <value>Șablon de reguli:</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Salvat</value>
+  </data>
+  <data name="Shift covered" xml:space="preserve">
+    <value>Ture acoperite</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Începe</value>
+  </data>
+  <data name="Starting soon" xml:space="preserve">
+    <value>Începe în curând</value>
+  </data>
+  <data name="Status is based on page load time)" xml:space="preserve">
+    <value>Starea se bazează pe timpul de încărcare al paginii)</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Configurarea echipei</value>
+  </data>
+  <data name="The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available." xml:space="preserve">
+    <value>Următorii angajați fac parte din mai multe grupuri de permanență; previzualizarea și programarea automată îi vor omite. Planificările salvate rămân neschimbate; programarea manuală și validarea conflictelor dintre grupuri sunt în continuare disponibile.</value>
+  </data>
+  <data name="This shift ends at " xml:space="preserve">
+    <value>Tura se încheie la</value>
+  </data>
+  <data name="This week&apos;s schedule" xml:space="preserve">
+    <value>Programul săptămânii</value>
+  </data>
+  <data name="Three shifts per day, supporting multiple members per shift. Actual shifts are stored under the team." xml:space="preserve">
+    <value>Trei ture pe zi, cu posibilitatea de a avea mai mulți membri în fiecare tură. Turele efective sunt înregistrate în cadrul echipei.</value>
+  </data>
+  <data name="Unsaved · Auto-suggested" xml:space="preserve">
+    <value>Nesalvat · Sugestie automată</value>
+  </data>
+  <data name="Unsaved · Manual schedule" xml:space="preserve">
+    <value>Nesalvat · Programare manuală</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>Vizualizați echipa</value>
+  </data>
+
+</root>
