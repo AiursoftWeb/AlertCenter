@@ -8,6 +8,7 @@ public class ApplicationsViewModel : UiStackLayoutViewModel
 {
     public ApplicationsViewModel() { PageTitle = "Alert Center"; }
     public List<SourceApplication> Applications { get; set; } = [];
+    public Dictionary<Guid, ApplicationIncidentCounts> IncidentCounts { get; set; } = [];
     public string? ApplicationSearchKeyword { get; set; }
     public CreateApplicationRequest ApplicationInput { get; set; } = new();
     public List<OnCallGroup> OnCallGroups { get; set; } = [];
@@ -18,6 +19,8 @@ public class ApplicationsViewModel : UiStackLayoutViewModel
     public HashSet<Guid> OwnedApplicationIds { get; set; } = [];
     public HashSet<Guid> ManageableApplicationIds { get; set; } = [];
 }
+
+public sealed record ApplicationIncidentCounts(int Active, int Mitigated);
 
 public class CreateApplicationRequest
 {

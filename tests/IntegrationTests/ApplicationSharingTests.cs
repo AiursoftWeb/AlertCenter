@@ -2,11 +2,112 @@ using System.Net;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System.Text.RegularExpressions;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 
 public partial class IncidentPagesTests
 {
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task ApplicationIncidentCountsSeparateStatesAndLinkToTheMatchingQueue(bool disabled)
+    {
+        await LoginAsAdmin();
+        Guid applicationId;
+        Guid emptyApplicationId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var ownerId = await db.Users.Where(user => user.Email == "admin@default.com").Select(user => user.Id).SingleAsync();
+            var application = new SourceApplication { Name = "Counted application", OwnerId = ownerId, IsEnabled = !disabled };
+            var empty = new SourceApplication { Name = "Empty application", OwnerId = ownerId };
+            applicationId = application.Id;
+            emptyApplicationId = empty.Id;
+            db.AddRange(application, empty);
+            db.Incidents.AddRange(
+                new Incident { Application = application, Title = "Unacknowledged active incident" },
+                new Incident { Application = application, Title = "Acknowledged active incident", AcknowledgedAtUtc = DateTime.UtcNow },
+                new Incident { Application = application, Title = "Mitigated incident", Status = Incident.Mitigated },
+                new Incident { Application = application, Title = "Resolved incident", Status = Incident.Resolved });
+            await db.SaveChangesAsync();
+        }
+        var html = await Http.GetStringAsync("/Applications/Applications");
+        var row = Regex.Matches(html, "<tr>.*?</tr>", RegexOptions.Singleline)
+            .Single(match => match.Value.Contains(applicationId.ToString())).Value;
+        var emptyRow = Regex.Matches(html, "<tr>.*?</tr>", RegexOptions.Singleline)
+            .Single(match => match.Value.Contains(emptyApplicationId.ToString())).Value;
+        Assert.Contains("Active: 2", row);
+        Assert.Contains("Mitigated: 1", row);
+        Assert.Contains("Active: 0", emptyRow);
+        Assert.Contains("Mitigated: 0", emptyRow);
+        foreach (var (label, expectedTitle, excludedTitle) in new[]
+        {
+            ("Active: 2", "Acknowledged active incident", "Mitigated incident"),
+            ("Mitigated: 1", "Mitigated incident", "Acknowledged active incident")
+        })
+        {
+            var link = Regex.Match(row, "<a[^>]*href=\"([^\"]+)\"[^>]*>\\s*" + label + "\\s*</a>", RegexOptions.Singleline);
+            Assert.IsTrue(link.Success);
+            var queue = await Http.GetStringAsync(WebUtility.HtmlDecode(link.Groups[1].Value));
+            Assert.Contains(expectedTitle, queue);
+            Assert.DoesNotContain(excludedTitle, queue);
+            Assert.DoesNotContain("Resolved incident", queue);
+        }
+        var filtered = await Http.GetStringAsync("/Applications/Applications?keyword=Counted");
+        Assert.Contains("Active: 2", filtered);
+        Assert.DoesNotContain("Empty application", filtered);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task ApplicationIncidentCountsRequireViewPermissionRatherThanAnotherApplicationGrant(bool roleGrant)
+    {
+        var key = await CreateApplication();
+        var readableId = Guid.Parse(key.Split('.')[0]);
+        var (email, _) = await RegisterAndLoginAsync();
+        Guid createOnlyId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var userId = await db.Users.Where(user => user.Email == email).Select(user => user.Id).SingleAsync();
+            var readable = await db.SourceApplications.SingleAsync();
+            readable.Name = "Readable counts";
+            var createOnly = new SourceApplication { Name = "Create-only counts", OwnerId = readable.OwnerId };
+            var hidden = new SourceApplication { Name = "Private counts", OwnerId = readable.OwnerId };
+            createOnlyId = createOnly.Id;
+            db.AddRange(createOnly, hidden);
+            foreach (var application in new[] { readable, createOnly, hidden })
+                db.Incidents.Add(new Incident { Application = application, Title = "Private incident information" });
+            if (roleGrant)
+            {
+                var role = new IdentityRole("Incident count readers");
+                db.UserRoles.Add(new IdentityUserRole<string> { UserId = userId, RoleId = role.Id });
+                db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { Application = readable, Role = role, CanViewIncidents = true });
+                db.ApplicationRoleAccesses.Add(new ApplicationRoleAccess { Application = createOnly, Role = role, CanCreateIncidents = true });
+            }
+            else
+            {
+                db.ApplicationUserAccesses.Add(new ApplicationUserAccess { Application = readable, UserId = userId, CanViewIncidents = true });
+                db.ApplicationUserAccesses.Add(new ApplicationUserAccess { Application = createOnly, UserId = userId, CanCreateIncidents = true });
+            }
+            await db.SaveChangesAsync();
+        }
+        var html = await Http.GetStringAsync("/Applications/Applications");
+        var readableRow = Regex.Matches(html, "<tr>.*?</tr>", RegexOptions.Singleline)
+            .Single(match => match.Value.Contains(readableId.ToString())).Value;
+        var createOnlyRow = Regex.Matches(html, "<tr>.*?</tr>", RegexOptions.Singleline)
+            .Single(match => match.Value.Contains(createOnlyId.ToString())).Value;
+        Assert.Contains("Active: 1", readableRow);
+        Assert.Contains("Mitigated: 0", readableRow);
+        Assert.Contains("No permission to view incidents", createOnlyRow);
+        Assert.DoesNotContain("Active:", createOnlyRow);
+        Assert.DoesNotContain("Mitigated:", createOnlyRow);
+        Assert.DoesNotContain("Private counts", html);
+        Assert.DoesNotContain("Private incident information", html);
+    }
+
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]

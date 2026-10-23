@@ -250,10 +250,26 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
             visibleIds.UnionWith(await applicationAccess.GetAccessibleApplicationIdsAsync(User, permission, cancellationToken));
         var applications = db.SourceApplications.AsNoTracking().Where(application => visibleIds.Contains(application.Id));
         if (!string.IsNullOrEmpty(keyword)) applications = applications.Where(application => application.Name.Contains(keyword));
+        var listedApplications = await applications.Include(application => application.OnCallGroup)
+            .OrderByDescending(application => application.CreatedAtUtc).ToListAsync(cancellationToken);
+        var countableIds = listedApplications.Where(application => accessibleIds.Contains(application.Id))
+            .Select(application => application.Id).ToArray();
+        var incidentCounts = await db.Incidents.AsNoTracking()
+            .Where(incident => countableIds.Contains(incident.ApplicationId) &&
+                (incident.Status == Incident.New || incident.Status == Incident.Mitigated))
+            .GroupBy(incident => incident.ApplicationId)
+            .Select(group => new
+            {
+                ApplicationId = group.Key,
+                Active = group.Count(incident => incident.Status == Incident.New),
+                Mitigated = group.Count(incident => incident.Status == Incident.Mitigated)
+            })
+            .ToDictionaryAsync(counts => counts.ApplicationId,
+                counts => new ApplicationIncidentCounts(counts.Active, counts.Mitigated), cancellationToken);
         return new ApplicationsViewModel
         {
-            Applications = await applications.Include(application => application.OnCallGroup)
-                .OrderByDescending(application => application.CreatedAtUtc).ToListAsync(cancellationToken),
+            Applications = listedApplications,
+            IncidentCounts = incidentCounts,
             OnCallGroups = applicationAccess.CanCreateApplications(User)
                 ? await db.OnCallGroups.AsNoTracking().OrderBy(group => group.Name).ToListAsync(cancellationToken) : [],
             ApplicationSearchKeyword = keyword,
