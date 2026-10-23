@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>Recunoaște și preia responsabilitatea</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Confirmat</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Ajustarea gravității incidentului</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>Ajustează severitatea</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>Ajusta gravitatea acestui incident și înregistrează motivul. Creșterea gravității programă un e-mail; scăderea ei nu face acest lucru.</value>
+  </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>Rezolvați și acest incident imediat, utilizând motivul atenuării ca motiv de rezolvare.</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>Creat automat la</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>Înapoi la lista incidentelor</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anulare</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>Recuperare cu buclă închisă</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>Confirmă atenuarea incidentului</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>Confirmați redeschiderea incidentului</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>Confirmați rezolvarea incidentului</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>Confirmați ajustarea severității</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>Notă de confirmare (opțională)</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Copiere conținut</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>Copiază JSON</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>OCE în tura actuală</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>În prezent de gardă</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>Descrieți măsurile de atenuare, amploarea impactului și starea de recuperare.</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>Descrieți modificările de impact și baza ajustărilor nivelului de severitate.</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>Fiecare raport independent creează un incident nou. Confirmarea, atenuarea sau rezolvarea acestui incident nu afectează alte incidente sau notificările aferente.</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>Exemplu: Pool-ul de conexiuni la baza de date centrală a fost restaurat, răspunsurile serviciilor sunt normale, testul de sarcină a fost reușit.</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>Exemplu: Monitorizarea a detectat din nou aceeași defecțiune, este necesară reanaliza.</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>Rezolvat și închis</value>
+  </data>
+  <data name="Full context" xml:space="preserve">
+    <value>Context complet</value>
+  </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>Confirm că acest incident a fost rezolvat complet și nu se va repeta.</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>E-mailurile de incident utilizează această instantanee OCE originală, chiar și după schimbarea turei de gardă. Confirmarea atribuie proprietarul incidentului; nu modifică destinații e-mailurilor.</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>ID-ul incidentului</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>Responsabilul incidentului:</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Titlul incidentului</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Sala de criză pentru incident - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>Incidente independente</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>Ultima dată de confirmare</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Atenuează incidentul</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Mitigat (Mitigat)</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>Motivul măsurilor de atenuare (obligatoriu)</value>
+  </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>Ora mitigării</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>Nivel nou</value>
+  </data>
+  <data name="No additional context was reported." xml:space="preserve">
+    <value>Nu au fost raportate informații suplimentare.</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>Nu există niciun OCE de serviciu în prezent.</value>
+  </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>Nu este disponibilă nicio instantă originală OCE. OCE-ul curent nu este substituit pentru destinații istorici ai e-mailurilor.</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Neconfirmat</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Produs la</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE la momentul producerii incidentului</value>
+  </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>Șterge definitiv</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>Ștergere permanentă a incidentului</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>Interogare eșuată:</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>Motivul ajustării (obligatoriu)</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Primit la</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>Înregistrați măsurile de limitare, apoi motivul rezolvării. Redeschiderea readuce acest incident la starea de neimplementare a măsurilor de limitare, păstrând confirmarea și responsabilitatea.</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>Înregistrați măsurile de atenuare luate. Rezolvați acest incident după ce corectarea este finalizată.</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Redeschide incidentul</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>Note la redeschidere (Opțional)</value>
+  </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>Redeschiderea readuce acest incident la starea de progres fără măsuri de atenuare. Confirmarea și responsabilul desemnat anterior se păstrează. E-mailul este pus în coadă pentru destinatarii configurați.</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>ID-ul raportului</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>Informații despre raport</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>Motivul rezolvării (obligatoriu)</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>Timp de rezolvare</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Rezolvă incidentul</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Rezolvat (Rezolvat)</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>Rezolvarea acestui incident finalizează fluxul său de lucru. Celelalte incidente sunt gestionate independent.</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>Descrierea mecanismului de răspuns</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Critic (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Major (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Eroare (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Avertisment (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Informație (P4)</value>
+  </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Această acțiune șterge definitiv incidentul și istoricul acestuia. Introduceți titlul exact pentru confirmare.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Nedestinată</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Nemitigat</value>
+  </data>
+
+</root>
