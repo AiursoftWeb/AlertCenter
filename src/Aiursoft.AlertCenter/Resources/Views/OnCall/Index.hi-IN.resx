@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>कार्रवाई</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>स्वचालित रूप से असाइन करें</value>
+  </data>
+  <data name="Bound, cannot be deleted" xml:space="preserve">
+    <value>टीम से जुड़ा है, हटाया नहीं जा सकता</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>रद्द करें</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>बंद करें</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>हटाने की पुष्टि करें</value>
+  </data>
+  <data name="Confirm rule deletion" xml:space="preserve">
+    <value>नियम हटाने की पुष्टि करें</value>
+  </data>
+  <data name="Create Rule" xml:space="preserve">
+    <value>नियम बनाएँ</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>हटाएँ</value>
+  </data>
+  <data name="Delete scheduling rule" xml:space="preserve">
+    <value>शेड्यूलिंग नियम हटाएँ</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>संपादित करें</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>घंटे</value>
+  </data>
+  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
+    <value>एकाधिक टीमों द्वारा साझा किए जाने वाले नियम टेम्पलेट प्रबंधित करें। किसी टेम्पलेट में बदलाव करने से पहले से सहेजी गई शिफ़्ट फिर से नहीं बनतीं।</value>
+  </data>
+  <data name="Min " xml:space="preserve">
+    <value>न्यूनतम</value>
+  </data>
+  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>अभी तक कोई नियम टेम्पलेट सहेजा नहीं गया है। पहले एक टेम्पलेट बनाएँ, फिर टीम से उसे जोड़कर इस्तेमाल करवाएँ।</value>
+  </data>
+  <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
+    <value>केवल वे टेम्पलेट हटाए जा सकते हैं जो किसी टीम से जुड़े नहीं हैं। टीमों की सहेजी गई शिफ़्ट और हिस्ट्री नहीं हटाई जाएँगी; हटाए गए टेम्पलेट वापस नहीं लाए जा सकते।</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>लोग</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>लोग · लक्ष्य</value>
+  </data>
+  <data name="Please unbind the template from all teams first." xml:space="preserve">
+    <value>कृपया पहले सभी टीमों से टेम्पलेट का बंधन हटाएँ।</value>
+  </data>
+  <data name="Rule saved" xml:space="preserve">
+    <value>नियम सहेजा गया</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>नियम टेम्पलेट</value>
+  </data>
+  <data name="Scheduling Rules" xml:space="preserve">
+    <value>शेड्यूलिंग नियम</value>
+  </data>
+  <data name="Shift / Break" xml:space="preserve">
+    <value>शिफ्ट / ब्रेक</value>
+  </data>
+  <data name="Teams using" xml:space="preserve">
+    <value>उपयोग करने वाली टीमें</value>
+  </data>
+  <data name="View rules" xml:space="preserve">
+    <value>नियम देखें</value>
+  </data>
+
+</root>

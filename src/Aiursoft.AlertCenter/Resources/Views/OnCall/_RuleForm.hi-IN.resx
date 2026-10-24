@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
+    <value>स्वचालित रूप से शेड्यूल बनाने पर सभी आवश्यकताएँ पूरी होनी चाहिए; मैन्युअल रूप से कर्मचारियों की संख्या अपर्याप्त होने पर केवल चेतावनी दी जाएगी, जबकि खाली शिफ़्टें सहेजी नहीं जा सकतीं।</value>
+  </data>
+  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
+    <value>सुबह, दोपहर और देर की शिफ़्टों को यथासंभव समान रूप से बाँटें</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>रद्द करें</value>
+  </data>
+  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
+    <value>यह न्यूनतम कर्मचारियों की संख्या से कम नहीं हो सकती; ओवरराइड और विश्राम की अनुमति होने पर लक्ष्य को यथासंभव पूरा करें। स्वचालित आवंटन के लिए खाली छोड़ें।</value>
+  </data>
+  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
+    <value>शिफ्ट में आवश्यक कर्मचारियों की उपलब्धता और उनके आराम को प्राथमिकता दी जाती है; अदला-बदली के दौरान अतिरिक्त कर्मचारियों की संख्या कम हो सकती है। कम से कम 16 घंटे के आराम वाले तीन सदस्यों के दलों के लिए रोटेशन की अनुमति नहीं है। शेड्यूलिंग वास्तविक 8 घंटे की लगातार शिफ्टों पर आधारित है; डेलाइट सेविंग टाइम के बदलावों के दौरान स्थानीय समय बदल सकता है।</value>
+  </data>
+  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
+    <value>प्रतिदिन तीन शिफ्ट निर्धारित हैं; प्रत्येक शिफ्ट में कम से कम एक व्यक्ति होना चाहिए। एक शिफ्ट में एक से अधिक व्यक्ति भी हो सकते हैं।</value>
+  </data>
+  <data name="Fixed time slots take priority" xml:space="preserve">
+    <value>निश्चित समय स्लॉट को प्राथमिकता दी जाती है</value>
+  </data>
+  <data name="Minimum Rest (Hours)" xml:space="preserve">
+    <value>न्यूनतम विश्राम (घंटे)</value>
+  </data>
+  <data name="Minimum staff per shift" xml:space="preserve">
+    <value>प्रति शिफ्ट न्यूनतम कर्मचारी</value>
+  </data>
+  <data name="Rotation Preference" xml:space="preserve">
+    <value>रोटेशन वरीयता</value>
+  </data>
+  <data name="Save template" xml:space="preserve">
+    <value>टेम्पलेट सहेजें</value>
+  </data>
+  <data name="Shift duration (hours)" xml:space="preserve">
+    <value>शिफ्ट की अवधि (घंटे)</value>
+  </data>
+  <data name="Target staff per shift" xml:space="preserve">
+    <value>प्रति शिफ्ट लक्षित कर्मचारियों की संख्या</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>टेम्पलेट का नाम</value>
+  </data>
+  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
+    <value>यह नियम टेम्पलेट कई टीमों के बीच साझा करने के लिए उपलब्ध है। सदस्य, रोटेशन क्रम और शेड्यूल के आरंभ बिंदु टीम द्वारा प्रबंधित किए जाते हैं। टेम्पलेट में बदलाव करने से पहले से सहेजी गई शिफ़्ट फिर से जनरेट नहीं होंगी।</value>
+  </data>
+
+</root>
