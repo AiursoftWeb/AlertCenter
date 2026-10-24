@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>डिलीवरी</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>अपठित साइट सूचनाएँ</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>&quot;फायर-एंड-फॉरगेट&quot; समर्थन लंबे समय तक चलने वाले कार्यों (जैसे ईमेल या एआई) के लिए, जिसमें कतार प्रबंधन, समानांतर प्रसंस्करण और रद्द करने के लिए एक GUI शामिल है।</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>कुल {0} असाइन किए गए</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>सूक्ष्म अनुमति प्रबंधन के लिए एक अंतर्निहित भूमिका-आधारित पहुँच नियंत्रण (RBAC) प्रणाली।</value>
@@ -36,17 +45,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>आपके अगले वेब एप्लिकेशन के लिए एक आधुनिक, सुविधा-संपन्न और अत्यधिक विस्तार योग्य आधार।</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>स्वीकृत</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>AI-संचालित अनुवाद</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter अलर्टिंग एवं संचालन केंद्र · वैश्विक स्थिति एवं क्लोज़्ड-लूप ट्रैकिंग</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>सभी</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>सभी निर्भरताएँ स्वचालित रूप से पंजीकृत होती हैं और कंस्ट्रक्टर इंजेक्शन के माध्यम से हमेशा उपलब्ध रहती हैं।</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>सभी रिकॉर्ड</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>एप्लिकेशन</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>स्वचालित डार्क मोड</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>स्वचालित निर्भरता इंजेक्शन</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>स्वचालित संदेश वितरण और समस्या निवारण</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>स्वचालित समय क्षेत्र प्रबंधन</value>
@@ -57,8 +84,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>स्वचालित, एआई-चालित 28 भाषाओं में अनुवाद।</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>उपलब्ध चैनल ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>बैकग्राउंड जॉब प्रोसेसिंग</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>ऑन-कॉल समूहों और प्रमुख ईमेल पतों पर एक साथ भेजें</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>अंतर्निहित उपयोगकर्ता प्रबंधन</value>
@@ -72,11 +105,47 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>विस्तृत दस्तावेज़ीकरण</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>पुश चैनल कॉन्फ़िगर करें</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>सुसंगतता प्रमाणीकरण</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>कॉपी करें</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>अपने एप्लिकेशन के लिए एक अलर्ट बनाएँ और उसके कॉन्फ़िगर किए गए प्राप्तकर्ताओं को सूचित करें।</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>एक एप्लिकेशन बनाएँ</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>ऐप्लिकेशन बनाएँ और कुंजी प्राप्त करें</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>API या SDK के माध्यम से पहली घटना बनाएँ। यह यहाँ दिखाई देगी।</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>गंभीर</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>गंभीर ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>समर्पित API कुंजी प्रमाणीकरण</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>डिलीवरी रिकॉर्ड</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>एकीकरण का विस्तृत दस्तावेज़ीकरण</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>यूटीसी में विशेष रूप से विकसित करें जबकि सिस्टम स्वचालित रूप से उपयोगकर्ता के स्थानीय समय क्षेत्र में तारीखों को परिवर्तित और प्रदर्शित करता है।</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>सहयोगात्मक रूप से समाधान के लिए ज़िम्मेदार लोगों और उपयोगकर्ता समूहों से सीधे जुड़ें</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>डेप्लॉयमेंट के लिए डॉकरकृत</value>
@@ -96,6 +165,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>आसानी से इंटीग्रेशन टेस्ट लिखें, इन-मेमोरी डेटाबेस, अस्थायी फाइल सिस्टम, बिल्ट-इन मॉकिंग, और वास्तविक दुनिया के HTTP रिक्वेस्ट सिमुलेशन का उपयोग करके।</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>त्रुटि</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>त्रुटि</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>एक स्वचालित अवतार संपीड़न और गोपनीयता सुरक्षा के साथ एक एम्बेडेड फ़ाइल प्रबंधन प्रणाली के साथ सुविधा प्रदान करता है।</value>
   </data>
@@ -108,14 +183,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>नमस्ते दुनिया!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>ऐप के भीतर सूचनाओं का इनबॉक्स</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>घटना पर कार्रवाई</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>घटना का शीर्षक</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>घटना को ट्रिगर करना और मिलकर उसका समाधान करना</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>विस्तृत दस्तावेज़ीकरण और व्यावहारिक उदाहरण शामिल हैं ताकि आप जल्दी से शुरुआत कर सकें।</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>जानकारी</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>एकीकृत फ़ाइल प्रबंधन</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>एकीकरण मार्गदर्शिका</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>“एकीकृत ऐप्स” में समर्पित क्रेडेंशियल जारी करें।</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>नवीनतम घटनाएँ</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>संबद्ध घटना</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>लिंक किया गया पुश चैनल</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>स्थानीय समय</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>गंभीर</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>गंभीर ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>एप्लिकेशन प्रबंधित करें</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>कम किया गया</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>मॉडल्स को डेटा एनोटेशन्स के आधार पर क्लाइंट और सर्वर दोनों तरफ वैधता के लिए जांचा जाता है।</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>निगरानी डैशबोर्ड</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>बहु-डेटाबेस प्रोवाइडर समर्थन</value>
@@ -123,8 +246,44 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>एकाधिक डेटाबेस समर्थन</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>मेरी घटनाएँ</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>नया अलर्ट</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>तत्काल कार्रवाई की आवश्यकता वाली कोई घटना नहीं</value>
+  </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>अभी तक कोई घटना नहीं</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>स्वीकार नहीं किया गया</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>सूचना भेजने का केंद्र</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>जारी घटना</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>जारी घटना पर कार्रवाई आवश्यक है</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>ओपनआईडी कनेक्ट एकीकरण</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>ऑपरेशंस प्रतिक्रिया का समापन</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>पुश सफलता दर</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>त्वरित रिपोर्ट का उदाहरण</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>त्वरित एकीकरण प्रारंभ करें</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>आरबीएसी प्राधिकरण</value>
@@ -132,17 +291,41 @@
   <data name="Read the document" xml:space="preserve">
     <value>दस्तावेज़ पढ़ें</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>हाल ही में बनाए गए मामले</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>समस्या की सूचना दें। कार्रवाई शुरू करें।</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>रिपोर्ट का विवरण, कार्रवाई का इतिहास और समाधान की स्थिति।</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>तत्काल कार्रवाई आवश्यक</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>समाधान हो गया</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>उत्तरदायी डिज़ाइन</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>दृढ़ एकीकरण परीक्षण</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>ऐप की पुश सेटिंग में Sev0 से Sev4 के अनुसार रूट करें।</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>योजित कार्य प्रबंधन</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>किसी भी OpenID Connect प्रदाता के साथ सहज एकीकरण, स्वचालित भूमिका सिंक्रनाइज़ेशन के साथ।</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>गंभीरता</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>गंभीरता के अनुसार फ़िल्टर:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>स्मार्ट कॉन्फ़िगरेशन ओवरराइड्स</value>
@@ -153,11 +336,32 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>स्मार्ट डार्क मोड जो स्वचालित रूप से उपयोगकर्ता की सिस्टम सेटिंग्स के अनुकूल हो जाता है।</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP ईमेल चैनल</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>स्रोत</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>स्रोत एप्लिकेशन</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>नया प्रोजेक्ट शुरू करें</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>.NET SDK / Go / Webhook के लिए समर्थन उपलब्ध है</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>पर्यावरण चर के साथ-साथ डेटाबेस-आधारित सेटिंग्स का समर्थन करता है, जहां पर्यावरण चर को बिना किसी दिक्कत के ओवरराइड करने के लिए स्वचालित प्राथमिकता दी जाती है।</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>कस्टम अनुरोध हेडर और JSON टेम्पलेट का समर्थन करता है</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>केंद्र सूचनाएँ असमकालिक रूप से भेजता है, जिससे रिकॉर्ड का पता लगाने और पुनः प्रयास करने में सहायता मिलती है।</value>
+  </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>स्वीकृति के ज़रिए आपके ज़िम्मे आए घटनाक्रम। अपनी प्रतिक्रिया से जुड़ा सारा काम एक ही जगह रखें।</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>नेविगेशन बार उपयोगकर्ता भूमिकाओं और अनुमतियों के आधार पर स्वचालित रूप से समायोजित होता है।</value>
@@ -165,11 +369,38 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>यह एक टेम्पलेट प्रोजेक्ट है, जहाँ से हम अपनी यात्रा शुरू करते हैं...</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>समय</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>कुल घटनाएँ</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>निवारण नहीं हुआ</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>अनसुलझे</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>परीक्षण संबंधी घटनाओं की रिपोर्ट करने के लिए Bearer प्रमाणीकरण का उपयोग करें:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>सभी घटनाएँ देखें</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>चेतावनी</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>वेबहुक स्वचालित शेड्यूलिंग</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>स्वागत है</value>
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Aiursoft टेम्पलेट क्यों उपयोग करें?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>आपको सक्रिय ऐप्लिकेशन के लिए अलर्ट बनाने की अनुमति की आवश्यकता है।</value>
   </data>
 
 </root>

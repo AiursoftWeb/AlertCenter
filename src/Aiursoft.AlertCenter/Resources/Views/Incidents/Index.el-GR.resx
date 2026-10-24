@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} περιστατικά σε αυτή τη σελίδα</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>{0} περιστατικά που δεν έχουν αντιμετωπιστεί στις εφαρμογές στις οποίες έχετε πρόσβαση</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Αναγνωρισμένο</value>
+  </data>
+  <data name="Acknowledgement" xml:space="preserve">
+    <value>Επιβεβαίωση</value>
+  </data>
+  <data name="Adjust filter conditions or reset to view all records." xml:space="preserve">
+    <value>Προσαρμόστε τις συνθήκες φίλτρου ή επαναφέρετε για να δείτε όλα τα αρχεία.</value>
+  </data>
+  <data name="All acknowledgements" xml:space="preserve">
+    <value>Όλες οι επιβεβαιώσεις</value>
+  </data>
+  <data name="All applications" xml:space="preserve">
+    <value>Όλες οι εφαρμογές</value>
+  </data>
+  <data name="All incidents" xml:space="preserve">
+    <value>Όλα τα περιστατικά</value>
+  </data>
+  <data name="All severities" xml:space="preserve">
+    <value>Όλες οι σοβαρότητες</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>Όλες οι καταστάσεις</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>Εκκαθάριση όλων των φίλτρων</value>
+  </data>
+  <data name="Each new incident automatically creates or associates an incident; confirm, record progress, and resolve issues here." xml:space="preserve">
+    <value>Κάθε νέο περιστατικό δημιουργεί ή συσχετίζει αυτόματα ένα περιστατικό· επιβεβαιώστε το, καταγράψτε την πρόοδο και επιλύστε τα ζητήματα εδώ.</value>
+  </data>
+  <data name="Each report creates an independent incident. Acknowledge and assign, mitigate, resolve, and track progress here." xml:space="preserve">
+    <value>Κάθε αναφορά δημιουργεί ένα ανεξάρτητο περιστατικό. Εδώ μπορείτε να το αναγνωρίσετε και να του αναθέσετε υπεύθυνο, να περιορίσετε τις επιπτώσεις του, να το επιλύσετε και να παρακολουθείτε την πρόοδό του.</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Είσοδος</value>
+  </data>
+  <data name="Enter Response War Room" xml:space="preserve">
+    <value>Είσοδος στην αίθουσα επιχειρήσεων απόκρισης</value>
+  </data>
+  <data name="Incident" xml:space="preserve">
+    <value>Προσοχή</value>
+  </data>
+  <data name="Incident Handling Center" xml:space="preserve">
+    <value>Κέντρο Διαχείρισης Συμβάντων</value>
+  </data>
+  <data name="Incident log list" xml:space="preserve">
+    <value>Λίστα καταγραφής περιστατικών</value>
+  </data>
+  <data name="Incident pages" xml:space="preserve">
+    <value>Σελίδες συμβάντων</value>
+  </data>
+  <data name="Incident severity" xml:space="preserve">
+    <value>Σοβαρότητα περιστατικού</value>
+  </data>
+  <data name="Incident status" xml:space="preserve">
+    <value>Κατάσταση συμβάντος</value>
+  </data>
+  <data name="Incidents and emergency response" xml:space="preserve">
+    <value>Περιστατικά και αντιμετώπιση έκτακτων αναγκών</value>
+  </data>
+  <data name="Keyword Search" xml:space="preserve">
+    <value>Αναζήτηση λέξης-κλειδιού</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Αντιμετωπίστηκε</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Μετριασμένο (Μετριασμένο)</value>
+  </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Τα περιστατικά μου</value>
+  </data>
+  <data name="Next page" xml:space="preserve">
+    <value>Επόμενη σελίδα</value>
+  </data>
+  <data name="No incident records yet" xml:space="preserve">
+    <value>Δεν υπάρχουν ακόμη καταχωρίσεις συμβάντων</value>
+  </data>
+  <data name="No matching incidents" xml:space="preserve">
+    <value>Δεν υπάρχουν περιστατικά που να ταιριάζουν</value>
+  </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>Δεν υπάρχει OCE σε εφημερία</value>
+  </data>
+  <data name="No unmitigated incidents in this queue" xml:space="preserve">
+    <value>Δεν υπάρχουν περιστατικά που δεν έχουν αντιμετωπιστεί σε αυτή την ουρά</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Δεν έχει επιβεβαιωθεί</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>Δεν έχει καταγραφεί</value>
+  </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>Αρχικός εφημερεύων OCE</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>Υπεύθυνος (τελευταία ACK)</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Σελίδα {0}</value>
+  </data>
+  <data name="Please correct the filter conditions." xml:space="preserve">
+    <value>Διορθώστε τις συνθήκες φίλτρου.</value>
+  </data>
+  <data name="Previous page" xml:space="preserve">
+    <value>Προηγούμενη σελίδα</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Παραλήφθηκε στις</value>
+  </data>
+  <data name="Received from (UTC)" xml:space="preserve">
+    <value>Λήφθηκε από (UTC)</value>
+  </data>
+  <data name="Received through (UTC, inclusive)" xml:space="preserve">
+    <value>Λήψη έως (UTC, συμπεριλαμβανομένης)</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>Επαναφορά φίλτρων</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Επιλύθηκε</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Επιλύθηκε (Resolved)</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="Search incident titles, content, or applications..." xml:space="preserve">
+    <value>Αναζήτηση στους τίτλους, το περιεχόμενο ή τις εφαρμογές των περιστατικών...</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Κρίσιμη (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Μείζον (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Σφάλμα (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Προειδοποίηση (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Πληροφορίες (P4)</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Εφαρμογή προέλευσης</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="The selected application is inaccessible" xml:space="preserve">
+    <value>Η επιλεγμένη εφαρμογή δεν είναι προσβάσιμη</value>
+  </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>Αυτά τα περιστατικά σάς ανήκουν, επειδή ήσασταν το τελευταίο άτομο που τα επιβεβαίωσε. Περιλαμβάνονται μόνο εφαρμογές στις οποίες έχετε πρόσβαση.</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Χωρίς αντιμετώπιση</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>Δεν έχετε περιστατικά που σας έχουν ανατεθεί</value>
+  </data>
+
+</root>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>, μπορεί να χρησιμοποιηθεί στην πλευρά του παραλήπτη με</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: Υποστηρίζει την ταυτόχρονη σύνδεση πολλών χρηστών και ομάδων χρηστών (ρόλων). Το σύστημα αφαιρεί αυτόματα τις διπλοεγγραφές, διασφαλίζοντας ότι κάθε μέλος λαμβάνει μόνο μία μη αναγνωσμένη ειδοποίηση.</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: Το σύστημα χρησιμοποιεί ενιαία τις ρυθμίσεις της καθολικής υπηρεσίας email. Χρησιμοποιήστε</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Επιλέξτε τύπο καναλιού</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Προσθήκη</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>Προσθέστε διεύθυνση ηλεκτρονικού ταχυδρομείου CC</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>Προσθήκη διεύθυνσης email</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>Προσθέστε τουλάχιστον έναν χρήστη ή μία ομάδα χρηστών· δεν αποστέλλονται ειδοποιήσεις αν μια ομάδα δεν έχει μέλη.</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>Προσθήκη καναλιού push</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>Προσθήκη παραληπτών και ομάδων χρηστών</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>Προσαρμοσμένο αίτημα για προχωρημένους (Προσαρμοσμένες κεφαλίδες και πρότυπα)</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>και</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>Εξουσιοδότηση σύνδεσης εφαρμογής</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>Δεν έχουν παραχωρηθεί ακόμη δικαιώματα σύνδεσης εφαρμογών</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>Εκτός από τους διαχειριστές του καναλιού ειδοποιήσεων push, κανένας χρήστης δεν μπορεί προς το παρόν να συνδέσει αυτό το κανάλι.</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>Τύπος εξουσιοδότησης</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>Επιστροφή στη λίστα καναλιών</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>Μαζική εισαγωγή διευθύνσεων email κοινοποίησης</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>Δεν είναι δυνατή η αντικατάσταση.</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Λίστα κοινοποιήσεων</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Όνομα καναλιού</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>Κάντε κλικ στο κουμπί στα δεξιά για αφαίρεση</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>Κάντε κλικ για εισαγωγή placeholder:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>Λεπτομέρειες διαμόρφωσης</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>Περιγραφή προεπιλεγμένης μορφής αιτήματος</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>Κάθε εργασία παράδοσης έχει ένα μοναδικό, σταθερό</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>Επεξεργασία καναλιού push</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>Τα email θα αποστέλλονται απευθείας σε αυτήν τη διεύθυνση email.</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>Ενεργοποίηση αυτού του καναλιού push τώρα</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>Οι μεταβλητές περιβάλλοντος παρέχουν διαπιστευτήρια ελέγχου ταυτότητας.</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>Παράδειγμα: Ομάδα εφημερίας παραγωγής, bot συμβάντων Feishu, Ops Webhook…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>Πρόσθετες κεφαλίδες αιτήματος (αντικείμενο JSON)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>Καθολική υπηρεσία ηλεκτρονικού ταχυδρομείου SMTP</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>Το όνομα της κεφαλίδας μπορεί να έχει έως 128 χαρακτήρες· η τιμή πρέπει να είναι έγκυρη συμβολοσειρά.</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>Αποδιπλοποίηση με ιδιοδυναμία.</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>Αν παραμείνει κενό, το σύστημα αποστέλλει από προεπιλογή τυπικό JSON. Οι προσαρμοσμένες κεφαλίδες κρυπτογραφούνται και αποθηκεύονται μόνιμα;</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>Πεδίο εφαρμογής ειδοποιήσεων εντός εφαρμογής</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>Τροποποίηση των παραμέτρων παράδοσης για το κανάλι «{0}».</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>Δεν έχουν προστεθεί ακόμη παραλήπτες σε κοινοποίηση.</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>Δεν έχουν προστεθεί ακόμη παραλήπτες. Επιλέξτε ομάδες ρόλων ή ορίστε χρήστες παραπάνω.</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>Μία διεύθυνση email ανά γραμμή· υποστηρίζονται επίσης αγγλικά κόμματα ή ελληνικά ερωτηματικά, έως και 50 παραλήπτες σε κοινοποίηση.</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>Μόνο οι παρακάτω χρήστες ή τα μέλη ομάδων χρηστών μπορούν να βλέπουν και να συνδέουν αυτό το κανάλι στις εφαρμογές που διαχειρίζονται. Αυτή η άδεια δεν παρέχει πρόσβαση στους παραλήπτες, στα Webhook ή στις ρυθμίσεις δοκιμών.</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>Ανάλυση ως λίστα</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>Αποδέκτες κοινοποίησης που αναλύθηκαν</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>Τα σύμβολα κράτησης θέσης πρέπει να αποτελούν τη μοναδική τιμή μιας συμβολοσειράς JSON.</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Email παραλήπτη</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>Τύπος παραλήπτη</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Αφαίρεση</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Αφαίρεση {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Κατάργηση δικαιώματος</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>Πρότυπο σώματος αιτήματος (πρότυπο JSON)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>Ομάδα ρόλων</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>Αποθήκευση ρυθμίσεων καναλιού</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Αναζήτηση με όνομα χρήστη ή εμφανιζόμενο όνομα...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>Αναζήτηση χρηστών</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Επιλέξτε έναν τύπο καναλιού ειδοποιήσεων και διαμορφώστε τη διεύθυνση ή τους παραλήπτες.</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Επιλέξτε ομάδα χρηστών</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>Επιλέξτε ομάδα χρηστών...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Επιλέξτε χρήστη...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>Λίστα επιλεγμένων παραληπτών</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Ορισμός μεμονωμένου χρήστη</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>Ορισμός χρήστη</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>Καθορισμός χρήστη (χρήστης)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>Ο παραλήπτης πρέπει να υποστηρίζει HTTP POST με JSON. Μια απόκριση 2xx θεωρείται επιτυχής παράδοση. Το χρονικό όριο αναμονής του συστήματος για το αίτημα είναι 10 δευτερόλεπτα και δεν ακολουθούνται ανακατευθύνσεις μεταξύ διαφορετικών origin.</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>Προς προσθήκη</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>Χρησιμοποιείται για τη γρήγορη αναγνώριση των επιπέδων ειδοποιήσεων και των καταγραφών της εφαρμογής.</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>Ομάδα χρηστών</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Ομάδα χρηστών · Τα μέλη αποκτούν δυναμικά τα δικαιώματα σύνδεσης</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>Ομάδα χρηστών (ρόλος)</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>URL λήψης Webhook</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>Θα αναλύσει και θα διατηρήσει τους αρχικούς τύπους αντικειμένων.</value>
+  </data>
+
+</root>

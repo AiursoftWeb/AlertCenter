@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application" xml:space="preserve">
+    <value>Εφαρμογή</value>
+  </data>
+  <data name="Back to dashboard" xml:space="preserve">
+    <value>Επιστροφή στον πίνακα ελέγχου</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Περιεχόμενο</value>
+  </data>
+  <data name="Create alert" xml:space="preserve">
+    <value>Δημιουργία ειδοποίησης</value>
+  </data>
+  <data name="Creating this alert will queue notifications using the application&apos;s on-call and push settings." xml:space="preserve">
+    <value>Η δημιουργία αυτής της ειδοποίησης θα τοποθετήσει ειδοποιήσεις στην ουρά χρησιμοποιώντας τις ρυθμίσεις on-call και push της εφαρμογής.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Κρίσιμο</value>
+  </data>
+  <data name="Describe what happened so responders can take action." xml:space="preserve">
+    <value>Περιγράψτε τι συνέβη, ώστε οι αρμόδιοι να μπορέσουν να αναλάβουν δράση.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="Informational" xml:space="preserve">
+    <value>Πληροφοριακό</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Σοβαρό</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Νέα ειδοποίηση</value>
+  </data>
+  <data name="No enabled applications are available. Ask an application owner for create-alert access." xml:space="preserve">
+    <value>Δεν υπάρχουν διαθέσιμες ενεργοποιημένες εφαρμογές. Ζητήστε από τον υπεύθυνο μιας εφαρμογής πρόσβαση για τη δημιουργία ειδοποιήσεων.</value>
+  </data>
+  <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
+    <value>Εμφανίζονται μόνο οι ενεργοποιημένες εφαρμογές για τις οποίες μπορείτε να δημιουργείτε ειδοποιήσεις.</value>
+  </data>
+  <data name="Select an application" xml:space="preserve">
+    <value>Επιλέξτε μια εφαρμογή</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Σοβαρότητα</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Προειδοποίηση</value>
+  </data>
+
+</root>
