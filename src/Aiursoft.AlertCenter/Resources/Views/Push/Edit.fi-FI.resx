@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=", can be used on the receiving end with" xml:space="preserve">
+    <value>, voidaan käyttää vastaanottavassa päässä</value>
+  </data>
+  <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
+    <value>: Tukee useiden käyttäjien ja käyttäjäryhmien (roolien) liittämistä samanaikaisesti. Järjestelmä poistaa kaksoiskappaleet automaattisesti, joten kukin jäsen saa vain yhden lukemattoman ilmoituksen.</value>
+  </data>
+  <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
+    <value>: Järjestelmä käyttää kaikissa tapauksissa yleistä sähköpostipalvelun määritystä. Käytä</value>
+  </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Valitse kanavan tyyppi</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="Add a CC email address" xml:space="preserve">
+    <value>Lisää kopio-osoitteen sähköpostiosoite</value>
+  </data>
+  <data name="Add an email address" xml:space="preserve">
+    <value>Lisää sähköpostiosoite</value>
+  </data>
+  <data name="Add at least one user or user group; no notifications are sent if a group has no members." xml:space="preserve">
+    <value>Lisää vähintään yksi käyttäjä tai käyttäjäryhmä. Ilmoituksia ei lähetetä, jos ryhmässä ei ole jäseniä.</value>
+  </data>
+  <data name="Add push channel" xml:space="preserve">
+    <value>Lisää push-ilmoituskanava</value>
+  </data>
+  <data name="Add recipients and user groups" xml:space="preserve">
+    <value>Lisää vastaanottajia ja käyttäjäryhmiä</value>
+  </data>
+  <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
+    <value>Mukautettu pyyntö, lisäasetukset (mukautetut otsakkeet ja mallit)</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>ja</value>
+  </data>
+  <data name="Application Binding Authorization" xml:space="preserve">
+    <value>Sovellussidonnan käyttöoikeus</value>
+  </data>
+  <data name="Application binding permissions have not been granted yet" xml:space="preserve">
+    <value>Sovelluksen sidontaoikeuksia ei ole vielä myönnetty</value>
+  </data>
+  <data name="Aside from push channel administrators, no users can currently bind this channel." xml:space="preserve">
+    <value>Tällä hetkellä vain push-kanavan ylläpitäjät voivat liittää tämän kanavan.</value>
+  </data>
+  <data name="Authorization Type" xml:space="preserve">
+    <value>Valtuutuksen tyyppi</value>
+  </data>
+  <data name="Back to Channel List" xml:space="preserve">
+    <value>Takaisin kanavaluetteloon</value>
+  </data>
+  <data name="Batch enter CC emails" xml:space="preserve">
+    <value>Lisää kopio vastaanottajat kerralla</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="Cannot overwrite." xml:space="preserve">
+    <value>Ei voi korvata.</value>
+  </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Kopiojien luettelo</value>
+  </data>
+  <data name="Channel name" xml:space="preserve">
+    <value>Kanavan nimi</value>
+  </data>
+  <data name="Click the button on the right to remove" xml:space="preserve">
+    <value>Poista napsauttamalla oikealla olevaa painiketta</value>
+  </data>
+  <data name="Click to insert placeholder:" xml:space="preserve">
+    <value>Napsauta lisätäksesi paikkamerkin:</value>
+  </data>
+  <data name="Configuration details" xml:space="preserve">
+    <value>Määrityksen tiedot</value>
+  </data>
+  <data name="Default request format description" xml:space="preserve">
+    <value>Oletuspyynnön muodon kuvaus</value>
+  </data>
+  <data name="Each delivery task has a unique fixed" xml:space="preserve">
+    <value>Jokaisella toimitustehtävällä on yksilöllinen, pysyvä</value>
+  </data>
+  <data name="Edit push channel" xml:space="preserve">
+    <value>Muokkaa push-kanavaa</value>
+  </data>
+  <data name="Emails will be sent directly to this email address." xml:space="preserve">
+    <value>Sähköpostit lähetetään suoraan tähän sähköpostiosoitteeseen.</value>
+  </data>
+  <data name="Enable this push channel now" xml:space="preserve">
+    <value>Ota tämä push-kanava käyttöön nyt</value>
+  </data>
+  <data name="Environment variables provide authentication credentials." xml:space="preserve">
+    <value>Ympäristömuuttujat sisältävät tunnistautumistiedot.</value>
+  </data>
+  <data name="Example: Production on-call team, Feishu incident bot, Ops Webhook…" xml:space="preserve">
+    <value>Esimerkki: tuotannon päivystystiimi, Feishu-häiriöbotti, Ops-verkkokoukku…</value>
+  </data>
+  <data name="Extra Request Headers (JSON object)" xml:space="preserve">
+    <value>Ylimääräiset pyyntöotsakkeet (JSON-objekti)</value>
+  </data>
+  <data name="Global SMTP mail service" xml:space="preserve">
+    <value>Yleinen SMTP-sähköpostipalvelu</value>
+  </data>
+  <data name="Header name max 128 characters; value must be a valid string." xml:space="preserve">
+    <value>Otsikkonimen enimmäispituus on 128 merkkiä; arvon on oltava kelvollinen merkkijono.</value>
+  </data>
+  <data name="Idempotent deduplication." xml:space="preserve">
+    <value>Idempotentti kaksoiskappaleiden poisto.</value>
+  </data>
+  <data name="If left blank, the system sends standard JSON by default. Custom headers are encrypted and persisted;" xml:space="preserve">
+    <value>Jos jätät kentän tyhjäksi, järjestelmä lähettää oletuksena tavallista JSON-muotoista dataa. Mukautetut otsakkeet salataan ja tallennetaan pysyvästi;</value>
+  </data>
+  <data name="In-app notification scope" xml:space="preserve">
+    <value>Sovelluksen sisäisen ilmoituksen kohde</value>
+  </data>
+  <data name="Modifying delivery parameters for channel &quot;{0}&quot;." xml:space="preserve">
+    <value>Muokataan kanavan &quot;{0}&quot; toimitusasetuksia.</value>
+  </data>
+  <data name="No CC recipients added yet." xml:space="preserve">
+    <value>CC-vastaanottajia ei ole vielä lisätty.</value>
+  </data>
+  <data name="No recipients added yet. Please select role groups or specify users above." xml:space="preserve">
+    <value>Vastaanottajia ei ole vielä lisätty. Valitse yllä rooliryhmiä tai määritä käyttäjiä.</value>
+  </data>
+  <data name="One email address per line; English commas or semicolons are also supported, up to 50 CC recipients." xml:space="preserve">
+    <value>Yksi sähköpostiosoite rivillä; myös pilkut ja puolipisteet käyvät erottimina. CC-vastaanottajia voi olla enintään 50.</value>
+  </data>
+  <data name="Only the following users or user group members can view and bind this channel in their managed applications. This permission does not grant access to recipients, Webhooks, or test configuration." xml:space="preserve">
+    <value>Vain seuraavat käyttäjät tai käyttäjäryhmien jäsenet voivat tarkastella tätä kanavaa ja liittää sen hallinnoimiinsa sovelluksiin. Tämä käyttöoikeus ei anna pääsyä vastaanottajiin, webhookeihin tai testiasetuksiin.</value>
+  </data>
+  <data name="Parse as list" xml:space="preserve">
+    <value>Jäsennä luetteloksi</value>
+  </data>
+  <data name="Parsed CC recipients" xml:space="preserve">
+    <value>Jäsennetyt CC-vastaanottajat</value>
+  </data>
+  <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
+    <value>Paikkamerkkien on oltava JSON-merkkijonon ainoa arvo.</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Vastaanottajan sähköpostiosoite</value>
+  </data>
+  <data name="Recipient Type" xml:space="preserve">
+    <value>Vastaanottajan tyyppi</value>
+  </data>
+  <data name="Remove " xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Poista {0}</value>
+  </data>
+  <data name="Remove permission" xml:space="preserve">
+    <value>Poista lupa</value>
+  </data>
+  <data name="Request Body Template (JSON Template)" xml:space="preserve">
+    <value>Pyynnön rungon malli (JSON-malli)</value>
+  </data>
+  <data name="Role group" xml:space="preserve">
+    <value>Rooliryhmä</value>
+  </data>
+  <data name="Save channel configuration" xml:space="preserve">
+    <value>Tallenna kanavan määritykset</value>
+  </data>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Hae käyttäjänimen tai näyttönimen perusteella...</value>
+  </data>
+  <data name="Search Users" xml:space="preserve">
+    <value>Hae käyttäjiä</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Valitse ilmoituskanavan tyyppi ja määritä vastaanottajan osoite tai kohdevastaanottajat.</value>
+  </data>
+  <data name="Select User Group" xml:space="preserve">
+    <value>Valitse käyttäjäryhmä</value>
+  </data>
+  <data name="Select user group..." xml:space="preserve">
+    <value>Valitse käyttäjäryhmä...</value>
+  </data>
+  <data name="Select user..." xml:space="preserve">
+    <value>Valitse käyttäjä...</value>
+  </data>
+  <data name="Selected recipient list" xml:space="preserve">
+    <value>Valittujen vastaanottajien luettelo</value>
+  </data>
+  <data name="Specify Individual User" xml:space="preserve">
+    <value>Määritä yksittäinen käyttäjä</value>
+  </data>
+  <data name="Specify User" xml:space="preserve">
+    <value>Määritä käyttäjä</value>
+  </data>
+  <data name="Specify User (User)" xml:space="preserve">
+    <value>Määritä käyttäjä (käyttäjä)</value>
+  </data>
+  <data name="The receiver must support HTTP POST JSON. A 2xx response is considered a successful delivery. The system request timeout is 10 seconds, and cross-origin redirects are not followed." xml:space="preserve">
+    <value>Vastaanottajan on tuettava HTTP POST -pyyntöjä JSON-muodossa. 2xx-vastaus katsotaan onnistuneeksi toimitukseksi. Järjestelmän pyyntö aikakatkaistaan 10 sekunnin kuluttua, eikä eri alkuperästä tuleviin uudelleenohjauksiin seurata.</value>
+  </data>
+  <data name="To be added" xml:space="preserve">
+    <value>Lisätään</value>
+  </data>
+  <data name="Used to quickly identify application push levels and records." xml:space="preserve">
+    <value>Käytetään sovelluksen ilmoitustasojen ja -tietueiden nopeaan tunnistamiseen.</value>
+  </data>
+  <data name="User Group" xml:space="preserve">
+    <value>Käyttäjäryhmä</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Käyttäjäryhmä · Jäsenet perivät sidotut käyttöoikeudet dynaamisesti</value>
+  </data>
+  <data name="User Group (Role)" xml:space="preserve">
+    <value>Käyttäjäryhmä (rooli)</value>
+  </data>
+  <data name="Webhook Receiver URL" xml:space="preserve">
+    <value>Webhook-vastaanottajan URL</value>
+  </data>
+  <data name="Will parse and preserve the original object types." xml:space="preserve">
+    <value>Jäsentää ja säilyttää alkuperäiset objektityypit.</value>
+  </data>
+
+</root>

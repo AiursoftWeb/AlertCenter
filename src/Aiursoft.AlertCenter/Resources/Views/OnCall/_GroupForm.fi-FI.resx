@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Add members" xml:space="preserve">
+    <value>Lisää jäseniä</value>
+  </data>
+  <data name="Adding members does not assign shifts." xml:space="preserve">
+    <value>Jäsenten lisääminen ei osoita vuoroja.</value>
+  </data>
+  <data name="Advanced scheduling settings" xml:space="preserve">
+    <value>Edistyneet ajoitusasetukset</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="Deleted employee" xml:space="preserve">
+    <value>Poistettu työntekijä</value>
+  </data>
+  <data name="Do not bind template (manual scheduling)" xml:space="preserve">
+    <value>Älä liitä mallia (manuaalinen aikataulutus)</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>Työntekijä poistettu</value>
+  </data>
+  <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
+    <value>Anna aika UTC-aikavyöhykkeessä; aikaa ei muunnetaan automaattisesti tiimin aikavyöhykkeiden mukaan. Kun työvuoro on tallennettu, aikataulun aloitusajankohtaa ei voi muuttaa.</value>
+  </data>
+  <data name="Filter by role" xml:space="preserve">
+    <value>Suodata roolin mukaan</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Etsi</value>
+  </data>
+  <data name="Help: notification CC" xml:space="preserve">
+    <value>Ohje: ilmoitusten kopio</value>
+  </data>
+  <data name="Help: role filter" xml:space="preserve">
+    <value>Ohje: roolisuodatin</value>
+  </data>
+  <data name="Help: rotation order" xml:space="preserve">
+    <value>Ohje: vuorottelujärjestys</value>
+  </data>
+  <data name="Help: scheduling start point" xml:space="preserve">
+    <value>Ohje: vuoron aloituskohta</value>
+  </data>
+  <data name="Help: scheduling template" xml:space="preserve">
+    <value>Ohje: aikataulutusmalli</value>
+  </data>
+  <data name="Help: team time zone" xml:space="preserve">
+    <value>Ohje: tiimin aikavyöhyke</value>
+  </data>
+  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
+    <value>Useat tiimit voivat käyttää samaa mallipohjaa. Mallipohjan vaihtaminen tai muokkaaminen ei luo tallennettuja työvuoroja uudelleen.</value>
+  </data>
+  <data name="Name or Account" xml:space="preserve">
+    <value>Nimi tai tili</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>Seuraava sivu</value>
+  </data>
+  <data name="No members yet. Open Add members to find people." xml:space="preserve">
+    <value>Jäseniä ei vielä ole. Avaa Lisää jäseniä löytääksesi henkilöitä.</value>
+  </data>
+  <data name="Notification CC (optional)" xml:space="preserve">
+    <value>Ilmoitusten kopio (valinnainen)</value>
+  </data>
+  <data name="On-call email CC" xml:space="preserve">
+    <value>Päivystysvuoron sähköpostin kopio</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>Edellinen sivu</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Rotation order" xml:space="preserve">
+    <value>Vuorottelujärjestys</value>
+  </data>
+  <data name="Save changes" xml:space="preserve">
+    <value>Tallenna muutokset</value>
+  </data>
+  <data name="Saving updates the team and members. Manage shifts separately in the schedule." xml:space="preserve">
+    <value>Tallentaminen päivittää tiimin ja jäsenet. Hallinnoi työvuoroja erikseen työvuorosuunnittelussa.</value>
+  </data>
+  <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
+    <value>Tallentaminen poistaa nämä jäsenet vuoroista, jotka eivät ole vielä alkaneet. Tarkista, ettei työvuorolistaan jää aukkoja.</value>
+  </data>
+  <data name="Scheduling Rule Template" xml:space="preserve">
+    <value>Aikataulusäännön malli</value>
+  </data>
+  <data name="Scheduling start point (UTC)" xml:space="preserve">
+    <value>Aikataulutuksen aloitusajankohta (UTC)</value>
+  </data>
+  <data name="Search by name instead" xml:space="preserve">
+    <value>Hae sen sijaan nimellä</value>
+  </data>
+  <data name="Search by name or account, or choose a role." xml:space="preserve">
+    <value>Hae nimellä tai käyttäjätilillä tai valitse rooli.</value>
+  </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>Hae työntekijöitä</value>
+  </data>
+  <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
+    <value>Roolin valitseminen vain suodattaa hakutuloksia. Lisää henkilöitä valitsemalla heidät yksitellen; tiimin jäsenyyttä ei synkronoida roolin kanssa.</value>
+  </data>
+  <data name="Team members" xml:space="preserve">
+    <value>Ryhmän jäsenet</value>
+  </data>
+  <data name="Team name" xml:space="preserve">
+    <value>Ryhmän nimi</value>
+  </data>
+  <data name="Team settings" xml:space="preserve">
+    <value>Tiimin asetukset</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>Aikavyöhyke</value>
+  </data>
+  <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
+    <value>Vastaanottaja: tapauksen sattuessa tallennettuun vuoroon nimetyt henkilöt. Alkuperäiset OCE-vastaanottajat säilytetään myöhempiä tapaukseen liittyviä sähköposteja varten. Kopio lähetetään kaikkiin tapaussähköposteihin vuorosta riippumatta. Erota osoitteet pilkuilla, puolipisteillä tai rivinvaihdoilla; enintään 50 kopiovastaanottajan osoitetta.</value>
+  </data>
+  <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
+    <value>Valitse järjestys tulevaa automaattista vuorosuunnittelua varten painikkeilla Siirrä ylös ja Siirrä alas. Aiemmin suunniteltujen vuorojen järjestys ei muutu. Valitse enintään 200 jäsentä.</value>
+  </data>
+  <data name="Used to display the schedule. The advanced scheduling start point below is entered separately in UTC." xml:space="preserve">
+    <value>Käytetään aikataulun näyttämiseen. Alla oleva edistyneen aikataulutuksen aloituskohta annetaan erikseen UTC-ajassa.</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>Näytä aikataulu</value>
+  </data>
+
+</root>

@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>pengiriman</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>notifikasi situs yang belum dibaca</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Dukungan &quot;fire-and-forget&quot; untuk tugas berjalan lama (seperti email atau AI), dilengkapi antarmuka GUI untuk manajemen antrian, pemrosesan paralel, dan pembatalan.</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} ditugaskan secara keseluruhan</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Sistem Role-Based Access Control (RBAC) bawaan untuk manajemen izin yang terperinci.</value>
@@ -36,17 +45,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Sebuah fondasi yang modern, kaya fitur, dan sangat dapat diperluas untuk aplikasi web Anda berikutnya.</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Diakui</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Terjemahan Berbasis AI</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter Pusat Peringatan &amp; Operasi · Status Global &amp; Pelacakan Tertutup</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>Semua</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Semua dependensi terdaftar secara otomatis dan selalu tersedia melalui constructor injection.</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>Semua catatan</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Aplikasi</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Mode Gelap Otomatis</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Injeksi Dependensi Otomatis</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Pengiriman pesan otomatis dan pemecahan masalah</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Penanganan Zona Waktu Otomatis</value>
@@ -57,8 +84,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Terjemahan otomatis, didorong oleh AI ke dalam 28 bahasa.</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>kanal tersedia ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Pemrosesan Tugas Latar Belakang</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>Kirimkan email secara massal kepada grup petugas piket dan alamat email utama</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Manajemen Pengguna Bawaan</value>
@@ -72,11 +105,47 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>Dokumentasi Komprehensif</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Konfigurasikan Saluran Push</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Validasi Konsistensi</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Salin</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Buat peringatan untuk aplikasi Anda dan beri tahu penerima yang telah dikonfigurasi.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Buat aplikasi</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Buat Aplikasi dan Dapatkan Kunci</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>Buat insiden pertama melalui API atau SDK. Insiden tersebut akan muncul di sini.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Kritis</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>Kritis ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>Autentikasi dengan Kunci API Khusus</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>Riwayat Pengiriman</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>Dokumentasi Integrasi Lengkap</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Kembangkan secara eksklusif dalam UTC sementara sistem secara otomatis mengonversi dan menampilkan tanggal dalam zona waktu lokal pengguna.</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>Libatkan langsung pihak yang bertanggung jawab dan kelompok pengguna untuk penanganan kolaboratif</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Terdockerisasi untuk Deployment</value>
@@ -96,6 +165,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>Tulis uji integrasi dengan mudah menggunakan basis data dalam memori, sistem file sementara, mocking bawaan, dan simulasi permintaan HTTP dunia nyata.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Kesalahan</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>Kesalahan</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>Memiliki sistem manajemen file bawaan dengan kompresi avatar otomatis dan perlindungan privasi.</value>
   </data>
@@ -108,14 +183,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Halo Dunia!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>Kotak masuk notifikasi dalam aplikasi</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>Penanganan Insiden</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Judul insiden</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>Pemicu insiden dan penyelesaian kolaboratif</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Mencakup dokumentasi yang luas dan contoh-contoh praktis untuk memudahkan Anda memulai dengan cepat.</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Manajemen File Terintegrasi</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Panduan Integrasi</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>Buat kredensial khusus di “Aplikasi Terintegrasi.”</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Insiden terbaru</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>Insiden Terkait</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>Kanal Push Tertaut</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>Waktu lokal</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Mayor</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>Parah ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>Kelola aplikasi</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Dimitigasi</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Model divalidasi di sisi klien dan server berdasarkan anotasi data.</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>Dasbor Pemantauan</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>Dukungan Beberapa Penyedia Basis Data</value>
@@ -123,8 +246,44 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Dukungan Banyak Basis Data</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Insiden saya</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Peringatan baru</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>Tidak ada insiden yang memerlukan tindakan segera</value>
+  </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>Belum ada insiden</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Belum diakui</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>Pusat Notifikasi Push</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>Insiden yang Sedang Berlangsung</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>Insiden yang Sedang Berlangsung Memerlukan Penanganan</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Integrasi OpenID Connect</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>Penutupan Respons Operasional</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>Tingkat Keberhasilan Pengiriman Push</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>Contoh Laporan Cepat</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>Integrasi Cepat</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Otorisasi RBAC</value>
@@ -132,17 +291,41 @@
   <data name="Read the document" xml:space="preserve">
     <value>Baca dokumen</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>Insiden yang baru-baru ini dibuat</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Laporkan masalah. Mulai tanggapannya.</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>Detail laporan, riwayat penanganan, dan status penyelesaian.</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>Memerlukan Tindakan Segera</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Terselesaikan</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Desain Responsif</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Pengujian Integrasi yang Kuat</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>Atur perutean berdasarkan Sev0–Sev4 di pengaturan push aplikasi.</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Manajemen Tugas yang Dijadwalkan</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Terintegrasi dengan mulus bersama penyedia OpenID Connect apa pun, dengan sinkronisasi peran otomatis.</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Tingkat keparahan</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>Filter berdasarkan tingkat keparahan:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Penggantian Konfigurasi Cerdas</value>
@@ -153,11 +336,32 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Mode gelap yang cerdas yang secara otomatis menyesuaikan dengan pengaturan sistem pengguna.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Saluran Email SMTP</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Sumber</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Aplikasi sumber</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>Mulai proyek baru</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>Mendukung .NET SDK / Go / Webhook</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>Mendukung variabel lingkungan dan pengaturan berbasis basis data, dengan prioritas otomatis diberikan kepada variabel lingkungan untuk override yang mulus.</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>Mendukung header permintaan khusus dan templat JSON</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>Pusat mengirimkan notifikasi secara asinkron, mendukung pelacakan catatan dan percobaan ulang.</value>
+  </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>Insiden yang menjadi tanggung jawab Anda setelah diakui. Kelola semua pekerjaan penanganan Anda di satu tempat.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Bilah navigasi secara otomatis menyesuaikan berdasarkan peran dan izin pengguna.</value>
@@ -165,11 +369,38 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Ini adalah proyek templat, di mana kita memulai perjalanan...</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Waktu</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>Total insiden</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Belum Ditangani</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Belum terselesaikan</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>Gunakan autentikasi Bearer untuk melaporkan insiden pengujian:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Lihat semua insiden</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>Peringatan</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Penjadwalan Otomatis Webhook</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Selamat datang</value>
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Menggunakan Template Aiursoft?</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>Anda memerlukan akses untuk membuat peringatan pada aplikasi yang aktif.</value>
   </data>
 
 </root>

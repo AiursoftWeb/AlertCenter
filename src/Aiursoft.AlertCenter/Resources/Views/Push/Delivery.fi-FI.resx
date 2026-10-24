@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>Asynkroninen tehtävä on jonossa. Päivitä tila myöhemmin.</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>Yritykset</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>Takaisin push-tietueisiin</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>Sisäänrakennettu päivystysviesti · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>Sisäänrakennettu järjestelmä · Ei voi poistaa käytöstä erikseen</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>Kanavan käyttöönottotila</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>Kanavan testi</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>Kanavan testihuomautus</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>Valmistui heti</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>Valmistunut</value>
+  </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>Valmistumisaika</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>Kopioi koko toimituksen tunniste</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>Kopioi koko tunnus</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>Luontiaika</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Toimitus onnistui</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>Toimituksen sisältö</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>Toimituksen tiedot</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Toimitustiedot - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>Toimitus epäonnistui</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Toimitus epäonnistui pysyvästi</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>Toimitustunnus</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>Toimitustunnus:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>Toimitustehtävä luotu</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Poissa käytöstä</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>Lähetysyritykset</value>
+  </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>Lähetysten aikajana</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>Toimitetaan ilmoituksia taustalla</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Kesto</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Käytössä</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>Siirry toimitusjonoon</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incidentti eskaloitui ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>Poikkeama on hallinnassa: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>Poikkeama avattiin uudelleen: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>Tapahtuma ratkaistu: {0}</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>Käynnistä lähetyspyyntö</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>Virheellinen vastaanottajatilannekuva. Vanhoja tapahtumia ei voi lähettää uudelleen.</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>Manuaalinen testi</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>Manuaalinen testiviesti</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>Ei sisältöä</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>Päivystysviestien sähköpostiuusintalähetyksissä käytetään aina viestin jonoon asettamisen aikaan tallennettuja OCE- ja CC-tilannekuvia, eikä viestiä ohjata nykyiselle päivystäjälle. Uusintalähetys ei ole mahdollista, jos kelvollista tilannekuvaa ei ole.</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>Ota kohdakanava ensin käyttöön.</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>Lähetä uudelleen</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>Uudelleenlähitys käyttää uusinta kanavasetustusta.</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>Päivitä tila</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>Suoritetaan...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>Vuoro:</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>Tilannekuvan ajankohta</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>Lähdesovellus</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>Kohdekanava</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>Vastaanottaja on saattanut jo vastaanottaa sen aikakatkaisun tai keskeytyksen yhteydessä. Varmista asia ennen uutta yritystä.</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>Tehtävän metatiedot</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>Tämä on push-kanavan testiviesti.</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>kertaa</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>Yrityksiä yhteensä:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>Näytä sovelluksen sisäiset ilmoitukset</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>Näytä kanavan asetukset tai muokkaa niitä</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>Näytä alkuperäinen häiriö</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>Näytä uudelleen avattu häiriö</value>
+  </data>
+
+</root>

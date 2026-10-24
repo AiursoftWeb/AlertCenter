@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Tindakan</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="Create Team" xml:space="preserve">
+    <value>Buat Tim</value>
+  </data>
+  <data name="Member Count" xml:space="preserve">
+    <value>Jumlah Anggota</value>
+  </data>
+  <data name="No teams available. Please create a team first." xml:space="preserve">
+    <value>Tidak ada tim yang tersedia. Silakan buat tim terlebih dahulu.</value>
+  </data>
+  <data name="On-call groups" xml:space="preserve">
+    <value>Grup petugas piket</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>Templat aturan</value>
+  </data>
+  <data name="Start here: create a group, add members, then open its schedule and save the shifts. Applications route incidents to the people on duty in their assigned group." xml:space="preserve">
+    <value>Mulai di sini: buat grup, tambahkan anggota, lalu buka jadwalnya dan simpan giliran jaga. Aplikasi meneruskan insiden kepada petugas yang sedang bertugas di grup yang ditetapkan kepada mereka.</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Tim</value>
+  </data>
+  <data name="Team management" xml:space="preserve">
+    <value>Manajemen Tim</value>
+  </data>
+  <data name="Time Zone" xml:space="preserve">
+    <value>Zona Waktu</value>
+  </data>
+  <data name="Unbound" xml:space="preserve">
+    <value>Belum terikat</value>
+  </data>
+  <data name="View schedule" xml:space="preserve">
+    <value>Lihat jadwal</value>
+  </data>
+  <data name="View team" xml:space="preserve">
+    <value>Lihat tim</value>
+  </data>
+
+</root>
