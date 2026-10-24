@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>कार्रवाई</value>
+  </data>
+  <data name="All channels" xml:space="preserve">
+    <value>सभी चैनल</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>सभी स्थितियाँ</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>प्रयास</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>अंतर्निहित ऑन-कॉल ईमेल</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>अंतर्निहित ऑन-कॉल ईमेल · {0}</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>चैनल परीक्षण सूचना</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>सभी फ़िल्टर हटाएँ</value>
+  </data>
+  <data name="Comprehensive tracking of async dispatch status and error retries for Webhooks, emails, and in-app notifications" xml:space="preserve">
+    <value>वेबहुक, ईमेल और ऐप के भीतर की सूचनाओं के लिए एसिंक्रोनस प्रेषण की स्थिति और त्रुटि के बाद पुनः प्रयासों की व्यापक निगरानी</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>निर्माण समय</value>
+  </data>
+  <data name="Currently displaying page" xml:space="preserve">
+    <value>वर्तमान में प्रदर्शित पृष्ठ</value>
+  </data>
+  <data name="Delivering" xml:space="preserve">
+    <value>भेजा जा रहा है</value>
+  </data>
+  <data name="Delivering (Sending)" xml:space="preserve">
+    <value>भेजा जा रहा है (भेजना)</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>डिलीवरी विफल</value>
+  </data>
+  <data name="Delivery Failed (Failed)" xml:space="preserve">
+    <value>डिलीवरी विफल (विफल)</value>
+  </data>
+  <data name="Delivery Status" xml:space="preserve">
+    <value>डिलीवरी की स्थिति</value>
+  </data>
+  <data name="Delivery Successful" xml:space="preserve">
+    <value>डिलीवरी सफल</value>
+  </data>
+  <data name="Delivery Successful (Succeeded)" xml:space="preserve">
+    <value>वितरण सफल (सफल)</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
+  <data name="Go to" xml:space="preserve">
+    <value>पर जाएँ</value>
+  </data>
+  <data name="Go to Push Center to configure channels" xml:space="preserve">
+    <value>चैनल कॉन्फ़िगर करने के लिए पुश सेंटर पर जाएँ</value>
+  </data>
+  <data name="Incident / Test message" xml:space="preserve">
+    <value>घटना / परीक्षण संदेश</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>घटना का स्तर बढ़ाया गया ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>इंसिडेंट का प्रभाव कम किया गया: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>इंसिडेंट फिर से खोला गया: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>इंसिडेंट का समाधान हो गया: {0}</value>
+  </data>
+  <data name="Jump" xml:space="preserve">
+    <value>जाएँ</value>
+  </data>
+  <data name="Jump to page number" xml:space="preserve">
+    <value>पृष्ठ संख्या पर जाएँ</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>मैन्युअल परीक्षण</value>
+  </data>
+  <data name="Next Page" xml:space="preserve">
+    <value>अगला पृष्ठ</value>
+  </data>
+  <data name="No matching delivery records under the current filter. Please adjust the filter criteria." xml:space="preserve">
+    <value>वर्तमान फ़िल्टर के अंतर्गत डिलीवरी का कोई मेल खाता रिकॉर्ड नहीं मिला। कृपया फ़िल्टर के मानदंडों में बदलाव करें।</value>
+  </data>
+  <data name="No push records" xml:space="preserve">
+    <value>कोई पुश रिकॉर्ड नहीं</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>पृष्ठ</value>
+  </data>
+  <data name="Page Records" xml:space="preserve">
+    <value>पृष्ठ के रिकॉर्ड</value>
+  </data>
+  <data name="Pending delivery" xml:space="preserve">
+    <value>डिलीवरी लंबित</value>
+  </data>
+  <data name="Pending delivery (Pending)" xml:space="preserve">
+    <value>डिलीवरी लंबित (लंबित)</value>
+  </data>
+  <data name="Previous Page" xml:space="preserve">
+    <value>पिछला पृष्ठ</value>
+  </data>
+  <data name="Push Delivery Records" xml:space="preserve">
+    <value>पुश डिलीवरी रिकॉर्ड</value>
+  </data>
+  <data name="Push Record Pagination" xml:space="preserve">
+    <value>पुश रिकॉर्ड पृष्ठांकन</value>
+  </data>
+  <data name="Real-Time Trace" xml:space="preserve">
+    <value>वास्तविक समय में ट्रैकिंग</value>
+  </data>
+  <data name="Refresh list" xml:space="preserve">
+    <value>सूची रीफ़्रेश करें</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>फ़िल्टर रीसेट करें</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>लक्ष्य चैनल</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>परीक्षण</value>
+  </data>
+  <data name="View delivery details" xml:space="preserve">
+    <value>डिलीवरी का विवरण देखें</value>
+  </data>
+  <data name="When the system triggers incident pushes or manual channel tests, all dispatch traces and statuses are recorded here." xml:space="preserve">
+    <value>जब सिस्टम किसी घटना के लिए पुश भेजता है या चैनल का मैन्युअल परीक्षण करता है, तो भेजने से जुड़े सभी लॉग और स्थितियाँ यहाँ दर्ज की जाती हैं।</value>
+  </data>
+
+</root>

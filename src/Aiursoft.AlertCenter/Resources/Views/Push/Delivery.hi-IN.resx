@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Async task is queued. Please refresh status later." xml:space="preserve">
+    <value>एसिंक कार्य कतार में है। कृपया बाद में स्थिति रीफ़्रेश करें।</value>
+  </data>
+  <data name="Attempts" xml:space="preserve">
+    <value>प्रयास</value>
+  </data>
+  <data name="Back to Push Records" xml:space="preserve">
+    <value>पुश रिकॉर्ड्स पर वापस जाएँ</value>
+  </data>
+  <data name="Built-in On-call Email · {0}" xml:space="preserve">
+    <value>अंतर्निहित ऑन-कॉल ईमेल · {0}</value>
+  </data>
+  <data name="Built-in system · Cannot be disabled individually" xml:space="preserve">
+    <value>अंतर्निहित सिस्टम · अलग से अक्षम नहीं किया जा सकता</value>
+  </data>
+  <data name="Channel enabled status" xml:space="preserve">
+    <value>चैनल की सक्रिय स्थिति</value>
+  </data>
+  <data name="Channel test" xml:space="preserve">
+    <value>चैनल परीक्षण</value>
+  </data>
+  <data name="Channel test notification" xml:space="preserve">
+    <value>चैनल परीक्षण सूचना</value>
+  </data>
+  <data name="Complete immediately" xml:space="preserve">
+    <value>तुरंत पूरा हुआ</value>
+  </data>
+  <data name="Completed at " xml:space="preserve">
+    <value>पूरा किया गया:</value>
+  </data>
+  <data name="Completion Time" xml:space="preserve">
+    <value>पूर्णता का समय</value>
+  </data>
+  <data name="Copy Full Delivery ID" xml:space="preserve">
+    <value>पूरा डिलीवरी आईडी कॉपी करें</value>
+  </data>
+  <data name="Copy Full ID" xml:space="preserve">
+    <value>पूरी आईडी कॉपी करें</value>
+  </data>
+  <data name="Creation Time" xml:space="preserve">
+    <value>निर्माण का समय</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>डिलीवरी सफलतापूर्वक पूरी हुई</value>
+  </data>
+  <data name="Delivery Content" xml:space="preserve">
+    <value>डिलीवरी की सामग्री</value>
+  </data>
+  <data name="Delivery Details" xml:space="preserve">
+    <value>डिलीवरी का विवरण</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>डिलीवरी का विवरण - {0}</value>
+  </data>
+  <data name="Delivery Failed" xml:space="preserve">
+    <value>डिलीवरी विफल</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>डिलीवरी स्थायी रूप से विफल हुई</value>
+  </data>
+  <data name="Delivery ID" xml:space="preserve">
+    <value>डिलीवरी आईडी</value>
+  </data>
+  <data name="Delivery ID:" xml:space="preserve">
+    <value>डिलीवरी आईडी:</value>
+  </data>
+  <data name="Delivery task created" xml:space="preserve">
+    <value>डिलीवरी कार्य बनाया गया</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>अक्षम</value>
+  </data>
+  <data name="Dispatch attempts" xml:space="preserve">
+    <value>डिस्पैच के प्रयास</value>
+  </data>
+  <data name="Dispatch timeline" xml:space="preserve">
+    <value>डिस्पैच समयरेखा</value>
+  </data>
+  <data name="Dispatching deliveries in the background" xml:space="preserve">
+    <value>बैकग्राउंड में डिलीवरी भेजी जा रही हैं</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>अवधि</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>सक्षम</value>
+  </data>
+  <data name="Enter Delivery Queue" xml:space="preserve">
+    <value>डिलीवरी कतार में प्रवेश</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>घटना का स्तर बढ़ाया गया ({0} → {1}): {2}</value>
+  </data>
+  <data name="Incident mitigated: {0}" xml:space="preserve">
+    <value>घटना पर काबू पा लिया गया: {0}</value>
+  </data>
+  <data name="Incident reopened: {0}" xml:space="preserve">
+    <value>घटना पुनः खोली गई: {0}</value>
+  </data>
+  <data name="Incident resolved: {0}" xml:space="preserve">
+    <value>घटना का समाधान हो गया: {0}</value>
+  </data>
+  <data name="Initiate dispatch request" xml:space="preserve">
+    <value>डिस्पैच अनुरोध प्रारंभ करें</value>
+  </data>
+  <data name="Invalid recipient snapshot. Cannot resend old incidents." xml:space="preserve">
+    <value>प्राप्तकर्ता का स्नैपशॉट अमान्य है। पुरानी घटनाएँ दोबारा नहीं भेजी जा सकतीं।</value>
+  </data>
+  <data name="Manual Test" xml:space="preserve">
+    <value>मैन्युअल परीक्षण</value>
+  </data>
+  <data name="Manual Test Message" xml:space="preserve">
+    <value>मैन्युअल परीक्षण संदेश</value>
+  </data>
+  <data name="No body content" xml:space="preserve">
+    <value>संदेश में कोई सामग्री नहीं है</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>कोई नहीं</value>
+  </data>
+  <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
+    <value>ऑन-कॉल ईमेल के पुनः प्रयासों में हमेशा संदेश कतार में डाले जाने के समय के OCE और CC स्नैपशॉट का ही उपयोग होता है; इन्हें मौजूदा ऑन-कॉल कर्मियों की ओर पुनर्निर्देशित नहीं किया जाता। कोई मान्य स्नैपशॉट उपलब्ध न होने पर पुनः प्रयास नहीं किए जा सकते।</value>
+  </data>
+  <data name="Please enable the target channel first." xml:space="preserve">
+    <value>कृपया पहले लक्ष्य चैनल सक्षम करें।</value>
+  </data>
+  <data name="Redeliver" xml:space="preserve">
+    <value>पुनः भेजें</value>
+  </data>
+  <data name="Redelivery will use the latest channel configuration." xml:space="preserve">
+    <value>दोबारा भेजने पर चैनल का नवीनतम कॉन्फ़िगरेशन इस्तेमाल किया जाएगा।</value>
+  </data>
+  <data name="Refresh status" xml:space="preserve">
+    <value>स्थिति रीफ़्रेश करें</value>
+  </data>
+  <data name="Running..." xml:space="preserve">
+    <value>चल रहा है...</value>
+  </data>
+  <data name="Shift: " xml:space="preserve">
+    <value>शिफ़्ट:</value>
+  </data>
+  <data name="Snapshot time" xml:space="preserve">
+    <value>स्नैपशॉट का समय</value>
+  </data>
+  <data name="Source integrated application" xml:space="preserve">
+    <value>स्रोत एकीकृत अनुप्रयोग</value>
+  </data>
+  <data name="Target Channel" xml:space="preserve">
+    <value>लक्षित चैनल</value>
+  </data>
+  <data name="Target may have already received it upon timeout or interruption. Please verify before retrying." xml:space="preserve">
+    <value>टाइमआउट या रुकावट के दौरान प्राप्तकर्ता को यह पहले ही मिल गया हो सकता है। दोबारा भेजने से पहले कृपया पुष्टि कर लें।</value>
+  </data>
+  <data name="Task metadata" xml:space="preserve">
+    <value>कार्य मेटाडेटा</value>
+  </data>
+  <data name="This is a test message for the push channel." xml:space="preserve">
+    <value>यह पुश चैनल के लिए एक परीक्षण संदेश है।</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>बार</value>
+  </data>
+  <data name="Total attempts: " xml:space="preserve">
+    <value>कुल प्रयास:</value>
+  </data>
+  <data name="View in-app notifications" xml:space="preserve">
+    <value>ऐप में सूचनाएँ देखें</value>
+  </data>
+  <data name="View or modify channel configuration" xml:space="preserve">
+    <value>चैनल कॉन्फ़िगरेशन देखें या संशोधित करें</value>
+  </data>
+  <data name="View original incident" xml:space="preserve">
+    <value>मूल घटना देखें</value>
+  </data>
+  <data name="View reopened incident" xml:space="preserve">
+    <value>फिर से खोई गई घटना देखें</value>
+  </data>
+
+</root>

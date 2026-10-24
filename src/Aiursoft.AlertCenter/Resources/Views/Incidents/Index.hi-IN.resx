@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="{0} incidents on this page" xml:space="preserve">
+    <value>इस पृष्ठ पर {0} घटनाएँ</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>सुलभ एप्लिकेशनों में {0} अनसुलझी घटनाएँ</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>स्वीकार किया गया</value>
+  </data>
+  <data name="Acknowledgement" xml:space="preserve">
+    <value>पुष्टि</value>
+  </data>
+  <data name="Adjust filter conditions or reset to view all records." xml:space="preserve">
+    <value>सभी रिकॉर्ड देखने के लिए फ़िल्टर की शर्तें बदलें या फ़िल्टर रीसेट करें।</value>
+  </data>
+  <data name="All acknowledgements" xml:space="preserve">
+    <value>सभी स्वीकृतियाँ</value>
+  </data>
+  <data name="All applications" xml:space="preserve">
+    <value>सभी एप्लिकेशन</value>
+  </data>
+  <data name="All incidents" xml:space="preserve">
+    <value>सभी घटनाएँ</value>
+  </data>
+  <data name="All severities" xml:space="preserve">
+    <value>सभी गंभीरता स्तर</value>
+  </data>
+  <data name="All statuses" xml:space="preserve">
+    <value>सभी स्थितियाँ</value>
+  </data>
+  <data name="Clear all filters" xml:space="preserve">
+    <value>सभी फ़िल्टर हटाएँ</value>
+  </data>
+  <data name="Each new incident automatically creates or associates an incident; confirm, record progress, and resolve issues here." xml:space="preserve">
+    <value>हर नई घटना अपने-आप एक घटना बनाती है या उससे जुड़ती है; यहाँ पुष्टि करें, प्रगति दर्ज करें और समस्याओं का समाधान करें।</value>
+  </data>
+  <data name="Each report creates an independent incident. Acknowledge and assign, mitigate, resolve, and track progress here." xml:space="preserve">
+    <value>हर रिपोर्ट से एक अलग घटना बनती है। यहाँ घटना को स्वीकार करें और सौंपें, उसके प्रभाव को कम करें, समाधान करें और प्रगति पर नज़र रखें।</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>खोलें</value>
+  </data>
+  <data name="Enter Response War Room" xml:space="preserve">
+    <value>रिस्पॉन्स वॉर रूम में जाएँ</value>
+  </data>
+  <data name="Incident" xml:space="preserve">
+    <value>घटना</value>
+  </data>
+  <data name="Incident Handling Center" xml:space="preserve">
+    <value>घटना प्रबंधन केंद्र</value>
+  </data>
+  <data name="Incident log list" xml:space="preserve">
+    <value>घटना लॉग सूची</value>
+  </data>
+  <data name="Incident pages" xml:space="preserve">
+    <value>घटना पृष्ठ</value>
+  </data>
+  <data name="Incident severity" xml:space="preserve">
+    <value>घटना की गंभीरता</value>
+  </data>
+  <data name="Incident status" xml:space="preserve">
+    <value>घटना की स्थिति</value>
+  </data>
+  <data name="Incidents and emergency response" xml:space="preserve">
+    <value>घटनाएँ और आपातकालीन प्रतिक्रिया</value>
+  </data>
+  <data name="Keyword Search" xml:space="preserve">
+    <value>कीवर्ड खोज</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>नियंत्रित</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>कम किया गया (कम किया गया)</value>
+  </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>मेरी घटनाएँ</value>
+  </data>
+  <data name="Next page" xml:space="preserve">
+    <value>अगला पृष्ठ</value>
+  </data>
+  <data name="No incident records yet" xml:space="preserve">
+    <value>अभी तक कोई घटना दर्ज नहीं हुई है</value>
+  </data>
+  <data name="No matching incidents" xml:space="preserve">
+    <value>कोई मेल खाती घटना नहीं मिली</value>
+  </data>
+  <data name="No on-call OCE" xml:space="preserve">
+    <value>कोई ऑन-कॉल OCE नहीं</value>
+  </data>
+  <data name="No unmitigated incidents in this queue" xml:space="preserve">
+    <value>इस कतार में कोई अक्षुण्ण घटनाएँ नहीं</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>स्वीकार नहीं किया गया</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>दर्ज नहीं है</value>
+  </data>
+  <data name="Original on-call OCE" xml:space="preserve">
+    <value>मूल ऑन-कॉल OCE</value>
+  </data>
+  <data name="Owner (last ACK)" xml:space="preserve">
+    <value>स्वामी (अंतिम ACK)</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>पृष्ठ {0}</value>
+  </data>
+  <data name="Please correct the filter conditions." xml:space="preserve">
+    <value>फ़िल्टर की शर्तों को कृपया ठीक करें।</value>
+  </data>
+  <data name="Previous page" xml:space="preserve">
+    <value>पिछला पृष्ठ</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>प्राप्ति का समय</value>
+  </data>
+  <data name="Received from (UTC)" xml:space="preserve">
+    <value>प्राप्ति की प्रारंभिक तिथि (UTC)</value>
+  </data>
+  <data name="Received through (UTC, inclusive)" xml:space="preserve">
+    <value>प्राप्ति की अंतिम तिथि (UTC सहित)</value>
+  </data>
+  <data name="Reset Filters" xml:space="preserve">
+    <value>फ़िल्टर रीसेट करें</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>समाधान किया गया</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>समाधान किया गया (समाधान किया गया)</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>खोज</value>
+  </data>
+  <data name="Search incident titles, content, or applications..." xml:space="preserve">
+    <value>घटना के शीर्षक, सामग्री या एप्लिकेशन खोजें...</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · गंभीर (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · प्रमुख (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · त्रुटि (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · चेतावनी (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · जानकारी (P4)</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>स्रोत अनुप्रयोग</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>स्थिति</value>
+  </data>
+  <data name="The selected application is inaccessible" xml:space="preserve">
+    <value>चयनित एप्लिकेशन तक पहुँचा नहीं जा सकता</value>
+  </data>
+  <data name="These incidents belong to you because you were the last person to acknowledge them. Only applications you can access are included." xml:space="preserve">
+    <value>ये घटनाएँ आपके पास हैं क्योंकि आपने उन्हें अंतिम बार स्वीकार किया था। केवल वे ऐप्लिकेशन शामिल हैं जिनकी आप पहुँच कर सकते हैं।</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>गंभीरता कम नहीं की गई</value>
+  </data>
+  <data name="You have no assigned incidents" xml:space="preserve">
+    <value>आपको कोई भी घटना असाइन नहीं की गई है।</value>
+  </data>
+
+</root>

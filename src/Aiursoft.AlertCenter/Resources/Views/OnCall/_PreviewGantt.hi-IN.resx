@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=" · Departed" xml:space="preserve">
+    <value>· जा चुके हैं</value>
+  </data>
+  <data name=" · On call" xml:space="preserve">
+    <value>· कॉल पर</value>
+  </data>
+  <data name=" · On duty" xml:space="preserve">
+    <value>· ड्यूटी पर</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · चुनी गई शिफ्ट को यहाँ ले जाएँ</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · अन्य टीम (केवल पढ़ने के लिए) · {2}</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (केवल पढ़ने योग्य)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0} शिफ़्ट / {1:0.##} घंटे</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>{0} की ऑन-कॉल शिफ़्टें</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} घंटे · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · आस-पास का सप्ताह (केवल पढ़ने के लिए) · {3}</value>
+  </data>
+  <data name="36 hours after this week (read-only)" xml:space="preserve">
+    <value>इस सप्ताह के 36 घंटे बाद (केवल पढ़ने के लिए)</value>
+  </data>
+  <data name="36 hours before this week (read-only)" xml:space="preserve">
+    <value>इस सप्ताह से 36 घंटे पहले (केवल पढ़ने के लिए)</value>
+  </data>
+  <data name="7-Day On-Call Gantt Chart" xml:space="preserve">
+    <value>7-दिवसीय ऑन-कॉल गैंट चार्ट</value>
+  </data>
+  <data name="Departed" xml:space="preserve">
+    <value>चले गए</value>
+  </data>
+  <data name="Drag to another engineer to swap the entire week, or click to select a target employee." xml:space="preserve">
+    <value>पूरे सप्ताह की अदला-बदली करने के लिए इसे किसी अन्य इंजीनियर पर खींचें, या लक्षित कर्मचारी चुनने के लिए क्लिक करें।</value>
+  </data>
+  <data name="Employee deleted" xml:space="preserve">
+    <value>कर्मचारी हटाया गया</value>
+  </data>
+  <data name="Employee on-call timeline" xml:space="preserve">
+    <value>कर्मचारी ऑन-कॉल समयरेखा</value>
+  </data>
+  <data name="End time" xml:space="preserve">
+    <value>समाप्ति का समय</value>
+  </data>
+  <data name="Expand next 36 hours" xml:space="preserve">
+    <value>अगले 36 घंटे दिखाएँ</value>
+  </data>
+  <data name="Expand previous 36 hours" xml:space="preserve">
+    <value>पिछले 36 घंटे दिखाएँ</value>
+  </data>
+  <data name="From " xml:space="preserve">
+    <value>से</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>घंटे</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>घंटे ·</value>
+  </data>
+  <data name="No assigned shifts." xml:space="preserve">
+    <value>कोई शिफ़्ट निर्धारित नहीं है।</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>अब</value>
+  </data>
+  <data name="On-call staff" xml:space="preserve">
+    <value>ऑन-कॉल कर्मचारी</value>
+  </data>
+  <data name="Read-only" xml:space="preserve">
+    <value>केवल-पठन</value>
+  </data>
+  <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
+    <value>पूरा शेड्यूल देखने के लिए क्षैतिज रूप से स्क्रॉल करें; शिफ़्ट का विवरण देखने के लिए किसी रंगीन ब्लॉक पर माउस ले जाएँ, उसे फ़ोकस करें या क्लिक करें। लाल रेखा पेज लोड होने के समय को दर्शाती है। कर्मचारी कॉलम के दाईं ओर और टाइमलाइन के सबसे दाईं ओर मौजूद लंबवत बटन, सप्ताह की शुरुआत से पहले और सप्ताह के अंत के बाद के 36 घंटे दिखाते हैं (DST बदलावों सहित वास्तविक UTC अवधि); डिफ़ॉल्ट रूप से ये क्षेत्र संक्षिप्त रहते हैं। विस्तारित क्षेत्रों में मौजूदा सप्ताह जैसे ही तारीख़ के शीर्षक, 6-घंटे के अंतराल और ग्रिड का उपयोग होता है। दोनों ओर की धूसर शिफ़्टें केवल देखने के लिए हैं, उनमें बदलाव नहीं किया जा सकता और वे साप्ताहिक आँकड़ों में शामिल नहीं होतीं; बदलाव करने के लिए संबंधित सप्ताह पर जाएँ। मौजूदा टीम और अन्य टीमों की शिफ़्टें एक ही पंक्ति में दिखाई जाती हैं: एडमिन अपने समूह की रंगीन शिफ़्टों में बदलाव कर सकते हैं, जबकि अन्य टीमों की धूसर शिफ़्टें केवल संदर्भ के लिए टीम और समय दिखाती हैं। खाली समय-खंडों में &apos;Add Shift&apos; मोड के ज़रिए मैन्युअल रूप से शिफ़्ट तय की जा सकती हैं।</value>
+  </data>
+  <data name="Shift / Total Duration" xml:space="preserve">
+    <value>शिफ्ट / कुल अवधि</value>
+  </data>
+  <data name="Start Time" xml:space="preserve">
+    <value>प्रारंभ समय</value>
+  </data>
+  <data name="Swap full week" xml:space="preserve">
+    <value>पूरा हफ़्ता बदलें</value>
+  </data>
+  <data name="Swap full-week shifts with {0}" xml:space="preserve">
+    <value>{0} के साथ पूरे सप्ताह की शिफ्टें बदलें</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>आज</value>
+  </data>
+  <data name="Until " xml:space="preserve">
+    <value>तक</value>
+  </data>
+
+</root>

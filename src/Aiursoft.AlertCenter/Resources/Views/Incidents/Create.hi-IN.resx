@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Application" xml:space="preserve">
+    <value>एप्लिकेशन</value>
+  </data>
+  <data name="Back to dashboard" xml:space="preserve">
+    <value>डैशबोर्ड पर वापस जाएँ</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>रद्द करें</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>सामग्री</value>
+  </data>
+  <data name="Create alert" xml:space="preserve">
+    <value>अलर्ट बनाएँ</value>
+  </data>
+  <data name="Creating this alert will queue notifications using the application&apos;s on-call and push settings." xml:space="preserve">
+    <value>यह अलर्ट बनाने पर, ऐप्लिकेशन की ऑन-कॉल और पुश सेटिंग्स के अनुसार सूचनाएँ कतार में लग जाएँगी।</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>गंभीर</value>
+  </data>
+  <data name="Describe what happened so responders can take action." xml:space="preserve">
+    <value>बताएँ कि क्या हुआ, ताकि जवाब देने वाले आवश्यक कार्रवाई कर सकें।</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>त्रुटि</value>
+  </data>
+  <data name="Informational" xml:space="preserve">
+    <value>सूचनात्मक</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>गंभीर</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>नई चेतावनी</value>
+  </data>
+  <data name="No enabled applications are available. Ask an application owner for create-alert access." xml:space="preserve">
+    <value>कोई सक्षम एप्लिकेशन उपलब्ध नहीं हैं। अलर्ट बनाने की अनुमति के लिए किसी एप्लिकेशन के मालिक से संपर्क करें।</value>
+  </data>
+  <data name="Only enabled applications where you can create alerts are listed." xml:space="preserve">
+    <value>केवल वे सक्षम ऐप्लिकेशन सूचीबद्ध हैं जिनमें आप अलर्ट बना सकते हैं।</value>
+  </data>
+  <data name="Select an application" xml:space="preserve">
+    <value>एक एप्लिकेशन चुनें</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>गंभीरता</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>शीर्षक</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>चेतावनी</value>
+  </data>
+
+</root>
