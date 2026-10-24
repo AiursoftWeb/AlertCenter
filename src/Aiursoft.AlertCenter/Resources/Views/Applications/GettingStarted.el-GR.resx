@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: Το κλειδί API εμφανίζεται μόνο μία φορά μετά την επιτυχή δημιουργία του. Ρυθμίστε το αμέσως στις μεταβλητές περιβάλλοντος της παραγωγικής εγκατάστασης (π.χ.,</value>
+  </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Ο προγραμματισμός των push ενεργοποιείται ασύγχρονα.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Διατηρήστε την πρώτη εγγραφή και μην ενεργοποιείτε διπλές ειδοποιήσεις push.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Το Κέντρο μπορεί να χρησιμοποιήσει αυτό το πεδίο για να εκτιμήσει την καθυστέρηση του δικτύου κατά την αναφορά και την παράδοση.</value>
+  </data>
+  <data name="(Critical, highest priority)," xml:space="preserve">
+    <value>(Κρίσιμο, ύψιστη προτεραιότητα),</value>
+  </data>
+  <data name="(Error)," xml:space="preserve">
+    <value>(Σφάλμα),</value>
+  </data>
+  <data name="(General Information). The Center routes and pushes based on this level." xml:space="preserve">
+    <value>(Γενικές πληροφορίες). Το Κέντρο δρομολογεί και αποστέλλει ειδοποιήσεις με βάση αυτό το επίπεδο.</value>
+  </data>
+  <data name="(Major)," xml:space="preserve">
+    <value>(Σοβαρό),</value>
+  </data>
+  <data name="(Warning)," xml:space="preserve">
+    <value>(Προειδοποίηση),</value>
+  </data>
+  <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
+    <value>) ή σε Υπηρεσία Διαχείρισης Κλειδιών (KMS). Απαγορεύεται αυστηρά η ενσωμάτωση κλειδιών στον κώδικα του frontend, στα αρχεία καταγραφής ή σε αποθετήρια κώδικα.</value>
+  </data>
+  <data name="1 to 200 characters" xml:space="preserve">
+    <value>1 έως 200 χαρακτήρες</value>
+  </data>
+  <data name="202 Accepted (Idempotent)" xml:space="preserve">
+    <value>202 Αποδεκτό (Ιδεμποτέντ)</value>
+  </data>
+  <data name="400 / 413 Parameter error" xml:space="preserve">
+    <value>400 / 413 Σφάλμα παραμέτρων</value>
+  </data>
+  <data name="401 Authentication failed" xml:space="preserve">
+    <value>401 Αποτυχία πιστοποίησης</value>
+  </data>
+  <data name="Actual business occurrence time, e.g.," xml:space="preserve">
+    <value>Πραγματικός χρόνος εμφάνισης του συμβάντος στην επιχείρηση, π.χ.,</value>
+  </data>
+  <data name="Bearer credentials are missing, keys do not match, or the application is disabled. Please check application settings." xml:space="preserve">
+    <value>Λείπουν τα διαπιστευτήρια Bearer, τα κλειδιά δεν ταιριάζουν ή η εφαρμογή είναι απενεργοποιημένη. Ελέγξτε τις ρυθμίσεις της εφαρμογής.</value>
+  </data>
+  <data name="Configure Push Center Channel" xml:space="preserve">
+    <value>Ρύθμιση καναλιού του Κέντρου Push</value>
+  </data>
+  <data name="Copy Code" xml:space="preserve">
+    <value>Αντιγραφή κώδικα</value>
+  </data>
+  <data name="Create Integration App and Get API Key" xml:space="preserve">
+    <value>Δημιουργήστε εφαρμογή διασύνδεσης και αποκτήστε κλειδί API</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="Developer Integration Guide" xml:space="preserve">
+    <value>Οδηγός ενσωμάτωσης για προγραμματιστές</value>
+  </data>
+  <data name="Duplicate report with the same ReportId," xml:space="preserve">
+    <value>Διπλότυπη αναφορά με το ίδιο ReportId,</value>
+  </data>
+  <data name="Each key belongs to an application. The server verifies the secret hash and the permission required by each operation." xml:space="preserve">
+    <value>Κάθε κλειδί ανήκει σε μία εφαρμογή. Ο διακομιστής επαληθεύει το hash του μυστικού και την απαιτούμενη άδεια για κάθε λειτουργία.</value>
+  </data>
+  <data name="Ensure strict concurrent idempotency; use the same ID for retries." xml:space="preserve">
+    <value>Διασφαλίστε αυστηρή ταυτόχρονη ιδιοδυναμία· χρησιμοποιείτε το ίδιο αναγνωριστικό στις επαναλήψεις.</value>
+  </data>
+  <data name="Every new report ID creates an independent incident. Reuse the same report ID only when retrying the same request. Rate-limit reports at the source." xml:space="preserve">
+    <value>Κάθε νέο αναγνωριστικό αναφοράς δημιουργεί ένα ανεξάρτητο περιστατικό. Επαναχρησιμοποιήστε το ίδιο αναγνωριστικό αναφοράς μόνο κατά την επανάληψη του ίδιου αιτήματος. Επεξεργαστείτε τον αριθμό αναφορών στην πηγή.</value>
+  </data>
+  <data name="Field Name" xml:space="preserve">
+    <value>Όνομα πεδίου</value>
+  </data>
+  <data name="From app creation and key authentication to the first incident report, establish a stable system incident channel in 4 steps." xml:space="preserve">
+    <value>Από τη δημιουργία της εφαρμογής και την αυθεντικοποίηση του κλειδιού έως την πρώτη αναφορά περιστατικού, δημιουργήστε ένα σταθερό κανάλι αναφοράς περιστατικών συστήματος σε 4 βήματα.</value>
+  </data>
+  <data name="Go to create an app and get credentials " xml:space="preserve">
+    <value>Μεταβείτε για να δημιουργήσετε μια εφαρμογή και να λάβετε διαπιστευτήρια</value>
+  </data>
+  <data name="HTTP Reporting Request Field Specification" xml:space="preserve">
+    <value>Προδιαγραφή πεδίων αίτησης αναφοράς HTTP</value>
+  </data>
+  <data name="HTTP Response Status Codes and Best Engineering Practices" xml:space="preserve">
+    <value>Κωδικοί κατάστασης απόκρισης HTTP και βέλτιστες πρακτικές μηχανικής λογισμικού</value>
+  </data>
+  <data name="In the sample code," xml:space="preserve">
+    <value>Στο δείγμα κώδικα,</value>
+  </data>
+  <data name="Incident body details. Supports troubleshooting guides, exception stacks, or diagnostic summaries. The presentation layer automatically escapes HTML to prevent XSS injection." xml:space="preserve">
+    <value>Λεπτομέρειες για το περιεχόμενο του συμβάντος. Μπορεί να περιλαμβάνει οδηγίες αντιμετώπισης προβλημάτων, στοίβες εξαιρέσεων ή διαγνωστικές περιλήψεις. Το επίπεδο παρουσίασης διαφεύγει αυτόματα τους χαρακτήρες HTML για να αποτρέψει επιθέσεις XSS.</value>
+  </data>
+  <data name="Incident summary title. Briefly describe the fault, e.g., “Order payment channel response timeout.”" xml:space="preserve">
+    <value>Τίτλος σύνοψης περιστατικού. Περιγράψτε συνοπτικά το πρόβλημα, π.χ. «Λήξη χρονικού ορίου απόκρισης του καναλιού πληρωμής παραγγελίας».</value>
+  </data>
+  <data name="Initial save successful. Returns the generated primary key ID," xml:space="preserve">
+    <value>Η αρχική αποθήκευση ολοκληρώθηκε με επιτυχία. Επιστρέφεται το παραγόμενο αναγνωριστικό πρωτεύοντος κλειδιού,</value>
+  </data>
+  <data name="JSON object; entire request max 64 KiB" xml:space="preserve">
+    <value>Αντικείμενο JSON· ολόκληρο το αίτημα έως 64 KiB</value>
+  </data>
+  <data name="Leak Prevention Notice" xml:space="preserve">
+    <value>Προειδοποίηση για την αποτροπή διαρροής</value>
+  </data>
+  <data name="Manage integrated applications" xml:space="preserve">
+    <value>Διαχείριση ενσωματωμένων εφαρμογών</value>
+  </data>
+  <data name="Max 4,000 characters" xml:space="preserve">
+    <value>Έως 4.000 χαρακτήρες</value>
+  </data>
+  <data name="Open API Key Management for an application to create named keys with query, create and resolve permissions." xml:space="preserve">
+    <value>Ανοίξτε τη Διαχείριση κλειδιών API για μια εφαρμογή, για να δημιουργήσετε κλειδιά με ονόματα και δικαιώματα αναζήτησης, δημιουργίας και επίλυσης.</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Προαιρετικό</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>ή μεταβλητές περιβάλλοντος, διευκολύνοντας τον άμεσο εντοπισμό και την αντιμετώπιση προβλημάτων στη σελίδα λεπτομερειών.</value>
+  </data>
+  <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
+    <value>Αντικαταστήστε το με το κλειδί εφαρμογής που δημιουργήθηκε στο προηγούμενο βήμα, για να στείλετε απευθείας μια δοκιμή.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Απαιτείται</value>
+  </data>
+  <data name="Required fields are missing, the level format is invalid, or the request body exceeds the 64 KiB limit." xml:space="preserve">
+    <value>Λείπουν υποχρεωτικά πεδία, η μορφή του επιπέδου δεν είναι έγκυρη ή το σώμα του αιτήματος υπερβαίνει το όριο των 64 KiB.</value>
+  </data>
+  <data name="Responses use AiurProtocol with Code, Message, and ProtocolVersion. Validation failures include an Items array. The SDK returns a typed receipt or throws an AiurProtocol exception." xml:space="preserve">
+    <value>Οι αποκρίσεις χρησιμοποιούν το AiurProtocol με Code, Message και ProtocolVersion. Οι αποτυχίες έλεγχου εγκυρότητας περιλαμβάνουν ένα πλέγμα Items. Το SDK επιστρέφει ένα επιβεβαιωτικό τύπου ή ρίπτει μια εξαίρεση AiurProtocol.</value>
+  </data>
+  <data name="Rules &amp; constraints" xml:space="preserve">
+    <value>Κανόνες και περιορισμοί</value>
+  </data>
+  <data name="Send the first incident message" xml:space="preserve">
+    <value>Στείλτε το πρώτο μήνυμα συμβάντος</value>
+  </data>
+  <data name="Severity:" xml:space="preserve">
+    <value>Σοβαρότητα:</value>
+  </data>
+  <data name="Standard UUID format" xml:space="preserve">
+    <value>Τυπική μορφή UUID</value>
+  </data>
+  <data name="Structured business context. It is recommended to include" xml:space="preserve">
+    <value>Δομημένο επιχειρησιακό πλαίσιο. Συνιστάται να συμπεριλάβετε</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Το καθολικά μοναδικό αναγνωριστικό αναφοράς του πελάτη. Το κέντρο χρησιμοποιεί</value>
+  </data>
+  <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
+    <value>Το SDK αποστέλλει κάθε αναφορά μία φορά. Αν μια αποτυχία δικτύου αφήσει αβέβαιο το αποτέλεσμα, επαναλάβετε το ίδιο αίτημα με το ίδιο ReportId και την ίδια ώρα εμφάνισης.</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Τύπος</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>Προβολή περιστατικών</value>
+  </data>
+  <data name="With timezone offset or Z identifier" xml:space="preserve">
+    <value>Με μετατόπιση ζώνης ώρας ή αναγνωριστικό Z</value>
+  </data>
+
+</root>

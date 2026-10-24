@@ -18,8 +18,17 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
+      <data name=" deliveries" xml:space="preserve">
+    <value>παραδόσεις</value>
+  </data>
+  <data name=" unread in-site notifications" xml:space="preserve">
+    <value>μη αναγνωσμένες ειδοποιήσεις εντός του ιστότοπου</value>
+  </data>
+  <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Υποστήριξη &quot;Fire-and-forget&quot; για μακροχρόνιες εργασίες (όπως email ή ΤΝ), με GUI για διαχείριση ουράς, παράλληλη επεξεργασία και ακύρωση.</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} συνολικά ανατεθειμένα</value>
   </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Ένα ενσωματωμένο σύστημα Έλεγχου Πρόσβασης Βάσει Ρόλων (RBAC) για λεπτομερή διαχείριση δικαιωμάτων.</value>
@@ -36,17 +45,35 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Μια σύγχρονη, πλούσια σε λειτουργίες και εξαιρετικά επεκτάσιμη βάση για την επόμενη εφαρμογή σας στον ιστό.</value>
   </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Επιβεβαιώθηκε</value>
+  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Μεταφράσεις με Τεχνητή Νοημοσύνη</value>
   </data>
+  <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
+    <value>AlertCenter Κέντρο Ειδοποιήσεων και Λειτουργιών · Καθολική Κατάσταση και Παρακολούθηση Κλειστού Βρόχου</value>
+  </data>
+  <data name="All " xml:space="preserve">
+    <value>Όλα</value>
+  </data>
   <data name="All dependencies are automatically registered and always available via constructor injection." xml:space="preserve">
     <value>Όλες οι εξαρτήσεις καταχωρούνται αυτόματα και είναι πάντα διαθέσιμες μέσω της εισαγωγής στον κατασκευαστή.</value>
+  </data>
+  <data name="All records" xml:space="preserve">
+    <value>Όλες οι εγγραφές</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Εφαρμογές</value>
   </data>
   <data name="Automatic Dark Mode" xml:space="preserve">
     <value>Αυτόματη Λειτουργία Σκούρου Θέματος</value>
   </data>
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Αυτόματη Ενσωμάτωση Εξαρτήσεων</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Αυτόματη αποστολή μηνυμάτων και αντιμετώπιση προβλημάτων</value>
   </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Αυτόματη Χειρισμός Ζώνης Ώρας</value>
@@ -57,8 +84,14 @@
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Αυτόματη, προωθούμενη από ΤΝ μετάφραση σε 28 γλώσσες.</value>
   </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>διαθέσιμα κανάλια ·</value>
+  </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Επεξεργασία εργασιών στο παρασκήνιο</value>
+  </data>
+  <data name="Batch dispatch to on-call groups and key emails" xml:space="preserve">
+    <value>Μαζική αποστολή σε ομάδες επιφυλακής και σε σημαντικές διευθύνσεις email</value>
   </data>
   <data name="Built-in User Management" xml:space="preserve">
     <value>Ενσωματωμένη Διαχείριση Χρηστών</value>
@@ -72,11 +105,47 @@
   <data name="Comprehensive Documentation" xml:space="preserve">
     <value>Πληρέστερη Τεκμηρίωση</value>
   </data>
+  <data name="Configure Push Channel" xml:space="preserve">
+    <value>Ρύθμιση καναλιού push</value>
+  </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>Έλεγχος Συνοχής</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Αντιγραφή</value>
+  </data>
+  <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
+    <value>Δημιουργήστε μια ειδοποίηση για την εφαρμογή σας και ενημερώστε τους παραλήπτες που έχουν οριστεί.</value>
+  </data>
+  <data name="Create an application" xml:space="preserve">
+    <value>Δημιουργήστε μια εφαρμογή</value>
+  </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Δημιουργήστε εφαρμογή και λάβετε κλειδί</value>
+  </data>
+  <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
+    <value>Δημιουργήστε το πρώτο περιστατικό μέσω του API ή του SDK. Θα εμφανιστεί εδώ.</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Κρίσιμο</value>
+  </data>
+  <data name="Critical ·" xml:space="preserve">
+    <value>Κρίσιμο ·</value>
+  </data>
+  <data name="Dedicated API Key Authentication" xml:space="preserve">
+    <value>Έλεγχος ταυτότητας με ειδικό κλειδί API</value>
+  </data>
+  <data name="Delivery Records" xml:space="preserve">
+    <value>Αρχεία καταγραφής παραδόσεων</value>
+  </data>
+  <data name="Detailed Integration Documentation" xml:space="preserve">
+    <value>Αναλυτική τεκμηρίωση ενσωμάτωσης</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>Αναπτύξτε αποκλειστικά στο UTC, ενώ το σύστημα μετατρέπει και εμφανίζει αυτόματα τις ημερομηνίες στην τοπική ώρα του χρήστη.</value>
+  </data>
+  <data name="Directly engage responsible parties and user groups for collaborative handling" xml:space="preserve">
+    <value>Επικοινωνήστε απευθείας με τους υπευθύνους και τις ομάδες χρηστών για την από κοινού διαχείριση</value>
   </data>
   <data name="Dockerized for Deployment" xml:space="preserve">
     <value>Σε Docker για Ανάπτυξη</value>
@@ -96,6 +165,12 @@
   <data name="Effortlessly write integration tests using in-memory databases, temporary file systems, built-in mocking, and real-world HTTP request simulation." xml:space="preserve">
     <value>Εύκολα γράψτε δοκιμές ενσωμάτωσης χρησιμοποιώντας βάσεις δεδομένων στη μνήμη, προσωρινά συστήματα αρχείων, ενσωματωμένη μοκινγκ και πραγματική προσομοίωση αιτήσεων HTTP.</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="Error " xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
   <data name="Features a built-in file management system with automatic avatar compression and privacy protection." xml:space="preserve">
     <value>Διαθέτει ένα ενσωματωμένο σύστημα διαχείρισης αρχείων με αυτόματη συμπίεση αβατάρ και προστασία της ιδιωτικότητας.</value>
   </data>
@@ -108,14 +183,62 @@
   <data name="Hello World!" xml:space="preserve">
     <value>Γεια σου Κόσμε!</value>
   </data>
+  <data name="In-app notification Inbox" xml:space="preserve">
+    <value>Εισερχόμενα ειδοποιήσεων εντός εφαρμογής</value>
+  </data>
+  <data name="Incident response" xml:space="preserve">
+    <value>Αντιμετώπιση περιστατικών</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Τίτλος συμβάντος</value>
+  </data>
+  <data name="Incident triggering and collaborative resolution" xml:space="preserve">
+    <value>Ενεργοποίηση περιστατικών και συνεργατική επίλυσή τους</value>
+  </data>
   <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
     <value>Περιλαμβάνει εκτενή τεκμηρίωση και πρακτικά παραδείγματα για να ξεκινήσετε γρήγορα.</value>
+  </data>
+  <data name="Info " xml:space="preserve">
+    <value>Πληροφορία</value>
   </data>
   <data name="Integrated File Management" xml:space="preserve">
     <value>Ενσωματωμένη Διαχείριση Αρχείων</value>
   </data>
+  <data name="Integration Guide" xml:space="preserve">
+    <value>Οδηγός ενσωμάτωσης</value>
+  </data>
+  <data name="Issue dedicated credentials in “Integrated Apps.”" xml:space="preserve">
+    <value>Εκδώστε ειδικά διαπιστευτήρια στις «Ενσωματωμένες εφαρμογές».</value>
+  </data>
+  <data name="Latest incidents" xml:space="preserve">
+    <value>Πιο πρόσφατα περιστατικά</value>
+  </data>
+  <data name="Linked Incident" xml:space="preserve">
+    <value>Συνδεδεμένο περιστατικό</value>
+  </data>
+  <data name="Linked Push Channel" xml:space="preserve">
+    <value>Συνδεδεμένο κανάλι push</value>
+  </data>
+  <data name="Local time" xml:space="preserve">
+    <value>Τοπική ώρα</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>Σοβαρό</value>
+  </data>
+  <data name="Major ·" xml:space="preserve">
+    <value>Σημαντικό ·</value>
+  </data>
+  <data name="Manage applications" xml:space="preserve">
+    <value>Διαχείριση εφαρμογών</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>Μετριασμένο</value>
+  </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>Τα μοντέλα ελέγχονται σε επίπεδο πελάτη και εξυπηρετητή βάσει σημειώσεων δεδομένων.</value>
+  </data>
+  <data name="Monitoring Dashboard" xml:space="preserve">
+    <value>Πίνακας ελέγχου παρακολούθησης</value>
   </data>
   <data name="Multiple Database Provider Support" xml:space="preserve">
     <value>Υποστήριξη Πολλαπλών Παρόχων Βάσης Δεδομένων</value>
@@ -123,8 +246,44 @@
   <data name="Multiple Database Support" xml:space="preserve">
     <value>Υποστήριξη Πολλαπλών Βάσεων Δεδομένων</value>
   </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>Τα περιστατικά μου</value>
+  </data>
+  <data name="New alert" xml:space="preserve">
+    <value>Νέα ειδοποίηση</value>
+  </data>
+  <data name="No incidents requiring immediate action" xml:space="preserve">
+    <value>Δεν υπάρχουν περιστατικά που απαιτούν άμεση ενέργεια</value>
+  </data>
+  <data name="No incidents yet" xml:space="preserve">
+    <value>Δεν υπάρχουν ακόμη περιστατικά</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Δεν έχει επιβεβαιωθεί</value>
+  </data>
+  <data name="Notification Push Center" xml:space="preserve">
+    <value>Κέντρο Αποστολής Ειδοποιήσεων</value>
+  </data>
+  <data name="Ongoing Incident" xml:space="preserve">
+    <value>Σε εξέλιξη περιστατικό</value>
+  </data>
+  <data name="Ongoing Incident Requires Response" xml:space="preserve">
+    <value>Το περιστατικό βρίσκεται σε εξέλιξη και απαιτεί ανταπόκριση</value>
+  </data>
   <data name="OpenID Connect Integration" xml:space="preserve">
     <value>Ενσωμάτωση OpenID Connect</value>
+  </data>
+  <data name="Ops Response Closure" xml:space="preserve">
+    <value>Ολοκλήρωση απόκρισης λειτουργιών</value>
+  </data>
+  <data name="Push Success Rate" xml:space="preserve">
+    <value>Ποσοστό επιτυχίας αποστολής ειδοποιήσεων push</value>
+  </data>
+  <data name="Quick Report Example" xml:space="preserve">
+    <value>Παράδειγμα γρήγορης αναφοράς</value>
+  </data>
+  <data name="Quick Start Integration" xml:space="preserve">
+    <value>Ενσωμάτωση Γρήγορης Έναρξης</value>
   </data>
   <data name="RBAC Authorization" xml:space="preserve">
     <value>Εξουσιοδότηση RBAC</value>
@@ -132,17 +291,41 @@
   <data name="Read the document" xml:space="preserve">
     <value>Διαβάστε την τεκμηρίωση</value>
   </data>
+  <data name="Recently created incidents" xml:space="preserve">
+    <value>Πρόσφατα δημιουργημένα περιστατικά</value>
+  </data>
+  <data name="Report an issue. Start a response." xml:space="preserve">
+    <value>Αναφέρετε ένα πρόβλημα. Ξεκινήστε την αντιμετώπισή του.</value>
+  </data>
+  <data name="Report details, handling history, and resolution status." xml:space="preserve">
+    <value>Λεπτομέρειες αναφοράς, ιστορικό χειρισμού και κατάσταση επίλυσης.</value>
+  </data>
+  <data name="Requires Immediate Action" xml:space="preserve">
+    <value>Απαιτείται άμεση ενέργεια</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Επιλύθηκε</value>
+  </data>
   <data name="Responsive Design" xml:space="preserve">
     <value>Αποκρισιμό Σχεδιασμό</value>
   </data>
   <data name="Robust Integration Testing" xml:space="preserve">
     <value>Ανθεκτικός Έλεγχος Ενοποίησης</value>
   </data>
+  <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
+    <value>Δρομολογήστε ανάλογα με τη σοβαρότητα Sev0-Sev4 στις ρυθμίσεις push της εφαρμογής.</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Διαχείριση Προγραμματισμένων Εργασιών</value>
   </data>
   <data name="Seamlessly integrate with any OpenID Connect provider, with automatic role synchronization." xml:space="preserve">
     <value>Απρόσκοπτη ενσωμάτωση με οποιονδήποτε πάροχο OpenID Connect, με αυτόματο συγχρονισμό ρόλων.</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Σοβαρότητα</value>
+  </data>
+  <data name="Severity pivot:" xml:space="preserve">
+    <value>Φίλτρο σοβαρότητας:</value>
   </data>
   <data name="Smart Configuration Overrides" xml:space="preserve">
     <value>Έξυπνες Αντικαταστάσεις Ρυθμίσεων</value>
@@ -153,11 +336,32 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Έξυπνη λειτουργία σκούρου θέματος που προσαρμόζεται αυτόματα στις ρυθμίσεις του συστήματος του χρήστη.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Κανάλι ηλεκτρονικού ταχυδρομείου SMTP</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Πηγή</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Εφαρμογή προέλευσης</value>
+  </data>
   <data name="Start a new project" xml:space="preserve">
     <value>Ξεκινήστε ένα νέο έργο</value>
   </data>
+  <data name="Supports .NET SDK / Go / Webhook" xml:space="preserve">
+    <value>Υποστηρίζει .NET SDK / Go / Webhook</value>
+  </data>
   <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
     <value>Υποστηρίζει και τις δύο μεταβλητές περιβάλλοντος και ρυθμίσεις που βασίζονται σε βάση δεδομένων, με αυτόματη προτεραιότητα προς τις μεταβλητές περιβάλλοντος για ομαλή αντικατάσταση.</value>
+  </data>
+  <data name="Supports custom request headers and JSON templates" xml:space="preserve">
+    <value>Υποστηρίζει προσαρμοσμένες κεφαλίδες αιτημάτων και πρότυπα JSON</value>
+  </data>
+  <data name="The center delivers notifications asynchronously, supporting record tracing and retries." xml:space="preserve">
+    <value>Το κέντρο αποστέλλει ειδοποιήσεις ασύγχρονα, υποστηρίζοντας την παρακολούθηση των καταγραφών και τις επαναλήψεις.</value>
+  </data>
+  <data name="The incidents you own through acknowledgement. Keep your response work in one place." xml:space="preserve">
+    <value>Τα περιστατικά που αναλαμβάνετε μέσω της αποδοχής τους. Διαχειριστείτε όλες τις ενέργειες απόκρισης σε ένα σημείο.</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>Η γραμμή πλοήγησης προσαρμόζεται αυτόματα με βάση τους ρόλους και τα δικαιώματα των χρηστών.</value>
@@ -165,11 +369,38 @@
   <data name="This is a template project, where we start the voyager..." xml:space="preserve">
     <value>Αυτό είναι ένα πρότυπο έργο, από όπου ξεκινάμε το ταξίδι...</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Ώρα</value>
+  </data>
+  <data name="Total incidents" xml:space="preserve">
+    <value>Σύνολο περιστατικών</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Μη μετριασμένο</value>
+  </data>
+  <data name="Unresolved" xml:space="preserve">
+    <value>Σε εκκρεμότητα</value>
+  </data>
+  <data name="Use Bearer authentication to report test incidents:" xml:space="preserve">
+    <value>Χρησιμοποιήστε έλεγχο ταυτότητας Bearer για να αναφέρετε δοκιμαστικά περιστατικά:</value>
+  </data>
+  <data name="View all incidents" xml:space="preserve">
+    <value>Προβολή όλων των περιστατικών</value>
+  </data>
+  <data name="Warning " xml:space="preserve">
+    <value>Προειδοποίηση</value>
+  </data>
+  <data name="Webhook Auto-Scheduling" xml:space="preserve">
+    <value>Αυτόματος προγραμματισμός webhook</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Καλώς ορίσατε</value>
   </data>
   <data name="Why use the Aiursoft Template?" xml:space="preserve">
     <value>Γιατί να χρησιμοποιήσετε το Πρότυπο Aiursoft;</value>
+  </data>
+  <data name="You need create-alert access to an enabled application." xml:space="preserve">
+    <value>Χρειάζεστε δικαίωμα δημιουργίας ειδοποιήσεων για μια ενεργή εφαρμογή.</value>
   </data>
 
 </root>

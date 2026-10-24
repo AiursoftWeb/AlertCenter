@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>Αναγνώριση και ανάληψη ευθύνης</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Επιβεβαιώθηκε</value>
+  </data>
+  <data name="Adjust Incident Severity" xml:space="preserve">
+    <value>Προσαρμογή της σοβαρότητας του περιστατικού</value>
+  </data>
+  <data name="Adjust Severity" xml:space="preserve">
+    <value>Προσαρμογή σοβαρότητας</value>
+  </data>
+  <data name="Adjust the severity of this incident and record the reason. Increasing severity queues an email; decreasing it does not." xml:space="preserve">
+    <value>Προσαρμόστε τη σοβαρότητα αυτού του περιστατικού και καταγράψτε τον λόγο. Η αύξηση της σοβαρότητας θέτει ένα email σε ουρά αποστολής· η μείωσή της όχι.</value>
+  </data>
+  <data name="Also resolve this incident immediately, using the mitigation reason as the resolution reason." xml:space="preserve">
+    <value>Επιλύστε επίσης αμέσως αυτό το περιστατικό, χρησιμοποιώντας ως αιτιολογία επίλυσης την αιτιολογία μετριασμού.</value>
+  </data>
+  <data name="Auto-created at " xml:space="preserve">
+    <value>Δημιουργήθηκε αυτόματα στις</value>
+  </data>
+  <data name="Back to Incident List" xml:space="preserve">
+    <value>Πίσω στη λίστα περιστατικών</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="Closed-loop Recovery" xml:space="preserve">
+    <value>Αποκατάσταση με κλειστό κύκλο</value>
+  </data>
+  <data name="Confirm incident mitigation" xml:space="preserve">
+    <value>Επιβεβαίωση μετριασμού του περιστατικού</value>
+  </data>
+  <data name="Confirm incident re-opening" xml:space="preserve">
+    <value>Επιβεβαίωση επανάνοισης περιστατικού</value>
+  </data>
+  <data name="Confirm incident resolution" xml:space="preserve">
+    <value>Επιβεβαίωση επίλυσης του περιστατικού</value>
+  </data>
+  <data name="Confirm severity adjustment" xml:space="preserve">
+    <value>Επιβεβαίωση προσαρμογής σοβαρότητας</value>
+  </data>
+  <data name="Confirmation note (optional)" xml:space="preserve">
+    <value>Σημείωση επιβεβαίωσης (προαιρετική)</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Αντιγραφή περιεχομένου</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>Αντιγραφή JSON</value>
+  </data>
+  <data name="Current On-Call OCE" xml:space="preserve">
+    <value>Τρέχων OCE σε εφημερία</value>
+  </data>
+  <data name="Currently on call " xml:space="preserve">
+    <value>Αυτή τη στιγμή σε εφημερία</value>
+  </data>
+  <data name="Describe mitigation measures, impact scope, and recovery status." xml:space="preserve">
+    <value>Περιγράψτε τα μέτρα μετριασμού, την έκταση των επιπτώσεων και την κατάσταση αποκατάστασης.</value>
+  </data>
+  <data name="Describe the impact changes and the basis for severity adjustments." xml:space="preserve">
+    <value>Περιγράψτε τις αλλαγές στον αντίκτυπο και τη βάση για τις προσαρμογές της σοβαρότητας.</value>
+  </data>
+  <data name="Every independent report creates a new incident. Acknowledging, mitigating or resolving this incident does not affect other incidents or their notifications." xml:space="preserve">
+    <value>Κάθε ανεξάρτητη αναφορά δημιουργεί ένα νέο περιστατικό. Η επιβεβαίωση, ο μετριασμός ή η επίλυση αυτού του περιστατικού δεν επηρεάζει άλλα περιστατικά ή τις ειδοποιήσεις τους.</value>
+  </data>
+  <data name="Example: Core database connection pool restored, service responses normal, load test passed." xml:space="preserve">
+    <value>Παράδειγμα: Επαναφορά του συνόλου συνδέσεων της βασικής βάσης δεδομένων, κανονικές αποκρίσεις υπηρεσιών, περατός έλεγχος φόρτου.</value>
+  </data>
+  <data name="Example: Monitoring detected the same failure again, re-investigation required." xml:space="preserve">
+    <value>Παράδειγμα: Η παρακολούθηση εντόπισε ξανά την ίδια αστοχία· απαιτείται νέα διερεύνηση.</value>
+  </data>
+  <data name="Fixed and closed" xml:space="preserve">
+    <value>Αποκαταστάθηκε και έκλεισε</value>
+  </data>
+  <data name="Full context" xml:space="preserve">
+    <value>Πλήρες περιεχόμενο</value>
+  </data>
+  <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
+    <value>Επιβεβαιώνω ότι το περιστατικό έχει επιλυθεί πλήρως και δεν θα επαναληφθεί.</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Τα email για το περιστατικό χρησιμοποιούν αυτό το αρχικό στιγμιότυπο OCE, ακόμη κι αν αλλάξει η βάρδια εφημερίας. Η επιβεβαίωση ανάθεσης ορίζει τον υπεύθυνο του περιστατικού· δεν αλλάζει τους παραλήπτες των email.</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Αναγνωριστικό συμβάντος</value>
+  </data>
+  <data name="Incident owner:" xml:space="preserve">
+    <value>Υπεύθυνος συμβάντος:</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>Τίτλος περιστατικού</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Αίθουσα Συντονισμού Συμβάντος - {0}</value>
+  </data>
+  <data name="Independent incidents" xml:space="preserve">
+    <value>Μεμονωμένα περιστατικά</value>
+  </data>
+  <data name="Last acknowledgement time" xml:space="preserve">
+    <value>Ώρα τελευταίας επιβεβαίωσης</value>
+  </data>
+  <data name="Mitigate incident" xml:space="preserve">
+    <value>Μετριασμός συμβάντος</value>
+  </data>
+  <data name="Mitigated (Mitigated)" xml:space="preserve">
+    <value>Μετριάστηκε (Μετριάστηκε)</value>
+  </data>
+  <data name="Mitigation reason (required)" xml:space="preserve">
+    <value>Αιτιολογία αντιμετώπισης (απαιτείται)</value>
+  </data>
+  <data name="Mitigation time" xml:space="preserve">
+    <value>Χρόνος μετριασμού</value>
+  </data>
+  <data name="New level" xml:space="preserve">
+    <value>Νέο επίπεδο</value>
+  </data>
+  <data name="No additional context was reported." xml:space="preserve">
+    <value>Δεν αναφέρθηκαν πρόσθετες πληροφορίες.</value>
+  </data>
+  <data name="No current on-call OCE." xml:space="preserve">
+    <value>Δεν υπάρχει αυτή τη στιγμή OCE σε εφημερία.</value>
+  </data>
+  <data name="No original OCE snapshot is available. The current OCE is not substituted for historical email recipients." xml:space="preserve">
+    <value>Δεν υπάρχει διαθέσιμο στιγμιότυπο του αρχικού OCE. Το τρέχον OCE δεν χρησιμοποιείται στη θέση των ιστορικών παραληπτών email.</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>Δεν έχει επιβεβαιωθεί</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Ημερομηνία συμβάντος</value>
+  </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE κατά τη στιγμή του συμβάντος</value>
+  </data>
+  <data name="Permanently Delete" xml:space="preserve">
+    <value>Οριστική διαγραφή</value>
+  </data>
+  <data name="Permanently Delete Incident" xml:space="preserve">
+    <value>Οριστική διαγραφή περιστατικού</value>
+  </data>
+  <data name="Query failed: " xml:space="preserve">
+    <value>Το ερώτημα απέτυχε:</value>
+  </data>
+  <data name="Reason for adjustment (required)" xml:space="preserve">
+    <value>Αιτιολογία προσαρμογής (υποχρεωτικό)</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Ώρα λήψης</value>
+  </data>
+  <data name="Record mitigation measures, then a resolution reason. Reopening returns this incident to unmitigated progress while preserving acknowledgement and ownership." xml:space="preserve">
+    <value>Καταγράψτε τα μέτρα μετριασμού και, στη συνέχεια, έναν λόγο επίλυσης. Αν ανοίξετε ξανά αυτό το περιστατικό, θα επιστρέψει σε εξέλιξη χωρίς να έχει μετριαστεί, ενώ θα διατηρηθούν η επιβεβαίωση και η ανάθεση ευθύνης.</value>
+  </data>
+  <data name="Record the mitigation measures taken. Resolve this incident after the fix is complete." xml:space="preserve">
+    <value>Καταγράψτε τα μέτρα περιορισμού που ελήφθησαν. Επιλύστε αυτό το περιστατικό αφού ολοκληρωθεί η αποκατάσταση.</value>
+  </data>
+  <data name="Reopen Incident" xml:space="preserve">
+    <value>Άνοιγμα περιστατικού ξανά</value>
+  </data>
+  <data name="Reopen Notes (Optional)" xml:space="preserve">
+    <value>Σημειώσεις επανανοίγματος (προαιρετικά)</value>
+  </data>
+  <data name="Reopening returns this incident to unmitigated progress. Previous acknowledgement and ownership are preserved. Email is queued for configured recipients." xml:space="preserve">
+    <value>Η επανάνοιξη επιστρέφει αυτό το περιστατικό σε πρόοδο χωρίς μετριασμό. Οι προηγούμενες αναγνωρίσεις και υπευθυνότητες διατηρούνται. Το email έχει τεθεί στην ουρά για τους ρυθμισμένους παραλήπτες.</value>
+  </data>
+  <data name="Report ID" xml:space="preserve">
+    <value>Αναγνωριστικό αναφοράς</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>Πληροφορίες αναφοράς</value>
+  </data>
+  <data name="Resolution reason (required)" xml:space="preserve">
+    <value>Αιτιολογία επίλυσης (απαιτείται)</value>
+  </data>
+  <data name="Resolution time" xml:space="preserve">
+    <value>Ώρα επίλυσης</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>Επίλυση περιστατικού</value>
+  </data>
+  <data name="Resolved (Resolved)" xml:space="preserve">
+    <value>Επιλύθηκε (Επιλύθηκε)</value>
+  </data>
+  <data name="Resolving this incident completes its workflow. Other incidents are handled independently." xml:space="preserve">
+    <value>Η επίλυση αυτού του περιστατικού ολοκληρώνει τη ροή εργασιών του. Τα υπόλοιπα περιστατικά αντιμετωπίζονται ανεξάρτητα.</value>
+  </data>
+  <data name="Response Mechanism Description" xml:space="preserve">
+    <value>Περιγραφή του μηχανισμού απόκρισης</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Κρίσιμο (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Μεγάλης σοβαρότητας (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Σφάλμα (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Προειδοποίηση (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Πληροφορίες (P4)</value>
+  </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Αυτό διαγράφει οριστικά το περιστατικό και το ιστορικό του. Πληκτρολογήστε τον ακριβή τίτλο του για επιβεβαίωση.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Χωρίς ανάθεση</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Ανεξέλεγκτο</value>
+  </data>
+
+</root>

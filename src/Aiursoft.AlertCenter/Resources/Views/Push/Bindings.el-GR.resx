@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· Ανενεργό, δεν αποστέλλονται ειδοποιήσεις</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - Ρυθμίσεις δρομολόγησης ειδοποιήσεων push</value>
+  </data>
+  <data name="Application Push Routing" xml:space="preserve">
+    <value>Δρομολόγηση ειδοποιήσεων push της εφαρμογής</value>
+  </data>
+  <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
+    <value>Ισχύει μόνο για νέα περιστατικά μετά την αποθήκευση. Αν ένα κανάλι απενεργοποιηθεί, η δρομολόγηση διατηρείται, αλλά τα νέα περιστατικά παραλείπονται.</value>
+  </data>
+  <data name="Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident." xml:space="preserve">
+    <value>Ισχύει για sev0–sev4· δεν απαιτείται επιλογή καναλιού. Τα παρακάτω κανάλια παρέχουν ανεξάρτητες συμπληρωματικές ειδοποιήσεις για κάθε νέο περιστατικό.</value>
+  </data>
+  <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
+    <value>Ενεργοποιείται αυτόματα · Δεν μπορεί να απενεργοποιηθεί μεμονωμένα</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>διαθέσιμα κανάλια</value>
+  </data>
+  <data name="Back to Connected Apps" xml:space="preserve">
+    <value>Επιστροφή στις συνδεδεμένες εφαρμογές</value>
+  </data>
+  <data name="Built-in On-call Email" xml:space="preserve">
+    <value>Ενσωματωμένο email εφημερίας</value>
+  </data>
+  <data name="CC addresses configured for the on-call group." xml:space="preserve">
+    <value>Διευθύνσεις κοινοποίησης (CC) που έχουν ρυθμιστεί για την ομάδα εφημερίας.</value>
+  </data>
+  <data name="Critical (P0)" xml:space="preserve">
+    <value>Κρίσιμο (P0)</value>
+  </data>
+  <data name="Custom channel-to-severity match matrix" xml:space="preserve">
+    <value>Προσαρμοσμένος πίνακας αντιστοίχισης καναλιών με επίπεδα σοβαρότητας</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Απενεργοποιημένο</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Ενεργό</value>
+  </data>
+  <data name="Error (P2)" xml:space="preserve">
+    <value>Σφάλμα (P2)</value>
+  </data>
+  <data name="Info (P4)" xml:space="preserve">
+    <value>Πληροφορίες (P4)</value>
+  </data>
+  <data name="Major (P1)" xml:space="preserve">
+    <value>Σοβαρό (P1)</value>
+  </data>
+  <data name="Multiple supplementary channels can be selected per level; unchecked items only indicate no custom notifications will be sent, without affecting built-in on-call emails. Strict exact matching is applied, with no automatic expansion to higher or lower levels." xml:space="preserve">
+    <value>Μπορούν να επιλεγούν πολλαπλά συμπληρωματικά κανάλια ανά επίπεδο· τα μη επιλεγμένα στοιχεία σημαίνουν μόνο ότι δεν θα αποστέλλονται προσαρμοσμένες ειδοποιήσεις, χωρίς να επηρεάζονται τα ενσωματωμένα email εφημερίας. Εφαρμόζεται αυστηρή αντιστοίχιση ακριβείας, χωρίς αυτόματη επέκταση σε υψηλότερα ή χαμηλότερα επίπεδα.</value>
+  </data>
+  <data name="No push channels configured yet" xml:space="preserve">
+    <value>Δεν έχουν ρυθμιστεί ακόμη κανάλια ειδοποιήσεων push</value>
+  </data>
+  <data name="On-call group:" xml:space="preserve">
+    <value>Ομάδα εφημερίας:</value>
+  </data>
+  <data name="Please contact the push channel administrator to grant channel binding permissions." xml:space="preserve">
+    <value>Επικοινωνήστε με τον διαχειριστή των καναλιών ειδοποιήσεων push για να σας παραχωρήσει δικαιώματα σύνδεσης καναλιών.</value>
+  </data>
+  <data name="Precisely match receiving channels by incident level · Matrix Routing Engine" xml:space="preserve">
+    <value>Ακριβής αντιστοίχιση καναλιών ειδοποίησης ανά επίπεδο περιστατικού · Μηχανή δρομολόγησης μέσω πίνακα</value>
+  </data>
+  <data name="Push Channel and Type" xml:space="preserve">
+    <value>Κανάλι push και τύπος</value>
+  </data>
+  <data name="Save routing configuration" xml:space="preserve">
+    <value>Αποθήκευση ρυθμίσεων δρομολόγησης</value>
+  </data>
+  <data name="System registered email addresses of all on-duty engineers (OCE) at the time of notification;" xml:space="preserve">
+    <value>Διευθύνσεις email όλων των μηχανικών που βρίσκονται σε υπηρεσία (OCE), όπως είναι καταχωρισμένες στο σύστημα κατά τη στιγμή της ειδοποίησης·</value>
+  </data>
+  <data name="Total " xml:space="preserve">
+    <value>Σύνολο</value>
+  </data>
+  <data name="Warning (P3)" xml:space="preserve">
+    <value>Προειδοποίηση (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
+    <value>Μπορείτε να δημιουργήσετε κανάλια ειδοποιήσεων μέσω Webhook, email ή εντός της εφαρμογής, ανάλογα με τις ανάγκες σας. Οι εφαρμογές που είναι συνδεδεμένες με ομάδες επιφυλακής θα στέλνουν τα ενσωματωμένα email επιφυλακής ακόμη και χωρίς προσαρμοσμένα κανάλια.</value>
+  </data>
+
+</root>

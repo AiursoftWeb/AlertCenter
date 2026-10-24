@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Action" xml:space="preserve">
+    <value>Ενέργεια</value>
+  </data>
+  <data name="Auto-assign" xml:space="preserve">
+    <value>Αυτόματη ανάθεση</value>
+  </data>
+  <data name="Bound, cannot be deleted" xml:space="preserve">
+    <value>Δεσμευμένο, δεν μπορεί να διαγραφεί</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="Confirm deletion" xml:space="preserve">
+    <value>Επιβεβαίωση διαγραφής</value>
+  </data>
+  <data name="Confirm rule deletion" xml:space="preserve">
+    <value>Επιβεβαίωση διαγραφής κανόνα</value>
+  </data>
+  <data name="Create Rule" xml:space="preserve">
+    <value>Δημιουργία κανόνα</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="Delete scheduling rule" xml:space="preserve">
+    <value>Διαγραφή κανόνα προγραμματισμού</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ώρες</value>
+  </data>
+  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
+    <value>Διαχειριστείτε πρότυπα κανόνων που χρησιμοποιούνται από πολλές ομάδες. Η τροποποίηση ενός προτύπου δεν αναδημιουργεί τις αποθηκευμένες βάρδιες.</value>
+  </data>
+  <data name="Min " xml:space="preserve">
+    <value>Ελάχ.</value>
+  </data>
+  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Δεν υπάρχουν ακόμη αποθηκευμένα πρότυπα κανόνων. Δημιουργήστε πρώτα ένα πρότυπο και έπειτα ζητήστε από την ομάδα να το συνδέσει και να το χρησιμοποιήσει.</value>
+  </data>
+  <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
+    <value>Μπορούν να διαγραφούν μόνο τα πρότυπα που δεν είναι συνδεδεμένα με ομάδες. Οι αποθηκευμένες βάρδιες και το ιστορικό των ομάδων δεν διαγράφονται· τα διαγραμμένα πρότυπα δεν μπορούν να ανακτηθούν.</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>άτομα</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>άτομα · Στόχος</value>
+  </data>
+  <data name="Please unbind the template from all teams first." xml:space="preserve">
+    <value>Αποδεσμεύστε πρώτα το πρότυπο από όλες τις ομάδες.</value>
+  </data>
+  <data name="Rule saved" xml:space="preserve">
+    <value>Ο κανόνας αποθηκεύτηκε</value>
+  </data>
+  <data name="Rule template" xml:space="preserve">
+    <value>Πρότυπο κανόνα</value>
+  </data>
+  <data name="Scheduling Rules" xml:space="preserve">
+    <value>Κανόνες προγραμματισμού</value>
+  </data>
+  <data name="Shift / Break" xml:space="preserve">
+    <value>Βάρδια / Διάλειμμα</value>
+  </data>
+  <data name="Teams using" xml:space="preserve">
+    <value>Ομάδες που χρησιμοποιούν</value>
+  </data>
+  <data name="View rules" xml:space="preserve">
+    <value>Προβολή κανόνων</value>
+  </data>
+
+</root>
