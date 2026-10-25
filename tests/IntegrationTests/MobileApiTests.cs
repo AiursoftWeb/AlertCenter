@@ -90,11 +90,20 @@ public partial class IncidentPagesTests
         var page1 = await MobileCall<MobileIncidentsResponse>(token, HttpMethod.Get, "/api/v1/mobile/incidents");
         Assert.AreEqual(20, page1.Incidents.Count);
         Assert.IsTrue(page1.HasNextPage);
-        Assert.IsTrue(page1.Incidents.All(item => item.Level != "sev4" && item.Title != "Hidden"));
+        Assert.IsTrue(page1.Incidents.All(item => item.Title != "Hidden"));
+        Assert.IsTrue(page1.Incidents.Any(item => item.Level == "sev4"));
         var page2 = await MobileCall<MobileIncidentsResponse>(token, HttpMethod.Get, "/api/v1/mobile/incidents?page=2");
-        Assert.AreEqual(5, page2.Incidents.Count);
+        Assert.AreEqual(6, page2.Incidents.Count);
         Assert.IsFalse(page2.HasNextPage);
-        Assert.AreEqual(25, page1.Incidents.Concat(page2.Incidents).Select(item => item.Id).Distinct().Count());
+        Assert.AreEqual(26, page1.Incidents.Concat(page2.Incidents).Select(item => item.Id).Distinct().Count());
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            (await db.SeverityRules.SingleAsync(item => item.Level == "sev4")).ShowInLists = false;
+            await db.SaveChangesAsync();
+        }
+        var defaultHidden = await MobileCall<MobileIncidentsResponse>(token, HttpMethod.Get, "/api/v1/mobile/incidents?keyword=Silent");
+        Assert.AreEqual(0, defaultHidden.Incidents.Count);
         var mine = await MobileCall<MobileIncidentsResponse>(token, HttpMethod.Get, "/api/v1/mobile/incidents?onlyMine=true&keyword=Queue");
         Assert.AreEqual(20, mine.Incidents.Count);
         var silent = await MobileCall<MobileIncidentsResponse>(token, HttpMethod.Get, "/api/v1/mobile/incidents?level=sev4");

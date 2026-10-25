@@ -53,7 +53,7 @@ public sealed class MainActivity : WorkspaceActivity
         var response = await api.GetIncidentsAsync(_query);
         RenderNavigation();
         Toolbar.Title = _query.OnlyMine ? "My incidents" : "Incidents";
-        _summary.Text = $"{(_query.ApplicationId.HasValue ? _applications.FirstOrDefault(a => a.Id == _query.ApplicationId)?.Name ?? "Application" : "All applications")} · {ProgressName(_query.Status)} · {(_query.Level == "lte-sev3" ? "sev0–sev3" : _query.Level == "lte-sev4" || _query.Level == null ? "All severities" : _query.Level)}";
+        _summary.Text = $"{(_query.ApplicationId.HasValue ? _applications.FirstOrDefault(a => a.Id == _query.ApplicationId)?.Name ?? "Application" : "All applications")} · {ProgressName(_query.Status)} · {(_query.Level == null ? "Default visibility" : _query.Level == "lte-sev3" ? "sev0–sev3" : _query.Level == "lte-sev4" ? "All severities" : _query.Level)}";
         _list.RemoveAllViews();
         if (response.Incidents.Count == 0) Text(_list, "No incidents match these filters.");
         foreach (var incident in response.Incidents)
@@ -127,8 +127,8 @@ public sealed class MainActivity : WorkspaceActivity
         var keyword = Input(panel, "Search title, content or application", _query.Keyword);
         var statuses = new[] { "new", "mitigated", "resolved", "all" };
         var status = Select(panel, "Progress", ["Active", "Mitigated", "Resolved", "All progress"], Array.IndexOf(statuses, _query.Status));
-        var levels = new[] { "lte-sev3", "sev0", "sev1", "sev2", "sev3", "sev4", "lte-sev4" };
-        var level = Select(panel, "Severity", ["sev0–sev3 (default)", "sev0", "sev1", "sev2", "sev3", "sev4", "All severities"], Array.IndexOf(levels, _query.Level));
+        string?[] levels = [null, "lte-sev3", "sev0", "sev1", "sev2", "sev3", "sev4", "lte-sev4"];
+        var level = Select(panel, "Severity", ["Default visibility", "sev0–sev3", "sev0", "sev1", "sev2", "sev3", "sev4", "All severities"], Array.IndexOf(levels, _query.Level));
         var ack = Select(panel, "Acknowledgement", ["All", "Acknowledged", "Not acknowledged"], _query.Acknowledged.HasValue ? _query.Acknowledged.Value ? 1 : 2 : 0);
         new AlertDialog.Builder(this).SetTitle("Filter incidents")!.SetView(panel)!
             .SetPositiveButton("Apply", (_, _) =>

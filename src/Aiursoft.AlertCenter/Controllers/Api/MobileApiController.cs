@@ -97,7 +97,12 @@ public sealed class MobileApiController(
             query = query.Where(item => item.Title.ToLower().Contains(keyword) ||
                 (item.Content != null && item.Content.ToLower().Contains(keyword)) || item.Application.Name.ToLower().Contains(keyword));
         }
-        if (filter.Level != null)
+        if (filter.Level == null)
+        {
+            var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+            query = query.Where(policy.VisibleIncidents);
+        }
+        else
         {
             var levels = filter.Level.StartsWith("lte-", StringComparison.Ordinal)
                 ? new[] { "sev0", "sev1", "sev2", "sev3", "sev4" }.Take(filter.Level[^1] - '0' + 1).ToArray()

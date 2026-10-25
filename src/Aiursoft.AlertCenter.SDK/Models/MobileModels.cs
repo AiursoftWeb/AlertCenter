@@ -64,7 +64,7 @@ public sealed class MobileIncidentQuery
     public bool OnlyMine { get; set; }
     [StringLength(200)] public string? Keyword { get; set; }
     [RegularExpression("^(all|new|mitigated|resolved)$")] public string Status { get; set; } = "new";
-    [RegularExpression("^(sev[0-4]|lte-sev[1-4])$")] public string? Level { get; set; } = "lte-sev3";
+    [RegularExpression("^(sev[0-4]|lte-sev[1-4])$")] public string? Level { get; set; }
     public bool? Acknowledged { get; set; }
 }
 

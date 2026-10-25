@@ -9,7 +9,9 @@ It supports Android 6.0 (API 23) and later.
 Connect to your AlertCenter HTTPS server and sign in. Open the navigation drawer
 for all incidents, your assigned incidents, accessible applications, new incidents,
 and sign-out. Filters include progress, severity, acknowledgement and keywords;
-pagination is at the bottom. The default queue shows active sev0–sev3 incidents.
+pagination is at the bottom. The default queue shows active incidents using the
+server's visibility policy. Explicit severity filters can include levels hidden
+from the default queue.
 Select sev4 or all severities to view informational incidents.
 
 Incident details show the original and current on-call engineers, local times,
