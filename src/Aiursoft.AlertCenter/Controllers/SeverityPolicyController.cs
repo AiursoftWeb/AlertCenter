@@ -12,7 +12,7 @@ namespace Aiursoft.AlertCenter.Controllers;
 
 [Authorize(Policy = AppPermissionNames.CanManagePush)]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-public class SeverityPolicyController(TemplateDbContext db, IStringLocalizer<SeverityPolicyController> localizer) : Controller
+public class SeverityPolicyController(TemplateDbContext db, IEnumerable<INotificationChannelAdapter> adapters, IStringLocalizer<SeverityPolicyController> localizer) : Controller
 {
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "Notifications", CascadedLinksIcon = "send", CascadedLinksOrder = 2,
@@ -20,6 +20,7 @@ public class SeverityPolicyController(TemplateDbContext db, IStringLocalizer<Sev
     public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
         this.StackView(new SeverityPolicyViewModel
         {
+            SmsAvailable = adapters.Any(adapter => adapter.Definition.Key == "sms"),
             Rules = await db.SeverityRules.AsNoTracking().OrderBy(rule => rule.Level).ToListAsync(cancellationToken)
         });
 
@@ -30,7 +31,11 @@ public class SeverityPolicyController(TemplateDbContext db, IStringLocalizer<Sev
         if (model.Rules.Count != rules.Count ||
             !model.Rules.Select(rule => rule.Level).Order().SequenceEqual(rules.Select(rule => rule.Level)))
             ModelState.AddModelError(string.Empty, localizer["Submit exactly one rule for every severity."].Value);
-        if (!ModelState.IsValid) return this.StackView(model, nameof(Index));
+        if (!ModelState.IsValid)
+        {
+            model.SmsAvailable = adapters.Any(adapter => adapter.Definition.Key == "sms");
+            return this.StackView(model, nameof(Index));
+        }
         foreach (var rule in rules)
         {
             var submitted = model.Rules.Single(item => item.Level == rule.Level);

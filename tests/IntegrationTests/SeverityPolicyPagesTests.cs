@@ -58,10 +58,10 @@ public partial class IncidentPagesTests
         await RegisterAndLoginAsync();
         using var get = await Http.GetAsync("/SeverityPolicy");
         Assert.AreEqual(HttpStatusCode.Redirect, get.StatusCode);
-        Assert.Contains("AccessDenied", get.Headers.Location!.ToString());
+        Assert.Contains("/Error/Code403", get.Headers.Location!.ToString());
         using var post = await PostForm("/SeverityPolicy/Save", new(), "/");
         Assert.AreEqual(HttpStatusCode.Redirect, post.StatusCode);
-        Assert.Contains("AccessDenied", post.Headers.Location!.ToString());
+        Assert.Contains("/Error/Code403", post.Headers.Location!.ToString());
     }
 
     [TestMethod]

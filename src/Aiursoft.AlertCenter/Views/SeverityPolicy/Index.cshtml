@@ -56,7 +56,10 @@
             <p>@Localizer["This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column."]</p>
             <p>@Localizer["Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced."]</p>
             <p>@Localizer["Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed."]</p>
+            @if (!Model.SmsAvailable)
+            {
             <div class="alert alert-info"><div class="alert-message">@Localizer["SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages."]</div></div>
+            }
         </div></div>
     </div>
 </div>
