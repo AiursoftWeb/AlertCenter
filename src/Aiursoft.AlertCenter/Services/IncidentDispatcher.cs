@@ -24,10 +24,11 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
     public async Task DispatchAsync(Incident incident, CancellationToken cancellationToken = default)
     {
         await OnCallEmailQueue.CreateAsync(db, incident, cancellationToken, localizer: localizerFactory.Create(typeof(OnCallEmailQueue)), localizerFactory: localizerFactory);
+        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
         var channels = await MatchingChannels(db, incident)
             .Select(link => new { link.ChannelId, link.Channel.Type }).ToListAsync(cancellationToken);
         // Commit the incident, pending deliveries and recipient snapshots together.
-        foreach (var channel in channels)
+        foreach (var channel in channels.Where(channel => policy.Allows(incident.Level, channel.Type)))
         {
             var delivery = new PushDelivery
             {
@@ -42,6 +43,8 @@ public class QueuedIncidentDispatcher(TemplateDbContext db, IStringLocalizerFact
     public static async Task DispatchEmailEventAsync(TemplateDbContext db, IncidentTimelineEntry entry,
         CancellationToken cancellationToken, IStringLocalizerFactory? localizerFactory = null)
     {
+        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        if (!policy.Allows(entry.Incident.Level, "email")) return;
         if (entry.Type is not (IncidentTimelineEntry.Mitigated or IncidentTimelineEntry.Resolved or IncidentTimelineEntry.Reopened) && !entry.IsEscalation) return;
         // Each committed transition queues its own email. Version checks prevent stale retries
         // from committing another transition; reopening starts another notification cycle.

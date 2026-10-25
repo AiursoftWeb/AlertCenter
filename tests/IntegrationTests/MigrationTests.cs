@@ -15,6 +15,27 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 public class MigrationTests
 {
     [TestMethod]
+    public async Task SeverityPolicyMigrationSeedsDefaultsWithoutResettingAdministratorChoices()
+    {
+        await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite("DataSource=:memory:").Options);
+        await context.Database.OpenConnectionAsync();
+        await context.Database.MigrateAsync();
+        var rules = await context.SeverityRules.OrderBy(rule => rule.Level).ToListAsync();
+        Assert.AreEqual(5, rules.Count);
+        Assert.AreEqual(4, rules.Count(rule => rule.Email));
+        Assert.AreEqual(3, rules.Count(rule => rule.Sms));
+        Assert.IsTrue(rules.All(rule => rule.ShowInLists));
+        rules[0].Email = false;
+        rules[4].Email = true;
+        await context.SaveChangesAsync();
+        await context.Database.MigrateAsync();
+        context.ChangeTracker.Clear();
+        Assert.IsFalse((await context.SeverityRules.SingleAsync(rule => rule.Level == "sev0")).Email);
+        Assert.IsTrue((await context.SeverityRules.SingleAsync(rule => rule.Level == "sev4")).Email);
+    }
+
+    [TestMethod]
     public async Task MitigationScopeMigrationPreservesExistingKeysWithoutGrantingNewPermission()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
@@ -73,7 +94,7 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(10, context.Database.GetMigrations().Count());
+        Assert.AreEqual(11, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
@@ -257,7 +278,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(10, context.Database.GetMigrations().Count());
+        Assert.AreEqual(11, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");

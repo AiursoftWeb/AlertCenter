@@ -1,0 +1,65 @@
+@model Aiursoft.AlertCenter.Models.SeverityPolicyViewModel
+
+<div class="mb-4">
+    <h1 class="h3">@Localizer["Severity policy"]</h1>
+    <p class="text-muted">@Localizer["Choose how each severity notifies responders and appears in default incident views."]</p>
+</div>
+@if (TempData["PolicySaved"] != null)
+{
+    <div class="alert alert-success" role="status"><div class="alert-message">@Localizer["Severity policy saved."]</div></div>
+}
+<div class="row g-4">
+    <div class="col-xl-9">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Save" method="post">
+                    <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th scope="col">@Localizer["Severity"]</th>
+                                    <th scope="col">@Localizer["Email"]</th>
+                                    <th scope="col">@Localizer["SMS"]</th>
+                                    <th scope="col">@Localizer["Webhook"]</th>
+                                    <th scope="col">@Localizer["In-app"]</th>
+                                    <th scope="col">@Localizer["Show in lists"]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @for (var i = 0; i < Model.Rules.Count; i++)
+                            {
+                                var index = i;
+                                <tr>
+                                    <th scope="row">
+                                        @Model.Rules[index].Level.ToUpperInvariant()
+                                        <input asp-for="Rules[index].Level" type="hidden" />
+                                    </th>
+                                    <td><input asp-for="Rules[index].Email" class="form-check-input" aria-label="@Localizer["Email for {0}", Model.Rules[index].Level]" /></td>
+                                    <td><input asp-for="Rules[index].Sms" class="form-check-input" aria-label="@Localizer["SMS for {0}", Model.Rules[index].Level]" /></td>
+                                    <td><input asp-for="Rules[index].Webhook" class="form-check-input" aria-label="@Localizer["Webhook for {0}", Model.Rules[index].Level]" /></td>
+                                    <td><input asp-for="Rules[index].InApp" class="form-check-input" aria-label="@Localizer["In-app notifications for {0}", Model.Rules[index].Level]" /></td>
+                                    <td><input asp-for="Rules[index].ShowInLists" class="form-check-input" aria-label="@Localizer["Show {0} in lists", Model.Rules[index].Level]" /></td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-primary">@Localizer["Save policy"]</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3">
+        <div class="card"><div class="card-body">
+            <h2 class="h5">@Localizer["How this policy works"]</h2>
+            <p>@Localizer["This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column."]</p>
+            <p>@Localizer["Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced."]</p>
+            <p>@Localizer["Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed."]</p>
+            @if (!Model.SmsAvailable)
+            {
+            <div class="alert alert-info"><div class="alert-message">@Localizer["SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages."]</div></div>
+            }
+        </div></div>
+    </div>
+</div>

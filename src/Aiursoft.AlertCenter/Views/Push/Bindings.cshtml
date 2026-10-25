@@ -45,7 +45,7 @@
         <div class="card-body">
             <p>@Localizer["On-call group:"]<a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a></p>
             <p class="mb-1"><strong>To：</strong>@Localizer["System registered email addresses of all on-duty engineers (OCE) at the time of notification;"]<strong>CC：</strong>@Localizer["CC addresses configured for the on-call group."]</p>
-            <p class="small text-muted mb-0">@Localizer["Applies to sev0–sev4; no channel selection required. The channels below provide independent supplementary notifications for each new incident."]</p>
+            <p class="small text-muted mb-0">@Localizer["Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy."]</p>
         </div>
     </section>
 }
@@ -71,7 +71,7 @@
                     </div>
                     <h3 class="h5 mb-2">@Localizer["No push channels configured yet"]</h3>
                     <p class="text-muted mb-4" style="max-width: 24rem; margin-inline: auto;">
-                        @Localizer["You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels."]
+                        @Localizer["You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels."]
                     </p>
                     <p class="text-muted mb-0">@Localizer["Please contact the push channel administrator to grant channel binding permissions."]</p>
                 </div>

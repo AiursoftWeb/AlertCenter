@@ -345,7 +345,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             query = query.Where(delivery => delivery.OnCallEmail != null ||
                 (delivery.ChannelId.HasValue && bindableChannelIds.Contains(delivery.ChannelId.Value)));
         }
-        if (status is PushDelivery.Pending or PushDelivery.Sending or PushDelivery.Succeeded or PushDelivery.Failed)
+        if (status is PushDelivery.Pending or PushDelivery.Sending or PushDelivery.Succeeded or PushDelivery.Failed or PushDelivery.Suppressed)
             query = query.Where(delivery => delivery.Status == status);
         else status = null;
         var deliveries = await query.Include(delivery => delivery.IncidentEvent).ThenInclude(entry => entry!.Incident).ThenInclude(incident => incident.Application)

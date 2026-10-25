@@ -36,7 +36,9 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
         model.TotalApplications = await db.SourceApplications.AsNoTracking()
             .CountAsync(a => accessibleIds.Contains(a.Id), cancellationToken);
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var messagesQuery = db.Incidents.AsNoTracking().Where(incident => accessibleIds.Contains(incident.ApplicationId));
+        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        var messagesQuery = db.Incidents.AsNoTracking().Where(policy.VisibleIncidents)
+            .Where(incident => accessibleIds.Contains(incident.ApplicationId));
         model.TotalIncidents = await messagesQuery.CountAsync(cancellationToken);
         model.MyIncidents = await messagesQuery.CountAsync(incident => incident.OwnerId != null && incident.OwnerId == userId, cancellationToken);
         model.MyActiveIncidents = await messagesQuery.CountAsync(incident => incident.OwnerId != null && incident.OwnerId == userId &&
@@ -51,7 +53,7 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
             .CountAsync(i => i.Status == Incident.New, cancellationToken);
 
         var deliveriesQuery = db.PushDeliveries.AsNoTracking()
-            .Where(d => d.Incident != null && accessibleIds.Contains(d.Incident.ApplicationId));
+            .Where(d => d.Status != PushDelivery.Suppressed && d.Incident != null && accessibleIds.Contains(d.Incident.ApplicationId));
         model.TotalDeliveries = await deliveriesQuery.CountAsync(cancellationToken);
         model.SuccessfulDeliveries = await deliveriesQuery.CountAsync(d => d.Status == PushDelivery.Succeeded, cancellationToken);
 

@@ -8,6 +8,7 @@ public class PushDelivery
     public const string Sending = "sending";
     public const string Succeeded = "succeeded";
     public const string Failed = "failed";
+    public const string Suppressed = "suppressed";
     public const string DefaultTestContent = "This is a test message for the push channel.";
 
     public Guid Id { get; set; } = Guid.NewGuid();
