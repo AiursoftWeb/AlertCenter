@@ -138,6 +138,9 @@
   <data name="None" xml:space="preserve">
     <value>Keine</value>
   </data>
+  <data name="Notification suppressed" xml:space="preserve">
+    <value>Benachrichtigung unterdrückt</value>
+  </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Bei erneuten Zustellversuchen von Bereitschafts-E-Mails werden immer die OCE- und CC-Snapshots verwendet, die beim Einreihen der Nachricht erstellt wurden. Die Empfänger werden nicht auf das aktuell zuständige Bereitschaftspersonal umgeleitet. Erneute Zustellversuche sind nicht möglich, wenn kein gültiger Snapshot vorhanden ist.</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>Dies ist eine Testnachricht für den Push-Kanal.</value>
+  </data>
+  <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
+    <value>Diese Benachrichtigung wurde aufgrund der Schweregrad-Richtlinie unterdrückt und wird nicht gesendet.</value>
   </data>
   <data name="times" xml:space="preserve">
     <value>Mal</value>

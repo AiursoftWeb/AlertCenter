@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>الإجمالي</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>يستخدم سياسة تحديد مستويات خطورة البريد الإلكتروني العامة، ولا يلزم اختيار قناة. توفّر القنوات أدناه إشعارات إضافية تخضع للسياسة العامة نفسها.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>تحذير (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>يمكنك إنشاء قنوات إشعارات عبر Webhook أو البريد الإلكتروني أو داخل التطبيق حسب الحاجة لتوفير إشعارات إضافية. ترسل التطبيقات المرتبطة بمجموعات المناوبة رسائل بريد إلكتروني مدمجة عند مستويات الخطورة التي تسمح بها السياسة العامة، حتى دون وجود قنوات مخصصة.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>يمكنك إنشاء قنوات إشعارات عبر Webhook أو البريد الإلكتروني أو داخل التطبيق عند الحاجة إلى إشعارات إضافية. وسترسل التطبيقات المرتبطة بمجموعات المناوبة رسائل البريد الإلكتروني المدمجة الخاصة بالمناوبة حتى دون إعداد قنوات مخصصة.</value>

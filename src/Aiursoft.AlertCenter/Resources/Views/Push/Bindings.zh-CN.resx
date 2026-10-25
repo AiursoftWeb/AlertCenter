@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>总计</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>使用全局邮件严重级别策略；无需选择渠道。下方渠道提供受同一全局策略约束的补充通知。</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>警告 (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>您可以根据需要创建 Webhook、电子邮件或应用内通知渠道作为补充。绑定到值班组的应用，即使没有自定义渠道，也会针对全局策略允许的严重级别发送内置电子邮件。</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>您可以根据需要创建 Webhook、电子邮件或应用内通知渠道作为补充。即使没有自定义渠道，绑定了值班组的应用也会发送内置值班邮件。</value>

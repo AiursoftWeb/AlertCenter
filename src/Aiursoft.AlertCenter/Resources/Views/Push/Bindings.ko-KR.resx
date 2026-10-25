@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>전체</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>전역 이메일 심각도 정책이 적용되므로 채널을 선택할 필요가 없습니다. 아래 채널은 동일한 전역 정책에 따라 추가 알림을 제공합니다.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>경고 (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>필요에 따라 보완용 웹훅, 이메일 또는 앱 내 알림 채널을 만들 수 있습니다. 온콜 그룹에 연결된 애플리케이션은 사용자 지정 채널이 없어도 전역 정책에서 허용하는 심각도에 대해 기본 이메일을 보냅니다.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>필요에 따라 보완용 웹훅, 이메일 또는 앱 내 알림 채널을 만들 수 있습니다. 온콜 그룹에 연결된 애플리케이션은 사용자 지정 채널이 없어도 기본 온콜 이메일을 발송합니다.</value>

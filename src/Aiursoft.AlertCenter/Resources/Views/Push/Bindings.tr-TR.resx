@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>Toplam</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>Küresel E-posta önem düzeyi politikasını kullanır; kanal seçimi gerekmez. Aşağıdaki kanallar, aynı küresel politikaya tabi olan ek bildirimler sağlar.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>Uyarı (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>İhtiyacınıza göre tamamlayıcı olarak Webhook, e-posta veya uygulama içi bildirim kanalları oluşturabilirsiniz. Nöbet gruplarına bağlı uygulamalar, özel kanal olmasa bile genel politikada izin verilen önem seviyeleri için yerleşik e-postalar gönderir.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>Gerekirse tamamlama amacıyla Webhook, e-posta veya uygulama içi bildirim kanalları oluşturabilirsiniz. Vardiya gruplarına bağlı uygulamalar, özel kanallar olmasa bile yerleşik vardiya e-postalarını gönderir.</value>

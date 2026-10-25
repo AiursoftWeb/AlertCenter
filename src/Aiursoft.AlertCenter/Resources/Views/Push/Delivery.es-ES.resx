@@ -138,6 +138,9 @@
   <data name="None" xml:space="preserve">
     <value>Ninguno</value>
   </data>
+  <data name="Notification suppressed" xml:space="preserve">
+    <value>Notificación suprimida</value>
+  </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Los reintentos de correo electrónico de guardia siempre utilizan las instantáneas de OCE y CC tomadas cuando se puso el mensaje en cola, y no se redirigen al personal de guardia actual. No se pueden realizar reintentos si no existe ninguna instantánea válida.</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>Este es un mensaje de prueba para el canal push.</value>
+  </data>
+  <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
+    <value>Esta notificación se ha suprimido según la política de gravedad y no se enviará.</value>
   </data>
   <data name="times" xml:space="preserve">
     <value>veces</value>

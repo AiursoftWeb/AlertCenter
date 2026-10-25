@@ -138,6 +138,9 @@
   <data name="None" xml:space="preserve">
     <value>Yok</value>
   </data>
+  <data name="Notification suppressed" xml:space="preserve">
+    <value>Bildirim bastırıldı</value>
+  </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Nöbetçi e-posta yeniden denemeleri her zaman, mesajın kuyruğa alındığı andaki OCE ve CC anlık görüntülerini kullanır ve güncel nöbetçi personele yeniden yönlendirmez. Geçerli bir anlık görüntü yoksa yeniden denemeler kullanılabilir değildir.</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>Bu, anlık bildirim kanalı için bir test mesajıdır.</value>
+  </data>
+  <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
+    <value>Bu bildirim önem derecesi politikası nedeniyle engellendi ve gönderilmeyecek.</value>
   </data>
   <data name="times" xml:space="preserve">
     <value>kere</value>

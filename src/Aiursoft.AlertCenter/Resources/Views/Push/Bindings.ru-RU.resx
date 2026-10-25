@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>Всего</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>Используется глобальная политика уровня серьезности для электронной почты; выбирать канал не требуется. Каналы ниже отправляют дополнительные уведомления в соответствии с той же глобальной политикой.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>Предупреждение (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>При необходимости можно создать каналы уведомлений Webhook, электронной почты или уведомлений в приложении для дополнительного информирования. Приложения, привязанные к группам дежурств, отправляют встроенные письма о событиях уровней важности, предусмотренных глобальной политикой, даже при отсутствии пользовательских каналов.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>Вы можете создать каналы уведомлений Webhook, электронной почты или в приложении по мере необходимости для дополнения. Приложения, связанные с группами дежурства, будут отправлять встроенные письма о дежурстве даже без настраиваемых каналов.</value>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed." xml:space="preserve">
+    <value>變更會套用至新的通知，並在傳送佇列中的通知或重試通知前再次檢查。先前已抑制的通知不會重新傳送。</value>
+  </data>
+  <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
+    <value>選擇各嚴重性通知回應人員的方式，以及其在預設事件檢視畫面中的顯示方式。</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="How this policy works" xml:space="preserve">
+    <value>此政策的運作方式</value>
+  </data>
+  <data name="In-app" xml:space="preserve">
+    <value>應用程式內</value>
+  </data>
+  <data name="Save policy" xml:space="preserve">
+    <value>儲存政策</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>嚴重程度</value>
+  </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>嚴重程度政策</value>
+  </data>
+  <data name="Severity policy saved." xml:space="preserve">
+    <value>嚴重性政策已儲存。</value>
+  </data>
+  <data name="Show in lists" xml:space="preserve">
+    <value>顯示於清單中</value>
+  </data>
+  <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
+    <value>「顯示於清單」會影響預設事件清單、儀表板及應用程式中的數量。仍可透過明確指定嚴重性篩選條件，找到隱藏的事件。存取權限一律會受到控管。</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>可以儲存簡訊政策，但尚未安裝簡訊傳送管道。選取「簡訊」不會傳送簡訊。</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
+    <value>這是全域通知上限。應用程式也必須啟用通知管道，並訂閱該嚴重性。值班電子郵件會使用「電子郵件」欄。</value>
+  </data>
+  <data name="Webhook" xml:space="preserve">
+    <value>Webhook</value>
+  </data>
+
+</root>

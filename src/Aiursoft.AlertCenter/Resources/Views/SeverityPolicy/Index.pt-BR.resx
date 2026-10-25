@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed." xml:space="preserve">
+    <value>As alterações se aplicam às novas notificações e são verificadas novamente antes do envio das entregas em fila ou das tentativas de reenvio. Notificações suprimidas anteriormente não são reenviadas.</value>
+  </data>
+  <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
+    <value>Escolha como cada nível de severidade notifica os responsáveis e aparece nas visualizações padrão de incidentes.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="How this policy works" xml:space="preserve">
+    <value>Como esta política funciona</value>
+  </data>
+  <data name="In-app" xml:space="preserve">
+    <value>No aplicativo</value>
+  </data>
+  <data name="Save policy" xml:space="preserve">
+    <value>Salvar política</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Severidade</value>
+  </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>Política de severidade</value>
+  </data>
+  <data name="Severity policy saved." xml:space="preserve">
+    <value>Política de gravidade salva.</value>
+  </data>
+  <data name="Show in lists" xml:space="preserve">
+    <value>Exibir nas listas</value>
+  </data>
+  <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
+    <value>A opção “Exibir nas listas” controla a lista padrão de incidentes e as contagens no painel e por aplicação. Filtros explícitos por gravidade ainda podem encontrar incidentes ocultos. As permissões de acesso são sempre respeitadas.</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>A política de SMS pode ser salva, mas nenhum canal de envio de SMS está instalado. Selecionar SMS não envia mensagens de texto.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
+    <value>Este é o limite máximo global de notificações. Um aplicativo também precisa ter um canal habilitado e estar inscrito na gravidade. Os e-mails de plantão usam a coluna E-mail.</value>
+  </data>
+  <data name="Webhook" xml:space="preserve">
+    <value>Webhook</value>
+  </data>
+
+</root>

@@ -150,6 +150,9 @@
   <data name="None" xml:space="preserve">
     <value>ไม่มี</value>
   </data>
+  <data name="Notification suppressed" xml:space="preserve">
+    <value>ระงับการแจ้งเตือน</value>
+  </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>การลองส่งอีเมลแจ้งเวรซ้ำจะใช้ข้อมูล OCE และ CC ที่บันทึกไว้ตอนเข้าคิวข้อความเสมอ และจะไม่เปลี่ยนไปส่งให้เจ้าหน้าที่เวรปัจจุบัน หากไม่มีข้อมูลที่บันทึกไว้ซึ่งถูกต้อง จะไม่สามารถลองส่งซ้ำได้</value>
   </data>
@@ -194,6 +197,9 @@
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>นี่คือข้อความทดสอบสำหรับช่องทางพุช</value>
+  </data>
+  <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
+    <value>การแจ้งเตือนนี้ถูกระงับตามนโยบายระดับความรุนแรง และจะไม่มีการส่ง</value>
   </data>
   <data name="times" xml:space="preserve">
     <value>ครั้ง</value>

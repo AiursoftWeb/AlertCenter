@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>Totale</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>Utilizza la policy globale di gravità delle email; non è necessario selezionare i canali. I canali sottostanti forniscono notifiche aggiuntive, soggette alla stessa policy globale.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>Avviso (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>Se necessario, puoi creare canali di notifica Webhook, email o in-app come integrazione. Le applicazioni associate a gruppi di reperibilità inviano email integrate per i livelli di gravità consentiti dai criteri globali, anche in assenza di canali personalizzati.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>È possibile creare canali di notifica Webhook, e-mail o in-app secondo le esigenze per integrare le notifiche. Le applicazioni collegate a gruppi on-call invieranno le e-mail on-call integrate anche in assenza di canali personalizzati.</value>

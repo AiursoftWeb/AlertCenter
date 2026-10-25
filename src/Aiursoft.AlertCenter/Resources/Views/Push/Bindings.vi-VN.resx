@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>Tổng số</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>Sử dụng chính sách mức độ nghiêm trọng Email chung; không cần chọn kênh. Các kênh bên dưới cung cấp thông báo bổ sung theo cùng chính sách chung.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>Cảnh báo (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>Bạn có thể tạo các kênh thông báo Webhook, email hoặc trong ứng dụng theo nhu cầu để bổ sung. Các ứng dụng được liên kết với nhóm trực ca sẽ gửi email tích hợp sẵn cho các mức độ nghiêm trọng được cho phép bởi chính sách toàn cục, ngay cả khi không có kênh tùy chỉnh.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>Bạn có thể tạo các kênh thông báo Webhook, email hoặc trong ứng dụng để bổ sung khi cần. Các ứng dụng được liên kết với nhóm trực sẽ gửi email trực tích hợp ngay cả khi không có kênh tùy chỉnh.</value>

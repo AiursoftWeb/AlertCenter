@@ -138,6 +138,9 @@
   <data name="None" xml:space="preserve">
     <value>لا شيء</value>
   </data>
+  <data name="Notification suppressed" xml:space="preserve">
+    <value>تم تجاهل الإشعار</value>
+  </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>تعتمد إعادة إرسال رسائل البريد الإلكتروني للمناوب دائمًا على لقطات OCE وCC المحفوظة عند إدراج الرسالة في قائمة الانتظار، ولا تُوجَّه إلى فريق المناوبة الحالي. ولا تتوفر إعادة الإرسال إذا لم توجد لقطة صالحة.</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>هذه رسالة اختبار لقناة الإشعارات الفورية.</value>
+  </data>
+  <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
+    <value>تم حجب هذا الإشعار وفقًا لسياسة مستوى الخطورة، ولن يتم إرساله.</value>
   </data>
   <data name="times" xml:space="preserve">
     <value>مرات</value>

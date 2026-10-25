@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>Total</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>Använder den globala allvarlighetspolicyn för e-post; inget kanalval krävs. Kanalerna nedan ger kompletterande aviseringar enligt samma globala policy.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>Varning (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>Du kan skapa Webhook-, e-post- eller aviseringar i appen vid behov som komplement. Program som är kopplade till jourgrupper skickar inbyggda e-postmeddelanden för allvarlighetsgrader som tillåts enligt den globala policyn, även utan egna kanaler.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>Du kan skapa Webhook-, e-post- eller in-app-notifikationskanaler efter behov för komplettering. Tillämpningar som är bundna till on-call-grupper skickar inbyggda on-call-e-postmeddelanden även utan anpassade kanaler.</value>

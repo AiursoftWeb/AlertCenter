@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed." xml:space="preserve">
+    <value>Зміни застосовуються до нових сповіщень і повторно перевіряються перед надсиланням сповіщень із черги або повторними спробами. Раніше придушені сповіщення не надсилаються повторно.</value>
+  </data>
+  <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
+    <value>Виберіть, як сповіщати відповідальних осіб про кожен рівень критичності та відображати його в стандартних поданнях інцидентів.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Електронна пошта</value>
+  </data>
+  <data name="How this policy works" xml:space="preserve">
+    <value>Як працює ця політика</value>
+  </data>
+  <data name="In-app" xml:space="preserve">
+    <value>У застосунку</value>
+  </data>
+  <data name="Save policy" xml:space="preserve">
+    <value>Зберегти політику</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Критичність</value>
+  </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>Політика критичності</value>
+  </data>
+  <data name="Severity policy saved." xml:space="preserve">
+    <value>Політику критичності збережено.</value>
+  </data>
+  <data name="Show in lists" xml:space="preserve">
+    <value>Показувати у списках</value>
+  </data>
+  <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
+    <value>Параметр «Показувати у списках» визначає, чи відображатимуться інциденти за замовчуванням у списку інцидентів, на панелі керування та в лічильниках застосунків. За допомогою явних фільтрів за рівнем критичності можна знайти навіть приховані інциденти. Дозволи доступу завжди застосовуються.</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>Політику SMS можна зберегти, але канал надсилання SMS не встановлено. Вибір SMS не надсилає текстові повідомлення.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
+    <value>Це загальне обмеження для сповіщень. У застосунку також має бути ввімкнений канал, а застосунок має підписатися на відповідний рівень важливості. Для чергових сповіщень електронною поштою використовується стовпець «Електронна пошта».</value>
+  </data>
+  <data name="Webhook" xml:space="preserve">
+    <value>Webhook</value>
+  </data>
+
+</root>

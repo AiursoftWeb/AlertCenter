@@ -150,6 +150,9 @@
   <data name="None" xml:space="preserve">
     <value>なし</value>
   </data>
+  <data name="Notification suppressed" xml:space="preserve">
+    <value>通知は抑止されました</value>
+  </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>オンコールメールの再試行では、メッセージがキューに登録された時点のOCEおよびCCのスナップショットが常に使用され、現在のオンコール担当者に宛先が切り替わることはありません。有効なスナップショットが存在しない場合、再試行はできません。</value>
   </data>
@@ -194,6 +197,9 @@
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>これはプッシュチャネル用のテストメッセージです。</value>
+  </data>
+  <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
+    <value>この通知は重大度ポリシーにより抑制されており、送信されません。</value>
   </data>
   <data name="times" xml:space="preserve">
     <value>回</value>

@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>合計</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>グローバルのメール重要度ポリシーが適用されるため、チャネルを選択する必要はありません。以下のチャネルからも、同じグローバルポリシーに従って追加の通知が送信されます。</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>警告 (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>必要に応じて、Webhook、メール、またはアプリ内通知チャネルを作成して補完できます。オンコールグループにバインドされたアプリケーションは、カスタムチャネルが設定されていなくても、グローバルポリシーで許可された重大度に対して組み込みメールを送信します。</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>補完用として、必要に応じてWebhook、メール、またはアプリ内通知のチャネルを作成できます。オンコールグループに紐付けられたアプリケーションは、カスタムチャネルがなくても標準のオンコールメールを送信します。</value>

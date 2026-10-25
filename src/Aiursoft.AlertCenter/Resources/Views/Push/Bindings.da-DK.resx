@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>I alt</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>Bruger den globale e-mail-seværitetspolitik; der kræves ingen kanalvalg. Kanalerne nedenfor giver supplerende notifikationer i overensstemmelse med samme globale politik.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>Advarsel (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>Du kan oprette Webhook-, e-mail- eller in-app-notifikationskanaler efter behov som supplement. Applikationer, der er bundet til vagtgrupper, sender indbyggede e-mails for de alvorlighedsgrader, der er tilladt af den globale politik, selv uden tilpassede kanaler.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>Du kan oprette Webhook-, e-mail- eller in-app-notifikationskanaler efter behov som supplement. Applikationer, der er bundet til vagtgrupper, sender indbyggede vagte-mails, selvom der ikke er tilpassede kanaler.</value>
