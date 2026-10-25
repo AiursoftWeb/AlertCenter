@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>कुल</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>यह वैश्विक ईमेल गंभीरता नीति का उपयोग करता है; चैनल चुनने की आवश्यकता नहीं है। नीचे दिए गए चैनल इसी वैश्विक नीति के अधीन अतिरिक्त सूचनाएँ भेजते हैं।</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>चेतावनी (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>पूरक सूचनाओं के लिए आप आवश्यकतानुसार Webhook, ईमेल या ऐप के भीतर सूचना चैनल बना सकते हैं। ऑन-कॉल समूहों से जुड़ी एप्लिकेशन, वैश्विक नीति द्वारा अनुमत गंभीरता स्तरों के लिए अंतर्निहित ईमेल भेजती हैं—भले ही कोई कस्टम चैनल न हो।</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>आवश्यकतानुसार पूरक सूचनाओं के लिए आप Webhook, ईमेल या इन-ऐप सूचना चैनल बना सकते हैं। ऑन-कॉल समूहों से जुड़ी ऐप्लिकेशन, कस्टम चैनल न होने पर भी अंतर्निहित ऑन-कॉल ईमेल भेजेंगी।</value>

@@ -138,6 +138,9 @@
   <data name="None" xml:space="preserve">
     <value>कोई नहीं</value>
   </data>
+  <data name="Notification suppressed" xml:space="preserve">
+    <value>सूचना दबा दी गई</value>
+  </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>ऑन-कॉल ईमेल के पुनः प्रयासों में हमेशा संदेश कतार में डाले जाने के समय के OCE और CC स्नैपशॉट का ही उपयोग होता है; इन्हें मौजूदा ऑन-कॉल कर्मियों की ओर पुनर्निर्देशित नहीं किया जाता। कोई मान्य स्नैपशॉट उपलब्ध न होने पर पुनः प्रयास नहीं किए जा सकते।</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>यह पुश चैनल के लिए एक परीक्षण संदेश है।</value>
+  </data>
+  <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
+    <value>इस सूचना को गंभीरता नीति के तहत रोक दिया गया है और इसे भेजा नहीं जाएगा।</value>
   </data>
   <data name="times" xml:space="preserve">
     <value>बार</value>

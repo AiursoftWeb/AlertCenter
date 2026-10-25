@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>ทั้งหมด</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>ใช้เกณฑ์ระดับความรุนแรงของอีเมลส่วนกลาง โดยไม่ต้องเลือกช่องทาง ช่องทางด้านล่างจะส่งการแจ้งเตือนเพิ่มเติมภายใต้นโยบายส่วนกลางเดียวกัน</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>คำเตือน (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>คุณสามารถสร้างช่องทางการแจ้งเตือนผ่าน Webhook อีเมล หรือภายในแอปได้ตามต้องการ เพื่อใช้เป็นช่องทางเสริม แอปพลิเคชันที่ผูกกับกลุ่มเวรจะส่งอีเมลในตัวสำหรับระดับความรุนแรงที่นโยบายส่วนกลางอนุญาต แม้จะไม่มีช่องทางแบบกำหนดเองก็ตาม</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>คุณสามารถสร้างช่องทางการแจ้งเตือนผ่าน Webhook อีเมล หรือภายในแอปได้ตามต้องการ เพื่อใช้เป็นช่องทางเสริม แอปพลิเคชันที่ผูกกับกลุ่มเวรจะส่งอีเมลแจ้งเตือนเวรที่มีมาให้ในระบบ แม้จะไม่มีช่องทางที่กำหนดเองก็ตาม</value>

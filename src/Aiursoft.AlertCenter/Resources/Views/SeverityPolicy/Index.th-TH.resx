@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed." xml:space="preserve">
+    <value>การเปลี่ยนแปลงจะมีผลกับการแจ้งเตือนใหม่ และจะมีการตรวจสอบอีกครั้งก่อนส่งรายการที่อยู่ในคิวหรือส่งซ้ำ การแจ้งเตือนที่ถูกระงับไปก่อนหน้านี้จะไม่ถูกส่งซ้ำ</value>
+  </data>
+  <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
+    <value>เลือกวิธีแจ้งเตือนผู้รับผิดชอบและการแสดงผลในมุมมองเหตุการณ์เริ่มต้นสำหรับแต่ละระดับความรุนแรง</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>อีเมล</value>
+  </data>
+  <data name="How this policy works" xml:space="preserve">
+    <value>วิธีการทำงานของนโยบายนี้</value>
+  </data>
+  <data name="In-app" xml:space="preserve">
+    <value>ภายในแอป</value>
+  </data>
+  <data name="Save policy" xml:space="preserve">
+    <value>บันทึกนโยบาย</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>ระดับความรุนแรง</value>
+  </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>นโยบายระดับความรุนแรง</value>
+  </data>
+  <data name="Severity policy saved." xml:space="preserve">
+    <value>บันทึกนโยบายระดับความรุนแรงแล้ว</value>
+  </data>
+  <data name="Show in lists" xml:space="preserve">
+    <value>แสดงในรายการ</value>
+  </data>
+  <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
+    <value>การแสดงในรายการจะกำหนดรายการเหตุการณ์ แดชบอร์ด และจำนวนแอปพลิเคชันที่แสดงเป็นค่าเริ่มต้น ตัวกรองระดับความรุนแรงที่ระบุโดยตรงยังคงค้นหาเหตุการณ์ที่ซ่อนอยู่ได้ ระบบจะบังคับใช้สิทธิ์การเข้าถึงเสมอ</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>สามารถบันทึกนโยบาย SMS ได้ แต่ยังไม่ได้ติดตั้งช่องทางการส่ง SMS การเลือก SMS จะไม่ส่งข้อความ</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
+    <value>นี่คือขีดจำกัดสูงสุดของการแจ้งเตือนโดยรวม แอปพลิเคชันต้องเปิดใช้งานช่องทางอย่างน้อยหนึ่งช่องทาง และสมัครรับระดับความรุนแรงนั้นด้วย อีเมลแจ้งเตือนเวรใช้คอลัมน์ Email</value>
+  </data>
+  <data name="Webhook" xml:space="preserve">
+    <value>Webhook</value>
+  </data>
+
+</root>

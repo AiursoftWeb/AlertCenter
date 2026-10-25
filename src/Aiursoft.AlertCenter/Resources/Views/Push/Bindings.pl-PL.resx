@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>Razem</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>Korzysta z globalnej polityki poziomów ważności dla wiadomości e-mail; wybór kanału nie jest wymagany. Poniższe kanały zapewniają dodatkowe powiadomienia zgodnie z tą samą globalną polityką.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>Ostrzeżenie (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>W razie potrzeby możesz utworzyć kanały powiadomień typu webhook, e-mail lub powiadomienia w aplikacji, aby uzupełnić dostępne opcje. Aplikacje przypisane do grup dyżurnych wysyłają wbudowane wiadomości e-mail dla poziomów ważności dozwolonych przez globalną politykę, nawet bez niestandardowych kanałów.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>Możesz tworzyć kanały powiadomień Webhook, e-mail lub w aplikacji zgodnie z potrzebami w celu uzupełnienia. Aplikacje powiązane z grupami dyżurującymi będą wysyłać wbudowane e-maile dyżurujące nawet bez kanałów niestandardowych.</value>

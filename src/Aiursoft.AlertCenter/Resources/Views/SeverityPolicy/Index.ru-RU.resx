@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed." xml:space="preserve">
+    <value>Изменения применяются к новым уведомлениям и повторно проверяются перед отправкой уведомлений из очереди или повторными попытками отправки. Уведомления, отправка которых ранее была подавлена, повторно не отправляются.</value>
+  </data>
+  <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
+    <value>Выберите, как каждый уровень серьёзности уведомляет ответственных и отображается в представлениях инцидентов по умолчанию.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="How this policy works" xml:space="preserve">
+    <value>Как работает эта политика</value>
+  </data>
+  <data name="In-app" xml:space="preserve">
+    <value>В приложении</value>
+  </data>
+  <data name="Save policy" xml:space="preserve">
+    <value>Сохранить политику</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Важность</value>
+  </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>Политика уровней критичности</value>
+  </data>
+  <data name="Severity policy saved." xml:space="preserve">
+    <value>Политика уровней важности сохранена.</value>
+  </data>
+  <data name="Show in lists" xml:space="preserve">
+    <value>Показывать в списках</value>
+  </data>
+  <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
+    <value>Параметр «Показывать в списках» определяет, какие инциденты отображаются в списке инцидентов по умолчанию, на панели мониторинга и в счётчиках приложений. Инциденты, скрытые таким образом, по-прежнему можно найти с помощью фильтров по конкретной степени серьёзности. Права доступа всегда учитываются.</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>Политику SMS можно сохранить, но канал доставки SMS не установлен. Выбор SMS не приводит к отправке текстовых сообщений.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
+    <value>Это глобальный максимальный уровень уведомлений. У приложения также должен быть включён канал доставки и подписка на соответствующий уровень важности. Для уведомлений дежурным по электронной почте используется столбец «Электронная почта».</value>
+  </data>
+  <data name="Webhook" xml:space="preserve">
+    <value>Вебхук</value>
+  </data>
+
+</root>

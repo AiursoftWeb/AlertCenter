@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed." xml:space="preserve">
+    <value>변경 사항은 새 알림에 적용되며, 대기 중인 알림을 전송하거나 재시도하기 전에 다시 확인됩니다. 이전에 억제된 알림은 다시 전송되지 않습니다.</value>
+  </data>
+  <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
+    <value>각 심각도별로 담당자에게 알림을 보내는 방식과 기본 인시던트 보기에서 표시되는 방식을 선택하세요.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>이메일</value>
+  </data>
+  <data name="How this policy works" xml:space="preserve">
+    <value>이 정책의 작동 방식</value>
+  </data>
+  <data name="In-app" xml:space="preserve">
+    <value>앱 내</value>
+  </data>
+  <data name="Save policy" xml:space="preserve">
+    <value>정책 저장</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>심각도</value>
+  </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>심각도 정책</value>
+  </data>
+  <data name="Severity policy saved." xml:space="preserve">
+    <value>심각도 정책이 저장되었습니다.</value>
+  </data>
+  <data name="Show in lists" xml:space="preserve">
+    <value>목록에 표시</value>
+  </data>
+  <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
+    <value>목록 표시 설정은 기본 인시던트 목록, 대시보드 및 애플리케이션의 건수를 제어합니다. 심각도를 지정해 필터링하면 목록에서 숨겨진 인시던트도 찾을 수 있습니다. 액세스 권한은 항상 적용됩니다.</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>SMS 정책은 저장할 수 있지만, SMS 전송 채널이 설치되어 있지 않습니다. SMS를 선택해도 문자 메시지는 전송되지 않습니다.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
+    <value>이 설정은 전체 알림의 최대 허용 수준입니다. 애플리케이션에는 활성화된 채널이 있어야 하며 해당 심각도 수준을 구독해야 합니다. 당직 이메일 알림에는 이메일 열 설정이 적용됩니다.</value>
+  </data>
+  <data name="Webhook" xml:space="preserve">
+    <value>Webhook</value>
+  </data>
+
+</root>

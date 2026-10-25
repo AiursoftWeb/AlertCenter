@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>Σύνολο</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>Χρησιμοποιεί την καθολική πολιτική σοβαρότητας για τα email· δεν απαιτείται επιλογή καναλιού. Τα παρακάτω κανάλια παρέχουν συμπληρωματικές ειδοποιήσεις, σύμφωνα με την ίδια καθολική πολιτική.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>Προειδοποίηση (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>Μπορείτε να δημιουργήσετε κανάλια ειδοποιήσεων Webhook, email ή εντός της εφαρμογής, ανάλογα με τις ανάγκες σας. Οι εφαρμογές που είναι συνδεδεμένες με ομάδες επιφυλακής στέλνουν ενσωματωμένα email για τα επίπεδα σοβαρότητας που επιτρέπονται από την καθολική πολιτική, ακόμη και χωρίς προσαρμοσμένα κανάλια.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>Μπορείτε να δημιουργήσετε κανάλια ειδοποιήσεων μέσω Webhook, email ή εντός της εφαρμογής, ανάλογα με τις ανάγκες σας. Οι εφαρμογές που είναι συνδεδεμένες με ομάδες επιφυλακής θα στέλνουν τα ενσωματωμένα email επιφυλακής ακόμη και χωρίς προσαρμοσμένα κανάλια.</value>

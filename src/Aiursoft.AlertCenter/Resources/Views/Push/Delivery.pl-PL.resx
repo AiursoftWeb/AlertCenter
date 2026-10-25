@@ -138,6 +138,9 @@
   <data name="None" xml:space="preserve">
     <value>Brak</value>
   </data>
+  <data name="Notification suppressed" xml:space="preserve">
+    <value>Powiadomienie zostało wstrzymane</value>
+  </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Ponowne próby wysłania wiadomości e-mail do osób pełniących dyżur zawsze korzystają z migawki OCE i CC z chwili umieszczenia wiadomości w kolejce i nie przekierowują jej do aktualnie dyżurujących osób. Ponowna próba nie jest możliwa, jeśli nie ma prawidłowej migawki.</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>To jest testowa wiadomość dla kanału push.</value>
+  </data>
+  <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
+    <value>To powiadomienie zostało zablokowane przez politykę poziomów ważności i nie zostanie wysłane.</value>
   </data>
   <data name="times" xml:space="preserve">
     <value>razy</value>

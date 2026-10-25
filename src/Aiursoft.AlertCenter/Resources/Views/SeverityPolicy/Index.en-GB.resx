@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed." xml:space="preserve">
+    <value>Changes apply to new notifications and are checked again before queued deliveries or retries are sent. Previously suppressed notifications are not replayed.</value>
+  </data>
+  <data name="Choose how each severity notifies responders and appears in default incident views." xml:space="preserve">
+    <value>Choose how each severity notifies responders and appears in the default incident views.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="How this policy works" xml:space="preserve">
+    <value>How this policy works</value>
+  </data>
+  <data name="In-app" xml:space="preserve">
+    <value>In-app</value>
+  </data>
+  <data name="Save policy" xml:space="preserve">
+    <value>Save policy</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>Severity</value>
+  </data>
+  <data name="Severity policy" xml:space="preserve">
+    <value>Severity policy</value>
+  </data>
+  <data name="Severity policy saved." xml:space="preserve">
+    <value>Severity policy saved.</value>
+  </data>
+  <data name="Show in lists" xml:space="preserve">
+    <value>Show in lists</value>
+  </data>
+  <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
+    <value>&quot;Show in lists&quot; controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced.</value>
+  </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>The SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS will not send text messages.</value>
+  </data>
+  <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
+    <value>This is the global notification limit. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column.</value>
+  </data>
+  <data name="Webhook" xml:space="preserve">
+    <value>Webhook</value>
+  </data>
+
+</root>

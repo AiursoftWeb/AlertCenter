@@ -138,6 +138,9 @@
   <data name="None" xml:space="preserve">
     <value>Niciuna</value>
   </data>
+  <data name="Notification suppressed" xml:space="preserve">
+    <value>Notificare suprimată</value>
+  </data>
   <data name="On-call email retries always use the OCE and CC snapshots from when the message was enqueued and do not redirect to the current on-call personnel. Retries are not available if no valid snapshot exists." xml:space="preserve">
     <value>Reîncercările e-mailurilor de on-call folosesc întotdeauna instantaneele OCE și CC de la momentul în care mesajul a fost pus în coadă și nu redirecționează către personalul on-call actual. Reîncercările nu sunt disponibile dacă nu există un instantaneu valid.</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="This is a test message for the push channel." xml:space="preserve">
     <value>Acesta este un mesaj de test pentru canalul push.</value>
+  </data>
+  <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
+    <value>Această notificare a fost suprimată conform politicii de severitate și nu va fi trimisă.</value>
   </data>
   <data name="times" xml:space="preserve">
     <value>ori</value>

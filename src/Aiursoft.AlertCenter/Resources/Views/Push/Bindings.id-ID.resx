@@ -96,8 +96,14 @@
   <data name="Total " xml:space="preserve">
     <value>Jumlah</value>
   </data>
+  <data name="Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy." xml:space="preserve">
+    <value>Menggunakan kebijakan tingkat keparahan Email global; tidak perlu memilih saluran. Saluran di bawah ini menyediakan notifikasi tambahan yang tunduk pada kebijakan global yang sama.</value>
+  </data>
   <data name="Warning (P3)" xml:space="preserve">
     <value>Peringatan (P3)</value>
+  </data>
+  <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels." xml:space="preserve">
+    <value>Anda dapat membuat kanal notifikasi Webhook, email, atau dalam aplikasi sesuai kebutuhan sebagai pelengkap. Aplikasi yang terikat pada grup piket akan mengirim email bawaan untuk tingkat keparahan yang diizinkan oleh kebijakan global, bahkan tanpa kanal khusus.</value>
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>Anda dapat membuat kanal notifikasi Webhook, email, atau dalam aplikasi sesuai kebutuhan sebagai pelengkap. Aplikasi yang terhubung ke grup siaga akan mengirim email siaga bawaan meskipun tidak memiliki kanal khusus.</value>
