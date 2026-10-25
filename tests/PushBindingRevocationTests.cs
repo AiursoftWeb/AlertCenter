@@ -43,7 +43,8 @@ public partial class PushCenterTests
         Assert.IsTrue(selected.ReceiveSev1);
         Assert.IsFalse(selected.ReceiveSev0 || selected.ReceiveSev2 || selected.ReceiveSev3 || selected.ReceiveSev4);
         var hiddenBinding = await _db.ApplicationPushChannels.SingleAsync(link => link.ChannelId == hidden.Id);
-        Assert.IsTrue(hiddenBinding.ReceiveSev0 && hiddenBinding.ReceiveSev1 && hiddenBinding.ReceiveSev2 && hiddenBinding.ReceiveSev3 && hiddenBinding.ReceiveSev4);
+        Assert.IsTrue(hiddenBinding.ReceiveSev0 && hiddenBinding.ReceiveSev1 && hiddenBinding.ReceiveSev2 && hiddenBinding.ReceiveSev3);
+        Assert.IsFalse(hiddenBinding.ReceiveSev4);
 
         if (roleGrant)
             _db.UserRoles.Remove(await _db.UserRoles.SingleAsync(link => link.UserId == "ordinary-user" && link.RoleId == roleId));
@@ -62,6 +63,7 @@ public partial class PushCenterTests
         Assert.IsTrue(retained.ReceiveSev1);
         Assert.IsFalse(retained.ReceiveSev0 || retained.ReceiveSev2 || retained.ReceiveSev3 || retained.ReceiveSev4);
         var retainedHidden = saved.Single(link => link.ChannelId == hidden.Id);
-        Assert.IsTrue(retainedHidden.ReceiveSev0 && retainedHidden.ReceiveSev1 && retainedHidden.ReceiveSev2 && retainedHidden.ReceiveSev3 && retainedHidden.ReceiveSev4);
+        Assert.IsTrue(retainedHidden.ReceiveSev0 && retainedHidden.ReceiveSev1 && retainedHidden.ReceiveSev2 && retainedHidden.ReceiveSev3);
+        Assert.IsFalse(retainedHidden.ReceiveSev4);
     }
 }

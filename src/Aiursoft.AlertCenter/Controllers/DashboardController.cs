@@ -36,7 +36,7 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
         model.TotalApplications = await db.SourceApplications.AsNoTracking()
             .CountAsync(a => accessibleIds.Contains(a.Id), cancellationToken);
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var messagesQuery = db.Incidents.AsNoTracking().Where(incident => accessibleIds.Contains(incident.ApplicationId));
+        var messagesQuery = db.Incidents.AsNoTracking().Where(incident => accessibleIds.Contains(incident.ApplicationId) && incident.Level != "sev4");
         model.TotalIncidents = await messagesQuery.CountAsync(cancellationToken);
         model.MyIncidents = await messagesQuery.CountAsync(incident => incident.OwnerId != null && incident.OwnerId == userId, cancellationToken);
         model.MyActiveIncidents = await messagesQuery.CountAsync(incident => incident.OwnerId != null && incident.OwnerId == userId &&
@@ -45,13 +45,12 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
         model.Sev1Count = await messagesQuery.CountAsync(m => m.Level == "sev1", cancellationToken);
         model.Sev2Count = await messagesQuery.CountAsync(m => m.Level == "sev2", cancellationToken);
         model.Sev3Count = await messagesQuery.CountAsync(m => m.Level == "sev3", cancellationToken);
-        model.Sev4Count = await messagesQuery.CountAsync(m => m.Level == "sev4", cancellationToken);
 
         model.ActiveIncidents = await messagesQuery
             .CountAsync(i => i.Status == Incident.New, cancellationToken);
 
         var deliveriesQuery = db.PushDeliveries.AsNoTracking()
-            .Where(d => d.Incident != null && accessibleIds.Contains(d.Incident.ApplicationId));
+            .Where(d => d.Status != PushDelivery.Suppressed && d.Incident != null && accessibleIds.Contains(d.Incident.ApplicationId));
         model.TotalDeliveries = await deliveriesQuery.CountAsync(cancellationToken);
         model.SuccessfulDeliveries = await deliveriesQuery.CountAsync(d => d.Status == PushDelivery.Succeeded, cancellationToken);
 

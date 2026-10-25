@@ -10,5 +10,5 @@ public class ApplicationPushChannel
     public bool ReceiveSev1 { get; set; } = true;
     public bool ReceiveSev2 { get; set; } = true;
     public bool ReceiveSev3 { get; set; } = true;
-    public bool ReceiveSev4 { get; set; } = true;
+    public bool ReceiveSev4 { get; set; }
 }

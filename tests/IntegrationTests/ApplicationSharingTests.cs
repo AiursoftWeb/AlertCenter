@@ -29,6 +29,8 @@ public partial class IncidentPagesTests
                 new Incident { Application = application, Title = "Unacknowledged active incident" },
                 new Incident { Application = application, Title = "Acknowledged active incident", AcknowledgedAtUtc = DateTime.UtcNow },
                 new Incident { Application = application, Title = "Mitigated incident", Status = Incident.Mitigated },
+                new Incident { Application = application, Title = "Silent optional issue", Level = "sev4" },
+                new Incident { Application = application, Title = "Silent mitigated issue", Level = "sev4", Status = Incident.Mitigated },
                 new Incident { Application = application, Title = "Resolved incident", Status = Incident.Resolved });
             await db.SaveChangesAsync();
         }

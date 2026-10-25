@@ -192,7 +192,6 @@ public partial class PushCenterTests
     [DataRow("sev1")]
     [DataRow("sev2")]
     [DataRow("sev3")]
-    [DataRow("sev4")]
     public async Task ReportsRouteOnlyToExactSeverityAndMultipleSelectedChannels(string level)
     {
         var application = await Application();
@@ -256,7 +255,8 @@ public partial class PushCenterTests
         Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
         var remaining = await _db.ApplicationPushChannels.SingleAsync();
         Assert.AreEqual(otherApplication.Id, remaining.ApplicationId);
-        Assert.IsTrue(remaining.ReceiveSev0 && remaining.ReceiveSev1 && remaining.ReceiveSev2 && remaining.ReceiveSev3 && remaining.ReceiveSev4);
+        Assert.IsTrue(remaining.ReceiveSev0 && remaining.ReceiveSev1 && remaining.ReceiveSev2 && remaining.ReceiveSev3);
+        Assert.IsFalse(remaining.ReceiveSev4);
     }
 
     [TestMethod]
@@ -264,7 +264,7 @@ public partial class PushCenterTests
     {
         var application = await Application();
         var channel = await Channel();
-        await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest { Sev4ChannelIds = [channel.Id] });
+        await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest { Sev3ChannelIds = [channel.Id] });
         var result = await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest
         {
             Sev1ChannelIds = [channel.Id], Sev2ChannelIds = [Guid.NewGuid()]
@@ -275,8 +275,8 @@ public partial class PushCenterTests
         Assert.IsInstanceOfType<BadRequestObjectResult>(await controller.SaveBindings(application.Id, new ApplicationPushBindingsRequest()));
         _db.ChangeTracker.Clear();
         var saved = await _db.ApplicationPushChannels.SingleAsync();
-        Assert.IsFalse(saved.ReceiveSev0 || saved.ReceiveSev1 || saved.ReceiveSev2 || saved.ReceiveSev3);
-        Assert.IsTrue(saved.ReceiveSev4);
+        Assert.IsFalse(saved.ReceiveSev0 || saved.ReceiveSev1 || saved.ReceiveSev2 || saved.ReceiveSev4);
+        Assert.IsTrue(saved.ReceiveSev3);
         Assert.IsInstanceOfType<NotFoundResult>(await Controller().SaveBindings(Guid.NewGuid(), new ApplicationPushBindingsRequest()));
     }
 
@@ -285,13 +285,13 @@ public partial class PushCenterTests
     {
         var application = await Application();
         var channel = await Channel(enabled: false);
-        await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest { Sev4ChannelIds = [channel.Id] });
-        await Report(application, Guid.NewGuid(), "sev4");
+        await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest { Sev3ChannelIds = [channel.Id] });
+        await Report(application, Guid.NewGuid());
         Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
         await Controller().SetEnabled(channel.Id, true);
         await Report(application, Guid.NewGuid(), "sev1");
         Assert.AreEqual(0, await _db.PushDeliveries.CountAsync());
-        await Report(application, Guid.NewGuid(), "sev4");
+        await Report(application, Guid.NewGuid());
         Assert.AreEqual(channel.Id, (await _db.PushDeliveries.SingleAsync()).ChannelId);
     }
 

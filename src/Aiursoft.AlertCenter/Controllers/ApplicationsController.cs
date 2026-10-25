@@ -256,7 +256,7 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
             .Select(application => application.Id).ToArray();
         var incidentCounts = await db.Incidents.AsNoTracking()
             .Where(incident => countableIds.Contains(incident.ApplicationId) &&
-                (incident.Status == Incident.New || incident.Status == Incident.Mitigated))
+                incident.Level != "sev4" && (incident.Status == Incident.New || incident.Status == Incident.Mitigated))
             .GroupBy(incident => incident.ApplicationId)
             .Select(group => new
             {

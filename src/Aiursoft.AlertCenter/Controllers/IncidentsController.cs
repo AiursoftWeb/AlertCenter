@@ -33,7 +33,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         var model = new IncidentsViewModel
         {
             Filter = filter,
-            ActiveCount = await accessibleIncidents.CountAsync(incident => incident.Status == Incident.New, cancellationToken),
+            ActiveCount = await accessibleIncidents.CountAsync(incident => incident.Status == Incident.New && incident.Level != "sev4", cancellationToken),
             Applications = await db.SourceApplications.AsNoTracking().Where(application => accessibleIncidents.Any(incident => incident.ApplicationId == application.Id))
                 .OrderBy(application => application.Name).ToListAsync(cancellationToken)
         };

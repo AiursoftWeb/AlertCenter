@@ -92,7 +92,8 @@ public class FilterModelTests
         alert.Normalize();
         inbox.Normalize();
 
-        Assert.AreEqual(0, alert.ToRouteValues().Count);
+        Assert.AreEqual(1, alert.ToRouteValues().Count);
+        Assert.AreEqual("lte-sev3", alert.ToRouteValues()["level"]);
         Assert.AreEqual(0, inbox.ToRouteValues().Count);
     }
 

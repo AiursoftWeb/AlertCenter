@@ -6,7 +6,7 @@
     ViewData["Title"] = Model.Filter.OnlyMine ? @Localizer["My incidents"].Value : @Localizer["Incident Handling Center"].Value;
     var listAction = Model.Filter.OnlyMine ? "Mine" : "Index";
     var filter = Model.Filter;
-    var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Status != "all" || filter.Level != null ||
+    var hasFilters = filter.Keyword != null || filter.ApplicationId.HasValue || filter.Status != "all" || filter.Level != "lte-sev3" ||
         filter.FromDate.HasValue || filter.ToDate.HasValue || filter.Acknowledged.HasValue;
 
     (string PillClass, string Icon, string Text) StatusInfo(string status) => status switch
@@ -30,14 +30,14 @@
             {
                 <span class="badge bg-danger text-white px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
                     <span class="ac-status-dot dot-danger ac-pulse-danger"></span>
-                    <span>@string.Format(@Localizer["{0} unmitigated incidents across accessible applications"].Value, Model.ActiveCount)</span>
+                    <span>@string.Format(@Localizer["{0} unmitigated incidents across accessible applications (sev0–sev3)"].Value, Model.ActiveCount)</span>
                 </span>
             }
             else
             {
                 <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
                     <span class="ac-status-dot dot-success ac-pulse"></span>
-                    <span>@Localizer["No unmitigated incidents in this queue"]</span>
+                    <span>@Localizer["No unmitigated incidents in this queue (sev0–sev3)"]</span>
                 </span>
             }
         </div>
@@ -45,25 +45,27 @@
     </div>
 </div>
 
+<p class="small text-muted">@Localizer["sev4 incidents are silent and hidden by default. Select sev4 or all severities to review them when convenient."]</p>
+
 <!-- Quick Status Filter Chips -->
 <div class="ac-filter-chips mb-3">
-    <a asp-action="@listAction" asp-route-status="all" class="ac-chip @(filter.Status == "all" || string.IsNullOrEmpty(filter.Status) ? "active" : "")">
+    <a asp-action="@listAction" asp-route-level="@filter.Level" asp-route-status="all" class="ac-chip @(filter.Status == "all" || string.IsNullOrEmpty(filter.Status) ? "active" : "")">
         <i data-lucide="layers" style="width: 14px; height: 14px;" aria-hidden="true"></i>
         <span>@Localizer["All incidents"]</span>
     </a>
-    <a asp-action="@listAction" asp-route-status="new" class="ac-chip @(filter.Status == Incident.New ? "active" : "")">
+    <a asp-action="@listAction" asp-route-level="@filter.Level" asp-route-status="new" class="ac-chip @(filter.Status == Incident.New ? "active" : "")">
         <i data-lucide="alert-triangle" style="width: 14px; height: 14px;" class="text-danger" aria-hidden="true"></i>
         <span>@Localizer["Unmitigated"]</span>
     </a>
-    <a asp-action="@listAction" asp-route-acknowledged="true" class="ac-chip @(filter.Acknowledged == true ? "active" : "")">
+    <a asp-action="@listAction" asp-route-level="@filter.Level" asp-route-acknowledged="true" class="ac-chip @(filter.Acknowledged == true ? "active" : "")">
         <i data-lucide="user-check" style="width: 14px; height: 14px;" class="text-warning" aria-hidden="true"></i>
         <span>@Localizer["Acknowledged"]</span>
     </a>
-    <a asp-action="@listAction" asp-route-status="mitigated" class="ac-chip @(filter.Status == Incident.Mitigated ? "active" : "")">
+    <a asp-action="@listAction" asp-route-level="@filter.Level" asp-route-status="mitigated" class="ac-chip @(filter.Status == Incident.Mitigated ? "active" : "")">
         <i data-lucide="shield-check" style="width: 14px; height: 14px;" class="text-warning" aria-hidden="true"></i>
         <span>@Localizer["Mitigated"]</span>
     </a>
-    <a asp-action="@listAction" asp-route-status="resolved" class="ac-chip @(filter.Status == Incident.Resolved ? "active" : "")">
+    <a asp-action="@listAction" asp-route-level="@filter.Level" asp-route-status="resolved" class="ac-chip @(filter.Status == Incident.Resolved ? "active" : "")">
         <i data-lucide="check-circle-2" style="width: 14px; height: 14px;" class="text-success" aria-hidden="true"></i>
         <span>@Localizer["Resolved"]</span>
     </a>
@@ -114,7 +116,7 @@
             <div class="col-sm-6 col-xl-2">
                 <label for="incident-level" class="form-label small text-muted mb-1">@Localizer["Incident severity"]</label>
                 <select id="incident-level" name="level" class="form-select">
-                    <option value="">@Localizer["All severities"]</option>
+                    <option value="lte-sev4" selected="@(filter.Level == "lte-sev4")">@Localizer["All severities (including silent sev4)"]</option>
                     <option value="sev0" selected="@(filter.Level == "sev0")">= @Localizer["sev0 · Critical (P0)"]</option>
                     <option value="sev1" selected="@(filter.Level == "sev1")">= @Localizer["sev1 · Major (P1)"]</option>
                     <option value="lte-sev1" selected="@(filter.Level == "lte-sev1")">≤ @Localizer["sev1 · Major (P1)"]</option>
@@ -123,7 +125,6 @@
                     <option value="sev3" selected="@(filter.Level == "sev3")">= @Localizer["sev3 · Warning (P3)"]</option>
                     <option value="lte-sev3" selected="@(filter.Level == "lte-sev3")">≤ @Localizer["sev3 · Warning (P3)"]</option>
                     <option value="sev4" selected="@(filter.Level == "sev4")">= @Localizer["sev4 · Info (P4)"]</option>
-                    <option value="lte-sev4" selected="@(filter.Level == "lte-sev4")">≤ @Localizer["sev4 · Info (P4)"]</option>
                 </select>
             </div>
             <div class="col-sm-6 col-xl-3">

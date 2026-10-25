@@ -81,6 +81,12 @@
         </div>
     </div>
 }
+else if (delivery.Status == PushDelivery.Suppressed)
+{
+    <div class="alert alert-secondary mb-4" role="status">
+        <div class="alert-message">@Localizer["sev4 incidents are silent. This notification was suppressed and will not be sent."]</div>
+    </div>
+}
 else if (delivery.Status == PushDelivery.Succeeded)
 {
     <div class="alert alert-success mb-4" role="status">
@@ -206,6 +212,10 @@ else
                             {
                                 <i data-lucide="check" style="width: 16px; height: 16px;" class="text-success" aria-hidden="true"></i>
                             }
+                            else if (delivery.Status == PushDelivery.Suppressed)
+                            {
+                                <i data-lucide="bell-off" aria-hidden="true"></i>
+                            }
                             else if (delivery.Status == PushDelivery.Failed)
                             {
                                 <i data-lucide="x" style="width: 16px; height: 16px;" class="text-danger" aria-hidden="true"></i>
@@ -218,7 +228,7 @@ else
                         <div class="ac-timeline-content">
                             <div class="d-flex justify-content-between align-items-center">
                                 <strong>
-                                    @(delivery.Status == PushDelivery.Succeeded ? @Localizer["Delivery completed successfully"].Value : delivery.Status == PushDelivery.Failed ? @Localizer["Delivery failed permanently"].Value : @Localizer["Running..."].Value)
+                                    @(delivery.Status == PushDelivery.Succeeded ? @Localizer["Delivery completed successfully"].Value : delivery.Status == PushDelivery.Failed ? @Localizer["Delivery failed permanently"].Value : delivery.Status == PushDelivery.Suppressed ? @Localizer["Notification suppressed"].Value : @Localizer["Running..."].Value)
                                 </strong>
                                 <small class="text-muted font-monospace"><span data-utc-time="@delivery.CompletedAtUtc?.ToHtmlDateTime()">@(delivery.CompletedAtUtc == null ? Localizer["Incomplete"].Value : "")</span></small>
                             </div>

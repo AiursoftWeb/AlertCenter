@@ -115,7 +115,7 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<bool>("ReceiveSev4")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("tinyint(1)")
-                        .HasDefaultValue(true);
+                        .HasDefaultValue(false);
 
                     b.HasKey("ApplicationId", "ChannelId");
 

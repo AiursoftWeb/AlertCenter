@@ -124,7 +124,13 @@ public static class OnCallEmailQueue
 
     private static void AddDelivery(TemplateDbContext db, PushDelivery delivery)
     {
-        if (delivery.OnCallEmail?.ValidationError is { } error)
+        if (delivery.Incident?.Level == "sev4")
+        {
+            // Keep the original OCE snapshot for a possible escalation, without sending mail.
+            delivery.Status = PushDelivery.Suppressed;
+            delivery.CompletedAtUtc = DateTime.UtcNow;
+        }
+        else if (delivery.OnCallEmail?.ValidationError is { } error)
         {
             delivery.Status = PushDelivery.Failed;
             delivery.Error = error;

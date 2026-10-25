@@ -278,8 +278,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
         var sev1 = bindings.Sev1ChannelIds.ToHashSet();
         var sev2 = bindings.Sev2ChannelIds.ToHashSet();
         var sev3 = bindings.Sev3ChannelIds.ToHashSet();
-        var sev4 = bindings.Sev4ChannelIds.ToHashSet();
-        var selected = sev0.Concat(sev1).Concat(sev2).Concat(sev3).Concat(sev4).ToHashSet();
+        var selected = sev0.Concat(sev1).Concat(sev2).Concat(sev3).ToHashSet();
         if (await db.PushChannels.CountAsync(channel => selected.Contains(channel.Id)) != selected.Count)
             return BadRequest(localizer["The selected channel no longer exists. Please refresh the page and try again."].Value);
         var bindableChannelIds = await channelAccess.GetBindableChannelIdsAsync(User, cancellationToken);
@@ -300,7 +299,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             link.ReceiveSev1 = sev1.Contains(channelId);
             link.ReceiveSev2 = sev2.Contains(channelId);
             link.ReceiveSev3 = sev3.Contains(channelId);
-            link.ReceiveSev4 = sev4.Contains(channelId);
+            link.ReceiveSev4 = false; // sev4 is available only through deliberate incident browsing.
         }
         await db.SaveChangesAsync(cancellationToken);
         return RedirectToAction(nameof(Bindings), new { id });
@@ -345,7 +344,7 @@ public class PushController(TemplateDbContext db, IEnumerable<INotificationChann
             query = query.Where(delivery => delivery.OnCallEmail != null ||
                 (delivery.ChannelId.HasValue && bindableChannelIds.Contains(delivery.ChannelId.Value)));
         }
-        if (status is PushDelivery.Pending or PushDelivery.Sending or PushDelivery.Succeeded or PushDelivery.Failed)
+        if (status is PushDelivery.Pending or PushDelivery.Sending or PushDelivery.Succeeded or PushDelivery.Failed or PushDelivery.Suppressed)
             query = query.Where(delivery => delivery.Status == status);
         else status = null;
         var deliveries = await query.Include(delivery => delivery.IncidentEvent).ThenInclude(entry => entry!.Incident).ThenInclude(incident => incident.Application)

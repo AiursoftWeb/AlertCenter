@@ -22,6 +22,17 @@ public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificati
         if (delivery == null) return;
         await db.Entry(delivery).ReloadAsync(cancellationToken);
 
+        // Also suppress previously queued deliveries and manual retries after a downgrade.
+        if (delivery.Incident?.Level == "sev4" || delivery.IncidentEvent?.Incident.Level == "sev4" ||
+            delivery.IncidentEvent?.NewLevel == "sev4")
+        {
+            delivery.Status = PushDelivery.Suppressed;
+            delivery.Error = null;
+            delivery.CompletedAtUtc = DateTime.UtcNow;
+            await db.SaveChangesAsync(cancellationToken);
+            return;
+        }
+
         NotificationDeliveryResult result;
         var adapter = adapters.SingleOrDefault(item => item.Definition.Key ==
             (delivery.OnCallEmail != null ? "email" : delivery.Channel?.Type));

@@ -210,7 +210,7 @@
                     <span class="ac-status-dot dot-warning"></span>sev3 @Localizer["Warning "] (@Model.Sev3Count)
                 </a>
                 <a asp-controller="Incidents" asp-action="Index" asp-route-level="sev4" class="btn btn-sm ac-badge-sev4">
-                    <span class="ac-status-dot dot-info"></span>sev4 @Localizer["Info "] (@Model.Sev4Count)
+                    <span class="ac-status-dot dot-info"></span>@Localizer["Review silent sev4 incidents"]
                 </a>
             </div>
             @if (Model.UnreadNotifications > 0)
@@ -426,7 +426,7 @@
                     </li>
                     <li class="d-flex gap-3 mb-3">
                         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">2</span>
-                        <div><strong>@Localizer["Linked Push Channel"]</strong><p class="text-muted small mb-0">@Localizer["Route by Sev0-Sev4 in the app’s push settings."]</p></div>
+                        <div><strong>@Localizer["Linked Push Channel"]</strong><p class="text-muted small mb-0">@Localizer["Route sev0–sev3 notifications in the application settings. sev4 incidents are silent."]</p></div>
                     </li>
                     <li class="d-flex gap-3 mb-3">
                         <span class="badge bg-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 24px; height: 24px;">3</span>

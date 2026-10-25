@@ -110,7 +110,7 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<bool>("ReceiveSev4")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(true);
+                        .HasDefaultValue(false);
 
                     b.HasKey("ApplicationId", "ChannelId");
 

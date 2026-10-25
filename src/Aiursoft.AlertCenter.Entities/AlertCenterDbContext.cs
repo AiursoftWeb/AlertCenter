@@ -119,7 +119,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev1).HasDefaultValue(true);
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev2).HasDefaultValue(true);
         builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev3).HasDefaultValue(true);
-        builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev4).HasDefaultValue(true);
+        builder.Entity<ApplicationPushChannel>().Property(link => link.ReceiveSev4).HasDefaultValue(false);
         builder.Entity<ApplicationPushChannel>().HasOne(link => link.Application).WithMany()
             .HasForeignKey(link => link.ApplicationId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<ApplicationPushChannel>().HasOne(link => link.Channel).WithMany()

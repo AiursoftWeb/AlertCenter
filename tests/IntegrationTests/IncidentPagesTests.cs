@@ -507,15 +507,16 @@ public partial class IncidentPagesTests : TestBase
         }));
         AssertRedirect(saved, url);
         var html = await Http.GetStringAsync(url);
+        Assert.DoesNotContain("name=\"Sev4ChannelIds\"", html);
         Assert.Contains("&lt;script&gt;", html);
         Assert.DoesNotContain("<script>alert('unsafe')</script>", html);
         foreach (var channelId in new[] { firstId, secondId })
         {
-            for (var level = 0; level <= 4; level++)
+            for (var level = 0; level <= 3; level++)
             {
                 var input = Regex.Match(html, $"<input[^>]*id=\"channel-{channelId}-sev{level}\"[^>]*>").Value;
                 Assert.IsFalse(string.IsNullOrEmpty(input));
-                var expected = level is 0 or 1 || (channelId == secondId && level == 2) || (channelId == firstId && level == 4);
+                var expected = level is 0 or 1 || (channelId == secondId && level == 2);
                 Assert.AreEqual(expected, input.Contains("checked=\"checked\""), input);
             }
         }
@@ -540,7 +541,7 @@ public partial class IncidentPagesTests : TestBase
             var bindings = await db.ApplicationPushChannels.Where(link => link.ApplicationId == applicationId).ToListAsync();
             Assert.AreEqual(2, bindings.Count);
             Assert.IsTrue(bindings.All(link => link.ReceiveSev0));
-            Assert.IsTrue(bindings.Single(link => link.ChannelId == firstId).ReceiveSev4);
+            Assert.IsFalse(bindings.Single(link => link.ChannelId == firstId).ReceiveSev4);
             Assert.IsTrue(bindings.Single(link => link.ChannelId == secondId).ReceiveSev2);
         }
         using var noChannel = await Report(key, Guid.NewGuid(), level: "sev3");

@@ -7,6 +7,35 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 public partial class IncidentPagesTests
 {
     [TestMethod]
+    public async Task SilentDeliveryPagesExplainSuppressionWithoutOfferingRetry()
+    {
+        var key = await CreateApplication();
+        var groupId = await CreateOnCallTeam("Quiet OCE");
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            (await db.SourceApplications.SingleAsync()).OnCallGroupId = groupId;
+            await db.SaveChangesAsync();
+        }
+        using var response = await Report(key, Guid.NewGuid(), level: "sev4");
+        Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+        Guid deliveryId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var delivery = await db.PushDeliveries.SingleAsync();
+            Assert.AreEqual(PushDelivery.Suppressed, delivery.Status);
+            deliveryId = delivery.Id;
+        }
+        var html = await Http.GetStringAsync($"/Push/Delivery/{deliveryId}");
+        Assert.Contains("Suppressed", html);
+        Assert.Contains("This notification was suppressed and will not be sent.", html);
+        Assert.DoesNotContain("/Push/Retry", html);
+        var records = await Http.GetStringAsync("/Push/Records?status=suppressed");
+        Assert.Contains(deliveryId.ToString(), records);
+    }
+
+    [TestMethod]
     public async Task BuiltInDeliveryPagesShowSnapshotAndProtectEmailAddressesAndRetries()
     {
         var key = await CreateApplication();
