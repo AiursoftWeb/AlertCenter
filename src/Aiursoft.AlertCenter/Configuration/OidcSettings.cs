@@ -72,4 +72,12 @@ public class OidcSettings
     /// This is used as the `ProviderKey` to link the external account to a local user. The standard OIDC claim for this is "sub".
     /// </summary>
     public required string UserIdentityPropertyName { get; init; } = "sub";
+
+    public string MobileAuthority { get; init; } = string.Empty;
+    public string MobileClientId { get; init; } = "alertcenter-android";
+    public string ApiAudience { get; init; } = "alertcenter-android";
+    public string ApiScope { get; init; } = string.Empty;
+    public string MobileRedirectUri { get; init; } = "com.aiursoft.alertcenter:/oauth2redirect";
+    public bool RequireHttpsMetadata { get; init; } = true;
+    public string GetMobileAuthority() => string.IsNullOrWhiteSpace(MobileAuthority) ? Authority : MobileAuthority;
 }
