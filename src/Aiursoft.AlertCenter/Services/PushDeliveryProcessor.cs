@@ -23,8 +23,8 @@ public class PushDeliveryProcessor(TemplateDbContext db, IEnumerable<INotificati
         await db.Entry(delivery).ReloadAsync(cancellationToken);
 
         // Also suppress previously queued deliveries and manual retries after a downgrade.
-        if (delivery.Incident?.Level == "sev4" || delivery.IncidentEvent?.Incident.Level == "sev4" ||
-            delivery.IncidentEvent?.NewLevel == "sev4")
+        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        if (!policy.Allows(delivery))
         {
             delivery.Status = PushDelivery.Suppressed;
             delivery.Error = null;

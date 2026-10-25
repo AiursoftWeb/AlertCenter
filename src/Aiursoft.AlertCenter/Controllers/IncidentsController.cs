@@ -30,15 +30,17 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         }
         if (filter.ApplicationId.HasValue && !accessibleIds.Contains(filter.ApplicationId.Value) &&
             !await accessibleIncidents.AnyAsync(incident => incident.ApplicationId == filter.ApplicationId.Value, cancellationToken)) return Forbid();
+        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        var visibleIncidents = accessibleIncidents.Where(policy.VisibleIncidents);
         var model = new IncidentsViewModel
         {
             Filter = filter,
-            ActiveCount = await accessibleIncidents.CountAsync(incident => incident.Status == Incident.New && incident.Level != "sev4", cancellationToken),
+            ActiveCount = await visibleIncidents.CountAsync(incident => incident.Status == Incident.New, cancellationToken),
             Applications = await db.SourceApplications.AsNoTracking().Where(application => accessibleIncidents.Any(incident => incident.ApplicationId == application.Id))
                 .OrderBy(application => application.Name).ToListAsync(cancellationToken)
         };
         if (!ModelState.IsValid) return this.StackView(model, nameof(Index));
-        var incidents = await FilterIncidents(accessibleIncidents, filter)
+        var incidents = await FilterIncidents(filter.Level == null ? visibleIncidents : accessibleIncidents, filter)
             .OrderBy(incident => incident.Status == Incident.Resolved).ThenByDescending(incident => incident.ReceivedAtUtc).ThenByDescending(incident => incident.Id)
             .Skip((filter.Page - 1) * 20).Take(21)
             .ToListAsync(cancellationToken);

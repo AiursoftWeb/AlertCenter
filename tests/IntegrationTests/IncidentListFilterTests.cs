@@ -32,7 +32,6 @@ public partial class IncidentPagesTests
                     Application = application, Title = "Already mitigated " + index,
                     Status = Incident.Mitigated
                 });
-            db.Incidents.Add(new Incident { Application = application, Title = "Optional silent issue", Level = "sev4", OwnerId = owner.Id });
             db.Incidents.Add(new Incident { Application = application, Title = "Already resolved", Status = Incident.Resolved });
             db.Incidents.Add(new Incident { Application = new SourceApplication { Name = "Private application" }, Title = "Hidden incident" });
             await db.SaveChangesAsync();
@@ -44,7 +43,6 @@ public partial class IncidentPagesTests
         Assert.AreEqual(activeCount.ToString(), count.Groups[1].Value);
         Assert.Contains("href=\"/Incidents?status=new\"", html);
         Assert.DoesNotContain("Hidden incident", html);
-        Assert.DoesNotContain("Optional silent issue", html);
         var urgent = Regex.Match(html, "Ongoing Incident Requires Response(.*?)<!-- Recent Incidents Stream -->", RegexOptions.Singleline);
         Assert.AreEqual(activeCount > 0, urgent.Success);
         if (activeCount > 0)
@@ -69,7 +67,6 @@ public partial class IncidentPagesTests
         })
         {
             var list = WebUtility.HtmlDecode(await Http.GetStringAsync(path));
-            Assert.DoesNotContain("Optional silent issue", list);
             var badge = Regex.Match(list, "([0-9]+) (?:ongoing|unmitigated) incidents across accessible applications");
             if (expectedCount > 0)
             {
@@ -83,8 +80,6 @@ public partial class IncidentPagesTests
                 Assert.Contains("No unmitigated incidents in this queue", list);
             }
         }
-        foreach (var level in new[] { "sev4", "lte-sev4" })
-            Assert.Contains("Optional silent issue", await Http.GetStringAsync("/Incidents?level=" + level));
         var allIncidents = await Http.GetStringAsync("/Incidents");
         Assert.Contains("Already mitigated", allIncidents);
         Assert.Contains("Already resolved", allIncidents);
@@ -268,7 +263,7 @@ public partial class IncidentPagesTests
         CollectionAssert.AreEqual(new[] { messages[1].Id }, AlertIncidentIds(escaped));
         Assert.Contains("&lt;script&gt;", escaped);
         Assert.DoesNotContain("value=\"<script>\"", escaped);
-        Assert.AreEqual(6, AlertIncidentIds(await Http.GetStringAsync("/Incidents?toDate=9999-12-31&level=lte-sev4")).Length);
+        Assert.AreEqual(6, AlertIncidentIds(await Http.GetStringAsync("/Incidents?toDate=9999-12-31")).Length);
     }
 
     [TestMethod]

@@ -36,7 +36,9 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
         model.TotalApplications = await db.SourceApplications.AsNoTracking()
             .CountAsync(a => accessibleIds.Contains(a.Id), cancellationToken);
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var messagesQuery = db.Incidents.AsNoTracking().Where(incident => accessibleIds.Contains(incident.ApplicationId) && incident.Level != "sev4");
+        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        var messagesQuery = db.Incidents.AsNoTracking().Where(policy.VisibleIncidents)
+            .Where(incident => accessibleIds.Contains(incident.ApplicationId));
         model.TotalIncidents = await messagesQuery.CountAsync(cancellationToken);
         model.MyIncidents = await messagesQuery.CountAsync(incident => incident.OwnerId != null && incident.OwnerId == userId, cancellationToken);
         model.MyActiveIncidents = await messagesQuery.CountAsync(incident => incident.OwnerId != null && incident.OwnerId == userId &&
@@ -45,6 +47,7 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
         model.Sev1Count = await messagesQuery.CountAsync(m => m.Level == "sev1", cancellationToken);
         model.Sev2Count = await messagesQuery.CountAsync(m => m.Level == "sev2", cancellationToken);
         model.Sev3Count = await messagesQuery.CountAsync(m => m.Level == "sev3", cancellationToken);
+        model.Sev4Count = await messagesQuery.CountAsync(m => m.Level == "sev4", cancellationToken);
 
         model.ActiveIncidents = await messagesQuery
             .CountAsync(i => i.Status == Incident.New, cancellationToken);

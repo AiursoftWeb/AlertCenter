@@ -77,7 +77,7 @@ public static class OnCallEmailQueue
             var to = original.Recipients.Select(person => person.Email).ToHashSet(StringComparer.OrdinalIgnoreCase);
             delivery.OnCallEmail!.CcRecipients = string.Join('\n', cc.Where(address => !to.Contains(address)));
         }
-        AddDelivery(db, delivery);
+        await AddDeliveryAsync(db, delivery, cancellationToken);
     }
 
     private static async Task CreateAsync(TemplateDbContext db, Guid applicationId, PushDelivery delivery, DateTime atUtc, CancellationToken cancellationToken, IStringLocalizer? localizer = null, IStringLocalizerFactory? localizerFactory = null)
@@ -119,12 +119,13 @@ public static class OnCallEmailQueue
         snapshot.CcRecipients = string.Join('\n', cc.Where(address => !to.Contains(address)));
         delivery.CreatedAtUtc = delivery.Incident?.ReceivedAtUtc ?? atUtc;
         delivery.OnCallEmail = snapshot;
-        AddDelivery(db, delivery);
+        await AddDeliveryAsync(db, delivery, cancellationToken);
     }
 
-    private static void AddDelivery(TemplateDbContext db, PushDelivery delivery)
+    private static async Task AddDeliveryAsync(TemplateDbContext db, PushDelivery delivery, CancellationToken cancellationToken)
     {
-        if (delivery.Incident?.Level == "sev4")
+        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        if (!policy.Allows(delivery))
         {
             // Keep the original OCE snapshot for a possible escalation, without sending mail.
             delivery.Status = PushDelivery.Suppressed;

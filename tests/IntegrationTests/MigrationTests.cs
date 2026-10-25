@@ -15,28 +15,24 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 public class MigrationTests
 {
     [TestMethod]
-    public async Task SilentSeverityMigrationDisablesExistingOptInsWithoutChangingOtherLevels()
+    public async Task SeverityPolicyMigrationSeedsDefaultsWithoutResettingAdministratorChoices()
     {
         await using var context = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
-        var previous = context.Database.GetMigrations().Reverse().Skip(1).First();
-        await context.GetService<IMigrator>().MigrateAsync(previous);
-        var binding = new ApplicationPushChannel
-        {
-            Application = new SourceApplication { Name = "Existing application" },
-            Channel = new PushChannel { Name = "Existing email", Type = "email", EmailRecipient = "ops@example.com" },
-            ReceiveSev0 = true, ReceiveSev1 = false, ReceiveSev2 = true, ReceiveSev3 = false, ReceiveSev4 = true
-        };
-        context.ApplicationPushChannels.Add(binding);
+        await context.Database.MigrateAsync();
+        var rules = await context.SeverityRules.OrderBy(rule => rule.Level).ToListAsync();
+        Assert.AreEqual(5, rules.Count);
+        Assert.AreEqual(4, rules.Count(rule => rule.Email));
+        Assert.AreEqual(3, rules.Count(rule => rule.Sms));
+        Assert.IsTrue(rules.All(rule => rule.ShowInLists));
+        rules[0].Email = false;
+        rules[4].Email = true;
         await context.SaveChangesAsync();
         await context.Database.MigrateAsync();
         context.ChangeTracker.Clear();
-        var migrated = await context.ApplicationPushChannels.SingleAsync();
-        Assert.IsTrue(migrated.ReceiveSev0 && migrated.ReceiveSev2);
-        Assert.IsFalse(migrated.ReceiveSev1 || migrated.ReceiveSev3 || migrated.ReceiveSev4);
-        Assert.AreEqual(binding.ApplicationId, migrated.ApplicationId);
-        Assert.AreEqual(binding.ChannelId, migrated.ChannelId);
+        Assert.IsFalse((await context.SeverityRules.SingleAsync(rule => rule.Level == "sev0")).Email);
+        Assert.IsTrue((await context.SeverityRules.SingleAsync(rule => rule.Level == "sev4")).Email);
     }
 
     [TestMethod]

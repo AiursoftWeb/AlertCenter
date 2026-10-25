@@ -84,7 +84,7 @@
 else if (delivery.Status == PushDelivery.Suppressed)
 {
     <div class="alert alert-secondary mb-4" role="status">
-        <div class="alert-message">@Localizer["sev4 incidents are silent. This notification was suppressed and will not be sent."]</div>
+        <div class="alert-message">@Localizer["This notification was suppressed by the severity policy and will not be sent."]</div>
     </div>
 }
 else if (delivery.Status == PushDelivery.Succeeded)

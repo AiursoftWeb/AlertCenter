@@ -29,7 +29,6 @@ public class IncidentFilter : IValidatableObject
             Acknowledged = true;
         }
         Status ??= "all";
-        Level ??= "lte-sev3";
     }
 
     public Dictionary<string, string?> ToRouteValues(int? page = null)

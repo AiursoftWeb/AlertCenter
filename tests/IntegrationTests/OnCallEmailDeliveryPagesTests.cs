@@ -29,7 +29,7 @@ public partial class IncidentPagesTests
         }
         var html = await Http.GetStringAsync($"/Push/Delivery/{deliveryId}");
         Assert.Contains("Suppressed", html);
-        Assert.Contains("This notification was suppressed and will not be sent.", html);
+        Assert.Contains("This notification was suppressed by the severity policy and will not be sent.", html);
         Assert.DoesNotContain("/Push/Retry", html);
         var records = await Http.GetStringAsync("/Push/Records?status=suppressed");
         Assert.Contains(deliveryId.ToString(), records);

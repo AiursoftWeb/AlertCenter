@@ -8,6 +8,7 @@
         (Field: nameof(ApplicationPushBindingsRequest.Sev1ChannelIds), Level: "sev1", Label: @Localizer["Major (P1)"].Value, BadgeClass: "ac-badge-sev1", Selected: Model.Bindings.Sev1ChannelIds.ToHashSet()),
         (Field: nameof(ApplicationPushBindingsRequest.Sev2ChannelIds), Level: "sev2", Label: @Localizer["Error (P2)"].Value, BadgeClass: "ac-badge-sev2", Selected: Model.Bindings.Sev2ChannelIds.ToHashSet()),
         (Field: nameof(ApplicationPushBindingsRequest.Sev3ChannelIds), Level: "sev3", Label: @Localizer["Warning (P3)"].Value, BadgeClass: "ac-badge-sev3", Selected: Model.Bindings.Sev3ChannelIds.ToHashSet()),
+        (Field: nameof(ApplicationPushBindingsRequest.Sev4ChannelIds), Level: "sev4", Label: @Localizer["Info (P4)"].Value, BadgeClass: "ac-badge-sev4", Selected: Model.Bindings.Sev4ChannelIds.ToHashSet())
     };
 }
 @section styles {
@@ -44,7 +45,7 @@
         <div class="card-body">
             <p>@Localizer["On-call group:"]<a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a></p>
             <p class="mb-1"><strong>To：</strong>@Localizer["System registered email addresses of all on-duty engineers (OCE) at the time of notification;"]<strong>CC：</strong>@Localizer["CC addresses configured for the on-call group."]</p>
-            <p class="small text-muted mb-0">@Localizer["Applies to sev0–sev3. sev4 incidents are silent: no email, webhook, or in-app notification is sent. Review them using the incident severity filter."]</p>
+            <p class="small text-muted mb-0">@Localizer["Uses the global Email severity policy; no channel selection required. The channels below provide supplementary notifications subject to the same global policy."]</p>
         </div>
     </section>
 }
@@ -70,7 +71,7 @@
                     </div>
                     <h3 class="h5 mb-2">@Localizer["No push channels configured yet"]</h3>
                     <p class="text-muted mb-4" style="max-width: 24rem; margin-inline: auto;">
-                        @Localizer["You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels."]
+                        @Localizer["You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups send built-in emails for severities allowed by the global policy, even without custom channels."]
                     </p>
                     <p class="text-muted mb-0">@Localizer["Please contact the push channel administrator to grant channel binding permissions."]</p>
                 </div>

@@ -23,6 +23,7 @@ public class IndexViewModel : UiStackLayoutViewModel
     public int Sev1Count { get; set; }
     public int Sev2Count { get; set; }
     public int Sev3Count { get; set; }
+    public int Sev4Count { get; set; }
     public List<Incident> LatestIncidents { get; set; } = [];
     public List<Incident> RecentIncidents { get; set; } = [];
     public bool CanCreateIncidents { get; set; }
