@@ -134,6 +134,9 @@ public sealed class IncidentActivity : WorkspaceActivity
             }
             _ = RunAsync(async () =>
             {
+                // A failed or conflicting request returns to the incident with the draft kept.
+                // Reopening the action after refresh must capture the new incident version.
+                dialog.Dismiss();
                 if (action == "comment") await Session.RequireApi().CommentAsync(_id, text);
                 else await Session.RequireApi().ExecuteAsync(_id, action, new MobileIncidentAction
                 {
@@ -141,7 +144,6 @@ public sealed class IncidentActivity : WorkspaceActivity
                 });
                 _draft = string.Empty;
                 _page = 1;
-                dialog.Dismiss();
                 await ReloadAsync();
             }, submit);
         };
