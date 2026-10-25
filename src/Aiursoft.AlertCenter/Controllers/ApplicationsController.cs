@@ -254,7 +254,8 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
             .OrderByDescending(application => application.CreatedAtUtc).ToListAsync(cancellationToken);
         var countableIds = listedApplications.Where(application => accessibleIds.Contains(application.Id))
             .Select(application => application.Id).ToArray();
-        var incidentCounts = await db.Incidents.AsNoTracking()
+        var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
+        var incidentCounts = await db.Incidents.AsNoTracking().Where(policy.VisibleIncidents)
             .Where(incident => countableIds.Contains(incident.ApplicationId) &&
                 (incident.Status == Incident.New || incident.Status == Incident.Mitigated))
             .GroupBy(incident => incident.ApplicationId)

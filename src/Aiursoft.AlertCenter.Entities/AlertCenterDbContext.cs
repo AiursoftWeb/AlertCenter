@@ -9,6 +9,7 @@ namespace Aiursoft.AlertCenter.Entities;
 
 public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbContext<User>(options), ICanMigrate
 {
+    public DbSet<SeverityRule> SeverityRules => Set<SeverityRule>();
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<SourceApplication> SourceApplications => Set<SourceApplication>();
     public DbSet<ApplicationApiKey> ApplicationApiKeys => Set<ApplicationApiKey>();
@@ -37,6 +38,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.Entity<SeverityRule>().HasData(SeverityRule.Defaults());
         builder.Entity<ApplicationApiKey>().HasOne(key => key.Application).WithMany()
             .HasForeignKey(key => key.ApplicationId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<SourceApplication>().HasOne(application => application.Owner).WithMany()

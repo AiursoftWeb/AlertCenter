@@ -28,7 +28,7 @@
                 @if (filter.OnlyMine) { <i data-lucide="user-check" class="text-primary me-2" aria-hidden="true"></i> }@(filter.OnlyMine ? @Localizer["My incidents"].Value : @Localizer["Incidents and emergency response"].Value)</h1>
             @if (Model.ActiveCount > 0)
             {
-                <span class="badge bg-danger text-white px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5">
+                <span class="badge bg-danger text-white px-2.5 py-1.5 d-inline-flex align-items-center gap-1.5" title="@Localizer["Counts use the configured severity visibility policy."]">
                     <span class="ac-status-dot dot-danger ac-pulse-danger"></span>
                     <span>@string.Format(@Localizer["{0} unmitigated incidents across accessible applications"].Value, Model.ActiveCount)</span>
                 </span>
@@ -114,7 +114,7 @@
             <div class="col-sm-6 col-xl-2">
                 <label for="incident-level" class="form-label small text-muted mb-1">@Localizer["Incident severity"]</label>
                 <select id="incident-level" name="level" class="form-select">
-                    <option value="">@Localizer["All severities"]</option>
+                    <option value="">@Localizer["Configured severities"]</option>
                     <option value="sev0" selected="@(filter.Level == "sev0")">= @Localizer["sev0 · Critical (P0)"]</option>
                     <option value="sev1" selected="@(filter.Level == "sev1")">= @Localizer["sev1 · Major (P1)"]</option>
                     <option value="lte-sev1" selected="@(filter.Level == "lte-sev1")">≤ @Localizer["sev1 · Major (P1)"]</option>

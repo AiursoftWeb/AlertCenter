@@ -44,12 +44,80 @@ public partial class PushCenterTests
         .ThenInclude(snapshot => snapshot!.Recipients).SingleAsync(delivery => delivery.OnCallEmail != null);
 
     [TestMethod]
+    public async Task SilentIncidentKeepsRosterAndOnlyEscalationStartsNotifications()
+    {
+        var application = await Application();
+        await OnCallTeam(application);
+        var email = await Channel("email");
+        await BindAllLevels(application.Id, email.Id);
+        // Even a historical opt-in cannot override the silent severity policy.
+        var binding = await _db.ApplicationPushChannels.SingleAsync();
+        binding.ReceiveSev4 = true;
+        await _db.SaveChangesAsync();
+        await Report(application, Guid.NewGuid(), "sev4");
+        var incident = await _db.Incidents.SingleAsync();
+        var original = await BuiltInDelivery();
+        Assert.AreEqual(PushDelivery.Suppressed, original.Status);
+        Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
+        foreach (var action in new[] { IncidentTimelineEntry.Mitigated, IncidentTimelineEntry.Resolved, IncidentTimelineEntry.Reopened })
+        {
+            var entry = new IncidentTimelineEntry { Incident = incident, Type = action, NewLevel = "sev4" };
+            await QueuedIncidentDispatcher.DispatchEmailEventAsync(_db, entry, default, TestLocalization.Factory);
+        }
+        await _db.SaveChangesAsync();
+        Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
+        Assert.AreEqual(0, _email.Messages.Count);
+
+        var shift = await _db.OnCallShifts.Include(item => item.Members).SingleAsync();
+        shift.Members.Clear();
+        shift.Members.Add(new OnCallShiftMember { UserId = "off-duty" });
+        incident.Level = "sev3";
+        var escalation = new IncidentTimelineEntry
+        {
+            Incident = incident, Type = IncidentTimelineEntry.LevelChanged,
+            PreviousLevel = "sev4", NewLevel = "sev3"
+        };
+        _db.IncidentTimelineEntries.Add(escalation);
+        await QueuedIncidentDispatcher.DispatchEmailEventAsync(_db, escalation, default, TestLocalization.Factory);
+        await _db.SaveChangesAsync();
+        var deliveries = await _db.PushDeliveries.Where(item => item.Status == PushDelivery.Pending).ToListAsync();
+        Assert.AreEqual(2, deliveries.Count);
+        foreach (var delivery in deliveries) await _processor.ProcessAsync(delivery.Id, default);
+        Assert.AreEqual(2, _email.Messages.Count);
+        var onCall = _email.Messages.Single(item => item.ChannelId == null);
+        CollectionAssert.AreEquivalent(new[] { "alice@example.com", "bob@example.com" }, onCall.Recipients.ToArray());
+        Assert.DoesNotContain("off@example.com", onCall.Recipients);
+        Assert.AreEqual(PushDelivery.Suppressed, original.Status);
+    }
+
+    [TestMethod]
+    [DataRow("email")]
+    [DataRow("webhook")]
+    [DataRow("inapp")]
+    public async Task PendingDeliveriesCannotNotifyAfterAnIncidentBecomesSilent(string type)
+    {
+        var application = await Application();
+        var channel = await Channel(type);
+        await BindAllLevels(application.Id, channel.Id);
+        await Report(application, Guid.NewGuid());
+        var incident = await _db.Incidents.SingleAsync();
+        var delivery = await _db.PushDeliveries.SingleAsync();
+        incident.Level = "sev4";
+        await _db.SaveChangesAsync();
+        await _processor.ProcessAsync(delivery.Id, default);
+        Assert.AreEqual(PushDelivery.Suppressed, delivery.Status);
+        Assert.AreEqual(0, _email.Messages.Count);
+        Assert.AreEqual(0, _http.Requests.Count);
+        Assert.AreEqual(0, await _db.InAppNotifications.CountAsync());
+    }
+
+    [TestMethod]
     [DataRow("sev0")]
     [DataRow("sev1")]
     [DataRow("sev2")]
     [DataRow("sev3")]
     [DataRow("sev4")]
-    public async Task EverySeverityQueuesMandatoryOceEmailWithoutCreatingCustomChannels(string level)
+    public async Task SeverityControlsOceEmailWithoutLosingOriginalRoster(string level)
     {
         var application = await Application();
         var group = await OnCallTeam(application);
@@ -71,6 +139,13 @@ public partial class PushCenterTests
         Assert.AreEqual(1, await _db.PushDeliveries.CountAsync());
         await _processor.ProcessAsync(delivery.Id, default);
         await _processor.ProcessAsync(delivery.Id, default);
+        if (level == "sev4")
+        {
+            Assert.AreEqual(0, _email.Messages.Count);
+            Assert.AreEqual(PushDelivery.Suppressed, (await BuiltInDelivery()).Status);
+            Assert.AreEqual(0, (await BuiltInDelivery()).Attempts);
+            return;
+        }
         var sent = _email.Messages.Single();
         Assert.Contains("#b42318", sent.HtmlBody!);
         Assert.DoesNotContain("#175cd3", sent.HtmlBody!);

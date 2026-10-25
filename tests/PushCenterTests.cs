@@ -195,6 +195,11 @@ public partial class PushCenterTests
     [DataRow("sev4")]
     public async Task ReportsRouteOnlyToExactSeverityAndMultipleSelectedChannels(string level)
     {
+        // Binding selection remains independent of the global notification policy.
+        var rule = await _db.SeverityRules.SingleAsync(item => item.Level == level);
+        rule.Webhook = true;
+        rule.InApp = true;
+        await _db.SaveChangesAsync();
         var application = await Application();
         var otherApplication = await Application();
         var first = await Channel();
@@ -283,6 +288,8 @@ public partial class PushCenterTests
     [TestMethod]
     public async Task DisabledChannelRetainsSeveritySelectionWhenReenabled()
     {
+        (await _db.SeverityRules.SingleAsync(rule => rule.Level == "sev4")).Webhook = true;
+        await _db.SaveChangesAsync();
         var application = await Application();
         var channel = await Channel(enabled: false);
         await Controller().SaveBindings(application.Id, new ApplicationPushBindingsRequest { Sev4ChannelIds = [channel.Id] });

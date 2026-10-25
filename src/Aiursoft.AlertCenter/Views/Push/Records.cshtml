@@ -75,6 +75,7 @@
                         <option value="pending" selected="@(Model.Status == PushDelivery.Pending)">@Localizer["Pending delivery (Pending)"]</option>
                         <option value="sending" selected="@(Model.Status == PushDelivery.Sending)">@Localizer["Delivering (Sending)"]</option>
                         <option value="succeeded" selected="@(Model.Status == PushDelivery.Succeeded)">@Localizer["Delivery Successful (Succeeded)"]</option>
+                        <option value="suppressed" selected="@(Model.Status == PushDelivery.Suppressed)">@Localizer["Suppressed"]</option>
                         <option value="failed" selected="@(Model.Status == PushDelivery.Failed)">@Localizer["Delivery Failed (Failed)"]</option>
                     </select>
                 </div>

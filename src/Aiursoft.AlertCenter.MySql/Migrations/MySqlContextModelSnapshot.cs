@@ -802,6 +802,79 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.ToTable("PushDeliveryRecipients");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SeverityRule", b =>
+                {
+                    b.Property<string>("Level")
+                        .HasMaxLength(4)
+                        .HasColumnType("varchar(4)");
+
+                    b.Property<bool>("Email")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("InApp")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("ShowInLists")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Sms")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("Webhook")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Level");
+
+                    b.ToTable("SeverityRules");
+
+                    b.HasData(
+                        new
+                        {
+                            Level = "sev0",
+                            Email = true,
+                            InApp = true,
+                            ShowInLists = true,
+                            Sms = true,
+                            Webhook = true
+                        },
+                        new
+                        {
+                            Level = "sev1",
+                            Email = true,
+                            InApp = true,
+                            ShowInLists = true,
+                            Sms = true,
+                            Webhook = true
+                        },
+                        new
+                        {
+                            Level = "sev2",
+                            Email = true,
+                            InApp = true,
+                            ShowInLists = true,
+                            Sms = true,
+                            Webhook = true
+                        },
+                        new
+                        {
+                            Level = "sev3",
+                            Email = true,
+                            InApp = true,
+                            ShowInLists = true,
+                            Sms = false,
+                            Webhook = true
+                        },
+                        new
+                        {
+                            Level = "sev4",
+                            Email = false,
+                            InApp = false,
+                            ShowInLists = true,
+                            Sms = false,
+                            Webhook = false
+                        });
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SourceApplication", b =>
                 {
                     b.Property<Guid>("Id")

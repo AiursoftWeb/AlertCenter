@@ -6,6 +6,7 @@
         PushDelivery.Pending => ("ac-status-pill-pending", "clock", @Localizer["Pending delivery"].Value),
         PushDelivery.Sending => ("ac-status-pill-sending", "loader", @Localizer["Delivering"].Value),
         PushDelivery.Succeeded => ("ac-status-pill-succeeded", "check-circle-2", @Localizer["Delivery Successful"].Value),
+        PushDelivery.Suppressed => ("ac-status-pill-pending", "bell-off", @Localizer["Suppressed"].Value),
         _ => ("ac-status-pill-failed", "alert-circle", @Localizer["Delivery Failed"].Value)
     };
 }
