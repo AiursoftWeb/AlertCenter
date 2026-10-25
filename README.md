@@ -9,6 +9,8 @@
 
 AlertCenter is a self-hosted alert management and notification platform built on ASP.NET Core (.NET 10). Business systems create incidents through one HTTP API; teams manage incidents, on-call schedules, and delivery through Webhook, email, and in-app notifications.
 
+A native Android client supports incident browsing and response. See [Android app](docs/android.md) for authentication, building and installation.
+
 ## CLI & SDK
 
 Install the CLI with the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0):
