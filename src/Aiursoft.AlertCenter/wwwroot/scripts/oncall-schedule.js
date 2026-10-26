@@ -449,6 +449,8 @@
             reloading = true;
             window.location.reload();
         } catch (error) {
+            tools.open = true;
+            editing = true;
             showMessages(errors, error.message.split('\n'));
             errors.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } finally {
