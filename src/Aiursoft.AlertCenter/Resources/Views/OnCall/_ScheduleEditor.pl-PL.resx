@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>Dodaj zmianę</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>Dostosuj harmonogram</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Automatyczne sugestie nie zostały zapisane. Schedules sąsiednich zostaną ponownie zwalidowane podczas generowania; istniejące zapisane ustalenia nie zostaną nadpisane.</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>Anuluj, pozostaw przyszły tydzień bez zmian</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>Zmiany wchodzą w życie dopiero po zapisaniu. Zwinięcie tych narzędzi zachowuje wersję roboczą.</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Potwierdź zastąpienie wersji roboczej</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Obecnie w trybie Przenoszenie/Wymiana. Przełącz tryb powyżej przed dodawaniem lub usuwaniem zmian.</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Obecnie aktywny jest tryb przenoszenia/zamiany. Przed dodaniem lub usunięciem zmian wybierz powyżej odpowiedni tryb.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Usuń zmianę</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Przeciągnij kolorowy blok na inną zmianę, aby zamienić personel, lub na puste miejsce, aby przenieść zmianę; przeciągnij „Zamień cały tydzień”, aby wymienić tygodniowe grafiki dwóch osób. Możesz też kliknąć, aby zaznaczyć, a następnie kliknąć cel; naciśnij Esc, aby anulować. Zmiany wyświetlają się natychmiast i można je zapisać zbiorczo po wielu korektach.</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>Wygenerowanie i zapisanie od razu wprowadza nowy automatyczny harmonogram.</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>Wygeneruj i zapisz plan na ten tydzień</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>Jak dostosować harmonogram</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>Więcej działań</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>Przenieś / Zamień</value>

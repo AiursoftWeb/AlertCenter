@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>tuntia ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>Näin luet aikajanaa</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>Ei osoitettuja työvuoroja.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>Vieritä vaakasuunnassa nähdäksesi koko työvuorolistauksen. Vie osoitin värillisen palkin päälle, kohdista siihen näppäimistön tarkennus tai napsauta sitä nähdäksesi työvuoron tiedot. Punainen viiva osoittaa nykyisen ajan sivun latautuessa. Työntekijäsarakkeen oikealla puolella ja aikajanan aivan oikeassa reunassa olevilla pystysuuntaisilla painikkeilla voit laajentaa näkymää 36 tuntia viikon alusta taaksepäin ja viikon lopusta eteenpäin. Näkymä on oletusarvoisesti supistettu. Laajennetuilla alueilla käytetään samoja päivämääräotsikoita, 6 tunnin välein olevia merkintöjä ja ruudukkoa kuin kuluvalla viikolla. Molemmilla puolilla näkyvät harmaat työvuorot ovat vain katseltavissa, eikä niitä voi muokata tai laskea mukaan viikkotilastoihin. Tee muutokset siirtymällä kyseiselle viikolle. Nykyisen tiimin ja muiden tiimien työvuorot näkyvät samalla rivillä: ylläpitäjät voivat muokata oman ryhmänsä värillisiä työvuoroja, kun taas muiden tiimien harmaissa työvuoroissa näytetään vain tiimi ja kellonajat. Tyhjille aikaväleille voi lisätä työvuoroja manuaalisesti Lisää työvuoro -tilassa.</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>Valitse vuoro nähdäksesi sen tiedot. Vieritä vaakasuunnassa nähdäksesi koko viikon.</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>Vuoron kesto / kokonaiskesto</value>

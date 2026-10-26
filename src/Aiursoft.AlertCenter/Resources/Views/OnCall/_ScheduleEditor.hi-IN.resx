@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>शिफ्ट जोड़ें</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>शेड्यूल समायोजित करें</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>स्वतः दिए गए सुझाव अभी तक सहेजे नहीं गए हैं। जनरेट करते समय आस-पास की समय-सारिणियों का फिर से सत्यापन किया जाएगा; पहले से सहेजी गई व्यवस्थाओं को ओवरराइट नहीं किया जाएगा।</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>रद्द करें, अगले सप्ताह का रखें</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>बदलाव सहेजने के बाद ही लागू होंगे। इन टूल को समेटने पर आपका मसौदा सुरक्षित रहेगा।</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>ड्राफ़्ट बदलने की पुष्टि करें</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>वर्तमान में मूव/स्वैप मोड चालू है। शिफ़्ट जोड़ने या हटाने से पहले ऊपर मोड बदलें।</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>वर्तमान में स्थानांतरित/अदला-बदली मोड में हैं। शिफ़्ट जोड़ने या हटाने से पहले ऊपर मोड बदलें।</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>शिफ्ट हटाएँ</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>कर्मचारियों की अदला-बदली करने के लिए रंगीन ब्लॉक को किसी दूसरी शिफ्ट पर खींचें, या शिफ्ट को स्थानांतरित करने के लिए खाली स्लॉट पर खींचें; दो लोगों के पूरे सप्ताह के शेड्यूल बदलने के लिए &apos;Swap Entire Week&apos; को खींचें। आप चुनने के लिए क्लिक करके, फिर लक्ष्य पर क्लिक भी कर सकते हैं; रद्द करने के लिए Esc दबाएँ। बदलाव तुरंत दिखाई देते हैं और कई समायोजन करने के बाद उन्हें एक साथ सहेजा जा सकता है।</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>नया स्वचालित शेड्यूल तुरंत लागू करने और सहेजने के लिए।</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>इस सप्ताह का शेड्यूल बनाएं और सहेजें</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>समय-सारणी में बदलाव कैसे करें</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>अधिक कार्रवाइयाँ</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>स्थानांतरित करें / अदला-बदली करें</value>

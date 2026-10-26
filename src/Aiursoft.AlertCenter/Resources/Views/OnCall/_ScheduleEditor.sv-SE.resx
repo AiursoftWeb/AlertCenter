@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>Lägg till pass</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>Justera schemat</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Automatiska förslag har inte sparats. Nablåggande scheman kommer att valideras på nytt vid generering; befintliga sparade arrangemang kommer inte att skrivas över.</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>Avbryt, behåll nästa vecka</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>Ändringarna träder i kraft först när du sparar. Om du fäller ihop de här verktygen finns ditt utkast kvar.</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Bekräfta ersättning av utkast</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Du är för närvarande i läget Flytta/Byt. Byt läge ovan innan du lägger till eller tar bort pass.</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>För närvarande i läget Flytta/Byt. Byt läge ovan innan du lägger till eller tar bort pass.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Ta bort pass</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Dra en färgblock till en annan pass för att byta personal, eller till en tom slot för att flytta passen; dra &apos;Byt hel vecka&apos; för att utbyta två personers veckoscheman. Du kan också klicka för att markera och sedan klicka på målet; tryck på Esc för att avbryta. Ändringar visas direkt och kan sparas i bulk efter flera justeringar.</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>Generera och spara tillämpar omedelbart ett nytt automatiskt schema.</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>Generera och spara veckans schema</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>Så här justerar du schemat</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>Fler åtgärder</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>Flytta / byt</value>

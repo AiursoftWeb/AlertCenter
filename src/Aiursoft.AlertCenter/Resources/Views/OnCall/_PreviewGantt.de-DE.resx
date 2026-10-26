@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>Stunden ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>So lesen Sie diesen Zeitplan</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>Keine Schichten zugewiesen.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>Scrollen Sie horizontal, um den vollständigen Dienstplan anzuzeigen. Bewegen Sie den Mauszeiger über einen farbigen Block, fokussieren Sie ihn oder klicken Sie darauf, um die Schichtdetails anzuzeigen. Die rote Linie zeigt die aktuelle Uhrzeit zum Zeitpunkt des Seitenaufrufs an. Über vertikale Schaltflächen rechts neben der Mitarbeiterspalte und ganz rechts in der Zeitleiste lassen sich jeweils 36 Stunden vor Wochenbeginn und nach Wochenende einblenden (tatsächliche UTC-Dauer einschließlich Änderungen durch die Sommerzeit); standardmäßig sind diese Bereiche eingeklappt. Die eingeblendeten Bereiche verwenden dieselben Datumsüberschriften, 6-Stunden-Intervalle und dasselbe Raster wie die aktuelle Woche. Graue Schichten auf beiden Seiten können nur angesehen, nicht bearbeitet werden und fließen nicht in die Wochenstatistik ein. Wechseln Sie zur entsprechenden Woche, um Änderungen vorzunehmen. Schichten des aktuellen Teams und anderer Teams werden in derselben Zeile angezeigt: Administratoren können farbige Schichten ihrer eigenen Gruppe bearbeiten, während graue Schichten anderer Teams lediglich Team und Uhrzeit zur Orientierung anzeigen. Freie Zeitfenster können im Modus „Schicht hinzufügen“ manuell verplant werden.</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>Wählen Sie eine Schicht aus, um deren Details anzuzeigen. Scrollen Sie horizontal, um die gesamte Woche zu sehen.</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>Schicht / Gesamtdauer</value>

@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>เพิ่มกะ</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>ปรับตารางเวลา</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>การแนะนำอัตโนมัติยังไม่ได้ถูกบันทึก ตารางเวลาข้างเคียงจะถูกตรวจสอบซ้ำเมื่อมีการสร้าง; การจัดสรรที่มีอยู่แล้วซึ่งถูกบันทึกแล้วจะไม่ถูกเขียนทับ</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>ยกเลิก, ระบุสัปดาห์หน้า</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>การเปลี่ยนแปลงจะมีผลหลังจากบันทึกเท่านั้น การยุบเครื่องมือเหล่านี้จะเก็บฉบับร่างของคุณไว้</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>ยืนยันการแทนที่ร่าง</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>ขณะนี้อยู่ในโหมดเลื่อน/สลับ โปรดเปลี่ยนโหมดด้านบนก่อนเพิ่มหรือลบกะ</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>ขณะนี้อยู่ในโหมด Move/Swap โปรดเปลี่ยนโหมดด้านบนก่อนเพิ่มหรือลบกะงาน</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>ลบกะงาน</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>ลากบล็อกสีไปยังกะอื่นเพื่อสลับบุคลากร หรือไปยังช่องว่างเพื่อโยกย้ายกะ; ลาก &apos;สลับทั้งสัปดาห์&apos; เพื่อแลกเปลี่ยนตารางงานรายสัปดาห์ของสองคน คุณยังสามารถคลิกเพื่อเลือก จากนั้นคลิกที่เป้าหมาย; กด Esc เพื่อยกเลิก การเปลี่ยนแปลงจะแสดงทันทีและสามารถบันทึกเป็นชุดได้หลังจากปรับหลายครั้ง</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>สร้างและบันทึกจะนำตารางเวรอัตโนมัติใหม่มาใช้ทันที</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>สร้างและบันทึกตารางงานสัปดาห์นี้</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>วิธีปรับตารางเวร</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>การดำเนินการเพิ่มเติม</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>ย้าย / สลับ</value>

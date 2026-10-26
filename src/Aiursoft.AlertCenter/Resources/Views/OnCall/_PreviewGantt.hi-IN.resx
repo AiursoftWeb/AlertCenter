@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>घंटे ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>इस समयरेखा को कैसे पढ़ें</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>कोई शिफ़्ट निर्धारित नहीं है।</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>पूरा शेड्यूल देखने के लिए क्षैतिज रूप से स्क्रॉल करें; शिफ़्ट का विवरण देखने के लिए किसी रंगीन ब्लॉक पर माउस ले जाएँ, उसे फ़ोकस करें या क्लिक करें। लाल रेखा पेज लोड होने के समय को दर्शाती है। कर्मचारी कॉलम के दाईं ओर और टाइमलाइन के सबसे दाईं ओर मौजूद लंबवत बटन, सप्ताह की शुरुआत से पहले और सप्ताह के अंत के बाद के 36 घंटे दिखाते हैं (DST बदलावों सहित वास्तविक UTC अवधि); डिफ़ॉल्ट रूप से ये क्षेत्र संक्षिप्त रहते हैं। विस्तारित क्षेत्रों में मौजूदा सप्ताह जैसे ही तारीख़ के शीर्षक, 6-घंटे के अंतराल और ग्रिड का उपयोग होता है। दोनों ओर की धूसर शिफ़्टें केवल देखने के लिए हैं, उनमें बदलाव नहीं किया जा सकता और वे साप्ताहिक आँकड़ों में शामिल नहीं होतीं; बदलाव करने के लिए संबंधित सप्ताह पर जाएँ। मौजूदा टीम और अन्य टीमों की शिफ़्टें एक ही पंक्ति में दिखाई जाती हैं: एडमिन अपने समूह की रंगीन शिफ़्टों में बदलाव कर सकते हैं, जबकि अन्य टीमों की धूसर शिफ़्टें केवल संदर्भ के लिए टीम और समय दिखाती हैं। खाली समय-खंडों में &apos;Add Shift&apos; मोड के ज़रिए मैन्युअल रूप से शिफ़्ट तय की जा सकती हैं।</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>विवरण देखने के लिए किसी शिफ्ट का चयन करें। पूरा सप्ताह देखने के लिए क्षैतिज रूप से स्क्रॉल करें।</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>शिफ्ट / कुल अवधि</value>

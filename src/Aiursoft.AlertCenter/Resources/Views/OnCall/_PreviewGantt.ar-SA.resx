@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>ساعات ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>كيفية قراءة هذا الجدول الزمني</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>لا توجد نوبات مُعيّنة.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>مرّر أفقيًا لعرض الجدول كاملًا؛ مرّر المؤشر فوق كتلة ملوّنة أو ركّز عليها أو انقرها لعرض تفاصيل المناوبة. يشير الخط الأحمر إلى الوقت الحالي عند تحميل الصفحة. توسّع الأزرار الرأسية الموجودة على يمين عمود الموظفين وعند أقصى يمين المخطط النطاقَين السابق واللاحق للأسبوع بمقدار 36 ساعة (بحسب المدة الفعلية بتوقيت UTC، بما في ذلك تغييرات التوقيت الصيفي)، وهما مطويان افتراضيًا. تستخدم النطاقات الموسّعة عناوين التواريخ نفسها وفواصل زمنية مدتها 6 ساعات والشبكة نفسها المستخدمة للأسبوع الحالي. المناوبات الرمادية على كلا الجانبين للعرض فقط، ولا يمكن تعديلها، ولا تُحتسب ضمن إحصاءات الأسبوع؛ انتقل إلى الأسبوع المعني لإجراء التعديلات. تظهر مناوبات الفريق الحالي والفرق الأخرى في الصف نفسه: يمكن للمسؤولين تعديل المناوبات الملوّنة الخاصة بمجموعتهم، بينما تعرض المناوبات الرمادية للفرق الأخرى اسم الفريق ووقت المناوبة للاستئناس فقط. يمكن جدولة الفترات الشاغرة يدويًا في وضع «إضافة مناوبة».</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>اختر مناوبةً للاطلاع على تفاصيلها. مرّر أفقيًا لعرض الأسبوع كاملًا.</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>الوردية / إجمالي المدة</value>

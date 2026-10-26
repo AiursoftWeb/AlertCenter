@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} nhắc nhở về nhân sự · vẫn có thể lưu khi chưa đạt mức tối thiểu</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} ca trực chưa được phân công · điền một ca trực</value>
+  </data>
+  <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>Lịch trực 7 ngày</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -129,6 +135,15 @@
   <data name="Saved" xml:space="preserve">
     <value>Đã lưu</value>
   </data>
+  <data name="Schedule needs attention" xml:space="preserve">
+    <value>Lịch trình cần được chú ý</value>
+  </data>
+  <data name="Scheduled hours" xml:space="preserve">
+    <value>Số giờ được lên lịch</value>
+  </data>
+  <data name="Scheduling rules and members" xml:space="preserve">
+    <value>Quy tắc lập lịch và thành viên</value>
+  </data>
   <data name="Shift covered" xml:space="preserve">
     <value>Số ca trực đã được phân công</value>
   </data>
@@ -138,8 +153,14 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Sắp bắt đầu</value>
   </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Trạng thái được xác định dựa trên thời điểm tải trang.</value>
+  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Trạng thái được xác định dựa trên thời điểm tải trang)</value>
+  </data>
+  <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
+    <value>Các phân công được đề xuất hoặc phân công thủ công sẽ chưa có hiệu lực cho đến khi được lưu.</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Cấu hình nhóm</value>
@@ -164,6 +185,9 @@
   </data>
   <data name="View team" xml:space="preserve">
     <value>Xem nhóm</value>
+  </data>
+  <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
+    <value>Bạn đang xem bản nháp chưa được lưu. Thông báo vẫn tuân theo lịch đã lưu.</value>
   </data>
 
 </root>

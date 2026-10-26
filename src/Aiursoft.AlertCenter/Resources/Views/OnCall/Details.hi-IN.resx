@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} स्टाफ़ संबंधी सूचनाएँ · न्यूनतम से कम होने पर भी सहेजने की अनुमति है</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} बिना कर्मचारी वाली शिफ़्टें · एक शिफ़्ट भरें</value>
+  </data>
+  <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7-दिवसीय ऑन-कॉल शेड्यूल</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -129,6 +135,15 @@
   <data name="Saved" xml:space="preserve">
     <value>सहेजी गई</value>
   </data>
+  <data name="Schedule needs attention" xml:space="preserve">
+    <value>अनुसूची पर ध्यान देने की आवश्यकता है</value>
+  </data>
+  <data name="Scheduled hours" xml:space="preserve">
+    <value>निर्धारित घंटे</value>
+  </data>
+  <data name="Scheduling rules and members" xml:space="preserve">
+    <value>शेड्यूलिंग के नियम और सदस्य</value>
+  </data>
   <data name="Shift covered" xml:space="preserve">
     <value>कवर की गई शिफ़्टें</value>
   </data>
@@ -138,8 +153,14 @@
   <data name="Starting soon" xml:space="preserve">
     <value>जल्द शुरू हो रहा है</value>
   </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>स्थिति पेज लोड होने के समय पर आधारित है।</value>
+  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>स्थिति पेज लोड होने के समय पर आधारित है)</value>
+  </data>
+  <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
+    <value>सुझाए गए या मैन्युअल असाइनमेंट तब तक सक्रिय नहीं होंगे, जब तक उन्हें सहेजा न जाए।</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>टीम कॉन्फ़िगरेशन</value>
@@ -164,6 +185,9 @@
   </data>
   <data name="View team" xml:space="preserve">
     <value>टीम देखें</value>
+  </data>
+  <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
+    <value>आप एक ऐसा ड्राफ़्ट देख रहे हैं जिसे अभी सहेजा नहीं गया है। सूचनाएँ अब भी सहेजे गए शेड्यूल के अनुसार भेजी जाएँगी।</value>
   </data>
 
 </root>

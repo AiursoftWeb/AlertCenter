@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>小時 ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>如何閱讀此時間表</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>沒有已指派的更次。</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>向右捲動以查看完整時間表；將滑鼠游標停留在、聚焦於或按一下色塊，即可查看更表詳情。紅線表示頁面載入時的目前時間。員工欄右側及時間軸最右側的垂直按鈕，可展開星期開始前及結束後各 36 小時的時段（按實際 UTC 時長計算，並包括夏令時間變更）；預設為收合。展開的時段會沿用本週的日期標題、每 6 小時的刻度及網格。兩側的灰色更表僅供檢視、不可編輯，亦不計入每週統計；如要調整，請切換至相應的星期。本隊及其他隊伍的更表會顯示在同一列：管理員可編輯所屬組別的彩色更表，而其他隊伍的灰色更表僅供參考，顯示隊伍及時間。空置時段可在「Add Shift」模式下手動編排。</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>選擇一個更次以查看詳細資料。水平捲動以查看完整的一週。</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>更次／總時數</value>

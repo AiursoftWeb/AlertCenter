@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>ชั่วโมง ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>วิธีอ่านไทม์ไลน์นี้</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>ไม่มีกะงานที่ได้รับมอบหมาย</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>เลื่อนแนวนอนเพื่อดูตารางเวลาทั้งหมด; เมาส์ชี้, โฟกัส, หรือคลิกที่บล็อกสีเพื่อดูรายละเอียดกะงาน เส้นสีแดงบ่งชี้เวลาปัจจุบัน ณ เวลาที่โหลดหน้า ปุ่มแนวตั้งด้านขวาของคอลัมน์พนักงานและด้านขวาสุดของไทม์ไลน์จะขยายช่วง 36 ชั่วโมงก่อนเริ่มและหลังสิ้นสุดสัปดาห์ (ระยะเวลา UTC จริง รวมการเปลี่ยนแปลงเวลาออมแสง) ซึ่งยุบไว้โดยค่าเริ่มต้น พื้นที่ที่ขยายแล้วใช้หัวเรื่องวันที่ ช่วงเวลา 6 ชั่วโมง และตารางเดียวกันกับสัปดาห์ปัจจุบัน กะงานสีเทาทั้งสองข้างเป็นแบบดูเท่านั้น แก้ไขไม่ได้ และไม่นับรวมในสถิติรายสัปดาห์; เปลี่ยนไปยังสัปดาห์ที่เกี่ยวข้องเพื่อทำการปรับแต่ง กะงานของทีมปัจจุบันและทีมอื่นแสดงอยู่ในแถวเดียวกัน: ผู้ดูแลระบบสามารถแก้ไขกะงานที่มีสีสำหรับกลุ่มของตัวเองได้ ส่วนกะงานสีเทาจากทีมอื่นแสดงชื่อทีมและเวลาเพื่อการอ้างอิงเท่านั้น ช่องว่างสามารถกำหนดเวลาด้วยตนเองในโหมด &apos;เพิ่มกะงาน&apos;</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>เลือกเวรเพื่อดูรายละเอียด เลื่อนในแนวนอนเพื่อดูตารางเวรตลอดทั้งสัปดาห์</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>กะ / ระยะเวลาทั้งหมด</value>
