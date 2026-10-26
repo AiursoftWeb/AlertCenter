@@ -172,14 +172,18 @@ public partial class IncidentPagesTests
             await db.SaveChangesAsync();
             groupId = group.Id;
         }
-        var alerts = AssertUiStackAlerts(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(start.ToString("O"))}"));
-        var staffing = alerts.Single(alert => WebUtility.HtmlDecode(alert.Message).Contains("Insufficient staff warning"));
+        var html = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
+        var alerts = AssertUiStackAlerts(html);
+        var staffing = alerts.Single(alert => WebUtility.HtmlDecode(alert.Message).Contains("staffing reminders"));
         Assert.Contains("alert-warning", staffing.Classes);
-        Assert.IsTrue(Regex.IsMatch(staffing.Message, "<div[^>]*class=\"alert-message[^\"]*\"[^>]*>\\s*<details\\b[^>]*open[^>]*>\\s*<summary\\b", RegexOptions.Singleline));
+        Assert.IsTrue(Regex.IsMatch(staffing.Message, "<div[^>]*class=\"alert-message[^\"]*\"[^>]*>\\s*<details\\b[^>]*>\\s*<summary\\b", RegexOptions.Singleline));
         Assert.Contains("</summary>", staffing.Message);
         Assert.Contains("</details>", staffing.Message);
-        var shared = alerts.Single(alert => alert.Root.Contains("id=\"oncall-shared-members\""));
-        Assert.Contains("class=\"alert-icon", shared.Root);
+        Assert.IsFalse(Regex.IsMatch(staffing.Message, "<details\\b[^>]*\\bopen", RegexOptions.Singleline));
+        var rules = Regex.Match(html, "<details class=\"card mt-3\">(.*?)</details>", RegexOptions.Singleline).Groups[1].Value;
+        Assert.Contains("id=\"oncall-shared-members\"", rules);
+        Assert.Contains("Cross-on-call-group members require manual scheduling", WebUtility.HtmlDecode(rules));
+        Assert.IsFalse(alerts.Any(alert => alert.Root.Contains("id=\"oncall-shared-members\"")));
         Assert.IsTrue(alerts.Any(alert => WebUtility.HtmlDecode(alert.Message).Contains("unassigned shifts")));
         var summary = alerts.Single(alert => alert.Classes.Contains("alert-primary"));
         Assert.Contains("role=\"status\"", summary.Root);
