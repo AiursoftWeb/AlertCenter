@@ -1004,3 +1004,9 @@
     background-color: var(--bs-tertiary-bg, #f8f9fa);
     color: var(--bs-body-color, #212529);
 }
+
+/* Viewing a schedule must not expose editing targets or capture touch scrolling. */
+#oncall-gantt:not(.ac-gantt-editable) .ac-gantt-week,
+#oncall-gantt:not(.ac-gantt-editable) .ac-gantt-cell {
+    display: none;
+}
