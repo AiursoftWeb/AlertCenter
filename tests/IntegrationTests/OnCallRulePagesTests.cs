@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
+using Aiursoft.AlertCenter.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
@@ -79,12 +80,25 @@ public class OnCallRulePagesTests : TestBase
         Assert.DoesNotContain("7-day on-call preview", details);
         var schedule = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}"));
         Assert.Contains("7-Day On-Call Schedule", schedule);
-        Assert.Contains("Current On-Call", schedule);
+        Assert.Contains("Unsaved · Auto-suggested", schedule);
+        Assert.Contains("Suggested or manual assignments are not active until saved.", schedule);
+        Assert.DoesNotContain("Current On-Call", schedule);
+        Assert.DoesNotContain("id=\"oncall-published-status\"", schedule);
         Assert.Contains("7-Day On-Call Gantt Chart", schedule);
         Assert.Contains("ac-gantt-now", schedule);
-        Assert.Contains("ac-gantt-current", schedule);
+        Assert.DoesNotContain("ac-gantt-current", schedule);
         Assert.AreEqual(21, Regex.Matches(schedule, "class=\"ac-gantt-shift ").Count);
         Assert.DoesNotContain("Unable to generate preview", schedule);
+        var suggestion = await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={groupId}");
+        using var save = new HttpRequestMessage(HttpMethod.Post, "/OnCall/GenerateSchedule");
+        save.Headers.Add("RequestVerificationToken", await GetAntiCsrfToken($"/OnCall/ScheduleDetails/{groupId}"));
+        save.Content = JsonContent.Create(suggestion);
+        Assert.AreEqual(HttpStatusCode.OK, (await Http.SendAsync(save)).StatusCode);
+        var savedSchedule = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}"));
+        Assert.Contains("id=\"oncall-published-status\"", savedSchedule);
+        Assert.Contains("Current On-Call", savedSchedule);
+        Assert.Contains("ac-gantt-current", savedSchedule);
+        Assert.DoesNotContain("Suggested or manual assignments are not active until saved.", savedSchedule);
         Assert.DoesNotContain("id=\"oncall-rule-form\"", details);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/Details/{Guid.NewGuid()}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/ScheduleDetails/{Guid.NewGuid()}")).StatusCode);
@@ -208,7 +222,8 @@ public class OnCallRulePagesTests : TestBase
         }
 
         var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}"));
-        Assert.Contains("Starting soon", html);
+        Assert.DoesNotContain("Starting soon", html);
+        Assert.Contains("Unsaved · Auto-suggested", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);
         Assert.AreEqual(3, Regex.Matches(html, "class=\"ac-gantt-row\" role=\"group\"").Count);
         Assert.AreEqual(21, Regex.Matches(html, "class=\"ac-gantt-shift ").Count);

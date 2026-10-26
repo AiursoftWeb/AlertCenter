@@ -33,7 +33,11 @@
     <h3 class="h6 mb-0">@Localizer["Employee on-call timeline"]</h3>
     <span class="small text-muted">@LocalTime(start) → @LocalTime(end) · @group.TimeZoneId</span>
 </div>
-<p id="oncall-gantt-help" class="small text-muted">@Localizer["Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in 'Add Shift' mode."]</p>
+<p id="oncall-gantt-help" class="small text-muted mb-2">@Localizer["Select a shift to see its details. Scroll horizontally to see the full week."]</p>
+<details class="small text-muted mb-3">
+    <summary>@Localizer["How to read this timeline"]</summary>
+<p class="small text-muted">@Localizer["Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in 'Add Shift' mode."]</p>
+</details>
 <div class="ac-gantt-frame">
 <button type="button" class="btn btn-sm btn-outline-secondary ac-gantt-edge-toggle" data-oncall-edge="previous" aria-expanded="false" aria-controls="oncall-gantt">@Localizer["Expand previous 36 hours"]</button>
 <div id="oncall-gantt" class="ac-gantt-scroll border rounded" role="region" aria-label="@Localizer["7-Day On-Call Gantt Chart"]" aria-describedby="oncall-gantt-help" tabindex="0">
@@ -136,7 +140,7 @@
                     }
                     @foreach (var shift in Model.Preview.Where(shift => shift.UserId == user.Id))
                     {
-                        var isCurrent = shift.StartsAtUtc <= now && now < shift.EndsAtUtc;
+                        var isCurrent = Model.ScheduleSaved && shift.StartsAtUtc <= now && now < shift.EndsAtUtc;
                         var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.StartsAtUtc), zone);
                         var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.EndsAtUtc), zone);
                         var shiftHours = (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours;
@@ -205,7 +209,7 @@
     <div id="oncall-shift-summary" class="small fw-semibold mb-3">
         @if (selectedShift != null)
         {
-            <span>@staffNames.GetValueOrDefault(selectedShift.UserId, @Localizer["Employee deleted"].Value)@(!memberOrder.ContainsKey(selectedShift.UserId) ? @Localizer[" · Departed"].Value : "") · @((selectedShift.EndsAtUtc - selectedShift.StartsAtUtc).TotalHours.ToString("0.##")) @Localizer["hours · "]@group.TimeZoneId@(selectedShift.StartsAtUtc <= now && now < selectedShift.EndsAtUtc ? @Localizer[" · On duty"].Value : "")</span>
+            <span>@staffNames.GetValueOrDefault(selectedShift.UserId, @Localizer["Employee deleted"].Value)@(!memberOrder.ContainsKey(selectedShift.UserId) ? @Localizer[" · Departed"].Value : "") · @((selectedShift.EndsAtUtc - selectedShift.StartsAtUtc).TotalHours.ToString("0.##")) @Localizer["hours · "]@group.TimeZoneId@(Model.ScheduleSaved && selectedShift.StartsAtUtc <= now && now < selectedShift.EndsAtUtc ? @Localizer[" · On duty"].Value : "")</span>
         }
         else
         {

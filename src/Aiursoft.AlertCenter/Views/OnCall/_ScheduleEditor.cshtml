@@ -31,6 +31,8 @@
         };
     }).ToList();
 }
+<details id="oncall-adjustments" class="border rounded p-3 mb-3">
+<summary class="fw-semibold">@Localizer["Adjust schedule"]</summary>
 <div id="oncall-schedule" class="my-3" data-group-id="@group.Id" data-group-name="@group.Name" data-version="@group.ScheduleVersion" data-rest-hours="@Model.ScheduleRestHours" data-minimum-staff="@Model.ScheduleMinimumStaff" data-zone="@group.TimeZoneId"
      data-start="@Model.WeekStartUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)" data-weeks="@JsonSerializer.Serialize(weeks)"
      data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
@@ -40,29 +42,37 @@
         <button type="button" class="btn btn-outline-primary" data-schedule-mode="add" aria-pressed="false">@Localizer["Add shift"]</button>
         <button type="button" class="btn btn-outline-danger" data-schedule-mode="remove" aria-pressed="false">@Localizer["Delete shift"]</button>
     </div>
-    <p id="oncall-mode-help" class="small mb-2" role="status">@Localizer["Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts."]</p>
-    <p class="small mb-2">@Localizer["Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag 'Swap Entire Week' to exchange two people's weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments."]</p>
+    <p id="oncall-mode-help" class="small mb-2" role="status">@Localizer["Currently in Move/Swap mode. Switch the mode above before adding or removing shifts."]</p>
     <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
         <button id="oncall-save-schedule" type="button" class="btn btn-primary">@Localizer["Save schedule adjustments"]</button>
+        <button id="oncall-undo-schedule" type="button" class="btn btn-outline-secondary">@Localizer["Undo last step"]</button>
+        <details>
+            <summary class="btn btn-outline-secondary">@Localizer["More actions"]</summary>
+            <div class="d-flex flex-wrap gap-2 mt-2">
         @if (weeks[2].available)
         {
             <button id="oncall-copy-next" type="button" class="btn btn-outline-primary">@Localizer["Copy Current Week to Next Week"]</button>
         }
-        <button id="oncall-undo-schedule" type="button" class="btn btn-outline-secondary">@Localizer["Undo last step"]</button>
         <button id="oncall-reset-schedule" type="button" class="btn btn-outline-secondary">@Localizer["Reset All"]</button>
+            </div>
+        </details>
         <span id="oncall-edit-count" class="small text-muted" role="status"></span>
     </div>
     <p id="oncall-drag-status" class="small text-primary mb-2" role="status" aria-live="polite"></p>
+    <details class="small text-muted mb-3">
+        <summary>@Localizer["How to adjust the schedule"]</summary>
+    <p class="small mb-2">@Localizer["Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag 'Swap Entire Week' to exchange two people's weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments."]</p>
     <p class="small text-muted mb-2">@Localizer["Copy the current week's draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week's draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts."]</p>
     <p class="small text-muted mb-2">@Localizer["Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied."]</p>
+    </details>
     <details id="oncall-draft-validation" class="text-danger small mb-2" hidden>
         <summary id="oncall-draft-summary" role="status" aria-live="polite"></summary>
         <ul id="oncall-draft-errors" class="mt-2"></ul>
     </details>
     @if (Model.CanGenerateSchedule && !Model.ScheduleSaved)
     {
-        <p class="small text-muted">@Localizer["Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten."]</p>
-        <button id="oncall-generate" type="button" class="btn btn-primary">@Localizer["Generate and save this week's schedule"]</button>
+        <p class="small text-muted">@Localizer["Generate and save applies a new automatic schedule immediately."]</p>
+        <button id="oncall-generate" type="button" class="btn btn-outline-primary mb-2">@Localizer["Generate and save this week's schedule"]</button>
     }
         <details id="oncall-editor">
             <summary class="fw-semibold my-3">@Localizer["Add or remove personnel by shift"]</summary>
@@ -92,8 +102,10 @@
                 </div>
             </fieldset>
         </details>
+    <p class="small text-muted mb-0">@Localizer["Changes take effect only after saving. Collapsing these tools keeps your draft."]</p>
     <ul id="oncall-schedule-errors" class="text-danger mt-3" role="alert"></ul>
 </div>
+</details>
 <div class="modal fade" id="oncall-copy-confirm" tabindex="-1" aria-labelledby="oncall-copy-title" aria-describedby="oncall-copy-description" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
