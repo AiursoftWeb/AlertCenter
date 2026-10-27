@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>Добавить смену</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>Настроить расписание</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Автосообщения не были сохранены. Смежные расписания будут повторно проверены при генерации; существующие сохранённые расписания не будут перезаписаны.</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>Отмена, оставить расписание на следующую неделю</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>Изменения вступят в силу только после сохранения. При сворачивании этих инструментов черновик сохраняется.</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Подтвердить замену черновика</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Сейчас включён режим перемещения/обмена. Перед добавлением или удалением смен переключите режим выше.</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Сейчас выбран режим перемещения/обмена. Переключите режим выше, прежде чем добавлять или удалять смены.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Удалить смену</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Перетащите цветной блок на другой смен, чтобы поменять персонал местами, или на пустой слот, чтобы переместить смен; перетащите «Обмен всей неделей», чтобы обменять недельные графики двух сотрудников. Также можно щёлкнуть для выбора, а затем щёлкнуть по целевому объекту; нажмите Esc для отмены. Изменения отображаются немедленно и могут быть сохранены пакетно после нескольких корректировок.</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>Создание и сохранение немедленно применяют новое автоматическое расписание.</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>Сформировать и сохранить расписание на эту неделю</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>Как изменить расписание</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>Другие действия</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>Переместить / Обменять</value>

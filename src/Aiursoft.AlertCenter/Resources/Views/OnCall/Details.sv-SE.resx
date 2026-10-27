@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} bemanningspåminnelser · det går att spara även om bemanningen understiger miniminivån</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} obemannade pass · fyll ett pass</value>
+  </data>
+  <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7-dagars jourplan</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -129,6 +135,15 @@
   <data name="Saved" xml:space="preserve">
     <value>Sparad</value>
   </data>
+  <data name="Schedule needs attention" xml:space="preserve">
+    <value>Schemat behöver ses över</value>
+  </data>
+  <data name="Scheduled hours" xml:space="preserve">
+    <value>Schemalagda timmar</value>
+  </data>
+  <data name="Scheduling rules and members" xml:space="preserve">
+    <value>Schemaläggningsregler och medlemmar</value>
+  </data>
   <data name="Shift covered" xml:space="preserve">
     <value>Täckta pass</value>
   </data>
@@ -138,8 +153,14 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Börjar snart</value>
   </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Statusen baseras på när sidan laddades.</value>
+  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Statusen baseras på när sidan laddades.</value>
+  </data>
+  <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
+    <value>Föreslagna eller manuella tilldelningar blir inte aktiva förrän de har sparats.</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Lagkonfiguration</value>
@@ -164,6 +185,9 @@
   </data>
   <data name="View team" xml:space="preserve">
     <value>Visa team</value>
+  </data>
+  <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
+    <value>Du visar ett osparat utkast. Aviseringar följer fortfarande det sparade schemat.</value>
   </data>
 
 </root>

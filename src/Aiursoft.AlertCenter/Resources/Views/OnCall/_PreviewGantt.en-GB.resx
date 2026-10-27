@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>hours ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>How to read this timeline</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>No shifts assigned.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>Scroll horizontally to view the full schedule; hover, focus or click a colour block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right-hand side of the employee column and at the far right of the timeline expand the view to show 36 hours before the start and after the end of the week (actual UTC duration, including DST changes); these areas are collapsed by default. Expanded areas use the same date headers, 6-hour increments and grid as the current week. Grey shifts on both sides are view-only, cannot be edited and are excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit coloured shifts for their own group, while grey shifts from other teams show the team and time for reference only. Empty slots can be scheduled manually in &apos;Add Shift&apos; mode.</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>Select a shift to see its details. Scroll horizontally to see the full week.</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>Shift / Total Duration</value>

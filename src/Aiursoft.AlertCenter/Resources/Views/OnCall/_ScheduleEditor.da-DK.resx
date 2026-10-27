@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>Tilføj vagt</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>Tilpas vagtplan</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Automatiske forslag er ikke blevet gemt. Tilstødende vagtplaner valideres igen ved generering; eksisterende gemte planer overskrives ikke.</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>Annullér, behold næste uge</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>Ændringer træder først i kraft, når de er gemt. Hvis du skjuler disse værktøjer, bevares dit udkast.</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Bekræft udskiftning af udkast</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Du er i øjeblikket i Flyt/byt-tilstand. Skift tilstanden ovenfor, før du tilføjer eller fjerner vagter.</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Du er i øjeblikket i flyt/udskift-tilstand. Skift tilstand ovenfor, før du tilføjer eller fjerner vagter.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Slet vagt</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Træk en farveblok til en anden vagt for at bytte medarbejdere, eller til en tom plads for at flytte vagten. Træk &quot;Byt hele ugen&quot; for at bytte to personers ugeplaner. Du kan også klikke for at vælge og derefter klikke på målet. Tryk på Esc for at annullere. Ændringer vises med det samme og kan gemmes samlet efter flere justeringer.</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>Generér og gem anvender straks en ny automatisk vagtplan.</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>Generér og gem denne uges vagtplan</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>Sådan justerer du vagtplanen</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>Flere handlinger</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>Flyt / byt</value>

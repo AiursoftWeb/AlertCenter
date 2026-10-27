@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>часов ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>Как пользоваться этой временной шкалой</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>Нет назначенных смен.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>Прокручивайте по горизонтали, чтобы просмотреть всё расписание. Наведите курсор на цветной блок, перейдите на него с помощью клавиши Tab или щёлкните по нему, чтобы посмотреть подробности смены. Красная линия показывает время на момент загрузки страницы. Вертикальные кнопки справа от столбца сотрудников и в крайней правой части временной шкалы раскрывают интервалы длительностью 36 часов до начала и после окончания недели (фактическая длительность по UTC с учётом переходов на летнее и зимнее время); по умолчанию эти интервалы свёрнуты. В раскрытых областях используются те же заголовки дат, шаг в 6 часов и сетка, что и для текущей недели. Серые смены по обе стороны доступны только для просмотра, их нельзя редактировать, и они не учитываются в недельной статистике. Чтобы внести изменения, перейдите к соответствующей неделе. Смены текущей и других команд отображаются в одной строке: администраторы могут редактировать цветные смены своей группы, а серые смены других команд показывают только команду и время для справки. Пустые интервалы можно заполнить вручную в режиме «Добавить смену».</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>Выберите смену, чтобы посмотреть подробности. Прокрутите по горизонтали, чтобы увидеть всю неделю.</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>Смена / общая продолжительность</value>

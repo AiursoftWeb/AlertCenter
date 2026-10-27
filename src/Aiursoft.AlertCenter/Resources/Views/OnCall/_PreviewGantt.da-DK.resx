@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>timer ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>Sådan læser du tidslinjen</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>Ingen tildelte vagter.</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>Rul vandret for at se hele vagtplanen. Hold markøren over, fokuser på eller klik på en farvet blok for at se oplysninger om vagten. Den røde linje angiver det aktuelle tidspunkt, da siden blev indlæst. Lodrette knapper til højre for medarbejderkolonnen og helt ude til højre på tidslinjen udvider visningen med 36 timer før ugens start og efter dens afslutning (faktisk varighed i UTC, inklusive ændringer ved sommertid). Områderne er som standard sammenklappede. De udvidede områder bruger de samme datooverskrifter, intervaller på 6 timer og det samme gitter som den aktuelle uge. Grå vagter på begge sider er kun til visning, kan ikke redigeres og indgår ikke i ugens statistik. Gå til den tilsvarende uge for at foretage ændringer. Vagter for det aktuelle team og andre teams vises på samme række: Administratorer kan redigere farvede vagter for deres egen gruppe, mens grå vagter fra andre teams kun viser team og tidspunkt som reference. Tomme tidsrum kan planlægges manuelt i tilstanden &apos;Tilføj vagt&apos;.</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>Vælg en vagt for at se oplysningerne. Rul vandret for at se hele ugen.</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>Vagt / samlet varighed</value>

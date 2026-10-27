@@ -87,6 +87,9 @@
   <data name="hours · " xml:space="preserve">
     <value>時間 ·</value>
   </data>
+  <data name="How to read this timeline" xml:space="preserve">
+    <value>このタイムラインの見方</value>
+  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>割り当てられたシフトはありません。</value>
   </data>
@@ -101,6 +104,9 @@
   </data>
   <data name="Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in &apos;Add Shift&apos; mode." xml:space="preserve">
     <value>スケジュール全体を表示するには横にスクロールしてください。色付きのブロックにカーソルを合わせるか、フォーカスするか、クリックすると、シフトの詳細を確認できます。赤い線は、ページを読み込んだ時点の現在時刻を示します。従業員列の右側とタイムラインの一番右にある縦型ボタンを押すと、週の開始前と終了後の36時間分の範囲（DSTによる変更を含む実際のUTC時間）が展開されます。既定では折りたたまれています。展開した範囲にも、現在の週と同じ日付見出し、6時間刻み、グリッドが表示されます。両側に表示される灰色のシフトは閲覧専用で、編集できず、週次統計にも含まれません。変更するには、該当する週に切り替えてください。現在のチームと他のチームのシフトは同じ行に表示されます。管理者は自分のグループの色付きシフトを編集できますが、他のチームの灰色のシフトは、参照用にチーム名と時刻のみが表示されます。「シフトを追加」モードでは、空き枠に手動でシフトを設定できます。</value>
+  </data>
+  <data name="Select a shift to see its details. Scroll horizontally to see the full week." xml:space="preserve">
+    <value>シフトを選択すると詳細が表示されます。週全体を表示するには、横方向にスクロールしてください。</value>
   </data>
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>シフト／合計時間</value>

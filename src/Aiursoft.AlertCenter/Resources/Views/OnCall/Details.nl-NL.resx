@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} personeelsbezettingswaarschuwingen · opslaan onder het minimum is toegestaan</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} niet-toegewezen diensten · vul een dienst in</value>
+  </data>
+  <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7-daags oproepschema</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -129,6 +135,15 @@
   <data name="Saved" xml:space="preserve">
     <value>Opgeslagen</value>
   </data>
+  <data name="Schedule needs attention" xml:space="preserve">
+    <value>Rooster vereist aandacht</value>
+  </data>
+  <data name="Scheduled hours" xml:space="preserve">
+    <value>Ingeplande uren</value>
+  </data>
+  <data name="Scheduling rules and members" xml:space="preserve">
+    <value>Planningsregels en leden</value>
+  </data>
   <data name="Shift covered" xml:space="preserve">
     <value>Ingevulde diensten</value>
   </data>
@@ -138,8 +153,14 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Binnenkort startend</value>
   </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>De status is gebaseerd op het moment waarop de pagina is geladen.</value>
+  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Status is gebaseerd op de paginaduur)</value>
+  </data>
+  <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
+    <value>Voorgestelde of handmatige toewijzingen zijn pas actief nadat ze zijn opgeslagen.</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Teamconfiguratie</value>
@@ -164,6 +185,9 @@
   </data>
   <data name="View team" xml:space="preserve">
     <value>Team bekijken</value>
+  </data>
+  <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
+    <value>U bekijkt een niet-opgeslagen concept. Meldingen volgen nog steeds het opgeslagen rooster.</value>
   </data>
 
 </root>

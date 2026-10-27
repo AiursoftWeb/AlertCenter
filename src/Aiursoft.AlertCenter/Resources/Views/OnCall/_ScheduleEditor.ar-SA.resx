@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>إضافة مناوبة</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>تعديل الجدول</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>لم يتم حفظ الاقتراحات التلقائية. ستُعاد عملية التحقق من الجداول المجاورة عند إنشاء الجدول؛ ولن تُستبدل الترتيبات المحفوظة الحالية.</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>إلغاء، مع الإبقاء على جدول الأسبوع القادم</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>لا تُطبَّق التغييرات إلا بعد الحفظ. يؤدي طيّ هذه الأدوات إلى الاحتفاظ بمسودتك.</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>تأكيد استبدال المسودة</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>الوضع الحالي هو النقل/التبديل. غيّر الوضع أعلاه قبل إضافة المناوبات أو حذفها.</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>الوضع الحالي هو النقل/التبديل. غيّر الوضع أعلاه قبل إضافة الورديات أو حذفها.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>حذف المناوبة</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>اسحب كتلة الألوان إلى وردية أخرى لتبديل الموظفين، أو إلى خانة فارغة لنقل الوردية؛ اسحب &apos;تبديل الأسبوع بالكامل&apos; لتبادل الجداول الأسبوعية لشخصين. يمكنك أيضًا النقر للاختيار، ثم النقر على الهدف؛ اضغط Esc للإلغاء. تُعرض التغييرات فورًا ويمكن حفظها دفعة واحدة بعد عدة تعديلات.</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>يتم تطبيق جدول جديد مُنشأ تلقائيًا وحفظه فورًا.</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>إنشاء وجدول هذا الأسبوع وحفظه</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>كيفية تعديل الجدول</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>إجراءات أخرى</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>نقل / تبديل</value>

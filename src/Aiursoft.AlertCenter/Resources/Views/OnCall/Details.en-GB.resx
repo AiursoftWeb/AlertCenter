@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} staffing reminders · saving below minimum is allowed</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} unallocated shifts · fill a shift</value>
+  </data>
+  <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7-day on-call rota</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -129,6 +135,15 @@
   <data name="Saved" xml:space="preserve">
     <value>Saved</value>
   </data>
+  <data name="Schedule needs attention" xml:space="preserve">
+    <value>Schedule requires attention</value>
+  </data>
+  <data name="Scheduled hours" xml:space="preserve">
+    <value>Scheduled hours</value>
+  </data>
+  <data name="Scheduling rules and members" xml:space="preserve">
+    <value>Scheduling rules and members</value>
+  </data>
   <data name="Shift covered" xml:space="preserve">
     <value>Shifts covered</value>
   </data>
@@ -138,8 +153,14 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Starting shortly</value>
   </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Status is based on the page load time.</value>
+  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Status is based on page load time)</value>
+  </data>
+  <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
+    <value>Suggested or manual assignments are not active until saved.</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Team configuration</value>
@@ -164,6 +185,9 @@
   </data>
   <data name="View team" xml:space="preserve">
     <value>View team</value>
+  </data>
+  <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
+    <value>You are viewing an unsaved draft. Notifications still follow the saved schedule.</value>
   </data>
 
 </root>

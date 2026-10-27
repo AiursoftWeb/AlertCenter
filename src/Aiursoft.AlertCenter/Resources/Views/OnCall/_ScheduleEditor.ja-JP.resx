@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>シフトを追加</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>スケジュールを調整</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>自動提案はまだ保存されていません。生成時に隣接するスケジュールが再検証されますが、既存の保存済みの割り当ては上書きされません。</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>キャンセルして来週はそのままにする</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>変更は保存後にのみ反映されます。これらのツールを折りたたんでも、下書きは保持されます。</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>下書きの置き換えを確定</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>現在は移動／入れ替えモードです。シフトを追加または削除する前に、上のボタンでモードを切り替えてください。</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>現在は移動／入れ替えモードです。シフトを追加または削除する前に、上のモードを切り替えてください。</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>シフトを削除</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>色付きのブロックを別のシフトにドラッグすると担当者を入れ替え、空き枠にドラッグするとシフトを移動できます。「Swap Entire Week」をドラッグすると、2人の週間スケジュールを入れ替えます。クリックして選択し、移動先をクリックすることもできます。Escキーを押すとキャンセルできます。変更はすぐに表示され、複数の調整を行った後にまとめて保存できます。</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>生成して保存すると、新しい自動スケジュールがすぐに適用されます。</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>今週のスケジュールを作成して保存</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>スケジュールの調整方法</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>その他の操作</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>移動／入れ替え</value>

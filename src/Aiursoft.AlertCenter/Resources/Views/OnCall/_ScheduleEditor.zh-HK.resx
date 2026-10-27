@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>新增更次</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>調整時間表</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>自動建議尚未儲存。產生排班表時會重新驗證相鄰排班表；現有已儲存的安排不會被覆寫。</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>取消，保留下星期</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>變更只會在儲存後生效。收起這些工具不會清除你的草稿。</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>確認取代草稿</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>目前處於移動／交換模式。新增或刪除更次前，請先切換至上方的模式。</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>目前處於移動／交換模式。新增或移除更次前，請先切換上方的模式。</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>刪除更次</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>將色塊拖曳至另一個班次，即可交換人員；拖曳至空白時段，即可移動班次。拖曳「交換整週」即可交換兩人的整週班表。你亦可先按一下選取，再按一下目標位置；按 Esc 取消。變更會即時顯示，完成多項調整後可一次過儲存。</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>產生並儲存會即時套用新的自動排程。</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>產生並儲存本週時間表</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>如何調整更表</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>更多操作</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>移動 / 交換</value>

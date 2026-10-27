@@ -18,7 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} przypomnienia o obsadzie · można zapisać grafik poniżej minimum</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} nieprzypisane dyżury · wypełnij dyżur</value>
+  </data>
+  <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7-dniowy harmonogram dyżurów</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -129,6 +135,15 @@
   <data name="Saved" xml:space="preserve">
     <value>Zapisane</value>
   </data>
+  <data name="Schedule needs attention" xml:space="preserve">
+    <value>Grafik wymaga uwagi</value>
+  </data>
+  <data name="Scheduled hours" xml:space="preserve">
+    <value>Zaplanowane godziny</value>
+  </data>
+  <data name="Scheduling rules and members" xml:space="preserve">
+    <value>Zasady harmonogramu i członkowie</value>
+  </data>
   <data name="Shift covered" xml:space="preserve">
     <value>Obsadzone zmiany</value>
   </data>
@@ -138,8 +153,14 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Wkrótce się rozpocznie</value>
   </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Status zależy od czasu wczytania strony.</value>
+  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Stan jest określany na podstawie czasu wczytania strony)</value>
+  </data>
+  <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
+    <value>Zaproponowane lub ręczne przydziały nie są aktywne, dopóki nie zostaną zapisane.</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Konfiguracja zespołu</value>
@@ -164,6 +185,9 @@
   </data>
   <data name="View team" xml:space="preserve">
     <value>Wyświetl zespół</value>
+  </data>
+  <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
+    <value>Wyświetlasz niezapisany projekt. Powiadomienia nadal są wysyłane zgodnie z zapisanym harmonogramem.</value>
   </data>
 
 </root>

@@ -27,6 +27,9 @@
   <data name="Add shift" xml:space="preserve">
     <value>Schicht hinzufügen</value>
   </data>
+  <data name="Adjust schedule" xml:space="preserve">
+    <value>Zeitplan anpassen</value>
+  </data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Automatische Vorschläge wurden nicht gespeichert. Benachbarte Dienstpläne werden bei der Generierung erneut validiert; bereits gespeicherte Pläne werden nicht überschrieben.</value>
   </data>
@@ -35,6 +38,9 @@
   </data>
   <data name="Cancel, keep next week" xml:space="preserve">
     <value>Abbrechen, nächste Woche beibehalten</value>
+  </data>
+  <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
+    <value>Änderungen werden erst nach dem Speichern wirksam. Wenn Sie diese Werkzeuge einklappen, bleibt Ihr Entwurf erhalten.</value>
   </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Entwurfsersetzung bestätigen</value>
@@ -48,14 +54,26 @@
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Derzeit im Verschieben-/Tauschen-Modus. Wechseln Sie oben den Modus, bevor Sie Schichten hinzufügen oder entfernen.</value>
   </data>
+  <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
+    <value>Derzeit ist der Modus „Verschieben/Tauschen“ aktiv. Wechseln Sie oben den Modus, bevor Sie Schichten hinzufügen oder entfernen.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Schicht löschen</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Ziehen Sie einen farbigen Block auf eine andere Schicht, um das Personal auszutauschen, oder auf einen freien Platz, um die Schicht zu verschieben. Ziehen Sie „Swap Entire Week“ auf eine andere Person, um die Wochenpläne der beiden Personen auszutauschen. Sie können auch auf einen Eintrag und anschließend auf das Ziel klicken. Drücken Sie Esc, um abzubrechen. Änderungen werden sofort angezeigt und können nach mehreren Anpassungen gesammelt gespeichert werden.</value>
   </data>
+  <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
+    <value>„Generieren und speichern“ wendet sofort einen neuen automatischen Dienstplan an.</value>
+  </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>Plan der aktuellen Woche generieren und speichern</value>
+  </data>
+  <data name="How to adjust the schedule" xml:space="preserve">
+    <value>So passen Sie den Dienstplan an</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>Weitere Aktionen</value>
   </data>
   <data name="Move / Swap" xml:space="preserve">
     <value>Verschieben / Tauschen</value>
