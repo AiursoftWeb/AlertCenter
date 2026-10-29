@@ -77,7 +77,6 @@ internal sealed class MarkdownView : WebView
         public override bool ShouldOverrideUrlLoading(WebView? view, IWebResourceRequest? request) => OpenLink(request?.Url);
 
         // Android 6 uses the string overload; keep the same browser-only link behavior.
-        [Obsolete("Required for Android API 23 WebView callbacks.")]
         public override bool ShouldOverrideUrlLoading(WebView? view, string? url) =>
             OpenLink(url == null ? null : global::Android.Net.Uri.Parse(url));
 
