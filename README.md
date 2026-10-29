@@ -124,6 +124,24 @@ See the comments in [appsettings.json](src/Aiursoft.AlertCenter/appsettings.json
 - **Email:** configure `Email__Host`, `Email__Port`, `Email__From`, and, when required, `Email__UserName` and `Email__Password`. STARTTLS is enabled by default. Both custom channels and built-in on-call email use these settings. Emails include HTML and plain-text alternatives with a direct incident link. Incident email is sent for creation (red), mitigation (yellow), resolution (green), and reopening (red). Each successful transition queues an email, including repeated mitigation and resolution after reopening. Mitigate-and-resolve sends only the green resolution email. Acknowledgement, reassignment, comments, and severity changes do not send email; API resolution follows the same rules. Set `Email__PublicBaseUrl` to your public site address (including any path prefix); it defaults to `https://alertcenter.aiursoft.com`.
 - **Webhook:** custom encrypted request headers require `Webhook__HeaderProtectionKey`, a Base64-encoded 32-byte key generated with `openssl rand -base64 32`. Preserve this key: losing or changing it makes saved custom headers unreadable. Without it, default headers and custom JSON body templates remain available.
 
+### Incident search
+
+Signed-in users can search from the top navigation bar or `/Search/Index`. Results include only applications they can view and severities enabled by the visibility policy. The existing incident-list filters are unchanged.
+
+Keyword search works without additional services. To enable semantic search, configure these **Global Settings** (or use `GlobalSettings__<key>` environment variables):
+
+- `EnableEmbeddingBasedSearch`: `True` (default `False`).
+- `EmbeddingOllamaInstance`: the base URL of an Ollama-compatible server; requests use `api/embed` below this URL, preserving any path prefix.
+- `EmbeddingModel`: a model already installed on that server.
+- `EmbeddingApiToken`: optional bearer token, encrypted when saved through Global Settings.
+- `EmbeddingQueryCacheLimit`: maximum cached query vectors, default `2000`.
+
+Only enable a trusted embedding server: incident titles, bodies, application names and search queries are sent to it. Context, metadata and comments are not indexed. No separate vector database is required; vectors are persisted in the application's database and ranked in memory within the user's visible scope.
+
+The **Generate incident embeddings** background job runs every minute, starting 30 seconds after startup, and can also be triggered from **Background Jobs**. Each run processes up to 50 new or changed incidents in batches of 10. Existing data is indexed gradually; changing the model or server regenerates vectors automatically. Renamed applications and changed content are reindexed, while status changes do not require regeneration. Deleted incidents disappear immediately. Model failures are recorded as failed jobs and retried on the next scheduled run; they never block incident reporting.
+
+Search falls back to keywords when disabled, unconfigured, without a usable index, or when a model request fails (10-second query timeout). A usable partial index searches the incidents already indexed; the full history becomes available as indexing catches up. Search is limited to eight requests per minute per client and four concurrent requests per application instance.
+
 ### Database migrations
 
 The multiple-key migration removes the old application-level secret hash without migrating credentials. Create new scoped keys and update integration configuration after upgrading. EmployeeCenter audit synchronization needs query, create and resolve permissions.

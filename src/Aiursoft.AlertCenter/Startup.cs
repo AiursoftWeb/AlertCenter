@@ -58,6 +58,12 @@ public class Startup : IWebStartup
         // Services
         services.AddMemoryCache();
         services.AddHttpClient();
+        services.AddHttpClient(EmbeddingClient.HttpClientName, client => client.Timeout = Timeout.InfiniteTimeSpan)
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { AllowAutoRedirect = false, UseCookies = false });
+        services.AddScoped<EmbeddingClient>();
+        services.AddScoped<IncidentSearchService>();
+        services.AddSingleton<IncidentSearchRequestFilter>();
+        services.AddSingleton<IncidentEmbeddingJobGate>();
         services.AddSingleton<WebhookConfigurationProtector>();
         services.Configure<EmailSettings>(configuration.GetSection("Email"));
         services.AddScoped<IEmailSender, SmtpEmailSender>();
@@ -82,6 +88,8 @@ public class Startup : IWebStartup
         // Background jobs
         services.RegisterBackgroundJob<DummyJob>();
         var orphanAvatarCleanupJob = services.RegisterBackgroundJob<OrphanAvatarCleanupJob>();
+        var incidentEmbeddingsJob = services.RegisterBackgroundJob<GenerateIncidentEmbeddingsJob>();
+        services.RegisterScheduledTask(incidentEmbeddingsJob, period: TimeSpan.FromMinutes(1), startDelay: TimeSpan.FromSeconds(30));
 
         // Scheduled tasks (attach a schedule to any registered background job)
         services.RegisterScheduledTask(

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="AI search" xml:space="preserve">
+        <value>AI 搜索</value>
+    </data>
+    <data name="Enter up to 200 characters to search incidents." xml:space="preserve">
+        <value>输入不超过 200 个字符以搜索事件。</value>
+    </data>
+    <data name="Incident search" xml:space="preserve">
+        <value>事件搜索</value>
+    </data>
+    <data name="Incident severity" xml:space="preserve">
+        <value>事件严重级别</value>
+    </data>
+    <data name="Incident status" xml:space="preserve">
+        <value>事件状态</value>
+    </data>
+    <data name="Keyword search" xml:space="preserve">
+        <value>关键词搜索</value>
+    </data>
+    <data name="Mitigated" xml:space="preserve">
+        <value>已缓解</value>
+    </data>
+    <data name="Next page" xml:space="preserve">
+        <value>下一页</value>
+    </data>
+    <data name="No matching incidents" xml:space="preserve">
+        <value>没有匹配的事件</value>
+    </data>
+    <data name="Page {0}" xml:space="preserve">
+        <value>第 {0} 页</value>
+    </data>
+    <data name="Previous page" xml:space="preserve">
+        <value>上一页</value>
+    </data>
+    <data name="Received at" xml:space="preserve">
+        <value>接收时间</value>
+    </data>
+    <data name="Resolved" xml:space="preserve">
+        <value>已解决</value>
+    </data>
+    <data name="Search" xml:space="preserve">
+        <value>搜索</value>
+    </data>
+    <data name="Search incidents" xml:space="preserve">
+        <value>搜索事件</value>
+    </data>
+    <data name="Search incidents…" xml:space="preserve">
+        <value>搜索事件…</value>
+    </data>
+    <data name="Search only incidents you can access under the configured severity visibility policy." xml:space="preserve">
+        <value>仅搜索您有权访问且符合已配置严重级别可见策略的事件。</value>
+    </data>
+    <data name="Search result pages" xml:space="preserve">
+        <value>搜索结果分页</value>
+    </data>
+    <data name="Search results" xml:space="preserve">
+        <value>搜索结果</value>
+    </data>
+    <data name="Source application" xml:space="preserve">
+        <value>来源应用</value>
+    </data>
+    <data name="Try different search terms." xml:space="preserve">
+        <value>请尝试其他搜索词。</value>
+    </data>
+    <data name="Unmitigated" xml:space="preserve">
+        <value>未缓解</value>
+    </data>
+    <data name="{0} matching incidents you can access" xml:space="preserve">
+        <value>您可访问的事件中有 {0} 个匹配结果</value>
+    </data>
+</root>

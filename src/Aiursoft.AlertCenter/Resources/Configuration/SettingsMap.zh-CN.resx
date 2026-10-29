@@ -66,5 +66,34 @@
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>项目在前端显示的名称。</value>
   </data>
-
+  <data name="Enable semantic search" xml:space="preserve">
+    <value>启用语义搜索</value>
+  </data>
+  <data name="Use embeddings to search incidents. Falls back to keywords when unavailable." xml:space="preserve">
+    <value>使用向量搜索事件；不可用时回退到关键词搜索。</value>
+  </data>
+  <data name="Embedding server URL" xml:space="preserve">
+    <value>向量模型服务地址</value>
+  </data>
+  <data name="Base URL of an Ollama-compatible embedding server. Incident titles, content and application names are sent to this server." xml:space="preserve">
+    <value>兼容 Ollama 的向量模型服务基础地址。事件标题、正文和应用名称会发送到此服务。</value>
+  </data>
+  <data name="Embedding model" xml:space="preserve">
+    <value>向量模型名称</value>
+  </data>
+  <data name="Model installed on the embedding server. Changing the model or server regenerates the index." xml:space="preserve">
+    <value>服务上已安装的模型名称。更改模型或服务地址后将重新生成索引。</value>
+  </data>
+  <data name="Embedding API token" xml:space="preserve">
+    <value>向量模型 API 令牌</value>
+  </data>
+  <data name="Optional bearer token for the embedding server." xml:space="preserve">
+    <value>访问向量模型服务的 Bearer 令牌，可留空。</value>
+  </data>
+  <data name="Query embedding cache limit" xml:space="preserve">
+    <value>查询向量缓存数量上限</value>
+  </data>
+  <data name="Maximum cached query vectors (1–10000). Invalid values use 2000." xml:space="preserve">
+    <value>最多缓存的查询向量数量（1–10000）。无效值使用 2000。</value>
+  </data>
 </root>

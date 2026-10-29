@@ -17,7 +17,7 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.13")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -357,6 +357,33 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasIndex("IncidentId", "CreatedAtUtc", "Id");
 
                     b.ToTable("IncidentComments");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentEmbedding", b =>
+                {
+                    b.Property<Guid>("IncidentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("ContentHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<DateTime>("GeneratedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ModelKey")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<byte[]>("Vector")
+                        .IsRequired()
+                        .HasColumnType("longblob");
+
+                    b.HasKey("IncidentId");
+
+                    b.ToTable("IncidentEmbeddings");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
@@ -800,6 +827,26 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("PushDeliveryRecipients");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SearchEmbedding", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<DateTime>("LastAccessedAtUtc")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<byte[]>("Vector")
+                        .IsRequired()
+                        .HasColumnType("longblob");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LastAccessedAtUtc");
+
+                    b.ToTable("SearchEmbeddings");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SeverityRule", b =>
@@ -1247,6 +1294,17 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Navigation("Incident");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentEmbedding", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
+                        .WithOne("SearchEmbedding")
+                        .HasForeignKey("Aiursoft.AlertCenter.Entities.IncidentEmbedding", "IncidentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Incident");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.User", "Actor")
@@ -1535,6 +1593,8 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.Incident", b =>
                 {
+                    b.Navigation("SearchEmbedding");
+
                     b.Navigation("TimelineEntries");
                 });
 

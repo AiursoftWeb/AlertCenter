@@ -1,0 +1,115 @@
+@using Aiursoft.AlertCenter.Entities
+@using Aiursoft.WebTools
+@model Aiursoft.AlertCenter.Models.IncidentSearchViewModel
+@{
+    ViewData["Title"] = Localizer["Incident search"].Value;
+    var showResults = Model.Query.Length > 0 && ViewData.ModelState.IsValid;
+}
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+
+<div class="mb-4">
+    <h1 class="h3">@Localizer["Incident search"]</h1>
+    <p class="text-muted mb-0">@Localizer["Search only incidents you can access under the configured severity visibility policy."]</p>
+</div>
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+        <form asp-controller="Search" asp-action="Index" method="get" role="search" aria-label="@Localizer["Incident search"]">
+            <label for="incident-search-query" class="form-label">@Localizer["Search incidents"]</label>
+            <div class="input-group">
+                <input id="incident-search-query" name="q" type="search" value="@Model.Query" maxlength="200" class="form-control" placeholder="@Localizer["Search incidents…"]" aria-describedby="incident-search-help incident-search-errors" aria-invalid="@(!ViewData.ModelState.IsValid ? "true" : "false")" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="align-middle me-1" data-lucide="search" aria-hidden="true"></i>@Localizer["Search"]
+                </button>
+            </div>
+            <div id="incident-search-help" class="form-text">@Localizer["Enter up to 200 characters to search incidents."]</div>
+            <div id="incident-search-errors" asp-validation-summary="All" class="text-danger mt-2 mb-0" role="alert"></div>
+        </form>
+    </div>
+</div>
+
+@if (showResults)
+{
+    <section aria-labelledby="incident-search-results">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 id="incident-search-results" class="h5 mb-0">@Localizer["Search results"]</h2>
+            <span class="badge bg-secondary-subtle text-secondary">@(Model.UsedAiSearch ? Localizer["AI search"].Value : Localizer["Keyword search"].Value)</span>
+        </div>
+        <p class="text-muted small">@string.Format(Localizer["{0} matching incidents you can access"].Value, Model.TotalCount)</p>
+        @if (Model.Incidents.Count == 0)
+        {
+            <div class="card shadow-sm border-0">
+                <div class="ac-empty-state">
+                    <div class="ac-empty-icon text-muted"><i data-lucide="search" aria-hidden="true"></i></div>
+                    <h3 class="h5">@Localizer["No matching incidents"]</h3>
+                    <p class="text-muted mb-0">@Localizer["Try different search terms."]</p>
+                </div>
+            </div>
+        }
+        else
+        {
+            foreach (var incident in Model.Incidents)
+            {
+                var content = incident.Content;
+                var summary = content is { Length: > 240 } ? content[..240] + "…" : content;
+                var status = incident.Status switch
+                {
+                    Incident.New => Localizer["Unmitigated"].Value,
+                    Incident.Mitigated => Localizer["Mitigated"].Value,
+                    Incident.Resolved => Localizer["Resolved"].Value,
+                    _ => incident.Status
+                };
+                var levelBadge = incident.Level switch
+                {
+                    "sev0" => "ac-badge-sev0",
+                    "sev1" => "ac-badge-sev1",
+                    "sev2" => "ac-badge-sev2",
+                    "sev3" => "ac-badge-sev3",
+                    _ => "ac-badge-sev4"
+                };
+                <article class="card shadow-sm border-0 mb-3">
+                    <div class="card-body">
+                        <h3 class="h5 text-break">
+                            <a asp-controller="Incidents" asp-action="Details" asp-route-id="@incident.Id" class="text-decoration-none">@incident.Title</a>
+                        </h3>
+                        <p class="text-muted text-break">@summary</p>
+                        <dl class="row small mb-0">
+                            <dt class="col-sm-3">@Localizer["Source application"]</dt>
+                            <dd class="col-sm-9 text-break">@incident.Application.Name</dd>
+                            <dt class="col-sm-3">@Localizer["Incident severity"]</dt>
+                            <dd class="col-sm-9"><span class="badge @levelBadge font-monospace">@incident.Level</span></dd>
+                            <dt class="col-sm-3">@Localizer["Incident status"]</dt>
+                            <dd class="col-sm-9">@status</dd>
+                            <dt class="col-sm-3">@Localizer["Received at"]</dt>
+                            <dd class="col-sm-9 mb-0"><time datetime="@incident.ReceivedAtUtc.ToHtmlDateTime()" data-utc-time="@incident.ReceivedAtUtc.ToHtmlDateTime()">@incident.ReceivedAtUtc.ToString("u")</time></dd>
+                        </dl>
+                    </div>
+                </article>
+            }
+        }
+        @if (Model.Incidents.Count > 0 || Model.Page > 1)
+        {
+            <nav aria-label="@Localizer["Search result pages"]" class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3">
+                @if (Model.Page > 1)
+                {
+                    <a asp-controller="Search" asp-action="Index" asp-route-q="@Model.Query" asp-route-page="@(Model.Page - 1)" class="btn btn-outline-secondary">@Localizer["Previous page"]</a>
+                }
+                else
+                {
+                    <span class="btn btn-outline-secondary disabled" aria-disabled="true">@Localizer["Previous page"]</span>
+                }
+                <span class="text-muted small" aria-current="page">@string.Format(Localizer["Page {0}"].Value, Model.Page)</span>
+                @if (Model.HasNextPage && Model.Page < 1000000)
+                {
+                    <a asp-controller="Search" asp-action="Index" asp-route-q="@Model.Query" asp-route-page="@(Model.Page + 1)" class="btn btn-outline-secondary">@Localizer["Next page"]</a>
+                }
+                else
+                {
+                    <span class="btn btn-outline-secondary disabled" aria-disabled="true">@Localizer["Next page"]</span>
+                }
+            </nav>
+        }
+    </section>
+}
