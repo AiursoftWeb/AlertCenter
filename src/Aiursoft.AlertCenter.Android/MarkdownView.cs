@@ -74,9 +74,15 @@ internal sealed class MarkdownView : WebView
     }
     private sealed class ReaderClient(Context context) : WebViewClient
     {
-        public override bool ShouldOverrideUrlLoading(WebView? view, IWebResourceRequest? request)
+        public override bool ShouldOverrideUrlLoading(WebView? view, IWebResourceRequest? request) => OpenLink(request?.Url);
+
+        // Android 6 uses the string overload; keep the same browser-only link behavior.
+        [Obsolete("Required for Android API 23 WebView callbacks.")]
+        public override bool ShouldOverrideUrlLoading(WebView? view, string? url) =>
+            OpenLink(url == null ? null : global::Android.Net.Uri.Parse(url));
+
+        private bool OpenLink(global::Android.Net.Uri? url)
         {
-            var url = request?.Url;
             if (url?.Scheme is "https" or "http")
             {
                 try { context.StartActivity(new Intent(Intent.ActionView, url)); }
