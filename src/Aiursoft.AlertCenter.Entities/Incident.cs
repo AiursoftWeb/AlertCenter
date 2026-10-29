@@ -39,5 +39,6 @@ public class Incident
     [NotMapped] public bool IsAcknowledged => AcknowledgedAtUtc.HasValue;
     public DateTime? MitigatedAtUtc { get; set; }
     public DateTime? ResolvedAtUtc { get; set; }
+    public IncidentEmbedding? SearchEmbedding { get; set; }
     public ICollection<IncidentTimelineEntry> TimelineEntries { get; set; } = [];
 }

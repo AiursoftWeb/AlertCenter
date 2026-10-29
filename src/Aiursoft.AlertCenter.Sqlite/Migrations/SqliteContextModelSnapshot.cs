@@ -15,7 +15,7 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.13");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.14");
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationApiKey", b =>
                 {
@@ -352,6 +352,33 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.HasIndex("IncidentId", "CreatedAtUtc", "Id");
 
                     b.ToTable("IncidentComments");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentEmbedding", b =>
+                {
+                    b.Property<Guid>("IncidentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContentHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("GeneratedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ModelKey")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Vector")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.HasKey("IncidentId");
+
+                    b.ToTable("IncidentEmbeddings");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
@@ -797,6 +824,26 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.ToTable("PushDeliveryRecipients");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SearchEmbedding", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("LastAccessedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Vector")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LastAccessedAtUtc");
+
+                    b.ToTable("SearchEmbeddings");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SeverityRule", b =>
                 {
                     b.Property<string>("Level")
@@ -1238,6 +1285,17 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Incident");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentEmbedding", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.Incident", "Incident")
+                        .WithOne("SearchEmbedding")
+                        .HasForeignKey("Aiursoft.AlertCenter.Entities.IncidentEmbedding", "IncidentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Incident");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.IncidentTimelineEntry", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.User", "Actor")
@@ -1526,6 +1584,8 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.Incident", b =>
                 {
+                    b.Navigation("SearchEmbedding");
+
                     b.Navigation("TimelineEntries");
                 });
 

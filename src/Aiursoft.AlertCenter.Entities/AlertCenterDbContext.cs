@@ -14,6 +14,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<SourceApplication> SourceApplications => Set<SourceApplication>();
     public DbSet<ApplicationApiKey> ApplicationApiKeys => Set<ApplicationApiKey>();
     public DbSet<Incident> Incidents => Set<Incident>();
+    public DbSet<IncidentEmbedding> IncidentEmbeddings => Set<IncidentEmbedding>();
+    public DbSet<SearchEmbedding> SearchEmbeddings => Set<SearchEmbedding>();
     public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
     public DbSet<IncidentComment> IncidentComments => Set<IncidentComment>();
     public DbSet<OnCallGroup> OnCallGroups => Set<OnCallGroup>();
@@ -68,6 +70,10 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
             .HasForeignKey(link => link.UserId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<SourceApplication>().HasOne(application => application.OnCallGroup).WithMany()
             .HasForeignKey(application => application.OnCallGroupId).OnDelete(DeleteBehavior.Restrict);
+        builder.Entity<IncidentEmbedding>().HasKey(embedding => embedding.IncidentId);
+        builder.Entity<IncidentEmbedding>().HasOne(embedding => embedding.Incident).WithOne(incident => incident.SearchEmbedding)
+            .HasForeignKey<IncidentEmbedding>(embedding => embedding.IncidentId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<SearchEmbedding>().HasIndex(embedding => embedding.LastAccessedAtUtc);
         builder.Entity<Incident>().HasIndex(m => new { m.ApplicationId, m.ReportId }).IsUnique();
         builder.Entity<Incident>().HasIndex(m => new { m.ApplicationId, m.ReceivedAtUtc });
         builder.Entity<Incident>().Property(incident => incident.Version).IsConcurrencyToken();
