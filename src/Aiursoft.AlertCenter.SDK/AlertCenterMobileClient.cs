@@ -53,6 +53,14 @@ public sealed class AlertCenterMobileClient(
             new AiurApiPayload(new MobileCommentRequest { Markdown = markdown }), BodyFormat.HttpJsonBody,
             autoRetry: false, headers: await Headers());
 
+    public async Task<AiurResponse> DeleteIncidentAsync(Guid id, MobileDeleteIncidentRequest request) =>
+        await http.Post<AiurResponse>(Endpoint($"/api/v1/mobile/incidents/{id}/delete"),
+            new AiurApiPayload(request), BodyFormat.HttpJsonBody, autoRetry: false, headers: await Headers());
+
+    public async Task<AiurResponse> DeleteCommentAsync(Guid id, Guid commentId) =>
+        await http.Post<AiurResponse>(Endpoint($"/api/v1/mobile/incidents/{id}/comments/{commentId}/delete"),
+            new AiurApiPayload(new { }), BodyFormat.HttpJsonBody, autoRetry: false, headers: await Headers());
+
     public async Task<MobileCreatedIncidentResponse> CreateIncidentAsync(MobileCreateIncidentRequest request) =>
         await http.Post<MobileCreatedIncidentResponse>(Endpoint("/api/v1/mobile/incidents"),
             new AiurApiPayload(request), BodyFormat.HttpJsonBody, autoRetry: false, headers: await Headers());

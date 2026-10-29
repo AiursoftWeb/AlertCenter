@@ -97,6 +97,16 @@ public sealed class MobileApiController(
             query = query.Where(item => item.Title.ToLower().Contains(keyword) ||
                 (item.Content != null && item.Content.ToLower().Contains(keyword)) || item.Application.Name.ToLower().Contains(keyword));
         }
+        if (filter.FromDate.HasValue)
+        {
+            var start = filter.FromDate.Value.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+            query = query.Where(item => item.ReceivedAtUtc >= start);
+        }
+        if (filter.ToDate.HasValue && filter.ToDate.Value < DateOnly.MaxValue)
+        {
+            var end = filter.ToDate.Value.AddDays(1).ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+            query = query.Where(item => item.ReceivedAtUtc < end);
+        }
         if (filter.Level == null)
         {
             var policy = await new SeverityPolicyStore(db).LoadAsync(cancellationToken);
@@ -112,10 +122,22 @@ public sealed class MobileApiController(
         var incidents = await query.OrderBy(item => item.Status == Incident.Resolved)
             .ThenByDescending(item => item.ReceivedAtUtc).ThenByDescending(item => item.Id)
             .Skip((filter.Page - 1) * 20).Take(21).ToListAsync(cancellationToken);
+        var pageItems = incidents.Take(20).Select(ToDto).ToList();
+        var incidentIds = pageItems.Select(item => item.Id).ToArray();
+        var snapshots = await db.OnCallEmailSnapshots.AsNoTracking()
+            .Include(item => item.Delivery).Include(item => item.Recipients)
+            .Where(item => item.Delivery.IncidentId.HasValue && incidentIds.Contains(item.Delivery.IncidentId.Value))
+            .OrderBy(item => item.Delivery.CreatedAtUtc).ThenBy(item => item.DeliveryId)
+            .ToListAsync(cancellationToken);
+        var originals = snapshots.GroupBy(item => item.Delivery.IncidentId!.Value)
+            .ToDictionary(group => group.Key, group => group.First().Recipients
+                .OrderBy(item => item.DisplayName).ThenBy(item => item.UserId).Select(item => item.DisplayName).ToList());
+        foreach (var item in pageItems)
+            item.OriginalOces = originals.GetValueOrDefault(item.Id);
         return this.Protocol(new MobileIncidentsResponse
         {
             Code = Code.ResultShown, Message = "Incidents retrieved.", Page = filter.Page,
-            HasNextPage = incidents.Count > 20, Incidents = incidents.Take(20).Select(item => ToDto(item)).ToList()
+            HasNextPage = incidents.Count > 20, Incidents = pageItems
         });
     }
 
@@ -143,6 +165,7 @@ public sealed class MobileApiController(
         var oce = incident.Application.OnCallGroupId.HasValue
             ? await new OnCallOceService(db, new StringLocalizer<OnCallOceService>(localizers))
                 .QueryAsync(incident.Application.OnCallGroupId.Value, DateTime.UtcNow, cancellationToken) : null;
+        var canManage = await access.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken);
         var activities = new List<MobileActivity>();
         foreach (var key in keys.Take(20))
         {
@@ -152,7 +175,8 @@ public sealed class MobileApiController(
                 activities.Add(new MobileActivity
                 {
                     Id = key.Id, Type = "comment", ActorName = comment.AuthorName,
-                    Note = comment.DeletedAtUtc == null ? comment.Markdown : "Comment deleted.", CreatedAtUtc = Utc(key.CreatedAtUtc)
+                    Note = comment.DeletedAtUtc == null ? comment.Markdown : "Comment deleted.", CreatedAtUtc = Utc(key.CreatedAtUtc),
+                    IsDeleted = comment.DeletedAtUtc != null, CanDelete = canManage && comment.DeletedAtUtc == null
                 });
             }
             else
@@ -168,7 +192,9 @@ public sealed class MobileApiController(
             }
         }
         var dto = ToDto(incident);
-        dto.CanManage = await access.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.UpdateIncidents, cancellationToken);
+        dto.CanManage = canManage;
+        dto.OriginalOces = original?.Recipients.OrderBy(item => item.DisplayName).ThenBy(item => item.UserId).Select(item => item.DisplayName).ToList();
+        dto.CanDelete = await access.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.DeleteIncidents, cancellationToken);
         return this.Protocol(new MobileIncidentResponse
         {
             Code = Code.ResultShown, Message = "Incident retrieved.", Incident = dto, Activities = activities,
@@ -193,7 +219,10 @@ public sealed class MobileApiController(
         };
         if (type == null) return this.Protocol(Code.NotFound, "Unknown incident action.");
         IncidentNoteRequest model = type == IncidentTimelineEntry.LevelChanged
-            ? new IncidentLevelRequest { Level = request.Level ?? string.Empty } : new IncidentNoteRequest();
+            ? new IncidentLevelRequest { Level = request.Level ?? string.Empty }
+            : type == IncidentTimelineEntry.Mitigated
+                ? new IncidentMitigationRequest { ResolveImmediately = request.ResolveImmediately }
+                : new IncidentNoteRequest();
         model.IncidentId = id;
         model.Version = request.Version;
         model.Note = request.Note;
@@ -207,6 +236,27 @@ public sealed class MobileApiController(
     {
         var result = await new IncidentCommentService(db, access, new StringLocalizer<IncidentCommentService>(localizers))
             .AddAsync(User, new AddIncidentCommentRequest { IncidentId = id, Markdown = request.Markdown }, cancellationToken);
+        return ActionResult(result.StatusCode, result.Error);
+    }
+
+    [HttpPost("incidents/{id:guid}/delete")]
+    public async Task<IActionResult> Delete(Guid id, [FromBody] MobileDeleteIncidentRequest request, CancellationToken cancellationToken)
+    {
+        var incident = await db.Incidents.AsNoTracking().SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (incident == null) return ActionResult(404, "Incident not found.");
+        if (!await access.CanAccessAsync(User, incident.ApplicationId, ApplicationPermission.DeleteIncidents, cancellationToken))
+            return ActionResult(403, "You cannot delete this incident.");
+        if (!string.Equals(request.ConfirmationTitle, incident.Title, StringComparison.Ordinal))
+            return ActionResult(400, "Enter the exact incident title to confirm permanent deletion.");
+        var count = await db.Incidents.Where(item => item.Id == id && item.Version == request.Version).ExecuteDeleteAsync(cancellationToken);
+        return ActionResult(count == 1 ? 200 : 409, count == 1 ? null : "The incident changed. Refresh before deleting.");
+    }
+
+    [HttpPost("incidents/{id:guid}/comments/{commentId:guid}/delete")]
+    public async Task<IActionResult> DeleteComment(Guid id, Guid commentId, CancellationToken cancellationToken)
+    {
+        var result = await new IncidentCommentService(db, access, new StringLocalizer<IncidentCommentService>(localizers))
+            .DeleteAsync(User, new DeleteIncidentCommentRequest { IncidentId = id, CommentId = commentId }, cancellationToken);
         return ActionResult(result.StatusCode, result.Error);
     }
 

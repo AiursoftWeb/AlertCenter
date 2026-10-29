@@ -26,21 +26,18 @@
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp">
 
-      <TextView
+      <ImageView
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:gravity="center"
-          android:text="A"
-          android:textColor="#FFFFFFFF"
-          android:textSize="34sp"
-          android:textStyle="bold" />
+          android:src="@drawable/ic_launcher_foreground"
+          android:importantForAccessibility="no" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Welcome back"
+        android:text="AlertCenter"
         android:textColor="@color/text_primary"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -50,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Connect to your AlertCenter workspace"
+        android:text="See what matters. Take the next step."
         android:textColor="@color/text_secondary"
         android:textSize="16sp" />
 
@@ -60,9 +57,9 @@
         android:layout_marginTop="32dp"
         app:cardBackgroundColor="@color/surface"
         app:cardCornerRadius="24dp"
-        app:cardElevation="2dp"
+        app:cardElevation="0dp"
         app:strokeColor="@color/outline"
-        app:strokeWidth="1dp">
+        app:strokeWidth="0dp">
 
       <LinearLayout
           android:layout_width="match_parent"
@@ -73,9 +70,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="WORKSPACE"
+            android:text="Your workspace"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -99,7 +96,8 @@
         <TextView
             android:id="@+id/connected_server"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/connected_server_background"
             android:drawableStart="@drawable/ic_notifications"
@@ -115,7 +113,8 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/connect_button"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
             android:layout_marginTop="12dp"
             android:text="Connect"
             android:textAllCaps="false"
@@ -150,7 +149,7 @@
               android:paddingEnd="10dp"
               android:paddingBottom="5dp"
               android:textColor="@color/on_brand_container"
-              android:textSize="12sp"
+              android:textSize="14sp"
               android:textStyle="bold" />
 
           <LinearLayout
@@ -197,7 +196,8 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/local_sign_in_button"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
+            android:minHeight="56dp"
                 android:layout_marginTop="12dp"
                 android:text="Sign in"
                 android:textAllCaps="false"
@@ -218,7 +218,8 @@
           <com.google.android.material.button.MaterialButton
               android:id="@+id/oidc_sign_in_button"
               android:layout_width="match_parent"
-              android:layout_height="56dp"
+              android:layout_height="wrap_content"
+            android:minHeight="56dp"
               android:layout_marginTop="16dp"
               android:text="Sign in with your organization"
               android:textAllCaps="false"

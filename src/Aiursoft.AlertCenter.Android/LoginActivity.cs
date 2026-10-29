@@ -55,6 +55,8 @@ public sealed class LoginActivity : AppCompatActivity
 
         var root = FindViewById<View>(Resource.Id.login_root)!;
         root.SetOnApplyWindowInsetsListener(new SystemBarInsetListener(0, 0, 0, 0, true, true));
+        TranslateViews(root);
+        Window!.SetSoftInputMode(SoftInput.AdjustResize);
         WindowCompat.GetInsetsController(Window!, root)!.AppearanceLightStatusBars =
             (Resources!.Configuration!.UiMode & UiMode.NightMask) != UiMode.NightYes;
         _server.Text = Session.Endpoint;
@@ -71,6 +73,7 @@ public sealed class LoginActivity : AppCompatActivity
         else
         {
             ShowServerEntry();
+            if (!(Intent?.GetBooleanExtra("editServer", false) ?? false)) _ = ConnectAsync();
         }
     }
 
@@ -82,6 +85,16 @@ public sealed class LoginActivity : AppCompatActivity
         {
             _ = CompleteOidcAsync(new Uri(callback));
         }
+    }
+
+    private static string T(string value) => UiText.Get(value);
+
+    private static void TranslateViews(View view)
+    {
+        if (view is TextView text && view is not EditText && !string.IsNullOrEmpty(text.Text)) text.Text = T(text.Text);
+        if (view is TextInputLayout input && !string.IsNullOrEmpty(input.Hint)) input.Hint = T(input.Hint);
+        if (view is ViewGroup group)
+            for (var i = 0; i < group.ChildCount; i++) TranslateViews(group.GetChildAt(i)!);
     }
 
     private void BindViews()
@@ -166,8 +179,8 @@ public sealed class LoginActivity : AppCompatActivity
                 return;
             }
             _authMode.Text = configuration.AuthenticationMode.Equals("OIDC", StringComparison.OrdinalIgnoreCase)
-                ? "ORGANIZATION SIGN-IN"
-                : "LOCAL ACCOUNT";
+                ? T("Organization sign-in")
+                : T("Local account");
             _authPanel.Visibility = ViewStates.Visible;
             _localPanel.Visibility = configuration.AuthenticationMode.Equals("Local", StringComparison.OrdinalIgnoreCase)
                 ? ViewStates.Visible
@@ -190,7 +203,7 @@ public sealed class LoginActivity : AppCompatActivity
         }
         catch (Exception exception)
         {
-            _authPanel.Visibility = ViewStates.Gone;
+            ShowServerEntry();
             _serverContainer.Error = FriendlyMessage(exception);
             SetBusy(false, "Check the server address and network connection.");
         }
@@ -205,7 +218,7 @@ public sealed class LoginActivity : AppCompatActivity
     private void ShowCancelButton()
     {
         _connect.Enabled = true;
-        _connect.Text = "Cancel";
+        _connect.Text = T("Cancel");
         StyleConnectButtonAsSecondary();
     }
 
@@ -217,7 +230,7 @@ public sealed class LoginActivity : AppCompatActivity
         _connectedServer.Text = Session.Endpoint;
         _serverContainer.Visibility = ViewStates.Gone;
         _connectedServer.Visibility = ViewStates.Visible;
-        _connect.Text = "Switch server";
+        _connect.Text = T("Switch server");
         StyleConnectButtonAsSecondary();
     }
 
@@ -238,7 +251,7 @@ public sealed class LoginActivity : AppCompatActivity
         _connectedServer.Visibility = ViewStates.Gone;
         _serverContainer.Visibility = ViewStates.Visible;
         _serverContainer.Error = null;
-        _connect.Text = "Connect";
+        _connect.Text = T("Connect");
         _connect.StrokeWidth = 0;
         _connect.BackgroundTintList = AndroidX.Core.Content.ContextCompat.GetColorStateList(this, Resource.Color.brand_primary);
         _connect.SetTextColor(AndroidX.Core.Content.ContextCompat.GetColorStateList(
@@ -259,12 +272,12 @@ public sealed class LoginActivity : AppCompatActivity
         var password = _password.Text ?? string.Empty;
         if (string.IsNullOrWhiteSpace(identity))
         {
-            _identity.Error = _registerMode ? "Enter your email" : "Enter your email or username";
+            _identity.Error = _registerMode ? T("Enter your email") : T("Enter your email or username");
             return;
         }
         if (password.Length < 6)
         {
-            _passwordContainer.Error = "Password must contain at least 6 characters";
+            _passwordContainer.Error = T("Password must contain at least 6 characters");
             return;
         }
 
@@ -273,7 +286,7 @@ public sealed class LoginActivity : AppCompatActivity
             HideKeyboard();
             _identity.Error = null;
             _passwordContainer.Error = null;
-            SetBusy(true, _registerMode ? "Creating your account…" : "Signing you in…");
+            SetBusy(true, _registerMode ? T("Creating your account…") : "Signing you in…");
             if (_registerMode)
             {
                 await Session.RegisterLocalAsync(identity, password);
@@ -287,16 +300,16 @@ public sealed class LoginActivity : AppCompatActivity
         catch (Exception exception)
         {
             _passwordContainer.Error = FriendlyMessage(exception);
-            SetBusy(false, _registerMode ? "Could not create the account." : "Sign-in failed.");
+            SetBusy(false, _registerMode ? T("Could not create the account.") : "Sign-in failed.");
         }
     }
 
     private void ToggleRegistrationMode()
     {
         _registerMode = !_registerMode;
-        _identity.Hint = _registerMode ? "Email" : "Email or username";
-        _localSignIn.Text = _registerMode ? "Create account" : "Sign in";
-        _register.Text = _registerMode ? "Already have an account? Sign in" : "Create an account";
+        _identity.Hint = _registerMode ? T("Email") : T("Email or username");
+        _localSignIn.Text = _registerMode ? T("Create account") : T("Sign in");
+        _register.Text = _registerMode ? T("Already have an account? Sign in") : T("Create an account");
         _passwordContainer.Error = null;
     }
 
@@ -340,7 +353,7 @@ public sealed class LoginActivity : AppCompatActivity
         _register.Enabled = !busy;
         _oidcSignIn.Enabled = !busy;
         _progress.Visibility = busy ? ViewStates.Visible : ViewStates.Gone;
-        _status.Text = message;
+        _status.Text = T(message);
         _status.Visibility = ViewStates.Visible;
     }
 
@@ -352,11 +365,14 @@ public sealed class LoginActivity : AppCompatActivity
 
     private static string FriendlyMessage(Exception exception)
     {
-        var message = exception.Message;
-        if (message.Contains("net_http", StringComparison.OrdinalIgnoreCase))
+        return T(exception switch
         {
-            return "The server could not be reached securely.";
-        }
-        return message.Length > 160 ? message[..160] : message;
+            HttpRequestException => "The server could not be reached securely.",
+            global::System.OperationCanceledException => "The request timed out. Check your connection and try again.",
+            UriFormatException or ArgumentException => "Enter a valid server address.",
+            Aiursoft.AiurProtocol.Exceptions.AiurServerException server => server.Response.Message ?? "Sign-in could not be completed. Connect again and retry.",
+            Aiursoft.AiurProtocol.Exceptions.AiurUnexpectedServerResponseException server => server.Response.Message ?? "Sign-in could not be completed. Connect again and retry.",
+            _ => "Sign-in could not be completed. Connect again and retry."
+        });
     }
 }

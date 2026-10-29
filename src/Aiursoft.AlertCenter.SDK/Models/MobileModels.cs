@@ -57,7 +57,7 @@ public sealed class MobileApplication
     public bool CanUpdate { get; set; }
 }
 
-public sealed class MobileIncidentQuery
+public sealed class MobileIncidentQuery : IValidatableObject
 {
     [Range(1, 1000000)] public int Page { get; set; } = 1;
     public Guid? ApplicationId { get; set; }
@@ -66,6 +66,14 @@ public sealed class MobileIncidentQuery
     [RegularExpression("^(all|new|mitigated|resolved)$")] public string Status { get; set; } = "new";
     [RegularExpression("^(sev[0-4]|lte-sev[1-4])$")] public string? Level { get; set; }
     public bool? Acknowledged { get; set; }
+    public DateOnly? FromDate { get; set; }
+    public DateOnly? ToDate { get; set; }
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (FromDate.HasValue && ToDate.HasValue && FromDate > ToDate)
+            yield return new ValidationResult("The end date must not precede the start date.", [nameof(ToDate)]);
+    }
 }
 
 public sealed class MobileIncidentsResponse : AiurResponse
@@ -106,6 +114,8 @@ public sealed class MobileIncident
     public DateTimeOffset? MitigatedAtUtc { get; set; }
     public DateTimeOffset? ResolvedAtUtc { get; set; }
     public bool CanManage { get; set; }
+    public bool CanDelete { get; set; }
+    public List<string>? OriginalOces { get; set; }
 }
 
 public sealed class MobileActivity
@@ -114,6 +124,8 @@ public sealed class MobileActivity
     public string Type { get; set; } = string.Empty;
     public string ActorName { get; set; } = string.Empty;
     public string? Note { get; set; }
+    public bool IsDeleted { get; set; }
+    public bool CanDelete { get; set; }
     public string? PreviousStatus { get; set; }
     public string? NewStatus { get; set; }
     public string? PreviousLevel { get; set; }
@@ -126,6 +138,7 @@ public sealed class MobileIncidentAction
 {
     public Guid Version { get; set; }
     [StringLength(4000)] public string? Note { get; set; }
+    public bool ResolveImmediately { get; set; }
     [RegularExpression("^sev[0-4]$")] public string? Level { get; set; }
 }
 
@@ -146,4 +159,10 @@ public sealed class MobileCreatedIncidentResponse : AiurResponse
 {
     public Guid IncidentId { get; set; }
     public bool CanView { get; set; }
+}
+
+public sealed class MobileDeleteIncidentRequest
+{
+    public Guid Version { get; set; }
+    [Required, StringLength(200)] public string ConfirmationTitle { get; set; } = string.Empty;
 }

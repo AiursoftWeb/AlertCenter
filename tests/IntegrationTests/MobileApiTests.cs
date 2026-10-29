@@ -45,6 +45,121 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
+    [DataRow("sev0", false)]
+    [DataRow("sev1", false)]
+    [DataRow("sev2", true)]
+    [DataRow("sev3", true)]
+    [DataRow("sev4", true)]
+    public async Task MobileImmediateResolutionUsesTheWebSeverityRules(string level, bool permitted)
+    {
+        var incident = await MobileIncident(level);
+        var token = await MobileLogin();
+        var path = $"/api/v1/mobile/incidents/{incident.Id}";
+        var before = await MobileCall<MobileIncidentResponse>(token, HttpMethod.Get, path);
+        await MobileCall<AiurResponse>(token, HttpMethod.Post, path + "/acknowledge",
+            new MobileIncidentAction { Version = before.Incident.Version });
+        var acknowledged = await MobileCall<MobileIncidentResponse>(token, HttpMethod.Get, path);
+        var result = await MobileCall<AiurResponse>(token, HttpMethod.Post, path + "/mitigate",
+            new MobileIncidentAction { Version = acknowledged.Incident.Version, Note = "Recovery verified", ResolveImmediately = true });
+        Assert.AreEqual(permitted ? Code.JobDone : Code.InvalidInput, result.Code);
+        var after = await MobileCall<MobileIncidentResponse>(token, HttpMethod.Get, path);
+        Assert.AreEqual(permitted ? Incident.Resolved : Incident.New, after.Incident.Status);
+        if (permitted)
+        {
+            Assert.IsNotNull(after.Incident.MitigatedAtUtc);
+            Assert.IsNotNull(after.Incident.ResolvedAtUtc);
+            Assert.IsTrue(after.Activities.Any(item => item.Type == "mitigated"));
+            Assert.IsTrue(after.Activities.Any(item => item.Type == "resolved"));
+        }
+    }
+
+    [TestMethod]
+    public async Task MobileDateRangeIncludesBothDaysAndUsesOriginalRoster()
+    {
+        var incident = await MobileIncident();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var row = await db.Incidents.SingleAsync(item => item.Id == incident.Id);
+            row.ReceivedAtUtc = new DateTime(2026, 10, 10, 23, 59, 59, DateTimeKind.Utc);
+            foreach (var (name, offset) in new[] { ("First roster", 0), ("Later roster", 1) })
+                db.PushDeliveries.Add(new PushDelivery
+                {
+                    IncidentId = row.Id, CreatedAtUtc = row.ReceivedAtUtc.AddMinutes(offset),
+                    OnCallEmail = new OnCallEmailSnapshot
+                    {
+                        GroupId = Guid.NewGuid(), GroupName = "Team", NotificationAtUtc = row.ReceivedAtUtc,
+                        Recipients = [new OnCallEmailRecipient { UserId = "oce", DisplayName = name }]
+                    }
+                });
+            await db.SaveChangesAsync();
+        }
+        var token = await MobileLogin();
+        var list = await MobileCall<MobileIncidentsResponse>(token, HttpMethod.Get,
+            "/api/v1/mobile/incidents?fromDate=2026-10-10&toDate=2026-10-10");
+        Assert.AreEqual(incident.Id, list.Incidents.Single().Id);
+        CollectionAssert.AreEqual(new[] { "First roster" }, list.Incidents.Single().OriginalOces!);
+        var excluded = await MobileCall<MobileIncidentsResponse>(token, HttpMethod.Get,
+            "/api/v1/mobile/incidents?fromDate=2026-10-11");
+        Assert.AreEqual(0, excluded.Incidents.Count);
+        var invalid = await MobileCall<AiurResponse>(token, HttpMethod.Get,
+            "/api/v1/mobile/incidents?fromDate=2026-10-11&toDate=2026-10-10");
+        Assert.AreEqual(Code.InvalidInput, invalid.Code);
+    }
+
+    [TestMethod]
+    public async Task MobilePermanentDeletionRequiresExactTitleAndCurrentVersion()
+    {
+        var incident = await MobileIncident();
+        var token = await MobileLogin();
+        var path = $"/api/v1/mobile/incidents/{incident.Id}";
+        var detail = await MobileCall<MobileIncidentResponse>(token, HttpMethod.Get, path);
+        Assert.IsTrue(detail.Incident.CanDelete);
+        var wrongTitle = await MobileCall<AiurResponse>(token, HttpMethod.Post, path + "/delete",
+            new MobileDeleteIncidentRequest { Version = detail.Incident.Version, ConfirmationTitle = "Other incident" });
+        Assert.AreEqual(Code.InvalidInput, wrongTitle.Code);
+        await MobileCall<AiurResponse>(token, HttpMethod.Post, path + "/acknowledge",
+            new MobileIncidentAction { Version = detail.Incident.Version });
+        var stale = await MobileCall<AiurResponse>(token, HttpMethod.Post, path + "/delete",
+            new MobileDeleteIncidentRequest { Version = detail.Incident.Version, ConfirmationTitle = incident.Title });
+        Assert.AreEqual(Code.Conflict, stale.Code);
+        detail = await MobileCall<MobileIncidentResponse>(token, HttpMethod.Get, path);
+        var deleted = await MobileCall<AiurResponse>(token, HttpMethod.Post, path + "/delete",
+            new MobileDeleteIncidentRequest { Version = detail.Incident.Version, ConfirmationTitle = incident.Title });
+        Assert.AreEqual(Code.JobDone, deleted.Code);
+        var absent = await MobileCall<AiurResponse>(token, HttpMethod.Get, path);
+        Assert.AreEqual(Code.NotFound, absent.Code);
+    }
+
+    [TestMethod]
+    public async Task MobileCommentDeletionPreservesAuditAndRejectsDuplicateDeletion()
+    {
+        var incident = await MobileIncident();
+        var token = await MobileLogin();
+        var path = $"/api/v1/mobile/incidents/{incident.Id}";
+        await MobileCall<AiurResponse>(token, HttpMethod.Post, path + "/comments",
+            new MobileCommentRequest { Markdown = "Temporary investigation note" });
+        var detail = await MobileCall<MobileIncidentResponse>(token, HttpMethod.Get, path);
+        var comment = detail.Activities.Single(item => item.Type == "comment");
+        Assert.IsTrue(comment.CanDelete);
+        var deleted = await MobileCall<AiurResponse>(token, HttpMethod.Post, path + $"/comments/{comment.Id}/delete");
+        Assert.AreEqual(Code.JobDone, deleted.Code);
+        var afterDelete = await MobileCall<MobileIncidentResponse>(token, HttpMethod.Get, path);
+        var tombstone = afterDelete.Activities.Single(item => item.Id == comment.Id);
+        Assert.IsTrue(tombstone.IsDeleted);
+        Assert.IsFalse(tombstone.CanDelete);
+        Assert.AreEqual("Comment deleted.", tombstone.Note);
+        var duplicate = await MobileCall<AiurResponse>(token, HttpMethod.Post, path + $"/comments/{comment.Id}/delete");
+        Assert.AreEqual(Code.Conflict, duplicate.Code);
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var saved = await db.IncidentComments.SingleAsync(item => item.Id == comment.Id);
+        Assert.IsNotNull(saved.DeletedAtUtc);
+        Assert.IsFalse(string.IsNullOrEmpty(saved.DeletedById));
+        Assert.AreEqual("Temporary investigation note", saved.Markdown);
+    }
+
+    [TestMethod]
     public async Task MobileRequiresBearerAndKeepsConfigurationPublicWithoutSecrets()
     {
         await LoginAsAdmin();
@@ -179,6 +294,10 @@ public partial class IncidentPagesTests
         Assert.AreEqual(Code.Unauthorized, forbidden.Code);
         var comment = await MobileCall<AiurResponse>(token, HttpMethod.Post, path + "/comments", new MobileCommentRequest { Markdown = "Cannot write" });
         Assert.AreEqual(Code.Unauthorized, comment.Code);
+        Assert.IsFalse(detail.Incident.CanDelete);
+        var delete = await MobileCall<AiurResponse>(token, HttpMethod.Post, path + "/delete",
+            new MobileDeleteIncidentRequest { Version = detail.Incident.Version, ConfirmationTitle = incident.Title });
+        Assert.AreEqual(Code.Unauthorized, delete.Code);
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();

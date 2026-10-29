@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="Account and settings" xml:space="preserve">
+    <value>账户和设置</value>
+  </data>
+  <data name="Account settings" xml:space="preserve">
+    <value>账户设置</value>
+  </data>
+  <data name="Acknowledge and take ownership" xml:space="preserve">
+    <value>确认并承担责任</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>已确认</value>
+  </data>
+  <data name="Across your applications" xml:space="preserve">
+    <value>在您的所有应用中</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>活动</value>
+  </data>
+  <data name="Add comment" xml:space="preserve">
+    <value>添加评论</value>
+  </data>
+  <data name="Adjust severity" xml:space="preserve">
+    <value>调整严重程度</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="AlertCenter · 1.1" xml:space="preserve">
+    <value>AlertCenter · 1.1</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="All applications" xml:space="preserve">
+    <value>所有应用程序</value>
+  </data>
+  <data name="All severities" xml:space="preserve">
+    <value>所有严重级别</value>
+  </data>
+  <data name="Already have an account? Sign in" xml:space="preserve">
+    <value>已经有账号了？登录</value>
+  </data>
+  <data name="Also resolve: fully fixed and verified" xml:space="preserve">
+    <value>同时解决：已彻底修复并验证</value>
+  </data>
+  <data name="Any" xml:space="preserve">
+    <value>任意</value>
+  </data>
+  <data name="Any date" xml:space="preserve">
+    <value>任意日期</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="Application" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="Applications and access" xml:space="preserve">
+    <value>应用与访问</value>
+  </data>
+  <data name="Assigned to you · across your applications" xml:space="preserve">
+    <value>分配给你 · 覆盖你的所有应用</value>
+  </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>附件</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Check the server address and network connection." xml:space="preserve">
+    <value>请检查服务器地址和网络连接。</value>
+  </data>
+  <data name="Choose an application to see its incidents." xml:space="preserve">
+    <value>选择一个应用以查看其事件。</value>
+  </data>
+  <data name="Clear filters" xml:space="preserve">
+    <value>清除筛选条件</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="Comment deleted." xml:space="preserve">
+    <value>评论已删除。</value>
+  </data>
+  <data name="Completing secure sign-in…" xml:space="preserve">
+    <value>正在完成安全登录…</value>
+  </data>
+  <data name="Configured visibility" xml:space="preserve">
+    <value>已配置的可见性</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="Connected. Sign in to continue." xml:space="preserve">
+    <value>已连接。请登录以继续。</value>
+  </data>
+  <data name="Connecting securely…" xml:space="preserve">
+    <value>正在安全连接…</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="Connection cancelled." xml:space="preserve">
+    <value>连接已取消。</value>
+  </data>
+  <data name="Context" xml:space="preserve">
+    <value>上下文</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>继续</value>
+  </data>
+  <data name="Copied." xml:space="preserve">
+    <value>已复制。</value>
+  </data>
+  <data name="Copy description" xml:space="preserve">
+    <value>复制描述</value>
+  </data>
+  <data name="Copy incident ID" xml:space="preserve">
+    <value>复制事件 ID</value>
+  </data>
+  <data name="Copy JSON" xml:space="preserve">
+    <value>复制 JSON</value>
+  </data>
+  <data name="Copy link" xml:space="preserve">
+    <value>复制链接</value>
+  </data>
+  <data name="Could not complete the request. Please try again." xml:space="preserve">
+    <value>无法完成请求。请重试。</value>
+  </data>
+  <data name="Could not connect. Existing information may be out of date. A submitted action may already have completed." xml:space="preserve">
+    <value>无法连接。现有信息可能已过时。已提交的操作可能已经完成。</value>
+  </data>
+  <data name="Could not create the account." xml:space="preserve">
+    <value>无法创建账户。</value>
+  </data>
+  <data name="Create account" xml:space="preserve">
+    <value>创建账户</value>
+  </data>
+  <data name="Create an account" xml:space="preserve">
+    <value>创建帐户</value>
+  </data>
+  <data name="Create incident" xml:space="preserve">
+    <value>创建事件</value>
+  </data>
+  <data name="Creating your account…" xml:space="preserve">
+    <value>正在创建您的账户…</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>严重</value>
+  </data>
+  <data name="Current on-call information is temporarily unavailable." xml:space="preserve">
+    <value>当前值班信息暂时不可用。</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Delete comment" xml:space="preserve">
+    <value>删除评论</value>
+  </data>
+  <data name="Delete comment?" xml:space="preserve">
+    <value>要删除评论吗？</value>
+  </data>
+  <data name="Delete permanently" xml:space="preserve">
+    <value>永久删除</value>
+  </data>
+  <data name="Describe the impact and give your team a clear starting point." xml:space="preserve">
+    <value>描述事件造成的影响，为团队明确后续工作的切入点。</value>
+  </data>
+  <data name="Describe the measures taken and the current recovery status." xml:space="preserve">
+    <value>说明已采取的措施及当前恢复状态。</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>放弃</value>
+  </data>
+  <data name="Discard your draft?" xml:space="preserve">
+    <value>放弃草稿？</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="Email or username" xml:space="preserve">
+    <value>邮箱或用户名</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>英语</value>
+  </data>
+  <data name="Enter a reason or comment of up to 4,000 characters." xml:space="preserve">
+    <value>请输入原因或评论，最多 4,000 个字符。</value>
+  </data>
+  <data name="Enter a title of up to 200 characters." xml:space="preserve">
+    <value>请输入标题，最多 200 个字符。</value>
+  </data>
+  <data name="Enter a valid server address." xml:space="preserve">
+    <value>请输入有效的服务器地址。</value>
+  </data>
+  <data name="Enter the exact incident title." xml:space="preserve">
+    <value>请输入完全一致的事件标题。</value>
+  </data>
+  <data name="Enter your email" xml:space="preserve">
+    <value>请输入您的电子邮箱</value>
+  </data>
+  <data name="Enter your email or username" xml:space="preserve">
+    <value>请输入您的电子邮箱或用户名</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>筛选器</value>
+  </data>
+  <data name="Find incidents" xml:space="preserve">
+    <value>查找事件</value>
+  </data>
+  <data name="Follow system" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>从</value>
+  </data>
+  <data name="Incident" xml:space="preserve">
+    <value>事件</value>
+  </data>
+  <data name="Incident acknowledgement" xml:space="preserve">
+    <value>事件确认</value>
+  </data>
+  <data name="Incident actions" xml:space="preserve">
+    <value>事件操作</value>
+  </data>
+  <data name="Incident created." xml:space="preserve">
+    <value>事件已创建。</value>
+  </data>
+  <data name="Incident deleted." xml:space="preserve">
+    <value>事件已删除。</value>
+  </data>
+  <data name="Incident reopened" xml:space="preserve">
+    <value>事件已重新打开</value>
+  </data>
+  <data name="Incident reported" xml:space="preserve">
+    <value>事件已报告</value>
+  </data>
+  <data name="Incident resolved" xml:space="preserve">
+    <value>事件已解决</value>
+  </data>
+  <data name="Incident title" xml:space="preserve">
+    <value>事件标题</value>
+  </data>
+  <data name="Incident updated." xml:space="preserve">
+    <value>事件已更新。</value>
+  </data>
+  <data name="Incident workspace" xml:space="preserve">
+    <value>事件工作区</value>
+  </data>
+  <data name="Incidents" xml:space="preserve">
+    <value>事件</value>
+  </data>
+  <data name="Increasing severity queues an email. Decreasing it does not." xml:space="preserve">
+    <value>提高严重级别会将邮件加入发送队列。降低严重级别则不会。</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="Invalid username or password." xml:space="preserve">
+    <value>用户名或密码无效。</value>
+  </data>
+  <data name="Keep editing" xml:space="preserve">
+    <value>继续编辑</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Last acknowledgement" xml:space="preserve">
+    <value>最后确认</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="Load earlier activity" xml:space="preserve">
+    <value>加载较早的活动</value>
+  </data>
+  <data name="Load image" xml:space="preserve">
+    <value>加载图片</value>
+  </data>
+  <data name="Load more incidents" xml:space="preserve">
+    <value>加载更多事件</value>
+  </data>
+  <data name="Loading incident…" xml:space="preserve">
+    <value>正在加载事件…</value>
+  </data>
+  <data name="Loading incidents…" xml:space="preserve">
+    <value>正在加载事件…</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>本地</value>
+  </data>
+  <data name="Local account" xml:space="preserve">
+    <value>本地账户</value>
+  </data>
+  <data name="Major" xml:space="preserve">
+    <value>重大</value>
+  </data>
+  <data name="Manage applications on the web" xml:space="preserve">
+    <value>在网页上管理应用</value>
+  </data>
+  <data name="Metadata" xml:space="preserve">
+    <value>元数据</value>
+  </data>
+  <data name="Mine" xml:space="preserve">
+    <value>我的</value>
+  </data>
+  <data name="Mitigated" xml:space="preserve">
+    <value>已缓解</value>
+  </data>
+  <data name="Mitigation recorded" xml:space="preserve">
+    <value>缓解措施已记录</value>
+  </data>
+  <data name="More actions" xml:space="preserve">
+    <value>更多操作</value>
+  </data>
+  <data name="My incidents" xml:space="preserve">
+    <value>我的事件</value>
+  </data>
+  <data name="New incident" xml:space="preserve">
+    <value>新建事件</value>
+  </data>
+  <data name="No activity yet." xml:space="preserve">
+    <value>暂无活动。</value>
+  </data>
+  <data name="No applications are available to this account." xml:space="preserve">
+    <value>此帐户没有可用的应用程序。</value>
+  </data>
+  <data name="No browser is available to open this link." xml:space="preserve">
+    <value>没有可用于打开此链接的浏览器。</value>
+  </data>
+  <data name="No browser is available." xml:space="preserve">
+    <value>没有可用的浏览器。</value>
+  </data>
+  <data name="No on-call engineer" xml:space="preserve">
+    <value>暂无值班工程师</value>
+  </data>
+  <data name="Not acknowledged" xml:space="preserve">
+    <value>未确认</value>
+  </data>
+  <data name="Not recorded" xml:space="preserve">
+    <value>未记录</value>
+  </data>
+  <data name="Note (optional)" xml:space="preserve">
+    <value>备注（可选）</value>
+  </data>
+  <data name="Nothing here right now" xml:space="preserve">
+    <value>目前这里没有内容</value>
+  </data>
+  <data name="Nothing to preview yet." xml:space="preserve">
+    <value>暂无可预览内容。</value>
+  </data>
+  <data name="Occurred" xml:space="preserve">
+    <value>发生时间</value>
+  </data>
+  <data name="On call now" xml:space="preserve">
+    <value>当前值班</value>
+  </data>
+  <data name="On-call schedules" xml:space="preserve">
+    <value>值班安排</value>
+  </data>
+  <data name="Open on the web" xml:space="preserve">
+    <value>在网页上打开</value>
+  </data>
+  <data name="Open-source notices" xml:space="preserve">
+    <value>开源声明</value>
+  </data>
+  <data name="Opens your browser. Your web permissions still apply." xml:space="preserve">
+    <value>将打开浏览器。您仍受网页权限限制。</value>
+  </data>
+  <data name="Organization sign-in" xml:space="preserve">
+    <value>组织登录</value>
+  </data>
+  <data name="Original on-call" xml:space="preserve">
+    <value>原值班人员</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>负责人</value>
+  </data>
+  <data name="Ownership changed" xml:space="preserve">
+    <value>所有权已变更</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="Password must contain at least 6 characters" xml:space="preserve">
+    <value>密码至少需包含 6 个字符</value>
+  </data>
+  <data name="Permanently delete incident" xml:space="preserve">
+    <value>永久删除事件</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>收到</value>
+  </data>
+  <data name="Received date · UTC" xml:space="preserve">
+    <value>接收日期 · UTC</value>
+  </data>
+  <data name="Record mitigation" xml:space="preserve">
+    <value>记录缓解措施</value>
+  </data>
+  <data name="Record why the incident is fully resolved. This completes its workflow and may notify the original on-call engineers." xml:space="preserve">
+    <value>记录事件已彻底解决的原因。此操作将完成事件处理流程，并可能通知最初负责值班的工程师。</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Reopen incident" xml:space="preserve">
+    <value>重新打开事件</value>
+  </data>
+  <data name="Report an incident" xml:space="preserve">
+    <value>报告事件</value>
+  </data>
+  <data name="Report information" xml:space="preserve">
+    <value>报告信息</value>
+  </data>
+  <data name="Report-only access" xml:space="preserve">
+    <value>仅报告访问权限</value>
+  </data>
+  <data name="Request failed. Your input is kept." xml:space="preserve">
+    <value>请求失败。您输入的内容已保留。</value>
+  </data>
+  <data name="Resolve incident" xml:space="preserve">
+    <value>解决事件</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>已解决</value>
+  </data>
+  <data name="Returns this incident to unmitigated. Ownership is preserved and configured recipients are notified." xml:space="preserve">
+    <value>将此事件恢复为未缓解状态。所有权保持不变，并会通知已配置的接收人。</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Search title, content or application" xml:space="preserve">
+    <value>搜索标题、内容或应用</value>
+  </data>
+  <data name="See what matters. Take the next step." xml:space="preserve">
+    <value>看清重点，迈出下一步。</value>
+  </data>
+  <data name="Selected application" xml:space="preserve">
+    <value>已选择的应用程序</value>
+  </data>
+  <data name="Self host my server" xml:space="preserve">
+    <value>自行托管我的服务器</value>
+  </data>
+  <data name="Server address" xml:space="preserve">
+    <value>服务器地址</value>
+  </data>
+  <data name="SEV0 · Critical" xml:space="preserve">
+    <value>SEV0 · 严重</value>
+  </data>
+  <data name="SEV0–1" xml:space="preserve">
+    <value>SEV0–1</value>
+  </data>
+  <data name="SEV0–2" xml:space="preserve">
+    <value>SEV0–2</value>
+  </data>
+  <data name="SEV0–3" xml:space="preserve">
+    <value>SEV0–3</value>
+  </data>
+  <data name="SEV1 · Major" xml:space="preserve">
+    <value>SEV1 · 重大</value>
+  </data>
+  <data name="SEV2 · Error" xml:space="preserve">
+    <value>SEV2 · 错误</value>
+  </data>
+  <data name="SEV3 · Warning" xml:space="preserve">
+    <value>SEV3 · 警告</value>
+  </data>
+  <data name="SEV4 · Information" xml:space="preserve">
+    <value>SEV4 · 信息</value>
+  </data>
+  <data name="Severity" xml:space="preserve">
+    <value>严重程度</value>
+  </data>
+  <data name="Severity adjusted" xml:space="preserve">
+    <value>严重级别已调整</value>
+  </data>
+  <data name="Share findings, progress or the next step." xml:space="preserve">
+    <value>分享调查结果、进展或下一步计划。</value>
+  </data>
+  <data name="Share incident" xml:space="preserve">
+    <value>分享事件</value>
+  </data>
+  <data name="Show results" xml:space="preserve">
+    <value>显示结果</value>
+  </data>
+  <data name="Sign in" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="Sign in with your organization" xml:space="preserve">
+    <value>使用组织账号登录</value>
+  </data>
+  <data name="Sign out" xml:space="preserve">
+    <value>退出登录</value>
+  </data>
+  <data name="Sign out?" xml:space="preserve">
+    <value>要退出登录吗？</value>
+  </data>
+  <data name="Sign-in could not be completed. Connect again and retry." xml:space="preserve">
+    <value>无法完成登录。请重新连接并重试。</value>
+  </data>
+  <data name="Sign-in failed." xml:space="preserve">
+    <value>登录失败。</value>
+  </data>
+  <data name="Signing you in…" xml:space="preserve">
+    <value>正在为您登录…</value>
+  </data>
+  <data name="Simplified Chinese" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="Switch server" xml:space="preserve">
+    <value>切换服务器</value>
+  </data>
+  <data name="Switch server?" xml:space="preserve">
+    <value>要切换服务器吗？</value>
+  </data>
+  <data name="Take ownership" xml:space="preserve">
+    <value>接管</value>
+  </data>
+  <data name="Text size follows your device settings." xml:space="preserve">
+    <value>文字大小遵循设备设置。</value>
+  </data>
+  <data name="The application&apos;s notification rules apply to this incident." xml:space="preserve">
+    <value>该应用的通知规则适用于此事件。</value>
+  </data>
+  <data name="The description cannot exceed 4,000 characters." xml:space="preserve">
+    <value>描述不能超过 4,000 个字符。</value>
+  </data>
+  <data name="The end date must not precede the start date." xml:space="preserve">
+    <value>结束日期不能早于开始日期。</value>
+  </data>
+  <data name="The request timed out. Check your connection and try again." xml:space="preserve">
+    <value>请求超时。请检查网络连接后重试。</value>
+  </data>
+  <data name="The server could not be reached securely." xml:space="preserve">
+    <value>无法安全连接到服务器。</value>
+  </data>
+  <data name="The timeline will retain a record of this deletion." xml:space="preserve">
+    <value>时间线将保留此次删除的记录。</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="This action no longer applies. Your draft is still available." xml:space="preserve">
+    <value>此操作已不再适用。您的草稿仍然可用。</value>
+  </data>
+  <data name="This deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>此操作将删除该事件及其历史记录。请输入其准确标题以确认。</value>
+  </data>
+  <data name="This incident changed. Refresh before submitting again. Your draft is kept." xml:space="preserve">
+    <value>此事件已发生更改。请刷新后再提交。您的草稿已保留。</value>
+  </data>
+  <data name="This item is no longer available." xml:space="preserve">
+    <value>此项目已不可用。</value>
+  </data>
+  <data name="Through" xml:space="preserve">
+    <value>至</value>
+  </data>
+  <data name="Try another status or clear your filters." xml:space="preserve">
+    <value>请尝试其他状态，或清除筛选条件。</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>未缓解</value>
+  </data>
+  <data name="Update incident" xml:space="preserve">
+    <value>更新事件</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>已更新</value>
+  </data>
+  <data name="Uses this reason for both mitigation and resolution." xml:space="preserve">
+    <value>此原因将同时用于缓解和解决。</value>
+  </data>
+  <data name="View context" xml:space="preserve">
+    <value>查看上下文</value>
+  </data>
+  <data name="View incidents" xml:space="preserve">
+    <value>查看事件</value>
+  </data>
+  <data name="View metadata" xml:space="preserve">
+    <value>查看元数据</value>
+  </data>
+  <data name="View source code" xml:space="preserve">
+    <value>查看源代码</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="What happened" xml:space="preserve">
+    <value>发生了什么</value>
+  </data>
+  <data name="You are up to date" xml:space="preserve">
+    <value>已是最新状态</value>
+  </data>
+  <data name="You cannot create incidents in any enabled application." xml:space="preserve">
+    <value>您无法在任何已启用的应用中创建事件。</value>
+  </data>
+  <data name="You do not have permission to update this incident." xml:space="preserve">
+    <value>您没有权限更新此事件。</value>
+  </data>
+  <data name="You no longer have permission to do this. Refresh to check your access." xml:space="preserve">
+    <value>您已无权执行此操作。请刷新以检查您的访问权限。</value>
+  </data>
+  <data name="You will become the incident owner. Original on-call email recipients stay the same." xml:space="preserve">
+    <value>您将成为事件负责人。原有的值班邮件接收人保持不变。</value>
+  </data>
+  <data name="Your changes have not been submitted." xml:space="preserve">
+    <value>您的更改尚未提交。</value>
+  </data>
+  <data name="Your current session on this device will end." xml:space="preserve">
+    <value>您在此设备上的当前会话将结束。</value>
+  </data>
+  <data name="Your server. Your data. When you self-host, this app connects directly to your server without routing your workspace data through Aiursoft. Run your server on your own network to keep your workspace local." xml:space="preserve">
+    <value>您的服务器，您的数据。自行托管时，此应用会直接连接到您的服务器，不会通过 Aiursoft 传输您的工作区数据。在您自己的网络中运行服务器，让工作区数据保留在本地。</value>
+  </data>
+  <data name="Your workspace" xml:space="preserve">
+    <value>您的工作区</value>
+  </data>
+  <data name="Your workspaces" xml:space="preserve">
+    <value>你的工作区</value>
+  </data>
+
+</root>

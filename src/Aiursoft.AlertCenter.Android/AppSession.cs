@@ -26,6 +26,7 @@ public sealed class AppSession : IDisposable
         if (_tokens.TryRestorePersistedSession(client)) _oidc = client;
     }
 
+    public string? Feedback { get; set; }
     public string Endpoint => _preferences.GetString("server", DefaultServer) ?? DefaultServer;
     public bool IsAuthenticated => _tokens.IsAuthenticated;
     public MobileConfigurationResponse? Configuration { get; private set; }

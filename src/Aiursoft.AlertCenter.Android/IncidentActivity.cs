@@ -4,7 +4,6 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using Aiursoft.AlertCenter.SDK.Models;
-using AlertDialog = AndroidX.AppCompat.App.AlertDialog;
 
 namespace Aiursoft.AlertCenter.Android;
 
@@ -12,149 +11,244 @@ namespace Aiursoft.AlertCenter.Android;
 public sealed class IncidentActivity : WorkspaceActivity
 {
     private Guid _id;
-    private int _page = 1;
-    private string _draft = string.Empty;
+    private int _pages = 1;
+    private int _scrollPosition;
     private MobileIncidentResponse? _details;
+    private readonly List<MobileActivity> _activities = [];
+    private readonly List<MarkdownView> _readers = [];
 
-    protected override void OnCreate(Bundle? savedInstanceState)
+    protected override void OnCreate(Bundle? state)
     {
-        base.OnCreate(savedInstanceState);
+        base.OnCreate(state);
         if (!Guid.TryParse(Intent?.GetStringExtra("incidentId"), out _id)) { Finish(); return; }
-        _page = savedInstanceState?.GetInt("page", 1) ?? 1;
-        _draft = savedInstanceState?.GetString("draft") ?? string.Empty;
+        _pages = state?.GetInt("pages", 1) ?? 1;
+        _scrollPosition = state?.GetInt("scroll", 0) ?? 0;
         Setup("Incident", back: true);
-        Toolbar.Menu!.Add(0, 1, 0, "Refresh")!.SetIcon(Resource.Drawable.ic_refresh)!.SetShowAsAction(ShowAsAction.Always);
-        Toolbar.Menu!.Add(0, 2, 1, "Actions")!.SetIcon(Resource.Drawable.ic_tasks)!.SetShowAsAction(ShowAsAction.Always);
+        Toolbar.Menu!.Add(0, 1, 0, T("Refresh"))!.SetIcon(Resource.Drawable.ic_refresh)!.SetShowAsAction(ShowAsAction.Always);
+        Toolbar.Menu!.Add(0, 2, 1, T("More actions"))!.SetIcon(Resource.Drawable.ic_more)!.SetShowAsAction(ShowAsAction.Always);
         Toolbar.MenuItemClick += (_, e) =>
         {
             if (e.Item!.ItemId == 1) _ = RunAsync(ReloadAsync);
-            if (e.Item.ItemId == 2) ShowActions();
+            if (e.Item.ItemId == 2 && !IsBusy) ShowActions();
         };
-        Text(Body, "Loading incident…");
+        Text(Body, "Loading incident…", 14);
     }
     protected override void OnResume()
     {
         base.OnResume();
-        if (Session.IsAuthenticated && _id != Guid.Empty) _ = RunAsync(ReloadAsync);
+        if (Session.IsAuthenticated) _ = RunAsync(ReloadAsync);
     }
-    protected override void OnSaveInstanceState(Bundle outState)
+    protected override void OnSaveInstanceState(Bundle state)
     {
-        outState.PutInt("page", _page);
-        outState.PutString("draft", _draft);
-        base.OnSaveInstanceState(outState);
+        state.PutInt("pages", _pages);
+        state.PutInt("scroll", ContentScroll.ScrollY);
+        base.OnSaveInstanceState(state);
     }
     protected override async Task ReloadAsync()
     {
-        _details = await Session.RequireApi().GetIncidentAsync(_id, _page);
-        var incident = _details.Incident;
-        Toolbar.Title = $"#{incident.ShortId}";
-        Toolbar.Menu!.FindItem(2)!.SetVisible(incident.CanManage);
-        Body.RemoveAllViews();
-        Text(Body, incident.Title, 25);
-        Text(Body, $"{incident.ApplicationName}\n{incident.Level.ToUpperInvariant()} · {ProgressName(incident.Status)} · {(incident.AcknowledgedAtUtc.HasValue ? "ACK" : "Not acknowledged")}", 16);
-        Text(Body, $"Owner: {incident.OwnerName ?? "Unassigned"}");
-        if (incident.CanManage) Button(Body, "Handle incident", ShowActions);
-        if (!string.IsNullOrWhiteSpace(incident.Content)) Text(Body, incident.Content);
-        Text(Body, "Times", 20);
-        Text(Body, $"Occurred: {incident.OccurredAtUtc.ToLocalTime():g}\nReceived: {incident.ReceivedAtUtc.ToLocalTime():g}" +
-            (incident.AcknowledgedAtUtc.HasValue ? $"\nAcknowledged: {incident.AcknowledgedAtUtc.Value.ToLocalTime():g}" : string.Empty) +
-            (incident.MitigatedAtUtc.HasValue ? $"\nMitigated: {incident.MitigatedAtUtc.Value.ToLocalTime():g}" : string.Empty) +
-            (incident.ResolvedAtUtc.HasValue ? $"\nResolved: {incident.ResolvedAtUtc.Value.ToLocalTime():g}" : string.Empty), 14);
-        Text(Body, "On-call engineers", 20);
-        Text(Body, $"Original: {Names(_details.OriginalOces)}\nCurrent: {Names(_details.CurrentOces)}", 14);
-        if (_details.CurrentOceError != null) Text(Body, _details.CurrentOceError, 14);
-        if (!string.IsNullOrWhiteSpace(incident.ContextJson))
-            Button(Body, "View context", () => ShowJson("Context", incident.ContextJson));
-        if (!string.IsNullOrWhiteSpace(incident.MetadataJson))
-            Button(Body, "View metadata", () => ShowJson("Metadata", incident.MetadataJson));
-        Text(Body, "Discussion and timeline", 20);
-        if (_details.Activities.Count == 0) Text(Body, "No activity yet.");
-        foreach (var item in _details.Activities)
+        var position = _details == null ? _scrollPosition : ContentScroll.ScrollY;
+        var activities = new List<MobileActivity>();
+        MobileIncidentResponse? result = null;
+        for (var page = 1; page <= _pages; page++)
         {
-            Text(Body, $"{item.ActorName} · {ActivityName(item.Type)}", 16);
-            Text(Body, item.CreatedAtUtc.ToLocalTime().ToString("g"), 12);
-            if (item.PreviousStatus != item.NewStatus && item.NewStatus != null)
-                Text(Body, $"Progress: {(item.PreviousStatus == null ? "—" : ProgressName(item.PreviousStatus))} → {ProgressName(item.NewStatus)}", 14);
-            if (item.PreviousLevel != item.NewLevel && item.NewLevel != null)
-                Text(Body, $"Severity: {item.PreviousLevel ?? "—"} → {item.NewLevel}", 14);
-            if (item.NewOwnerName != null) Text(Body, $"Owner: {item.NewOwnerName}", 14);
-            if (item.Note != null) Text(Body, item.Note);
+            result = await Session.RequireApi().GetIncidentAsync(_id, page);
+            activities.AddRange(result.Activities);
+            if (!result.HasNextPage) break;
         }
-        Text(Body, $"Activity page {_page}", 13);
-        if (_page > 1) Button(Body, "Newer activity", () => { _page--; _ = RunAsync(ReloadAsync); });
-        if (_details.HasNextPage) Button(Body, "Older activity", () => { _page++; _ = RunAsync(ReloadAsync); });
-        if (incident.CanManage) Button(Body, "Add comment", () => Compose("comment", "Add comment"));
+        _details = result;
+        _pages = result!.Page;
+        _activities.Clear(); _activities.AddRange(activities);
+        Render();
+        ContentScroll.Post(() => ContentScroll.ScrollTo(0, position));
+        if (Session.Feedback != null) { ToastSuccess(Session.Feedback); Session.Feedback = null; }
     }
-    private static string ActivityName(string type) => type switch
+    private void Render()
     {
-        "acked" => "Acknowledged", "created" => "Created", "mitigated" => "Mitigated",
-        "resolved" => "Resolved", "reopened" => "Reopened", "level_changed" => "Severity changed",
-        "comment" => "Comment", "ownership_changed" => "Ownership changed", _ => "Updated"
+        var incident = _details!.Incident;
+        Toolbar.Title = "#" + incident.ShortId;
+        ClearReaders();
+        Body.RemoveAllViews(); Dock.RemoveAllViews();
+        Text(Body, incident.ApplicationName, 14, localize: false);
+        Text(Body, incident.Title, 26, true, localize: false);
+        var badges = Row(Body);
+        Pill(badges, SeverityName(incident.Level), incident.Level is "sev0" or "sev1" ? Resource.Color.danger_container : incident.Level is "sev2" or "sev3" ? Resource.Color.warning_container : Resource.Color.brand_container,
+            incident.Level is "sev0" or "sev1" ? Resource.Color.on_danger_container : incident.Level is "sev2" or "sev3" ? Resource.Color.on_warning_container : Resource.Color.on_brand_container);
+        Pill(badges, ProgressName(incident.Status));
+        Text(Body, incident.AcknowledgedAtUtc.HasValue ? "Acknowledged" : "Not acknowledged", 14);
+        var people = Card(Body);
+        Person(people, "Owner", incident.AcknowledgedAtUtc.HasValue ? incident.OwnerName ?? "—" : "—");
+        Person(people, "Original on-call", incident.OriginalOces == null ? T("Not recorded") : incident.OriginalOces.Count == 0 ? T("No on-call engineer") : Names(incident.OriginalOces));
+        Person(people, "On call now", _details.CurrentOces.Count == 0 ? T("No on-call engineer") : Names(_details.CurrentOces));
+        if (_details.CurrentOceError != null) Text(people, "Current on-call information is temporarily unavailable.", 13);
+        if (!string.IsNullOrWhiteSpace(incident.Content))
+        {
+            var body = Card(Body);
+            Text(body, "What happened", 19, true);
+            Markdown(body, incident.Content);
+            TextButton(body, "Copy description", () => Copy(incident.Content));
+        }
+        var section = Row(Body);
+        var title = Text(section, "Activity", 22, true);
+        title.LayoutParameters = new LinearLayout.LayoutParams(0, -2, 1);
+        if (incident.CanManage)
+        {
+            var comment = TextButton(section, "Comment", () => Edit("comment"));
+            comment.LayoutParameters = new LinearLayout.LayoutParams(-2, -2);
+        }
+        if (_activities.Count == 0) Text(Body, "No activity yet.", 14);
+        foreach (var item in _activities)
+        {
+            var activity = Card(Body);
+            var row = Row(activity);
+            Pill(row, item.Type == "comment" ? "•" : "✓", Resource.Color.brand_container, Resource.Color.on_brand_container);
+            var actor = Text(row, item.ActorName, 16, true, localize: false);
+            actor.LayoutParameters = new LinearLayout.LayoutParams(0, -2, 1);
+            Text(activity, T(ActivityName(item.Type)) + " · " + item.CreatedAtUtc.ToLocalTime().ToString("g"), 13);
+            if (item.NewStatus != null && item.NewStatus != item.PreviousStatus)
+                Pill(activity, ProgressName(item.NewStatus));
+            if (item.NewLevel != null && item.NewLevel != item.PreviousLevel)
+                Text(activity, (item.PreviousLevel?.ToUpperInvariant() ?? "—") + " → " + SeverityName(item.NewLevel), 14);
+            if (item.NewOwnerName != null) Text(activity, T("Owner") + " · " + item.NewOwnerName, 14);
+            if (item.IsDeleted) Text(activity, "Comment deleted.", 14);
+            else if (!string.IsNullOrWhiteSpace(item.Note))
+            {
+                Markdown(activity, item.Note);
+            }
+            if (item.CanDelete) TextButton(activity, "Delete comment", () => ConfirmDeleteComment(item));
+        }
+        if (_details.HasNextPage)
+            TextButton(Body, "Load earlier activity", () => _ = RunAsync(async () => { _pages++; await ReloadAsync(); }));
+        var technical = Card(Body);
+        TextButton(technical, "Report information", () => Sheet("Report information", (panel, _) =>
+        {
+            Text(panel, T("Occurred") + " · " + incident.OccurredAtUtc.ToLocalTime().ToString("f"), 14);
+            Text(panel, T("Received") + " · " + incident.ReceivedAtUtc.ToLocalTime().ToString("f"), 14);
+            if (incident.AcknowledgedAtUtc.HasValue) Text(panel, T("Last acknowledgement") + " · " + incident.AcknowledgedAtUtc.Value.ToLocalTime().ToString("f"), 14);
+            if (incident.MitigatedAtUtc.HasValue) Text(panel, T("Mitigated") + " · " + incident.MitigatedAtUtc.Value.ToLocalTime().ToString("f"), 14);
+            if (incident.ResolvedAtUtc.HasValue) Text(panel, T("Resolved") + " · " + incident.ResolvedAtUtc.Value.ToLocalTime().ToString("f"), 14);
+            TextButton(panel, "Copy incident ID", () => Copy(incident.Id.ToString()));
+        }));
+        if (!string.IsNullOrWhiteSpace(incident.ContextJson)) TextButton(technical, "View context", () => Json("Context", incident.ContextJson));
+        if (!string.IsNullOrWhiteSpace(incident.MetadataJson)) TextButton(technical, "View metadata", () => Json("Metadata", incident.MetadataJson));
+        TextButton(technical, "Open on the web", () => OpenWeb("/Incidents/Details/" + _id));
+        Dock.Visibility = incident.CanManage ? ViewStates.Visible : ViewStates.Gone;
+        if (incident.CanManage)
+        {
+            var operation = !incident.AcknowledgedAtUtc.HasValue ? "acknowledge" : incident.Status == "new" ? "mitigate" : incident.Status == "mitigated" ? "resolve" : "comment";
+            Button(Dock, OperationName(operation), () => Edit(operation), true);
+        }
+    }
+    private void Markdown(LinearLayout parent, string value)
+    {
+        var view = new MarkdownView(this, value, IsDark, Session.Endpoint);
+        _readers.Add(view);
+        parent.AddView(view, new LinearLayout.LayoutParams(-1, Dp(60)));
+    }
+    private void ClearReaders()
+    {
+        foreach (var view in _readers)
+        {
+            (view.Parent as ViewGroup)?.RemoveView(view);
+            view.StopLoading(); view.Destroy(); view.Dispose();
+        }
+        _readers.Clear();
+    }
+    protected override void OnDestroy()
+    {
+        ClearReaders();
+        base.OnDestroy();
+    }
+    private void Person(LinearLayout parent, string label, string value)
+    {
+        var row = Row(parent);
+        var heading = Text(row, label, 13);
+        heading.LayoutParameters = new LinearLayout.LayoutParams(0, -2, 1);
+        var name = Text(row, value, 15, true, localize: false);
+        name.Gravity = GravityFlags.End;
+        name.LayoutParameters = new LinearLayout.LayoutParams(0, -2, 1.35f);
+    }
+    private static string Names(List<string> names) => names.Count == 0 ? T("Not recorded") : string.Join(", ", names);
+    internal static string OperationName(string action) => T(action switch
+    {
+        "acknowledge" => "Acknowledge and take ownership", "take-ownership" => "Take ownership", "mitigate" => "Record mitigation",
+        "resolve" => "Resolve incident", "reopen" => "Reopen incident", "severity" => "Adjust severity", _ => "Add comment"
+    });
+    private static string ActivityName(string action) => action switch
+    {
+        "acked" => "Acknowledged", "created" => "Incident reported", "mitigated" => "Mitigation recorded", "resolved" => "Incident resolved",
+        "reopened" => "Incident reopened", "level_changed" => "Severity adjusted", "comment" => "Comment", "ownership_changed" => "Ownership changed", _ => "Updated"
     };
-    private static string Names(List<string> names) => names.Count == 0 ? "Unavailable" : string.Join(", ", names);
+    private void Edit(string action) => StartActivity(new Intent(this, typeof(IncidentEditorActivity)).PutExtra("incidentId", _id.ToString()).PutExtra("operation", action));
     private void ShowActions()
     {
-        if (IsBusy) return;
-        var incident = _details?.Incident;
-        if (incident?.CanManage != true) return;
-        var actions = new List<(string Action, string Label)> { ("acknowledge", "Acknowledge"), ("take-ownership", "Take ownership"), ("comment", "Add comment") };
-        if (incident.Status == "new" && incident.AcknowledgedAtUtc.HasValue) actions.Add(("mitigate", "Mitigate"));
-        if (incident.Status == "new" && !incident.AcknowledgedAtUtc.HasValue)
-            Toast.MakeText(this, "Acknowledge the incident before mitigating it.", ToastLength.Short)!.Show();
-        if (incident.Status == "mitigated") actions.Add(("resolve", "Resolve"));
-        if (incident.Status is "mitigated" or "resolved") actions.Add(("reopen", "Reopen"));
-        if (incident.Status is "new" or "mitigated") actions.Add(("severity", "Change severity"));
-        new AlertDialog.Builder(this).SetTitle("Handle incident")!
-            .SetItems(actions.Select(item => item.Label).ToArray(), (_, e) => Compose(actions[e.Which].Action, actions[e.Which].Label))!
-            .SetNegativeButton("Cancel", (_, _) => { })!.Show();
-    }
-    private void Compose(string action, string label)
-    {
-        if (_details?.Incident.CanManage != true) return;
-        var version = _details.Incident.Version;
-        var panel = new LinearLayout(this) { Orientation = Orientation.Vertical };
-        panel.SetPadding(Dp(24), Dp(8), Dp(24), Dp(8));
-        if (action == "resolve") Text(panel, "Record the final resolution of this incident. This may notify the original on-call engineers.", 14);
-        var note = Input(panel, action == "comment" ? "Comment (Markdown supported)" : "Reason or progress", _draft, multiline: true);
-        note.TextChanged += (_, _) => _draft = note.Text ?? string.Empty;
-        var levels = new[] { "sev0", "sev1", "sev2", "sev3", "sev4" };
-        var level = action == "severity" ? Select(panel, "New severity", levels, Array.IndexOf(levels, _details.Incident.Level)) : null;
-        var dialog = new AlertDialog.Builder(this).SetTitle(label)!.SetView(panel)!
-            .SetPositiveButton(action == "comment" ? "Post comment" : label, (_, _) => { })!
-            .SetNegativeButton("Cancel", (_, _) => { })!.Create()!;
-        dialog.Show();
-        var submit = dialog.GetButton((int)DialogButtonType.Positive)!;
-        submit.Click += (_, _) =>
+        if (_details == null) return;
+        var incident = _details.Incident;
+        Sheet("Incident actions", (panel, sheet) =>
         {
-            var text = note.Text?.Trim() ?? string.Empty;
-            if (text.Length > 4000 || (text.Length == 0 && action is "comment" or "mitigate" or "resolve" or "severity"))
+            if (incident.CanManage)
             {
-                note.Error = "Enter a reason or comment of up to 4,000 characters.";
-                return;
+                var actions = new List<string> { "acknowledge", "take-ownership", "comment" };
+                if (incident.Status == "new" && incident.AcknowledgedAtUtc.HasValue) actions.Add("mitigate");
+                if (incident.Status == "mitigated") actions.Add("resolve");
+                if (incident.Status is "new" or "mitigated") actions.Add("severity");
+                if (incident.Status is "mitigated" or "resolved") actions.Add("reopen");
+                foreach (var action in actions) TextButton(panel, OperationName(action), () => { sheet.Dismiss(); Edit(action); });
             }
-            _ = RunAsync(async () =>
+            TextButton(panel, "Share incident", () =>
             {
-                // A failed or conflicting request returns to the incident with the draft kept.
-                // Reopening the action after refresh must capture the new incident version.
-                dialog.Dismiss();
-                if (action == "comment") await Session.RequireApi().CommentAsync(_id, text);
-                else await Session.RequireApi().ExecuteAsync(_id, action, new MobileIncidentAction
-                {
-                    Version = version, Note = text, Level = level == null ? null : levels[level.SelectedItemPosition]
-                });
-                _draft = string.Empty;
-                _page = 1;
-                await ReloadAsync();
-            }, submit);
-        };
+                sheet.Dismiss();
+                var share = new Intent(Intent.ActionSend).SetType("text/plain")!
+                    .PutExtra(Intent.ExtraSubject, incident.Title)
+                    .PutExtra(Intent.ExtraText, Session.Endpoint.TrimEnd('/') + "/Incidents/Details/" + _id);
+                StartActivity(Intent.CreateChooser(share, T("Share incident")));
+            });
+            TextButton(panel, "Copy link", () => Copy(Session.Endpoint.TrimEnd('/') + "/Incidents/Details/" + _id));
+            if (incident.CanDelete) TextButton(panel, "Permanently delete incident", () => { sheet.Dismiss(); Delete(); });
+        });
     }
-    private void ShowJson(string title, string? value)
+    private void Delete()
     {
-        var scroll = new ScrollView(this);
-        var panel = new LinearLayout(this) { Orientation = Orientation.Vertical };
-        panel.SetPadding(Dp(24), Dp(12), Dp(24), Dp(12));
-        Text(panel, value ?? string.Empty, 14);
-        scroll.AddView(panel);
-        new AlertDialog.Builder(this).SetTitle(title)!.SetView(scroll)!.SetPositiveButton("Close", (_, _) => { })!.Show();
+        Sheet("Permanently delete incident", (panel, sheet) =>
+        {
+            Text(panel, "This deletes the incident and its history. Enter its exact title to confirm.", 14);
+            Text(panel, _details!.Incident.Title, 16, true, localize: false);
+            var confirmation = Input(panel, "Incident title");
+            Button(panel, "Delete permanently", () =>
+            {
+                if (confirmation.Text != _details.Incident.Title) { confirmation.Error = T("Enter the exact incident title."); return; }
+                _ = RunAsync(async () =>
+                {
+                    await Session.RequireApi().DeleteIncidentAsync(_id, new MobileDeleteIncidentRequest { Version = _details.Incident.Version, ConfirmationTitle = confirmation.Text! });
+                    sheet.Dismiss(); Session.Feedback = "Incident deleted."; Finish();
+                });
+            });
+        });
+    }
+    private void ConfirmDeleteComment(MobileActivity item)
+    {
+        Sheet("Delete comment?", (panel, sheet) =>
+        {
+            Text(panel, "The timeline will retain a record of this deletion.", 14);
+            Button(panel, "Delete comment", () => _ = RunAsync(async () =>
+            {
+                await Session.RequireApi().DeleteCommentAsync(_id, item.Id);
+                sheet.Dismiss(); await ReloadAsync(); ToastSuccess("Comment deleted.");
+            }));
+        });
+    }
+    private void Copy(string value)
+    {
+        ((ClipboardManager)GetSystemService(ClipboardService)!).PrimaryClip = ClipData.NewPlainText("AlertCenter", value);
+        ToastSuccess("Copied.");
+    }
+    private void Json(string title, string value)
+    {
+        try { value = System.Text.Json.JsonSerializer.Serialize(System.Text.Json.JsonDocument.Parse(value), new System.Text.Json.JsonSerializerOptions { WriteIndented = true }); }
+        catch (System.Text.Json.JsonException) { }
+        Sheet(title, (panel, _) =>
+        {
+            var text = Text(panel, value, 14, localize: false); text.Typeface = global::Android.Graphics.Typeface.Monospace; text.SetTextIsSelectable(true);
+            TextButton(panel, "Copy JSON", () => Copy(value));
+        });
     }
 }
