@@ -96,6 +96,22 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
+    public async Task ApplicationRenameFeedbackAllowsInvalidInputToBeCorrected()
+    {
+        var id = Guid.Parse((await CreateApplication()).Split('.')[0]);
+        var url = $"/Applications/Rename/{id}";
+        Http.DefaultRequestHeaders.Add("X-AlertCenter-Dialog", "true");
+        using var invalid = await PostForm(url, new() { ["Id"] = id.ToString(), ["Name"] = " " }, url);
+        Assert.AreEqual(HttpStatusCode.BadRequest, invalid.StatusCode);
+        Assert.Contains("Enter an application name.", await invalid.Content.ReadAsStringAsync());
+        using var corrected = await PostForm(url, new() { ["Id"] = id.ToString(), ["Name"] = "Corrected name" }, url);
+        Assert.AreEqual(HttpStatusCode.OK, corrected.StatusCode);
+        Assert.Contains("\"redirectUrl\":\"/Applications/Applications\"", await corrected.Content.ReadAsStringAsync());
+        using var scope = Server!.Services.CreateScope();
+        Assert.AreEqual("Corrected name", (await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().SourceApplications.SingleAsync()).Name);
+    }
+
+    [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
     public async Task ApplicationRenameRequiresApplicationManagementForUserAndRoleGrants(bool roleGrant)
