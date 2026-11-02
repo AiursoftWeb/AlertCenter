@@ -58,6 +58,28 @@ public class ApplicationsController(TemplateDbContext db, IApplicationAccessServ
         return RedirectToAction("Index", "ApplicationApiKeys", new { applicationId = application.Id });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Rename(Guid id, CancellationToken cancellationToken)
+    {
+        var application = await db.SourceApplications.AsNoTracking().SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
+        if (application == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, id, ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
+        return this.StackView(new RenameApplicationViewModel { Id = application.Id, Name = application.Name });
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> Rename(RenameApplicationViewModel request, CancellationToken cancellationToken)
+    {
+        var application = await db.SourceApplications.SingleOrDefaultAsync(item => item.Id == request.Id, cancellationToken);
+        if (application == null) return NotFound();
+        if (!await applicationAccess.CanAccessAsync(User, application.Id, ApplicationPermission.ManageApplication, cancellationToken)) return Forbid();
+        if (!ModelState.IsValid) return this.StackView(request);
+        application.Name = request.Name.Trim();
+        await db.SaveChangesAsync(cancellationToken);
+        TempData["ApplicationRenameSuccess"] = localizer["Application renamed."].Value;
+        return RedirectToAction(nameof(Applications));
+    }
+
     public async Task<IActionResult> OnCall(Guid id, CancellationToken cancellationToken)
     {
         var application = await db.SourceApplications.AsNoTracking().Include(item => item.Owner).SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
