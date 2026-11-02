@@ -26,6 +26,14 @@
     </div>
 </div>
 
+@if (TempData["ApplicationRenameSuccess"] is string renameMessage)
+{
+    <div class="alert alert-success alert-dismissible" role="status">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Close"]"></button>
+        <div class="alert-message">@renameMessage</div>
+    </div>
+}
+
 @if (Model.CanCreateApplications)
 {
     <div class="card mb-4">
@@ -206,6 +214,7 @@
                                             @if (Model.ManageableApplicationIds.Contains(application.Id))
                                             {
                                                 <li><h3 class="dropdown-header">@Localizer["Application settings"]</h3></li>
+                                                <li><a asp-action="Rename" asp-route-id="@application.Id" class="dropdown-item">@Localizer["Rename"]</a></li>
                                                 <li><a asp-action="OnCall" asp-route-id="@application.Id" class="dropdown-item">@Localizer["On-call settings"]</a></li>
                                                 <li><a asp-controller="Push" asp-action="Bindings" asp-route-id="@application.Id" class="dropdown-item">@Localizer["Push Settings"]</a></li>
                                                 <li><a asp-action="Access" asp-route-id="@application.Id" class="dropdown-item">@Localizer["Permissions"]</a></li>

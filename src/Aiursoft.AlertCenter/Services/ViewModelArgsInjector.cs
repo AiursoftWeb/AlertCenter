@@ -86,6 +86,7 @@ public class ViewModelArgsInjector(
         _ = localizer["Application Access Permissions"];
         _ = localizer["Application On-Call Settings"];
         _ = localizer["Applications"];
+        _ = localizer["Rename application"];
         _ = localizer["Console Overview"];
         _ = localizer["In-app notifications"];
         _ = localizer["Incident handling"];
