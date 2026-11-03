@@ -2,7 +2,6 @@ using Aiursoft.AlertCenter.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Routing;
 
 namespace Aiursoft.AlertCenter.Tests;
 
@@ -13,23 +12,24 @@ public class IncidentSearchProtectionTests
     public async Task ExcessConcurrentSearchIsRejectedAndSlotsAreReleasedAfterFailures()
     {
         using var filter = new IncidentSearchRequestFilter();
-        var entered = new CountdownEvent(4);
+        var entered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var started = 0;
         var release = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var running = Enumerable.Range(0, 4).Select(_ =>
         {
             var context = Context();
             return filter.OnActionExecutionAsync(context, async () =>
             {
-                entered.Signal();
+                if (Interlocked.Increment(ref started) == 4) entered.TrySetResult();
                 await release.Task;
                 return Executed(context);
             });
         }).ToArray();
-        Assert.IsTrue(entered.Wait(TimeSpan.FromSeconds(5)));
         var excess = Context();
         var called = false;
         try
         {
+            await entered.Task.WaitAsync(TimeSpan.FromSeconds(5));
             await filter.OnActionExecutionAsync(excess, () =>
             {
                 called = true;
@@ -42,7 +42,6 @@ public class IncidentSearchProtectionTests
         {
             release.TrySetResult();
             await Task.WhenAll(running);
-            entered.Dispose();
         }
         var failure = Context();
         await Assert.ThrowsAsync<InvalidOperationException>(() => filter.OnActionExecutionAsync(failure,

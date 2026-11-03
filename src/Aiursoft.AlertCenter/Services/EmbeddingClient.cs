@@ -29,23 +29,22 @@ public sealed class EmbeddingClient(GlobalSettingsService settings, IHttpClientF
     {
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         deadline.CancelAfter(timeout);
-        using var request = new HttpRequestMessage(HttpMethod.Post, configuration.Endpoint)
-        {
-            Content = JsonContent.Create(new { model = configuration.Model, input = inputs, keep_alive = -1 })
-        };
+        using var request = new HttpRequestMessage(HttpMethod.Post, configuration.Endpoint);
+        request.Content = JsonContent.Create(new { model = configuration.Model, input = inputs, keep_alive = -1 });
         if (!string.IsNullOrWhiteSpace(configuration.Token))
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", configuration.Token);
         using var client = clients.CreateClient(HttpClientName);
         using var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, deadline.Token);
         response.EnsureSuccessStatusCode();
         var result = await response.Content.ReadFromJsonAsync<EmbedResponse>(deadline.Token);
-        if (result?.Embeddings == null || result.Embeddings.Length != inputs.Count || result.Embeddings.Any(vector => vector == null))
+        if (result?.Embeddings == null || result.Embeddings.Length != inputs.Count)
             throw new InvalidDataException("The embedding server returned an unexpected number of vectors.");
-        var vectors = result.Embeddings.Select(EmbeddingVector.Normalize).ToArray();
+        var vectors = result.Embeddings.Select(vector => EmbeddingVector.Normalize(
+            vector ?? throw new InvalidDataException("The embedding server returned a null vector."))).ToArray();
         if (vectors.Select(vector => vector.Length).Distinct().Count() != 1)
             throw new InvalidDataException("The embedding server returned inconsistent vector dimensions.");
         return vectors;
     }
 
-    private sealed record EmbedResponse(float[][]? Embeddings);
+    private sealed record EmbedResponse(float[]?[]? Embeddings);
 }

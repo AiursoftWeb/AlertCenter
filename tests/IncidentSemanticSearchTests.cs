@@ -105,6 +105,7 @@ public class IncidentSemanticSearchTests
     [DataRow("http")]
     [DataRow("timeout")]
     [DataRow("invalid")]
+    [DataRow("null-vector")]
     public async Task UnavailableEmbeddingsFallBackToPermissionScopedKeywordSearch(string mode)
     {
         Add();
@@ -311,6 +312,7 @@ public class IncidentSemanticSearchTests
             if (Failure == "timeout") throw new TaskCanceledException("Simulated embedding timeout");
             if (Failure == "http") return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
             if (Failure == "invalid") return new HttpResponseMessage(HttpStatusCode.OK) { Content = JsonContent.Create(new { embeddings = new[] { new[] { 0f, 0f } } }) };
+            if (Failure == "null-vector") return new HttpResponseMessage(HttpStatusCode.OK) { Content = JsonContent.Create(new { embeddings = new float[]?[] { null } }) };
             if (BeforeResponse != null) await BeforeResponse();
             return new HttpResponseMessage(HttpStatusCode.OK)
             {
