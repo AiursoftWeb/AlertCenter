@@ -36,7 +36,16 @@ public sealed class EmbeddingClient(GlobalSettingsService settings, IHttpClientF
         using var client = clients.CreateClient(HttpClientName);
         using var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, deadline.Token);
         response.EnsureSuccessStatusCode();
-        var result = await response.Content.ReadFromJsonAsync<EmbedResponse>(deadline.Token);
+        EmbedResponse? result;
+        try
+        {
+            result = await response.Content.ReadFromJsonAsync<EmbedResponse>(deadline.Token);
+        }
+        catch (IOException exception)
+        {
+            deadline.Token.ThrowIfCancellationRequested();
+            throw new HttpRequestException("Could not read the embedding server response.", exception);
+        }
         if (result?.Embeddings == null || result.Embeddings.Length != inputs.Count)
             throw new InvalidDataException("The embedding server returned an unexpected number of vectors.");
         var vectors = result.Embeddings.Select(vector => EmbeddingVector.Normalize(

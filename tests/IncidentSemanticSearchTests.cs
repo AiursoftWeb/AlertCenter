@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.Net;
 using System.Security.Claims;
 using System.Text.Json;
@@ -8,6 +9,7 @@ using Aiursoft.AlertCenter.Services.BackgroundJobs;
 using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -23,12 +25,14 @@ public class IncidentSemanticSearchTests
     private EmbeddingClient _client = null!;
     private IncidentEmbeddingJobGate _gate = null!;
     private SourceApplication _application = null!;
+    private readonly ScanQueryInterceptor _scanQueries = new();
     private readonly ClaimsPrincipal _user = new(new ClaimsIdentity([new Claim(ClaimTypes.NameIdentifier, "reader")], "test"));
 
     [TestInitialize]
     public async Task Initialize()
     {
-        _db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>().UseSqlite("DataSource=:memory:").Options);
+        _db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>().UseSqlite("DataSource=:memory:")
+            .AddInterceptors(_scanQueries).Options);
         await _db.Database.OpenConnectionAsync();
         await _db.Database.EnsureCreatedAsync();
         _db.Users.Add(new User { Id = "reader", DisplayName = "Reader" });
@@ -104,6 +108,7 @@ public class IncidentSemanticSearchTests
     [DataRow("empty-index")]
     [DataRow("http")]
     [DataRow("timeout")]
+    [DataRow("response-ended")]
     [DataRow("invalid")]
     [DataRow("null-vector")]
     public async Task UnavailableEmbeddingsFallBackToPermissionScopedKeywordSearch(string mode)
@@ -223,12 +228,116 @@ public class IncidentSemanticSearchTests
         var incident = Add();
         await _db.SaveChangesAsync();
         _handler.Failure = "http";
-        await Assert.ThrowsAsync<HttpRequestException>(() => Index().ExecuteAsync());
+        var failure = await Assert.ThrowsAsync<AggregateException>(() => Index().ExecuteAsync());
+        Assert.IsInstanceOfType<HttpRequestException>(failure.InnerExceptions.Single());
         Assert.IsTrue(await _db.Incidents.AnyAsync(item => item.Id == incident.Id));
         Assert.AreEqual(0, await _db.IncidentEmbeddings.CountAsync());
         _handler.Failure = null;
         await Index().ExecuteAsync();
         Assert.AreEqual(1, await _db.IncidentEmbeddings.CountAsync());
+    }
+
+    [TestMethod]
+    [DataRow(10)]
+    [DataRow(50)]
+    public async Task PersistentBatchFailuresDoNotStarveLaterIncidentsAndAreRetried(int failedCount)
+    {
+        for (var index = 0; index < 60; index++) Add($"Candidate {index:D2}");
+        await _db.SaveChangesAsync();
+        var ordered = await _db.Incidents.OrderBy(incident => incident.Id).ToListAsync();
+        var failedTitles = ordered.Take(failedCount).Select(incident => $"Title: {incident.Title}\n").ToArray();
+        _handler.RejectInput = text => failedTitles.Any(text.Contains);
+
+        await Assert.ThrowsAsync<AggregateException>(() => Index().ExecuteAsync());
+        Assert.AreEqual(50 - failedCount, await _db.IncidentEmbeddings.CountAsync(),
+            "A failed batch must not prevent later batches in the same run from succeeding.");
+        await Assert.ThrowsAsync<AggregateException>(() => Index().ExecuteAsync());
+        Assert.AreEqual(60 - failedCount, await _db.IncidentEmbeddings.CountAsync(),
+            "Scanning must advance past a full candidate window of persistent failures.");
+        var indexed = await _db.IncidentEmbeddings.Select(embedding => embedding.IncidentId).ToArrayAsync();
+        CollectionAssert.AreEquivalent(ordered.Skip(failedCount).Select(incident => incident.Id).ToArray(), indexed);
+
+        _handler.RejectInput = null;
+        await Index().ExecuteAsync();
+        Assert.AreEqual(60, await _db.IncidentEmbeddings.CountAsync(), "Failed candidates must be retried after recovery.");
+        Assert.IsTrue(_handler.BatchSizes.All(size => size <= 10));
+    }
+
+    [TestMethod]
+    public async Task InterruptedResponseDoesNotStopLaterIndexBatchesAndCanBeRetried()
+    {
+        for (var index = 0; index < 20; index++) Add($"Stream candidate {index}");
+        await _db.SaveChangesAsync();
+        _handler.Failure = "response-ended";
+        _handler.BeforeResponse = () =>
+        {
+            _handler.Failure = null;
+            return Task.CompletedTask;
+        };
+
+        var failure = await Assert.ThrowsAsync<AggregateException>(() => Index().ExecuteAsync());
+        Assert.IsInstanceOfType<HttpRequestException>(failure.InnerExceptions.Single());
+        Assert.IsInstanceOfType<HttpIOException>(failure.InnerExceptions.Single().InnerException);
+        Assert.AreEqual(10, await _db.IncidentEmbeddings.CountAsync());
+        Assert.AreEqual(2, _handler.BatchSizes.Count);
+        await Index().ExecuteAsync();
+        Assert.AreEqual(20, await _db.IncidentEmbeddings.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task IdleScanIsBoundedAndNextRunFindsChangesBeyondTheBudget()
+    {
+        for (var index = 0; index < 1101; index++) Add($"Indexed incident {index}");
+        await _db.SaveChangesAsync();
+        var configuration = (await _client.GetConfigurationAsync())!;
+        var incidents = await _db.Incidents.OrderBy(incident => incident.Id).ToListAsync();
+        foreach (var incident in incidents)
+        {
+            _db.IncidentEmbeddings.Add(new IncidentEmbedding
+            {
+                IncidentId = incident.Id,
+                ModelKey = configuration.ModelKey,
+                ContentHash = IncidentEmbeddingText.Hash(IncidentEmbeddingText.Build(_application.Name, incident.Title, incident.Content)),
+                Vector = EmbeddingVector.Serialize([1f, 0f])
+            });
+        }
+        var changed = incidents.Last();
+        changed.Content = "Changed beyond the scan budget";
+        await _db.SaveChangesAsync();
+        _scanQueries.Commands.Clear();
+
+        await Index().ExecuteAsync();
+        Assert.AreEqual(0, _handler.Inputs.Count, "A run must stop before examining more than 1000 incidents.");
+        Assert.IsTrue(_scanQueries.Commands.Count is > 0 and <= 5);
+        Assert.IsTrue(_scanQueries.Commands.All(sql => !sql.Contains("OFFSET", StringComparison.OrdinalIgnoreCase)),
+            "Scanning must seek from the last incident ID instead of skipping earlier rows.");
+        await Index().ExecuteAsync();
+        Assert.AreEqual(1, _handler.Inputs.Count, "The next run must continue past the scan budget.");
+        Assert.Contains("Changed beyond the scan budget", _handler.Inputs.Single());
+        var embedding = await _db.IncidentEmbeddings.SingleAsync(item => item.IncidentId == changed.Id);
+        Assert.AreEqual(IncidentEmbeddingText.Hash(IncidentEmbeddingText.Build(_application.Name, changed.Title, changed.Content)),
+            embedding.ContentHash);
+    }
+
+    [TestMethod]
+    public async Task ScanContinuesAfterCursorIncidentIsDeletedAndWrapsToEarlierInsertions()
+    {
+        var first = Add("First incident");
+        first.Id = Guid.Parse("11111111-1111-1111-1111-111111111111");
+        var last = Add("Last incident");
+        last.Id = Guid.Parse("88888888-8888-8888-8888-888888888888");
+        await _db.SaveChangesAsync();
+        await Index().ExecuteAsync();
+        await _db.Incidents.Where(incident => incident.Id == last.Id).ExecuteDeleteAsync();
+        var earlier = Add("Earlier insertion");
+        earlier.Id = Guid.Parse("00000000-0000-0000-0000-000000000001");
+        var later = Add("Later insertion");
+        later.Id = Guid.Parse("ffffffff-ffff-ffff-ffff-ffffffffffff");
+        await _db.SaveChangesAsync();
+
+        await Index().ExecuteAsync();
+        var ids = await _db.IncidentEmbeddings.Select(item => item.IncidentId).ToArrayAsync();
+        CollectionAssert.AreEquivalent(new[] { first.Id, earlier.Id, later.Id }, ids);
     }
 
     [TestMethod]
@@ -279,6 +388,25 @@ public class IncidentSemanticSearchTests
         Assert.Contains("Changed during model call", _handler.Inputs.Last());
     }
 
+    private sealed class ScanQueryInterceptor : DbCommandInterceptor
+    {
+        public List<string> Commands { get; } = [];
+
+        public override ValueTask<InterceptionResult<DbDataReader>> ReaderExecutingAsync(DbCommand command,
+            CommandEventData eventData, InterceptionResult<DbDataReader> result, CancellationToken cancellationToken = default)
+        {
+            if (command.CommandText.Contains("FROM \"Incidents\"") && command.CommandText.Contains("ORDER BY"))
+                Commands.Add(command.CommandText);
+            return ValueTask.FromResult(result);
+        }
+    }
+
+    private sealed class InterruptedResponseStream : MemoryStream
+    {
+        public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default) =>
+            ValueTask.FromException<int>(new HttpIOException(HttpRequestError.ResponseEnded, "The response ended prematurely."));
+    }
+
     private sealed class FakeClientFactory(FakeEmbeddingHandler handler) : IHttpClientFactory
     {
         public HttpClient CreateClient(string name) => new(handler, disposeHandler: false);
@@ -291,6 +419,7 @@ public class IncidentSemanticSearchTests
         public string? LastUri { get; private set; }
         public string? LastAuthorization { get; private set; }
         public string? Failure { get; set; }
+        public Func<string, bool>? RejectInput { get; set; }
         public bool Block { get; set; }
         public TaskCompletionSource Entered { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         public Func<Task>? BeforeResponse { get; set; }
@@ -310,7 +439,13 @@ public class IncidentSemanticSearchTests
                 await Task.Delay(Timeout.Infinite, cancellationToken);
             }
             if (Failure == "timeout") throw new TaskCanceledException("Simulated embedding timeout");
-            if (Failure == "http") return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+            if (Failure == "response-ended")
+            {
+                if (BeforeResponse != null) await BeforeResponse();
+                return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StreamContent(new InterruptedResponseStream()) };
+            }
+            if (Failure == "http" || (RejectInput != null && inputs.Any(RejectInput)))
+                return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
             if (Failure == "invalid") return new HttpResponseMessage(HttpStatusCode.OK) { Content = JsonContent.Create(new { embeddings = new[] { new[] { 0f, 0f } } }) };
             if (Failure == "null-vector") return new HttpResponseMessage(HttpStatusCode.OK) { Content = JsonContent.Create(new { embeddings = new float[]?[] { null } }) };
             if (BeforeResponse != null) await BeforeResponse();
