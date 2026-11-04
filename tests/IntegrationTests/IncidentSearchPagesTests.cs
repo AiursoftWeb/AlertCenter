@@ -252,6 +252,37 @@ public class IncidentSearchPagesTests : TestBase
     }
 
     [TestMethod]
+    public async Task NoVisibleVectorsFallsBackToKeywordResults()
+    {
+        var (email, _) = await RegisterAndLoginAsync();
+        const string query = "keyword outage";
+        var incidents = await SeedKeywordSearchIncidents(email, query, 1);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var settings = scope.ServiceProvider.GetRequiredService<GlobalSettingsService>();
+            await settings.UpdateSettingAsync(SettingsMap.EnableEmbeddingBasedSearch, "True");
+            await settings.UpdateSettingAsync(SettingsMap.EmbeddingOllamaInstance, "https://embedding.example.com");
+            var vector = EmbeddingHelper.Serialize([1f, 0f]);
+            var hidden = await db.Incidents.SingleAsync(incident => incident.Title == query + " private-hidden-incident");
+            hidden.Embedding = vector;
+            var key = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(query)))
+                .ToLowerInvariant()[..40];
+            db.SearchEmbeddings.Add(new SearchEmbedding { QueryText = key, Embedding = vector });
+            await db.SaveChangesAsync();
+            await scope.ServiceProvider.GetRequiredService<IncidentEmbeddingCache>().LoadAsync(db);
+        }
+
+        using var response = await Http.GetAsync($"/Search/Index?q={Uri.EscapeDataString(query)}");
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var html = await response.Content.ReadAsStringAsync();
+        Assert.Contains("Keyword search", html);
+        Assert.Contains("1 matching incidents you can access", html);
+        CollectionAssert.AreEqual(new[] { $"/Incidents/Details/{incidents[0].Id}" }, SearchResultLinks(html));
+        Assert.DoesNotContain("private-hidden-incident", html);
+    }
+
+    [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
     public async Task VectorResultsShowLocalizedGreenBadgeAndExcludeInvisibleIncidents(bool chinese)

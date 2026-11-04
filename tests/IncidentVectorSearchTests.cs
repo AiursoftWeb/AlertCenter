@@ -487,6 +487,49 @@ public class IncidentVectorSearchTests
     }
 
     [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task NoVisibleMatchingVectors_ReturnsUsedAiFalse(bool mismatchedDimension)
+    {
+        await SeedGlobalSettingsAsync(useAiSearch: true, ollamaInstance: "http://localhost:11434", embeddingModel: "bge-m3");
+        await SeedIncidentsWithEmbeddingsAsync();
+        var visible = await _db.Incidents.SingleAsync(r => r.Embedding == null);
+        if (mismatchedDimension)
+        {
+            visible.Embedding = Serialize([1f, 0f]);
+            await _db.SaveChangesAsync();
+            await _cache.LoadAsync(_db);
+        }
+
+        var service = CreateSearchService();
+        var result = await service.SearchAsync(_db.Incidents.Where(r => r.Id == visible.Id), "面", 1, 10);
+
+        Assert.IsFalse(result.UsedAi);
+        Assert.AreEqual(0, result.Results.Count);
+        Assert.AreEqual(0, result.TotalCount);
+    }
+
+    [TestMethod]
+    [DataRow(0f)]
+    [DataRow(-1f)]
+    public async Task VisibleCandidatesWithNonPositiveScores_ReturnUsedAiTrue(float scoreDirection)
+    {
+        await SeedGlobalSettingsAsync(useAiSearch: true, ollamaInstance: "http://localhost:11434", embeddingModel: "bge-m3");
+        await SeedIncidentsWithEmbeddingsAsync();
+        var service = CreateSearchService(new FakeOllamaEmbedHandler(v =>
+        {
+            v[0] = scoreDirection;
+            v[4] = 1f;
+        }));
+
+        var result = await service.SearchAsync(_db.Incidents.AsNoTracking(), "面", 1, 10);
+
+        Assert.IsTrue(result.UsedAi);
+        Assert.AreEqual(0, result.Results.Count);
+        Assert.AreEqual(0, result.TotalCount);
+    }
+
+    [TestMethod]
     public async Task InvisibleIncidentsNeverAffectResultsCountsOrPagination()
     {
         await SeedGlobalSettingsAsync(useAiSearch: true, ollamaInstance: "http://localhost:11434", embeddingModel: "bge-m3");

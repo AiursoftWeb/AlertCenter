@@ -73,6 +73,7 @@ public class IncidentVectorSearchService(
         // 告警权限影响总数和分页，必须先取得可见 Id，再对缓存打分。
         var visibleIds = (await baseQuery.Select(r => r.Id).ToListAsync(ct)).ToHashSet();
         var scored = new List<(Guid IncidentId, float Score)>();
+        var candidateCount = 0;
         var skippedDimensionMismatch = 0;
         foreach (var kv in snapshot)
         {
@@ -83,6 +84,7 @@ public class IncidentVectorSearchService(
                 skippedDimensionMismatch++;
                 continue;
             }
+            candidateCount++;
             var score = EmbeddingHelper.CosineSimilarity(queryVector, kv.Value);
             if (score > 0)
             {
@@ -90,11 +92,14 @@ public class IncidentVectorSearchService(
             }
         }
 
-        if (scored.Count == 0 && skippedDimensionMismatch > 0)
+        if (candidateCount == 0)
         {
-            logger.LogWarning(
-                "Vector search skipped {Count} incident embeddings because their dimensions did not match the query vector.",
-                skippedDimensionMismatch);
+            if (skippedDimensionMismatch > 0)
+            {
+                logger.LogWarning(
+                    "Vector search skipped {Count} incident embeddings because their dimensions did not match the query vector.",
+                    skippedDimensionMismatch);
+            }
             return (false, [], 0);
         }
 
