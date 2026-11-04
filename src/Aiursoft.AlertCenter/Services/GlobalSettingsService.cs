@@ -64,11 +64,28 @@ public class GlobalSettingsService(
         return bool.TryParse(value, out var result) && result;
     }
 
-    // ReSharper disable once UnusedMember.Global
     public async Task<int> GetIntSettingAsync(string key)
     {
         var value = await GetSettingValueAsync(key);
         return int.TryParse(value, out var result) ? result : 0;
+    }
+
+    // AlertCenter 没有 OpenAI 设置，仅使用专用嵌入服务配置。
+    public async Task<bool> IsAiSearchEnabledAsync()
+    {
+        var dedicated = await GetSettingValueAsync(SettingsMap.EmbeddingOllamaInstance);
+        return !string.IsNullOrWhiteSpace(dedicated);
+    }
+
+    public async Task<string> GetEmbeddingEndpointAsync()
+    {
+        var dedicated = await GetSettingValueAsync(SettingsMap.EmbeddingOllamaInstance);
+        return dedicated.TrimEnd('/');
+    }
+
+    public async Task<string> GetEmbeddingTokenAsync()
+    {
+        return await GetSettingValueAsync(SettingsMap.EmbeddingApiToken);
     }
 
     public bool IsOverriddenByConfig(string key)

@@ -9,6 +9,32 @@ namespace Aiursoft.AlertCenter.Tests;
 public class LocalizationTests
 {
     [TestMethod]
+    public void IncidentSearchSettingsHaveChineseNamesAndDescriptions()
+    {
+        var originalCulture = System.Globalization.CultureInfo.CurrentUICulture;
+        try
+        {
+            System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("zh-CN");
+            var localizer = TestLocalization.For<Configuration.SettingsMap>();
+            var keys = new[]
+            {
+                Configuration.SettingsMap.EmbeddingOllamaInstance, Configuration.SettingsMap.EmbeddingModel,
+                Configuration.SettingsMap.EmbeddingApiToken, Configuration.SettingsMap.EnableEmbeddingBasedSearch,
+                Configuration.SettingsMap.EmbeddingQueryCacheLimit
+            };
+            foreach (var definition in Configuration.SettingsMap.Definitions.Where(d => keys.Contains(d.Key)))
+            {
+                Assert.IsFalse(localizer[definition.Name].ResourceNotFound, definition.Name);
+                Assert.IsFalse(localizer[definition.Description].ResourceNotFound, definition.Description);
+            }
+        }
+        finally
+        {
+            System.Globalization.CultureInfo.CurrentUICulture = originalCulture;
+        }
+    }
+
+    [TestMethod]
     public void ScheduleValidationUsesTheProvidedLocalizer()
     {
         var localizer = new PrefixLocalizer();

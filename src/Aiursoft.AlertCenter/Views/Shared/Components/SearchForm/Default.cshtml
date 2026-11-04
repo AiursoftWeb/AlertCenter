@@ -1,0 +1,10 @@
+@model Aiursoft.UiStack.Views.Shared.Components.SearchForm.SearchFormViewModel
+
+<form class="d-none d-sm-inline-block" action="@Model.SearchUrl" method="get" role="search" aria-label="@Model.Placeholder">
+    <div class="input-group input-group-navbar">
+        <input type="text" class="form-control" placeholder="@Model.Placeholder" aria-label="@Model.Placeholder" name="@Model.SearchParam" maxlength="200" autofocus="autofocus">
+        <button class="btn" type="submit" aria-label="@Model.Placeholder">
+            <i class="align-middle" data-lucide="search" aria-hidden="true"></i>
+        </button>
+    </div>
+</form>

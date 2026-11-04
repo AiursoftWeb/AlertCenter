@@ -67,4 +67,34 @@
     <value>项目在前端显示的名称。</value>
   </data>
 
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>嵌入 Ollama 实例</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>嵌入模型</value>
+  </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>嵌入 API 令牌</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>启用基于嵌入的搜索</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>嵌入查询缓存上限</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>用于生成事件及查询嵌入（向量搜索）的 Ollama API 基础地址。仅使用主机地址，自动追加 /api/embed。例如 https://ollama.example.com</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>嵌入模型名称，例如 bge-m3:latest。必须在嵌入 Ollama 实例中可用。仅用于向量搜索。</value>
+  </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>用于嵌入 Ollama 实例身份验证的 Bearer 令牌，例如 5a0fbdefa19f....</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green &quot;Search based on AI (Vector Database)&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>事件语义（向量）搜索总开关。启用并完成配置后，搜索结果显示绿色“基于 AI 的搜索（向量数据库）”徽章，并按嵌入模型计算的余弦相似度排序。关闭或缺少依赖时，静默回退到关键词搜索。需要嵌入 Ollama 实例和嵌入模型。</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>数据库中的查询嵌入最大缓存数量。超出时淘汰最近最少访问的条目（LRU）。默认 2000。可根据数据库容量及查询多样性调整。</value>
+  </data>
 </root>

@@ -13,6 +13,7 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
     public DbSet<GlobalSetting> GlobalSettings => Set<GlobalSetting>();
     public DbSet<SourceApplication> SourceApplications => Set<SourceApplication>();
     public DbSet<ApplicationApiKey> ApplicationApiKeys => Set<ApplicationApiKey>();
+    public DbSet<SearchEmbedding> SearchEmbeddings => Set<SearchEmbedding>();
     public DbSet<Incident> Incidents => Set<Incident>();
     public DbSet<IncidentTimelineEntry> IncidentTimelineEntries => Set<IncidentTimelineEntry>();
     public DbSet<IncidentComment> IncidentComments => Set<IncidentComment>();

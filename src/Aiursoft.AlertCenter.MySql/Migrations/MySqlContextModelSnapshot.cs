@@ -17,7 +17,7 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.13")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -250,6 +250,12 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.Property<string>("ContextJson")
                         .HasColumnType("longtext");
+
+                    b.Property<byte[]>("Embedding")
+                        .HasColumnType("longblob");
+
+                    b.Property<DateTime>("LastEmbeddedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Level")
                         .IsRequired()
@@ -800,6 +806,37 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("PushDeliveryRecipients");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SearchEmbedding", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<byte[]>("Embedding")
+                        .IsRequired()
+                        .HasColumnType("longblob");
+
+                    b.Property<DateTime>("LastAccessedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("QueryText")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QueryText")
+                        .IsUnique();
+
+                    b.ToTable("SearchEmbeddings");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SeverityRule", b =>

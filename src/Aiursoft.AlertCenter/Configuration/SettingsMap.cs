@@ -13,6 +13,12 @@ public class SettingsMap
     public const string DummyNumber = "DummyNumber";
     public const string DummyChoice = "DummyChoice";
 
+    public const string EmbeddingOllamaInstance = "EmbeddingOllamaInstance";
+    public const string EmbeddingModel = "EmbeddingModel";
+    public const string EmbeddingApiToken = "EmbeddingApiToken";
+    public const string EnableEmbeddingBasedSearch = "EnableEmbeddingBasedSearch";
+    public const string EmbeddingQueryCacheLimit = "EmbeddingQueryCacheLimit";
+
     public class FakeLocalizer
     {
         public string this[string name] => name;
@@ -72,6 +78,47 @@ public class SettingsMap
             Description = Localizer["The ICP license number for China mainland users. Leave empty to hide."],
             Type = SettingType.Text,
             DefaultValue = ""
+        },
+        new GlobalSettingDefinition
+        {
+            Key = EmbeddingOllamaInstance,
+            Name = Localizer["Embedding Ollama Instance"],
+            Description = Localizer["The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com"],
+            Type = SettingType.Text,
+            DefaultValue = ""
+        },
+        new GlobalSettingDefinition
+        {
+            Key = EmbeddingModel,
+            Name = Localizer["Embedding Model"],
+            Description = Localizer["The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search."],
+            Type = SettingType.Text,
+            DefaultValue = "bge-m3:latest"
+        },
+        new GlobalSettingDefinition
+        {
+            Key = EmbeddingApiToken,
+            // AlertCenter 支持加密的 Secret 设置，用于保护嵌入服务令牌。
+            Name = Localizer["Embedding API Token"],
+            Description = Localizer["The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...."],
+            Type = SettingType.Secret,
+            DefaultValue = ""
+        },
+        new GlobalSettingDefinition
+        {
+            Key = EnableEmbeddingBasedSearch,
+            Name = Localizer["Enable Embedding-Based Search"],
+            Description = Localizer["Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \"Search based on AI (Vector Database)\" badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model."],
+            Type = SettingType.Bool,
+            DefaultValue = "False"
+        },
+        new GlobalSettingDefinition
+        {
+            Key = EmbeddingQueryCacheLimit,
+            Name = Localizer["Embedding Query Cache Limit"],
+            Description = Localizer["Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity."],
+            Type = SettingType.Number,
+            DefaultValue = "2000"
         },
         new GlobalSettingDefinition
         {
