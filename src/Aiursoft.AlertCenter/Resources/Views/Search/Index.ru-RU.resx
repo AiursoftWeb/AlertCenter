@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+      <data name="Enter up to 200 characters to search incidents." xml:space="preserve">
+    <value>Введите до 200 символов для поиска инцидентов.</value>
+  </data>
+  <data name="Incident search" xml:space="preserve">
+    <value>Поиск инцидентов</value>
+  </data>
+  <data name="Incident severity" xml:space="preserve">
+    <value>Критичность инцидента</value>
+  </data>
+  <data name="Incident status" xml:space="preserve">
+    <value>Статус инцидента</value>
+  </data>
+  <data name="Keyword search" xml:space="preserve">
+    <value>Поисковый запрос по ключевым словам</value>
+  </data>
+  <data name="Next page" xml:space="preserve">
+    <value>Следующая страница</value>
+  </data>
+  <data name="No matching incidents" xml:space="preserve">
+    <value>Нет соответствующих инцидентов</value>
+  </data>
+  <data name="Previous page" xml:space="preserve">
+    <value>Предыдущая страница</value>
+  </data>
+  <data name="Received at" xml:space="preserve">
+    <value>Получено</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Search based on AI (Vector Database)" xml:space="preserve">
+    <value>Поиск на основе ИИ (векторная база данных)</value>
+  </data>
+  <data name="Search incidents" xml:space="preserve">
+    <value>Поиск инцидентов</value>
+  </data>
+  <data name="Search incidents…" xml:space="preserve">
+    <value>Поиск инцидентов…</value>
+  </data>
+  <data name="Search only incidents you can access under the configured severity visibility policy." xml:space="preserve">
+    <value>Ищите только инциденты, к которым у вас есть доступ в соответствии с настроенной политикой видимости по критичности.</value>
+  </data>
+  <data name="Search result pages" xml:space="preserve">
+    <value>Страницы результатов поиска</value>
+  </data>
+  <data name="Search results" xml:space="preserve">
+    <value>Результаты поиска</value>
+  </data>
+  <data name="Source application" xml:space="preserve">
+    <value>Исходное приложение</value>
+  </data>
+  <data name="Try different search terms." xml:space="preserve">
+    <value>Попробуйте другие поисковые запросы.</value>
+  </data>
+
+</root>

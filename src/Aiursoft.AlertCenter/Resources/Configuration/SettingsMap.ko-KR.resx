@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>임시 번호</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>임베딩 API 토큰</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>임베딩 모델</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>임베딩 Ollama 인스턴스</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>임베딩 쿼리 캐시 제한</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>임베딩 기반 검색 사용</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP 번호</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>의미 기반(벡터 기반) 인시던트 검색의 마스터 스위치입니다. 활성화되어 있고 모든 종속 항목이 설정된 경우, 검색 결과에 녹색 &quot;AI(벡터 데이터베이스) 기반 검색&quot; 배지가 표시되며 임베딩 모델을 통해 코사인 유사도 랭킹을 사용합니다. 비활성화되거나 종속 항목이 누락된 경우, 배지 없이 조용히 키워드 매칭으로 전환됩니다. Embedding Ollama Instance 및 Embedding Model이 필요합니다.</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>데이터베이스에 캐시된 쿼리 임베딩의 최대 개수입니다. 이 한도를 초과하면 가장 최근에 액세스되지 않은 항목이 제거됩니다(LRU). 기본값은 2000입니다. 데이터베이스 용량과 예상되는 쿼리 다양성에 따라 조정하십시오.</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>프로젝트 로고</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>프로젝트 이름</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>Embedding Ollama Instance 인증에 사용되는 Bearer 토큰, 예: 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>푸터에 표시되는 브랜드 이름</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>임베딩 모델 이름입니다. 예: bge-m3:latest. 임베딩 Ollama 인스턴스에서 사용 가능해야 합니다. 벡터 검색에만 사용됩니다.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>중국 대륙 사용자를 위한 ICP 라이선스 번호. 비워두면 숨깁니다.</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>프론트엔드에 표시되는 프로젝트 이름</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>이벤트 및 쿼리 임베딩(벡터 검색) 생성에 특별히 사용되는 Ollama API 기본 URL입니다. 호스트만 사용되며, /api/embed은 자동으로 추가됩니다. 예: https://ollama.example.com</value>
   </data>
 
 </root>

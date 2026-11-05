@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Временное число</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Токен API для эмбеддингов</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>Модель эмбеддингов</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>Встраиваемый экземпляр Ollama</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Лимит кэша запросов встраивания</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>Включить поиск на основе встраиваний</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Номер ICP</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>Главный переключатель для семантического (векторного) поиска инцидентов. При включении и настройке всех зависимостей результаты поиска отображают зелёный значок «Поиск на основе ИИ (векторная база данных)» и используют ранжирование по косинусной сходству через модель встраивания. При отключении или отсутствии зависимостей поиск молча переключается на сопоставление по ключевым словам без значка. Требуются экземпляр Ollama для встраивания и модель встраивания.</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>Максимальное количество кэшированных эмбеддингов запросов в базе данных. При превышении лимита наименее недавно использованные записи удаляются (LRU). По умолчанию 2000. Настройте значение в соответствии с ёмкостью вашей базы данных и ожидаемым разнообразием запросов.</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Логотип проекта</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>Название проекта</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>Bearer-токен для аутентификации с экземпляром Embedding Ollama, например 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Название бренда, отображаемое в подвале.</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>Имя модели эмбеддингов, например bge-m3:latest. Модель должна быть доступна в экземпляре Embedding Ollama. Используется только для векторного поиска.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Номер лицензии ICP для пользователей из материкового Китая. Оставьте пустым, чтобы скрыть.</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Название проекта, отображаемое на клиентской стороне.</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>Базовый URL API Ollama, используемый специально для генерации эмбеддингов инцидентов и запросов (векторный поиск). Используется только хост — /api/embed добавляется автоматически. Например: https://ollama.example.com</value>
   </data>
 
 </root>

@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>ダミー番号</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Embedding API トークン</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>埋め込みモデル</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>埋め込み Ollama インスタンス</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>埋め込みクエリキャッシュの上限</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>埋め込みベースの検索を有効にする</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP番号</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>セマンティック（ベクトルベース）インシデント検索のメインスイッチです。有効化され、すべての依存関係が設定されている場合、検索結果には緑色の「AI（ベクトルデータベース）に基づく検索」バッジが表示され、エンベディングモデルによるコサイン類似度ランキングが使用されます。無効化されている場合、または依存関係が不足している場合、バッジなしでキーワードマッチングに自動的にフォールバックします。Embedding Ollama Instance と Embedding Model が必要です。</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>データベース内のクエリ埋め込みのキャッシュの最大数です。上限を超えると、最も最近アクセスされなかったエントリが削除されます（LRU）。デフォルトは2000です。データベースの容量と想定されるクエリの多様性に基づいて調整してください。</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>プロジェクトロゴ</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>プロジェクト名</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>Embedding Ollama Instanceで認証するためのベアラートークン。例: 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>フッターに表示されるブランド名。</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>埋め込みモデルの名前。例: bge-m3:latest。埋め込みOllamaインスタンスで利用可能である必要があります。ベクトル検索でのみ使用されます。</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>中国本土ユーザー向けのICPライセンス番号。空欄のままにすると非表示になります。</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>フロントエンドに表示されるプロジェクト名</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>インシデントとクエリの埋め込み（ベクトル検索）の生成に特化して使用されるOllama APIのベースURL。ホスト部分のみが使用され、/api/embed は自動的に付加されます。例: https://ollama.example.com</value>
   </data>
 
 </root>

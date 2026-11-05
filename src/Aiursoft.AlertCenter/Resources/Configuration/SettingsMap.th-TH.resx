@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>หมายเลขตัวอย่าง</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>โทเคน API สำหรับ Embedding</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>โมเดลฝังข้อมูล</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>อินสแตนซ์ Ollama สำหรับ Embedding</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>ขีดจำกัดแคชการเอนเบดดิ้ง</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>เปิดใช้งานการค้นหาระบบฝังตัว (Embedding-Based Search)</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>เลขที่ ICP</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>สวิตช์หลักสำหรับการค้นหาเหตุการณ์แบบความหมาย (เวกเตอร์เบส) เมื่อเปิดใช้งานและกำหนดค่าการพึ่งพาทั้งหมดแล้ว ผลการค้นหาจะแสดงป้าย &quot;ค้นหาด้วย AI (ฐานข้อมูลเวกเตอร์)&quot; สีเขียว และใช้การจัดอันดับด้วยค่าความคล้ายคลึงแบบโคไซน์ผ่านโมเดลฝัง เมื่อปิดใช้งานหรือขาดการพึ่งพา การค้นหาจะเปลี่ยนไปใช้การจับคู่คำหลักโดยอัตโนมัติโดยไม่แสดงป้าย ต้องใช้ตัวอย่าง Ollama สำหรับ Embedding และโมเดล Embedding</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>จำนวนสูงสุดของ query embeddings ที่ถูกแคชไว้ในฐานข้อมูล เมื่อเกินจำนวนนี้ รายการที่ถูกเข้าถึงนานที่สุดจะถูกนำออก (LRU) ค่าเริ่มต้นคือ 2000 ปรับค่าตามความจุของฐานข้อมูลและความหลากหลายของ query ที่คาดหวัง</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>โลโก้โครงการ</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>ชื่อโปรเจกต์</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>โทเคนสำหรับยืนยันตัวตนกับอินสแตนซ์ Embedding Ollama ตัวอย่างเช่น 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>ชื่อแบรนด์ที่แสดงไว้ในส่วนท้ายหน้า</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>ชื่อโมเดล Embedding เช่น bge-m3:latest ต้องมีอยู่ใน Embedding Ollama Instance ใช้สำหรับค้นหาเวกเตอร์เท่านั้น</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>หมายเลขใบอนุญาต ICP สำหรับผู้ใช้ในแผ่นดินใหญ่จีน ปล่อยว่างไว้เพื่อซ่อน</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>ชื่อโปรเจกต์ที่แสดงในหน้าแสดงผล</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>URL ฐานของ API Ollama ที่ใช้โดยเฉพาะสำหรับการสร้าง embeddings ของเหตุการณ์และคำค้นหา (การค้นหาเวกเตอร์) ใช้เฉพาะ host เท่านั้น — /api/embed จะถูกเพิ่มโดยอัตโนมัติ ตัวอย่าง: https://ollama.example.com</value>
   </data>
 
 </root>

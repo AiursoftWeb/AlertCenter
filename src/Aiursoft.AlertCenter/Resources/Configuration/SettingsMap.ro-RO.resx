@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Număr dummy</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Token API Embedding</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>Model de embedare</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>Instanță de încorporare Ollama</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Limita cache-ului de interogări de încorporare</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>Activați căutarea bazată pe încorporare</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Număr ICP</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>Comutator principal pentru căutarea semantică (bazată pe vectori) de incidente. Când este activat și toate dependențele sunt configurate, rezultatele căutării afișează un insemn verde „Căutare bazată pe IA (Bază de date vectorială)” și utilizează clasament pe baza similitudinii cosinus prin intermediul modelului de embedding. Când este dezactivat sau când lipsesc dependențele, căutarea revine automat la potrivirea pe cuvinte cheie, fără insemn. Necesită instanța Ollama pentru Embedding și modelul de Embedding.</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>Numărul maxim de încorporări de interogări stocate în cache în baza de date. Când este depășit, intrările accesate cel mai recent sunt eliminate (LRU). Implicit 2000. Ajustați în funcție de capacitatea bazei de date și de diversitatea așteptată a interogărilor.</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Logo Proiect</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>Numele proiectului</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>Tokenul bearer pentru autentificare cu instanța Embedding Ollama, de exemplu 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Numele mărcii afișat în subsol.</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>Numele modelului de încorporare, de exemplu bge-m3:latest. Trebuie să fie disponibil în instanța Ollama pentru încorporare. Folosit exclusiv pentru căutare vectorială.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Numărul de înregistrare ICP pentru utilizatorii din China continentală. Lăsați gol pentru a ascunde.</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Numele proiectului afișat în interfața frontend</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>URL-ul de bază al API-ului Ollama, utilizat specific pentru generarea încorporărilor (embeddings) pentru incidente și interogări (căutare vectorială). Se utilizează doar gazda — /api/embed este adăugat automat. De exemplu: https://ollama.example.com</value>
   </data>
 
 </root>

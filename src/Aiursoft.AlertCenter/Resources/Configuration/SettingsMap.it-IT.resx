@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Numero fittizio</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Token API di embedding</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>Modello di embedding</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>Istanza di Ollama per Embedding</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Limite della cache delle query di embedding</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>Abilita ricerca basata su embedding</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Numero ICP</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>Interruttore principale per la ricerca semantica (basata su vettori) degli incidenti. Quando è abilitato e tutte le dipendenze sono configurate, i risultati della ricerca mostrano un badge verde &quot;Ricerca basata su AI (Database Vettoriale)&quot; e utilizzano il ranking tramite similarità coseno mediante il modello di embedding. Quando è disabilitato o quando le dipendenze non sono presenti, la ricerca passa silenziosamente al matching per parole chiave senza il badge. Richiede Embedding Ollama Instance e Embedding Model.</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>Numero massimo di incorporamenti di query memorizzati nella cache nel database. Se superato, le voci meno recentemente accessibili vengono rimosse (LRU). Predefinito: 2000. Regolare in base alla capacità del database e alla diversità delle query prevista.</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Logo del Progetto</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>Nome progetto</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>Il token bearer per l&apos;autenticazione con l&apos;istanza Embedding Ollama, ad esempio 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Il nome del marchio visualizzato nel piè di pagina.</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>Nome del modello di embedding, ad esempio bge-m3:latest. Deve essere disponibile nell&apos;istanza Ollama di Embedding. Utilizzato esclusivamente per la ricerca vettoriale.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Il numero di licenza ICP per gli utenti della Cina continentale. Lasciare vuoto per nascondere.</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Il nome del progetto visualizzato nel frontend.</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>URL di base dell&apos;API Ollama utilizzata specificamente per la generazione di incorporamenti di incidenti e query (ricerca vettoriale). Viene utilizzata solo l&apos;host — /api/embed viene aggiunto automaticamente. Es. https://ollama.example.com</value>
   </data>
 
 </root>
