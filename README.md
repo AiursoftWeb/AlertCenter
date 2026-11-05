@@ -124,26 +124,6 @@ See the comments in [appsettings.json](src/Aiursoft.AlertCenter/appsettings.json
 - **Email:** configure `Email__Host`, `Email__Port`, `Email__From`, and, when required, `Email__UserName` and `Email__Password`. STARTTLS is enabled by default. Both custom channels and built-in on-call email use these settings. Emails include HTML and plain-text alternatives with a direct incident link. Incident email is sent for creation (red), mitigation (yellow), resolution (green), and reopening (red). Each successful transition queues an email, including repeated mitigation and resolution after reopening. Mitigate-and-resolve sends only the green resolution email. Acknowledgement, reassignment, comments, and severity changes do not send email; API resolution follows the same rules. Set `Email__PublicBaseUrl` to your public site address (including any path prefix); it defaults to `https://alertcenter.aiursoft.com`.
 - **Webhook:** custom encrypted request headers require `Webhook__HeaderProtectionKey`, a Base64-encoded 32-byte key generated with `openssl rand -base64 32`. Preserve this key: losing or changing it makes saved custom headers unreadable. Without it, default headers and custom JSON body templates remain available.
 
-### Incident search
-
-Signed-in users can search incident titles, content, and application names from the navbar or `/Search/Index`. Results and counts respect application access permissions and the severity visibility policy.
-
-Configure these global settings to enable semantic vector search:
-
-| Setting | Default | Purpose |
-| --- | --- | --- |
-| `EmbeddingOllamaInstance` | Empty | Ollama API base URL; only scheme and authority are used, with `/api/embed?keep_alive=-1` appended. |
-| `EmbeddingModel` | `bge-m3:latest` | Embedding model available on that server. |
-| `EmbeddingApiToken` | Empty | Optional Bearer token, stored as an encrypted secret. |
-| `EnableEmbeddingBasedSearch` | `False` | Master switch for vector search and background embedding generation. |
-| `EmbeddingQueryCacheLimit` | `2000` | Maximum cached query vectors, evicted by least recent access. |
-
-`GenerateEmbeddingsJob` starts two minutes after startup and runs every five minutes. It processes up to 50 incidents per run in batches of 10, using Title and Content only. Individual failures are retried and logged; failed incidents remain pending for future runs. `RefreshEmbeddingCacheJob` independently starts after three minutes and reloads every five minutes. The cache is also warmed at startup and retains vectors for the latest 10,000 incidents by receipt time.
-
-Vector results show a green “Search based on AI (Vector Database)” badge. If disabled, unconfigured, empty, or unavailable (including the ten-second query timeout), search silently falls back to case-insensitive keyword matching, newest first. Empty queries show only the form; queries are limited to 200 characters. Changing the model requires regenerating existing incident and query vectors.
-
-**Privacy:** incident titles and content, as well as search queries, are sent to the configured embedding server. Use a server trusted to handle this data. Application names, metadata, and context are excluded from incident embeddings. Query cache keys store the first 40 hexadecimal characters of a SHA-256 hash rather than query text.
-
 ### Database migrations
 
 The multiple-key migration removes the old application-level secret hash without migrating credentials. Create new scoped keys and update integration configuration after upgrading. EmployeeCenter audit synchronization needs query, create and resolve permissions.
