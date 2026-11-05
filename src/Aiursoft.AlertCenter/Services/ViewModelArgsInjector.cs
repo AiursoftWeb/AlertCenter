@@ -10,6 +10,7 @@ using Aiursoft.UiStack.Views.Shared.Components.FooterMenu;
 using Aiursoft.UiStack.Views.Shared.Components.LanguagesDropdown;
 using Aiursoft.UiStack.Views.Shared.Components.MegaMenu;
 using Aiursoft.UiStack.Views.Shared.Components.Navbar;
+using Aiursoft.UiStack.Views.Shared.Components.SearchForm;
 using Aiursoft.UiStack.Views.Shared.Components.SideAdvertisement;
 using Aiursoft.UiStack.Views.Shared.Components.Sidebar;
 using Aiursoft.UiStack.Views.Shared.Components.SideLogo;
@@ -101,6 +102,7 @@ public class ViewModelArgsInjector(
         _ = localizer["Team management"];
     
         _ = localizer["Incidents"];
+        _ = localizer["Incident search"];
     
         _ = localizer["API Key"];
         _ = localizer["API Key Management"];
@@ -249,6 +251,12 @@ public class ViewModelArgsInjector(
 
         if (signInManager.IsSignedIn(context.User))
         {
+            toInject.Navbar.SearchForm = new SearchFormViewModel
+            {
+                SearchUrl = "/Search/Index",
+                SearchParam = "q",
+                Placeholder = localizer["Search incidents…"]
+            };
             var avatarPath = context.User.Claims.First(c => c.Type == UserClaimsPrincipalFactory.AvatarClaimType)
                 .Value;
             toInject.Navbar.UserDropdown = new UserDropdownViewModel

@@ -15,7 +15,7 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.13");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.14");
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationApiKey", b =>
                 {
@@ -244,6 +244,12 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ContextJson")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Embedding")
+                        .HasColumnType("BLOB");
+
+                    b.Property<DateTime>("LastEmbeddedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Level")
@@ -795,6 +801,35 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("PushDeliveryRecipients");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SearchEmbedding", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Embedding")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<DateTime>("LastAccessedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("QueryText")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QueryText")
+                        .IsUnique();
+
+                    b.ToTable("SearchEmbeddings");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.SeverityRule", b =>

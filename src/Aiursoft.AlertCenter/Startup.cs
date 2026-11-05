@@ -74,6 +74,8 @@ public class Startup : IWebStartup
         services.AddHostedService<PushDeliveryWorker>();
         services.AddAssemblyDependencies(typeof(Startup).Assembly);
         services.AddSingleton<NavigationState<Startup>>();
+        services.AddSingleton<IncidentEmbeddingCache>();
+        services.AddScoped<IncidentVectorSearchService>();
 
         // Background job infrastructure
         services.AddTaskQueueEngine();
@@ -83,11 +85,24 @@ public class Startup : IWebStartup
         services.RegisterBackgroundJob<DummyJob>();
         var orphanAvatarCleanupJob = services.RegisterBackgroundJob<OrphanAvatarCleanupJob>();
 
+        var generateEmbeddingsJob = services.RegisterBackgroundJob<GenerateEmbeddingsJob>();
+        var refreshEmbeddingCacheJob = services.RegisterBackgroundJob<RefreshEmbeddingCacheJob>();
+
         // Scheduled tasks (attach a schedule to any registered background job)
         services.RegisterScheduledTask(
             registration: orphanAvatarCleanupJob,
             period:     TimeSpan.FromHours(6),
             startDelay: TimeSpan.FromMinutes(5));
+
+        // 告警持续产生，生成和刷新各自每五分钟运行。
+        services.RegisterScheduledTask(
+            registration: generateEmbeddingsJob,
+            period:     TimeSpan.FromMinutes(5),
+            startDelay: TimeSpan.FromMinutes(2));
+        services.RegisterScheduledTask(
+            registration: refreshEmbeddingCacheJob,
+            period:     TimeSpan.FromMinutes(5),
+            startDelay: TimeSpan.FromMinutes(3));
 
         // Controllers and localization
         services.AddControllersWithViews(options => options.Filters.Add<ActionFeedbackFilter>())
