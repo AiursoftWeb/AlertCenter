@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>رقم افتراضي</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>رمز API الخاص بالتضمين</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>نموذج التضمين</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>نموذج تضمين Ollama</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>حد ذاكرة استعلام التضمين</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>تفعيل البحث القائم على التضمين</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>رقم ICP</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>المفتاح الرئيسي للبحث الدلالي (المبني على المتجهات) في الحوادث. عند التفعيل وإعداد جميع الاعتماديات، تُظهر نتائج البحث شارة خضراء تحمل نص &quot;بحث بناءً على الذكاء الاصطناعي (قاعدة بيانات متجهات)&quot; وتستخدم الترتيب حسب تشابه جيب التمام (Cosine Similarity) عبر نموذج التضمين. عند التعطيل، أو عند غياب الاعتماديات، يعود البحث بصمت إلى المطابقة بالكلمات المفتاحية دون عرض الشارة. يتطلب هذا الإعداد وجود &quot;نموذج التضمين&quot; و&quot;نسخة Ollama للتضمين&quot;.</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>الحد الأقصى لعدد تضمينات الاستعلامات المخزنة مؤقتًا في قاعدة البيانات. عند تجاوز هذا الحد، يتم استبعاد الأقل وصولًا مؤخرًا (LRU). القيمة الافتراضية 2000. اضبطها بناءً على سعة قاعدة البيانات وتنوع الاستعلامات المتوقع.</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>شعار المشروع</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>اسم المشروع</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>رمز حامل (Bearer Token) للمصادقة مع مثيل Ollama المدمج، على سبيل المثال 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>اسم العلامة التجارية المُعرض في التذييل.</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>اسم نموذج التضمين، مثل bge-m3:latest. يجب أن يكون متاحًا في مثيل Ollama الخاص بالتضمين. يُستخدم فقط للبحث المتجهي.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>رقم ترخيص ICP للمستخدمين في الصين القارية. اتركه فارغًا لإخفائه.</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>اسم المشروع المُعرض في الواجهة الأمامية.</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>عنوان URL الأساسي لواجهة Ollama API المستخدم خصيصًا لتوليد تضمينات الحوادث والاستعلامات (البحث المتجهي). يُستخدم المضيف فقط — يتم إضافة /api/embed تلقائيًا. مثال: https://ollama.example.com</value>
   </data>
 
 </root>

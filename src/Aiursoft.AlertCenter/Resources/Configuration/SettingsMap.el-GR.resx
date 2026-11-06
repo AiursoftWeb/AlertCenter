@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Τυχαίος Αριθμός</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Σήμα API Embedding</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>Μοντέλο Ενσωμάτωσης</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>Παράδειγμα Ollama για Embeddings</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Όριο Μνημονεύματος Ερωτήσεων Embedding</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>Ενεργοποίηση Αναζήτησης με Βάση Εμβάσεων</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>Αριθμός ΕΙΠ</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>Κεντρικός διακόπτης για τη σημασιολογική (βασισμένη σε διανύσματα) αναζήτηση περιστατικών. Όταν είναι ενεργοποιημένο και όλα τα εξαρτώμενα στοιχεία είναι διαμορφωμένα, τα αποτελέσματα της αναζήτησης εμφανίζουν ένα πράσινο σήμα &quot;Αναζήτηση βασισμένη σε Τεχνητή Νοημοσύνη (Βάση Δεδομένων Διανυσμάτων)&quot; και χρησιμοποιούν κατάταξη με βάση την ομοιότητα συνημιτόνου μέσω του μοντέλου ενσωμάτωσης. Όταν είναι απενεργοποιημένο, ή όταν λείπουν εξαρτώμενα στοιχεία, η αναζήτηση επιστρέφει σιωπηρά στην ταιριασμός λέξεων-κλειδιά χωρίς το σήμα. Απαιτείται Embedding Ollama Instance και Embedding Model.</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>Μέγιστος αριθμός μετρήσεων ερωτήσεων που έχουν αποθηκευτεί σε προσωρινή μνήμη στη βάση δεδομένων. Όταν ξεπεραστεί, απορρίπτονται οι εγγραφές που πρόσφατα δεν έχουν χρησιμοποιηθεί (LRU). Προεπιλογή 2000. Ρυθμίστε το βάσει της χωρητικότητας της βάσης δεδομένων και της αναμενόμενης ποικιλότητας των ερωτήσεων.</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Λογότυπο Έργου</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>Όνομα Έργου</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>Το bearer token για την πιστοποίηση με το Embedding Ollama Instance, π.χ. 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Το όνομα της εταιρείας που εμφανίζεται στον ποδόσκαλο.</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>Το όνομα του μοντέλου ενσωμάτωσης, π.χ. bge-m3:latest. Πρέπει να είναι διαθέσιμο στην Επιφάνεια Ollama Ενσωμάτωσης. Χρησιμοποιείται μόνο για αναζήτηση διανυσμάτων.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Ο αριθμός άδειας ICP για χρήστες της κυρίως Κίνας. Αφήστε κενό για να κρυφτεί.</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Το όνομα του έργου που εμφανίζεται στον προβολέα</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>Ο βασικός URL του Ollama API που χρησιμοποιείται συγκεκριμένα για τη δημιουργία ενσωματώσεων (embeddings) συμβάντων και ερωτημάτων (αναζήτηση διανυσμάτων). Χρησιμοποιείται μόνο ο κόμβος — το /api/embed προστίθεται αυτόματα. Π.χ. https://ollama.example.com</value>
   </data>
 
 </root>

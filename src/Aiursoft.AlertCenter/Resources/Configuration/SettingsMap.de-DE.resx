@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>Dummy-Nummer</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>Embedding-API-Token</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>Embedding-Modell</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>Ollama-Instanz für Embeddings</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>Cache-Limit für Embedding-Abfragen</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>Embeddingbasierte Suche aktivieren</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP-Nummer</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>Hauptschalter für die semantische (vektorbasierte) Incident-Suche. Wenn aktiviert und alle Abhängigkeiten konfiguriert sind, zeigen Suchergebnisse ein grünes „Suche basierend auf KI (Vektordatenbank)“-Badge an und nutzen die Cosine-Ähnlichkeits-Rangfolge über das Embedding-Modell. Wenn deaktiviert oder Abhängigkeiten fehlen, fällt die Suche still auf Keyword-Matching ohne Badge zurück. Erfordert Embedding Ollama Instance und Embedding Model.</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>Maximale Anzahl an zwischengespeicherten Abfrage-Embeddings in der Datenbank. Bei Überschreitung werden die zuletzt am wenigsten zugegriffenen Einträge entfernt (LRU). Standardmäßig 2000. Passen Sie den Wert an die Kapazität Ihrer Datenbank und die erwartete Vielfalt der Abfragen an.</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>Projektlogo</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>Projektname</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>Der Bearer-Token zur Authentifizierung mit der Embedding-Ollama-Instanz, z. B. 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>Der Markenname, der im Footer angezeigt wird.</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>Der Name des Embedding-Modells, z. B. bge-m3:latest. Muss auf der Embedding Ollama Instanz verfügbar sein. Wird nur für die Vektorsuche verwendet.</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>Die ICP-Lizenznummer für Nutzer in der Volksrepublik China. Leer lassen, um sie auszublenden.</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Der Name des Projekts, der im Frontend angezeigt wird.</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>Die Basis-URL der Ollama-API, die speziell zur Generierung von Incident- und Query-Embeddings (Vektorsuche) verwendet wird. Nur der Host wird verwendet – /api/embed wird automatisch angehängt. Z. B. https://ollama.example.com</value>
   </data>
 
 </root>

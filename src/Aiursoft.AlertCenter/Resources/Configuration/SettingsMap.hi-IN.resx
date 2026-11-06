@@ -45,8 +45,29 @@
   <data name="Dummy Number" xml:space="preserve">
     <value>डमी नंबर</value>
   </data>
+  <data name="Embedding API Token" xml:space="preserve">
+    <value>एम्बेडिंग API टोकन</value>
+  </data>
+  <data name="Embedding Model" xml:space="preserve">
+    <value>एम्बेडिंग मॉडल</value>
+  </data>
+  <data name="Embedding Ollama Instance" xml:space="preserve">
+    <value>एम्बेडिंग ओलामा इंस्टेंस</value>
+  </data>
+  <data name="Embedding Query Cache Limit" xml:space="preserve">
+    <value>एम्बेडिंग क्वेरी कैश सीमा</value>
+  </data>
+  <data name="Enable Embedding-Based Search" xml:space="preserve">
+    <value>एम्बेडिंग-आधारित खोज सक्षम करें</value>
+  </data>
   <data name="ICP Number" xml:space="preserve">
     <value>ICP संख्या</value>
+  </data>
+  <data name="Master switch for semantic (vector-based) incident search. When enabled and all dependencies are configured, search results display a green \&quot;Search based on AI (Vector Database)\&quot; badge and use cosine similarity ranking via the embedding model. When disabled, or when dependencies are missing, search silently falls back to keyword matching without the badge. Requires Embedding Ollama Instance and Embedding Model." xml:space="preserve">
+    <value>सेमैंटिक (वेक्टर-आधारित) इन्सिडेंट खोज के लिए मुख्य स्विच। सक्षम किए जाने और सभी निर्भरताओं (dependencies) को कॉन्फ़िगर किए जाने पर, खोज परिणाम एक हरे रंग का &quot;AI (Vector Database) पर आधारित खोज&quot; बैज प्रदर्शित करते हैं और एम्बेडिंग मॉडल के माध्यम से कोसाइन समानता रैंकिंग का उपयोग करते हैं। जब अक्षम किया जाता है, या जब निर्भरताएं उपलब्ध नहीं होती हैं, तो खोज बिना किसी बैज के चुपचाप कीवर्ड मैचिंग पर वापस चली जाती है। एम्बेडिंग ओलामा इंस्टेंस और एम्बेडिंग मॉडल आवश्यक है।</value>
+  </data>
+  <data name="Maximum number of cached query embeddings in the database. When exceeded, the least recently accessed entries are evicted (LRU). Default 2000. Adjust based on your database capacity and expected query diversity." xml:space="preserve">
+    <value>डेटाबेस में कैश किए गए क्वेरी एम्बेडिंग्स की अधिकतम संख्या। जब सीमा से पार हो, तो सबसे कम हाल में उपयोग किए गए प्रविष्टि हटा दिए जाते हैं (LRU)। डिफ़ॉल्ट 2000। अपने डेटाबेस की क्षमता और अपेक्षित क्वेरी विविधता के आधार पर समायोजित करें।</value>
   </data>
   <data name="Project Logo" xml:space="preserve">
     <value>प्रोजेक्ट लोगो</value>
@@ -54,8 +75,14 @@
   <data name="Project Name" xml:space="preserve">
     <value>प्रोजेक्ट नाम</value>
   </data>
+  <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
+    <value>Embedding Ollama Instance के साथ प्रामाणिकता के लिए bearer टोकन, जैसे. 5a0fbdefa19f....</value>
+  </data>
   <data name="The brand name displayed in the footer." xml:space="preserve">
     <value>फुटर में दिखाई देने वाला ब्रांड नाम</value>
+  </data>
+  <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
+    <value>एम्बेडिंग मॉडल का नाम, जैसे bge-m3:latest। इसे एम्बेडिंग Ollama Instance पर उपलब्ध होना चाहिए। केवल वेक्टर सर्च के लिए उपयोग किया जाता है।</value>
   </data>
   <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
     <value>चीन मुख्यभूमि के उपयोगकर्ताओं के लिए ICP लाइसेंस संख्या। छिपाने के लिए खाली छोड़ दें।</value>
@@ -65,6 +92,9 @@
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>फ्रंटएंड में प्रदर्शित प्रोजेक्ट का नाम।</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>इंसीडेंट और क्वेरी एम्बेडिंग (वेक्टर सर्च) जनरेट करने के लिए विशेष रूप से उपयोग किया जाने वाला Ollama API बेस URL। केवल होस्ट का उपयोग किया जाता है — /api/embed स्वतः जोड़ा जाता है। उदा. https://ollama.example.com</value>
   </data>
 
 </root>
