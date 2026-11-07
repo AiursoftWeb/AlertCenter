@@ -201,7 +201,7 @@ public static class AuthenticationExtensions
             string.IsNullOrEmpty(email) ||
             string.IsNullOrEmpty(providerKey))
         {
-            context.Fail("Could not find the required username, displayName, email, or sub claim in the OIDC token.");
+            context.Fail(new InvalidOperationException("Could not find the required username, displayName, email, or sub claim in the OIDC token."));
             return;
         }
 
@@ -222,7 +222,7 @@ public static class AuthenticationExtensions
         if (!syncResult.Succeeded)
         {
             var errors = string.Join(", ", syncResult.Errors.Select(error => error.Description));
-            context.Fail($"Failed to synchronize the OIDC account: {errors}");
+            context.Fail(new InvalidOperationException($"Failed to synchronize the OIDC account: {errors}"));
         }
     }
     private static async Task SyncBearerContext(JwtTokenValidatedContext context)
