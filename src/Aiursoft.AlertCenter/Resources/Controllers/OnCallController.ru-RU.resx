@@ -112,4 +112,7 @@
   <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Выберите допустимое местное время начала команды (не менее 28 дней от границ диапазона дат).</value></data>
   <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Недопустимое местное время команды. При переходе на летнее время пропущенные часы недопустимы, а повторяющиеся используют стандартное время.</value></data>
   <data name="On-call team does not exist." xml:space="preserve"><value>Дежурная команда не существует.</value></data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Название команды не совпадает.</value>
+  </data>
 </root>

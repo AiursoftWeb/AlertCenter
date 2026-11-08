@@ -120,7 +120,7 @@ public class OnCallGroupPagesTests : TestBase
         Assert.Contains("data-action-feedback", deletePage);
         Assert.DoesNotContain("onsubmit=", deletePage);
         Assert.DoesNotContain("confirm(", deletePage);
-        AssertRedirect(await PostForm("/OnCall/DeleteGroup", new() { ["id"] = id.ToString() }, location), "/OnCall/Groups");
+        AssertRedirect(await PostForm("/OnCall/DeleteGroup", new() { ["id"] = id.ToString(), ["confirmationName"] = "Ops" }, location), "/OnCall/Groups");
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -131,6 +131,36 @@ public class OnCallGroupPagesTests : TestBase
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync(location)).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/GroupEdit/{id}")).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await PostForm("/OnCall/DeleteGroup", new() { ["id"] = id.ToString() }, "/OnCall/GroupCreate")).StatusCode);
+    }
+
+    [TestMethod]
+    public async Task SavedTeamShowsDeletionCountsAndRejectsIncorrectName()
+    {
+        await LoginAsAdmin();
+        Guid id;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var now = DateTime.UtcNow;
+            var group = new OnCallGroup { Name = "Scheduled team" };
+            db.OnCallShifts.AddRange(new OnCallShift { Group = group, StartsAtUtc = now.AddDays(-3), EndsAtUtc = now.AddDays(-2) },
+                new() { Group = group, StartsAtUtc = now.AddHours(-1), EndsAtUtc = now.AddHours(1) },
+                new() { Group = group, StartsAtUtc = now.AddDays(1), EndsAtUtc = now.AddDays(2) });
+            await db.SaveChangesAsync();
+            id = group.Id;
+            groupIds.Add(id);
+        }
+        var url = $"/OnCall/GroupDetails/{id}";
+        var html = WebUtility.HtmlDecode(await Http.GetStringAsync(url));
+        Assert.Contains("Will delete 2 future shifts and 1 historical shifts", html);
+        Assert.Contains("Existing incidents retain their on-call records", html);
+        Assert.Contains("data-bs-target=\"#delete-oncall-group\"", html);
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/OnCall/DeleteGroup", new()
+            { ["id"] = id.ToString(), ["confirmationName"] = "scheduled team" }, url)).StatusCode);
+        AssertRedirect(await PostForm("/OnCall/DeleteGroup", new()
+            { ["id"] = id.ToString(), ["confirmationName"] = "Scheduled team" }, url), "/OnCall/Groups");
+        using var after = Server.Services.CreateScope();
+        Assert.AreEqual(0, await after.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallShifts.CountAsync());
     }
 
     [TestMethod]

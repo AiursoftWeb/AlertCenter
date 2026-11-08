@@ -112,4 +112,7 @@
   <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Valitse kelvollinen tiimin paikallinen aloitusaika (vähintään 28 päivää päivämäärärajoista).</value></data>
   <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Virheellinen tiimin paikallinen aika. Kesäajan vaihdoissa ohitetut ajat ovat virheellisiä ja toistuvat ajat käyttävät normaaliaikaa.</value></data>
   <data name="On-call team does not exist." xml:space="preserve"><value>Päivystystiimiä ei ole olemassa.</value></data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Tiimin nimi ei täsmää.</value>
+  </data>
 </root>

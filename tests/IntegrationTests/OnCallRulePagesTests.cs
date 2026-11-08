@@ -145,7 +145,7 @@ public class OnCallRulePagesTests : TestBase
         Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/OnCall/DeleteRule", new() { ["id"] = ruleId.ToString() }, includeToken: false)).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await PostForm("/OnCall/DeleteRule", new() { ["id"] = Guid.NewGuid().ToString() }, "/OnCall/Index")).StatusCode);
         Assert.AreEqual(HttpStatusCode.Conflict, (await PostForm("/OnCall/DeleteRule", new() { ["id"] = ruleId.ToString() }, "/OnCall/Index")).StatusCode);
-        Assert.AreEqual(HttpStatusCode.Conflict, (await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, "/OnCall/GroupCreate")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, "/OnCall/GroupCreate")).StatusCode);
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();

@@ -192,7 +192,7 @@ public partial class IncidentPagesTests
         Assert.IsTrue(alerts.Where(alert => alert.Classes.Contains("alert-warning"))
             .All(alert => alert.Root.Contains("role=\"alert\"") && !alert.Root.Contains("data-bs-dismiss=\"alert\"")));
         var groupDetails = AssertUiStackAlerts(await Http.GetStringAsync($"/OnCall/GroupDetails/{groupId}"));
-        Assert.IsTrue(groupDetails.Any(alert => alert.Classes.Contains("alert-info")));
+        Assert.IsTrue(groupDetails.Any(alert => alert.Root.Contains("id=\"delete-oncall-group-description\"")));
     }
 
     [TestMethod]
@@ -208,7 +208,7 @@ public partial class IncidentPagesTests
         var groupId = Guid.Parse(groupLocation.Split('/').Last());
         var groupAlerts = AssertDismissibleSuccess(await Http.GetStringAsync(groupLocation));
         Assert.IsTrue(groupAlerts.Any(alert => alert.Root.Contains("id=\"delete-oncall-group-description\"")));
-        using var groupDeleted = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, groupLocation);
+        using var groupDeleted = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString(), ["confirmationName"] = "Alert success team" }, groupLocation);
         AssertRedirect(groupDeleted, "/OnCall/Groups");
         AssertDismissibleSuccess(await Http.GetStringAsync(groupDeleted.Headers.Location));
 

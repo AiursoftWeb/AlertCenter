@@ -28,7 +28,9 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public DateTime WeekStartUtc { get; set; }
     public bool ScheduleSaved { get; set; }
     public bool GroupHasSavedSchedule { get; set; }
-    public bool GroupHasBoundApplications { get; set; }
+    public int FutureShiftCount { get; set; }
+    public int HistoricalShiftCount { get; set; }
+    public List<SourceApplication> BoundApplications { get; set; } = [];
     public bool CanGenerateSchedule { get; set; }
     public int ScheduleRestHours { get; set; } = 16;
     public int ScheduleMinimumStaff { get; set; } = 1;

@@ -328,12 +328,54 @@ public class OnCallControllerTests
         db.OnCallGroups.Add(group);
         await db.SaveChangesAsync();
         Assert.AreEqual(nameof(OnCallController.Groups),
-            Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).DeleteGroup(group.Id, default)).ActionName);
+            Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).DeleteGroup(group.Id, group.Name, default)).ActionName);
         db.ChangeTracker.Clear();
         Assert.AreEqual(0, await db.OnCallGroups.CountAsync());
         Assert.AreEqual(0, await db.OnCallGroupMembers.CountAsync());
         Assert.AreEqual(rule.Id, (await db.OnCallRules.SingleAsync()).Id);
         Assert.AreEqual(3, await db.Users.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task DeleteScheduledTeamRequiresExactNameAndRemovesOnlyTeamData()
+    {
+        await using var db = await CreateDb();
+        var now = DateTime.UtcNow;
+        var group = new OnCallGroup { Name = "Team <A>", AutoExtend = true, HandoverCheckedThroughUtc = now,
+            Rule = new OnCallRule { Name = "Reusable" }, Members = [new() { UserId = "a" }],
+            FallbackRecipients = [new() { UserId = "b" }] };
+        var shifts = new[] { -2, 2 }.SelectMany(day => new[] { OnCallShiftSource.Manual, OnCallShiftSource.Generated }
+            .Select(source => new OnCallShift { Group = group, StartsAtUtc = now.AddDays(day), EndsAtUtc = now.AddDays(day).AddHours(2),
+                Source = source, Members = [new() { UserId = "a" }] })).ToArray();
+        db.OnCallShifts.AddRange(shifts);
+        db.AddRange(shifts.Select(shift => new OnCallHandoverReceipt { ShiftId = shift.Id, UserId = "a", ProcessedAtUtc = now }));
+        var other = new OnCallShift { Group = new() { Name = "Other" }, StartsAtUtc = now, EndsAtUtc = now.AddHours(2) };
+        db.OnCallShifts.Add(other);
+        db.Add(new OnCallHandoverReceipt { ShiftId = other.Id, UserId = "a", ProcessedAtUtc = now });
+        var snapshot = new OnCallEmailSnapshot { Delivery = new(), GroupId = group.Id, GroupName = group.Name,
+            ShiftId = shifts[0].Id, CcRecipients = "team@example.com", Recipients = [new() { UserId = "a", DisplayName = "Original", Email = "a@example.com" }] };
+        db.OnCallEmailSnapshots.Add(snapshot);
+        await db.SaveChangesAsync();
+        var controller = Controller(db);
+        foreach (var name in new string?[] { null, "team <A>", "Team <A> " })
+            Assert.IsInstanceOfType<BadRequestObjectResult>(await controller.DeleteGroup(group.Id, name, default));
+        Assert.AreEqual(5, await db.OnCallShifts.CountAsync());
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.DeleteGroup(group.Id, group.Name, default));
+        db.ChangeTracker.Clear();
+        Assert.AreEqual(other.Id, (await db.OnCallShifts.SingleAsync()).Id);
+        Assert.AreEqual(other.Id, (await db.Set<OnCallHandoverReceipt>().SingleAsync()).ShiftId);
+        Assert.AreEqual(0, await db.OnCallShiftMembers.CountAsync());
+        Assert.AreEqual(0, await db.OnCallGroupMembers.CountAsync());
+        Assert.AreEqual(0, await db.Set<OnCallFallbackRecipient>().CountAsync());
+        Assert.AreEqual(1, await db.OnCallRules.CountAsync());
+        var retained = await db.OnCallEmailSnapshots.Include(item => item.Recipients).SingleAsync();
+        Assert.AreEqual(group.Id, retained.GroupId);
+        Assert.AreEqual("a@example.com", retained.Recipients.Single().Email);
+        Assert.AreEqual("team@example.com", retained.CcRecipients);
+        Assert.AreEqual(1, await db.PushDeliveries.CountAsync());
+        await OnCallMaintenanceWorker.MaintainGroupAsync(db, TestLocalization.For<OnCallScheduleGenerator>(),
+            TestLocalization.For<OnCallMaintenanceWorker>(), "https://example.com", group.Id, now, default);
+        Assert.AreEqual(1, await db.OnCallShifts.CountAsync());
     }
 
     [TestMethod]
@@ -456,7 +498,7 @@ public class OnCallControllerTests
             Assert.AreEqual(16, saved[shift.Id].RestHours);
         }
         Assert.AreEqual("b", (await db.OnCallGroupMembers.SingleAsync()).UserId);
-        Assert.IsInstanceOfType<ConflictObjectResult>(await controller.DeleteGroup(group.Id, default));
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.DeleteGroup(group.Id, group.Name, default));
     }
 
     [TestMethod]

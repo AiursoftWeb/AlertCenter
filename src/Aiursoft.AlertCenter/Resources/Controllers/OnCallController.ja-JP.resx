@@ -112,4 +112,7 @@
   <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>有効なチーム現地開始時刻を選択してください（日付範囲の境界から28日以上離れている必要があります）。</value></data>
   <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>チームの現地時刻が無効です。夏時間の切り替えでは、存在しない時刻は無効となり、重複する時刻には標準時を使用します。</value></data>
   <data name="On-call team does not exist." xml:space="preserve"><value>オンコールチームが存在しません。</value></data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>チーム名が一致しません。</value>
+  </data>
 </root>

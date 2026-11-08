@@ -11,6 +11,7 @@
     let refreshConfirmation = false;
     let errorTitle;
     let errorMessage;
+    let errorLinks = [];
     let sourceModal;
     let sourceControl;
     let restoreSource = false;
@@ -33,7 +34,7 @@
             return;
         }
         errorTitle = title.textContent;
-        errorMessage = message.textContent;
+        errorMessage = message.dataset.errorText;
         refreshConfirmation = true;
         title.textContent = getLocalizedText("confirm-page-refresh", "Confirm page refresh?");
         message.textContent = getLocalizedText("refreshing-will-discard-unsaved-input-select-cancel-refresh", "Refreshing will discard unsaved input. Select \"Cancel refresh\" to return to error details and retain current input.");
@@ -49,7 +50,7 @@
         event.stopPropagation();
         resetRefreshConfirmation();
         title.textContent = errorTitle;
-        message.textContent = errorMessage;
+        renderMessage(errorMessage, errorLinks);
         refresh.focus();
     });
     dialog.addEventListener('hidden.bs.modal', () => {
@@ -62,14 +63,29 @@
         }
     });
 
-    function showError(text, stale, form, submitter) {
+    function renderMessage(text, links) {
+        message.dataset.errorText = text;
+        message.textContent = text;
+        for (const link of links) {
+            if (typeof link?.url !== 'string' || !link.url.startsWith('/') || link.url.startsWith('//')) continue;
+            if (new URL(link.url, window.location.href).origin !== window.location.origin) continue;
+            const anchor = document.createElement('a');
+            anchor.href = link.url;
+            anchor.textContent = link.text;
+            anchor.className = 'd-block';
+            message.append(anchor);
+        }
+    }
+
+    function showError(text, stale, form, submitter, links = []) {
+        errorLinks = Array.isArray(links) ? links : [];
         resetRefreshConfirmation();
         const modalParent = form.closest('.modal');
         sourceModal = modalParent && (openModals.has(modalParent) || modalParent.classList.contains('show')) ? modalParent : null;
         sourceControl = submitter || form.querySelector('input:not([type="hidden"]), textarea, select, button');
         restoreSource = Boolean(sourceModal);
         title.textContent = stale ? getLocalizedText("page-information-updated", "Page information updated") : getLocalizedText("action-not-completed", "Action not completed");
-        message.textContent = text;
+        renderMessage(text, errorLinks);
         refresh.classList.toggle('d-none', !stale);
         const show = () => bootstrap.Modal.getOrCreateInstance(dialog).show();
         if (sourceModal) {
@@ -134,7 +150,7 @@
                 response.status === 400 ? getLocalizedText("request-invalid-or-page-credentials-expired-check-input", "Request invalid or page credentials expired. Check input and refresh to retry if necessary.") :
                 getLocalizedText("the-result-of-the-action-cannot-be-confirmed", "The result of the action cannot be confirmed at this time. Please verify the page status before resubmitting.");
             showError(typeof json?.message === 'string' ? json.message : fallback,
-                response.status === 409 || response.status === 404 || json?.refresh === true, form, submitter);
+                response.status === 409 || response.status === 404 || json?.refresh === true, form, submitter, json?.links);
         } catch {
             showError(getLocalizedText("network-error-the-operation-result-cannot-be-confirmed", "Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates."), false, form, submitter);
         } finally {
