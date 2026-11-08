@@ -1,4 +1,6 @@
 using Aiursoft.AlertCenter.Authorization;
+using System.Security.Claims;
+using Aiursoft.AlertCenter.Configuration;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
@@ -16,6 +18,49 @@ namespace Aiursoft.AlertCenter.Controllers;
 public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator generator, IStringLocalizer<OnCallController> localizer, IStringLocalizerFactory localizerFactory) : Controller
 {
     private readonly OnCallScheduleService schedules = new(db, generator, new StringLocalizer<OnCallScheduleService>(localizerFactory), localizerFactory);
+
+    [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
+        CascadedLinksGroupName = "On-call", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
+        LinkText = "My on-call", LinkOrder = 3)]
+    public async Task<IActionResult> Mine(CancellationToken cancellationToken, int page = 1) =>
+        this.StackView(await new MyOnCallService(db, localizerFactory.Create(typeof(OnCallScheduleValidator)))
+            .LoadAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)!, DateTime.UtcNow, page, cancellationToken));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> ResetSubscription([FromServices] Microsoft.Extensions.Options.IOptions<EmailSettings> settings,
+        CancellationToken cancellationToken)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        var user = await db.Users.SingleAsync(user => user.Id == userId, cancellationToken);
+        var token = OnCallCalendar.NewToken();
+        user.OnCallSubscriptionTokenHash = OnCallCalendar.Hash(token);
+        await db.SaveChangesAsync(cancellationToken);
+        var model = await new MyOnCallService(db, localizerFactory.Create(typeof(OnCallScheduleValidator)))
+            .LoadAsync(userId, DateTime.UtcNow, 1, cancellationToken);
+        model.SubscriptionUrl = settings.Value.PublicBaseUrl.TrimEnd('/') + "/OnCall/Calendar.ics?token=" + token;
+        Response.Headers["Referrer-Policy"] = "no-referrer";
+        return this.StackView(model, "Mine");
+    }
+
+    [AllowAnonymous, HttpGet("/OnCall/Calendar.ics")]
+    public async Task<IActionResult> Calendar(string? token,
+        [FromServices] Microsoft.Extensions.Options.IOptions<EmailSettings> settings, CancellationToken cancellationToken)
+    {
+        if (token is null || token.Length != 64 || !token.All(Uri.IsHexDigit)) return NotFound();
+        var hash = OnCallCalendar.Hash(token);
+        var userId = await db.Users.AsNoTracking().Where(user => user.OnCallSubscriptionTokenHash == hash)
+            .Select(user => user.Id).SingleOrDefaultAsync(cancellationToken);
+        if (userId == null) return NotFound();
+        var now = DateTime.UtcNow;
+        var from = now.AddDays(-30);
+        var until = now.AddDays(84);
+        var shifts = await db.OnCallShifts.AsNoTracking().AsSingleQuery().Include(shift => shift.Group)
+            .Include(shift => shift.Members).ThenInclude(member => member.User)
+            .Where(shift => shift.Members.Any(member => member.UserId == userId) && shift.EndsAtUtc > from && shift.StartsAtUtc < until)
+            .OrderBy(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id).ToListAsync(cancellationToken);
+        return File(System.Text.Encoding.UTF8.GetBytes(OnCallCalendar.Render(shifts, settings.Value.PublicBaseUrl, now)),
+            "text/calendar; charset=utf-8", "oncall.ics");
+    }
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "On-call", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
         LinkText = "Scheduling Rules", LinkOrder = 1)]

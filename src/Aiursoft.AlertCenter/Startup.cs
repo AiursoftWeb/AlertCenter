@@ -49,6 +49,10 @@ public class Startup : IWebStartup
 
         services.AddLogging(builder =>
         {
+            // 订阅链接含私密令牌，禁止框架在请求起止和路由调试日志中输出完整 URL。
+            builder.AddFilter("Microsoft.AspNetCore.Hosting.Diagnostics", LogLevel.Warning);
+            builder.AddFilter("Microsoft.AspNetCore.Routing", LogLevel.Warning);
+            builder.AddFilter("Microsoft.AspNetCore.Mvc", LogLevel.Warning);
             builder.AddClickhouse(options => configuration.GetSection("Logging:Clickhouse").Bind(options));
         });
 
