@@ -106,4 +106,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>每段人数</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>值班成员（轮换队列）</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>队列中的第一位成员最先值班。现有班次不会重新排序。</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>兜底收件人</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>在无人值班时接收告警，不参与轮换。</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>尚未配置兜底收件人。无人值班时将无法发送告警。</value>
+  </data>
 </root>

@@ -106,4 +106,10 @@
     <value>無法產生預覽：{0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>開始時間與每週交接點不一致；第一個班次將是不完整的時段。</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>請新增輪替佇列成員以預覽班次。</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>團隊預覽請求格式無效。</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>請選擇有效的團隊當地開始時間（距離日期範圍邊界必須至少為 28 天）。</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>團隊當地時間無效。日光節約時間切換期間，跳過的時刻無效，重複的時刻採用標準時間。</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>值班團隊不存在。</value></data>
 </root>

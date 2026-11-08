@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>عدد الأفراد في كل مناوبة</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>أعضاء المناوبة (قائمة التناوب)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>يبدأ أول شخص في القائمة المناوبة أولاً. لا يُعاد ترتيب المناوبات الحالية.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>المستلمون الاحتياطيون</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>يتلقون التنبيهات عندما لا يوجد أحد في المناوبة؛ ولا يشاركون في التناوب.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>لم يتم إعداد مستلمين احتياطيين. لا يمكن إيصال التنبيهات عندما لا يوجد أحد في المناوبة.</value>
+  </data>
 </root>

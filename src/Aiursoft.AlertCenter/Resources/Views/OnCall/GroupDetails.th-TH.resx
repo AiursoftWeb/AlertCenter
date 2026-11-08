@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>จำนวนคนต่อเวร</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>สมาชิกเวร (คิวหมุนเวียน)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>คนแรกในคิวจะเข้าเวรก่อน โดยจะไม่เปลี่ยนลำดับเวรที่มีอยู่</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>ผู้รับสำรอง</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>รับการแจ้งเตือนเมื่อไม่มีผู้เข้าเวร โดยไม่เข้าร่วมการหมุนเวียนเวร</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>ยังไม่ได้ตั้งค่าผู้รับสำรอง ไม่สามารถส่งการแจ้งเตือนได้เมื่อไม่มีผู้เข้าเวร</value>
+  </data>
 </root>

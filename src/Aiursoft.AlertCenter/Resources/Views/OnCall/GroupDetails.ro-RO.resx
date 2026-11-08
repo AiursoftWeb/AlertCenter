@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Personal pe tură</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Membri de gardă (coadă de rotație)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Prima persoană din coadă intră prima de gardă. Turele existente nu sunt reordonate.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Destinatari de rezervă</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Primesc alerte când nimeni nu este de gardă; nu participă la rotație.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Nu sunt configurați destinatari de rezervă. Alertele nu pot fi livrate când nimeni nu este de gardă.</value>
+  </data>
 </root>

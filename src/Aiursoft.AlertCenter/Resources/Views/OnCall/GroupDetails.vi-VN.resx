@@ -106,4 +106,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Nhân sự mỗi ca</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Thành viên trực (hàng đợi luân phiên)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Người đầu hàng đợi sẽ trực trước. Các ca hiện có không được sắp xếp lại.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Người nhận dự phòng</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Nhận cảnh báo khi không có ai trực; không tham gia luân phiên.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Chưa cấu hình người nhận dự phòng. Không thể gửi cảnh báo khi không có ai trực.</value>
+  </data>
 </root>

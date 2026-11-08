@@ -106,4 +106,10 @@
     <value>ไม่สามารถสร้างตัวอย่างล่วงหน้าได้: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>เวลาเริ่มไม่ตรงกับเวลาส่งมอบงานรายสัปดาห์ เวรแรกจึงเป็นเพียงช่วงเวลาบางส่วน</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>เพิ่มสมาชิกในคิวหมุนเวียนเพื่อดูตัวอย่างเวร</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>รูปแบบคำขอดูตัวอย่างทีมไม่ถูกต้อง</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>เลือกเวลาเริ่มท้องถิ่นของทีมที่ถูกต้อง (ห่างจากขอบเขตวันที่อย่างน้อย 28 วัน)</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>เวลาท้องถิ่นของทีมไม่ถูกต้อง ในช่วงเปลี่ยนเวลาออมแสง เวลาที่ถูกข้ามจะไม่ถูกต้อง และเวลาที่ซ้ำจะใช้เวลามาตรฐาน</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>ไม่มีทีมเวรนี้</value></data>
 </root>

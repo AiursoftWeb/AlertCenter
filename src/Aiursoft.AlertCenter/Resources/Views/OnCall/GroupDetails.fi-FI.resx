@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Henkilöitä vuorossa</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Päivystävät jäsenet (kiertojono)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Jonon ensimmäinen henkilö päivystää ensin. Nykyisiä vuoroja ei järjestetä uudelleen.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Varavastaanottajat</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Vastaanottavat hälytykset, kun kukaan ei päivystä; eivät osallistu kiertoon.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Varavastaanottajia ei ole määritetty. Hälytyksiä ei voida toimittaa, kun kukaan ei päivystä.</value>
+  </data>
 </root>

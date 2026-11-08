@@ -106,4 +106,10 @@
     <value>Не вдалося створити попередній перегляд: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Час початку не збігається з щотижневою передачею чергування; перша зміна буде неповною.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Додайте учасників до черги ротації для попереднього перегляду змін.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Неприпустимий формат запиту попереднього перегляду команди.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Виберіть допустимий місцевий час початку команди (щонайменше за 28 днів від меж діапазону дат).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Неприпустимий місцевий час команди. Під час переходу на літній час пропущені години неприпустимі, а повторювані використовують стандартний час.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Чергової команди не існує.</value></data>
 </root>

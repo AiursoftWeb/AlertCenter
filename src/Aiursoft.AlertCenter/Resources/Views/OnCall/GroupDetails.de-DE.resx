@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Personal pro Schicht</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Bereitschaftsmitglieder (Rotationsreihenfolge)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Die erste Person in der Warteschlange hat zuerst Bereitschaft. Bestehende Schichten werden nicht neu angeordnet.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Ersatzempfänger</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Erhalten Warnmeldungen, wenn niemand Bereitschaft hat; nehmen nicht an der Rotation teil.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Keine Ersatzempfänger konfiguriert. Warnmeldungen können nicht zugestellt werden, wenn niemand Bereitschaft hat.</value>
+  </data>
 </root>

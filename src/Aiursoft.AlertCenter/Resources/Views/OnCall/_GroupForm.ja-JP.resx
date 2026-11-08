@@ -181,4 +181,36 @@
     <value>スケジュールを表示</value>
   </data>
 
+  <data name="Advanced settings" xml:space="preserve"><value>詳細設定</value></data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve"><value>以下の排班時刻にはチームのタイムゾーンを使用します。</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve"><value>紐付けたテンプレートを今後4週間まで自動延長する</value></data>
+  <data name="Basic information" xml:space="preserve"><value>基本情報</value></data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve"><value>自動延長を有効にするにはテンプレートを選択してください。</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve"><value>当番がいないときにアラートを受信するシステムユーザーを選択してください。フォールバック受信者はローテーションに参加しません。</value></data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve"><value>離脱したメンバーの保存済みシフトは維持されます。保存後に今後の割り当てを確認してください。</value></data>
+  <data name="Fallback recipients" xml:space="preserve"><value>フォールバック受信者</value></data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve"><value>しきい値を空欄にすると対応するリマインダーが無効になります。リマインダーは保存を妨げません。</value></data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve"><value>最大連続勤務リマインダー（時間）</value></data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve"><value>最小休息リマインダー（時間）</value></data>
+  <data name="Minimum staffing reminder" xml:space="preserve"><value>最小人数リマインダー</value></data>
+  <data name="Next four shifts preview" xml:space="preserve"><value>次の4シフトのプレビュー</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve"><value>フォールバック受信者がいないため、当番不在時にアラートを配信できません。</value></data>
+  <data name="No members yet. Search below to add people." xml:space="preserve"><value>メンバーがいません。下で検索して追加してください。</value></data>
+  <data name="On-call members (rotation queue)" xml:space="preserve"><value>オンコールメンバー（ローテーション順）</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve"><value>プレビューはスケジュール開始時点または保存済みシフトの後から始まります。チームのタイムゾーンを使用します。保存済みシフトは変更されません。</value></data>
+  <data name="Scheduling method" xml:space="preserve"><value>スケジュール方式</value></data>
+  <data name="Scheduling start point (team time)" xml:space="preserve"><value>スケジュール開始時点（チーム時刻）</value></data>
+  <data name="Search by name or account." xml:space="preserve"><value>名前またはアカウントで検索。</value></data>
+  <data name="Search fallback recipients" xml:space="preserve"><value>フォールバック受信者を検索</value></data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve"><value>チームのタイムゾーンで開始時刻を自動設定しました。保存前に変更できます。</value></data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve"><value>先頭のメンバーが最初に当番になります。ハンドルをドラッグするか、タッチ画面で長押しして並べ替えます。ハンドル上の上下キーや移動ボタンも使えます。既存のシフトは変更されません。</value></data>
+  <data name="Week starts on" xml:space="preserve"><value>週の開始日</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve"><value>週単位テンプレートは次の最初の引き継ぎ時刻から、固定時間テンプレートは次の正時から開始します。シフト保存後は開始時点が固定されます。</value></data>
+  <data name="Sunday" xml:space="preserve"><value>日曜日</value></data>
+  <data name="Monday" xml:space="preserve"><value>月曜日</value></data>
+  <data name="Tuesday" xml:space="preserve"><value>火曜日</value></data>
+  <data name="Wednesday" xml:space="preserve"><value>水曜日</value></data>
+  <data name="Thursday" xml:space="preserve"><value>木曜日</value></data>
+  <data name="Friday" xml:space="preserve"><value>金曜日</value></data>
+  <data name="Saturday" xml:space="preserve"><value>土曜日</value></data>
 </root>

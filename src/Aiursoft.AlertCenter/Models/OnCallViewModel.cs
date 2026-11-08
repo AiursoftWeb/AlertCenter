@@ -60,10 +60,30 @@ public class CreateOnCallGroupRequest
     [MaxLength(8000, ErrorMessage = "The on-call email CC configuration must not exceed 8,000 characters.")]
     public string? EmailCcRecipients { get; set; }
     public Guid? RuleId { get; set; }
-    [Required(ErrorMessage = "Please select a UTC start time.")]
+    public string? AnchorLocal { get; set; }
     public DateTime? AnchorUtc { get; set; } = DateTime.UtcNow.Date;
     public Guid Version { get; set; }
     public List<string>? UserIds { get; set; } = [];
+}
+
+public class OnCallGroupFormPreviewRequest
+{
+    public Guid? GroupId { get; set; }
+    public Guid? RuleId { get; set; }
+    public string? TimeZoneId { get; set; }
+    public string? AnchorLocal { get; set; }
+    public List<string>? UserIds { get; set; } = [];
+}
+
+public class OnCallGroupFormPreviewResult
+{
+    public string AnchorLocal { get; set; } = string.Empty;
+    public string SuggestedAnchorLocal { get; set; } = string.Empty;
+    public bool AnchorLocked { get; set; }
+    public List<string> Suggestions { get; set; } = [];
+    public List<OnCallSlotRequest> Slots { get; set; } = [];
+    public List<string> Warnings { get; set; } = [];
+    public List<string> Errors { get; set; } = [];
 }
 
 public class SaveOnCallRuleRequest

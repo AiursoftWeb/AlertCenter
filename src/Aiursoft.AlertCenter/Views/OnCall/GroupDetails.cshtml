@@ -24,6 +24,10 @@
         <div class="alert-message">@message</div>
     </div>
 }
+@if (TempData["OnCallGroupWarning"] is string warning)
+{
+    <div class="alert alert-warning" role="status"><div class="alert-message">@warning</div></div>
+}
 @await Html.PartialAsync("_OnCallWarnings", Model.UpcomingIssues)
 <div class="card mb-4">
     <div class="card-body">
@@ -39,7 +43,7 @@
 <div class="card mb-4">
     <div class="card-header"><h2 class="card-title mb-0">@Localizer["Team configuration"]</h2></div>
     <div class="card-body">
-        <p>@Localizer["Scheduling start point: "]@group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        <p>@Localizer["Scheduling start point: "]@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("yyyy-MM-dd HH:mm") @group.TimeZoneId</p>
         @if (group.Rule != null)
         {
             <p>@Localizer["Template:"]<a asp-action="Details" asp-route-id="@group.Rule.Id">@group.Rule.Name</a> · @Localizer["Staff per shift"]: @group.Rule.StaffPerShift</p>
@@ -67,7 +71,12 @@
             }
             <p class="small text-muted">@Localizer["On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications."]</p>
         }
-        <h3 class="h6">@Localizer["Members available for scheduling (rotation order)"]</h3>
+    </div>
+</div>
+<div class="card mb-4" id="group-rotation-queue">
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["On-call members (rotation queue)"]</h2></div>
+    <div class="card-body">
+        <p class="small text-muted">@Localizer["The first person in the queue is on call first. Existing shifts are not reordered."]</p>
         @if (group.Members.Count == 0)
         {
             <p class="text-muted mb-0">@Localizer["No team members."]</p>
@@ -77,9 +86,28 @@
             <ol class="mb-0">
                 @foreach (var member in group.Members.OrderBy(item => item.RotationOrder))
                 {
-                    <li>@member.User.DisplayName (@(member.User.UserName ?? member.UserId))</li>
+                    <li class="text-break">@member.User.DisplayName (@(member.User.UserName ?? member.UserId))</li>
                 }
             </ol>
+        }
+    </div>
+</div>
+<div class="card mb-4" id="group-fallback-recipients">
+    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Fallback recipients"]</h2></div>
+    <div class="card-body">
+        <p class="small text-muted">@Localizer["Receive alerts when nobody is on call; do not participate in the rotation."]</p>
+        @if (group.FallbackRecipients.Count == 0)
+        {
+            <div class="alert alert-warning mb-0" role="status"><div class="alert-message">@Localizer["No fallback recipients configured. Alerts cannot be delivered when nobody is on call."]</div></div>
+        }
+        else
+        {
+            <ul class="mb-0">
+                @foreach (var recipient in group.FallbackRecipients.OrderBy(item => item.User.DisplayName))
+                {
+                    <li class="text-break">@recipient.User.DisplayName (@(recipient.User.UserName ?? recipient.UserId))</li>
+                }
+            </ul>
         }
     </div>
 </div>

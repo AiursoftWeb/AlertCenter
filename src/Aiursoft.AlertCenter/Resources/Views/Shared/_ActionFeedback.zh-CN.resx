@@ -361,4 +361,13 @@
   <data name="Delete shift" xml:space="preserve"><value>删除班段</value></data>
   <data name="hours" xml:space="preserve"><value>小时</value></data>
   <data name="Departed" xml:space="preserve"><value>已离队</value></data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} 已移至第 {1} 位，共 {2} 位。</value></data>
+  <data name="Reorder {0}" xml:space="preserve"><value>调整 {0} 的顺序</value></data>
+  <data name="Already selected" xml:space="preserve"><value>已选择</value></data>
+  <data name="Start at {0}" xml:space="preserve"><value>从 {0} 开始</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>请输入排班起始时间以预览班次。</value></data>
+  <data name="Updating shift preview…" xml:space="preserve"><value>正在更新班次预览…</value></data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>无法更新预览。请重试。</value></data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>请添加值班成员以预览轮换。</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>请选择排班模板以预览轮换。</value></data>
 </root>

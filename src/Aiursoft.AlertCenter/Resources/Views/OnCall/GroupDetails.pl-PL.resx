@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Osoby na zmianę</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Członkowie dyżuru (kolejka rotacji)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Pierwsza osoba w kolejce dyżuruje jako pierwsza. Kolejność istniejących zmian nie jest zmieniana.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Odbiorcy rezerwowi</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Otrzymują alerty, gdy nikt nie dyżuruje; nie uczestniczą w rotacji.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Nie skonfigurowano odbiorców rezerwowych. Nie można dostarczać alertów, gdy nikt nie dyżuruje.</value>
+  </data>
 </root>

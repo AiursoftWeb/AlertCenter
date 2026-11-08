@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Працівників на зміну</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Чергові учасники (черга ротації)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Перший учасник черги чергує першим. Порядок наявних змін не змінюється.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Резервні одержувачі</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Отримують сповіщення, коли ніхто не чергує; не беруть участі в ротації.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Резервних одержувачів не налаштовано. Сповіщення неможливо доставити, коли ніхто не чергує.</value>
+  </data>
 </root>

@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>प्रति शिफ्ट कर्मचारी</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>ऑन-कॉल सदस्य (रोटेशन कतार)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>कतार का पहला व्यक्ति पहले ऑन-कॉल होता है। मौजूदा शिफ्टों का क्रम नहीं बदला जाता।</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>वैकल्पिक प्राप्तकर्ता</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>जब कोई ऑन-कॉल नहीं होता तब अलर्ट प्राप्त करते हैं; रोटेशन में भाग नहीं लेते।</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>कोई वैकल्पिक प्राप्तकर्ता कॉन्फ़िगर नहीं है। जब कोई ऑन-कॉल नहीं होता तब अलर्ट नहीं भेजे जा सकते।</value>
+  </data>
 </root>

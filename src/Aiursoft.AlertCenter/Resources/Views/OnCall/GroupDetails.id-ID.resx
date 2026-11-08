@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Staf per sif</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Anggota piket (antrean rotasi)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Orang pertama dalam antrean mendapat giliran piket pertama. Sif yang ada tidak diurutkan ulang.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Penerima cadangan</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Menerima peringatan saat tidak ada yang piket; tidak ikut dalam rotasi.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Belum ada penerima cadangan yang dikonfigurasi. Peringatan tidak dapat dikirim saat tidak ada yang piket.</value>
+  </data>
 </root>

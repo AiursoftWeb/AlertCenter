@@ -106,4 +106,10 @@
     <value>Não foi possível gerar a pré-visualização: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>A hora de início não corresponde a uma passagem semanal; o primeiro turno será parcial.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Adicione membros à fila de rotação para pré-visualizar os turnos.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>O formato do pedido de pré-visualização da equipa é inválido.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Selecione uma hora de início local válida da equipa (pelo menos 28 dias dos limites de data).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Hora local da equipa inválida. Nas mudanças da hora de verão, as horas ignoradas são inválidas e as repetidas usam a hora padrão.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>A equipa de prevenção não existe.</value></data>
 </root>

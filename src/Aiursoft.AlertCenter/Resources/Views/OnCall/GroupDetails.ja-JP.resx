@@ -106,4 +106,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>シフトごとの人数</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>オンコールメンバー（ローテーション順）</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>キューの先頭のメンバーが最初に当番になります。既存のシフトの順序は変更されません。</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>フォールバック受信者</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>当番がいないときにアラートを受信します。ローテーションには参加しません。</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>フォールバック受信者が設定されていません。当番がいないときはアラートを配信できません。</value>
+  </data>
 </root>

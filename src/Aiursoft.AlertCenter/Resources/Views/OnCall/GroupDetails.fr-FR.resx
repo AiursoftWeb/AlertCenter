@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Personnel par vacation</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Membres d’astreinte (file de rotation)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>La première personne de la file assure la première astreinte. Les vacations existantes ne sont pas réordonnées.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Destinataires de secours</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Reçoivent les alertes lorsque personne n’est d’astreinte ; ne participent pas à la rotation.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Aucun destinataire de secours configuré. Les alertes ne peuvent pas être envoyées lorsque personne n’est d’astreinte.</value>
+  </data>
 </root>

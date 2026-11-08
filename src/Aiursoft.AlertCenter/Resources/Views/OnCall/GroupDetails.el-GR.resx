@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Άτομα ανά βάρδια</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Μέλη εφημερίας (σειρά εναλλαγής)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Το πρώτο άτομο στην ουρά εφημερεύει πρώτο. Οι υπάρχουσες βάρδιες δεν αναδιατάσσονται.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Εφεδρικοί παραλήπτες</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Λαμβάνουν ειδοποιήσεις όταν κανείς δεν εφημερεύει· δεν συμμετέχουν στην εναλλαγή.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Δεν έχουν οριστεί εφεδρικοί παραλήπτες. Οι ειδοποιήσεις δεν μπορούν να παραδοθούν όταν κανείς δεν εφημερεύει.</value>
+  </data>
 </root>

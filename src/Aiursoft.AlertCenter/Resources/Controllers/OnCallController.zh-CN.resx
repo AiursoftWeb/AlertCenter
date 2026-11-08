@@ -113,4 +113,10 @@
   <data name="Invalid team local time." xml:space="preserve"><value>团队本地时间无效。</value></data>
   <data name="Invalid week start." xml:space="preserve"><value>每周起始日无效。</value></data>
   <data name="Add at least one weekly handover point." xml:space="preserve"><value>请至少添加一个每周交接点。</value></data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>开始时间与每周交接点不一致；第一个班次将是不完整的时段。</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>请添加轮换队列成员以预览班次。</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>团队预览请求格式无效。</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>请选择有效的团队本地开始时间（距离日期范围边界必须至少为 28 天）。</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>团队本地时间无效。夏令时切换期间，跳过的时刻无效，重复的时刻采用标准时间。</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>值班团队不存在。</value></data>
 </root>

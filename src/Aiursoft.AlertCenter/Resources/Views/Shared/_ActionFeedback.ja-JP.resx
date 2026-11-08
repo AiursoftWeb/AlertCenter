@@ -352,4 +352,14 @@
     <value>この操作を実行する権限がありません。</value>
   </data>
 
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} を全 {2} 人中 {1} 番目に移動しました。</value></data>
+  <data name="Reorder {0}" xml:space="preserve"><value>{0} の順序を変更</value></data>
+  <data name="Already selected" xml:space="preserve"><value>選択済み</value></data>
+  <data name="Start at {0}" xml:space="preserve"><value>{0} から開始</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>シフトのプレビューには開始時点を入力してください。</value></data>
+  <data name="Updating shift preview…" xml:space="preserve"><value>シフトのプレビューを更新中…</value></data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>プレビューを更新できません。再試行してください。</value></data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>ローテーションのプレビューにはメンバーを追加してください。</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>ローテーションのプレビューにはテンプレートを選択してください。</value></data>
+  <data name="Unassigned" xml:space="preserve"><value>未割り当て</value></data>
 </root>

@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Personal por turno</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Miembros de guardia (cola de rotación)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>La primera persona de la cola hace la primera guardia. Los turnos existentes no se reordenan.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Destinatarios de respaldo</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Reciben alertas cuando no hay nadie de guardia; no participan en la rotación.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>No hay destinatarios de respaldo configurados. No se pueden enviar alertas cuando no hay nadie de guardia.</value>
+  </data>
 </root>

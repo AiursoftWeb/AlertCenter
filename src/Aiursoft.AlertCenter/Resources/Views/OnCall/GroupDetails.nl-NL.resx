@@ -103,4 +103,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>Medewerkers per dienst</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Wachtdienstleden (rotatiewachtrij)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>De eerste persoon in de wachtrij heeft als eerste dienst. Bestaande diensten worden niet opnieuw gerangschikt.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Reserveontvangers</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Ontvangen meldingen als niemand dienst heeft; nemen niet deel aan de rotatie.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Geen reserveontvangers ingesteld. Meldingen kunnen niet worden afgeleverd als niemand dienst heeft.</value>
+  </data>
 </root>

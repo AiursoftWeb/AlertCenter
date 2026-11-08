@@ -106,4 +106,19 @@
   <data name="Staff per shift" xml:space="preserve">
     <value>근무당 인원</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>당직 구성원 (순환 대기열)</value>
+  </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>대기열의 첫 번째 구성원이 먼저 당직을 맡습니다. 기존 근무 순서는 변경되지 않습니다.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>대체 수신자</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>당직자가 없을 때 알림을 받으며, 순환 근무에는 참여하지 않습니다.</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>대체 수신자가 설정되지 않았습니다. 당직자가 없을 때는 알림을 전달할 수 없습니다.</value>
+  </data>
 </root>

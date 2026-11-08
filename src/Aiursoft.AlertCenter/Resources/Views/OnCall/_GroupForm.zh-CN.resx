@@ -198,4 +198,21 @@
   <data name="Thursday" xml:space="preserve"><value>星期四</value></data>
   <data name="Friday" xml:space="preserve"><value>星期五</value></data>
   <data name="Saturday" xml:space="preserve"><value>星期六</value></data>
+  <data name="Advanced settings" xml:space="preserve"><value>高级设置</value></data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve"><value>以下所有排班时间均使用团队时区。</value></data>
+  <data name="Basic information" xml:space="preserve"><value>基本信息</value></data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve"><value>选择模板后即可启用自动延展。</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve"><value>可选择任意系统用户在无人值班时接收告警。兜底收件人不加入轮换队列。</value></data>
+  <data name="Next four shifts preview" xml:space="preserve"><value>接下来四个班次预览</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve"><value>没有兜底收件人：无人值班时将无法发送告警。</value></data>
+  <data name="No members yet. Search below to add people." xml:space="preserve"><value>尚无成员。请在下方搜索并添加人员。</value></data>
+  <data name="On-call members (rotation queue)" xml:space="preserve"><value>值班成员（轮换队列）</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve"><value>预览从排班起始时间开始，或从已保存班次之后继续。时间使用团队时区。不会更改现有已保存班次。</value></data>
+  <data name="Scheduling method" xml:space="preserve"><value>排班方式</value></data>
+  <data name="Scheduling start point (team time)" xml:space="preserve"><value>排班起始时间（团队时间）</value></data>
+  <data name="Search by name or account." xml:space="preserve"><value>按姓名或账号搜索。</value></data>
+  <data name="Search fallback recipients" xml:space="preserve"><value>搜索兜底收件人</value></data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve"><value>已按模板自动设置团队时区下的起点，保存前可手动修改。</value></data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve"><value>第一位成员最先值班。拖动手柄或在触摸屏上长按手柄可调整顺序。也可在手柄上使用上下方向键或移动按钮。现有班次不会改变。</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve"><value>每周模板从下一次首个交接点开始；固定时长模板从下一个整点开始。保存班次后，起始时间将锁定。</value></data>
 </root>

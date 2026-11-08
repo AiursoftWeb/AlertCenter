@@ -106,4 +106,10 @@
     <value>Det går inte att generera en förhandsgranskning: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Starttiden motsvarar inte en veckovis överlämning; det första passet blir partiellt.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Lägg till medlemmar i rotationskön för att förhandsvisa pass.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Formatet på begäran om teamförhandsvisning är ogiltigt.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Välj en giltig lokal starttid för teamet (minst 28 dagar från datumgränserna).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Ogiltig lokal teamtid. Vid sommartidsomställning är överhoppade tider ogiltiga och upprepade tider använder normaltid.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Jourteamet finns inte.</value></data>
 </root>

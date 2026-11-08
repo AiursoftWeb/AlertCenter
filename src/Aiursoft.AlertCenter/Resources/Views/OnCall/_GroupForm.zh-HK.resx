@@ -181,4 +181,36 @@
     <value>查看時間表</value>
   </data>
 
+  <data name="Advanced settings" xml:space="preserve"><value>進階設定</value></data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve"><value>以下所有排班時間均使用團隊時區。</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve"><value>自動延展綁定的範本以涵蓋未來四週</value></data>
+  <data name="Basic information" xml:space="preserve"><value>基本資料</value></data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve"><value>選擇範本後即可啟用自動延展。</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve"><value>可選擇任何系統用戶在無人值班時接收警報。後備收件人不加入輪換隊列。</value></data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve"><value>離開的成員會保留已儲存的班次。儲存後請檢查未來的排班。</value></data>
+  <data name="Fallback recipients" xml:space="preserve"><value>後備收件人</value></data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve"><value>將門檻留空即可停用對應提醒。提醒不會阻止儲存。</value></data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve"><value>最長連續值班提醒（小時）</value></data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve"><value>最短休息提醒（小時）</value></data>
+  <data name="Minimum staffing reminder" xml:space="preserve"><value>最低值班人數提醒</value></data>
+  <data name="Next four shifts preview" xml:space="preserve"><value>接下來四個班次預覽</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve"><value>沒有後備收件人：無人值班時將無法傳送警報。</value></data>
+  <data name="No members yet. Search below to add people." xml:space="preserve"><value>尚無成員。請在下方搜尋並新增人員。</value></data>
+  <data name="On-call members (rotation queue)" xml:space="preserve"><value>值班成員（輪換隊列）</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve"><value>預覽從排班起始時間開始，或從已儲存班次之後繼續。時間使用團隊時區。不會更改現有已儲存班次。</value></data>
+  <data name="Scheduling method" xml:space="preserve"><value>排班方式</value></data>
+  <data name="Scheduling start point (team time)" xml:space="preserve"><value>排班起始時間（團隊時間）</value></data>
+  <data name="Search by name or account." xml:space="preserve"><value>按姓名或帳戶搜尋。</value></data>
+  <data name="Search fallback recipients" xml:space="preserve"><value>搜尋後備收件人</value></data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve"><value>已按範本自動設定團隊時區下的起點，儲存前可手動修改。</value></data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve"><value>第一位成員最先值班。拖動控制柄或在觸控螢幕上長按控制柄可調整順序。也可在控制柄上使用上下方向鍵或移動按鈕。現有班次不會改變。</value></data>
+  <data name="Week starts on" xml:space="preserve"><value>每週起始日</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve"><value>每週範本從下一次首個交接點開始；固定時長範本從下一個整點開始。儲存班次後，起始時間將鎖定。</value></data>
+  <data name="Sunday" xml:space="preserve"><value>星期日</value></data>
+  <data name="Monday" xml:space="preserve"><value>星期一</value></data>
+  <data name="Tuesday" xml:space="preserve"><value>星期二</value></data>
+  <data name="Wednesday" xml:space="preserve"><value>星期三</value></data>
+  <data name="Thursday" xml:space="preserve"><value>星期四</value></data>
+  <data name="Friday" xml:space="preserve"><value>星期五</value></data>
+  <data name="Saturday" xml:space="preserve"><value>星期六</value></data>
 </root>

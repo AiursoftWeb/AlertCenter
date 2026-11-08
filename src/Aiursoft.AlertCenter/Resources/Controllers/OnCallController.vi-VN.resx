@@ -106,4 +106,10 @@
     <value>Không thể tạo bản xem trước: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Giờ bắt đầu không trùng với thời điểm bàn giao hằng tuần; ca đầu tiên sẽ là một phần ca.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Thêm thành viên vào hàng đợi luân phiên để xem trước các ca.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Định dạng yêu cầu xem trước nhóm không hợp lệ.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Chọn giờ bắt đầu địa phương hợp lệ của nhóm (cách ranh giới phạm vi ngày ít nhất 28 ngày).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Giờ địa phương của nhóm không hợp lệ. Khi chuyển giờ mùa hè, giờ bị bỏ qua không hợp lệ và giờ lặp lại dùng giờ tiêu chuẩn.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Nhóm trực không tồn tại.</value></data>
 </root>
