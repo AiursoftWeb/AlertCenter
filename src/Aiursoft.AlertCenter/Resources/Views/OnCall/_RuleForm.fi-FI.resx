@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>Automaattisen generoinnin on täytettävä vaatimukset; jos manuaalisessa miehityksessä on puutteita, siitä annetaan vain varoitus, mutta tyhjää vuoroa ei voi tallentaa.</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>Tasapainota aamu-, väli- ja iltavuorot mahdollisimman tasaisesti</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Peruuta</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>Ei voi olla pienempi kuin henkilöstön vähimmäismäärä. Tavoite pyritään täyttämään mahdollisimman hyvin poikkeukset ja lepoajat huomioiden. Jätä tyhjäksi automaattista määritystä varten.</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>Työvuorojen kattavuus ja lepo asetetaan etusijalle; vuorojen vaihdoissa ylimääräinen henkilöstö voi vähentyä. Kolmen hengen tiimeissä vuorokiertoa ei sallita, jos lepoaika on vähintään 16 tuntia. Työvuorosuunnittelu perustuu todellisiin, yhtäjaksoisiin 8 tunnin työvuoroihin; paikallinen kellonaika voi muuttua kesäaikaan siirryttäessä.</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>Päivässä on kolme kiinteää vuoroa, ja jokaisessa vuorossa on oltava vähintään yksi henkilö. Samassa vuorossa voi olla useita henkilöitä.</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>Kiinteät vuorot ovat etusijalla</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>Vähimmäislepo (tuntia)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>Henkilöstön vähimmäismäärä vuoroa kohden</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>Vuorottelutoive</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>Tallenna mallipohja</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>Vuoron kesto (tuntia)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>Tavoiteltu henkilöstömäärä vuoroa kohti</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>Mallin nimi</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>Tämä on sääntöpohja, jota voidaan jakaa useiden tiimien kesken. Tiimi hallinnoi jäseniä, vuorojärjestystä ja työvuorosuunnitelman aloituskohtia. Pohjan muokkaaminen ei luo uudelleen tallennettuja työvuoroja.</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>Kolmen 8 tunnin vuoron esiasetus</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>Lisää vaihtopiste</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>Viikonpäivä</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Määritä vuorojen jako ja kierto tiimien automaattista jatkamista ja yhdellä napsautuksella luontia varten. Mallin muuttaminen ei vaikuta jo suunniteltuihin vuoroihin.</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>Kiinteä kesto</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Perjantai</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>Vaihtoaika</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maanantai</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Tavallinen jono</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Kiertostrategia</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Lauantai</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>Vuoron kesto (minuuttia)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Jakotapa</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Henkilöitä vuorossa</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunnuntai</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Vaihda vierekkäiset jäsenet joka toisella kierroksella parillisen kokoisissa tiimeissä</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Torstai</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tiistai</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Keskiviikko</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Viikoittaiset vaihtopisteet</value>
+  </data>
 </root>

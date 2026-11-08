@@ -99,7 +99,7 @@ public class ViewModelArgsInjector(
         _ = localizer["On-call schedule"];
         _ = localizer["Push Channel"];
         _ = localizer["Push Records"];
-        _ = localizer["Scheduling Rules"];
+        _ = localizer["Scheduling Templates"];
         _ = localizer["Team management"];
     
         _ = localizer["Incidents"];

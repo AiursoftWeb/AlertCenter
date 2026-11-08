@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>La generazione automatica deve soddisfare i requisiti; un numero insufficiente di addetti assegnati manualmente genera solo un avviso, mentre non è possibile salvare turni vuoti.</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>Bilanciare i turni di mattina, pomeriggio e notte in modo il più uniforme possibile</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annulla</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>Non può essere inferiore al numero minimo di personale; soddisfarlo il più possibile quando le sostituzioni e le pause lo consentono. Lasciare vuoto per l&apos;assegnazione automatica.</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>La copertura e il riposo sono prioritari; la ridondanza può diminuire durante gli scambi. La rotazione non è consentita per squadre di tre persone con almeno 16 ore di riposo. La pianificazione si basa su turni effettivi di 8 ore consecutive; l&apos;ora locale può cambiare durante i passaggi al fuso orario estivo.</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>Tre turni fissi al giorno, almeno una persona per turno; consentite più persone per turno.</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>Le fasce orarie fisse hanno la priorità</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>Pausa minima (ore)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>Numero minimo di persone per turno</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>Preferenza di rotazione</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>Salva modello</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>Durata del turno (ore)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>Personale previsto per turno</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>Nome del modello</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>Questo è un modello di regole disponibile per la condivisione tra più team. I membri, l&apos;ordine di rotazione e i punti di inizio della pianificazione sono gestiti dal team. La modifica del modello non rigenererà le turni salvati.</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>Preimpostazione di tre turni da 8 ore</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>Aggiungi punto di passaggio</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>Giorno della settimana</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Definisci suddivisione e rotazione dei turni per l’estensione automatica e la generazione con un clic dei team. Modificare un modello non influisce sui turni già pianificati.</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>Durata fissa</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Venerdì</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>Ora del passaggio</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Lunedì</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Coda semplice</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Rimuovi</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Strategia di rotazione</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sabato</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>Durata del turno (minuti)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Modalità di suddivisione</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personale per turno</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Domenica</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Scambia membri adiacenti a cicli alterni per team con un numero pari di membri</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Giovedì</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Martedì</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Mercoledì</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Punti di passaggio settimanali</value>
+  </data>
 </root>

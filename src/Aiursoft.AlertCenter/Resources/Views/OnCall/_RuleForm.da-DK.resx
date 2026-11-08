@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>Autogenerering skal opfylde kravene; utilstrækkelig manuel besætning udløser kun en advarsel, mens tomme vagter ikke kan gemmes.</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>Fordel morgenvagter, mellemvagter og aftenvagter så jævnt som muligt</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annullér</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>Må ikke være lavere end minimumsbemandingen; opfyld målet så vidt muligt, når overstyringer og pauser tillader det. Lad feltet stå tomt for automatisk tildeling.</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>Dækning og hvile prioriteres; redundans kan mindske under skift. Rotation er ikke tilladt for hold på tre personer med mindst 16 timers hvile. Planlægningen baseres på faktiske 8-timers kontinuerlige vagter; lokal tid kan ændre sig ved skift til sommer- eller vintertid.</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>Fastlagt til tre vagter om dagen, mindst én person pr. vagt; flere personer pr. vagt er tilladt.</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>Faste tidspunkter prioriteres</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>Minimum hvile (timer)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>Minimum antal medarbejdere pr. vagt</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>Rotationspræference</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>Gem skabelon</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>Vagtens varighed (timer)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>Måltal for medarbejdere pr. vagt</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>Skabelonnavn</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>Dette er en regelmal, der kan deles mellem flere hold. Medlemmer, rotationsrækkefølge og startpunkter for planen administreres af holdet. Ændringer af malen vil ikke regenerere gemte vagter.</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>Forudindstilling med tre 8-timers vagter</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>Tilføj overdragelsestidspunkt</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>Ugedag</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Definer, hvordan vagter opdeles og roteres, så hold kan forlænge planen automatisk og generere vagter med ét klik. Ændringer i en skabelon påvirker ikke planlagte vagter.</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>Fast varighed</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Fredag</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>Overdragelsestid</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Mandag</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Simpel kø</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Rotationsstrategi</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Lørdag</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>Vagtvarighed (minutter)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Opdelingsmetode</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personer pr. vagt</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Søndag</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Byt nabomedlemmer i hver anden runde for hold med et lige antal medlemmer</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Torsdag</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tirsdag</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Onsdag</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Ugentlige overdragelsestidspunkter</value>
+  </data>
 </root>

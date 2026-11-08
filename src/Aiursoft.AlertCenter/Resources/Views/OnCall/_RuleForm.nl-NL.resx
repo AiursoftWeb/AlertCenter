@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>Automatische generatie moet aan de vereisten voldoen; bij onvoldoende handmatige bezetting wordt alleen een waarschuwing gegeven, terwijl lege diensten niet kunnen worden opgeslagen.</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>Verdeel de ochtend-, middag- en avonddiensten zo gelijkmatig mogelijk</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>Mag niet lager zijn dan het minimum aantal medewerkers; vervul zoveel mogelijk wanneer wijzigingen en pauzes dit toelaten. Laat leeg voor automatische toewijzing.</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>Bezetting en rust krijgen prioriteit; tijdens wisselingen kan de overbezetting afnemen. Rouleren is niet toegestaan bij teams van drie personen met minstens 16 uur rust. De planning is gebaseerd op daadwerkelijke aaneengesloten diensten van 8 uur; de lokale tijd kan veranderen bij de overgang naar of van de zomertijd.</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>Vaste indeling met drie diensten per dag, minimaal één persoon per dienst; meerdere personen per dienst zijn toegestaan.</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>Vaste tijdvakken hebben voorrang</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>Minimale rust (uren)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>Minimaal aantal medewerkers per dienst</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>Rotatievoorkeur</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>Sjabloon opslaan</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>Ploegenduur (uren)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>Beoogd aantal medewerkers per dienst</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>Sjabloonnaam</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>Dit is een regeltemplate die met meerdere teams kan worden gedeeld. Het team beheert de teamleden, de volgorde van de roulatie en de beginpunten van het rooster. Als je de template wijzigt, worden opgeslagen diensten niet opnieuw gegenereerd.</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>Voorinstelling met drie diensten van 8 uur</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>Overdrachtsmoment toevoegen</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>Dag van de week</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Bepaal hoe diensten worden opgesplitst en gerouleerd voor automatische verlenging en generatie met één klik door teams. Het wijzigen van een sjabloon heeft geen invloed op geplande diensten.</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>Vaste duur</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Vrijdag</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>Overdrachtstijd</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maandag</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Eenvoudige wachtrij</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Rotatiestrategie</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Zaterdag</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>Dienstduur (minuten)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Opsplitsingsmodus</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Medewerkers per dienst</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Zondag</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Wissel aangrenzende leden om de ronde bij teams met een even aantal leden</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Donderdag</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Dinsdag</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Woensdag</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Wekelijkse overdrachtsmomenten</value>
+  </data>
 </root>

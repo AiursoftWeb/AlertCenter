@@ -17,7 +17,7 @@
         <div class="col-md-4"><label asp-for="RuleInput.StaffPerShift" class="form-label">@viewLocalizer["Staff per shift"]</label><input asp-for="RuleInput.StaffPerShift" value="@(Model.RuleInput.StaffPerShift ?? 1)" type="number" min="1" max="200" class="form-control" required /></div>
         <div class="col-md-4">
             <label asp-for="RuleInput.SwapAlternateRounds" class="form-label">@viewLocalizer["Rotation strategy"]</label>
-            <select asp-for="RuleInput.SwapAlternateRounds" class="form-select"><option value="false">@viewLocalizer["Pure queue"]</option><option value="true">@viewLocalizer["Swap adjacent members on alternate rounds"]</option></select>
+            <select asp-for="RuleInput.SwapAlternateRounds" class="form-select"><option value="false">@viewLocalizer["Pure queue"]</option><option value="true">@viewLocalizer["Swap adjacent members on alternate rounds for even-sized teams"]</option></select>
         </div>
     </div>
     <div id="oncall-weekly-points" class="mb-3">
@@ -41,7 +41,7 @@
         </div>
     </template>
     <button type="button" id="oncall-eight-hour-preset" class="btn btn-outline-secondary mb-3">@viewLocalizer["8-hour three-shift preset"]</button>
-    <p class="small text-muted">@viewLocalizer["Templates only fill shifts. Saved shifts remain editable; reminders never block saving."]</p>
+    <p class="small text-muted">@viewLocalizer["Define how shifts are split and rotated for teams' automatic extension and one-click generation. Changing a template does not affect scheduled shifts."]</p>
     <button type="submit" class="btn btn-primary">@viewLocalizer["Save template"]</button>
     <a asp-action="Index" class="btn btn-outline-secondary ms-2">@viewLocalizer["Cancel"]</a>
 </form>

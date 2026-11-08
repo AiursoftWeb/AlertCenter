@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>يجب أن يفي التوليد التلقائي بالمتطلبات؛ أما نقص عدد الموظفين في المناوبة عند إدخالها يدويًا فيُصدر تحذيرًا فقط، بينما لا يمكن حفظ المناوبات الخالية.</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>وازن بين الورديات الصباحية والوسطى والمسائية قدر الإمكان</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>لا يمكن أن يكون أقل من الحد الأدنى لعدد الموظفين؛ ويُلبّى العدد المستهدف قدر الإمكان عند السماح بالتجاوزات وفترات الراحة. اتركه فارغًا للتعيين التلقائي.</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>تُعطى الأولوية لتغطية المناوبات وفترات الراحة، وقد يقلّ عدد الموظفين الاحتياطيين أثناء التبديل. لا يُسمح بتدوير المناوبات للفرق المكوّنة من ثلاثة أشخاص إذا كانت فترة الراحة 16 ساعة على الأقل. يعتمد الجدول على مناوبات فعلية متواصلة مدتها 8 ساعات؛ وقد يتغير التوقيت المحلي عند الانتقال إلى التوقيت الصيفي أو منه.</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>ثلاثة ورديات ثابتة يوميًا، بحد أدنى شخص واحد لكل وردية؛ يُسمح بأكثر من شخص في الوردية الواحدة.</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>الأوقات الثابتة لها الأولوية</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>الحد الأدنى للراحة (بالساعات)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>الحد الأدنى لعدد الموظفين في كل مناوبة</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>تفضيل التناوب</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>حفظ القالب</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>مدة الوردية (بالساعات)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>العدد المستهدف من الموظفين لكل وردية</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>اسم القالب</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>هذا قالب قاعدة متاح للمشاركة عبر عدة فرق. تُدار الأعضاء وترتيب التناوب ونقاط بداية الجدولة من قِبل الفريق. لن يؤدي تعديل القالب إلى إعادة توليد أي وردات محفوظة.</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>إعداد مسبق لثلاث مناوبات من 8 ساعات</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>إضافة نقطة تسليم</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>يوم الأسبوع</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>حدّد كيفية تقسيم المناوبات وتدويرها لتمديد جداول الفرق تلقائيًا وإنشائها بنقرة واحدة. لا يؤثر تغيير القالب على المناوبات المجدولة.</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>مدة ثابتة</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>الجمعة</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>وقت التسليم</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>الاثنين</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>طابور بسيط</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>استراتيجية التناوب</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>السبت</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>مدة المناوبة (بالدقائق)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>طريقة التقسيم</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>عدد الأفراد في كل مناوبة</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>الأحد</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>تبديل الأعضاء المتجاورين في الجولات المتناوبة للفرق ذات العدد الزوجي</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>الخميس</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>الثلاثاء</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>الأربعاء</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>نقاط تسليم أسبوعية</value>
+  </data>
 </root>

@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>การสร้างอัตโนมัติต้องสอดคล้องกับข้อกำหนด; การจัดสรรบุคลากรด้วยตนเองที่ไม่เพียงพอจะกระตุ้นเฉพาะการเตือนเท่านั้น ในขณะที่กะว่างไม่สามารถบันทึกได้</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>จัดสมดุลกะเช้า กะกลางวัน และกะดึก ให้เท่ากันมากที่สุดเท่าที่จะทำได้</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>ยกเลิก</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>ต้องไม่น้อยกว่าจำนวนพนักงานขั้นต่ำ และจัดให้ได้ตามเป้าหมายมากที่สุดเท่าที่การกำหนดข้อยกเว้นและเวลาพักจะเอื้ออำนวย เว้นว่างไว้เพื่อกำหนดโดยอัตโนมัติ</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>ให้ความสำคัญกับการครอบคลุมงานและการพักผ่อนเป็นหลัก อาจมีการลดความซ้ำซ้อนในช่วงที่มีการสลับเวร การหมุนเวียนเวรไม่อนุญาตสำหรับทีมที่มีสมาชิก 3 คนขึ้นไปโดยมีเวลาพักผ่อนอย่างน้อย 16 ชั่วโมง การกำหนดตารางเวรเป็นไปตามเวรต่อเนื่อง 8 ชั่วโมงจริง เวลาท้องถิ่นอาจเปลี่ยนแปลงในช่วงเปลี่ยนผ่านเวลาออมแสง</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>กำหนดกะทำงาน 3 กะต่อวัน แต่ละกะต้องมีอย่างน้อย 1 คน; อนุญาตให้มีได้มากกว่า 1 คนต่อกะ</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>ให้ความสำคัญกับช่วงเวลาที่กำหนดไว้</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>ระยะเวลาพักผ่อนขั้นต่ำ (ชั่วโมง)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>จำนวนบุคลากรขั้นต่ำต่อกะ</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>การตั้งค่าการหมุนเวียนกะ</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>บันทึกเทมเพลต</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>ระยะเวลาของกะ (ชั่วโมง)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>จำนวนพนักงานเป้าหมายต่อเวร</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>ชื่อเทมเพลต</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>นี่คือเทมเพลตกฎที่สามารถใช้ร่วมกันข้ามหลายทีม สมาชิก ลำดับการหมุนเวียน และจุดเริ่มต้นของตารางเวลาจะถูกจัดการโดยทีม การแก้ไขเทมเพลตจะไม่สร้างกะงานที่บันทึกไว้แล้วใหม่</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>ค่าที่ตั้งไว้สำหรับ 3 เวร เวรละ 8 ชั่วโมง</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>เพิ่มจุดส่งมอบเวร</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>วันในสัปดาห์</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>กำหนดวิธีแบ่งและหมุนเวียนเวรสำหรับการต่ออายุตารางอัตโนมัติและการสร้างด้วยคลิกเดียวของทีม การเปลี่ยนเทมเพลตไม่กระทบเวรที่จัดไว้แล้ว</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>ระยะเวลาคงที่</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>วันศุกร์</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>เวลาส่งมอบเวร</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>วันจันทร์</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>คิวตามลำดับ</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>นำออก</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>รูปแบบการหมุนเวียน</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>วันเสาร์</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>ระยะเวลาเวร (นาที)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>รูปแบบการแบ่ง</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>จำนวนคนต่อเวร</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>วันอาทิตย์</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>สลับสมาชิกที่อยู่ติดกันรอบเว้นรอบสำหรับทีมที่มีสมาชิกจำนวนคู่</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>วันพฤหัสบดี</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>วันอังคาร</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>วันพุธ</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>จุดส่งมอบเวรรายสัปดาห์</value>
+  </data>
 </root>

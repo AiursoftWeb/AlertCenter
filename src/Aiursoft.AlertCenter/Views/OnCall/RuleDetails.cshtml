@@ -8,13 +8,13 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
         <h1 class="h3 mb-1">@rule.Name</h1>
-        <p class="text-muted mb-0">@viewLocalizer["Reusable shift rule template · "]@groups.Count @viewLocalizer["teams using"]</p>
+        <p class="text-muted mb-0">@viewLocalizer["Reusable scheduling template · "]@groups.Count @viewLocalizer["teams using"]</p>
     </div>
     <div class="d-flex gap-2">
-        <a asp-action="Index" class="btn btn-outline-secondary">@viewLocalizer["Back to Rule List"]</a>
+        <a asp-action="Index" class="btn btn-outline-secondary">@viewLocalizer["Back to Template List"]</a>
         @if (Model.CanManageOnCall)
         {
-            <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">@viewLocalizer["Edit rule"]</a>
+            <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">@viewLocalizer["Edit template"]</a>
         }
     </div>
 </div>
@@ -26,20 +26,20 @@
     </div>
 }
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">@viewLocalizer["Rule configuration"]</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@viewLocalizer["Template configuration"]</h2></div>
     <div class="card-body">
         @if (rule.HandoverPoints.Count > 0)
         {
-            <p>@viewLocalizer["Weekly handover points"]</p>
+            <p>@viewLocalizer["Split mode"]: @viewLocalizer["Weekly handover points"]</p>
             <ul>@foreach (var point in rule.HandoverPoints.OrderBy(point => point.DayOfWeek).ThenBy(point => point.MinuteOfDay)) { <li>@viewLocalizer[point.DayOfWeek.ToString()] @TimeOnly.MinValue.AddMinutes(point.MinuteOfDay).ToString("HH:mm")</li> }</ul>
         }
         else
         {
-            <p>@viewLocalizer["Shift duration (minutes)"]: @(rule.ShiftMinutes ?? rule.ShiftHours * 60)</p>
+            <p>@viewLocalizer["Split mode"]: @viewLocalizer["Fixed duration: {0} minutes", rule.ShiftMinutes ?? rule.ShiftHours * 60]</p>
         }
         <p>@viewLocalizer["Staff per shift"]: @rule.StaffPerShift</p>
-        <p>@viewLocalizer["Rotation strategy"]: @(rule.SwapAlternateRounds ? viewLocalizer["Swap adjacent members on alternate rounds"] : viewLocalizer["Pure queue"])</p>
-        <p class="small text-muted">@viewLocalizer["Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team."]</p>
+        <p>@viewLocalizer["Rotation strategy"]: @(rule.SwapAlternateRounds ? viewLocalizer["Swap adjacent members on alternate rounds for even-sized teams"] : viewLocalizer["Pure queue"])</p>
+        <p class="small text-muted">@viewLocalizer["Define how shifts are split and rotated for teams' automatic extension and one-click generation. Changing a template does not affect scheduled shifts."]</p>
         <h3 class="h6">@viewLocalizer["Teams using this template"]</h3>
         @if (groups.Count == 0)
         {

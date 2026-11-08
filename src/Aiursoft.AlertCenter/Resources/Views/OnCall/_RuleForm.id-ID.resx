@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>Pembuatan otomatis harus memenuhi persyaratan; kekurangan personel pada penjadwalan manual hanya akan memunculkan peringatan, sedangkan giliran kerja yang kosong tidak dapat disimpan.</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>Seimbangkan shift pagi, siang, dan malam sebisa mungkin</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Batal</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>Tidak boleh lebih rendah dari jumlah minimum staf per giliran; penuhi semaksimal mungkin jika pengecualian dan waktu istirahat memungkinkan. Kosongkan untuk penugasan otomatis.</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>Cakupan dan waktu istirahat diprioritaskan; jumlah personel cadangan mungkin berkurang saat pertukaran shift. Rotasi tidak diperbolehkan untuk tim yang terdiri dari tiga orang dengan waktu istirahat minimal 16 jam. Penjadwalan didasarkan pada shift kontinu selama 8 jam; waktu setempat dapat berubah saat peralihan waktu musim panas.</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>Tiga shift tetap per hari, minimal satu orang per shift; setiap shift boleh diisi oleh lebih dari satu orang.</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>Slot waktu tetap diprioritaskan</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>Waktu Istirahat Minimum (Jam)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>Jumlah minimum staf per sif</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>Preferensi rotasi</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>Simpan templat</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>Durasi giliran kerja (jam)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>Jumlah staf yang ditargetkan per shift</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>Nama templat</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>Ini adalah templat aturan yang dapat dibagikan ke beberapa tim. Anggota, urutan rotasi, dan titik awal jadwal dikelola oleh tim. Mengubah templat tidak akan membuat ulang shift yang sudah tersimpan.</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>Prasetel tiga sif 8 jam</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>Tambah titik serah terima</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>Hari dalam minggu</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Tentukan pembagian dan rotasi sif untuk perpanjangan otomatis dan pembuatan dengan satu klik oleh tim. Perubahan templat tidak memengaruhi sif yang sudah dijadwalkan.</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>Durasi tetap</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Jumat</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>Waktu serah terima</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Senin</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Antrean sederhana</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Strategi rotasi</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sabtu</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>Durasi sif (menit)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Mode pembagian</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Staf per sif</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Minggu</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Tukar anggota bersebelahan setiap dua putaran untuk tim berjumlah genap</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Kamis</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Selasa</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Rabu</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Titik serah terima mingguan</value>
+  </data>
 </root>

@@ -106,7 +106,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             var rotationPositions = new Dictionary<DateTime, long?>();
             if (generate)
             {
-                if (group.Rule == null) return [localizer["Please bind a scheduling rule to the team first."].Value];
+                if (group.Rule == null) return [localizer["Please bind a scheduling template to the team first."].Value];
                 if (saved.Count > 0 && !request.ConfirmReplace && !preview)
                     return [localizer["Confirm replacement of the existing schedule before generating."].Value];
                 var count = group.Rule.HandoverPoints.Count == 0

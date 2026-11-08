@@ -81,8 +81,8 @@
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>成员可随时添加或移除；移除成员仅会清除尚未开始的排班，已开始和历史排班将予以保留。由此产生的空缺班次必须手动安排人员。</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>多个团队可以共用同一个模板。切换或修改模板不会重新生成已保存的轮班安排。</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>定义班段怎么切、怎么轮换，供团队自动续排和一键生成使用；修改模板不影响已排好的班段。</value>
   </data>
   <data name="Name or Account" xml:space="preserve">
     <value>姓名或账号</value>
@@ -126,8 +126,8 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>保存后，这些成员将从尚未开始的班次中移除。请检查排班表以填补空缺。</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>排班规则模板</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>排班模板</value>
   </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>排班起始点（UTC）</value>

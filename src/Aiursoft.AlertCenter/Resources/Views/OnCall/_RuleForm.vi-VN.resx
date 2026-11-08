@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>Tự động tạo lịch phải đáp ứng các yêu cầu; nếu nhân sự xếp lịch thủ công không đủ thì chỉ cảnh báo, còn ca trực không có người thì không thể lưu.</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>Phân bổ ca sáng, ca chiều và ca tối đồng đều nhất có thể</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>Không được thấp hơn số nhân sự tối thiểu; cố gắng đáp ứng nhiều nhất có thể khi các điều chỉnh và thời gian nghỉ cho phép. Để trống để tự động phân công.</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>Ưu tiên đảm bảo đủ nhân sự và thời gian nghỉ; số người dự phòng có thể giảm khi hoán đổi ca. Không cho phép luân phiên đối với đội gồm ba người nếu thời gian nghỉ tối thiểu là 16 giờ. Lịch làm việc dựa trên các ca liên tục thực tế kéo dài 8 giờ; giờ địa phương có thể thay đổi khi chuyển sang hoặc kết thúc giờ mùa hè.</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>Cố định ba ca mỗi ngày, mỗi ca ít nhất một người; cho phép nhiều người trong một ca.</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>Ưu tiên các khung giờ cố định</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>Thời gian nghỉ tối thiểu (giờ)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>Số nhân sự tối thiểu mỗi ca</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>Ưu tiên luân phiên</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>Lưu mẫu</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>Thời lượng ca (giờ)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>Số nhân sự mục tiêu mỗi ca</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>Tên mẫu</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>Đây là mẫu quy tắc có thể dùng chung cho nhiều nhóm. Nhóm sẽ quản lý thành viên, thứ tự luân phiên và thời điểm bắt đầu lịch. Việc chỉnh sửa mẫu sẽ không tạo lại các ca làm đã lưu.</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>Thiết lập sẵn ba ca 8 giờ</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>Thêm mốc bàn giao</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>Ngày trong tuần</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Xác định cách chia và luân phiên ca để nhóm tự động kéo dài lịch và tạo lịch bằng một lần nhấp. Thay đổi mẫu không ảnh hưởng đến các ca đã lên lịch.</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>Thời lượng cố định</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Thứ sáu</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>Giờ bàn giao</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Thứ hai</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Hàng đợi đơn giản</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Chiến lược luân phiên</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Thứ bảy</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>Thời lượng ca (phút)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Cách chia ca</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Nhân sự mỗi ca</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Chủ nhật</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Hoán đổi thành viên liền kề cách một vòng đối với nhóm có số thành viên chẵn</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thứ năm</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Thứ ba</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Thứ tư</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Mốc bàn giao hằng tuần</value>
+  </data>
 </root>

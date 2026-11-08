@@ -36,14 +36,14 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Het minimumaantal medewerkers per dienst moet 1–200 zijn.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Er zijn nog geen regels aan het team gekoppeld. Je kunt handmatig een rooster maken.</value>
-  </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Vul de naam van de regel in.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Er is nog geen sjabloon aan het team gekoppeld. Je kunt handmatig een rooster maken.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Voer de teamnaam in.</value>
+  </data>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Voer de naam van het sjabloon in.</value>
   </data>
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Selecteer een geldige UTC-starttijd (deze moet ten minste 28 dagen van de datumgrens liggen).</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>Selecteer een geldige tijdzone uit de lijst.</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Selecteer een bestaande bereikbaarheidsdienstregel.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Selecteer een bestaand roostersjabloon.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Planningsregel succesvol aangemaakt.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Roostersjabloon aangemaakt.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Planningsregel verwijderd.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Roostersjabloon verwijderd.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Planningsregel bijgewerkt.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Roostersjabloon bijgewerkt.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Het beoogde aantal medewerkers mag niet lager zijn dan het minimum en moet tussen 1 en 200 liggen. Laat dit leeg voor automatische toewijzing.</value>
@@ -75,9 +75,6 @@
   <data name="Team updated." xml:space="preserve">
     <value>Team bijgewerkt.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>De regel of het team is gewijzigd. Vernieuw de pagina en probeer het opnieuw.</value>
-  </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Het rooster is gewijzigd of er is een conflict opgetreden bij het opslaan. Vernieuw de pagina en probeer het opnieuw.</value>
   </data>
@@ -90,17 +87,20 @@
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>Het team of het rooster is gewijzigd. Vernieuw de pagina en probeer het opnieuw.</value>
   </data>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Het sjabloon of het team is gewijzigd. Vernieuw de pagina en probeer het opnieuw.</value>
+  </data>
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Er zijn deze week {0} niet-ingevulde diensten. Vul de bereikbaarheidsdiensten handmatig in.</value>
-  </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Deze regel is nog gekoppeld aan een team. Werk eerst de regelkoppeling van het team bij.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Dit team heeft opgeslagen roosters en kan niet worden verwijderd zonder de bijbehorende geschiedenis.</value>
   </data>
   <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
     <value>Dit team is gekoppeld aan een geïntegreerde app. Wijs de bereikbaarheidsdienstgroep van de app eerst opnieuw toe of ontkoppel deze.</value>
+  </data>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Dit sjabloon is nog aan een team gekoppeld. Werk eerst de sjabloonkoppeling van het team bij.</value>
   </data>
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>Kan voorbeeld niet genereren: {0}</value>

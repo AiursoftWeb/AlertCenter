@@ -66,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Deschide programul</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Pe tură</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Nu este asociat niciun șablon; planificarea manuală este disponibilă în continuare.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Șablonul de regulă nu este asociat; programarea manuală rămâne disponibilă.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Șablon:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Șablon de regulă:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Șabloanele de reguli nu pot fi șterse. Doar echipele fără ture salvate și fără aplicații asociate pot fi șterse. Această acțiune este ireversibilă.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Șabloanele nu sunt șterse. Pot fi șterse doar echipele fără ture salvate și fără aplicații asociate. Această acțiune este ireversibilă.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Începutul programării:</value>
@@ -109,4 +106,7 @@
     <value>ore · Pauză min.</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personal pe tură</value>
+  </data>
 </root>

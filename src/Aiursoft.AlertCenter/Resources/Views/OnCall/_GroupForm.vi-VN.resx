@@ -81,8 +81,8 @@
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>Có thể thêm hoặc xóa thành viên bất cứ lúc nào; việc xóa một thành viên chỉ xóa các ca trực đã lên lịch nhưng chưa bắt đầu, còn các ca đã bắt đầu và các ca trong quá khứ vẫn được giữ lại. Mọi ca trực bị bỏ trống do đó phải được phân công thủ công.</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>Nhiều nhóm có thể dùng chung một mẫu. Việc chuyển đổi hoặc chỉnh sửa mẫu sẽ không tạo lại các ca trực đã lưu.</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Xác định cách chia và luân phiên ca để nhóm tự động kéo dài lịch và tạo lịch bằng một lần nhấp. Thay đổi mẫu không ảnh hưởng đến các ca đã lên lịch.</value>
   </data>
   <data name="Name or Account" xml:space="preserve">
     <value>Tên hoặc tài khoản</value>
@@ -126,8 +126,8 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>Lưu lại sẽ xóa các thành viên này khỏi những ca chưa bắt đầu. Hãy kiểm tra lịch để tìm các ca còn trống.</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>Mẫu quy tắc lập lịch</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>Mẫu lịch trực</value>
   </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Điểm bắt đầu lên lịch (UTC)</value>
