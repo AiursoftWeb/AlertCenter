@@ -35,10 +35,34 @@
     <h3 class="h6 mb-0">@viewLocalizer["Employee on-call timeline"]</h3>
     <span class="small text-muted">@LocalTime(start) → @LocalTime(end) · @group.TimeZoneId</span>
 </div>
-<p id="oncall-gantt-help" class="small text-muted mb-2">@viewLocalizer["Select a shift to see its details. Scroll horizontally to see the full week."]</p>
+<p id="oncall-gantt-help" class="small text-muted mb-2">
+    @if (Model.CanManageOnCall)
+    {
+        @viewLocalizer["Drag a shift to move its person or time; drag its edges to resize. Changes remain drafts until saved."]
+    }
+    else
+    {
+        @viewLocalizer["Select a shift to see its details. Scroll horizontally to see the full week."]
+    }
+</p>
 <details class="small text-muted mb-3">
-    <summary>@viewLocalizer["How to read this timeline"]</summary>
-<p class="small text-muted">@viewLocalizer["The timeline is read-only. Edit shifts in the table. Warning markers include gaps, overlaps and team reminders; select a marker for details. Statistics count only time within this week and merge overlapping assignments for each person."]</p>
+    <summary>@(Model.CanManageOnCall ? viewLocalizer["How to adjust the schedule"].Value : viewLocalizer["How to read this timeline"].Value)</summary>
+    @if (Model.CanManageOnCall)
+    {
+        <ul class="mt-2 mb-2">
+            <li>@viewLocalizer["Drag the body of a shift to change its time or person. Drag the left or right edge to adjust its start or end. Drag a handover to change both adjoining shifts."]</li>
+            <li>@viewLocalizer["Drop a shift onto another assigned shift to exchange their members."]</li>
+            <li>@viewLocalizer["Drag Swap full week to another member, or select the button then select the target member row, to exchange their schedules across the visible range."]</li>
+            <li>@viewLocalizer["Drag across a blank member row to create a shift. Times snap to 30 minutes; hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background."]</li>
+            <li>@viewLocalizer["Focus a shift: Left/Right moves time, Up/Down changes person. Shift + Left/Right adjusts the end; Shift + Up/Down adjusts the start. Enter opens exact editing, Delete removes, and Escape cancels."]</li>
+            <li>@viewLocalizer["Use Precise editing / bulk operations for exact times, zero or multiple members, moving a selected shift, swapping members, or copying a range. Undo, redo and reset include copied drafts. Save publishes your changes."]</li>
+        </ul>
+    }
+    else
+    {
+        <p class="mt-2">@viewLocalizer["This timeline is read-only."]</p>
+    }
+    <p class="mb-0">@viewLocalizer["Adjacent weeks and other teams are read-only. Warning markers include gaps, overlaps and team reminders; select a marker for details. Statistics count only time within the visible range and merge overlapping assignments for each person."]</p>
 </details>
 <div class="ac-gantt-frame">
 <button type="button" class="btn btn-sm btn-outline-secondary ac-gantt-edge-toggle" data-oncall-edge="previous" aria-expanded="false" aria-controls="oncall-gantt">@viewLocalizer["Expand previous 36 hours"]</button>
@@ -115,10 +139,24 @@
                 {
                     var left = warning.StartsAtUtc < start ? start : warning.StartsAtUtc;
                     var right = warning.EndsAtUtc > end ? end : warning.EndsAtUtc;
-                    <button type="button" class="ac-gantt-shift bg-warning" style="left: @Position(left); width: @Percent((right - left).TotalHours)" data-summary="@warning.Message" data-start="@LocalTime(warning.StartsAtUtc)" data-end="@LocalTime(warning.EndsAtUtc)" title="@warning.Message" aria-label="@warning.Message"></button>
+                    <button type="button" class="ac-gantt-shift ac-gantt-warning bg-warning" style="left: @Position(left); width: @Percent((right - left).TotalHours)" data-summary="@warning.Message" data-start="@LocalTime(warning.StartsAtUtc)" data-end="@LocalTime(warning.EndsAtUtc)" title="@warning.Message" aria-label="@warning.Message">@warning.Message</button>
                 }
             </div>
         </div>
+        @if (Model.CanManageOnCall)
+        {
+            <div class="ac-gantt-row">
+                <div class="ac-gantt-name">@viewLocalizer["Handovers"]</div>
+                <div id="oncall-handover-lane" class="ac-gantt-lane"></div>
+            </div>
+            <div id="oncall-unassigned-row" class="ac-gantt-row" role="group" aria-label="@viewLocalizer["Unassigned"]" data-user-id="" data-name="@viewLocalizer["Unassigned"]" data-color="0">
+                <div class="ac-gantt-name">
+                    <strong>@viewLocalizer["Unassigned"]</strong>
+                    <span class="small text-muted d-block ac-gantt-hours"></span>
+                </div>
+                <div class="ac-gantt-lane"></div>
+            </div>
+        }
         @for (var index = 0; index < rows.Count; index++)
         {
             var user = rows[index];
@@ -145,6 +183,13 @@
                         }
                     </div>
                     <span class="small text-muted ac-gantt-hours">@(string.Format(@viewLocalizer["{0} shifts / {1:0.##} hours"].Value, shifts.Count, hours))</span>
+                    @if (Model.CanManageOnCall && !departed)
+                    {
+                        <button type="button" class="btn btn-sm btn-outline-secondary ac-gantt-week mt-2" data-week-user="@user.Id"
+                                aria-label="@string.Format(viewLocalizer["Swap full-week shifts with {0}"].Value, name)">
+                            @viewLocalizer["Swap full week"]
+                        </button>
+                    }
                 </div>
                 <div class="ac-gantt-lane">
                     @foreach (var shift in Model.Preview.Where(shift => shift.UserId == user.Id))

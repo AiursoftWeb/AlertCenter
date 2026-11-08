@@ -1,3 +1,4 @@
+@using System.Globalization
 @using System.Text.Json
 @inject IHtmlLocalizerFactory OnCallLocalizerFactory
 @{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall._ScheduleEditor", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
@@ -6,43 +7,141 @@
     var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
     var slots = Model.ScheduleSaved
         ? Model.SavedShifts.Select(shift => new { id = (Guid?)shift.Id, startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray() })
-        : Model.Preview.GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Select(batch => new { id = (Guid?)null, startsAtUtc = batch.Key.StartsAtUtc, endsAtUtc = batch.Key.EndsAtUtc, userIds = batch.Select(shift => shift.UserId).ToArray() });
-    var members = Model.PreviewUsers.Select(user => new { id = user.Id, name = user.DisplayName, departed = group.Members.All(member => member.UserId != user.Id) });
+        : Model.Preview.GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Select(batch => new { id = (Guid?)null, startsAtUtc = DateTime.SpecifyKind(batch.Key.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(batch.Key.EndsAtUtc, DateTimeKind.Utc), userIds = batch.Select(shift => shift.UserId).ToArray() });
+    var memberOrder = group.Members.ToDictionary(member => member.UserId, member => member.RotationOrder);
+    var members = Model.PreviewUsers.OrderBy(user => memberOrder.GetValueOrDefault(user.Id, int.MaxValue))
+        .Select(user => new { id = user.Id, name = user.DisplayName, departed = !memberOrder.ContainsKey(user.Id) });
+    var currentMembers = group.Members.OrderBy(member => member.RotationOrder).ToList();
+    var context = Model.AdjacentShifts
+        .Select(shift => new { startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray(), external = false })
+        .Concat(Model.OtherGroupShifts.Select(shift => new { startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray(), external = true }));
 }
-<div id="oncall-schedule" class="mb-3" data-group-id="@group.Id" data-group-name="@group.Name" data-version="@group.ScheduleVersion" data-zone="@group.TimeZoneId"
+<div id="oncall-schedule" class="mt-3 mb-3" data-group-id="@group.Id" data-group-name="@group.Name" data-version="@group.ScheduleVersion" data-zone="@group.TimeZoneId"
      data-start="@Model.WeekStartUtc.ToString("O")" data-end="@Model.WeekEndUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)" data-members="@JsonSerializer.Serialize(members)"
+     data-context="@JsonSerializer.Serialize(context)" data-minimum-rest="@group.MinimumRestHours?.ToString(CultureInfo.InvariantCulture)" data-maximum-continuous="@group.MaximumContinuousHours?.ToString(CultureInfo.InvariantCulture)" data-minimum-staff="@group.MinimumShiftStaff"
      data-preview-url="@Url.Action("PreviewSchedule")" data-get-url="@Url.Action("GetSchedule")" data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()
-    <p class="small text-muted">@viewLocalizer["Enter times in the team time zone. During daylight saving transitions, skipped times are invalid and repeated times use standard time."]</p>
-    <div id="oncall-editor" class="table-responsive">
-        <table class="table align-middle"><thead><tr><th>@viewLocalizer["Start"]</th><th>@viewLocalizer["End"]</th><th>@viewLocalizer["On-call personnel"]</th><th>@viewLocalizer["Actions"]</th></tr></thead><tbody id="oncall-shift-rows"></tbody></table>
-    </div>
+    <p class="small text-muted">@viewLocalizer["Changes take effect only after saving. Collapsing these tools keeps your draft."]</p>
     <div class="d-flex flex-wrap gap-2 mb-3">
         <button id="oncall-add-shift" type="button" class="btn btn-outline-primary">@viewLocalizer["Add shift"]</button>
-        <button id="oncall-save-schedule" type="button" class="btn btn-primary">@viewLocalizer["Save schedule adjustments"]</button>
+        <button id="oncall-undo-schedule" type="button" class="btn btn-outline-secondary" disabled>@viewLocalizer["Undo last step"]</button>
+        <button id="oncall-redo-schedule" type="button" class="btn btn-outline-secondary" disabled>@viewLocalizer["Redo last step"]</button>
         <button id="oncall-reset-schedule" type="button" class="btn btn-outline-secondary">@viewLocalizer["Reset draft"]</button>
+        <button id="oncall-save-schedule" type="button" class="btn btn-primary">@viewLocalizer["Save schedule adjustments"]</button>
     </div>
+    <ul id="oncall-copy-drafts" class="small text-muted text-break" aria-live="polite"></ul>
     <details class="border rounded p-3">
-        <summary>@viewLocalizer["Copy or generate into a time range"]</summary>
-        <p class="small text-muted mt-2">@viewLocalizer["Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full."]</p>
-        <div class="row g-2 mb-2">
-            <div class="col-sm-6"><label for="oncall-range-start" class="form-label">@viewLocalizer["Start"]</label><input id="oncall-range-start" type="datetime-local" class="form-control" /></div>
-            <div class="col-sm-6"><label for="oncall-range-end" class="form-label">@viewLocalizer["End"]</label><input id="oncall-range-end" type="datetime-local" class="form-control" /></div>
+        <summary class="fw-semibold">@viewLocalizer["Precise editing / bulk operations"]</summary>
+        <p id="oncall-timezone-help" class="small text-muted mt-2">@viewLocalizer["Enter times in the team time zone. During daylight saving transitions, skipped times are invalid and repeated times use standard time."]</p>
+        <div id="oncall-editor" class="table-responsive">
+            <table class="table align-middle"><thead><tr><th scope="col">@viewLocalizer["Start"]</th><th scope="col">@viewLocalizer["End"]</th><th scope="col">@viewLocalizer["On-call personnel"]</th><th scope="col">@viewLocalizer["Actions"]</th></tr></thead><tbody id="oncall-shift-rows"></tbody></table>
         </div>
-        <div class="d-flex flex-wrap gap-2">
-            <button id="oncall-copy-range" type="button" class="btn btn-outline-primary">@viewLocalizer["Copy to time range"]</button>
-            @if (Model.CanGenerateSchedule)
-            {
-                <button id="oncall-generate" type="button" class="btn btn-outline-warning">@viewLocalizer["Generate from template"]</button>
-            }
-        </div>
-        <div id="oncall-replace-confirm" class="mt-3" hidden>
-            <p>@viewLocalizer["The following shifts will be replaced. Confirm to write the new schedule."]</p>
-            <ul id="oncall-replaced-shifts" class="text-break"></ul>
-            <button id="oncall-replace-apply" type="button" class="btn btn-danger">@viewLocalizer["Confirm replacement"]</button>
-            <button id="oncall-replace-cancel" type="button" class="btn btn-outline-secondary">@viewLocalizer["Cancel"]</button>
-        </div>
+        <fieldset class="mb-3">
+            <legend class="h6">@viewLocalizer["Move selected shift"]</legend>
+            <p class="small text-muted">@viewLocalizer["Select a shift in the chart, then choose a team member and start time. Its duration stays the same."]</p>
+            <div class="row g-2 align-items-end">
+                <div class="col-sm-4">
+                    <label for="oncall-move-member" class="form-label">@viewLocalizer["Team member"]</label>
+                    <select id="oncall-move-member" class="form-select">
+                        @foreach (var member in currentMembers)
+                        {
+                            <option value="@member.UserId">@member.User.DisplayName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-4"><label for="oncall-move-start" class="form-label">@viewLocalizer["Start"]</label><input id="oncall-move-start" type="datetime-local" step="60" class="form-control" aria-describedby="oncall-timezone-help" /></div>
+                <div class="col-sm-4"><button id="oncall-move-selected" type="button" class="btn btn-outline-primary">@viewLocalizer["Move selected shift"]</button></div>
+            </div>
+        </fieldset>
+        <fieldset class="mb-3">
+            <legend class="h6">@viewLocalizer["Swap full week"]</legend>
+            <p class="small text-muted">@viewLocalizer["Exchange two current team members across all shifts in the visible range."]</p>
+            <div class="row g-2 align-items-end">
+                <div class="col-sm-4">
+                    <label for="oncall-swap-first" class="form-label">@viewLocalizer["First team member"]</label>
+                    <select id="oncall-swap-first" class="form-select">
+                        @foreach (var member in currentMembers)
+                        {
+                            <option value="@member.UserId">@member.User.DisplayName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label for="oncall-swap-second" class="form-label">@viewLocalizer["Second team member"]</label>
+                    <select id="oncall-swap-second" class="form-select">
+                        @foreach (var member in currentMembers)
+                        {
+                            <option value="@member.UserId">@member.User.DisplayName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-4"><button id="oncall-swap-week" type="button" class="btn btn-outline-primary">@viewLocalizer["Swap full week"]</button></div>
+            </div>
+        </fieldset>
+        <details class="border-top pt-3">
+            <summary>@viewLocalizer["Copy or generate into a time range"]</summary>
+            <p class="small text-muted mt-2">@viewLocalizer["Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full. Copying and generation only change drafts; use Save schedule adjustments to publish."]</p>
+            <div class="row g-2 mb-2">
+                <div class="col-sm-6"><label for="oncall-range-start" class="form-label">@viewLocalizer["Start"]</label><input id="oncall-range-start" type="datetime-local" step="60" class="form-control" aria-describedby="oncall-timezone-help" /></div>
+                <div class="col-sm-6"><label for="oncall-range-end" class="form-label">@viewLocalizer["End"]</label><input id="oncall-range-end" type="datetime-local" step="60" class="form-control" aria-describedby="oncall-timezone-help" /></div>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <button id="oncall-copy-range" type="button" class="btn btn-outline-primary">@viewLocalizer["Copy to time range"]</button>
+                @if (Model.CanGenerateSchedule)
+                {
+                    <button id="oncall-generate" type="button" class="btn btn-outline-warning">@viewLocalizer["Generate from template"]</button>
+                }
+            </div>
+            <div id="oncall-replace-confirm" class="mt-3" hidden>
+                <p>@viewLocalizer["The following shifts will be replaced in the draft. Confirm to update the draft; saved schedules change only when you save."]</p>
+                <ul id="oncall-replaced-shifts" class="text-break"></ul>
+                <button id="oncall-replace-apply" type="button" class="btn btn-danger">@viewLocalizer["Confirm draft replacement"]</button>
+                <button id="oncall-replace-cancel" type="button" class="btn btn-outline-secondary">@viewLocalizer["Cancel"]</button>
+            </div>
+        </details>
     </details>
     <ul id="oncall-schedule-errors" class="text-danger mt-2" role="alert"></ul>
     <ul id="oncall-schedule-warnings" class="text-warning-emphasis mt-2" role="status" aria-live="polite"></ul>
+    <dialog id="oncall-shift-dialog" aria-labelledby="oncall-shift-dialog-title" aria-describedby="oncall-dialog-timezone-help">
+        <h3 id="oncall-shift-dialog-title" class="h5">@viewLocalizer["Edit shift"]</h3>
+        <p id="oncall-dialog-timezone-help" class="small text-muted">@group.TimeZoneId · @viewLocalizer["Enter times in the team time zone. During daylight saving transitions, skipped times are invalid and repeated times use standard time."]</p>
+        <div class="row g-3 mb-3">
+            <div class="col-sm-6"><label for="oncall-dialog-start" class="form-label">@viewLocalizer["Start"]</label><input id="oncall-dialog-start" type="datetime-local" step="60" class="form-control" required autofocus /></div>
+            <div class="col-sm-6"><label for="oncall-dialog-end" class="form-label">@viewLocalizer["End"]</label><input id="oncall-dialog-end" type="datetime-local" step="60" class="form-control" required /></div>
+        </div>
+        <fieldset id="oncall-dialog-members" class="mb-3" aria-label="@viewLocalizer["On-call personnel (zero or more)"]">
+            <legend class="h6">@viewLocalizer["On-call personnel (zero or more)"]</legend>
+        </fieldset>
+        <ul id="oncall-dialog-errors" class="text-danger mb-3" role="alert"></ul>
+        <div class="d-flex flex-wrap gap-2">
+            <button id="oncall-dialog-apply" type="button" class="btn btn-primary">@viewLocalizer["Apply to draft"]</button>
+            <button id="oncall-dialog-delete" type="button" class="btn btn-outline-danger">@viewLocalizer["Delete shift"]</button>
+            <button id="oncall-dialog-cancel" type="button" class="btn btn-outline-secondary">@viewLocalizer["Cancel"]</button>
+        </div>
+    </dialog>
+    <div id="oncall-drag-tooltip" class="ac-gantt-drag-label" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+    <div hidden>
+        <span data-schedule-text="resize-start">@viewLocalizer["Adjust start"]</span>
+        <span data-schedule-text="resize-end">@viewLocalizer["Adjust end"]</span>
+        <span data-schedule-text="handover">@viewLocalizer["Adjust handover"]</span>
+        <span data-schedule-text="edit-shift">@viewLocalizer["Edit shift"]</span>
+        <span data-schedule-text="read-only">@viewLocalizer["Read-only"]</span>
+        <span data-schedule-text="move-hint">@viewLocalizer["Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes."]</span>
+        <span data-schedule-text="draft-range">@viewLocalizer["Draft range"]</span>
+        <span data-schedule-text="gap">@viewLocalizer["Schedule contains a coverage gap."]</span>
+        <span data-schedule-text="overlap">@viewLocalizer["Schedule contains overlapping shifts."]</span>
+        <span data-schedule-text="unassigned-warning">@viewLocalizer["Shift has no on-duty engineers."]</span>
+        <span data-schedule-text="rest-warning">@viewLocalizer["An engineer has insufficient rest between shifts."]</span>
+        <span data-schedule-text="continuous-warning">@viewLocalizer["An engineer exceeds the continuous on-call threshold."]</span>
+        <span data-schedule-text="staff-warning">@viewLocalizer["Shift staffing is below the team threshold."]</span>
+        <span data-schedule-text="departed-warning">@viewLocalizer["Future shift includes a departed team member."]</span>
+        <span data-schedule-text="departed-edit">@viewLocalizer["Remove departed members before changing shift times."]</span>
+        <span data-schedule-text="invalid-local">@viewLocalizer["Invalid team local time."]</span>
+        <span data-schedule-text="copy-overlap">@viewLocalizer["The destination must not overlap the visible range or another copied range."]</span>
+        <span data-schedule-text="swap-invalid">@viewLocalizer["Choose two different current team members."]</span>
+        <span data-schedule-text="unassigned">@viewLocalizer["Unassigned"]</span>
+        <span data-schedule-text="saved-copy">@viewLocalizer["Copied range is a draft. Save to publish."]</span>
+        <span data-schedule-text="move-to">@viewLocalizer["Move selected shift"]</span>
+        <span data-schedule-text="select-shift">@viewLocalizer["Select a shift first."]</span>
+    </div>
 </div>

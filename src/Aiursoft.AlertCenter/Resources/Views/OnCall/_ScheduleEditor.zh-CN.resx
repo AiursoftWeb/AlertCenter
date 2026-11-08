@@ -123,4 +123,37 @@
   <data name="Generate from template" xml:space="preserve"><value>按模板生成</value></data>
   <data name="The following shifts will be replaced. Confirm to write the new schedule." xml:space="preserve"><value>以下班段将被替换。确认后写入新排班。</value></data>
   <data name="Confirm replacement" xml:space="preserve"><value>确认替换</value></data>
+  <data name="Redo last step" xml:space="preserve"><value>重做上一步</value></data>
+  <data name="Precise editing / bulk operations" xml:space="preserve"><value>精确编辑 / 批量操作</value></data>
+  <data name="Move selected shift" xml:space="preserve"><value>移动选中班次</value></data>
+  <data name="Select a shift in the chart, then choose a team member and start time. Its duration stays the same." xml:space="preserve"><value>先在图中选择班次，再选择团队成员和开始时间。班次时长保持不变。</value></data>
+  <data name="Team member" xml:space="preserve"><value>团队成员</value></data>
+  <data name="Swap full week" xml:space="preserve"><value>交换整周</value></data>
+  <data name="Exchange two current team members across all shifts in the visible range." xml:space="preserve"><value>交换当前显示范围内两名在队成员的所有班次。</value></data>
+  <data name="First team member" xml:space="preserve"><value>第一名成员</value></data>
+  <data name="Second team member" xml:space="preserve"><value>第二名成员</value></data>
+  <data name="Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>复制会在目标范围内重复当前草稿，并裁剪至范围边界。与目标范围相交的已有班段将被整体替换。复制和生成仅修改草稿；点击“保存排班调整”后才会发布。</value></data>
+  <data name="The following shifts will be replaced in the draft. Confirm to update the draft; saved schedules change only when you save." xml:space="preserve"><value>以下班段将在草稿中被替换。确认后仅更新草稿；点击保存后才会修改已发布的排班。</value></data>
+  <data name="Edit shift" xml:space="preserve"><value>编辑班次</value></data>
+  <data name="Apply to draft" xml:space="preserve"><value>应用到草稿</value></data>
+  <data name="Adjust start" xml:space="preserve"><value>调整开始时间</value></data>
+  <data name="Adjust end" xml:space="preserve"><value>调整结束时间</value></data>
+  <data name="Adjust handover" xml:space="preserve"><value>调整交接时间</value></data>
+  <data name="Read-only" xml:space="preserve"><value>只读</value></data>
+  <data name="Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes." xml:space="preserve"><value>方向键调整时间或人员；Shift + 方向键调整边界；Enter 编辑；Delete 删除。</value></data>
+  <data name="Draft range" xml:space="preserve"><value>草稿范围</value></data>
+  <data name="Schedule contains a coverage gap." xml:space="preserve"><value>排班存在未覆盖时段。</value></data>
+  <data name="Schedule contains overlapping shifts." xml:space="preserve"><value>排班存在重叠班次。</value></data>
+  <data name="Shift has no on-duty engineers." xml:space="preserve"><value>班次未安排值班工程师。</value></data>
+  <data name="An engineer has insufficient rest between shifts." xml:space="preserve"><value>有工程师的班次间休息时间不足。</value></data>
+  <data name="An engineer exceeds the continuous on-call threshold." xml:space="preserve"><value>有工程师的连续值班时间超过提醒阈值。</value></data>
+  <data name="Shift staffing is below the team threshold." xml:space="preserve"><value>班次人数低于团队提醒阈值。</value></data>
+  <data name="Future shift includes a departed team member." xml:space="preserve"><value>未来班次包含已离队成员。</value></data>
+  <data name="Remove departed members before changing shift times." xml:space="preserve"><value>请先移除已离队成员，再修改班次时间。</value></data>
+  <data name="Invalid team local time." xml:space="preserve"><value>团队本地时间无效。</value></data>
+  <data name="The destination must not overlap the visible range or another copied range." xml:space="preserve"><value>目标范围不能与当前显示范围或其他已复制范围重叠。</value></data>
+  <data name="Choose two different current team members." xml:space="preserve"><value>请选择两名不同的在队成员。</value></data>
+  <data name="Unassigned" xml:space="preserve"><value>未分配</value></data>
+  <data name="Copied range is a draft. Save to publish." xml:space="preserve"><value>已复制的范围仍为草稿，保存后才会发布。</value></data>
+  <data name="Select a shift first." xml:space="preserve"><value>请先选择一个班次。</value></data>
 </root>

@@ -226,7 +226,8 @@ public class OnCallRulePagesTests : TestBase
         Assert.DoesNotContain("Starting soon", html);
         Assert.Contains("Unsaved · Auto-suggested", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);
-        Assert.AreEqual(3, Regex.Matches(html, "class=\"ac-gantt-row\" role=\"group\"").Count);
+        Assert.AreEqual(4, Regex.Matches(html, "class=\"ac-gantt-row\" role=\"group\"").Count);
+        Assert.Contains("id=\"oncall-unassigned-row\"", html);
         Assert.AreEqual(21, Regex.Matches(html, "class=\"ac-gantt-shift ").Count);
         Assert.Contains($"Alice · {anchor.AddHours(8):yyyy-MM-dd HH:mm} +08:00 → {anchor.AddHours(16):yyyy-MM-dd HH:mm} +08:00 · 8 hours · Asia/Shanghai", html);
         Assert.Contains("left: 0%; width: 4.761905%", html);
