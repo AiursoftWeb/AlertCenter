@@ -352,4 +352,13 @@
     <value>您没有权限执行此操作。</value>
   </data>
 
+  <data name="Unable to save schedule. Refresh and try again." xml:space="preserve"><value>无法保存排班，请刷新后重试。</value></data>
+  <data name="Save or reset the draft before generating a range." xml:space="preserve"><value>请先保存或重置草稿，再按模板生成。</value></data>
+  <data name="End must be after start." xml:space="preserve"><value>结束时间必须晚于开始时间。</value></data>
+  <data name="Cannot copy assignments for departed team members." xml:space="preserve"><value>无法复制已离队成员的班段。</value></data>
+  <data name="Unassigned" xml:space="preserve"><value>无人值班</value></data>
+  <data name="Start" xml:space="preserve"><value>开始</value></data>
+  <data name="Delete shift" xml:space="preserve"><value>删除班段</value></data>
+  <data name="hours" xml:space="preserve"><value>小时</value></data>
+  <data name="Departed" xml:space="preserve"><value>已离队</value></data>
 </root>

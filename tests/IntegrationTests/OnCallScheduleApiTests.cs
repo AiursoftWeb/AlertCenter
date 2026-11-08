@@ -166,10 +166,10 @@ public class OnCallScheduleApiTests : TestBase
         using (var scope = Server!.Services.CreateScope())
             ruleId = (await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallGroups.SingleAsync(group => group.Id == id)).RuleId!.Value;
         var editPage = await Http.GetStringAsync($"/OnCall/Edit/{ruleId}");
-        foreach (var field in new[] { "MinimumStaff", "TargetStaff" })
+        foreach (var field in new[] { "StaffPerShift" })
         {
             var input = System.Text.RegularExpressions.Regex.Match(editPage, $"<input[^>]*name=\"RuleInput.{field}\"[^>]*>").Value;
-            Assert.Contains("value=\"2\"", input);
+            Assert.Contains("value=\"1\"", input);
         }
         var metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
         Assert.AreEqual(2, metadata.GetProperty("minimumStaff").GetInt32());
@@ -190,7 +190,8 @@ public class OnCallScheduleApiTests : TestBase
         CollectionAssert.AreEqual(result.GetProperty("warnings").EnumerateArray().Select(warning => warning.GetString()).ToArray(),
             metadata.GetProperty("warnings").EnumerateArray().Select(warning => warning.GetString()).ToArray());
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
-        Assert.Contains("data-minimum-staff=\"2\"", details);
+        Assert.Contains("Shift staffing is below the team threshold.", details);
+        Assert.Contains("id=\"oncall-warning-lane\"", details);
 
         using (var scope = Server!.Services.CreateScope())
         {
@@ -219,7 +220,7 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
-    public async Task GanttRetainsUnassignedEngineersAsDropTargets()
+    public async Task GanttRetainsUnassignedEngineersAndTableAllowsFreeShiftEditing()
     {
         await LoginAsAdmin();
         var id = await SeedGroup();
@@ -233,10 +234,10 @@ public class OnCallScheduleApiTests : TestBase
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
         Assert.Contains($"data-user-id=\"{redundant}\"", details);
         Assert.Contains("0 shifts / 0 hours", details);
-        Assert.AreEqual(84, System.Text.RegularExpressions.Regex.Matches(details, "class=\"ac-gantt-cell\"").Count);
-        Assert.Contains("Undo last step", details);
-        Assert.Contains("data-schedule-mode=\"add\"", details);
-        Assert.Contains("data-schedule-mode=\"remove\"", details);
+        Assert.DoesNotContain("class=\"ac-gantt-cell\"", details);
+        Assert.Contains("id=\"oncall-shift-rows\"", details);
+        Assert.Contains("id=\"oncall-add-shift\"", details);
+        Assert.Contains("id=\"oncall-reset-schedule\"", details);
     }
 
     [TestMethod]
@@ -247,8 +248,7 @@ public class OnCallScheduleApiTests : TestBase
         var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
         var metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
         Assert.AreEqual(id, draft.GroupId);
-        Assert.AreEqual(21, draft.Slots.Count);
-        Assert.IsTrue(draft.Slots.All(slot => slot.UserIds.Count == 0));
+        Assert.AreEqual(0, draft.Slots.Count);
         Assert.IsFalse(metadata.GetProperty("saved").GetBoolean());
         Assert.IsFalse(metadata.GetProperty("canGenerate").GetBoolean());
         Assert.AreEqual(16, metadata.GetProperty("restHours").GetInt32());
@@ -258,6 +258,7 @@ public class OnCallScheduleApiTests : TestBase
         Assert.Contains("id=\"oncall-editor\"", details);
         Assert.DoesNotContain("id=\"oncall-generate\"", details);
         var users = metadata.GetProperty("members").EnumerateArray().Select(user => user.GetProperty("id").GetString()!).Take(3).ToArray();
+        draft.Slots = [new() { StartsAtUtc = draft.StartUtc.AddMinutes(17), EndsAtUtc = draft.StartUtc.AddDays(3), UserIds = [users[0], users[1]] }];
         for (var index = 0; index < draft.Slots.Count; index++)
             draft.Slots[index].UserIds = [users[index % 3]];
         Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", draft)).StatusCode);
@@ -267,7 +268,7 @@ public class OnCallScheduleApiTests : TestBase
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.IsNull((await db.OnCallGroups.SingleAsync(group => group.Id == id)).RuleId);
-        Assert.AreEqual(21, await db.OnCallShifts.CountAsync(shift => shift.GroupId == id));
+        Assert.AreEqual(1, await db.OnCallShifts.CountAsync(shift => shift.GroupId == id));
         Assert.IsTrue(await db.OnCallShifts.Where(shift => shift.GroupId == id).AllAsync(shift => shift.RestHours == 16));
     }
 
@@ -313,7 +314,8 @@ public class OnCallScheduleApiTests : TestBase
         Assert.Contains("Departed", details);
         Assert.Contains("id=\"oncall-schedule\"", details);
         Assert.Contains("id=\"oncall-gantt\"", details);
-        Assert.AreEqual(63, System.Text.RegularExpressions.Regex.Matches(details, "class=\"ac-gantt-cell\"").Count);
+        Assert.DoesNotContain("class=\"ac-gantt-cell\"", details);
+        Assert.Contains("id=\"oncall-shift-rows\"", details);
         using var checkScope = Server!.Services.CreateScope();
         var checkDb = checkScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var shifts = await checkDb.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.GroupId == id).ToListAsync();
@@ -345,11 +347,150 @@ public class OnCallScheduleApiTests : TestBase
         Assert.IsTrue(saved.Slots.Any(slot => slot.StartsAtUtc < start));
         Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", saved)).StatusCode);
         var page = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
-        Assert.Contains("Flexible shifts are read-only", WebUtility.HtmlDecode(page));
-        Assert.DoesNotContain("id=\"oncall-schedule\"", page);
+        Assert.DoesNotContain("Flexible shifts are read-only", WebUtility.HtmlDecode(page));
+        Assert.Contains("id=\"oncall-schedule\"", page);
+        Assert.Contains("id=\"oncall-editor\"", page);
         Assert.Contains("id=\"oncall-gantt\"", page);
         using var scope = Server!.Services.CreateScope();
         Assert.AreEqual(3, await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallShifts.CountAsync(shift => shift.GroupId == id));
+    }
+
+    [TestMethod]
+    public async Task FormsRoundTripWeeklyTemplateAndOptionalTeamSettingsIncludingFallbackOutsideTeam()
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        Guid ruleId;
+        string fallback;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            ruleId = (await db.OnCallGroups.SingleAsync(group => group.Id == id)).RuleId!.Value;
+            fallback = await db.Users.Where(user => !db.OnCallGroupMembers.Any(member => member.GroupId == id && member.UserId == user.Id))
+                .Select(user => user.Id).FirstAsync();
+        }
+        AssertRedirect(await PostForm("/OnCall/SaveRule", new()
+        {
+            ["RuleInput.Id"] = ruleId.ToString(), ["RuleInput.Name"] = "Weekly template", ["RuleInput.SplitMode"] = "weekly",
+            ["RuleInput.StaffPerShift"] = "2", ["RuleInput.SwapAlternateRounds"] = "true",
+            ["RuleInput.HandoverPoints[0].DayOfWeek"] = "1", ["RuleInput.HandoverPoints[0].MinuteOfDay"] = "1320",
+            ["RuleInput.HandoverPoints[1].DayOfWeek"] = "5", ["RuleInput.HandoverPoints[1].MinuteOfDay"] = "1320"
+        }, $"/OnCall/Edit/{ruleId}"), $"/OnCall/Details/{ruleId}");
+        var editTemplate = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Edit/{ruleId}"));
+        var existingPoints = editTemplate[..editTemplate.IndexOf("<template", StringComparison.Ordinal)];
+        Assert.AreEqual(2, System.Text.RegularExpressions.Regex.Matches(existingPoints, "value=\"22:00\"").Count);
+        var weeklyOption = System.Text.RegularExpressions.Regex.Match(editTemplate, "<option[^>]*value=\"weekly\"[^>]*>").Value;
+        Assert.Contains("selected=\"selected\"", weeklyOption);
+        Dictionary<string, string> update;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.Include(item => item.Members).SingleAsync(item => item.Id == id);
+            update = new()
+            {
+                ["id"] = id.ToString(), ["GroupInput.Name"] = group.Name, ["GroupInput.TimeZoneId"] = "Asia/Shanghai",
+                ["GroupInput.AnchorUtc"] = group.AnchorUtc.ToString("O"), ["GroupInput.Version"] = group.ScheduleVersion.ToString(),
+                ["GroupInput.RuleId"] = ruleId.ToString(), ["GroupInput.WeekStartsOn"] = "5", ["GroupInput.MinimumRestHours"] = "1.5",
+                ["GroupInput.MaximumContinuousHours"] = "96", ["GroupInput.MinimumShiftStaff"] = "2", ["GroupInput.AutoExtend"] = "true",
+                ["GroupInput.FallbackSelectionSubmitted"] = "true", ["GroupInput.FallbackUserIds[0]"] = fallback
+            };
+            foreach (var (member, index) in group.Members.OrderBy(member => member.RotationOrder).Select((member, index) => (member, index)))
+                update[$"GroupInput.UserIds[{index}]"] = member.UserId;
+        }
+        AssertRedirect(await PostForm("/OnCall/UpdateGroup", update, $"/OnCall/GroupEdit/{id}"), $"/OnCall/GroupDetails/{id}");
+        var editTeam = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/GroupEdit/{id}"));
+        Assert.Contains($"name=\"GroupInput.FallbackUserIds\" value=\"{fallback}\"", editTeam);
+        Assert.Contains("value=\"1.5\"", editTeam);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.Include(item => item.FallbackRecipients).SingleAsync(item => item.Id == id);
+            Assert.IsTrue(group.AutoExtend);
+            Assert.AreEqual(DayOfWeek.Friday, group.WeekStartsOn);
+            Assert.AreEqual(fallback, group.FallbackRecipients.Single().UserId);
+            var rule = await db.OnCallRules.Include(item => item.HandoverPoints).SingleAsync(item => item.Id == ruleId);
+            Assert.AreEqual(2, rule.HandoverPoints.Count);
+            Assert.AreEqual(2, rule.StaffPerShift);
+            Assert.IsTrue(rule.SwapAlternateRounds);
+        }
+        using var culture = await Http.GetAsync("/Culture/Set?culture=zh-CN&returnUrl=/OnCall");
+        Assert.AreEqual(HttpStatusCode.Found, culture.StatusCode);
+        var chinese = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Edit/{ruleId}"));
+        Assert.Contains("切分方式", chinese);
+        Assert.Contains("每周交接点", chinese);
+    }
+
+    [TestMethod]
+    public async Task LocalTimeEditorPreviewsWarningsWithoutWritesAndGenerationRequiresCurrentConfirmation()
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.SingleAsync(item => item.Id == id);
+            group.TimeZoneId = "Asia/Shanghai";
+            group.MinimumShiftStaff = 2;
+            group.MaximumContinuousHours = 24;
+            await db.SaveChangesAsync();
+        }
+        var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
+        var user = draft.Slots[0].UserIds[0];
+        draft.StartLocal = "2026-11-09T00:00";
+        draft.EndLocal = "2026-11-16T00:00";
+        draft.Slots = [new() { StartLocal = "2026-11-09T22:00", EndLocal = "2026-11-13T22:00", UserIds = [user] },
+            new() { StartLocal = "2026-11-13T21:17", EndLocal = "2026-11-16T22:00" }];
+        var preview = await Save("PreviewSchedule", draft);
+        Assert.AreEqual(HttpStatusCode.OK, preview.StatusCode);
+        var data = await preview.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.IsTrue(data.GetProperty("warnings").GetArrayLength() >= 4);
+        Assert.IsTrue(data.GetProperty("timelineWarnings").GetArrayLength() >= 4);
+        Assert.AreEqual(new DateTime(2026, 11, 9, 14, 0, 0, DateTimeKind.Utc), data.GetProperty("slots")[0].GetProperty("startsAtUtc").GetDateTime());
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.AreEqual(0, await db.OnCallShifts.CountAsync(shift => shift.GroupId == id));
+            Assert.AreEqual(draft.Version, (await db.OnCallGroups.SingleAsync(group => group.Id == id)).ScheduleVersion);
+        }
+        Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", draft)).StatusCode);
+        var saved = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}&startLocal=2026-11-09T00:00&endLocal=2026-11-16T00:00"))!;
+        Assert.AreEqual(2, saved.Slots.Count);
+        Assert.IsTrue(saved.Slots.Any(slot => slot.EndsAtUtc > saved.EndUtc));
+        var before = System.Text.Json.JsonSerializer.Serialize(saved.Slots);
+        var generated = await Save("PreviewSchedule?generate=true", saved);
+        Assert.AreEqual(HttpStatusCode.OK, generated.StatusCode);
+        var generatedData = await generated.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.AreEqual(2, generatedData.GetProperty("replacedSlots").GetArrayLength());
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("GenerateSchedule", saved)).StatusCode);
+        Assert.AreEqual(before, System.Text.Json.JsonSerializer.Serialize((await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}&startLocal=2026-11-09T00:00&endLocal=2026-11-16T00:00"))!.Slots));
+        saved.ConfirmReplace = true;
+        Assert.AreEqual(HttpStatusCode.OK, (await Save("GenerateSchedule", saved)).StatusCode);
+        Assert.AreEqual(HttpStatusCode.Conflict, (await Save("GenerateSchedule", saved)).StatusCode);
+    }
+
+    [TestMethod]
+    public async Task LocalEditorRejectsSkippedDstTimesAndUsesStandardTimeForRepeatedTimes()
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup(false);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            (await db.OnCallGroups.SingleAsync(group => group.Id == id)).TimeZoneId = "America/New_York";
+            await db.SaveChangesAsync();
+        }
+        var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
+        draft.StartLocal = "2026-03-08T00:00"; draft.EndLocal = "2026-03-09T00:00";
+        draft.Slots = [new() { StartLocal = "2026-03-08T02:30", EndLocal = "2026-03-08T04:00" }];
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("SaveSchedule", draft)).StatusCode);
+        draft.StartLocal = "2026-11-01T00:00"; draft.EndLocal = "2026-11-02T00:00";
+        draft.Slots[0].StartLocal = "2026-11-01T01:30"; draft.Slots[0].EndLocal = "2026-11-01T02:17";
+        Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", draft)).StatusCode);
+        var saved = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}&startLocal=2026-11-01T00:00&endLocal=2026-11-02T00:00"))!;
+        Assert.AreEqual(new DateTime(2026, 11, 1, 6, 30, 0, DateTimeKind.Utc), saved.Slots[0].StartsAtUtc);
+        Assert.AreEqual(TimeSpan.FromMinutes(47), saved.Slots[0].EndsAtUtc - saved.Slots[0].StartsAtUtc);
+        var page = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startLocal=2026-11-01T00:00&endLocal=2026-11-02T00:00");
+        Assert.Contains("data-duration=\"25\"", page);
     }
 
     [TestMethod]
@@ -362,7 +503,7 @@ public class OnCallScheduleApiTests : TestBase
         Assert.DoesNotContain("class=\"ac-gantt-cell\"", details);
         Assert.DoesNotContain("ac-gantt-week\"", details);
         Assert.DoesNotContain("data-schedule-mode=", details);
-        var endpoints = new[] { "GetSchedule", "GenerateSchedule", "SaveSchedule" };
+        var endpoints = new[] { "GetSchedule", "GenerateSchedule", "SaveSchedule", "PreviewSchedule" };
         foreach (var endpoint in endpoints)
         {
             var response = endpoint == "GetSchedule" ? await Http.GetAsync($"/OnCall/{endpoint}?id={id}")

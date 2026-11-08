@@ -93,6 +93,8 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<OnCallGroup>().HasOne(group => group.Rule).WithMany()
             .HasForeignKey(group => group.RuleId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<OnCallGroup>().Property(group => group.ScheduleVersion).IsConcurrencyToken();
+        // 周日的枚举值为 0，不能把它当作“未设置”而替换为周一。
+        builder.Entity<OnCallGroup>().Property(group => group.WeekStartsOn).HasDefaultValue(DayOfWeek.Monday).HasSentinel((DayOfWeek)(-1));
         builder.Entity<OnCallShift>().HasOne(shift => shift.Group).WithMany()
             .HasForeignKey(shift => shift.GroupId).OnDelete(DeleteBehavior.Cascade);
         builder.Entity<OnCallShift>().HasIndex(shift => new { shift.GroupId, shift.StartsAtUtc });

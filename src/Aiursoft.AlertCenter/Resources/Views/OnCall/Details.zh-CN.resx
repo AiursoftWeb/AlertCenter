@@ -196,4 +196,10 @@
   <data name="Template and membership changes preserve saved shifts, including future assignments for departed members." xml:space="preserve"><value>修改模板或成员不会改变已保存的班段，离队成员的未来安排也会保留。</value></data>
   <data name="Members shared with other on-call teams" xml:space="preserve"><value>同时加入其他值班团队的成员</value></data>
   <data name="Shared members participate in the rotation queue. Cross-team overlaps and short breaks produce reminders." xml:space="preserve"><value>跨团队成员正常参与轮换队列；跨团队重叠和休息不足仅产生提醒。</value></data>
+  <data name="Range start (team time)" xml:space="preserve"><value>范围开始（团队时间）</value></data>
+  <data name="Range end (team time)" xml:space="preserve"><value>范围结束（团队时间）</value></data>
+  <data name="View range" xml:space="preserve"><value>查看范围</value></data>
+  <data name="Reminder thresholds (blank means disabled)" xml:space="preserve"><value>提醒阈值（空表示不检查）</value></data>
+  <data name="Staff per shift" xml:space="preserve"><value>每段人数</value></data>
+  <data name="No template bound. Add arbitrary shifts in the table." xml:space="preserve"><value>尚未绑定模板，可在表格中添加任意班段。</value></data>
 </root>

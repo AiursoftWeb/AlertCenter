@@ -1,4 +1,6 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
+@inject IHtmlLocalizerFactory OnCallLocalizerFactory
+@{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall.Details", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
 @{
     var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
     var rule = group.Rule;
@@ -13,63 +15,66 @@
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
-        <h1 class="h3 mb-1">@group.Name · @Localizer["On-call schedule"]</h1>
+        <h1 class="h3 mb-1">@group.Name · @viewLocalizer["On-call schedule"]</h1>
         <p class="text-muted mb-0">@group.TimeZoneId</p>
     </div>
     <div class="d-flex flex-wrap gap-2">
-        <a asp-action="Schedule" class="btn btn-outline-secondary">@Localizer["Back to Schedule List"]</a>
-        <a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-outline-primary">@Localizer["View team"]</a>
+        <a asp-action="Schedule" class="btn btn-outline-secondary">@viewLocalizer["Back to Schedule List"]</a>
+        <a asp-action="GroupDetails" asp-route-id="@group.Id" class="btn btn-outline-primary">@viewLocalizer["View team"]</a>
     </div>
 </div>
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">@Localizer["7-Day On-Call Schedule"]</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@viewLocalizer["7-Day On-Call Schedule"]</h2></div>
     <div class="card-body">
         @if (Model.WeekStartUtc != default)
         {
             var staffNames = Model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
-            var totalHours = Model.Preview.DistinctBy(shift => shift.StartsAtUtc).Sum(shift => (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours);
+            var totalHours = Model.Preview.DistinctBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc })
+                .Sum(shift => (new[] { shift.EndsAtUtc, Model.WeekEndUtc }.Min() - new[] { shift.StartsAtUtc, Model.WeekStartUtc }.Max()).TotalHours);
             var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+            <form asp-action="ScheduleDetails" method="get" class="row g-2 mb-3">
+                <input type="hidden" name="id" value="@group.Id" />
+                <div class="col-sm-5"><label for="oncall-view-start" class="form-label">@viewLocalizer["Range start (team time)"]</label><input id="oncall-view-start" name="startLocal" type="datetime-local" required class="form-control" value="@TimeZoneInfo.ConvertTimeFromUtc(Model.WeekStartUtc, zone).ToString("yyyy-MM-ddTHH:mm")" /></div>
+                <div class="col-sm-5"><label for="oncall-view-end" class="form-label">@viewLocalizer["Range end (team time)"]</label><input id="oncall-view-end" name="endLocal" type="datetime-local" required class="form-control" value="@TimeZoneInfo.ConvertTimeFromUtc(Model.WeekEndUtc, zone).ToString("yyyy-MM-ddTHH:mm")" /></div>
+                <div class="col-sm-2 align-self-end"><button type="submit" class="btn btn-outline-primary">@viewLocalizer["View range"]</button></div>
+            </form>
             var now = DateTime.UtcNow;
             var currentShift = Model.Preview.FirstOrDefault(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc);
             var firstShift = Model.Preview.FirstOrDefault();
             <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-                @if (Model.WeekStartUtc > group.AnchorUtc)
+                @if (Model.WeekStartUtc > DateTime.MinValue.AddDays(7))
                 {
-                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(-7).ToString("O")" class="btn btn-outline-secondary btn-sm">@Localizer["Previous Week"]</a>
+                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.PreviousWeekUtc.ToString("O")" class="btn btn-outline-secondary btn-sm">@viewLocalizer["Previous Week"]</a>
                 }
-                <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-outline-secondary btn-sm">@Localizer["Current Week"]</a>
+                <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-outline-secondary btn-sm">@viewLocalizer["Current Week"]</a>
                 @if (Model.WeekStartUtc < DateTime.MaxValue.AddDays(-35))
                 {
-                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.WeekStartUtc.AddDays(7).ToString("O")" class="btn btn-outline-secondary btn-sm">@Localizer["Next Week"]</a>
+                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.NextWeekUtc.ToString("O")" class="btn btn-outline-secondary btn-sm">@viewLocalizer["Next Week"]</a>
                 }
-                <span id="oncall-save-state" class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? @Localizer["Saved"].Value : Model.CanGenerateSchedule ? @Localizer["Unsaved · Auto-suggested"].Value : @Localizer["Unsaved · Manual schedule"].Value)</span>
+                <span id="oncall-save-state" class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? @viewLocalizer["Saved"].Value : Model.CanGenerateSchedule ? @viewLocalizer["Unsaved · Auto-suggested"].Value : @viewLocalizer["Unsaved · Manual schedule"].Value)</span>
             </div>
             @if (!Model.ScheduleSaved)
             {
-                <p class="text-muted mb-3">@Localizer["Suggested or manual assignments are not active until saved."]</p>
+                <p class="text-muted mb-3">@viewLocalizer["Suggested or manual assignments are not active until saved."]</p>
             }
-            <p id="oncall-draft-notice" class="text-warning-emphasis small" role="status" hidden>@Localizer["You are viewing an unsaved draft. Notifications still follow the saved schedule."]</p>
+            <p id="oncall-draft-notice" class="text-warning-emphasis small" role="status" hidden>@viewLocalizer["You are viewing an unsaved draft. Notifications still follow the saved schedule."]</p>
             @if (Model.StaffingWarnings.Count > 0)
             {
                 <div class="alert alert-warning" role="alert" data-oncall-saved-warning>
                     <div class="alert-message">
                         <details>
-                            <summary class="fw-semibold">@string.Format(@Localizer["{0} staffing reminders · saving below minimum is allowed"].Value, Model.StaffingWarnings.Count)</summary>
+                            <summary class="fw-semibold">@string.Format(@viewLocalizer["{0} staffing reminders · saving below minimum is allowed"].Value, Model.StaffingWarnings.Count)</summary>
                             <ul class="mt-2 mb-0">@foreach (var warning in Model.StaffingWarnings) { <li>@warning</li> }</ul>
                         </details>
                     </div>
                 </div>
-            }
-            @if (Model.CanManageOnCall && Model.LegacyGridCompatible)
-            {
-                <button type="button" class="btn btn-outline-warning btn-sm mb-3" data-oncall-find-gap hidden="@(Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count() == 21)" data-gap-label="@Localizer["{0} unassigned shifts · fill a shift"].Value">@string.Format(@Localizer["{0} unassigned shifts · fill a shift"].Value, 21 - Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count())</button>
             }
             @if (Model.PreviewError != null)
             {
                 <div class="alert alert-warning" role="alert" data-oncall-saved-warning>
                     <div class="alert-message text-break">
                         <details>
-                            <summary>@Localizer["Schedule needs attention"]</summary>
+                            <summary>@viewLocalizer["Schedule needs attention"]</summary>
                             <p class="mt-2 mb-0">@Model.PreviewError</p>
                         </details>
                     </div>
@@ -84,74 +89,72 @@
                     <div class="alert-message d-flex flex-wrap align-items-center gap-2">
                         @if (currentShift != null)
                         {
-                            <span class="badge bg-primary">@Localizer["Current On-Call"]</span>
-                            <strong class="text-break">@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc == currentShift.StartsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, @Localizer["Employee deleted"].Value)))</strong>
-                            <span>@Localizer["This shift ends at "]@TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
+                            <span class="badge bg-primary">@viewLocalizer["Current On-Call"]</span>
+                            <strong class="text-break">@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, @viewLocalizer["Employee deleted"].Value)).Distinct())</strong>
+                            <span>@viewLocalizer["This shift ends at "]@TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
                         }
                         else
                         {
-                            <span class="badge bg-primary">@(firstShift.StartsAtUtc > now ? @Localizer["Starting soon"].Value : @Localizer["This week's schedule"].Value)</span>
-                            <strong class="text-break">@staffNames.GetValueOrDefault(firstShift.UserId, @Localizer["Employee deleted"].Value)</strong>
-                            <span>@Localizer["First class at "]@TimeZoneInfo.ConvertTimeFromUtc(firstShift.StartsAtUtc, zone).ToString("MM-dd HH:mm") @Localizer["Start"]</span>
+                            <span class="badge bg-primary">@(firstShift.StartsAtUtc > now ? @viewLocalizer["Starting soon"].Value : @viewLocalizer["This week's schedule"].Value)</span>
+                            <strong class="text-break">@staffNames.GetValueOrDefault(firstShift.UserId, @viewLocalizer["Employee deleted"].Value)</strong>
+                            <span>@viewLocalizer["First class at "]@TimeZoneInfo.ConvertTimeFromUtc(firstShift.StartsAtUtc, zone).ToString("MM-dd HH:mm") @viewLocalizer["Start"]</span>
                         }
-                        <span class="small">@Localizer["Status is based on page load time."]</span>
+                        <span class="small">@viewLocalizer["Status is based on page load time."]</span>
                     </div>
                 </div>
             }
             else if (firstShift == null)
             {
-                <p class="text-muted">@Localizer["No shifts are currently assigned this week. You can add personnel manually."]</p>
+                <p class="text-muted">@viewLocalizer["No shifts are currently assigned this week. You can add personnel manually."]</p>
             }
             <div class="d-flex flex-wrap gap-3 small text-muted mb-3">
-                <span>@Localizer["Shift covered"]: <strong data-oncall-stat="shifts">@Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count()</strong> / 21</span>
-                <span>@Localizer["Participating employees"]: <strong data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></span>
-                <span>@Localizer["Scheduled hours"]: <strong data-oncall-stat="hours">@totalHours.ToString("0") @Localizer["hours"]</strong></span>
+                <span>@viewLocalizer["Shift covered"]: <strong id="oncall-total-shifts" data-oncall-stat="shifts">@Model.Preview.Select(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Distinct().Count()</strong></span>
+                <span>@viewLocalizer["Participating employees"]: <strong id="oncall-total-staff" data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></span>
+                <span>@viewLocalizer["Scheduled hours"]: <strong id="oncall-total-hours" data-oncall-stat="hours">@totalHours.ToString("0.##") @viewLocalizer["hours"]</strong></span>
             </div>
-            @if (Model.CanManageOnCall && Model.LegacyGridCompatible)
+            @if (Model.CanManageOnCall)
             {
                 @await Html.PartialAsync("_ScheduleEditor", Model)
             }
-            else if (!Model.LegacyGridCompatible)
+            else
             {
-                @if (Model.CanManageOnCall) { @Html.AntiForgeryToken() }
-                <p class="text-muted">@Localizer["Flexible shifts are read-only on this page. Use the schedule API until the new editor is available."]</p>
-                <table class="table"><thead><tr><th>@Localizer["Start"]</th><th>@Localizer["End"]</th><th>@Localizer["On-call personnel"]</th></tr></thead><tbody>
+                <div class="table-responsive"><table class="table"><thead><tr><th>@viewLocalizer["Start"]</th><th>@viewLocalizer["End"]</th><th>@viewLocalizer["On-call personnel"]</th></tr></thead><tbody>
                 @foreach (var shift in Model.SavedShifts)
                 {
-                    <tr><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), zone)</td><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), zone)</td><td>@string.Join(", ", shift.Members.Select(member => staffNames.GetValueOrDefault(member.UserId)))</td></tr>
+                    <tr><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm")</td><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm")</td><td>@string.Join(", ", shift.Members.Select(member => staffNames.GetValueOrDefault(member.UserId, member.UserId)))</td></tr>
                 }
-                </tbody></table>
+                </tbody></table></div>
             }
             @await Html.PartialAsync("_PreviewGantt", Model)
         }
         else
         {
-            <p class="text-muted mb-0">@Localizer["No valid scheduling weeks. Please check the team's scheduling start point."]</p>
+            <p class="text-muted mb-0">@viewLocalizer["No valid scheduling weeks. Please check the team's scheduling start point."]</p>
         }
     </div>
 </div>
 
 <details class="card mt-3">
-    <summary class="card-header fw-semibold">@Localizer["Scheduling rules and members"]</summary>
+    <summary class="card-header fw-semibold">@viewLocalizer["Scheduling rules and members"]</summary>
     <div class="card-body">
         @if (Model.CanManageOnCall)
         {
-            <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-outline-secondary btn-sm mb-3">@Localizer["Edit team"]</a>
+            <a asp-action="GroupEdit" asp-route-id="@group.Id" class="btn btn-outline-secondary btn-sm mb-3">@viewLocalizer["Edit team"]</a>
         }
-        <p>@Localizer["Per shift "]@(rule?.ShiftHours ?? 8) @Localizer["hours · Weekly min "]@Model.ScheduleMinimumStaff @Localizer["people · Shortest rest this week "]@Model.ScheduleRestHours @Localizer["hours · Anchor "]@group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
+        <p>@viewLocalizer["Reminder thresholds (blank means disabled)"]: @group.MinimumRestHours / @group.MaximumContinuousHours / @group.MinimumShiftStaff</p>
         @if (rule != null)
         {
-            <p>@Localizer["Rule template:"]<a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a> · @Localizer["Minimum template cooldown "]@rule.RestHours @Localizer["hours · Shift min "]@rule.MinimumStaff @Localizer["people, target "]@(rule.TargetStaff?.ToString() ?? @Localizer["Auto-assign"].Value) @Localizer["people · Time-slot rotation: "]@(rule.BalanceShiftTimes ? @Localizer["Balance early, middle, and late shifts as evenly as possible"].Value : @Localizer["Close, prioritize fixed time slots"].Value)</p>
+            <p>@viewLocalizer["Rule template:"]<a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a> · @rule.StaffPerShift @viewLocalizer["Staff per shift"]</p>
         }
         else
         {
-            <p class="text-muted">@Localizer["No rule template bound, manual scheduling available; new shifts default to min rest "]@(rule?.RestHours ?? 16) @Localizer["hours."]</p>
+            <p class="text-muted">@viewLocalizer["No template bound. Add arbitrary shifts in the table."]</p>
         }
-        <p class="small text-muted">@Localizer["Template and membership changes preserve saved shifts, including future assignments for departed members."]</p>
-        <h3 class="h6">@Localizer["Rotate Members"]</h3>
+        <p class="small text-muted">@viewLocalizer["Template and membership changes preserve saved shifts, including future assignments for departed members."]</p>
+        <h3 class="h6">@viewLocalizer["Rotate Members"]</h3>
         @if (group.Members.Count == 0)
         {
-            <p class="text-muted mb-0">@Localizer["No team members. Please edit the team to add members before manually filling empty shifts."]</p>
+            <p class="text-muted mb-0">@viewLocalizer["No team members. Please edit the team to add members before manually filling empty shifts."]</p>
         }
         else
         {
@@ -167,15 +170,15 @@
 {
     <div id="oncall-shared-members" class="border-top p-3">
         <div>
-            <h2 class="h6">@Localizer["Members shared with other on-call teams"]</h2>
-            <p>@Localizer["Shared members participate in the rotation queue. Cross-team overlaps and short breaks produce reminders."]</p>
+            <h2 class="h6">@viewLocalizer["Members shared with other on-call teams"]</h2>
+            <p>@viewLocalizer["Shared members participate in the rotation queue. Cross-team overlaps and short breaks produce reminders."]</p>
             <ul class="mb-0">
                 @foreach (var member in group.Members.OrderBy(item => item.RotationOrder))
                 {
                     var others = Model.OtherGroupMemberships.Where(other => other.UserId == member.UserId).ToList();
                     if (others.Count == 0) { continue; }
                     <li>
-                        <strong>@member.User.DisplayName</strong> · @Localizer["Other teams: "]
+                        <strong>@member.User.DisplayName</strong> · @viewLocalizer["Other teams: "]
                         @foreach (var other in others)
                         {
                             <a asp-action="ScheduleDetails" asp-route-id="@other.GroupId" class="me-2">@other.Group.Name</a>

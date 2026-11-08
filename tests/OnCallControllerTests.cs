@@ -51,6 +51,63 @@ public class OnCallControllerTests
     };
 
     [TestMethod]
+    public async Task FlexibleFormsPersistWeeklyPointsThresholdsFallbackAndWeekStart()
+    {
+        await using var db = await CreateDb();
+        var controller = Controller(db);
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(new SaveOnCallRuleRequest
+        {
+            Name = "Weekday/weekend", SplitMode = "weekly", StaffPerShift = 2, SwapAlternateRounds = true,
+            HandoverPoints = [new() { DayOfWeek = DayOfWeek.Monday, MinuteOfDay = 1320 }, new() { DayOfWeek = DayOfWeek.Friday, MinuteOfDay = 1320 }]
+        }, default));
+        var rule = await db.OnCallRules.Include(item => item.HandoverPoints).SingleAsync();
+        Assert.AreEqual(2, rule.HandoverPoints.Count);
+        Assert.AreEqual(2, rule.StaffPerShift);
+        Assert.IsTrue(rule.SwapAlternateRounds);
+        var created = await controller.CreateGroup(new CreateOnCallGroupRequest
+        {
+            Name = "Local team", TimeZoneId = "Asia/Shanghai", RuleId = rule.Id, UserIds = ["a", "b"],
+            MinimumRestHours = 1.5, MaximumContinuousHours = 96, MinimumShiftStaff = 2,
+            FallbackUserIds = ["c"], AutoExtend = true, WeekStartsOn = DayOfWeek.Friday
+        }, default);
+        Assert.IsInstanceOfType<RedirectToActionResult>(created);
+        var group = await db.OnCallGroups.Include(item => item.FallbackRecipients).SingleAsync();
+        Assert.AreEqual(1.5, group.MinimumRestHours);
+        Assert.AreEqual(96, group.MaximumContinuousHours);
+        Assert.AreEqual(2, group.MinimumShiftStaff);
+        Assert.AreEqual("c", group.FallbackRecipients.Single().UserId);
+        Assert.IsTrue(group.AutoExtend);
+        Assert.AreEqual(DayOfWeek.Friday, group.WeekStartsOn);
+        var start = OnCallScheduleService.WeekStart(group);
+        Assert.AreEqual(DayOfWeek.Friday, TimeZoneInfo.ConvertTimeFromUtc(start, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).DayOfWeek);
+        var update = EditGroup(group, "a", "b");
+        update.WeekStartsOn = DayOfWeek.Sunday;
+        update.FallbackSelectionSubmitted = true; update.AutoExtend = false;
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.UpdateGroup(group.Id, update, default));
+        db.ChangeTracker.Clear();
+        group = await db.OnCallGroups.Include(item => item.FallbackRecipients).SingleAsync();
+        Assert.IsNull(group.MinimumRestHours);
+        Assert.IsNull(group.MaximumContinuousHours);
+        Assert.IsNull(group.MinimumShiftStaff);
+        Assert.AreEqual(0, group.FallbackRecipients.Count);
+        Assert.IsFalse(group.AutoExtend);
+        Assert.AreEqual(DayOfWeek.Sunday, group.WeekStartsOn);
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.SaveRule(new SaveOnCallRuleRequest
+        {
+            Id = rule.Id, Name = rule.Name, SplitMode = "fixed", ShiftMinutes = 37, StaffPerShift = 1, SwapAlternateRounds = false
+        }, default));
+        db.ChangeTracker.Clear();
+        rule = await db.OnCallRules.Include(item => item.HandoverPoints).SingleAsync();
+        Assert.AreEqual(37, rule.ShiftMinutes);
+        Assert.AreEqual(0, rule.HandoverPoints.Count);
+        var sunday = new OnCallGroup { Name = "Sunday start", WeekStartsOn = DayOfWeek.Sunday };
+        db.OnCallGroups.Add(sunday);
+        await db.SaveChangesAsync();
+        db.ChangeTracker.Clear();
+        Assert.AreEqual(DayOfWeek.Sunday, (await db.OnCallGroups.SingleAsync(item => item.Id == sunday.Id)).WeekStartsOn);
+    }
+
+    [TestMethod]
     public async Task AdminCreatesReusableTemplateWithoutAnyTeamAndEditsIt()
     {
         await using var db = await CreateDb();

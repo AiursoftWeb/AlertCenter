@@ -1,4 +1,6 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
+@inject IHtmlLocalizerFactory OnCallLocalizerFactory
+@{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall.RuleDetails", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
 @{
     var rule = Model.Rules.Single(item => item.Id == Model.SelectedRuleId);
     var groups = Model.Groups.Where(group => group.RuleId == rule.Id).ToList();
@@ -6,41 +8,49 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
     <div>
         <h1 class="h3 mb-1">@rule.Name</h1>
-        <p class="text-muted mb-0">@Localizer["Reusable shift rule template · "]@groups.Count @Localizer["teams using"]</p>
+        <p class="text-muted mb-0">@viewLocalizer["Reusable shift rule template · "]@groups.Count @viewLocalizer["teams using"]</p>
     </div>
     <div class="d-flex gap-2">
-        <a asp-action="Index" class="btn btn-outline-secondary">@Localizer["Back to Rule List"]</a>
+        <a asp-action="Index" class="btn btn-outline-secondary">@viewLocalizer["Back to Rule List"]</a>
         @if (Model.CanManageOnCall)
         {
-            <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">@Localizer["Edit rule"]</a>
+            <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-primary">@viewLocalizer["Edit rule"]</a>
         }
     </div>
 </div>
 @if (TempData["OnCallRuleSuccess"] is string message)
 {
     <div class="alert alert-success alert-dismissible" role="status">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Close"]"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@viewLocalizer["Close"]"></button>
         <div class="alert-message">@message</div>
     </div>
 }
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Rule configuration"]</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@viewLocalizer["Rule configuration"]</h2></div>
     <div class="card-body">
-        <p>@Localizer["Per shift "]@rule.ShiftHours @Localizer["hours · Min rest "]@rule.RestHours @Localizer["hours"]</p>
-        <p>@Localizer["Minimum per shift "]@rule.MinimumStaff @Localizer["people · Target "]@(rule.TargetStaff?.ToString() ?? @Localizer["Auto-assign"].Value) @Localizer["people"]</p>
-        <p>@Localizer["Time slot rotation: "]@(rule.BalanceShiftTimes ? @Localizer["Balance early, middle, and late shifts as evenly as possible"].Value : @Localizer["Close, prioritize fixed time slots"].Value)</p>
-        <p class="small text-muted">@Localizer["Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team."]</p>
-        <h3 class="h6">@Localizer["Teams using this template"]</h3>
+        @if (rule.HandoverPoints.Count > 0)
+        {
+            <p>@viewLocalizer["Weekly handover points"]</p>
+            <ul>@foreach (var point in rule.HandoverPoints.OrderBy(point => point.DayOfWeek).ThenBy(point => point.MinuteOfDay)) { <li>@viewLocalizer[point.DayOfWeek.ToString()] @TimeOnly.MinValue.AddMinutes(point.MinuteOfDay).ToString("HH:mm")</li> }</ul>
+        }
+        else
+        {
+            <p>@viewLocalizer["Shift duration (minutes)"]: @(rule.ShiftMinutes ?? rule.ShiftHours * 60)</p>
+        }
+        <p>@viewLocalizer["Staff per shift"]: @rule.StaffPerShift</p>
+        <p>@viewLocalizer["Rotation strategy"]: @(rule.SwapAlternateRounds ? viewLocalizer["Swap adjacent members on alternate rounds"] : viewLocalizer["Pure queue"])</p>
+        <p class="small text-muted">@viewLocalizer["Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team."]</p>
+        <h3 class="h6">@viewLocalizer["Teams using this template"]</h3>
         @if (groups.Count == 0)
         {
-            <p class="text-muted mb-0">@Localizer["No teams are bound to this template."]</p>
+            <p class="text-muted mb-0">@viewLocalizer["No teams are bound to this template."]</p>
         }
         else
         {
             <ul class="mb-0">
                 @foreach (var group in groups)
                 {
-                    <li><a asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a> (@group.TimeZoneId) · <a asp-action="ScheduleDetails" asp-route-id="@group.Id">@Localizer["View on-call schedule"]</a></li>
+                    <li><a asp-action="GroupDetails" asp-route-id="@group.Id">@group.Name</a> (@group.TimeZoneId) · <a asp-action="ScheduleDetails" asp-route-id="@group.Id">@viewLocalizer["View on-call schedule"]</a></li>
                 }
             </ul>
         }

@@ -1,10 +1,12 @@
 @using System.Globalization
+@inject IHtmlLocalizerFactory OnCallLocalizerFactory
+@{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall._PreviewGantt", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @{
     var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
     var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
     var start = Model.WeekStartUtc;
-    var end = start.AddDays(7);
+    var end = Model.WeekEndUtc;
     var duration = (end - start).TotalHours;
     var now = DateTime.UtcNow;
     var today = DateOnly.FromDateTime(TimeZoneInfo.ConvertTimeFromUtc(now, zone));
@@ -30,17 +32,17 @@
     string LocalTime(DateTime time) => TimeZoneInfo.ConvertTimeFromUtc(time, zone).ToString("yyyy-MM-dd HH:mm");
 }
 <div class="d-flex flex-wrap justify-content-between gap-2 mb-2">
-    <h3 class="h6 mb-0">@Localizer["Employee on-call timeline"]</h3>
+    <h3 class="h6 mb-0">@viewLocalizer["Employee on-call timeline"]</h3>
     <span class="small text-muted">@LocalTime(start) → @LocalTime(end) · @group.TimeZoneId</span>
 </div>
-<p id="oncall-gantt-help" class="small text-muted mb-2">@Localizer["Select a shift to see its details. Scroll horizontally to see the full week."]</p>
+<p id="oncall-gantt-help" class="small text-muted mb-2">@viewLocalizer["Select a shift to see its details. Scroll horizontally to see the full week."]</p>
 <details class="small text-muted mb-3">
-    <summary>@Localizer["How to read this timeline"]</summary>
-<p class="small text-muted">@Localizer["Scroll horizontally to view the full schedule; hover, focus, or click a color block to view shift details. The red line indicates the current time when the page loaded. Vertical buttons on the right side of the employee column and at the far right of the timeline expand 36 hours before the start and after the end of the week (actual UTC duration, including DST changes), collapsed by default. Expanded areas use the same date headers, 6-hour increments, and grid as the current week. Gray shifts on both sides are view-only, non-editable, and excluded from weekly statistics; switch to the corresponding week to make adjustments. Shifts for the current team and other teams are displayed on the same row: admins can edit colored shifts for their own group, while gray shifts from other teams show team and time for reference only. Empty slots can be manually scheduled in 'Add Shift' mode."]</p>
+    <summary>@viewLocalizer["How to read this timeline"]</summary>
+<p class="small text-muted">@viewLocalizer["The timeline is read-only. Edit shifts in the table. Warning markers include gaps, overlaps and team reminders; select a marker for details. Statistics count only time within this week and merge overlapping assignments for each person."]</p>
 </details>
 <div class="ac-gantt-frame">
-<button type="button" class="btn btn-sm btn-outline-secondary ac-gantt-edge-toggle" data-oncall-edge="previous" aria-expanded="false" aria-controls="oncall-gantt">@Localizer["Expand previous 36 hours"]</button>
-<div id="oncall-gantt" class="ac-gantt-scroll border rounded" role="region" aria-label="@Localizer["7-Day On-Call Gantt Chart"]" aria-describedby="oncall-gantt-help" tabindex="0">
+<button type="button" class="btn btn-sm btn-outline-secondary ac-gantt-edge-toggle" data-oncall-edge="previous" aria-expanded="false" aria-controls="oncall-gantt">@viewLocalizer["Expand previous 36 hours"]</button>
+<div id="oncall-gantt" class="ac-gantt-scroll border rounded" data-duration="@duration.ToString(CultureInfo.InvariantCulture)" role="region" aria-label="@viewLocalizer["7-Day On-Call Gantt Chart"]" aria-describedby="oncall-gantt-help" tabindex="0">
     <div class="ac-gantt">
         <div class="ac-gantt-grid" aria-hidden="true">
             @foreach (var context in contextDays)
@@ -68,11 +70,11 @@
             }
             @if (start <= now && now < end)
             {
-                <div class="ac-gantt-now" style="left: @Position(now)"><span>@Localizer["Now"]</span></div>
+                <div class="ac-gantt-now" style="left: @Position(now)"><span>@viewLocalizer["Now"]</span></div>
             }
         </div>
         <div class="ac-gantt-row">
-            <div class="ac-gantt-name fw-semibold">@Localizer["On-call staff"]<span class="small text-muted d-block">@Localizer["Shift / Total Duration"]</span></div>
+            <div class="ac-gantt-name fw-semibold">@viewLocalizer["On-call staff"]<span class="small text-muted d-block">@viewLocalizer["Shift / Total Duration"]</span></div>
             <div class="ac-gantt-axis">
                 @foreach (var context in contextDays)
                 {
@@ -81,9 +83,9 @@
                         var dayStart = day.Segments[0].StartsAtUtc;
                         var dayEnd = day.Segments[^1].EndsAtUtc;
                         <div class="ac-gantt-date ac-gantt-adjacent" data-edge="@context.Edge" hidden style="left: @Position(dayStart); width: @Percent((dayEnd - dayStart).TotalHours)"
-                             title="@(context.Edge == "previous" ? @Localizer["36 hours before this week (read-only)"].Value : @Localizer["36 hours after this week (read-only)"].Value) · @LocalTime(context.Start) → @LocalTime(context.Start.AddHours(36))">
+                             title="@(context.Edge == "previous" ? @viewLocalizer["36 hours before this week (read-only)"].Value : @viewLocalizer["36 hours after this week (read-only)"].Value) · @LocalTime(context.Start) → @LocalTime(context.Start.AddHours(36))">
                             <strong>@day.Date.ToString("MM/dd")</strong>
-                            <span class="small d-block">@day.Date.ToString("ddd", CultureInfo.CurrentUICulture) · @Localizer["Read-only"]</span>
+                            <span class="small d-block">@day.Date.ToString("ddd", CultureInfo.CurrentUICulture) · @viewLocalizer["Read-only"]</span>
                         </div>
                     }
                     @for (var tick = context.Start; tick < context.Start.AddHours(36); tick = tick.AddHours(6))
@@ -97,12 +99,23 @@
                     var dayEnd = day.Segments[^1].EndsAtUtc;
                     <div class="ac-gantt-date" style="left: @Position(dayStart); width: @Percent((dayEnd - dayStart).TotalHours)" title="@day.Date.ToString("yyyy-MM-dd")">
                         <strong>@day.Date.ToString("MM/dd")</strong>
-                        <span class="small text-muted">@(day.Date == today ? @Localizer["Today"].Value : day.Date.ToString("ddd", CultureInfo.CurrentUICulture))</span>
+                        <span class="small text-muted">@(day.Date == today ? @viewLocalizer["Today"].Value : day.Date.ToString("ddd", CultureInfo.CurrentUICulture))</span>
                     </div>
                 }
                 @for (var tick = start; tick < end; tick = tick.AddHours(6))
                 {
                     <span class="ac-gantt-tick small text-muted" style="left: @Position(tick)">@TimeZoneInfo.ConvertTimeFromUtc(tick, zone).ToString("HH:mm")</span>
+                }
+            </div>
+        </div>
+        <div class="ac-gantt-row">
+            <div class="ac-gantt-name">@viewLocalizer["Schedule reminders"]</div>
+            <div class="ac-gantt-lane" id="oncall-warning-lane">
+                @foreach (var warning in Model.TimelineWarnings)
+                {
+                    var left = warning.StartsAtUtc < start ? start : warning.StartsAtUtc;
+                    var right = warning.EndsAtUtc > end ? end : warning.EndsAtUtc;
+                    <button type="button" class="ac-gantt-shift bg-warning" style="left: @Position(left); width: @Percent((right - left).TotalHours)" data-summary="@warning.Message" data-start="@LocalTime(warning.StartsAtUtc)" data-end="@LocalTime(warning.EndsAtUtc)" title="@warning.Message" aria-label="@warning.Message"></button>
                 }
             </div>
         </div>
@@ -112,47 +125,45 @@
             var shifts = Model.Preview.Where(shift => shift.UserId == user.Id).ToList();
             var name = user.DisplayName;
             var departed = !memberOrder.ContainsKey(user.Id);
-            var hours = shifts.Sum(shift => (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours);
-            <div class="ac-gantt-row" role="group" aria-label="@(string.Format(@Localizer["{0}'s on-call shifts"].Value, name))" data-user-id="@user.Id" data-name="@name" data-color="@(index % 4)" data-departed="@(departed ? "true" : "false")">
+            var covered = start;
+            var hours = 0.0;
+            foreach (var shift in shifts.OrderBy(shift => shift.StartsAtUtc))
+            {
+                var left = shift.StartsAtUtc > covered ? shift.StartsAtUtc : covered;
+                var right = shift.EndsAtUtc < end ? shift.EndsAtUtc : end;
+                hours += Math.Max(0, (right - left).TotalHours);
+                if (right > covered) covered = right;
+            }
+            <div class="ac-gantt-row" role="group" aria-label="@(string.Format(@viewLocalizer["{0}'s on-call shifts"].Value, name))" data-user-id="@user.Id" data-name="@name" data-color="@(index % 4)" data-departed="@(departed ? "true" : "false")">
                 <div class="ac-gantt-name">
                     <div class="d-flex align-items-center gap-2">
                         <span class="ac-oncall-dot ac-oncall-color-@(index % 4)" aria-hidden="true"></span>
                         <strong>@name</strong>
                         @if (departed)
                         {
-                            <span class="badge bg-secondary">@Localizer["Departed"]</span>
+                            <span class="badge bg-secondary">@viewLocalizer["Departed"]</span>
                         }
                     </div>
-                    <span class="small text-muted ac-gantt-hours">@(string.Format(@Localizer["{0} shifts / {1:0.##} hours"].Value, shifts.Count, hours))</span>
-                    @if (Model.CanManageOnCall && Model.LegacyGridCompatible && !departed)
-                    {
-                        <button type="button" class="btn btn-outline-secondary btn-sm mt-1 ac-gantt-week" aria-label="@(string.Format(@Localizer["Swap full-week shifts with {0}"].Value, name))" title="@Localizer["Drag to another engineer to swap the entire week, or click to select a target employee."]">@Localizer["Swap full week"]</button>
-                    }
+                    <span class="small text-muted ac-gantt-hours">@(string.Format(@viewLocalizer["{0} shifts / {1:0.##} hours"].Value, shifts.Count, hours))</span>
                 </div>
                 <div class="ac-gantt-lane">
-                    @if (Model.CanManageOnCall && Model.LegacyGridCompatible && !departed)
-                    {
-                        @for (var slot = 0; slot < 21; slot++)
-                        {
-                            <button type="button" class="ac-gantt-cell" data-slot="@(slot + 21)" style="left: @Percent(slot * 8); width: @Percent(8)"
-                                    aria-label="@(string.Format(@Localizer["{0} · {1} · Move selected shift here"].Value, name, LocalTime(start.AddHours(slot * 8))))" tabindex="-1"></button>
-                        }
-                    }
                     @foreach (var shift in Model.Preview.Where(shift => shift.UserId == user.Id))
                     {
                         var isCurrent = Model.ScheduleSaved && shift.StartsAtUtc <= now && now < shift.EndsAtUtc;
                         var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.StartsAtUtc), zone);
                         var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.EndsAtUtc), zone);
                         var shiftHours = (shift.EndsAtUtc - shift.StartsAtUtc).TotalHours;
-                        var details = string.Format(@Localizer["{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}"].Value, name, departed ? @Localizer[" · Departed"].Value : "", localStart, localEnd, shiftHours, group.TimeZoneId);
+                        var clippedStart = shift.StartsAtUtc < start ? start : shift.StartsAtUtc;
+                        var clippedEnd = shift.EndsAtUtc > end ? end : shift.EndsAtUtc;
+                        var details = string.Format(@viewLocalizer["{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}"].Value, name, departed ? @viewLocalizer[" · Departed"].Value : "", localStart, localEnd, shiftHours, group.TimeZoneId);
                         <button type="button" class="ac-gantt-shift ac-oncall-color-@(index % 4) @(isCurrent ? "ac-gantt-current" : "")"
-                                style="left: @Position(shift.StartsAtUtc); width: @Percent(shiftHours)"
-                                data-summary="@name@(departed ? @Localizer[" · Departed"].Value : "") · @shiftHours.ToString("0.##") @Localizer["hours"] · @group.TimeZoneId@(isCurrent ? @Localizer[" · On call"].Value : "")"
+                                style="left: @Position(clippedStart); width: @Percent((clippedEnd - clippedStart).TotalHours)"
+                                data-summary="@name@(departed ? @viewLocalizer[" · Departed"].Value : "") · @shiftHours.ToString("0.##") @viewLocalizer["hours"] · @group.TimeZoneId@(isCurrent ? @viewLocalizer[" · On call"].Value : "")"
                                 data-start="@localStart.ToString("yyyy-MM-dd HH:mm zzz")" data-end="@localEnd.ToString("yyyy-MM-dd HH:mm zzz")"
-                                data-slot="@((int)((shift.StartsAtUtc - Model.WeekStartUtc).TotalHours / 8) + 21)"
-                                aria-label="@details@(isCurrent ? @Localizer[" · On call"].Value : "")" title="@details" aria-describedby="oncall-shift-detail">
-                            <span class="ac-gantt-time" aria-hidden="true">@Localizer["From "]@localStart.ToString("HH:mm")</span>
-                            <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">@Localizer["Until "]@localEnd.ToString("HH:mm")</span>
+                                data-readonly="true" data-draft-shift="true"
+                                aria-label="@details@(isCurrent ? @viewLocalizer[" · On call"].Value : "")" title="@details" aria-describedby="oncall-shift-detail">
+                            <span class="ac-gantt-time" aria-hidden="true">@viewLocalizer["From "]@localStart.ToString("HH:mm")</span>
+                            <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">@viewLocalizer["Until "]@localEnd.ToString("HH:mm")</span>
                         </button>
                     }
                     @foreach (var shift in adjacent.Where(shift => shift.UserId == user.Id))
@@ -162,15 +173,15 @@
                         var clippedEnd = shift.EndsAtUtc > end.AddHours(36) ? end.AddHours(36) : shift.EndsAtUtc;
                         var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.StartsAtUtc), zone);
                         var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(shift.EndsAtUtc), zone);
-                        var details = string.Format(@Localizer["{0}{1} · {2} · Adjacent week (read-only) · {3}"].Value, name, departed ? @Localizer[" · Departed"].Value : "", group.Name, group.TimeZoneId);
+                        var details = string.Format(@viewLocalizer["{0}{1} · {2} · Adjacent week (read-only) · {3}"].Value, name, departed ? @viewLocalizer[" · Departed"].Value : "", group.Name, group.TimeZoneId);
                         <button type="button" class="ac-gantt-shift ac-gantt-adjacent" data-readonly="true" data-group-id="@group.Id" data-edge="@edge" hidden="hidden"
                                 style="left: @Position(clippedStart); width: @Percent((clippedEnd - clippedStart).TotalHours)"
                                 data-summary="@details" data-start="@localStart.ToString("yyyy-MM-dd HH:mm zzz")" data-end="@localEnd.ToString("yyyy-MM-dd HH:mm zzz")"
                                 aria-label="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz") → @localEnd.ToString("yyyy-MM-dd HH:mm zzz")"
                                 title="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz") → @localEnd.ToString("yyyy-MM-dd HH:mm zzz")" aria-describedby="oncall-shift-detail">
-                            <span class="ac-gantt-time">@(string.Format(@Localizer["{0} (Read-only)"].Value, group.Name))</span>
-                            <span class="ac-gantt-time" aria-hidden="true">@Localizer["From "]@localStart.ToString("HH:mm")</span>
-                            <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">@Localizer["Until "]@localEnd.ToString("HH:mm")</span>
+                            <span class="ac-gantt-time">@(string.Format(@viewLocalizer["{0} (Read-only)"].Value, group.Name))</span>
+                            <span class="ac-gantt-time" aria-hidden="true">@viewLocalizer["From "]@localStart.ToString("HH:mm")</span>
+                            <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">@viewLocalizer["Until "]@localEnd.ToString("HH:mm")</span>
                         </button>
                     }
                     @foreach (var shift in Model.OtherGroupShifts.Where(shift => shift.Members.Any(member => member.UserId == user.Id) &&
@@ -178,7 +189,7 @@
                     {
                         var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc)), zone);
                         var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc)), zone);
-                        var details = string.Format(@Localizer["{0} · {1} · Other Team (Read-only) · {2}"].Value, name, shift.Group.Name, group.TimeZoneId);
+                        var details = string.Format(@viewLocalizer["{0} · {1} · Other Team (Read-only) · {2}"].Value, name, shift.Group.Name, group.TimeZoneId);
                         @foreach (var region in new[] { "previous", "current", "next" })
                         {
                             var regionStart = region == "previous" ? start.AddHours(-36) : region == "next" ? end : start;
@@ -192,9 +203,9 @@
                                     data-summary="@details" data-start="@localStart.ToString("yyyy-MM-dd HH:mm zzz")" data-end="@localEnd.ToString("yyyy-MM-dd HH:mm zzz")"
                                     aria-label="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz") → @localEnd.ToString("yyyy-MM-dd HH:mm zzz")"
                                     title="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz") → @localEnd.ToString("yyyy-MM-dd HH:mm zzz")" aria-describedby="oncall-shift-detail">
-                                <span class="ac-gantt-time">@(string.Format(@Localizer["{0} (Read-only)"].Value, shift.Group.Name))</span>
-                                <span class="ac-gantt-time" aria-hidden="true">@Localizer["From "]@localStart.ToString("HH:mm")</span>
-                                <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">@Localizer["Until "]@localEnd.ToString("HH:mm")</span>
+                                <span class="ac-gantt-time">@(string.Format(@viewLocalizer["{0} (Read-only)"].Value, shift.Group.Name))</span>
+                                <span class="ac-gantt-time" aria-hidden="true">@viewLocalizer["From "]@localStart.ToString("HH:mm")</span>
+                                <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">@viewLocalizer["Until "]@localEnd.ToString("HH:mm")</span>
                             </button>
                         }
                     }
@@ -203,26 +214,26 @@
         }
     </div>
 </div>
-<button type="button" class="btn btn-sm btn-outline-secondary ac-gantt-edge-toggle" data-oncall-edge="next" aria-expanded="false" aria-controls="oncall-gantt">@Localizer["Expand next 36 hours"]</button>
+<button type="button" class="btn btn-sm btn-outline-secondary ac-gantt-edge-toggle" data-oncall-edge="next" aria-expanded="false" aria-controls="oncall-gantt">@viewLocalizer["Expand next 36 hours"]</button>
 </div>
 <div class="border rounded bg-body-tertiary p-3 mt-2" id="oncall-shift-detail" role="status" aria-live="polite" aria-atomic="true">
     <div id="oncall-shift-summary" class="small fw-semibold mb-3">
         @if (selectedShift != null)
         {
-            <span>@staffNames.GetValueOrDefault(selectedShift.UserId, @Localizer["Employee deleted"].Value)@(!memberOrder.ContainsKey(selectedShift.UserId) ? @Localizer[" · Departed"].Value : "") · @((selectedShift.EndsAtUtc - selectedShift.StartsAtUtc).TotalHours.ToString("0.##")) @Localizer["hours · "]@group.TimeZoneId@(Model.ScheduleSaved && selectedShift.StartsAtUtc <= now && now < selectedShift.EndsAtUtc ? @Localizer[" · On duty"].Value : "")</span>
+            <span>@staffNames.GetValueOrDefault(selectedShift.UserId, @viewLocalizer["Employee deleted"].Value)@(!memberOrder.ContainsKey(selectedShift.UserId) ? @viewLocalizer[" · Departed"].Value : "") · @((selectedShift.EndsAtUtc - selectedShift.StartsAtUtc).TotalHours.ToString("0.##")) @viewLocalizer["hours · "]@group.TimeZoneId@(Model.ScheduleSaved && selectedShift.StartsAtUtc <= now && now < selectedShift.EndsAtUtc ? @viewLocalizer[" · On duty"].Value : "")</span>
         }
         else
         {
-            <span>@Localizer["No assigned shifts."]</span>
+            <span>@viewLocalizer["No assigned shifts."]</span>
         }
     </div>
     <div class="row g-3">
         <div class="col-md-6">
-            <div class="small text-muted mb-1">@Localizer["Start Time"]</div>
+            <div class="small text-muted mb-1">@viewLocalizer["Start Time"]</div>
             <strong id="oncall-shift-start" class="ac-gantt-detail-time">@selectedStart</strong>
         </div>
         <div class="col-md-6">
-            <div class="small text-muted mb-1">@Localizer["End time"]</div>
+            <div class="small text-muted mb-1">@viewLocalizer["End time"]</div>
             <strong id="oncall-shift-end" class="ac-gantt-detail-time">@selectedEnd</strong>
         </div>
     </div>

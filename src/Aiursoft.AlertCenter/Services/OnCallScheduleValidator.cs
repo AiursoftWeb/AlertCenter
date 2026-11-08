@@ -4,6 +4,33 @@ namespace Aiursoft.AlertCenter.Services;
 
 public static class OnCallScheduleValidator
 {
+    public record TimelineWarning(DateTime StartsAtUtc, DateTime EndsAtUtc, string Message);
+
+    public static List<TimelineWarning> TimelineWarnings(OnCallGroup group, DateTime start, DateTime end,
+        IReadOnlyList<OnCallShift> shifts, IReadOnlyList<GeneratedOnCallShift> existing, IStringLocalizer localizer)
+    {
+        var result = new List<TimelineWarning>();
+        var covered = start;
+        foreach (var shift in shifts.OrderBy(shift => shift.StartsAtUtc))
+        {
+            if (shift.Members.Count > 0)
+            {
+                if (shift.StartsAtUtc > covered)
+                    result.Add(new(covered, shift.StartsAtUtc < end ? shift.StartsAtUtc : end, localizer["Schedule contains a coverage gap."].Value));
+                if (shift.EndsAtUtc > covered) covered = shift.EndsAtUtc;
+            }
+            var others = shifts.Where(other => other != shift).SelectMany(other => other.Members.Select(member =>
+                new GeneratedOnCallShift(member.UserId, other.StartsAtUtc, other.EndsAtUtc))).Concat(existing).ToList();
+            foreach (var warning in Warnings(group, shift.StartsAtUtc, shift.EndsAtUtc, [shift], others, localizer)
+                         .Where(warning => warning != localizer["Schedule contains a coverage gap."].Value))
+                result.Add(new(shift.StartsAtUtc, shift.EndsAtUtc, warning));
+            if (shifts.Any(other => other != shift && other.StartsAtUtc < shift.EndsAtUtc && other.EndsAtUtc > shift.StartsAtUtc))
+                result.Add(new(shift.StartsAtUtc, shift.EndsAtUtc, localizer["Schedule contains overlapping shifts."].Value));
+        }
+        if (covered < end) result.Add(new(covered, end, localizer["Schedule contains a coverage gap."].Value));
+        return result;
+    }
+
     public static List<string> Warnings(OnCallGroup group, DateTime start, DateTime end,
         IReadOnlyList<OnCallShift> shifts, IReadOnlyList<GeneratedOnCallShift> existing, IStringLocalizer localizer)
     {
