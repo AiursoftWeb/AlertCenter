@@ -1,470 +1,229 @@
 (() => {
-
+    const localTime = (utc, zone) => {
+        const parts = new Intl.DateTimeFormat('sv-SE', { timeZone: zone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(utc));
+        const get = type => parts.find(part => part.type === type).value;
+        return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}`;
+    };
+    const wallTime = value => Date.parse(`${value}:00Z`);
+    const wallString = value => new Date(value).toISOString().slice(0, 16);
+    function copyRange(slots, sourceStart, sourceEnd, start, end, members) {
+        const period = wallTime(sourceEnd) - wallTime(sourceStart);
+        const from = wallTime(start), until = wallTime(end);
+        if (!(period > 0 && until > from)) throw new Error('range');
+        if (slots.some(slot => !(wallTime(slot.endLocal) > wallTime(slot.startLocal)))) throw new Error('range');
+        if (slots.some(slot => slot.userIds.some(id => !members.some(member => member.id === id && !member.departed)))) throw new Error('departed');
+        const copies = [];
+        for (let cycle = from; cycle < until; cycle += period) {
+            for (const slot of slots) {
+                const left = Math.max(wallTime(slot.startLocal), wallTime(sourceStart));
+                const right = Math.min(wallTime(slot.endLocal), wallTime(sourceEnd));
+                const copyStart = cycle + left - wallTime(sourceStart);
+                const copyEnd = Math.min(until, cycle + right - wallTime(sourceStart));
+                if (copyEnd > copyStart) copies.push({ startLocal: wallString(copyStart), endLocal: wallString(copyEnd), userIds: [...slot.userIds] });
+            }
+        }
+        return copies;
+    }
+    function hoursFor(slots, id, start, end) {
+        const intervals = slots.filter(slot => slot.userIds.includes(id)).map(slot => [Math.max(Date.parse(start), Date.parse(slot.startsAtUtc)), Math.min(Date.parse(end), Date.parse(slot.endsAtUtc))])
+            .filter(([left, right]) => right > left).sort((a, b) => a[0] - b[0]);
+        let total = 0, covered = -Infinity;
+        for (const [left, right] of intervals) {
+            total += Math.max(0, right - Math.max(left, covered));
+            covered = Math.max(covered, right);
+        }
+        return total / 3600000;
+    }
+    if (typeof module !== 'undefined') module.exports = { localTime, copyRange, hoursFor };
+    if (typeof document === 'undefined') return;
     const root = document.getElementById('oncall-schedule');
     if (!root) return;
-    const tools = document.getElementById('oncall-adjustments');
-    let editing = tools.open;
-    const original = JSON.parse(root.dataset.slots);
-    const weeks = JSON.parse(root.dataset.weeks);
-    const departedIds = new Set([...root.querySelectorAll('.oncall-edit-member')].filter(input => input.dataset.departed === 'true').map(input => input.value));
-    const weekSlots = (items, week) => items.slice(week * 21, (week + 1) * 21);
-    const editableSlot = index => Number.isInteger(index) && index >= 21 && index < 42;
-    const slotChanged = index => [...slots[index].userIds].sort().join(',') !== [...original[index].userIds].sort().join(',');
-    const weekChanged = week => weekSlots(slots, week).some((_, index) => slotChanged(week * 21 + index));
-    let slots = structuredClone(original);
-    const errors = document.getElementById('oncall-schedule-errors');
-    const select = document.getElementById('oncall-edit-slot');
-    const members = [...root.querySelectorAll('.oncall-edit-member')];
-    const chart = document.getElementById('oncall-gantt');
-    const rows = [...(chart?.querySelectorAll('[data-user-id]') || [])];
-    const status = document.getElementById('oncall-drag-status');
-    const badge = document.getElementById('oncall-save-state');
-    const originalBadge = badge?.textContent;
-    const originalBadgeClass = badge?.className;
-    const loadedAt = Date.now();
-    const history = [];
-    const modeButtons = [...root.querySelectorAll('[data-schedule-mode]')];
-    let mode = 'move';
-    let selected = null;
-    let pointer = null;
-    let suppressClick = false;
-    let dirty = false;
-    let saving = false;
-
-    function renderForm() {
-        if (!select) return;
-        const index = Number(select.value);
-        const editable = editableSlot(index);
-        const assigned = new Set(editable ? slots[index].userIds : []);
-        members.forEach(input => {
-            input.checked = assigned.has(input.value);
-            input.disabled = !editing || saving || !editable || input.dataset.departed === 'true';
-        });
-        const changed = slots.filter((_, index) => slotChanged(index)).length;
-        dirty = changed > 0;
-        const generate = document.getElementById('oncall-generate');
-        if (generate) generate.disabled = dirty || saving;
-        document.getElementById('oncall-undo-schedule').disabled = !history.length || saving;
-        document.getElementById('oncall-reset-schedule').disabled = !dirty || saving;
-        document.getElementById('oncall-edit-count').textContent = getLocalizedText("modified-shifts", "Modified {0} shifts{1}{2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(changed), String(weekChanged(0) ? getLocalizedText("includes-previous-week", " · includes previous week") : ''), String(weekChanged(2) ? getLocalizedText("includes-next-week", " · includes next week") : '')][Number(index)] ?? placeholder);
-        if (badge) {
-            badge.textContent = dirty ? getLocalizedText("unsaved-adjustment-draft", "Unsaved · Adjustment draft") : originalBadge;
-            badge.className = dirty ? 'badge bg-warning text-dark' : originalBadgeClass;
+    const get = id => document.getElementById(id);
+    const text = (key, fallback) => getLocalizedText(key, fallback);
+    const members = JSON.parse(root.dataset.members);
+    const initial = JSON.parse(root.dataset.slots);
+    const zone = root.dataset.zone;
+    const start = root.dataset.start, end = root.dataset.end;
+    const prepare = slots => slots.map(slot => ({ ...slot, userIds: [...slot.userIds], startLocal: localTime(slot.startsAtUtc, zone), endLocal: localTime(slot.endsAtUtc, zone) }));
+    let slots = prepare(initial), dirty = false, busy = false, copied = false, sequence = 0, rangeSequence = 0, timer, pending = null;
+    function list(id, values) {
+        const items = values.map(value => { const item = document.createElement('li'); item.textContent = value; return item; });
+        get(id).replaceChildren(...items);
+    }
+    function payload() {
+        const submitted = structuredClone(slots);
+        for (const slot of submitted) {
+            if (slot.startsAtUtc && slot.startLocal === localTime(slot.startsAtUtc, zone)) delete slot.startLocal;
+            if (slot.endsAtUtc && slot.endLocal === localTime(slot.endsAtUtc, zone)) delete slot.endLocal;
         }
-        document.getElementById('oncall-draft-notice').hidden = !dirty;
-        const published = document.getElementById('oncall-published-status');
-        if (published) published.hidden = dirty;
-        document.querySelectorAll('[data-oncall-saved-warning]').forEach(warning => warning.hidden = dirty);
-        syncMode();
+        return { groupId: root.dataset.groupId, version: root.dataset.version, startUtc: start, endUtc: end, slots: submitted };
     }
-
-    function syncMode() {
-        if (!chart) return;
-        chart.classList.toggle('ac-gantt-editable', editing);
-        chart.dataset.editMode = mode;
-        modeButtons.forEach(button => {
-            const active = button.dataset.scheduleMode === mode;
-            button.classList.toggle('active', active);
-            button.setAttribute('aria-pressed', String(active));
-        });
-        rows.forEach(row => {
-            row.querySelectorAll('.ac-gantt-shift:not([data-readonly])').forEach(shift => shift.disabled = saving);
-            const weekButton = row.querySelector('.ac-gantt-week');
-            if (weekButton) weekButton.disabled = !editing || saving || mode !== 'move' || row.dataset.departed === 'true';
-            row.querySelectorAll('.ac-gantt-cell').forEach(cell => {
-                const index = Number(cell.dataset.slot);
-                const assigned = slots[index].userIds.includes(row.dataset.userId);
-                cell.tabIndex = editing && !saving && mode === 'add' && !assigned && row.dataset.departed !== 'true' ? 0 : -1;
-                cell.setAttribute('aria-label', getLocalizedText("message-2", "{0} · {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(slots[index].localStart), String(mode === 'add' ? getLocalizedText("add-on-call-shift", "Add on-call shift") : getLocalizedText("move-selected-shift-here", "Move selected shift here"))][Number(index)] ?? placeholder));
-            });
-        });
+    async function post(url, body) {
+        const response = await fetch(url, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', RequestVerificationToken: root.querySelector('[name="__RequestVerificationToken"]').value }, body: JSON.stringify(body) });
+        const data = await response.json();
+        if (!response.ok) throw new Error((data.errors || [text('schedule-save-failed', 'Unable to save schedule. Refresh and try again.')]).join('\n'));
+        return data;
     }
-
-    function setMode(value) {
-        if (!editing || saving) return;
-        mode = value;
-        clearSelection();
-        suppressClick = false;
-        const help = document.getElementById('oncall-mode-help');
-        if (help) help.textContent = mode === 'add' ? getLocalizedText("add-mode-click-the-empty-space-in-the", "Add mode: Click the empty space in the engineer's row to add an 8-hour shift; multiple people can share a shift.")
-            : mode === 'remove' ? getLocalizedText("delete-mode-click-a-color-block-to-remove", "Delete mode: Click a color block to remove this engineer's current shift. This action can be undone and takes effect after saving all changes.")
-            : getLocalizedText("currently-in-move-swap-mode-switch-the-mode", "Currently in Move/Swap mode. Switch the mode above before adding or removing shifts.");
-        status.textContent = '';
-        syncMode();
+    function cancelPending() {
+        rangeSequence++;
+        pending = null;
+        get('oncall-replace-confirm').hidden = true;
     }
-    modeButtons.forEach(button => button.addEventListener('click', () => setMode(button.dataset.scheduleMode)));
-
-    function editAssignment(target) {
-        if (target.slot === null || target.week) return;
-        const assigned = slots[target.slot].userIds;
-        const index = assigned.indexOf(target.user);
-        if (mode === 'add' && index !== -1) { status.textContent = getLocalizedText("this-engineer-is-already-assigned-to-this-shift", "This engineer is already assigned to this shift. No need to add them again."); return; }
-        if (mode === 'remove' && index === -1) { status.textContent = getLocalizedText("no-shifts-to-delete-in-this-cell", "No shifts to delete in this cell."); return; }
-        history.push(structuredClone(slots));
-        if (mode === 'add') assigned.push(target.user);
-        else assigned.splice(index, 1);
-        select.value = target.slot;
-        changed(getLocalizedText("shift-for-not-saved-yet-you-can-undo", "{0} shift for {1} · {2}; not saved yet. You can undo this.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(mode === 'add' ? getLocalizedText("added", "Added") : getLocalizedText("removed", "Removed")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder));
+    function changed() {
+        dirty = true;
+        sequence++;
+        cancelPending();
+        get('oncall-draft-notice').hidden = false;
+        clearTimeout(timer);
+        timer = setTimeout(preview, 250);
     }
-
-    function showMessages(container, messages) {
-        container.replaceChildren(...messages.map(message => {
-            const item = document.createElement('li');
-            if (typeof message === 'string') item.textContent = message;
-            else if (editableSlot(message.slot)) {
-                const button = document.createElement('button');
-                button.type = 'button';
-                button.className = 'btn btn-link text-start text-danger p-0';
-                button.textContent = message.text;
-                button.addEventListener('click', () => locateSlot(message.slot));
-                item.append(button);
-            } else item.textContent = message.text;
-            return item;
-        }));
-    }
-
-    function renderChart() {
-        const warnings = [];
-        const active = index => Math.floor(index / 21) === 1 || weekChanged(Math.floor(index / 21));
-        const empty = slots.flatMap((slot, index) => !slot.userIds.length && active(index) ? [index] : []);
-        empty.forEach(index => warnings.push({ slot: index, text: getLocalizedText("gap-detected-at-please-add-staff-the-week", "Gap detected at {0}. Please add staff (the week requires a full 21 shifts).").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slots[index].localStart)][Number(index)] ?? placeholder) }));
-        slots.forEach((slot, index) => {
-            const minimum = weeks[Math.floor(index / 21)].minimumStaff;
-            if (active(index) && slot.userIds.length > 0 && slot.userIds.length < minimum)
-                warnings.push({ slot: index, text: getLocalizedText("has-only-staff-below-the-minimum-of-manual", "{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slot.localStart), String(slot.userIds.length), String(minimum)][Number(index)] ?? placeholder) });
-        });
-        rows.forEach(row => {
-            const assigned = slots.flatMap((slot, index) => slot.userIds.includes(row.dataset.userId) ? [index] : []);
-            const conflicts = new Set();
-            assigned.forEach((index, position) => {
-                if (!position) return;
-                const previous = assigned[position - 1];
-                const rest = (index - previous - 1) * 8;
-                const requiredRest = Math.max(weeks[Math.floor(index / 21)].restHours, weeks[Math.floor(previous / 21)].restHours);
-                if ((active(index) || active(previous)) && rest < requiredRest) {
-                    conflicts.add(index);
-                    conflicts.add(previous);
-                    warnings.push({ slot: editableSlot(index) ? index : previous, text: getLocalizedText("only-hours-rest-between-and-minimum-required-is", "{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(rest), String(slots[previous].localStart), String(slots[index].localStart), String(requiredRest)][Number(index)] ?? placeholder) });
-                }
-            });
-            const currentCount = assigned.filter(index => index >= 21 && index < 42).length;
-            row.querySelector('.ac-gantt-hours').textContent = getLocalizedText("shifts-hours", "{0} shifts / {1} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(currentCount), String(currentCount * 8)][Number(index)] ?? placeholder);
-            row.querySelectorAll('.ac-gantt-shift:not(.ac-gantt-external)').forEach(shift => shift.remove());
-            row.querySelectorAll('.ac-gantt-cell').forEach(cell => cell.classList.toggle('ac-gantt-empty', empty.includes(Number(cell.dataset.slot))));
-            assigned.filter(index => index >= 16 && index < 47).forEach(index => {
-                const slot = slots[index];
-                const edge = index < 21 ? 'previous' : index >= 42 ? 'next' : null;
-                const shift = document.createElement('button');
-                shift.type = 'button';
-                shift.className = edge ? 'ac-gantt-shift' : `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
-                if (edge) {
-                    shift.classList.add('ac-gantt-adjacent');
-                    shift.dataset.edge = edge;
-                    shift.dataset.readonly = 'true';
-                    shift.dataset.groupId = root.dataset.groupId;
-                    shift.hidden = true;
-                }
-                shift.classList.toggle('ac-gantt-conflict', conflicts.has(index));
-                const startsAt = Date.parse(slot.startsAtUtc);
-                shift.classList.toggle('ac-gantt-current', weeks[Math.floor(index / 21)].saved && !weekChanged(Math.floor(index / 21)) && startsAt <= loadedAt && loadedAt < startsAt + 8 * 3600000);
-                const visibleStart = Math.max(-36, (index - 21) * 8);
-                const visibleEnd = Math.min(204, (index - 20) * 8);
-                shift.style.left = `${visibleStart / 168 * 100}%`;
-                shift.style.width = `${(visibleEnd - visibleStart) / 168 * 100}%`;
-                if (!edge) shift.dataset.slot = index;
-                shift.dataset.summary = getLocalizedText("8-hours", "{0}{1}{2} · 8 hours · {3}{4}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(row.dataset.departed === 'true' ? getLocalizedText("departed", " · Departed") : ''), String(edge ? getLocalizedText("adjacent-week-read-only", " · {0} · Adjacent week (read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder) : ''), String(root.dataset.zone), String(conflicts.has(index) ? getLocalizedText("insufficient-rest", " · Insufficient rest") : '')][Number(index)] ?? placeholder);
-                shift.dataset.start = slot.localStart;
-                shift.dataset.end = slot.localEnd;
-                shift.title = `${shift.dataset.summary} · ${slot.localStart} → ${slot.localEnd}`;
-                shift.setAttribute('aria-label', shift.title);
-                shift.setAttribute('aria-describedby', 'oncall-shift-detail');
-                if (edge) {
-                    const team = document.createElement('span');
-                    team.className = 'ac-gantt-time';
-                    team.textContent = getLocalizedText("read-only", "{0} (Read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder);
-                    shift.append(team);
-                }
-                [[getLocalizedText("from", "From"), slot.localStart], [getLocalizedText("end", "End"), slot.localEnd]].forEach(([label, time], position) => {
-                    const span = document.createElement('span');
-                    span.className = `ac-gantt-time${position ? ' ac-gantt-time-end' : ''}`;
-                    span.textContent = `${label} ${time.slice(11, 16)}`;
-                    span.setAttribute('aria-hidden', 'true');
-                    shift.append(span);
+    function renderRows() {
+        const rows = slots.map((slot, index) => {
+            const row = document.createElement('tr');
+            for (const [key, label] of [['startLocal', 'Start'], ['endLocal', 'End']]) {
+                const cell = document.createElement('td'), input = document.createElement('input');
+                input.type = 'datetime-local'; input.className = 'form-control'; input.value = slot[key];
+                input.setAttribute('aria-label', text(label.toLowerCase(), label));
+                input.addEventListener('input', () => { slot[key] = input.value; changed(); });
+                cell.append(input); row.append(cell);
+            }
+            const people = document.createElement('td');
+            for (const member of members) {
+                if (member.departed && !slot.userIds.includes(member.id)) continue;
+                const label = document.createElement('label'), checkbox = document.createElement('input');
+                label.className = 'd-block text-nowrap'; checkbox.type = 'checkbox'; checkbox.className = 'form-check-input me-2';
+                checkbox.value = member.id; checkbox.checked = slot.userIds.includes(member.id);
+                checkbox.addEventListener('change', () => {
+                    slot.userIds = checkbox.checked ? [...new Set([...slot.userIds, member.id])] : slot.userIds.filter(id => id !== member.id);
+                    changed();
                 });
-                row.querySelector('.ac-gantt-lane').append(shift);
-            });
+                label.append(checkbox, document.createTextNode(member.name + (member.departed ? ` (${text('oncall-departed-label', 'Departed')})` : ''))); people.append(label);
+            }
+            row.append(people);
+            const actions = document.createElement('td'), remove = document.createElement('button');
+            remove.type = 'button'; remove.className = 'btn btn-sm btn-outline-danger'; remove.textContent = text('delete-shift', 'Delete shift');
+            remove.addEventListener('click', () => { slots.splice(index, 1); renderRows(); changed(); });
+            actions.append(remove); row.append(actions);
+            return row;
         });
-        showMessages(document.getElementById('oncall-draft-errors'), warnings);
-        document.getElementById('oncall-draft-validation').hidden = warnings.length === 0;
-        document.getElementById('oncall-draft-summary').textContent = getLocalizedText("the-schedule-has-unresolved-issues-expand-to-view", "The schedule has {0} unresolved issues (expand to view); you can continue adjusting.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(warnings.length)][Number(index)] ?? placeholder);
-        const stats = document.querySelectorAll('[data-oncall-stat]');
-        const current = weekSlots(slots, 1);
-        const covered = current.filter(slot => slot.userIds.length).length;
-        const gapButton = document.querySelector('[data-oncall-find-gap]');
-        if (gapButton) {
-            gapButton.hidden = covered === 21;
-            gapButton.textContent = gapButton.dataset.gapLabel.replace('{0}', String(21 - covered));
-        }
-        const values = { shifts: covered, staff: new Set(current.flatMap(slot => slot.userIds)).size, hours: getLocalizedText("hours", "{0} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(covered * 8)][Number(index)] ?? placeholder) };
-        stats.forEach(stat => stat.textContent = values[stat.dataset.oncallStat]);
-        syncMode();
-        chart?.dispatchEvent(new Event('oncall-layout'));
+        get('oncall-shift-rows').replaceChildren(...rows);
     }
-
-    function clearSelection() {
-        selected = null;
-        chart?.querySelectorAll('.ac-gantt-selected').forEach(item => item.classList.remove('ac-gantt-selected'));
-    }
-
-    function changed(message) {
-        clearSelection();
-        errors.replaceChildren();
-        status.textContent = message;
-        renderForm();
-        renderChart();
-        const detailShift = chart?.querySelector(`.ac-gantt-shift[data-slot="${select.value}"]`) || chart?.querySelector('.ac-gantt-shift:not([hidden])');
-        if (detailShift) detailShift.dispatchEvent(new Event('pointerover', { bubbles: true }));
-        else {
-            document.getElementById('oncall-shift-summary')?.replaceChildren(document.createTextNode(getLocalizedText("no-assigned-shifts", "No assigned shifts.")));
-            for (const id of ['oncall-shift-start', 'oncall-shift-end']) document.getElementById(id)?.replaceChildren();
-        }
-    }
-
-    select?.addEventListener('change', renderForm);
-    members.forEach(input => input.addEventListener('change', () => {
-        if (!editing || saving || input.dataset.departed === 'true' || !editableSlot(Number(select.value))) { renderForm(); return; }
-        history.push(structuredClone(slots));
-        const assigned = slots[Number(select.value)].userIds;
-        if (input.checked) {
-            if (!assigned.includes(input.value)) assigned.push(input.value);
-        } else {
-            slots[Number(select.value)].userIds = assigned.filter(id => id !== input.value);
-        }
-        changed(getLocalizedText("staffing-adjusted-and-chart-updated-not-saved-yet", "Staffing adjusted and chart updated; not saved yet."));
-    }));
-    document.getElementById('oncall-undo-schedule').addEventListener('click', () => {
-        if (!history.length || saving) return;
-        slots = history.pop();
-        changed(getLocalizedText("previous-step-undone", "Previous step undone."));
-    });
-    document.getElementById('oncall-reset-schedule')?.addEventListener('click', () => {
-        history.push(structuredClone(slots));
-        slots = structuredClone(original);
-        changed(getLocalizedText("restored-to-the-schedule-from-when-the-page", "Restored to the schedule from when the page was opened."));
-    });
-
-    function targetAt(element) {
-        const row = element?.closest('[data-user-id]');
-        if (!row || !chart.contains(row) || row.dataset.departed === 'true' || element.closest('[data-readonly="true"]')) return null;
-        const item = element.closest('.ac-gantt-shift, .ac-gantt-cell, .ac-gantt-week');
-        if (!item && !element.closest('.ac-gantt-name')) return null;
-        if (item?.hidden) return null;
-        if (item?.dataset.slot !== undefined && !editableSlot(Number(item.dataset.slot))) return null;
-        return { user: row.dataset.userId, name: row.dataset.name, slot: item?.dataset.slot === undefined ? null : Number(item.dataset.slot),
-            week: item?.classList.contains('ac-gantt-week'), occupied: item?.classList.contains('ac-gantt-shift'), element: item || row };
-    }
-
-    function pick(target) {
-        clearSelection();
-        selected = target;
-        target.element.classList.add('ac-gantt-selected');
-        status.textContent = target.week ? getLocalizedText("selected-s-full-week-schedule-drag-to-or", "Selected {0}'s full-week schedule. Drag to or click another engineer.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name)][Number(index)] ?? placeholder)
-            : getLocalizedText("selected-drag-to-or-click-a-color-block", "Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
-        if (!target.week) { select.value = target.slot; renderForm(); }
-    }
-
-    function drop(source, target) {
-        clearSelection();
-        if (!target || (!source.week && (target.slot === null || target.week))) {
-            status.textContent = getLocalizedText("move-cancelled-schedule-unchanged", "Move cancelled; schedule unchanged.");
-            return;
-        }
-        const draft = structuredClone(slots);
-        if (source.week) {
-            if (source.user === target.user) { status.textContent = getLocalizedText("swap-cancelled", "Swap cancelled."); return; }
-            weekSlots(draft, 1).forEach(slot => slot.userIds = slot.userIds.map(id => id === source.user ? target.user : id === target.user ? source.user : id));
-        } else {
-            if (source.slot === target.slot && source.user === target.user) { status.textContent = getLocalizedText("move-cancelled", "Move cancelled."); return; }
-            const from = draft[source.slot].userIds;
-            const to = draft[target.slot].userIds;
-            const swap = to.includes(target.user);
-            if (swap && (source.slot === target.slot || source.user === target.user)) { status.textContent = getLocalizedText("two-locations-already-have-the-same-arrangement-no", "Two locations already have the same arrangement; no need to swap."); return; }
-            if (swap && (from.includes(target.user) || to.includes(source.user))) {
-                status.textContent = getLocalizedText("unable-to-swap-directly-one-person-is-already", "Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using \"Add/Remove members by shift\" first.");
-                return;
-            }
-            from.splice(from.indexOf(source.user), 1);
-            if (swap) { to.splice(to.indexOf(target.user), 1); from.push(target.user); to.push(source.user); }
-            else to.push(target.user);
-        }
-        history.push(structuredClone(slots));
-        slots = draft;
-        changed(source.week ? getLocalizedText("swapped-the-full-week-schedule-for-and-not", "Swapped the full-week schedule for {0} and {1}. Not saved yet.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(source.name), String(target.name)][Number(index)] ?? placeholder) : getLocalizedText("shift-adjusted-you-can-continue-dragging-to-resolve", "Shift adjusted; you can continue dragging to resolve red warnings, then save all changes."));
-    }
-
-    tools.addEventListener('toggle', () => {
-        editing = tools.open;
-        if (pointer) endPointer({ pointerId: pointer.id }, true);
-        clearSelection();
-        suppressClick = false;
-        renderForm();
-    });
-    function locateSlot(index) {
-        if (!editableSlot(index)) return;
-        tools.open = true;
-        editing = true;
-        document.getElementById('oncall-editor').open = true;
-        select.value = index;
-        renderForm();
-        select.focus();
-    }
-    document.querySelector('[data-oncall-find-gap]')?.addEventListener('click', () => {
-        const index = slots.findIndex((slot, index) => editableSlot(index) && !slot.userIds.length);
-        if (index !== -1) locateSlot(index);
-    });
-    chart?.addEventListener('click', event => {
-        if (!editing || saving || (suppressClick && event.detail !== 0)) return;
-        const target = targetAt(event.target);
-        if (!target) return;
-        if (mode !== 'move') editAssignment(target);
-        else if (selected) drop(selected, target);
-        else if (target.occupied || target.week) pick(target);
-    });
-    const ghost = document.createElement('div');
-    ghost.className = 'ac-gantt-drag-label';
-    ghost.hidden = true;
-    document.body.append(ghost);
-    chart?.addEventListener('pointerdown', event => {
-        suppressClick = false;
-        if (!editing || saving || mode !== 'move' || !event.isPrimary || event.button !== 0) return;
-        const source = targetAt(event.target);
-        if (!source || (!source.occupied && !source.week)) return;
-        pointer = { source, id: event.pointerId, x: event.clientX, y: event.clientY, dragging: false };
-        chart.setPointerCapture(event.pointerId);
-    });
-    chart?.addEventListener('pointermove', event => {
-        if (!pointer || event.pointerId !== pointer.id) return;
-        if (!pointer.dragging && Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) < 6) return;
-        if (!pointer.dragging) { pointer.dragging = true; pick(pointer.source); }
-        chart.classList.add('ac-gantt-dragging');
-        ghost.hidden = false;
-        ghost.textContent = getLocalizedText("message", "{0} · {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(pointer.source.week ? getLocalizedText("swap-whole-week", "Swap whole week") : getLocalizedText("move-swap-shifts", "Move / swap shifts"))][Number(index)] ?? placeholder);
-        ghost.style.left = `${Math.min(event.clientX + 12, window.innerWidth - ghost.offsetWidth)}px`;
-        ghost.style.top = `${Math.min(event.clientY + 12, window.innerHeight - ghost.offsetHeight)}px`;
-        const bounds = chart.getBoundingClientRect();
-        const namesEnd = chart.querySelector('.ac-gantt-name').getBoundingClientRect().right;
-        if (!pointer.source.week && event.clientX > bounds.right - 12) chart.scrollLeft += 12;
-        if (!pointer.source.week && event.clientX < namesEnd + 12) chart.scrollLeft -= 12;
-        chart.querySelectorAll('.ac-gantt-drop-target').forEach(item => item.classList.remove('ac-gantt-drop-target'));
-        const target = targetAt(document.elementFromPoint(event.clientX, event.clientY));
-        if (target && (pointer.source.week || target.slot !== null)) {
-            target.element.classList.add('ac-gantt-drop-target');
-            ghost.textContent = pointer.source.week ? getLocalizedText("swap-full-week", "Swap full week: {0} ↔ {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(target.name)][Number(index)] ?? placeholder)
-                : getLocalizedText("message-3", "{0}: {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.occupied ? getLocalizedText("swap", "Swap") : getLocalizedText("move-to", "Move to")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
-        }
-    });
-    function endPointer(event, cancel = false) {
-        if (!pointer || event.pointerId !== pointer.id) return;
-        const finished = pointer;
-        pointer = null;
-        if (chart.hasPointerCapture(finished.id)) chart.releasePointerCapture(finished.id);
-        ghost.hidden = true;
-        chart.classList.remove('ac-gantt-dragging');
-        chart.querySelectorAll('.ac-gantt-drop-target').forEach(item => item.classList.remove('ac-gantt-drop-target'));
-        const target = cancel ? null : targetAt(document.elementFromPoint(event.clientX, event.clientY));
-        const apply = () => {
-            if (cancel) { clearSelection(); status.textContent = getLocalizedText("move-cancelled-schedule-unchanged", "Move cancelled; schedule unchanged."); }
-            else if (finished.dragging) drop(finished.source, target);
-            else if (selected) drop(selected, finished.source);
-            else pick(finished.source);
+    function draw(data) {
+        const chart = get('oncall-gantt');
+        chart.querySelectorAll('[data-draft-shift]').forEach(bar => bar.remove());
+        const duration = Date.parse(end) - Date.parse(start);
+        const assigned = data.slots.filter(slot => slot.userIds.length);
+        const stats = {
+            'oncall-total-shifts': assigned.length,
+            'oncall-total-staff': new Set(assigned.flatMap(slot => slot.userIds)).size,
+            'oncall-total-hours': `${assigned.reduce((sum, slot) => sum + Math.max(0, Math.min(Date.parse(end), Date.parse(slot.endsAtUtc)) - Math.max(Date.parse(start), Date.parse(slot.startsAtUtc))) / 3600000, 0).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`
         };
-        suppressClick = true;
-        // 保留触摸目标直到 touchend 分发完毕，避免重绘移除目标后影响后续点击。
-        if (event.pointerType === 'touch' && !cancel) requestAnimationFrame(apply);
-        else apply();
+        for (const [id, value] of Object.entries(stats)) if (get(id)) get(id).textContent = value;
+        const lane = get('oncall-warning-lane');
+        lane.replaceChildren();
+        for (const warning of data.timelineWarnings) {
+            const marker = document.createElement('button');
+            marker.type = 'button'; marker.className = 'ac-gantt-shift bg-warning';
+            const left = Math.max(Date.parse(start), Date.parse(warning.startsAtUtc)), right = Math.min(Date.parse(end), Date.parse(warning.endsAtUtc));
+            if (right <= left) continue;
+            marker.style.left = `${(left - Date.parse(start)) / duration * 100}%`; marker.style.width = `${(right - left) / duration * 100}%`;
+            marker.dataset.summary = warning.message; marker.dataset.start = localTime(warning.startsAtUtc, zone); marker.dataset.end = localTime(warning.endsAtUtc, zone);
+            marker.title = warning.message; marker.setAttribute('aria-label', warning.message); lane.append(marker);
+        }
+        for (const row of chart.querySelectorAll('[data-user-id]')) {
+            const id = row.dataset.userId;
+            row.querySelector('.ac-gantt-hours').textContent = `${hoursFor(data.slots, id, start, end).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`;
+            for (const slot of data.slots.filter(item => item.userIds.includes(id))) {
+                const bar = document.createElement('button');
+                bar.type = 'button'; bar.className = `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
+                bar.dataset.draftShift = 'true'; bar.dataset.readonly = 'true';
+                const left = Math.max(Date.parse(start), Date.parse(slot.startsAtUtc)), right = Math.min(Date.parse(end), Date.parse(slot.endsAtUtc));
+                if (right <= left) continue;
+                bar.style.left = `${(left - Date.parse(start)) / duration * 100}%`;
+                bar.style.width = `${(right - left) / duration * 100}%`;
+                bar.dataset.start = localTime(slot.startsAtUtc, zone); bar.dataset.end = localTime(slot.endsAtUtc, zone);
+                bar.dataset.summary = `${row.dataset.name} · ${zone}`;
+                bar.title = `${bar.dataset.summary} · ${bar.dataset.start} → ${bar.dataset.end}`;
+                bar.setAttribute('aria-label', bar.title);
+                row.querySelector('.ac-gantt-lane').append(bar);
+            }
+        }
+        chart.dispatchEvent(new Event('oncall-layout'));
     }
-    chart?.addEventListener('pointerup', event => endPointer(event));
-    chart?.addEventListener('pointercancel', event => endPointer(event, true));
-    document.addEventListener('keydown', event => {
-        if (!editing || event.key !== 'Escape') return;
-        if (pointer) endPointer({ pointerId: pointer.id }, true);
-        setMode('move');
-        clearSelection();
-        status.textContent = getLocalizedText("selection-cancelled", "Selection cancelled.");
-    });
-    chart?.addEventListener('oncall-edge-change', () => {
-        if (pointer) endPointer({ pointerId: pointer.id }, true);
-        clearSelection();
-    });
-
-    const copyDialog = document.getElementById('oncall-copy-confirm');
-    const copyModal = window.bootstrap?.Modal.getOrCreateInstance(copyDialog);
-    function copyNext() {
-        if (!editing || saving || !weeks[2].available) return;
-        if (weekSlots(slots, 1).some(slot => slot.userIds.some(id => departedIds.has(id)))) {
-            showMessages(errors, [getLocalizedText("this-week-includes-members-who-have-left-please", "This week includes members who have left. Please replace them in this week's draft before copying to the next week.")]);
+    async function preview() {
+        const revision = ++sequence;
+        try {
+            const data = await post(root.dataset.previewUrl, payload());
+            if (revision !== sequence) return;
+            list('oncall-schedule-errors', []); list('oncall-schedule-warnings', data.warnings);
+            draw(data);
+        } catch (error) {
+            if (revision === sequence) list('oncall-schedule-errors', [error.message]);
+        }
+    }
+    async function write(body, generate, rangeWrite = false) {
+        const data = await post(generate ? root.dataset.generateUrl : root.dataset.saveUrl, body);
+        if (rangeWrite && dirty && !generate) {
+            root.dataset.version = data.version;
+            copied = true;
+            cancelPending();
+            await preview();
             return;
         }
-        history.push(structuredClone(slots));
-        weekSlots(slots, 1).forEach((slot, index) => slots[42 + index].userIds = [...slot.userIds]);
-        changed(getLocalizedText("copied-the-current-draft-for-this-week-to", "Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week."));
-        const toggle = document.querySelector('[data-oncall-edge="next"]');
-        if (toggle?.getAttribute('aria-expanded') === 'false') toggle.click();
+        dirty = false;
+        window.location.reload();
     }
-    document.getElementById('oncall-copy-next')?.addEventListener('click', () => {
-        if (saving) return;
-        if (weeks[2].saved || weekChanged(2)) {
-            if (copyModal) copyModal.show();
-            else showMessages(errors, [getLocalizedText("unable-to-display-replacement-confirmation-please-refresh-the", "Unable to display replacement confirmation. Please refresh the page and try again. The next week's draft remains unchanged.")]);
-        } else copyNext();
-    });
-    document.getElementById('oncall-copy-apply')?.addEventListener('click', () => {
-        copyModal?.hide();
-        copyNext();
-    });
-    async function save(generate) {
-        if (!editing || saving) return;
-        saving = true;
-        let reloading = false;
-        clearSelection();
-        chart?.querySelectorAll('button').forEach(button => button.disabled = true);
-        root.querySelectorAll('button, input, select').forEach(input => input.disabled = true);
-        errors.replaceChildren();
-        try {
-            const response = await fetch(generate ? root.dataset.generateUrl : root.dataset.saveUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', RequestVerificationToken: root.querySelector('input[name="__RequestVerificationToken"]').value },
-                body: JSON.stringify({ groupId: root.dataset.groupId, version: root.dataset.version, startUtc: root.dataset.start,
-                    slots: weekSlots(slots, 1).map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds })),
-                    adjacentWeeks: generate ? [] : [0, 2].filter(week => weekChanged(week)).map(week => ({
-                        startUtc: weeks[week].startUtc,
-                        slots: weekSlots(slots, week).map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds }))
-                    })) })
-            });
-            if (!response.ok) {
-                const result = await response.json();
-                throw new Error((result.errors || [getLocalizedText("save-failed-please-refresh-the-page-and-try", "Save failed. Please refresh the page and try again.")]).join('\n'));
-            }
-            dirty = false;
-            reloading = true;
-            window.location.reload();
-        } catch (error) {
-            tools.open = true;
-            editing = true;
-            showMessages(errors, error.message.split('\n'));
-            errors.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } finally {
-            if (!reloading) {
-                saving = false;
-                root.querySelectorAll('button, input, select').forEach(input => input.disabled = input.dataset.departed === 'true');
-                chart?.querySelectorAll('button').forEach(button => button.disabled = false);
-                renderForm();
-            }
+    async function operation(action) {
+        if (busy) return;
+        busy = true;
+        root.inert = true;
+        get('oncall-save-schedule').disabled = true;
+        get('oncall-replace-apply').disabled = true;
+        try { await action(); }
+        catch (error) { list('oncall-schedule-errors', [error.message]); }
+        finally { busy = false; root.inert = false; get('oncall-save-schedule').disabled = false; get('oncall-replace-apply').disabled = false; }
+    }
+    async function range(generate) {
+        clearTimeout(timer);
+        sequence++;
+        cancelPending();
+        const revision = rangeSequence;
+        if (generate && dirty) throw new Error(text('save-draft-first', 'Save or reset the draft before generating a range.'));
+        const body = { groupId: root.dataset.groupId, version: root.dataset.version, startLocal: get('oncall-range-start').value, endLocal: get('oncall-range-end').value, slots: [] };
+        if (!(wallTime(body.endLocal) > wallTime(body.startLocal))) throw new Error(text('invalid-range', 'End must be after start.'));
+        if (!generate) {
+            try { body.slots = copyRange(slots, localTime(start, zone), localTime(end, zone), body.startLocal, body.endLocal, members); }
+            catch (error) { throw new Error(error.message === 'departed' ? text('cannot-copy-departed', 'Cannot copy assignments for departed team members.') : text('invalid-range', 'End must be after start.')); }
         }
+        const data = await post(`${root.dataset.previewUrl}?generate=${generate}`, body);
+        if (revision !== rangeSequence) return;
+        list('oncall-schedule-warnings', data.warnings);
+        list('oncall-schedule-errors', []);
+        if (data.replacedSlots.length) {
+            list('oncall-replaced-shifts', data.replacedSlots.map(slot => `${localTime(slot.startsAtUtc, zone)} → ${localTime(slot.endsAtUtc, zone)} · ${slot.userIds.map(id => members.find(member => member.id === id)?.name || id).join(', ') || text('unassigned', 'Unassigned')}`));
+            pending = { body, generate };
+            get('oncall-replace-confirm').hidden = false;
+        } else await write(body, generate, true);
     }
-    document.getElementById('oncall-generate')?.addEventListener('click', () => save(true));
-    document.getElementById('oncall-save-schedule')?.addEventListener('click', () => save(false));
+    get('oncall-add-shift').addEventListener('click', () => {
+        slots.push({ startLocal: localTime(start, zone), endLocal: localTime(end, zone), userIds: [] }); renderRows(); changed();
+    });
+    get('oncall-save-schedule').addEventListener('click', () => operation(() => write(payload(), false)));
+    get('oncall-reset-schedule').addEventListener('click', () => {
+        dirty = false;
+        if (copied) { window.location.reload(); return; }
+        slots = prepare(initial); sequence++; cancelPending(); renderRows(); get('oncall-draft-notice').hidden = true; preview();
+    });
+    get('oncall-copy-range').addEventListener('click', () => operation(() => range(false)));
+    get('oncall-generate')?.addEventListener('click', () => operation(() => range(true)));
+    get('oncall-replace-cancel').addEventListener('click', cancelPending);
+    get('oncall-replace-apply').addEventListener('click', () => operation(async () => {
+        if (pending) await write({ ...pending.body, confirmReplace: true }, pending.generate, true);
+    }));
+    for (const id of ['oncall-range-start', 'oncall-range-end']) get(id).addEventListener('input', cancelPending);
+    get('oncall-range-start').value = localTime(end, zone);
+    get('oncall-range-end').value = wallString(wallTime(localTime(end, zone)) + 7 * 86400000);
     window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
-    renderForm();
-    renderChart();
+    renderRows();
+    preview();
 })();

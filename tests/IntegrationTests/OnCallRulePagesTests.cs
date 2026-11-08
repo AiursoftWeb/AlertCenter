@@ -54,11 +54,12 @@ public class OnCallRulePagesTests : TestBase
         Assert.Contains("Create Scheduling Rule", create);
         Assert.Contains("action=\"/OnCall/SaveRule\"", create);
         Assert.Contains("name=\"RuleInput.Name\"", create);
-        Assert.Contains("name=\"RuleInput.MinimumStaff\"", create);
-        Assert.Contains("name=\"RuleInput.TargetStaff\"", create);
-        Assert.Contains("Fixed time slots take priority", WebUtility.HtmlDecode(create));
-        Assert.Contains("Balance early, middle, and late shifts as evenly as possible", WebUtility.HtmlDecode(create));
-        Assert.Contains("Target staff", WebUtility.HtmlDecode(create));
+        Assert.Contains("name=\"RuleInput.StaffPerShift\"", create);
+        Assert.Contains("name=\"RuleInput.ShiftMinutes\"", create);
+        Assert.Contains("Pure queue", WebUtility.HtmlDecode(create));
+        Assert.Contains("Swap adjacent members on alternate rounds", WebUtility.HtmlDecode(create));
+        Assert.Contains("Weekly handover points", WebUtility.HtmlDecode(create));
+        Assert.Contains("oncall-template.js", create);
         Assert.DoesNotContain("7-day on-call preview", create);
         Assert.DoesNotContain("RuleInput.GroupId", create);
         Assert.DoesNotContain("RuleInput.AnchorUtc", create);

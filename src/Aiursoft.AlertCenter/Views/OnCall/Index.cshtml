@@ -1,48 +1,50 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
+@inject IHtmlLocalizerFactory OnCallLocalizerFactory
+@{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall.Index", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <div>
-        <h1 class="h3 mb-1">@Localizer["Scheduling Rules"]</h1>
-        <p class="text-muted mb-0">@Localizer["Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts."]</p>
+        <h1 class="h3 mb-1">@viewLocalizer["Scheduling Rules"]</h1>
+        <p class="text-muted mb-0">@viewLocalizer["Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts."]</p>
     </div>
     @if (Model.CanManageOnCall)
     {
-        <a asp-action="Create" class="btn btn-primary">@Localizer["Create Rule"]</a>
+        <a asp-action="Create" class="btn btn-primary">@viewLocalizer["Create Rule"]</a>
     }
 </div>
 
 @if (TempData["OnCallRuleSuccess"] is string message)
 {
     <div class="alert alert-success alert-dismissible" role="status">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@Localizer["Close"]"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="@viewLocalizer["Close"]"></button>
         <div class="alert-message">@message</div>
     </div>
 }
 <div class="card">
-    <div class="card-header"><h2 class="card-title mb-0">@Localizer["Rule saved"]</h2></div>
+    <div class="card-header"><h2 class="card-title mb-0">@viewLocalizer["Rule saved"]</h2></div>
     <div class="table-responsive">
         <table class="table table-hover mb-0">
-            <thead><tr><th>@Localizer["Rule template"]</th><th>@Localizer["Shift / Break"]</th><th>@Localizer["Teams using"]</th><th>@Localizer["Action"]</th></tr></thead>
+            <thead><tr><th>@viewLocalizer["Rule template"]</th><th>@viewLocalizer["Shift / Break"]</th><th>@viewLocalizer["Teams using"]</th><th>@viewLocalizer["Action"]</th></tr></thead>
             <tbody>
                 @foreach (var rule in Model.Rules)
                 {
                     var boundGroupCount = Model.Groups.Count(group => group.RuleId == rule.Id);
                     <tr>
                         <td>@rule.Name</td>
-                        <td>@rule.ShiftHours / @rule.RestHours @Localizer["hours"]<br /><span class="small text-muted">@Localizer["Min "]@rule.MinimumStaff @Localizer["people · Target "]@(rule.TargetStaff?.ToString() ?? @Localizer["Auto-assign"].Value) @Localizer["people"]</span></td>
+                        <td>@(rule.HandoverPoints.Count > 0 ? viewLocalizer["Weekly handover points"].Value : $"{rule.ShiftMinutes ?? rule.ShiftHours * 60} {viewLocalizer["minutes"].Value}")<br /><span class="small text-muted">@viewLocalizer["Staff per shift"]: @rule.StaffPerShift</span></td>
                         <td>@boundGroupCount</td>
                         <td>
-                            <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-primary">@Localizer["View rules"]</a>
+                            <a asp-action="Details" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-primary">@viewLocalizer["View rules"]</a>
                             @if (Model.CanManageOnCall)
                             {
-                                <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-secondary">@Localizer["Edit"]</a>
+                                <a asp-action="Edit" asp-route-id="@rule.Id" class="btn btn-sm btn-outline-secondary">@viewLocalizer["Edit"]</a>
                                 @if (boundGroupCount == 0)
                                 {
-                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-oncall-rule" data-rule-id="@rule.Id" data-rule-name="@rule.Name">@Localizer["Delete"]</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#delete-oncall-rule" data-rule-id="@rule.Id" data-rule-name="@rule.Name">@viewLocalizer["Delete"]</button>
                                 }
                                 else
                                 {
-                                    <button type="button" class="btn btn-sm btn-outline-danger" disabled title="@Localizer["Please unbind the template from all teams first."]">@Localizer["Bound, cannot be deleted"]</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" disabled title="@viewLocalizer["Please unbind the template from all teams first."]">@viewLocalizer["Bound, cannot be deleted"]</button>
                                 }
                             }
                         </td>
@@ -53,7 +55,7 @@
     </div>
     @if (Model.Rules.Count == 0)
     {
-        <div class="card-body text-muted">@Localizer["No saved rule templates yet. Create a template first, then have the team bind and use it."]</div>
+        <div class="card-body text-muted">@viewLocalizer["No saved rule templates yet. Create a template first, then have the team bind and use it."]</div>
     }
 </div>
 
@@ -63,19 +65,19 @@
         <div class="modal-dialog modal-dialog-centered">
             <form asp-action="DeleteRule" method="post" data-action-feedback class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title h5" id="delete-oncall-rule-title">@Localizer["Delete scheduling rule"]</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@Localizer["Close"]"></button>
+                    <h2 class="modal-title h5" id="delete-oncall-rule-title">@viewLocalizer["Delete scheduling rule"]</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@viewLocalizer["Close"]"></button>
                 </div>
                 <div class="modal-body">
-                    <p>@Localizer["Confirm rule deletion"] <strong id="delete-oncall-rule-name" class="text-break"></strong>？</p>
+                    <p>@viewLocalizer["Confirm rule deletion"] <strong id="delete-oncall-rule-name" class="text-break"></strong>？</p>
                     <div class="alert alert-warning mb-0" id="delete-oncall-rule-description" role="alert">
-                        <div class="alert-message">@Localizer["Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered."]</div>
+                        <div class="alert-message">@viewLocalizer["Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered."]</div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@viewLocalizer["Cancel"]</button>
                     <input type="hidden" id="delete-oncall-rule-id" name="id" />
-                    <button type="submit" id="delete-oncall-rule-confirm" class="btn btn-danger" disabled>@Localizer["Confirm deletion"]</button>
+                    <button type="submit" id="delete-oncall-rule-confirm" class="btn btn-danger" disabled>@viewLocalizer["Confirm deletion"]</button>
                 </div>
             </form>
         </div>

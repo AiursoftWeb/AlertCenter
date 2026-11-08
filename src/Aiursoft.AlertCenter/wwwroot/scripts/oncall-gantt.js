@@ -14,17 +14,18 @@
     }
 
     const edges = { previous: false, next: false };
+    const duration = Number(chart.dataset.duration || 168);
     const toggles = [...document.querySelectorAll('[data-oncall-edge]')];
     function layout() {
         const before = edges.previous ? 36 : 0;
-        const hours = 168 + before + (edges.next ? 36 : 0);
+        const hours = duration + before + (edges.next ? 36 : 0);
         chart.querySelector('.ac-gantt').style.minWidth = `calc(var(--ac-gantt-name-width) + var(--ac-gantt-toggle-width) + ${hours * 160 / 24}px)`;
         chart.querySelectorAll('[style]').forEach(item => {
             if (!item.style.left || !item.style.left.endsWith('%')) return;
             item.dataset.layoutLeft ??= item.style.left.slice(0, -1);
             if (item.style.width?.endsWith('%')) item.dataset.layoutWidth ??= item.style.width.slice(0, -1);
-            item.style.left = `${(Number(item.dataset.layoutLeft) * 168 + before * 100) / hours}%`;
-            if (item.dataset.layoutWidth) item.style.width = `${Number(item.dataset.layoutWidth) * 168 / hours}%`;
+            item.style.left = `${(Number(item.dataset.layoutLeft) * duration + before * 100) / hours}%`;
+            if (item.dataset.layoutWidth) item.style.width = `${Number(item.dataset.layoutWidth) * duration / hours}%`;
         });
         chart.querySelectorAll('[data-edge="previous"], [data-edge="next"]').forEach(item => item.hidden = !edges[item.dataset.edge]);
         toggles.forEach(button => {

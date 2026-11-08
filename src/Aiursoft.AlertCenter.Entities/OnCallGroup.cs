@@ -11,6 +11,7 @@ public class OnCallGroup
     public Guid? RuleId { get; set; }
     public OnCallRule? Rule { get; set; }
     public DateTime AnchorUtc { get; set; } = DateTime.UtcNow.Date;
+    public DayOfWeek WeekStartsOn { get; set; } = DayOfWeek.Monday;
     public Guid ScheduleVersion { get; set; } = Guid.NewGuid();
     public double? MinimumRestHours { get; set; }
     public double? MaximumContinuousHours { get; set; }

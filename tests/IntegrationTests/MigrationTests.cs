@@ -94,7 +94,7 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(15, context.Database.GetMigrations().Count());
+        Assert.AreEqual(16, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
@@ -277,7 +277,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(15, context.Database.GetMigrations().Count());
+        Assert.AreEqual(16, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");
@@ -288,6 +288,7 @@ public class MigrationTests
         StringAssert.Contains(script, "CREATE TABLE `OnCallShifts`");
         StringAssert.Contains(script, "`MinimumStaff`");
         StringAssert.Contains(script, "`TargetStaff`");
+        StringAssert.Contains(script, "`WeekStartsOn`");
         StringAssert.Contains(script, "`OnCallGroupId`");
         StringAssert.Contains(script, "FK_SourceApplications_OnCallGroups_OnCallGroupId");
         StringAssert.Contains(script, "ON DELETE RESTRICT");

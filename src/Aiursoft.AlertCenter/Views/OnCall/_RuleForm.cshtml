@@ -1,45 +1,47 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
-
-<form asp-action="SaveRule" method="post" data-action-feedback>
+@inject IHtmlLocalizerFactory OnCallLocalizerFactory
+@{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall._RuleForm", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
+<form asp-action="SaveRule" method="post" data-action-feedback id="oncall-template-form">
     <div asp-validation-summary="All" class="text-danger mb-3"></div>
     <input asp-for="RuleInput.Id" type="hidden" />
-    <input asp-for="RuleInput.ShiftMinutes" type="hidden" />
     <div class="row g-3 mb-3">
+        <div class="col-md-6"><label asp-for="RuleInput.Name" class="form-label">@viewLocalizer["Template name"]</label><input asp-for="RuleInput.Name" class="form-control" maxlength="100" required /></div>
         <div class="col-md-6">
-            <label asp-for="RuleInput.Name" class="form-label">@Localizer["Template name"]</label>
-            <input asp-for="RuleInput.Name" class="form-control" maxlength="100" required />
+            <label asp-for="RuleInput.SplitMode" class="form-label">@viewLocalizer["Split mode"]</label>
+            <select asp-for="RuleInput.SplitMode" class="form-select"><option value="fixed">@viewLocalizer["Fixed duration"]</option><option value="weekly">@viewLocalizer["Weekly handover points"]</option></select>
         </div>
-        <div class="col-md-3">
-            <label asp-for="RuleInput.ShiftHours" class="form-label">@Localizer["Shift duration (hours)"]</label>
-            <input asp-for="RuleInput.ShiftHours" type="number" min="1" class="form-control" required />
-            <div class="form-text">@Localizer["Fixed three shifts per day, at least one person per shift; multiple people per shift allowed."]</div>
+        <div class="col-md-4" id="oncall-fixed-duration">
+            <label asp-for="RuleInput.ShiftMinutes" class="form-label">@viewLocalizer["Shift duration (minutes)"]</label>
+            <input asp-for="RuleInput.ShiftMinutes" value="@(Model.RuleInput.ShiftMinutes ?? Model.RuleInput.ShiftHours * 60)" type="number" min="1" class="form-control" required />
         </div>
-        <div class="col-md-3">
-            <label asp-for="RuleInput.RestHours" class="form-label">@Localizer["Minimum Rest (Hours)"]</label>
-            <input asp-for="RuleInput.RestHours" type="number" min="0" max="168" class="form-control" required />
+        <div class="col-md-4"><label asp-for="RuleInput.StaffPerShift" class="form-label">@viewLocalizer["Staff per shift"]</label><input asp-for="RuleInput.StaffPerShift" value="@(Model.RuleInput.StaffPerShift ?? 1)" type="number" min="1" max="200" class="form-control" required /></div>
+        <div class="col-md-4">
+            <label asp-for="RuleInput.SwapAlternateRounds" class="form-label">@viewLocalizer["Rotation strategy"]</label>
+            <select asp-for="RuleInput.SwapAlternateRounds" class="form-select"><option value="false">@viewLocalizer["Pure queue"]</option><option value="true">@viewLocalizer["Swap adjacent members on alternate rounds"]</option></select>
         </div>
     </div>
-    <div class="row g-3 mb-3">
-        <div class="col-md-4">
-            <label asp-for="RuleInput.MinimumStaff" class="form-label">@Localizer["Minimum staff per shift"]</label>
-            <input asp-for="RuleInput.MinimumStaff" type="number" min="1" max="200" class="form-control" required />
-            <div class="form-text">@Localizer["Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved."]</div>
+    <div id="oncall-weekly-points" class="mb-3">
+        <div id="oncall-handover-points">
+            @foreach (var point in Model.RuleInput.HandoverPoints ?? [])
+            {
+                <div class="d-flex flex-wrap gap-2 mb-2" data-handover-point>
+                    <select class="form-select w-auto" data-point-day aria-label="@viewLocalizer["Day of week"]">@foreach (var day in Enum.GetValues<DayOfWeek>()) { <option value="@((int)day)" selected="@(day == point.DayOfWeek)">@viewLocalizer[day.ToString()]</option> }</select>
+                    <input type="time" class="form-control w-auto" data-point-time value="@(TimeOnly.MinValue.AddMinutes(point.MinuteOfDay).ToString("HH:mm"))" aria-label="@viewLocalizer["Handover time"]" required />
+                    <button type="button" class="btn btn-outline-danger" data-remove-point>@viewLocalizer["Remove"]</button>
+                </div>
+            }
         </div>
-        <div class="col-md-4">
-            <label asp-for="RuleInput.TargetStaff" class="form-label">@Localizer["Target staff per shift"]</label>
-            <input asp-for="RuleInput.TargetStaff" type="number" min="1" max="200" class="form-control" />
-            <div class="form-text">@Localizer["Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment."]</div>
-        </div>
-        <div class="col-md-4">
-            <label asp-for="RuleInput.BalanceShiftTimes" class="form-label">@Localizer["Rotation Preference"]</label>
-            <select asp-for="RuleInput.BalanceShiftTimes" class="form-select">
-                <option value="false">@Localizer["Fixed time slots take priority"]</option>
-                <option value="true">@Localizer["Balance early, middle, and late shifts as evenly as possible"]</option>
-            </select>
-        </div>
+        <button type="button" id="oncall-add-point" class="btn btn-outline-primary">@viewLocalizer["Add handover point"]</button>
     </div>
-    <p class="small text-muted">@Localizer["Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions."]</p>
-    <p class="small text-muted">@Localizer["This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts."]</p>
-    <button type="submit" class="btn btn-primary">@Localizer["Save template"]</button>
-    <a asp-action="Index" class="btn btn-outline-secondary ms-2">@Localizer["Cancel"]</a>
+    <template id="oncall-point-template">
+        <div class="d-flex flex-wrap gap-2 mb-2" data-handover-point>
+            <select class="form-select w-auto" data-point-day aria-label="@viewLocalizer["Day of week"]">@foreach (var day in Enum.GetValues<DayOfWeek>()) { <option value="@((int)day)">@viewLocalizer[day.ToString()]</option> }</select>
+            <input type="time" class="form-control w-auto" data-point-time value="22:00" aria-label="@viewLocalizer["Handover time"]" required />
+            <button type="button" class="btn btn-outline-danger" data-remove-point>@viewLocalizer["Remove"]</button>
+        </div>
+    </template>
+    <button type="button" id="oncall-eight-hour-preset" class="btn btn-outline-secondary mb-3">@viewLocalizer["8-hour three-shift preset"]</button>
+    <p class="small text-muted">@viewLocalizer["Templates only fill shifts. Saved shifts remain editable; reminders never block saving."]</p>
+    <button type="submit" class="btn btn-primary">@viewLocalizer["Save template"]</button>
+    <a asp-action="Index" class="btn btn-outline-secondary ms-2">@viewLocalizer["Cancel"]</a>
 </form>

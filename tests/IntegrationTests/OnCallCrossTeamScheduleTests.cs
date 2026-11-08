@@ -262,11 +262,9 @@ public class OnCallCrossTeamScheduleTests : TestBase
         Assert.AreEqual(metadata.GetProperty("members").GetArrayLength(), Regex.Matches(rawHtml, "<div class=\"ac-gantt-lane\">").Count);
         var sharedLane = Regex.Match(rawHtml,
             $"<div class=\"ac-gantt-row\"[^>]*data-user-id=\"{userIds[0]}\"[\\s\\S]*?<div class=\"ac-gantt-lane\">([\\s\\S]*?)</div>").Groups[1].Value;
-        Assert.AreEqual(21, Regex.Matches(sharedLane, "class=\"ac-gantt-cell\"").Count);
+        Assert.AreEqual(0, Regex.Matches(sharedLane, "class=\"ac-gantt-cell\"").Count);
         Assert.Contains("class=\"ac-gantt-shift ac-gantt-external\"", sharedLane);
-        var sharedCheckbox = Regex.Match(rawHtml, $"<input[^>]*class=\"[^\"]*oncall-edit-member[^\"]*\"[^>]*value=\"{userIds[0]}\"[^>]*>").Value;
-        Assert.IsFalse(string.IsNullOrEmpty(sharedCheckbox));
-        Assert.DoesNotContain("disabled", sharedCheckbox);
+        Assert.Contains("id=\"oncall-shift-rows\"", rawHtml);
         Assert.IsTrue(buttons.All(button => button.Contains("data-readonly=\"true\"") && button.Contains($"data-group-id=\"{otherId}\"") && !button.Contains("data-slot=")));
         Assert.AreEqual(1, buttons.Count(button => button.Contains("data-edge=\"previous\"")));
         Assert.AreEqual(1, buttons.Count(button => button.Contains("data-edge=\"next\"")));
@@ -287,9 +285,9 @@ public class OnCallCrossTeamScheduleTests : TestBase
         var root = Regex.Match(rawHtml, "<div id=\"oncall-schedule\"[^>]*>").Value;
         var slotsJson = WebUtility.HtmlDecode(Regex.Match(root, "data-slots=\"([^\"]*)\"").Groups[1].Value);
         var editorSlots = JsonDocument.Parse(slotsJson).RootElement.EnumerateArray().ToArray();
-        Assert.AreEqual(63, editorSlots.Length);
-        Assert.IsTrue(editorSlots.Skip(21).Take(21).All(slot => slot.GetProperty("userIds").GetArrayLength() == 0));
-        Assert.AreEqual(1, editorSlots.Sum(slot => slot.GetProperty("userIds").GetArrayLength()));
+        Assert.AreEqual(0, editorSlots.Length);
+        var membersJson = WebUtility.HtmlDecode(Regex.Match(root, "data-members=\"([^\"]*)\"").Groups[1].Value);
+        Assert.IsTrue(JsonDocument.Parse(membersJson).RootElement.EnumerateArray().Any(member => member.GetProperty("id").GetString() == userIds[0] && !member.GetProperty("departed").GetBoolean()));
         Assert.IsTrue(Regex.IsMatch(html, "data-oncall-stat=\"shifts\">0</strong>"));
         Assert.IsTrue(Regex.IsMatch(html, "data-oncall-stat=\"hours\">0 hours</strong>"));
     }

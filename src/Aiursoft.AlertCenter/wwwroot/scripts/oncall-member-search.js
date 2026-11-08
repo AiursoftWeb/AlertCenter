@@ -15,6 +15,22 @@
     let hasMore = false;
     let sequence = 0;
     const selectedUsers = new Map();
+    const fallbackList = document.getElementById('oncall-fallback-selected');
+    const target = document.getElementById('oncall-selection-target');
+    const fallbackUsers = new Map();
+    for (const item of fallbackList?.children || []) fallbackUsers.set(item.dataset.userId, { id: item.dataset.userId, name: item.dataset.name });
+    function renderFallback() {
+        if (!fallbackList) return;
+        fallbackList.replaceChildren();
+        for (const user of fallbackUsers.values()) {
+            const item = document.createElement('li'), input = document.createElement('input'), label = document.createElement('span'), remove = document.createElement('button');
+            item.className = 'list-group-item'; input.type = 'hidden'; input.name = 'GroupInput.FallbackUserIds'; input.value = user.id;
+            label.textContent = user.name; remove.type = 'button'; remove.className = 'btn btn-sm btn-outline-danger float-end'; remove.textContent = getLocalizedText('remove', 'Remove');
+            remove.addEventListener('click', () => { fallbackUsers.delete(user.id); renderFallback(); renderResults(currentResults); });
+            item.append(input, label, remove); fallbackList.append(item);
+        }
+    }
+    target?.addEventListener('change', () => renderResults(currentResults));
 
     for (const item of selected.children) {
         selectedUsers.set(item.dataset.userId, { id: item.dataset.userId, name: item.dataset.name, username: item.dataset.username });
@@ -75,6 +91,7 @@
     let currentResults = [];
     function renderResults(users) {
         currentResults = users;
+        const selection = target?.value === 'fallback' ? fallbackUsers : selectedUsers;
         results.replaceChildren();
         for (const user of users) {
             const label = document.createElement('label');
@@ -82,19 +99,20 @@
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.className = 'form-check-input m-0';
-            checkbox.checked = selectedUsers.has(user.id);
+            checkbox.checked = selection.has(user.id);
             checkbox.addEventListener('change', () => {
                 if (checkbox.checked) {
-                    if (selectedUsers.size >= 200) {
+                    if (selection.size >= 200) {
                         checkbox.checked = false;
                         status.textContent = getLocalizedText("select-up-to-200-employees-per-team", "Select up to 200 employees per team.");
                         return;
                     }
-                    selectedUsers.set(user.id, user);
+                    selection.set(user.id, user);
                 } else {
-                    selectedUsers.delete(user.id);
+                    selection.delete(user.id);
                 }
                 renderSelected();
+                renderFallback();
             });
             const text = document.createElement('span');
             text.textContent = `${user.name} (${user.username || ''})`;
@@ -145,4 +163,5 @@
     prev.addEventListener('click', () => { if (page > 1) { page--; load(); } });
     next.addEventListener('click', () => { if (hasMore) { page++; load(); } });
     renderSelected();
+    renderFallback();
 })();

@@ -15,6 +15,21 @@ public class OnCallScheduleValidatorTests
     };
 
     [TestMethod]
+    public void TimelineLocatesEveryReminderCategoryWithoutChangingShiftBoundaries()
+    {
+        var group = new OnCallGroup { MinimumRestHours = 16, MaximumContinuousHours = 24, MinimumShiftStaff = 2,
+            Members = [new() { UserId = "a" }] };
+        var shifts = new[] { Shift(1, 26, "a"), Shift(2, 2, "departed"), Shift(40, 1) };
+        var warnings = OnCallScheduleValidator.TimelineWarnings(group, Start, Start.AddHours(48), shifts,
+            [new("a", Start.AddHours(-5), Start.AddHours(-1))], Localizer);
+        foreach (var category in new[] { "gap", "overlapping", "no on-duty", "insufficient rest", "continuous", "below", "departed" })
+            Assert.IsTrue(warnings.Any(warning => warning.Message.Contains(category)), category);
+        Assert.IsTrue(warnings.Any(warning => warning.StartsAtUtc == Start && warning.EndsAtUtc == Start.AddHours(1)));
+        Assert.IsTrue(warnings.Any(warning => warning.StartsAtUtc == Start.AddHours(40) && warning.EndsAtUtc == Start.AddHours(41) && warning.Message.Contains("no on-duty")));
+        Assert.AreEqual(Start.AddHours(27), shifts[0].EndsAtUtc);
+    }
+
+    [TestMethod]
     public void ValidationOnlyRejectsInvalidIntervalsAndUnknownEmployees()
     {
         var names = new Dictionary<string, string> { ["a"] = "Alice" };

@@ -33,15 +33,20 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public int ScheduleRestHours { get; set; } = 16;
     public int ScheduleMinimumStaff { get; set; } = 1;
     public List<string> StaffingWarnings { get; set; } = [];
+    public List<OnCallScheduleValidator.TimelineWarning> TimelineWarnings { get; set; } = [];
     public List<OnCallShift> SavedShifts { get; set; } = [];
     public List<OnCallTeamIssues> UpcomingIssues { get; set; } = [];
-    public bool LegacyGridCompatible { get; set; } = true;
+    public DateTime WeekEndUtc { get; set; }
+    public DateTime PreviousWeekUtc { get; set; }
+    public DateTime NextWeekUtc { get; set; }
     public CreateOnCallGroupRequest GroupInput { get; set; } = new();
     public SaveOnCallRuleRequest RuleInput { get; set; } = new();
 }
 
 public class CreateOnCallGroupRequest
 {
+    public DayOfWeek WeekStartsOn { get; set; } = DayOfWeek.Monday;
+    public bool FallbackSelectionSubmitted { get; set; }
     [Range(0, double.MaxValue)] public double? MinimumRestHours { get; set; }
     [Range(0, double.MaxValue)] public double? MaximumContinuousHours { get; set; }
     [Range(0, 200)] public int? MinimumShiftStaff { get; set; }
@@ -63,6 +68,7 @@ public class CreateOnCallGroupRequest
 
 public class SaveOnCallRuleRequest
 {
+    public string? SplitMode { get; set; }
     [Range(1, int.MaxValue)] public int? ShiftMinutes { get; set; }
     [Range(1, 200)] public int? StaffPerShift { get; set; }
     public bool? SwapAlternateRounds { get; set; }
@@ -89,6 +95,8 @@ public class OnCallHandoverPointRequest
 
 public class SaveOnCallScheduleRequest
 {
+    public string? StartLocal { get; set; }
+    public string? EndLocal { get; set; }
     public bool ConfirmReplace { get; set; }
     public DateTime? EndUtc { get; set; }
     public Guid GroupId { get; set; }
@@ -106,6 +114,8 @@ public class OnCallScheduleWeekRequest
 
 public class OnCallSlotRequest
 {
+    public string? StartLocal { get; set; }
+    public string? EndLocal { get; set; }
     public Guid? Id { get; set; }
     public DateTime StartsAtUtc { get; set; }
     public DateTime? EndsAtUtc { get; set; }

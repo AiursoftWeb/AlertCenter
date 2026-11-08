@@ -10,13 +10,27 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
     IStringLocalizer<OnCallScheduleService> localizer, IStringLocalizerFactory localizerFactory)
 {
     public List<string> Warnings { get; private set; } = [];
+    public List<OnCallSlotRequest> ReplacedSlots { get; private set; } = [];
+    public List<OnCallSlotRequest> PreviewSlots { get; private set; } = [];
+    public List<OnCallScheduleValidator.TimelineWarning> TimelineWarnings { get; private set; } = [];
+    public Guid Version { get; private set; }
+
+    public static DateTime LocalToUtc(string value, TimeZoneInfo zone)
+    {
+        var local = DateTime.ParseExact(value, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.InvariantCulture);
+        // 夏令时回拨的重复时刻采用标准时间；跳过的时刻由 TimeZoneInfo 拒绝。
+        return TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(local, DateTimeKind.Unspecified), zone);
+    }
+
+    public static DateTime MoveLocalDays(DateTime utc, TimeZoneInfo zone, int days) =>
+        TimeZoneInfo.ConvertTimeToUtc(TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(utc, DateTimeKind.Utc), zone).AddDays(days), zone);
 
     public static DateTime WeekStart(OnCallGroup group, DateTime? requested = null, IStringLocalizer? localizer = null)
     {
         if (requested.HasValue) return DateTime.SpecifyKind(requested.Value, DateTimeKind.Utc);
         var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
         var local = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, zone).Date;
-        return TimeZoneInfo.ConvertTimeToUtc(local.AddDays(-((int)local.DayOfWeek + 6) % 7), zone);
+        return TimeZoneInfo.ConvertTimeToUtc(local.AddDays(-((int)local.DayOfWeek - (int)group.WeekStartsOn + 7) % 7), zone);
     }
 
     public async Task<List<GeneratedOnCallShift>> Existing(Guid groupId, string[] userIds, DateTime start,
@@ -35,7 +49,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             DateTime.SpecifyKind(row.EndsAtUtc, DateTimeKind.Utc))).ToList();
     }
 
-    public async Task<List<string>> Save(SaveOnCallScheduleRequest? request, bool generate, CancellationToken cancellationToken)
+    public async Task<List<string>> Save(SaveOnCallScheduleRequest? request, bool generate, CancellationToken cancellationToken, bool preview = false)
     {
         var attempt = 0;
         return await db.Database.CreateExecutionStrategy().ExecuteAsync<List<string>>(async token =>
@@ -45,6 +59,8 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             IReadOnlyList<OnCallScheduleWeekRequest?>? adjacentWeeks = request?.AdjacentWeeks;
             if (request?.Slots == null || adjacentWeeks == null || adjacentWeeks.Any(week => week?.Slots == null))
                 return [localizer["The shift request format is invalid."].Value];
+            IReadOnlyList<OnCallSlotRequest?> requestSlots = request.Slots;
+            if (requestSlots.Any(slot => slot?.UserIds == null)) return [localizer["The shift request format is invalid."].Value];
             if ((generate && request.AdjacentWeeks.Count != 0) || request.AdjacentWeeks.Count > 2 ||
                 request.AdjacentWeeks.Select(week => week.StartUtc).Distinct().Count() != request.AdjacentWeeks.Count ||
                 request.AdjacentWeeks.Any(week => week.StartUtc != request.StartUtc.AddDays(-7) && week.StartUtc != request.StartUtc.AddDays(7)))
@@ -56,13 +72,34 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             if (group == null) return [localizer["On-call team does not exist."].Value];
             if (request.Version != group.ScheduleVersion)
                 throw new DbUpdateConcurrencyException(localizer["The team or schedule was modified by another administrator. Please refresh the page and try again."].Value);
+            Version = group.ScheduleVersion;
+            var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+            try
+            {
+                if (request.StartLocal != null) request.StartUtc = LocalToUtc(request.StartLocal, zone);
+                if (request.EndLocal != null) request.EndUtc = LocalToUtc(request.EndLocal, zone);
+                foreach (var slot in request.Slots)
+                {
+                    if (slot.StartLocal != null) slot.StartsAtUtc = LocalToUtc(slot.StartLocal, zone);
+                    if (slot.EndLocal != null) slot.EndsAtUtc = LocalToUtc(slot.EndLocal, zone);
+                }
+            }
+            catch (Exception ex) when (ex is FormatException or ArgumentException)
+            {
+                return [localizer["Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time."].Value];
+            }
             var weeks = request.AdjacentWeeks.Prepend(new OnCallScheduleWeekRequest
                 { StartUtc = request.StartUtc, Slots = request.Slots }).ToList();
             var from = weeks.Min(week => week.StartUtc);
-            var until = request.EndUtc ?? weeks.Max(week => week.StartUtc).AddDays(7);
+            var until = request.EndUtc ?? MoveLocalDays(weeks.Max(week => week.StartUtc), zone, 7);
+            if (until <= from) return [localizer["Shift end must be after its start."].Value];
             var saved = await db.OnCallShifts.Include(shift => shift.Members)
                 .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc > from && shift.StartsAtUtc < until)
                 .ToListAsync(token);
+            ReplacedSlots = saved.Select(shift => new OnCallSlotRequest { Id = shift.Id,
+                StartsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
+                EndsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc),
+                UserIds = shift.Members.Select(member => member.UserId).ToList() }).ToList();
             var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
             var validUsers = await db.Users.Where(user => ids.Contains(user.Id)).Select(user => user.Id).ToListAsync(token);
             var slots = weeks.SelectMany(week => week.Slots).ToList();
@@ -70,9 +107,8 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             if (generate)
             {
                 if (group.Rule == null) return [localizer["Please bind a scheduling rule to the team first."].Value];
-                if (saved.Count > 0 && !request.ConfirmReplace)
+                if (saved.Count > 0 && !request.ConfirmReplace && !preview)
                     return [localizer["Confirm replacement of the existing schedule before generating."].Value];
-                var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
                 var count = group.Rule.HandoverPoints.Count == 0
                     ? (int)Math.Ceiling((until - from).TotalMinutes / (group.Rule.ShiftMinutes ?? group.Rule.ShiftHours * 60))
                     : ((int)Math.Ceiling((until - from).TotalDays / 7) + 2) * group.Rule.HandoverPoints.Count;
@@ -97,6 +133,20 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 if (slot.UserIds.Any(id => !validUsers.Contains(id) && !(original != null && original.StartsAtUtc == slot.StartsAtUtc &&
                     original.EndsAtUtc == (slot.EndsAtUtc ?? slot.StartsAtUtc.AddHours(8)) && original.Members.Any(member => member.UserId == id))))
                     return [localizer["Cannot add employees who have left the team or do not belong to the team."].Value];
+            }
+            if (preview)
+            {
+                PreviewSlots = slots;
+                var draft = slots.Select(slot => new OnCallShift { StartsAtUtc = slot.StartsAtUtc,
+                    EndsAtUtc = slot.EndsAtUtc ?? slot.StartsAtUtc.AddHours(8),
+                    Members = slot.UserIds.Distinct().Select(id => new OnCallShiftMember { UserId = id }).ToList() }).ToList();
+                var existing = await Existing(group.Id, ids.Concat(slots.SelectMany(slot => slot.UserIds)).Distinct().ToArray(),
+                    from, token, until, Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0));
+                Warnings = OnCallScheduleValidator.Warnings(group, from, until, draft, existing,
+                    localizerFactory.Create(typeof(OnCallScheduleValidator)));
+                TimelineWarnings = OnCallScheduleValidator.TimelineWarnings(group, from, until, draft, existing,
+                    localizerFactory.Create(typeof(OnCallScheduleValidator)));
+                return [];
             }
             var replacements = new List<OnCallShift>();
             foreach (var slot in slots)
@@ -135,6 +185,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             Warnings = OnCallScheduleValidator.Warnings(group, from, until, replacements, history,
                 localizerFactory.Create(typeof(OnCallScheduleValidator)));
             group.ScheduleVersion = Guid.NewGuid();
+            Version = group.ScheduleVersion;
             await db.SaveChangesAsync(token);
             if (transaction != null) await transaction.CommitAsync(token);
             return [];

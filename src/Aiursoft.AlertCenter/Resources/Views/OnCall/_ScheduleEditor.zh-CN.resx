@@ -111,4 +111,16 @@
 
   <data name="Coverage, staffing and rest issues are reminders and do not prevent saving. Invalid time intervals, non-team assignees and version conflicts prevent saving. Departed members may retain their original assignments." xml:space="preserve"><value>覆盖、人数和休息问题仅作提醒，不阻止保存。无效时间、非团队值班人和版本冲突会阻止保存。离队成员可保留原安排。</value></data>
   <data name="On-call personnel (zero or more)" xml:space="preserve"><value>值班人（允许无人或多人）</value></data>
+  <data name="Enter times in the team time zone. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>请按团队时区输入。夏令时切换期间，跳过的时刻无效，重复的时刻采用标准时间。</value></data>
+  <data name="Start" xml:space="preserve"><value>开始</value></data>
+  <data name="End" xml:space="preserve"><value>结束</value></data>
+  <data name="On-call personnel" xml:space="preserve"><value>值班人员</value></data>
+  <data name="Actions" xml:space="preserve"><value>操作</value></data>
+  <data name="Reset draft" xml:space="preserve"><value>重置草稿</value></data>
+  <data name="Copy or generate into a time range" xml:space="preserve"><value>复制或生成到某个时间范围</value></data>
+  <data name="Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full." xml:space="preserve"><value>复制会在目标范围内重复当前草稿，并裁剪至范围边界。与目标范围相交的已有班段将被整体替换。</value></data>
+  <data name="Copy to time range" xml:space="preserve"><value>复制到时间范围</value></data>
+  <data name="Generate from template" xml:space="preserve"><value>按模板生成</value></data>
+  <data name="The following shifts will be replaced. Confirm to write the new schedule." xml:space="preserve"><value>以下班段将被替换。确认后写入新排班。</value></data>
+  <data name="Confirm replacement" xml:space="preserve"><value>确认替换</value></data>
 </root>

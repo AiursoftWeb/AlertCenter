@@ -182,4 +182,20 @@
   </data>
 
   <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve"><value>离队成员的已保存班段会保留，请在保存后检查未来安排。</value></data>
+  <data name="Week starts on" xml:space="preserve"><value>每周起始日</value></data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve"><value>最短休息提醒（小时）</value></data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve"><value>最长连续值班提醒（小时）</value></data>
+  <data name="Minimum staffing reminder" xml:space="preserve"><value>最少人数提醒</value></data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve"><value>阈值留空表示不检查该项。提醒不阻止保存。</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve"><value>按绑定模板自动续排未来四周</value></data>
+  <data name="Search selection target" xml:space="preserve"><value>搜索选择用途</value></data>
+  <data name="Fallback recipients" xml:space="preserve"><value>兜底接收人</value></data>
+  <data name="Choose any system users using Add members below. Fallback recipients receive alerts when nobody is on call." xml:space="preserve"><value>使用下方“添加成员”搜索并选择任意系统用户。无人值班时告警将发给兜底接收人。</value></data>
+  <data name="Sunday" xml:space="preserve"><value>星期日</value></data>
+  <data name="Monday" xml:space="preserve"><value>星期一</value></data>
+  <data name="Tuesday" xml:space="preserve"><value>星期二</value></data>
+  <data name="Wednesday" xml:space="preserve"><value>星期三</value></data>
+  <data name="Thursday" xml:space="preserve"><value>星期四</value></data>
+  <data name="Friday" xml:space="preserve"><value>星期五</value></data>
+  <data name="Saturday" xml:space="preserve"><value>星期六</value></data>
 </root>
