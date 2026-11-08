@@ -6,8 +6,8 @@
 @{
     var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
     var slots = Model.ScheduleSaved
-        ? Model.SavedShifts.Select(shift => new { id = (Guid?)shift.Id, startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray() })
-        : Model.Preview.GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Select(batch => new { id = (Guid?)null, startsAtUtc = DateTime.SpecifyKind(batch.Key.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(batch.Key.EndsAtUtc, DateTimeKind.Utc), userIds = batch.Select(shift => shift.UserId).ToArray() });
+        ? Model.SavedShifts.Select(shift => new { id = (Guid?)shift.Id, startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray(), source = (int)shift.Source })
+        : Model.Preview.GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Select(batch => new { id = (Guid?)null, startsAtUtc = DateTime.SpecifyKind(batch.Key.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(batch.Key.EndsAtUtc, DateTimeKind.Utc), userIds = batch.Select(shift => shift.UserId).ToArray(), source = 1 });
     var memberOrder = group.Members.ToDictionary(member => member.UserId, member => member.RotationOrder);
     var members = Model.PreviewUsers.OrderBy(user => memberOrder.GetValueOrDefault(user.Id, int.MaxValue))
         .Select(user => new { id = user.Id, name = user.DisplayName, departed = !memberOrder.ContainsKey(user.Id) });
@@ -18,6 +18,7 @@
 }
 <div id="oncall-schedule" class="mt-3 mb-3" data-group-id="@group.Id" data-group-name="@group.Name" data-version="@group.ScheduleVersion" data-zone="@group.TimeZoneId"
      data-start="@Model.WeekStartUtc.ToString("O")" data-end="@Model.WeekEndUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)" data-members="@JsonSerializer.Serialize(members)"
+     data-auto-extend="@group.AutoExtend.ToString().ToLowerInvariant()" data-last-shift-end="@(Model.LastShiftEndUtc.HasValue ? DateTime.SpecifyKind(Model.LastShiftEndUtc.Value, DateTimeKind.Utc).ToString("O") : "")"
      data-context="@JsonSerializer.Serialize(context)" data-minimum-rest="@group.MinimumRestHours?.ToString(CultureInfo.InvariantCulture)" data-maximum-continuous="@group.MaximumContinuousHours?.ToString(CultureInfo.InvariantCulture)" data-minimum-staff="@group.MinimumShiftStaff"
      data-preview-url="@Url.Action("PreviewSchedule")" data-get-url="@Url.Action("GetSchedule")" data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()
@@ -92,14 +93,44 @@
                     <button id="oncall-generate" type="button" class="btn btn-outline-warning">@viewLocalizer["Generate from template"]</button>
                 }
             </div>
-            <div id="oncall-replace-confirm" class="mt-3" hidden>
-                <p>@viewLocalizer["The following shifts will be replaced in the draft. Confirm to update the draft; saved schedules change only when you save."]</p>
-                <ul id="oncall-replaced-shifts" class="text-break"></ul>
-                <button id="oncall-replace-apply" type="button" class="btn btn-danger">@viewLocalizer["Confirm draft replacement"]</button>
-                <button id="oncall-replace-cancel" type="button" class="btn btn-outline-secondary">@viewLocalizer["Cancel"]</button>
-            </div>
         </details>
     </details>
+    <details class="border rounded p-3 mt-3">
+        <summary class="fw-semibold">@viewLocalizer["Clear schedule range"]</summary>
+        <p class="small text-muted mt-2">@viewLocalizer["Clear only changes the draft. Review the chart, then save to publish."]</p>
+        <p id="oncall-clear-timezone-help" class="small text-muted">@group.TimeZoneId · @viewLocalizer["Defaults to now through the final saved or draft shift, in the team time zone."]</p>
+        <div class="row g-2 mb-3">
+            <div class="col-sm-6"><label for="oncall-clear-start" class="form-label">@viewLocalizer["Start"]</label><input id="oncall-clear-start" type="datetime-local" step="60" class="form-control" aria-describedby="oncall-clear-timezone-help oncall-timezone-help" /></div>
+            <div class="col-sm-6"><label for="oncall-clear-end" class="form-label">@viewLocalizer["End"]</label><input id="oncall-clear-end" type="datetime-local" step="60" class="form-control" aria-describedby="oncall-clear-timezone-help oncall-timezone-help" /></div>
+        </div>
+        <p class="small text-muted">@viewLocalizer["By default, only automatically generated shifts are cleared."]</p>
+        <div class="form-check"><input id="oncall-clear-manual" type="checkbox" class="form-check-input" /><label for="oncall-clear-manual" class="form-check-label">@viewLocalizer["Include manually edited shifts"]</label></div>
+        <div class="form-check"><input id="oncall-clear-history" type="checkbox" class="form-check-input" /><label for="oncall-clear-history" class="form-check-label">@viewLocalizer["Include completed historical shifts"]</label></div>
+        <p class="small text-muted">@viewLocalizer["Ongoing shifts keep their elapsed portion, even when history is included."]</p>
+        <div id="oncall-clear-auto-options" class="mb-3" hidden>
+            <label for="oncall-clear-auto-action" class="form-label">@viewLocalizer["Automatic extension is enabled. Choose what happens when saving."]</label>
+            <select id="oncall-clear-auto-action" class="form-select">
+                <option value="">@viewLocalizer["Choose an automatic extension action"]</option>
+                <option value="disable">@viewLocalizer["Disable automatic extension when saving"]</option>
+                <option value="regenerate">@viewLocalizer["Regenerate cleared gaps from the template when saving"]</option>
+            </select>
+            <p class="small text-muted mt-2">@viewLocalizer["Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten."]</p>
+        </div>
+        <button id="oncall-clear-range" type="button" class="btn btn-outline-danger">@viewLocalizer["Preview clear"]</button>
+    </details>
+    <div id="oncall-clear-history-confirm" class="border border-danger rounded p-3 mt-3" role="alert" hidden>
+        <p>@viewLocalizer["Confirm clearing completed historical shifts in this range. This can remove past assignments."]</p>
+        <p id="oncall-clear-history-range" class="text-break"></p>
+        <button id="oncall-clear-history-apply" type="button" class="btn btn-danger">@viewLocalizer["Confirm historical clear"]</button>
+        <button id="oncall-clear-history-cancel" type="button" class="btn btn-outline-secondary">@viewLocalizer["Cancel"]</button>
+    </div>
+    <div id="oncall-replace-confirm" class="mt-3" hidden>
+        <p>@viewLocalizer["The following shifts will be replaced in the draft. Confirm to update the draft; saved schedules change only when you save."]</p>
+        <p id="oncall-replace-regenerate-hint" hidden>@viewLocalizer["Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten."]</p>
+        <ul id="oncall-replaced-shifts" class="text-break"></ul>
+        <button id="oncall-replace-apply" type="button" class="btn btn-danger">@viewLocalizer["Confirm draft replacement"]</button>
+        <button id="oncall-replace-cancel" type="button" class="btn btn-outline-secondary">@viewLocalizer["Cancel"]</button>
+    </div>
     <ul id="oncall-schedule-errors" class="text-danger mt-2" role="alert"></ul>
     <ul id="oncall-schedule-warnings" class="text-warning-emphasis mt-2" role="status" aria-live="polite"></ul>
     <dialog id="oncall-shift-dialog" aria-labelledby="oncall-shift-dialog-title" aria-describedby="oncall-dialog-timezone-help">
@@ -128,6 +159,10 @@
         <span data-schedule-text="read-only">@viewLocalizer["Read-only"]</span>
         <span data-schedule-text="move-hint">@viewLocalizer["Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes."]</span>
         <span data-schedule-text="draft-range">@viewLocalizer["Draft range"]</span>
+        <span data-schedule-text="cleared-range">@viewLocalizer["Cleared draft range"]</span>
+        <span data-schedule-text="clear-auto-required">@viewLocalizer["Choose whether to disable automatic extension or regenerate cleared gaps."]</span>
+        <span data-schedule-text="clear-disable">@viewLocalizer["Disable automatic extension when saving"]</span>
+        <span data-schedule-text="clear-regenerate">@viewLocalizer["Regenerate cleared gaps from the template when saving"]</span>
         <span data-schedule-text="gap">@viewLocalizer["Schedule contains a coverage gap."]</span>
         <span data-schedule-text="overlap">@viewLocalizer["Schedule contains overlapping shifts."]</span>
         <span data-schedule-text="unassigned-warning">@viewLocalizer["Shift has no on-duty engineers."]</span>

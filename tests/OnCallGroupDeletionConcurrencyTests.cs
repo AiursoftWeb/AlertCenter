@@ -40,38 +40,40 @@ public class OnCallGroupDeletionConcurrencyTests
         await using var deleteDb = database.Context(deleteFirst ? firstGate : secondGate, deleteCommands);
         await using var writerDb = database.Context(deleteFirst ? secondGate : firstGate, writerCommands);
 
-        async Task Delete()
+        static async Task Delete(TemplateDbContext context, OnCallGroup team, CancellationToken cancellationToken)
         {
-            var result = await Controller(deleteDb).DeleteGroup(group.Id, group.Name, token);
+            var result = await Controller(context).DeleteGroup(team.Id, team.Name, cancellationToken);
             Assert.AreEqual(nameof(OnCallController.Groups),
                 Assert.IsInstanceOfType<RedirectToActionResult>(result).ActionName);
         }
 
-        async Task Write()
+        static async Task Write(TemplateDbContext context, OnCallGroup team, string operation, bool deleted, CancellationToken cancellationToken)
         {
-            if (writer == "maintenance")
+            if (operation == "maintenance")
             {
-                await OnCallMaintenanceWorker.MaintainGroupAsync(writerDb,
+                await OnCallMaintenanceWorker.MaintainGroupAsync(context,
                     TestLocalization.For<OnCallScheduleGenerator>(), TestLocalization.For<OnCallMaintenanceWorker>(),
-                    "https://example.com", group.Id, Now, token);
+                    "https://example.com", team.Id, Now, cancellationToken);
                 return;
             }
-            var service = new OnCallScheduleService(writerDb,
+            var service = new OnCallScheduleService(context,
                 new OnCallScheduleGenerator(TestLocalization.For<OnCallScheduleGenerator>()),
                 TestLocalization.For<OnCallScheduleService>(), TestLocalization.Factory);
             var errors = await service.Save(new SaveOnCallScheduleRequest
             {
-                GroupId = group.Id, Version = group.ScheduleVersion, StartUtc = Now,
+                GroupId = team.Id, Version = team.ScheduleVersion, StartUtc = Now,
                 Slots = [new() { StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1), UserIds = ["a"] }]
-            }, false, token);
-            if (deleteFirst)
+            }, false, cancellationToken);
+            if (deleted)
                 CollectionAssert.AreEqual(new[] { TestLocalization.For<OnCallScheduleService>()["On-call team does not exist."].Value }, errors);
             else
                 Assert.AreEqual(0, errors.Count, string.Join("; ", errors));
         }
 
         // SQLite 的异步事务开始仍可能同步等待写锁，必须让两个操作运行在不同线程。
-        var first = Task.Run(deleteFirst ? Delete : Write, token);
+        var delete = RunBackground(deleteDb, context => Delete(context, group, token), token);
+        var write = RunBackground(writerDb, context => Write(context, group, writer, deleteFirst, token), token);
+        var first = deleteFirst ? delete() : write();
         Task second = Task.CompletedTask;
         try
         {
@@ -88,7 +90,7 @@ public class OnCallGroupDeletionConcurrencyTests
                 }
             }
 
-            second = Task.Run(deleteFirst ? Write : Delete, token);
+            second = deleteFirst ? write() : delete();
             await secondGate.Starting.Task.WaitAsync(token);
             await Task.WhenAny(secondGate.Started.Task, Task.Delay(200, token));
             Assert.IsFalse(secondGate.Started.Task.IsCompleted, "The competing transaction must wait for the uncommitted writer.");
@@ -115,14 +117,15 @@ public class OnCallGroupDeletionConcurrencyTests
         var token = timeout.Token;
         var gate = new TransactionGate(blockStart: true);
         var services = new ServiceCollection();
-        services.AddScoped<TemplateDbContext>(_ => database.Context(gate));
+        var contextFactory = ContextFactory(database, gate);
+        services.AddScoped<TemplateDbContext>(_ => contextFactory());
         services.AddSingleton(TestLocalization.For<OnCallScheduleGenerator>());
         services.AddSingleton(TestLocalization.For<OnCallMaintenanceWorker>());
         services.Configure<EmailSettings>(settings => settings.PublicBaseUrl = "https://example.com");
         await using var provider = services.BuildServiceProvider();
         var logger = new MaintenanceLogger();
         using var worker = new OnCallMaintenanceWorker(provider.GetRequiredService<IServiceScopeFactory>(), logger);
-        var maintenance = Task.Run(() => worker.ProcessAsync(Now, token), token);
+        var maintenance = RunBackground(worker, instance => instance.ProcessAsync(Now, token), token)();
         try
         {
             // 每组事务开始前，ProcessAsync 已经完整读取了待维护的组 ID 列表。
@@ -177,6 +180,11 @@ public class OnCallGroupDeletionConcurrencyTests
             "Receipts have no foreign keys and must be explicitly removed by team deletion.");
         Assert.IsFalse(db.Database.HasPendingModelChanges(), "Deletion must not require a schema change.");
     }
+
+    private static Func<Task> RunBackground<T>(T instance, Func<T, Task> action, CancellationToken token) =>
+        () => Task.Run(() => action(instance), token);
+
+    private static Func<SqliteContext> ContextFactory(DatabaseFile database, TransactionGate gate) => () => database.Context(gate);
 
     private static async Task<OnCallGroup> Seed(DatabaseFile database)
     {

@@ -109,4 +109,55 @@
     <value>Fortryd seneste trin</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Ryd en periode i vagtplanen</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Rydning ændrer kun udkastet. Gennemgå diagrammet, og gem derefter for at offentliggøre.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Standardperioden går fra nu til slutningen af den sidste gemte vagt eller vagt i udkastet i teamets tidszone.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Som standard ryddes kun automatisk genererede vagter.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Medtag manuelt redigerede vagter</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Medtag afsluttede historiske vagter</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Igangværende vagter beholder den forløbne del, også når historik medtages.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automatisk forlængelse er aktiveret. Vælg, hvad der skal ske, når du gemmer.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Vælg en handling for automatisk forlængelse</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Deaktiver automatisk forlængelse, når du gemmer</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Generér vagter på ny ud fra skabelonen i ryddede huller, når du gemmer</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Vagter genereres kun på ny, når du gemmer. Forhåndsvisningen bevarer hullerne, og bevarede vagter overskrives ikke.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Forhåndsvis rydning</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Bekræft rydning af afsluttede historiske vagter i denne periode. Dette kan fjerne tidligere tildelinger.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Bekræft rydning af historik</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Vælg, om automatisk forlængelse skal deaktiveres, eller vagter skal genereres på ny i ryddede huller.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Ryddet periode i udkastet</value>
+  </data>
 </root>

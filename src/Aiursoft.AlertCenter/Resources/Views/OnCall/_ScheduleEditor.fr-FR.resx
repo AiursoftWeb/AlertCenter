@@ -109,4 +109,55 @@
     <value>Annuler la dernière étape</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Vider une période du planning</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Le vidage ne modifie que le brouillon. Vérifiez le graphique, puis enregistrez pour publier.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Par défaut, la période s’étend de maintenant jusqu’à la fin du dernier créneau enregistré ou du brouillon, dans le fuseau horaire de l’équipe.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Par défaut, seuls les créneaux générés automatiquement sont supprimés.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Inclure les créneaux modifiés manuellement</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Inclure les créneaux passés déjà terminés</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Les créneaux en cours conservent leur partie écoulée, même lorsque l’historique est inclus.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>La prolongation automatique est activée. Choisissez ce qui doit se passer lors de l’enregistrement.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Choisissez une action pour la prolongation automatique</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Désactiver la prolongation automatique lors de l’enregistrement</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Régénérer les créneaux supprimés à partir du modèle lors de l’enregistrement</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>La régénération n’a lieu qu’à l’enregistrement. L’aperçu conserve les périodes vides et les créneaux conservés ne sont pas écrasés.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Aperçu du vidage</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Confirmez la suppression des créneaux passés déjà terminés dans cette période. Cela peut supprimer des affectations passées.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Confirmer le vidage de l’historique</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Choisissez de désactiver la prolongation automatique ou de régénérer les créneaux supprimés.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Période du brouillon vidée</value>
+  </data>
 </root>

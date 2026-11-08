@@ -34,6 +34,59 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
+    public async Task ClearPreviewUsesTeamTimeAndSaveAtomicallyDisablesExtensionWithVersionCheck()
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        var now = DateTime.UtcNow;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.SingleAsync(item => item.Id == id);
+            group.TimeZoneId = "Asia/Shanghai";
+            group.AutoExtend = true;
+            db.OnCallShifts.Add(new() { GroupId = id, StartsAtUtc = now.AddDays(1), EndsAtUtc = now.AddDays(2), Source = OnCallShiftSource.Generated });
+            await db.SaveChangesAsync();
+        }
+        var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(now.ToString("O"))}&endUtc={Uri.EscapeDataString(now.AddDays(3).ToString("O"))}";
+        var metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>(path);
+        Assert.IsTrue(metadata.GetProperty("autoExtend").GetBoolean());
+        Assert.AreEqual(now.AddDays(2), metadata.GetProperty("lastShiftEndUtc").GetDateTime());
+        Assert.AreEqual(1, metadata.GetProperty("slots")[0].GetProperty("source").GetInt32());
+        var request = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(path))!;
+        request.ClearRanges = [new() { StartUtc = now, EndUtc = now.AddDays(3), AutoExtendAction = "disable" }];
+        var preview = await Save("PreviewSchedule?clear=true", request);
+        Assert.AreEqual(HttpStatusCode.OK, preview.StatusCode);
+        var responseJson = await preview.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.IsTrue(responseJson.GetProperty("clearRanges")[0].TryGetProperty("clearedAtUtc", out _));
+        Assert.IsTrue(responseJson.GetProperty("clearRanges")[0].TryGetProperty("startUtc", out _));
+        var result = System.Text.Json.JsonSerializer.Deserialize<SaveOnCallScheduleRequest>(responseJson,
+            System.Text.Json.JsonSerializerOptions.Web)!;
+        Assert.AreEqual(0, result.Slots.Count);
+        Assert.IsNotNull(result.ClearRanges.Single().ClearedAtUtc);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.AreEqual(1, await db.OnCallShifts.CountAsync(shift => shift.GroupId == id));
+            Assert.IsTrue((await db.OnCallGroups.SingleAsync(group => group.Id == id)).AutoExtend);
+        }
+        request.Slots = result.Slots;
+        request.ClearRanges = result.ClearRanges;
+        Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", request)).StatusCode);
+        Assert.AreEqual(HttpStatusCode.Conflict, (await Save("SaveSchedule", request)).StatusCode);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            Assert.AreEqual(0, await db.OnCallShifts.CountAsync(shift => shift.GroupId == id));
+            Assert.IsFalse((await db.OnCallGroups.SingleAsync(group => group.Id == id)).AutoExtend);
+        }
+        await RegisterAndLoginAsync();
+        Assert.DoesNotContain("id=\"oncall-clear-schedule\"", await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
+        var forbidden = await Save("PreviewSchedule?clear=true", request, "/Manage/ChangePassword");
+        Assert.IsTrue(forbidden.StatusCode is HttpStatusCode.Forbidden or HttpStatusCode.Found);
+    }
+
+    [TestMethod]
     public async Task AtomicMultiweekApiSavesWarningsAndRejectsConflictsMalformedWeeksAndStaleVersions()
     {
         await LoginAsAdmin();

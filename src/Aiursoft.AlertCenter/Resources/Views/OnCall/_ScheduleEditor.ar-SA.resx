@@ -109,4 +109,55 @@
     <value>التراجع عن الخطوة الأخيرة</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>إفراغ نطاق الجدول</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>يؤثر الإفراغ في المسودة فقط. راجع المخطط، ثم احفظ للنشر.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>يمتد النطاق الافتراضي من الآن حتى نهاية آخر مناوبة محفوظة أو في المسودة، وفق المنطقة الزمنية للفريق.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>افتراضيًا، يتم إفراغ المناوبات المنشأة تلقائيًا فقط.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>تضمين المناوبات المعدّلة يدويًا</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>تضمين المناوبات السابقة المكتملة</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>تحتفظ المناوبات الجارية بالجزء المنقضي منها، حتى عند تضمين السجل السابق.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>التمديد التلقائي مفعّل. اختر ما يحدث عند الحفظ.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>اختر إجراءً للتمديد التلقائي</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>تعطيل التمديد التلقائي عند الحفظ</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>إعادة إنشاء المناوبات في الفجوات التي تم إفراغها من القالب عند الحفظ</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>تتم إعادة الإنشاء عند الحفظ فقط. تبقى الفجوات في المعاينة ولا يتم استبدال المناوبات المحتفظ بها.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>معاينة الإفراغ</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>أكّد إفراغ المناوبات السابقة المكتملة في هذا النطاق. قد يؤدي ذلك إلى إزالة التكليفات السابقة.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>تأكيد إفراغ المناوبات السابقة</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>اختر ما إذا كنت تريد تعطيل التمديد التلقائي أو إعادة إنشاء المناوبات في الفجوات التي تم إفراغها.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>نطاق المسودة الذي تم إفراغه</value>
+  </data>
 </root>

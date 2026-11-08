@@ -109,4 +109,55 @@
     <value>直前の操作を元に戻す</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>スケジュールの範囲をクリア</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>クリアで変更されるのは下書きのみです。チャートを確認し、保存して公開してください。</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>既定の範囲は、チームのタイムゾーンで現在から保存済みまたは下書きの最後のシフトの終了までです。</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>既定では、自動生成されたシフトのみがクリアされます。</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>手動で編集したシフトを含める</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>完了した過去のシフトを含める</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>過去のシフトを含めても、進行中のシフトの経過済み部分は保持されます。</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>自動延長が有効です。保存時の動作を選択してください。</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>自動延長の動作を選択</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>保存時に自動延長を無効にする</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>保存時にクリアした空き時間のシフトをテンプレートから再生成する</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>再生成は保存時にのみ行われます。プレビューでは空き時間が維持され、保持されたシフトは上書きされません。</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>クリア結果をプレビュー</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>この範囲の完了した過去のシフトをクリアすることを確認してください。過去の割り当てが削除される可能性があります。</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>過去のシフトのクリアを確認</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>自動延長を無効にするか、クリアした空き時間のシフトを再生成するかを選択してください。</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>クリアされた下書きの範囲</value>
+  </data>
 </root>

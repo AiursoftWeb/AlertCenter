@@ -57,7 +57,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             DateTime.SpecifyKind(row.EndsAtUtc, DateTimeKind.Utc))).ToList();
     }
 
-    public async Task<List<string>> Save(SaveOnCallScheduleRequest? request, bool generate, CancellationToken cancellationToken, bool preview = false)
+    public async Task<List<string>> Save(SaveOnCallScheduleRequest? request, bool generate, CancellationToken cancellationToken, bool preview = false, bool clear = false)
     {
         var attempt = 0;
         return await db.Database.CreateExecutionStrategy().ExecuteAsync<List<string>>(async token =>
@@ -65,7 +65,9 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             if (attempt++ > 0) db.ChangeTracker.Clear();
             Warnings = [];
             IReadOnlyList<OnCallScheduleWeekRequest?>? adjacentWeeks = request?.AdjacentWeeks;
-            if (request?.Slots == null || adjacentWeeks == null || adjacentWeeks.Any(week => week?.Slots == null))
+            IReadOnlyList<ClearOnCallScheduleRequest?>? clearRanges = request?.ClearRanges;
+            if (request?.Slots == null || clearRanges == null || adjacentWeeks == null || adjacentWeeks.Any(week => week?.Slots == null) ||
+                clearRanges.Any(range => range == null) || (clear && (!preview || generate || clearRanges.Count == 0)))
                 return [localizer["The shift request format is invalid."].Value];
             IReadOnlyList<OnCallSlotRequest?> requestSlots = request.Slots;
             if (requestSlots.Any(slot => slot?.UserIds == null)) return [localizer["The shift request format is invalid."].Value];
@@ -105,10 +107,36 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             var saved = await db.OnCallShifts.Include(shift => shift.Members)
                 .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc > from && shift.StartsAtUtc < until)
                 .ToListAsync(token);
-            ReplacedSlots = saved.Select(shift => new OnCallSlotRequest { Id = shift.Id,
-                StartsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
-                EndsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc),
-                UserIds = shift.Members.Select(member => member.UserId).ToList() }).ToList();
+            ReplacedSlots = saved.Select(OnCallScheduleClearing.Slot).ToList();
+            var canonical = saved.Select(OnCallScheduleClearing.Slot).ToList();
+            var now = DateTime.UtcNow;
+            var autoExtend = group.AutoExtend;
+            for (var index = 0; index < request.ClearRanges.Count; index++)
+            {
+                var range = request.ClearRanges[index];
+                range.StartUtc = DateTime.SpecifyKind(range.StartUtc, DateTimeKind.Utc);
+                range.EndUtc = DateTime.SpecifyKind(range.EndUtc, DateTimeKind.Utc);
+                if (range.EndUtc <= range.StartUtc || range.StartUtc < from || range.EndUtc > until ||
+                    range.AutoExtendAction is not (null or "disable" or "regenerate") || generate)
+                    return [localizer["Invalid schedule clearing range or action."].Value];
+                if (range.IncludeHistory && !range.ConfirmHistory)
+                    return [localizer["Confirm clearing historical shifts separately."].Value];
+                if (autoExtend && range.AutoExtendAction == null)
+                    return [localizer["Choose whether to disable automatic extension or regenerate the cleared range."].Value];
+                if (range.AutoExtendAction == "disable") autoExtend = false;
+                if (range.AutoExtendAction == "regenerate" && group.Rule == null)
+                    return [localizer["Please bind a scheduling template to the team first."].Value];
+                if (clear && index == request.ClearRanges.Count - 1) range.ClearedAtUtc = now;
+                else
+                {
+                    if (!range.ClearedAtUtc.HasValue || range.ClearedAtUtc > now || range.ClearedAtUtc == DateTime.MinValue)
+                        return [localizer["Invalid schedule clearing range or action."].Value];
+                    range.ClearedAtUtc = DateTime.SpecifyKind(range.ClearedAtUtc.Value, DateTimeKind.Utc);
+                    canonical = OnCallScheduleClearing.Apply(canonical, range);
+                }
+            }
+            if (!preview && request.ClearRanges.Any(range => range.AutoExtendAction == "regenerate") && !request.ConfirmReplace)
+                return [localizer["Confirm replacement of the existing schedule before generating."].Value];
             var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
             var validUsers = await db.Users.Where(user => ids.Contains(user.Id)).Select(user => user.Id).ToListAsync(token);
             var slots = weeks.SelectMany(week => week.Slots).ToList();
@@ -137,11 +165,20 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             {
                 if ((slot.EndsAtUtc ?? slot.StartsAtUtc.AddHours(8)) <= slot.StartsAtUtc)
                     return [localizer["Shift end must be after its start."].Value];
-                var original = saved.FirstOrDefault(shift => slot.Id.HasValue ? shift.Id == slot.Id :
-                    shift.StartsAtUtc == slot.StartsAtUtc && shift.EndsAtUtc == (slot.EndsAtUtc ?? slot.StartsAtUtc.AddHours(8)));
-                if (slot.UserIds.Any(id => !validUsers.Contains(id) && !(original != null && original.StartsAtUtc == slot.StartsAtUtc &&
-                    original.EndsAtUtc == (slot.EndsAtUtc ?? slot.StartsAtUtc.AddHours(8)) && original.Members.Any(member => member.UserId == id))))
+                var original = canonical.FirstOrDefault(item => (!slot.Id.HasValue || item.Id == slot.Id) &&
+                    item.StartsAtUtc == slot.StartsAtUtc && OnCallScheduleClearing.End(item) == OnCallScheduleClearing.End(slot));
+                if (slot.UserIds.Any(id => !validUsers.Contains(id) && !(original != null && original.UserIds.Contains(id))))
                     return [localizer["Cannot add employees who have left the team or do not belong to the team."].Value];
+                var unchanged = original != null && OnCallScheduleClearing.SameAssignment(original, slot);
+                slot.Source = generate || unchanged && original!.Source == OnCallShiftSource.Generated ||
+                    preview && slot.Id == null && slot.Source == OnCallShiftSource.Generated
+                    ? OnCallShiftSource.Generated : OnCallShiftSource.Manual;
+                slot.RotationPosition = generate ? rotationPositions.GetValueOrDefault(slot.StartsAtUtc) : unchanged ? original!.RotationPosition : null;
+            }
+            if (clear)
+            {
+                ReplacedSlots = [];
+                slots = OnCallScheduleClearing.Apply(slots, request.ClearRanges[^1], ReplacedSlots);
             }
             if (preview)
             {
@@ -157,6 +194,8 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                     localizerFactory.Create(typeof(OnCallScheduleValidator)));
                 return [];
             }
+            if (request.ClearRanges.Any(range => range.AutoExtendAction == "regenerate"))
+                await RegenerateClearedRanges(group, slots, request.ClearRanges, from, token);
             var replacements = new List<OnCallShift>();
             foreach (var slot in slots)
             {
@@ -164,20 +203,10 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                     shift.StartsAtUtc == slot.StartsAtUtc && shift.EndsAtUtc == (slot.EndsAtUtc ?? slot.StartsAtUtc.AddHours(8)));
                 var shift = original ?? new OnCallShift { GroupId = group.Id, MinimumStaff = group.MinimumShiftStaff ?? 1 };
                 var selected = slot.UserIds.Distinct(StringComparer.Ordinal).ToHashSet(StringComparer.Ordinal);
-                var changed = original == null || shift.StartsAtUtc != slot.StartsAtUtc || shift.EndsAtUtc != (slot.EndsAtUtc ?? slot.StartsAtUtc.AddHours(8)) ||
-                    !selected.SetEquals(shift.Members.Select(member => member.UserId));
                 shift.StartsAtUtc = DateTime.SpecifyKind(slot.StartsAtUtc, DateTimeKind.Utc);
                 shift.EndsAtUtc = DateTime.SpecifyKind(slot.EndsAtUtc ?? slot.StartsAtUtc.AddHours(8), DateTimeKind.Utc);
-                if (generate)
-                {
-                    shift.Source = OnCallShiftSource.Generated;
-                    shift.RotationPosition = rotationPositions[shift.StartsAtUtc];
-                }
-                else if (changed)
-                {
-                    shift.Source = OnCallShiftSource.Manual;
-                    shift.RotationPosition = null;
-                }
+                shift.Source = slot.Source;
+                shift.RotationPosition = slot.RotationPosition;
                 foreach (var member in shift.Members.Where(member => !selected.Contains(member.UserId)).ToList())
                 {
                     db.OnCallShiftMembers.Remove(member);
@@ -196,11 +225,46 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 from, token, until, Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0));
             Warnings = OnCallScheduleValidator.Warnings(group, from, until, replacements, history,
                 localizerFactory.Create(typeof(OnCallScheduleValidator)));
+            if (request.ClearRanges.Any(range => range.AutoExtendAction == "disable")) group.AutoExtend = false;
             group.ScheduleVersion = Guid.NewGuid();
             Version = group.ScheduleVersion;
             await db.SaveChangesAsync(token);
             if (transaction != null) await transaction.CommitAsync(token);
             return [];
         }, cancellationToken);
+    }
+
+    private async Task RegenerateClearedRanges(OnCallGroup group, List<OnCallSlotRequest> slots,
+        List<ClearOnCallScheduleRequest> ranges, DateTime from, CancellationToken token)
+    {
+        var previous = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
+            .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc <= from)
+            .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
+            .FirstOrDefaultAsync(token);
+        var rule = group.Rule!;
+        var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
+        var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+        foreach (var range in ranges.Where(range => range.AutoExtendAction == "regenerate").OrderBy(range => range.StartUtc))
+        {
+            var start = range.IncludeHistory || range.StartUtc > range.ClearedAtUtc!.Value ? range.StartUtc : range.ClearedAtUtc.Value;
+            foreach (var gap in OnCallScheduleClearing.Gaps(slots, start, range.EndUtc))
+            {
+                var last = slots.Where(slot => OnCallScheduleClearing.End(slot) <= gap.Start)
+                    .OrderByDescending(OnCallScheduleClearing.End).ThenByDescending(slot => slot.StartsAtUtc).ThenBy(slot => slot.Id).FirstOrDefault();
+                var lastShift = last == null ? previous : new OnCallShift { StartsAtUtc = last.StartsAtUtc,
+                    EndsAtUtc = OnCallScheduleClearing.End(last), RotationPosition = last.RotationPosition,
+                    Members = last.UserIds.Select(id => new OnCallShiftMember { UserId = id }).ToList() };
+                var count = rule.HandoverPoints.Count == 0
+                    ? (int)Math.Ceiling((gap.End - gap.Start).TotalMinutes / (rule.ShiftMinutes ?? rule.ShiftHours * 60))
+                    : ((int)Math.Ceiling((gap.End - gap.Start).TotalDays / 7) + 2) * rule.HandoverPoints.Count;
+                var generated = generator.GenerateRange(rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), ids,
+                    DateTime.SpecifyKind(gap.Start, DateTimeKind.Utc), count, zone, OnCallMaintenanceWorker.RotationHistory(group, lastShift));
+                slots.AddRange(generated.Where(shift => shift.StartsAtUtc < gap.End).GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc })
+                    .Select(batch => new OnCallSlotRequest { StartsAtUtc = batch.Key.StartsAtUtc,
+                        EndsAtUtc = batch.Key.EndsAtUtc > gap.End ? gap.End : batch.Key.EndsAtUtc,
+                        Source = OnCallShiftSource.Generated, RotationPosition = batch.First().RotationPosition,
+                        UserIds = batch.Select(shift => shift.UserId).ToList() }));
+            }
+        }
     }
 }

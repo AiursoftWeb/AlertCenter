@@ -109,4 +109,55 @@
     <value>Ongedaan maken laatste stap</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Roosterperiode leegmaken</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Leegmaken wijzigt alleen het concept. Controleer de grafiek en sla vervolgens op om te publiceren.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>De standaardperiode loopt van nu tot het einde van de laatste opgeslagen dienst of conceptdienst, in de tijdzone van het team.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Standaard worden alleen automatisch gegenereerde diensten verwijderd.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Handmatig bewerkte diensten meenemen</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Afgeronde diensten uit het verleden meenemen</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Lopende diensten behouden het reeds verstreken deel, ook wanneer het verleden wordt meegenomen.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automatisch verlengen is ingeschakeld. Kies wat er bij het opslaan gebeurt.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Kies een actie voor automatisch verlengen</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Automatisch verlengen uitschakelen bij het opslaan</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Bij het opslaan opnieuw diensten genereren op basis van de sjabloon in de leeggemaakte gaten</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Opnieuw genereren gebeurt alleen bij het opslaan. In het voorbeeld blijven de gaten behouden en behouden diensten worden niet overschreven.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Voorbeeld van leegmaken</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Bevestig het verwijderen van afgeronde diensten uit het verleden in deze periode. Hierdoor kunnen eerdere toewijzingen worden verwijderd.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Leegmaken van het verleden bevestigen</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Kies of je automatisch verlengen wilt uitschakelen of opnieuw diensten wilt genereren in de leeggemaakte gaten.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Leeggemaakte conceptperiode</value>
+  </data>
 </root>

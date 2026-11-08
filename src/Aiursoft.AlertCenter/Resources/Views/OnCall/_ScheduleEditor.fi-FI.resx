@@ -109,4 +109,55 @@
     <value>Kumoa viimeisin vaihe</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Tyhjennä työvuorolistan aikaväli</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Tyhjennys muuttaa vain luonnosta. Tarkista kaavio ja julkaise muutokset tallentamalla.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Oletusaikaväli alkaa nykyhetkestä ja päättyy viimeisen tallennetun tai luonnoksessa olevan vuoron loppuun tiimin aikavyöhykkeellä.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Oletusarvoisesti tyhjennetään vain automaattisesti luodut vuorot.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Sisällytä käsin muokatut vuorot</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Sisällytä päättyneet aiemmat vuorot</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Käynnissä olevien vuorojen jo kulunut osuus säilytetään, vaikka aiemmat vuorot sisällytettäisiin.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automaattinen jatkaminen on käytössä. Valitse, mitä tallennettaessa tapahtuu.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Valitse automaattisen jatkamisen toiminto</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Poista automaattinen jatkaminen käytöstä tallennettaessa</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Luo vuorot uudelleen mallin pohjalta tyhjennettyihin aukkoihin tallennettaessa</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Vuorot luodaan uudelleen vasta tallennettaessa. Esikatselu säilyttää aukot, eikä säilytettyjä vuoroja korvata.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Esikatsele tyhjennystä</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Vahvista tämän aikavälin päättyneiden aiempien vuorojen tyhjennys. Tämä voi poistaa aiempia vuoromäärityksiä.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Vahvista aiempien vuorojen tyhjennys</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Valitse, poistetaanko automaattinen jatkaminen käytöstä vai luodaanko vuorot uudelleen tyhjennettyihin aukkoihin.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Tyhjennetty luonnoksen aikaväli</value>
+  </data>
 </root>

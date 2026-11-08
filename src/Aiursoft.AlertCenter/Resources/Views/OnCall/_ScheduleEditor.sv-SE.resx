@@ -109,4 +109,55 @@
     <value>Ångra senaste steget</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Rensa en period i schemat</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Rensningen ändrar bara utkastet. Granska diagrammet och spara sedan för att publicera.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Standardperioden sträcker sig från nu till slutet av det sista sparade passet eller passet i utkastet, i teamets tidszon.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Som standard rensas bara automatiskt genererade pass.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Inkludera manuellt redigerade pass</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Inkludera avslutade historiska pass</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Pågående pass behåller den del som redan har förflutit, även när historik inkluderas.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automatisk förlängning är aktiverad. Välj vad som ska hända när du sparar.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Välj en åtgärd för automatisk förlängning</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Inaktivera automatisk förlängning när du sparar</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Generera pass på nytt från mallen i rensade luckor när du sparar</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Pass genereras på nytt först när du sparar. Förhandsvisningen behåller luckorna och bevarade pass skrivs inte över.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Förhandsvisa rensning</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Bekräfta rensning av avslutade historiska pass under den här perioden. Detta kan ta bort tidigare tilldelningar.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Bekräfta rensning av historik</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Välj om automatisk förlängning ska inaktiveras eller om pass ska genereras på nytt i rensade luckor.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Rensad period i utkastet</value>
+  </data>
 </root>

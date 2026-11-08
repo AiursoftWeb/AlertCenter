@@ -109,4 +109,55 @@
     <value>Anular o último passo</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Limpar intervalo do horário</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>A limpeza altera apenas o rascunho. Reveja o gráfico e guarde para publicar.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Por predefinição, o intervalo vai de agora até ao fim do último turno guardado ou no rascunho, no fuso horário da equipa.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Por predefinição, apenas os turnos gerados automaticamente são removidos.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Incluir turnos editados manualmente</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Incluir turnos anteriores já concluídos</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Os turnos em curso mantêm a parte já decorrida, mesmo quando o histórico é incluído.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>A extensão automática está ativada. Escolha o que acontece ao guardar.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Escolha uma ação para a extensão automática</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Desativar a extensão automática ao guardar</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Gerar novamente os turnos a partir do modelo nas lacunas limpas ao guardar</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>A nova geração ocorre apenas ao guardar. A pré-visualização mantém as lacunas e os turnos mantidos não são substituídos.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Pré-visualizar limpeza</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Confirme a remoção dos turnos anteriores já concluídos neste intervalo. Isto pode remover atribuições passadas.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Confirmar limpeza do histórico</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Escolha se pretende desativar a extensão automática ou gerar novamente os turnos nas lacunas limpas.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Intervalo do rascunho limpo</value>
+  </data>
 </root>

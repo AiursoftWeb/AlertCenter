@@ -214,13 +214,15 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         var slots = model.ScheduleSaved
             ? model.SavedShifts.Select(shift => new OnCallSlotRequest { Id = shift.Id,
                 StartsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
-                EndsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), UserIds = shift.Members.Select(member => member.UserId).ToList() })
+                EndsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), Source = shift.Source,
+                RotationPosition = shift.RotationPosition, UserIds = shift.Members.Select(member => member.UserId).ToList() })
             : model.Preview.GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Select(batch => new OnCallSlotRequest {
-                    StartsAtUtc = batch.Key.StartsAtUtc, EndsAtUtc = batch.Key.EndsAtUtc, UserIds = batch.Select(shift => shift.UserId).ToList() });
+                    StartsAtUtc = batch.Key.StartsAtUtc, EndsAtUtc = batch.Key.EndsAtUtc, Source = OnCallShiftSource.Generated,
+                    UserIds = batch.Select(shift => shift.UserId).ToList() });
         return Json(new
         {
             groupId = id, version = group.ScheduleVersion, startUtc = model.WeekStartUtc, saved = model.ScheduleSaved,
-            endUtc = model.WeekEndUtc,
+            endUtc = model.WeekEndUtc, autoExtend = group.AutoExtend, lastShiftEndUtc = model.LastShiftEndUtc,
             generationError = model.PreviewError,
             restHours = model.ScheduleRestHours, balanceShiftTimes = group.Rule?.BalanceShiftTimes ?? false,
             canGenerate = model.CanGenerateSchedule,
@@ -247,7 +249,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     {
         id = slot.Id, startsAtUtc = DateTime.SpecifyKind(slot.StartsAtUtc, DateTimeKind.Utc),
         endsAtUtc = slot.EndsAtUtc.HasValue ? DateTime.SpecifyKind(slot.EndsAtUtc.Value, DateTimeKind.Utc) : (DateTime?)null,
-        userIds = slot.UserIds
+        userIds = slot.UserIds, source = slot.Source, rotationPosition = slot.RotationPosition
     };
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -257,18 +259,24 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
-    public Task<IActionResult> PreviewSchedule([FromBody] SaveOnCallScheduleRequest? request, CancellationToken cancellationToken, bool generate = false) =>
-        SaveScheduleCore(request, generate, cancellationToken, true);
+    public Task<IActionResult> PreviewSchedule([FromBody] SaveOnCallScheduleRequest? request, CancellationToken cancellationToken, bool generate = false, bool clear = false) =>
+        SaveScheduleCore(request, generate, cancellationToken, true, clear);
 
-    private async Task<IActionResult> SaveScheduleCore(SaveOnCallScheduleRequest? request, bool generate, CancellationToken cancellationToken, bool preview = false)
+    private async Task<IActionResult> SaveScheduleCore(SaveOnCallScheduleRequest? request, bool generate, CancellationToken cancellationToken, bool preview = false, bool clear = false)
     {
         if (!ModelState.IsValid || request == null) return BadRequest(new { errors = new[] { localizer["The shift request format is invalid."].Value } });
         try
         {
-            var errors = await schedules.Save(request, generate, cancellationToken, preview);
+            var errors = await schedules.Save(request, generate, cancellationToken, preview, clear);
             return errors.Count == 0 ? Ok(new { version = schedules.Version, startUtc = request.StartUtc, endUtc = request.EndUtc,
                 warnings = schedules.Warnings, slots = schedules.PreviewSlots.Select(ScheduleSlot),
                 replacedSlots = schedules.ReplacedSlots.Select(ScheduleSlot),
+                clearRanges = request.ClearRanges.Select(range => new
+                {
+                    startUtc = range.StartUtc, endUtc = range.EndUtc, includeManual = range.IncludeManual,
+                    includeHistory = range.IncludeHistory, confirmHistory = range.ConfirmHistory,
+                    autoExtendAction = range.AutoExtendAction, clearedAtUtc = range.ClearedAtUtc
+                }),
                 timelineWarnings = schedules.TimelineWarnings.Select(warning => new
                 {
                     startsAtUtc = DateTime.SpecifyKind(warning.StartsAtUtc, DateTimeKind.Utc),
@@ -675,6 +683,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     {
         var group = model.Groups.SingleOrDefault(item => item.Id == model.SelectedGroupId);
         if (group == null) return;
+        var lastEnd = await db.OnCallShifts.Where(shift => shift.GroupId == group.Id)
+            .MaxAsync(shift => (DateTime?)shift.EndsAtUtc, cancellationToken);
+        model.LastShiftEndUtc = lastEnd.HasValue ? DateTime.SpecifyKind(lastEnd.Value, DateTimeKind.Utc) : null;
         var userIds = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
         try
         {
