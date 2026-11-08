@@ -1,0 +1,43 @@
+#oncall-group-form fieldset {
+    min-width: 0;
+}
+
+#oncall-selected .oncall-member-name {
+    flex: 1 1 10rem;
+    min-width: 0;
+}
+
+#oncall-selected .oncall-reorder-handle {
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+}
+
+#oncall-selected .oncall-dragging {
+    opacity: .6;
+}
+
+#oncall-selected .oncall-drop-target {
+    outline: 2px dashed currentColor;
+    outline-offset: -3px;
+}
+
+#oncall-group-form .select2-container {
+    max-width: 100%;
+}
+
+@media (max-width: 575.98px) {
+    #oncall-selected .oncall-member-actions {
+        flex-basis: 100%;
+        justify-content: flex-end;
+    }
+
+    #oncall-group-form input[type="datetime-local"] {
+        min-width: 0;
+        width: 100%;
+    }
+}

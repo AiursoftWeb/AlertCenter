@@ -106,4 +106,10 @@
     <value>Δεν είναι δυνατή η δημιουργία προεπισκόπησης: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Η ώρα έναρξης δεν αντιστοιχεί σε εβδομαδιαία παράδοση· η πρώτη βάρδια θα είναι μερική.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Προσθέστε μέλη στη σειρά εναλλαγής για προεπισκόπηση βαρδιών.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Η μορφή του αιτήματος προεπισκόπησης ομάδας δεν είναι έγκυρη.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Επιλέξτε έγκυρη τοπική ώρα έναρξης της ομάδας (τουλάχιστον 28 ημέρες από τα όρια ημερομηνιών).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Μη έγκυρη τοπική ώρα ομάδας. Στις αλλαγές θερινής ώρας, οι παραλειπόμενες ώρες είναι μη έγκυρες και οι επαναλαμβανόμενες χρησιμοποιούν την κανονική ώρα.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Η ομάδα εφημερίας δεν υπάρχει.</value></data>
 </root>

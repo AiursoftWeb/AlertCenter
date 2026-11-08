@@ -106,4 +106,10 @@
     <value>プレビューを生成できません: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>開始時刻が毎週の引き継ぎ時刻と一致しないため、最初のシフトは一部の時間帯のみになります。</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>シフトをプレビューするにはローテーションにメンバーを追加してください。</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>チームのプレビューリクエストの形式が無効です。</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>有効なチーム現地開始時刻を選択してください（日付範囲の境界から28日以上離れている必要があります）。</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>チームの現地時刻が無効です。夏時間の切り替えでは、存在しない時刻は無効となり、重複する時刻には標準時を使用します。</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>オンコールチームが存在しません。</value></data>
 </root>

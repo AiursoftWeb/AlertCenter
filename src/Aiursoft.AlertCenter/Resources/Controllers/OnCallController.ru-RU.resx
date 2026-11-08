@@ -106,4 +106,10 @@
     <value>Не удалось создать предварительный просмотр: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Время начала не совпадает с еженедельной передачей дежурства; первая смена будет неполной.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Добавьте участников в очередь ротации для предварительного просмотра смен.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Неверный формат запроса предварительного просмотра команды.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Выберите допустимое местное время начала команды (не менее 28 дней от границ диапазона дат).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Недопустимое местное время команды. При переходе на летнее время пропущенные часы недопустимы, а повторяющиеся используют стандартное время.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Дежурная команда не существует.</value></data>
 </root>

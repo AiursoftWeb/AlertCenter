@@ -106,4 +106,10 @@
     <value>Nie można wygenerować podglądu: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Czas rozpoczęcia nie odpowiada tygodniowemu przekazaniu dyżuru; pierwsza zmiana będzie częściowa.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Dodaj członków kolejki rotacji, aby wyświetlić podgląd zmian.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Format żądania podglądu zespołu jest nieprawidłowy.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Wybierz prawidłowy lokalny czas rozpoczęcia zespołu (co najmniej 28 dni od granic zakresu dat).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Nieprawidłowy lokalny czas zespołu. Przy zmianie czasu pominięte godziny są nieprawidłowe, a powtórzone używają czasu standardowego.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Zespół dyżurny nie istnieje.</value></data>
 </root>

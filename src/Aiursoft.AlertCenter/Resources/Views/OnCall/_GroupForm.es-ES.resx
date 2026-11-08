@@ -145,4 +145,36 @@
     <value>Ver el horario</value>
   </data>
 
+  <data name="Advanced settings" xml:space="preserve"><value>Configuración avanzada</value></data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve"><value>Todos los horarios siguientes usan la zona horaria del equipo.</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve"><value>Extender automáticamente la plantilla vinculada a las próximas cuatro semanas</value></data>
+  <data name="Basic information" xml:space="preserve"><value>Información básica</value></data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve"><value>Elija una plantilla para activar la extensión automática.</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve"><value>Elija usuarios del sistema para recibir alertas cuando nadie esté de guardia. Los destinatarios de respaldo no participan en la rotación.</value></data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve"><value>Los miembros que se van conservan sus turnos guardados. Revise las asignaciones futuras después de guardar.</value></data>
+  <data name="Fallback recipients" xml:space="preserve"><value>Destinatarios de respaldo</value></data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve"><value>Deje los umbrales vacíos para desactivar sus recordatorios. Los recordatorios no impiden guardar.</value></data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve"><value>Recordatorio de servicio continuo máximo (horas)</value></data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve"><value>Recordatorio de descanso mínimo (horas)</value></data>
+  <data name="Minimum staffing reminder" xml:space="preserve"><value>Recordatorio de personal mínimo</value></data>
+  <data name="Next four shifts preview" xml:space="preserve"><value>Vista previa de los próximos cuatro turnos</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve"><value>Sin destinatarios de respaldo: no se pueden enviar alertas cuando nadie está de guardia.</value></data>
+  <data name="No members yet. Search below to add people." xml:space="preserve"><value>Aún no hay miembros. Busque personas abajo para añadirlas.</value></data>
+  <data name="On-call members (rotation queue)" xml:space="preserve"><value>Miembros de guardia (cola de rotación)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve"><value>La vista previa empieza al inicio de la planificación o después de los turnos guardados, en la zona horaria del equipo. Los turnos guardados no cambian.</value></data>
+  <data name="Scheduling method" xml:space="preserve"><value>Método de planificación</value></data>
+  <data name="Scheduling start point (team time)" xml:space="preserve"><value>Inicio de la planificación (hora del equipo)</value></data>
+  <data name="Search by name or account." xml:space="preserve"><value>Buscar por nombre o cuenta.</value></data>
+  <data name="Search fallback recipients" xml:space="preserve"><value>Buscar destinatarios de respaldo</value></data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve"><value>Inicio establecido automáticamente en la zona horaria del equipo. Puede cambiarlo antes de guardar.</value></data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve"><value>La primera persona hace la primera guardia. Arrastre el asa o manténgala pulsada en una pantalla táctil para reordenar. Use las flechas arriba y abajo o los botones de movimiento. Los turnos existentes no cambian.</value></data>
+  <data name="Week starts on" xml:space="preserve"><value>Primer día de la semana</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve"><value>Las plantillas semanales empiezan en el próximo primer relevo; las de duración fija, en la próxima hora en punto. El inicio se bloquea al guardar turnos.</value></data>
+  <data name="Sunday" xml:space="preserve"><value>Domingo</value></data>
+  <data name="Monday" xml:space="preserve"><value>Lunes</value></data>
+  <data name="Tuesday" xml:space="preserve"><value>Martes</value></data>
+  <data name="Wednesday" xml:space="preserve"><value>Miércoles</value></data>
+  <data name="Thursday" xml:space="preserve"><value>Jueves</value></data>
+  <data name="Friday" xml:space="preserve"><value>Viernes</value></data>
+  <data name="Saturday" xml:space="preserve"><value>Sábado</value></data>
 </root>

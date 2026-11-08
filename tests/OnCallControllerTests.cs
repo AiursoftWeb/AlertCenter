@@ -108,6 +108,115 @@ public class OnCallControllerTests
     }
 
     [TestMethod]
+    [DataRow("Asia/Shanghai", "2026-11-09T22:00", "2026-11-09T14:00:00Z")]
+    [DataRow("America/New_York", "2026-11-01T01:30", "2026-11-01T06:30:00Z")]
+    public async Task GroupLocalAnchorTakesPriorityAndUsesTeamTimezone(string zone, string local, string expectedUtc)
+    {
+        await using var db = await CreateDb();
+        var request = new CreateOnCallGroupRequest
+        {
+            Name = "Local", TimeZoneId = zone, AnchorLocal = local, AnchorUtc = null, AutoExtend = true
+        };
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).CreateGroup(request, default));
+        var group = await db.OnCallGroups.SingleAsync();
+        Assert.AreEqual(DateTime.Parse(expectedUtc, null, System.Globalization.DateTimeStyles.AdjustToUniversal), group.AnchorUtc);
+        Assert.IsFalse(group.AutoExtend);
+        var edit = EditGroup(group);
+        edit.AnchorLocal = local;
+        edit.AnchorUtc = DateTime.UtcNow;
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).UpdateGroup(group.Id, edit, default));
+        Assert.AreEqual(DateTime.Parse(expectedUtc, null, System.Globalization.DateTimeStyles.AdjustToUniversal), group.AnchorUtc);
+    }
+
+    [TestMethod]
+    public async Task LegacyUtcAnchorRetainsUtcMeaningEvenWithDifferentTeamTimezone()
+    {
+        await using var db = await CreateDb();
+        var anchor = new DateTime(2026, 11, 9, 22, 17, 39, DateTimeKind.Unspecified);
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).CreateGroup(new CreateOnCallGroupRequest
+        {
+            Name = "Legacy", TimeZoneId = "Asia/Shanghai", AnchorUtc = anchor
+        }, default));
+        Assert.AreEqual(anchor, (await db.OnCallGroups.SingleAsync()).AnchorUtc);
+    }
+
+    [TestMethod]
+    [DataRow("2026-03-08T02:30")]
+    [DataRow("0001-01-01T00:00")]
+    [DataRow("9999-12-31T23:59")]
+    [DataRow("invalid")]
+    public async Task LocalAnchorRejectsDstGapsMalformedAndBoundaryValues(string local)
+    {
+        await using var db = await CreateDb();
+        var controller = Controller(db);
+        using var provider = new ServiceCollection().BuildServiceProvider();
+        controller.HttpContext.RequestServices = provider;
+        var request = new CreateOnCallGroupRequest { Name = "Invalid", TimeZoneId = "America/New_York", AnchorLocal = local };
+        await Assert.ThrowsAsync<InvalidOperationException>(() => controller.CreateGroup(request, default));
+        Assert.IsFalse(controller.ModelState.IsValid);
+        Assert.IsTrue(controller.ModelState["GroupInput.AnchorLocal"]!.Errors.Count > 0);
+        Assert.AreEqual(local, request.AnchorLocal);
+        Assert.AreEqual(0, await db.OnCallGroups.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task SavedAnchorSurvivesTimezoneChangesAndAmbiguousDaylightOccurrence()
+    {
+        await using var db = await CreateDb();
+        var anchor = new DateTime(2026, 11, 1, 5, 30, 17, DateTimeKind.Utc);
+        var group = new OnCallGroup { Name = "Locked", TimeZoneId = "America/New_York", AnchorUtc = anchor };
+        db.OnCallShifts.Add(new OnCallShift { Group = group, StartsAtUtc = anchor, EndsAtUtc = anchor.AddHours(8) });
+        await db.SaveChangesAsync();
+        var request = EditGroup(group);
+        request.AnchorLocal = "2026-11-01T01:30";
+        request.AnchorUtc = null;
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).UpdateGroup(group.Id, request, default));
+        Assert.AreEqual(anchor, group.AnchorUtc);
+        request = EditGroup(group);
+        request.TimeZoneId = "Asia/Shanghai";
+        request.AnchorLocal = "2026-11-01T13:30";
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).UpdateGroup(group.Id, request, default));
+        Assert.AreEqual(anchor, group.AnchorUtc);
+        Assert.AreEqual("Asia/Shanghai", group.TimeZoneId);
+        Assert.AreEqual(anchor, (await db.OnCallShifts.SingleAsync()).StartsAtUtc);
+        request = EditGroup(group);
+        request.AnchorLocal = "2026-11-02T13:30";
+        var controller = Controller(db);
+        using var provider = new ServiceCollection().BuildServiceProvider();
+        controller.HttpContext.RequestServices = provider;
+        await Assert.ThrowsAsync<InvalidOperationException>(() => controller.UpdateGroup(group.Id, request, default));
+        Assert.IsFalse(controller.ModelState.IsValid);
+        Assert.AreEqual("2026-11-01T13:30", request.AnchorLocal);
+        db.ChangeTracker.Clear();
+        Assert.AreEqual(anchor, (await db.OnCallGroups.SingleAsync()).AnchorUtc);
+    }
+
+    [TestMethod]
+    public async Task UnalignedWeeklyAnchorSavesWithWarningAndUnbindingDisablesAutoExtend()
+    {
+        await using var db = await CreateDb();
+        var rule = new OnCallRule
+        {
+            Name = "Weekly", HandoverPoints = [new() { DayOfWeek = DayOfWeek.Monday, MinuteOfDay = 1320 }]
+        };
+        db.OnCallRules.Add(rule);
+        await db.SaveChangesAsync();
+        var controller = Controller(db);
+        Assert.IsInstanceOfType<RedirectToActionResult>(await controller.CreateGroup(new CreateOnCallGroupRequest
+        {
+            Name = "Partial", TimeZoneId = "Asia/Shanghai", RuleId = rule.Id, AnchorLocal = "2026-11-09T21:00", AutoExtend = true
+        }, default));
+        var group = await db.OnCallGroups.SingleAsync();
+        Assert.AreEqual(new DateTime(2026, 11, 9, 13, 0, 0, DateTimeKind.Utc), group.AnchorUtc);
+        Assert.IsTrue(group.AutoExtend);
+        Assert.Contains("first shift will be a partial segment", (string)controller.TempData["OnCallGroupWarning"]!);
+        var update = EditGroup(group);
+        update.RuleId = null;
+        Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).UpdateGroup(group.Id, update, default));
+        Assert.IsFalse(group.AutoExtend);
+    }
+
+    [TestMethod]
     public async Task AdminCreatesReusableTemplateWithoutAnyTeamAndEditsIt()
     {
         await using var db = await CreateDb();

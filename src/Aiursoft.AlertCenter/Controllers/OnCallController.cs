@@ -91,8 +91,13 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     }
 
     [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
-    public async Task<IActionResult> GroupCreate(CancellationToken cancellationToken) =>
-        this.StackView(await LoadModel(cancellationToken));
+    public async Task<IActionResult> GroupCreate(CancellationToken cancellationToken)
+    {
+        var model = await LoadModel(cancellationToken);
+        model.GroupInput.AnchorUtc = OnCallGroupFormService.NextWholeHour(TimeZoneInfo.Utc, DateTime.UtcNow);
+        model.GroupInput.AnchorLocal = OnCallGroupFormService.ToLocal(model.GroupInput.AnchorUtc.Value, TimeZoneInfo.Utc);
+        return this.StackView(model);
+    }
 
     [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> GroupEdit(Guid id, CancellationToken cancellationToken)
@@ -110,7 +115,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             MinimumRestHours = group.MinimumRestHours, MaximumContinuousHours = group.MaximumContinuousHours,
             MinimumShiftStaff = group.MinimumShiftStaff, AutoExtend = group.AutoExtend,
             FallbackUserIds = group.FallbackRecipients.Select(person => person.UserId).ToList(),
-            AnchorUtc = group.AnchorUtc, Version = group.ScheduleVersion,
+            AnchorUtc = group.AnchorUtc,
+            AnchorLocal = OnCallGroupFormService.ToLocal(group.AnchorUtc, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)),
+            Version = group.ScheduleVersion,
             UserIds = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToList()
         };
         await PopulateSelectedUsers(model, cancellationToken);
@@ -275,6 +282,69 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
+    public async Task<IActionResult> GroupFormPreview([FromBody] OnCallGroupFormPreviewRequest? request,
+        CancellationToken cancellationToken = default)
+    {
+        var result = new OnCallGroupFormPreviewResult();
+        if (!ModelState.IsValid || request == null)
+        {
+            result.Errors.Add(localizer["The team preview request format is invalid."].Value);
+            return GroupFormPreviewResponse(result, true);
+        }
+        var zone = TimeZoneInfo.GetSystemTimeZones().FirstOrDefault(zone => zone.Id == request.TimeZoneId);
+        if (zone == null)
+            result.Errors.Add(localizer["Please select a valid time zone from the list."].Value);
+        var group = request.GroupId.HasValue ? await db.OnCallGroups.AsNoTracking()
+            .SingleOrDefaultAsync(group => group.Id == request.GroupId, cancellationToken) : null;
+        if (request.GroupId.HasValue && group == null)
+            result.Errors.Add(localizer["On-call team does not exist."].Value);
+        var rule = request.RuleId.HasValue ? await db.OnCallRules.AsNoTracking().Include(rule => rule.HandoverPoints)
+            .SingleOrDefaultAsync(rule => rule.Id == request.RuleId, cancellationToken) : null;
+        if (request.RuleId.HasValue && rule == null)
+            result.Errors.Add(localizer["Please select an existing scheduling template."].Value);
+        if (request.UserIds == null || request.UserIds.Count > 200 || request.UserIds.Any(string.IsNullOrWhiteSpace) ||
+            request.UserIds.Distinct(StringComparer.Ordinal).Count() != request.UserIds.Count ||
+            await db.Users.CountAsync(user => request.UserIds.Contains(user.Id), cancellationToken) != request.UserIds.Count)
+            result.Errors.Add(localizer["The selected employees do not exist, are duplicated, or exceed 200. Please select again."].Value);
+        if (result.Errors.Count > 0) return GroupFormPreviewResponse(result, true);
+        var lastShift = group == null ? null : await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
+            .Where(shift => shift.GroupId == group.Id).OrderByDescending(shift => shift.EndsAtUtc)
+            .ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id).FirstOrDefaultAsync(cancellationToken);
+        var locked = lastShift != null;
+        DateTime? anchor = locked ? DateTime.SpecifyKind(group!.AnchorUtc, DateTimeKind.Utc) : null;
+        try
+        {
+            if (!locked && request.AnchorLocal != null)
+                anchor = OnCallScheduleService.LocalToUtc(request.AnchorLocal, zone!);
+        }
+        catch (Exception ex) when (ex is FormatException or ArgumentException)
+        {
+            result.Errors.Add(localizer["Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time."].Value);
+            return GroupFormPreviewResponse(result, true);
+        }
+        if (anchor.HasValue && !OnCallGroupFormService.IsValidAnchor(anchor.Value))
+        {
+            result.Errors.Add(localizer["Please select a valid team local start time (must be at least 28 days from the date boundary)."].Value);
+            return GroupFormPreviewResponse(result, true);
+        }
+        result = new OnCallGroupFormService(generator, localizer).Preview(rule, zone!, anchor, request.UserIds!, DateTime.UtcNow, locked, lastShift);
+        return GroupFormPreviewResponse(result);
+    }
+
+    private JsonResult GroupFormPreviewResponse(OnCallGroupFormPreviewResult result, bool badRequest = false) => new(new
+    {
+        anchorLocal = result.AnchorLocal, suggestedAnchorLocal = result.SuggestedAnchorLocal,
+        anchorLocked = result.AnchorLocked, suggestions = result.Suggestions.Select(anchor => new { anchorLocal = anchor }),
+        slots = result.Slots.Select(slot => new
+        {
+            startsAtUtc = slot.StartsAtUtc, endsAtUtc = slot.EndsAtUtc, startLocal = slot.StartLocal,
+            endLocal = slot.EndLocal, userIds = slot.UserIds
+        }),
+        warnings = result.Warnings, errors = result.Errors
+    }) { StatusCode = badRequest ? StatusCodes.Status400BadRequest : StatusCodes.Status200OK };
+
+    [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> CreateGroup([Bind(Prefix = "GroupInput")] CreateOnCallGroupRequest request,
         CancellationToken cancellationToken) => await SaveGroupCore(request, null, cancellationToken);
 
@@ -306,26 +376,58 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 if (request.FallbackSelectionSubmitted) request.FallbackUserIds ??= [];
                 if (!Enum.IsDefined(request.WeekStartsOn)) ModelState.AddModelError("GroupInput.WeekStartsOn", localizer["Invalid week start."].Value);
                 if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("GroupInput.Name", localizer["Please enter the team name."].Value);
-                if (!TimeZoneInfo.GetSystemTimeZones().Any(zone => zone.Id == request.TimeZoneId))
+                var zone = TimeZoneInfo.GetSystemTimeZones().FirstOrDefault(zone => zone.Id == request.TimeZoneId);
+                if (zone == null)
                     ModelState.AddModelError("GroupInput.TimeZoneId", localizer["Please select a valid time zone from the list."].Value);
                 if (!EmailChannelAdapter.TryParseCcRecipients(request.EmailCcRecipients, out var emailCcRecipients, out var ccRecipientsError, localizer: localizerFactory.Create(typeof(EmailChannelAdapter))))
                     ModelState.AddModelError("GroupInput.EmailCcRecipients", ccRecipientsError!);
-                if (request.RuleId.HasValue && !await db.OnCallRules.AnyAsync(rule => rule.Id == request.RuleId, retryToken))
+                var rule = request.RuleId.HasValue ? await db.OnCallRules.AsNoTracking().Include(rule => rule.HandoverPoints)
+                    .SingleOrDefaultAsync(rule => rule.Id == request.RuleId, retryToken) : null;
+                if (request.RuleId.HasValue && rule == null)
                     ModelState.AddModelError("GroupInput.RuleId", localizer["Please select an existing scheduling template."].Value);
                 if (request.FallbackUserIds != null && await db.Users.CountAsync(user => request.FallbackUserIds.Contains(user.Id), retryToken) != request.FallbackUserIds.Distinct().Count())
                     ModelState.AddModelError("GroupInput.FallbackUserIds", localizer["Fallback recipients must be existing system users."].Value);
-                if (request.AnchorUtc is not { } anchor || anchor.Kind == DateTimeKind.Local ||
-                    anchor < DateTime.MinValue.AddDays(28) || anchor > DateTime.MaxValue.AddDays(-28))
-                    ModelState.AddModelError("GroupInput.AnchorUtc", localizer["Please select a valid UTC start time (must be at least 28 days from the date boundary)."].Value);
+                var hasSchedule = group != null && await db.OnCallShifts.AnyAsync(shift => shift.GroupId == group.Id, retryToken);
+                var localAnchor = request.AnchorLocal != null || ModelState.ContainsKey("GroupInput.AnchorLocal");
+                if (localAnchor)
+                {
+                    ModelState.Remove("GroupInput.AnchorUtc");
+                    request.AnchorUtc = hasSchedule ? group!.AnchorUtc : null;
+                    if (!hasSchedule && zone != null)
+                    {
+                        try
+                        {
+                            request.AnchorUtc = OnCallScheduleService.LocalToUtc(request.AnchorLocal!, zone);
+                        }
+                        catch (Exception ex) when (ex is FormatException or ArgumentException)
+                        {
+                            ModelState.AddModelError("GroupInput.AnchorLocal", localizer["Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time."].Value);
+                        }
+                    }
+                }
+                if (request.AnchorUtc is not { } anchor || !OnCallGroupFormService.IsValidAnchor(anchor))
+                    ModelState.AddModelError(localAnchor ? "GroupInput.AnchorLocal" : "GroupInput.AnchorUtc", localAnchor
+                        ? localizer["Please select a valid team local start time (must be at least 28 days from the date boundary)."].Value
+                        : localizer["Please select a valid UTC start time (must be at least 28 days from the date boundary)."].Value);
                 if (request.UserIds.Count > 200 || request.UserIds.Any(string.IsNullOrWhiteSpace) ||
                     request.UserIds.Distinct(StringComparer.Ordinal).Count() != request.UserIds.Count ||
                     await db.Users.CountAsync(user => request.UserIds.Contains(user.Id), retryToken) != request.UserIds.Count)
                     ModelState.AddModelError("GroupInput.UserIds", localizer["The selected employees do not exist, are duplicated, or exceed 200. Please select again."].Value);
-                var hasSchedule = group != null && await db.OnCallShifts.AnyAsync(shift => shift.GroupId == group.Id, retryToken);
                 if (hasSchedule && group!.AnchorUtc != request.AnchorUtc)
                     ModelState.AddModelError("GroupInput.AnchorUtc", localizer["A saved schedule exists; the team schedule start point cannot be modified."].Value);
+                if (hasSchedule && zone != null)
+                {
+                    var lockedLocal = OnCallGroupFormService.ToLocal(group!.AnchorUtc, zone);
+                    var changedLocal = localAnchor && request.AnchorLocal != lockedLocal;
+                    request.AnchorLocal = lockedLocal;
+                    ModelState.Remove("GroupInput.AnchorLocal");
+                    if (changedLocal)
+                        ModelState.AddModelError("GroupInput.AnchorLocal", localizer["A saved schedule exists; the team schedule start point cannot be modified."].Value);
+                }
                 if (!ModelState.IsValid)
                 {
+                    if (!localAnchor && !hasSchedule && request.AnchorUtc.HasValue && zone != null && OnCallGroupFormService.IsValidAnchor(request.AnchorUtc.Value))
+                        request.AnchorLocal = OnCallGroupFormService.ToLocal(request.AnchorUtc.Value, zone);
                     var model = await LoadModel(retryToken);
                     model.GroupInput = request;
                     model.SelectedGroupId = id;
@@ -346,7 +448,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 group.MinimumRestHours = request.MinimumRestHours;
                 group.MaximumContinuousHours = request.MaximumContinuousHours;
                 group.MinimumShiftStaff = request.MinimumShiftStaff;
-                if (request.AutoExtend.HasValue) group.AutoExtend = request.AutoExtend.Value;
+                group.AutoExtend = request.RuleId.HasValue && (request.AutoExtend ?? group.AutoExtend);
                 if (request.FallbackUserIds != null)
                 {
                     var selectedFallback = request.FallbackUserIds.ToHashSet(StringComparer.Ordinal);
@@ -366,6 +468,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 await db.SaveChangesAsync(retryToken);
                 if (transaction != null) await transaction.CommitAsync(retryToken);
                 TempData["OnCallGroupSuccess"] = id.HasValue ? localizer["Team updated."].Value : localizer["Team created successfully."].Value;
+                if (OnCallGroupFormService.IsUnaligned(rule, zone!, group.AnchorUtc))
+                    TempData["OnCallGroupWarning"] = localizer["The start time does not match a weekly handover point; the first shift will be a partial segment."].Value;
                 return RedirectToAction(nameof(GroupDetails), new { id = group.Id });
             }, cancellationToken);
         }

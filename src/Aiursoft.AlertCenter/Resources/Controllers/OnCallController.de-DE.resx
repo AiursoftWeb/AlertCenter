@@ -106,4 +106,10 @@
     <value>Vorschau kann nicht erstellt werden: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Die Startzeit stimmt mit keinem wöchentlichen Übergabezeitpunkt überein; die erste Schicht wird ein Teilabschnitt sein.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Fügen Sie Mitglieder zur Rotationswarteschlange hinzu, um Schichten anzuzeigen.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Das Format der Teamvorschau-Anfrage ist ungültig.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Bitte wählen Sie eine gültige lokale Startzeit des Teams (mindestens 28 Tage von den Datumsgrenzen entfernt).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Ungültige lokale Teamzeit. Bei Zeitumstellungen sind übersprungene Zeiten ungültig; doppelte Zeiten verwenden die Standardzeit.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Das Bereitschaftsteam existiert nicht.</value></data>
 </root>

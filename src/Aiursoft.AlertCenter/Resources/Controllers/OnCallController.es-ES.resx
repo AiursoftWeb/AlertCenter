@@ -106,4 +106,10 @@
     <value>No se ha podido generar la vista previa: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>La hora de inicio no coincide con un relevo semanal; el primer turno será un segmento parcial.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Añada miembros a la cola de rotación para previsualizar los turnos.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>El formato de la solicitud de vista previa del equipo no es válido.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Seleccione una hora de inicio local válida del equipo (al menos a 28 días de los límites de fecha).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Hora local del equipo no válida. En los cambios de horario, las horas omitidas no son válidas y las repetidas usan el horario estándar.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>El equipo de guardia no existe.</value></data>
 </root>

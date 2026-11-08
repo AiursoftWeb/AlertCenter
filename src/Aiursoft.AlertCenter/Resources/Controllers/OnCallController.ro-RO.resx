@@ -106,4 +106,10 @@
     <value>Nu se poate genera previzualizarea: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Ora de început nu corespunde unei predări săptămânale; prima tură va fi parțială.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Adăugați membri în coada de rotație pentru a previzualiza turele.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Formatul cererii de previzualizare a echipei este invalid.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Selectați o oră de început locală validă a echipei (la cel puțin 28 de zile de limitele de dată).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Oră locală a echipei invalidă. La schimbarea orei de vară, orele omise sunt invalide, iar cele repetate folosesc ora standard.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Echipa de gardă nu există.</value></data>
 </root>

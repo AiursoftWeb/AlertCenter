@@ -106,4 +106,10 @@
     <value>Kan ikke generere forhåndsvisning: {0}</value>
   </data>
 
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Starttidspunktet matcher ikke en ugentlig overdragelse; den første vagt bliver delvis.</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Tilføj medlemmer til rotationskøen for at forhåndsvise vagter.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Formatet på anmodningen om teamforhåndsvisning er ugyldigt.</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Vælg et gyldigt lokalt starttidspunkt for teamet (mindst 28 dage fra datogrænserne).</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Ugyldig lokal teamtid. Ved skift til eller fra sommertid er oversprungne tider ugyldige, og gentagne tider bruger normaltid.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Vagtteamet findes ikke.</value></data>
 </root>
