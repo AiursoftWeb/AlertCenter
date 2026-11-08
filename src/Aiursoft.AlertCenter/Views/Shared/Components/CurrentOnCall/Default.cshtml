@@ -1,0 +1,42 @@
+@inject IHtmlLocalizerFactory OnCallViewLocalizerFactory
+@{ var viewLocalizer = OnCallViewLocalizerFactory.Create("Views.Shared.Components.CurrentOnCall.Default", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
+@using System.Security.Claims
+@model IReadOnlyList<Aiursoft.AlertCenter.Views.Shared.Components.CurrentOnCall.CurrentOnCallTeam>
+@if (Model.Count > 0)
+{
+    <section class="card mb-4" aria-label="@viewLocalizer["Current on-call"]" id="current-oncall">
+        <div class="card-header"><h2 class="h5 mb-0">@viewLocalizer["Current on-call"]</h2></div>
+        <div class="list-group list-group-flush">
+            @foreach (var team in Model)
+            {
+                var vacant = team.Current.IsFallback || team.Current.Engineers.Count == 0;
+                var mine = !vacant && team.Current.Engineers.Any(person => person.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
+                <div class="list-group-item text-break @(vacant ? "border-danger text-danger" : mine ? "bg-primary-subtle" : "")" data-team-id="@team.Group.Id" data-on-duty="@mine.ToString().ToLowerInvariant()">
+                    <a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@team.Group.Id" class="fw-bold">@team.Group.Name</a> ·
+                    @if (vacant)
+                    {
+                        <strong>@viewLocalizer["Nobody on duty"]</strong>
+                        <span> · @(team.Current.IsFallback ? viewLocalizer["Alerts will go to fallback recipients"] : viewLocalizer["No fallback configured: alerts cannot be delivered"])</span>
+                    }
+                    @foreach (var person in team.Current.Engineers)
+                    {
+                        <a href="mailto:@person.Email" class="me-2">@person.DisplayName (@person.Email)</a>
+                    }
+                    @if (!vacant && team.Current.EndsAtUtc.HasValue)
+                    {
+                        <span> · @viewLocalizer["Ends"] @await Html.PartialAsync("_OnCallTime", (team.Current.EndsAtUtc.Value, team.Group.TimeZoneId))</span>
+                    }
+                    <div class="small mt-1">@viewLocalizer["Next shift"]:
+                        @if (team.Next != null)
+                        {
+                            @string.Join(", ", team.Next.Members.Select(member => member.User.DisplayName))
+                            @if (team.Next.Members.Count == 0) { <span>@viewLocalizer["Nobody on duty"]</span> }
+                            <span> · @await Html.PartialAsync("_OnCallTime", (team.Next.StartsAtUtc, team.Group.TimeZoneId))</span>
+                        }
+                        else { <span>@viewLocalizer["No upcoming shift"]</span> }
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+}

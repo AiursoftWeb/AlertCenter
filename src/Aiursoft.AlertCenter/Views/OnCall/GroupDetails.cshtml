@@ -1,4 +1,5 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
+<vc:current-on-call group-id="@Model.SelectedGroupId"></vc:current-on-call>
 @{
     var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
 }

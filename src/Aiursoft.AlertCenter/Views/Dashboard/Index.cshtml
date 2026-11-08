@@ -1,6 +1,9 @@
 @using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.DashboardViewModels.IndexViewModel
 @using Aiursoft.AlertCenter.Entities
+@inject IHtmlLocalizerFactory OnCallCardLocalizerFactory
+@{ var onCallCardLocalizer = OnCallCardLocalizerFactory.Create("Views.Dashboard.Index", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
+<vc:current-on-call></vc:current-on-call>
 @await Html.PartialAsync("_OnCallWarnings", Model.OnCallIssues)
 
 @section styles {
@@ -172,7 +175,9 @@
     </div>
 </div>
 
-<a asp-controller="Incidents" asp-action="Mine" class="card border-primary shadow-sm text-decoration-none mb-4" id="my-incidents-card">
+<div class="row g-4 mb-4">
+<div class="col-lg-6">
+<a asp-controller="Incidents" asp-action="Mine" class="card border-primary shadow-sm text-decoration-none h-100" id="my-incidents-card">
     <div class="card-body d-flex flex-wrap align-items-center justify-content-between gap-3 p-4">
         <div class="d-flex align-items-center gap-3">
             <div class="ac-stat-icon icon-primary"><i data-lucide="user-check" aria-hidden="true"></i></div>
@@ -190,6 +195,17 @@
         </div>
     </div>
 </a>
+</div>
+<div class="col-lg-6">
+    <a asp-controller="OnCall" asp-action="Mine" class="card border-primary shadow-sm text-decoration-none h-100" id="my-oncall-card">
+        <div class="card-body d-flex align-items-center gap-3 p-4">
+            <div class="ac-stat-icon icon-primary"><i data-lucide="calendar-clock" aria-hidden="true"></i></div>
+            <div><h2 class="h4 text-body mb-1">@onCallCardLocalizer["My on-call"]</h2><p class="text-muted mb-0">@onCallCardLocalizer["Your shifts, on-call hours and private calendar subscription."]</p></div>
+            <i data-lucide="arrow-right" class="text-primary ms-auto" aria-hidden="true"></i>
+        </div>
+    </a>
+</div>
+</div>
 
 <!-- Severity Quick Filter Pills -->
 <div class="card mb-4">

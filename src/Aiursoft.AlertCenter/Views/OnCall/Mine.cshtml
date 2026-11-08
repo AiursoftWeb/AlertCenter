@@ -1,0 +1,63 @@
+@inject IHtmlLocalizerFactory OnCallViewLocalizerFactory
+@{ var viewLocalizer = OnCallViewLocalizerFactory.Create("Views.OnCall.Mine", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
+@using System.Security.Claims
+@model Aiursoft.AlertCenter.Models.MyOnCallViewModel
+@{ var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); }
+<h1 class="h3 mb-3">@viewLocalizer["My on-call"]</h1>
+<section class="card mb-4"><div class="card-body">
+    @if (Model.Current.Count > 0)
+    {
+        <h2 class="h5 text-success">@viewLocalizer["On duty"]</h2>
+        @foreach (var shift in Model.Current)
+        {
+            <p>@shift.Group.Name · @viewLocalizer["Ends"] @await Html.PartialAsync("_OnCallTime", (shift.EndsAtUtc, shift.Group.TimeZoneId))
+                · <span data-countdown="@DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc).ToString("O")" data-label="@viewLocalizer["Remaining"]"></span></p>
+        }
+    }
+    else if (Model.Next != null)
+    {
+        <h2 class="h5">@viewLocalizer["Next shift"] · @Model.Next.Group.Name</h2>
+        <p>@await Html.PartialAsync("_OnCallTime", (Model.Next.StartsAtUtc, Model.Next.Group.TimeZoneId))
+            · <span data-countdown="@DateTime.SpecifyKind(Model.Next.StartsAtUtc, DateTimeKind.Utc).ToString("O")" data-label="@viewLocalizer["Starts in"]"></span></p>
+    }
+    else { <p class="mb-0">@viewLocalizer["No upcoming shift"]</p> }
+</div></section>
+<div class="row g-3 mb-4">
+    <div class="col-sm-6"><div class="card h-100"><div class="card-body"><h2 class="h6">@viewLocalizer["Past 30 days"]</h2><strong>@Model.PastHours.ToString("0.##") @viewLocalizer["hours"]</strong></div></div></div>
+    <div class="col-sm-6"><div class="card h-100"><div class="card-body"><h2 class="h6">@viewLocalizer["Next 4 weeks"]</h2><strong>@Model.FutureHours.ToString("0.##") @viewLocalizer["hours"]</strong></div></div></div>
+</div>
+<p class="small text-muted">@viewLocalizer["Totals count overlapping time once and include only time inside each period."]</p>
+@if (Model.Warnings.Count > 0)
+{
+    <section class="alert alert-warning"><h2 class="h5">@viewLocalizer["My schedule reminders"]</h2><ul class="mb-0">@foreach (var warning in Model.Warnings) { <li>@warning</li> }</ul></section>
+}
+<section class="card mb-4"><div class="card-header"><h2 class="h5 mb-0">@viewLocalizer["Shifts in the next 8 weeks"]</h2></div>
+    <div class="card-body">@await Html.PartialAsync("_PersonalShifts", (Model.Upcoming, userId!))</div>
+</section>
+<section class="card mb-4"><div class="card-header"><h2 class="h5 mb-0">@viewLocalizer["Shift history"]</h2></div>
+    <div class="card-body">
+        @await Html.PartialAsync("_PersonalShifts", (Model.History, userId!))
+        <nav class="d-flex flex-wrap align-items-center gap-3" aria-label="@viewLocalizer["Shift history"]">
+            @if (Model.HistoryPage > 1) { <a asp-action="Mine" asp-route-page="@(Model.HistoryPage - 1)" class="btn btn-outline-secondary">@viewLocalizer["Previous"]</a> }
+            <span>@viewLocalizer["Page"] @Model.HistoryPage</span>
+            @if (Model.HasMoreHistory) { <a asp-action="Mine" asp-route-page="@(Model.HistoryPage + 1)" class="btn btn-outline-secondary">@viewLocalizer["Next"]</a> }
+        </nav>
+    </div>
+</section>
+<section class="card mb-4"><div class="card-body">
+    <h2 class="h5">@viewLocalizer["Private calendar subscription"]</h2>
+    <p>@viewLocalizer["Includes the past 30 days and next 12 weeks. Anyone with this link can read your shifts. Resetting immediately invalidates the old link. The link is only shown when generated."]</p>
+    <form asp-action="ResetSubscription" method="post" class="mb-3">
+        <button type="submit" class="btn btn-primary">@(Model.HasSubscription ? viewLocalizer["Reset subscription link"] : viewLocalizer["Generate subscription link"])</button>
+    </form>
+    @if (Model.SubscriptionUrl != null)
+    {
+        <label for="oncall-subscription" class="form-label">@viewLocalizer["Subscription link"]</label>
+        <div class="input-group mb-2">
+            <input id="oncall-subscription" type="text" class="form-control" readonly value="@Model.SubscriptionUrl" autocomplete="off" />
+            <button class="btn btn-outline-primary" type="button" data-copy-subscription data-copied="@viewLocalizer["Copied"]" data-copy-failed="@viewLocalizer["Select and copy the link manually."]">@viewLocalizer["Copy link"]</button>
+        </div>
+        <p role="status" id="oncall-copy-status" class="small"></p>
+    }
+    <p class="small mb-0">@viewLocalizer["On iPhone, add a subscribed calendar in Calendar accounts; on Android, add the URL in Google Calendar on the web. In Outlook, choose Add calendar, then Subscribe from web, and paste this link. Subscribe rather than importing a file to receive updates; refresh timing depends on your calendar app."]</p>
+</div></section>

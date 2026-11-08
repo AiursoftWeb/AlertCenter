@@ -1,0 +1,7 @@
+@inject IHtmlLocalizerFactory OnCallViewLocalizerFactory
+@{ var viewLocalizer = OnCallViewLocalizerFactory.Create("Views.Shared.Components.OnDutyBadge.Default", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
+@model bool
+@if (Model)
+{
+    <a asp-controller="OnCall" asp-action="Mine" class="badge bg-success ms-2 text-decoration-none" id="on-duty-badge">@viewLocalizer["On duty"]</a>
+}
