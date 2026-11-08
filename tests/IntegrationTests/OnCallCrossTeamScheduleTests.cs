@@ -259,7 +259,8 @@ public class OnCallCrossTeamScheduleTests : TestBase
         var buttons = Regex.Matches(rawHtml, "<button\\b[^>]*class=\"ac-gantt-shift ac-gantt-external\"[^>]*>")
             .Select(match => WebUtility.HtmlDecode(match.Value)).ToArray();
         Assert.AreEqual(6, buttons.Length);
-        Assert.AreEqual(metadata.GetProperty("members").GetArrayLength(), Regex.Matches(rawHtml, "<div class=\"ac-gantt-lane\">").Count);
+        Assert.AreEqual(metadata.GetProperty("members").GetArrayLength() + 1, Regex.Matches(rawHtml, "<div class=\"ac-gantt-lane\">").Count);
+        Assert.Contains("id=\"oncall-unassigned-row\"", rawHtml);
         var sharedLane = Regex.Match(rawHtml,
             $"<div class=\"ac-gantt-row\"[^>]*data-user-id=\"{userIds[0]}\"[\\s\\S]*?<div class=\"ac-gantt-lane\">([\\s\\S]*?)</div>").Groups[1].Value;
         Assert.AreEqual(0, Regex.Matches(sharedLane, "class=\"ac-gantt-cell\"").Count);

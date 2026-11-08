@@ -1010,3 +1010,120 @@
 #oncall-gantt:not(.ac-gantt-editable) .ac-gantt-cell {
     display: none;
 }
+
+#oncall-gantt.ac-gantt-editable {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+}
+
+.ac-gantt-editable [data-user-id] .ac-gantt-lane {
+    touch-action: none;
+}
+
+.ac-gantt-editable .ac-gantt-shift:not([data-readonly]) {
+    padding-inline: 12px;
+}
+
+.ac-gantt-editable .ac-gantt-shift .ac-gantt-resize {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    z-index: 1;
+    cursor: ew-resize;
+    touch-action: none;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.ac-gantt-editable .ac-gantt-resize[data-resize="start"] {
+    left: 0;
+    border-right: 1px solid currentColor;
+}
+
+.ac-gantt-editable .ac-gantt-resize[data-resize="end"] {
+    right: 0;
+    border-left: 1px solid currentColor;
+}
+
+.ac-gantt-editable .ac-gantt-handover {
+    position: absolute;
+    top: 0;
+    width: 14px;
+    height: 100%;
+    padding: 0;
+    transform: translateX(-50%);
+    border: 1px solid var(--bs-primary);
+    border-radius: var(--bs-border-radius-sm);
+    background: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
+    cursor: ew-resize;
+    touch-action: none;
+    z-index: 2;
+}
+
+.ac-gantt-editable .ac-gantt-handover::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    left: 50%;
+    border-left: 2px solid currentColor;
+}
+
+.ac-gantt .ac-gantt-warning {
+    min-width: 1rem;
+    padding: 0.25rem;
+    color: #111;
+    line-height: 1.2;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+#oncall-drag-tooltip {
+    max-width: min(24rem, 95vw);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+#oncall-shift-dialog {
+    width: 40rem;
+    max-width: 95vw;
+    max-height: 85vh;
+    overflow: auto;
+    padding: 1.5rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.25);
+}
+
+#oncall-shift-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#oncall-dialog-members {
+    overflow-wrap: anywhere;
+}
+
+#oncall-shift-dialog :focus-visible,
+#oncall-schedule summary:focus-visible,
+.ac-gantt-editable .ac-gantt-handover:focus-visible,
+.ac-gantt-editable .ac-gantt-resize:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+@media (max-width: 575.98px) {
+    .ac-gantt-frame {
+        --ac-gantt-name-width: 7rem;
+    }
+
+    .ac-gantt-name {
+        padding: 0.75rem 0.5rem;
+    }
+
+    #oncall-shift-dialog {
+        padding: 1rem;
+    }
+}

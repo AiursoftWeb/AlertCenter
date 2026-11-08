@@ -19,6 +19,8 @@
     function layout() {
         const before = edges.previous ? 36 : 0;
         const hours = duration + before + (edges.next ? 36 : 0);
+        chart.dataset.beforeHours = String(before);
+        chart.dataset.afterHours = String(edges.next ? 36 : 0);
         chart.querySelector('.ac-gantt').style.minWidth = `calc(var(--ac-gantt-name-width) + var(--ac-gantt-toggle-width) + ${hours * 160 / 24}px)`;
         chart.querySelectorAll('[style]').forEach(item => {
             if (!item.style.left || !item.style.left.endsWith('%')) return;
@@ -27,7 +29,8 @@
             item.style.left = `${(Number(item.dataset.layoutLeft) * duration + before * 100) / hours}%`;
             if (item.dataset.layoutWidth) item.style.width = `${Number(item.dataset.layoutWidth) * duration / hours}%`;
         });
-        chart.querySelectorAll('[data-edge="previous"], [data-edge="next"]').forEach(item => item.hidden = !edges[item.dataset.edge]);
+        chart.querySelectorAll('[data-edge="previous"], [data-edge="next"]').forEach(item => item.hidden = !edges[item.dataset.edge] || item.dataset.replaced === 'true');
+        chart.dispatchEvent(new Event('oncall-packed'));
         toggles.forEach(button => {
             const edge = button.dataset.oncallEdge;
             button.setAttribute('aria-expanded', String(edges[edge]));

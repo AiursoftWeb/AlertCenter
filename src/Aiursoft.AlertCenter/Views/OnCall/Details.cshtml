@@ -105,27 +105,30 @@
             }
             else if (firstShift == null)
             {
-                <p class="text-muted">@viewLocalizer["No shifts are currently assigned this week. You can add personnel manually."]</p>
+                <p class="text-muted">@viewLocalizer["No shifts are currently assigned this week."]</p>
             }
             <div class="d-flex flex-wrap gap-3 small text-muted mb-3">
                 <span>@viewLocalizer["Shift covered"]: <strong id="oncall-total-shifts" data-oncall-stat="shifts">@Model.Preview.Select(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Distinct().Count()</strong></span>
                 <span>@viewLocalizer["Participating employees"]: <strong id="oncall-total-staff" data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></span>
                 <span>@viewLocalizer["Scheduled hours"]: <strong id="oncall-total-hours" data-oncall-stat="hours">@totalHours.ToString("0.##") @viewLocalizer["hours"]</strong></span>
             </div>
+            @await Html.PartialAsync("_PreviewGantt", Model)
             @if (Model.CanManageOnCall)
             {
                 @await Html.PartialAsync("_ScheduleEditor", Model)
             }
             else
             {
-                <div class="table-responsive"><table class="table"><thead><tr><th>@viewLocalizer["Start"]</th><th>@viewLocalizer["End"]</th><th>@viewLocalizer["On-call personnel"]</th></tr></thead><tbody>
-                @foreach (var shift in Model.SavedShifts)
-                {
-                    <tr><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm")</td><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm")</td><td>@string.Join(", ", shift.Members.Select(member => staffNames.GetValueOrDefault(member.UserId, member.UserId)))</td></tr>
-                }
-                </tbody></table></div>
+                <details class="border rounded p-3 mt-3">
+                    <summary>@viewLocalizer["Shift details"]</summary>
+                    <div class="table-responsive mt-2"><table class="table"><thead><tr><th scope="col">@viewLocalizer["Start"]</th><th scope="col">@viewLocalizer["End"]</th><th scope="col">@viewLocalizer["On-call personnel"]</th></tr></thead><tbody>
+                    @foreach (var shift in Model.SavedShifts)
+                    {
+                        <tr><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm")</td><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm")</td><td>@string.Join(", ", shift.Members.Select(member => staffNames.GetValueOrDefault(member.UserId, member.UserId)))</td></tr>
+                    }
+                    </tbody></table></div>
+                </details>
             }
-            @await Html.PartialAsync("_PreviewGantt", Model)
         }
         else
         {
@@ -148,13 +151,19 @@
         }
         else
         {
-            <p class="text-muted">@viewLocalizer["No template bound. Add arbitrary shifts in the table."]</p>
+            <p class="text-muted">
+                @viewLocalizer["No template bound."]
+                @if (Model.CanManageOnCall)
+                {
+                    @viewLocalizer["Add arbitrary shifts in the chart or precise editor."]
+                }
+            </p>
         }
         <p class="small text-muted">@viewLocalizer["Template and membership changes preserve saved shifts, including future assignments for departed members."]</p>
         <h3 class="h6">@viewLocalizer["Rotate Members"]</h3>
         @if (group.Members.Count == 0)
         {
-            <p class="text-muted mb-0">@viewLocalizer["No team members. Please edit the team to add members before manually filling empty shifts."]</p>
+            <p class="text-muted mb-0">@(Model.CanManageOnCall ? viewLocalizer["No team members. Please edit the team to add members before manually filling empty shifts."].Value : viewLocalizer["No team members."].Value)</p>
         }
         else
         {

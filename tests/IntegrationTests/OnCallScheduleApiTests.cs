@@ -238,6 +238,11 @@ public class OnCallScheduleApiTests : TestBase
         Assert.Contains("id=\"oncall-shift-rows\"", details);
         Assert.Contains("id=\"oncall-add-shift\"", details);
         Assert.Contains("id=\"oncall-reset-schedule\"", details);
+        Assert.Contains("id=\"oncall-undo-schedule\"", details);
+        Assert.Contains("id=\"oncall-redo-schedule\"", details);
+        Assert.Contains("id=\"oncall-handover-lane\"", details);
+        Assert.Contains("id=\"oncall-shift-dialog\"", details);
+        Assert.IsTrue(details.IndexOf("id=\"oncall-gantt\"", StringComparison.Ordinal) < details.IndexOf("id=\"oncall-shift-rows\"", StringComparison.Ordinal));
     }
 
     [TestMethod]
