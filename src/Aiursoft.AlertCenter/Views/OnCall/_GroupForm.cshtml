@@ -6,6 +6,9 @@
         <input type="hidden" name="id" value="@Model.SelectedGroupId" />
     }
     <input asp-for="GroupInput.Version" type="hidden" />
+    <input asp-for="GroupInput.MinimumRestHours" type="hidden" />
+    <input asp-for="GroupInput.MaximumContinuousHours" type="hidden" />
+    <input asp-for="GroupInput.MinimumShiftStaff" type="hidden" />
     <div hidden>
         @foreach (var member in Model.Groups.SingleOrDefault(group => group.Id == Model.SelectedGroupId)?.Members ?? [])
         {
@@ -56,7 +59,7 @@
                 </li>
             }
         </ol>
-        <div id="oncall-removal-warning" class="alert alert-warning d-none" role="status"><div class="alert-message">@Localizer["Saving will remove these members from shifts that have not started. Review the schedule for gaps."]</div></div>
+        <div id="oncall-removal-warning" class="alert alert-warning d-none" role="status"><div class="alert-message">@Localizer["Departed members keep their saved shifts. Review future assignments after saving."]</div></div>
         <details id="oncall-add-members">
             <summary class="mb-3">@Localizer["Add members"]</summary>
             <div class="row g-2 mb-2">

@@ -182,9 +182,9 @@ public partial class IncidentPagesTests
         Assert.IsFalse(Regex.IsMatch(staffing.Message, "<details\\b[^>]*\\bopen", RegexOptions.Singleline));
         var rules = Regex.Match(html, "<details class=\"card mt-3\">(.*?)</details>", RegexOptions.Singleline).Groups[1].Value;
         Assert.Contains("id=\"oncall-shared-members\"", rules);
-        Assert.Contains("Cross-on-call-group members require manual scheduling", WebUtility.HtmlDecode(rules));
+        Assert.Contains("Members shared with other on-call teams", WebUtility.HtmlDecode(rules));
         Assert.IsFalse(alerts.Any(alert => alert.Root.Contains("id=\"oncall-shared-members\"")));
-        Assert.IsTrue(alerts.Any(alert => WebUtility.HtmlDecode(alert.Message).Contains("unassigned shifts")));
+        Assert.IsTrue(alerts.Any(alert => WebUtility.HtmlDecode(alert.Message).Contains("coverage gap")));
         var summary = alerts.Single(alert => alert.Classes.Contains("alert-primary"));
         Assert.Contains("role=\"status\"", summary.Root);
         Assert.Contains("Starting soon", WebUtility.HtmlDecode(summary.Message));

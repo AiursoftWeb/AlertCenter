@@ -277,6 +277,8 @@ else
                 </div>
                 @if (snapshot != null)
                 {
+                    @if (snapshot.IsFallback) { <p class="text-warning">@Localizer["Delivered to fallback recipients"]</p> }
+                    @if (snapshot.HandoverContent != null) { <pre class="text-wrap">@snapshot.HandoverContent</pre> }
                     <div class="border-top pt-3 small">
                         <p class="mb-1">@Localizer["Snapshot time"]: <span data-utc-time="@snapshot.NotificationAtUtc.ToHtmlDateTime()"></span></p>
                         <p class="mb-1">@Localizer["Shift: "]<span data-utc-time="@snapshot.StartsAtUtc?.ToHtmlDateTime()"></span> — <span data-utc-time="@snapshot.EndsAtUtc?.ToHtmlDateTime()"></span></p>

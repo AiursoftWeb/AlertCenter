@@ -12,5 +12,19 @@ public class OnCallGroup
     public OnCallRule? Rule { get; set; }
     public DateTime AnchorUtc { get; set; } = DateTime.UtcNow.Date;
     public Guid ScheduleVersion { get; set; } = Guid.NewGuid();
+    public double? MinimumRestHours { get; set; }
+    public double? MaximumContinuousHours { get; set; }
+    public int? MinimumShiftStaff { get; set; }
+    public bool AutoExtend { get; set; }
+    public DateTime? HandoverCheckedThroughUtc { get; set; }
+    public ICollection<OnCallFallbackRecipient> FallbackRecipients { get; set; } = [];
     public ICollection<OnCallGroupMember> Members { get; set; } = [];
+}
+
+public class OnCallFallbackRecipient
+{
+    public Guid GroupId { get; set; }
+    public OnCallGroup Group { get; set; } = null!;
+    public string UserId { get; set; } = string.Empty;
+    public User User { get; set; } = null!;
 }

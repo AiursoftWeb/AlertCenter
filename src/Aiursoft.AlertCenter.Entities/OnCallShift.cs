@@ -7,10 +7,14 @@ public class OnCallShift
     public OnCallGroup Group { get; set; } = null!;
     public DateTime StartsAtUtc { get; set; }
     public DateTime EndsAtUtc { get; set; }
+    public OnCallShiftSource Source { get; set; } = OnCallShiftSource.Manual;
+    public long? RotationPosition { get; set; }
     public int RestHours { get; set; } = 16;
     public int MinimumStaff { get; set; } = 1;
     public ICollection<OnCallShiftMember> Members { get; set; } = [];
 }
+
+public enum OnCallShiftSource { Manual, Generated }
 
 public class OnCallShiftMember
 {

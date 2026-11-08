@@ -39,6 +39,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         var model = await LoadModel(cancellationToken);
         if (model.Groups.All(group => group.Id != id)) return NotFound();
         model.SelectedGroupId = id;
+        model.UpcomingIssues = await OnCallScheduleIssues.UpcomingAsync(db, DateTime.UtcNow, localizerFactory, cancellationToken, id);
         model.GroupHasSavedSchedule = await db.OnCallShifts.AnyAsync(shift => shift.GroupId == id, cancellationToken);
         model.GroupHasBoundApplications = await db.SourceApplications.AnyAsync(application => application.OnCallGroupId == id, cancellationToken);
         return this.StackView(model);
@@ -60,6 +61,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         {
             Name = group.Name, TimeZoneId = group.TimeZoneId, RuleId = group.RuleId,
             EmailCcRecipients = group.EmailCcRecipients,
+            MinimumRestHours = group.MinimumRestHours, MaximumContinuousHours = group.MaximumContinuousHours,
+            MinimumShiftStaff = group.MinimumShiftStaff, AutoExtend = group.AutoExtend,
             AnchorUtc = group.AnchorUtc, Version = group.ScheduleVersion,
             UserIds = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToList()
         };
@@ -83,8 +86,11 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             Name = rule.Name,
             ShiftHours = rule.ShiftHours,
             RestHours = rule.RestHours,
-            BalanceShiftTimes = rule.BalanceShiftTimes,
-            MinimumStaff = rule.MinimumStaff, TargetStaff = rule.TargetStaff
+            BalanceShiftTimes = rule.SwapAlternateRounds,
+            MinimumStaff = rule.MinimumStaff, TargetStaff = rule.TargetStaff,
+            ShiftMinutes = rule.ShiftMinutes, StaffPerShift = rule.StaffPerShift, SwapAlternateRounds = rule.SwapAlternateRounds,
+            HandoverPoints = rule.HandoverPoints.Select(point => new OnCallHandoverPointRequest
+                { DayOfWeek = point.DayOfWeek, MinuteOfDay = point.MinuteOfDay }).ToList()
         };
         return this.StackView(model);
     }
@@ -115,13 +121,23 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> GetSchedule(Guid id, DateTime? startUtc, CancellationToken cancellationToken)
     {
-        var group = await db.OnCallGroups.AsNoTracking().Include(item => item.Rule).Include(item => item.Members)
+        var group = await db.OnCallGroups.AsNoTracking().Include(item => item.Rule).ThenInclude(rule => rule!.HandoverPoints).Include(item => item.Members)
             .SingleOrDefaultAsync(item => item.Id == id, cancellationToken);
         if (group == null) return NotFound();
         var model = new OnCallViewModel { SelectedGroupId = id, Groups = [group] };
         await PopulatePreview(model, cancellationToken, startUtc);
         if (model.WeekStartUtc == default) return BadRequest(new { errors = new[] { model.PreviewError } });
         var assignments = model.Preview.ToLookup(shift => shift.StartsAtUtc);
+        var slots = model.ScheduleSaved
+            ? model.SavedShifts.Select(shift => new OnCallSlotRequest { Id = shift.Id,
+                StartsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
+                EndsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), UserIds = shift.Members.Select(member => member.UserId).ToList() })
+            : model.LegacyGridCompatible
+                ? Enumerable.Range(0, 21).Select(index => new OnCallSlotRequest {
+                    StartsAtUtc = model.WeekStartUtc.AddHours(index * 8), EndsAtUtc = model.WeekStartUtc.AddHours((index + 1) * 8),
+                    UserIds = assignments[model.WeekStartUtc.AddHours(index * 8)].Select(shift => shift.UserId).ToList() })
+                : model.Preview.GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Select(batch => new OnCallSlotRequest {
+                    StartsAtUtc = batch.Key.StartsAtUtc, EndsAtUtc = batch.Key.EndsAtUtc, UserIds = batch.Select(shift => shift.UserId).ToList() });
         return Json(new
         {
             groupId = id, version = group.ScheduleVersion, startUtc = model.WeekStartUtc, saved = model.ScheduleSaved,
@@ -143,11 +159,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc),
                 userIds = shift.Members.Select(member => member.UserId)
             }),
-            slots = Enumerable.Range(0, 21).Select(index => new
-            {
-                startsAtUtc = model.WeekStartUtc.AddHours(index * 8), endsAtUtc = model.WeekStartUtc.AddHours((index + 1) * 8),
-                userIds = assignments[model.WeekStartUtc.AddHours(index * 8)].Select(shift => shift.UserId)
-            })
+            slots
         });
     }
 
@@ -196,7 +208,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 if (attempt++ > 0) db.ChangeTracker.Clear();
                 await using var transaction = db.Database.IsRelational()
                     ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, retryToken) : null;
-                var group = id.HasValue ? await db.OnCallGroups.Include(item => item.Members)
+                var group = id.HasValue ? await db.OnCallGroups.Include(item => item.Members).Include(item => item.FallbackRecipients)
                     .SingleOrDefaultAsync(item => item.Id == id.Value, retryToken) : null;
                 if (id.HasValue && group == null) return NotFound();
                 if (group != null && request.Version != group.ScheduleVersion)
@@ -211,6 +223,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                     ModelState.AddModelError("GroupInput.EmailCcRecipients", ccRecipientsError!);
                 if (request.RuleId.HasValue && !await db.OnCallRules.AnyAsync(rule => rule.Id == request.RuleId, retryToken))
                     ModelState.AddModelError("GroupInput.RuleId", localizer["Please select an existing on-call rule."].Value);
+                if (request.FallbackUserIds != null && await db.Users.CountAsync(user => request.FallbackUserIds.Contains(user.Id), retryToken) != request.FallbackUserIds.Distinct().Count())
+                    ModelState.AddModelError("GroupInput.FallbackUserIds", localizer["Fallback recipients must be existing system users."].Value);
                 if (request.AnchorUtc is not { } anchor || anchor.Kind == DateTimeKind.Local ||
                     anchor < DateTime.MinValue.AddDays(28) || anchor > DateTime.MaxValue.AddDays(-28))
                     ModelState.AddModelError("GroupInput.AnchorUtc", localizer["Please select a valid UTC start time (must be at least 28 days from the date boundary)."].Value);
@@ -235,16 +249,22 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                     group = new OnCallGroup { Id = createdId };
                     db.OnCallGroups.Add(group);
                 }
-                var removedIds = group.Members.Select(member => member.UserId).Except(request.UserIds).ToArray();
-                var now = DateTime.UtcNow;
-                var futureAssignments = await db.OnCallShiftMembers
-                    .Where(member => member.Shift.GroupId == group.Id && member.Shift.StartsAtUtc > now && removedIds.Contains(member.UserId))
-                    .ToListAsync(retryToken);
-                db.OnCallShiftMembers.RemoveRange(futureAssignments);
                 group.Name = request.Name;
                 group.TimeZoneId = request.TimeZoneId;
                 group.EmailCcRecipients = emailCcRecipients.Count == 0 ? null : string.Join('\n', emailCcRecipients);
                 group.RuleId = request.RuleId;
+                group.MinimumRestHours = request.MinimumRestHours;
+                group.MaximumContinuousHours = request.MaximumContinuousHours;
+                group.MinimumShiftStaff = request.MinimumShiftStaff;
+                if (request.AutoExtend.HasValue) group.AutoExtend = request.AutoExtend.Value;
+                if (request.FallbackUserIds != null)
+                {
+                    var selectedFallback = request.FallbackUserIds.ToHashSet(StringComparer.Ordinal);
+                    foreach (var person in group.FallbackRecipients.Where(person => !selectedFallback.Contains(person.UserId)).ToList())
+                        db.Remove(person);
+                    foreach (var userId in selectedFallback.Except(group.FallbackRecipients.Select(person => person.UserId)))
+                        group.FallbackRecipients.Add(new OnCallFallbackRecipient { UserId = userId });
+                }
                 group.AnchorUtc = DateTime.SpecifyKind(request.AnchorUtc!.Value, DateTimeKind.Utc);
                 group.ScheduleVersion = Guid.NewGuid();
                 // Remove the old ordering before saving the new ordering to avoid unique-index conflicts.
@@ -256,8 +276,6 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 await db.SaveChangesAsync(retryToken);
                 if (transaction != null) await transaction.CommitAsync(retryToken);
                 TempData["OnCallGroupSuccess"] = id.HasValue ? localizer["Team updated."].Value : localizer["Team created successfully."].Value;
-                if (futureAssignments.Count > 0)
-                    TempData["OnCallGroupSuccess"] += string.Format(localizer[" Cleared {0} future shift assignments for departed members. Please review and fill any gaps."].Value, futureAssignments.Count);
                 return RedirectToAction(nameof(GroupDetails), new { id = group.Id });
             }, cancellationToken);
         }
@@ -316,12 +334,15 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                     ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, retryToken) : null;
                 request.Name = request.Name?.Trim() ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", localizer["Please enter the rule name."].Value);
-                if (request.ShiftHours != 8) ModelState.AddModelError("RuleInput.ShiftHours", localizer["Fixed three shifts per day, 8 hours each."].Value);
+                if (request.ShiftHours <= 0) ModelState.AddModelError("RuleInput.ShiftHours", localizer["Shift duration must be positive."].Value);
                 if (request.RestHours is < 0 or > 168) ModelState.AddModelError("RuleInput.RestHours", localizer["Minimum rest must be 0–168 hours."].Value);
                 if (request.MinimumStaff is < 1 or > 200) ModelState.AddModelError("RuleInput.MinimumStaff", localizer["Minimum staff per shift must be 1–200."].Value);
-                if (request.TargetStaff is < 1 or > 200 || request.TargetStaff < request.MinimumStaff)
+                if (request.TargetStaff is < 1 or > 200)
                     ModelState.AddModelError("RuleInput.TargetStaff", localizer["Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment."].Value);
-                var rule = request.Id.HasValue ? await db.OnCallRules.FindAsync([request.Id.Value], retryToken) : null;
+                if (request.HandoverPoints?.Any(point => !Enum.IsDefined(point.DayOfWeek) || point.MinuteOfDay is < 0 or >= 1440) == true)
+                    ModelState.AddModelError("RuleInput.HandoverPoints", localizer["Invalid weekly handover point."].Value);
+                var rule = request.Id.HasValue ? await db.OnCallRules.Include(item => item.HandoverPoints)
+                    .SingleOrDefaultAsync(item => item.Id == request.Id.Value, retryToken) : null;
                 if (request.Id.HasValue && rule == null) return NotFound();
                 if (!ModelState.IsValid)
                 {
@@ -337,9 +358,19 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 rule.Name = request.Name;
                 rule.ShiftHours = request.ShiftHours;
                 rule.RestHours = request.RestHours;
-                rule.BalanceShiftTimes = request.BalanceShiftTimes;
+                rule.BalanceShiftTimes = request.SwapAlternateRounds ?? request.BalanceShiftTimes;
                 rule.MinimumStaff = request.MinimumStaff;
-                rule.TargetStaff = request.TargetStaff;
+                rule.TargetStaff = request.StaffPerShift ?? request.TargetStaff;
+                rule.StaffPerShift = request.StaffPerShift ?? request.TargetStaff ?? 1;
+                rule.ShiftMinutes = request.ShiftMinutes;
+                rule.SwapAlternateRounds = request.SwapAlternateRounds ?? request.BalanceShiftTimes;
+                if (request.HandoverPoints != null)
+                {
+                    db.RemoveRange(rule.HandoverPoints);
+                    rule.HandoverPoints = request.HandoverPoints.DistinctBy(point => new { point.DayOfWeek, point.MinuteOfDay })
+                        .Select(point => new OnCallHandoverPoint { DayOfWeek = point.DayOfWeek, MinuteOfDay = point.MinuteOfDay }).ToList();
+                    db.AddRange(rule.HandoverPoints);
+                }
                 var groups = await db.OnCallGroups.Where(group => group.RuleId == rule.Id).ToListAsync(retryToken);
                 foreach (var group in groups) group.ScheduleVersion = Guid.NewGuid();
                 await db.SaveChangesAsync(retryToken);
@@ -383,7 +414,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             Value = zone.Id,
             Text = $"{zone.DisplayName} ({zone.Id})"
         }).ToList(),
-        Groups = await db.OnCallGroups.AsNoTracking().Include(group => group.Rule).Include(group => group.Members)
+        Groups = await db.OnCallGroups.AsNoTracking().Include(group => group.Rule).ThenInclude(rule => rule!.HandoverPoints).Include(group => group.Members)
             .ThenInclude(member => member.User).OrderBy(group => group.Name).ToListAsync(cancellationToken),
         Rules = await db.OnCallRules.AsNoTracking().OrderBy(rule => rule.Name).ToListAsync(cancellationToken),
         Roles = await db.Roles.AsNoTracking().OrderBy(role => role.Name)
@@ -434,7 +465,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             model.WeekStartUtc = startUtc;
             var endUtc = startUtc.AddDays(7);
             var saved = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
-                .Where(shift => shift.GroupId == group.Id && shift.StartsAtUtc >= startUtc && shift.StartsAtUtc < endUtc)
+                .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc > startUtc && shift.StartsAtUtc < endUtc)
                 .OrderBy(shift => shift.StartsAtUtc).ToListAsync(cancellationToken);
             model.AdjacentShifts = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
                 .Where(shift => shift.GroupId == group.Id &&
@@ -452,13 +483,16 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 .Where(shift => shift.GroupId != group.Id && shift.StartsAtUtc < endUtc.AddDays(7) &&
                     shift.EndsAtUtc > startUtc.AddDays(-7) && shift.Members.Any(member => previewIds.Contains(member.UserId)))
                 .OrderBy(shift => shift.StartsAtUtc).ThenBy(shift => shift.Group.Name).ToListAsync(cancellationToken);
-            var sharedIds = model.OtherGroupMemberships.Select(member => member.UserId).ToHashSet(StringComparer.Ordinal);
-            var automaticIds = userIds.Where(id => !sharedIds.Contains(id)).ToArray();
+            var automaticIds = userIds;
             model.ScheduleSaved = saved.Count > 0;
+            model.SavedShifts = saved;
+            model.LegacyGridCompatible = saved.All(shift => shift.StartsAtUtc >= startUtc &&
+                (shift.StartsAtUtc - startUtc).Ticks % TimeSpan.FromHours(8).Ticks == 0 && shift.EndsAtUtc == shift.StartsAtUtc.AddHours(8)) &&
+                saved.Select(shift => shift.StartsAtUtc).Distinct().Count() == saved.Count &&
+                (group.Rule == null || (group.Rule.HandoverPoints.Count == 0 && (group.Rule.ShiftMinutes ?? group.Rule.ShiftHours * 60) == 480));
             model.ScheduleRestHours = saved.Count > 0 ? saved[0].RestHours : group.Rule?.RestHours ?? 16;
-            model.ScheduleMinimumStaff = saved.Count > 0 ? saved[0].MinimumStaff : group.Rule?.MinimumStaff ?? 1;
-            model.CanGenerateSchedule = group.Rule != null && automaticIds.Length >=
-                Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff;
+            model.ScheduleMinimumStaff = group.MinimumShiftStaff ?? 1;
+            model.CanGenerateSchedule = group.Rule != null && automaticIds.Length >= group.Rule.StaffPerShift;
             var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
             var boundaries = Enumerable.Range(0, 21).Select(index => new GeneratedOnCallShift(string.Empty,
                 startUtc.AddHours(index * 8), startUtc.AddHours((index + 1) * 8))).ToList();
@@ -467,20 +501,22 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             {
                 model.Preview = saved.SelectMany(shift => shift.Members.OrderBy(member => member.UserId)
                     .Select(member => new GeneratedOnCallShift(member.UserId, DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
-                        DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), shift.RestHours))).ToList();
-                model.StaffingWarnings = OnCallScheduleValidator.StaffingWarnings(startUtc, 21, model.ScheduleMinimumStaff, model.Preview, localizerFactory.Create(typeof(OnCallScheduleValidator)));
-                var covered = model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count();
-                if (covered < 21) model.PreviewError = string.Format(localizer["There are {0} unassigned shifts this week. Please fill in on-call personnel manually."].Value, 21 - covered);
+                        DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc)))).ToList();
+                model.StaffingWarnings = OnCallScheduleValidator.Warnings(group, startUtc, endUtc, saved,
+                    await schedules.Existing(group.Id, previewIds, startUtc, cancellationToken, endUtc,
+                        Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0)), localizerFactory.Create(typeof(OnCallScheduleValidator)));
                 return;
             }
             if (!model.CanGenerateSchedule)
             {
                 model.PreviewError = group.Rule == null ? localizer["No rules bound to the team yet. You can manually create a schedule."].Value
-                    : string.Format(localizer["Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually."].Value, group.Rule.MinimumStaff, group.Rule.RestHours, Math.Max(3, 1 + (int)Math.Ceiling(group.Rule.RestHours / 8.0)) * group.Rule.MinimumStaff, automaticIds.Length);
+                    : localizer["Staff per shift must not exceed the rotation queue size."].Value;
                 return;
             }
-            model.Preview = generator.Generate(group.Rule!, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc),
-                automaticIds, startUtc, 21, await schedules.Existing(group.Id, automaticIds, startUtc, cancellationToken));
+            var count = group.Rule!.HandoverPoints.Count == 0
+                ? (int)Math.Ceiling(7 * 1440.0 / (group.Rule.ShiftMinutes ?? group.Rule.ShiftHours * 60)) : 3 * group.Rule.HandoverPoints.Count;
+            model.Preview = generator.GenerateRange(group.Rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), automaticIds, startUtc, count, zone)
+                .Where(shift => shift.StartsAtUtc < endUtc).ToList();
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or TimeZoneNotFoundException or InvalidTimeZoneException or OverflowException)
         {

@@ -47,6 +47,8 @@ public class OnCallScheduleApiTests : TestBase
             var group = await db.OnCallGroups.Include(item => item.Rule).Include(item => item.Members).SingleAsync(item => item.Id == id);
             group.Rule!.MinimumStaff = 2;
             group.Rule.TargetStaff = 2;
+            group.MinimumShiftStaff = 2;
+            group.MinimumRestHours = 16;
             await db.SaveChangesAsync();
             anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
             version = group.ScheduleVersion;
@@ -70,7 +72,7 @@ public class OnCallScheduleApiTests : TestBase
         var response = await Save("SaveSchedule", payload);
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         var result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
-        Assert.AreEqual(63, result.GetProperty("warnings").GetArrayLength());
+        Assert.IsTrue(result.GetProperty("warnings").GetArrayLength() > 0);
         Assert.AreEqual(HttpStatusCode.Conflict, (await Save("SaveSchedule", payload)).StatusCode);
         using (var scope = Server!.Services.CreateScope())
         {
@@ -83,9 +85,10 @@ public class OnCallScheduleApiTests : TestBase
         payload.Slots[5].UserIds = [users[3]];
         payload.AdjacentWeeks[0].Slots[^1].UserIds = [users[0]];
         response = await Save("SaveSchedule", payload);
-        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
-        Assert.IsTrue(result.GetProperty("errors").EnumerateArray().Any(error => error.GetString()!.Contains("insufficient rest")));
+        Assert.IsTrue(result.GetProperty("warnings").EnumerateArray().Any(error => error.GetString()!.Contains("insufficient rest")));
+        payload.Version = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!.Version;
         payload.AdjacentWeeks[0].Slots[^1].UserIds = [users[2]];
         payload.AdjacentWeeks[1].StartUtc = payload.AdjacentWeeks[0].StartUtc;
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("SaveSchedule", payload)).StatusCode);
@@ -98,7 +101,7 @@ public class OnCallScheduleApiTests : TestBase
         Assert.AreEqual(payload.Version, (await checkDb.OnCallGroups.SingleAsync(item => item.Id == id)).ScheduleVersion);
         Assert.AreEqual(63, await checkDb.OnCallShifts.CountAsync(shift => shift.GroupId == id));
         Assert.AreEqual(63, await checkDb.OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
-        Assert.IsFalse(await checkDb.OnCallShiftMembers.AnyAsync(member => member.Shift.GroupId == id && member.UserId == users[3]));
+        Assert.IsTrue(await checkDb.OnCallShiftMembers.AnyAsync(member => member.Shift.GroupId == id && member.UserId == users[3]));
     }
 
     [TestMethod]
@@ -116,7 +119,7 @@ public class OnCallScheduleApiTests : TestBase
             Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync($"/OnCall/GetSchedule?id={group.RuleId}")).StatusCode);
         }
         Assert.AreEqual(21, suggestion.Slots.Count);
-        Assert.AreEqual(28, suggestion.Slots.Sum(slot => slot.UserIds.Count));
+        Assert.AreEqual(21, suggestion.Slots.Sum(slot => slot.UserIds.Count));
         var metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
         Assert.AreEqual(16, metadata.GetProperty("restHours").GetInt32());
         Assert.IsFalse(metadata.GetProperty("balanceShiftTimes").GetBoolean());
@@ -128,17 +131,17 @@ public class OnCallScheduleApiTests : TestBase
 
         var saved = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("GenerateSchedule", saved)).StatusCode);
-        var removed = saved.Slots[0].UserIds[1];
+        var removed = saved.Slots[0].UserIds[0];
         saved.Slots[0].UserIds.Remove(removed);
         Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", saved)).StatusCode);
         var edited = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
         Assert.DoesNotContain(removed, edited.Slots[0].UserIds);
         edited.Slots[0].UserIds.Clear();
         var empty = await Save("SaveSchedule", edited);
-        Assert.AreEqual(HttpStatusCode.BadRequest, empty.StatusCode);
-        Assert.Contains("Empty shift", System.Text.Json.JsonDocument.Parse(await empty.Content.ReadAsStringAsync()).RootElement.GetProperty("errors")[0].GetString()!);
+        Assert.AreEqual(HttpStatusCode.OK, empty.StatusCode);
+        Assert.IsTrue(System.Text.Json.JsonDocument.Parse(await empty.Content.ReadAsStringAsync()).RootElement.GetProperty("warnings").GetArrayLength() > 0);
         using var scope = Server!.Services.CreateScope();
-        Assert.AreEqual(27, await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
+        Assert.AreEqual(20, await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
         var nextStart = edited.StartUtc.AddDays(7);
         var next = await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(nextStart.ToString("O"))}");
         Assert.AreEqual(nextStart, next!.StartUtc);
@@ -146,7 +149,7 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
-    public async Task UnderstaffedManualScheduleReturnsWarningsAndSnapshotMetadataWhileEmptySlotsFail()
+    public async Task TeamThresholdWarningsPersistAndEmptySlotsSave()
     {
         await LoginAsAdmin();
         var id = await SeedGroup();
@@ -156,6 +159,7 @@ public class OnCallScheduleApiTests : TestBase
             var group = await db.OnCallGroups.Include(item => item.Rule).SingleAsync(item => item.Id == id);
             group.Rule!.MinimumStaff = 2;
             group.Rule.TargetStaff = 2;
+            group.MinimumShiftStaff = 2;
             await db.SaveChangesAsync();
         }
         Guid ruleId;
@@ -170,20 +174,19 @@ public class OnCallScheduleApiTests : TestBase
         var metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
         Assert.AreEqual(2, metadata.GetProperty("minimumStaff").GetInt32());
         Assert.AreEqual(2, metadata.GetProperty("targetStaff").GetInt32());
-        Assert.IsFalse(metadata.GetProperty("canGenerate").GetBoolean());
+        Assert.IsTrue(metadata.GetProperty("canGenerate").GetBoolean());
         var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
-        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("GenerateSchedule", draft)).StatusCode);
         var users = metadata.GetProperty("members").EnumerateArray().Select(user => user.GetProperty("id").GetString()!).Take(3).ToArray();
         for (var index = 0; index < draft.Slots.Count; index++)
             draft.Slots[index].UserIds = [users[index % 3]];
         var response = await Save("SaveSchedule", draft);
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         var result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
-        Assert.AreEqual(21, result.GetProperty("warnings").GetArrayLength());
+        Assert.IsTrue(result.GetProperty("warnings").GetArrayLength() > 0);
         Assert.IsFalse(result.TryGetProperty("errors", out _));
         metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
         Assert.IsTrue(metadata.GetProperty("saved").GetBoolean());
-        Assert.AreEqual(21, metadata.GetProperty("warnings").GetArrayLength());
+        Assert.IsTrue(metadata.GetProperty("warnings").GetArrayLength() > 0);
         CollectionAssert.AreEqual(result.GetProperty("warnings").EnumerateArray().Select(warning => warning.GetString()).ToArray(),
             metadata.GetProperty("warnings").EnumerateArray().Select(warning => warning.GetString()).ToArray());
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
@@ -200,18 +203,18 @@ public class OnCallScheduleApiTests : TestBase
         metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
         Assert.AreEqual(2, metadata.GetProperty("minimumStaff").GetInt32());
         Assert.AreEqual(System.Text.Json.JsonValueKind.Null, metadata.GetProperty("targetStaff").ValueKind);
-        Assert.AreEqual(21, metadata.GetProperty("warnings").GetArrayLength());
+        Assert.IsTrue(metadata.GetProperty("warnings").GetArrayLength() > 0);
         draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
         var version = draft.Version;
         draft.Slots[0].UserIds.Clear();
         response = await Save("SaveSchedule", draft);
-        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
-        Assert.IsTrue(result.GetProperty("errors").EnumerateArray().Any(error => error.GetString()!.Contains("Empty shift")));
+        Assert.IsTrue(result.GetProperty("warnings").EnumerateArray().Any(error => error.GetString()!.Contains("no on-duty")));
         using var checkScope = Server!.Services.CreateScope();
         var checkDb = checkScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-        Assert.AreEqual(version, (await checkDb.OnCallGroups.SingleAsync(group => group.Id == id)).ScheduleVersion);
-        Assert.AreEqual(21, await checkDb.OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
+        Assert.AreNotEqual(version, (await checkDb.OnCallGroups.SingleAsync(group => group.Id == id)).ScheduleVersion);
+        Assert.AreEqual(20, await checkDb.OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
         Assert.IsTrue(await checkDb.OnCallShifts.Where(shift => shift.GroupId == id).AllAsync(shift => shift.MinimumStaff == 2));
     }
 
@@ -221,8 +224,10 @@ public class OnCallScheduleApiTests : TestBase
         await LoginAsAdmin();
         var id = await SeedGroup();
         var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
-        var redundant = draft.Slots[0].UserIds[1];
-        foreach (var slot in draft.Slots) slot.UserIds.Remove(redundant);
+        var redundant = draft.Slots[0].UserIds[0];
+        var replacement = draft.Slots[1].UserIds[0];
+        foreach (var slot in draft.Slots)
+            slot.UserIds = slot.UserIds.Select(userId => userId == redundant ? replacement : userId).ToList();
         Assert.IsTrue(draft.Slots.All(slot => slot.UserIds.Count > 0));
         Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", draft)).StatusCode);
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
@@ -267,13 +272,15 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
-    public async Task MembershipRemovalShowsDepartedHistoryAndEmptyFutureSlotsWithoutRegenerating()
+    public async Task MembershipRemovalPreservesDepartedAssignmentsAndShowsWarnings()
     {
         await LoginAsAdmin();
         var id = await SeedGroup();
-        var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
+        var future = DateTime.UtcNow.Date.AddDays(7);
+        var scheduleUrl = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(future.ToString("O"))}";
+        var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(scheduleUrl))!;
         Assert.AreEqual(HttpStatusCode.OK, (await Save("GenerateSchedule", draft)).StatusCode);
-        var saved = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
+        var saved = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(scheduleUrl))!;
         string departed;
         DateTime editedAt;
         using (var scope = Server!.Services.CreateScope())
@@ -294,15 +301,15 @@ public class OnCallScheduleApiTests : TestBase
             AssertRedirect(await PostForm("/OnCall/UpdateGroup", update, $"/OnCall/GroupEdit/{id}"), $"/OnCall/GroupDetails/{id}");
         }
         Assert.AreEqual(HttpStatusCode.Conflict, (await Save("SaveSchedule", saved)).StatusCode);
-        var metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
-        var current = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
+        var metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>(scheduleUrl);
+        var current = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(scheduleUrl))!;
         Assert.AreNotEqual(saved.Version, current.Version);
         Assert.AreEqual(21, current.Slots.Count);
-        Assert.IsTrue(current.Slots.Any(slot => slot.UserIds.Count == 0));
-        Assert.Contains("unassigned shifts", metadata.GetProperty("generationError").GetString()!);
+        Assert.IsTrue(current.Slots.Any(slot => slot.UserIds.Contains(departed)));
+        Assert.IsTrue(metadata.GetProperty("warnings").EnumerateArray().Any(warning => warning.GetString()!.Contains("departed")));
         Assert.IsTrue(metadata.GetProperty("members").EnumerateArray()
             .Single(member => member.GetProperty("id").GetString() == departed).GetProperty("departed").GetBoolean());
-        var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}"));
+        var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(future.ToString("O"))}"));
         Assert.Contains("Departed", details);
         Assert.Contains("id=\"oncall-schedule\"", details);
         Assert.Contains("id=\"oncall-gantt\"", details);
@@ -311,9 +318,38 @@ public class OnCallScheduleApiTests : TestBase
         var checkDb = checkScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var shifts = await checkDb.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.GroupId == id).ToListAsync();
         Assert.AreEqual(21, shifts.Count);
-        Assert.IsFalse(shifts.Where(shift => shift.StartsAtUtc > editedAt).Any(shift => shift.Members.Any(member => member.UserId == departed)));
-        Assert.IsTrue(shifts.Where(shift => shift.StartsAtUtc <= editedAt).Any(shift => shift.Members.Any(member => member.UserId == departed)));
+        Assert.IsTrue(shifts.Where(shift => shift.StartsAtUtc > editedAt).Any(shift => shift.Members.Any(member => member.UserId == departed)));
+        CollectionAssert.AreEqual(saved.Slots.SelectMany(slot => slot.UserIds).ToArray(),
+            shifts.OrderBy(shift => shift.StartsAtUtc).SelectMany(shift => shift.Members.Select(member => member.UserId)).ToArray());
         Assert.IsTrue(shifts.All(shift => shift.RestHours == 16));
+    }
+
+    [TestMethod]
+    public async Task FlexibleApiRoundTripsCrossWeekEmptyAndOverlappingShiftsWithoutLegacyEditor()
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        var start = DateTime.UtcNow.Date;
+        var url = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}";
+        var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(url))!;
+        var user = draft.Slots.SelectMany(slot => slot.UserIds).First();
+        draft.Slots = [new() { StartsAtUtc = start.AddDays(-2).AddMinutes(17), EndsAtUtc = start.AddDays(2), UserIds = [user] },
+            new() { StartsAtUtc = start.AddMinutes(11), EndsAtUtc = start.AddMinutes(48) },
+            new() { StartsAtUtc = start.AddMinutes(11), EndsAtUtc = start.AddHours(12), UserIds = [user] }];
+        var response = await Save("SaveSchedule", draft);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var saved = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(url))!;
+        Assert.AreEqual(3, saved.Slots.Count);
+        Assert.IsTrue(saved.Slots.All(slot => slot.Id.HasValue && slot.EndsAtUtc.HasValue));
+        Assert.IsTrue(saved.Slots.Any(slot => slot.UserIds.Count == 0 && slot.EndsAtUtc - slot.StartsAtUtc == TimeSpan.FromMinutes(37)));
+        Assert.IsTrue(saved.Slots.Any(slot => slot.StartsAtUtc < start));
+        Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", saved)).StatusCode);
+        var page = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
+        Assert.Contains("Flexible shifts are read-only", WebUtility.HtmlDecode(page));
+        Assert.DoesNotContain("id=\"oncall-schedule\"", page);
+        Assert.Contains("id=\"oncall-gantt\"", page);
+        using var scope = Server!.Services.CreateScope();
+        Assert.AreEqual(3, await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallShifts.CountAsync(shift => shift.GroupId == id));
     }
 
     [TestMethod]

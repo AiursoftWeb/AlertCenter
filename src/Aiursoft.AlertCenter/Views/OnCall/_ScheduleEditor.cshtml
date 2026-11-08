@@ -63,7 +63,7 @@
         <summary>@Localizer["How to adjust the schedule"]</summary>
     <p class="small mb-2">@Localizer["Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag 'Swap Entire Week' to exchange two people's weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments."]</p>
     <p class="small text-muted mb-2">@Localizer["Copy the current week's draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week's draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts."]</p>
-    <p class="small text-muted mb-2">@Localizer["Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied."]</p>
+    <p class="small text-muted mb-2">@Localizer["Coverage, staffing and rest issues are reminders and do not prevent saving. Invalid time intervals, non-team assignees and version conflicts prevent saving. Departed members may retain their original assignments."]</p>
     </details>
     <details id="oncall-draft-validation" class="text-danger small mb-2" hidden>
         <summary id="oncall-draft-summary" role="status" aria-live="polite"></summary>
@@ -87,7 +87,7 @@
                 }
             </select>
             <fieldset>
-                <legend class="h6">@Localizer["On-call personnel (multiple allowed, at least one)"]</legend>
+                <legend class="h6">@Localizer["On-call personnel (zero or more)"]</legend>
                 <div class="row g-2 mb-3">
                     @foreach (var user in Model.PreviewUsers)
                     {

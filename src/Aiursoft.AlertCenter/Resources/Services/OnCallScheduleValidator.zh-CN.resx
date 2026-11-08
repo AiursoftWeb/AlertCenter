@@ -34,4 +34,12 @@
     <value>{1:yyyy-MM-dd HH:mm} UTC 时安排的员工仅有 {0} 人，低于最低要求 {2} 人。尽管人员不足，仍允许手动保存，但空班次除外。</value>
   </data>
 
+  <data name="Schedule contains a coverage gap." xml:space="preserve"><value>排班存在无人覆盖的空档。</value></data>
+  <data name="Schedule contains overlapping shifts." xml:space="preserve"><value>排班存在重叠班段。</value></data>
+  <data name="Shift has no on-duty engineers." xml:space="preserve"><value>班段尚未安排值班人。</value></data>
+  <data name="Shift staffing is below the team threshold." xml:space="preserve"><value>班段人数低于团队提醒阈值。</value></data>
+  <data name="Future shift includes a departed team member." xml:space="preserve"><value>未来班段中仍有已离队的成员。</value></data>
+  <data name="An engineer has insufficient rest between shifts." xml:space="preserve"><value>成员在班段之间的休息时间不足。</value></data>
+  <data name="An engineer exceeds the continuous on-call threshold." xml:space="preserve"><value>成员连续值班时长超过提醒阈值。</value></data>
+  <data name="Shift end must be after its start." xml:space="preserve"><value>班段结束时间必须晚于开始时间。</value></data>
 </root>

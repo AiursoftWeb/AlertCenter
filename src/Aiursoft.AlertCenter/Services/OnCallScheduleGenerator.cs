@@ -3,97 +3,88 @@ using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public sealed record GeneratedOnCallShift(string UserId, DateTime StartsAtUtc, DateTime EndsAtUtc, int RestHours = 0);
+public sealed record GeneratedOnCallShift(string UserId, DateTime StartsAtUtc, DateTime EndsAtUtc, long? RotationPosition = null);
 
 public interface IOnCallScheduleGenerator
 {
     IReadOnlyList<GeneratedOnCallShift> Generate(OnCallRule rule, DateTime anchorUtc, IReadOnlyList<string> orderedUserIds,
         DateTime startUtc, int shiftCount, IReadOnlyList<GeneratedOnCallShift>? existing = null);
+    IReadOnlyList<GeneratedOnCallShift> GenerateRange(OnCallRule rule, DateTime anchorUtc, IReadOnlyList<string> orderedUserIds,
+        DateTime startUtc, int shiftCount, TimeZoneInfo zone, IReadOnlyList<GeneratedOnCallShift>? existing = null);
 }
 
-public sealed class OnCallScheduleGenerator (IStringLocalizer<OnCallScheduleGenerator> localizer): IOnCallScheduleGenerator
+public sealed class OnCallScheduleGenerator(IStringLocalizer<OnCallScheduleGenerator> localizer) : IOnCallScheduleGenerator
 {
     public IReadOnlyList<GeneratedOnCallShift> Generate(OnCallRule rule, DateTime anchorUtc, IReadOnlyList<string> orderedUserIds,
-        DateTime startUtc, int shiftCount, IReadOnlyList<GeneratedOnCallShift>? existing = null)
+        DateTime startUtc, int shiftCount, IReadOnlyList<GeneratedOnCallShift>? existing = null) =>
+        GenerateRange(rule, anchorUtc, orderedUserIds, startUtc, shiftCount, TimeZoneInfo.Utc, existing);
+
+    public IReadOnlyList<GeneratedOnCallShift> GenerateRange(OnCallRule rule, DateTime anchorUtc,
+        IReadOnlyList<string> orderedUserIds, DateTime startUtc, int shiftCount, TimeZoneInfo zone,
+        IReadOnlyList<GeneratedOnCallShift>? existing = null)
     {
-        if (rule.ShiftHours != 8 || rule.RestHours is < 0 or > 168)
-            throw new ArgumentException(localizer["Fixed three shifts per day, 8 hours each; minimum break must be 0–168 hours."].Value);
-        if (rule.MinimumStaff is < 1 or > 200 ||
-            rule.TargetStaff is < 1 or > 200 || rule.TargetStaff < rule.MinimumStaff)
-            throw new ArgumentException(localizer["Minimum staff must be 1–200. Target staff must be empty or between 1–200 and not less than the minimum."].Value);
         if (anchorUtc.Kind != DateTimeKind.Utc || startUtc.Kind != DateTimeKind.Utc)
             throw new ArgumentException(localizer["The shift start time must be in UTC."].Value);
-        if (shiftCount is < 1 or > 168)
-            throw new ArgumentOutOfRangeException(nameof(shiftCount), localizer["Preview shift count must be 1–168."].Value);
+        if (shiftCount is < 1 or > 100000) throw new ArgumentOutOfRangeException(nameof(shiftCount));
         if (orderedUserIds.Count == 0 || orderedUserIds.Any(string.IsNullOrWhiteSpace) ||
             orderedUserIds.Distinct(StringComparer.Ordinal).Count() != orderedUserIds.Count)
             throw new ArgumentException(localizer["Please select unique, valid employees."].Value);
-        var requiredStaff = Math.Max(3, 1 + (int)Math.Ceiling(rule.RestHours / 8.0));
-        var minimumRequiredStaff = requiredStaff * rule.MinimumStaff;
-        if (orderedUserIds.Count < minimumRequiredStaff)
-            throw new InvalidOperationException(string.Format(localizer["This rule requires at least {0} staff (shift {1} hours, rest no less than {2} hours)."].Value, minimumRequiredStaff, rule.ShiftHours, rule.RestHours));
-        var duration = TimeSpan.FromHours(rule.ShiftHours);
-        if (startUtc < anchorUtc || (startUtc - anchorUtc).Ticks % duration.Ticks != 0)
-            throw new ArgumentException(localizer["Preview start must align with the team's shift boundary."].Value);
-        var firstIndex = (startUtc - anchorUtc).Ticks / duration.Ticks;
-        var history = orderedUserIds.ToDictionary(id => id,
-            id => (existing ?? []).Where(shift => shift.UserId == id).ToList(), StringComparer.Ordinal);
+        if (rule.StaffPerShift < 1 || rule.StaffPerShift > orderedUserIds.Count)
+            throw new ArgumentException(localizer["Staff per shift must not exceed the rotation queue size."].Value);
+        var minutes = rule.ShiftMinutes ?? checked(rule.ShiftHours * 60);
+        if (minutes <= 0) throw new ArgumentOutOfRangeException(nameof(rule));
+        var cursor = 0L;
+        if (existing is { Count: > 0 })
+        {
+            var last = existing.OrderBy(shift => shift.EndsAtUtc).ThenBy(shift => shift.StartsAtUtc).Last();
+            var lastIndex = orderedUserIds.ToList().IndexOf(last.UserId);
+            cursor = lastIndex < 0 ? 0 : last.RotationPosition.HasValue ? last.RotationPosition.Value + 1 : lastIndex + 1;
+        }
+        else if (rule.HandoverPoints.Count == 0)
+            cursor = Math.Max(0, (startUtc - anchorUtc).Ticks / TimeSpan.FromMinutes(minutes).Ticks) * rule.StaffPerShift;
         var result = new List<GeneratedOnCallShift>();
+        var startsAt = startUtc;
         for (var index = 0; index < shiftCount; index++)
         {
-            var slot = firstIndex + index;
-            var startsAt = startUtc.AddHours(index * 8);
-            var target = rule.TargetStaff ?? (orderedUserIds.Count / requiredStaff + (slot % requiredStaff < orderedUserIds.Count % requiredStaff ? 1 : 0));
-            // 换班窗口暂时减少冗余，但不能低于最低人数。
-            if (rule.BalanceShiftTimes && slot >= 21 && slot % 21 < requiredStaff)
-                target = Math.Max(rule.MinimumStaff, rule.TargetStaff.HasValue ? target - 1 : orderedUserIds.Count / requiredStaff - 1);
-            var candidates = orderedUserIds.Select((id, order) => new { Id = id, Order = order })
-                .Where(user => OnCallScheduleValidator.CanAssign(user.Id, startsAt, startsAt.AddHours(8), rule.RestHours, history[user.Id]))
-                .OrderBy(user => rule.BalanceShiftTimes ? 0 : ((user.Order / rule.MinimumStaff) % requiredStaff == slot % requiredStaff ? 0 : 1))
-                .ThenBy(user => history[user.Id].Count)
-                .ThenBy(user => rule.BalanceShiftTimes
-                    ? history[user.Id].Count(shift => ((shift.StartsAtUtc - anchorUtc).Ticks / duration.Ticks % 3 + 3) % 3 == slot % 3) : 0)
-                .ThenBy(user => user.Order).ToList();
-            var assigned = 0;
-            foreach (var candidate in candidates)
+            var endsAt = rule.HandoverPoints.Count == 0
+                ? startsAt.AddMinutes(minutes) : NextHandover(rule.HandoverPoints, zone, startsAt);
+            for (var person = 0; person < rule.StaffPerShift; person++)
             {
-                var shift = new GeneratedOnCallShift(candidate.Id, startsAt, startsAt.AddHours(8), rule.RestHours);
-                history[candidate.Id].Add(shift);
-                if (!CanCoverFollowingSlots(startsAt, Math.Min(requiredStaff - 1, shiftCount - index - 1), rule.MinimumStaff, rule.RestHours, history))
-                {
-                    history[candidate.Id].RemoveAt(history[candidate.Id].Count - 1);
-                    continue;
-                }
-                result.Add(shift);
-                if (++assigned == target) break;
+                var position = QueueIndex(rule, orderedUserIds.Count, cursor);
+                result.Add(new(orderedUserIds[position], startsAt, endsAt, RotationPosition: cursor));
+                cursor++;
             }
-            if (assigned < rule.MinimumStaff)
-                throw new InvalidOperationException(string.Format(localizer["Unable to schedule staff meeting rest requirements at {0:yyyy-MM-dd HH:mm} UTC. Please adjust adjacent shifts or add members."].Value, startsAt));
+            startsAt = endsAt;
         }
         return result;
     }
 
-    private static bool CanCoverFollowingSlots(DateTime start, int count, int minimumStaff, int restHours,
-        Dictionary<string, List<GeneratedOnCallShift>> history)
+    internal static int QueueIndex(OnCallRule rule, int count, long cursor)
     {
-        // 每个后续班次保留最低人数；最多检查 21 个班次，匹配需求不超过成员数。
-        var demand = count * minimumStaff;
-        if (demand > history.Count) return false;
-        var matched = new Dictionary<string, int>(StringComparer.Ordinal);
-        bool Match(int position, HashSet<string> visited)
+        var position = (int)(cursor % count);
+        return rule.SwapAlternateRounds && count >= 4 && count % 2 == 0 && cursor / count % 2 == 1
+            ? position ^ 1 : position;
+    }
+
+    public static DateTime NextHandover(IEnumerable<OnCallHandoverPoint> points, TimeZoneInfo zone, DateTime afterUtc)
+    {
+        var localDate = TimeZoneInfo.ConvertTimeFromUtc(afterUtc, zone).Date;
+        var candidates = new List<DateTime>();
+        foreach (var point in points)
         {
-            var slotIndex = position / minimumStaff;
-            var time = start.AddHours((slotIndex + 1) * 8);
-            foreach (var (id, shifts) in history)
+            if (point.MinuteOfDay is < 0 or >= 1440 || !Enum.IsDefined(point.DayOfWeek))
+                throw new ArgumentException("Invalid weekly handover point.");
+            for (var day = 0; day <= 14; day++)
             {
-                if (visited.Contains(id) || !OnCallScheduleValidator.CanAssign(id, time, time.AddHours(8), restHours, shifts)) continue;
-                visited.Add(id);
-                if (matched.TryGetValue(id, out var previous) && !Match(previous, visited)) continue;
-                matched[id] = position;
-                return true;
+                var date = localDate.AddDays(day);
+                if (date.DayOfWeek != point.DayOfWeek) continue;
+                var local = DateTime.SpecifyKind(date.AddMinutes(point.MinuteOfDay), DateTimeKind.Unspecified);
+                // 春季不存在的本地时刻顺延到第一个有效分钟；秋季重复时刻采用标准时。
+                while (zone.IsInvalidTime(local)) local = local.AddMinutes(1);
+                var utc = TimeZoneInfo.ConvertTimeToUtc(local, zone);
+                if (utc > afterUtc) candidates.Add(utc);
             }
-            return false;
         }
-        return Enumerable.Range(0, demand).All(position => Match(position, new HashSet<string>(StringComparer.Ordinal)));
+        return candidates.Count > 0 ? candidates.Min() : throw new ArgumentException("No weekly handover points.");
     }
 }

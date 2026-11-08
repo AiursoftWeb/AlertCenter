@@ -10,6 +10,39 @@ namespace Aiursoft.AlertCenter.Tests;
 public class OnCallRulePersistenceTests
 {
     [TestMethod]
+    public async Task FlexibleMigrationPreservesLegacyTimesAndMembersAndConvertsThresholds()
+    {
+        await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>().UseSqlite("DataSource=:memory:").Options);
+        await db.Database.OpenConnectionAsync();
+        await db.GetService<IMigrator>().MigrateAsync("20261104142300_AddIncidentEmbedding");
+        var ruleId = Guid.NewGuid();
+        var groupId = Guid.NewGuid();
+        var shiftId = Guid.NewGuid();
+        var start = new DateTime(2026, 9, 28, 0, 0, 0, DateTimeKind.Utc);
+        var end = start.AddHours(8);
+        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO AspNetUsers (Id, UserName, DisplayName, AvatarRelativePath, CreationTime, EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount) VALUES ({"old"}, {"old"}, {"Old user"}, {User.DefaultAvatarPath}, {start}, {false}, {false}, {false}, {false}, {0})");
+        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO OnCallRules (Id, Name, ShiftHours, RestHours, BalanceShiftTimes, MinimumStaff, TargetStaff) VALUES ({ruleId}, {"Legacy"}, {8}, {24}, {true}, {2}, {3})");
+        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO OnCallGroups (Id, Name, TimeZoneId, RuleId, AnchorUtc, ScheduleVersion) VALUES ({groupId}, {"Team"}, {"UTC"}, {ruleId}, {start}, {Guid.NewGuid()})");
+        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO OnCallShifts (Id, GroupId, StartsAtUtc, EndsAtUtc, RestHours, MinimumStaff) VALUES ({shiftId}, {groupId}, {start}, {end}, {24}, {2})");
+        await db.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO OnCallShiftMembers (ShiftId, UserId) VALUES ({shiftId}, {"old"})");
+        await db.Database.MigrateAsync();
+        var shift = await db.OnCallShifts.Include(item => item.Members).SingleAsync();
+        Assert.AreEqual(shiftId, shift.Id);
+        Assert.AreEqual(start, shift.StartsAtUtc);
+        Assert.AreEqual(end, shift.EndsAtUtc);
+        Assert.AreEqual("old", shift.Members.Single().UserId);
+        Assert.AreEqual(OnCallShiftSource.Manual, shift.Source);
+        var group = await db.OnCallGroups.SingleAsync();
+        Assert.AreEqual(24d, group.MinimumRestHours);
+        Assert.AreEqual(2, group.MinimumShiftStaff);
+        Assert.IsFalse(group.AutoExtend);
+        var rule = await db.OnCallRules.SingleAsync();
+        Assert.AreEqual(3, rule.StaffPerShift);
+        Assert.IsTrue(rule.SwapAlternateRounds);
+        Assert.IsNull((await db.Users.SingleAsync()).OnCallSubscriptionTokenHash);
+    }
+
+    [TestMethod]
     public async Task MigrationsCreateTeamOwnedSchedules()
     {
         await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()

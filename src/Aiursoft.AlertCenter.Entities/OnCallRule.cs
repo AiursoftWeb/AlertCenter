@@ -11,4 +11,17 @@ public class OnCallRule
     public bool BalanceShiftTimes { get; set; }
     public int MinimumStaff { get; set; } = 1;
     public int? TargetStaff { get; set; }
+    public int? ShiftMinutes { get; set; }
+    public bool SwapAlternateRounds { get; set; }
+    public int StaffPerShift { get; set; } = 1;
+    public ICollection<OnCallHandoverPoint> HandoverPoints { get; set; } = [];
+}
+
+public class OnCallHandoverPoint
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid RuleId { get; set; }
+    public OnCallRule Rule { get; set; } = null!;
+    public DayOfWeek DayOfWeek { get; set; }
+    public int MinuteOfDay { get; set; }
 }

@@ -60,7 +60,7 @@
                     </div>
                 </div>
             }
-            @if (Model.CanManageOnCall)
+            @if (Model.CanManageOnCall && Model.LegacyGridCompatible)
             {
                 <button type="button" class="btn btn-outline-warning btn-sm mb-3" data-oncall-find-gap hidden="@(Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count() == 21)" data-gap-label="@Localizer["{0} unassigned shifts · fill a shift"].Value">@string.Format(@Localizer["{0} unassigned shifts · fill a shift"].Value, 21 - Model.Preview.Select(shift => shift.StartsAtUtc).Distinct().Count())</button>
             }
@@ -107,9 +107,20 @@
                 <span>@Localizer["Participating employees"]: <strong data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></span>
                 <span>@Localizer["Scheduled hours"]: <strong data-oncall-stat="hours">@totalHours.ToString("0") @Localizer["hours"]</strong></span>
             </div>
-            @if (Model.CanManageOnCall)
+            @if (Model.CanManageOnCall && Model.LegacyGridCompatible)
             {
                 @await Html.PartialAsync("_ScheduleEditor", Model)
+            }
+            else if (!Model.LegacyGridCompatible)
+            {
+                @if (Model.CanManageOnCall) { @Html.AntiForgeryToken() }
+                <p class="text-muted">@Localizer["Flexible shifts are read-only on this page. Use the schedule API until the new editor is available."]</p>
+                <table class="table"><thead><tr><th>@Localizer["Start"]</th><th>@Localizer["End"]</th><th>@Localizer["On-call personnel"]</th></tr></thead><tbody>
+                @foreach (var shift in Model.SavedShifts)
+                {
+                    <tr><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), zone)</td><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), zone)</td><td>@string.Join(", ", shift.Members.Select(member => staffNames.GetValueOrDefault(member.UserId)))</td></tr>
+                }
+                </tbody></table>
             }
             @await Html.PartialAsync("_PreviewGantt", Model)
         }
@@ -136,7 +147,7 @@
         {
             <p class="text-muted">@Localizer["No rule template bound, manual scheduling available; new shifts default to min rest "]@(rule?.RestHours ?? 16) @Localizer["hours."]</p>
         }
-        <p class="small text-muted">@Localizer["Modifying templates, re-binding templates, or adding/removing members will not regenerate saved shifts. After removing a member, upcoming assignments are cleared; empty shifts must be filled manually."]</p>
+        <p class="small text-muted">@Localizer["Template and membership changes preserve saved shifts, including future assignments for departed members."]</p>
         <h3 class="h6">@Localizer["Rotate Members"]</h3>
         @if (group.Members.Count == 0)
         {
@@ -156,8 +167,8 @@
 {
     <div id="oncall-shared-members" class="border-top p-3">
         <div>
-            <h2 class="h6">@Localizer["Cross-on-call-group members require manual scheduling"]</h2>
-            <p>@Localizer["The following employees belong to multiple on-call groups; automatic preview and scheduling will skip them. Saved arrangements remain unchanged; manual scheduling and cross-group conflict validation are still available."]</p>
+            <h2 class="h6">@Localizer["Members shared with other on-call teams"]</h2>
+            <p>@Localizer["Shared members participate in the rotation queue. Cross-team overlaps and short breaks produce reminders."]</p>
             <ul class="mb-0">
                 @foreach (var member in group.Members.OrderBy(item => item.RotationOrder))
                 {

@@ -190,4 +190,10 @@
     <value>您正在查看未保存的草稿。通知仍按照已保存的排班发送。</value>
   </data>
 
+  <data name="Flexible shifts are read-only on this page. Use the schedule API until the new editor is available." xml:space="preserve"><value>此页面仅展示自由班段；新编辑器上线前请通过排班 API 管理。</value></data>
+  <data name="End" xml:space="preserve"><value>结束</value></data>
+  <data name="On-call personnel" xml:space="preserve"><value>值班人</value></data>
+  <data name="Template and membership changes preserve saved shifts, including future assignments for departed members." xml:space="preserve"><value>修改模板或成员不会改变已保存的班段，离队成员的未来安排也会保留。</value></data>
+  <data name="Members shared with other on-call teams" xml:space="preserve"><value>同时加入其他值班团队的成员</value></data>
+  <data name="Shared members participate in the rotation queue. Cross-team overlaps and short breaks produce reminders." xml:space="preserve"><value>跨团队成员正常参与轮换队列；跨团队重叠和休息不足仅产生提醒。</value></data>
 </root>

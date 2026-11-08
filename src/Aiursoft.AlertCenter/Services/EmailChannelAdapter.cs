@@ -173,6 +173,10 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
 
     private EmailMessage CreateMessage(PushDelivery delivery, IReadOnlyList<string> recipients, IReadOnlyList<string> ccRecipients)
     {
+        if (delivery.OnCallEmail?.HandoverContent is { } summary)
+            return new(recipients, ccRecipients,
+                $"[AlertCenter] {localizer["Unresolved incident handover"]}: {SanitizeSubject(delivery.OnCallEmail.GroupName)}", summary)
+            { NotificationId = delivery.Id };
         var message = delivery.Incident;
         var incidentEvent = delivery.IncidentEvent;
         var title = incidentEvent?.Type switch

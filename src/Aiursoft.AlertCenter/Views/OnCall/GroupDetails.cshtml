@@ -23,6 +23,7 @@
         <div class="alert-message">@message</div>
     </div>
 }
+@await Html.PartialAsync("_OnCallWarnings", Model.UpcomingIssues)
 <div class="card mb-4">
     <div class="card-body">
         <h2 class="h5">@Localizer["Next: assign people to shifts"]</h2>

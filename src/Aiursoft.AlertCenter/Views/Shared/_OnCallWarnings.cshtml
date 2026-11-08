@@ -1,0 +1,15 @@
+@model IReadOnlyList<Aiursoft.AlertCenter.Services.OnCallTeamIssues>
+@if (Model.Count > 0)
+{
+    <div class="alert alert-warning" role="alert">
+        <div class="alert-message">
+            <details><summary>@Localizer["Schedule issues in the next 7 days"]</summary>
+                @foreach (var team in Model)
+                {
+                    <a asp-controller="OnCall" asp-action="ScheduleDetails" asp-route-id="@team.GroupId">@team.GroupName</a>
+                    <ul>@foreach (var warning in team.Warnings) { <li>@warning</li> }</ul>
+                }
+            </details>
+        </div>
+    </div>
+}

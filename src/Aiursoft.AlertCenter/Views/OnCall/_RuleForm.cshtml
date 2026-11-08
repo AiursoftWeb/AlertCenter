@@ -3,6 +3,7 @@
 <form asp-action="SaveRule" method="post" data-action-feedback>
     <div asp-validation-summary="All" class="text-danger mb-3"></div>
     <input asp-for="RuleInput.Id" type="hidden" />
+    <input asp-for="RuleInput.ShiftMinutes" type="hidden" />
     <div class="row g-3 mb-3">
         <div class="col-md-6">
             <label asp-for="RuleInput.Name" class="form-label">@Localizer["Template name"]</label>
@@ -10,7 +11,7 @@
         </div>
         <div class="col-md-3">
             <label asp-for="RuleInput.ShiftHours" class="form-label">@Localizer["Shift duration (hours)"]</label>
-            <input asp-for="RuleInput.ShiftHours" type="number" value="8" class="form-control" readonly />
+            <input asp-for="RuleInput.ShiftHours" type="number" min="1" class="form-control" required />
             <div class="form-text">@Localizer["Fixed three shifts per day, at least one person per shift; multiple people per shift allowed."]</div>
         </div>
         <div class="col-md-3">

@@ -33,12 +33,20 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public int ScheduleRestHours { get; set; } = 16;
     public int ScheduleMinimumStaff { get; set; } = 1;
     public List<string> StaffingWarnings { get; set; } = [];
+    public List<OnCallShift> SavedShifts { get; set; } = [];
+    public List<OnCallTeamIssues> UpcomingIssues { get; set; } = [];
+    public bool LegacyGridCompatible { get; set; } = true;
     public CreateOnCallGroupRequest GroupInput { get; set; } = new();
     public SaveOnCallRuleRequest RuleInput { get; set; } = new();
 }
 
 public class CreateOnCallGroupRequest
 {
+    [Range(0, double.MaxValue)] public double? MinimumRestHours { get; set; }
+    [Range(0, double.MaxValue)] public double? MaximumContinuousHours { get; set; }
+    [Range(0, 200)] public int? MinimumShiftStaff { get; set; }
+    public bool? AutoExtend { get; set; }
+    public List<string>? FallbackUserIds { get; set; }
     [Required(ErrorMessage = "Please enter the team name."), StringLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
     public string? Name { get; set; } = string.Empty;
 
@@ -55,10 +63,14 @@ public class CreateOnCallGroupRequest
 
 public class SaveOnCallRuleRequest
 {
+    [Range(1, int.MaxValue)] public int? ShiftMinutes { get; set; }
+    [Range(1, 200)] public int? StaffPerShift { get; set; }
+    public bool? SwapAlternateRounds { get; set; }
+    public List<OnCallHandoverPointRequest>? HandoverPoints { get; set; }
     public Guid? Id { get; set; }
     [Required(ErrorMessage = "Please enter the rule name."), StringLength(100, ErrorMessage = "Rule name must not exceed 100 characters.")]
     public string? Name { get; set; } = string.Empty;
-    [Range(8, 8, ErrorMessage = "Fixed three shifts per day, 8 hours each.")]
+    [Range(1, int.MaxValue)]
     public int ShiftHours { get; set; } = 8;
     public bool BalanceShiftTimes { get; set; }
     [Range(0, 168, ErrorMessage = "Minimum rest must be 0–168 hours.")]
@@ -69,8 +81,16 @@ public class SaveOnCallRuleRequest
     public int? TargetStaff { get; set; } = 1;
 }
 
+public class OnCallHandoverPointRequest
+{
+    public DayOfWeek DayOfWeek { get; set; }
+    [Range(0, 1439)] public int MinuteOfDay { get; set; }
+}
+
 public class SaveOnCallScheduleRequest
 {
+    public bool ConfirmReplace { get; set; }
+    public DateTime? EndUtc { get; set; }
     public Guid GroupId { get; set; }
     public Guid Version { get; set; }
     public DateTime StartUtc { get; set; }
@@ -86,6 +106,8 @@ public class OnCallScheduleWeekRequest
 
 public class OnCallSlotRequest
 {
+    public Guid? Id { get; set; }
     public DateTime StartsAtUtc { get; set; }
+    public DateTime? EndsAtUtc { get; set; }
     public List<string> UserIds { get; set; } = [];
 }
