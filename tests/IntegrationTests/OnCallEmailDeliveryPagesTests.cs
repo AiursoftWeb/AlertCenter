@@ -127,6 +127,25 @@ public partial class IncidentPagesTests
         var snapshot = await dbAfter.OnCallEmailSnapshots.Include(item => item.Recipients).SingleAsync();
         Assert.AreEqual("private-oce@example.com", snapshot.Recipients.Single().Email);
         Assert.AreEqual("private-team@example.com", snapshot.CcRecipients);
+
+        await LoginAsAdmin();
+        (await dbAfter.SourceApplications.SingleAsync()).OnCallGroupId = null;
+        await dbAfter.SaveChangesAsync();
+        AssertRedirect(await PostForm("/OnCall/DeleteGroup", new()
+        {
+            ["id"] = groupId.ToString(), ["confirmationName"] = "OCE Production"
+        }, $"/OnCall/GroupDetails/{groupId}"), "/OnCall/Groups");
+        var deletedIncidentPage = WebUtility.HtmlDecode(await Http.GetStringAsync($"/Incidents/Details/{incidentId}"));
+        Assert.Contains("Original OCE", deletedIncidentPage);
+        Assert.Contains("OCE Production", deletedIncidentPage);
+        var retainedDelivery = WebUtility.HtmlDecode(await Http.GetStringAsync(url));
+        Assert.Contains("Original OCE", retainedDelivery);
+        Assert.Contains("private-oce@example.com", retainedDelivery);
+        Assert.Contains("private-team@example.com", retainedDelivery);
+        Assert.Contains("OCE response test", await Http.GetStringAsync($"/Push/Records?channelId={Guid.Empty}"));
+        dbAfter.ChangeTracker.Clear();
+        Assert.AreEqual(1, await dbAfter.OnCallEmailSnapshots.CountAsync());
+        Assert.AreEqual(1, await dbAfter.PushDeliveries.CountAsync());
     }
 
     [TestMethod]

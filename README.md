@@ -106,6 +106,8 @@ The CLI can query and manage incidents, update metadata, and report GitLab pipel
 
 ## Permissions and on-call response
 
+Administrators with `CanManageOnCall` can delete a team even after automatic scheduling has created shifts. The confirmation shows future (including ongoing) and historical shift counts and requires the exact team name. Unbind every application first using the links shown on the team page. Deletion permanently removes the team's shifts, assignments, membership, fallback recipients and handover checkpoints/receipts, but not reusable templates, users, incident OCE snapshots or delivery records. It is serialized with schedule saving and background extension; a deleted team cannot be recreated by maintenance.
+
 The console home shows every team's current OCEs, the next shift, and coverage gaps with fallback recipients (or a missing-fallback warning). Current recipients use the same `OnCallOceService` as incident routing, including merged overlapping shifts. Your active duty is highlighted and shown as an **On duty** navigation badge.
 
 Open **Features → On-call → My on-call** (`/OnCall/Mine`) or the home card to see current duty and countdowns, the next eight weeks across teams, paginated history, and personal schedule reminders. Times show the team zone and browser-local time when different. The past 30 days and next four weeks count only covered time inside each window, merging overlaps so simultaneous duty is counted once.

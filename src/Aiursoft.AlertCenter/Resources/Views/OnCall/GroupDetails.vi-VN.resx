@@ -121,4 +121,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>Chưa cấu hình người nhận dự phòng. Không thể gửi cảnh báo khi không có ai trực.</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Sẽ xóa {0} ca trực sắp tới và {1} ca trực đã qua. Hồ sơ trực của các sự cố hiện có sẽ được giữ lại.</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Các ca trực sắp tới bao gồm cả những ca đang diễn ra. Các mẫu và bản ghi gửi thông báo sự cố sẽ được giữ lại. Không thể hoàn tác hành động này.</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Nhập chính xác tên nhóm để xác nhận xóa.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Tên nhóm không khớp.</value>
+  </data>
 </root>

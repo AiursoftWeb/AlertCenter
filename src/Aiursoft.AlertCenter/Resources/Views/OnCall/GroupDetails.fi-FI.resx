@@ -118,4 +118,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>Varavastaanottajia ei ole määritetty. Hälytyksiä ei voida toimittaa, kun kukaan ei päivystä.</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Poistetaan {0} tulevaa vuoroa ja {1} aiempaa vuoroa. Olemassa olevien häiriötilanteiden päivystystiedot säilytetään.</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Tuleviin vuoroihin sisältyvät myös käynnissä olevat vuorot. Mallit ja häiriöilmoitusten toimitustiedot säilytetään. Tätä toimintoa ei voi kumota.</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Vahvista poistaminen kirjoittamalla tiimin nimi täsmälleen oikein.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Tiimin nimi ei täsmää.</value>
+  </data>
 </root>

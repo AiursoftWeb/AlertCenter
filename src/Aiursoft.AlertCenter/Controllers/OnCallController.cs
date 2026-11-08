@@ -85,8 +85,13 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         if (model.Groups.All(group => group.Id != id)) return NotFound();
         model.SelectedGroupId = id;
         model.UpcomingIssues = await OnCallScheduleIssues.UpcomingAsync(db, DateTime.UtcNow, localizerFactory, cancellationToken, id);
-        model.GroupHasSavedSchedule = await db.OnCallShifts.AnyAsync(shift => shift.GroupId == id, cancellationToken);
-        model.GroupHasBoundApplications = await db.SourceApplications.AnyAsync(application => application.OnCallGroupId == id, cancellationToken);
+        var now = DateTime.UtcNow;
+        var counts = await db.OnCallShifts.Where(shift => shift.GroupId == id).GroupBy(shift => shift.EndsAtUtc > now)
+            .Select(shifts => new { Future = shifts.Key, Count = shifts.Count() }).ToListAsync(cancellationToken);
+        model.FutureShiftCount = counts.Where(count => count.Future).Sum(count => count.Count);
+        model.HistoricalShiftCount = counts.Where(count => !count.Future).Sum(count => count.Count);
+        model.BoundApplications = await db.SourceApplications.AsNoTracking().Where(application => application.OnCallGroupId == id)
+            .OrderBy(application => application.Name).ToListAsync(cancellationToken);
         return this.StackView(model);
     }
 
@@ -481,7 +486,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
 
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
-    public async Task<IActionResult> DeleteGroup(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> DeleteGroup(Guid id, string? confirmationName, CancellationToken cancellationToken)
     {
         var attempt = 0;
         try
@@ -491,13 +496,27 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 if (attempt++ > 0) db.ChangeTracker.Clear();
                 await using var transaction = db.Database.IsRelational()
                     ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, retryToken) : null;
-                var group = await db.OnCallGroups.FindAsync([id], retryToken);
+                await OnCallScheduleService.LockGroupAsync(db, id, retryToken);
+                var group = await db.OnCallGroups.Include(item => item.Members).Include(item => item.FallbackRecipients)
+                    .SingleOrDefaultAsync(item => item.Id == id, retryToken);
                 if (group == null) return NotFound();
-                if (await db.OnCallShifts.AnyAsync(shift => shift.GroupId == id, retryToken))
-                    return Conflict(localizer["This team has saved schedules and cannot be deleted along with its history."].Value);
-                if (await db.SourceApplications.AnyAsync(application => application.OnCallGroupId == id, retryToken))
-                    return Conflict(localizer["This team is bound to an integrated app. Please reassign or unbind the app's on-call group first."].Value);
-                db.OnCallGroupMembers.RemoveRange(await db.OnCallGroupMembers.Where(member => member.GroupId == id).ToListAsync(retryToken));
+                if (!ModelState.IsValid || !string.Equals(group.Name, confirmationName, StringComparison.Ordinal))
+                    return BadRequest(localizer["The team name does not match."].Value);
+                var applications = await db.SourceApplications.Where(application => application.OnCallGroupId == id)
+                    .OrderBy(application => application.Name).Select(application => new { application.Id, application.Name }).ToListAsync(retryToken);
+                if (applications.Count > 0)
+                    return Conflict(new
+                    {
+                        message = localizer["This team is bound to an integrated app. Please reassign or unbind the app's on-call group first."].Value +
+                            " " + string.Join(", ", applications.Select(application => application.Name)),
+                        links = applications.Select(application => new { text = application.Name, url = $"/Applications/OnCall/{application.Id}" })
+                    });
+                var shiftIds = db.OnCallShifts.Where(shift => shift.GroupId == id).Select(shift => shift.Id);
+                var snapshotShiftIds = db.OnCallEmailSnapshots.Where(snapshot => snapshot.GroupId == id).Select(snapshot => snapshot.ShiftId);
+                db.RemoveRange(await db.Set<OnCallHandoverReceipt>()
+                    .Where(receipt => shiftIds.Contains(receipt.ShiftId) || snapshotShiftIds.Contains(receipt.ShiftId)).ToListAsync(retryToken));
+                if (!db.Database.IsRelational())
+                    db.OnCallShifts.RemoveRange(await db.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.GroupId == id).ToListAsync(retryToken));
                 db.OnCallGroups.Remove(group);
                 await db.SaveChangesAsync(retryToken);
                 if (transaction != null) await transaction.CommitAsync(retryToken);

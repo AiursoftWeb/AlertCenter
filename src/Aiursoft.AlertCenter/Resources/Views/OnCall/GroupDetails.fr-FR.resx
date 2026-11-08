@@ -118,4 +118,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>Aucun destinataire de secours configuré. Les alertes ne peuvent pas être envoyées lorsque personne n’est d’astreinte.</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Cette action supprimera {0} créneaux à venir et {1} créneaux passés. Les incidents existants conserveront leurs enregistrements d’astreinte.</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Les créneaux à venir incluent ceux en cours. Les modèles et les journaux d’envoi des notifications d’incident sont conservés. Cette action est irréversible.</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Saisissez le nom exact de l’équipe pour confirmer la suppression.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Le nom de l’équipe ne correspond pas.</value>
+  </data>
 </root>

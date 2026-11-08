@@ -8,14 +8,15 @@ const localization = fs.readFileSync(path.resolve(__dirname, '../../src/Aiursoft
 const script = fs.readFileSync(path.resolve(__dirname,
     '../../src/Aiursoft.AlertCenter/wwwroot/scripts/action-feedback.js'), 'utf8');
 
-function setup({ status = 409, message = '版本冲突', sourceModal = false, pending = false } = {}) {
+function setup({ status = 409, message = '版本冲突', links = [], sourceModal = false, pending = false } = {}) {
     const listeners = new Map();
     function element() {
         const events = new Map();
         const attributes = new Map();
         const classes = new Set();
         return {
-            textContent: '', isConnected: true, disabled: false,
+            textContent: '', dataset: {}, isConnected: true, disabled: false,
+            children: [], append(child) { this.children.push(child); },
             classList: {
                 add: name => classes.add(name), remove: name => classes.delete(name),
                 contains: name => classes.has(name),
@@ -83,7 +84,7 @@ function setup({ status = 409, message = '版本冲突', sourceModal = false, pe
     let fetches = 0;
     let complete;
     const response = { status, ok: status < 400, headers: { get: () => 'application/json' },
-        json: async () => ({ message }) };
+        json: async () => ({ message, links }) };
     const fetch = async () => {
         fetches++;
         return pending ? new Promise(resolve => { complete = () => resolve(response); }) : response;
@@ -92,6 +93,7 @@ function setup({ status = 409, message = '版本冲突', sourceModal = false, pe
         origin: 'https://alertcenter.test', reload() { reloads++; } };
     const document = {
         querySelector: () => null,
+        createElement: () => element(),
         getElementById: id => elements[id],
         addEventListener: (name, handler) => listeners.set(name, handler)
     };
@@ -141,6 +143,16 @@ test('closing refresh confirmation restores its source dialog and starts fresh n
     ui.refresh.emit('click');
     assert.equal(ui.reloads(), 0);
     assert.equal(ui.back.textContent, 'Cancel refresh');
+});
+
+test('bound application errors render safe local links with text-only names', async () => {
+    const ui = setup({ links: [{ text: '<App>', url: '/Applications/OnCall/1' },
+        { text: 'External', url: '//example.com' }, { text: 'Unsafe', url: 'javascript:alert(1)' }] });
+    await ui.submit();
+    const message = ui.elements['action-feedback-message'];
+    assert.equal(message.children.length, 1);
+    assert.equal(message.children[0].href, '/Applications/OnCall/1');
+    assert.equal(message.children[0].textContent, '<App>');
 });
 
 test('non-conflict failures render plain text and keep refresh hidden', async () => {

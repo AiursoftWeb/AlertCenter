@@ -118,4 +118,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>Резервные получатели не настроены. Оповещения не могут быть доставлены, когда никто не дежурит.</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Будут удалены будущие смены ({0}) и прошедшие смены ({1}). Записи о дежурствах для существующих инцидентов сохранятся.</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Будущие смены включают также текущие смены. Шаблоны и записи о доставке уведомлений об инцидентах сохраняются. Это действие необратимо.</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Введите точное название команды, чтобы подтвердить удаление.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Название команды не совпадает.</value>
+  </data>
 </root>

@@ -121,4 +121,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>No fallback recipients configured. Alerts cannot be delivered when nobody is on call.</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records.</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible.</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Enter the exact team name to confirm deletion.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>The team name does not match.</value>
+  </data>
 </root>

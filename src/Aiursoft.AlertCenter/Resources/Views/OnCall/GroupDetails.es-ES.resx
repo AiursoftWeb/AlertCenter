@@ -118,4 +118,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>No hay destinatarios de respaldo configurados. No se pueden enviar alertas cuando no hay nadie de guardia.</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Se eliminarán {0} turnos futuros y {1} turnos pasados. Los incidentes existentes conservarán sus registros de guardia.</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Los turnos futuros incluyen los turnos en curso. Se conservarán las plantillas y los registros de entrega de notificaciones de incidentes. Esta acción es irreversible.</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Introduce el nombre exacto del equipo para confirmar la eliminación.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>El nombre del equipo no coincide.</value>
+  </data>
 </root>

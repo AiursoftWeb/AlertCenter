@@ -121,4 +121,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>フォールバック受信者が設定されていません。当番がいないときはアラートを配信できません。</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>今後のシフト {0} 件と過去のシフト {1} 件が削除されます。既存のインシデントのオンコール記録は保持されます。</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>今後のシフトには、現在進行中のシフトも含まれます。テンプレートとインシデント通知の配信記録は保持されます。この操作は取り消せません。</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>削除を確認するには、チーム名を正確に入力してください。</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>チーム名が一致しません。</value>
+  </data>
 </root>

@@ -1,4 +1,7 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
+@section scripts {
+    <script src="~/scripts/oncall-group-delete.js" asp-append-version="true"></script>
+}
 <vc:current-on-call group-id="@Model.SelectedGroupId"></vc:current-on-call>
 @{
     var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
@@ -113,16 +116,18 @@
 </div>
 @if (Model.CanManageOnCall)
 {
-    if (Model.GroupHasSavedSchedule)
+    if (Model.BoundApplications.Count > 0)
     {
         <div class="alert alert-info" role="alert">
-            <div class="alert-message">@Localizer["This team has saved shifts and cannot be deleted to preserve scheduling history."]</div>
-        </div>
-    }
-    else if (Model.GroupHasBoundApplications)
-    {
-        <div class="alert alert-info" role="alert">
-            <div class="alert-message">@Localizer["This team is bound to an integrated app. Please reassign or unbind the app's on-call group before deleting the team."]</div>
+            <div class="alert-message">
+                @Localizer["This team is bound to an integrated app. Please reassign or unbind the app's on-call group before deleting the team."]
+                <ul class="mb-0">
+                    @foreach (var application in Model.BoundApplications)
+                    {
+                        <li><a asp-controller="Applications" asp-action="OnCall" asp-route-id="@application.Id">@application.Name</a></li>
+                    }
+                </ul>
+            </div>
         </div>
     }
     else
@@ -138,8 +143,13 @@
                     <div class="modal-body">
                         <p>@Localizer["Confirm team deletion"] <strong class="text-break">@group.Name</strong>？</p>
                         <div class="alert alert-warning mb-0" id="delete-oncall-group-description" role="alert">
-                            <div class="alert-message">@Localizer["Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible."]</div>
+                            <div class="alert-message">
+                                <p>@Localizer["Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records.", Model.FutureShiftCount, Model.HistoricalShiftCount]</p>
+                                @Localizer["Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible."]
+                            </div>
                         </div>
+                        <label for="delete-team-name" class="form-label mt-3">@Localizer["Enter the exact team name to confirm deletion."]</label>
+                        <input id="delete-team-name" name="confirmationName" class="form-control" required autocomplete="off" data-team-name="@group.Name" data-mismatch="@Localizer["The team name does not match."]" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@Localizer["Cancel"]</button>

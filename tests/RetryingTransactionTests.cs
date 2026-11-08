@@ -160,7 +160,7 @@ public class RetryingTransactionTests
                 result = await controller.UpdateGroup(group.Id, request, default);
                 break;
             case "delete-group":
-                result = await controller.DeleteGroup(group.Id, default);
+                result = await controller.DeleteGroup(group.Id, group.Name, default);
                 break;
             case "save-rule":
                 result = await controller.SaveRule(new SaveOnCallRuleRequest { Name = "New rule" }, default);

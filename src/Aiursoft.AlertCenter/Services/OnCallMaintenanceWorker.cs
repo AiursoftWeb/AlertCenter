@@ -47,8 +47,10 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
             db.ChangeTracker.Clear();
             await using var transaction = db.Database.IsRelational()
                 ? await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, token) : null;
+            await OnCallScheduleService.LockGroupAsync(db, groupId, token);
             var group = await db.OnCallGroups.Include(group => group.Rule).ThenInclude(rule => rule!.HandoverPoints)
-                .Include(group => group.Members).SingleAsync(group => group.Id == groupId, token);
+                .Include(group => group.Members).SingleOrDefaultAsync(group => group.Id == groupId, token);
+            if (group == null) return;
             if (group.AutoExtend && group.Rule != null && group.Members.Count > 0)
                 await ExtendAsync(db, new OnCallScheduleGenerator(generatorLocalizer), group, now, token);
             await QueueHandoversAsync(db, group, now, baseUrl, localizer, token);

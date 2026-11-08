@@ -118,4 +118,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>Ingen reservemodtagere er konfigureret. Alarmer kan ikke leveres, når ingen har vagt.</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Vil slette {0} fremtidige vagter og {1} tidligere vagter. Eksisterende hændelser beholder deres vagtregistreringer.</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Fremtidige vagter omfatter også igangværende vagter. Skabeloner og leveringsregistreringer for hændelser bevares. Denne handling kan ikke fortrydes.</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Indtast teamets nøjagtige navn for at bekræfte sletningen.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Teamnavnet stemmer ikke overens.</value>
+  </data>
 </root>

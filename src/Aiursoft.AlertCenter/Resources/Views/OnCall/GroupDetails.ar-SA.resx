@@ -118,4 +118,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>لم يتم إعداد مستلمين احتياطيين. لا يمكن إيصال التنبيهات عندما لا يوجد أحد في المناوبة.</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>سيتم حذف {0} من الورديات المستقبلية و{1} من الورديات السابقة. ستحتفظ الحوادث الموجودة بسجلات المناوبة الخاصة بها.</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>تشمل الورديات المستقبلية أي ورديات جارية. يتم الاحتفاظ بالقوالب وسجلات تسليم إشعارات الحوادث. لا يمكن التراجع عن هذا الإجراء.</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>أدخل اسم الفريق المطابق تمامًا لتأكيد الحذف.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>اسم الفريق غير مطابق.</value>
+  </data>
 </root>

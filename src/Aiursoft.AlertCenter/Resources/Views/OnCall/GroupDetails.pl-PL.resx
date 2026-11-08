@@ -118,4 +118,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>Nie skonfigurowano odbiorców rezerwowych. Nie można dostarczać alertów, gdy nikt nie dyżuruje.</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Zostaną usunięte przyszłe dyżury ({0}) i wcześniejsze dyżury ({1}). Istniejące incydenty zachowają swoje zapisy dotyczące dyżurów.</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Przyszłe dyżury obejmują również dyżury trwające. Szablony i rejestry dostarczenia powiadomień o incydentach zostaną zachowane. Tej operacji nie można cofnąć.</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Wprowadź dokładną nazwę zespołu, aby potwierdzić usunięcie.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Nazwa zespołu nie jest zgodna.</value>
+  </data>
 </root>

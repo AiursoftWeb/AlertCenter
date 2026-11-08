@@ -118,4 +118,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>कोई वैकल्पिक प्राप्तकर्ता कॉन्फ़िगर नहीं है। जब कोई ऑन-कॉल नहीं होता तब अलर्ट नहीं भेजे जा सकते।</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>भविष्य की {0} शिफ़्टें और पिछली {1} शिफ़्टें हटा दी जाएँगी। मौजूदा घटनाओं के ऑन-कॉल रिकॉर्ड बने रहेंगे।</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>भविष्य की शिफ़्टों में वर्तमान में चल रही शिफ़्टें भी शामिल हैं। टेम्पलेट और घटना सूचनाओं की डिलीवरी के रिकॉर्ड सुरक्षित रखे जाएँगे। यह कार्रवाई वापस नहीं की जा सकती।</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>हटाने की पुष्टि करने के लिए टीम का नाम बिल्कुल सही दर्ज करें।</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>टीम का नाम मेल नहीं खाता।</value>
+  </data>
 </root>

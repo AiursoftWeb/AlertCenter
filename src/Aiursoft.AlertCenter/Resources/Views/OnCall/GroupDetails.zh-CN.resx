@@ -121,4 +121,16 @@
   <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
     <value>尚未配置兜底收件人。无人值班时将无法发送告警。</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>将删除 {0} 个未来班次和 {1} 个历史班次。现有事件将保留其值班记录。</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>未来班次包含正在进行的班次。模板和事件投递记录将被保留。此操作不可撤销。</value>
+  </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>请输入完全一致的团队名称以确认删除。</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>团队名称不匹配。</value>
+  </data>
 </root>

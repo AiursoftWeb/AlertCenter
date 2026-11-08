@@ -15,6 +15,14 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
     public List<OnCallScheduleValidator.TimelineWarning> TimelineWarnings { get; private set; } = [];
     public Guid Version { get; private set; }
 
+    internal static async Task LockGroupAsync(TemplateDbContext db, Guid groupId, CancellationToken token)
+    {
+        // 在读取前取得写锁，避免 MySQL 可串行化事务从共享锁升级时与删除、续排互相死锁。
+        if (db.Database.IsRelational())
+            await db.OnCallGroups.Where(group => group.Id == groupId)
+                .ExecuteUpdateAsync(update => update.SetProperty(group => group.ScheduleVersion, group => group.ScheduleVersion), token);
+    }
+
     public static DateTime LocalToUtc(string value, TimeZoneInfo zone)
     {
         var local = DateTime.ParseExact(value, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.InvariantCulture);
@@ -67,6 +75,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 return [localizer["Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)."].Value];
             await using var transaction = db.Database.IsRelational()
                 ? await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, token) : null;
+            await LockGroupAsync(db, request.GroupId, token);
             var group = await db.OnCallGroups.Include(item => item.Rule).ThenInclude(rule => rule!.HandoverPoints)
                 .Include(item => item.Members).SingleOrDefaultAsync(item => item.Id == request.GroupId, token);
             if (group == null) return [localizer["On-call team does not exist."].Value];
@@ -179,7 +188,10 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 if (original == null) db.OnCallShifts.Add(shift);
                 replacements.Add(shift);
             }
-            db.OnCallShifts.RemoveRange(saved.Except(replacements));
+            var removed = saved.Except(replacements).ToList();
+            var removedIds = removed.Select(shift => shift.Id).ToArray();
+            db.RemoveRange(await db.Set<OnCallHandoverReceipt>().Where(receipt => removedIds.Contains(receipt.ShiftId)).ToListAsync(token));
+            db.OnCallShifts.RemoveRange(removed);
             var history = await Existing(group.Id, ids.Concat(replacements.SelectMany(shift => shift.Members.Select(member => member.UserId))).Distinct().ToArray(),
                 from, token, until, Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0));
             Warnings = OnCallScheduleValidator.Warnings(group, from, until, replacements, history,
