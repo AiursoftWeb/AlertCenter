@@ -21,7 +21,7 @@
                 const right = Math.min(wallTime(slot.endLocal), wallTime(sourceEnd));
                 const copyStart = cycle + left - wallTime(sourceStart);
                 const copyEnd = Math.min(until, cycle + right - wallTime(sourceStart));
-                if (copyEnd > copyStart) copies.push({ startLocal: wallString(copyStart), endLocal: wallString(copyEnd), userIds: [...slot.userIds] });
+                if (copyEnd > copyStart) copies.push({ startLocal: wallString(copyStart), endLocal: wallString(copyEnd), userIds: [...slot.userIds], source: 0 });
             }
         }
         return copies;
@@ -52,7 +52,12 @@
         const local = slot[`${edge}Local`];
         return utc && (!local || localTime(utc, zone) === local) ? Date.parse(utc) : utcForLocal(local, zone);
     }
+    function markManual(slot) {
+        slot.source = 0;
+        slot.rotationPosition = null;
+    }
     function setTime(slot, edge, utc, zone) {
+        if (timeOf(slot, edge, zone) !== utc) markManual(slot);
         slot[edge === 'start' ? 'startsAtUtc' : 'endsAtUtc'] = new Date(utc).toISOString();
         slot[`${edge}Local`] = localTime(utc, zone);
     }
@@ -64,12 +69,20 @@
         const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
         setTime(slot, 'start', left + delta, zone); setTime(slot, 'end', right + delta, zone);
     }
+    function samePeople(first, second) {
+        return JSON.stringify([...new Set(first)].sort()) === JSON.stringify([...new Set(second)].sort());
+    }
     function movePerson(slot, from, to) {
         if (from === to) return;
-        slot.userIds = to === '' ? [] : [...new Set(slot.userIds.filter(id => id !== from).concat(to))];
+        const people = to === '' ? [] : [...new Set(slot.userIds.filter(id => id !== from).concat(to))];
+        if (!samePeople(slot.userIds, people)) markManual(slot);
+        slot.userIds = people;
     }
     function swapPeople(slots, first, second) {
-        for (const slot of slots) slot.userIds = slot.userIds.map(id => id === first ? second : id === second ? first : id);
+        for (const slot of slots) {
+            if (slot.userIds.includes(first) !== slot.userIds.includes(second)) markManual(slot);
+            slot.userIds = slot.userIds.map(id => id === first ? second : id === second ? first : id);
+        }
     }
     function reminders(slots, context, start, end, members, thresholds, zone) {
         const own = slots.map(slot => ({ ...slot, left: timeOf(slot, 'start', zone), right: timeOf(slot, 'end', zone) }))
@@ -121,9 +134,9 @@
     const zone = root.dataset.zone, start = root.dataset.start, end = root.dataset.end;
     const from = Date.parse(start), until = Date.parse(end), duration = until - from;
     const chart = get('oncall-gantt'), dialog = get('oncall-shift-dialog');
-    const prepare = items => items.map(slot => ({ ...slot, userIds: [...slot.userIds], startLocal: localTime(slot.startsAtUtc, zone), endLocal: localTime(slot.endsAtUtc, zone) }));
-    const original = { slots: prepare(JSON.parse(root.dataset.slots)), ranges: [] };
-    let state = structuredClone(original), dirty = false, busy = false, sequence = 0, timer, pending = null, selected = null, weekSelection = null, editing = null, gesture = null, suppressClick = false;
+    const prepare = items => items.map(slot => ({ ...slot, source: slot.source ?? 0, userIds: [...slot.userIds], startLocal: localTime(slot.startsAtUtc, zone), endLocal: localTime(slot.endsAtUtc, zone) }));
+    const original = { slots: prepare(JSON.parse(root.dataset.slots)), ranges: [], clearRanges: [] };
+    let state = structuredClone(original), dirty = false, busy = false, sequence = 0, timer, pending = null, historyPending = null, selected = null, weekSelection = null, editing = null, gesture = null, suppressClick = false, clearEndEdited = false;
     const undo = [], redo = [];
     const threshold = key => root.dataset[key] == null || root.dataset[key] === '' ? null : Number(root.dataset[key]);
     const thresholds = { rest: threshold('minimumRest'), continuous: threshold('maximumContinuous'), staff: threshold('minimumStaff') };
@@ -138,13 +151,18 @@
     function submitted(items) {
         return items.map(slot => {
             const copy = structuredClone(slot);
+            copy.source ??= 0;
             if (copy.startsAtUtc && copy.startLocal === localTime(copy.startsAtUtc, zone)) delete copy.startLocal;
             if (copy.endsAtUtc && copy.endLocal === localTime(copy.endsAtUtc, zone)) delete copy.endLocal;
             return copy;
         });
     }
     function payload() {
-        return { groupId: root.dataset.groupId, version: root.dataset.version, startUtc: start, endUtc: end, slots: submitted(state.slots) };
+        const slots = state.slots.concat(state.ranges.flatMap(range => range.slots));
+        const bounds = normalized(slots);
+        const low = Math.min(from, ...state.ranges.map(range => range.start), ...state.clearRanges.map(range => Date.parse(range.startUtc)), ...bounds.map(slot => Date.parse(slot.startsAtUtc)));
+        const high = Math.max(until, ...state.ranges.map(range => range.end), ...state.clearRanges.map(range => Date.parse(range.endUtc)), ...bounds.map(slot => Date.parse(slot.endsAtUtc)));
+        return { groupId: root.dataset.groupId, version: root.dataset.version, startUtc: new Date(low).toISOString(), endUtc: new Date(high).toISOString(), slots: submitted(slots), clearRanges: structuredClone(state.clearRanges) };
     }
     async function request(url, body) {
         const response = await fetch(url, body ? { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', RequestVerificationToken: root.querySelector('[name="__RequestVerificationToken"]').value }, body: JSON.stringify(body) } : { credentials: 'same-origin' });
@@ -152,7 +170,27 @@
         if (!response.ok) throw new Error((data.errors || [text('schedule-save-failed', 'Unable to save schedule. Refresh and try again.')]).join('\n'));
         return data;
     }
-    function cancelPending() { pending = null; get('oncall-replace-confirm').hidden = true; }
+    function cancelPending() {
+        pending = null; historyPending = null;
+        get('oncall-replace-confirm').hidden = true;
+        get('oncall-clear-history-confirm').hidden = true;
+    }
+    function clearDefaults() {
+        if (clearEndEdited) return;
+        const ends = normalized(state.slots.concat(state.ranges.flatMap(range => range.slots))).map(slot => Date.parse(slot.endsAtUtc));
+        const savedEnd = Date.parse(root.dataset.lastShiftEnd);
+        const latest = Math.max(Number.isFinite(savedEnd) ? savedEnd : -Infinity, ...ends, ...state.ranges.map(range => range.end), ...state.clearRanges.map(range => Date.parse(range.endUtc)));
+        get('oncall-clear-end').value = Number.isFinite(latest) ? localTime(Math.ceil(latest / minute) * minute, zone) : '';
+    }
+    function describeSlots(slots) {
+        return slots.map(slot => `${localTime(slot.startsAtUtc, zone)} → ${localTime(slot.endsAtUtc, zone)} · ${slot.userIds.map(id => members.find(member => member.id === id)?.name || id).join(', ') || text('unassigned', 'Unassigned')}`);
+    }
+    function confirmReplacement(candidate, slots, regenerate = false) {
+        pending = candidate;
+        list('oncall-replaced-shifts', describeSlots(slots));
+        get('oncall-replace-regenerate-hint').hidden = !regenerate;
+        get('oncall-replace-confirm').hidden = false;
+    }
     function changed(rows = true) {
         sequence++;
         cancelPending();
@@ -167,7 +205,10 @@
             get('oncall-save-state').textContent = dirty ? text('draft-range', 'Draft range') : get('oncall-save-state').dataset.originalText;
         }
         list('oncall-schedule-errors', []);
-        list('oncall-copy-drafts', state.ranges.map(range => `${text('draft-range', 'Draft range')}: ${localTime(range.start, zone)} → ${localTime(range.end, zone)} · ${zone}`));
+        list('oncall-copy-drafts', state.ranges.map(range => `${text('draft-range', 'Draft range')}: ${localTime(range.start, zone)} → ${localTime(range.end, zone)} · ${zone}`)
+            .concat(state.clearRanges.map(range => `${text('cleared-range', 'Cleared draft range')}: ${localTime(range.startUtc, zone)} → ${localTime(range.endUtc, zone)} · ${zone}${range.autoExtendAction ? ` · ${text(`clear-${range.autoExtendAction}`, range.autoExtendAction === 'disable' ? 'Disable automatic extension when saving' : 'Regenerate cleared gaps from the template when saving')}` : ''}`)));
+        get('oncall-clear-auto-action').value = state.clearRanges.at(-1)?.autoExtendAction || '';
+        clearDefaults();
         if (rows) renderRows();
         draw();
         clearTimeout(timer);
@@ -203,11 +244,15 @@
                 input.type = 'datetime-local'; input.className = 'form-control'; input.value = slot[key];
                 input.setAttribute('aria-label', text(label.toLowerCase(), label));
                 input.disabled = hasDeparted(slot);
-                input.addEventListener('input', () => commit(() => { state.slots[index][key] = input.value; }, false));
+                input.addEventListener('input', () => commit(() => {
+                    if (state.slots[index][key] !== input.value) markManual(state.slots[index]);
+                    state.slots[index][key] = input.value;
+                }, false));
                 cell.append(input); row.append(cell);
             }
             const people = document.createElement('td');
             memberInputs(people, slot, (id, checked) => commit(() => {
+                if (state.slots[index].userIds.includes(id) !== checked) markManual(state.slots[index]);
                 state.slots[index].userIds = checked ? [...new Set([...state.slots[index].userIds, id])] : state.slots[index].userIds.filter(value => value !== id);
             }));
             row.append(people);
@@ -566,25 +611,77 @@
         if ((!sameRange && destination.start < until && destination.end > from) || state.ranges.some(item => item.start < destination.end && item.end > destination.start && !(item.start === destination.start && item.end === destination.end))) throw new Error(text('copy-overlap', 'The destination must not overlap the visible range or another copied range.'));
         list('oncall-schedule-warnings', data.warnings);
         const replacing = data.replacedSlots.length || sameRange || state.ranges.some(item => item.start === destination.start && item.end === destination.end);
-        if (replacing) {
-            list('oncall-replaced-shifts', (data.replacedSlots.length ? data.replacedSlots : sameRange ? normalized(state.slots) : state.ranges.find(item => item.start === destination.start).slots).map(slot => `${localTime(slot.startsAtUtc, zone)} → ${localTime(slot.endsAtUtc, zone)} · ${slot.userIds.map(id => members.find(member => member.id === id)?.name || id).join(', ') || text('unassigned', 'Unassigned')}`));
-            pending = destination; get('oncall-replace-confirm').hidden = false;
-        } else stage(destination);
+        if (replacing) confirmReplacement({ range: destination }, data.replacedSlots.length ? data.replacedSlots : sameRange ? normalized(state.slots) : state.ranges.find(item => item.start === destination.start).slots);
+        else stage(destination);
     }
-    async function save() {
+    async function assembledDraft(extraRange) {
         const body = payload();
-        const all = normalized(state.slots).concat(state.ranges.flatMap(range => range.slots));
-        const low = Math.min(from, ...state.ranges.map(range => range.start), ...all.map(slot => Date.parse(slot.startsAtUtc)));
-        const high = Math.max(until, ...state.ranges.map(range => range.end), ...all.map(slot => Date.parse(slot.endsAtUtc)));
+        const low = Math.min(Date.parse(body.startUtc), extraRange ? Date.parse(extraRange.startUtc) : Infinity);
+        const high = Math.max(Date.parse(body.endUtc), extraRange ? Date.parse(extraRange.endUtc) : -Infinity);
+        body.startUtc = new Date(low).toISOString(); body.endUtc = new Date(high).toISOString();
         if (low !== from || high !== until || state.ranges.length) {
-            const query = new URLSearchParams({ id: root.dataset.groupId, startUtc: new Date(low).toISOString(), endUtc: new Date(high).toISOString() });
+            const query = new URLSearchParams({ id: root.dataset.groupId, startUtc: body.startUtc, endUtc: body.endUtc });
             const saved = await request(`${root.dataset.getUrl}?${query}`);
             if (saved.version !== root.dataset.version) throw new Error(text('schedule-save-failed', 'Unable to save schedule. Refresh and try again.'));
             const ranges = [{ start: from, end: until }, ...state.ranges];
-            const preserved = (saved.saved ? saved.slots : []).filter(slot => !ranges.some(range => Date.parse(slot.startsAtUtc) < range.end && Date.parse(slot.endsAtUtc) > range.start) && !all.some(item => item.id && item.id === slot.id));
-            body.startUtc = new Date(low).toISOString(); body.endUtc = new Date(high).toISOString();
-            body.slots.push(...state.ranges.flatMap(range => range.slots), ...preserved);
+            const preserved = (saved.saved ? saved.slots : []).filter(slot => !ranges.some(range => Date.parse(slot.startsAtUtc) < range.end && Date.parse(slot.endsAtUtc) > range.start) && !body.slots.some(item => item.id && item.id === slot.id));
+            body.slots.push(...submitted(preserved));
         }
+        return body;
+    }
+    function clearOperation() {
+        const left = utcForLocal(get('oncall-clear-start').value, zone), right = utcForLocal(get('oncall-clear-end').value, zone);
+        if (!Number.isFinite(left) || !Number.isFinite(right)) throw new Error(text('invalid-local', 'Invalid team local time.'));
+        if (right <= left) throw new Error(text('invalid-range', 'End must be after start.'));
+        const autoExtendAction = get('oncall-clear-auto-action').value || null;
+        if (root.dataset.autoExtend === 'true' && !['disable', 'regenerate'].includes(autoExtendAction)) throw new Error(text('clear-auto-required', 'Choose whether to disable automatic extension or regenerate cleared gaps.'));
+        return { startUtc: new Date(left).toISOString(), endUtc: new Date(right).toISOString(), includeManual: get('oncall-clear-manual').checked, includeHistory: get('oncall-clear-history').checked, confirmHistory: false, autoExtendAction };
+    }
+    async function clearRange(clear) {
+        cancelPending();
+        const body = await assembledDraft(clear);
+        body.clearRanges.push(clear);
+        const data = await request(`${root.dataset.previewUrl}?clear=true`, body);
+        const slots = prepare(data.slots);
+        const low = Date.parse(data.startUtc), high = Date.parse(data.endUtc);
+        if (!(Number.isFinite(low) && Number.isFinite(high) && high > low) || !Array.isArray(data.clearRanges) ||
+            data.clearRanges.some(range => !range || !Number.isFinite(Date.parse(range.clearedAtUtc)) ||
+                !(Date.parse(range.startUtc) >= low && Date.parse(range.endUtc) <= high && Date.parse(range.endUtc) > Date.parse(range.startUtc)))) {
+            throw new Error(text('schedule-save-failed', 'Unable to save schedule. Refresh and try again.'));
+        }
+        const candidate = { slots: [], ranges: [], clearRanges: data.clearRanges };
+        if (low < from) candidate.ranges.push({ start: low, end: from, slots: [] });
+        if (high > until) candidate.ranges.push({ start: until, end: high, slots: [] });
+        // Keep crossing shifts whole and in one draft bucket so their saved IDs are never duplicated.
+        for (const slot of slots) {
+            const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+            if (left < until && right > from) candidate.slots.push(slot);
+            else candidate.ranges.find(range => left < range.end && right > range.start)?.slots.push(slot);
+        }
+        if (clear.autoExtendAction === 'regenerate') confirmReplacement({ state: candidate }, data.replacedSlots, true);
+        else stageClear(candidate);
+        list('oncall-schedule-warnings', data.warnings || []);
+        draw(data.timelineWarnings);
+    }
+    function stageClear(candidate) {
+        undo.push(structuredClone(state)); redo.length = 0;
+        state = candidate; selected = null; changed();
+    }
+    function beginClear() {
+        if (busy) return;
+        cancelPending();
+        try {
+            const clear = clearOperation();
+            if (clear.includeHistory) {
+                historyPending = clear;
+                get('oncall-clear-history-range').textContent = `${localTime(clear.startUtc, zone)} → ${localTime(clear.endUtc, zone)} · ${zone}`;
+                get('oncall-clear-history-confirm').hidden = false;
+            } else return operation(() => clearRange(clear));
+        } catch (failure) { error(failure.message); }
+    }
+    async function save() {
+        const body = await assembledDraft();
+        if (body.clearRanges.some(range => range.autoExtendAction === 'regenerate')) body.confirmReplace = true;
         await request(root.dataset.saveUrl, body);
         dirty = false; window.location.reload();
     }
@@ -593,12 +690,14 @@
         slot.startLocal = get('oncall-dialog-start').value; slot.endLocal = get('oncall-dialog-end').value;
         if (!valid(slot)) { list('oncall-dialog-errors', [text('invalid-range', 'End must be after start.'), text('invalid-local', 'Invalid team local time.')]); return; }
         if (hasDeparted(slot) && (slot.startLocal !== state.slots[editing.index].startLocal || slot.endLocal !== state.slots[editing.index].endLocal)) { list('oncall-dialog-errors', [text('departed-edit', 'Remove departed members before changing shift times.')]); return; }
+        const previous = state.slots[editing.index];
+        if (slot.startLocal !== previous.startLocal || slot.endLocal !== previous.endLocal || !samePeople(slot.userIds, previous.userIds)) markManual(slot);
         commit(() => { state.slots[editing.index] = slot; }); closeEditor();
     });
     get('oncall-dialog-delete').addEventListener('click', () => { commit(() => state.slots.splice(editing.index, 1)); selected = null; closeEditor(); chart.focus(); });
     get('oncall-dialog-cancel').addEventListener('click', closeEditor);
     dialog.addEventListener('cancel', event => { event.preventDefault(); closeEditor(); });
-    get('oncall-add-shift').addEventListener('click', () => commit(() => state.slots.push({ startLocal: localTime(start, zone), endLocal: localTime(end, zone), userIds: [] })));
+    get('oncall-add-shift').addEventListener('click', () => commit(() => state.slots.push({ startLocal: localTime(start, zone), endLocal: localTime(end, zone), userIds: [], source: 0 })));
     get('oncall-undo-schedule').addEventListener('click', () => travel(undo, redo));
     get('oncall-redo-schedule').addEventListener('click', () => travel(redo, undo));
     get('oncall-reset-schedule').addEventListener('click', () => commit(() => { state = structuredClone(original); selected = null; }));
@@ -618,10 +717,30 @@
     get('oncall-copy-range').addEventListener('click', () => operation(() => range(false)));
     get('oncall-generate')?.addEventListener('click', () => operation(() => range(true)));
     get('oncall-replace-cancel').addEventListener('click', cancelPending);
-    get('oncall-replace-apply').addEventListener('click', () => { if (pending && !busy) stage(pending); });
-    for (const id of ['oncall-range-start', 'oncall-range-end']) get(id).addEventListener('input', () => { sequence++; cancelPending(); });
+    get('oncall-replace-apply').addEventListener('click', () => {
+        if (pending && !busy) {
+            if (pending.state) stageClear(pending.state);
+            else stage(pending.range);
+        }
+    });
+    get('oncall-clear-range').addEventListener('click', beginClear);
+    get('oncall-clear-history-cancel').addEventListener('click', cancelPending);
+    get('oncall-clear-history-apply').addEventListener('click', () => {
+        if (!historyPending || busy) return;
+        const clear = { ...historyPending, confirmHistory: true };
+        return operation(() => clearRange(clear));
+    });
+    for (const id of ['oncall-range-start', 'oncall-range-end', 'oncall-clear-start', 'oncall-clear-end', 'oncall-clear-manual', 'oncall-clear-history', 'oncall-clear-auto-action']) {
+        get(id).addEventListener(id.endsWith('manual') || id.endsWith('history') || id.endsWith('action') ? 'change' : 'input', () => {
+            sequence++; cancelPending();
+            if (id === 'oncall-clear-end') clearEndEdited = true;
+        });
+    }
     get('oncall-range-start').value = localTime(end, zone);
     get('oncall-range-end').value = wallString(wallTime(localTime(end, zone)) + 7 * 86400000);
+    get('oncall-clear-start').value = localTime(Date.now(), zone);
+    get('oncall-clear-auto-options').hidden = root.dataset.autoExtend !== 'true';
+    clearDefaults();
     window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
     chart.addEventListener('oncall-packed', () => chart.querySelectorAll('.ac-gantt-lane').forEach(pack));
     renderRows(); draw();

@@ -109,4 +109,55 @@
     <value>Annulla ultimo passaggio</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Svuota un intervallo del calendario</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Lo svuotamento modifica solo la bozza. Controlla il grafico, quindi salva per pubblicare.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>L’intervallo predefinito va da adesso fino alla fine dell’ultimo turno salvato o presente nella bozza, nel fuso orario del team.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Per impostazione predefinita, vengono rimossi solo i turni generati automaticamente.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Includi i turni modificati manualmente</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Includi i turni passati già completati</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>I turni in corso mantengono la parte già trascorsa, anche quando viene inclusa la cronologia.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>L’estensione automatica è attiva. Scegli cosa deve accadere al salvataggio.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Scegli un’azione per l’estensione automatica</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Disattiva l’estensione automatica al salvataggio</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Rigenera i turni dal modello negli intervalli svuotati al salvataggio</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>La rigenerazione avviene solo al salvataggio. L’anteprima mantiene gli intervalli vuoti e i turni conservati non vengono sovrascritti.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Anteprima dello svuotamento</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Conferma la rimozione dei turni passati già completati in questo intervallo. Questa operazione può rimuovere assegnazioni precedenti.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Conferma lo svuotamento della cronologia</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Scegli se disattivare l’estensione automatica o rigenerare i turni negli intervalli svuotati.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Intervallo della bozza svuotato</value>
+  </data>
 </root>

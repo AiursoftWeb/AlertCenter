@@ -156,4 +156,55 @@
   <data name="Unassigned" xml:space="preserve"><value>未分配</value></data>
   <data name="Copied range is a draft. Save to publish." xml:space="preserve"><value>已复制的范围仍为草稿，保存后才会发布。</value></data>
   <data name="Select a shift first." xml:space="preserve"><value>请先选择一个班次。</value></data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>清空排班范围</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>清空仅修改草稿。请检查图表，然后保存以发布。</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>默认范围为团队时区的当前时间至已保存或草稿中最后一个班次的结束时间。</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>默认仅清空自动生成的班次。</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>包含手动编辑的班次</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>包含已结束的历史班次</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>即使包含历史班次，进行中的班次也会保留已过去的部分。</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>自动延长已启用。请选择保存时的处理方式。</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>选择自动延长操作</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>保存时禁用自动延长</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>保存时按模板重新生成已清空的空缺时段</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>仅在保存时重新生成。预览会保留空缺，且不会覆盖保留的班次。</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>预览清空结果</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>请确认清空此范围内已结束的历史班次。这可能会移除过去的值班安排。</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>确认清空历史班次</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>请选择禁用自动延长，或重新生成已清空的空缺时段。</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>已清空的草稿范围</value>
+  </data>
 </root>

@@ -26,7 +26,7 @@ test('copy repeats arbitrary multi-person drafts, clips cross-week shifts and fi
         { startLocal: '2026-10-16T22:00', endLocal: '2026-10-20T22:00', userIds: [] }];
     const copies = copyRange(slots, '2026-10-12T00:00', '2026-10-19T00:00', '2026-10-25T00:00', '2026-11-03T10:17', members);
     assert.equal(copies.length, 3);
-    assert.deepEqual(copies[0], { startLocal: '2026-10-25T00:00', endLocal: '2026-10-29T22:00', userIds: ['a', 'b'] });
+    assert.deepEqual(copies[0], { startLocal: '2026-10-25T00:00', endLocal: '2026-10-29T22:00', userIds: ['a', 'b'], source: 0 });
     assert.equal(copies[1].endLocal, '2026-11-01T00:00');
     assert.equal(copies[2].endLocal, '2026-11-03T10:17');
     assert.equal(copies[0].id, undefined);
@@ -151,13 +151,13 @@ function setup(options = {}) {
     const root = create('schedule'), chart = create('gantt');
     const grid = new Element(); grid.className = 'ac-gantt'; chart.append(grid);
     chart.dataset.duration = String((Date.parse(rangeEnd) - Date.parse(rangeStart)) / hour);
-    Object.assign(root.dataset, { groupId: 'group', version: 'version', zone, start: rangeStart, end: rangeEnd, slots: JSON.stringify(slots), members: JSON.stringify(people), context: JSON.stringify(contextSlots), previewUrl: '/preview', saveUrl: '/save', getUrl: '/saved', generateUrl: '/generate', ...options.thresholds });
+    Object.assign(root.dataset, { groupId: 'group', version: 'version', zone, start: rangeStart, end: rangeEnd, slots: JSON.stringify(slots), members: JSON.stringify(people), context: JSON.stringify(contextSlots), previewUrl: '/preview', saveUrl: '/save', getUrl: '/saved', generateUrl: '/generate', autoExtend: String(options.autoExtend || false), lastShiftEnd: options.lastShiftEnd || '', ...options.thresholds });
     const csrf = new Element('input'); csrf.setAttribute('name', '__RequestVerificationToken'); csrf.value = 'csrf'; root.append(csrf);
     for (const [key, value] of Object.entries(messages)) { const label = new Element('span'); label.dataset.scheduleText = key; label.textContent = value; root.append(label); }
-    for (const id of ['shift-rows', 'draft-notice', 'replace-confirm', 'replaced-shifts', 'schedule-errors', 'schedule-warnings', 'copy-drafts', 'drag-tooltip', 'total-shifts', 'total-staff', 'total-hours', 'published-status']) create(id, id === 'shift-rows' ? 'tbody' : 'div', root);
-    for (const id of ['save-schedule', 'reset-schedule', 'undo-schedule', 'redo-schedule', 'add-shift', 'copy-range', 'generate', 'replace-apply', 'replace-cancel', 'swap-week', 'move-selected']) create(id, 'button', root);
-    for (const id of ['range-start', 'range-end', 'move-start']) create(id, 'input', root);
-    for (const id of ['swap-first', 'swap-second', 'move-member']) create(id, 'select', root);
+    for (const id of ['shift-rows', 'draft-notice', 'replace-confirm', 'replace-regenerate-hint', 'replaced-shifts', 'schedule-errors', 'schedule-warnings', 'copy-drafts', 'drag-tooltip', 'total-shifts', 'total-staff', 'total-hours', 'published-status', 'clear-history-confirm', 'clear-history-range', 'clear-auto-options']) create(id, id === 'shift-rows' ? 'tbody' : 'div', root);
+    for (const id of ['save-schedule', 'reset-schedule', 'undo-schedule', 'redo-schedule', 'add-shift', 'copy-range', 'generate', 'replace-apply', 'replace-cancel', 'swap-week', 'move-selected', 'clear-range', 'clear-history-apply', 'clear-history-cancel']) create(id, 'button', root);
+    for (const id of ['range-start', 'range-end', 'move-start', 'clear-start', 'clear-end', 'clear-manual', 'clear-history']) create(id, 'input', root);
+    for (const id of ['swap-first', 'swap-second', 'move-member', 'clear-auto-action']) create(id, 'select', root);
     const dialog = create('shift-dialog', 'dialog', root);
     for (const id of ['start', 'end', 'members', 'errors', 'apply', 'delete', 'cancel']) create(`dialog-${id}`, ['start', 'end'].includes(id) ? 'input' : ['apply', 'delete', 'cancel'].includes(id) ? 'button' : 'div', dialog);
     for (const id of ['shift-detail', 'shift-summary', 'shift-start', 'shift-end']) create(id);
@@ -183,7 +183,7 @@ function setup(options = {}) {
     const toggles = {};
     for (const edge of ['previous', 'next']) { const button = new Element('button'); button.dataset.oncallEdge = edge; button.setAttribute('aria-expanded', 'false'); document.append(button); toggles[edge] = button; }
     const savedWarning = new Element(); savedWarning.dataset.oncallSavedWarning = ''; document.append(savedWarning);
-    for (const id of ['draft-notice', 'replace-confirm', 'drag-tooltip']) elements[`oncall-${id}`].hidden = true;
+    for (const id of ['draft-notice', 'replace-confirm', 'drag-tooltip', 'clear-history-confirm']) elements[`oncall-${id}`].hidden = true;
     const requests = [], deferred = [];
     const window = new Element('window'); window.reloads = 0; window.location = { reload() { window.reloads++; } };
     const resolved = slot => {
@@ -199,15 +199,20 @@ function setup(options = {}) {
         if (url.startsWith('/saved?')) {
             const query = new URL(url, 'https://example.invalid').searchParams;
             const left = Date.parse(query.get('startUtc')), right = Date.parse(query.get('endUtc'));
-            return { version: options.savedVersion || 'version', saved: true, slots: structuredClone(options.savedSlots || slots).filter(slot => Date.parse(slot.startsAtUtc) < right && Date.parse(slot.endsAtUtc) > left) };
+            return { version: options.savedVersion || 'version', saved: options.saved !== false, autoExtend: options.autoExtend || false, lastShiftEndUtc: options.lastShiftEnd || null, slots: structuredClone(options.savedSlots || slots).filter(slot => Date.parse(slot.startsAtUtc) < right && Date.parse(slot.endsAtUtc) > left) };
         }
         const startUtc = body.startUtc || new Date(utcForLocal(body.startLocal, zone)).toISOString();
         const endUtc = body.endUtc || new Date(utcForLocal(body.endLocal, zone)).toISOString();
-        const resultSlots = url.includes('generate=true') ? (options.generatedSlots || [{ startsAtUtc: startUtc, endsAtUtc: endUtc, userIds: ['b'] }]) : body.slots.map(resolved);
+        const resultSlots = url.includes('generate=true') ? (options.generatedSlots || [{ startsAtUtc: startUtc, endsAtUtc: endUtc, userIds: ['b'], source: 1 }]) : body.slots.map(resolved);
+        if (url === '/preview?clear=true') return {
+            version: 'version', startUtc, endUtc, slots: typeof options.clearSlots === 'function' ? options.clearSlots(body.slots.map(resolved), body) : options.clearSlots || [], replacedSlots: options.clearReplacedSlots || body.slots.map(resolved), warnings: [], timelineWarnings: [],
+            clearRanges: body.clearRanges.map(range => ({ ...range, clearedAtUtc: range.clearedAtUtc || options.serverNow || '2026-10-12T04:13:45.123Z' })), errors: ['Clear rejected'], ...options.clearResponse
+        };
         return { version: url === '/save' ? 'new-version' : 'version', startUtc, endUtc, slots: resultSlots, replacedSlots: url.includes('?generate=') ? structuredClone(options.replacedSlots || []) : [], warnings: [], timelineWarnings: options.serverWarnings || [], errors: ['Version conflict'] };
     };
+    class ClockDate extends Date { static now() { return options.now ? Date.parse(options.now) : Date.now(); } }
     vm.runInNewContext(ganttSource + '\n' + source, {
-        document, window, Intl, Date, structuredClone, URLSearchParams, Event: BrowserEvent,
+        document, window, Intl, Date: ClockDate, structuredClone, URLSearchParams, Event: BrowserEvent,
         getLocalizedText: (key, fallback) => messages[key] ?? fallback,
         setTimeout(fn, delay) { const id = nextTimer++; timers.set(id, { fn, at: now + delay }); return id; },
         clearTimeout(id) { timers.delete(id); },
@@ -215,7 +220,7 @@ function setup(options = {}) {
             const body = requestOptions.body ? JSON.parse(requestOptions.body) : undefined;
             const record = { url, body, options: requestOptions }; requests.push(record);
             if (options.deferPreview && url === '/preview') return new Promise(resolve => deferred.push({ record, resolve: data => resolve({ ok: true, json: async () => data }) }));
-            return { ok: !(options.fail && url === '/save'), json: async () => responseFor(url, body) };
+            return { ok: !((options.fail && url === '/save') || (options.failClear && url === '/preview?clear=true')), json: async () => responseFor(url, body) };
         }
     });
     const flush = async () => {
@@ -553,7 +558,7 @@ test('one atomic save merges staged copies and untouched intervening saved range
     assert.equal(query.get('startUtc'), '2026-10-11T16:00:00.000Z'); assert.equal(query.get('endUtc'), '2026-11-01T16:00:00.000Z');
     const saved = saves[0].body;
     assert.equal(saved.version, 'version'); assert.equal(saved.startUtc, '2026-10-11T16:00:00.000Z'); assert.equal(saved.endUtc, '2026-11-01T16:00:00.000Z');
-    assert.deepEqual(saved.slots.find(slot => slot.id === 'middle'), middle); assert(!saved.slots.some(slot => ['replaced', 'other-team'].includes(slot.id)));
+    assert.deepEqual(saved.slots.find(slot => slot.id === 'middle'), { ...middle, source: 0 }); assert(!saved.slots.some(slot => ['replaced', 'other-team'].includes(slot.id)));
     assert.equal(saved.slots.length, 3); assert.equal(ui.window.reloads, 1);
 });
 test('expanded-save version conflict prevents every write and keeps all staged drafts and navigation protection', async () => {
@@ -605,6 +610,12 @@ test('precise table and bulk tools are default-collapsed markup using the same d
     assert.match(markup, /id="oncall-dialog-members"[^>]*aria-label=/);
     for (const key of Object.keys(warningText)) assert(markup.includes(`data-schedule-text="${key}"`), key);
     assert.match(markup, /data-get-url=/); assert.match(markup, /data-context=/);
+    let depth = 0;
+    for (const match of markup.matchAll(/<details\b[^>]*>|<\/details>|<div id="(oncall-replace-confirm|oncall-clear-history-confirm)"/g)) {
+        if (match[0].startsWith('<details')) depth++;
+        else if (match[0] === '</details>') depth--;
+        else assert.equal(depth, 0, `${match[1]} must remain visible when bulk tools are collapsed`);
+    }
 });
 
 test('week row buttons support pointer dragging and click selection followed by a target row, including cancellation', async () => {
@@ -732,4 +743,239 @@ test('per-person statistics count intersecting shifts while clipping and merging
     await ui.click(ui.get('shift-rows').children[1].children[3].children[0]);
     assert.equal(stats('a'), '2 · 12.00 hours'); assert.equal(stats('b'), '0 · 0.00 hours');
     await ui.click('undo-schedule'); assert.equal(stats('a'), '3 · 16.00 hours'); assert.equal(stats('b'), '1 · 8.00 hours');
+});
+
+test('clear defaults use team now and round the final saved shift up, extending to later copied drafts', async () => {
+    const ui = setup({ now: '2026-10-12T04:13:45.123Z', lastShiftEnd: '2026-10-20T09:17:22Z' }); await ui.flush();
+    assert.equal(ui.get('clear-start').value, '2026-10-12T12:13');
+    assert.equal(ui.get('clear-end').value, '2026-10-20T17:18');
+    assert.equal(ui.get('clear-manual').checked, false); assert.equal(ui.get('clear-history').checked, false);
+    assert.equal(ui.get('clear-auto-options').hidden, true);
+    await ui.click('copy-range'); assert.equal(ui.get('clear-end').value, '2026-10-26T00:00');
+    await ui.click('undo-schedule'); assert.equal(ui.get('clear-end').value, '2026-10-20T17:18');
+    await ui.input(ui.get('clear-end'), '2026-10-21T00:00'); await ui.click('redo-schedule');
+    assert.equal(ui.get('clear-end').value, '2026-10-21T00:00', 'Explicit end is not overwritten by another draft edit');
+});
+test('clear uses authoritative source and precise ongoing cutoff, updates Gantt, and remains undoable until one save', async () => {
+    const generated = { ...shift(0, 24, ['a'], 'generated'), source: 1 };
+    const manual = { ...shift(24, 48, ['b'], 'manual'), source: 0 };
+    const cutoff = '2026-10-12T04:13:45.123Z';
+    const kept = { ...generated, endsAtUtc: cutoff };
+    const ui = setup({ now: cutoff, slots: [generated, manual], clearSlots: [kept, manual], serverNow: cutoff }); await ui.flush();
+    const original = ui.draft();
+    await ui.click('clear-range');
+    const clear = ui.request('/preview?clear=true')[0];
+    assert.equal(clear.options.method, 'POST'); assert.equal(clear.options.headers.RequestVerificationToken, 'csrf');
+    assert.deepEqual(clear.body.slots.map(slot => slot.source), [1, 0]);
+    assert.deepEqual(clear.body.clearRanges, [{ startUtc: '2026-10-12T04:13:00.000Z', endUtc: manual.endsAtUtc, includeManual: false, includeHistory: false, confirmHistory: false, autoExtendAction: null }]);
+    assert.equal(ui.bar().dataset.end, '2026-10-12T12:13'); assert(ui.bar(1, 'b'));
+    assert(warnings(ui).includes(warningText.gap)); assert.equal(ui.request('/save').length, 0);
+    const cleared = ui.draft(); await ui.preview();
+    const preview = ui.request('/preview').at(-1).body;
+    assert.equal(preview.slots[0].endsAtUtc, cutoff); assert.equal(preview.slots[0].source, 1);
+    assert.equal(preview.clearRanges[0].clearedAtUtc, cutoff);
+    await ui.click('undo-schedule'); assert.deepEqual(ui.draft(), original); assert.equal(ui.get('copy-drafts').children.length, 0);
+    await ui.click('redo-schedule'); assert.deepEqual(ui.draft(), cleared);
+    await ui.click('reset-schedule'); assert.deepEqual(ui.draft(), original); assert.equal(ui.get('draft-notice').hidden, true);
+    await ui.click('undo-schedule'); assert.deepEqual(ui.draft(), cleared);
+    await ui.click('save-schedule'); assert.equal(ui.request('/save').length, 1);
+    const saved = ui.request('/save')[0].body;
+    assert.equal(saved.slots[0].endsAtUtc, cutoff); assert.equal(saved.slots[0].source, 1); assert.equal(saved.slots[1].source, 0);
+    assert.equal(saved.clearRanges[0].clearedAtUtc, cutoff); assert.equal(saved.version, 'version');
+    assert(ui.requests.filter(item => item.options.method === 'POST').every(item => item.url.startsWith('/preview') || item.url === '/save'));
+});
+test('malformed clear descriptors leave the draft and undo history intact; valid responses retain seven-digit UTC precision', async () => {
+    const options = { now: start, slots: [{ ...shift(0, 24, ['a'], 'generated'), source: 1 }], clearResponse: {
+        clearRanges: [{ StartUtc: '2026-10-11T16:00:00Z', EndUtc: '2026-10-12T16:00:00Z', IncludeManual: false, IncludeHistory: false, ConfirmHistory: false, AutoExtendAction: null, ClearedAtUtc: '2026-10-12T04:13:45.1234567Z' }],
+        slots: [{ ...shift(0, 12, ['a'], 'generated'), endsAtUtc: '2026-10-12T04:13:45.1234567Z', source: 1 }]
+    } };
+    const ui = setup(options); await ui.flush(); const before = ui.draft();
+    await ui.click('clear-range'); assert.match(ui.get('schedule-errors').textContent, /Unable to save schedule/);
+    assert.deepEqual(ui.draft(), before); assert.equal(ui.get('undo-schedule').disabled, true); assert.equal(ui.get('draft-notice').hidden, true);
+    options.clearResponse.clearRanges = [{ startUtc: '2026-10-11T16:00:00Z', endUtc: '2026-10-12T16:00:00Z', includeManual: false, includeHistory: false, confirmHistory: false, autoExtendAction: null, clearedAtUtc: '2026-10-12T04:13:45.1234567Z' }];
+    await ui.click('clear-range'); assert.equal(ui.get('schedule-errors').textContent, '');
+    assert.equal(ui.draft()[0].endLocal, '2026-10-12T12:13'); assert.equal(ui.bar().dataset.end, '2026-10-12T12:13');
+    await ui.preview(); const preview = ui.request('/preview').at(-1).body;
+    assert.equal(preview.clearRanges[0].clearedAtUtc, '2026-10-12T04:13:45.1234567Z');
+    assert.equal(preview.slots[0].endsAtUtc, '2026-10-12T04:13:45.1234567Z');
+    assert.equal(preview.clearRanges[0].startUtc, '2026-10-11T16:00:00Z');
+    await ui.click('save-schedule'); assert.equal(ui.request('/save')[0].body.clearRanges[0].endUtc, '2026-10-12T16:00:00Z');
+});
+test('history clear requires a separate confirmation and changing scope invalidates it without touching the draft', async () => {
+    const ui = setup({ slots: [{ ...shift(0, 24), source: 1 }], now: '2026-10-13T00:00:00Z' }); await ui.flush();
+    await ui.input(ui.get('clear-start'), '2026-10-12T00:00');
+    ui.get('clear-history').checked = true; await ui.fire(ui.get('clear-history'), 'change');
+    ui.get('clear-manual').checked = true; await ui.fire(ui.get('clear-manual'), 'change');
+    const before = ui.draft();
+    await ui.click('clear-range'); assert.equal(ui.get('clear-history-confirm').hidden, false);
+    assert.match(ui.get('clear-history-range').textContent, /Asia\/Shanghai/); assert.equal(ui.request('/preview?clear=true').length, 0);
+    await ui.click('clear-history-cancel'); await ui.click('clear-history-apply'); assert.deepEqual(ui.draft(), before);
+    await ui.click('clear-range'); await ui.input(ui.get('clear-end'), '2026-10-14T00:00');
+    await ui.click('clear-history-apply'); assert.equal(ui.request('/preview?clear=true').length, 0);
+    await ui.click('clear-range'); await ui.click('clear-history-apply');
+    const operation = ui.request('/preview?clear=true')[0].body.clearRanges[0];
+    assert.equal(operation.includeManual, true); assert.equal(operation.includeHistory, true); assert.equal(operation.confirmHistory, true);
+    assert.equal(ui.get('clear-history-confirm').hidden, true); assert.equal(ui.draft().length, 0);
+    await ui.click('undo-schedule'); assert.deepEqual(ui.draft(), before); assert.equal(ui.request('/save').length, 0);
+});
+test('automatic extension has no default action and disabling is submitted atomically with the clear on save', async () => {
+    const ui = setup({ autoExtend: true, now: start, slots: [{ ...shift(0, 24), source: 1 }] }); await ui.flush();
+    assert.equal(ui.get('clear-auto-options').hidden, false); assert.equal(ui.get('clear-auto-action').value, '');
+    await ui.click('clear-range'); assert.equal(ui.request('/preview?clear=true').length, 0);
+    assert.match(ui.get('schedule-errors').textContent, /disable automatic extension or regenerate/);
+    ui.get('clear-auto-action').value = 'disable'; await ui.fire(ui.get('clear-auto-action'), 'change'); await ui.click('clear-range');
+    assert.equal(ui.draft().length, 0); assert.equal(ui.get('replace-confirm').hidden, true); assert.equal(ui.request('/save').length, 0);
+    await ui.click('undo-schedule'); assert.equal(ui.get('clear-auto-action').value, '');
+    await ui.click('redo-schedule'); assert.equal(ui.get('clear-auto-action').value, 'disable');
+    await ui.click('save-schedule');
+    const saved = ui.request('/save')[0].body;
+    assert.deepEqual(saved.slots, []); assert.equal(saved.clearRanges[0].autoExtendAction, 'disable'); assert.equal(saved.confirmReplace, undefined);
+    assert.equal(ui.request('/generate').length, 0); assert.equal(ui.window.reloads, 1);
+});
+test('regenerate clear uses visible replacement confirmation, leaves a gap until save, and restores choices with undo', async () => {
+    const ui = setup({ autoExtend: true, now: start, slots: [{ ...shift(0, 24), source: 1 }] }); await ui.flush();
+    const before = ui.draft();
+    ui.get('clear-auto-action').value = 'regenerate'; await ui.fire(ui.get('clear-auto-action'), 'change');
+    await ui.click('clear-range');
+    assert.equal(ui.get('replace-confirm').hidden, false); assert.equal(ui.get('replace-regenerate-hint').hidden, false);
+    assert.match(ui.get('replaced-shifts').textContent, /Alice <team>/); assert.deepEqual(ui.draft(), before);
+    await ui.click('replace-cancel'); await ui.click('replace-apply'); assert.deepEqual(ui.draft(), before);
+    await ui.click('clear-range'); await ui.input(ui.get('clear-end'), '2026-10-14T00:00'); await ui.click('replace-apply'); assert.deepEqual(ui.draft(), before);
+    await ui.click('clear-range'); await ui.click('replace-apply'); assert.deepEqual(ui.draft(), []);
+    assert.equal(ui.bar(), null); assert(warnings(ui).includes(warningText.gap));
+    assert.equal(ui.request('/generate').length, 0); assert.equal(ui.request('/save').length, 0);
+    await ui.click('undo-schedule'); assert.deepEqual(ui.draft(), before); assert.equal(ui.get('clear-auto-action').value, '');
+    await ui.click('redo-schedule'); assert.deepEqual(ui.draft(), []); assert.equal(ui.get('clear-auto-action').value, 'regenerate');
+    await ui.click('save-schedule'); const saved = ui.request('/save')[0].body;
+    assert.equal(saved.confirmReplace, true); assert.equal(saved.clearRanges[0].autoExtendAction, 'regenerate'); assert.deepEqual(saved.slots, []);
+});
+test('failed clear and version mismatch retain visible edits and noncontiguous copies without writes', async () => {
+    const options = { now: start, failClear: true }; const ui = setup(options); await ui.flush();
+    await ui.input(tableInput(ui, 0, 'end'), '2026-10-16T22:17'); await ui.click('copy-range'); const before = ui.draft();
+    await ui.click('clear-range'); assert.equal(ui.get('schedule-errors').textContent, 'Clear rejected');
+    assert.deepEqual(ui.draft(), before); assert.equal(ui.get('copy-drafts').children.length, 1); assert.equal(ui.root.inert, false);
+    options.failClear = false; options.savedVersion = 'conflict'; await ui.click('clear-range');
+    assert.equal(ui.request('/preview?clear=true').length, 1); assert.deepEqual(ui.draft(), before); assert.equal(ui.get('copy-drafts').children.length, 1);
+    assert.equal(ui.request('/save').length, 0); assert((await ui.fire(ui.window, 'beforeunload')).defaultPrevented);
+    options.savedVersion = 'version'; await ui.click('save-schedule'); assert.equal(ui.request('/save')[0].body.clearRanges.length, 0);
+});
+test('clear assembles noncontiguous drafts with untouched saved gaps and preserves crossing IDs exactly once', async () => {
+    const original = { ...shift(-2, 24, ['a'], 'original'), source: 1 };
+    const middle = { ...shift(180, 190, ['b'], 'middle'), source: 0 };
+    const replaced = { ...shift(336, 350, ['a'], 'replaced'), source: 1 };
+    const later = { ...shift(660, 680, ['b'], 'later'), source: 1 };
+    const options = { now: start, slots: [original], savedSlots: [original, middle, replaced, later], lastShiftEnd: later.endsAtUtc };
+    const ui = setup(options); await ui.flush();
+    await ui.input(tableInput(ui, 0, 'end'), '2026-10-13T00:17');
+    await ui.input(ui.get('range-start'), '2026-10-26T00:00'); await ui.input(ui.get('range-end'), '2026-11-02T00:00'); await ui.click('copy-range');
+    const copied = ui.request('/preview?generate=false')[0].body.slots[0];
+    options.clearSlots = [{ ...original, endsAtUtc: shift(0, 24 + 17 / 60).endsAtUtc, source: 0 }, middle, { startsAtUtc: '2026-10-25T16:00:00.000Z', endsAtUtc: '2026-10-26T16:17:00.000Z', userIds: copied.userIds, source: 0 }];
+    await ui.input(ui.get('clear-start'), '2026-11-08T00:00'); await ui.click('clear-range');
+    const clear = ui.request('/preview?clear=true')[0].body;
+    assert.equal(clear.startUtc, original.startsAtUtc); assert.equal(clear.endUtc, later.endsAtUtc);
+    assert.equal(clear.slots.filter(slot => slot.id === 'original').length, 1); assert.equal(clear.slots.find(slot => slot.id === 'original').endLocal, '2026-10-13T00:17');
+    assert(clear.slots.some(slot => slot.id === 'middle')); assert(clear.slots.some(slot => slot.id === 'later'));
+    assert(!clear.slots.some(slot => slot.id === 'replaced')); assert(clear.slots.some(slot => localTime(slot.startsAtUtc, 'Asia/Shanghai') === copied.startLocal));
+    await ui.preview(); const after = ui.request('/preview').at(-1).body;
+    assert.equal(after.slots.filter(slot => slot.id === 'original').length, 1); assert.equal(after.slots.length, 3);
+    assert.equal(after.slots.find(slot => slot.id === 'original').source, 0);
+    await ui.click('save-schedule'); const saved = ui.request('/save')[0].body;
+    assert.equal(saved.slots.filter(slot => slot.id === 'original').length, 1); assert.equal(saved.slots.length, 3);
+    assert(saved.slots.some(slot => slot.id === 'middle')); assert(!saved.slots.some(slot => slot.id === 'later' || slot.id === 'replaced'));
+    assert.equal(saved.endUtc, later.endsAtUtc, 'Cleared empty tail still participates in saving bounds');
+    assert.equal(saved.clearRanges.length, 1);
+});
+test('failed save retains a confirmed clear and its automatic-extension action for retry', async () => {
+    const options = { now: start, autoExtend: true, fail: true }; const ui = setup(options); await ui.flush();
+    ui.get('clear-auto-action').value = 'disable'; await ui.fire(ui.get('clear-auto-action'), 'change'); await ui.click('clear-range');
+    await ui.click('save-schedule'); assert.equal(ui.window.reloads, 0); assert.equal(ui.get('clear-auto-action').value, 'disable');
+    assert.deepEqual(ui.draft(), []); assert.match(ui.get('schedule-errors').textContent, /Version conflict/);
+    const first = ui.request('/save')[0].body; assert.equal(first.clearRanges[0].autoExtendAction, 'disable');
+    options.fail = false; await ui.click('save-schedule');
+    assert.deepEqual(ui.request('/save')[1].body, first); assert.equal(ui.window.reloads, 1);
+});
+test('clear keeps server split fragments once across the view and preserves saved neighbors beyond crossing bounds', async () => {
+    const crossing = { ...shift(156, 200, ['a'], 'crossing'), source: 1 };
+    const long = { ...shift(300, 600, ['b'], 'long'), source: 0 };
+    const neighbor = { ...shift(560, 570, ['a'], 'neighbor'), source: 0 };
+    const fragments = [{ ...shift(156, 164, ['a'], 'crossing'), source: 1 }, { ...shift(180, 200), source: 1 }, long];
+    const ui = setup({ now: start, slots: [crossing], savedSlots: [crossing, long, neighbor], clearSlots: fragments }); await ui.flush();
+    await ui.input(ui.get('clear-start'), '2026-10-18T20:00'); await ui.input(ui.get('clear-end'), '2026-10-29T00:00'); await ui.click('clear-range');
+    assert.equal(ui.draft().length, 1); assert.equal(ui.bar().dataset.end, '2026-10-18T20:00');
+    await ui.click('save-schedule'); const saved = ui.request('/save')[0].body;
+    assert.equal(saved.slots.filter(slot => slot.id === 'crossing').length, 1);
+    assert.equal(saved.slots.filter(slot => slot.id === 'long').length, 1);
+    assert(saved.slots.some(slot => slot.id === 'neighbor'), 'Expanded crossing bounds do not claim unseen saved neighbors were edited');
+    assert.equal(saved.slots.filter(slot => !slot.id).length, 1); assert.equal(saved.slots.length, 4);
+});
+test('repeated clears carry server-stamped previous descriptors and never resurrect cleared saved slots', async () => {
+    const generated = { ...shift(0, 48, ['a'], 'original'), source: 1 }, firstKept = { ...shift(0, 12, ['a'], 'original'), source: 1 };
+    const options = { now: start, slots: [generated], clearSlots: [firstKept] }; const ui = setup(options); await ui.flush();
+    await ui.input(ui.get('clear-start'), '2026-10-12T12:00'); await ui.click('clear-range');
+    options.clearSlots = []; await ui.input(ui.get('clear-start'), '2026-10-12T00:00'); await ui.click('clear-range');
+    const second = ui.request('/preview?clear=true')[1].body;
+    assert.equal(second.clearRanges.length, 2); assert(second.clearRanges[0].clearedAtUtc); assert.equal(second.clearRanges[1].clearedAtUtc, undefined);
+    assert.equal(second.slots.length, 1); assert.equal(second.slots[0].endsAtUtc, firstKept.endsAtUtc); assert.equal(second.slots[0].source, 1);
+    await ui.click('undo-schedule'); await ui.preview(); assert.equal(ui.request('/preview').at(-1).body.clearRanges.length, 1);
+    await ui.click('redo-schedule'); await ui.click('save-schedule');
+    const saved = ui.request('/save')[0].body; assert.equal(saved.clearRanges.length, 2); assert.deepEqual(saved.slots, []);
+});
+test('broad clear ignores unsaved GET suggestions and invalid or skipped local ranges do not request a preview', async () => {
+    const ui = setup({ now: start, saved: false, savedSlots: [shift(180, 200, ['b'], 'suggestion')] }); await ui.flush();
+    await ui.input(ui.get('clear-end'), '2026-10-27T00:00'); await ui.click('clear-range');
+    assert(!ui.request('/preview?clear=true')[0].body.slots.some(slot => slot.id === 'suggestion'));
+    await ui.input(ui.get('clear-start'), '2026-10-28T00:00'); await ui.click('clear-range'); assert.equal(ui.request('/preview?clear=true').length, 1);
+    assert.match(ui.get('schedule-errors').textContent, /End must be after start/);
+    const dst = setup({ zone: 'America/New_York' }); await dst.flush();
+    await dst.input(dst.get('clear-start'), '2026-03-08T02:30'); await dst.input(dst.get('clear-end'), '2026-03-09T03:00'); await dst.click('clear-range');
+    assert.equal(dst.request('/preview?clear=true').length, 0); assert.match(dst.get('schedule-errors').textContent, /Invalid team local time/);
+});
+test('manual edits to generated shifts clear rotation metadata before clear and undo restores it', async () => {
+    const ui = setup({ now: start, slots: [{ ...shift(0, 24, ['a'], 'generated'), source: 1, rotationPosition: 7 }] }); await ui.flush();
+    await ui.input(tableInput(ui, 0, 'end'), '2026-10-13T00:17'); await ui.preview();
+    assert.equal(ui.request('/preview').at(-1).body.slots[0].source, 0);
+    assert.equal(ui.request('/preview').at(-1).body.slots[0].rotationPosition, null);
+    await ui.click('undo-schedule'); await ui.preview(); assert.equal(ui.request('/preview').at(-1).body.slots[0].source, 1);
+    assert.equal(ui.request('/preview').at(-1).body.slots[0].rotationPosition, 7);
+    await ui.check(ui.get('shift-rows').children[0].children[2], 'b', true); await ui.click('clear-range');
+    assert.equal(ui.request('/preview?clear=true')[0].body.slots[0].source, 0);
+    assert.equal(ui.request('/preview?clear=true')[0].body.slots[0].rotationPosition, null);
+});
+test('new generated previews are clearable but manual draft edits protect them from generated-only clearing', async () => {
+    const generated = { ...shift(12, 20, ['b']), source: 1, rotationPosition: 9 };
+    const ui = setup({ now: start, slots: [], generatedSlots: [generated], clearSlots: slots => slots.filter(slot => slot.source !== 1) }); await ui.flush();
+    await ui.input(ui.get('range-start'), '2026-10-12T00:00'); await ui.input(ui.get('range-end'), '2026-10-19T00:00');
+    await ui.click('generate'); await ui.click('replace-apply');
+    await ui.click('clear-range');
+    const first = ui.request('/preview?clear=true')[0].body;
+    assert.equal(first.clearRanges[0].includeManual, false); assert.equal(first.slots[0].source, 1); assert.equal(first.slots[0].rotationPosition, 9);
+    assert.deepEqual(ui.draft(), []); assert.equal(ui.request('/save').length, 0);
+    await ui.click('undo-schedule');
+    await ui.click(ui.bar(0, 'b')); ui.get('dialog-end').value = '2026-10-12T20:17'; await ui.click('dialog-apply');
+    await ui.click('clear-range');
+    const second = ui.request('/preview?clear=true')[1].body;
+    assert.equal(second.slots[0].source, 0); assert.equal(second.slots[0].rotationPosition, null);
+    assert.equal(ui.draft()[0].endLocal, '2026-10-12T20:17'); assert(ui.bar(0, 'b'));
+});
+test('manual gestures and popup assignment edits clear generated rotation metadata while no-op edits preserve it', async () => {
+    const generated = { ...shift(12, 20, ['a']), source: 1, rotationPosition: 4 };
+    const ui = setup({ now: start, slots: [generated] }); await ui.flush();
+    const verify = async (source, rotationPosition) => {
+        await ui.preview(); const slot = ui.request('/preview').at(-1).body.slots[0];
+        assert.equal(slot.source, source); assert.equal(slot.rotationPosition, rotationPosition);
+    };
+    await ui.input(tableInput(ui, 0, 'end'), '2026-10-12T20:00');
+    await ui.click(ui.bar()); await ui.click('dialog-apply'); await verify(1, 4);
+    await ui.drag(ui.bar(), 14, 14, ui.lane('b')); await verify(0, null);
+    await ui.click('undo-schedule'); await verify(1, 4);
+    await ui.drag(ui.bar().querySelector('[data-resize="end"]'), 20, 21); await verify(0, null);
+    await ui.click('undo-schedule');
+    await ui.fire(ui.bar(), 'keydown', { key: 'ArrowRight' }); await verify(0, null);
+    await ui.click('undo-schedule');
+    await ui.click(ui.bar()); await ui.check(ui.get('dialog-members'), 'b', true); await ui.click('dialog-apply'); await verify(0, null);
+    await ui.click('undo-schedule'); await verify(1, 4);
+    await ui.click('copy-range'); await ui.preview();
+    const copied = ui.request('/preview').at(-1).body.slots;
+    assert.equal(copied[0].source, 1); assert.equal(copied[0].rotationPosition, 4);
+    assert(copied.slice(1).every(slot => slot.source === 0 && slot.rotationPosition == null));
 });

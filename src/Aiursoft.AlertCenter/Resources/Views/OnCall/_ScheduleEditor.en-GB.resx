@@ -109,4 +109,55 @@
     <value>Undo last step</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Clear schedule range</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Clear only changes the draft. Review the chart, then save to publish.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Defaults to now through the final saved or draft shift, in the team time zone.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>By default, only automatically generated shifts are cleared.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Include manually edited shifts</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Include completed historical shifts</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Ongoing shifts keep their elapsed portion, even when history is included.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automatic extension is enabled. Choose what happens when saving.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Choose an automatic extension action</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Disable automatic extension when saving</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Regenerate cleared gaps from the template when saving</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Preview clear</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Confirm clearing completed historical shifts in this range. This can remove past assignments.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Confirm historical clear</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Choose whether to disable automatic extension or regenerate cleared gaps.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Cleared draft range</value>
+  </data>
 </root>

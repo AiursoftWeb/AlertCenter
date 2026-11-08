@@ -109,4 +109,55 @@
     <value>Letzten Schritt rückgängig machen</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Dienstplanzeitraum leeren</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Das Leeren ändert nur den Entwurf. Prüfen Sie das Diagramm und speichern Sie anschließend, um die Änderungen zu veröffentlichen.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Standardmäßig reicht der Zeitraum von jetzt bis zum Ende der letzten gespeicherten oder im Entwurf vorhandenen Schicht, in der Zeitzone des Teams.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Standardmäßig werden nur automatisch erzeugte Schichten entfernt.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Manuell bearbeitete Schichten einbeziehen</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Abgeschlossene vergangene Schichten einbeziehen</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Bei laufenden Schichten bleibt der bereits verstrichene Teil erhalten, auch wenn vergangene Schichten einbezogen werden.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Die automatische Verlängerung ist aktiviert. Wählen Sie, was beim Speichern geschehen soll.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Aktion für die automatische Verlängerung auswählen</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Automatische Verlängerung beim Speichern deaktivieren</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Geleerte Lücken beim Speichern anhand der Vorlage neu befüllen</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Die Neugenerierung erfolgt erst beim Speichern. In der Vorschau bleiben Lücken bestehen, und beibehaltene Schichten werden nicht überschrieben.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Leeren in der Vorschau anzeigen</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Bestätigen Sie das Entfernen abgeschlossener vergangener Schichten in diesem Zeitraum. Dadurch können frühere Zuweisungen entfernt werden.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Leeren vergangener Schichten bestätigen</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Wählen Sie, ob die automatische Verlängerung deaktiviert oder geleerte Lücken neu befüllt werden sollen.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Geleerter Entwurfszeitraum</value>
+  </data>
 </root>

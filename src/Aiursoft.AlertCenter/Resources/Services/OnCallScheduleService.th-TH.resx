@@ -64,4 +64,13 @@
     <value>ทีมงานหรือตารางเวรถูกแก้ไขโดยผู้ดูแลระบบคนอื่นแล้ว โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
   </data>
 
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>ช่วงเวลาหรือการดำเนินการล้างตารางเวรไม่ถูกต้อง</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>ยืนยันการล้างเวรในอดีตแยกต่างหาก</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>เลือกว่าจะปิดใช้งานการขยายตารางอัตโนมัติหรือสร้างเวรใหม่ในช่วงเวลาที่ล้างไว้</value>
+  </data>
 </root>

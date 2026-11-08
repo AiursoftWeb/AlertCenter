@@ -109,4 +109,55 @@
     <value>पिछला चरण पूर्ववत करें</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>शेड्यूल की समय सीमा खाली करें</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>खाली करने से केवल ड्राफ़्ट बदलता है। चार्ट की समीक्षा करें, फिर प्रकाशित करने के लिए सहेजें।</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>डिफ़ॉल्ट समय सीमा टीम के समय क्षेत्र में अभी से अंतिम सहेजी गई या ड्राफ़्ट में मौजूद शिफ़्ट के अंत तक होती है।</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>डिफ़ॉल्ट रूप से, केवल अपने आप बनाई गई शिफ़्ट हटाई जाती हैं।</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>मैन्युअल रूप से संपादित शिफ़्ट शामिल करें</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>पहले ही पूरी हो चुकी पुरानी शिफ़्ट शामिल करें</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>जारी शिफ़्ट का बीत चुका हिस्सा बना रहता है, भले ही पुरानी शिफ़्ट शामिल की गई हों।</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>स्वचालित विस्तार चालू है। चुनें कि सहेजते समय क्या होना चाहिए।</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>स्वचालित विस्तार के लिए कार्रवाई चुनें</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>सहेजते समय स्वचालित विस्तार बंद करें</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>सहेजते समय खाली किए गए अंतरालों में टेम्पलेट से शिफ़्ट दोबारा बनाएँ</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>शिफ़्ट केवल सहेजते समय दोबारा बनाई जाती हैं। पूर्वावलोकन में अंतराल खाली रहते हैं और बरकरार रखी गई शिफ़्ट अधिलेखित नहीं होतीं।</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>खाली करने का पूर्वावलोकन देखें</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>इस समय सीमा में पहले ही पूरी हो चुकी पुरानी शिफ़्ट हटाने की पुष्टि करें। इससे पिछली ड्यूटी आवंटन प्रविष्टियाँ हट सकती हैं।</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>पुरानी शिफ़्ट हटाने की पुष्टि करें</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>चुनें कि स्वचालित विस्तार बंद करना है या खाली किए गए अंतरालों में शिफ़्ट दोबारा बनानी हैं।</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>ड्राफ़्ट की खाली की गई समय सीमा</value>
+  </data>
 </root>

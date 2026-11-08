@@ -109,4 +109,55 @@
     <value>Batalkan langkah terakhir</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Kosongkan rentang jadwal</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Pengosongan hanya mengubah draf. Tinjau bagan, lalu simpan untuk memublikasikan.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Rentang default dimulai dari sekarang hingga akhir sif terakhir yang tersimpan atau ada dalam draf, dalam zona waktu tim.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Secara default, hanya sif yang dibuat secara otomatis yang dihapus.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Sertakan sif yang diedit secara manual</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Sertakan sif terdahulu yang sudah selesai</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Sif yang sedang berlangsung tetap mempertahankan bagian yang telah berlalu, meskipun riwayat disertakan.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Perpanjangan otomatis diaktifkan. Pilih tindakan saat menyimpan.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Pilih tindakan untuk perpanjangan otomatis</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Nonaktifkan perpanjangan otomatis saat menyimpan</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Buat ulang sif dari templat pada celah yang dikosongkan saat menyimpan</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Pembuatan ulang hanya dilakukan saat menyimpan. Pratinjau tetap menampilkan celah dan sif yang dipertahankan tidak ditimpa.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Pratinjau pengosongan</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Konfirmasikan penghapusan sif terdahulu yang sudah selesai dalam rentang ini. Tindakan ini dapat menghapus penugasan sebelumnya.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Konfirmasikan pengosongan riwayat</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Pilih apakah akan menonaktifkan perpanjangan otomatis atau membuat ulang sif pada celah yang dikosongkan.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Rentang draf yang dikosongkan</value>
+  </data>
 </root>

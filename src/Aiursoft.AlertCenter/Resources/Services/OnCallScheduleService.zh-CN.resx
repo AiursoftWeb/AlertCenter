@@ -68,4 +68,13 @@
   <data name="Shift end must be after its start." xml:space="preserve"><value>班段结束时间必须晚于开始时间。</value></data>
   <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve"><value>请先确认要替换的已有班段，再生成排班。</value></data>
   <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>团队本地时间无效。夏令时切换期间，跳过的时刻无效，重复的时刻采用标准时间。</value></data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>排班清空范围或操作无效。</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>请单独确认清空历史班次。</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>请选择禁用自动延长，或重新生成已清空的范围。</value>
+  </data>
 </root>

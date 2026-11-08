@@ -357,7 +357,7 @@ public class OnCallControllerTests
         db.OnCallEmailSnapshots.Add(snapshot);
         await db.SaveChangesAsync();
         var controller = Controller(db);
-        foreach (var name in new string?[] { null, "team <A>", "Team <A> " })
+        foreach (var name in new[] { null, "team <A>", "Team <A> " })
             Assert.IsInstanceOfType<BadRequestObjectResult>(await controller.DeleteGroup(group.Id, name, default));
         Assert.AreEqual(5, await db.OnCallShifts.CountAsync());
         Assert.IsInstanceOfType<RedirectToActionResult>(await controller.DeleteGroup(group.Id, group.Name, default));

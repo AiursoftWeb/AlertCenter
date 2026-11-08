@@ -109,4 +109,55 @@
     <value>Αναίρεση τελευταίου βήματος</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Εκκαθάριση χρονικού διαστήματος προγράμματος</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Η εκκαθάριση αλλάζει μόνο το προσχέδιο. Ελέγξτε το διάγραμμα και έπειτα αποθηκεύστε για δημοσίευση.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Το προεπιλεγμένο διάστημα εκτείνεται από τώρα έως το τέλος της τελευταίας αποθηκευμένης βάρδιας ή βάρδιας του προσχεδίου, στη ζώνη ώρας της ομάδας.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Από προεπιλογή, εκκαθαρίζονται μόνο οι βάρδιες που δημιουργήθηκαν αυτόματα.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Συμπερίληψη βαρδιών που τροποποιήθηκαν χειροκίνητα</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Συμπερίληψη ολοκληρωμένων παλαιότερων βαρδιών</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Οι βάρδιες σε εξέλιξη διατηρούν το τμήμα τους που έχει παρέλθει, ακόμη και όταν συμπεριλαμβάνεται το ιστορικό.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Η αυτόματη επέκταση είναι ενεργοποιημένη. Επιλέξτε τι θα συμβεί κατά την αποθήκευση.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Επιλέξτε ενέργεια για την αυτόματη επέκταση</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Απενεργοποίηση της αυτόματης επέκτασης κατά την αποθήκευση</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Εκ νέου δημιουργία βαρδιών στα εκκαθαρισμένα κενά από το πρότυπο κατά την αποθήκευση</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Η εκ νέου δημιουργία γίνεται μόνο κατά την αποθήκευση. Η προεπισκόπηση διατηρεί τα κενά και οι βάρδιες που διατηρούνται δεν αντικαθίστανται.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Προεπισκόπηση εκκαθάρισης</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Επιβεβαιώστε την εκκαθάριση των ολοκληρωμένων παλαιότερων βαρδιών σε αυτό το διάστημα. Αυτό μπορεί να καταργήσει προηγούμενες αναθέσεις.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Επιβεβαίωση εκκαθάρισης ιστορικού</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Επιλέξτε αν θα απενεργοποιηθεί η αυτόματη επέκταση ή θα δημιουργηθούν ξανά βάρδιες στα εκκαθαρισμένα κενά.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Εκκαθαρισμένο διάστημα προσχεδίου</value>
+  </data>
 </root>

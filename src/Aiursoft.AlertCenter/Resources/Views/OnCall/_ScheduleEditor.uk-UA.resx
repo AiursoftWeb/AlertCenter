@@ -109,4 +109,55 @@
     <value>Скасувати останню дію</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Очистити діапазон розкладу</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Очищення змінює лише чернетку. Перегляньте діаграму, а потім збережіть зміни для публікації.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>За замовчуванням діапазон охоплює період від поточного моменту до кінця останньої збереженої зміни або зміни в чернетці, у часовому поясі команди.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>За замовчуванням видаляються лише автоматично створені зміни.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Включити зміни, відредаговані вручну</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Включити завершені зміни з минулого</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>У поточних змін зберігається частина, що вже минула, навіть якщо включено історію.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Автоматичне продовження ввімкнено. Виберіть, що відбудеться під час збереження.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Виберіть дію для автоматичного продовження</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Вимкнути автоматичне продовження під час збереження</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Під час збереження повторно створити зміни за шаблоном в очищених проміжках</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Повторне створення відбувається лише під час збереження. У попередньому перегляді проміжки залишаються порожніми, а залишені зміни не перезаписуються.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Попередній перегляд очищення</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Підтвердьте видалення завершених змін із минулого в цьому діапазоні. Це може призвести до видалення минулих призначень.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Підтвердити очищення історії</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Виберіть, чи вимкнути автоматичне продовження, чи повторно створити зміни в очищених проміжках.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Очищений діапазон чернетки</value>
+  </data>
 </root>

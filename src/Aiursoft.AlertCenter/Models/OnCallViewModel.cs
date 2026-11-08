@@ -38,6 +38,7 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public List<OnCallScheduleValidator.TimelineWarning> TimelineWarnings { get; set; } = [];
     public List<OnCallShift> SavedShifts { get; set; } = [];
     public List<OnCallTeamIssues> UpcomingIssues { get; set; } = [];
+    public DateTime? LastShiftEndUtc { get; set; }
     public DateTime WeekEndUtc { get; set; }
     public DateTime PreviousWeekUtc { get; set; }
     public DateTime NextWeekUtc { get; set; }
@@ -115,8 +116,20 @@ public class OnCallHandoverPointRequest
     [Range(0, 1439)] public int MinuteOfDay { get; set; }
 }
 
+public class ClearOnCallScheduleRequest
+{
+    public DateTime StartUtc { get; set; }
+    public DateTime EndUtc { get; set; }
+    public bool IncludeManual { get; set; }
+    public bool IncludeHistory { get; set; }
+    public bool ConfirmHistory { get; set; }
+    public string? AutoExtendAction { get; set; }
+    public DateTime? ClearedAtUtc { get; set; }
+}
+
 public class SaveOnCallScheduleRequest
 {
+    public List<ClearOnCallScheduleRequest> ClearRanges { get; set; } = [];
     public string? StartLocal { get; set; }
     public string? EndLocal { get; set; }
     public bool ConfirmReplace { get; set; }
@@ -136,6 +149,8 @@ public class OnCallScheduleWeekRequest
 
 public class OnCallSlotRequest
 {
+    public OnCallShiftSource Source { get; set; }
+    public long? RotationPosition { get; set; }
     public string? StartLocal { get; set; }
     public string? EndLocal { get; set; }
     public Guid? Id { get; set; }

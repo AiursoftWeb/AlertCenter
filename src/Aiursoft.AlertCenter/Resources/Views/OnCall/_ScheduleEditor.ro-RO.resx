@@ -109,4 +109,55 @@
     <value>Anulează ultimul pas</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Golește un interval din program</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Golirea modifică doar ciorna. Verificați graficul, apoi salvați pentru a publica.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>În mod implicit, intervalul se întinde de acum până la sfârșitul ultimei ture salvate sau din ciornă, în fusul orar al echipei.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>În mod implicit, sunt eliminate doar turele generate automat.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Include turele editate manual</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Include turele anterioare încheiate</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Turele în desfășurare își păstrează partea deja scursă, chiar și atunci când este inclus istoricul.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Prelungirea automată este activată. Alegeți ce se întâmplă la salvare.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Alegeți o acțiune pentru prelungirea automată</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Dezactivează prelungirea automată la salvare</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Regenerează turele din șablon în golurile create prin ștergere, la salvare</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Regenerarea are loc doar la salvare. Previzualizarea păstrează golurile, iar turele păstrate nu sunt suprascrise.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Previzualizează golirea</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Confirmați eliminarea turelor anterioare încheiate din acest interval. Aceasta poate elimina repartizări din trecut.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Confirmă golirea istoricului</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Alegeți dacă dezactivați prelungirea automată sau regenerați turele în golurile create prin ștergere.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Interval golit în ciornă</value>
+  </data>
 </root>

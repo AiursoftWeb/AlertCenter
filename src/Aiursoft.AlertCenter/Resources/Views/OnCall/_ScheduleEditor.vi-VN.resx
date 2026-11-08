@@ -109,4 +109,55 @@
     <value>Hoàn tác bước cuối</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Xóa lịch trong khoảng thời gian</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Thao tác xóa chỉ thay đổi bản nháp. Hãy kiểm tra biểu đồ, rồi lưu để công bố.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Khoảng thời gian mặc định bắt đầu từ hiện tại đến khi kết thúc ca trực cuối cùng đã lưu hoặc trong bản nháp, theo múi giờ của nhóm.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Theo mặc định, chỉ xóa các ca trực được tạo tự động.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Bao gồm các ca trực đã chỉnh sửa thủ công</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Bao gồm các ca trực trong quá khứ đã hoàn tất</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Các ca trực đang diễn ra vẫn giữ lại phần thời gian đã trôi qua, ngay cả khi bao gồm cả lịch sử.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Tính năng tự động gia hạn đang bật. Hãy chọn hành động khi lưu.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Chọn hành động cho tính năng tự động gia hạn</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Tắt tự động gia hạn khi lưu</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Tạo lại ca trực từ mẫu trong các khoảng trống đã xóa khi lưu</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Việc tạo lại chỉ diễn ra khi lưu. Bản xem trước vẫn giữ các khoảng trống và không ghi đè các ca trực được giữ lại.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Xem trước kết quả xóa</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Xác nhận xóa các ca trực trong quá khứ đã hoàn tất trong khoảng thời gian này. Thao tác này có thể xóa các phân công trước đây.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Xác nhận xóa lịch sử</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Chọn tắt tự động gia hạn hoặc tạo lại ca trực trong các khoảng trống đã xóa.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Khoảng thời gian đã xóa trong bản nháp</value>
+  </data>
 </root>

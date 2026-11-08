@@ -67,28 +67,13 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         var last = await db.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.GroupId == group.Id)
             .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
             .FirstOrDefaultAsync(token);
-        var start = DateTime.SpecifyKind(last?.EndsAtUtc ?? (group.AnchorUtc > now ? group.AnchorUtc : now), DateTimeKind.Utc);
+        var start = DateTime.SpecifyKind(last == null ? (group.AnchorUtc > now ? group.AnchorUtc : now) :
+            (last.EndsAtUtc > now ? last.EndsAtUtc : now), DateTimeKind.Utc);
         var rule = group.Rule!;
-        if (last == null && group.AnchorUtc < now && rule.HandoverPoints.Count == 0)
-        {
-            var minutes = rule.ShiftMinutes ?? checked(rule.ShiftHours * 60);
-            if (minutes <= 0) throw new ArgumentOutOfRangeException(nameof(group));
-            start = DateTime.SpecifyKind(group.AnchorUtc.AddMinutes(Math.Floor((now - group.AnchorUtc).TotalMinutes / minutes) * minutes), DateTimeKind.Utc);
-        }
         var until = now.AddDays(28);
         if (start >= until) return;
         var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
-        var history = last?.Members.OrderBy(member => Array.IndexOf(ids, member.UserId)).Select(member =>
-            new GeneratedOnCallShift(member.UserId, last.StartsAtUtc, last.EndsAtUtc)).ToList() ?? [];
-        if (last is { Members.Count: 0 }) history.Add(new(string.Empty, last.StartsAtUtc, last.EndsAtUtc));
-        if (last?.RotationPosition is { } cursor && last.Members.Count > 0)
-        {
-            var expected = Enumerable.Range(0, last.Members.Count).Select(index =>
-                new GeneratedOnCallShift(ids[OnCallScheduleGenerator.QueueIndex(rule, ids.Length, cursor + index)],
-                    last.StartsAtUtc, last.EndsAtUtc, RotationPosition: cursor + index)).ToList();
-            if (expected.Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal).SetEquals(last.Members.Select(member => member.UserId)))
-                history = expected;
-        }
+        var history = RotationHistory(group, last);
         var count = rule.HandoverPoints.Count == 0
             ? (int)Math.Ceiling((until - start).TotalMinutes / (rule.ShiftMinutes ?? rule.ShiftHours * 60))
             : ((int)Math.Ceiling((until - start).TotalDays / 7) + 2) * rule.HandoverPoints.Count;
@@ -103,6 +88,24 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
             });
         group.ScheduleVersion = Guid.NewGuid();
         await db.SaveChangesAsync(token);
+    }
+
+    internal static List<GeneratedOnCallShift> RotationHistory(OnCallGroup group, OnCallShift? last)
+    {
+        if (last == null) return [new(string.Empty, group.AnchorUtc, group.AnchorUtc)];
+        var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
+        var history = last.Members.OrderBy(member => Array.IndexOf(ids, member.UserId)).Select(member =>
+            new GeneratedOnCallShift(member.UserId, last.StartsAtUtc, last.EndsAtUtc)).ToList();
+        if (last.Members.Count == 0) history.Add(new(string.Empty, last.StartsAtUtc, last.EndsAtUtc));
+        if (last.RotationPosition is { } cursor && last.Members.Count > 0 && ids.Length > 0)
+        {
+            var expected = Enumerable.Range(0, last.Members.Count).Select(index =>
+                new GeneratedOnCallShift(ids[OnCallScheduleGenerator.QueueIndex(group.Rule!, ids.Length, cursor + index)],
+                    last.StartsAtUtc, last.EndsAtUtc, RotationPosition: cursor + index)).ToList();
+            if (expected.Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal).SetEquals(last.Members.Select(member => member.UserId)))
+                history = expected;
+        }
+        return history;
     }
 
     private static async Task QueueHandoversAsync(TemplateDbContext db, OnCallGroup group, DateTime now, string baseUrl,

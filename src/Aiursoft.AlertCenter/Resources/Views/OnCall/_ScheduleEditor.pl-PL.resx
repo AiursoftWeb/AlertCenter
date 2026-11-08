@@ -109,4 +109,55 @@
     <value>Cofnij ostatni krok</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Wyczyść przedział grafiku</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Czyszczenie zmienia tylko wersję roboczą. Sprawdź wykres, a następnie zapisz, aby opublikować.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Domyślny przedział obejmuje czas od teraz do końca ostatniego dyżuru zapisanego lub znajdującego się w wersji roboczej, w strefie czasowej zespołu.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Domyślnie usuwane są tylko dyżury wygenerowane automatycznie.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Uwzględnij dyżury edytowane ręcznie</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Uwzględnij zakończone dyżury z przeszłości</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>W przypadku trwających dyżurów część, która już upłynęła, zostaje zachowana, nawet gdy uwzględniona jest historia.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automatyczne przedłużanie jest włączone. Wybierz, co ma się stać podczas zapisywania.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Wybierz działanie dotyczące automatycznego przedłużania</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Wyłącz automatyczne przedłużanie podczas zapisywania</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Podczas zapisywania ponownie wygeneruj dyżury na podstawie szablonu w wyczyszczonych lukach</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Ponowne generowanie następuje tylko podczas zapisywania. Podgląd zachowuje luki, a pozostawione dyżury nie są nadpisywane.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Podgląd czyszczenia</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Potwierdź usunięcie zakończonych dyżurów z przeszłości w tym przedziale. Może to usunąć wcześniejsze przydziały.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Potwierdź czyszczenie historii</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Wybierz, czy wyłączyć automatyczne przedłużanie, czy ponownie wygenerować dyżury w wyczyszczonych lukach.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Wyczyszczony przedział wersji roboczej</value>
+  </data>
 </root>

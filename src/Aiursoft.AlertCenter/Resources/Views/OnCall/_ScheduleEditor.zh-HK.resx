@@ -109,4 +109,55 @@
     <value>復原上一步</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>清空更表範圍</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>清空只會修改草稿。請檢查圖表，然後儲存以發佈。</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>預設範圍為團隊時區的目前時間至已儲存或草稿中最後一個更次的結束時間。</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>預設只清空自動產生的更次。</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>包括手動編輯的更次</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>包括已結束的過往更次</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>即使包括過往更次，進行中的更次仍會保留已過去的部分。</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>自動延長已啟用。請選擇儲存時的處理方式。</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>選擇自動延長操作</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>儲存時停用自動延長</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>儲存時按範本在已清空的空檔重新產生更次</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>只會在儲存時重新產生。預覽會保留空檔，且不會覆寫保留的更次。</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>預覽清空結果</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>請確認清空此範圍內已結束的過往更次。這可能會移除過去的當值安排。</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>確認清空過往更次</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>請選擇停用自動延長，或在已清空的空檔重新產生更次。</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>已清空的草稿範圍</value>
+  </data>
 </root>

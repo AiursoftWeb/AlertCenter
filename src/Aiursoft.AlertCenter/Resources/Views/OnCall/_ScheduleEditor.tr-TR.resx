@@ -109,4 +109,55 @@
     <value>Son adımı geri al</value>
   </data>
 
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Nöbet çizelgesi aralığını temizle</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Temizleme yalnızca taslağı değiştirir. Grafiği inceleyin, ardından yayımlamak için kaydedin.</value>
+  </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Varsayılan aralık, ekibin saat diliminde şu andan kayıtlı veya taslaktaki son nöbetin sonuna kadardır.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Varsayılan olarak yalnızca otomatik oluşturulan nöbetler temizlenir.</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Elle düzenlenmiş nöbetleri dahil et</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Geçmişte tamamlanmış nöbetleri dahil et</value>
+  </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Geçmiş dahil edilse bile devam eden nöbetlerin geçen kısmı korunur.</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Otomatik uzatma etkin. Kaydederken ne olacağını seçin.</value>
+  </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Otomatik uzatma için bir işlem seçin</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Kaydederken otomatik uzatmayı devre dışı bırak</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Kaydederken temizlenen boşluklarda şablondan yeniden nöbet oluştur</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Yeniden oluşturma yalnızca kaydederken gerçekleşir. Önizlemede boşluklar korunur ve korunan nöbetlerin üzerine yazılmaz.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Temizleme önizlemesi</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Bu aralıkta geçmişte tamamlanmış nöbetlerin temizlenmesini onaylayın. Bu işlem geçmiş atamaları kaldırabilir.</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Geçmişi temizlemeyi onayla</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Otomatik uzatmayı devre dışı bırakmayı veya temizlenen boşluklarda yeniden nöbet oluşturmayı seçin.</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Temizlenen taslak aralığı</value>
+  </data>
 </root>
