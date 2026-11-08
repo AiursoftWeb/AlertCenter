@@ -90,7 +90,7 @@ public class OnCallCrossTeamScheduleTests : TestBase
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
-    public async Task PreviewAndGenerationSkipSharedMembersWithoutAnyOtherSavedShifts(bool otherHasRule)
+    public async Task PreviewAndGenerationIncludeSharedMembersWithoutAnyOtherSavedShifts(bool otherHasRule)
     {
         await LoginAsAdmin();
         var id = await SeedGroup();
@@ -105,57 +105,53 @@ public class OnCallCrossTeamScheduleTests : TestBase
             .All(member => member.GetProperty("otherGroups").GetArrayLength() == 0));
         var draft = await Draft(id, Anchor);
         Assert.AreEqual(21, draft.Slots.Count);
-        Assert.IsTrue(draft.Slots.All(slot => slot.UserIds.Count == 1 && !slot.UserIds.Contains(userIds[0])));
+        Assert.IsTrue(draft.Slots.All(slot => slot.UserIds.Count == 1));
+        Assert.IsTrue(draft.Slots.Any(slot => slot.UserIds.Contains(userIds[0])));
 
         Assert.AreEqual(HttpStatusCode.OK, (await Generate(draft)).StatusCode);
 
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(21, await db.OnCallShifts.CountAsync(shift => shift.GroupId == id));
-        Assert.IsFalse(await db.OnCallShiftMembers.AnyAsync(member => member.Shift.GroupId == id && member.UserId == userIds[0]));
+        Assert.IsTrue(await db.OnCallShiftMembers.AnyAsync(member => member.Shift.GroupId == id && member.UserId == userIds[0]));
         Assert.IsFalse(await db.OnCallShifts.AnyAsync(shift => shift.GroupId == otherId));
     }
 
     [TestMethod]
-    public async Task InsufficientSingleGroupMembersRejectGenerationWithoutWritesAndLeavingRestoresEligibility()
+    public async Task SharedMembershipDoesNotAffectAutomaticEligibilityOrRotation()
     {
         await LoginAsAdmin();
         var id = await SeedGroup();
         var otherId = await AddOtherGroup(false, userIds[0], userIds[1]);
         var metadata = await Http.GetFromJsonAsync<JsonElement>(ScheduleUrl(id, Anchor));
-        Assert.IsFalse(metadata.GetProperty("canGenerate").GetBoolean());
-        var error = metadata.GetProperty("generationError").GetString();
-        Assert.IsNotNull(error);
-        Assert.IsFalse(string.IsNullOrWhiteSpace(error));
-        Assert.Contains("2", error);
-        Assert.Contains("3", error);
-        Assert.Contains("multi-on-call group", error);
+        Assert.IsTrue(metadata.GetProperty("canGenerate").GetBoolean());
+        Assert.AreEqual(JsonValueKind.Null, metadata.GetProperty("generationError").ValueKind);
         var draft = await Draft(id, Anchor);
-        Assert.IsTrue(draft.Slots.All(slot => slot.UserIds.Count == 0));
+        Assert.IsTrue(draft.Slots.All(slot => slot.UserIds.Count == 1));
+        Assert.IsTrue(draft.Slots.Any(slot => slot.UserIds.Contains(userIds[0])));
+        Assert.IsTrue(draft.Slots.Any(slot => slot.UserIds.Contains(userIds[1])));
         var response = await Generate(draft);
-        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
-        var result = await response.Content.ReadFromJsonAsync<JsonElement>();
-        Assert.IsTrue(result.GetProperty("errors").EnumerateArray().Any(item => !string.IsNullOrWhiteSpace(item.GetString())));
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
-            Assert.AreEqual(draft.Version, (await db.OnCallGroups.SingleAsync(group => group.Id == id)).ScheduleVersion);
-            Assert.AreEqual(0, await db.OnCallShifts.CountAsync(shift => groupIds.Contains(shift.GroupId)));
-            Assert.AreEqual(0, await db.OnCallShiftMembers.CountAsync(member => groupIds.Contains(member.Shift.GroupId)));
+            Assert.AreNotEqual(draft.Version, (await db.OnCallGroups.SingleAsync(group => group.Id == id)).ScheduleVersion);
+            Assert.AreEqual(21, await db.OnCallShifts.CountAsync(shift => groupIds.Contains(shift.GroupId)));
+            Assert.AreEqual(21, await db.OnCallShiftMembers.CountAsync(member => groupIds.Contains(member.Shift.GroupId)));
             db.OnCallGroupMembers.Remove(await db.OnCallGroupMembers.SingleAsync(member => member.GroupId == otherId && member.UserId == userIds[1]));
             await db.SaveChangesAsync();
         }
 
         metadata = await Http.GetFromJsonAsync<JsonElement>(ScheduleUrl(id, Anchor));
         Assert.IsTrue(metadata.GetProperty("canGenerate").GetBoolean());
-        draft = await Draft(id, Anchor);
+        draft = await Draft(id, Anchor.AddDays(7));
         Assert.IsTrue(draft.Slots.Any(slot => slot.UserIds.Contains(userIds[1])));
-        Assert.IsFalse(draft.Slots.Any(slot => slot.UserIds.Contains(userIds[0])));
+        Assert.IsTrue(draft.Slots.Any(slot => slot.UserIds.Contains(userIds[0])));
         Assert.AreEqual(HttpStatusCode.OK, (await Generate(draft)).StatusCode);
     }
 
     [TestMethod]
-    public async Task JoiningSecondGroupViaTeamEditorPreservesSavedAutomaticAssignmentsAndOnlyChangesLaterGeneration()
+    public async Task JoiningSecondGroupViaTeamEditorPreservesSavedAssignmentsAndQueueEligibility()
     {
         await LoginAsAdmin();
         var id = await SeedGroup();
@@ -183,14 +179,14 @@ public class OnCallCrossTeamScheduleTests : TestBase
         Assert.AreEqual(snapshot, JsonSerializer.Serialize(persisted.Slots));
         Assert.IsTrue(persisted.Slots.Any(slot => slot.UserIds.Contains(userIds[3])));
         var next = await Draft(id, Anchor.AddDays(7));
-        Assert.IsFalse(next.Slots.Any(slot => slot.UserIds.Contains(userIds[3])));
+        Assert.IsTrue(next.Slots.Any(slot => slot.UserIds.Contains(userIds[3])));
         Assert.AreEqual(HttpStatusCode.OK, (await Generate(next)).StatusCode);
         Assert.AreEqual(snapshot, JsonSerializer.Serialize((await Draft(id, Anchor)).Slots));
         using var checkScope = Server!.Services.CreateScope();
         var checkDb = checkScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         CollectionAssert.AreEqual(originalIds, await checkDb.OnCallShifts.Where(shift => shift.GroupId == id && shift.StartsAtUtc < Anchor.AddDays(7))
             .OrderBy(shift => shift.StartsAtUtc).Select(shift => shift.Id).ToArrayAsync());
-        Assert.IsFalse(await checkDb.OnCallShiftMembers.AnyAsync(member => member.Shift.GroupId == id &&
+        Assert.IsTrue(await checkDb.OnCallShiftMembers.AnyAsync(member => member.Shift.GroupId == id &&
             member.Shift.StartsAtUtc >= Anchor.AddDays(7) && member.UserId == userIds[3]));
     }
 

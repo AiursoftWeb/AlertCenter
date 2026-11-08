@@ -221,7 +221,7 @@ public class OnCallRulePagesTests : TestBase
             groupId = group.Id;
         }
 
-        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}"));
+        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(anchor.ToString("O"))}"));
         Assert.DoesNotContain("Starting soon", html);
         Assert.Contains("Unsaved · Auto-suggested", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);

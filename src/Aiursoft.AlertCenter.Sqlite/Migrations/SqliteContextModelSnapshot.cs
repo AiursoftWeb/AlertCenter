@@ -477,6 +477,16 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("HandoverContent")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HandoverKey")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsFallback")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("NotificationAtUtc")
                         .HasColumnType("TEXT");
 
@@ -492,7 +502,25 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
 
                     b.HasKey("DeliveryId");
 
+                    b.HasIndex("HandoverKey")
+                        .IsUnique();
+
                     b.ToTable("OnCallEmailSnapshots");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallFallbackRecipient", b =>
+                {
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("GroupId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OnCallFallbackRecipient");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
@@ -504,9 +532,24 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<DateTime>("AnchorUtc")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("AutoExtend")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("EmailCcRecipients")
                         .HasMaxLength(8000)
                         .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("HandoverCheckedThroughUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("MaximumContinuousHours")
+                        .HasColumnType("REAL");
+
+                    b.Property<double?>("MinimumRestHours")
+                        .HasColumnType("REAL");
+
+                    b.Property<int?>("MinimumShiftStaff")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -553,6 +596,45 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.ToTable("OnCallGroupMembers");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallHandoverPoint", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MinuteOfDay")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("RuleId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RuleId");
+
+                    b.ToTable("OnCallHandoverPoint");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallHandoverReceipt", b =>
+                {
+                    b.Property<Guid>("ShiftId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ProcessedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ShiftId", "UserId");
+
+                    b.ToTable("OnCallHandoverReceipt");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRule", b =>
                 {
                     b.Property<Guid>("Id")
@@ -574,6 +656,15 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ShiftHours")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ShiftMinutes")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StaffPerShift")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("SwapAlternateRounds")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("TargetStaff")
@@ -602,13 +693,18 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<int>("RestHours")
                         .HasColumnType("INTEGER");
 
+                    b.Property<long?>("RotationPosition")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Source")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("StartsAtUtc")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId", "StartsAtUtc")
-                        .IsUnique();
+                    b.HasIndex("GroupId", "StartsAtUtc");
 
                     b.ToTable("OnCallShifts");
                 });
@@ -984,6 +1080,10 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("OnCallSubscriptionTokenHash")
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
@@ -1313,6 +1413,25 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Delivery");
                 });
 
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallFallbackRecipient", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallGroup", "Group")
+                        .WithMany("FallbackRecipients")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aiursoft.AlertCenter.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
                     b.HasOne("Aiursoft.AlertCenter.Entities.OnCallRule", "Rule")
@@ -1340,6 +1459,17 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Navigation("Group");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallHandoverPoint", b =>
+                {
+                    b.HasOne("Aiursoft.AlertCenter.Entities.OnCallRule", "Rule")
+                        .WithMany("HandoverPoints")
+                        .HasForeignKey("RuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rule");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>
@@ -1571,7 +1701,14 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallGroup", b =>
                 {
+                    b.Navigation("FallbackRecipients");
+
                     b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallRule", b =>
+                {
+                    b.Navigation("HandoverPoints");
                 });
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.OnCallShift", b =>

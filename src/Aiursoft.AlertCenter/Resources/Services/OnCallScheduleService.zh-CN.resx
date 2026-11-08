@@ -64,4 +64,7 @@
     <value>团队或排班已被其他管理员修改。请刷新页面后重试。</value>
   </data>
 
+  <data name="The shift request format is invalid." xml:space="preserve"><value>班段请求格式无效。</value></data>
+  <data name="Shift end must be after its start." xml:space="preserve"><value>班段结束时间必须晚于开始时间。</value></data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve"><value>请先确认要替换的已有班段，再生成排班。</value></data>
 </root>

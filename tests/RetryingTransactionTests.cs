@@ -194,7 +194,7 @@ public class RetryingTransactionTests
         Assert.AreEqual(operation == "save-rule" ? 2 : 1, await db.OnCallRules.CountAsync());
         Assert.AreEqual(operation == "delete-application" ? 0 : 1, await db.SourceApplications.CountAsync());
         Assert.AreEqual(operation == "save-schedule" ? 21 : 0, await db.OnCallShifts.CountAsync());
-        Assert.AreEqual(operation == "save-schedule" ? 28 : 0, await db.OnCallShiftMembers.CountAsync());
+        Assert.AreEqual(operation == "save-schedule" ? 21 : 0, await db.OnCallShiftMembers.CountAsync());
         Assert.AreEqual(operation == "delete-application" ? 0 : 1, await db.Incidents.CountAsync());
         if (operation == "update-rule")
         {

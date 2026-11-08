@@ -38,12 +38,11 @@ public class LocalizationTests
     public void ScheduleValidationUsesTheProvidedLocalizer()
     {
         var localizer = new PrefixLocalizer();
-        var errors = OnCallScheduleValidator.Validate(DateTime.UtcNow, 1, 16, [], [],
-            new Dictionary<string, string>(), localizer);
+        var errors = OnCallScheduleValidator.Warnings(new(), DateTime.UtcNow, DateTime.UtcNow.AddDays(7), [], [], localizer);
 
         Assert.AreEqual(1, errors.Count);
         Assert.StartsWith("localized: ", errors[0]);
-        Assert.Contains("UTC", errors[0]);
+        Assert.Contains("gap", errors[0]);
     }
 
     private sealed class PrefixLocalizer : IStringLocalizer

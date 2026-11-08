@@ -1,0 +1,33 @@
+using Aiursoft.AlertCenter.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
+
+namespace Aiursoft.AlertCenter.Services;
+
+public sealed record OnCallTeamIssues(Guid GroupId, string GroupName, IReadOnlyList<string> Warnings);
+
+public static class OnCallScheduleIssues
+{
+    public static async Task<List<OnCallTeamIssues>> UpcomingAsync(TemplateDbContext db, DateTime start,
+        IStringLocalizerFactory localizerFactory, CancellationToken token, Guid? groupId = null)
+    {
+        var groups = await db.OnCallGroups.AsNoTracking().Include(group => group.Members)
+            .Where(group => !groupId.HasValue || group.Id == groupId).ToListAsync(token);
+        if (groups.Count == 0) return [];
+        var buffer = Math.Max(28 * 24, groups.Max(group => Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0)));
+        var from = start.AddHours(-buffer);
+        var end = start.AddDays(7);
+        var until = end.AddHours(buffer);
+        var shifts = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
+            .Where(shift => shift.EndsAtUtc > from && shift.StartsAtUtc < until).ToListAsync(token);
+        var localizer = localizerFactory.Create(typeof(OnCallScheduleValidator));
+        return groups.Select(group =>
+        {
+            var own = shifts.Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc > start && shift.StartsAtUtc < end).ToList();
+            var userIds = own.SelectMany(shift => shift.Members.Select(member => member.UserId)).ToHashSet(StringComparer.Ordinal);
+            var external = shifts.Except(own).SelectMany(shift => shift.Members.Where(member => userIds.Contains(member.UserId))
+                .Select(member => new GeneratedOnCallShift(member.UserId, shift.StartsAtUtc, shift.EndsAtUtc))).ToList();
+            return new OnCallTeamIssues(group.Id, group.Name, OnCallScheduleValidator.Warnings(group, start, end, own, external, localizer));
+        }).Where(team => team.Warnings.Count > 0).ToList();
+    }
+}

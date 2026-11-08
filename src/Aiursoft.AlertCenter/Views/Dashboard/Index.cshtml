@@ -1,6 +1,7 @@
 @using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.DashboardViewModels.IndexViewModel
 @using Aiursoft.AlertCenter.Entities
+@await Html.PartialAsync("_OnCallWarnings", Model.OnCallIssues)
 
 @section styles {
     <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />

@@ -106,4 +106,8 @@
     <value>无法生成预览：{0}</value>
   </data>
 
+  <data name="Fallback recipients must be existing system users." xml:space="preserve"><value>兜底接收人必须是已存在的系统用户。</value></data>
+  <data name="Invalid weekly handover point." xml:space="preserve"><value>每周交接点无效。</value></data>
+  <data name="Shift duration must be positive." xml:space="preserve"><value>班段时长必须为正数。</value></data>
+  <data name="Staff per shift must not exceed the rotation queue size." xml:space="preserve"><value>每段人数不能超过轮换队列人数。</value></data>
 </root>

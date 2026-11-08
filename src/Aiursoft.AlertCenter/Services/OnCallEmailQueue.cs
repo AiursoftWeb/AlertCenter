@@ -49,6 +49,7 @@ public static class OnCallEmailQueue
                 GroupId = original.GroupId, GroupName = original.GroupName, ShiftId = original.ShiftId,
                 StartsAtUtc = original.StartsAtUtc, EndsAtUtc = original.EndsAtUtc,
                 NotificationAtUtc = original.NotificationAtUtc, CcRecipients = original.CcRecipients,
+                IsFallback = original.IsFallback,
                 ValidationError = original.ValidationError,
                 Recipients = original.Recipients.Select(person => new OnCallEmailRecipient
                 {
@@ -92,6 +93,7 @@ public static class OnCallEmailQueue
             GroupId = group.Id, GroupName = group.Name, ShiftId = oce.ShiftId,
             StartsAtUtc = oce.StartsAtUtc, EndsAtUtc = oce.EndsAtUtc, NotificationAtUtc = atUtc,
             ValidationError = oce.Error,
+            IsFallback = oce.IsFallback,
             Recipients = oce.Engineers.Select(engineer => new OnCallEmailRecipient
             {
                 UserId = engineer.UserId, DisplayName = engineer.DisplayName, Email = engineer.Email

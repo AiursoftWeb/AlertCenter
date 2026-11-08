@@ -1,10 +1,12 @@
 using Aiursoft.AlertCenter.Entities;
+using Aiursoft.AlertCenter.Services;
 using Aiursoft.UiStack.Layout;
 
 namespace Aiursoft.AlertCenter.Models.DashboardViewModels;
 
 public class IndexViewModel : UiStackLayoutViewModel
 {
+    public List<OnCallTeamIssues> OnCallIssues { get; set; } = [];
     public IndexViewModel()
     {
         PageTitle = "Console Overview";

@@ -94,7 +94,7 @@ public class MigrationTests
             .UseSqlite("DataSource=:memory:").Options);
         await context.Database.OpenConnectionAsync();
 
-        Assert.AreEqual(12, context.Database.GetMigrations().Count());
+        Assert.AreEqual(15, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for Sqlite. Please run 'dotnet ef migrations add' for Sqlite.");
@@ -183,8 +183,7 @@ public class MigrationTests
         await migrator.MigrateAsync(context.Database.GetMigrations().First());
         var application = new SourceApplication { Name = "Existing app" };
         await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO SourceApplications (Id, Name, SecretHash, IsEnabled, CreatedAtUtc) VALUES ({application.Id}, {application.Name}, {"discarded-old-hash"}, {true}, {application.CreatedAtUtc})");
-        context.Users.Add(new User { Id = "existing-user", UserName = "existing", DisplayName = "Existing user" });
-        await context.SaveChangesAsync();
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO AspNetUsers (Id, UserName, DisplayName, AvatarRelativePath, CreationTime, EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount) VALUES ({"existing-user"}, {"existing"}, {"Existing user"}, {User.DefaultAvatarPath}, {DateTime.UtcNow}, {false}, {false}, {false}, {false}, {0})");
         await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO Incidents (Id, ApplicationId, Title, AlertTitle, AlertLevel, MatchLevel, Status, Version, TriggeredAtUtc) VALUES ({Guid.NewGuid()}, {application.Id}, {"Old incident"}, {"Old report"}, {"sev1"}, {"sev1"}, {"new"}, {Guid.NewGuid()}, {DateTime.UtcNow})");
         await migrator.MigrateAsync();
         context.ChangeTracker.Clear();
@@ -278,7 +277,7 @@ public class MigrationTests
             .Options;
         using var context = new MySqlContext(options);
 
-        Assert.AreEqual(12, context.Database.GetMigrations().Count());
+        Assert.AreEqual(15, context.Database.GetMigrations().Count());
         Assert.EndsWith("_InitialCreate", context.Database.GetMigrations().First());
         Assert.IsFalse(context.Database.HasPendingModelChanges(),
             "There are pending model changes for MySql. Please run 'dotnet ef migrations add' for MySql.");
@@ -321,7 +320,7 @@ public class MigrationTests
         var reopened = new Incident { Application = application, Title = "Previously reopened", Status = Incident.New };
         var resolved = new Incident { Application = application, Title = "Already resolved", Status = Incident.Resolved,
             AcknowledgedAtUtc = latestTime.AddHours(1), MitigatedAtUtc = oldTime, ResolvedAtUtc = latestTime };
-        context.Users.Add(owner);
+        await context.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO AspNetUsers (Id, UserName, DisplayName, AvatarRelativePath, CreationTime, EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount) VALUES ({owner.Id}, {owner.UserName}, {owner.DisplayName}, {owner.AvatarRelativePath}, {owner.CreationTime}, {false}, {false}, {false}, {false}, {0})");
         context.SourceApplications.Add(application);
         await context.SaveChangesAsync();
         // Seed the historical schema explicitly; the current entity also contains newer columns.

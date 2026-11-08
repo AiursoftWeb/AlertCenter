@@ -251,7 +251,7 @@ public class OnCallControllerTests
     }
 
     [TestMethod]
-    public async Task RemovingTeamMembersClearsOnlyFutureAssignmentsAndRetainsEmptySlotsAndHistory()
+    public async Task RemovingTeamMembersPreservesAllAssignmentsAndHistory()
     {
         await using var db = await CreateDb();
         var now = DateTime.UtcNow;
@@ -281,8 +281,8 @@ public class OnCallControllerTests
         Assert.AreEqual(4, saved.Count);
         Assert.IsTrue(saved[shifts[0].Id].Members.Any(member => member.UserId == "a"));
         Assert.IsTrue(saved[shifts[1].Id].Members.Any(member => member.UserId == "a"));
-        Assert.AreEqual(0, saved[shifts[2].Id].Members.Count);
-        CollectionAssert.AreEqual(new[] { "b" }, saved[shifts[3].Id].Members.Select(member => member.UserId).ToArray());
+        Assert.AreEqual("a", saved[shifts[2].Id].Members.Single().UserId);
+        CollectionAssert.AreEquivalent(new[] { "a", "b" }, saved[shifts[3].Id].Members.Select(member => member.UserId).ToArray());
         foreach (var shift in shifts)
         {
             Assert.AreEqual(shift.StartsAtUtc, saved[shift.Id].StartsAtUtc);
@@ -388,7 +388,6 @@ public class OnCallControllerTests
     [DataRow(201, 201)]
     [DataRow(1, 0)]
     [DataRow(1, 201)]
-    [DataRow(2, 1)]
     public async Task RejectsInvalidStaffingWithoutChangingExistingTemplate(int minimumStaff, int targetStaff)
     {
         await using var db = await CreateDb();
@@ -416,7 +415,7 @@ public class OnCallControllerTests
     }
 
     [TestMethod]
-    [DataRow(12, 16)]
+    [DataRow(0, 16)]
     [DataRow(8, -1)]
     [DataRow(8, 169)]
     public async Task RejectsInvalidTemplateDurationAndRestWithoutSaving(int shiftHours, int restHours)

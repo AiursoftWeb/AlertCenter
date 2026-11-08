@@ -7,13 +7,14 @@ using Aiursoft.WebTools.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Controllers;
 
 [LimitPerMin]
 [Authorize]
 [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-public class DashboardController(TemplateDbContext db, IApplicationAccessService applicationAccess) : Controller
+public class DashboardController(TemplateDbContext db, IApplicationAccessService applicationAccess, IStringLocalizerFactory localizerFactory) : Controller
 {
     [RenderInNavBar(
         NavGroupName = "Features",
@@ -29,6 +30,7 @@ public class DashboardController(TemplateDbContext db, IApplicationAccessService
         {
             CanCreateApplications = applicationAccess.CanCreateApplications(User)
         };
+        model.OnCallIssues = await OnCallScheduleIssues.UpcomingAsync(db, DateTime.UtcNow, localizerFactory, cancellationToken);
 
         var creatableIds = await applicationAccess.GetAccessibleApplicationIdsAsync(User, ApplicationPermission.CreateIncidents, cancellationToken);
         model.CanCreateIncidents = await db.SourceApplications.AnyAsync(application => application.IsEnabled && creatableIds.Contains(application.Id), cancellationToken);
