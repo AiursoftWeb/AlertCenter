@@ -18,53 +18,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-assign" xml:space="preserve">
-    <value>자동 배정</value>
-  </data>
-  <data name="Back to Rule List" xml:space="preserve">
-    <value>규칙 목록으로 돌아가기</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>이른 근무, 중간 근무, 늦은 근무가 최대한 균등하게 배정되도록 합니다</value>
+  <data name="Back to Template List" xml:space="preserve">
+    <value>템플릿 목록으로 돌아가기</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>닫기</value>
   </data>
-  <data name="Close, prioritize fixed time slots" xml:space="preserve">
-    <value>근무 시간대를 가깝게 유지하고 고정된 시간대를 우선합니다</value>
+  <data name="Edit template" xml:space="preserve">
+    <value>템플릿 편집</value>
   </data>
-  <data name="Edit rule" xml:space="preserve">
-    <value>규칙 편집</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>시간</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>시간 · 최소 휴식</value>
-  </data>
-  <data name="Minimum per shift " xml:space="preserve">
-    <value>교대당 최소 인원</value>
-  </data>
-  <data name="Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team." xml:space="preserve">
-    <value>템플릿을 수정해도 팀에 저장된 근무 일정은 다시 생성되지 않습니다. 팀원과 일정 시작 지점은 각 팀에서 별도로 관리합니다.</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>팀의 자동 연장과 원클릭 생성에 사용할 근무 구간 분할 및 순환 방식을 정의합니다. 템플릿을 변경해도 이미 예정된 근무에는 영향을 주지 않습니다.</value>
   </data>
   <data name="No teams are bound to this template." xml:space="preserve">
     <value>이 템플릿에 연결된 팀이 없습니다.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>명</value>
+  <data name="Reusable scheduling template · " xml:space="preserve">
+    <value>재사용 가능한 일정 템플릿 · </value>
   </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>명 · 목표</value>
-  </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>교대당</value>
-  </data>
-  <data name="Reusable shift rule template · " xml:space="preserve">
-    <value>재사용 가능한 교대 규칙 템플릿 ·</value>
-  </data>
-  <data name="Rule configuration" xml:space="preserve">
-    <value>규칙 설정</value>
+  <data name="Template configuration" xml:space="preserve">
+    <value>템플릿 설정</value>
   </data>
   <data name="teams using" xml:space="preserve">
     <value>개 팀에서 사용 중</value>
@@ -72,11 +45,50 @@
   <data name="Teams using this template" xml:space="preserve">
     <value>이 템플릿을 사용하는 팀</value>
   </data>
-  <data name="Time slot rotation: " xml:space="preserve">
-    <value>시간대 순환:</value>
-  </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>온콜 일정 보기</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>고정 시간: {0}분</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>금요일</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>월요일</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>단순 대기열</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>순환 전략</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>토요일</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>분할 방식</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>근무당 인원</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>일요일</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>인원이 짝수인 팀에서 한 라운드 건너마다 인접 구성원 교환</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>목요일</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>화요일</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>수요일</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>주간 인수인계 시점</value>
+  </data>
 </root>

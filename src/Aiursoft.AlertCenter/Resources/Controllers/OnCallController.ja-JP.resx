@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>各シフトの最低人員は1～200人でなければなりません。</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>チームにはまだルールが設定されていません。スケジュールは手動で作成できます。</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>チームにテンプレートがまだ関連付けられていません。手動でスケジュールを作成できます。</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>ルール名を入力してください。</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>テンプレート名を入力してください。</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>チーム名を入力してください。</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>有効なUTC開始時刻を選択してください（日付の境界から少なくとも28日離れている必要があります）。</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>既存のオンコールルールを選択してください。</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>既存のシフトテンプレートを選択してください。</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>スケジュールルールを作成しました。</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>シフトテンプレートを作成しました。</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>スケジュールルールを削除しました。</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>シフトテンプレートを削除しました。</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>スケジュールルールを更新しました。</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>シフトテンプレートを更新しました。</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>目標人数は最低人数を下回ることはできず、1～200人の範囲で指定してください。自動割り当てにする場合は空欄にしてください。</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>チームを更新しました。</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>ルールまたはチームが変更されました。ページを更新して、もう一度お試しください。</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>テンプレートまたはチームが変更されました。ページを更新して再試行してください。</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>スケジュールが変更されたか、保存時に競合が発生しました。ページを更新して、もう一度お試しください。</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>今週は未割り当てのシフトが{0}件あります。オンコール担当者を手動で割り当ててください。</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>このルールはまだチームに割り当てられています。まずチームのルール割り当てを更新してください。</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>このテンプレートはまだチームに関連付けられています。先にチームのテンプレートの関連付けを更新してください。</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>このチームには保存済みのスケジュールがあるため、履歴も含めて削除することはできません。</value>

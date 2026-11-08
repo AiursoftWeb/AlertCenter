@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>팀 수정</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>시간</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>시간 · 최소 휴식</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>구성원 관리</value>
   </data>
@@ -72,20 +66,17 @@
   <data name="Open schedule" xml:space="preserve">
     <value>일정 열기</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>교대당</value>
-  </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>구성원 순환(순차)</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>규칙 템플릿이 연결되지 않았습니다. 수동으로 일정을 편성할 수 있습니다.</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>연결된 템플릿이 없지만 수동으로 일정을 작성할 수 있습니다.</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>규칙 템플릿:</value>
+  <data name="Template:" xml:space="preserve">
+    <value>템플릿:</value>
   </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>규칙 템플릿은 삭제할 수 없습니다. 저장된 근무 일정이 없고 연결된 애플리케이션이 없는 팀만 삭제할 수 있습니다. 이 작업은 되돌릴 수 없습니다.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>템플릿은 삭제되지 않습니다. 저장된 근무와 연결된 애플리케이션이 없는 팀만 삭제할 수 있습니다. 이 작업은 되돌릴 수 없습니다.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>일정 시작 기준점:</value>
@@ -112,4 +103,7 @@
     <value>당직 일정 보기</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>근무당 인원</value>
+  </data>
 </root>

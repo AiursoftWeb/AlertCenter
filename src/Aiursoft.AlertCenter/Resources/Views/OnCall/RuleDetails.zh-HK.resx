@@ -18,53 +18,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-assign" xml:space="preserve">
-    <value>自動分配</value>
-  </data>
-  <data name="Back to Rule List" xml:space="preserve">
-    <value>返回規則列表</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>盡量平均分配早班、中班和夜班</value>
+  <data name="Back to Template List" xml:space="preserve">
+    <value>返回模板清單</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>關閉</value>
   </data>
-  <data name="Close, prioritize fixed time slots" xml:space="preserve">
-    <value>關閉並優先採用固定時段</value>
+  <data name="Edit template" xml:space="preserve">
+    <value>編輯模板</value>
   </data>
-  <data name="Edit rule" xml:space="preserve">
-    <value>編輯規則</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>小時</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>小時 · 最短休息時間</value>
-  </data>
-  <data name="Minimum per shift " xml:space="preserve">
-    <value>每更最低人數</value>
-  </data>
-  <data name="Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team." xml:space="preserve">
-    <value>修改範本不會重新產生團隊已儲存的更次。各團隊會分別管理成員及排班開始時間。</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>定義班段如何切分及輪換，供團隊自動延續排班和一鍵產生使用；修改模板不影響已排好的班段。</value>
   </data>
   <data name="No teams are bound to this template." xml:space="preserve">
     <value>沒有團隊使用此範本。</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>人</value>
+  <data name="Reusable scheduling template · " xml:space="preserve">
+    <value>可重複使用的排班模板 · </value>
   </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>人 · 目標</value>
-  </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>每更</value>
-  </data>
-  <data name="Reusable shift rule template · " xml:space="preserve">
-    <value>可重複使用的更次規則範本 ·</value>
-  </data>
-  <data name="Rule configuration" xml:space="preserve">
-    <value>規則設定</value>
+  <data name="Template configuration" xml:space="preserve">
+    <value>模板設定</value>
   </data>
   <data name="teams using" xml:space="preserve">
     <value>個團隊正在使用</value>
@@ -72,11 +45,50 @@
   <data name="Teams using this template" xml:space="preserve">
     <value>使用此範本的團隊</value>
   </data>
-  <data name="Time slot rotation: " xml:space="preserve">
-    <value>時段輪替：</value>
-  </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>查看值班時間表</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>固定時長 {0} 分鐘</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>星期五</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>星期一</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>純佇列</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>輪換策略</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>星期六</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>切分方式</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>每段人數</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>星期日</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>偶數人數隔輪對調</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>星期四</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>星期二</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>星期三</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>每週交接點</value>
+  </data>
 </root>

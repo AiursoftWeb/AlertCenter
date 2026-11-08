@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Editar equipo</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>horas</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>horas · descanso mínimo</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Gestionar miembros</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Abrir horario</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Por turno</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>No hay ninguna plantilla vinculada; la programación manual sigue disponible.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Plantilla de reglas no vinculada; todavía se puede programar manualmente.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Plantilla:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Plantilla de reglas:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Las plantillas de reglas no se pueden eliminar. Solo se pueden eliminar los equipos que no tengan turnos guardados ni aplicaciones vinculadas. Esta acción es irreversible.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Las plantillas no se eliminan. Solo se pueden eliminar equipos sin turnos guardados ni aplicaciones vinculadas. Esta acción es irreversible.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Inicio de la programación:</value>
@@ -109,4 +100,7 @@
     <value>Ver horario de guardia</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personal por turno</value>
+  </data>
 </root>

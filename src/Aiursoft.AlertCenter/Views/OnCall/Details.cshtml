@@ -138,7 +138,7 @@
 </div>
 
 <details class="card mt-3">
-    <summary class="card-header fw-semibold">@viewLocalizer["Scheduling rules and members"]</summary>
+    <summary class="card-header fw-semibold">@viewLocalizer["Scheduling template and members"]</summary>
     <div class="card-body">
         @if (Model.CanManageOnCall)
         {
@@ -147,7 +147,7 @@
         <p>@viewLocalizer["Reminder thresholds (blank means disabled)"]: @group.MinimumRestHours / @group.MaximumContinuousHours / @group.MinimumShiftStaff</p>
         @if (rule != null)
         {
-            <p>@viewLocalizer["Rule template:"]<a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a> · @rule.StaffPerShift @viewLocalizer["Staff per shift"]</p>
+            <p>@viewLocalizer["Template:"]<a asp-action="Details" asp-route-id="@rule.Id">@rule.Name</a> · @rule.StaffPerShift @viewLocalizer["Staff per shift"]</p>
         }
         else
         {

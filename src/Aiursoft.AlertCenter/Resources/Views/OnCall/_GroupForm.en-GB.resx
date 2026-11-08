@@ -81,8 +81,8 @@
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed.</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts.</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts.</value>
   </data>
   <data name="Name or Account" xml:space="preserve">
     <value>Name or account</value>
@@ -126,8 +126,8 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>Saving will remove these members from shifts that have not started. Check the rota for gaps.</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>Scheduling rule template</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>Scheduling Template</value>
   </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Scheduling start time (UTC)</value>

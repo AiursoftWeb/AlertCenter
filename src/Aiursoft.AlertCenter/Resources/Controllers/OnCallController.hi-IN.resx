@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>प्रति शिफ्ट कर्मचारियों की न्यूनतम संख्या 1–200 होनी चाहिए।</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>टीम के लिए अभी तक कोई नियम निर्धारित नहीं हैं। आप मैन्युअल रूप से शेड्यूल बना सकते हैं।</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>टीम से अभी कोई टेम्पलेट नहीं जुड़ा है। आप मैन्युअल रूप से शेड्यूल बना सकते हैं।</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>कृपया नियम का नाम दर्ज करें।</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>कृपया टेम्पलेट का नाम दर्ज करें।</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>कृपया टीम का नाम दर्ज करें।</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>कृपया UTC का एक मान्य प्रारंभ समय चुनें (जो दिनांक सीमा से कम-से-कम 28 दिन दूर हो)।</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>कृपया ऑन-कॉल का कोई मौजूदा नियम चुनें।</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>कृपया मौजूदा शेड्यूलिंग टेम्पलेट चुनें।</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>शेड्यूलिंग नियम सफलतापूर्वक बनाया गया।</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>शेड्यूलिंग टेम्पलेट सफलतापूर्वक बनाया गया।</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>शेड्यूलिंग नियम हटा दिया गया।</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>शेड्यूलिंग टेम्पलेट हटा दिया गया।</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>शेड्यूलिंग नियम अपडेट किया गया।</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>शेड्यूलिंग टेम्पलेट अपडेट किया गया।</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>लक्षित कर्मचारियों की संख्या न्यूनतम से कम नहीं हो सकती और 1–200 के बीच होनी चाहिए। स्वचालित रूप से निर्धारित करने के लिए खाली छोड़ें।</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>टीम अपडेट की गई।</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>नियम या टीम बदल गई है। पेज को रीफ़्रेश करें और फिर से कोशिश करें।</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>टेम्पलेट या टीम बदल गई है। पृष्ठ रीफ़्रेश करके फिर प्रयास करें।</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>शेड्यूल बदल गया है या सेव करने में विरोध हुआ है। कृपया पेज को रीफ़्रेश करके फिर से कोशिश करें।</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>इस सप्ताह {0} शिफ़्टें बिना नियुक्ति के हैं। कृपया ऑन-कॉल कर्मियों को मैन्युअल रूप से नियुक्त करें।</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>यह नियम अभी भी एक टीम से जुड़ा हुआ है। कृपया पहले टीम के नियम का बाइंडिंग अपडेट करें।</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>यह टेम्पलेट अभी भी किसी टीम से जुड़ा है। पहले टीम का टेम्पलेट जुड़ाव अपडेट करें।</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>इस टीम के शेड्यूल सहेजे हुए हैं, इसलिए इसे इसके इतिहास सहित हटाया नहीं जा सकता।</value>

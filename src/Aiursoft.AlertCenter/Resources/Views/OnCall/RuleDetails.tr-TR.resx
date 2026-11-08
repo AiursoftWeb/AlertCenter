@@ -18,53 +18,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-assign" xml:space="preserve">
-    <value>Otomatik atama</value>
-  </data>
-  <data name="Back to Rule List" xml:space="preserve">
-    <value>Kurallar Listesine Dön</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>Sabah, öğle ve akşam vardiyalarını mümkün olduğunca eşit şekilde dağıtın</value>
+  <data name="Back to Template List" xml:space="preserve">
+    <value>Şablon Listesine Dön</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Kapat</value>
   </data>
-  <data name="Close, prioritize fixed time slots" xml:space="preserve">
-    <value>Kapanış, sabit saat dilimlerini önceliklendir</value>
+  <data name="Edit template" xml:space="preserve">
+    <value>Şablonu düzenle</value>
   </data>
-  <data name="Edit rule" xml:space="preserve">
-    <value>Kuralı düzenle</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>saat</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>saat · Min dinlenme</value>
-  </data>
-  <data name="Minimum per shift " xml:space="preserve">
-    <value>Vardiya başına minimum</value>
-  </data>
-  <data name="Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team." xml:space="preserve">
-    <value>Şablonları değiştirme, ekibin kaydedilmiş vardiyalarını yeniden oluşturmayacaktır. Üyeler ve program başlangıç noktaları, her ekip tarafından ayrı ayrı yönetilir.</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Ekiplerin otomatik uzatma ve tek tıkla oluşturma işlemleri için vardiyaların nasıl bölünüp dönüşümlü atanacağını tanımlayın. Şablon değişiklikleri önceden planlanmış vardiyaları etkilemez.</value>
   </data>
   <data name="No teams are bound to this template." xml:space="preserve">
     <value>Bu şablona bağlı ekip yok.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>kişi</value>
+  <data name="Reusable scheduling template · " xml:space="preserve">
+    <value>Yeniden kullanılabilir vardiya şablonu · </value>
   </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>kişi · Hedef</value>
-  </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Vardiya başına</value>
-  </data>
-  <data name="Reusable shift rule template · " xml:space="preserve">
-    <value>Yeniden kullanılabilir vardiya kuralı şablonu ·</value>
-  </data>
-  <data name="Rule configuration" xml:space="preserve">
-    <value>Kural yapılandırması</value>
+  <data name="Template configuration" xml:space="preserve">
+    <value>Şablon yapılandırması</value>
   </data>
   <data name="teams using" xml:space="preserve">
     <value>kullanan ekip</value>
@@ -72,11 +45,50 @@
   <data name="Teams using this template" xml:space="preserve">
     <value>Bu şablonu kullanan ekipler</value>
   </data>
-  <data name="Time slot rotation: " xml:space="preserve">
-    <value>Vardiya dönüşümü:</value>
-  </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Nöbetçi programını görüntüle</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Sabit süre: {0} dakika</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Cuma</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Pazartesi</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Basit kuyruk</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Dönüşüm stratejisi</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Cumartesi</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Bölme modu</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Vardiya başına personel</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Pazar</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Çift sayıda üyeli ekiplerde her iki turda bir komşu üyelerin yerlerini değiştir</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Perşembe</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Salı</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Çarşamba</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Haftalık devir noktaları</value>
+  </data>
 </root>

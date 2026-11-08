@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Επεξεργασία ομάδας</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>ώρες</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>ώρες · Ελάχιστη ανάπαυση</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Διαχείριση μελών</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Άνοιγμα προγράμματος</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Ανά βάρδια</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Δεν έχει συνδεθεί πρότυπο· ο χειροκίνητος προγραμματισμός παραμένει διαθέσιμος.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Δεν έχει οριστεί πρότυπο κανόνα· ο χειροκίνητος προγραμματισμός παραμένει διαθέσιμος.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Πρότυπο:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Πρότυπο κανόνα:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Τα πρότυπα κανόνων δεν μπορούν να διαγραφούν. Μπορούν να διαγραφούν μόνο ομάδες χωρίς αποθηκευμένες βάρδιες και χωρίς συνδεδεμένες εφαρμογές. Αυτή η ενέργεια είναι μη αναστρέψιμη.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Τα πρότυπα δεν διαγράφονται. Μπορούν να διαγραφούν μόνο ομάδες χωρίς αποθηκευμένες βάρδιες και συνδεδεμένες εφαρμογές. Η ενέργεια είναι μη αναστρέψιμη.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Αφετηρία προγραμματισμού:</value>
@@ -109,4 +100,7 @@
     <value>Προβολή προγράμματος εφημερίας</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Άτομα ανά βάρδια</value>
+  </data>
 </root>

@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Edytuj zespół</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>godzin</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>godziny · min. odpoczynku</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Zarządzaj członkami</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Otwórz harmonogram</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Za zmianę</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Nie przypisano szablonu; ręczne planowanie jest nadal dostępne.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Szablon reguły nie jest przypisany; nadal można planować ręcznie.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Szablon:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Szablon reguły:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Szablonów reguł nie można usunąć. Tylko zespoły bez zapisanych zmian i bez przypisanych aplikacji mogą zostać usunięte. To działanie jest nieodwracalne.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Szablony nie są usuwane. Można usunąć tylko zespoły bez zapisanych zmian i przypisanych aplikacji. Ta czynność jest nieodwracalna.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Początek harmonogramu:</value>
@@ -109,4 +100,7 @@
     <value>Wyświetl grafik dyżurów</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Osoby na zmianę</value>
+  </data>
 </root>

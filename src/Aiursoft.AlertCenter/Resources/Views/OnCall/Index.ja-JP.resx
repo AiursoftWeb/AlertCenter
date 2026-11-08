@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>操作</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>自動割り当て</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>使用中のため削除できません</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>削除を確定</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>ルールを削除してもよろしいですか</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>テンプレートの削除を確認</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>ルールを作成</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>テンプレートを作成</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>削除</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>スケジュールルールを削除</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>シフトテンプレートを削除</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>編集</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>時間</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>チームの自動延長とワンクリック生成に使用するシフトの分割方法とローテーションを定義します。テンプレートを変更しても、割り当て済みのシフトには影響しません。</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>複数のチームで共有するルールテンプレートを管理します。テンプレートを変更しても、保存済みのシフトは再生成されません。</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>最低</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>保存済みのルールテンプレートはまだありません。まずテンプレートを作成し、チームに紐付けて使用してください。</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>保存済みのテンプレートはまだありません。まずテンプレートを作成し、チームに関連付けて使用してください。</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>チームに紐づいていないテンプレートのみ削除できます。チームの保存済みシフトや履歴は削除されません。削除したテンプレートは復元できません。</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>人</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>人 · 目標</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>すべてのチームとのテンプレートの紐付けを先に解除してください。</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>ルールを保存しました</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>保存済みテンプレート</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>ルールテンプレート</value>
+  <data name="Template" xml:space="preserve">
+    <value>テンプレート</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>スケジュールルール</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>勤務 / 休憩</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>シフトテンプレート</value>
   </data>
   <data name="Teams using" xml:space="preserve">
-    <value>利用しているチーム数</value>
+    <value>使用中のチーム</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>ルールを表示</value>
+  <data name="View template" xml:space="preserve">
+    <value>テンプレートを表示</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>固定時間：{0} 分</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>金曜日</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>月曜日</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>単純なキュー</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>ローテーション方式</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>土曜日</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>分割方式</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>シフトごとの人数</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>日曜日</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>偶数人数のチームで1巡おきに隣接メンバーを入れ替える</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>木曜日</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>火曜日</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>水曜日</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>毎週の引き継ぎ時点</value>
+  </data>
 </root>

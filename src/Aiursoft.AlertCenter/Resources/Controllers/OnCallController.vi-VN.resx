@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Số nhân viên tối thiểu mỗi ca phải từ 1 đến 200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Nhóm chưa có quy tắc nào. Bạn có thể tự tạo lịch.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Nhóm chưa được liên kết với mẫu nào. Bạn có thể tạo lịch thủ công.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Vui lòng nhập tên quy tắc.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Vui lòng nhập tên mẫu.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Vui lòng nhập tên nhóm.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Vui lòng chọn thời điểm bắt đầu hợp lệ theo giờ UTC (phải cách mốc ngày ít nhất 28 ngày).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Vui lòng chọn một quy tắc trực ứng có sẵn.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Vui lòng chọn một mẫu lịch trực hiện có.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Đã tạo quy tắc lập lịch thành công.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Đã tạo mẫu lịch trực thành công.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Đã xóa quy tắc lập lịch.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Đã xóa mẫu lịch trực.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Quy tắc lập lịch đã được cập nhật.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Đã cập nhật mẫu lịch trực.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Số nhân sự mục tiêu không được thấp hơn mức tối thiểu và phải nằm trong khoảng 1–200. Để trống để tự động phân công.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Đã cập nhật nhóm.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Quy tắc hoặc nhóm đã thay đổi. Hãy tải lại trang và thử lại.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Mẫu hoặc nhóm đã thay đổi. Hãy tải lại trang và thử lại.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Lịch đã thay đổi hoặc đã xảy ra xung đột khi lưu. Vui lòng tải lại trang và thử lại.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Tuần này còn {0} ca trực chưa được phân công. Vui lòng tự phân công nhân viên trực theo lịch trực.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Quy tắc này vẫn đang được gán cho một nhóm. Vui lòng cập nhật liên kết quy tắc của nhóm trước.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Mẫu này vẫn được liên kết với một nhóm. Hãy cập nhật liên kết mẫu của nhóm trước.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Nhóm này đã có lịch trực được lưu nên không thể xóa cùng với lịch sử của nhóm.</value>

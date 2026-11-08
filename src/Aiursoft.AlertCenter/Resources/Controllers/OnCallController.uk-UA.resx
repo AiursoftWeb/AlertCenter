@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Мінімальна кількість працівників на зміну має становити від 1 до 200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Правила для команди ще не налаштовано. Ви можете створити графік вручну.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>До команди ще не прив’язано шаблон. Ви можете створити розклад вручну.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Введіть назву правила.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Введіть назву шаблону.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Будь ласка, введіть назву команди.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Виберіть коректний час початку за UTC (він має бути не ближче ніж за 28 днів до межі діапазону дат).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Виберіть наявне правило чергування.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Виберіть наявний шаблон розкладу.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Правило планування успішно створено.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Шаблон розкладу успішно створено.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Правило чергування видалено.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Шаблон розкладу видалено.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Правило графіка оновлено.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Шаблон розкладу оновлено.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Цільова кількість працівників не може бути меншою за мінімальну й має становити від 1 до 200. Залиште поле порожнім для автоматичного призначення.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Команду оновлено.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Правило або команда змінилися. Оновіть сторінку та спробуйте ще раз.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Шаблон або команда змінилися. Оновіть сторінку та спробуйте знову.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Розклад змінився або під час збереження сталася конфліктна ситуація. Оновіть сторінку та спробуйте ще раз.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Цього тижня залишилося незаповненими змін: {0}. Будь ласка, вручну призначте чергових.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Це правило досі прив’язане до команди. Спочатку змініть прив’язку правила до команди.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Цей шаблон досі прив’язаний до команди. Спочатку оновіть прив’язку шаблону команди.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Ця команда має збережені розклади, тому її не можна видалити разом з історією.</value>

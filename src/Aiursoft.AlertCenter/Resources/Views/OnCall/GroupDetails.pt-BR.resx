@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Editar equipe</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>horas</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>horas · Pausa mín</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Gerenciar membros</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Abrir agenda</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Por turno</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Nenhum modelo vinculado; o agendamento manual continua disponível.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Modelo de regra não vinculado; o agendamento manual continua disponível.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Modelo:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Modelo de regra:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Os modelos de regras não podem ser excluídos. Somente equipes sem turnos salvos e sem aplicativos vinculados podem ser excluídas. Esta ação é irreversível.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Os modelos não são excluídos. Apenas equipes sem turnos salvos e sem aplicativos vinculados podem ser excluídas. Esta ação é irreversível.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Ponto inicial do agendamento:</value>
@@ -109,4 +100,7 @@
     <value>Ver escala de plantão</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Pessoas por turno</value>
+  </data>
 </root>

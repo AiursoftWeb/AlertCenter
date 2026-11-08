@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>チームを編集</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>時間</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>時間 · 最低休息時間</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>メンバー管理</value>
   </data>
@@ -72,20 +66,17 @@
   <data name="Open schedule" xml:space="preserve">
     <value>スケジュールを開く</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>1シフトあたり</value>
-  </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>メンバーの順次ローテーション</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>ルールテンプレートは紐付けられていません。手動でのスケジュール設定は引き続き可能です。</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>テンプレートが関連付けられていません。手動でのスケジュール作成は可能です。</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>ルールテンプレート：</value>
+  <data name="Template:" xml:space="preserve">
+    <value>テンプレート：</value>
   </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>ルールテンプレートは削除できません。保存済みのシフトがなく、連携アプリが紐付けられていないチームのみ削除できます。この操作は取り消せません。</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>テンプレートは削除されません。保存済みシフトも関連付けられたアプリもないチームのみ削除できます。この操作は取り消せません。</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>スケジュールの開始日時：</value>
@@ -112,4 +103,7 @@
     <value>オンコールスケジュールを表示</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>シフトごとの人数</value>
+  </data>
 </root>

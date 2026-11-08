@@ -18,53 +18,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-assign" xml:space="preserve">
-    <value>Penugasan otomatis</value>
-  </data>
-  <data name="Back to Rule List" xml:space="preserve">
-    <value>Kembali ke Daftar Aturan</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>Seimbangkan giliran kerja pagi, siang, dan malam seadil mungkin</value>
+  <data name="Back to Template List" xml:space="preserve">
+    <value>Kembali ke Daftar Templat</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Tutup</value>
   </data>
-  <data name="Close, prioritize fixed time slots" xml:space="preserve">
-    <value>Berimbang, prioritaskan slot waktu tetap</value>
+  <data name="Edit template" xml:space="preserve">
+    <value>Edit templat</value>
   </data>
-  <data name="Edit rule" xml:space="preserve">
-    <value>Edit aturan</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>jam</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>jam · Istirahat minimum</value>
-  </data>
-  <data name="Minimum per shift " xml:space="preserve">
-    <value>Minimum per shift</value>
-  </data>
-  <data name="Modifying templates will not regenerate saved shifts for the team. Members and schedule start points are managed separately by each team." xml:space="preserve">
-    <value>Mengubah templat tidak akan membuat ulang shift yang telah disimpan untuk tim. Anggota dan titik awal jadwal dikelola secara terpisah oleh setiap tim.</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Tentukan pembagian dan rotasi sif untuk perpanjangan otomatis dan pembuatan dengan satu klik oleh tim. Perubahan templat tidak memengaruhi sif yang sudah dijadwalkan.</value>
   </data>
   <data name="No teams are bound to this template." xml:space="preserve">
     <value>Tidak ada tim yang terikat pada templat ini.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>orang</value>
+  <data name="Reusable scheduling template · " xml:space="preserve">
+    <value>Templat jadwal yang dapat digunakan kembali · </value>
   </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>orang · Target</value>
-  </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Per giliran</value>
-  </data>
-  <data name="Reusable shift rule template · " xml:space="preserve">
-    <value>Templat aturan giliran kerja yang dapat digunakan kembali ·</value>
-  </data>
-  <data name="Rule configuration" xml:space="preserve">
-    <value>Konfigurasi aturan</value>
+  <data name="Template configuration" xml:space="preserve">
+    <value>Konfigurasi templat</value>
   </data>
   <data name="teams using" xml:space="preserve">
     <value>tim yang menggunakan</value>
@@ -72,11 +45,50 @@
   <data name="Teams using this template" xml:space="preserve">
     <value>Tim yang menggunakan templat ini</value>
   </data>
-  <data name="Time slot rotation: " xml:space="preserve">
-    <value>Rotasi slot waktu:</value>
-  </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>Lihat jadwal piket</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Durasi tetap: {0} menit</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Jumat</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Senin</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Antrean sederhana</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Strategi rotasi</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sabtu</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Mode pembagian</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Staf per sif</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Minggu</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Tukar anggota bersebelahan setiap dua putaran untuk tim berjumlah genap</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Kamis</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Selasa</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Rabu</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Titik serah terima mingguan</value>
+  </data>
 </root>

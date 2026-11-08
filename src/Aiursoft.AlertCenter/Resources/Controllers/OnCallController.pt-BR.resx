@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>O número mínimo de funcionários por turno deve ser de 1 a 200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Ainda não há regras vinculadas à equipe. Você pode criar uma escala manualmente.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Nenhum modelo foi vinculado à equipe. Você pode criar uma escala manualmente.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Por favor, insira o nome da regra.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Digite o nome do modelo.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Digite o nome da equipe.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Selecione um horário de início UTC válido (deve estar a pelo menos 28 dias do limite de data).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Selecione uma regra de sobreaviso existente.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Selecione um modelo de escala existente.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Regra de escala criada com sucesso.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Modelo de escala criado com sucesso.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Regra de agendamento excluída.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Modelo de escala excluído.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Regra de escala atualizada.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Modelo de escala atualizado.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>O número desejado de pessoas não pode ser inferior ao mínimo e deve estar entre 1 e 200. Deixe em branco para atribuição automática.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Equipe atualizada.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>A regra ou a equipe foi alterada. Atualize a página e tente novamente.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>O modelo ou a equipe mudou. Atualize a página e tente novamente.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>A escala foi alterada ou ocorreu um conflito ao salvar. Atualize a página e tente novamente.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Há {0} turnos sem atribuição nesta semana. Preencha manualmente a equipe de sobreaviso.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Esta regra ainda está vinculada a uma equipe. Atualize primeiro o vínculo da equipe com a regra.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Este modelo ainda está vinculado a uma equipe. Atualize primeiro o vínculo do modelo da equipe.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Esta equipe possui escalas salvas e não pode ser excluída junto com seu histórico.</value>

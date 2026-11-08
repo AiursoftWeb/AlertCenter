@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Chỉnh sửa nhóm</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>giờ</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>giờ · Thời gian nghỉ tối thiểu</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Quản lý thành viên</value>
   </data>
@@ -72,20 +66,17 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Mở lịch</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Mỗi ca</value>
-  </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>Luân phiên thành viên (theo thứ tự)</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Chưa gán mẫu quy tắc; vẫn có thể lập lịch thủ công.</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Chưa liên kết mẫu; vẫn có thể xếp lịch thủ công.</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Mẫu quy tắc:</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Mẫu:</value>
   </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Không thể xóa các mẫu quy tắc. Chỉ có thể xóa những nhóm không có ca trực đã lưu và không liên kết với ứng dụng nào. Hành động này không thể hoàn tác.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Mẫu không bị xóa. Chỉ có thể xóa nhóm không có ca đã lưu và không có ứng dụng liên kết. Không thể hoàn tác thao tác này.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Thời điểm bắt đầu lịch:</value>
@@ -112,4 +103,7 @@
     <value>Xem lịch trực</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Nhân sự mỗi ca</value>
+  </data>
 </root>

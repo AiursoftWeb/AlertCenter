@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Editar equipa</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>horas</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>horas · Descanso mín.</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Gerir membros</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Abrir o horário</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Por turno</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Nenhum modelo associado; o agendamento manual continua disponível.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>O modelo de regra não está associado; continua a ser possível agendar manualmente.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Modelo:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Modelo de regra:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Os modelos de regras não podem ser eliminados. Apenas as equipas sem turnos guardados e sem aplicações vinculadas podem ser eliminadas. Esta ação é irreversível.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Os modelos não são eliminados. Apenas equipas sem turnos guardados e sem aplicações associadas podem ser eliminadas. Esta ação é irreversível.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Ponto de início do agendamento:</value>
@@ -109,4 +100,7 @@
     <value>Ver escala de prevenção</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Pessoas por turno</value>
+  </data>
 </root>

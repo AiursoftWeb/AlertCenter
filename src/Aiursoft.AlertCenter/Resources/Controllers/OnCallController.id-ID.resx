@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Jumlah minimum staf per sif harus 1–200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Belum ada aturan yang ditetapkan untuk tim ini. Anda dapat membuat jadwal secara manual.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Belum ada templat yang tertaut ke tim. Anda dapat membuat jadwal secara manual.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Silakan masukkan nama aturan.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Masukkan nama templat.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Silakan masukkan nama tim.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Silakan pilih waktu mulai UTC yang valid (harus berjarak setidaknya 28 hari dari batas tanggal).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Silakan pilih aturan siaga yang sudah ada.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Pilih templat jadwal yang sudah ada.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Aturan penjadwalan berhasil dibuat.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Templat jadwal berhasil dibuat.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Aturan penjadwalan berhasil dihapus.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Templat jadwal dihapus.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Aturan penjadwalan berhasil diperbarui.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Templat jadwal diperbarui.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Jumlah sasaran tidak boleh kurang dari jumlah minimum dan harus antara 1–200. Kosongkan untuk penugasan otomatis.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Tim berhasil diperbarui.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Aturan atau tim telah berubah. Muat ulang halaman dan coba lagi.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Templat atau tim telah berubah. Muat ulang halaman dan coba lagi.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Jadwal telah berubah atau terjadi konflik saat menyimpan. Silakan muat ulang halaman dan coba lagi.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Ada {0} giliran yang belum ditugaskan minggu ini. Harap isi petugas siaga secara manual.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Aturan ini masih terikat pada sebuah tim. Harap perbarui pengikatan aturan tim terlebih dahulu.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Templat ini masih tertaut ke tim. Perbarui tautan templat tim terlebih dahulu.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Tim ini memiliki jadwal yang tersimpan sehingga tidak dapat dihapus beserta riwayatnya.</value>

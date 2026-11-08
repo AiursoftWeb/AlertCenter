@@ -63,7 +63,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     }
     [RenderInNavBar(NavGroupName = "Features", NavGroupOrder = 1,
         CascadedLinksGroupName = "On-call", CascadedLinksIcon = "calendar-clock", CascadedLinksOrder = 3,
-        LinkText = "Scheduling Rules", LinkOrder = 1)]
+        LinkText = "Scheduling Templates", LinkOrder = 1)]
     public async Task<IActionResult> Index(CancellationToken cancellationToken) =>
         this.StackView(await LoadModel(cancellationToken));
 
@@ -311,7 +311,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 if (!EmailChannelAdapter.TryParseCcRecipients(request.EmailCcRecipients, out var emailCcRecipients, out var ccRecipientsError, localizer: localizerFactory.Create(typeof(EmailChannelAdapter))))
                     ModelState.AddModelError("GroupInput.EmailCcRecipients", ccRecipientsError!);
                 if (request.RuleId.HasValue && !await db.OnCallRules.AnyAsync(rule => rule.Id == request.RuleId, retryToken))
-                    ModelState.AddModelError("GroupInput.RuleId", localizer["Please select an existing on-call rule."].Value);
+                    ModelState.AddModelError("GroupInput.RuleId", localizer["Please select an existing scheduling template."].Value);
                 if (request.FallbackUserIds != null && await db.Users.CountAsync(user => request.FallbackUserIds.Contains(user.Id), retryToken) != request.FallbackUserIds.Distinct().Count())
                     ModelState.AddModelError("GroupInput.FallbackUserIds", localizer["Fallback recipients must be existing system users."].Value);
                 if (request.AnchorUtc is not { } anchor || anchor.Kind == DateTimeKind.Local ||
@@ -423,7 +423,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 await using var transaction = db.Database.IsRelational()
                     ? await db.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable, retryToken) : null;
                 request.Name = request.Name?.Trim() ?? string.Empty;
-                if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", localizer["Please enter the rule name."].Value);
+                if (string.IsNullOrWhiteSpace(request.Name)) ModelState.AddModelError("RuleInput.Name", localizer["Please enter the template name."].Value);
                 if (request.ShiftHours <= 0) ModelState.AddModelError("RuleInput.ShiftHours", localizer["Shift duration must be positive."].Value);
                 if (request.RestHours is < 0 or > 168) ModelState.AddModelError("RuleInput.RestHours", localizer["Minimum rest must be 0–168 hours."].Value);
                 if (request.MinimumStaff is < 1 or > 200) ModelState.AddModelError("RuleInput.MinimumStaff", localizer["Minimum staff per shift must be 1–200."].Value);
@@ -468,13 +468,13 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 foreach (var group in groups) group.ScheduleVersion = Guid.NewGuid();
                 await db.SaveChangesAsync(retryToken);
                 if (transaction != null) await transaction.CommitAsync(retryToken);
-                TempData["OnCallRuleSuccess"] = request.Id.HasValue ? localizer["Scheduling rule updated."].Value : localizer["Scheduling rule created successfully."].Value;
+                TempData["OnCallRuleSuccess"] = request.Id.HasValue ? localizer["Scheduling template updated."].Value : localizer["Scheduling template created successfully."].Value;
                 return RedirectToAction(nameof(Details), new { id = rule.Id });
             }, cancellationToken);
         }
         catch (DbUpdateException)
         {
-            return Conflict(localizer["The rule or team has changed. Refresh the page and try again."].Value);
+            return Conflict(localizer["The template or team has changed. Refresh the page and try again."].Value);
         }
     }
 
@@ -485,7 +485,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         var rule = await db.OnCallRules.FindAsync([id], cancellationToken);
         if (rule == null) return NotFound();
         if (await db.OnCallGroups.AnyAsync(group => group.RuleId == id, cancellationToken))
-            return Conflict(localizer["This rule is still bound to a team. Please update the team's rule binding first."].Value);
+            return Conflict(localizer["This template is still bound to a team. Please update the team's template binding first."].Value);
         db.OnCallRules.Remove(rule);
         try
         {
@@ -493,9 +493,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         }
         catch (DbUpdateException)
         {
-            return Conflict(localizer["This rule is still bound to a team. Please update the team's rule binding first."].Value);
+            return Conflict(localizer["This template is still bound to a team. Please update the team's template binding first."].Value);
         }
-        TempData["OnCallRuleSuccess"] = localizer["Scheduling rule deleted."].Value;
+        TempData["OnCallRuleSuccess"] = localizer["Scheduling template deleted."].Value;
         return RedirectToAction(nameof(Index));
     }
 
@@ -604,7 +604,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             }
             if (!model.CanGenerateSchedule)
             {
-                model.PreviewError = group.Rule == null ? localizer["No rules bound to the team yet. You can manually create a schedule."].Value
+                model.PreviewError = group.Rule == null ? localizer["No template bound to the team yet. You can manually create a schedule."].Value
                     : localizer["Staff per shift must not exceed the rotation queue size."].Value;
                 return;
             }

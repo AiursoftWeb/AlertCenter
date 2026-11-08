@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Actie</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>Automatisch toewijzen</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>Gebonden, kan niet worden verwijderd</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>Verwijderen bevestigen</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>Bevestig het verwijderen van de regel</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>Verwijderen van sjabloon bevestigen</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>Regel maken</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>Sjabloon maken</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Verwijderen</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>Planningsregel verwijderen</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>Roostersjabloon verwijderen</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Bewerken</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>uren</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Bepaal hoe diensten worden opgesplitst en gerouleerd voor automatische verlenging en generatie met één klik door teams. Het wijzigen van een sjabloon heeft geen invloed op geplande diensten.</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>Beheer regeltemplates die door meerdere teams worden gedeeld. Als u een template wijzigt, worden opgeslagen diensten niet opnieuw gegenereerd.</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>Min</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>Er zijn nog geen opgeslagen sjabloonregels. Maak eerst een sjabloon aan en laat het team die vervolgens koppelen en gebruiken.</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Nog geen opgeslagen sjablonen. Maak eerst een sjabloon en koppel het daarna aan het team om het te gebruiken.</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Alleen sjablonen die niet aan teams zijn gekoppeld, kunnen worden verwijderd. Opgeslagen diensten en de geschiedenis van teams worden niet verwijderd; verwijderde sjablonen kunnen niet worden hersteld.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>personen</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>personen · Doel</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Ontkoppel eerst de sjabloon van alle teams.</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>Regel opgeslagen</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>Opgeslagen sjablonen</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>Regelsjabloon</value>
+  <data name="Template" xml:space="preserve">
+    <value>Sjabloon</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>Planningsregels</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>Dienst / Pauze</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>Roostersjablonen</value>
   </data>
   <data name="Teams using" xml:space="preserve">
-    <value>Teams die het gebruiken</value>
+    <value>Teams die dit gebruiken</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>Regels bekijken</value>
+  <data name="View template" xml:space="preserve">
+    <value>Sjabloon bekijken</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Vaste duur: {0} minuten</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Vrijdag</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maandag</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Eenvoudige wachtrij</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Rotatiestrategie</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Zaterdag</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Opsplitsingsmodus</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Medewerkers per dienst</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Zondag</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Wissel aangrenzende leden om de ronde bij teams met een even aantal leden</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Donderdag</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Dinsdag</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Woensdag</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Wekelijkse overdrachtsmomenten</value>
+  </data>
 </root>

@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Åtgärd</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>Auto-tilldelning</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>Bunden, kan inte tas bort</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>Bekräfta borttagning</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>Bekräfta borttagning av regel</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>Bekräfta borttagning av mall</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>Skapa regel</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>Skapa mall</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Ta bort</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>Ta bort schemaläggningsregel</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>Ta bort schemamall</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Redigera</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>timmar</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Ange hur arbetspass delas upp och roteras för teamens automatiska förlängning och generering med ett klick. Ändringar i en mall påverkar inte redan schemalagda pass.</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>Hantera mallar för regler som delas av flera team. Ändring av en mall regenererar inte sparade skift.</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>Min</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>Inga sparade mallar för regler än. Skapa en mall först och låt sedan teamet binda och använda den.</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Inga sparade mallar ännu. Skapa först en mall och koppla den sedan till teamet för användning.</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Endast mallar som inte är kopplade till team kan tas bort. Sparade pass och teamens historik tas inte bort; borttagna mallar kan inte återställas.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>personer</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>personer · Mål</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Ta först bort kopplingen mellan mallen och alla team.</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>Regel sparad</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>Sparade mallar</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>Regelmall</value>
+  <data name="Template" xml:space="preserve">
+    <value>Mall</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>Schemaläggningsregler</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>Skift / Paus</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>Schemamallar</value>
   </data>
   <data name="Teams using" xml:space="preserve">
-    <value>Team som använder</value>
+    <value>Team som använder mallen</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>Visa regler</value>
+  <data name="View template" xml:space="preserve">
+    <value>Visa mall</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Fast längd: {0} minuter</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Fredag</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Måndag</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Enkel kö</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Rotationsstrategi</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Lördag</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Uppdelningsläge</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personal per pass</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Söndag</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Byt plats på intilliggande medlemmar varannan omgång i team med jämnt antal medlemmar</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Torsdag</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tisdag</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Onsdag</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Veckovisa överlämningspunkter</value>
+  </data>
 </root>

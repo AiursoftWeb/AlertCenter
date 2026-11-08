@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Thao tác</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>Tự động phân công</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>Đã liên kết, không thể xóa</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>Xác nhận xóa</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>Xác nhận xóa quy tắc</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>Xác nhận xóa mẫu</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>Tạo quy tắc</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>Tạo mẫu</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Xóa</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>Xóa quy tắc lịch trình</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>Xóa mẫu lịch trực</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Chỉnh sửa</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>giờ</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Xác định cách chia và luân phiên ca để nhóm tự động kéo dài lịch và tạo lịch bằng một lần nhấp. Thay đổi mẫu không ảnh hưởng đến các ca đã lên lịch.</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>Quản lý các mẫu quy tắc được nhiều nhóm cùng sử dụng. Việc chỉnh sửa mẫu không tạo lại các ca làm đã lưu.</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>Tối thiểu</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>Chưa có mẫu quy tắc nào được lưu. Hãy tạo mẫu trước, sau đó để nhóm liên kết và sử dụng mẫu.</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Chưa có mẫu nào được lưu. Hãy tạo mẫu trước, sau đó liên kết với nhóm để sử dụng.</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Chỉ có thể xóa các mẫu chưa được gắn với nhóm. Các ca trực đã lưu và lịch sử của nhóm sẽ không bị xóa; các mẫu đã xóa không thể khôi phục.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>người</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>người · Mục tiêu</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Vui lòng gỡ mẫu khỏi tất cả các nhóm trước.</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>Quy tắc đã lưu</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>Mẫu đã lưu</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>Mẫu quy tắc</value>
+  <data name="Template" xml:space="preserve">
+    <value>Mẫu</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>Quy tắc xếp lịch</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>Ca trực / Nghỉ</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>Mẫu lịch trực</value>
   </data>
   <data name="Teams using" xml:space="preserve">
-    <value>Các nhóm đang sử dụng</value>
+    <value>Nhóm đang sử dụng</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>Xem quy tắc</value>
+  <data name="View template" xml:space="preserve">
+    <value>Xem mẫu</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Thời lượng cố định: {0} phút</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Thứ sáu</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Thứ hai</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Hàng đợi đơn giản</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Chiến lược luân phiên</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Thứ bảy</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Cách chia ca</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Nhân sự mỗi ca</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Chủ nhật</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Hoán đổi thành viên liền kề cách một vòng đối với nhóm có số thành viên chẵn</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thứ năm</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Thứ ba</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Thứ tư</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Mốc bàn giao hằng tuần</value>
+  </data>
 </root>

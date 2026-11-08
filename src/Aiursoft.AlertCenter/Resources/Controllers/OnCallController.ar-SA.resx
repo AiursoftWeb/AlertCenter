@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>الحد الأدنى لعدد الموظفين في كل وردية هو 1–200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>لم تُحدَّد أي قواعد للفريق بعد. يمكنك إنشاء جدول مناوبات يدويًا.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>لم يتم ربط قالب بالفريق بعد. يمكنك إنشاء جدول يدويًا.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>يرجى إدخال اسم القاعدة.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>يرجى إدخال اسم القالب.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>يرجى إدخال اسم الفريق.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>يرجى اختيار وقت بدء صالح بالتوقيت العالمي المنسق (UTC) (على أن يكون على بُعد 28 يومًا على الأقل من الحد الفاصل للتاريخ).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>يرجى اختيار قاعدة مناوبة موجودة.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>يرجى اختيار قالب جدولة موجود.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>تم إنشاء قاعدة الجدولة بنجاح.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>تم إنشاء قالب الجدولة بنجاح.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>تم حذف قاعدة الجدولة.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>تم حذف قالب الجدولة.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>تم تحديث قاعدة الجدولة.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>تم تحديث قالب الجدولة.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>لا يمكن أن يكون العدد المستهدف أقل من الحد الأدنى، ويجب أن يتراوح بين 1 و200. اتركه فارغًا للتعيين التلقائي.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>تم تحديث الفريق.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>تم تغيير القاعدة أو الفريق. حدّث الصفحة وحاول مرة أخرى.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>تم تغيير القالب أو الفريق. حدّث الصفحة وحاول مرة أخرى.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>تم تغيير الجدول أو حدث تعارض أثناء الحفظ. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>توجد {0} مناوبات غير مُسندة هذا الأسبوع. يُرجى تعيين أفراد المناوبة يدويًا.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>لا تزال هذه القاعدة مرتبطة بفريق. يُرجى تحديث ربط الفريق بالقاعدة أولاً.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>هذا القالب لا يزال مرتبطًا بفريق. يرجى تحديث ارتباط القالب بالفريق أولًا.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>يحتوي هذا الفريق على جداول مناوبات محفوظة، ولا يمكن حذفه مع سجلاته.</value>

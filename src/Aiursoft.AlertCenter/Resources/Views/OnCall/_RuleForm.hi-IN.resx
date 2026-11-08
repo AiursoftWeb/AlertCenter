@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>स्वचालित रूप से शेड्यूल बनाने पर सभी आवश्यकताएँ पूरी होनी चाहिए; मैन्युअल रूप से कर्मचारियों की संख्या अपर्याप्त होने पर केवल चेतावनी दी जाएगी, जबकि खाली शिफ़्टें सहेजी नहीं जा सकतीं।</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>सुबह, दोपहर और देर की शिफ़्टों को यथासंभव समान रूप से बाँटें</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>रद्द करें</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>यह न्यूनतम कर्मचारियों की संख्या से कम नहीं हो सकती; ओवरराइड और विश्राम की अनुमति होने पर लक्ष्य को यथासंभव पूरा करें। स्वचालित आवंटन के लिए खाली छोड़ें।</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>शिफ्ट में आवश्यक कर्मचारियों की उपलब्धता और उनके आराम को प्राथमिकता दी जाती है; अदला-बदली के दौरान अतिरिक्त कर्मचारियों की संख्या कम हो सकती है। कम से कम 16 घंटे के आराम वाले तीन सदस्यों के दलों के लिए रोटेशन की अनुमति नहीं है। शेड्यूलिंग वास्तविक 8 घंटे की लगातार शिफ्टों पर आधारित है; डेलाइट सेविंग टाइम के बदलावों के दौरान स्थानीय समय बदल सकता है।</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>प्रतिदिन तीन शिफ्ट निर्धारित हैं; प्रत्येक शिफ्ट में कम से कम एक व्यक्ति होना चाहिए। एक शिफ्ट में एक से अधिक व्यक्ति भी हो सकते हैं।</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>निश्चित समय स्लॉट को प्राथमिकता दी जाती है</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>न्यूनतम विश्राम (घंटे)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>प्रति शिफ्ट न्यूनतम कर्मचारी</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>रोटेशन वरीयता</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>टेम्पलेट सहेजें</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>शिफ्ट की अवधि (घंटे)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>प्रति शिफ्ट लक्षित कर्मचारियों की संख्या</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>टेम्पलेट का नाम</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>यह नियम टेम्पलेट कई टीमों के बीच साझा करने के लिए उपलब्ध है। सदस्य, रोटेशन क्रम और शेड्यूल के आरंभ बिंदु टीम द्वारा प्रबंधित किए जाते हैं। टेम्पलेट में बदलाव करने से पहले से सहेजी गई शिफ़्ट फिर से जनरेट नहीं होंगी।</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>8 घंटे की तीन शिफ्ट का प्रीसेट</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>कार्यभार हस्तांतरण बिंदु जोड़ें</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>सप्ताह का दिन</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>टीम के शेड्यूल का स्वचालित विस्तार और एक क्लिक में निर्माण करने के लिए शिफ्ट का विभाजन और रोटेशन तय करें। टेम्पलेट बदलने से पहले से निर्धारित शिफ्ट प्रभावित नहीं होतीं।</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>निश्चित अवधि</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>शुक्रवार</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>कार्यभार हस्तांतरण का समय</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>सोमवार</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>साधारण कतार</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>हटाएँ</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>रोटेशन रणनीति</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>शनिवार</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>शिफ्ट अवधि (मिनट)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>विभाजन मोड</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>प्रति शिफ्ट कर्मचारी</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>रविवार</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>सम संख्या वाली टीमों में हर दूसरे चक्र में आस-पास के सदस्यों की अदला-बदली करें</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>गुरुवार</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>मंगलवार</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>बुधवार</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>साप्ताहिक कार्यभार हस्तांतरण बिंदु</value>
+  </data>
 </root>

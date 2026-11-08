@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Ekibi düzenle</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>saat</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>saat · Min dinlenme</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Üyeleri Yönet</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Programı aç</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Vardiya başına</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Şablon bağlı değil; elle planlama hâlâ kullanılabilir.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Kural şablonu ilişkilendirilmemiş; manuel zamanlama hâlâ kullanılabilir.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Şablon:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Kural şablonu:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Kural şablonları silinemez. Yalnızca kaydedilmiş vardiyası ve bağlı uygulaması olmayan ekipler silinebilir. Bu işlem geri alınamaz.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Şablonlar silinmez. Yalnızca kaydedilmiş vardiyası ve bağlı uygulaması olmayan ekipler silinebilir. Bu işlem geri alınamaz.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Zamanlamanın başlangıç noktası:</value>
@@ -109,4 +100,7 @@
     <value>Nöbet çizelgesini görüntüle</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Vardiya başına personel</value>
+  </data>
 </root>

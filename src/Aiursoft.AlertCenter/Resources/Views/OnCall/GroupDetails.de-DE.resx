@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Team bearbeiten</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>Stunden</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>Stunden · Min. Ruhezeit</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Mitglieder verwalten</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Zeitplan öffnen</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Pro Schicht</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Keine Vorlage zugewiesen; die manuelle Planung ist weiterhin verfügbar.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Regelvorlage nicht zugewiesen; manuelle Planung ist weiterhin möglich.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Vorlage:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Regelvorlage:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Regelvorlagen können nicht gelöscht werden. Nur Teams ohne gespeicherte Schichten und ohne verknüpfte Anwendungen können gelöscht werden. Diese Aktion kann nicht rückgängig gemacht werden.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Vorlagen werden nicht gelöscht. Nur Teams ohne gespeicherte Schichten und ohne zugewiesene Anwendungen können gelöscht werden. Diese Aktion kann nicht rückgängig gemacht werden.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Startpunkt der Planung:</value>
@@ -109,4 +100,7 @@
     <value>Bereitschaftsplan anzeigen</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personal pro Schicht</value>
+  </data>
 </root>

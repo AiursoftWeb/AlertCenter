@@ -114,8 +114,8 @@
             <summary class="mb-3">@viewLocalizer["Advanced scheduling settings"]</summary>
             <div class="row g-3 mb-3">
                 <div class="col-md-6">
-                    <label asp-for="GroupInput.RuleId" class="form-label">@viewLocalizer["Scheduling Rule Template"]</label>
-                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@viewLocalizer["Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts."].Value" aria-label="@viewLocalizer["Help: scheduling template"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
+                    <label asp-for="GroupInput.RuleId" class="form-label">@viewLocalizer["Scheduling Template"]</label>
+                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@viewLocalizer["Define how shifts are split and rotated for teams' automatic extension and one-click generation. Changing a template does not affect scheduled shifts."].Value" aria-label="@viewLocalizer["Help: scheduling template"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
                     <select asp-for="GroupInput.RuleId" class="form-select">
                         <option value="">@viewLocalizer["Do not bind template (manual scheduling)"]</option>
                         @foreach (var rule in Model.Rules)

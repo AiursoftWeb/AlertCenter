@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Henkilöstöä on oltava vuorossa vähintään 1 ja enintään 200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Tiimille ei ole vielä määritetty sääntöjä. Voit luoda työvuorosuunnitelman manuaalisesti.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Tiimiin ei ole vielä liitetty mallia. Voit luoda työvuorolistan käsin.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Anna säännölle nimi.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Anna mallin nimi.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Anna ryhmälle nimi.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Valitse kelvollinen UTC-aloitusaika (sen on oltava vähintään 28 päivän päässä päivämäärärajoista).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Valitse olemassa oleva päivystysvuoro-ohje.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Valitse olemassa oleva työvuoromalli.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Aikataulusääntö luotiin onnistuneesti.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Työvuoromalli luotu onnistuneesti.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Ajoitussääntö poistettu.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Työvuoromalli poistettu.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Aikataulusääntö päivitetty.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Työvuoromalli päivitetty.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Tavoitemäärä ei voi olla vähimmäismäärää pienempi, ja sen on oltava välillä 1–200. Jätä tyhjäksi automaattista määrittämistä varten.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Tiimi päivitetty.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Sääntö tai tiimi on muuttunut. Päivitä sivu ja yritä uudelleen.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Malli tai tiimi on muuttunut. Päivitä sivu ja yritä uudelleen.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Aikataulu on muuttunut tai tallennuksessa tapahtui ristiriita. Päivitä sivu ja yritä uudelleen.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Tällä viikolla on {0} täyttämätöntä työvuoroa. Lisää päivystävät henkilöt manuaalisesti.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Tämä sääntö on edelleen liitetty tiimiin. Päivitä ensin tiimin sääntöliitos.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Tämä malli on yhä liitetty tiimiin. Päivitä ensin tiimin malliliitos.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Tällä tiimillä on tallennettuja työvuorolistoja, eikä sitä voida poistaa historia mukaan lukien.</value>

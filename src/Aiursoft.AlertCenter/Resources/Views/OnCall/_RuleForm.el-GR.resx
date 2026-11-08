@@ -18,50 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="Auto-generation must meet requirements; insufficient manual staffing triggers a warning only, while empty shifts cannot be saved." xml:space="preserve">
-    <value>Η αυτόματη δημιουργία πρέπει να πληροί τις απαιτήσεις· η ανεπαρκής χειροκίνητη στελέχωση προκαλεί μόνο προειδοποίηση, ενώ οι κενές βάρδιες δεν μπορούν να αποθηκευτούν.</value>
-  </data>
-  <data name="Balance early, middle, and late shifts as evenly as possible" xml:space="preserve">
-    <value>Κατανείμετε τις πρωινές, ενδιάμεσες και βραδινές βάρδιες όσο το δυνατόν πιο ισόρροπα</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Ακύρωση</value>
-  </data>
-  <data name="Cannot be lower than the minimum headcount; satisfy as much as possible when overrides and breaks allow. Leave blank for automatic assignment." xml:space="preserve">
-    <value>Δεν μπορεί να είναι μικρότερος από τον ελάχιστο αριθμό ατόμων· να καλύπτεται όσο το δυνατόν περισσότερο, όταν το επιτρέπουν οι εξαιρέσεις και τα διαλείμματα. Αφήστε το κενό για αυτόματη ανάθεση.</value>
-  </data>
-  <data name="Coverage and rest are prioritized; redundancy may decrease during swaps. Rotation is not allowed for teams of three with at least 16 hours of rest. Scheduling is based on actual 8-hour continuous shifts; local time may change during daylight saving time transitions." xml:space="preserve">
-    <value>Προτεραιότητα έχουν η κάλυψη και η ανάπαυση· κατά τις εναλλαγές ενδέχεται να μειωθεί η εφεδρεία. Δεν επιτρέπεται η εναλλαγή για ομάδες τριών ατόμων με τουλάχιστον 16 ώρες ανάπαυσης. Ο προγραμματισμός βασίζεται σε πραγματικές συνεχόμενες βάρδιες διάρκειας 8 ωρών· η τοπική ώρα ενδέχεται να αλλάξει κατά τη μετάβαση στη θερινή ή τη χειμερινή ώρα.</value>
-  </data>
-  <data name="Fixed three shifts per day, at least one person per shift; multiple people per shift allowed." xml:space="preserve">
-    <value>Καθορίζονται τρεις βάρδιες την ημέρα, με τουλάχιστον ένα άτομο ανά βάρδια· επιτρέπονται περισσότερα άτομα ανά βάρδια.</value>
-  </data>
-  <data name="Fixed time slots take priority" xml:space="preserve">
-    <value>Προτεραιότητα έχουν οι σταθερές χρονικές ζώνες</value>
-  </data>
-  <data name="Minimum Rest (Hours)" xml:space="preserve">
-    <value>Ελάχιστη ανάπαυση (ώρες)</value>
-  </data>
-  <data name="Minimum staff per shift" xml:space="preserve">
-    <value>Ελάχιστο προσωπικό ανά βάρδια</value>
-  </data>
-  <data name="Rotation Preference" xml:space="preserve">
-    <value>Προτίμηση εναλλαγής</value>
   </data>
   <data name="Save template" xml:space="preserve">
     <value>Αποθήκευση προτύπου</value>
   </data>
-  <data name="Shift duration (hours)" xml:space="preserve">
-    <value>Διάρκεια βάρδιας (ώρες)</value>
-  </data>
-  <data name="Target staff per shift" xml:space="preserve">
-    <value>Στόχος αριθμού ατόμων ανά βάρδια</value>
-  </data>
   <data name="Template name" xml:space="preserve">
     <value>Όνομα προτύπου</value>
   </data>
-  <data name="This is a rule template available for sharing across multiple teams. Members, rotation order, and schedule start points are managed by the team. Modifying the template will not regenerate any saved shifts." xml:space="preserve">
-    <value>Αυτό είναι ένα πρότυπο κανόνων που μπορεί να κοινοποιηθεί σε πολλές ομάδες. Τα μέλη, η σειρά εναλλαγής και τα σημεία έναρξης του προγράμματος καθορίζονται από την ομάδα. Η τροποποίηση του προτύπου δεν θα δημιουργήσει ξανά τυχόν αποθηκευμένες βάρδιες.</value>
-  </data>
 
+  <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>Προεπιλογή τριών 8ωρων βαρδιών</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>Προσθήκη σημείου παράδοσης</value>
+  </data>
+  <data name="Day of week" xml:space="preserve">
+    <value>Ημέρα εβδομάδας</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Ορίστε τον διαχωρισμό και την εναλλαγή βαρδιών για αυτόματη επέκταση και δημιουργία με ένα κλικ από τις ομάδες. Η αλλαγή προτύπου δεν επηρεάζει τις προγραμματισμένες βάρδιες.</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>Σταθερή διάρκεια</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Παρασκευή</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>Ώρα παράδοσης</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Δευτέρα</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Απλή ουρά</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Αφαίρεση</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Στρατηγική εναλλαγής</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Σάββατο</value>
+  </data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>Διάρκεια βάρδιας (λεπτά)</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Τρόπος διαχωρισμού</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Άτομα ανά βάρδια</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Κυριακή</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Ανταλλαγή γειτονικών μελών ανά δεύτερο γύρο για ομάδες με άρτιο αριθμό μελών</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Πέμπτη</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Τρίτη</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Τετάρτη</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Εβδομαδιαία σημεία παράδοσης</value>
+  </data>
 </root>

@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>編輯團隊</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>小時</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>小時 · 最短休息時間</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>管理成員</value>
   </data>
@@ -72,20 +66,17 @@
   <data name="Open schedule" xml:space="preserve">
     <value>開啟值班時間表</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>每更</value>
-  </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>輪流成員（順序）</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>尚未綁定規則範本；仍可手動排程。</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>尚未綁定模板，仍可手動排班。</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>規則範本：</value>
+  <data name="Template:" xml:space="preserve">
+    <value>模板：</value>
   </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>規則範本無法刪除。只有沒有已儲存更次及未連結應用程式的團隊才可刪除。此操作無法復原。</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>不會刪除模板。只能刪除沒有已儲存班段且未綁定應用程式的團隊。此操作無法復原。</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>排程開始時間：</value>
@@ -112,4 +103,7 @@
     <value>查看值班時間表</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>每段人數</value>
+  </data>
 </root>

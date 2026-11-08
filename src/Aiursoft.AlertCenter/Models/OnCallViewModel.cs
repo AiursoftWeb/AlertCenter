@@ -74,7 +74,7 @@ public class SaveOnCallRuleRequest
     public bool? SwapAlternateRounds { get; set; }
     public List<OnCallHandoverPointRequest>? HandoverPoints { get; set; }
     public Guid? Id { get; set; }
-    [Required(ErrorMessage = "Please enter the rule name."), StringLength(100, ErrorMessage = "Rule name must not exceed 100 characters.")]
+    [Required(ErrorMessage = "Please enter the template name."), StringLength(100, ErrorMessage = "Template name must not exceed 100 characters.")]
     public string? Name { get; set; } = string.Empty;
     [Range(1, int.MaxValue)]
     public int ShiftHours { get; set; } = 8;

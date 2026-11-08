@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Vardiya başına minimum personel sayısı 1–200 olmalıdır.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Henüz bu ekibe herhangi bir kural bağlanmamış. Programı manuel olarak oluşturabilirsiniz.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Ekibe henüz bir şablon bağlanmamış. Elle bir program oluşturabilirsiniz.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Lütfen kural adını girin.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Şablon adını girin.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Lütfen takım adını girin.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Lütfen geçerli bir UTC başlangıç zamanı seçin (tarih sınırından en az 28 gün uzakta olmalıdır).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Lütfen mevcut bir nöbet kuralı seçin.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Mevcut bir vardiya şablonu seçin.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Planlama kuralı başarıyla oluşturuldu.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Vardiya şablonu başarıyla oluşturuldu.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Zamanlama kuralı silindi.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Vardiya şablonu silindi.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Nöbet çizelgesi kuralı güncellendi.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Vardiya şablonu güncellendi.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Hedef çalışan sayısı minimum değerin altında olamaz ve 1–200 arasında olmalıdır. Otomatik atama için boş bırakın.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Ekip güncellendi.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Kural veya ekip değişti. Sayfayı yenileyip tekrar deneyin.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Şablon veya ekip değişti. Sayfayı yenileyip tekrar deneyin.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Program değişmiş veya kaydetme çakışması meydana gelmiş. Lütfen sayfayı yenileyip tekrar deneyin.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Bu hafta atanmamış {0} vardiya var. Lütfen nöbet tutacak personeli manuel olarak belirleyin.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Bu kural hâlâ bir takıma bağlı. Lütfen önce takımın kural bağlantısını güncelleyin.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Bu şablon hâlâ bir ekibe bağlı. Önce ekibin şablon bağlantısını güncelleyin.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Bu ekibin kayıtlı programları var ve geçmişiyle birlikte silinemez.</value>

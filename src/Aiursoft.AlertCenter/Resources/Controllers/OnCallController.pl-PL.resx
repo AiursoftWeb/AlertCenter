@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Minimalna liczba pracowników na zmianę musi wynosić od 1 do 200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Do zespołu nie przypisano jeszcze żadnych zasad. Możesz ręcznie utworzyć harmonogram.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Do zespołu nie przypisano jeszcze szablonu. Możesz utworzyć harmonogram ręcznie.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Wprowadź nazwę reguły.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Wprowadź nazwę szablonu.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Wprowadź nazwę zespołu.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Wybierz prawidłowy czas rozpoczęcia w UTC (musi przypadać co najmniej 28 dni od granicy daty).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Wybierz istniejącą regułę dyżurów.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Wybierz istniejący szablon harmonogramu.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Regułę harmonogramu utworzono pomyślnie.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Utworzono szablon harmonogramu.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Reguła harmonogramu została usunięta.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Usunięto szablon harmonogramu.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Zaktualizowano regułę harmonogramu.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Zaktualizowano szablon harmonogramu.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Docelowa liczba pracowników nie może być niższa od minimalnej i musi mieścić się w zakresie 1–200. Pozostaw puste, aby przydzielić automatycznie.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Zespół został zaktualizowany.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Reguła lub zespół uległy zmianie. Odśwież stronę i spróbuj ponownie.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Szablon lub zespół uległ zmianie. Odśwież stronę i spróbuj ponownie.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Harmonogram uległ zmianie lub wystąpił konflikt podczas zapisywania. Odśwież stronę i spróbuj ponownie.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>W tym tygodniu pozostało {0} nieprzypisanych dyżurów. Proszę ręcznie przypisać osoby pełniące dyżur pod telefonem.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Ta reguła jest nadal przypisana do zespołu. Najpierw zmień przypisanie reguły do zespołu.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Ten szablon jest nadal przypisany do zespołu. Najpierw zaktualizuj przypisanie szablonu w zespole.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Ten zespół ma zapisane harmonogramy i nie można go usunąć wraz z jego historią.</value>

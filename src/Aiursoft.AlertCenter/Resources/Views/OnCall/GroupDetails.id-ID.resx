@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Edit tim</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>jam</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>jam · Istirahat minimum</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Kelola anggota</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Buka jadwal</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Per giliran</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Templat belum ditautkan; penjadwalan manual tetap tersedia.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Templat aturan belum ditautkan; penjadwalan manual masih tersedia.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Templat:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Templat aturan:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Templat aturan tidak dapat dihapus. Hanya tim tanpa shift tersimpan dan tanpa aplikasi tertaut yang dapat dihapus. Tindakan ini tidak dapat dibatalkan.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Templat tidak dihapus. Hanya tim tanpa sif tersimpan dan aplikasi tertaut yang dapat dihapus. Tindakan ini tidak dapat dibatalkan.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Titik awal penjadwalan:</value>
@@ -109,4 +100,7 @@
     <value>Lihat jadwal piket</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Staf per sif</value>
+  </data>
 </root>

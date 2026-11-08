@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Το ελάχιστο προσωπικό ανά βάρδια πρέπει να είναι 1–200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Δεν έχουν οριστεί ακόμη κανόνες για την ομάδα. Μπορείτε να δημιουργήσετε ένα πρόγραμμα χειροκίνητα.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Δεν έχει συνδεθεί ακόμη πρότυπο με την ομάδα. Μπορείτε να δημιουργήσετε πρόγραμμα χειροκίνητα.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Παρακαλώ εισαγάγετε το όνομα του κανόνα.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Εισαγάγετε το όνομα του προτύπου.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Παρακαλώ εισαγάγετε το όνομα της ομάδας.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Επιλέξτε μια έγκυρη ώρα έναρξης UTC (πρέπει να απέχει τουλάχιστον 28 ημέρες από το όριο της ημερομηνίας).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Παρακαλώ επιλέξτε έναν υπάρχοντα κανόνα εφημερίας.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Επιλέξτε ένα υπάρχον πρότυπο βαρδιών.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Ο κανόνας προγραμματισμού δημιουργήθηκε με επιτυχία.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Το πρότυπο βαρδιών δημιουργήθηκε επιτυχώς.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Ο κανόνας προγραμματισμού διαγράφηκε.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Το πρότυπο βαρδιών διαγράφηκε.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Ο κανόνας προγραμματισμού ενημερώθηκε.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Το πρότυπο βαρδιών ενημερώθηκε.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Ο επιθυμητός αριθμός ατόμων δεν μπορεί να είναι μικρότερος από τον ελάχιστο και πρέπει να κυμαίνεται από 1 έως 200. Αφήστε το κενό για αυτόματη κατανομή.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Η ομάδα ενημερώθηκε.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Ο κανόνας ή η ομάδα έχει αλλάξει. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Το πρότυπο ή η ομάδα έχει αλλάξει. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Το πρόγραμμα έχει αλλάξει ή προέκυψε διένεξη κατά την αποθήκευση. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Υπάρχουν {0} βάρδιες χωρίς ανάθεση αυτή την εβδομάδα. Παρακαλώ συμπληρώστε χειροκίνητα τα άτομα εφημερίας.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Αυτός ο κανόνας εξακολουθεί να είναι συνδεδεμένος με μια ομάδα. Ενημερώστε πρώτα τη σύνδεση του κανόνα με την ομάδα.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Το πρότυπο παραμένει συνδεδεμένο με μια ομάδα. Ενημερώστε πρώτα τη σύνδεση προτύπου της ομάδας.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Αυτή η ομάδα έχει αποθηκευμένα προγράμματα και δεν μπορεί να διαγραφεί μαζί με το ιστορικό της.</value>

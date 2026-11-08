@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>تعديل الفريق</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>ساعات</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>ساعات · الحد الأدنى للراحة</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>إدارة الأعضاء</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>فتح الجدول</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>لكل وردية</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>لم يتم ربط قالب؛ لا تزال الجدولة اليدوية متاحة.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>لم يتم ربط قالب القاعدة؛ لا يزال بإمكانك جدولة يدوية.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>القالب:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>قالب القاعدة:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>لا يمكن حذف قوالب القواعد. لا يمكن حذف سوى الفرق التي لا تحتوي على مناوبات محفوظة أو تطبيقات مرتبطة بها. هذا الإجراء لا يمكن التراجع عنه.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>لا تُحذف القوالب. لا يمكن حذف إلا الفرق التي ليس لديها مناوبات محفوظة أو تطبيقات مرتبطة. هذا الإجراء غير قابل للتراجع.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>نقطة بداية الجدولة:</value>
@@ -109,4 +100,7 @@
     <value>عرض جدول المناوبات</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>عدد الأفراد في كل مناوبة</value>
+  </data>
 </root>

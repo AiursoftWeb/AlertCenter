@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>टीम संपादित करें</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>घंटे</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>घंटे · न्यूनतम विश्राम</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>सदस्यों को प्रबंधित करें</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>शेड्यूल खोलें</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>प्रति शिफ्ट</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>टेम्पलेट जुड़ा नहीं है; मैन्युअल शेड्यूलिंग अभी भी उपलब्ध है।</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>नियम टेम्पलेट असाइन नहीं है; शेड्यूलिंग मैन्युअल रूप से अभी भी की जा सकती है।</value>
+  <data name="Template:" xml:space="preserve">
+    <value>टेम्पलेट:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>नियम टेम्पलेट:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>नियम टेम्पलेट हटाए नहीं जा सकते। केवल उन्हीं टीमों को हटाया जा सकता है जिनकी कोई शिफ़्ट सहेजी नहीं गई है और जिनसे कोई ऐप्लिकेशन जुड़ा नहीं है। इस कार्रवाई को पूर्ववत नहीं किया जा सकता।</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>टेम्पलेट नहीं हटाए जाते। केवल वे टीमें हटाई जा सकती हैं जिनकी कोई शिफ्ट सहेजी नहीं गई है और कोई एप्लिकेशन जुड़ा नहीं है। यह कार्रवाई वापस नहीं ली जा सकती।</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>शेड्यूलिंग प्रारंभ बिंदु:</value>
@@ -109,4 +100,7 @@
     <value>ऑन-कॉल शेड्यूल देखें</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>प्रति शिफ्ट कर्मचारी</value>
+  </data>
 </root>

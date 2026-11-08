@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Akcja</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>Przypisz automatycznie</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>Przypięte, nie można usunąć</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>Potwierdź usunięcie</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>Potwierdź usunięcie reguły</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>Potwierdź usunięcie szablonu</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>Utwórz regułę</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>Utwórz szablon</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Usuń</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>Usuń regułę harmonogramu</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>Usuń szablon harmonogramu</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edytuj</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>godzin</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Określ podział i rotację zmian do automatycznego przedłużania i generowania harmonogramów zespołów jednym kliknięciem. Zmiana szablonu nie wpływa na zaplanowane zmiany.</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>Zarządzaj szablonami zasad współużywanymi przez wiele zespołów. Modyfikacja szablonu nie powoduje ponownego wygenerowania zapisanych zmian.</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>Min</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>Brak zapisanych szablonów zasad. Najpierw utwórz szablon, a następnie pozwól zespołom go przypisać i korzystać z niego.</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Brak zapisanych szablonów. Najpierw utwórz szablon, a następnie przypisz go do zespołu.</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Można usuwać tylko szablony nieprzypisane do zespołów. Zapisane zmiany i historia zespołów nie zostaną usunięte; usuniętych szablonów nie można odzyskać.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>osoby</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>osób · Cel</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Najpierw odłącz szablon od wszystkich zespołów.</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>Zapisano regułę</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>Zapisane szablony</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>Szablon reguły</value>
+  <data name="Template" xml:space="preserve">
+    <value>Szablon</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>Zasady harmonogramowania</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>Zmiana / przerwa</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>Szablony harmonogramów</value>
   </data>
   <data name="Teams using" xml:space="preserve">
-    <value>Zespoły używające</value>
+    <value>Korzystające zespoły</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>Zobacz zasady</value>
+  <data name="View template" xml:space="preserve">
+    <value>Zobacz szablon</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Stały czas trwania: {0} minut</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Piątek</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Poniedziałek</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Zwykła kolejka</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Strategia rotacji</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sobota</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Tryb podziału</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Osoby na zmianę</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Niedziela</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Zamieniaj sąsiednich członków co drugą rundę w zespołach o parzystej liczbie osób</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Czwartek</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Wtorek</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Środa</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Cotygodniowe punkty przekazania</value>
+  </data>
 </root>

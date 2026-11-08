@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>Auto-assign</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>In use, cannot be deleted</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>Confirm deletion</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>Confirm deletion of rule</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>Confirm template deletion</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>Create rule</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>Create Template</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>Delete scheduling rule</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>Delete scheduling template</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>hours</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts.</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts.</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>Min</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>No saved rule templates yet. Create a template first, then have the team link to it and use it.</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>No saved templates yet. Create a template first, then have the team bind and use it.</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Only templates that are not bound to teams can be deleted. Saved shifts and team history will not be deleted; deleted templates cannot be recovered.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>people</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>people · target</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Please unbind the template from all teams first.</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>Rule saved</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>Saved templates</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>Rule template</value>
+  <data name="Template" xml:space="preserve">
+    <value>Template</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>Scheduling rules</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>Shift / Break</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>Scheduling Templates</value>
   </data>
   <data name="Teams using" xml:space="preserve">
     <value>Teams using</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>View rules</value>
+  <data name="View template" xml:space="preserve">
+    <value>View template</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Fixed duration: {0} minutes</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Pure queue</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Rotation strategy</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Split mode</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Staff per shift</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Swap adjacent members on alternate rounds for even-sized teams</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Weekly handover points</value>
+  </data>
 </root>

@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>कार्रवाई</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>स्वचालित रूप से असाइन करें</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>टीम से जुड़ा है, हटाया नहीं जा सकता</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>हटाने की पुष्टि करें</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>नियम हटाने की पुष्टि करें</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>टेम्पलेट हटाने की पुष्टि करें</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>नियम बनाएँ</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>टेम्पलेट बनाएँ</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>हटाएँ</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>शेड्यूलिंग नियम हटाएँ</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>शेड्यूलिंग टेम्पलेट हटाएँ</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>संपादित करें</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>घंटे</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>टीम के शेड्यूल का स्वचालित विस्तार और एक क्लिक में निर्माण करने के लिए शिफ्ट का विभाजन और रोटेशन तय करें। टेम्पलेट बदलने से पहले से निर्धारित शिफ्ट प्रभावित नहीं होतीं।</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>एकाधिक टीमों द्वारा साझा किए जाने वाले नियम टेम्पलेट प्रबंधित करें। किसी टेम्पलेट में बदलाव करने से पहले से सहेजी गई शिफ़्ट फिर से नहीं बनतीं।</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>न्यूनतम</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>अभी तक कोई नियम टेम्पलेट सहेजा नहीं गया है। पहले एक टेम्पलेट बनाएँ, फिर टीम से उसे जोड़कर इस्तेमाल करवाएँ।</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>अभी कोई टेम्पलेट सहेजा नहीं गया है। पहले टेम्पलेट बनाएँ, फिर टीम उसे जोड़कर उपयोग कर सकती है।</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>केवल वे टेम्पलेट हटाए जा सकते हैं जो किसी टीम से जुड़े नहीं हैं। टीमों की सहेजी गई शिफ़्ट और हिस्ट्री नहीं हटाई जाएँगी; हटाए गए टेम्पलेट वापस नहीं लाए जा सकते।</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>लोग</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>लोग · लक्ष्य</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>कृपया पहले सभी टीमों से टेम्पलेट का बंधन हटाएँ।</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>नियम सहेजा गया</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>सहेजे गए टेम्पलेट</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>नियम टेम्पलेट</value>
+  <data name="Template" xml:space="preserve">
+    <value>टेम्पलेट</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>शेड्यूलिंग नियम</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>शिफ्ट / ब्रेक</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>शेड्यूलिंग टेम्पलेट</value>
   </data>
   <data name="Teams using" xml:space="preserve">
     <value>उपयोग करने वाली टीमें</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>नियम देखें</value>
+  <data name="View template" xml:space="preserve">
+    <value>टेम्पलेट देखें</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>निश्चित अवधि: {0} मिनट</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>शुक्रवार</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>सोमवार</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>साधारण कतार</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>रोटेशन रणनीति</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>शनिवार</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>विभाजन मोड</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>प्रति शिफ्ट कर्मचारी</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>रविवार</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>सम संख्या वाली टीमों में हर दूसरे चक्र में आस-पास के सदस्यों की अदला-बदली करें</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>गुरुवार</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>मंगलवार</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>बुधवार</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>साप्ताहिक कार्यभार हस्तांतरण बिंदु</value>
+  </data>
 </root>

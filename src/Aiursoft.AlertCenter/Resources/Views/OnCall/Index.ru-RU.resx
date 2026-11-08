@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Действие</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>Автоматически</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>Привязано, удаление невозможно</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>Подтвердить удаление</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>Подтвердите удаление правила</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>Подтвердить удаление шаблона</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>Создать правило</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>Создать шаблон</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>Удалить правило расписания</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>Удалить шаблон расписания</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>часов</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Задайте разделение и чередование смен для автоматического продления расписания команд и генерации одним нажатием. Изменение шаблона не влияет на уже запланированные смены.</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>Управляйте шаблонами правил, используемыми несколькими командами. Изменение шаблона не приводит к повторной генерации сохранённых смен.</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>Мин.</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>Сохранённых шаблонов правил пока нет. Сначала создайте шаблон, затем попросите команду привязать его и использовать.</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Сохранённых шаблонов пока нет. Сначала создайте шаблон, затем привяжите его к команде для использования.</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Можно удалять только шаблоны, не привязанные к командам. Сохранённые смены и история команд не удаляются; удалённые шаблоны нельзя восстановить.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>чел.</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>чел. · Цель</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Сначала отвяжите шаблон от всех команд.</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>Правило сохранено</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>Сохранённые шаблоны</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>Шаблон правила</value>
+  <data name="Template" xml:space="preserve">
+    <value>Шаблон</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>Правила планирования</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>Смена / перерыв</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>Шаблоны расписания</value>
   </data>
   <data name="Teams using" xml:space="preserve">
-    <value>Команды, использующие правило</value>
+    <value>Использующие команды</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>Просмотреть правила</value>
+  <data name="View template" xml:space="preserve">
+    <value>Просмотреть шаблон</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Фиксированная длительность: {0} мин.</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Пятница</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Понедельник</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Простая очередь</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Стратегия ротации</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Суббота</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Способ разделения</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Сотрудников на смену</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Воскресенье</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Менять соседних участников местами через раунд в командах с чётным числом участников</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Четверг</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Вторник</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Среда</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Еженедельные точки передачи дежурства</value>
+  </data>
 </root>

@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>El número mínimo de empleados por turno debe ser de 1 a 200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>El equipo aún no tiene ninguna regla asignada. Puedes crear un calendario manualmente.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>El equipo aún no tiene una plantilla vinculada. Puedes crear un horario manualmente.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Introduce el nombre de la regla.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Introduce el nombre de la plantilla.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Introduce el nombre del equipo.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Selecciona una hora de inicio UTC válida (debe estar al menos a 28 días del límite de fecha).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Selecciona una regla de guardia existente.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Selecciona una plantilla de turnos existente.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>La regla de programación se ha creado correctamente.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Plantilla de turnos creada correctamente.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Regla de programación eliminada.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Plantilla de turnos eliminada.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Regla de planificación actualizada.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Plantilla de turnos actualizada.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>El número objetivo de personas no puede ser inferior al mínimo y debe estar entre 1 y 200. Déjalo en blanco para asignarlo automáticamente.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Equipo actualizado.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>La regla o el equipo han cambiado. Actualiza la página y vuelve a intentarlo.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>La plantilla o el equipo han cambiado. Actualiza la página e inténtalo de nuevo.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>El horario ha cambiado o se ha producido un conflicto al guardar. Actualiza la página y vuelve a intentarlo.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Hay {0} turnos sin asignar esta semana. Asigna manualmente al personal de guardia.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Esta regla sigue vinculada a un equipo. Actualiza primero la vinculación de la regla al equipo.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Esta plantilla sigue vinculada a un equipo. Actualiza primero la vinculación de plantilla del equipo.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Este equipo tiene turnos guardados y no se puede eliminar junto con su historial.</value>

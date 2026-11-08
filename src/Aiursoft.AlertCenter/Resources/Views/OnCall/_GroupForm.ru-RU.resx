@@ -66,8 +66,8 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Справка: часовой пояс команды</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>Несколько команд могут использовать один и тот же шаблон. Переключение на другой шаблон или его изменение не приведёт к повторному созданию сохранённых смен.</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Задайте разделение и чередование смен для автоматического продления расписания команд и генерации одним нажатием. Изменение шаблона не влияет на уже запланированные смены.</value>
   </data>
   <data name="Name or Account" xml:space="preserve">
     <value>Имя или учётная запись</value>
@@ -102,8 +102,8 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>Сохранение удалит этих участников из смен, которые ещё не начались. Проверьте расписание на наличие пропусков.</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>Шаблон правила расписания</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>Шаблон расписания</value>
   </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Точка начала расписания (UTC)</value>

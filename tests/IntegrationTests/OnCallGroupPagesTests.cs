@@ -46,7 +46,7 @@ public class OnCallGroupPagesTests : TestBase
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync(location));
         Assert.Contains("Team created successfully", details);
         Assert.Contains("Operations", details);
-        Assert.Contains("Rule template not bound; manual scheduling is still available", details);
+        Assert.Contains("Template not bound; manual scheduling is still available", details);
         Assert.Contains($"/OnCall/ScheduleDetails/{id}", details);
         Assert.Contains("/OnCall/GroupEdit/", details);
         Assert.DoesNotContain("Team created successfully", await Http.GetStringAsync(location));

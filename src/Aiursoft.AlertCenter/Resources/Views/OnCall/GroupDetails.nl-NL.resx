@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Team bewerken</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>uren</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>uur · Minimale rust</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Leden beheren</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Rooster openen</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Per dienst</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Geen sjabloon gekoppeld; handmatig plannen is nog steeds mogelijk.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Geen regelsjabloon gekoppeld; handmatig plannen is nog steeds mogelijk.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Sjabloon:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Regelsjabloon:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Regelsjablonen kunnen niet worden verwijderd. Alleen teams zonder opgeslagen diensten en zonder gekoppelde applicaties kunnen worden verwijderd. Deze actie kan niet ongedaan worden gemaakt.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Sjablonen worden niet verwijderd. Alleen teams zonder opgeslagen diensten en gekoppelde applicaties kunnen worden verwijderd. Deze actie kan niet ongedaan worden gemaakt.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Beginpunt van het rooster:</value>
@@ -109,4 +100,7 @@
     <value>Dienstrooster bekijken</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Medewerkers per dienst</value>
+  </data>
 </root>

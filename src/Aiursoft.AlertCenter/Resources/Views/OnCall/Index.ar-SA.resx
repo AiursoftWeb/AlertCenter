@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>الإجراء</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>تعيين تلقائي</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>مربوط، لا يمكن حذفه</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>تأكيد الحذف</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>تأكيد حذف القاعدة</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>تأكيد حذف القالب</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>إنشاء قاعدة</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>إنشاء قالب</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>حذف</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>حذف قاعدة الجدولة</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>حذف قالب الجدولة</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>تعديل</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>ساعات</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>حدّد كيفية تقسيم المناوبات وتدويرها لتمديد جداول الفرق تلقائيًا وإنشائها بنقرة واحدة. لا يؤثر تغيير القالب على المناوبات المجدولة.</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>إدارة قوالب القواعد المشتركة بين عدة فرق. تعديل أحد القوالب لا يؤدي إلى إنشاء المناوبات المحفوظة من جديد.</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>حد أدنى</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>لا توجد قوالب قواعد محفوظة بعد. قم بإنشاء قالب أولاً، ثم اطلب من الفريق ربطه واستخدامه.</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>لا توجد قوالب محفوظة بعد. أنشئ قالبًا أولًا ثم اربطه بالفريق لاستخدامه.</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>لا يمكن حذف سوى القوالب غير المرتبطة بالفرق. لن تُحذف الورديات المحفوظة وسجل الفرق؛ ولا يمكن استعادة القوالب المحذوفة.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>أشخاص</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>الأشخاص · المستهدف</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>يرجى إلغاء ربط القالب من جميع الفرق أولاً.</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>تم حفظ القاعدة</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>القوالب المحفوظة</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>قالب القاعدة</value>
+  <data name="Template" xml:space="preserve">
+    <value>القالب</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>قواعد الجدولة</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>الوردية / الاستراحة</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>قوالب الجدولة</value>
   </data>
   <data name="Teams using" xml:space="preserve">
     <value>الفرق المستخدمة</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>عرض القواعد</value>
+  <data name="View template" xml:space="preserve">
+    <value>عرض القالب</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>مدة ثابتة: {0} دقيقة</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>الجمعة</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>الاثنين</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>طابور بسيط</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>استراتيجية التناوب</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>السبت</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>طريقة التقسيم</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>عدد الأفراد في كل مناوبة</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>الأحد</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>تبديل الأعضاء المتجاورين في الجولات المتناوبة للفرق ذات العدد الزوجي</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>الخميس</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>الثلاثاء</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>الأربعاء</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>نقاط تسليم أسبوعية</value>
+  </data>
 </root>

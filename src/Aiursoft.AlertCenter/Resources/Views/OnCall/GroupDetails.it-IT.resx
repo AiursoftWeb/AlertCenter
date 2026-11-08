@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Modifica il team</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>ore</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>ore · Pausa min</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Gestisci membri</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Apri pianificazione</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Per turno</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Nessun modello associato; la pianificazione manuale è ancora disponibile.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Modello di regole non associato; la pianificazione manuale è comunque disponibile.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Modello:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Modello di regola:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>I modelli di regole non possono essere eliminati. È possibile eliminare solo i team senza turni salvati né applicazioni associate. Questa azione è irreversibile.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>I modelli non vengono eliminati. È possibile eliminare solo i team senza turni salvati e applicazioni associate. L’azione è irreversibile.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Punto di partenza della pianificazione:</value>
@@ -109,4 +100,7 @@
     <value>Visualizza il calendario dei turni di reperibilità</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personale per turno</value>
+  </data>
 </root>

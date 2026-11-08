@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Acțiune</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>Atribuire automată</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>Legat, nu poate fi șters</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>Confirmare ștergere</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>Confirmați ștergerea regulii</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>Confirmă ștergerea șablonului</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>Creează regulă</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>Creează șablon</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Ștergere</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>Ștergere regulă de programare</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>Șterge șablonul de planificare</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Editează</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>ore</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Definește împărțirea și rotația turelor pentru extinderea automată și generarea cu un clic pentru echipe. Modificarea unui șablon nu afectează turele deja planificate.</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>Gestionați șabloanele de reguli partajate de mai multe echipe. Modificarea unui șablon nu regenerează turele salvate.</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>Min.</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>Niciun șablon de reguli salvat încă. Creați mai întâi un șablon, apoi permiteți echipei să îl asocieze și să îl utilizeze.</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Nu există șabloane salvate. Creează mai întâi un șablon, apoi asociază-l echipei pentru utilizare.</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Pot fi șterse doar șabloanele care nu sunt asociate echipelor. Turele salvate și istoricul echipelor nu se șterg; șabloanele șterse nu pot fi recuperate.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>persoane</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>persoane · Țintă</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Vă rugăm să dezasociați mai întâi șablonul de la toate echipele.</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>Regulă salvată</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>Șabloane salvate</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>Șablon de regulă</value>
+  <data name="Template" xml:space="preserve">
+    <value>Șablon</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>Reguli de programare</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>Tura / Pauză</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>Șabloane de planificare</value>
   </data>
   <data name="Teams using" xml:space="preserve">
-    <value>Echipe care folosesc</value>
+    <value>Echipe care folosesc șablonul</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>Vizualizați regulile</value>
+  <data name="View template" xml:space="preserve">
+    <value>Vezi șablonul</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Durată fixă: {0} minute</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Vineri</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Luni</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Coadă simplă</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Strategie de rotație</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sâmbătă</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Mod de împărțire</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personal pe tură</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Duminică</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Schimbă membrii alăturați la fiecare a doua rundă pentru echipele cu număr par de membri</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Joi</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Marți</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Miercuri</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Puncte săptămânale de predare</value>
+  </data>
 </root>

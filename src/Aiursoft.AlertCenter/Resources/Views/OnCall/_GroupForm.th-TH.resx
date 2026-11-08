@@ -66,8 +66,8 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>ช่วยเหลือ: เขตเวลาของทีม</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>หลายทีมสามารถใช้เทมเพลตเดียวกันได้ การเปลี่ยนหรือแก้ไขเทมเพลตจะไม่สร้างกะที่บันทึกไว้ใหม่</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>กำหนดวิธีแบ่งและหมุนเวียนเวรสำหรับการต่ออายุตารางอัตโนมัติและการสร้างด้วยคลิกเดียวของทีม การเปลี่ยนเทมเพลตไม่กระทบเวรที่จัดไว้แล้ว</value>
   </data>
   <data name="Name or Account" xml:space="preserve">
     <value>ชื่อหรือบัญชี</value>
@@ -102,8 +102,8 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>เมื่อบันทึก ระบบจะนำสมาชิกเหล่านี้ออกจากเวรที่ยังไม่เริ่มต้น โปรดตรวจสอบตารางเวรว่ามีช่วงที่ไม่มีผู้ปฏิบัติงานหรือไม่</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>เทมเพลตกฎการจัดตารางเวลา</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>เทมเพลตการจัดเวร</value>
   </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>จุดเริ่มต้นตารางเวร (UTC)</value>

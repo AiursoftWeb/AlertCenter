@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Edit team</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>hours</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>hours · Minimum rest</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Manage members</value>
   </data>
@@ -72,20 +66,17 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Open schedule</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Per shift</value>
-  </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>Rotate Members (Sequential)</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Rule template not linked; manual scheduling is still available.</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Template not bound; manual scheduling is still available.</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Rule template:</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Template:</value>
   </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Rule templates cannot be deleted. Only teams without saved shifts or linked applications can be deleted. This action cannot be undone.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Scheduling start point:</value>
@@ -112,4 +103,7 @@
     <value>View on-call rota</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Staff per shift</value>
+  </data>
 </root>

@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>每班次最少人数必须为 1–200。</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>该团队尚未设置规则。您可以手动创建排班表。</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>团队尚未绑定模板。您可以手动创建排班。</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>请输入规则名称。</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>请输入模板名称。</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>请输入团队名称。</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>请选择有效的 UTC 开始时间（必须至少距离日期边界 28 天）。</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>请选择一个现有的值班规则。</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>请选择现有的排班模板。</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>排班规则创建成功。</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>排班模板创建成功。</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>排班规则已删除。</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>排班模板已删除。</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>排班规则已更新。</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>排班模板已更新。</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>目标人数不能低于最低人数，且必须在 1–200 之间。留空则自动分配。</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>团队已更新。</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>规则或团队已发生变更。请刷新页面后重试。</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>模板或团队已更改。请刷新页面后重试。</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>排班已发生变化或保存时发生冲突。请刷新页面后重试。</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>本周有 {0} 个班次尚未分配。请手动填写值班人员。</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>此规则仍绑定到某个团队。请先更新该团队的规则绑定。</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>此模板仍绑定到团队。请先更新团队的模板绑定。</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>该团队已有已保存的排班记录，无法删除该团队及其历史记录。</value>

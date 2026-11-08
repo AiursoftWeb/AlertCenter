@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>แก้ไขทีม</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>ชั่วโมง</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>ชั่วโมง · พักขั้นต่ำ</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>จัดการสมาชิก</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>เปิดตารางเวร</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>ต่อหนึ่งกะ</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>ยังไม่ได้เชื่อมโยงเทมเพลต แต่ยังจัดเวรด้วยตนเองได้</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>ยังไม่ได้กำหนดเทมเพลลกฎ; สามารถกำหนดตารางเวลาแบบ manual ได้ตามปกติ</value>
+  <data name="Template:" xml:space="preserve">
+    <value>เทมเพลต:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>เทมเพลตกฎ:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>ไม่สามารถลบเทมเพลตกฎได้ สามารถลบได้เฉพาะทีมที่ไม่มีเวรที่บันทึกไว้และไม่มีแอปที่ผูกไว้เท่านั้น การดำเนินการนี้ไม่สามารถยกเลิกได้</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>เทมเพลตจะไม่ถูกลบ ลบได้เฉพาะทีมที่ไม่มีเวรที่บันทึกไว้และไม่มีแอปพลิเคชันที่เชื่อมโยง การดำเนินการนี้ไม่สามารถย้อนกลับได้</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>จุดเริ่มต้นการจัดตารางเวร:</value>
@@ -109,4 +100,7 @@
     <value>ดูตารางเวรปฏิบัติงาน</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>จำนวนคนต่อเวร</value>
+  </data>
 </root>

@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Muokkaa tiimiä</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>tuntia</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>tuntia · Min. lepaaika</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Hallitse jäseniä</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Avaa työvuorolista</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Vuoroa kohden</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Mallia ei ole liitetty; vuoroja voi edelleen suunnitella käsin.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Säännöstömallia ei ole liitetty; vuoroja voi silti suunnitella manuaalisesti.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Malli:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Säännön malli:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Sääntöpohjia ei voi poistaa. Vain tiimit, joilla ei ole tallennettuja vuoroja eikä liitettyjä sovelluksia, voidaan poistaa. Tätä toimintoa ei voi peruuttaa.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Malleja ei poisteta. Vain tiimit, joilla ei ole tallennettuja vuoroja eikä liitettyjä sovelluksia, voidaan poistaa. Toimintoa ei voi perua.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Aikataulun aloituskohta:</value>
@@ -109,4 +100,7 @@
     <value>Näytä päivystysvuorot</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Henkilöitä vuorossa</value>
+  </data>
 </root>

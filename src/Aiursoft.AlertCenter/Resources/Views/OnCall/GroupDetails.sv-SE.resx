@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Redigera team</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>timmar</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>timmar · Minsta vilotid</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Hantera medlemmar</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Öppna schema</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Per skift</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Ingen mall är kopplad; manuell schemaläggning är fortfarande tillgänglig.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Regelmall ej kopplad; manuell schemaläggning är fortfarande tillgänglig.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Mall:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Regelmall:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Regelmallar kan inte tas bort. Endast team utan sparade skift och utan bundna applikationer kan tas bort. Denna åtgärd är irreversibel.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Mallar tas inte bort. Endast team utan sparade pass och kopplade applikationer kan tas bort. Åtgärden kan inte ångras.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Schemaläggningens startpunkt:</value>
@@ -109,4 +100,7 @@
     <value>Visa beredskapsschemat</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personal per pass</value>
+  </data>
 </root>

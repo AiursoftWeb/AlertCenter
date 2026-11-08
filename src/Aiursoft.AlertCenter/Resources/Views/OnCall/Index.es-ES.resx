@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Acción</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>Asignación automática</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>Vinculada, no se puede eliminar</value>
   </data>
@@ -36,62 +33,89 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>Confirmar eliminación</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>Confirmar la eliminación de la regla</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>Confirmar eliminación de la plantilla</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>Crear regla</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>Crear plantilla</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Eliminar</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>Eliminar regla de programación</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>Eliminar plantilla de turnos</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Editar</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>horas</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Define cómo se dividen y rotan los turnos para la ampliación automática y la generación con un clic de los equipos. Cambiar una plantilla no afecta a los turnos ya programados.</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>Gestiona las plantillas de reglas compartidas por varios equipos. Modificar una plantilla no vuelve a generar los turnos guardados.</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>Mín.</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>Todavía no hay plantillas de reglas guardadas. Crea primero una plantilla y, después, haz que el equipo la asigne y la utilice.</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>Aún no hay plantillas guardadas. Crea una plantilla y después vincúlala al equipo para usarla.</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Solo se pueden eliminar las plantillas que no estén vinculadas a equipos. Los turnos guardados y el historial de los equipos no se eliminarán; las plantillas eliminadas no se pueden recuperar.</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>personas</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>personas · Objetivo</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Por favor, desvincule primero la plantilla de todos los equipos.</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>Regla guardada</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>Plantillas guardadas</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>Plantilla de reglas</value>
+  <data name="Template" xml:space="preserve">
+    <value>Plantilla</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>Reglas de planificación</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>Turno / Descanso</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>Plantillas de turnos</value>
   </data>
   <data name="Teams using" xml:space="preserve">
-    <value>Equipos que la utilizan</value>
+    <value>Equipos que la usan</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>Ver reglas</value>
+  <data name="View template" xml:space="preserve">
+    <value>Ver plantilla</value>
   </data>
 
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>Duración fija: {0} minutos</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Viernes</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Lunes</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>Cola simple</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>Estrategia de rotación</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sábado</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>Modo de división</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personal por turno</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Domingo</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>Intercambiar miembros adyacentes en rondas alternas en equipos de tamaño par</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Jueves</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Martes</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Miércoles</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>Puntos de relevo semanales</value>
+  </data>
 </root>

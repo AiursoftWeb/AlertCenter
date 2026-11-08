@@ -35,7 +35,7 @@ On an empty database, the default local account is `admin@default.com` with pass
 
 - Independent API keys, idempotent reporting, and five severity levels (`sev0` through `sev4`).
 - Independent incidents, acknowledgement, ownership, mitigation, resolution, and Markdown discussions.
-- On-call teams, reusable scheduling rules, and an interactive Gantt editor with coverage, overlap and rest reminders.
+- On-call teams, reusable scheduling templates that define shift splitting and rotation for automatic extension and one-click generation, and an interactive Gantt editor with coverage, overlap and rest reminders. Changing a template does not affect scheduled shifts.
 - Severity-based notification routing, personal inboxes, and delivery history.
 - Application owners grant users and roles access to incidents, API keys, and application settings. Platform permissions control application creation and shared on-call/push administration; application managers can bind any visible on-call team.
 - SQLite for standalone use, MySQL support, and local or OIDC authentication through [Aiursoft Template](https://github.com/AiursoftWeb/template).
@@ -115,7 +115,7 @@ On that page, generate a private iCal subscription covering the past 30 days and
 Platform capabilities use `Permission` claims. Roles collect permissions; the name `Administrators` does not grant privileges by itself.
 
 - `CanManageApplications` permits creating applications. It does not bypass per-application ownership or user/role grants.
-- `CanManageOnCall` permits managing teams, scheduling rules, and schedules. Saved shifts determine the current on-call engineers (OCEs); a rule preview alone does not provide coverage.
+- `CanManageOnCall` permits managing teams, scheduling templates, and schedules. Saved shifts determine the current on-call engineers (OCEs); a template preview alone does not provide coverage.
 - `CanManagePush` permits managing channels and sensitive delivery configuration. A user's channel binding access and recipient membership are separate; binding a channel also requires application manage access.
 
 Only the application owner or users explicitly granted incident update permission may handle an incident. OCE duty and incident assignment do not grant access. A view grant alone does not permit incident handling. Default identity initialization runs only when both users and roles are empty; restarting an existing installation does not restore revoked permissions or grant newly introduced permissions.

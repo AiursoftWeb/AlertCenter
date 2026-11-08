@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Modifier l&apos;équipe</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>heures</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>heures · Repos min.</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Gérer les membres</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Ouvrir le planning</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Par poste</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Aucun modèle associé ; la planification manuelle reste disponible.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Aucun modèle de règle n’est associé ; la planification manuelle reste disponible.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Modèle :</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Modèle de règle :</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Les modèles de règles ne peuvent pas être supprimés. Seules les équipes sans plage de garde enregistrée ni application associée peuvent être supprimées. Cette action est irréversible.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Les modèles ne sont pas supprimés. Seules les équipes sans vacation enregistrée ni application associée peuvent être supprimées. Cette action est irréversible.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Début de la planification :</value>
@@ -109,4 +100,7 @@
     <value>Voir le planning de garde</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personnel par vacation</value>
+  </data>
 </root>

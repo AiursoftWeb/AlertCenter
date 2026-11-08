@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Minsta bemanning per skift måste vara 1–200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Inga regler är kopplade till teamet ännu. Du kan skapa ett schema manuellt.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Ingen mall har kopplats till teamet ännu. Du kan skapa ett schema manuellt.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Ange namnet på regeln.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Ange mallens namn.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Ange teamnamnet.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Välj en giltig starttid i UTC (måste ligga minst 28 dagar från datumgränsen).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Välj en befintlig jourregel.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Välj en befintlig schemamall.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Schemaläggningsregeln har skapats.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Schemamallen har skapats.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Schemaläggningsregeln har tagits bort.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Schemamallen har tagits bort.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Schemaläggningsregeln har uppdaterats.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Schemamallen har uppdaterats.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Målantalet får inte vara lägre än minimantalet och måste vara mellan 1 och 200. Lämna tomt för automatisk tilldelning.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Teamet har uppdaterats.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Regeln eller teamet har ändrats. Uppdatera sidan och försök igen.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Mallen eller teamet har ändrats. Uppdatera sidan och försök igen.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Schemat har ändrats eller ett sparningsfel har inträffat. Uppdatera sidan och försök igen.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Det finns {0} obemannade pass den här veckan. Fyll i jourpersonal manuellt.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Regeln är fortfarande kopplad till ett team. Uppdatera teamets regelkoppling först.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Den här mallen är fortfarande kopplad till ett team. Uppdatera först teamets mallkoppling.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Det här teamet har sparade scheman och kan inte tas bort tillsammans med sin historik.</value>

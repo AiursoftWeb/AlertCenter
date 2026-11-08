@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Редагувати команду</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>годин</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>год · Мінімальний відпочинок</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Керування учасниками</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Відкрити розклад</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>На зміну</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Шаблон не прив’язано; ручне планування залишається доступним.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Шаблон правила не прив’язано; планування вручну все ще доступне.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Шаблон:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Шаблон правила:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Шаблони правил не можна видалити. Видалити можна лише команди, які не мають збережених змін і не мають прив&apos;язаних додатків. Ця дія є незворотною.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Шаблони не видаляються. Можна видалити лише команди без збережених змін і прив’язаних застосунків. Цю дію неможливо скасувати.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Початок планування:</value>
@@ -109,4 +100,7 @@
     <value>Переглянути графік чергувань</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Працівників на зміну</value>
+  </data>
 </root>

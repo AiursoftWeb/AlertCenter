@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Rediger team</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>timer</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>timer · Min hvile</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Administrér medlemmer</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Åbn vagtplanen</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Pr. vagt</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Ingen skabelon tilknyttet; manuel planlægning er stadig mulig.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Regelskabelon ikke tilknyttet; manuel planlægning er stadig mulig.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Skabelon:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Regelskabelon:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Regelmalinger kan ikke slettes. Kun hold uden gemte vagter og uden bundede applikationer kan slettes. Denne handling er uomvendelig.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Skabeloner slettes ikke. Kun hold uden gemte vagter og tilknyttede applikationer kan slettes. Handlingen kan ikke fortrydes.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Planlægningsstartpunkt:</value>
@@ -109,4 +100,7 @@
     <value>Se vagtplanen for tilkaldevagt</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personer pr. vagt</value>
+  </data>
 </root>

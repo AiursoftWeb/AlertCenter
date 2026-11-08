@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Numărul minim de angajați pe tură trebuie să fie între 1 și 200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Încă nu există reguli asociate echipei. Puteți crea manual un program.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Echipa nu are încă un șablon asociat. Poți crea manual un program.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Vă rugăm să introduceți numele regulii.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Introdu numele șablonului.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Vă rugăm să introduceți numele echipei.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Selectați o oră de început UTC validă (trebuie să fie la cel puțin 28 de zile de limita datei).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Selectați o regulă de permanență existentă.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Selectează un șablon de planificare existent.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Regula de planificare a fost creată cu succes.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Șablonul de planificare a fost creat cu succes.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Regula de programare a fost ștearsă.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Șablonul de planificare a fost șters.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Regula de planificare a fost actualizată.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Șablonul de planificare a fost actualizat.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Numărul țintă de persoane nu poate fi mai mic decât numărul minim și trebuie să fie între 1 și 200. Lăsați necompletat pentru alocarea automată.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Echipa a fost actualizată.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Regula sau echipa s-a modificat. Reîmprospătați pagina și încercați din nou.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Șablonul sau echipa s-a modificat. Reîncarcă pagina și încearcă din nou.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Programul s-a modificat sau a apărut un conflict la salvare. Reîmprospătați pagina și încercați din nou.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Săptămâna aceasta există {0} ture neacoperite. Vă rugăm să repartizați manual personalul de permanență.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Această regulă este încă asociată unei echipe. Actualizați mai întâi asocierea regulii cu echipa.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Acest șablon este încă asociat unei echipe. Actualizează mai întâi asocierea șablonului echipei.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Această echipă are programe salvate și nu poate fi ștearsă împreună cu istoricul său.</value>

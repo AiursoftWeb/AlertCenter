@@ -42,11 +42,11 @@
         <p>@Localizer["Scheduling start point: "]@group.AnchorUtc.ToString("yyyy-MM-dd HH:mm") UTC</p>
         @if (group.Rule != null)
         {
-            <p>@Localizer["Rule template:"]<a asp-action="Details" asp-route-id="@group.Rule.Id">@group.Rule.Name</a> · @Localizer["Per shift "]@group.Rule.ShiftHours @Localizer["hours · Min rest "]@group.Rule.RestHours @Localizer["hours"]</p>
+            <p>@Localizer["Template:"]<a asp-action="Details" asp-route-id="@group.Rule.Id">@group.Rule.Name</a> · @Localizer["Staff per shift"]: @group.Rule.StaffPerShift</p>
         }
         else
         {
-            <p class="text-muted">@Localizer["Rule template not bound; manual scheduling is still available."]</p>
+            <p class="text-muted">@Localizer["Template not bound; manual scheduling is still available."]</p>
         }
         <p class="small text-muted">@Localizer["Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts."]</p>
         @if (Model.CanManageOnCall)
@@ -110,7 +110,7 @@
                     <div class="modal-body">
                         <p>@Localizer["Confirm team deletion"] <strong class="text-break">@group.Name</strong>？</p>
                         <div class="alert alert-warning mb-0" id="delete-oncall-group-description" role="alert">
-                            <div class="alert-message">@Localizer["Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible."]</div>
+                            <div class="alert-message">@Localizer["Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible."]</div>
                         </div>
                     </div>
                     <div class="modal-footer">

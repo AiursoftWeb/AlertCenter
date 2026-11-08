@@ -45,12 +45,6 @@
   <data name="Edit team" xml:space="preserve">
     <value>Редактировать команду</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>часов</value>
-  </data>
-  <data name="hours · Min rest " xml:space="preserve">
-    <value>часов · минимальный отдых</value>
-  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Управление участниками</value>
   </data>
@@ -72,17 +66,14 @@
   <data name="Open schedule" xml:space="preserve">
     <value>Открыть расписание</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>За смену</value>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Шаблон не привязан; ручное планирование по-прежнему доступно.</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Шаблон правила не привязан; планирование вручную по-прежнему доступно.</value>
+  <data name="Template:" xml:space="preserve">
+    <value>Шаблон:</value>
   </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Шаблон правил:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Шаблоны правил нельзя удалить. Удаление возможно только для команд без сохранённых смен и без привязанных приложений. Это действие необратимо.</value>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Шаблоны не удаляются. Можно удалить только команды без сохранённых смен и привязанных приложений. Это действие необратимо.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Начало расписания:</value>
@@ -109,4 +100,7 @@
     <value>Посмотреть график дежурств</value>
   </data>
 
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Сотрудников на смену</value>
+  </data>
 </root>

@@ -51,7 +51,7 @@ public class OnCallRulePagesTests : TestBase
         Assert.DoesNotContain("id=\"oncall-schedule\"", scheduleList);
 
         var create = await Http.GetStringAsync("/OnCall/Create");
-        Assert.Contains("Create Scheduling Rule", create);
+        Assert.Contains("Create Scheduling Template", create);
         Assert.Contains("action=\"/OnCall/SaveRule\"", create);
         Assert.Contains("name=\"RuleInput.Name\"", create);
         Assert.Contains("name=\"RuleInput.StaffPerShift\"", create);
@@ -67,7 +67,7 @@ public class OnCallRulePagesTests : TestBase
         Assert.DoesNotContain("oncall-member-search.js", create);
 
         var edit = await Http.GetStringAsync($"/OnCall/Edit/{ruleId}");
-        Assert.Contains("Edit scheduling rules", edit);
+        Assert.Contains("Edit scheduling template", edit);
         Assert.Contains("action=\"/OnCall/SaveRule\"", edit);
         Assert.Contains("name=\"RuleInput.Id\"", edit);
         Assert.Contains("Day shift", edit);
@@ -75,7 +75,9 @@ public class OnCallRulePagesTests : TestBase
 
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{ruleId}"));
         Assert.Contains("Day shift", details);
-        Assert.Contains("Rule configuration", details);
+        Assert.Contains("Template configuration", details);
+        Assert.Contains("Fixed duration: 480 minutes", details);
+        Assert.DoesNotContain("Min rest", details);
         Assert.Contains($"/OnCall/ScheduleDetails/{groupId}", details);
         Assert.Contains("Teams using this template", details);
         Assert.DoesNotContain("7-day on-call preview", details);

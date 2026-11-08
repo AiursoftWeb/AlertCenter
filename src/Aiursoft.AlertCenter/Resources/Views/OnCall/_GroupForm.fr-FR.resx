@@ -66,8 +66,8 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Aide : fuseau horaire de l&apos;équipe</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>Plusieurs équipes peuvent partager le même modèle. Le fait de changer de modèle ou de le modifier ne régénérera pas les rotations déjà enregistrées.</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Définissez le découpage et la rotation des vacations pour la prolongation automatique et la génération en un clic des plannings des équipes. Modifier un modèle ne change pas les vacations déjà planifiées.</value>
   </data>
   <data name="Name or Account" xml:space="preserve">
     <value>Nom ou compte</value>
@@ -102,8 +102,8 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>Enregistrez les modifications pour retirer ces membres des vacations qui n&apos;ont pas encore commencé. Vérifiez le planning pour détecter les éventuelles lacunes.</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>Modèle de règle de planification</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>Modèle de planning</value>
   </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Point de départ de la planification (UTC)</value>

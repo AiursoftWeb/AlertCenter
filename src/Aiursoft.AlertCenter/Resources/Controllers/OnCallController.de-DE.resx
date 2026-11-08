@@ -36,11 +36,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>Die Mindestbesetzung pro Schicht muss zwischen 1 und 200 liegen.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Dem Team sind noch keine Regeln zugeordnet. Sie können manuell einen Dienstplan erstellen.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Dem Team ist noch keine Vorlage zugewiesen. Sie können einen Dienstplan manuell erstellen.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Bitte geben Sie den Regelnamen ein.</value>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Bitte geben Sie den Vorlagennamen ein.</value>
   </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Bitte geben Sie den Teamnamen ein.</value>
@@ -51,17 +51,17 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Bitte wählen Sie eine gültige UTC-Startzeit aus (sie muss mindestens 28 Tage vom Datumsgrenzwert entfernt liegen).</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Bitte wählen Sie eine vorhandene Bereitschaftsregel aus.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Bitte wählen Sie eine vorhandene Dienstplanvorlage aus.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Planungsregel erfolgreich erstellt.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Dienstplanvorlage erfolgreich erstellt.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Planungsregel gelöscht.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Dienstplanvorlage gelöscht.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Planungsregel aktualisiert.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Dienstplanvorlage aktualisiert.</value>
   </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Die Zielbesetzung darf nicht unter dem Mindestwert liegen und muss zwischen 1 und 200 liegen. Für eine automatische Zuweisung leer lassen.</value>
@@ -75,8 +75,8 @@
   <data name="Team updated." xml:space="preserve">
     <value>Team aktualisiert.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>Die Regel oder das Team wurde geändert. Aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>Die Vorlage oder das Team wurde geändert. Aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
   </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>Der Zeitplan wurde geändert oder es ist ein Speicherkonflikt aufgetreten. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
@@ -93,8 +93,8 @@
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Diese Woche gibt es {0} nicht zugewiesene Schichten. Bitte tragen Sie das Bereitschaftspersonal manuell ein.</value>
   </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Diese Regel ist noch einem Team zugeordnet. Bitte aktualisieren Sie zuerst die Regelzuordnung des Teams.</value>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Diese Vorlage ist noch einem Team zugewiesen. Aktualisieren Sie zuerst die Vorlagenzuweisung des Teams.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Für dieses Team sind Zeitpläne gespeichert; es kann daher nicht gelöscht werden, ohne auch den Verlauf zu löschen.</value>

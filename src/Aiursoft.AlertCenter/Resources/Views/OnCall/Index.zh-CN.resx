@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>操作</value>
   </data>
-  <data name="Auto-assign" xml:space="preserve">
-    <value>自动分配</value>
-  </data>
   <data name="Bound, cannot be deleted" xml:space="preserve">
     <value>已绑定，无法删除</value>
   </data>
@@ -36,65 +33,85 @@
   <data name="Confirm deletion" xml:space="preserve">
     <value>确认删除</value>
   </data>
-  <data name="Confirm rule deletion" xml:space="preserve">
-    <value>确认删除规则</value>
+  <data name="Confirm template deletion" xml:space="preserve">
+    <value>确认删除模板</value>
   </data>
-  <data name="Create Rule" xml:space="preserve">
-    <value>创建规则</value>
+  <data name="Create Template" xml:space="preserve">
+    <value>创建模板</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
-  <data name="Delete scheduling rule" xml:space="preserve">
-    <value>删除排班规则</value>
+  <data name="Delete scheduling template" xml:space="preserve">
+    <value>删除排班模板</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>编辑</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>小时</value>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>定义班段怎么切、怎么轮换，供团队自动续排和一键生成使用；修改模板不影响已排好的班段。</value>
   </data>
-  <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
-    <value>管理多个团队共用的规则模板。修改模板不会重新生成已保存的班次。</value>
-  </data>
-  <data name="Min " xml:space="preserve">
-    <value>最低</value>
-  </data>
-  <data name="No saved rule templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
-    <value>暂无已保存的规则模板。请先创建模板，然后让团队绑定并使用。</value>
+  <data name="No saved templates yet. Create a template first, then have the team bind and use it." xml:space="preserve">
+    <value>暂无已保存的模板。请先创建模板，然后让团队绑定并使用。</value>
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>只有未绑定到团队的模板才能删除。团队已保存的班次和历史记录不会被删除；已删除的模板无法恢复。</value>
   </data>
-  <data name="people" xml:space="preserve">
-    <value>人</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>人 · 目标</value>
-  </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>请先解除该模板与所有团队的绑定。</value>
   </data>
-  <data name="Rule saved" xml:space="preserve">
-    <value>规则已保存</value>
+  <data name="Saved templates" xml:space="preserve">
+    <value>已保存的模板</value>
   </data>
-  <data name="Rule template" xml:space="preserve">
-    <value>规则模板</value>
+  <data name="Template" xml:space="preserve">
+    <value>模板</value>
   </data>
-  <data name="Scheduling Rules" xml:space="preserve">
-    <value>排班规则</value>
-  </data>
-  <data name="Shift / Break" xml:space="preserve">
-    <value>轮班 / 休息</value>
+  <data name="Scheduling Templates" xml:space="preserve">
+    <value>排班模板</value>
   </data>
   <data name="Teams using" xml:space="preserve">
-    <value>使用该规则的团队</value>
+    <value>使用的团队</value>
   </data>
-  <data name="View rules" xml:space="preserve">
-    <value>查看规则</value>
+  <data name="View template" xml:space="preserve">
+    <value>查看模板</value>
   </data>
 
   <data name="Weekly handover points" xml:space="preserve"><value>每周交接点</value></data>
-  <data name="minutes" xml:space="preserve"><value>分钟</value></data>
   <data name="Staff per shift" xml:space="preserve"><value>每段人数</value></data>
+  <data name="Fixed duration: {0} minutes" xml:space="preserve">
+    <value>固定时长 {0} 分钟</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>星期五</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>星期一</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>纯队列</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>轮换策略</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>星期六</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>切分方式</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>星期日</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>偶数人数隔轮对调</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>星期四</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>星期二</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>星期三</value>
+  </data>
 </root>
