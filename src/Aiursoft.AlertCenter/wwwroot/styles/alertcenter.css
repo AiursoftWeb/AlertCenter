@@ -1,5 +1,9 @@
 /* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
 
+html {
+    scrollbar-gutter: stable;
+}
+
 .ac-create-alert {
     display: flex;
     flex-wrap: wrap;
@@ -117,6 +121,7 @@
 
 .ac-gantt-scroll {
     overflow-x: auto;
+    scrollbar-gutter: stable;
 }
 
 .ac-gantt {
@@ -147,6 +152,9 @@
 }
 
 .ac-gantt-name {
+    width: var(--ac-gantt-name-width);
+    min-width: 0;
+    box-sizing: border-box;
     position: sticky;
     left: 0;
     z-index: 3;
@@ -154,6 +162,18 @@
     background: var(--bs-body-bg);
     border-right: 1px solid var(--bs-border-color);
     overflow-wrap: anywhere;
+}
+
+.ac-gantt-name strong,
+.ac-gantt-hours {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ac-gantt-hours {
+    display: block;
 }
 
 .ac-gantt-axis,
@@ -330,6 +350,8 @@
     text-overflow: ellipsis;
     font-size: 0.75rem;
     cursor: pointer;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .ac-gantt-adjacent {
@@ -360,6 +382,14 @@
 
 .ac-gantt-time-end {
     border-top: 1px solid currentColor;
+}
+
+#oncall-shift-summary {
+    height: 4.5rem;
+    overflow: auto;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+    scrollbar-gutter: stable;
 }
 
 .ac-gantt-detail-time {
@@ -1070,13 +1100,39 @@
     border-left: 2px solid currentColor;
 }
 
+.ac-gantt-warning-row,
+#oncall-warning-lane {
+    height: 72px;
+    min-height: 72px;
+    max-height: 72px;
+}
+
+.ac-gantt-warning-row .ac-gantt-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .ac-gantt .ac-gantt-warning {
-    min-width: 1rem;
-    padding: 0.25rem;
+    min-width: 0;
+    padding: 0;
+    border: 0;
     color: #111;
     line-height: 1.2;
-    white-space: normal;
-    overflow-wrap: anywhere;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.ac-gantt-warning-count {
+    flex: 0 0 auto;
+}
+
+.ac-gantt-warning-text {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #oncall-drag-tooltip {

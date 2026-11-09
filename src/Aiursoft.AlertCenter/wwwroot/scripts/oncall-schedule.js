@@ -124,7 +124,36 @@
         }
         return result;
     }
-    if (typeof module !== 'undefined') module.exports = { localTime, copyRange, hoursFor, utcForLocal, timeOf, snapTime, movePerson, swapPeople, reminders };
+    function warningSegments(warnings, start, end) {
+        const events = new Map();
+        const add = (time, message, delta) => {
+            if (!events.has(time)) events.set(time, new Map());
+            const changes = events.get(time);
+            changes.set(message, (changes.get(message) || 0) + delta);
+        };
+        for (const warning of warnings) {
+            const left = Math.max(start, new Date(warning.startsAtUtc).getTime()), right = Math.min(end, new Date(warning.endsAtUtc).getTime());
+            if (!(right > left)) continue;
+            add(left, warning.message, 1); add(right, warning.message, -1);
+        }
+        const active = new Map(), segments = [];
+        let previous = start;
+        for (const [time, changes] of [...events].sort((a, b) => a[0] - b[0])) {
+            if (time > previous && active.size) {
+                const messages = [...active.keys()].sort(), last = segments.at(-1);
+                if (last?.right === previous && JSON.stringify(last.messages) === JSON.stringify(messages)) last.right = time;
+                else segments.push({ left: previous, right: time, messages });
+            }
+            for (const [message, delta] of changes) {
+                const count = (active.get(message) || 0) + delta;
+                if (count) active.set(message, count);
+                else active.delete(message);
+            }
+            previous = time;
+        }
+        return segments;
+    }
+    if (typeof module !== 'undefined') module.exports = { localTime, copyRange, hoursFor, utcForLocal, timeOf, snapTime, movePerson, swapPeople, reminders, warningSegments };
     if (typeof document === 'undefined') return;
     const root = document.getElementById('oncall-schedule');
     if (!root) return;
@@ -263,8 +292,11 @@
         }));
     }
     function position(element, left, right) {
-        element.style.left = `${(left - from) / duration * 100}%`;
-        element.style.width = `${(right - left) / duration * 100}%`;
+        const before = Number(chart.dataset.beforeHours || 0) * hour, after = Number(chart.dataset.afterHours || 0) * hour;
+        element.dataset.layoutLeft = String((left - from) / duration * 100);
+        element.dataset.layoutWidth = String((right - left) / duration * 100);
+        element.style.left = `${(left - from + before) / (duration + before + after) * 100}%`;
+        element.style.width = `${(right - left) / (duration + before + after) * 100}%`;
     }
     function describe(element, summary, left, right) {
         element.dataset.summary = summary; element.dataset.start = localTime(left, zone); element.dataset.end = localTime(right, zone);
@@ -273,6 +305,7 @@
         element.setAttribute('aria-describedby', 'oncall-shift-detail');
     }
     function pack(lane) {
+        if (gesture || lane.id === 'oncall-warning-lane') return;
         const tracks = [];
         const bars = [...lane.querySelectorAll('.ac-gantt-shift')].filter(bar => !bar.hidden);
         bars.sort((a, b) => parseFloat(a.dataset.layoutLeft ?? a.style.left) - parseFloat(b.dataset.layoutLeft ?? b.style.left));
@@ -285,7 +318,54 @@
         }
         lane.style.minHeight = `${Math.max(1, tracks.length) * 72}px`;
     }
+    function updateShift(bar, row, slot, editable) {
+        const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+        describe(bar, `${row.dataset.name}${hasDeparted(slot) ? ` · ${text('oncall-departed-label', 'Departed')}` : ''}${editable ? '' : ` · ${text('read-only', 'Read-only')}`} · ${((right - left) / hour).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`, left, right);
+        bar.textContent = `${localTime(left, zone).replace('T', ' ')} → ${localTime(right, zone).replace('T', ' ')}`;
+        if (editable) {
+            bar.setAttribute('aria-label', `${bar.title}. ${text('move-hint', 'Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes.')}`);
+            if (!hasDeparted(slot)) for (const edge of ['start', 'end']) {
+                if ((edge === 'start' && left < from) || (edge === 'end' && right > until)) continue;
+                const handle = document.createElement('span'); handle.className = 'ac-gantt-resize'; handle.dataset.resize = edge;
+                handle.title = text(`resize-${edge}`, edge === 'start' ? 'Adjust start' : 'Adjust end'); handle.setAttribute('aria-hidden', 'true'); bar.append(handle);
+            }
+        }
+    }
+    function drawGesture() {
+        const previous = gesture.rendered || gesture.before;
+        // 保留未编辑的 DOM 和轨道；临时重叠只在手势结束后重新排版。
+        for (let index = 0; index < Math.max(previous.slots.length, state.slots.length); index++) {
+            const slot = state.slots[index];
+            if (JSON.stringify(slot) === JSON.stringify(previous.slots[index])) continue;
+            for (const row of chart.querySelectorAll('[data-user-id]')) {
+                const lane = row.querySelector('.ac-gantt-lane'), id = row.dataset.userId;
+                let bar = findBar(index, id);
+                if (!slot || !valid(slot) || !(slot.userIds.includes(id) || (id === '' && !slot.userIds.length))) { bar?.remove(); continue; }
+                const left = Math.max(from, timeOf(slot, 'start', zone)), right = Math.min(until, timeOf(slot, 'end', zone));
+                if (right <= left) { bar?.remove(); continue; }
+                if (!bar) {
+                    bar = document.createElement('button'); bar.type = 'button';
+                    bar.className = `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
+                    bar.dataset.draftShift = 'true'; bar.dataset.slotIndex = String(index);
+                    bar.style.top = '8px'; bar.style.transform = 'none';
+                    bar.setAttribute('aria-pressed', String(selected?.index === index && selected?.person === id));
+                    lane.append(bar);
+                }
+                position(bar, left, right); updateShift(bar, row, slot, true);
+            }
+        }
+        if (gesture.mode === 'handover') {
+            const marker = chart.querySelector(`[data-first="${gesture.index}"]`), boundary = timeOf(state.slots[gesture.index], 'end', zone);
+            if (marker) {
+                position(marker, boundary, boundary); marker.style.width = '';
+                marker.title = `${text('handover', 'Adjust handover')} · ${localTime(boundary, zone)} · ${zone}`;
+                marker.setAttribute('aria-label', marker.title);
+            }
+        }
+        gesture.rendered = structuredClone(state);
+    }
     function draw(serverWarnings) {
+        if (gesture) { drawGesture(); return; }
         const focus = document.activeElement;
         const focusIndex = focus?.dataset.slotIndex, focusPerson = focus?.closest('[data-user-id]')?.dataset.userId;
         chart.querySelectorAll('[data-draft-shift]').forEach(bar => bar.remove());
@@ -300,21 +380,16 @@
         })).concat(serverWarnings || []);
         list('oncall-schedule-warnings', [...new Set(warnings.map(warning => warning.message))]);
         const lane = get('oncall-warning-lane'); lane.replaceChildren();
-        const groupedWarnings = new Map();
-        for (const warning of warnings) {
-            const key = `${new Date(warning.startsAtUtc).getTime()}:${new Date(warning.endsAtUtc).getTime()}`;
-            if (!groupedWarnings.has(key)) groupedWarnings.set(key, { ...warning, messages: new Set() });
-            groupedWarnings.get(key).messages.add(warning.message);
-        }
-        for (const warning of groupedWarnings.values()) {
-            warning.message = [...warning.messages].join('\n');
-            const left = Math.max(from, new Date(warning.startsAtUtc).getTime()), right = Math.min(until, new Date(warning.endsAtUtc).getTime());
-            if (right <= left) continue;
+        for (const warning of warningSegments(warnings, from, until)) {
+            const message = warning.messages.join('\n');
             const marker = document.createElement('button'); marker.type = 'button'; marker.className = 'ac-gantt-shift ac-gantt-warning bg-warning text-dark';
-            marker.dataset.readonly = 'true'; marker.textContent = warning.message;
-            position(marker, left, right); describe(marker, warning.message, left, right); lane.append(marker);
+            marker.dataset.readonly = 'true';
+            const count = document.createElement('span'), label = document.createElement('span');
+            count.className = 'badge bg-dark ac-gantt-warning-count'; count.textContent = String(warning.messages.length);
+            label.className = 'ac-gantt-warning-text'; label.textContent = message;
+            count.setAttribute('aria-hidden', 'true'); label.setAttribute('aria-hidden', 'true'); marker.append(count, label);
+            position(marker, warning.left, warning.right); describe(marker, message, warning.left, warning.right); lane.append(marker);
         }
-        pack(lane);
         for (const row of chart.querySelectorAll('[data-user-id]')) {
             const id = row.dataset.userId, rowLane = row.querySelector('.ac-gantt-lane');
             const count = resolved.filter(slot => slot.userIds.includes(id) && Date.parse(slot.startsAtUtc) < until && Date.parse(slot.endsAtUtc) > from).length;
@@ -340,16 +415,7 @@
                     if (editable && selected?.index === index && selected?.person === id) bar.classList.add('ac-gantt-selected');
                     if (!dirty && left <= Date.now() && Date.now() < right) bar.classList.add('ac-gantt-current');
                     position(bar, Math.max(left, low), Math.min(right, high));
-                    describe(bar, `${row.dataset.name}${hasDeparted(slot) ? ` · ${text('oncall-departed-label', 'Departed')}` : ''}${editable ? '' : ` · ${text('read-only', 'Read-only')}`} · ${((right - left) / hour).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`, left, right);
-                    bar.textContent = `${localTime(left, zone).replace('T', ' ')} → ${localTime(right, zone).replace('T', ' ')}`;
-                    if (editable) {
-                        bar.setAttribute('aria-label', `${bar.title}. ${text('move-hint', 'Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes.')}`);
-                        if (!hasDeparted(slot)) for (const edge of ['start', 'end']) {
-                            if ((edge === 'start' && left < from) || (edge === 'end' && right > until)) continue;
-                            const handle = document.createElement('span'); handle.className = 'ac-gantt-resize'; handle.dataset.resize = edge;
-                            handle.title = text(`resize-${edge}`, edge === 'start' ? 'Adjust start' : 'Adjust end'); handle.setAttribute('aria-hidden', 'true'); bar.append(handle);
-                        }
-                    }
+                    updateShift(bar, row, slot, editable);
                     rowLane.append(bar);
                 }
             }
@@ -366,7 +432,6 @@
             marker.title = `${text('handover', 'Adjust handover')} · ${localTime(boundary, zone)} · ${zone}`; marker.setAttribute('aria-label', marker.title); handovers.append(marker);
         });
         chart.dispatchEvent(new Event('oncall-layout'));
-        chart.querySelectorAll('.ac-gantt-lane').forEach(pack);
         if (focusIndex != null) findBar(Number(focusIndex), focusPerson)?.focus({ preventScroll: true });
     }
     function findBar(index, person) {
@@ -428,7 +493,9 @@
         if (!gesture) return;
         clearTimeout(gesture.hold);
         state = gesture.before;
+        const pointerId = gesture.pointerId;
         gesture = null; get('oncall-drag-tooltip').hidden = true; chart.classList.remove('ac-gantt-dragging');
+        if (chart.hasPointerCapture(pointerId)) chart.releasePointerCapture(pointerId);
         draw();
     }
     chart.classList.add('ac-gantt-editable');
@@ -470,7 +537,7 @@
             draw(); return;
         }
         if (drag.mode === 'create') {
-            if (!target || time < from || time > until) return;
+            if (!target || time < from || time > until) { draw(); return; }
             const left = Math.max(from, Math.min(snapTime(drag.origin, zone, event.altKey), time)), right = Math.min(until, Math.max(snapTime(drag.origin, zone, event.altKey), time));
             slot = { userIds: drag.person ? [drag.person] : [] };
             setTime(slot, 'start', left, zone); setTime(slot, 'end', Math.max(left + minute, right), zone); state.slots.push(slot);
@@ -525,7 +592,8 @@
         }
         suppressClick = true;
         if (((drag.mode === 'move' || drag.mode === 'create') && !target) || (drag.mode === 'week' && !weekTarget(event))) { draw(); return; }
-        commit(() => { state = result; });
+        if (JSON.stringify(state) === JSON.stringify(result)) draw();
+        else commit(() => { state = result; });
         if (selected) findBar(selected.index)?.focus({ preventScroll: true });
     });
     chart.addEventListener('pointercancel', cancelGesture);
@@ -742,7 +810,7 @@
     get('oncall-clear-auto-options').hidden = root.dataset.autoExtend !== 'true';
     clearDefaults();
     window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
-    chart.addEventListener('oncall-packed', () => chart.querySelectorAll('.ac-gantt-lane').forEach(pack));
+    chart.addEventListener('oncall-packed', () => chart.querySelectorAll('.ac-gantt-lane:not(#oncall-warning-lane)').forEach(pack));
     renderRows(); draw();
     get('oncall-undo-schedule').disabled = true; get('oncall-redo-schedule').disabled = true;
     preview();
