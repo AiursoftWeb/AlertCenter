@@ -87,11 +87,10 @@ public sealed class OnCallGroupFormService(IOnCallScheduleGenerator generator, I
             .Select(member => new GeneratedOnCallShift(member.UserId, last.StartsAtUtc, last.EndsAtUtc)).ToList();
         if (last.Members.Count == 0) history.Add(new(string.Empty, last.StartsAtUtc, last.EndsAtUtc));
         // Match automatic extension: preserve the cursor only while its assignments still match the current queue.
-        if (last.RotationPosition is { } cursor && last.Members.Count > 0)
+        if (last.RotationPosition is { } cursor && last.Members.Count > 0 && last.Members.Count <= ids.Length)
         {
-            var expected = Enumerable.Range(0, last.Members.Count).Select(index =>
-                new GeneratedOnCallShift(ids[OnCallScheduleGenerator.QueueIndex(rule, ids.Length, cursor + index)],
-                    last.StartsAtUtc, last.EndsAtUtc, RotationPosition: cursor + index)).ToList();
+            var expected = OnCallScheduleGenerator.AssignShift(rule, ids, cursor, last.Members.Count,
+                last.StartsAtUtc, last.EndsAtUtc);
             if (expected.Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal).SetEquals(last.Members.Select(member => member.UserId)))
                 history = expected;
         }

@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>ड्राफ़्ट की खाली की गई समय सीमा</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>ओवरलैप होने वाली शिफ़्ट मिलाएँ</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>एक ही व्यक्ति की शिफ़्ट या असाइन न की गई पंक्ति की शिफ़्ट के समय आपस में ओवरलैप नहीं हो सकते। सहेजने से पहले उन्हें मिलाएँ या समायोजित करें।</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>इस बदलाव से उसी व्यक्ति की दूसरी शिफ़्ट के साथ समय ओवरलैप होगा। ड्राफ़्ट नहीं बदला गया।</value>
+  </data>
 </root>

@@ -34,6 +34,124 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
+    public async Task LegacyOverlapsRemainLoadableAndPreviewableUntilRepairedBeforeSaving()
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        var start = DateTime.UtcNow.AddDays(2).Date;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var userId = await db.OnCallGroupMembers.Where(member => member.GroupId == id).Select(member => member.UserId).FirstAsync();
+            db.OnCallShifts.AddRange(new OnCallShift { GroupId = id, StartsAtUtc = start, EndsAtUtc = start.AddHours(2), Members = [new() { UserId = userId }] },
+                new OnCallShift { GroupId = id, StartsAtUtc = start.AddHours(1), EndsAtUtc = start.AddHours(3), Members = [new() { UserId = userId }] });
+            await db.SaveChangesAsync();
+        }
+        var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}&endUtc={Uri.EscapeDataString(start.AddDays(1).ToString("O"))}";
+        var loaded = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>(path);
+        Assert.IsTrue(loaded.GetProperty("saved").GetBoolean());
+        Assert.AreEqual(2, loaded.GetProperty("slots").GetArrayLength());
+        Assert.IsTrue(loaded.GetProperty("warnings").EnumerateArray().Any(warning => warning.GetString()!.Contains("Cannot save overlapping")));
+        var request = System.Text.Json.JsonSerializer.Deserialize<SaveOnCallScheduleRequest>(loaded, System.Text.Json.JsonSerializerOptions.Web)!;
+        var preview = await Save("PreviewSchedule", request);
+        Assert.AreEqual(HttpStatusCode.OK, preview.StatusCode);
+        var draft = await preview.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.AreEqual(2, draft.GetProperty("slots").GetArrayLength());
+        Assert.AreEqual(1, draft.GetProperty("errors").GetArrayLength());
+        Assert.Contains("Staff ", draft.GetProperty("errors")[0].GetString()!);
+        Assert.AreEqual(start.AddHours(2), draft.GetProperty("slots")[0].GetProperty("endsAtUtc").GetDateTime());
+        Assert.IsTrue(draft.GetProperty("timelineWarnings").EnumerateArray().Any(warning => warning.GetProperty("message").GetString()!.Contains("Cannot save overlapping")));
+        var rejected = await Save("SaveSchedule", request);
+        Assert.AreEqual(HttpStatusCode.BadRequest, rejected.StatusCode);
+        var errors = await rejected.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.Contains("Staff ", errors.GetProperty("errors")[0].GetString()!);
+        request.Slots[0].EndsAtUtc = request.Slots[1].StartsAtUtc;
+        var repaired = await Save("PreviewSchedule", request);
+        Assert.AreEqual(HttpStatusCode.OK, repaired.StatusCode);
+        Assert.AreEqual(0, (await repaired.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>()).GetProperty("errors").GetArrayLength());
+        Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", request)).StatusCode);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task EmptyRangeGenerationPreviewClipsFinalPartialShiftBeforeRetainedNeighbour(bool weekly)
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        var start = DateTime.UtcNow.AddDays(2).Date.AddMinutes(17);
+        var end = start.AddMinutes(37);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.Include(item => item.Rule).Include(item => item.Members).SingleAsync(item => item.Id == id);
+            if (weekly)
+            {
+                group.Rule!.HandoverPoints = OnCallScheduleGeneratorTests.WeeklyRule().HandoverPoints;
+                db.AddRange(group.Rule.HandoverPoints);
+            }
+            db.OnCallShifts.Add(new() { GroupId = id, StartsAtUtc = end, EndsAtUtc = end.AddDays(7),
+                Members = group.Members.Select(member => new OnCallShiftMember { UserId = member.UserId }).ToList() });
+            await db.SaveChangesAsync();
+        }
+        var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}&endUtc={Uri.EscapeDataString(end.ToString("O"))}";
+        var request = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(path))!;
+        Assert.AreEqual(1, request.Slots.Count);
+        Assert.AreEqual(start, request.Slots[0].StartsAtUtc);
+        Assert.AreEqual(end, request.Slots[0].EndsAtUtc);
+        Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", request)).StatusCode);
+    }
+
+    [TestMethod]
+    [DataRow(false, 0, 7)]
+    [DataRow(true, 0, 7)]
+    [DataRow(false, 1, 7)]
+    [DataRow(false, 1, 75)]
+    public async Task FixedTemplateSnapCandidatesSupportEmptyDraftsAndSavedTimingWithBoundedCounts(bool saved, int shiftMinutes, int days)
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        var start = new DateTime(2030, 3, 9, 4, 17, 0, DateTimeKind.Utc);
+        var end = start.AddDays(days);
+        var origin = saved ? start.AddMinutes(71).AddSeconds(13) : start;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.Include(item => item.Rule).Include(item => item.Members).SingleAsync(item => item.Id == id);
+            db.OnCallGroupMembers.RemoveRange(group.Members);
+            group.TimeZoneId = "America/New_York";
+            group.AnchorUtc = start.AddDays(-3).AddHours(2);
+            group.Rule!.ShiftMinutes = shiftMinutes == 0 ? null : shiftMinutes;
+            if (saved)
+            {
+                db.OnCallShifts.AddRange(
+                    new OnCallShift { GroupId = id, StartsAtUtc = origin.AddHours(-8), EndsAtUtc = origin, Source = OnCallShiftSource.Generated },
+                    new OnCallShift { GroupId = id, StartsAtUtc = start.AddDays(2), EndsAtUtc = start.AddDays(2).AddHours(3), Source = OnCallShiftSource.Manual });
+            }
+            await db.SaveChangesAsync();
+        }
+
+        var html = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}&endUtc={Uri.EscapeDataString(end.ToString("O"))}");
+        string Attribute(string name) => WebUtility.HtmlDecode(System.Text.RegularExpressions.Regex.Match(html, $"data-{name}=\"([^\"]*)\"").Groups[1].Value);
+        var handovers = System.Text.Json.JsonSerializer.Deserialize<DateTime[]>(Attribute("handovers"))!;
+        var duration = TimeSpan.FromMinutes(shiftMinutes == 0 ? 480 : shiftMinutes);
+        var lower = start.AddHours(-36);
+        var upper = end.AddHours(36);
+        var first = origin;
+        while (first - duration >= lower) first -= duration;
+        var expectedCount = Math.Min(100000, (int)((upper - first).Ticks / duration.Ticks) + 1);
+        Assert.AreEqual(expectedCount, handovers.Length);
+        Assert.AreEqual(first, handovers[0]);
+        Assert.IsTrue(handovers.All(time => time.Kind == DateTimeKind.Utc && time >= lower && time <= upper));
+        Assert.IsTrue(handovers.Zip(handovers.Skip(1)).All(pair => pair.Second - pair.First == duration));
+        if (!saved)
+        {
+            using var slots = System.Text.Json.JsonDocument.Parse(Attribute("slots"));
+            Assert.AreEqual(0, slots.RootElement.GetArrayLength());
+        }
+    }
+
+    [TestMethod]
     public async Task ClearPreviewUsesTeamTimeAndSaveAtomicallyDisablesExtensionWithVersionCheck()
     {
         await LoginAsAdmin();
@@ -236,7 +354,7 @@ public class OnCallScheduleApiTests : TestBase
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         var result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
         Assert.IsTrue(result.GetProperty("warnings").GetArrayLength() > 0);
-        Assert.IsFalse(result.TryGetProperty("errors", out _));
+        Assert.AreEqual(0, result.GetProperty("errors").GetArrayLength());
         metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>($"/OnCall/GetSchedule?id={id}");
         Assert.IsTrue(metadata.GetProperty("saved").GetBoolean());
         Assert.IsTrue(metadata.GetProperty("warnings").GetArrayLength() > 0);
@@ -299,16 +417,21 @@ public class OnCallScheduleApiTests : TestBase
         var buttons = System.Text.RegularExpressions.Regex.Matches(rawHtml,
             "<button[^>]*class=\"ac-gantt-shift ac-gantt-warning bg-warning text-dark\"[^>]*>.*?</button>",
             System.Text.RegularExpressions.RegexOptions.Singleline).Select(match => match.Value).ToArray();
-        Assert.AreEqual(3, buttons.Length);
+        Assert.AreEqual(5, buttons.Length);
         var expectedMessages = new[]
         {
+            new[] { "Schedule contains a coverage gap.", "Schedule contains overlapping shifts.",
+                "Shift has no on-duty engineers.", "Shift staffing is below the team threshold." },
+            new[] { "Cannot save overlapping shifts for Unassigned: 2026-11-09 00:00–2026-11-09 06:00 UTC and 2026-11-09 02:00–2026-11-09 08:00 UTC.",
+                "Schedule contains a coverage gap.", "Schedule contains overlapping shifts.",
+                "Shift has no on-duty engineers.", "Shift staffing is below the team threshold." },
             new[] { "Schedule contains a coverage gap.", "Schedule contains overlapping shifts.",
                 "Shift has no on-duty engineers.", "Shift staffing is below the team threshold." },
             new[] { "Schedule contains a coverage gap.", "Shift has no on-duty engineers.",
                 "Shift staffing is below the team threshold." },
             new[] { "Schedule contains a coverage gap." }
         };
-        var boundaries = new[] { start, start.AddHours(8), start.AddHours(10), start.AddDays(7) };
+        var boundaries = new[] { start, start.AddHours(2), start.AddHours(6), start.AddHours(8), start.AddHours(10), start.AddDays(7) };
         var zone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai");
         for (var index = 0; index < buttons.Length; index++)
         {
@@ -454,10 +577,10 @@ public class OnCallScheduleApiTests : TestBase
         var start = DateTime.UtcNow.Date;
         var url = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}";
         var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(url))!;
-        var user = draft.Slots.SelectMany(slot => slot.UserIds).First();
-        draft.Slots = [new() { StartsAtUtc = start.AddDays(-2).AddMinutes(17), EndsAtUtc = start.AddDays(2), UserIds = [user] },
+        var users = draft.Slots.SelectMany(slot => slot.UserIds).Distinct().Take(2).ToArray();
+        draft.Slots = [new() { StartsAtUtc = start.AddDays(-2).AddMinutes(17), EndsAtUtc = start.AddDays(2), UserIds = [users[0]] },
             new() { StartsAtUtc = start.AddMinutes(11), EndsAtUtc = start.AddMinutes(48) },
-            new() { StartsAtUtc = start.AddMinutes(11), EndsAtUtc = start.AddHours(12), UserIds = [user] }];
+            new() { StartsAtUtc = start.AddMinutes(11), EndsAtUtc = start.AddHours(12), UserIds = [users[1]] }];
         var response = await Save("SaveSchedule", draft);
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         var saved = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(url))!;

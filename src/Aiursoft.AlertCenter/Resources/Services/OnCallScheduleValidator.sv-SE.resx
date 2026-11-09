@@ -34,4 +34,6 @@
     <value>{0}:s arbetspass ligger utanför det angivna 8-timmarsintervallet.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Ej tilldelad</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Det går inte att spara överlappande pass för {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC och {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

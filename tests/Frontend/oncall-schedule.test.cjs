@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const test = require('node:test');
-const { localTime, copyRange, hoursFor, utcForLocal, timeOf, snapTime, movePerson, swapPeople, reminders, warningSegments } = require('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-schedule.js');
+const { localTime, copyRange, hoursFor, utcForLocal, timeOf, snapTime, movePerson, swapPeople, reminders, warningSegments, overlappingSlots, mergeOverlaps, snapCandidates, snapBoundary } = require('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-schedule.js');
 const source = fs.readFileSync(require.resolve('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-schedule.js'), 'utf8');
 const ganttSource = fs.readFileSync(require.resolve('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-gantt.js'), 'utf8');
 const hour = 3600000;
@@ -150,12 +150,14 @@ function setup(options = {}) {
     function create(id, tag = 'div', parent = document) { const element = new Element(tag); element.id = `oncall-${id}`; elements[element.id] = element; parent.append(element); return element; }
     const root = create('schedule'), chart = create('gantt');
     const grid = new Element(); grid.className = 'ac-gantt'; chart.append(grid);
+    const guide = create('snap-line', 'div', grid); guide.append(new Element('span')); guide.hidden = true;
+    root.dataset.handovers = JSON.stringify(options.handovers || []);
     chart.dataset.duration = String((Date.parse(rangeEnd) - Date.parse(rangeStart)) / hour);
     Object.assign(root.dataset, { groupId: 'group', version: 'version', zone, start: rangeStart, end: rangeEnd, slots: JSON.stringify(slots), members: JSON.stringify(people), context: JSON.stringify(contextSlots), previewUrl: '/preview', saveUrl: '/save', getUrl: '/saved', generateUrl: '/generate', autoExtend: String(options.autoExtend || false), lastShiftEnd: options.lastShiftEnd || '', ...options.thresholds });
     const csrf = new Element('input'); csrf.setAttribute('name', '__RequestVerificationToken'); csrf.value = 'csrf'; root.append(csrf);
     for (const [key, value] of Object.entries(messages)) { const label = new Element('span'); label.dataset.scheduleText = key; label.textContent = value; root.append(label); }
     for (const id of ['shift-rows', 'draft-notice', 'replace-confirm', 'replace-regenerate-hint', 'replaced-shifts', 'schedule-errors', 'schedule-warnings', 'copy-drafts', 'drag-tooltip', 'total-shifts', 'total-staff', 'total-hours', 'published-status', 'clear-history-confirm', 'clear-history-range', 'clear-auto-options']) create(id, id === 'shift-rows' ? 'tbody' : 'div', root);
-    for (const id of ['save-schedule', 'reset-schedule', 'undo-schedule', 'redo-schedule', 'add-shift', 'copy-range', 'generate', 'replace-apply', 'replace-cancel', 'swap-week', 'move-selected', 'clear-range', 'clear-history-apply', 'clear-history-cancel']) create(id, 'button', root);
+    for (const id of ['save-schedule', 'merge-overlaps', 'reset-schedule', 'undo-schedule', 'redo-schedule', 'add-shift', 'copy-range', 'generate', 'replace-apply', 'replace-cancel', 'swap-week', 'move-selected', 'clear-range', 'clear-history-apply', 'clear-history-cancel']) create(id, 'button', root);
     for (const id of ['range-start', 'range-end', 'move-start', 'clear-start', 'clear-end', 'clear-manual', 'clear-history']) create(id, 'input', root);
     for (const id of ['swap-first', 'swap-second', 'move-member', 'clear-auto-action']) create(id, 'select', root);
     const dialog = create('shift-dialog', 'dialog', root);
@@ -206,9 +208,9 @@ function setup(options = {}) {
         const resultSlots = url.includes('generate=true') ? (options.generatedSlots || [{ startsAtUtc: startUtc, endsAtUtc: endUtc, userIds: ['b'], source: 1 }]) : body.slots.map(resolved);
         if (url === '/preview?clear=true') return {
             version: 'version', startUtc, endUtc, slots: typeof options.clearSlots === 'function' ? options.clearSlots(body.slots.map(resolved), body) : options.clearSlots || [], replacedSlots: options.clearReplacedSlots || body.slots.map(resolved), warnings: [], timelineWarnings: [],
-            clearRanges: body.clearRanges.map(range => ({ ...range, clearedAtUtc: range.clearedAtUtc || options.serverNow || '2026-10-12T04:13:45.123Z' })), errors: ['Clear rejected'], ...options.clearResponse
+            clearRanges: body.clearRanges.map(range => ({ ...range, clearedAtUtc: range.clearedAtUtc || options.serverNow || '2026-10-12T04:13:45.123Z' })), errors: options.failClear ? ['Clear rejected'] : [], ...options.clearResponse
         };
-        return { version: url === '/save' ? 'new-version' : 'version', startUtc, endUtc, slots: resultSlots, replacedSlots: url.includes('?generate=') ? structuredClone(options.replacedSlots || []) : [], warnings: [], timelineWarnings: options.serverWarnings || [], errors: ['Version conflict'] };
+        return { version: url === '/save' ? 'new-version' : 'version', startUtc, endUtc, slots: resultSlots, replacedSlots: url.includes('?generate=') ? structuredClone(options.replacedSlots || []) : [], warnings: [], timelineWarnings: options.serverWarnings || [], errors: options.fail && url === '/save' ? ['Version conflict'] : options.previewErrors || [] };
     };
     class ClockDate extends Date { static now() { return options.now ? Date.parse(options.now) : Date.now(); } }
     vm.runInNewContext(ganttSource + '\n' + source, {
@@ -507,7 +509,7 @@ test('overlapping reminders render disjoint single-layer badges with complete ac
     await ui.click('undo-schedule'); check();
 });
 for (const mode of ['move', 'start', 'end', 'handover']) {
-    test(`${mode} pointer gesture preserves every lane and unrelated bar until release repacks a real overlap`, async () => {
+    test(`${mode} pointer gesture clamps before overlap while preserving every lane and unrelated bar`, async () => {
         const ui = setup({ slots: [shift(0, 8), shift(12, 20), shift(8, 24, ['b'])], thresholds: { minimumRest: '8', minimumStaff: '2' } }); await ui.flush();
         const heights = () => ui.chart.querySelectorAll('.ac-gantt-lane').map(lane => lane.style.minHeight);
         const originalHeights = heights(), warningMarkers = [...ui.get('warning-lane').children];
@@ -527,10 +529,10 @@ for (const mode of ['move', 'start', 'end', 'handover']) {
         }
         const moving = ui.bar(mode === 'start' ? 1 : 0);
         assert.equal(moving.dataset[mode === 'start' || mode === 'move' ? 'start' : 'end'],
-            localTime(new Date(Date.parse(start) + (mode === 'move' ? 10 : destination) * hour), 'Asia/Shanghai'));
+            localTime(new Date(Date.parse(start) + (mode === 'move' ? 4 : mode === 'start' ? 8 : 12) * hour), 'Asia/Shanghai'));
         await ui.pointer('pointerup', mode === 'handover' ? ui.get('handover-lane') : ui.lane('a'), destination);
         assert(layouts > 0);
-        assert.equal(ui.lane('a').style.minHeight, '144px');
+        assert.equal(ui.lane('a').style.minHeight, '72px');
         assert.equal(ui.get('warning-lane').style.minHeight, originalHeights[0]);
         await ui.click('undo-schedule'); assert.deepEqual(heights(), originalHeights);
     });
@@ -544,9 +546,12 @@ test('new and transferred shifts keep destination lanes fixed until the gesture 
         await ui.pointer('pointerdown', handle, 2);
         await ui.pointer('pointermove', ui.lane('b'), 8, { clientY: 150 });
         assert.deepEqual(heights(), before); assert.equal(ui.get('warning-lane').children[0], marker);
-        assert(ui.bar(mode === 'create' ? 2 : 0, 'b'));
+        if (mode === 'transfer') {
+            assert.equal(ui.bar(0, 'b'), null);
+            assert(ui.chart.classList.contains('ac-gantt-drop-invalid'));
+        } else assert(ui.bar(mode === 'create' ? 2 : 0, 'b'));
         await ui.pointer('pointerup', ui.lane('b'), 8, { clientY: 150 });
-        assert.equal(ui.lane('b').style.minHeight, mode === 'week' ? '144px' : '216px');
+        assert.equal(ui.lane('b').style.minHeight, '144px');
         await ui.click('undo-schedule'); assert.deepEqual(heights(), before);
     }
 });
@@ -558,10 +563,10 @@ test('expanded context retains position mapping and heights while dragging acros
     await ui.pointer('pointermove', ui.lane('a'), 14);
     assert.equal(ui.lane('a').style.minHeight, height);
     assert.equal(ui.bar().style.width, width);
-    assert(Math.abs(parseFloat(ui.bar().style.left) - 46 / 240 * 100) < 0.000001);
+    assert(Math.abs(parseFloat(ui.bar().style.left) - 40 / 240 * 100) < 0.000001);
     await ui.pointer('pointerup', ui.lane('a'), 14);
-    assert.equal(ui.lane('a').style.minHeight, '144px');
-    assert(Math.abs(parseFloat(ui.bar().style.left) - 46 / 240 * 100) < 0.000001);
+    assert.equal(ui.lane('a').style.minHeight, '72px');
+    assert(Math.abs(parseFloat(ui.bar().style.left) - 40 / 240 * 100) < 0.000001);
 });
 test('pointer cancellation and a no-op release both restore packed layout without adding undo history', async () => {
     const ui = setup({ slots: [shift(0, 16), shift(8, 24)] }); await ui.flush();
@@ -1093,4 +1098,204 @@ test('manual gestures and popup assignment edits clear generated rotation metada
     const copied = ui.request('/preview').at(-1).body.slots;
     assert.equal(copied[0].source, 1); assert.equal(copied[0].rotationPosition, 4);
     assert(copied.slice(1).every(slot => slot.source === 0 && slot.rotationPosition == null));
+});
+
+test('repeated blank drags clamp to neighbors, including reverse and unassigned drags, without extra tracks', async () => {
+    for (const person of ['a', '']) {
+        const ui = setup({ slots: [shift(4, 8, person ? [person] : []), shift(16, 20, person ? [person] : [])] }); await ui.flush();
+        await ui.drag(ui.lane(person), 10, 30, ui.lane(person), { altKey: true });
+        assert.equal(ui.draft()[2].startLocal, '2026-10-12T10:00'); assert.equal(ui.draft()[2].endLocal, '2026-10-12T16:00');
+        await ui.drag(ui.lane(person), 9, 0, ui.lane(person), { altKey: true });
+        assert.equal(ui.draft()[3].startLocal, '2026-10-12T08:00'); assert.equal(ui.draft()[3].endLocal, '2026-10-12T09:00');
+        for (let i = 0; i < 5; i++) await ui.drag(ui.lane(person), 12, 25, ui.lane(person));
+        assert.equal(ui.draft().length, 4); assert.equal(ui.bar(2, person).getAttribute('aria-pressed'), 'true');
+        assert.equal(ui.lane(person).style.minHeight, '72px');
+        assert.equal(overlappingSlots(ui.draft(), 'Asia/Shanghai').size, 0);
+    }
+});
+
+test('movement cannot jump past neighbors, multi-person resizing and keyboard movement clamp at the nearest edge', async () => {
+    const ui = setup({ slots: [shift(4, 8), shift(10, 14, ['a', 'b']), shift(16, 20), shift(15, 24, ['b'])] }); await ui.flush();
+    await ui.drag(ui.bar(1), 12, 40, ui.lane('a'), { altKey: true });
+    assert.equal(ui.draft()[1].startLocal, '2026-10-12T11:00'); assert.equal(ui.draft()[1].endLocal, '2026-10-12T15:00');
+    await ui.fire(ui.bar(1), 'keydown', { key: 'ArrowRight' }); assert.equal(ui.draft()[1].endLocal, '2026-10-12T15:00');
+    await ui.drag(ui.bar(1).querySelector('[data-resize="start"]'), 11, 0, ui.lane('a'), { altKey: true });
+    assert.equal(ui.draft()[1].startLocal, '2026-10-12T08:00');
+    await ui.fire(ui.bar(1), 'keydown', { key: 'ArrowUp', shiftKey: true }); assert.equal(ui.draft()[1].startLocal, '2026-10-12T08:00');
+    await ui.fire(ui.bar(1), 'keydown', { key: 'ArrowRight', shiftKey: true }); assert.equal(ui.draft()[1].endLocal, '2026-10-12T15:00');
+    assert.equal(overlappingSlots(ui.draft(), 'Asia/Shanghai').size, 0);
+});
+
+test('cross-row movement also stops at barriers for retained companions instead of jumping over their shifts', async () => {
+    const ui = setup({ members: [...members, { id: 'c', name: 'Carol' }], slots: [shift(0, 4, ['a', 'b']), shift(8, 12, ['b'])] }); await ui.flush();
+    await ui.drag(ui.bar(), 2, 30, ui.lane('c'), { altKey: true });
+    assert.equal(ui.draft()[0].startLocal, '2026-10-12T04:00'); assert.equal(ui.draft()[0].endLocal, '2026-10-12T08:00');
+    assert.deepEqual(ui.draft()[0].userIds, ['b', 'c']); assert.equal(overlappingSlots(ui.draft(), 'Asia/Shanghai').size, 0);
+});
+
+test('handover pointer and keyboard clamp both members against neighboring shifts', async () => {
+    for (const mode of ['pointer', 'keyboard']) for (const direction of [-1, 1]) {
+        const ui = setup({ slots: [shift(0, 8), shift(8, 20, ['b']), shift(10 + 17 / 60, 16), shift(0, 6 + 17 / 60, ['b'])] }); await ui.flush();
+        const marker = () => ui.get('handover-lane').querySelector('[data-first="0"]');
+        if (mode === 'pointer') await ui.drag(marker(), 8, direction > 0 ? 18 : 2, ui.get('handover-lane'), { altKey: true });
+        else for (let i = 0; i < 5 && marker(); i++) await ui.fire(marker(), 'keydown', { key: direction > 0 ? 'ArrowRight' : 'ArrowLeft' });
+        const boundary = direction > 0 ? '2026-10-12T10:17' : '2026-10-12T06:17';
+        assert.equal(ui.draft()[0].endLocal, boundary); assert.equal(ui.draft()[1].startLocal, boundary);
+        assert.equal(overlappingSlots(ui.draft(), 'Asia/Shanghai').size, 0);
+    }
+});
+
+test('conflicting row drops and swaps are visibly rejected and leave an accessible error and unchanged undo history', async () => {
+    const ui = setup({ slots: [shift(4, 12), shift(6, 10, ['b']), shift(10, 14, ['b'])] }); await ui.flush();
+    const original = ui.draft();
+    for (const swap of [false, true]) {
+        const target = swap ? ui.bar(1, 'b') : ui.lane('b');
+        await ui.pointer('pointerdown', ui.bar(), 7);
+        await ui.pointer('pointermove', target, 7, { clientY: 150 });
+        assert(ui.chart.classList.contains('ac-gantt-drop-invalid')); assert(ui.bar().classList.contains('ac-gantt-drop-invalid'));
+        assert.match(ui.get('drag-tooltip').textContent, /overlap/);
+        await ui.pointer('pointerup', target, 7, { clientY: 150 });
+        assert.deepEqual(ui.draft(), original); assert.match(ui.get('schedule-errors').textContent, /overlap/);
+        assert.equal(ui.get('undo-schedule').disabled, true); assert(!ui.chart.classList.contains('ac-gantt-drop-invalid'));
+    }
+    await ui.fire(ui.bar(), 'keydown', { key: 'ArrowDown' }); assert.deepEqual(ui.draft(), original);
+});
+
+test('dialog, table times and table membership reject overlap without closing dialog or modifying drafts', async () => {
+    const ui = setup({ slots: [shift(4, 8), shift(10, 14), shift(4, 8, ['b'])] }); await ui.flush();
+    const original = ui.draft();
+    await ui.click(ui.bar()); ui.get('dialog-end').value = '2026-10-12T11:00'; await ui.click('dialog-apply');
+    assert(ui.get('shift-dialog').open); assert.match(ui.get('dialog-errors').textContent, /overlap/); assert.deepEqual(ui.draft(), original);
+    await ui.click('dialog-cancel');
+    await ui.input(tableInput(ui, 0, 'end'), '2026-10-12T12:00');
+    assert.deepEqual(ui.draft(), original); assert.match(ui.get('schedule-errors').textContent, /overlap/);
+    await ui.check(ui.get('shift-rows').children[0].children[2], 'b', true);
+    assert.deepEqual(ui.draft(), original); assert.match(ui.get('schedule-errors').textContent, /overlap/);
+    assert.equal(ui.get('undo-schedule').disabled, true);
+});
+
+test('copied and generated overlapping ranges are rejected before replacement confirmation or staging', async () => {
+    const copy = setup({ slots: [shift(4, 12), shift(8, 16)] }); await copy.flush();
+    await copy.click('copy-range');
+    assert.match(copy.get('schedule-errors').textContent, /overlap/); assert.equal(copy.get('copy-drafts').children.length, 0);
+    assert.equal(copy.get('undo-schedule').disabled, true);
+    const ui = setup({ slots: [], generatedSlots: [shift(172, 180), shift(176, 184)] }); await ui.flush();
+    await ui.click('generate');
+    assert.match(ui.get('schedule-errors').textContent, /overlap/); assert.equal(ui.get('replace-confirm').hidden, true);
+    assert.equal(ui.get('copy-drafts').children.length, 0); assert.equal(ui.get('undo-schedule').disabled, true);
+});
+
+test('authoritative preview errors reject bulk drafts even when the conflicting saved shift is outside client context', async () => {
+    const ui = setup({ slots: [shift(4, 12)], previewErrors: ['Alice overlaps an adjacent saved shift.'] }); await ui.flush();
+    assert.match(ui.get('schedule-errors').textContent, /Alice overlaps/);
+    await ui.click('copy-range'); assert.equal(ui.get('copy-drafts').children.length, 0); assert.match(ui.get('schedule-errors').textContent, /Alice overlaps/);
+    await ui.click('generate'); assert.equal(ui.get('replace-confirm').hidden, true); assert.match(ui.get('schedule-errors').textContent, /Alice overlaps/);
+    const clear = setup({ slots: [shift(4, 12)], now: start, clearResponse: { errors: ['Alice overlaps an adjacent saved shift.'] } }); await clear.flush();
+    const original = clear.draft(); await clear.click('clear-range'); assert.deepEqual(clear.draft(), original); assert.match(clear.get('schedule-errors').textContent, /Alice overlaps/);
+});
+
+test('clear regeneration preview rejects overlapping output before confirmation or staging', async () => {
+    const ui = setup({ now: start, autoExtend: true, slots: [shift(4, 12)], clearSlots: [shift(4, 12), shift(8, 16)] }); await ui.flush();
+    const original = ui.draft(); ui.get('clear-auto-action').value = 'regenerate';
+    await ui.click('clear-range');
+    assert.deepEqual(ui.draft(), original); assert.equal(ui.get('replace-confirm').hidden, true);
+    assert.match(ui.get('schedule-errors').textContent, /overlap/); assert.equal(ui.get('undo-schedule').disabled, true);
+});
+
+test('legacy overlaps are red, block save, merge per person without changing coverage, and support undo/redo', async () => {
+    const slots = [shift(0, 8, ['a', 'b']), shift(4, 12), shift(12, 16), shift(20, 24, []), shift(22, 26, [])];
+    const ui = setup({ slots }); await ui.flush();
+    assert(ui.bar(0).classList.contains('ac-gantt-conflict')); assert(ui.bar(1).classList.contains('ac-gantt-conflict'));
+    assert(ui.bar(3, '').classList.contains('ac-gantt-conflict')); assert.equal(ui.bar(2).getAttribute('aria-invalid'), null);
+    assert(ui.get('save-schedule').disabled); assert(!ui.get('merge-overlaps').hidden); assert(warnings(ui).some(message => message.includes('before saving')));
+    await ui.click('save-schedule'); assert.equal(ui.request('/save').length, 0);
+    const original = ui.draft(); await ui.click('merge-overlaps');
+    assert.equal(overlappingSlots(ui.draft(), 'Asia/Shanghai').size, 0); assert.equal(ui.draft().length, 3);
+    assert.deepEqual(ui.draft().find(slot => slot.userIds.includes('b')), { startLocal: '2026-10-12T00:00', endLocal: '2026-10-12T08:00', userIds: ['b'] });
+    assert.equal(ui.draft().find(slot => slot.userIds.includes('a')).endLocal, '2026-10-12T16:00');
+    assert.equal(ui.lane('a').style.minHeight, '72px'); assert(!ui.get('save-schedule').disabled);
+    await ui.click('undo-schedule'); assert.deepEqual(ui.draft(), original); assert(ui.get('save-schedule').disabled);
+    await ui.click('redo-schedule'); assert(!ui.get('save-schedule').disabled);
+    const untouched = { ...shift(40, 48, ['a', 'b'], 'untouched'), source: 1, rotationPosition: 9 };
+    const merged = mergeOverlaps([...slots, untouched], 'Asia/Shanghai');
+    assert.deepEqual(merged.find(slot => slot.id === 'untouched'), untouched);
+    assert.equal(hoursFor(merged.filter(slot => slot.id !== 'untouched'), 'a', start, end), hoursFor(slots, 'a', start, end));
+    assert.equal(hoursFor(merged.filter(slot => slot.id !== 'untouched'), 'b', start, end), hoursFor(slots, 'b', start, end));
+});
+
+test('merge repairs overlaps across the visible boundary while preserving adjacent schedules and can undo', async () => {
+    const saved = [shift(-8, 4, ['a'], 'crossing'), shift(-12, -4, ['a'], 'prior'), shift(170, 178, ['b'], 'later'), shift(-16, -10, ['b'], 'unseen')];
+    const ui = setup({ slots: [saved[0]], context: saved.slice(1, 3), savedSlots: saved }); await ui.flush();
+    assert(ui.get('save-schedule').disabled); assert(ui.readonly[0].classList.contains('ac-gantt-conflict')); await ui.click('merge-overlaps');
+    assert(!ui.readonly[0].classList.contains('ac-gantt-conflict'));
+    assert.equal(ui.draft()[0].startLocal, '2026-10-11T12:00'); assert.equal(ui.draft()[0].endLocal, '2026-10-12T04:00');
+    assert(!ui.get('save-schedule').disabled);
+    await ui.click('save-schedule');
+    const slots = ui.request('/save')[0].body.slots;
+    assert.equal(overlappingSlots(slots, 'Asia/Shanghai').size, 0);
+    assert(slots.some(slot => slot.id === 'later')); assert(slots.some(slot => slot.id === 'unseen'));
+    await ui.click('undo-schedule'); assert.equal(ui.draft()[0].startLocal, '2026-10-11T16:00'); assert(ui.get('save-schedule').disabled);
+});
+
+test('candidate snapping prioritizes all team edges, template handovers, zoned midnight and now with zoom-sensitive 10px tolerance', () => {
+    const zone = 'Asia/Shanghai', edge = Date.parse(shift(12 + 17 / 60, 20, ['b']).startsAtUtc), handover = Date.parse(start) + (9 + 13 / 60) * hour;
+    const now = Date.parse(start) + (6 + 7 / 60) * hour;
+    const candidates = snapCandidates([shift(12 + 17 / 60, 20, ['b'])], [new Date(handover).toISOString()], Date.parse(start), Date.parse(end), zone, now);
+    for (const candidate of [edge, handover, now, Date.parse(start) + 24 * hour]) {
+        const tolerance = hour / 6 * 10;
+        assert.deepEqual(snapBoundary(candidate + 9 / 6 * hour, zone, [candidate], tolerance), { time: candidate, guide: candidate });
+        assert.equal(snapBoundary(candidate + 10.01 / 6 * hour, zone, [candidate], tolerance).guide, null);
+        assert.equal(snapBoundary(candidate + 9 / 6 * hour, zone, [candidate], hour / 12 * 10).guide, null);
+        assert(candidates.includes(candidate));
+    }
+    assert.equal(snapBoundary(edge - 4 * hour + 2 * 60000, zone, [edge], 10 * 60000, false, 4 * hour).time, edge - 4 * hour);
+    const free = snapBoundary(edge + 2 * 60000 + 30000, zone, candidates, hour, true);
+    assert.equal(free.guide, null); assert.equal(free.time, edge + 2 * 60000);
+    const dst = snapCandidates([], [], Date.parse('2026-11-01T00:00Z'), Date.parse('2026-11-03T00:00Z'), 'America/New_York', now);
+    assert(dst.includes(Date.parse('2026-11-01T04:00Z'))); assert(dst.includes(Date.parse('2026-11-02T05:00Z')));
+});
+
+test('creation displays a snapped origin guide and moving shifts snap their trailing edge', async () => {
+    const ui = setup({ now: start, slots: [shift(12 + 17 / 60, 18, ['b']), shift(4, 8)] }); await ui.flush();
+    await ui.pointer('pointerdown', ui.lane(''), 12.5);
+    await ui.pointer('pointermove', ui.lane(''), 15);
+    assert.equal(ui.get('snap-line').hidden, false); assert.match(ui.get('snap-line').textContent, /12:17/);
+    await ui.pointer('pointerup', ui.lane(''), 15);
+    assert.equal(ui.draft()[2].startLocal, '2026-10-12T12:17');
+    await ui.pointer('pointerdown', ui.bar(1), 5);
+    await ui.pointer('pointermove', ui.lane('a'), 9.5);
+    assert.equal(ui.get('snap-line').hidden, false); assert.match(ui.get('snap-line').textContent, /12:17/);
+    await ui.pointer('pointerup', ui.lane('a'), 9.5);
+    assert.equal(ui.draft()[1].startLocal, '2026-10-12T08:17'); assert.equal(ui.draft()[1].endLocal, '2026-10-12T12:17');
+});
+
+test('pointer creation, movement, resize and handover show snap guides; Alt removes all snapping; touch uses same candidates', async () => {
+    const handover = shift(9 + 17 / 60, 10).startsAtUtc;
+    const ui = setup({ now: start, slots: [shift(12 + 17 / 60, 18, ['b'])], handovers: [handover] }); await ui.flush();
+    await ui.pointer('pointerdown', ui.lane('a'), 4);
+    await ui.pointer('pointermove', ui.lane('a'), 9.5);
+    assert.equal(ui.get('snap-line').hidden, false); assert.match(ui.get('snap-line').textContent, /09:17/);
+    await ui.pointer('pointerup', ui.lane('a'), 9.5);
+    assert.equal(ui.draft()[1].endLocal, '2026-10-12T09:17'); assert(ui.get('snap-line').hidden);
+    await ui.pointer('pointerdown', ui.bar(1).querySelector('[data-resize="end"]'), 9 + 17 / 60);
+    await ui.pointer('pointermove', ui.lane('a'), 12.5);
+    assert.match(ui.get('snap-line').textContent, /12:17/);
+    await ui.pointer('pointerup', ui.lane('a'), 12.5);
+    assert.equal(ui.draft()[1].endLocal, '2026-10-12T12:17');
+    await ui.drag(ui.bar(1), 6, 7.7, ui.lane('a'));
+    assert.equal(ui.draft()[1].startLocal, '2026-10-12T05:30');
+    const touch = { pointerType: 'touch' };
+    await ui.pointer('pointerdown', ui.lane(''), 4, touch); await ui.advance(400);
+    await ui.pointer('pointermove', ui.lane(''), 9.5, { ...touch, clientY: 150 });
+    assert.equal(ui.get('snap-line').hidden, false);
+    await ui.pointer('pointerup', ui.lane(''), 9.5, { ...touch, clientY: 150 });
+    assert.equal(ui.draft()[2].endLocal, '2026-10-12T09:17');
+    await ui.pointer('pointerdown', ui.bar(1).querySelector('[data-resize="end"]'), 13 + 47 / 60, { altKey: true });
+    await ui.pointer('pointermove', ui.lane('a'), 12.5, { altKey: true });
+    assert.equal(ui.get('snap-line').hidden, true);
+    await ui.pointer('pointerup', ui.lane('a'), 12.5, { altKey: true });
+    assert.equal(ui.draft()[1].endLocal, '2026-10-12T12:30');
+    const coupled = setup({ slots: [shift(0, 8), shift(8, 16, ['b'])], handovers: [handover] }); await coupled.flush();
+    await coupled.drag(coupled.get('handover-lane').children[0], 8, 9.5, coupled.get('handover-lane'));
+    assert.equal(coupled.draft()[0].endLocal, '2026-10-12T09:17'); assert.equal(coupled.draft()[1].startLocal, '2026-10-12T09:17');
 });

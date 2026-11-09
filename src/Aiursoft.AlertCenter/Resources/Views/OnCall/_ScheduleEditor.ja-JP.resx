@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>クリアされた下書きの範囲</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>重複するシフトを統合</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>同じ担当者のシフトや未割り当て行のシフトは重複できません。保存する前に統合または調整してください。</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>この移動では同じ担当者の別のシフトと重複します。下書きは変更されませんでした。</value>
+  </data>
 </root>

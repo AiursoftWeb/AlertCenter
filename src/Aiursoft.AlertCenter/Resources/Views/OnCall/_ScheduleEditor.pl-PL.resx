@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Wyczyszczony przedział wersji roboczej</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Scal nakładające się dyżury</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Dyżury tej samej osoby lub w wierszu nieprzypisanych dyżurów nie mogą się nakładać. Scal je lub dostosuj przed zapisaniem.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>To przesunięcie spowodowałoby nakładanie się na inny dyżur tej samej osoby. Wersja robocza nie została zmieniona.</value>
+  </data>
 </root>

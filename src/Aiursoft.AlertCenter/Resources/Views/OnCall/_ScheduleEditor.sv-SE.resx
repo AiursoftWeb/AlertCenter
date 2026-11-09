@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Rensad period i utkastet</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Slå samman överlappande pass</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Pass för samma person eller på raden för otilldelade pass får inte överlappa. Slå samman eller justera dem innan du sparar.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Den här flytten skulle överlappa ett annat pass för samma person. Utkastet ändrades inte.</value>
+  </data>
 </root>

@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Leeggemaakte conceptperiode</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Overlappende diensten samenvoegen</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Diensten voor dezelfde persoon of in de rij met niet-toegewezen diensten mogen niet overlappen. Voeg ze samen of pas ze aan voordat je opslaat.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Deze verplaatsing zou overlappen met een andere dienst van dezelfde persoon. Het concept is niet gewijzigd.</value>
+  </data>
 </root>

@@ -203,6 +203,47 @@ public class OnCallScheduleClearingTests
     }
 
     [TestMethod]
+    public async Task RegenerationClipsPartialGapsAtBothRetainedBoundaries()
+    {
+        group.AutoExtend = true;
+        var first = Shift(0, 2);
+        Shift(2, 5, user: "b");
+        var last = Shift(5, 8);
+        var request = await Request(2, 5, action: "regenerate");
+        request.ClearRanges[0].StartUtc = now.AddHours(2).AddMinutes(17);
+        request.ClearRanges[0].EndUtc = now.AddHours(4).AddMinutes(43);
+        await ClearPreview(request);
+        request.ConfirmReplace = true;
+        Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
+        var shifts = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).ToListAsync();
+        Assert.AreEqual(first.Id, shifts[0].Id);
+        Assert.AreEqual(last.Id, shifts[^1].Id);
+        Assert.AreEqual(0, OnCallScheduleValidator.OverlapErrors(shifts, []).Count);
+        Assert.IsTrue(shifts.Zip(shifts.Skip(1)).All(pair => pair.First.EndsAtUtc == pair.Second.StartsAtUtc));
+    }
+
+    [TestMethod]
+    [DataRow("disable")]
+    [DataRow("regenerate")]
+    public async Task ClearAndRegenerateCannotSaveUnresolvedLegacyOverlaps(string action)
+    {
+        group.AutoExtend = true;
+        var first = Shift(1, 5, OnCallShiftSource.Manual);
+        Shift(2, 3, OnCallShiftSource.Manual);
+        Shift(6, 8, user: "b");
+        var request = await Request(6, 8, action: action);
+        var version = group.ScheduleVersion;
+        await ClearPreview(request);
+        Assert.IsTrue(service.Warnings.Any(warning => warning.Contains("Cannot save overlapping")));
+        request.ConfirmReplace = true;
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("Cannot save overlapping")));
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.IsTrue(group.AutoExtend);
+        Assert.AreEqual(3, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(now.AddHours(5), (await db.OnCallShifts.SingleAsync(shift => shift.Id == first.Id)).EndsAtUtc);
+    }
+
+    [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
     public async Task MaintenanceResumesAtNowOrLastRetainedFutureEnd(bool futureRemains)

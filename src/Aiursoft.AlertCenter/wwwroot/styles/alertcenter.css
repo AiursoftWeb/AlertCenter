@@ -250,6 +250,25 @@ html {
     white-space: nowrap;
 }
 
+.ac-gantt-snap-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    border-left: 2px dashed var(--bs-primary);
+    pointer-events: none;
+}
+
+.ac-gantt-snap-line span {
+    display: block;
+    padding: 0 0.25rem;
+    color: #fff;
+    background: var(--bs-primary);
+    font-size: 0.75rem;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
 .ac-gantt-lane {
     position: relative;
     min-width: 0;
@@ -325,6 +344,21 @@ html {
 .ac-gantt-dragging { cursor: grabbing; }
 .ac-gantt-dragging * { cursor: grabbing !important; }
 
+.ac-gantt-drop-invalid {
+    outline: 3px solid var(--bs-danger) !important;
+    outline-offset: -3px;
+}
+
+#oncall-gantt.ac-gantt-drop-invalid {
+    outline-width: 1px !important;
+    outline-offset: -1px;
+}
+
+.ac-gantt-drop-invalid,
+.ac-gantt-drop-invalid * {
+    cursor: not-allowed !important;
+}
+
 .ac-gantt-drag-label {
     position: fixed;
     z-index: 1080;
@@ -368,7 +402,8 @@ html {
     touch-action: manipulation;
 }
 
-.ac-gantt [hidden] {
+.ac-gantt [hidden],
+#oncall-merge-overlaps[hidden] {
     display: none !important;
 }
 

@@ -34,4 +34,6 @@
     <value>{0}님의 근무 시간이 지정된 8시간 범위를 벗어났습니다.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>미배정</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>{0}의 겹치는 근무를 저장할 수 없습니다: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC 및 {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

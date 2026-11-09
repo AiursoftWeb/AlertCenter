@@ -42,4 +42,6 @@
   <data name="An engineer has insufficient rest between shifts." xml:space="preserve"><value>成员在班段之间的休息时间不足。</value></data>
   <data name="An engineer exceeds the continuous on-call threshold." xml:space="preserve"><value>成员连续值班时长超过提醒阈值。</value></data>
   <data name="Shift end must be after its start." xml:space="preserve"><value>班段结束时间必须晚于开始时间。</value></data>
+  <data name="Unassigned" xml:space="preserve"><value>未分配人员</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>无法保存{0}的重叠班段：{1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC 与 {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC。</value></data>
 </root>

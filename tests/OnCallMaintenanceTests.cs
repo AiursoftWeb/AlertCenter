@@ -67,6 +67,39 @@ public class OnCallMaintenanceTests
     }
 
     [TestMethod]
+    public async Task PartialPeriodsAndFullStaffAlternateRoundsAppendWithoutOverlapAndPreserveLegacyData()
+    {
+        db.RemoveRange(group.Rule!.HandoverPoints);
+        group.Rule.HandoverPoints.Clear();
+        group.Rule.ShiftMinutes = 337;
+        group.Rule.StaffPerShift = 4;
+        group.Rule.SwapAlternateRounds = true;
+        group.Members.Add(new() { UserId = "d", RotationOrder = 3 });
+        var legacy = new[]
+        {
+            new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-2), EndsAtUtc = Now.AddMinutes(17), Members = [new() { UserId = "a" }] },
+            new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-1), EndsAtUtc = Now.AddMinutes(7), Members = [new() { UserId = "a" }] }
+        };
+        db.OnCallShifts.AddRange(legacy);
+        await db.SaveChangesAsync();
+        await Maintain();
+        await Maintain(Now.AddDays(1));
+        var saved = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).ToListAsync();
+        var additions = saved.Where(shift => !legacy.Any(original => original.Id == shift.Id)).ToList();
+        Assert.AreEqual(Now.AddMinutes(17), additions[0].StartsAtUtc);
+        Assert.IsTrue(additions.All(shift => shift.Members.Count == 4));
+        Assert.AreEqual(0, OnCallScheduleValidator.OverlapErrors(additions, legacy).Count);
+        Assert.AreEqual(1, OnCallScheduleValidator.OverlapErrors(saved, []).Count);
+        foreach (var original in legacy)
+        {
+            var actual = saved.Single(shift => shift.Id == original.Id);
+            Assert.AreEqual(original.StartsAtUtc, actual.StartsAtUtc);
+            Assert.AreEqual(original.EndsAtUtc, actual.EndsAtUtc);
+            Assert.AreEqual("a", actual.Members.Single().UserId);
+        }
+    }
+
+    [TestMethod]
     public async Task RemovedLastAssigneeRestartsAtQueueHeadAndDisabledTeamsDoNotExtend()
     {
         db.OnCallShifts.Add(new() { GroupId = group.Id, StartsAtUtc = Now.AddHours(-1), EndsAtUtc = Now,

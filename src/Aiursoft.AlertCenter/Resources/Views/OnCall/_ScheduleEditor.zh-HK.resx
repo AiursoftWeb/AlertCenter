@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>已清空的草稿範圍</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>合併重疊更次</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>同一人員或未分配列中的更次不能重疊。請在儲存前合併或調整這些更次。</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>此移動會與同一人員的其他更次重疊。草稿未有更改。</value>
+  </data>
 </root>

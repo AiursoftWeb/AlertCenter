@@ -53,7 +53,8 @@
             <li>@viewLocalizer["Drag the body of a shift to change its time or person. Drag the left or right edge to adjust its start or end. Drag a handover to change both adjoining shifts."]</li>
             <li>@viewLocalizer["Drop a shift onto another assigned shift to exchange their members."]</li>
             <li>@viewLocalizer["Drag Swap full week to another member, or select the button then select the target member row, to exchange their schedules across the visible range."]</li>
-            <li>@viewLocalizer["Drag across a blank member row to create a shift. Times snap to 30 minutes; hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background."]</li>
+            <li>@viewLocalizer["Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts."]</li>
+            <li>@viewLocalizer["Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background."]</li>
             <li>@viewLocalizer["Focus a shift: Left/Right moves time, Up/Down changes person. Shift + Left/Right adjusts the end; Shift + Up/Down adjusts the start. Enter opens exact editing, Delete removes, and Escape cancels."]</li>
             <li>@viewLocalizer["Use Precise editing / bulk operations for exact times, zero or multiple members, moving a selected shift, swapping members, or copying a range. Undo, redo and reset include copied drafts. Save publishes your changes."]</li>
         </ul>
@@ -69,6 +70,7 @@
 <div id="oncall-gantt" class="ac-gantt-scroll border rounded" data-duration="@duration.ToString(CultureInfo.InvariantCulture)" role="region" aria-label="@viewLocalizer["7-Day On-Call Gantt Chart"]" aria-describedby="oncall-gantt-help" tabindex="0">
     <div class="ac-gantt">
         <div class="ac-gantt-grid" aria-hidden="true">
+            <div id="oncall-snap-line" class="ac-gantt-snap-line" hidden><span></span></div>
             @foreach (var context in contextDays)
             {
                 @foreach (var day in context.Days)

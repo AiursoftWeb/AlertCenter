@@ -34,4 +34,6 @@
     <value>{0}的更表不在指定的 8 小時時段內。</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>未分配人員</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>無法儲存{0}的重疊更段：{1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC 與 {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC。</value></data>
 </root>

@@ -34,4 +34,6 @@
     <value>Смена сотрудника {0} не входит в установленное 8-часовое окно.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Не назначено</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Невозможно сохранить пересекающиеся смены для {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC и {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

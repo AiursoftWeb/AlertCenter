@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Rentang draf yang dikosongkan</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Gabungkan sif yang tumpang tindih</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Sif untuk orang yang sama atau pada baris yang belum ditugaskan tidak boleh tumpang tindih. Gabungkan atau sesuaikan sebelum menyimpan.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Pemindahan ini akan tumpang tindih dengan sif lain untuk orang yang sama. Draf tidak diubah.</value>
+  </data>
 </root>

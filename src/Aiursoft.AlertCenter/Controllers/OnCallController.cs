@@ -269,7 +269,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         {
             var errors = await schedules.Save(request, generate, cancellationToken, preview, clear);
             return errors.Count == 0 ? Ok(new { version = schedules.Version, startUtc = request.StartUtc, endUtc = request.EndUtc,
-                warnings = schedules.Warnings, slots = schedules.PreviewSlots.Select(ScheduleSlot),
+                errors = schedules.PreviewErrors, warnings = schedules.Warnings, slots = schedules.PreviewSlots.Select(ScheduleSlot),
                 replacedSlots = schedules.ReplacedSlots.Select(ScheduleSlot),
                 clearRanges = request.ClearRanges.Select(range => new
                 {
@@ -732,8 +732,11 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                     Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0));
                 model.StaffingWarnings = OnCallScheduleValidator.Warnings(group, startUtc, endUtc, saved, history,
                     localizerFactory.Create(typeof(OnCallScheduleValidator)));
+                var overlapErrors = OnCallScheduleValidator.OverlapErrors(saved, [],
+                    localizerFactory.Create(typeof(OnCallScheduleValidator)), model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName));
+                model.StaffingWarnings = model.StaffingWarnings.Concat(overlapErrors.Select(error => error.Message)).Distinct().ToList();
                 model.TimelineWarnings = OnCallScheduleValidator.TimelineWarnings(group, startUtc, endUtc, saved, history,
-                    localizerFactory.Create(typeof(OnCallScheduleValidator)));
+                    localizerFactory.Create(typeof(OnCallScheduleValidator))).Concat(overlapErrors).ToList();
                 return;
             }
             if (!model.CanGenerateSchedule)
@@ -746,7 +749,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 ? (int)Math.Ceiling((endUtc - startUtc).TotalMinutes / (group.Rule.ShiftMinutes ?? group.Rule.ShiftHours * 60))
                 : ((int)Math.Ceiling((endUtc - startUtc).TotalDays / 7) + 2) * group.Rule.HandoverPoints.Count;
             model.Preview = generator.GenerateRange(group.Rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), automaticIds, startUtc, count, zone)
-                .Where(shift => shift.StartsAtUtc < endUtc).ToList();
+                .Where(shift => shift.StartsAtUtc < endUtc)
+                .Select(shift => shift.EndsAtUtc > endUtc ? shift with { EndsAtUtc = endUtc } : shift).ToList();
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or TimeZoneNotFoundException or InvalidTimeZoneException or OverflowException)
         {

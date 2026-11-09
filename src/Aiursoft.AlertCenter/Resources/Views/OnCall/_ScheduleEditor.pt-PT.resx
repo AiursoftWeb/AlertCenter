@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Intervalo do rascunho limpo</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Unir turnos sobrepostos</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Os turnos da mesma pessoa ou da linha não atribuída não podem sobrepor-se. Una-os ou ajuste-os antes de guardar.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Esta deslocação iria sobrepor-se a outro turno da mesma pessoa. O rascunho não foi alterado.</value>
+  </data>
 </root>

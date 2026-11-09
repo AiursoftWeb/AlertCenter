@@ -34,4 +34,6 @@
     <value>El turno de {0} queda fuera del intervalo designado de 8 horas.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Sin asignar</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>No se pueden guardar turnos superpuestos para {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC y {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

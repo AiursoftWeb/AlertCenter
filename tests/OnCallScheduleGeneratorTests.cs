@@ -66,6 +66,29 @@ public class OnCallScheduleGeneratorTests
     }
 
     [TestMethod]
+    public void FullStaffAlternateRoundsRemainUniqueWhenContinuationStartsMidRound()
+    {
+        var rule = new OnCallRule { StaffPerShift = 4, SwapAlternateRounds = true, ShiftMinutes = 37 };
+        var start = Anchor.AddMinutes(17);
+        var result = generator.Generate(rule, Anchor, ["a", "b", "c", "d"], start, 8,
+            [new("a", Anchor, start)]);
+        var batches = result.GroupBy(shift => shift.StartsAtUtc).ToArray();
+        Assert.AreEqual(8, batches.Length);
+        foreach (var batch in batches)
+            CollectionAssert.AreEquivalent(new[] { "a", "b", "c", "d" }, batch.Select(shift => shift.UserId).ToArray());
+        for (var index = 1; index < batches.Length; index++)
+            Assert.AreEqual(batches[index - 1].First().EndsAtUtc, batches[index].Key);
+        var first = batches[0].First();
+        var last = new OnCallShift { StartsAtUtc = first.StartsAtUtc, EndsAtUtc = first.EndsAtUtc,
+            RotationPosition = first.RotationPosition, Members = batches[0].Select(shift => new OnCallShiftMember { UserId = shift.UserId }).ToList() };
+        var group = new OnCallGroup { Rule = rule,
+            Members = new[] { "a", "b", "c", "d" }.Select((id, index) => new OnCallGroupMember { UserId = id, RotationOrder = index }).ToList() };
+        var continuation = generator.Generate(rule, Anchor, ["a", "b", "c", "d"], last.EndsAtUtc, 7,
+            OnCallMaintenanceWorker.RotationHistory(group, last));
+        CollectionAssert.AreEqual(result.Skip(4).ToArray(), continuation.ToArray());
+    }
+
+    [TestMethod]
     public void ContinuationStartsAfterLastAssigneeOrAtHeadIfTheyLeft()
     {
         var history = new[] { new GeneratedOnCallShift("b", Anchor.AddDays(-4), Anchor) };

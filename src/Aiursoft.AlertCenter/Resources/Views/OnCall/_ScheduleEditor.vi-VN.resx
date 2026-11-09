@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Khoảng thời gian đã xóa trong bản nháp</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Gộp các ca trực chồng lấn</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Các ca trực của cùng một người hoặc trong hàng chưa phân công không được chồng lấn. Hãy gộp hoặc điều chỉnh trước khi lưu.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Việc di chuyển này sẽ chồng lấn với ca trực khác của cùng một người. Bản nháp không bị thay đổi.</value>
+  </data>
 </root>
