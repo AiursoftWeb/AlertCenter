@@ -34,4 +34,6 @@
     <value>Für den Dienst um {1:yyyy-MM-dd HH:mm} UTC sind nur {0} Mitarbeiter eingeplant. Damit wird die Mindestbesetzung von {2} unterschritten. Das manuelle Speichern ist trotz unzureichender Besetzung weiterhin möglich, außer bei unbesetzten Diensten.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Nicht zugewiesen</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Überlappende Schichten für {0} können nicht gespeichert werden: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC und {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

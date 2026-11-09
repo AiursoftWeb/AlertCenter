@@ -127,4 +127,10 @@
     <value>Έως</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Οι βάρδιες του ίδιου ατόμου ή στη γραμμή μη ανατεθειμένων βαρδιών δεν μπορούν να επικαλύπτονται. Η μεταφορά σταματά στις γειτονικές βάρδιες.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Σύρετε σε κενό τμήμα της γραμμής ενός μέλους για να δημιουργήσετε βάρδια. Οι ώρες ευθυγραμμίζονται με τα όρια βαρδιών, τις παραδόσεις του προτύπου, τα τοπικά μεσάνυχτα και την τρέχουσα ώρα εντός 10 pixel· διαφορετικά ευθυγραμμίζονται ανά 30 λεπτά. Κρατήστε πατημένο το Alt για ακρίβεια λεπτού. Σε οθόνες αφής, πατήστε παρατεταμένα πριν σύρετε· κάντε οριζόντια κύλιση από τον άξονα χρόνου ή το φόντο του γραφήματος.</value>
+  </data>
 </root>

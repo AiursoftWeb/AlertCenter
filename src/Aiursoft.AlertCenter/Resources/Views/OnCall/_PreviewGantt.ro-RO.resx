@@ -127,4 +127,10 @@
     <value>Până la</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Turele aceleiași persoane sau de pe rândul nealocat nu se pot suprapune. Tragerea se oprește la turele învecinate.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Trage pe o zonă goală a rândului unui membru pentru a crea o tură. Orele se aliniază la limitele turelor, predările din șablon, miezul nopții locale și momentul actual la o distanță de cel mult 10 pixeli; altfel, se aliniază la intervale de 30 de minute. Ține apăsat Alt pentru precizie la minut. Pe ecrane tactile, apasă lung înainte de a trage; derulează orizontal folosind axa timpului sau fundalul graficului.</value>
+  </data>
 </root>

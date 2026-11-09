@@ -34,4 +34,6 @@
     <value>Only {0} staff members are scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual saving is still allowed despite insufficient staffing, except for empty shifts.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Unassigned</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

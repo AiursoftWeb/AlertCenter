@@ -34,4 +34,6 @@
     <value>تمت جدولة {0} فقط من الموظفين في {1:yyyy-MM-dd HH:mm} بالتوقيت العالمي المنسق (UTC)، وهو أقل من الحد الأدنى البالغ {2}. لا يزال الحفظ اليدوي مسموحًا رغم عدم كفاية عدد الموظفين، باستثناء الورديات الخالية.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>غير معيّن</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>لا يمكن حفظ مناوبات متداخلة لـ {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC و{3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

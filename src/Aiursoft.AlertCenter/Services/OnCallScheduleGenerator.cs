@@ -48,13 +48,25 @@ public sealed class OnCallScheduleGenerator(IStringLocalizer<OnCallScheduleGener
         {
             var endsAt = rule.HandoverPoints.Count == 0
                 ? startsAt.AddMinutes(minutes) : NextHandover(rule.HandoverPoints, zone, startsAt);
-            for (var person = 0; person < rule.StaffPerShift; person++)
-            {
-                var position = QueueIndex(rule, orderedUserIds.Count, cursor);
-                result.Add(new(orderedUserIds[position], startsAt, endsAt, RotationPosition: cursor));
-                cursor++;
-            }
+            var assignments = AssignShift(rule, orderedUserIds, cursor, rule.StaffPerShift, startsAt, endsAt);
+            result.AddRange(assignments);
+            cursor = assignments[^1].RotationPosition!.Value + 1;
             startsAt = endsAt;
+        }
+        return result;
+    }
+
+    internal static List<GeneratedOnCallShift> AssignShift(OnCallRule rule, IReadOnlyList<string> ids, long cursor,
+        int staffCount, DateTime startsAt, DateTime endsAt)
+    {
+        var result = new List<GeneratedOnCallShift>();
+        var assigned = new HashSet<string>(StringComparer.Ordinal);
+        while (assigned.Count < staffCount)
+        {
+            var userId = ids[QueueIndex(rule, ids.Count, cursor)];
+            // 隔轮对调跨轮取整队时可能再次遇到同一人；继续队列补足唯一成员。
+            if (assigned.Add(userId)) result.Add(new(userId, startsAt, endsAt, RotationPosition: cursor));
+            cursor++;
         }
         return result;
     }

@@ -34,4 +34,6 @@
     <value>{2}명 이상이어야 하지만 {1:yyyy-MM-dd HH:mm} UTC에 근무 예정인 직원은 {0}명뿐입니다. 인력이 부족하더라도 수동 저장은 가능하지만, 근무자가 없는 교대는 저장할 수 없습니다.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>미배정</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>{0}의 겹치는 근무를 저장할 수 없습니다: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC 및 {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

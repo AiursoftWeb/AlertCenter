@@ -127,4 +127,10 @@
     <value>До</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Смены одного сотрудника или в строке неназначенных смен не могут пересекаться. Перетаскивание останавливается у соседних смен.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Перетащите по пустому участку строки сотрудника, чтобы создать смену. Время привязывается к границам смен, передачам дежурства из шаблона, местной полуночи и текущему моменту в пределах 10 пикселей; иначе — к интервалам по 30 минут. Удерживайте Alt для точности до минуты. На сенсорных экранах нажмите и удерживайте перед перетаскиванием; прокручивайте по горизонтали с помощью оси времени или фона диаграммы.</value>
+  </data>
 </root>

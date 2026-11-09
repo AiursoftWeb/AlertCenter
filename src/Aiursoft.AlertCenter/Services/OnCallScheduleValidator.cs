@@ -6,6 +6,37 @@ public static class OnCallScheduleValidator
 {
     public record TimelineWarning(DateTime StartsAtUtc, DateTime EndsAtUtc, string Message);
 
+    public static List<TimelineWarning> OverlapErrors(IReadOnlyList<OnCallShift> shifts,
+        IReadOnlyList<OnCallShift> retained, IStringLocalizer? localizer = null, IReadOnlyDictionary<string, string>? names = null)
+    {
+        var result = new List<TimelineWarning>();
+        var assignments = shifts.Select(shift => (Shift: shift, IsDraft: true))
+            .Concat(retained.Select(shift => (Shift: shift, IsDraft: false)))
+            .SelectMany(item => item.Shift.Members.Select(member => member.UserId).Distinct(StringComparer.Ordinal)
+                .DefaultIfEmpty(string.Empty).Select(userId => (item.Shift, item.IsDraft, UserId: userId)));
+        foreach (var person in assignments.GroupBy(item => (item.Shift.GroupId, item.UserId)))
+        {
+            var active = new List<(OnCallShift Shift, bool IsDraft, string UserId)>();
+            foreach (var current in person.OrderBy(item => item.Shift.StartsAtUtc))
+            {
+                if (current.Shift.EndsAtUtc <= current.Shift.StartsAtUtc) continue;
+                active.RemoveAll(item => item.Shift.EndsAtUtc <= current.Shift.StartsAtUtc);
+                foreach (var previous in active.Where(item => item.IsDraft || current.IsDraft))
+                {
+                    var name = person.Key.UserId.Length == 0 ? localizer?["Unassigned"].Value ?? "Unassigned"
+                        : names?.GetValueOrDefault(person.Key.UserId) ?? person.Key.UserId;
+                    const string format = "Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.";
+                    var message = string.Format(System.Globalization.CultureInfo.InvariantCulture, localizer?[format].Value ?? format,
+                        name, previous.Shift.StartsAtUtc, previous.Shift.EndsAtUtc, current.Shift.StartsAtUtc, current.Shift.EndsAtUtc);
+                    result.Add(new(current.Shift.StartsAtUtc,
+                        previous.Shift.EndsAtUtc < current.Shift.EndsAtUtc ? previous.Shift.EndsAtUtc : current.Shift.EndsAtUtc, message));
+                }
+                active.Add(current);
+            }
+        }
+        return result;
+    }
+
     public static List<TimelineWarning> TimelineWarnings(OnCallGroup group, DateTime start, DateTime end,
         IReadOnlyList<OnCallShift> shifts, IReadOnlyList<GeneratedOnCallShift> existing, IStringLocalizer localizer)
     {
@@ -60,6 +91,8 @@ public static class OnCallScheduleValidator
             foreach (var shift in person.OrderBy(shift => shift.StartsAtUtc))
             {
                 var inRange = shift.EndsAtUtc > start && shift.StartsAtUtc < end;
+                if ((inRange || previousInRange) && previousAssignmentEnd.HasValue && shift.StartsAtUtc < previousAssignmentEnd)
+                    warnings.Add(localizer["Schedule contains overlapping shifts."].Value);
                 if ((inRange || previousInRange) && previousAssignmentEnd.HasValue && group.MinimumRestHours.HasValue &&
                     (shift.StartsAtUtc - previousAssignmentEnd.Value).TotalHours < group.MinimumRestHours)
                     warnings.Add($"{person.Key}: {localizer["An engineer has insufficient rest between shifts."].Value} ({shift.StartsAtUtc:yyyy-MM-dd HH:mm} UTC)");
@@ -86,6 +119,12 @@ public static class OnCallScheduleValidator
             if (shift.EndsAtUtc <= shift.StartsAtUtc)
                 errors.Add(localizer is null ? "Shift end must be after its start." : localizer["Shift end must be after its start."].Value);
         }
+        var intervals = shifts.Where(shift => members.ContainsKey(shift.UserId)).Select(shift => new OnCallShift
+        {
+            StartsAtUtc = shift.StartsAtUtc, EndsAtUtc = shift.EndsAtUtc,
+            Members = [new() { UserId = shift.UserId }]
+        }).ToList();
+        errors.AddRange(OverlapErrors(intervals, [], localizer, members).Select(error => error.Message));
         return errors.Distinct().ToList();
     }
 }

@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>비워진 초안 범위</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>겹치는 근무 병합</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>같은 사람의 근무나 미배정 행의 근무는 겹칠 수 없습니다. 저장하기 전에 병합하거나 조정하세요.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>이동하면 같은 사람의 다른 근무와 겹칩니다. 초안은 변경되지 않았습니다.</value>
+  </data>
 </root>

@@ -127,4 +127,10 @@
     <value>Bis</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Schichten derselben Person oder in der Zeile für nicht zugewiesene Schichten dürfen sich nicht überschneiden. Das Ziehen wird an benachbarten Schichten begrenzt.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Ziehen Sie über einen leeren Bereich einer Mitgliederzeile, um eine Schicht zu erstellen. Zeiten rasten innerhalb von 10 Pixeln an Schichtgrenzen, Übergaben der Vorlage, lokaler Mitternacht und der aktuellen Zeit ein; andernfalls gilt ein 30-Minuten-Raster. Halten Sie Alt für minutengenaue Anpassungen gedrückt. Auf Touchscreens vor dem Ziehen lange drücken; über die Zeitachse oder den Diagrammhintergrund horizontal scrollen.</value>
+  </data>
 </root>

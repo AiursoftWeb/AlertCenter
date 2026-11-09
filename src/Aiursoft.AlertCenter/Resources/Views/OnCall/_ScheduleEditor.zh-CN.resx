@@ -207,4 +207,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>已清空的草稿范围</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>合并重叠班次</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>同一人员或未分配行中的班次不能重叠。请在保存前合并或调整这些班次。</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>此移动会与同一人员的其他班次重叠。草稿未作更改。</value>
+  </data>
 </root>

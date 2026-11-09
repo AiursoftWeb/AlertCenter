@@ -127,4 +127,10 @@
     <value>ถึง</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>กะของบุคคลเดียวกันหรือในแถวที่ยังไม่ได้มอบหมายต้องไม่ทับซ้อนกัน การลากจะหยุดที่กะข้างเคียง</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>ลากบนพื้นที่ว่างในแถวของสมาชิกเพื่อสร้างกะ เวลาจะจัดแนวเข้ากับขอบกะ จุดส่งมอบงานตามแม่แบบ เที่ยงคืนตามเวลาท้องถิ่น และเวลาปัจจุบันเมื่ออยู่ในระยะ 10 พิกเซล มิฉะนั้นจะจัดแนวเป็นช่วงละ 30 นาที กด Alt ค้างไว้เพื่อปรับละเอียดเป็นนาที บนหน้าจอสัมผัส ให้กดค้างก่อนลาก และเลื่อนแนวนอนโดยใช้แกนเวลาหรือพื้นหลังแผนภูมิ</value>
+  </data>
 </root>

@@ -5,6 +5,34 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @{
     var group = Model.Groups.Single(item => item.Id == Model.SelectedGroupId);
+    var handovers = new List<DateTime>();
+    var handoverStart = Model.WeekStartUtc.AddHours(-36);
+    var handoverEnd = Model.WeekEndUtc.AddHours(36);
+    // Match the generator's limit when displaying unusually long ranges.
+    const int maximumHandovers = 100000;
+    if (group.Rule is { HandoverPoints.Count: > 0 } rule)
+    {
+        var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+        var cursor = handoverStart.AddTicks(-1);
+        while (handovers.Count < maximumHandovers)
+        {
+            cursor = Aiursoft.AlertCenter.Services.OnCallScheduleGenerator.NextHandover(rule.HandoverPoints, zone, cursor);
+            if (cursor > handoverEnd) break;
+            handovers.Add(cursor);
+        }
+    }
+    else if (group.Rule is { } fixedRule && (fixedRule.ShiftMinutes ?? (long)fixedRule.ShiftHours * 60) is >= 1 and var minutes)
+    {
+        // Continue actual generated timing, or use the explicit generation range start for empty drafts.
+        var origin = Model.SavedShifts.Concat(Model.AdjacentShifts)
+            .Where(shift => shift.Source == Aiursoft.AlertCenter.Entities.OnCallShiftSource.Generated)
+            .Select(shift => (DateTime?)shift.EndsAtUtc).Max() ?? Model.WeekStartUtc;
+        origin = DateTime.SpecifyKind(origin, DateTimeKind.Utc);
+        var firstOffset = Math.Ceiling((handoverStart - origin).TotalMinutes / minutes) * minutes;
+        var lastOffset = (handoverEnd - origin).TotalMinutes;
+        for (var offset = firstOffset; offset <= lastOffset && handovers.Count < maximumHandovers; offset += minutes)
+            handovers.Add(origin.AddMinutes(offset));
+    }
     var slots = Model.ScheduleSaved
         ? Model.SavedShifts.Select(shift => new { id = (Guid?)shift.Id, startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray(), source = (int)shift.Source })
         : Model.Preview.GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Select(batch => new { id = (Guid?)null, startsAtUtc = DateTime.SpecifyKind(batch.Key.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(batch.Key.EndsAtUtc, DateTimeKind.Utc), userIds = batch.Select(shift => shift.UserId).ToArray(), source = 1 });
@@ -13,13 +41,13 @@
         .Select(user => new { id = user.Id, name = user.DisplayName, departed = !memberOrder.ContainsKey(user.Id) });
     var currentMembers = group.Members.OrderBy(member => member.RotationOrder).ToList();
     var context = Model.AdjacentShifts
-        .Select(shift => new { startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray(), external = false })
-        .Concat(Model.OtherGroupShifts.Select(shift => new { startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray(), external = true }));
+        .Select(shift => new { id = shift.Id, startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray(), source = (int)shift.Source, rotationPosition = shift.RotationPosition, external = false })
+        .Concat(Model.OtherGroupShifts.Select(shift => new { id = shift.Id, startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray(), source = (int)shift.Source, rotationPosition = shift.RotationPosition, external = true }));
 }
 <div id="oncall-schedule" class="mt-3 mb-3" data-group-id="@group.Id" data-group-name="@group.Name" data-version="@group.ScheduleVersion" data-zone="@group.TimeZoneId"
      data-start="@Model.WeekStartUtc.ToString("O")" data-end="@Model.WeekEndUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)" data-members="@JsonSerializer.Serialize(members)"
      data-auto-extend="@group.AutoExtend.ToString().ToLowerInvariant()" data-last-shift-end="@(Model.LastShiftEndUtc.HasValue ? DateTime.SpecifyKind(Model.LastShiftEndUtc.Value, DateTimeKind.Utc).ToString("O") : "")"
-     data-context="@JsonSerializer.Serialize(context)" data-minimum-rest="@group.MinimumRestHours?.ToString(CultureInfo.InvariantCulture)" data-maximum-continuous="@group.MaximumContinuousHours?.ToString(CultureInfo.InvariantCulture)" data-minimum-staff="@group.MinimumShiftStaff"
+     data-handovers="@JsonSerializer.Serialize(handovers)" data-context="@JsonSerializer.Serialize(context)" data-minimum-rest="@group.MinimumRestHours?.ToString(CultureInfo.InvariantCulture)" data-maximum-continuous="@group.MaximumContinuousHours?.ToString(CultureInfo.InvariantCulture)" data-minimum-staff="@group.MinimumShiftStaff"
      data-preview-url="@Url.Action("PreviewSchedule")" data-get-url="@Url.Action("GetSchedule")" data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()
     <p class="small text-muted">@viewLocalizer["Changes take effect only after saving. Collapsing these tools keeps your draft."]</p>
@@ -133,6 +161,7 @@
     </div>
     <ul id="oncall-schedule-errors" class="text-danger mt-2" role="alert"></ul>
     <ul id="oncall-schedule-warnings" class="text-warning-emphasis mt-2" role="status" aria-live="polite"></ul>
+    <button id="oncall-merge-overlaps" type="button" class="btn btn-outline-danger" hidden>@viewLocalizer["Merge overlapping shifts"]</button>
     <dialog id="oncall-shift-dialog" aria-labelledby="oncall-shift-dialog-title" aria-describedby="oncall-dialog-timezone-help">
         <h3 id="oncall-shift-dialog-title" class="h5">@viewLocalizer["Edit shift"]</h3>
         <p id="oncall-dialog-timezone-help" class="small text-muted">@group.TimeZoneId · @viewLocalizer["Enter times in the team time zone. During daylight saving transitions, skipped times are invalid and repeated times use standard time."]</p>
@@ -165,6 +194,8 @@
         <span data-schedule-text="clear-regenerate">@viewLocalizer["Regenerate cleared gaps from the template when saving"]</span>
         <span data-schedule-text="gap">@viewLocalizer["Schedule contains a coverage gap."]</span>
         <span data-schedule-text="overlap">@viewLocalizer["Schedule contains overlapping shifts."]</span>
+        <span data-schedule-text="same-person-overlap">@viewLocalizer["Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving."]</span>
+        <span data-schedule-text="drop-conflict">@viewLocalizer["This move would overlap another shift for the same person. The draft was not changed."]</span>
         <span data-schedule-text="unassigned-warning">@viewLocalizer["Shift has no on-duty engineers."]</span>
         <span data-schedule-text="rest-warning">@viewLocalizer["An engineer has insufficient rest between shifts."]</span>
         <span data-schedule-text="continuous-warning">@viewLocalizer["An engineer exceeds the continuous on-call threshold."]</span>

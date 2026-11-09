@@ -34,4 +34,6 @@
     <value>Hanya {0} staf yang dijadwalkan pada {1:yyyy-MM-dd HH:mm} UTC, di bawah minimum {2}. Penyimpanan manual tetap diizinkan meskipun jumlah staf tidak mencukupi, kecuali untuk sif kosong.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Belum ditugaskan</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Tidak dapat menyimpan sif yang tumpang tindih untuk {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC dan {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

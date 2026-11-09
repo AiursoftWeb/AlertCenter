@@ -127,4 +127,10 @@
     <value>Tot</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Diensten voor dezelfde persoon of in de rij met niet-toegewezen diensten mogen niet overlappen. Slepen stopt bij aangrenzende diensten.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Sleep over een leeg gedeelte van een ledenrij om een dienst te maken. Tijden worden binnen 10 pixels uitgelijnd op dienstgrenzen, overdrachtsmomenten uit de sjabloon, lokale middernacht en de huidige tijd; anders op intervallen van 30 minuten. Houd Alt ingedrukt voor minuutprecisie. Houd op een aanraakscherm eerst ingedrukt voordat je sleept; scrol horizontaal via de tijdas of de achtergrond van de grafiek.</value>
+  </data>
 </root>

@@ -34,4 +34,6 @@
     <value>Vuoroaikaan {1:yyyy-MM-dd HH:mm} UTC on suunniteltu vain {0} työntekijää, mikä alittaa vähimmäismäärän {2}. Tallentaminen manuaalisesti on silti sallittua riittämättömästä henkilöstömäärästä huolimatta, paitsi tyhjien vuorojen kohdalla.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Ei määritetty</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Päällekkäisiä vuoroja ei voi tallentaa henkilölle {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC ja {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

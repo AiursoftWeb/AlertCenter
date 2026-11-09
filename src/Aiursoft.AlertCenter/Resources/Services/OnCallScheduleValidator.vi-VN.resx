@@ -34,4 +34,6 @@
     <value>Chỉ có {0} nhân viên được xếp lịch vào lúc {1:yyyy-MM-dd HH:mm} UTC, thấp hơn mức tối thiểu là {2}. Vẫn có thể lưu thủ công dù không đủ nhân sự, ngoại trừ ca trống.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Chưa phân công</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Không thể lưu các ca trực chồng chéo cho {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC và {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

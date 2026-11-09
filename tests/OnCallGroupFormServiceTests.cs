@@ -114,6 +114,23 @@ public class OnCallGroupFormServiceTests
     }
 
     [TestMethod]
+    public void FullStaffPreviewContinuesSkippedDuplicateQueuePositionsExactlyLikeMaintenance()
+    {
+        var now = new DateTime(2026, 11, 9, 14, 0, 0, DateTimeKind.Utc);
+        var rule = new OnCallRule { ShiftMinutes = 60, StaffPerShift = 4, SwapAlternateRounds = true };
+        var last = new OnCallShift { StartsAtUtc = now, EndsAtUtc = now.AddHours(1), RotationPosition = 1,
+            Members = new[] { "b", "c", "d", "a" }.Select(id => new OnCallShiftMember { UserId = id }).ToList() };
+        var group = new OnCallGroup { Rule = rule,
+            Members = new[] { "a", "b", "c", "d" }.Select((id, index) => new OnCallGroupMember { UserId = id, RotationOrder = index }).ToList() };
+        var expected = Generator().GenerateRange(rule, now, ["a", "b", "c", "d"], last.EndsAtUtc, 4,
+            TimeZoneInfo.Utc, OnCallMaintenanceWorker.RotationHistory(group, last));
+        var preview = Service().Preview(rule, TimeZoneInfo.Utc, now, ["a", "b", "c", "d"], now, true, last);
+        Assert.AreEqual("d", preview.Slots[0].UserIds[0]);
+        CollectionAssert.AreEqual(expected.Select(shift => shift.UserId).ToArray(), preview.Slots.SelectMany(slot => slot.UserIds).ToArray());
+        Assert.IsTrue(preview.Slots.All(slot => slot.UserIds.Distinct().Count() == 4));
+    }
+
+    [TestMethod]
     public void EmptyAndInsufficientQueuesReturnInformativeGeneratorErrorsWithoutSlots()
     {
         var now = new DateTime(2026, 11, 9, 14, 0, 0, DateTimeKind.Utc);

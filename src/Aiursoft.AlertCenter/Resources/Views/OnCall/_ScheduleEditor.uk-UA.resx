@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Очищений діапазон чернетки</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Об’єднати зміни, що перекриваються</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Зміни однієї людини або в рядку непризначених змін не можуть перекриватися. Об’єднайте або скоригуйте їх перед збереженням.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Це переміщення призвело б до перекриття з іншою зміною тієї самої людини. Чернетку не змінено.</value>
+  </data>
 </root>

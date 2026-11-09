@@ -127,4 +127,10 @@
     <value>까지</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>같은 사람의 근무나 미배정 행의 근무는 겹칠 수 없습니다. 드래그는 인접한 근무 경계에서 멈춥니다.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>구성원 행의 빈 영역을 드래그하여 근무를 만드세요. 10픽셀 이내에서는 근무 경계, 템플릿 인수인계 시각, 현지 자정 및 현재 시각에 맞춰지며, 그 외에는 30분 간격으로 맞춰집니다. Alt를 누르면 분 단위로 조정할 수 있습니다. 터치스크린에서는 길게 누른 후 드래그하고, 시간 축이나 차트 배경을 사용하여 가로로 스크롤하세요.</value>
+  </data>
 </root>

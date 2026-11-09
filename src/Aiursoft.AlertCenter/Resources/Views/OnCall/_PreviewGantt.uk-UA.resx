@@ -127,4 +127,10 @@
     <value>До</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Зміни однієї людини або в рядку непризначених змін не можуть перекриватися. Перетягування зупиняється біля сусідніх змін.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Перетягніть по порожній ділянці рядка учасника, щоб створити зміну. Час прив’язується до меж змін, передач чергування із шаблону, місцевої півночі та поточного моменту в межах 10 пікселів; інакше — до інтервалів по 30 хвилин. Утримуйте Alt для точності до хвилини. На сенсорних екранах натисніть і утримуйте перед перетягуванням; прокручуйте горизонтально за допомогою осі часу або тла діаграми.</value>
+  </data>
 </root>

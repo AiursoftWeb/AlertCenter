@@ -127,4 +127,10 @@
     <value>Até</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Os turnos da mesma pessoa ou da linha não atribuída não podem sobrepor-se. O arrastamento para nos turnos adjacentes.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Arraste sobre uma área vazia da linha de um membro para criar um turno. Os horários alinham-se com os limites dos turnos, as passagens de turno do modelo, a meia-noite local e a hora atual a uma distância de até 10 píxeis; caso contrário, alinham-se com intervalos de 30 minutos. Mantenha Alt premido para precisão ao minuto. Nos ecrãs táteis, prima sem soltar antes de arrastar; desloque-se horizontalmente através do eixo temporal ou do fundo do gráfico.</value>
+  </data>
 </root>

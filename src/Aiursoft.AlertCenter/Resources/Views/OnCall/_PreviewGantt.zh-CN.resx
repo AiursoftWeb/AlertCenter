@@ -132,7 +132,12 @@
   <data name="Drag a shift to move its person or time; drag its edges to resize. Changes remain drafts until saved." xml:space="preserve"><value>拖动班次可调整人员或时间，拖动边缘可调整起止时间。所有修改在保存前均为草稿。</value></data>
   <data name="How to adjust the schedule" xml:space="preserve"><value>如何调整排班</value></data>
   <data name="Drag the body of a shift to change its time or person. Drag the left or right edge to adjust its start or end. Drag a handover to change both adjoining shifts." xml:space="preserve"><value>拖动班次主体可调整时间或人员；拖动左、右边缘可调整开始、结束时间；拖动交接点可同时调整相邻的两个班次。</value></data>
-  <data name="Drag across a blank member row to create a shift. Times snap to 30 minutes; hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve"><value>在成员行的空白处拖动可创建班次。时间默认按 30 分钟对齐，按住 Alt 可精确到分钟。触屏操作请先长按再拖动；可在时间轴或图表背景上横向滑动。</value></data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>同一人员或未分配行中的班次不能重叠。拖动会在相邻班次的边界处停止。</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>在成员行的空白处拖动可创建班次。在 10 像素范围内，时间会吸附到班次边缘、模板交接点、当地午夜及当前时刻；否则按 30 分钟对齐。按住 Alt 可精确到分钟。触屏操作请先长按再拖动；可在时间轴或图表背景上横向滑动。</value>
+  </data>
   <data name="Focus a shift: Left/Right moves time, Up/Down changes person. Shift + Left/Right adjusts the end; Shift + Up/Down adjusts the start. Enter opens exact editing, Delete removes, and Escape cancels." xml:space="preserve"><value>聚焦班次后，左/右方向键调整时间，上/下方向键调整人员。Shift + 左/右调整结束时间，Shift + 上/下调整开始时间。Enter 打开精确编辑，Delete 删除，Escape 取消。</value></data>
   <data name="Use Precise editing / bulk operations for exact times, zero or multiple members, moving a selected shift, swapping members, or copying a range. Undo, redo and reset include copied drafts. Save publishes your changes." xml:space="preserve"><value>在“精确编辑 / 批量操作”中可输入精确时间、设置无人或多人班次、移动选中班次、交换成员或复制范围。撤销、重做和重置也包含复制的草稿；保存后才会发布更改。</value></data>
   <data name="This timeline is read-only." xml:space="preserve"><value>此时间线仅供查看。</value></data>

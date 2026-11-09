@@ -127,4 +127,10 @@
     <value>まで</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>同じ担当者のシフトや未割り当て行のシフトは重複できません。ドラッグは隣接するシフトの位置で止まります。</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>メンバー行の空白部分をドラッグするとシフトを作成できます。10ピクセル以内ではシフトの端、テンプレートの引き継ぎ時刻、現地の午前0時、現在時刻に吸着し、それ以外は30分単位に揃います。Altを押しながら操作すると1分単位で調整できます。タッチスクリーンでは長押ししてからドラッグし、時間軸またはグラフの背景で横スクロールしてください。</value>
+  </data>
 </root>

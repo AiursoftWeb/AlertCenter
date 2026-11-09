@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Geleerter Entwurfszeitraum</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Überlappende Schichten zusammenführen</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Schichten derselben Person oder in der Zeile für nicht zugewiesene Schichten dürfen sich nicht überschneiden. Führen Sie sie vor dem Speichern zusammen oder passen Sie sie an.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Diese Verschiebung würde sich mit einer anderen Schicht derselben Person überschneiden. Der Entwurf wurde nicht geändert.</value>
+  </data>
 </root>

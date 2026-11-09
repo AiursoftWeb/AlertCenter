@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Temizlenen taslak aralığı</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Çakışan vardiyaları birleştir</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Aynı kişinin vardiyaları veya atanmamış satırdaki vardiyalar çakışamaz. Kaydetmeden önce bunları birleştirin veya düzenleyin.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Bu taşıma, aynı kişinin başka bir vardiyasıyla çakışırdı. Taslak değiştirilmedi.</value>
+  </data>
 </root>

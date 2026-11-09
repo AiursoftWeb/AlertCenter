@@ -34,4 +34,6 @@
     <value>Er zijn slechts {0} medewerkers ingeroosterd op {1:yyyy-MM-dd HH:mm} UTC, minder dan het minimum van {2}. Handmatig opslaan is ondanks de onderbezetting nog steeds toegestaan, behalve bij lege diensten.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Niet toegewezen</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Overlappende diensten voor {0} kunnen niet worden opgeslagen: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC en {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

@@ -34,4 +34,6 @@
     <value>{1:yyyy-MM-dd HH:mm} UTC に予定されているスタッフは {0} 名で、最低人数の {2} 名を下回っています。人員不足でも手動保存は可能ですが、空のシフトは保存できません。</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>未割り当て</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>{0} の重複するシフトは保存できません：{1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC と {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC。</value></data>
 </root>

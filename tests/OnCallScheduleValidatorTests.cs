@@ -30,16 +30,48 @@ public class OnCallScheduleValidatorTests
     }
 
     [TestMethod]
-    public void ValidationOnlyRejectsInvalidIntervalsAndUnknownEmployees()
+    public void ValidationRejectsSamePersonOverlapButAllowsExternalAssignmentsAndTouching()
     {
         var names = new Dictionary<string, string> { ["a"] = "Alice" };
         var arbitrary = new GeneratedOnCallShift("a", Start.AddMinutes(17), Start.AddDays(4));
-        Assert.AreEqual(0, OnCallScheduleValidator.Validate(Start, 21, 168, [arbitrary, arbitrary], [arbitrary], names).Count);
+        Assert.Contains("Alice", OnCallScheduleValidator.Validate(Start, 21, 168, [arbitrary, arbitrary], [], names).Single());
+        var touching = arbitrary with { StartsAtUtc = arbitrary.EndsAtUtc, EndsAtUtc = arbitrary.EndsAtUtc.AddHours(1) };
+        Assert.AreEqual(0, OnCallScheduleValidator.Validate(Start, 21, 168, [arbitrary, touching], [arbitrary], names).Count);
         Assert.AreEqual(0, OnCallScheduleValidator.Validate(Start, 21, 168, [], [], names).Count);
         Assert.AreEqual(1, OnCallScheduleValidator.Validate(Start, 21, 0, [arbitrary with { EndsAtUtc = arbitrary.StartsAtUtc }], [], names).Count);
         var unknown = arbitrary with { UserId = "missing" };
         CollectionAssert.AreEqual(new[] { "Includes employees not belonging to the current team." },
             OnCallScheduleValidator.Validate(Start, 21, 0, [unknown, unknown], [], names));
+    }
+
+    [TestMethod]
+    public void OverlapChecksFindNestedAssignmentsWithoutRejectingDifferentPeopleOrTeams()
+    {
+        var shifts = new[] { Shift(0, 12, "a"), Shift(1, 1, "a"), Shift(8, 1, "a", "b"), Shift(0, 12, "c") };
+        var otherTeam = Shift(0, 12, "a");
+        otherTeam.GroupId = Guid.NewGuid();
+        Assert.AreEqual(2, OnCallScheduleValidator.OverlapErrors(shifts, [otherTeam], Localizer).Count);
+        Assert.AreEqual(0, OnCallScheduleValidator.OverlapErrors([Shift(20, 1, "a")], shifts, Localizer).Count);
+    }
+
+    [TestMethod]
+    public void OverlapDiagnosticsAreLocalizedInEverySupportedLanguage()
+    {
+        var original = System.Globalization.CultureInfo.CurrentUICulture;
+        try
+        {
+            foreach (var culture in new[] { "ar-SA", "da-DK", "de-DE", "el-GR", "en-GB", "es-ES", "fi-FI", "fr-FR", "hi-IN", "id-ID", "it-IT", "ja-JP", "ko-KR", "nl-NL", "pl-PL", "pt-BR", "pt-PT", "ro-RO", "ru-RU", "sv-SE", "th-TH", "tr-TR", "uk-UA", "vi-VN", "zh-CN", "zh-HK", "zh-TW" })
+            {
+                System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(culture);
+                Assert.IsFalse(Localizer["Unassigned"].ResourceNotFound, culture);
+                Assert.IsFalse(Localizer["Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC."].ResourceNotFound, culture);
+                var message = OnCallScheduleValidator.OverlapErrors([Shift(0, 2), Shift(1, 2)], [], Localizer).Single().Message;
+                Assert.Contains(Localizer["Unassigned"].Value, message, culture);
+                Assert.Contains("2026-09-28 00:00", message, culture);
+                Assert.DoesNotContain("{", message, culture);
+            }
+        }
+        finally { System.Globalization.CultureInfo.CurrentUICulture = original; }
     }
 
     [TestMethod]

@@ -34,4 +34,6 @@
     <value>На смену назначено только {0} сотрудников на {1:yyyy-MM-dd HH:mm} UTC, что меньше минимального количества — {2}. Ручное сохранение по-прежнему разрешено при недостаточном количестве сотрудников, кроме пустых смен.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Не назначено</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Невозможно сохранить пересекающиеся смены для {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC и {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

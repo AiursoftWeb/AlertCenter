@@ -127,4 +127,10 @@
     <value>حتى</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>لا يمكن أن تتداخل مناوبات الشخص نفسه أو صف المناوبات غير المسندة. يتوقف السحب عند المناوبات المجاورة.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>اسحب عبر مساحة فارغة في صف أحد الأعضاء لإنشاء مناوبة. تُحاذى الأوقات مع حدود المناوبات ونقاط التسليم في القالب ومنتصف الليل المحلي والوقت الحالي عند الاقتراب منها بمقدار 10 بكسلات؛ وإلا فتُحاذى بفواصل 30 دقيقة. اضغط باستمرار على Alt للدقة بالدقيقة. على شاشات اللمس، اضغط مطولًا قبل السحب؛ ومرّر أفقيًا باستخدام محور الوقت أو خلفية المخطط.</value>
+  </data>
 </root>

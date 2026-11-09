@@ -34,4 +34,6 @@
     <value>Endast {0} medarbetare är schemalagda {1:yyyy-MM-dd HH:mm} UTC, vilket understiger minimikravet på {2}. Manuell sparning är fortfarande tillåten trots otillräcklig bemanning, förutom för tomma arbetspass.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Ej tilldelad</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Det går inte att spara överlappande pass för {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC och {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

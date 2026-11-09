@@ -12,6 +12,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
     public List<string> Warnings { get; private set; } = [];
     public List<OnCallSlotRequest> ReplacedSlots { get; private set; } = [];
     public List<OnCallSlotRequest> PreviewSlots { get; private set; } = [];
+    public List<string> PreviewErrors { get; private set; } = [];
     public List<OnCallScheduleValidator.TimelineWarning> TimelineWarnings { get; private set; } = [];
     public Guid Version { get; private set; }
 
@@ -64,6 +65,10 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
         {
             if (attempt++ > 0) db.ChangeTracker.Clear();
             Warnings = [];
+            TimelineWarnings = [];
+            PreviewSlots = [];
+            PreviewErrors = [];
+            ReplacedSlots = [];
             IReadOnlyList<OnCallScheduleWeekRequest?>? adjacentWeeks = request?.AdjacentWeeks;
             IReadOnlyList<ClearOnCallScheduleRequest?>? clearRanges = request?.ClearRanges;
             if (request?.Slots == null || clearRanges == null || adjacentWeeks == null || adjacentWeeks.Any(week => week?.Slots == null) ||
@@ -180,22 +185,44 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 ReplacedSlots = [];
                 slots = OnCallScheduleClearing.Apply(slots, request.ClearRanges[^1], ReplacedSlots);
             }
+            if (!preview && request.ClearRanges.Any(range => range.AutoExtendAction == "regenerate"))
+                await RegenerateClearedRanges(group, slots, request.ClearRanges, from, token);
+            var draft = slots.Select(slot => new OnCallShift { GroupId = group.Id, StartsAtUtc = slot.StartsAtUtc,
+                EndsAtUtc = OnCallScheduleClearing.End(slot),
+                Members = slot.UserIds.Distinct(StringComparer.Ordinal).Select(id => new OnCallShiftMember { UserId = id }).ToList() }).ToList();
+            var retained = new List<OnCallShift>();
+            if (draft.Count > 0)
+            {
+                var draftStart = draft.Min(shift => shift.StartsAtUtc);
+                var draftEnd = draft.Max(shift => shift.EndsAtUtc);
+                var replacedIds = saved.Select(shift => shift.Id).ToArray();
+                retained = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
+                    .Where(shift => shift.GroupId == group.Id && !replacedIds.Contains(shift.Id) &&
+                        shift.EndsAtUtc > draftStart && shift.StartsAtUtc < draftEnd).ToListAsync(token);
+            }
+            var validatorLocalizer = localizerFactory.Create(typeof(OnCallScheduleValidator));
+            var overlaps = OnCallScheduleValidator.OverlapErrors(draft, retained, validatorLocalizer);
+            if (overlaps.Count > 0)
+            {
+                var assignedIds = draft.Concat(retained).SelectMany(shift => shift.Members.Select(member => member.UserId)).Distinct().ToArray();
+                var names = await db.Users.Where(user => assignedIds.Contains(user.Id))
+                    .ToDictionaryAsync(user => user.Id, user => user.DisplayName, token);
+                overlaps = OnCallScheduleValidator.OverlapErrors(draft, retained, validatorLocalizer, names);
+                if (!preview) return overlaps.Select(overlap => overlap.Message).Distinct().ToList();
+            }
             if (preview)
             {
                 PreviewSlots = slots;
-                var draft = slots.Select(slot => new OnCallShift { StartsAtUtc = slot.StartsAtUtc,
-                    EndsAtUtc = slot.EndsAtUtc ?? slot.StartsAtUtc.AddHours(8),
-                    Members = slot.UserIds.Distinct().Select(id => new OnCallShiftMember { UserId = id }).ToList() }).ToList();
+                PreviewErrors = overlaps.Select(overlap => overlap.Message).Distinct().ToList();
                 var existing = await Existing(group.Id, ids.Concat(slots.SelectMany(slot => slot.UserIds)).Distinct().ToArray(),
                     from, token, until, Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0));
                 Warnings = OnCallScheduleValidator.Warnings(group, from, until, draft, existing,
                     localizerFactory.Create(typeof(OnCallScheduleValidator)));
                 TimelineWarnings = OnCallScheduleValidator.TimelineWarnings(group, from, until, draft, existing,
-                    localizerFactory.Create(typeof(OnCallScheduleValidator)));
+                    validatorLocalizer).Concat(overlaps).ToList();
+                Warnings = Warnings.Concat(overlaps.Select(overlap => overlap.Message)).Distinct().ToList();
                 return [];
             }
-            if (request.ClearRanges.Any(range => range.AutoExtendAction == "regenerate"))
-                await RegenerateClearedRanges(group, slots, request.ClearRanges, from, token);
             var replacements = new List<OnCallShift>();
             foreach (var slot in slots)
             {

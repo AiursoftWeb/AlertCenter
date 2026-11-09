@@ -34,4 +34,6 @@
     <value>Seulement {0} membre(s) du personnel planifié(s) le {1:yyyy-MM-dd HH:mm} UTC, en dessous du minimum de {2}. L’enregistrement manuel reste autorisé malgré un effectif insuffisant, sauf pour les créneaux vides.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Non attribué</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Impossible d’enregistrer des gardes qui se chevauchent pour {0} : {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC et {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

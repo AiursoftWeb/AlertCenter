@@ -127,4 +127,10 @@
     <value>तक</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>एक ही व्यक्ति की शिफ़्ट या असाइन न की गई पंक्ति की शिफ़्ट के समय आपस में ओवरलैप नहीं हो सकते। खींचना पड़ोसी शिफ़्ट पर रुक जाता है।</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>शिफ़्ट बनाने के लिए सदस्य की पंक्ति के खाली हिस्से में खींचें। 10 पिक्सेल के भीतर समय शिफ़्ट के किनारों, टेम्पलेट के कार्यभार हस्तांतरण बिंदुओं, स्थानीय मध्यरात्रि और वर्तमान समय से संरेखित होता है; अन्यथा 30 मिनट के अंतराल पर संरेखित होता है। मिनट की सटीकता के लिए Alt दबाए रखें। टच स्क्रीन पर खींचने से पहले दबाकर रखें; समय अक्ष या चार्ट की पृष्ठभूमि से क्षैतिज स्क्रॉल करें।</value>
+  </data>
 </root>

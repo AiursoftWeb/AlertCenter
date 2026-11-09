@@ -127,4 +127,10 @@
     <value>Até</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Plantões da mesma pessoa ou da linha sem atribuição não podem se sobrepor. O arraste para nos plantões vizinhos.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Arraste sobre uma área vazia da linha de um membro para criar um plantão. Os horários se alinham aos limites dos plantões, às passagens de plantão do modelo, à meia-noite local e ao horário atual dentro de 10 pixels; caso contrário, alinham-se a intervalos de 30 minutos. Segure Alt para precisão de um minuto. Em telas sensíveis ao toque, mantenha pressionado antes de arrastar; role horizontalmente pelo eixo de tempo ou pelo fundo do gráfico.</value>
+  </data>
 </root>

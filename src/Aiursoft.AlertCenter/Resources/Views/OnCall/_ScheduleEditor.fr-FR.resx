@@ -160,4 +160,13 @@
   <data name="Cleared draft range" xml:space="preserve">
     <value>Période du brouillon vidée</value>
   </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Fusionner les gardes qui se chevauchent</value>
+  </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Les gardes d’une même personne ou de la ligne non attribuée ne peuvent pas se chevaucher. Fusionnez-les ou ajustez-les avant d’enregistrer.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Ce déplacement chevaucherait une autre garde de la même personne. Le brouillon n’a pas été modifié.</value>
+  </data>
 </root>

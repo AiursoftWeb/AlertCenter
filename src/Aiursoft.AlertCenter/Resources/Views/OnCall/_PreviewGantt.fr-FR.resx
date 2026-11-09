@@ -127,4 +127,10 @@
     <value>Jusqu’à</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Les gardes d’une même personne ou de la ligne non attribuée ne peuvent pas se chevaucher. Le glissement s’arrête aux gardes voisines.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Faites glisser sur une zone vide de la ligne d’un membre pour créer une garde. Les horaires s’alignent sur les limites des gardes, les relèves du modèle, minuit local et l’heure actuelle à moins de 10 pixels ; sinon, ils s’alignent par pas de 30 minutes. Maintenez Alt pour une précision à la minute. Sur écran tactile, appuyez longuement avant de faire glisser ; faites défiler horizontalement via l’axe temporel ou le fond du graphique.</value>
+  </data>
 </root>

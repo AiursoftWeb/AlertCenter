@@ -127,4 +127,10 @@
     <value>Indtil</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Vagter for samme person eller i rækken med ikke-tildelte vagter må ikke overlappe. Træk stopper ved nabovagter.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Træk hen over et tomt område i en medlemsrække for at oprette en vagt. Tidspunkter fastgøres til vagtkanter, skabelonens vagtskifter, lokal midnat og det aktuelle tidspunkt inden for 10 pixels; ellers fastgøres de til 30-minutters intervaller. Hold Alt nede for minutpræcision. På berøringsskærme skal du trykke og holde, før du trækker; rul vandret via tidsaksen eller diagrammets baggrund.</value>
+  </data>
 </root>

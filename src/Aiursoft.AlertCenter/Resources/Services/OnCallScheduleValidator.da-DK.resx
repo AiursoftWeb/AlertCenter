@@ -34,4 +34,6 @@
     <value>Kun {0} medarbejdere er planlagt til {1:yyyy-MM-dd HH:mm} UTC, hvilket er under minimumskravet på {2}. Manuel lagring er stadig tilladt trods for få medarbejdere, undtagen ved tomme vagter.</value>
   </data>
 
+  <data name="Unassigned" xml:space="preserve"><value>Ikke tildelt</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Kan ikke gemme overlappende vagter for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC og {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
 </root>

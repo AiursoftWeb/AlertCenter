@@ -42,7 +42,7 @@ public class OnCallScheduleServiceTests
     [TestMethod]
     public async Task SavesArbitraryMinutePrecisionDurationsEmptyShiftsOverlapsAndGapsAsWarnings()
     {
-        var request = Request(Slot(17, 37, "a"), Slot(20, 7, "a", "b"), Slot(60, 96 * 60, "a"), Slot(6000, 30));
+        var request = Request(Slot(17, 37, "a"), Slot(20, 7, "b", "c"), Slot(60, 96 * 60, "a"), Slot(6000, 30));
         Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
         var saved = await db.OnCallShifts.OrderBy(shift => shift.StartsAtUtc).ToListAsync();
         Assert.AreEqual(4, saved.Count);
@@ -51,6 +51,119 @@ public class OnCallScheduleServiceTests
         Assert.IsTrue(saved.All(shift => shift.Source == OnCallShiftSource.Manual));
         foreach (var text in new[] { "gap", "overlapping", "no on-duty", "below", "insufficient rest", "continuous" })
             Assert.IsTrue(service.Warnings.Any(warning => warning.Contains(text)), text);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task OverlapsRejectAtomicallyWhilePreviewRetainsAllSlotsAndDiagnostics(bool unassigned)
+    {
+        (await db.Users.SingleAsync(user => user.Id == "a")).DisplayName = "Alice";
+        await db.SaveChangesAsync();
+        var original = Slot(0, 60, "c");
+        Assert.AreEqual(0, (await service.Save(Request(original), false, default)).Count);
+        var version = group.ScheduleVersion;
+        var users = unassigned ? Array.Empty<string>() : ["a"];
+        var request = Request(Slot(17, 37, users), Slot(20, 7, users));
+        var errors = await service.Save(request, false, default);
+        Assert.AreEqual(1, errors.Count);
+        foreach (var text in new[] { unassigned ? "Unassigned" : "Alice", "2026-09-28 14:17", "2026-09-28 14:54", "2026-09-28 14:20", "2026-09-28 14:27" })
+            Assert.Contains(text, errors[0]);
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(Anchor, (await db.OnCallShifts.SingleAsync()).StartsAtUtc);
+        await db.SaveChangesAsync();
+        Assert.AreEqual(1, await db.OnCallShiftMembers.CountAsync(member => member.UserId == "c"));
+        Assert.AreEqual(0, (await service.Save(request, false, default, preview: true)).Count);
+        Assert.AreEqual(2, service.PreviewSlots.Count);
+        Assert.AreEqual(request.Slots[0].StartsAtUtc, service.PreviewSlots[0].StartsAtUtc);
+        CollectionAssert.AreEqual(errors, service.PreviewErrors);
+        Assert.IsTrue(service.Warnings.Contains(errors[0]));
+        Assert.IsTrue(service.TimelineWarnings.Any(warning => warning.Message == errors[0]));
+        Assert.AreEqual(0, (await service.Save(Request(Slot(17, 37, users)), false, default, preview: true)).Count);
+        Assert.AreEqual(0, service.PreviewErrors.Count);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task TouchingAssignmentsAndUnassignedShiftsAreAllowed(bool unassigned)
+    {
+        var users = unassigned ? Array.Empty<string>() : ["a", "b"];
+        Assert.AreEqual(0, (await service.Save(Request(Slot(0, 60, users), Slot(60, 30, users)), false, default)).Count);
+        Assert.AreEqual(2, await db.OnCallShifts.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task SharedMemberAndAdjacentWeekOverlapRejectWithoutWrites()
+    {
+        var request = Request(Slot(7 * 1440 - 30, 60, "a", "b"));
+        request.AdjacentWeeks = [new() { StartUtc = Anchor.AddDays(7), Slots = [Slot(7 * 1440, 60, "b", "c")] }];
+        Assert.IsTrue((await service.Save(request, false, default)).Any(error => error.Contains("for b:")));
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+    }
+
+    [TestMethod]
+    [DataRow(-1)]
+    [DataRow(1)]
+    public async Task ChecksRetainedShiftsBeyondEitherReplacementBoundary(int direction)
+    {
+        var retained = new OnCallShift { GroupId = group.Id, StartsAtUtc = Anchor.AddHours(direction < 0 ? -2 : 2),
+            EndsAtUtc = Anchor.AddHours(direction < 0 ? 0 : 4), Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.Add(retained);
+        await db.SaveChangesAsync();
+        var request = Request(Slot(direction < 0 ? -60 : 60, 120, "a"));
+        request.EndUtc = Anchor.AddHours(2);
+        Assert.AreEqual(1, (await service.Save(request, false, default)).Count);
+        Assert.AreEqual(retained.Id, (await db.OnCallShifts.SingleAsync()).Id);
+        request.Slots[0] = Slot(0, 120, "a");
+        Assert.AreEqual(0, (await service.Save(request, false, default)).Count);
+        Assert.AreEqual(2, await db.OnCallShifts.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task CrossTeamOverlapWithoutThresholdsOnlyWarns()
+    {
+        group.MinimumRestHours = null;
+        group.MaximumContinuousHours = null;
+        group.MinimumShiftStaff = null;
+        var other = new OnCallShift { Group = new() { Name = "Other" }, StartsAtUtc = Anchor, EndsAtUtc = Anchor.AddHours(1),
+            Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.Add(other);
+        await db.SaveChangesAsync();
+        Assert.AreEqual(0, (await service.Save(Request(Slot(0, 60, "a")), false, default)).Count);
+        Assert.IsTrue(service.Warnings.Any(warning => warning.Contains("overlapping")));
+        Assert.AreEqual(2, await db.OnCallShifts.CountAsync());
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task GenerationClipsPartialPeriodsAndPreservesTouchingNeighbours(bool weekly)
+    {
+        if (weekly)
+        {
+            group.Rule!.HandoverPoints = OnCallScheduleGeneratorTests.WeeklyRule().HandoverPoints;
+            db.AddRange(group.Rule.HandoverPoints);
+        }
+        var start = Anchor.AddMinutes(17);
+        var end = Anchor.AddHours(9);
+        var neighbours = new[]
+        {
+            new OnCallShift { GroupId = group.Id, StartsAtUtc = Anchor, EndsAtUtc = start, Members = [new() { UserId = "a" }] },
+            new OnCallShift { GroupId = group.Id, StartsAtUtc = end, EndsAtUtc = end.AddHours(1), Members = [new() { UserId = "a" }] }
+        };
+        db.OnCallShifts.AddRange(neighbours);
+        await db.SaveChangesAsync();
+        var request = Request();
+        request.StartUtc = start;
+        request.EndUtc = end;
+        Assert.AreEqual(0, (await service.Save(request, true, default)).Count);
+        var saved = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).ToListAsync();
+        Assert.AreEqual(neighbours[0].Id, saved[0].Id);
+        Assert.AreEqual(neighbours[1].Id, saved[^1].Id);
+        Assert.AreEqual(start, saved[1].StartsAtUtc);
+        Assert.AreEqual(end, saved[^2].EndsAtUtc);
+        Assert.AreEqual(0, OnCallScheduleValidator.OverlapErrors(saved, []).Count);
     }
 
     [TestMethod]

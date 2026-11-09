@@ -25,7 +25,8 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                     groupScope.ServiceProvider.GetRequiredService<IStringLocalizer<OnCallScheduleGenerator>>(),
                     groupScope.ServiceProvider.GetRequiredService<IStringLocalizer<OnCallMaintenanceWorker>>(),
                     groupScope.ServiceProvider.GetRequiredService<IOptions<EmailSettings>>().Value.PublicBaseUrl,
-                    groupId, now, token);
+                    groupId, now, token, groupScope.ServiceProvider.GetRequiredService<IStringLocalizerFactory>()
+                        .Create(typeof(OnCallScheduleValidator)));
             }
             catch (DbUpdateException exception)
             {
@@ -40,7 +41,8 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
     }
 
     internal static async Task MaintainGroupAsync(TemplateDbContext db, IStringLocalizer<OnCallScheduleGenerator> generatorLocalizer,
-        IStringLocalizer<OnCallMaintenanceWorker> localizer, string baseUrl, Guid groupId, DateTime now, CancellationToken token)
+        IStringLocalizer<OnCallMaintenanceWorker> localizer, string baseUrl, Guid groupId, DateTime now, CancellationToken token,
+        IStringLocalizer? validatorLocalizer = null)
     {
         await db.Database.CreateExecutionStrategy().ExecuteAsync(async () =>
         {
@@ -52,7 +54,7 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                 .Include(group => group.Members).SingleOrDefaultAsync(group => group.Id == groupId, token);
             if (group == null) return;
             if (group.AutoExtend && group.Rule != null && group.Members.Count > 0)
-                await ExtendAsync(db, new OnCallScheduleGenerator(generatorLocalizer), group, now, token);
+                await ExtendAsync(db, new OnCallScheduleGenerator(generatorLocalizer), group, now, token, validatorLocalizer);
             await QueueHandoversAsync(db, group, now, baseUrl, localizer, token);
             if (!group.HandoverCheckedThroughUtc.HasValue || group.HandoverCheckedThroughUtc < now)
                 group.HandoverCheckedThroughUtc = now;
@@ -62,7 +64,7 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
     }
 
     private static async Task ExtendAsync(TemplateDbContext db, OnCallScheduleGenerator generator, OnCallGroup group,
-        DateTime now, CancellationToken token)
+        DateTime now, CancellationToken token, IStringLocalizer? validatorLocalizer)
     {
         var last = await db.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.GroupId == group.Id)
             .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
@@ -79,13 +81,17 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
             : ((int)Math.Ceiling((until - start).TotalDays / 7) + 2) * rule.HandoverPoints.Count;
         var generated = generator.GenerateRange(rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), ids,
             start, count, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId), history);
-        foreach (var batch in generated.Where(shift => shift.StartsAtUtc < until).GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }))
-            db.OnCallShifts.Add(new OnCallShift
+        var additions = generated.Where(shift => shift.StartsAtUtc < until).GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc })
+            .Select(batch => new OnCallShift
             {
                 GroupId = group.Id, StartsAtUtc = batch.Key.StartsAtUtc, EndsAtUtc = batch.Key.EndsAtUtc,
                 Source = OnCallShiftSource.Generated, RotationPosition = batch.First().RotationPosition,
                 Members = batch.Select(shift => new OnCallShiftMember { UserId = shift.UserId }).ToList()
-            });
+            }).ToList();
+        // 续排从所有已有班段的最晚结束时刻之后开始；旧数据中的冲突留给管理员修正。
+        var overlaps = OnCallScheduleValidator.OverlapErrors(additions, last == null ? [] : [last], validatorLocalizer);
+        if (overlaps.Count > 0) throw new ArgumentException(string.Join(" ", overlaps.Select(overlap => overlap.Message)));
+        db.OnCallShifts.AddRange(additions);
         group.ScheduleVersion = Guid.NewGuid();
         await db.SaveChangesAsync(token);
     }
@@ -97,11 +103,10 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         var history = last.Members.OrderBy(member => Array.IndexOf(ids, member.UserId)).Select(member =>
             new GeneratedOnCallShift(member.UserId, last.StartsAtUtc, last.EndsAtUtc)).ToList();
         if (last.Members.Count == 0) history.Add(new(string.Empty, last.StartsAtUtc, last.EndsAtUtc));
-        if (last.RotationPosition is { } cursor && last.Members.Count > 0 && ids.Length > 0)
+        if (last.RotationPosition is { } cursor && last.Members.Count > 0 && last.Members.Count <= ids.Length)
         {
-            var expected = Enumerable.Range(0, last.Members.Count).Select(index =>
-                new GeneratedOnCallShift(ids[OnCallScheduleGenerator.QueueIndex(group.Rule!, ids.Length, cursor + index)],
-                    last.StartsAtUtc, last.EndsAtUtc, RotationPosition: cursor + index)).ToList();
+            var expected = OnCallScheduleGenerator.AssignShift(group.Rule!, ids, cursor, last.Members.Count,
+                last.StartsAtUtc, last.EndsAtUtc);
             if (expected.Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal).SetEquals(last.Members.Select(member => member.UserId)))
                 history = expected;
         }

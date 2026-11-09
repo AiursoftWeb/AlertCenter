@@ -121,6 +121,7 @@ public class OnCallGroupDeletionConcurrencyTests
         services.AddScoped<TemplateDbContext>(_ => contextFactory());
         services.AddSingleton(TestLocalization.For<OnCallScheduleGenerator>());
         services.AddSingleton(TestLocalization.For<OnCallMaintenanceWorker>());
+        services.AddSingleton(TestLocalization.Factory);
         services.Configure<EmailSettings>(settings => settings.PublicBaseUrl = "https://example.com");
         await using var provider = services.BuildServiceProvider();
         var logger = new MaintenanceLogger();

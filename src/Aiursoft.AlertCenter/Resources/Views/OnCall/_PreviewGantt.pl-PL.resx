@@ -127,4 +127,10 @@
     <value>Do</value>
   </data>
 
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Dyżury tej samej osoby lub w wierszu nieprzypisanych dyżurów nie mogą się nakładać. Przeciąganie zatrzymuje się przy sąsiednich dyżurach.</value>
+  </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Przeciągnij po pustym obszarze wiersza członka zespołu, aby utworzyć dyżur. Czasy przyciągają się do granic dyżurów, przekazań dyżuru z szablonu, lokalnej północy i bieżącej chwili w odległości 10 pikseli; w pozostałych przypadkach wyrównują się do odstępów 30-minutowych. Przytrzymaj Alt, aby uzyskać dokładność do minuty. Na ekranach dotykowych przytrzymaj przed przeciąganiem; przewijaj poziomo za pomocą osi czasu lub tła wykresu.</value>
+  </data>
 </root>
