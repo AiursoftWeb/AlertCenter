@@ -72,6 +72,104 @@ public class OnCallPreviewTimelineTests
     }
 
     [TestMethod]
+    public void WarningOverlapsSplitIntoNonoverlappingSegmentsWithOrdinalMessages()
+    {
+        var start = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        var segments = OnCallWarningTimeline.Build(
+            [new(start.AddHours(4), start.AddHours(5), "Beta"),
+                new(start, start.AddHours(6), "Zulu"),
+                new(start.AddHours(2), start.AddHours(8), "Alpha")], start, start.AddHours(8));
+
+        Assert.AreEqual(5, segments.Count);
+        AssertWarningSegment(segments[0], start, start.AddHours(2), "Zulu");
+        AssertWarningSegment(segments[1], start.AddHours(2), start.AddHours(4), "Alpha", "Zulu");
+        AssertWarningSegment(segments[2], start.AddHours(4), start.AddHours(5), "Alpha", "Beta", "Zulu");
+        AssertWarningSegment(segments[3], start.AddHours(5), start.AddHours(6), "Alpha", "Zulu");
+        AssertWarningSegment(segments[4], start.AddHours(6), start.AddHours(8), "Alpha");
+    }
+
+    [TestMethod]
+    public void DuplicateWarningsRemainActiveUntilEveryMatchingIntervalEnds()
+    {
+        var start = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        var segments = OnCallWarningTimeline.Build(
+            [new(start, start.AddHours(6), "Alpha"),
+                new(start, start.AddHours(6), "Alpha"),
+                new(start.AddHours(2), start.AddHours(8), "Alpha"),
+                new(start.AddHours(3), start.AddHours(4), "Alpha"),
+                new(start.AddHours(5), start.AddHours(7), "Beta")], start, start.AddHours(8));
+
+        Assert.AreEqual(3, segments.Count);
+        AssertWarningSegment(segments[0], start, start.AddHours(5), "Alpha");
+        AssertWarningSegment(segments[1], start.AddHours(5), start.AddHours(7), "Alpha", "Beta");
+        AssertWarningSegment(segments[2], start.AddHours(7), start.AddHours(8), "Alpha");
+    }
+
+    [TestMethod]
+    public void AdjacentEqualWarningSetsMergeButGapsRemainEmpty()
+    {
+        var start = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        var segments = OnCallWarningTimeline.Build(
+            [new(start, start.AddHours(2), "Alpha"),
+                new(start.AddHours(2), start.AddHours(4), "Beta"),
+                new(start, start.AddHours(2), "Beta"),
+                new(start.AddHours(2), start.AddHours(4), "Alpha"),
+                new(start.AddHours(6), start.AddHours(8), "Beta"),
+                new(start.AddHours(6), start.AddHours(8), "Alpha")], start, start.AddHours(8));
+
+        Assert.AreEqual(2, segments.Count);
+        AssertWarningSegment(segments[0], start, start.AddHours(4), "Alpha", "Beta");
+        AssertWarningSegment(segments[1], start.AddHours(6), start.AddHours(8), "Alpha", "Beta");
+    }
+
+    [TestMethod]
+    public void WarningIntervalsClipToTheVisibleRangeAndDiscardInvalidOrOutsideIntervals()
+    {
+        var start = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        var end = start.AddHours(8);
+        var segments = OnCallWarningTimeline.Build(
+            [new(start.AddHours(-2), start.AddHours(3), "Alpha"),
+                new(start.AddHours(2), end.AddHours(2), "Beta"),
+                new(start.AddHours(-1), end.AddHours(1), "Entire range"),
+                new(start.AddHours(-3), start.AddHours(-1), "Before"),
+                new(start.AddHours(-1), start, "Ends at start"),
+                new(end, end.AddHours(1), "Starts at end"),
+                new(end.AddHours(1), end.AddHours(2), "After"),
+                new(start.AddHours(4), start.AddHours(4), "Empty"),
+                new(start.AddHours(6), start.AddHours(5), "Reversed")], start, end);
+
+        Assert.AreEqual(3, segments.Count);
+        AssertWarningSegment(segments[0], start, start.AddHours(2), "Alpha", "Entire range");
+        AssertWarningSegment(segments[1], start.AddHours(2), start.AddHours(3), "Alpha", "Beta", "Entire range");
+        AssertWarningSegment(segments[2], start.AddHours(3), end, "Beta", "Entire range");
+        Assert.AreEqual(0, OnCallWarningTimeline.Build([], start, end).Count);
+        Assert.AreEqual(0, OnCallWarningTimeline.Build([new(start, end, "Alpha")], start, start).Count);
+        Assert.AreEqual(0, OnCallWarningTimeline.Build([new(start, end, "Alpha")], end, start).Count);
+    }
+
+    [TestMethod]
+    public void WarningMessagesUseCaseSensitiveUtf16OrdinalIdentityAndOrdering()
+    {
+        var start = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        var end = start.AddHours(1);
+        var segments = OnCallWarningTimeline.Build(
+            [new(start, end, "\uE000"), new(start, end, "\U0001F600"),
+                new(start, end, "ä"), new(start, end, "a"), new(start, end, "Z"),
+                new(start, end, "A"), new(start, end, "A")], start, end);
+
+        Assert.AreEqual(1, segments.Count);
+        AssertWarningSegment(segments[0], start, end, "A", "Z", "a", "ä", "\U0001F600", "\uE000");
+    }
+
+    private static void AssertWarningSegment(OnCallWarningSegment segment, DateTime start, DateTime end,
+        params string[] messages)
+    {
+        Assert.AreEqual(start, segment.StartsAtUtc);
+        Assert.AreEqual(end, segment.EndsAtUtc);
+        CollectionAssert.AreEqual(messages, segment.Messages.ToArray());
+    }
+
+    [TestMethod]
     public void EndingAtMidnightDoesNotCreateAnEmptyDay()
     {
         var start = new DateTime(2026, 9, 28, 16, 0, 0, DateTimeKind.Utc);

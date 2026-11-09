@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const test = require('node:test');
-const { localTime, copyRange, hoursFor, utcForLocal, timeOf, snapTime, movePerson, swapPeople, reminders } = require('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-schedule.js');
+const { localTime, copyRange, hoursFor, utcForLocal, timeOf, snapTime, movePerson, swapPeople, reminders, warningSegments } = require('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-schedule.js');
 const source = fs.readFileSync(require.resolve('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-schedule.js'), 'utf8');
 const ganttSource = fs.readFileSync(require.resolve('../../src/Aiursoft.AlertCenter/wwwroot/scripts/oncall-gantt.js'), 'utf8');
 const hour = 3600000;
@@ -466,6 +466,121 @@ test('departed members cannot receive drops, resize or copy, and removing them r
     assert.equal(tableInput(ui, 0, 'start').disabled, false); assert(!warnings(ui).includes(warningText['departed-warning']));
     await ui.drag(ui.bar(), 14, 16, ui.lane('gone')); assert.deepEqual(ui.draft()[0].userIds, ['a']);
 });
+test('warning sweep merges identical adjacent sets, deduplicates messages, clips bounds and leaves gaps empty', () => {
+    const warning = (left, right, message) => ({ startsAtUtc: left, endsAtUtc: right, message });
+    assert.deepEqual(warningSegments([
+        warning(-5, 4, 'A'), warning(2, 8, 'A'), warning(8, 10, 'A'),
+        warning(3, 6, 'B'), warning(3, 6, 'B'), warning(12, 25, 'C'),
+        warning(4, 4, 'empty'), warning(8, 2, 'inverted'), warning('invalid', 9, 'invalid'), warning(30, 40, 'outside')
+    ], 0, 20), [
+        { left: 0, right: 3, messages: ['A'] },
+        { left: 3, right: 6, messages: ['A', 'B'] },
+        { left: 6, right: 10, messages: ['A'] },
+        { left: 12, right: 20, messages: ['C'] }
+    ]);
+    assert.deepEqual(warningSegments([], 0, 20), []);
+});
+test('overlapping reminders render disjoint single-layer badges with complete accessible details after redraws', async () => {
+    const ui = setup({ slots: [shift(0, 12), shift(6, 16), shift(16, 20, [])], thresholds: { minimumRest: '8', maximumContinuous: '10', minimumStaff: '2' } }); await ui.flush();
+    const lane = ui.get('warning-lane');
+    const check = () => {
+        let right = 0, multiple = false;
+        for (const marker of lane.children) {
+            const left = parseFloat(marker.style.left), width = parseFloat(marker.style.width);
+            assert(left + 0.000001 >= right); right = left + width;
+            assert.equal(marker.style.top, undefined);
+            const messages = marker.dataset.summary.split('\n');
+            assert.equal(marker.querySelector('.ac-gantt-warning-count').textContent, String(new Set(messages).size));
+            for (const message of messages) { assert(marker.title.includes(message)); assert(marker.getAttribute('aria-label').includes(message)); }
+            multiple ||= messages.length > 1;
+        }
+        assert(multiple);
+        assert.equal(lane.style.minHeight, undefined, 'warning lane must use its fixed CSS height, never pack');
+    };
+    check();
+    const marker = lane.children.find(item => Number(item.querySelector('.ac-gantt-warning-count').textContent) > 1);
+    for (const event of ['pointerover', 'focusin', 'click']) {
+        await ui.fire(marker, event); assert.equal(ui.get('shift-summary').textContent, marker.dataset.summary);
+    }
+    await ui.fire(ui.bar(1), 'keydown', { key: 'ArrowRight', shiftKey: true }); check();
+    await ui.preview(); check();
+    await ui.click('undo-schedule'); check();
+});
+for (const mode of ['move', 'start', 'end', 'handover']) {
+    test(`${mode} pointer gesture preserves every lane and unrelated bar until release repacks a real overlap`, async () => {
+        const ui = setup({ slots: [shift(0, 8), shift(12, 20), shift(8, 24, ['b'])], thresholds: { minimumRest: '8', minimumStaff: '2' } }); await ui.flush();
+        const heights = () => ui.chart.querySelectorAll('.ac-gantt-lane').map(lane => lane.style.minHeight);
+        const originalHeights = heights(), warningMarkers = [...ui.get('warning-lane').children];
+        const stationary = ui.bar(mode === 'start' ? 0 : 1), stationaryTop = stationary.style.top;
+        let layouts = 0; ui.chart.addEventListener('oncall-packed', () => layouts++);
+        const handle = mode === 'handover' ? ui.get('handover-lane').children[0] : mode === 'move' ? ui.bar() : ui.bar(mode === 'start' ? 1 : 0).querySelector(`[data-resize="${mode}"]`);
+        const origin = mode === 'move' ? 4 : mode === 'start' ? 12 : 8;
+        const destination = mode === 'move' ? 14 : mode === 'start' ? 4 : 16;
+        await ui.pointer('pointerdown', handle, origin);
+        for (const time of [destination, origin, destination]) {
+            await ui.pointer('pointermove', mode === 'handover' ? ui.get('handover-lane') : ui.lane('a'), time);
+            assert.deepEqual(heights(), originalHeights);
+            assert.deepEqual(ui.get('warning-lane').children, warningMarkers);
+            assert.equal(ui.bar(mode === 'start' ? 0 : 1), stationary);
+            assert.equal(stationary.style.top, stationaryTop);
+            assert.equal(layouts, 0);
+        }
+        const moving = ui.bar(mode === 'start' ? 1 : 0);
+        assert.equal(moving.dataset[mode === 'start' || mode === 'move' ? 'start' : 'end'],
+            localTime(new Date(Date.parse(start) + (mode === 'move' ? 10 : destination) * hour), 'Asia/Shanghai'));
+        await ui.pointer('pointerup', mode === 'handover' ? ui.get('handover-lane') : ui.lane('a'), destination);
+        assert(layouts > 0);
+        assert.equal(ui.lane('a').style.minHeight, '144px');
+        assert.equal(ui.get('warning-lane').style.minHeight, originalHeights[0]);
+        await ui.click('undo-schedule'); assert.deepEqual(heights(), originalHeights);
+    });
+}
+test('new and transferred shifts keep destination lanes fixed until the gesture is committed', async () => {
+    for (const mode of ['create', 'transfer', 'week']) {
+        const ui = setup({ slots: [shift(0, 16), shift(4, 12, ['b'])], context: [{ ...shift(4, 12, ['b']), external: true }] }); await ui.flush();
+        const heights = () => ui.chart.querySelectorAll('.ac-gantt-lane').map(lane => lane.style.minHeight);
+        const before = heights(), marker = ui.get('warning-lane').children[0];
+        const handle = mode === 'create' ? ui.lane('b') : mode === 'week' ? ui.rows.get('a').querySelector('[data-week-user]') : ui.bar();
+        await ui.pointer('pointerdown', handle, 2);
+        await ui.pointer('pointermove', ui.lane('b'), 8, { clientY: 150 });
+        assert.deepEqual(heights(), before); assert.equal(ui.get('warning-lane').children[0], marker);
+        assert(ui.bar(mode === 'create' ? 2 : 0, 'b'));
+        await ui.pointer('pointerup', ui.lane('b'), 8, { clientY: 150 });
+        assert.equal(ui.lane('b').style.minHeight, mode === 'week' ? '144px' : '216px');
+        await ui.click('undo-schedule'); assert.deepEqual(heights(), before);
+    }
+});
+test('expanded context retains position mapping and heights while dragging across overlaps', async () => {
+    const ui = setup({ slots: [shift(0, 8), shift(12, 20)] }); await ui.flush();
+    await ui.click(ui.toggles.previous); await ui.click(ui.toggles.next);
+    const width = ui.bar().style.width, height = ui.lane('a').style.minHeight;
+    await ui.pointer('pointerdown', ui.bar(), 4);
+    await ui.pointer('pointermove', ui.lane('a'), 14);
+    assert.equal(ui.lane('a').style.minHeight, height);
+    assert.equal(ui.bar().style.width, width);
+    assert(Math.abs(parseFloat(ui.bar().style.left) - 46 / 240 * 100) < 0.000001);
+    await ui.pointer('pointerup', ui.lane('a'), 14);
+    assert.equal(ui.lane('a').style.minHeight, '144px');
+    assert(Math.abs(parseFloat(ui.bar().style.left) - 46 / 240 * 100) < 0.000001);
+});
+test('pointer cancellation and a no-op release both restore packed layout without adding undo history', async () => {
+    const ui = setup({ slots: [shift(0, 16), shift(8, 24)] }); await ui.flush();
+    for (const finish of ['pointercancel', 'lostpointercapture', 'Escape', 'pointerup']) {
+        const original = ui.draft(), height = ui.lane('a').style.minHeight;
+        await ui.pointer('pointerdown', ui.bar(), 4);
+        await ui.pointer('pointermove', ui.lane('a'), 32);
+        assert.equal(ui.lane('a').style.minHeight, height);
+        if (finish === 'pointerup') await ui.pointer('pointermove', ui.lane('a'), 4);
+        if (finish === 'Escape') await ui.fire(ui.chart, 'keydown', { key: 'Escape' });
+        else await ui.pointer(finish, ui.lane('a'), 4);
+        assert.deepEqual(ui.draft(), original);
+        assert.equal(ui.lane('a').style.minHeight, '144px');
+        assert.equal(ui.bar(1).style.top, '80px');
+        assert.equal(ui.get('undo-schedule').disabled, true);
+        assert.equal(ui.captures.size, 0);
+    }
+});
+
 test('all seven warning types recompute from live edits before server preview and expose accessible hover/focus details', async () => {
     const ui = setup({ slots: [shift(0, 12), shift(6, 16), shift(16, 20, []), shift(22, 26, ['gone'])], members: [...members, { id: 'gone', name: 'Former engineer', departed: true }], thresholds: { minimumRest: '8', maximumContinuous: '10', minimumStaff: '2' } });
     await ui.flush();

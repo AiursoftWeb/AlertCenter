@@ -132,14 +132,21 @@
                 }
             </div>
         </div>
-        <div class="ac-gantt-row">
+        <div class="ac-gantt-row ac-gantt-warning-row">
             <div class="ac-gantt-name">@viewLocalizer["Schedule reminders"]</div>
             <div class="ac-gantt-lane" id="oncall-warning-lane">
-                @foreach (var warning in Model.TimelineWarnings)
+                @foreach (var warning in Aiursoft.AlertCenter.Models.OnCallWarningTimeline.Build(Model.TimelineWarnings, start, end))
                 {
-                    var left = warning.StartsAtUtc < start ? start : warning.StartsAtUtc;
-                    var right = warning.EndsAtUtc > end ? end : warning.EndsAtUtc;
-                    <button type="button" class="ac-gantt-shift ac-gantt-warning bg-warning" style="left: @Position(left); width: @Percent((right - left).TotalHours)" data-summary="@warning.Message" data-start="@LocalTime(warning.StartsAtUtc)" data-end="@LocalTime(warning.EndsAtUtc)" title="@warning.Message" aria-label="@warning.Message">@warning.Message</button>
+                    var summary = string.Join("\n", warning.Messages);
+                    var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(DateTime.SpecifyKind(warning.StartsAtUtc, DateTimeKind.Utc)), zone).ToString("yyyy-MM-dd HH:mm zzz");
+                    var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(DateTime.SpecifyKind(warning.EndsAtUtc, DateTimeKind.Utc)), zone).ToString("yyyy-MM-dd HH:mm zzz");
+                    var details = $"{summary} · {localStart} → {localEnd} · {group.TimeZoneId}";
+                    <button type="button" class="ac-gantt-shift ac-gantt-warning bg-warning text-dark"
+                            style="left: @Position(warning.StartsAtUtc); width: @Percent((warning.EndsAtUtc - warning.StartsAtUtc).TotalHours)"
+                            data-summary="@summary" data-start="@localStart" data-end="@localEnd" data-readonly="true"
+                            title="@details" aria-label="@details" aria-describedby="oncall-shift-detail">
+                        <span class="badge bg-dark ac-gantt-warning-count" aria-hidden="true">@warning.Messages.Count</span><span class="ac-gantt-warning-text" aria-hidden="true">@summary</span>
+                    </button>
                 }
             </div>
         </div>

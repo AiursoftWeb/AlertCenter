@@ -273,6 +273,68 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
+    [DataRow(true)]
+    [DataRow(false)]
+    public async Task WarningLaneRendersMergedSegmentsWithUniqueCountsAndCompleteAccessibleDetails(bool administrator)
+    {
+        if (administrator) await LoginAsAdmin();
+        else await RegisterAndLoginAsync();
+        var id = await SeedGroup(withTemplate: false);
+        var start = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.SingleAsync(item => item.Id == id);
+            group.TimeZoneId = "Asia/Shanghai";
+            group.MinimumShiftStaff = 2;
+            db.OnCallShifts.AddRange(
+                new OnCallShift { GroupId = id, StartsAtUtc = start, EndsAtUtc = start.AddHours(6) },
+                new OnCallShift { GroupId = id, StartsAtUtc = start.AddHours(2), EndsAtUtc = start.AddHours(8) },
+                new OnCallShift { GroupId = id, StartsAtUtc = start.AddHours(8), EndsAtUtc = start.AddHours(10) });
+            await db.SaveChangesAsync();
+        }
+
+        var rawHtml = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
+        Assert.Contains("class=\"ac-gantt-row ac-gantt-warning-row\"", rawHtml);
+        var buttons = System.Text.RegularExpressions.Regex.Matches(rawHtml,
+            "<button[^>]*class=\"ac-gantt-shift ac-gantt-warning bg-warning text-dark\"[^>]*>.*?</button>",
+            System.Text.RegularExpressions.RegexOptions.Singleline).Select(match => match.Value).ToArray();
+        Assert.AreEqual(3, buttons.Length);
+        var expectedMessages = new[]
+        {
+            new[] { "Schedule contains a coverage gap.", "Schedule contains overlapping shifts.",
+                "Shift has no on-duty engineers.", "Shift staffing is below the team threshold." },
+            new[] { "Schedule contains a coverage gap.", "Shift has no on-duty engineers.",
+                "Shift staffing is below the team threshold." },
+            new[] { "Schedule contains a coverage gap." }
+        };
+        var boundaries = new[] { start, start.AddHours(8), start.AddHours(10), start.AddDays(7) };
+        var zone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai");
+        for (var index = 0; index < buttons.Length; index++)
+        {
+            var button = buttons[index];
+            string Attribute(string name) => WebUtility.HtmlDecode(System.Text.RegularExpressions.Regex.Match(
+                button, $"{name}=\"([^\"]*)\"").Groups[1].Value);
+            var summary = string.Join("\n", expectedMessages[index]);
+            var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(boundaries[index]), zone).ToString("yyyy-MM-dd HH:mm zzz");
+            var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(boundaries[index + 1]), zone).ToString("yyyy-MM-dd HH:mm zzz");
+            var details = $"{summary} · {localStart} → {localEnd} · Asia/Shanghai";
+            Assert.AreEqual(summary, Attribute("data-summary"));
+            Assert.AreEqual(localStart, Attribute("data-start"));
+            Assert.AreEqual(localEnd, Attribute("data-end"));
+            Assert.AreEqual(details, Attribute("title"));
+            Assert.AreEqual(details, Attribute("aria-label"));
+            Assert.AreEqual("true", Attribute("data-readonly"));
+            Assert.AreEqual("oncall-shift-detail", Attribute("aria-describedby"));
+            var left = (boundaries[index] - start).TotalHours / 168 * 100;
+            var width = (boundaries[index + 1] - boundaries[index]).TotalHours / 168 * 100;
+            Assert.AreEqual($"left: {left.ToString("0.######", System.Globalization.CultureInfo.InvariantCulture)}%; width: {width.ToString("0.######", System.Globalization.CultureInfo.InvariantCulture)}%", Attribute("style"));
+            Assert.Contains($"<span class=\"badge bg-dark ac-gantt-warning-count\" aria-hidden=\"true\">{expectedMessages[index].Length}</span>", button);
+            Assert.Contains($"<span class=\"ac-gantt-warning-text\" aria-hidden=\"true\">{summary}</span>", WebUtility.HtmlDecode(button));
+        }
+    }
+
+    [TestMethod]
     public async Task GanttRetainsUnassignedEngineersAndTableAllowsFreeShiftEditing()
     {
         await LoginAsAdmin();
