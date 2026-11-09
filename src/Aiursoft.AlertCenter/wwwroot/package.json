@@ -5,13 +5,13 @@
   "author": "Anduin Xue",
   "license": "MIT",
   "dependencies": {
-    "@aiursoft/uistack-markdown-ui": "1.2.6",
+    "@aiursoft/uistack-markdown-ui": "1.2.11",
     "@fontsource/cascadia-code": "5.3.0",
-    "@highlightjs/cdn-assets": "^11.11.1",
+    "@highlightjs/cdn-assets": "^11.12.0",
     "dropify": "^0.2.2",
     "mathjax": "^3.2.2",
     "mermaid": "^12.3.0",
-    "monaco-editor": "0.55.1"
+    "monaco-editor": "0.58.0-dev-20261103"
   },
   "keep": {
     "@aiursoft/uistack-markdown-ui": "dist",
