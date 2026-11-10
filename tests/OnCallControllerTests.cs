@@ -44,6 +44,46 @@ public class OnCallControllerTests
         TempData = new TempDataDictionary(new DefaultHttpContext(), new TestTempDataProvider())
     };
 
+    [TestMethod]
+    public async Task UnsavedWeeklyPreviewContinuesLatestHistoricalAssignment()
+    {
+        await using var db = await CreateDb();
+        var start = new DateTime(2026, 11, 9, 14, 0, 0, DateTimeKind.Utc);
+        var group = new OnCallGroup { Name = "Weekly", TimeZoneId = "Asia/Shanghai", AnchorUtc = start.AddDays(-7),
+            Rule = OnCallScheduleGeneratorTests.WeeklyRule(),
+            Members = new[] { "a", "b", "c" }.Select((id, index) => new OnCallGroupMember { UserId = id, RotationOrder = index }).ToList() };
+        db.OnCallShifts.AddRange(
+            new() { Group = group, StartsAtUtc = start.AddDays(-7), EndsAtUtc = start.AddDays(-3), Members = [new() { UserId = "c" }] },
+            new() { Group = group, StartsAtUtc = start.AddDays(-3), EndsAtUtc = start, Members = [new() { UserId = "a" }] });
+        await db.SaveChangesAsync();
+        var result = Assert.IsInstanceOfType<JsonResult>(await Controller(db).GetSchedule(group.Id, start, default));
+        var json = System.Text.Json.JsonSerializer.SerializeToElement(result.Value);
+        Assert.IsFalse(json.GetProperty("saved").GetBoolean());
+        Assert.AreEqual("b", json.GetProperty("slots")[0].GetProperty("userIds")[0].GetString());
+        Assert.AreEqual(2, await db.OnCallShifts.CountAsync());
+    }
+
+    [TestMethod]
+    public async Task SavedPreviewUsesDisplayNamesWithLegacyLargeThresholds()
+    {
+        await using var db = await CreateDb();
+        (await db.Users.SingleAsync(user => user.Id == "a")).DisplayName = "Alice";
+        var start = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        var group = new OnCallGroup { Name = "Team", MinimumRestHours = 1e9, MaximumContinuousHours = 1,
+            Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.AddRange(
+            new() { Group = group, StartsAtUtc = start.AddHours(-2), EndsAtUtc = start.AddHours(-1), Members = [new() { UserId = "a" }] },
+            new() { Group = group, StartsAtUtc = start, EndsAtUtc = start.AddHours(2), Members = [new() { UserId = "a" }] });
+        await db.SaveChangesAsync();
+        var result = Assert.IsInstanceOfType<JsonResult>(await Controller(db).GetSchedule(group.Id, start, default));
+        var json = System.Text.Json.JsonSerializer.SerializeToElement(result.Value);
+        var warnings = json.GetProperty("warnings").EnumerateArray().Select(warning => warning.GetString()!).ToList();
+        foreach (var category in new[] { "insufficient rest", "continuous" })
+            Assert.IsTrue(warnings.Any(warning => warning.StartsWith("Alice: ") && warning.Contains(category)));
+        Assert.IsFalse(warnings.Any(warning => warning.StartsWith("a: ")));
+        Assert.AreEqual(System.Text.Json.JsonValueKind.Null, json.GetProperty("generationError").ValueKind);
+    }
+
     private static CreateOnCallGroupRequest EditGroup(OnCallGroup group, params string[] userIds) => new()
     {
         Name = group.Name, TimeZoneId = group.TimeZoneId, RuleId = group.RuleId,
@@ -204,13 +244,13 @@ public class OnCallControllerTests
         var controller = Controller(db);
         Assert.IsInstanceOfType<RedirectToActionResult>(await controller.CreateGroup(new CreateOnCallGroupRequest
         {
-            Name = "Partial", TimeZoneId = "Asia/Shanghai", RuleId = rule.Id, AnchorLocal = "2026-11-09T21:00", AutoExtend = true
+            Name = "Partial", TimeZoneId = "Asia/Shanghai", RuleId = rule.Id, AnchorLocal = "2026-11-09T21:00", AutoExtend = true, UserIds = ["a"]
         }, default));
         var group = await db.OnCallGroups.SingleAsync();
         Assert.AreEqual(new DateTime(2026, 11, 9, 13, 0, 0, DateTimeKind.Utc), group.AnchorUtc);
         Assert.IsTrue(group.AutoExtend);
         Assert.Contains("first shift will be a partial segment", (string)controller.TempData["OnCallGroupWarning"]!);
-        var update = EditGroup(group);
+        var update = EditGroup(group, "a");
         update.RuleId = null;
         Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).UpdateGroup(group.Id, update, default));
         Assert.IsFalse(group.AutoExtend);

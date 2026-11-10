@@ -67,6 +67,30 @@ public class MyOnCallTests
     }
 
     [TestMethod]
+    public async Task PersonalRemindersExcludeCoworkerProblemsAndOmitOwnNamePrefix()
+    {
+        await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>().UseSqlite("DataSource=:memory:").Options);
+        await db.Database.OpenConnectionAsync();
+        await db.Database.MigrateAsync();
+        db.Users.AddRange(new User { Id = "me", UserName = "me", DisplayName = "Alice: Engineer" },
+            new User { Id = "other", UserName = "other", DisplayName = "Bob" });
+        var now = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        var group = new OnCallGroup { Name = "Team", MinimumRestHours = 12, MaximumContinuousHours = 1,
+            Members = [new() { UserId = "me", RotationOrder = 0 }, new() { UserId = "other", RotationOrder = 1 }] };
+        db.OnCallShifts.AddRange(
+            new() { Group = group, StartsAtUtc = now.AddHours(-2), EndsAtUtc = now.AddHours(-1), Members = [new() { UserId = "other" }] },
+            new() { Group = group, StartsAtUtc = now, EndsAtUtc = now.AddHours(2), Members = [new() { UserId = "me" }, new() { UserId = "other" }] },
+            new() { Group = group, StartsAtUtc = now.AddHours(3), EndsAtUtc = now.AddHours(4), Members = [new() { UserId = "me" }] });
+        await db.SaveChangesAsync();
+        var model = await new MyOnCallService(db, TestLocalization.Factory.Create(typeof(OnCallScheduleValidator)))
+            .LoadAsync("me", now, 1, default);
+        Assert.AreEqual(2, model.Warnings.Count);
+        Assert.IsTrue(model.Warnings.Any(warning => warning.StartsWith("Team: An engineer exceeds")));
+        Assert.IsTrue(model.Warnings.Any(warning => warning.StartsWith("Team: An engineer has insufficient rest") && warning.Contains("03:00 UTC")));
+        Assert.IsTrue(model.Warnings.All(warning => !warning.Contains("Alice") && !warning.Contains("Bob") && !warning.Contains("me:")));
+    }
+
+    [TestMethod]
     public void CalendarEscapesAndFoldsUtf8WithoutSplittingRunesAndKeepsStableUids()
     {
         var now = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);

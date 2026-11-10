@@ -30,6 +30,27 @@ public class OnCallScheduleValidatorTests
     }
 
     [TestMethod]
+    public void ReminderNamesUseDisplayNamesWithIdFallbackAndKeepStructuredIdentity()
+    {
+        var group = new OnCallGroup { MinimumRestHours = 16, MaximumContinuousHours = 1,
+            Members = [new() { UserId = "a" }, new() { UserId = "b" }] };
+        var shifts = new[] { Shift(0, 2, "a", "b") };
+        var existing = new[] { new GeneratedOnCallShift("a", Start.AddHours(-2), Start.AddHours(-1)) };
+        var names = new Dictionary<string, string> { ["a"] = "Alice: Engineer" };
+        var warnings = OnCallScheduleValidator.Warnings(group, Start, Start.AddHours(2), shifts, existing, Localizer, names);
+        Assert.IsTrue(warnings.Any(warning => warning.StartsWith("Alice: Engineer: ") && warning.Contains("insufficient rest")));
+        Assert.IsTrue(warnings.Any(warning => warning.StartsWith("Alice: Engineer: ") && warning.Contains("continuous")));
+        Assert.IsTrue(warnings.Any(warning => warning.StartsWith("b: ") && warning.Contains("continuous")));
+        Assert.IsFalse(warnings.Any(warning => warning.StartsWith("a: ")));
+        var timeline = OnCallScheduleValidator.TimelineWarnings(group, Start, Start.AddHours(2), shifts, existing, Localizer, names);
+        Assert.IsTrue(timeline.Any(warning => warning.Message.StartsWith("Alice: Engineer: ")));
+        var personal = OnCallScheduleValidator.WarningDetails(group, Start, Start.AddHours(2), shifts, existing, Localizer)
+            .Where(warning => warning.UserId == "a").ToList();
+        Assert.AreEqual(2, personal.Count);
+        Assert.IsTrue(personal.All(warning => !warning.Message.StartsWith("a: ") && !warning.Message.Contains("Alice")));
+    }
+
+    [TestMethod]
     public void ValidationRejectsSamePersonOverlapButAllowsExternalAssignmentsAndTouching()
     {
         var names = new Dictionary<string, string> { ["a"] = "Alice" };
@@ -64,6 +85,7 @@ public class OnCallScheduleValidatorTests
             {
                 System.Globalization.CultureInfo.CurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo(culture);
                 Assert.IsFalse(Localizer["Unassigned"].ResourceNotFound, culture);
+                Assert.IsFalse(Localizer["Automatic extension cannot proceed: the member count is below the template staff per shift."].ResourceNotFound, culture);
                 Assert.IsFalse(Localizer["Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC."].ResourceNotFound, culture);
                 var message = OnCallScheduleValidator.OverlapErrors([Shift(0, 2), Shift(1, 2)], [], Localizer).Single().Message;
                 Assert.Contains(Localizer["Unassigned"].Value, message, culture);

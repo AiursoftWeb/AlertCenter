@@ -36,4 +36,5 @@
 
   <data name="Unassigned" xml:space="preserve"><value>Ei määritetty</value></data>
   <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Päällekkäisiä vuoroja ei voi tallentaa henkilölle {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC ja {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
+  <data name="Automatic extension cannot proceed: the member count is below the template staff per shift." xml:space="preserve"><value>Automaattista jatkamista ei voida suorittaa: jäsenmäärä on pienempi kuin mallin vuorokohtainen henkilöstömäärä.</value></data>
 </root>

@@ -5,6 +5,7 @@ namespace Aiursoft.AlertCenter.Services;
 public static class OnCallScheduleValidator
 {
     public record TimelineWarning(DateTime StartsAtUtc, DateTime EndsAtUtc, string Message);
+    public record ScheduleWarning(string? UserId, string Message);
 
     public static List<TimelineWarning> OverlapErrors(IReadOnlyList<OnCallShift> shifts,
         IReadOnlyList<OnCallShift> retained, IStringLocalizer? localizer = null, IReadOnlyDictionary<string, string>? names = null)
@@ -38,7 +39,8 @@ public static class OnCallScheduleValidator
     }
 
     public static List<TimelineWarning> TimelineWarnings(OnCallGroup group, DateTime start, DateTime end,
-        IReadOnlyList<OnCallShift> shifts, IReadOnlyList<GeneratedOnCallShift> existing, IStringLocalizer localizer)
+        IReadOnlyList<OnCallShift> shifts, IReadOnlyList<GeneratedOnCallShift> existing, IStringLocalizer localizer,
+        IReadOnlyDictionary<string, string>? names = null)
     {
         var result = new List<TimelineWarning>();
         var covered = start;
@@ -52,7 +54,7 @@ public static class OnCallScheduleValidator
             }
             var others = shifts.Where(other => other != shift).SelectMany(other => other.Members.Select(member =>
                 new GeneratedOnCallShift(member.UserId, other.StartsAtUtc, other.EndsAtUtc))).Concat(existing).ToList();
-            foreach (var warning in Warnings(group, shift.StartsAtUtc, shift.EndsAtUtc, [shift], others, localizer)
+            foreach (var warning in Warnings(group, shift.StartsAtUtc, shift.EndsAtUtc, [shift], others, localizer, names)
                          .Where(warning => warning != localizer["Schedule contains a coverage gap."].Value))
                 result.Add(new(shift.StartsAtUtc, shift.EndsAtUtc, warning));
             if (shifts.Any(other => other != shift && other.StartsAtUtc < shift.EndsAtUtc && other.EndsAtUtc > shift.StartsAtUtc))
@@ -63,24 +65,31 @@ public static class OnCallScheduleValidator
     }
 
     public static List<string> Warnings(OnCallGroup group, DateTime start, DateTime end,
+        IReadOnlyList<OnCallShift> shifts, IReadOnlyList<GeneratedOnCallShift> existing, IStringLocalizer localizer,
+        IReadOnlyDictionary<string, string>? names = null) =>
+        WarningDetails(group, start, end, shifts, existing, localizer)
+            .Select(warning => warning.UserId == null ? warning.Message
+                : $"{names?.GetValueOrDefault(warning.UserId) ?? warning.UserId}: {warning.Message}").Distinct().ToList();
+
+    public static List<ScheduleWarning> WarningDetails(OnCallGroup group, DateTime start, DateTime end,
         IReadOnlyList<OnCallShift> shifts, IReadOnlyList<GeneratedOnCallShift> existing, IStringLocalizer localizer)
     {
-        var warnings = new List<string>();
+        var warnings = new List<ScheduleWarning>();
         var coveredUntil = start;
         DateTime? previousEnd = null;
         foreach (var shift in shifts.OrderBy(shift => shift.StartsAtUtc))
         {
-            if (shift.StartsAtUtc > coveredUntil) warnings.Add(localizer["Schedule contains a coverage gap."].Value);
-            if (previousEnd.HasValue && shift.StartsAtUtc < previousEnd) warnings.Add(localizer["Schedule contains overlapping shifts."].Value);
+            if (shift.StartsAtUtc > coveredUntil) warnings.Add(new(null, localizer["Schedule contains a coverage gap."].Value));
+            if (previousEnd.HasValue && shift.StartsAtUtc < previousEnd) warnings.Add(new(null, localizer["Schedule contains overlapping shifts."].Value));
             if (!previousEnd.HasValue || shift.EndsAtUtc > previousEnd) previousEnd = shift.EndsAtUtc;
             if (shift.Members.Count > 0 && shift.EndsAtUtc > coveredUntil) coveredUntil = shift.EndsAtUtc;
-            if (shift.Members.Count == 0) warnings.Add(localizer["Shift has no on-duty engineers."].Value);
+            if (shift.Members.Count == 0) warnings.Add(new(null, localizer["Shift has no on-duty engineers."].Value));
             if (group.MinimumShiftStaff.HasValue && shift.Members.Count < group.MinimumShiftStaff)
-                warnings.Add(localizer["Shift staffing is below the team threshold."].Value);
+                warnings.Add(new(null, localizer["Shift staffing is below the team threshold."].Value));
             if (shift.Members.Any(member => group.Members.All(person => person.UserId != member.UserId)))
-                warnings.Add(localizer["Future shift includes a departed team member."].Value);
+                warnings.Add(new(null, localizer["Future shift includes a departed team member."].Value));
         }
-        if (coveredUntil < end) warnings.Add(localizer["Schedule contains a coverage gap."].Value);
+        if (coveredUntil < end) warnings.Add(new(null, localizer["Schedule contains a coverage gap."].Value));
         var assignments = shifts.SelectMany(shift => shift.Members.Select(member =>
             new GeneratedOnCallShift(member.UserId, shift.StartsAtUtc, shift.EndsAtUtc))).Concat(existing);
         foreach (var person in assignments.GroupBy(shift => shift.UserId))
@@ -92,16 +101,16 @@ public static class OnCallScheduleValidator
             {
                 var inRange = shift.EndsAtUtc > start && shift.StartsAtUtc < end;
                 if ((inRange || previousInRange) && previousAssignmentEnd.HasValue && shift.StartsAtUtc < previousAssignmentEnd)
-                    warnings.Add(localizer["Schedule contains overlapping shifts."].Value);
+                    warnings.Add(new(null, localizer["Schedule contains overlapping shifts."].Value));
                 if ((inRange || previousInRange) && previousAssignmentEnd.HasValue && group.MinimumRestHours.HasValue &&
                     (shift.StartsAtUtc - previousAssignmentEnd.Value).TotalHours < group.MinimumRestHours)
-                    warnings.Add($"{person.Key}: {localizer["An engineer has insufficient rest between shifts."].Value} ({shift.StartsAtUtc:yyyy-MM-dd HH:mm} UTC)");
+                    warnings.Add(new(person.Key, $"{localizer["An engineer has insufficient rest between shifts."].Value} ({shift.StartsAtUtc:yyyy-MM-dd HH:mm} UTC)"));
                 if (!previousAssignmentEnd.HasValue || shift.StartsAtUtc > previousAssignmentEnd) continuousStart = shift.StartsAtUtc;
                 previousAssignmentEnd = previousAssignmentEnd > shift.EndsAtUtc ? previousAssignmentEnd : shift.EndsAtUtc;
                 previousInRange = inRange;
                 if (inRange && group.MaximumContinuousHours.HasValue &&
                     (previousAssignmentEnd.Value - continuousStart!.Value).TotalHours > group.MaximumContinuousHours)
-                    warnings.Add($"{person.Key}: {localizer["An engineer exceeds the continuous on-call threshold."].Value} ({shift.StartsAtUtc:yyyy-MM-dd HH:mm} UTC)");
+                    warnings.Add(new(person.Key, $"{localizer["An engineer exceeds the continuous on-call threshold."].Value} ({shift.StartsAtUtc:yyyy-MM-dd HH:mm} UTC)"));
             }
         }
         return warnings.Distinct().ToList();

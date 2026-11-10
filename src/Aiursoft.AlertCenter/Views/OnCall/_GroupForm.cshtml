@@ -158,8 +158,8 @@
     <details class="border rounded p-3 mb-4" id="group-advanced" open="@advancedHasErrors">
         <summary class="h5 mb-0">5. @viewLocalizer["Advanced settings"]</summary>
         <div class="row g-3 mt-1 mb-3">
-            <div class="col-md-4"><label asp-for="GroupInput.MinimumRestHours" class="form-label">@viewLocalizer["Minimum rest reminder (hours)"]</label><input asp-for="GroupInput.MinimumRestHours" type="number" min="0" step="any" class="form-control" /></div>
-            <div class="col-md-4"><label asp-for="GroupInput.MaximumContinuousHours" class="form-label">@viewLocalizer["Maximum continuous duty reminder (hours)"]</label><input asp-for="GroupInput.MaximumContinuousHours" type="number" min="0" step="any" class="form-control" /></div>
+            <div class="col-md-4"><label asp-for="GroupInput.MinimumRestHours" class="form-label">@viewLocalizer["Minimum rest reminder (hours)"]</label><input asp-for="GroupInput.MinimumRestHours" type="number" min="0" max="720" step="any" class="form-control" /><span asp-validation-for="GroupInput.MinimumRestHours" class="text-danger"></span></div>
+            <div class="col-md-4"><label asp-for="GroupInput.MaximumContinuousHours" class="form-label">@viewLocalizer["Maximum continuous duty reminder (hours)"]</label><input asp-for="GroupInput.MaximumContinuousHours" type="number" min="0" max="720" step="any" class="form-control" /><span asp-validation-for="GroupInput.MaximumContinuousHours" class="text-danger"></span></div>
             <div class="col-md-4"><label asp-for="GroupInput.MinimumShiftStaff" class="form-label">@viewLocalizer["Minimum staffing reminder"]</label><input asp-for="GroupInput.MinimumShiftStaff" type="number" min="0" max="200" class="form-control" /></div>
         </div>
         <p class="form-text">@viewLocalizer["Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."]</p>

@@ -50,8 +50,8 @@ public class CreateOnCallGroupRequest
 {
     public DayOfWeek WeekStartsOn { get; set; } = DayOfWeek.Monday;
     public bool FallbackSelectionSubmitted { get; set; }
-    [Range(0, double.MaxValue)] public double? MinimumRestHours { get; set; }
-    [Range(0, double.MaxValue)] public double? MaximumContinuousHours { get; set; }
+    [Range(0d, 720d, ErrorMessage = "Minimum rest must be 0–720 hours.")] public double? MinimumRestHours { get; set; }
+    [Range(0d, 720d, ErrorMessage = "Maximum continuous duty must be 0–720 hours.")] public double? MaximumContinuousHours { get; set; }
     [Range(0, 200)] public int? MinimumShiftStaff { get; set; }
     public bool? AutoExtend { get; set; }
     public List<string>? FallbackUserIds { get; set; }

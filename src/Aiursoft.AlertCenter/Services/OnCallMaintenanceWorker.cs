@@ -26,23 +26,19 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                     groupScope.ServiceProvider.GetRequiredService<IStringLocalizer<OnCallMaintenanceWorker>>(),
                     groupScope.ServiceProvider.GetRequiredService<IOptions<EmailSettings>>().Value.PublicBaseUrl,
                     groupId, now, token, groupScope.ServiceProvider.GetRequiredService<IStringLocalizerFactory>()
-                        .Create(typeof(OnCallScheduleValidator)));
+                        .Create(typeof(OnCallScheduleValidator)), logger);
             }
             catch (DbUpdateException exception)
             {
                 // 唯一键或版本冲突表示另一实例已处理，下一轮重新读取。
                 logger.LogWarning("On-call maintenance conflicted for {GroupId}: {ExceptionType}.", groupId, exception.GetType().Name);
             }
-            catch (Exception exception) when (exception is ArgumentException or TimeZoneNotFoundException or InvalidTimeZoneException or OverflowException)
-            {
-                logger.LogError("Invalid on-call template for {GroupId}: {Message}", groupId, exception.Message);
-            }
         }
     }
 
     internal static async Task MaintainGroupAsync(TemplateDbContext db, IStringLocalizer<OnCallScheduleGenerator> generatorLocalizer,
         IStringLocalizer<OnCallMaintenanceWorker> localizer, string baseUrl, Guid groupId, DateTime now, CancellationToken token,
-        IStringLocalizer? validatorLocalizer = null)
+        IStringLocalizer? validatorLocalizer = null, ILogger<OnCallMaintenanceWorker>? logger = null)
     {
         await db.Database.CreateExecutionStrategy().ExecuteAsync(async () =>
         {
@@ -54,7 +50,23 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                 .Include(group => group.Members).SingleOrDefaultAsync(group => group.Id == groupId, token);
             if (group == null) return;
             if (group.AutoExtend && group.Rule != null && group.Members.Count > 0)
-                await ExtendAsync(db, new OnCallScheduleGenerator(generatorLocalizer), group, now, token, validatorLocalizer);
+            {
+                if (transaction != null) await transaction.CreateSavepointAsync("OnCallExtension", token);
+                try
+                {
+                    await ExtendAsync(db, new OnCallScheduleGenerator(generatorLocalizer), group, now, token, validatorLocalizer);
+                }
+                catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or OverflowException or
+                    TimeZoneNotFoundException or InvalidTimeZoneException)
+                {
+                    logger?.LogError(exception, "On-call extension failed for {GroupId}; continuing handover processing.", groupId);
+                    // 续排保存后也可能失败；同时回滚数据库与跟踪状态，避免半成品随交接提交。
+                    if (transaction != null) await transaction.RollbackToSavepointAsync("OnCallExtension", token);
+                    db.ChangeTracker.Clear();
+                    group = await db.OnCallGroups.SingleAsync(item => item.Id == groupId, token);
+                }
+                if (transaction != null) await transaction.ReleaseSavepointAsync("OnCallExtension", token);
+            }
             await QueueHandoversAsync(db, group, now, baseUrl, localizer, token);
             if (!group.HandoverCheckedThroughUtc.HasValue || group.HandoverCheckedThroughUtc < now)
                 group.HandoverCheckedThroughUtc = now;
@@ -140,14 +152,15 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         var notified = new HashSet<string>(StringComparer.Ordinal);
         foreach (var shift in shifts)
         {
+            var expired = shift.EndsAtUtc <= now;
             var previousIds = previous.Where(old => old.StartsAtUtc < shift.StartsAtUtc && old.EndsAtUtc >= shift.StartsAtUtc)
                 .SelectMany(old => old.Members.Select(member => member.UserId)).ToHashSet(StringComparer.Ordinal);
-            foreach (var person in shift.Members.Where(member => !previousIds.Contains(member.UserId)))
+            foreach (var person in shift.Members.Where(member => expired || !previousIds.Contains(member.UserId)))
             {
                 var key = $"{shift.Id:N}:{person.UserId}";
                 if (sent.Contains(key)) continue;
                 db.Add(new OnCallHandoverReceipt { ShiftId = shift.Id, UserId = person.UserId, ProcessedAtUtc = now });
-                if (incidents.Count == 0 || !notified.Add(person.UserId)) continue;
+                if (expired || incidents.Count == 0 || !notified.Add(person.UserId)) continue;
                 db.PushDeliveries.Add(new PushDelivery
                 {
                     CreatedAtUtc = now,

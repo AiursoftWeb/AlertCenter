@@ -136,6 +136,74 @@ public class OnCallScheduleServiceTests
     }
 
     [TestMethod]
+    public async Task WeeklyGenerationContinuesPreviousWeekAndHonorsLatestManualAssignment()
+    {
+        group.Rule!.HandoverPoints = OnCallScheduleGeneratorTests.WeeklyRule().HandoverPoints;
+        db.AddRange(group.Rule.HandoverPoints);
+        await db.SaveChangesAsync();
+        Assert.AreEqual(0, (await service.Save(Request(), true, default)).Count);
+        var firstWeek = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).ToListAsync();
+        CollectionAssert.AreEqual(new[] { "a", "b" }, firstWeek.Select(shift => shift.Members.Single().UserId).ToArray());
+        var request = Request();
+        request.StartUtc = Anchor.AddDays(7);
+        Assert.AreEqual(0, (await service.Save(request, true, default, preview: true)).Count);
+        Assert.AreEqual("c", service.PreviewSlots[0].UserIds.Single());
+        Assert.AreEqual(0, (await service.Save(request, true, default)).Count);
+        Assert.AreEqual("c", (await db.OnCallShifts.Include(shift => shift.Members)
+            .SingleAsync(shift => shift.StartsAtUtc == request.StartUtc)).Members.Single().UserId);
+
+        db.OnCallShiftMembers.RemoveRange(firstWeek[^1].Members);
+        firstWeek[^1].Members = [new() { UserId = "a" }];
+        firstWeek[^1].RotationPosition = null;
+        await db.SaveChangesAsync();
+        request.Version = group.ScheduleVersion;
+        Assert.AreEqual(0, (await service.Save(request, true, default, preview: true)).Count);
+        Assert.AreEqual("b", service.PreviewSlots[0].UserIds.Single());
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task PreviewAndSaveUseDisplayNamesForPersonalReminders(bool preview)
+    {
+        (await db.Users.SingleAsync(user => user.Id == "a")).DisplayName = "Alice";
+        await db.SaveChangesAsync();
+        Assert.AreEqual(0, (await service.Save(Request(Slot(0, 26 * 60, "a"), Slot(27 * 60, 60, "a")), false, default, preview)).Count);
+        foreach (var category in new[] { "insufficient rest", "continuous" })
+        {
+            Assert.IsTrue(service.Warnings.Any(warning => warning.StartsWith("Alice: ") && warning.Contains(category)));
+            if (preview) Assert.IsTrue(service.TimelineWarnings.Any(warning => warning.Message.StartsWith("Alice: ") && warning.Message.Contains(category)));
+        }
+        Assert.IsFalse(service.Warnings.Any(warning => warning.StartsWith("a: ")));
+    }
+
+    [TestMethod]
+    public async Task LegacyLargeThresholdsKeepUpcomingIssuesAndExistingQueriesBounded()
+    {
+        group.MinimumRestHours = 1e9;
+        group.MaximumContinuousHours = 1e9;
+        group.AutoExtend = true;
+        group.Rule!.StaffPerShift = 4;
+        (await db.Users.SingleAsync(user => user.Id == "a")).DisplayName = "Alice";
+        db.OnCallShifts.AddRange(
+            new() { GroupId = group.Id, StartsAtUtc = Anchor.AddHours(-2), EndsAtUtc = Anchor.AddHours(-1), Members = [new() { UserId = "a" }] },
+            new() { GroupId = group.Id, StartsAtUtc = Anchor, EndsAtUtc = Anchor.AddHours(2), Members = [new() { UserId = "a" }] },
+            new() { GroupId = group.Id, StartsAtUtc = Anchor.AddHours(-722), EndsAtUtc = Anchor.AddHours(-721), Members = [new() { UserId = "a" }] });
+        await db.SaveChangesAsync();
+        db.ChangeTracker.Clear();
+        var issues = await OnCallScheduleIssues.UpcomingAsync(db, Anchor, TestLocalization.Factory, default);
+        var warnings = issues.Single().Warnings;
+        Assert.IsTrue(warnings.Any(warning => warning.StartsWith("Alice: ") && warning.Contains("insufficient rest")));
+        Assert.IsFalse(warnings.Any(warning => warning.StartsWith("a: ")));
+        Assert.Contains("Automatic extension cannot proceed: the member count is below the template staff per shift.", warnings);
+        var existing = await service.Existing(group.Id, ["a"], Anchor, default, minimumRestHours: 1e9);
+        Assert.AreEqual(1, existing.Count);
+        Assert.AreEqual(Anchor.AddHours(-2), existing[0].StartsAtUtc);
+        var details = await OnCallScheduleIssues.UpcomingAsync(db, Anchor, TestLocalization.Factory, default, group.Id);
+        CollectionAssert.AreEqual(warnings.ToArray(), details.Single().Warnings.ToArray());
+    }
+
+    [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
     public async Task GenerationClipsPartialPeriodsAndPreservesTouchingNeighbours(bool weekly)
