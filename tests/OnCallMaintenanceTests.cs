@@ -84,6 +84,46 @@ public class OnCallMaintenanceTests
     }
 
     [TestMethod]
+    public async Task TeamMaintenanceFailureStillQueuesNextTeamsHandover()
+    {
+        group.AutoExtend = false;
+        db.OnCallGroups.Add(new() { Name = "Other team", AnchorUtc = Now, TimeZoneId = "UTC", AutoExtend = false });
+        await db.SaveChangesAsync();
+        var groupIds = await db.OnCallGroups.AsNoTracking().Select(item => item.Id).ToListAsync();
+        var failedGroupId = groupIds[0];
+        var healthyGroupId = groupIds[1];
+        var current = new OnCallShift { GroupId = healthyGroupId, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1),
+            Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.Add(current);
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = healthyGroupId }, Title = "Open outage" });
+        await db.SaveChangesAsync();
+        var failure = new InvalidOperationException("Injected team maintenance failure.");
+        saveFailure.Failure = failure;
+
+        var services = new ServiceCollection();
+        services.AddLogging();
+        services.AddLocalization();
+        services.AddOptions<Configuration.EmailSettings>();
+        services.AddScoped<TemplateDbContext>(_ => new SqliteContext(new DbContextOptionsBuilder<SqliteContext>()
+            .UseSqlite(db.Database.GetDbConnection()).AddInterceptors(saveFailure).Options));
+        await using var provider = services.BuildServiceProvider();
+        using var worker = new OnCallMaintenanceWorker(provider.GetRequiredService<IServiceScopeFactory>(), logger);
+
+        await worker.ProcessAsync(Now);
+
+        var delivery = await db.PushDeliveries.Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients).SingleAsync();
+        Assert.AreEqual(PushDelivery.Pending, delivery.Status);
+        Assert.AreEqual(healthyGroupId, delivery.OnCallEmail!.GroupId);
+        Assert.AreEqual(current.Id, delivery.OnCallEmail.ShiftId);
+        Assert.AreEqual("a", delivery.OnCallEmail.Recipients.Single().UserId);
+        Assert.AreEqual(1, await db.Set<OnCallHandoverReceipt>().CountAsync());
+        var error = logger.Entries.Single();
+        Assert.AreEqual(LogLevel.Error, error.Level);
+        Assert.Contains(failedGroupId.ToString(), error.Message);
+        Assert.AreSame(failure, error.Exception);
+    }
+
+    [TestMethod]
     public async Task ExtensionOnlyAppendsAfterLatestManualShiftAndContinuesQueueAcrossReruns()
     {
         var manual = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(-1), EndsAtUtc = Now.AddDays(4),

@@ -33,6 +33,10 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                 // 唯一键或版本冲突表示另一实例已处理，下一轮重新读取。
                 logger.LogWarning("On-call maintenance conflicted for {GroupId}: {ExceptionType}.", groupId, exception.GetType().Name);
             }
+            catch (Exception exception) when (exception is not OperationCanceledException || !token.IsCancellationRequested)
+            {
+                logger.LogError(exception, "On-call maintenance failed for {GroupId}.", groupId);
+            }
         }
     }
 
