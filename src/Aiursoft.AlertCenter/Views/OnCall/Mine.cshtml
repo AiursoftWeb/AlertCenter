@@ -2,7 +2,24 @@
 @{ var viewLocalizer = OnCallViewLocalizerFactory.Create("Views.OnCall.Mine", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
 @using System.Security.Claims
 @model Aiursoft.AlertCenter.Models.MyOnCallViewModel
-@{ var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); }
+@using System.Text.Json
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var calendarShifts = Model.Upcoming.Select(shift => new
+    {
+        id = shift.Id,
+        groupId = shift.GroupId,
+        groupName = shift.Group.Name,
+        startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
+        endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc)
+    });
+}
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+@section scripts {
+    <script src="~/scripts/oncall-personal-calendar.js" asp-append-version="true" defer></script>
+}
 <h1 class="h3 mb-3">@viewLocalizer["My on-call"]</h1>
 <section class="card mb-4"><div class="card-body">
     @if (Model.Current.Count > 0)
@@ -32,7 +49,35 @@
     <section class="alert alert-warning"><h2 class="h5">@viewLocalizer["My schedule reminders"]</h2><ul class="mb-0">@foreach (var warning in Model.Warnings) { <li>@warning</li> }</ul></section>
 }
 <section class="card mb-4"><div class="card-header"><h2 class="h5 mb-0">@viewLocalizer["Shifts in the next 8 weeks"]</h2></div>
-    <div class="card-body">@await Html.PartialAsync("_PersonalShifts", (Model.Upcoming, userId!))</div>
+    <div class="card-body">
+        <div id="oncall-personal-calendar" class="ac-personal-calendar" hidden
+             data-shifts="@JsonSerializer.Serialize(calendarShifts)"
+             data-today="@viewLocalizer["Today"]" data-all-day="@viewLocalizer["All day"]"
+             data-starts="@viewLocalizer["Starts"]" data-ends="@viewLocalizer["Ends"]" data-on-duty="@viewLocalizer["On duty"]"
+             data-empty="@viewLocalizer["No shifts in this period."]" data-show-all="@viewLocalizer["Show all {0} shifts"].Value"
+             data-more="@viewLocalizer["+{0} more"].Value" data-shifts-on="@viewLocalizer["Shifts on {0}"].Value">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <h3 id="personal-calendar-month" class="h5 mb-0" aria-live="polite"></h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-outline-secondary" data-calendar-previous aria-label="@viewLocalizer["Previous month"]">@viewLocalizer["Previous month"]</button>
+                    <button type="button" class="btn btn-outline-primary" data-calendar-today>@viewLocalizer["Today"]</button>
+                    <button type="button" class="btn btn-outline-secondary" data-calendar-next aria-label="@viewLocalizer["Next month"]">@viewLocalizer["Next month"]</button>
+                </div>
+            </div>
+            <p class="small text-muted">@viewLocalizer["Times are shown in your local time zone."] <span data-calendar-zone></span></p>
+            <p data-calendar-empty class="text-muted" hidden>@viewLocalizer["No shifts in this period."]</p>
+            <table class="ac-personal-month" aria-labelledby="personal-calendar-month">
+                <thead></thead><tbody></tbody>
+            </table>
+            <div class="d-flex flex-wrap align-items-center gap-3 my-3" role="list" aria-label="@viewLocalizer["Teams"]" data-calendar-legend></div>
+            <p class="small text-muted">@viewLocalizer["Choose a date or shift to see details."]</p>
+            <section data-calendar-details aria-labelledby="personal-calendar-details-title" hidden>
+                <h3 id="personal-calendar-details-title" class="h5" tabindex="-1"></h3>
+                <div data-calendar-detail-items></div>
+            </section>
+        </div>
+        <div id="personal-calendar-fallback">@await Html.PartialAsync("_PersonalShifts", (Model.Upcoming, userId!))</div>
+    </div>
 </section>
 <section class="card mb-4"><div class="card-header"><h2 class="h5 mb-0">@viewLocalizer["Shift history"]</h2></div>
     <div class="card-body">
