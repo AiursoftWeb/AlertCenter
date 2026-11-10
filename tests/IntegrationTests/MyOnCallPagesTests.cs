@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Services;
@@ -29,6 +30,78 @@ public class MyOnCallPagesTests : TestBase
             await db.SaveChangesAsync();
         }
         await base.CleanServer();
+    }
+
+    [TestMethod]
+    public async Task PersonalCalendarContainsOnlyMyUpcomingShiftsAndPreservesCrossTeamDetails()
+    {
+        await LoginAsAdmin();
+        var now = DateTime.UtcNow;
+        Guid currentId;
+        Guid futureId;
+        Guid unrelatedId;
+        Guid historyId;
+        Guid outsideWindowId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var admin = await db.Users.SingleAsync(person => person.Email == "admin@default.com");
+            var coworker = new User { UserName = "calendar-coworker-" + Guid.NewGuid(), DisplayName = "Calendar coworker <Chen>", Email = "calendar-coworker@example.com" };
+            userIds.Add(coworker.Id);
+            var east = new OnCallGroup { Name = "Calendar East <team>", TimeZoneId = "Asia/Shanghai" };
+            var west = new OnCallGroup { Name = "Calendar West", TimeZoneId = "America/New_York" };
+            groupIds.AddRange([east.Id, west.Id]);
+            var current = new OnCallShift { Group = east, StartsAtUtc = now.AddDays(-1), EndsAtUtc = now.AddDays(1), Members = [new() { UserId = admin.Id }, new() { User = coworker }] };
+            var future = new OnCallShift { Group = west, StartsAtUtc = now.AddDays(10), EndsAtUtc = now.AddDays(12), Members = [new() { UserId = admin.Id }, new() { User = coworker }] };
+            var unrelated = new OnCallShift { Group = east, StartsAtUtc = now.AddDays(3), EndsAtUtc = now.AddDays(4), Members = [new() { User = coworker }] };
+            var history = new OnCallShift { Group = east, StartsAtUtc = now.AddDays(-3), EndsAtUtc = now.AddDays(-2), Members = [new() { UserId = admin.Id }] };
+            var outsideWindow = new OnCallShift { Group = west, StartsAtUtc = now.AddDays(57), EndsAtUtc = now.AddDays(58), Members = [new() { UserId = admin.Id }] };
+            currentId = current.Id;
+            futureId = future.Id;
+            unrelatedId = unrelated.Id;
+            historyId = history.Id;
+            outsideWindowId = outsideWindow.Id;
+            db.OnCallShifts.AddRange(current, future, unrelated, history, outsideWindow);
+            await db.SaveChangesAsync();
+        }
+        var rawHtml = await Http.GetStringAsync("/OnCall/Mine");
+        var container = Regex.Match(rawHtml, "<div id=\"oncall-personal-calendar\"[^>]*>").Value;
+        Assert.Contains("hidden", container);
+        using var data = JsonDocument.Parse(WebUtility.HtmlDecode(Regex.Match(container, "data-shifts=\"([^\"]*)\"").Groups[1].Value));
+        var shifts = data.RootElement.EnumerateArray().ToList();
+        CollectionAssert.AreEquivalent(new[] { currentId, futureId }, shifts.Select(shift => shift.GetProperty("id").GetGuid()).ToArray());
+        Assert.AreEqual(2, shifts.Select(shift => shift.GetProperty("groupId").GetGuid()).Distinct().Count());
+        var currentData = shifts.Single(shift => shift.GetProperty("id").GetGuid() == currentId);
+        Assert.AreEqual("Calendar East <team>", currentData.GetProperty("groupName").GetString());
+        Assert.AreEqual(now.AddDays(-1), currentData.GetProperty("startsAtUtc").GetDateTime());
+        Assert.AreEqual(now.AddDays(1), currentData.GetProperty("endsAtUtc").GetDateTime());
+        Assert.AreEqual(DateTimeKind.Utc, currentData.GetProperty("startsAtUtc").GetDateTime().Kind);
+        foreach (var id in new[] { currentId, futureId })
+        {
+            var article = Regex.Match(rawHtml, $"<article[^>]*data-personal-shift=\"{id}\".*?</article>", RegexOptions.Singleline).Value;
+            Assert.Contains("Calendar coworker &lt;Chen&gt;", article);
+            Assert.Contains("href=\"/OnCall/GroupDetails/", article);
+            Assert.AreEqual(2, Regex.Matches(article, "data-oncall-time").Count);
+            Assert.Contains("48 hours", article);
+        }
+        Assert.Contains("id=\"personal-calendar-fallback\"", rawHtml);
+        Assert.Contains("data-zone=\"Asia/Shanghai\"", rawHtml);
+        Assert.Contains("data-zone=\"America/New_York\"", rawHtml);
+        Assert.Contains($"data-personal-shift=\"{historyId}\"", rawHtml);
+        Assert.DoesNotContain(unrelatedId.ToString(), rawHtml);
+        Assert.DoesNotContain(outsideWindowId.ToString(), rawHtml);
+        Assert.Contains("oncall-personal-calendar.js", rawHtml);
+    }
+
+    [TestMethod]
+    public async Task EmptyPersonalCalendarKeepsTheNoShiftsFallback()
+    {
+        await RegisterAndLoginAsync();
+        var html = await Http.GetStringAsync("/OnCall/Mine");
+        Assert.Contains("id=\"oncall-personal-calendar\"", html);
+        Assert.Contains("data-shifts=\"[]\"", html);
+        Assert.Contains("No shifts in this period.", html);
+        Assert.Contains("id=\"personal-calendar-fallback\"", html);
     }
 
     [TestMethod]
