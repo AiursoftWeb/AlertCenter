@@ -35,9 +35,9 @@ public class MyOnCallService(TemplateDbContext db, IStringLocalizer localizer)
             // 只校验当前用户的责任时段，不把同班其他人的休息问题归给用户。
             var personal = own.Select(shift => new OnCallShift { StartsAtUtc = shift.StartsAtUtc, EndsAtUtc = shift.EndsAtUtc,
                 Members = [new OnCallShiftMember { UserId = userId }] }).ToList();
-            warnings.AddRange(OnCallScheduleValidator.Warnings(group, now, until, personal, others, localizer)
-                .Where(warning => warning.StartsWith(userId + ":", StringComparison.Ordinal))
-                .Select(warning => $"{group.Name}: {warning[(userId.Length + 2)..]}"));
+            warnings.AddRange(OnCallScheduleValidator.WarningDetails(group, now, until, personal, others, localizer)
+                .Where(warning => warning.UserId == userId)
+                .Select(warning => $"{group.Name}: {warning.Message}"));
             foreach (var shift in own)
             {
                 if (group.MinimumShiftStaff.HasValue && shift.Members.Count < group.MinimumShiftStaff)

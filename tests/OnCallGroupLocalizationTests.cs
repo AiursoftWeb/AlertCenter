@@ -61,7 +61,14 @@ public class OnCallGroupLocalizationTests
                 "The team preview request format is invalid.",
                 "Please select a valid team local start time (must be at least 28 days from the date boundary).",
                 "Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time.",
-                "On-call team does not exist."
+                "On-call team does not exist.",
+                "Automatic extension requires at least {0} rotation queue members for the selected template.",
+                "Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}."
+            ];
+            resources["Models.CreateOnCallGroupRequest"] =
+            [
+                "Minimum rest must be 0–720 hours.",
+                "Maximum continuous duty must be 0–720 hours."
             ];
             resources["Views.Shared._ActionFeedback"] = [];
             var feedback = File.ReadAllText(Path.Combine(WebRoot, "Views/Shared/_ActionFeedback.cshtml"));

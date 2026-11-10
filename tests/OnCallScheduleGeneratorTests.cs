@@ -35,6 +35,129 @@ public class OnCallScheduleGeneratorTests
         Assert.IsTrue(result.All(shift => shift.StartsAtUtc.Hour == 14 && shift.EndsAtUtc.Hour == 14));
     }
 
+    [TestMethod]
+    public void WeeklyContinuationWithHistoryStartsAfterPreviousWeeksLastAssignee()
+    {
+        var rule = WeeklyRule();
+        var zone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai");
+        var firstWeek = generator.GenerateRange(rule, Anchor, ["a", "b", "c"], Anchor, 2, zone);
+        var secondWeek = generator.GenerateRange(rule, Anchor, ["a", "b", "c"], Anchor.AddDays(7), 2, zone, firstWeek);
+        CollectionAssert.AreEqual(new[] { "c", "a" }, secondWeek.Select(shift => shift.UserId).ToArray());
+        Assert.AreEqual(firstWeek[^1].EndsAtUtc, secondWeek[0].StartsAtUtc);
+        CollectionAssert.AreEqual(
+            generator.GenerateRange(rule, Anchor, ["a", "b", "c"], Anchor, 4, zone).Skip(2).ToArray(),
+            secondWeek.ToArray());
+    }
+
+    [TestMethod]
+    [DataRow(1, false)]
+    [DataRow(2, false)]
+    [DataRow(1, true)]
+    [DataRow(2, true)]
+    public void WeeklyNoHistoryAtLaterSegmentMatchesGenerationFromAnchor(int staffPerShift, bool swap)
+    {
+        var rule = WeeklyRule();
+        rule.StaffPerShift = staffPerShift;
+        rule.SwapAlternateRounds = swap;
+        var zone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai");
+        var users = new[] { "a", "b", "c", "d" };
+        var complete = generator.GenerateRange(rule, Anchor, users, Anchor, 16, zone);
+        foreach (var segment in new[] { 0, 1, 2, 7, 12 })
+        foreach (var minutesInside in new[] { 0, 37 })
+        {
+            var start = complete[segment * staffPerShift].StartsAtUtc.AddMinutes(minutesInside);
+            var expected = complete.Skip(segment * staffPerShift).Take(2 * staffPerShift)
+                .Select(shift => shift.StartsAtUtc < start ? shift with { StartsAtUtc = start } : shift).ToArray();
+            CollectionAssert.AreEqual(expected, generator.GenerateRange(rule, Anchor, users, start, 2, zone).ToArray());
+        }
+    }
+
+    [TestMethod]
+    [DataRow(-37)]
+    [DataRow(37)]
+    public void WeeklyNoHistoryWithUnalignedAnchorMatchesGenerationFromAnchor(int anchorOffsetMinutes)
+    {
+        var rule = WeeklyRule();
+        var zone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai");
+        var anchor = Anchor.AddMinutes(anchorOffsetMinutes);
+        var complete = generator.GenerateRange(rule, anchor, ["a", "b", "c"], anchor, 7, zone);
+        foreach (var shift in complete)
+        {
+            var start = shift.StartsAtUtc.AddMinutes(1);
+            Assert.AreEqual(shift with { StartsAtUtc = start },
+                generator.GenerateRange(rule, anchor, ["a", "b", "c"], start, 1, zone)[0]);
+        }
+        Assert.AreEqual(0L, generator.GenerateRange(rule, anchor, ["a", "b", "c"], anchor.AddDays(-14), 1, zone)[0].RotationPosition);
+    }
+
+    [TestMethod]
+    [DataRow(-1, 0L)]
+    [DataRow(0, 1L)]
+    [DataRow(1, 1L)]
+    public void WeeklyNoHistoryAdvancesExactlyAtHandover(int ticksFromHandover, long expectedPosition)
+    {
+        var start = Anchor.AddDays(4).AddTicks(ticksFromHandover);
+        var result = generator.GenerateRange(WeeklyRule(), Anchor, ["a", "b", "c"], start, 1,
+            TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai"));
+        Assert.AreEqual(expectedPosition, result[0].RotationPosition);
+    }
+
+    [TestMethod]
+    public void WeeklyNoHistoryCountsLargeAnchorDistanceWithoutGeneratingElapsedShifts()
+    {
+        var anchor = new DateTime(1, 1, 1, 14, 0, 0, DateTimeKind.Utc);
+        const int weeks = 400000;
+        var rule = new OnCallRule
+        {
+            StaffPerShift = 2,
+            HandoverPoints = Enum.GetValues<DayOfWeek>()
+                .SelectMany(day => Enumerable.Range(0, 24).Select(hour =>
+                    new OnCallHandoverPoint { DayOfWeek = day, MinuteOfDay = hour * 60 })).ToList()
+        };
+        var start = anchor.AddDays(weeks * 7).AddMinutes(37);
+        var result = generator.GenerateRange(rule, anchor, ["a", "b", "c"], start, 1, TimeZoneInfo.Utc);
+        Assert.AreEqual((long)weeks * 7 * 24 * rule.StaffPerShift, result[0].RotationPosition);
+        Assert.AreEqual(start.AddMinutes(23), result[0].EndsAtUtc);
+    }
+
+    [TestMethod]
+    [DataRow(3, 1, 150)]
+    [DataRow(10, 25, 90)]
+    public void WeeklyNoHistoryAcrossDaylightSavingMatchesGenerationFromAnchor(int month, int day, int minuteOfDay)
+    {
+        var zone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
+        var rule = new OnCallRule
+        {
+            HandoverPoints = [new() { DayOfWeek = DayOfWeek.Sunday, MinuteOfDay = minuteOfDay }]
+        };
+        var anchor = new DateTime(2026, month, day, 0, 0, 0, DateTimeKind.Utc);
+        var complete = generator.GenerateRange(rule, anchor, ["a", "b", "c"], anchor, 5, zone);
+        foreach (var boundary in complete.Take(4).Select(shift => shift.EndsAtUtc))
+        foreach (var ticksFromBoundary in new[] { -45 * TimeSpan.TicksPerMinute, -1, 0, 1 })
+        {
+            var start = boundary.AddTicks(ticksFromBoundary);
+            var expected = complete.Single(shift => shift.StartsAtUtc <= start && shift.EndsAtUtc > start);
+            Assert.AreEqual(expected with { StartsAtUtc = start },
+                generator.GenerateRange(rule, anchor, ["a", "b", "c"], start, 1, zone)[0]);
+        }
+    }
+
+    [TestMethod]
+    public void WeeklyNoHistoryCountsCoincidentSpringGapHandoversOnce()
+    {
+        var zone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
+        var rule = new OnCallRule
+        {
+            HandoverPoints = [new() { DayOfWeek = DayOfWeek.Sunday, MinuteOfDay = 120 },
+                new() { DayOfWeek = DayOfWeek.Sunday, MinuteOfDay = 150 },
+                new() { DayOfWeek = DayOfWeek.Sunday, MinuteOfDay = 180 }]
+        };
+        var anchor = new DateTime(2026, 3, 1, 0, 0, 0, DateTimeKind.Utc);
+        var complete = generator.GenerateRange(rule, anchor, ["a", "b", "c"], anchor, 12, zone);
+        foreach (var shift in complete.Skip(1))
+            Assert.AreEqual(shift, generator.GenerateRange(rule, anchor, ["a", "b", "c"], shift.StartsAtUtc, 1, zone)[0]);
+    }
+
     internal static OnCallRule WeeklyRule() => new()
     {
         HandoverPoints = [new() { DayOfWeek = DayOfWeek.Monday, MinuteOfDay = 22 * 60 },

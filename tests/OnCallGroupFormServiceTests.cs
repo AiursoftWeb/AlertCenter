@@ -1,5 +1,7 @@
+using System.ComponentModel.DataAnnotations;
 using Aiursoft.AlertCenter.Controllers;
 using Aiursoft.AlertCenter.Entities;
+using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
 
 namespace Aiursoft.AlertCenter.Tests;
@@ -9,6 +11,45 @@ public class OnCallGroupFormServiceTests
 {
     private static OnCallScheduleGenerator Generator() => new(TestLocalization.For<OnCallScheduleGenerator>());
     private static OnCallGroupFormService Service() => new(Generator(), TestLocalization.For<OnCallController>());
+
+    [TestMethod]
+    [DataRow(0)]
+    [DataRow(1)]
+    public void AutomaticExtensionRejectsQueuesSmallerThanTemplateStaffing(int memberCount)
+    {
+        Assert.AreEqual("Automatic extension requires at least 2 rotation queue members for the selected template.",
+            Service().AutomaticExtensionError(new OnCallRule { StaffPerShift = 2 }, true, memberCount));
+    }
+
+    [TestMethod]
+    public void AutomaticExtensionAllowsAdequateQueuesAndManualScheduling()
+    {
+        var rule = new OnCallRule { StaffPerShift = 2 };
+        Assert.IsNull(Service().AutomaticExtensionError(rule, true, 2));
+        Assert.IsNull(Service().AutomaticExtensionError(rule, true, 3));
+        Assert.IsNull(Service().AutomaticExtensionError(rule, false, 0));
+        Assert.IsNull(Service().AutomaticExtensionError(null, true, 0));
+    }
+
+    [TestMethod]
+    [DataRow(null, true)]
+    [DataRow(0d, true)]
+    [DataRow(1.5d, true)]
+    [DataRow(720d, true)]
+    [DataRow(720.5d, false)]
+    [DataRow(-0.1d, false)]
+    public void ThresholdValidationAllowsOptionalValuesOnlyWithin720Hours(double? value, bool valid)
+    {
+        var request = new CreateOnCallGroupRequest { MinimumRestHours = value, MaximumContinuousHours = value };
+        foreach (var field in new[] { nameof(request.MinimumRestHours), nameof(request.MaximumContinuousHours) })
+        {
+            var errors = new List<ValidationResult>();
+            Assert.AreEqual(valid, Validator.TryValidateProperty(value, new ValidationContext(request) { MemberName = field }, errors), field);
+            if (!valid)
+                Assert.AreEqual(field == nameof(request.MinimumRestHours)
+                    ? "Minimum rest must be 0–720 hours." : "Maximum continuous duty must be 0–720 hours.", errors.Single().ErrorMessage);
+        }
+    }
 
     [TestMethod]
     public void WeeklySuggestionsUseCanonicalTemplateOrderAndPreviewUsesSameGeneratorAndQueue()

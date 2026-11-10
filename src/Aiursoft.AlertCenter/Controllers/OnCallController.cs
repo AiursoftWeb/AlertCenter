@@ -426,6 +426,9 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                     request.UserIds.Distinct(StringComparer.Ordinal).Count() != request.UserIds.Count ||
                     await db.Users.CountAsync(user => request.UserIds.Contains(user.Id), retryToken) != request.UserIds.Count)
                     ModelState.AddModelError("GroupInput.UserIds", localizer["The selected employees do not exist, are duplicated, or exceed 200. Please select again."].Value);
+                var extensionError = new OnCallGroupFormService(generator, localizer)
+                    .AutomaticExtensionError(rule, request.AutoExtend ?? group?.AutoExtend ?? false, request.UserIds.Count);
+                if (extensionError != null) ModelState.AddModelError("GroupInput.UserIds", extensionError);
                 if (hasSchedule && group!.AnchorUtc != request.AnchorUtc)
                     ModelState.AddModelError("GroupInput.AnchorUtc", localizer["A saved schedule exists; the team schedule start point cannot be modified."].Value);
                 if (hasSchedule && zone != null)
@@ -568,6 +571,16 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 var rule = request.Id.HasValue ? await db.OnCallRules.Include(item => item.HandoverPoints)
                     .SingleOrDefaultAsync(item => item.Id == request.Id.Value, retryToken) : null;
                 if (request.Id.HasValue && rule == null) return NotFound();
+                var staffPerShift = request.StaffPerShift ?? request.TargetStaff ?? 1;
+                if (rule != null)
+                {
+                    var ruleId = rule.Id;
+                    var undersizedTeams = await db.OnCallGroups
+                        .Where(group => group.RuleId == ruleId && group.AutoExtend && group.Members.Count < staffPerShift)
+                        .OrderBy(group => group.Name).Select(group => group.Name).ToListAsync(retryToken);
+                    if (undersizedTeams.Count > 0)
+                        ModelState.AddModelError("RuleInput.StaffPerShift", localizer["Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}.", string.Join(", ", undersizedTeams)].Value);
+                }
                 if (!ModelState.IsValid)
                 {
                     var model = await LoadModel(retryToken);
@@ -585,7 +598,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 rule.BalanceShiftTimes = request.SwapAlternateRounds ?? request.BalanceShiftTimes;
                 rule.MinimumStaff = request.MinimumStaff;
                 rule.TargetStaff = request.StaffPerShift ?? request.TargetStaff;
-                rule.StaffPerShift = request.StaffPerShift ?? request.TargetStaff ?? 1;
+                rule.StaffPerShift = staffPerShift;
                 rule.ShiftMinutes = request.ShiftMinutes;
                 rule.SwapAlternateRounds = request.SwapAlternateRounds ?? request.BalanceShiftTimes;
                 if (request.HandoverPoints != null)
@@ -730,13 +743,14 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                         DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc)))).ToList();
                 var history = await schedules.Existing(group.Id, previewIds, startUtc, cancellationToken, endUtc,
                     Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0));
+                var names = model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName);
                 model.StaffingWarnings = OnCallScheduleValidator.Warnings(group, startUtc, endUtc, saved, history,
-                    localizerFactory.Create(typeof(OnCallScheduleValidator)));
+                    localizerFactory.Create(typeof(OnCallScheduleValidator)), names);
                 var overlapErrors = OnCallScheduleValidator.OverlapErrors(saved, [],
-                    localizerFactory.Create(typeof(OnCallScheduleValidator)), model.PreviewUsers.ToDictionary(user => user.Id, user => user.DisplayName));
+                    localizerFactory.Create(typeof(OnCallScheduleValidator)), names);
                 model.StaffingWarnings = model.StaffingWarnings.Concat(overlapErrors.Select(error => error.Message)).Distinct().ToList();
                 model.TimelineWarnings = OnCallScheduleValidator.TimelineWarnings(group, startUtc, endUtc, saved, history,
-                    localizerFactory.Create(typeof(OnCallScheduleValidator))).Concat(overlapErrors).ToList();
+                    localizerFactory.Create(typeof(OnCallScheduleValidator)), names).Concat(overlapErrors).ToList();
                 return;
             }
             if (!model.CanGenerateSchedule)
@@ -748,7 +762,12 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             var count = group.Rule!.HandoverPoints.Count == 0
                 ? (int)Math.Ceiling((endUtc - startUtc).TotalMinutes / (group.Rule.ShiftMinutes ?? group.Rule.ShiftHours * 60))
                 : ((int)Math.Ceiling((endUtc - startUtc).TotalDays / 7) + 2) * group.Rule.HandoverPoints.Count;
-            model.Preview = generator.GenerateRange(group.Rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), automaticIds, startUtc, count, zone)
+            var last = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
+                .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc <= startUtc)
+                .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
+                .FirstOrDefaultAsync(cancellationToken);
+            model.Preview = generator.GenerateRange(group.Rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), automaticIds, startUtc, count, zone,
+                    OnCallMaintenanceWorker.RotationHistory(group, last))
                 .Where(shift => shift.StartsAtUtc < endUtc)
                 .Select(shift => shift.EndsAtUtc > endUtc ? shift with { EndsAtUtc = endUtc } : shift).ToList();
         }

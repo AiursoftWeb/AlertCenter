@@ -115,4 +115,6 @@
   <data name="The team name does not match." xml:space="preserve">
     <value>팀 이름이 일치하지 않습니다.</value>
   </data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>선택한 템플릿을 자동 연장하려면 순환 대기열에 최소 {0}명의 구성원이 필요합니다.</value></data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>교대당 인원수가 자동 연장이 활성화된 다음 팀의 구성원 수를 초과합니다: {0}.</value></data>
 </root>

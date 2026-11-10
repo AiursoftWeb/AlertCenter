@@ -2,6 +2,7 @@ using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Aiursoft.AlertCenter.Tests;
 
@@ -10,12 +11,17 @@ public class OnCallMaintenanceTests
 {
     private SqliteContext db = null!;
     private OnCallGroup group = null!;
+    private SaveFailure saveFailure = null!;
+    private MaintenanceLogger logger = null!;
     private static readonly DateTime Now = new(2026, 9, 28, 14, 0, 0, DateTimeKind.Utc);
 
     [TestInitialize]
     public async Task Setup()
     {
-        db = new(new DbContextOptionsBuilder<SqliteContext>().UseSqlite("DataSource=:memory:").Options);
+        saveFailure = new();
+        logger = new();
+        db = new(new DbContextOptionsBuilder<SqliteContext>().UseSqlite("DataSource=:memory:")
+            .AddInterceptors(saveFailure).Options);
         await db.Database.OpenConnectionAsync();
         await db.Database.MigrateAsync();
         db.Users.AddRange(new[] { "a", "b", "c", "d" }.Select(id => new User
@@ -32,7 +38,50 @@ public class OnCallMaintenanceTests
 
     private Task Maintain(DateTime? now = null) => OnCallMaintenanceWorker.MaintainGroupAsync(db,
         TestLocalization.For<OnCallScheduleGenerator>(), TestLocalization.For<OnCallMaintenanceWorker>(),
-        "https://example.com/alerts", group.Id, now ?? Now, default);
+        "https://example.com/alerts", group.Id, now ?? Now, default, logger: logger);
+
+    private sealed class SaveFailure : SaveChangesInterceptor
+    {
+        public Exception? Failure { get; set; }
+        public bool AfterSave { get; set; }
+        public int AddedShiftsAtFailure { get; private set; }
+        public int AddedMembersAtFailure { get; private set; }
+
+        public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData,
+            InterceptionResult<int> result, CancellationToken cancellationToken = default)
+        {
+            if (Failure == null) return base.SavingChangesAsync(eventData, result, cancellationToken);
+            AddedShiftsAtFailure = eventData.Context!.ChangeTracker.Entries<OnCallShift>()
+                .Count(entry => entry.State == EntityState.Added);
+            AddedMembersAtFailure = eventData.Context.ChangeTracker.Entries<OnCallShiftMember>()
+                .Count(entry => entry.State == EntityState.Added);
+            if (!AfterSave) ThrowFailure();
+            return base.SavingChangesAsync(eventData, result, cancellationToken);
+        }
+
+        public override ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result,
+            CancellationToken cancellationToken = default)
+        {
+            if (AfterSave && Failure != null) ThrowFailure();
+            return base.SavedChangesAsync(eventData, result, cancellationToken);
+        }
+
+        private void ThrowFailure()
+        {
+            var failure = Failure!;
+            Failure = null;
+            throw failure;
+        }
+    }
+
+    private sealed class MaintenanceLogger : ILogger<OnCallMaintenanceWorker>
+    {
+        public List<(LogLevel Level, string Message, Exception? Exception)> Entries { get; } = [];
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+        public bool IsEnabled(LogLevel logLevel) => true;
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
+            Func<TState, Exception?, string> formatter) => Entries.Add((logLevel, formatter(state, exception), exception));
+    }
 
     [TestMethod]
     public async Task ExtensionOnlyAppendsAfterLatestManualShiftAndContinuesQueueAcrossReruns()
@@ -117,6 +166,103 @@ public class OnCallMaintenanceTests
     }
 
     [TestMethod]
+    public async Task InvalidExtensionTemplateStillQueuesHandoverWithoutChangingSchedule()
+    {
+        group.Rule!.StaffPerShift = group.Members.Count + 1;
+        var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1),
+            Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.Add(current);
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        await db.SaveChangesAsync();
+        var version = group.ScheduleVersion;
+
+        await Maintain();
+        db.ChangeTracker.Clear();
+
+        var delivery = await db.PushDeliveries.Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients).SingleAsync();
+        Assert.AreEqual("a", delivery.OnCallEmail!.Recipients.Single().UserId);
+        Assert.AreEqual(current.Id, delivery.OnCallEmail.ShiftId);
+        Assert.AreEqual(1, await db.OnCallShifts.CountAsync());
+        Assert.AreEqual(1, await db.OnCallShiftMembers.CountAsync());
+        Assert.AreEqual(1, await db.Set<OnCallHandoverReceipt>().CountAsync());
+        var savedGroup = await db.OnCallGroups.SingleAsync();
+        Assert.AreEqual(version, savedGroup.ScheduleVersion);
+        Assert.AreEqual(Now, savedGroup.HandoverCheckedThroughUtc);
+        var error = logger.Entries.Single();
+        Assert.AreEqual(LogLevel.Error, error.Level);
+        Assert.Contains(group.Id.ToString(), error.Message);
+        Assert.IsInstanceOfType<ArgumentException>(error.Exception);
+    }
+
+    [TestMethod]
+    [DataRow(typeof(ArgumentException), false)]
+    [DataRow(typeof(InvalidOperationException), false)]
+    [DataRow(typeof(OverflowException), false)]
+    [DataRow(typeof(TimeZoneNotFoundException), false)]
+    [DataRow(typeof(InvalidTimeZoneException), false)]
+    [DataRow(typeof(InvalidOperationException), true)]
+    public async Task ExtensionSaveFailureDiscardsPartialChangesAndStillQueuesHandover(Type exceptionType, bool afterSave)
+    {
+        var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1),
+            Source = OnCallShiftSource.Manual, Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.Add(current);
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        await db.SaveChangesAsync();
+        var version = group.ScheduleVersion;
+        var failure = (Exception)Activator.CreateInstance(exceptionType, "Injected extension failure.")!;
+        saveFailure.Failure = failure;
+        saveFailure.AfterSave = afterSave;
+
+        await Maintain();
+
+        Assert.IsTrue(saveFailure.AddedShiftsAtFailure > 0);
+        Assert.IsTrue(saveFailure.AddedMembersAtFailure > 0);
+        Assert.IsFalse(db.ChangeTracker.HasChanges());
+        Assert.IsFalse(db.ChangeTracker.Entries<OnCallShift>().Any(entry => entry.Entity.Source == OnCallShiftSource.Generated));
+        db.ChangeTracker.Clear();
+        var saved = await db.OnCallShifts.Include(shift => shift.Members).SingleAsync();
+        Assert.AreEqual(current.Id, saved.Id);
+        Assert.AreEqual(current.StartsAtUtc, saved.StartsAtUtc);
+        Assert.AreEqual(current.EndsAtUtc, saved.EndsAtUtc);
+        Assert.AreEqual(OnCallShiftSource.Manual, saved.Source);
+        Assert.AreEqual("a", saved.Members.Single().UserId);
+        Assert.AreEqual(1, await db.OnCallShiftMembers.CountAsync());
+        var savedGroup = await db.OnCallGroups.SingleAsync();
+        Assert.AreEqual(version, savedGroup.ScheduleVersion);
+        Assert.AreEqual(Now, savedGroup.HandoverCheckedThroughUtc);
+        var delivery = await db.PushDeliveries.Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients).SingleAsync();
+        Assert.AreEqual(PushDelivery.Pending, delivery.Status);
+        Assert.AreEqual(current.Id, delivery.OnCallEmail!.ShiftId);
+        Assert.AreEqual("a", delivery.OnCallEmail.Recipients.Single().UserId);
+        Assert.AreEqual(1, await db.Set<OnCallHandoverReceipt>().CountAsync());
+        var error = logger.Entries.Single();
+        Assert.AreEqual(LogLevel.Error, error.Level);
+        Assert.Contains(group.Id.ToString(), error.Message);
+        Assert.AreSame(failure, error.Exception);
+    }
+
+    [TestMethod]
+    public async Task HandoverSaveFailurePropagatesAndRollsBackReceiptsAndCheckpoint()
+    {
+        group.AutoExtend = false;
+        db.OnCallShifts.Add(new() { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1),
+            Members = [new() { UserId = "a" }] });
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        await db.SaveChangesAsync();
+        var failure = new InvalidOperationException("Injected handover failure.");
+        saveFailure.Failure = failure;
+        saveFailure.AfterSave = true;
+
+        var thrown = await Assert.ThrowsExactlyAsync<InvalidOperationException>(() => Maintain());
+        Assert.AreSame(failure, thrown);
+        db.ChangeTracker.Clear();
+        Assert.AreEqual(0, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(0, await db.Set<OnCallHandoverReceipt>().CountAsync());
+        Assert.IsNull((await db.OnCallGroups.SingleAsync()).HandoverCheckedThroughUtc);
+        Assert.AreEqual(0, logger.Entries.Count);
+    }
+
+    [TestMethod]
     public async Task HandoverQueuesOneSummaryForOnlyArrivingEngineersAndPersistsDeduplication()
     {
         group.AutoExtend = false;
@@ -150,23 +296,110 @@ public class OnCallMaintenanceTests
     }
 
     [TestMethod]
-    public async Task PersistedCheckpointCatchesShortShiftsBetweenPollsAndAcrossRestart()
+    public async Task PersistedCheckpointRecordsExpiredShortShiftsWithoutEmailAcrossRestart()
     {
         group.AutoExtend = false;
-        db.OnCallShifts.AddRange(new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddMinutes(1), Members = [new() { UserId = "a" }] },
-            new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddMinutes(1), EndsAtUtc = Now.AddMinutes(2), Members = [new() { UserId = "b" }] });
+        var first = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddMinutes(1), Members = [new() { UserId = "a" }] };
+        var second = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddMinutes(1), EndsAtUtc = Now.AddMinutes(2), Members = [new() { UserId = "b" }] };
+        db.OnCallShifts.AddRange(first, second);
         await db.SaveChangesAsync();
         await Maintain();
         db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
         await db.SaveChangesAsync();
         db.ChangeTracker.Clear();
         await Maintain(Now.AddMinutes(3));
-        var snapshot = await db.OnCallEmailSnapshots.Include(item => item.Recipients).SingleAsync();
-        Assert.AreEqual("b", snapshot.Recipients.Single().UserId);
-        Assert.AreEqual(Now.AddMinutes(1), snapshot.NotificationAtUtc);
+        Assert.AreEqual(0, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(0, await db.OnCallEmailSnapshots.CountAsync());
+        var receipts = await db.Set<OnCallHandoverReceipt>().ToListAsync();
+        Assert.AreEqual(2, receipts.Count);
+        Assert.AreEqual(Now, receipts.Single(receipt => receipt.ShiftId == first.Id).ProcessedAtUtc);
+        var caughtUp = receipts.Single(receipt => receipt.ShiftId == second.Id);
+        Assert.AreEqual("b", caughtUp.UserId);
+        Assert.AreEqual(Now.AddMinutes(3), caughtUp.ProcessedAtUtc);
         await Maintain(Now.AddMinutes(4));
-        Assert.AreEqual(1, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(0, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(2, await db.Set<OnCallHandoverReceipt>().CountAsync());
         Assert.AreEqual(Now.AddMinutes(4), (await db.OnCallGroups.SingleAsync()).HandoverCheckedThroughUtc);
+    }
+
+    [TestMethod]
+    public async Task CatchUpRecordsExpiredHandoversAndOnlyEmailsOngoingShifts()
+    {
+        group.AutoExtend = false;
+        group.HandoverCheckedThroughUtc = Now.AddDays(-5);
+        var expired = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(-4), EndsAtUtc = Now.AddDays(-3),
+            Members = [new() { UserId = "a" }] };
+        var endingNow = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(-3), EndsAtUtc = Now,
+            Members = [new() { UserId = "b" }] };
+        var ongoing = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(-1), EndsAtUtc = Now.AddDays(1),
+            Members = [new() { UserId = "a" }, new() { UserId = "c" }] };
+        db.OnCallShifts.AddRange(expired, endingNow, ongoing);
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        await db.SaveChangesAsync();
+        db.ChangeTracker.Clear();
+
+        await Maintain();
+        db.ChangeTracker.Clear();
+
+        var receipts = await db.Set<OnCallHandoverReceipt>().ToListAsync();
+        Assert.AreEqual(4, receipts.Count);
+        Assert.IsTrue(receipts.All(receipt => receipt.ProcessedAtUtc == Now));
+        Assert.AreEqual("a", receipts.Single(receipt => receipt.ShiftId == expired.Id).UserId);
+        Assert.AreEqual("b", receipts.Single(receipt => receipt.ShiftId == endingNow.Id).UserId);
+        CollectionAssert.AreEquivalent(new[] { "a", "c" }, receipts.Where(receipt => receipt.ShiftId == ongoing.Id).Select(receipt => receipt.UserId).ToArray());
+        var deliveries = await db.PushDeliveries.Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients).ToListAsync();
+        Assert.AreEqual(2, deliveries.Count);
+        Assert.IsTrue(deliveries.All(delivery => delivery.Status == PushDelivery.Pending && delivery.OnCallEmail!.ShiftId == ongoing.Id));
+        Assert.IsTrue(deliveries.All(delivery => delivery.OnCallEmail!.NotificationAtUtc == ongoing.StartsAtUtc));
+        CollectionAssert.AreEquivalent(new[] { "a", "c" }, deliveries.SelectMany(delivery => delivery.OnCallEmail!.Recipients.Select(person => person.UserId)).ToArray());
+        Assert.AreEqual(Now, (await db.OnCallGroups.SingleAsync()).HandoverCheckedThroughUtc);
+        await Maintain(Now.AddMinutes(1));
+        Assert.AreEqual(4, await db.Set<OnCallHandoverReceipt>().CountAsync());
+        Assert.AreEqual(2, await db.PushDeliveries.CountAsync());
+    }
+
+    [TestMethod]
+    [DataRow(0)]
+    [DataRow(1)]
+    [DataRow(2)]
+    public async Task ExpiredCatchUpRecordsEveryMemberWithoutUnresolvedIncidents(int applicationState)
+    {
+        group.AutoExtend = false;
+        group.HandoverCheckedThroughUtc = Now.AddDays(-5);
+        var previous = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(-6), EndsAtUtc = Now.AddDays(-4),
+            Members = [new() { UserId = "a" }] };
+        var first = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(-4), EndsAtUtc = Now.AddDays(-2),
+            Members = [new() { UserId = "a" }, new() { UserId = "b" }] };
+        var second = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(-2), EndsAtUtc = Now,
+            Members = [new() { UserId = "b" }, new() { UserId = "c" }] };
+        db.OnCallShifts.AddRange(previous, first, second);
+        if (applicationState > 0)
+        {
+            var application = new SourceApplication { Name = "App", OnCallGroupId = group.Id };
+            db.SourceApplications.Add(application);
+            if (applicationState == 2)
+                db.Incidents.Add(new() { Application = application, Title = "Resolved outage", Status = Incident.Resolved });
+        }
+        await db.SaveChangesAsync();
+        db.ChangeTracker.Clear();
+
+        await Maintain();
+        db.ChangeTracker.Clear();
+
+        var receipts = await db.Set<OnCallHandoverReceipt>().ToListAsync();
+        Assert.AreEqual(4, receipts.Count);
+        Assert.IsTrue(receipts.All(receipt => receipt.ProcessedAtUtc == Now));
+        CollectionAssert.AreEquivalent(new[] { "a", "b" }, receipts.Where(receipt => receipt.ShiftId == first.Id).Select(receipt => receipt.UserId).ToArray());
+        CollectionAssert.AreEquivalent(new[] { "b", "c" }, receipts.Where(receipt => receipt.ShiftId == second.Id).Select(receipt => receipt.UserId).ToArray());
+        Assert.AreEqual(0, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(0, await db.OnCallEmailSnapshots.CountAsync());
+        var savedGroup = await db.OnCallGroups.SingleAsync();
+        Assert.AreEqual(Now, savedGroup.HandoverCheckedThroughUtc);
+        savedGroup.HandoverCheckedThroughUtc = Now.AddDays(-5);
+        await db.SaveChangesAsync();
+        await Maintain(Now.AddMinutes(1));
+        Assert.AreEqual(4, await db.Set<OnCallHandoverReceipt>().CountAsync());
+        Assert.AreEqual(0, await db.PushDeliveries.CountAsync());
     }
 
     [TestMethod]

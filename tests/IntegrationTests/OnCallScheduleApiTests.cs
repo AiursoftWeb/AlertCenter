@@ -320,6 +320,37 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
+    [DataRow(1e9, 1d)]
+    [DataRow(12d, 1e9)]
+    public async Task HomeAndTeamPagesShowNamesAndSurviveLegacyLargeThresholds(double minimumRest, double maximumContinuous)
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        var start = DateTime.UtcNow.AddHours(1);
+        string userId;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.Include(item => item.Members).SingleAsync(item => item.Id == id);
+            group.MinimumRestHours = minimumRest;
+            group.MaximumContinuousHours = maximumContinuous;
+            userId = group.Members.OrderBy(member => member.RotationOrder).First().UserId;
+            db.OnCallShifts.AddRange(
+                new() { GroupId = id, StartsAtUtc = start.AddHours(-3), EndsAtUtc = start.AddHours(-2), Members = [new() { UserId = userId }] },
+                new() { GroupId = id, StartsAtUtc = start, EndsAtUtc = start.AddHours(2), Members = [new() { UserId = userId }] });
+            await db.SaveChangesAsync();
+        }
+        foreach (var path in new[] { "/Dashboard/Index", $"/OnCall/GroupDetails/{id}", $"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}" })
+        {
+            var response = await Http.GetAsync(path);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, path);
+            var html = WebUtility.HtmlDecode(await response.Content.ReadAsStringAsync());
+            Assert.Contains("Staff 0: An engineer has insufficient rest between shifts.", html, path);
+            Assert.DoesNotContain($"{userId}: An engineer", html, path);
+        }
+    }
+
+    [TestMethod]
     public async Task TeamThresholdWarningsPersistAndEmptySlotsSave()
     {
         await LoginAsAdmin();

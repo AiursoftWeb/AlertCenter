@@ -46,7 +46,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
         CancellationToken cancellationToken, DateTime? endUtc = null, double minimumRestHours = 0)
     {
         var end = endUtc ?? start.AddDays(7);
-        var buffer = Math.Max(28 * 24, minimumRestHours);
+        var buffer = Math.Clamp(minimumRestHours, 28 * 24, 720);
         var from = start.AddHours(-buffer);
         var until = end.AddHours(buffer);
         var rows = await db.OnCallShiftMembers.AsNoTracking()
@@ -154,8 +154,12 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 var count = group.Rule.HandoverPoints.Count == 0
                     ? (int)Math.Ceiling((until - from).TotalMinutes / (group.Rule.ShiftMinutes ?? group.Rule.ShiftHours * 60))
                     : ((int)Math.Ceiling((until - from).TotalDays / 7) + 2) * group.Rule.HandoverPoints.Count;
+                var last = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
+                    .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc <= from)
+                    .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
+                    .FirstOrDefaultAsync(token);
                 var assignments = generator.GenerateRange(group.Rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), ids,
-                    DateTime.SpecifyKind(from, DateTimeKind.Utc), count, zone);
+                    DateTime.SpecifyKind(from, DateTimeKind.Utc), count, zone, OnCallMaintenanceWorker.RotationHistory(group, last));
                 rotationPositions = assignments.GroupBy(shift => shift.StartsAtUtc)
                     .ToDictionary(batch => batch.Key, batch => batch.First().RotationPosition);
                 slots = assignments.Where(shift => shift.StartsAtUtc < until).GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc })
@@ -201,25 +205,20 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                         shift.EndsAtUtc > draftStart && shift.StartsAtUtc < draftEnd).ToListAsync(token);
             }
             var validatorLocalizer = localizerFactory.Create(typeof(OnCallScheduleValidator));
-            var overlaps = OnCallScheduleValidator.OverlapErrors(draft, retained, validatorLocalizer);
-            if (overlaps.Count > 0)
-            {
-                var assignedIds = draft.Concat(retained).SelectMany(shift => shift.Members.Select(member => member.UserId)).Distinct().ToArray();
-                var names = await db.Users.Where(user => assignedIds.Contains(user.Id))
-                    .ToDictionaryAsync(user => user.Id, user => user.DisplayName, token);
-                overlaps = OnCallScheduleValidator.OverlapErrors(draft, retained, validatorLocalizer, names);
-                if (!preview) return overlaps.Select(overlap => overlap.Message).Distinct().ToList();
-            }
+            var assignedIds = ids.Concat(draft.Concat(retained).SelectMany(shift => shift.Members.Select(member => member.UserId))).Distinct().ToArray();
+            var names = await db.Users.AsNoTracking().Where(user => assignedIds.Contains(user.Id))
+                .ToDictionaryAsync(user => user.Id, user => user.DisplayName, token);
+            var overlaps = OnCallScheduleValidator.OverlapErrors(draft, retained, validatorLocalizer, names);
+            if (overlaps.Count > 0 && !preview) return overlaps.Select(overlap => overlap.Message).Distinct().ToList();
             if (preview)
             {
                 PreviewSlots = slots;
                 PreviewErrors = overlaps.Select(overlap => overlap.Message).Distinct().ToList();
                 var existing = await Existing(group.Id, ids.Concat(slots.SelectMany(slot => slot.UserIds)).Distinct().ToArray(),
                     from, token, until, Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0));
-                Warnings = OnCallScheduleValidator.Warnings(group, from, until, draft, existing,
-                    localizerFactory.Create(typeof(OnCallScheduleValidator)));
+                Warnings = OnCallScheduleValidator.Warnings(group, from, until, draft, existing, validatorLocalizer, names);
                 TimelineWarnings = OnCallScheduleValidator.TimelineWarnings(group, from, until, draft, existing,
-                    validatorLocalizer).Concat(overlaps).ToList();
+                    validatorLocalizer, names).Concat(overlaps).ToList();
                 Warnings = Warnings.Concat(overlaps.Select(overlap => overlap.Message)).Distinct().ToList();
                 return [];
             }
@@ -250,8 +249,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             db.OnCallShifts.RemoveRange(removed);
             var history = await Existing(group.Id, ids.Concat(replacements.SelectMany(shift => shift.Members.Select(member => member.UserId))).Distinct().ToArray(),
                 from, token, until, Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0));
-            Warnings = OnCallScheduleValidator.Warnings(group, from, until, replacements, history,
-                localizerFactory.Create(typeof(OnCallScheduleValidator)));
+            Warnings = OnCallScheduleValidator.Warnings(group, from, until, replacements, history, validatorLocalizer, names);
             if (request.ClearRanges.Any(range => range.AutoExtendAction == "disable")) group.AutoExtend = false;
             group.ScheduleVersion = Guid.NewGuid();
             Version = group.ScheduleVersion;

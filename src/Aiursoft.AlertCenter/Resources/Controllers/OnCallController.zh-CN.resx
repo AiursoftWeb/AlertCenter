@@ -29,6 +29,7 @@
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>自动排班要求每个班次至少安排 {0} 名值班人员，且休息时间为 {1} 小时，因此至少需要 {2} 名成员。排除同时属于多个值班组的成员后，可自动排班的成员有 {3} 名；请添加仅属于一个值班组的成员，或手动安排。</value>
   </data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>所选模板的自动续排要求轮值队列至少有 {0} 名成员。</value></data>
   <data name="Fallback recipients must be existing system users." xml:space="preserve"><value>兜底接收人必须是已存在的系统用户。</value></data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>每天固定三班，每班8小时。</value>
@@ -73,6 +74,7 @@
     <value>排班模板已更新。</value>
   </data>
   <data name="Shift duration must be positive." xml:space="preserve"><value>班段时长必须为正数。</value></data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>每班人数超过了以下已启用自动续排团队的成员数量：{0}。</value></data>
   <data name="Staff per shift must not exceed the rotation queue size." xml:space="preserve"><value>每段人数不能超过轮换队列人数。</value></data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>目标人数不能低于最低人数，且必须在 1–200 之间。留空则自动分配。</value>

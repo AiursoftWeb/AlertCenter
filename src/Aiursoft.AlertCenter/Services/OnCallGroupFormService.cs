@@ -7,6 +7,11 @@ namespace Aiursoft.AlertCenter.Services;
 
 public sealed class OnCallGroupFormService(IOnCallScheduleGenerator generator, IStringLocalizer localizer)
 {
+    public string? AutomaticExtensionError(OnCallRule? rule, bool autoExtend, int memberCount) =>
+        autoExtend && rule != null && memberCount < rule.StaffPerShift
+            ? localizer["Automatic extension requires at least {0} rotation queue members for the selected template.", rule.StaffPerShift].Value
+            : null;
+
     public static string ToLocal(DateTime utc, TimeZoneInfo zone) =>
         TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(utc, DateTimeKind.Utc), zone)
             .ToString("yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
