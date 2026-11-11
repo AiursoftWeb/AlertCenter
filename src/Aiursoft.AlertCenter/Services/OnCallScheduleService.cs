@@ -223,6 +223,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 return [];
             }
             var replacements = new List<OnCallShift>();
+            var removedMembers = new HashSet<(Guid ShiftId, string UserId)>();
             foreach (var slot in slots)
             {
                 var original = saved.Except(replacements).FirstOrDefault(shift => slot.Id.HasValue ? shift.Id == slot.Id :
@@ -235,6 +236,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 shift.RotationPosition = slot.RotationPosition;
                 foreach (var member in shift.Members.Where(member => !selected.Contains(member.UserId)).ToList())
                 {
+                    removedMembers.Add((shift.Id, member.UserId));
                     db.OnCallShiftMembers.Remove(member);
                     shift.Members.Remove(member);
                 }
@@ -244,8 +246,10 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 replacements.Add(shift);
             }
             var removed = saved.Except(replacements).ToList();
-            var removedIds = removed.Select(shift => shift.Id).ToArray();
-            db.RemoveRange(await db.Set<OnCallHandoverReceipt>().Where(receipt => removedIds.Contains(receipt.ShiftId)).ToListAsync(token));
+            var removedIds = removed.Select(shift => shift.Id).ToHashSet();
+            var receiptShiftIds = removedIds.Concat(removedMembers.Select(member => member.ShiftId)).Distinct().ToArray();
+            var receipts = await db.Set<OnCallHandoverReceipt>().Where(receipt => receiptShiftIds.Contains(receipt.ShiftId)).ToListAsync(token);
+            db.RemoveRange(receipts.Where(receipt => removedIds.Contains(receipt.ShiftId) || removedMembers.Contains((receipt.ShiftId, receipt.UserId))));
             db.OnCallShifts.RemoveRange(removed);
             var history = await Existing(group.Id, ids.Concat(replacements.SelectMany(shift => shift.Members.Select(member => member.UserId))).Distinct().ToArray(),
                 from, token, until, Math.Max(group.MinimumRestHours ?? 0, group.MaximumContinuousHours ?? 0));
