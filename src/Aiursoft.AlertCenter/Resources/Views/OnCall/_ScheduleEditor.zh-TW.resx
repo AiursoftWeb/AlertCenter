@@ -169,4 +169,7 @@
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>此移動會與同一人員的其他班次重疊。草稿未變更。</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>排班時間範圍不能超過 {0} 天，且須在目前時間前後 10 年內。</value>
+  </data>
 </root>

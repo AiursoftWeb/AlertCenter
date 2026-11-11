@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>請選擇停用自動延長，或在已清空的範圍重新產生更次。</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>排班時間範圍不能超過 {0} 天，且須在目前時間前後 10 年內。</value>
+  </data>
 </root>

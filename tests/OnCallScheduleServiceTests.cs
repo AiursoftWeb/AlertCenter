@@ -40,6 +40,58 @@ public class OnCallScheduleServiceTests
         { StartsAtUtc = Anchor.AddMinutes(minutes), EndsAtUtc = Anchor.AddMinutes(minutes + duration), UserIds = ids.ToList() };
 
     [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task SaveBoundsFinalRangeIncludingAdjacentWeeksAndLocalDates(bool preview)
+    {
+        var request = Request();
+        request.StartUtc = DateTime.UtcNow.Date;
+        request.EndUtc = request.StartUtc.AddDays(86);
+        request.AdjacentWeeks = [new() { StartUtc = request.StartUtc.AddDays(-7) }];
+        var version = group.ScheduleVersion;
+        Assert.AreEqual("The schedule range must not exceed 92 days and must be within 10 years of now.",
+            (await service.Save(request, false, default, preview)).Single());
+        Assert.AreEqual(version, group.ScheduleVersion);
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+        request.EndUtc = request.StartUtc.AddDays(85);
+        Assert.AreEqual(0, (await service.Save(request, false, default, preview)).Count);
+
+        request = Request();
+        request.StartLocal = "0002-01-01T00:00";
+        request.EndLocal = "9990-01-01T00:00";
+        Assert.AreEqual("The schedule range must not exceed 92 days and must be within 10 years of now.",
+            (await service.Save(request, false, default, preview)).Single());
+        request.StartUtc = DateTime.MinValue;
+        request.StartLocal = "2026-09-28T22:00";
+        request.EndLocal = "2026-12-29T22:00";
+        Assert.AreEqual(0, (await service.Save(request, false, default, preview)).Count);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task SaveRejectsOutOfWindowAndDefaultEndOverflowBeforeDateArithmetic(bool preview)
+    {
+        var now = DateTime.UtcNow;
+        foreach (var start in new[] { DateTime.MinValue, DateTime.MaxValue, now.AddYears(-11), now.AddYears(11), now.AddYears(10).AddDays(-1) })
+        {
+            var request = Request();
+            request.StartUtc = start;
+            Assert.AreEqual("The schedule range must not exceed 92 days and must be within 10 years of now.",
+                (await service.Save(request, false, default, preview)).Single());
+        }
+        foreach (var start in new[] { DateTime.MinValue, DateTime.MaxValue.AddDays(-7) })
+        {
+            var request = Request();
+            request.StartUtc = start;
+            request.AdjacentWeeks = [new() { StartUtc = start.AddDays(7) }];
+            Assert.AreEqual("The schedule range must not exceed 92 days and must be within 10 years of now.",
+                (await service.Save(request, false, default, preview)).Single());
+        }
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync());
+    }
+
+    [TestMethod]
     public async Task SavesArbitraryMinutePrecisionDurationsEmptyShiftsOverlapsAndGapsAsWarnings()
     {
         var request = Request(Slot(17, 37, "a"), Slot(20, 7, "b", "c"), Slot(60, 96 * 60, "a"), Slot(6000, 30));

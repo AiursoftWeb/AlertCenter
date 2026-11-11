@@ -169,4 +169,7 @@
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Este movimiento se superpondría con otro turno de la misma persona. El borrador no se ha modificado.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>El intervalo del calendario no debe superar los {0} días y debe estar dentro de los 10 años anteriores o posteriores al momento actual.</value>
+  </data>
 </root>

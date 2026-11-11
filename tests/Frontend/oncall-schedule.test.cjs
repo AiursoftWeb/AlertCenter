@@ -153,7 +153,7 @@ function setup(options = {}) {
     const guide = create('snap-line', 'div', grid); guide.append(new Element('span')); guide.hidden = true;
     root.dataset.handovers = JSON.stringify(options.handovers || []);
     chart.dataset.duration = String((Date.parse(rangeEnd) - Date.parse(rangeStart)) / hour);
-    Object.assign(root.dataset, { groupId: 'group', version: 'version', zone, start: rangeStart, end: rangeEnd, slots: JSON.stringify(slots), members: JSON.stringify(people), context: JSON.stringify(contextSlots), previewUrl: '/preview', saveUrl: '/save', getUrl: '/saved', generateUrl: '/generate', autoExtend: String(options.autoExtend || false), lastShiftEnd: options.lastShiftEnd || '', ...options.thresholds });
+    Object.assign(root.dataset, { groupId: 'group', version: 'version', zone, start: rangeStart, end: rangeEnd, maxRangeDays: '92', slots: JSON.stringify(slots), members: JSON.stringify(people), context: JSON.stringify(contextSlots), previewUrl: '/preview', saveUrl: '/save', getUrl: '/saved', generateUrl: '/generate', autoExtend: String(options.autoExtend || false), lastShiftEnd: options.lastShiftEnd || '', ...options.thresholds });
     const csrf = new Element('input'); csrf.setAttribute('name', '__RequestVerificationToken'); csrf.value = 'csrf'; root.append(csrf);
     for (const [key, value] of Object.entries(messages)) { const label = new Element('span'); label.dataset.scheduleText = key; label.textContent = value; root.append(label); }
     for (const id of ['shift-rows', 'draft-notice', 'replace-confirm', 'replace-regenerate-hint', 'replaced-shifts', 'schedule-errors', 'schedule-warnings', 'copy-drafts', 'drag-tooltip', 'total-shifts', 'total-staff', 'total-hours', 'published-status', 'clear-history-confirm', 'clear-history-range', 'clear-auto-options']) create(id, id === 'shift-rows' ? 'tbody' : 'div', root);
@@ -665,6 +665,69 @@ test('copy rejects invalid or partially overlapping ranges without changing the 
     await ui.click('copy-range'); assert.equal(ui.request('/preview?generate=false').length, 0); assert(ui.get('schedule-errors').children.length);
     await ui.input(ui.get('range-start'), '2026-10-18T00:00'); await ui.input(ui.get('range-end'), '2026-10-20T00:00');
     await ui.click('copy-range'); assert.equal(ui.get('copy-drafts').children.length, 0); assert.match(ui.get('schedule-errors').textContent, /overlap/);
+});
+test('copy, generation and clear reject oversized merged ranges before any request', async () => {
+    const message = '排班时间范围不能超过 {0} 天，且须在当前时间前后 10 年内。';
+    for (const action of ['copy-range', 'generate', 'clear-range']) {
+        for (const [left, right] of [[7, 99], [92, 93], [7, 92 + 1 / 1440]]) {
+            const ui = setup({ now: start, messages: { 'range-limit': message },
+                ...(action === 'copy-range' ? { members: [...members, { id: 'gone', name: 'Departed', departed: true }], slots: [shift(0, 24, ['gone'])] } : {}) }); await ui.flush();
+            const before = ui.draft(), prefix = action === 'clear-range' ? 'clear' : 'range';
+            await ui.input(ui.get(`${prefix}-start`), localTime(Date.parse(start) + left * 24 * hour, 'Asia/Shanghai'));
+            await ui.input(ui.get(`${prefix}-end`), localTime(Date.parse(start) + right * 24 * hour, 'Asia/Shanghai'));
+            ui.requests.length = 0;
+            await ui.click(action);
+            assert.equal(ui.requests.length, 0, `${action} must reject merged bounds before loading or previewing`);
+            assert.equal(ui.get('schedule-errors').textContent, message.replace('{0}', '92'));
+            assert.deepEqual(ui.draft(), before); assert.equal(ui.get('copy-drafts').children.length, 0);
+        }
+    }
+});
+test('merged staged drafts are bounded before copy, generation and clear previews', async () => {
+    for (const action of ['copy-range', 'generate', 'clear-range']) {
+        const ui = setup({ now: start }); await ui.flush();
+        await ui.input(ui.get('range-start'), '2026-10-05T00:00');
+        await ui.input(ui.get('range-end'), '2026-10-12T00:00'); await ui.click('copy-range');
+        assert.equal(ui.get('copy-drafts').children.length, 1);
+        const prefix = action === 'clear-range' ? 'clear' : 'range';
+        await ui.input(ui.get(`${prefix}-start`), localTime(Date.parse(start) + 84 * 24 * hour, 'Asia/Shanghai'));
+        await ui.input(ui.get(`${prefix}-end`), localTime(Date.parse(start) + 85 * 24 * hour + 60000, 'Asia/Shanghai'));
+        ui.requests.length = 0;
+        await ui.click(action);
+        assert.equal(ui.requests.length, 0); assert.match(ui.get('schedule-errors').textContent, /must not exceed 92 days/);
+        assert.equal(ui.get('copy-drafts').children.length, 1);
+    }
+});
+test('oversized editor drafts block automatic preview and save bridge loads', async () => {
+    const ui = setup(); await ui.flush();
+    await ui.input(tableInput(ui, 0, 'end'), localTime(Date.parse(start) + 92 * 24 * hour + 60000, 'Asia/Shanghai'));
+    ui.requests.length = 0;
+    await ui.preview(); await ui.click('save-schedule');
+    assert.equal(ui.requests.length, 0); assert.match(ui.get('schedule-errors').textContent, /must not exceed 92 days/);
+    assert.equal(ui.window.reloads, 0);
+});
+test('overlap merging rejects oversized context before bridge loads', async () => {
+    const ui = setup({ slots: [shift(0, 24), shift(12, 36)], context: [shift(168, 93 * 24, ['a'], 'long-adjacent')] }); await ui.flush();
+    ui.requests.length = 0;
+    await ui.click('merge-overlaps');
+    assert.equal(ui.requests.length, 0); assert.match(ui.get('schedule-errors').textContent, /must not exceed 92 days/);
+});
+test('exactly 92 UTC days allows copy, generation, clear, preview and save across daylight saving time', async () => {
+    const zone = 'America/New_York', rangeStart = '2026-10-12T04:00:00Z', rangeEnd = '2026-10-19T04:00:00Z';
+    const limit = new Date(Date.parse(rangeStart) + 92 * 24 * hour).toISOString();
+    for (const action of ['copy-range', 'generate', 'clear-range']) {
+        const ui = setup({ zone, start: rangeStart, end: rangeEnd, now: rangeStart, slots: [{ startsAtUtc: rangeStart, endsAtUtc: '2026-10-12T16:00:00Z', userIds: ['a'] }] }); await ui.flush();
+        const prefix = action === 'clear-range' ? 'clear' : 'range';
+        await ui.input(ui.get(`${prefix}-start`), localTime(rangeEnd, zone));
+        await ui.input(ui.get(`${prefix}-end`), localTime(limit, zone));
+        ui.requests.length = 0;
+        await ui.click(action); await ui.preview(); await ui.click('save-schedule');
+        assert(ui.requests.some(request => request.url.startsWith('/saved?')));
+        assert.equal(ui.request('/preview')[0].body.endUtc, limit);
+        const saved = ui.request('/save')[0].body;
+        assert.equal(Date.parse(saved.endUtc) - Date.parse(saved.startUtc), 92 * 24 * hour);
+        assert.equal(ui.window.reloads, 1); assert.equal(ui.get('schedule-errors').textContent, '');
+    }
 });
 test('one atomic save merges staged copies and untouched intervening saved ranges after a same-version GET', async () => {
     const middle = shift(180, 190, ['b'], 'middle'), replaced = shift(336, 350, ['a'], 'replaced'), external = { ...shift(180, 184, ['a'], 'other-team'), external: true };

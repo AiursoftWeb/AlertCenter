@@ -169,4 +169,7 @@
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Deze verplaatsing zou overlappen met een andere dienst van dezelfde persoon. Het concept is niet gewijzigd.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>De roosterperiode mag niet langer zijn dan {0} dagen en moet binnen 10 jaar vóór of na het huidige tijdstip vallen.</value>
+  </data>
 </root>

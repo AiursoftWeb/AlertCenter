@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>自動延長を無効にするか、クリアした範囲のシフトを再生成するかを選択してください。</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>スケジュールの期間は {0} 日以内で、現在から前後 10 年以内である必要があります。</value>
+  </data>
 </root>

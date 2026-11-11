@@ -169,4 +169,7 @@
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Tämä siirto menisi päällekkäin saman henkilön toisen vuoron kanssa. Luonnosta ei muutettu.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Päivystysaikataulun aikaväli saa olla enintään {0} päivää, ja sen on oltava enintään 10 vuotta nykyhetkestä menneisyyteen tai tulevaisuuteen.</value>
+  </data>
 </root>

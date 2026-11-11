@@ -171,10 +171,17 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         model.SelectedGroupId = id;
         try
         {
-            var zone = TimeZoneInfo.FindSystemTimeZoneById(model.Groups.Single(group => group.Id == id).TimeZoneId);
+            var group = model.Groups.Single(group => group.Id == id);
+            var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
             if (startLocal != null) startUtc = OnCallScheduleService.LocalToUtc(startLocal, zone);
             if (endLocal != null) endUtc = OnCallScheduleService.LocalToUtc(endLocal, zone);
-            if (endUtc.HasValue && endUtc <= startUtc) return BadRequest(localizer["Shift end must be after its start."].Value);
+            startUtc = OnCallScheduleService.WeekStart(group, startUtc);
+            var rangeError = schedules.ValidateRange(startUtc.Value, endUtc ?? startUtc.Value);
+            if (rangeError != null) return BadRequest(rangeError);
+            endUtc ??= OnCallScheduleService.MoveLocalDays(startUtc.Value, zone, 7);
+            if (endUtc <= startUtc) return BadRequest(localizer["Shift end must be after its start."].Value);
+            rangeError = schedules.ValidateRange(startUtc.Value, endUtc.Value);
+            if (rangeError != null) return BadRequest(rangeError);
         }
         catch (Exception ex) when (ex is FormatException or ArgumentException)
         {
@@ -202,12 +209,18 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
             if (startLocal != null) startUtc = OnCallScheduleService.LocalToUtc(startLocal, zone);
             if (endLocal != null) endUtc = OnCallScheduleService.LocalToUtc(endLocal, zone);
+            startUtc = OnCallScheduleService.WeekStart(group, startUtc);
+            var rangeError = schedules.ValidateRange(startUtc.Value, endUtc ?? startUtc.Value);
+            if (rangeError != null) return BadRequest(new { errors = new[] { rangeError } });
+            endUtc ??= OnCallScheduleService.MoveLocalDays(startUtc.Value, zone, 7);
+            if (endUtc <= startUtc) return BadRequest();
+            rangeError = schedules.ValidateRange(startUtc.Value, endUtc.Value);
+            if (rangeError != null) return BadRequest(new { errors = new[] { rangeError } });
         }
         catch (Exception ex) when (ex is FormatException or ArgumentException)
         {
             return BadRequest(new { errors = new[] { localizer["Invalid team local time."].Value } });
         }
-        if (endUtc.HasValue && endUtc <= startUtc) return BadRequest();
         var model = new OnCallViewModel { SelectedGroupId = id, Groups = [group] };
         await PopulatePreview(model, cancellationToken, startUtc, endUtc);
         if (model.WeekStartUtc == default) return BadRequest(new { errors = new[] { model.PreviewError } });

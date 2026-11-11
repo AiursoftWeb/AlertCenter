@@ -259,11 +259,14 @@
             return copy;
         });
     }
-    function payload() {
+    function payload(extraRange) {
         const slots = state.slots.concat(state.ranges.flatMap(range => range.slots));
         const bounds = normalized(slots);
-        const low = Math.min(from, ...state.ranges.map(range => range.start), ...state.clearRanges.map(range => Date.parse(range.startUtc)), ...bounds.map(slot => Date.parse(slot.startsAtUtc)));
-        const high = Math.max(until, ...state.ranges.map(range => range.end), ...state.clearRanges.map(range => Date.parse(range.endUtc)), ...bounds.map(slot => Date.parse(slot.endsAtUtc)));
+        const low = Math.min(from, extraRange ? Date.parse(extraRange.startUtc) : Infinity, ...state.ranges.map(range => range.start), ...state.clearRanges.map(range => Date.parse(range.startUtc)), ...bounds.map(slot => Date.parse(slot.startsAtUtc)));
+        const high = Math.max(until, extraRange ? Date.parse(extraRange.endUtc) : -Infinity, ...state.ranges.map(range => range.end), ...state.clearRanges.map(range => Date.parse(range.endUtc)), ...bounds.map(slot => Date.parse(slot.endsAtUtc)));
+        if (high - low > Number(root.dataset.maxRangeDays) * 24 * hour) {
+            throw new Error(text('range-limit', 'The schedule range must not exceed {0} days and must be within 10 years of now.').replace('{0}', root.dataset.maxRangeDays));
+        }
         return { groupId: root.dataset.groupId, version: root.dataset.version, startUtc: new Date(low).toISOString(), endUtc: new Date(high).toISOString(), slots: submitted(slots), clearRanges: structuredClone(state.clearRanges) };
     }
     async function request(url, body) {
@@ -820,6 +823,9 @@
         const revision = sequence;
         const body = { groupId: root.dataset.groupId, version: root.dataset.version, startLocal: get('oncall-range-start').value, endLocal: get('oncall-range-end').value, slots: [] };
         if (!(wallTime(body.endLocal) > wallTime(body.startLocal))) throw new Error(text('invalid-range', 'End must be after start.'));
+        const left = utcForLocal(body.startLocal, zone), right = utcForLocal(body.endLocal, zone);
+        if (!Number.isFinite(left) || !Number.isFinite(right)) throw new Error(text('invalid-local', 'Invalid team local time.'));
+        payload({ startUtc: new Date(left).toISOString(), endUtc: new Date(right).toISOString() });
         if (!generate) {
             try { body.slots = copyRange(state.slots, localTime(start, zone), localTime(end, zone), body.startLocal, body.endLocal, members); }
             catch (failure) { throw new Error(failure.message === 'departed' ? text('cannot-copy-departed', 'Cannot copy assignments for departed team members.') : text('invalid-range', 'End must be after start.')); }
@@ -837,10 +843,8 @@
         else stage(destination);
     }
     async function assembledDraft(extraRange) {
-        const body = payload();
-        const low = Math.min(Date.parse(body.startUtc), extraRange ? Date.parse(extraRange.startUtc) : Infinity);
-        const high = Math.max(Date.parse(body.endUtc), extraRange ? Date.parse(extraRange.endUtc) : -Infinity);
-        body.startUtc = new Date(low).toISOString(); body.endUtc = new Date(high).toISOString();
+        const body = payload(extraRange);
+        const low = Date.parse(body.startUtc), high = Date.parse(body.endUtc);
         if (low !== from || high !== until || state.ranges.length) {
             const query = new URLSearchParams({ id: root.dataset.groupId, startUtc: body.startUtc, endUtc: body.endUtc });
             const saved = await request(`${root.dataset.getUrl}?${query}`);
