@@ -1,4 +1,5 @@
 using Aiursoft.AlertCenter.Entities;
+using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,16 @@ public class OnCallMaintenanceTests
     private Task Maintain(DateTime? now = null) => OnCallMaintenanceWorker.MaintainGroupAsync(db,
         TestLocalization.For<OnCallScheduleGenerator>(), TestLocalization.For<OnCallMaintenanceWorker>(),
         "https://example.com/alerts", group.Id, now ?? Now, default, logger: logger);
+
+    private async Task SaveSchedule(params OnCallSlotRequest[] slots)
+    {
+        var service = new OnCallScheduleService(db, new OnCallScheduleGenerator(TestLocalization.For<OnCallScheduleGenerator>()),
+            TestLocalization.For<OnCallScheduleService>(), TestLocalization.Factory);
+        var savedGroup = await db.OnCallGroups.SingleAsync(item => item.Id == group.Id);
+        var errors = await service.Save(new() { GroupId = group.Id, Version = savedGroup.ScheduleVersion,
+            StartUtc = Now.AddDays(-1), Slots = slots.ToList() }, false, default);
+        Assert.AreEqual(0, errors.Count, string.Join(" ", errors));
+    }
 
     private sealed class SaveFailure : SaveChangesInterceptor
     {
@@ -333,6 +344,133 @@ public class OnCallMaintenanceTests
         Assert.AreEqual("a", (await db.Incidents.SingleAsync(incident => incident.Id == open.Id)).OwnerId);
         db.OnCallEmailSnapshots.Add(new() { Delivery = new(), GroupId = group.Id, HandoverKey = delivery.OnCallEmail.HandoverKey });
         await Assert.ThrowsAsync<DbUpdateException>(() => db.SaveChangesAsync());
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task MidShiftMemberChangesNotifyOnlyNewArrivals(bool replace)
+    {
+        group.AutoExtend = false;
+        var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-1), EndsAtUtc = Now.AddHours(4),
+            Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.Add(current);
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        await db.SaveChangesAsync();
+        await Maintain();
+
+        await SaveSchedule(new OnCallSlotRequest { Id = current.Id, StartsAtUtc = current.StartsAtUtc, EndsAtUtc = current.EndsAtUtc,
+            UserIds = replace ? ["b"] : ["a", "b"] });
+        await Maintain(Now.AddMinutes(1));
+        var deliveries = await db.PushDeliveries.Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients).ToListAsync();
+        Assert.AreEqual(2, deliveries.Count);
+        Assert.IsTrue(deliveries.All(delivery => delivery.OnCallEmail!.ShiftId == current.Id));
+        CollectionAssert.AreEquivalent(new[] { "a", "b" }, deliveries.SelectMany(delivery => delivery.OnCallEmail!.Recipients.Select(person => person.UserId)).ToArray());
+        var receipts = await db.Set<OnCallHandoverReceipt>().ToListAsync();
+        Assert.AreEqual(replace ? 1 : 2, receipts.Count);
+        Assert.AreEqual(Now.AddMinutes(1), receipts.Single(receipt => receipt.UserId == "b").ProcessedAtUtc);
+        if (!replace) Assert.AreEqual(Now, receipts.Single(receipt => receipt.UserId == "a").ProcessedAtUtc);
+
+        await Maintain(Now.AddMinutes(2));
+        Assert.AreEqual(2, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(receipts.Count, await db.Set<OnCallHandoverReceipt>().CountAsync());
+    }
+
+    [TestMethod]
+    public async Task BackdatedOngoingShiftNotifiesMembersDespiteCheckpoint()
+    {
+        group.AutoExtend = false;
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        await db.SaveChangesAsync();
+        await Maintain();
+        Assert.AreEqual(Now, (await db.OnCallGroups.SingleAsync()).HandoverCheckedThroughUtc);
+
+        await SaveSchedule(new OnCallSlotRequest { StartsAtUtc = Now.AddMinutes(-7), EndsAtUtc = Now.AddHours(8), UserIds = ["b"] });
+        var current = await db.OnCallShifts.SingleAsync();
+        await Maintain(Now.AddMinutes(1));
+        var delivery = await db.PushDeliveries.Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients).SingleAsync();
+        Assert.AreEqual(current.Id, delivery.OnCallEmail!.ShiftId);
+        Assert.AreEqual("b", delivery.OnCallEmail.Recipients.Single().UserId);
+        var receipt = await db.Set<OnCallHandoverReceipt>().SingleAsync();
+        Assert.AreEqual(current.Id, receipt.ShiftId);
+        Assert.AreEqual("b", receipt.UserId);
+        Assert.AreEqual(Now.AddMinutes(1), receipt.ProcessedAtUtc);
+
+        await Maintain(Now.AddMinutes(2));
+        Assert.AreEqual(1, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(1, await db.Set<OnCallHandoverReceipt>().CountAsync());
+    }
+
+    [TestMethod]
+    public async Task ReaddedMemberReceivesAnotherHandoverWithDistinctKey()
+    {
+        group.AutoExtend = false;
+        var previous = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-3), EndsAtUtc = Now.AddHours(-2),
+            Members = [new() { UserId = "b" }] };
+        var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-1), EndsAtUtc = Now.AddHours(4),
+            Members = [new() { UserId = "a" }, new() { UserId = "b" }] };
+        db.OnCallShifts.AddRange(previous, current);
+        db.Add(new OnCallHandoverReceipt { ShiftId = previous.Id, UserId = "b", ProcessedAtUtc = previous.StartsAtUtc });
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        await db.SaveChangesAsync();
+        await Maintain();
+        Assert.AreEqual(2, await db.PushDeliveries.CountAsync());
+
+        var previousSlot = new OnCallSlotRequest { Id = previous.Id, StartsAtUtc = previous.StartsAtUtc,
+            EndsAtUtc = previous.EndsAtUtc, UserIds = ["b"] };
+        var currentSlot = new OnCallSlotRequest { Id = current.Id, StartsAtUtc = current.StartsAtUtc,
+            EndsAtUtc = current.EndsAtUtc, UserIds = ["a"] };
+        await SaveSchedule(previousSlot, currentSlot);
+        var retained = await db.Set<OnCallHandoverReceipt>().ToListAsync();
+        Assert.AreEqual(2, retained.Count);
+        Assert.AreEqual("b", retained.Single(receipt => receipt.ShiftId == previous.Id).UserId);
+        Assert.AreEqual("a", retained.Single(receipt => receipt.ShiftId == current.Id).UserId);
+        await Maintain(Now.AddMinutes(1));
+        Assert.AreEqual(2, await db.PushDeliveries.CountAsync());
+
+        currentSlot.UserIds.Add("b");
+        await SaveSchedule(previousSlot, currentSlot);
+        await Maintain(Now.AddMinutes(2));
+        var deliveries = await db.PushDeliveries.Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients).ToListAsync();
+        Assert.AreEqual(3, deliveries.Count);
+        Assert.AreEqual(1, deliveries.Count(delivery => delivery.OnCallEmail!.Recipients.Single().UserId == "a"));
+        var handovers = deliveries.Where(delivery => delivery.OnCallEmail!.Recipients.Single().UserId == "b").ToArray();
+        Assert.AreEqual(2, handovers.Length);
+        Assert.IsTrue(handovers.All(delivery => delivery.OnCallEmail!.ShiftId == current.Id));
+        Assert.AreNotEqual(handovers[0].OnCallEmail!.HandoverKey, handovers[1].OnCallEmail!.HandoverKey);
+        var readded = await db.Set<OnCallHandoverReceipt>().SingleAsync(receipt => receipt.ShiftId == current.Id && receipt.UserId == "b");
+        Assert.AreEqual(Now.AddMinutes(2), readded.ProcessedAtUtc);
+
+        await Maintain(Now.AddMinutes(3));
+        Assert.AreEqual(3, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(3, await db.Set<OnCallHandoverReceipt>().CountAsync());
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task MidShiftContinuousMembersReceiveReceiptsWithoutEmail(bool parallel)
+    {
+        group.AutoExtend = false;
+        var previous = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-2),
+            EndsAtUtc = parallel ? Now.AddHours(1) : Now.AddHours(-1), Members = [new() { UserId = "b" }] };
+        var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-1), EndsAtUtc = Now.AddHours(4),
+            Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.AddRange(previous, current);
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        await db.SaveChangesAsync();
+        await Maintain();
+        var deliveryCount = await db.PushDeliveries.CountAsync();
+        db.OnCallShiftMembers.Add(new() { ShiftId = current.Id, UserId = "b" });
+        await db.SaveChangesAsync();
+
+        await Maintain(Now.AddMinutes(1));
+        var receipt = await db.Set<OnCallHandoverReceipt>().SingleAsync(item => item.ShiftId == current.Id && item.UserId == "b");
+        Assert.AreEqual(Now.AddMinutes(1), receipt.ProcessedAtUtc);
+        Assert.AreEqual(deliveryCount, await db.PushDeliveries.CountAsync());
+        await Maintain(Now.AddMinutes(2));
+        Assert.AreEqual(deliveryCount, await db.PushDeliveries.CountAsync());
+        Assert.AreEqual(parallel ? 3 : 2, await db.Set<OnCallHandoverReceipt>().CountAsync());
     }
 
     [TestMethod]

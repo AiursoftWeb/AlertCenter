@@ -132,11 +132,11 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
     private static async Task QueueHandoversAsync(TemplateDbContext db, OnCallGroup group, DateTime now, string baseUrl,
         IStringLocalizer localizer, CancellationToken token)
     {
-        // 首次启用只检查当前班段；随后用持久化游标补齐轮询间隔或重启期间的交接。
+        // 当前班段每轮按回执检查，覆盖手动换人和补建；游标补齐轮询间隔或重启期间已结束的班段。
         var checkedThrough = group.HandoverCheckedThroughUtc;
         var shifts = await db.OnCallShifts.Include(shift => shift.Members).ThenInclude(member => member.User)
             .Where(shift => shift.GroupId == group.Id && shift.StartsAtUtc <= now &&
-                (checkedThrough.HasValue ? shift.StartsAtUtc > checkedThrough.Value : shift.EndsAtUtc > now))
+                (shift.EndsAtUtc > now || checkedThrough.HasValue && shift.StartsAtUtc > checkedThrough.Value))
             .OrderBy(shift => shift.StartsAtUtc).ToListAsync(token);
         if (shifts.Count == 0) return;
         var earliest = shifts.Min(shift => shift.StartsAtUtc);
@@ -159,19 +159,20 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
             var expired = shift.EndsAtUtc <= now;
             var previousIds = previous.Where(old => old.StartsAtUtc < shift.StartsAtUtc && old.EndsAtUtc >= shift.StartsAtUtc)
                 .SelectMany(old => old.Members.Select(member => member.UserId)).ToHashSet(StringComparer.Ordinal);
-            foreach (var person in shift.Members.Where(member => expired || !previousIds.Contains(member.UserId)))
+            foreach (var person in shift.Members)
             {
                 var key = $"{shift.Id:N}:{person.UserId}";
                 if (sent.Contains(key)) continue;
                 db.Add(new OnCallHandoverReceipt { ShiftId = shift.Id, UserId = person.UserId, ProcessedAtUtc = now });
-                if (expired || incidents.Count == 0 || !notified.Add(person.UserId)) continue;
+                if (expired || previousIds.Contains(person.UserId) || incidents.Count == 0 || !notified.Add(person.UserId)) continue;
                 db.PushDeliveries.Add(new PushDelivery
                 {
                     CreatedAtUtc = now,
                     OnCallEmail = new OnCallEmailSnapshot
                     {
                         GroupId = group.Id, GroupName = group.Name, ShiftId = shift.Id, StartsAtUtc = shift.StartsAtUtc,
-                        EndsAtUtc = shift.EndsAtUtc, NotificationAtUtc = shift.StartsAtUtc, HandoverKey = key,
+                        // 十六进制时间戳区分重新加入的交接，并在最长 UserId 下保持 key 不超过 500 字符。
+                        EndsAtUtc = shift.EndsAtUtc, NotificationAtUtc = shift.StartsAtUtc, HandoverKey = $"{key}:{now.Ticks:x}",
                         HandoverContent = body.ToString(), Recipients = [new OnCallEmailRecipient
                             { UserId = person.UserId, DisplayName = person.User.DisplayName, Email = person.User.Email }]
                     }
