@@ -171,7 +171,7 @@ public partial class IncidentPagesTests
     }
 
     [TestMethod]
-    public async Task PlainTextReasonsRenderWithoutTemplateIndentationOrHtmlExecution()
+    public async Task MarkdownReasonsRenderEncodedSourceAndFallbackWithoutTemplateIndentation()
     {
         var key = await CreateApplication();
         using var reported = await Report(key, Guid.NewGuid());
@@ -182,13 +182,27 @@ public partial class IncidentPagesTests
             id = (await db.Incidents.SingleAsync()).Id;
         }
         var url = $"/Incidents/Details/{id}";
-        using var note = await PostForm("/Incidents/AddNote", await IncidentForm(id, "造成了数据库错误\n<script>alert('unsafe')</script>"), url);
+        const string markdown = "**造成了数据库错误**\n</textarea><script>alert('unsafe')</script>";
+        using var note = await PostForm("/Incidents/AddNote", await IncidentForm(id, markdown), url);
         AssertRedirect(note, url);
         var html = await Http.GetStringAsync(url);
-        Assert.Contains("class=\"ac-prose ac-prose-note", html);
-        Assert.Contains("&lt;script&gt;", html);
+        var source = Regex.Match(html,
+            "<textarea class=\"comment-markdown-source\"[^>]*>(.*?)</textarea>",
+            RegexOptions.Singleline | RegexOptions.CultureInvariant);
+        var fallback = Regex.Match(html,
+            "<div class=\"comment-markdown-body comment-markdown-fallback[^\"]*\">(.*?)</div>",
+            RegexOptions.Singleline | RegexOptions.CultureInvariant);
+        Assert.IsTrue(source.Success, "操作备注必须提供 Markdown 源文本。");
+        Assert.IsTrue(fallback.Success, "操作备注必须提供纯文本回退容器。");
+        foreach (var content in new[] { source.Groups[1].Value, fallback.Groups[1].Value })
+        {
+            Assert.AreEqual(markdown, WebUtility.HtmlDecode(content), "源文本和回退内容不能引入模板缩进或丢失换行。");
+            Assert.Contains("&lt;/textarea&gt;", content);
+            Assert.Contains("&lt;script&gt;", content);
+            Assert.DoesNotContain("<script>", content);
+        }
         Assert.DoesNotContain("<script>alert('unsafe')</script>", html);
-        Assert.IsTrue(Regex.IsMatch(html, "class=\"ac-prose ac-prose-note[^\"]*\">&#x", RegexOptions.CultureInvariant));
-        Assert.DoesNotContain("white-space: pre-wrap; line-height: 1.6;", html);
+        Assert.Contains("/scripts/incident-comments.js", html);
+        Assert.Contains("/node_modules/@aiursoft/uistack-markdown-ui/dist/index.global.js", html);
     }
 }

@@ -117,7 +117,8 @@
                                     }
                                     @if (!string.IsNullOrEmpty(entry.Note))
                                     {
-                                        <div class="ac-prose ac-prose-note mt-2">@entry.Note</div>
+                                        <textarea class="comment-markdown-source" readonly hidden aria-hidden="true">@entry.Note</textarea>
+                                        <div class="comment-markdown-body comment-markdown-fallback mt-2">@entry.Note</div>
                                     }
                                 </div>
                             </article>
