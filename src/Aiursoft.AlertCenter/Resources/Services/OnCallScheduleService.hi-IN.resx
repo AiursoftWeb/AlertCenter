@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>चुनें कि स्वचालित विस्तार बंद करना है या खाली की गई समय सीमा में शिफ़्ट दोबारा बनानी हैं।</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>शेड्यूल की अवधि {0} दिनों से अधिक नहीं होनी चाहिए और वर्तमान समय से 10 वर्ष पहले या बाद की सीमा के भीतर होनी चाहिए।</value>
+  </data>
 </root>

@@ -169,4 +169,7 @@
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Это перемещение привело бы к пересечению с другой сменой того же сотрудника. Черновик не изменён.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Период расписания не должен превышать {0} дней и должен находиться в пределах 10 лет до или после текущего момента.</value>
+  </data>
 </root>

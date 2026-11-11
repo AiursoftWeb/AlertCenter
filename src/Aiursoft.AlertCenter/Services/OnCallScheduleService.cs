@@ -9,6 +9,19 @@ namespace Aiursoft.AlertCenter.Services;
 public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerator generator,
     IStringLocalizer<OnCallScheduleService> localizer, IStringLocalizerFactory localizerFactory)
 {
+    public const int MaxRangeDays = 92;
+
+    public string? ValidateRange(DateTime start, DateTime end)
+    {
+        var now = DateTime.UtcNow;
+        var earliest = now.AddYears(-10);
+        var latest = now.AddYears(10);
+        return start < earliest || start > latest || end < earliest || end > latest ||
+            end - start > TimeSpan.FromDays(MaxRangeDays)
+            ? localizer["The schedule range must not exceed {0} days and must be within 10 years of now.", MaxRangeDays].Value
+            : null;
+    }
+
     public List<string> Warnings { get; private set; } = [];
     public List<OnCallSlotRequest> ReplacedSlots { get; private set; } = [];
     public List<OnCallSlotRequest> PreviewSlots { get; private set; } = [];
@@ -78,7 +91,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             if (requestSlots.Any(slot => slot?.UserIds == null)) return [localizer["The shift request format is invalid."].Value];
             if ((generate && request.AdjacentWeeks.Count != 0) || request.AdjacentWeeks.Count > 2 ||
                 request.AdjacentWeeks.Select(week => week.StartUtc).Distinct().Count() != request.AdjacentWeeks.Count ||
-                request.AdjacentWeeks.Any(week => week.StartUtc != request.StartUtc.AddDays(-7) && week.StartUtc != request.StartUtc.AddDays(7)))
+                request.AdjacentWeeks.Any(week => (week.StartUtc - request.StartUtc).Duration() != TimeSpan.FromDays(7)))
                 return [localizer["Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)."].Value];
             await using var transaction = db.Database.IsRelational()
                 ? await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, token) : null;
@@ -107,8 +120,13 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             var weeks = request.AdjacentWeeks.Prepend(new OnCallScheduleWeekRequest
                 { StartUtc = request.StartUtc, Slots = request.Slots }).ToList();
             var from = weeks.Min(week => week.StartUtc);
-            var until = request.EndUtc ?? MoveLocalDays(weeks.Max(week => week.StartUtc), zone, 7);
+            var lastWeekStart = weeks.Max(week => week.StartUtc);
+            var rangeError = ValidateRange(from, lastWeekStart);
+            if (rangeError != null) return [rangeError];
+            var until = request.EndUtc ?? MoveLocalDays(lastWeekStart, zone, 7);
             if (until <= from) return [localizer["Shift end must be after its start."].Value];
+            rangeError = ValidateRange(from, until);
+            if (rangeError != null) return [rangeError];
             var saved = await db.OnCallShifts.Include(shift => shift.Members)
                 .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc > from && shift.StartsAtUtc < until)
                 .ToListAsync(token);

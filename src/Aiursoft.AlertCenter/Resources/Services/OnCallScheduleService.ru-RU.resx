@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>Выберите, отключить ли автоматическое продление или заново создать смены в очищенном диапазоне.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Период расписания не должен превышать {0} дней и должен находиться в пределах 10 лет до или после текущего момента.</value>
+  </data>
 </root>

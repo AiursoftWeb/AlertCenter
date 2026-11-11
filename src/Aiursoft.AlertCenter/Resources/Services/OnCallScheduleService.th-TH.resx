@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>เลือกว่าจะปิดใช้งานการขยายตารางอัตโนมัติหรือสร้างเวรใหม่ในช่วงเวลาที่ล้างไว้</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>ช่วงเวลาของตารางเวรต้องไม่เกิน {0} วัน และต้องอยู่ภายใน 10 ปีก่อนหรือหลังเวลาปัจจุบัน</value>
+  </data>
 </root>

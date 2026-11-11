@@ -34,6 +34,92 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task OrdinaryUserScheduleDetailsRejectsUnboundedRangesQuicklyAndAllowsOneWeek(bool local)
+    {
+        await RegisterAndLoginAsync();
+        var id = await SeedGroup(false);
+        var denied = await Http.GetAsync($"/OnCall/GetSchedule?id={id}");
+        Assert.IsTrue(denied.StatusCode is HttpStatusCode.Forbidden or HttpStatusCode.Found);
+        var now = DateTime.UtcNow;
+        var ranges = new (DateTime Start, DateTime? End)[]
+        {
+            (new DateTime(2, 1, 1), new DateTime(9990, 1, 1)),
+            (now.AddYears(-11), now.AddYears(-11).AddDays(7)),
+            (now.AddYears(11), null),
+            (DateTime.MinValue, null),
+            (DateTime.MaxValue, null),
+            (now.AddYears(10).AddDays(-1), null),
+            (now, now.AddDays(93))
+        };
+        string Query(DateTime start, DateTime? end) => local
+            ? $"startLocal={start:yyyy-MM-ddTHH:mm}" + (end.HasValue ? $"&endLocal={end:yyyy-MM-ddTHH:mm}" : "")
+            : $"startUtc={Uri.EscapeDataString(start.ToString("O"))}" + (end.HasValue ? $"&endUtc={Uri.EscapeDataString(end.Value.ToString("O"))}" : "");
+        foreach (var (start, end) in ranges)
+        {
+            using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+            var elapsed = System.Diagnostics.Stopwatch.StartNew();
+            var response = await Http.GetAsync($"/OnCall/ScheduleDetails/{id}?{Query(start, end)}", timeout.Token);
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Contains("The schedule range must not exceed 92 days and must be within 10 years of now.",
+                await response.Content.ReadAsStringAsync(timeout.Token));
+            Assert.IsTrue(elapsed.Elapsed < TimeSpan.FromSeconds(5));
+        }
+        foreach (var end in new DateTime?[] { null, now.AddDays(7) })
+            Assert.AreEqual(HttpStatusCode.OK, (await Http.GetAsync($"/OnCall/ScheduleDetails/{id}?{Query(now, end)}")).StatusCode);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task GetScheduleRejectsUnboundedAndOutOfWindowRanges(bool local)
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup(false);
+        var ranges = local
+            ? new[] { "startLocal=0002-01-01T00:00&endLocal=9990-01-01T00:00", "startLocal=9999-12-31T23:59", "startLocal=0001-01-01T00:00" }
+            : new[] { "startUtc=0002-01-01&endUtc=9990-01-01", "startUtc=9999-12-31", "startUtc=0001-01-01" };
+        foreach (var query in ranges)
+        {
+            using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+            var response = await Http.GetAsync($"/OnCall/GetSchedule?id={id}&{query}", timeout.Token);
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            var result = await response.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>(timeout.Token);
+            Assert.AreEqual("The schedule range must not exceed 92 days and must be within 10 years of now.", result.GetProperty("errors")[0].GetString());
+        }
+    }
+
+    [TestMethod]
+    [DataRow("SaveSchedule")]
+    [DataRow("PreviewSchedule")]
+    [DataRow("GenerateSchedule")]
+    [DataRow("PreviewSchedule?generate=true")]
+    [DataRow("PreviewSchedule?clear=true")]
+    public async Task ScheduleWriteEndpointsRejectOver92DaysAndAcceptExactly92Days(string action)
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var group = await db.OnCallGroups.SingleAsync(item => item.Id == id);
+        var start = DateTime.UtcNow.Date;
+        var request = new SaveOnCallScheduleRequest
+        {
+            GroupId = id, Version = group.ScheduleVersion, StartUtc = start, EndUtc = start.AddDays(92).AddTicks(1),
+            ClearRanges = action.EndsWith("clear=true", StringComparison.Ordinal)
+                ? [new() { StartUtc = start, EndUtc = start.AddDays(1) }] : []
+        };
+        var rejected = await Save(action, request);
+        Assert.AreEqual(HttpStatusCode.BadRequest, rejected.StatusCode);
+        var errors = await rejected.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.AreEqual("The schedule range must not exceed 92 days and must be within 10 years of now.", errors.GetProperty("errors")[0].GetString());
+        Assert.AreEqual(0, await db.OnCallShifts.CountAsync(shift => shift.GroupId == id));
+        request.EndUtc = start.AddDays(92);
+        Assert.AreEqual(HttpStatusCode.OK, (await Save(action, request)).StatusCode);
+    }
+
+    [TestMethod]
     public async Task LegacyOverlapsRemainLoadableAndPreviewableUntilRepairedBeforeSaving()
     {
         await LoginAsAdmin();

@@ -169,4 +169,7 @@
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>سيؤدي هذا النقل إلى تداخل مع مناوبة أخرى للشخص نفسه. لم يتم تغيير المسودة.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>يجب ألا تتجاوز فترة جدول المناوبات {0} يومًا، ويجب أن تقع ضمن 10 سنوات قبل الوقت الحالي أو بعده.</value>
+  </data>
 </root>

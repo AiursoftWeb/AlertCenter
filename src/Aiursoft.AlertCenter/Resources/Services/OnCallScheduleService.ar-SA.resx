@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>اختر ما إذا كنت تريد تعطيل التمديد التلقائي أو إعادة إنشاء المناوبات في النطاق الذي تم إفراغه.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>يجب ألا تتجاوز فترة الجدول {0} يومًا، ويجب أن تقع ضمن السنوات العشر السابقة أو التالية للوقت الحالي.</value>
+  </data>
 </root>

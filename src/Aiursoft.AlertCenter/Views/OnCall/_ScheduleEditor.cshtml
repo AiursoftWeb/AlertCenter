@@ -45,7 +45,7 @@
         .Concat(Model.OtherGroupShifts.Select(shift => new { id = shift.Id, startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), userIds = shift.Members.Select(member => member.UserId).ToArray(), source = (int)shift.Source, rotationPosition = shift.RotationPosition, external = true }));
 }
 <div id="oncall-schedule" class="mt-3 mb-3" data-group-id="@group.Id" data-group-name="@group.Name" data-version="@group.ScheduleVersion" data-zone="@group.TimeZoneId"
-     data-start="@Model.WeekStartUtc.ToString("O")" data-end="@Model.WeekEndUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)" data-members="@JsonSerializer.Serialize(members)"
+     data-start="@Model.WeekStartUtc.ToString("O")" data-end="@Model.WeekEndUtc.ToString("O")" data-max-range-days="@Aiursoft.AlertCenter.Services.OnCallScheduleService.MaxRangeDays" data-slots="@JsonSerializer.Serialize(slots)" data-members="@JsonSerializer.Serialize(members)"
      data-auto-extend="@group.AutoExtend.ToString().ToLowerInvariant()" data-last-shift-end="@(Model.LastShiftEndUtc.HasValue ? DateTime.SpecifyKind(Model.LastShiftEndUtc.Value, DateTimeKind.Utc).ToString("O") : "")"
      data-handovers="@JsonSerializer.Serialize(handovers)" data-context="@JsonSerializer.Serialize(context)" data-minimum-rest="@group.MinimumRestHours?.ToString(CultureInfo.InvariantCulture)" data-maximum-continuous="@group.MaximumContinuousHours?.ToString(CultureInfo.InvariantCulture)" data-minimum-staff="@group.MinimumShiftStaff"
      data-preview-url="@Url.Action("PreviewSchedule")" data-get-url="@Url.Action("GetSchedule")" data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
@@ -203,6 +203,7 @@
         <span data-schedule-text="departed-warning">@viewLocalizer["Future shift includes a departed team member."]</span>
         <span data-schedule-text="departed-edit">@viewLocalizer["Remove departed members before changing shift times."]</span>
         <span data-schedule-text="invalid-local">@viewLocalizer["Invalid team local time."]</span>
+        <span data-schedule-text="range-limit">@viewLocalizer["The schedule range must not exceed {0} days and must be within 10 years of now."].Value</span>
         <span data-schedule-text="copy-overlap">@viewLocalizer["The destination must not overlap the visible range or another copied range."]</span>
         <span data-schedule-text="swap-invalid">@viewLocalizer["Choose two different current team members."]</span>
         <span data-schedule-text="unassigned">@viewLocalizer["Unassigned"]</span>

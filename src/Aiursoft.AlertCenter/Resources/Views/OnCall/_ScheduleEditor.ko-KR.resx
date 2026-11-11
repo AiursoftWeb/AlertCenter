@@ -169,4 +169,7 @@
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>이동하면 같은 사람의 다른 근무와 겹칩니다. 초안은 변경되지 않았습니다.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>일정 범위는 {0}일을 초과할 수 없으며 현재 시점으로부터 전후 10년 이내여야 합니다.</value>
+  </data>
 </root>

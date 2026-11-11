@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>Välj om automatisk förlängning ska inaktiveras eller om pass ska genereras på nytt under den rensade perioden.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Schemaperioden får inte överstiga {0} dagar och måste ligga inom 10 år före eller efter den aktuella tidpunkten.</value>
+  </data>
 </root>

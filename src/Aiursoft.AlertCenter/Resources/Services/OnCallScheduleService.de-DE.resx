@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>Wählen Sie, ob die automatische Verlängerung deaktiviert oder der geleerte Zeitraum neu befüllt werden soll.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Der Planungszeitraum darf {0} Tage nicht überschreiten und muss innerhalb von 10 Jahren vor oder nach dem aktuellen Zeitpunkt liegen.</value>
+  </data>
 </root>

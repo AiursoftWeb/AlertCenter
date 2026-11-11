@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>Valitse, poistetaanko automaattinen jatkaminen käytöstä vai luodaanko vuorot uudelleen tyhjennetylle aikavälille.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Työvuorosuunnittelun ajanjakso ei saa ylittää {0} päivää, ja sen on oltava enintään 10 vuotta nykyhetkeä ennen tai sen jälkeen.</value>
+  </data>
 </root>

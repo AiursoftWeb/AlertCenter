@@ -169,4 +169,7 @@
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>इस बदलाव से उसी व्यक्ति की दूसरी शिफ़्ट के साथ समय ओवरलैप होगा। ड्राफ़्ट नहीं बदला गया।</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>ड्यूटी शेड्यूल की अवधि {0} दिनों से अधिक नहीं होनी चाहिए और यह वर्तमान समय से 10 वर्ष पहले या बाद की सीमा में होनी चाहिए।</value>
+  </data>
 </root>

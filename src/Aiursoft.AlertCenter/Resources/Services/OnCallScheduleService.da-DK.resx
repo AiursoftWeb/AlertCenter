@@ -73,4 +73,7 @@
   <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
     <value>Vælg, om automatisk forlængelse skal deaktiveres, eller vagter skal genereres på ny i den ryddede periode.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Planlægningsperioden må ikke overstige {0} dage og skal ligge inden for 10 år før eller efter det aktuelle tidspunkt.</value>
+  </data>
 </root>

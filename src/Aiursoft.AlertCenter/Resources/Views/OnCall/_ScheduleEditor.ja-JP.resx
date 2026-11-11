@@ -169,4 +169,7 @@
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>この移動では同じ担当者の別のシフトと重複します。下書きは変更されませんでした。</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>スケジュールの期間は {0} 日以内で、現在から前後 10 年以内である必要があります。</value>
+  </data>
 </root>
