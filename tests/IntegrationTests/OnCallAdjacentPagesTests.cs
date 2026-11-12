@@ -74,7 +74,7 @@ public class OnCallAdjacentPagesTests : TestBase
             id = group.Id;
             departedId = departed.Id;
         }
-        var rawHtml = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
+        var rawHtml = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}");
         var html = WebUtility.HtmlDecode(rawHtml);
         AssertEdgeFrame(html);
         Assert.Contains($"data-user-id=\"{departedId}\"", html);
@@ -90,7 +90,7 @@ public class OnCallAdjacentPagesTests : TestBase
         Assert.AreEqual(10, adjacentContents.Length);
         Assert.IsTrue(adjacentContents.All(content => content.Contains("Adjacent team (Read-only)")));
         var zone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
-        string LocalTime(DateTime time) => TimeZoneInfo.ConvertTime(new DateTimeOffset(time), zone).ToString("yyyy-MM-dd HH:mm zzz");
+        string LocalTime(DateTime time) => TimeZoneInfo.ConvertTime(new DateTimeOffset(time), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
         var end = start.AddDays(7);
         foreach (var edge in new[] { "previous", "next" })
         {
@@ -163,7 +163,7 @@ public class OnCallAdjacentPagesTests : TestBase
             Assert.DoesNotContain("ac-gantt-week\"", html);
         }
 
-        var anchorPage = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(anchor.ToString("O"))}"));
+        var anchorPage = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(anchor.ToString("O", CultureInfo.InvariantCulture))}"));
         AssertEdgeFrame(anchorPage);
         if (administrator) AssertCurrentFormSlots(anchorPage);
     }

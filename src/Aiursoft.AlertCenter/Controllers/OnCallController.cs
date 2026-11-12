@@ -465,7 +465,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             model.PreviewDays = OnCallPreviewTimeline.Build(boundaries, zone);
             if (model.ScheduleSaved)
             {
-                model.Preview = saved.SelectMany(shift => shift.Members.OrderBy(member => member.UserId)
+                model.Preview = saved.SelectMany(shift => shift.Members.OrderBy(member => member.UserId, StringComparer.Ordinal)
                     .Select(member => new GeneratedOnCallShift(member.UserId, DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
                         DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), shift.RestHours))).ToList();
                 model.StaffingWarnings = OnCallScheduleValidator.StaffingWarnings(startUtc, 21, model.ScheduleMinimumStaff, model.Preview, localizerFactory.Create(typeof(OnCallScheduleValidator)));
