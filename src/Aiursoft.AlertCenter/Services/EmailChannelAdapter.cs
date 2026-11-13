@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -98,7 +99,7 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         }
         if (recipients.Count > MaximumRecipients)
         {
-            error = string.Format((localizer is null ? "Each email channel supports up to {0} CC recipients." : localizer["Each email channel supports up to {0} CC recipients."].Value), MaximumRecipients);
+            error = string.Format(CultureInfo.InvariantCulture, (localizer is null ? "Each email channel supports up to {0} CC recipients." : localizer["Each email channel supports up to {0} CC recipients."].Value), MaximumRecipients);
             return false;
         }
         return true;
@@ -177,11 +178,11 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         var incidentEvent = delivery.IncidentEvent;
         var title = incidentEvent?.Type switch
         {
-            IncidentTimelineEntry.LevelChanged => string.Format(localizer["Incident escalated ({0} → {1}): {2}"].Value,
+            IncidentTimelineEntry.LevelChanged => string.Format(CultureInfo.InvariantCulture, localizer["Incident escalated ({0} → {1}): {2}"].Value,
                 incidentEvent.PreviousLevel!.ToUpperInvariant(), incidentEvent.NewLevel!.ToUpperInvariant(), incidentEvent.Incident.Title),
-            IncidentTimelineEntry.Mitigated => string.Format(localizer["Incident mitigated: {0}"].Value, incidentEvent.Incident.Title),
-            IncidentTimelineEntry.Reopened => string.Format(localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title),
-            IncidentTimelineEntry.Resolved => string.Format(localizer["Incident resolved: {0}"].Value, incidentEvent.Incident.Title),
+            IncidentTimelineEntry.Mitigated => string.Format(CultureInfo.InvariantCulture, localizer["Incident mitigated: {0}"].Value, incidentEvent.Incident.Title),
+            IncidentTimelineEntry.Reopened => string.Format(CultureInfo.InvariantCulture, localizer["Incident reopened: {0}"].Value, incidentEvent.Incident.Title),
+            IncidentTimelineEntry.Resolved => string.Format(CultureInfo.InvariantCulture, localizer["Incident resolved: {0}"].Value, incidentEvent.Incident.Title),
             _ => message?.Title ?? localizer["Channel test notification"].Value
         };
         var level = message?.Level ?? incidentEvent?.NewLevel ?? "sev3";
@@ -209,16 +210,16 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
             .AppendLine(Introduction(delivery, localizer))
             .AppendLine();
         if (incident != null)
-            body.AppendLine(string.Format(localizer["Incident ID: {0}"].Value, $"#{incident.ShortId} ({incident.Id})")).AppendLine();
-        body.AppendLine(string.Format(localizer["Title: {0}"].Value, title))
-            .AppendLine(string.Format(localizer["Severity: {0}"].Value, level))
-            .AppendLine(string.Format(localizer["Occurred at (UTC): {0:O}"].Value, (message ?? incidentEvent?.Incident)?.OccurredAtUtc ?? delivery.CreatedAtUtc))
-            .AppendLine(string.Format(localizer["Delivery ID: {0}"].Value, delivery.Id));
+            body.AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["Incident ID: {0}"].Value, $"#{incident.ShortId} ({incident.Id})")).AppendLine();
+        body.AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["Title: {0}"].Value, title))
+            .AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["Severity: {0}"].Value, level))
+            .AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["Occurred at (UTC): {0:O}"].Value, (message ?? incidentEvent?.Incident)?.OccurredAtUtc ?? delivery.CreatedAtUtc))
+            .AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["Delivery ID: {0}"].Value, delivery.Id));
         if (incidentEvent != null)
-            body.AppendLine(string.Format(localizer["Action time (UTC): {0:O}"].Value, incidentEvent.CreatedAtUtc))
-                .AppendLine(string.Format(localizer["Reason: {0}"].Value, incidentEvent.Note ?? localizer["None"].Value));
+            body.AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["Action time (UTC): {0:O}"].Value, incidentEvent.CreatedAtUtc))
+                .AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["Reason: {0}"].Value, incidentEvent.Note ?? localizer["None"].Value));
         if (incidentEvent is { IsEscalation: true })
-            body.AppendLine(string.Format(localizer["Severity increased: {0} → {1}"].Value,
+            body.AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["Severity increased: {0} → {1}"].Value,
                 incidentEvent.PreviousLevel!.ToUpperInvariant(), incidentEvent.NewLevel!.ToUpperInvariant()));
         if (message?.Content is not null) body.AppendLine().AppendLine(localizer["Content: "].Value).AppendLine(message.Content);
         var context = IncidentContextPresentation.ScalarFields((message ?? incidentEvent?.Incident)?.ContextJson);
@@ -229,9 +230,9 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         }
         if (delivery.OnCallEmail is { } snapshot)
         {
-            body.AppendLine().AppendLine(string.Format(localizer["On-call group: {0}"].Value, snapshot.GroupName))
-                .AppendLine(string.Format(localizer["OCE Query Time (UTC): {0:O}"].Value, snapshot.NotificationAtUtc))
-                .AppendLine(string.Format(localizer["On-call time (UTC): {0:O} — {1:O}"].Value, snapshot.StartsAtUtc, snapshot.EndsAtUtc));
+            body.AppendLine().AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["On-call group: {0}"].Value, snapshot.GroupName))
+                .AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["OCE Query Time (UTC): {0:O}"].Value, snapshot.NotificationAtUtc))
+                .AppendLine(string.Format(CultureInfo.InvariantCulture, localizer["On-call time (UTC): {0:O} — {1:O}"].Value, snapshot.StartsAtUtc, snapshot.EndsAtUtc));
         }
         body.AppendLine().AppendLine(localizer["Open in AlertCenter"].Value).AppendLine(url);
         if (incidentId.HasValue)

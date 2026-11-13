@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.Extensions.Localization;
 namespace Aiursoft.AlertCenter.Services;
 
@@ -10,7 +11,7 @@ public static class OnCallScheduleValidator
             .ToDictionary(group => group.Key, group => group.Select(shift => shift.UserId).Distinct().Count());
         return Enumerable.Range(0, count).Select(index => start.AddHours(index * 8))
             .Where(time => counts.GetValueOrDefault(time) < minimumStaff)
-            .Select(time => string.Format((localizer is null ? "Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." : localizer["Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts."].Value), counts.GetValueOrDefault(time), time, minimumStaff))
+            .Select(time => string.Format(CultureInfo.InvariantCulture, (localizer is null ? "Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." : localizer["Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts."].Value), counts.GetValueOrDefault(time), time, minimumStaff))
             .ToList();
     }
 
@@ -28,7 +29,7 @@ public static class OnCallScheduleValidator
         {
             var time = start.AddHours(i * 8);
             if (!slots.TryGetValue(time, out var assigned) || assigned.Count == 0)
-                errors.Add(string.Format((localizer is null ? "Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." : localizer["Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required."].Value), time));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, (localizer is null ? "Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." : localizer["Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required."].Value), time));
         }
         var accepted = existing.ToList();
         foreach (var shift in shifts.OrderBy(shift => shift.StartsAtUtc))
@@ -40,9 +41,9 @@ public static class OnCallScheduleValidator
             }
             if (shift.StartsAtUtc < start || shift.StartsAtUtc >= start.AddHours(count * 8) ||
                 (shift.StartsAtUtc - start).Ticks % TimeSpan.FromHours(8).Ticks != 0 || shift.EndsAtUtc != shift.StartsAtUtc.AddHours(8))
-                errors.Add(string.Format((localizer is null ? "{0}'s shift is outside the designated 8-hour window." : localizer["{0}'s shift is outside the designated 8-hour window."].Value), name));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, (localizer is null ? "{0}'s shift is outside the designated 8-hour window." : localizer["{0}'s shift is outside the designated 8-hour window."].Value), name));
             if (!CanAssign(shift.UserId, shift.StartsAtUtc, shift.EndsAtUtc, restHours, accepted))
-                errors.Add(string.Format((localizer is null ? "{0}'s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." : localizer["{0}'s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)."].Value), name, shift.StartsAtUtc, restHours));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, (localizer is null ? "{0}'s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." : localizer["{0}'s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)."].Value), name, shift.StartsAtUtc, restHours));
             accepted.Add(shift with { RestHours = restHours });
         }
         return errors.Distinct().ToList();

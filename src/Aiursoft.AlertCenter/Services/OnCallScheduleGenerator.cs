@@ -1,3 +1,4 @@
+using System.Globalization;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.Extensions.Localization;
 
@@ -31,7 +32,7 @@ public sealed class OnCallScheduleGenerator (IStringLocalizer<OnCallScheduleGene
         var requiredStaff = Math.Max(3, 1 + (int)Math.Ceiling(rule.RestHours / 8.0));
         var minimumRequiredStaff = requiredStaff * rule.MinimumStaff;
         if (orderedUserIds.Count < minimumRequiredStaff)
-            throw new InvalidOperationException(string.Format(localizer["This rule requires at least {0} staff (shift {1} hours, rest no less than {2} hours)."].Value, minimumRequiredStaff, rule.ShiftHours, rule.RestHours));
+            throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, localizer["This rule requires at least {0} staff (shift {1} hours, rest no less than {2} hours)."].Value, minimumRequiredStaff, rule.ShiftHours, rule.RestHours));
         var duration = TimeSpan.FromHours(rule.ShiftHours);
         if (startUtc < anchorUtc || (startUtc - anchorUtc).Ticks % duration.Ticks != 0)
             throw new ArgumentException(localizer["Preview start must align with the team's shift boundary."].Value);
@@ -68,7 +69,7 @@ public sealed class OnCallScheduleGenerator (IStringLocalizer<OnCallScheduleGene
                 if (++assigned == target) break;
             }
             if (assigned < rule.MinimumStaff)
-                throw new InvalidOperationException(string.Format(localizer["Unable to schedule staff meeting rest requirements at {0:yyyy-MM-dd HH:mm} UTC. Please adjust adjacent shifts or add members."].Value, startsAt));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, localizer["Unable to schedule staff meeting rest requirements at {0:yyyy-MM-dd HH:mm} UTC. Please adjust adjacent shifts or add members."].Value, startsAt));
         }
         return result;
     }

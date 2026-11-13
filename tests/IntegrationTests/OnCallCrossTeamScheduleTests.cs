@@ -74,7 +74,7 @@ public class OnCallCrossTeamScheduleTests : TestBase
         return group.Id;
     }
 
-    private static string ScheduleUrl(Guid id, DateTime start) => $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}";
+    private static string ScheduleUrl(Guid id, DateTime start) => $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}";
 
     private async Task<SaveOnCallScheduleRequest> Draft(Guid id, DateTime start) =>
         (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(ScheduleUrl(id, start)))!;
@@ -175,7 +175,7 @@ public class OnCallCrossTeamScheduleTests : TestBase
         AssertRedirect(await PostForm("/OnCall/UpdateGroup", new()
         {
             ["id"] = otherId.ToString(), ["GroupInput.Name"] = "Secondary team", ["GroupInput.TimeZoneId"] = "UTC",
-            ["GroupInput.AnchorUtc"] = Anchor.ToString("O"), ["GroupInput.Version"] = version.ToString(),
+            ["GroupInput.AnchorUtc"] = Anchor.ToString("O", CultureInfo.InvariantCulture), ["GroupInput.Version"] = version.ToString(),
             ["GroupInput.UserIds[0]"] = userIds[3]
         }, $"/OnCall/GroupEdit/{otherId}"), $"/OnCall/GroupDetails/{otherId}");
 
@@ -257,7 +257,7 @@ public class OnCallCrossTeamScheduleTests : TestBase
         Assert.AreEqual(otherId, departed.GetProperty("otherGroups")[0].GetProperty("id").GetGuid());
         Assert.IsTrue((await Draft(id, start)).Slots.All(slot => slot.UserIds.Count == 0));
 
-        var rawHtml = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
+        var rawHtml = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}");
         var html = WebUtility.HtmlDecode(rawHtml);
         Assert.Contains("id=\"oncall-shared-members\"", html);
         var buttons = Regex.Matches(rawHtml, "<button\\b[^>]*class=\"ac-gantt-shift ac-gantt-external\"[^>]*>")
@@ -279,8 +279,8 @@ public class OnCallCrossTeamScheduleTests : TestBase
         var zone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai");
         foreach (var interval in intervals.Take(3))
         {
-            var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(interval.Start), zone).ToString("yyyy-MM-dd HH:mm zzz");
-            var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(interval.End), zone).ToString("yyyy-MM-dd HH:mm zzz");
+            var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(interval.Start), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
+            var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(interval.End), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
             Assert.IsTrue(buttons.Any(button => button.Contains($"data-start=\"{localStart}\"") && button.Contains($"data-end=\"{localEnd}\"") && button.Contains("Secondary team")));
         }
         var spans = buttons.Select(button => Regex.Match(button, "style=\"left: ([^%;]+)%; width: ([^%;]+)%\""))

@@ -173,7 +173,7 @@ public sealed class MobileApiController(
         {
             Code = Code.ResultShown, Message = "Incident retrieved.", Incident = dto, Activities = activities,
             Page = page, HasNextPage = keys.Count > 20,
-            OriginalOces = original?.Recipients.OrderBy(item => item.DisplayName).Select(item => item.DisplayName).ToList() ?? [],
+            OriginalOces = original?.Recipients.OrderBy(item => item.DisplayName, StringComparer.CurrentCulture).Select(item => item.DisplayName).ToList() ?? [],
             CurrentOces = oce?.Engineers.Select(item => item.DisplayName).ToList() ?? [], CurrentOceError = oce?.Error
         });
     }
