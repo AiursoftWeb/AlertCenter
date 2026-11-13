@@ -56,7 +56,7 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
                 .ToListAsync(cancellationToken);
             model.OriginalOceNames = snapshots.GroupBy(snapshot => snapshot.Delivery.IncidentId!.Value)
                 .ToDictionary(group => group.Key, group => string.Join(", ", group.First().Recipients
-                    .OrderBy(recipient => recipient.DisplayName).ThenBy(recipient => recipient.UserId)
+                    .OrderBy(recipient => recipient.DisplayName, StringComparer.CurrentCulture).ThenBy(recipient => recipient.UserId, StringComparer.Ordinal)
                     .Select(recipient => recipient.DisplayName)));
         }
         model.HasNextPage = incidents.Count > 20;

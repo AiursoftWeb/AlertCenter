@@ -1,3 +1,4 @@
+@using System.Globalization
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 
 <form asp-action="@(Model.SelectedGroupId.HasValue ? "UpdateGroup" : "CreateGroup")" method="post" data-action-feedback id="oncall-group-form" data-search-url="@Url.Action("SearchUsers", "OnCall")">
@@ -106,12 +107,12 @@
                     <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="@Localizer["Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed."].Value" aria-label="@Localizer["Help: scheduling start point"].Value"><i class="align-middle" data-lucide="circle-help" aria-hidden="true"></i></button>
                     @if (Model.GroupHasSavedSchedule)
                     {
-                        <input type="hidden" name="GroupInput.AnchorUtc" value="@Model.GroupInput.AnchorUtc?.ToString("O")" />
-                        <input id="anchor-utc" type="datetime-local" class="form-control" readonly value="@Model.GroupInput.AnchorUtc?.ToString("yyyy-MM-ddTHH:mm")" />
+                        <input type="hidden" name="GroupInput.AnchorUtc" value="@Model.GroupInput.AnchorUtc?.ToString("O", CultureInfo.InvariantCulture)" />
+                        <input id="anchor-utc" type="datetime-local" class="form-control" readonly value="@Model.GroupInput.AnchorUtc?.ToString("yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture)" />
                     }
                     else
                     {
-                        <input id="anchor-utc" name="GroupInput.AnchorUtc" type="datetime-local" class="form-control" required value="@Model.GroupInput.AnchorUtc?.ToString("yyyy-MM-ddTHH:mm")" />
+                        <input id="anchor-utc" name="GroupInput.AnchorUtc" type="datetime-local" class="form-control" required value="@Model.GroupInput.AnchorUtc?.ToString("yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture)" />
                     }
                 </div>
             </div>

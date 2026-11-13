@@ -19,7 +19,7 @@ public class OnCallOceService(TemplateDbContext db, IStringLocalizer<OnCallOceSe
         if (shifts.Count == 0) return new(null, null, null, [], (localizer is null ? "On-call group has no schedule coverage at notification time." : localizer["On-call group has no schedule coverage at notification time."].Value));
         if (shifts.Count > 1) return new(null, null, null, [], (localizer is null ? "On-call group has overlapping shifts at notification time, unable to determine OCE." : localizer["On-call group has overlapping shifts at notification time, unable to determine OCE."].Value));
         var shift = shifts[0];
-        var engineers = shift.Members.OrderBy(member => member.UserId)
+        var engineers = shift.Members.OrderBy(member => member.UserId, StringComparer.Ordinal)
             .Select(member => new OnCallOce(member.UserId, member.User.DisplayName, member.User.Email)).ToList();
         return new(shift.Id, DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
             DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), engineers,

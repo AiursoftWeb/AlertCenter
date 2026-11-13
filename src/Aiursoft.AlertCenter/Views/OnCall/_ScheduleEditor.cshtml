@@ -1,3 +1,4 @@
+@using System.Globalization
 @using System.Text.Json
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @{
@@ -23,8 +24,8 @@
         return new
         {
             startsAtUtc = start,
-            localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(start), zone).ToString("yyyy-MM-dd HH:mm zzz"),
-            localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(start.AddHours(8)), zone).ToString("yyyy-MM-dd HH:mm zzz"),
+            localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(start), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture),
+            localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(start.AddHours(8)), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture),
             userIds = index is >= 21 and < 42
                 ? Model.Preview.Where(shift => shift.StartsAtUtc == start).Select(shift => shift.UserId).ToArray()
                 : Model.AdjacentShifts.Where(shift => shift.StartsAtUtc == start).SelectMany(shift => shift.Members.Select(member => member.UserId)).ToArray()
@@ -34,7 +35,7 @@
 <details id="oncall-adjustments" class="border rounded p-3 mb-3">
 <summary class="fw-semibold">@Localizer["Adjust schedule"]</summary>
 <div id="oncall-schedule" class="my-3" data-group-id="@group.Id" data-group-name="@group.Name" data-version="@group.ScheduleVersion" data-rest-hours="@Model.ScheduleRestHours" data-minimum-staff="@Model.ScheduleMinimumStaff" data-zone="@group.TimeZoneId"
-     data-start="@Model.WeekStartUtc.ToString("O")" data-slots="@JsonSerializer.Serialize(slots)" data-weeks="@JsonSerializer.Serialize(weeks)"
+     data-start="@Model.WeekStartUtc.ToString("O", CultureInfo.InvariantCulture)" data-slots="@JsonSerializer.Serialize(slots)" data-weeks="@JsonSerializer.Serialize(weeks)"
      data-generate-url="@Url.Action("GenerateSchedule")" data-save-url="@Url.Action("SaveSchedule")">
     @Html.AntiForgeryToken()
     <div class="btn-group mb-2" role="group" aria-label="@Localizer["Scheduling Operation Mode"]">
@@ -83,7 +84,7 @@
                 {
                     var local = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc, zone);
                     var localEnd = TimeZoneInfo.ConvertTimeFromUtc(slots[index].startsAtUtc.AddHours(8), zone);
-                    <option value="@index" selected="@(index == 21)">@local.ToString("MM-dd HH:mm") → @localEnd.ToString("MM-dd HH:mm") (@group.TimeZoneId)</option>
+                    <option value="@index" selected="@(index == 21)">@local.ToString("MM-dd HH:mm", CultureInfo.CurrentCulture) → @localEnd.ToString("MM-dd HH:mm", CultureInfo.CurrentCulture) (@group.TimeZoneId)</option>
                 }
             </select>
             <fieldset>

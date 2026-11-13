@@ -1,3 +1,4 @@
+@using System.Globalization
 @using Aiursoft.WebTools
 @using Aiursoft.AlertCenter.Entities
 @using Aiursoft.AlertCenter.Services.FileStorage
@@ -133,7 +134,7 @@
                                     <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
                                         <div class="text-break">
                                             <strong>@comment.AuthorName</strong>
-                                            <time class="text-muted small d-block font-monospace" datetime="@comment.CreatedAtUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")"><span data-utc-time="@comment.CreatedAtUtc.ToHtmlDateTime()"></span></time>
+                                            <time class="text-muted small d-block font-monospace" datetime="@comment.CreatedAtUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ", CultureInfo.InvariantCulture)"><span data-utc-time="@comment.CreatedAtUtc.ToHtmlDateTime()"></span></time>
                                         </div>
                                         @if (!comment.DeletedAtUtc.HasValue && comment.CanDelete)
                                         {
@@ -145,7 +146,7 @@
                                         <div class="incident-comment-tombstone text-muted small">
                                             <p class="mb-1">@Localizer["This comment has been deleted."]</p>
                                             <span class="text-break">@Localizer["Deleted by: "]@(comment.DeletedByName ?? @Localizer["User deleted"].Value)</span>
-                                            <time class="d-block font-monospace" datetime="@comment.DeletedAtUtc.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")"><span data-utc-time="@comment.DeletedAtUtc.Value.ToHtmlDateTime()"></span></time>
+                                            <time class="d-block font-monospace" datetime="@comment.DeletedAtUtc.Value.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ", CultureInfo.InvariantCulture)"><span data-utc-time="@comment.DeletedAtUtc.Value.ToHtmlDateTime()"></span></time>
                                         </div>
                                     }
                                     else

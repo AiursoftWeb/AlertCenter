@@ -1,7 +1,8 @@
+@using System.Globalization
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using Aiursoft.AlertCenter.Models
 @{
-    ViewData["Title"] = string.Format(@Localizer["{0} - Push Routing Settings"].Value, Model.Application!.Name);
+    ViewData["Title"] = string.Format(CultureInfo.CurrentCulture, @Localizer["{0} - Push Routing Settings"].Value, Model.Application!.Name);
     var levels = new[]
     {
         (Field: nameof(ApplicationPushBindingsRequest.Sev0ChannelIds), Level: "sev0", Label: @Localizer["Critical (P0)"].Value, BadgeClass: "ac-badge-sev0", Selected: Model.Bindings.Sev0ChannelIds.ToHashSet()),
@@ -18,7 +19,7 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div class="d-flex align-items-center gap-3">
         <div class="ac-app-avatar" style="width: 44px; height: 44px; font-size: 1.1rem;">
-            @(Model.Application.Name.Length > 0 ? Model.Application.Name[0].ToString().ToUpper() : "A")
+            @(Model.Application.Name.Length > 0 ? Model.Application.Name[0].ToString().ToUpper(CultureInfo.CurrentCulture) : "A")
         </div>
         <div>
             <div class="d-flex align-items-center gap-2">

@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.DataProtection;
 using Aiursoft.AlertCenter.Authorization;
 using Aiursoft.AlertCenter.Controllers;
@@ -25,6 +26,7 @@ public class PrivilegeBoundaryTests
     {
         var services = new ServiceCollection();
         services.AddLogging();
+        services.AddLocalization();
         services.AddSingleton<IDataProtectionProvider>(new EphemeralDataProtectionProvider());
         services.AddDbContext<SqliteContext>(options => options.UseSqlite("DataSource=:memory:"));
         services.AddIdentityCore<User>().AddRoles<IdentityRole>().AddEntityFrameworkStores<SqliteContext>().AddDefaultTokenProviders();
@@ -132,7 +134,7 @@ public class PrivilegeBoundaryTests
         return user;
     }
 
-    private UsersController Users(IdentityRole role, params string[] permissions) => new(_roleManager, _userManager, _db)
+    private UsersController Users(IdentityRole role, params string[] permissions) => new(_roleManager, _userManager, _db, _services.GetRequiredService<IStringLocalizer<AppPermissions>>())
     {
         ControllerContext = ControllerContext(role, permissions)
     };
