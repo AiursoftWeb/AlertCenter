@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>&quot;Tule ja unohda&quot; -tuki pitkäkestoisille tehtäville (kuten sähköposteille tai AI:lle), jossa on käyttöliittymä jonon hallintaan, rinnakkaisprosessointiin ja peruutukseen.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>{0} määritetty yhteensä</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Sisäänrakennettu roolipohjainen käyttöoikeudenhallinta (RBAC) -järjestelmä hienojakoista käyttöoikeuksien hallintaa varten.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Nykyaikainen, ominaisuuksiltaan monipuolinen ja erittäin laajennettavissa oleva perusta seuraavalle verkkosovelluksellesi.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Kuitattu</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Tekoälyn voimaan perustuvat käännökset</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Kuitattu</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenterin hälytys- ja operointikeskus · maailmanlaajuinen tilannekuva ja suljetun palautesilmukan seuranta</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Automaattinen riippuvuuden injektointi</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Automaattinen viestien toimitus ja vianmääritys</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Automaattinen aikavyöhykkeen käsittely</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Automaattinen viestien toimitus ja vianmääritys</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Automaattinen, tekoälyavusteinen käännös 28 kielelle maailmanlaajuista saavutettavuutta varten.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Automaattinen, AI-pohjainen käännös 28 kielelle.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>käytettävissä olevaa kanavaa ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Taustatehtävien käsittely</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Kopioi</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Luo sovellus ja hanki avain</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Luo sovelluksellesi hälytys ja ilmoita siitä määritetyille vastaanottajille.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Luo sovellus</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Luo sovellus ja hanki avain</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>Luo ensimmäinen häiriö API:n tai SDK:n kautta. Se näkyy täällä.</value>
@@ -315,6 +309,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Määritä reititys Sev0–Sev4-tasojen mukaan sovelluksen push-ilmoitusasetuksissa.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP-sähköpostikanava</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Suunnitellun tehtävän hallinta</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Älykäs tumma tila, joka mukautuu automaattisesti käyttäjän järjestelmäasetuksiin.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>SMTP-sähköpostikanava</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Lähde</value>
@@ -401,6 +395,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>Tarvitset hälytysten luontioikeuden käytössä olevaan sovellukseen.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>käytettävissä olevaa kanavaa ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} määritetty yhteensä</value>
   </data>
 
 </root>

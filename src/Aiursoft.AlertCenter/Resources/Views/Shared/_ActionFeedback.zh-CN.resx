@@ -18,11 +18,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
-    <value>· {0} · 相邻周（只读）</value>
-  </data>
-  <data name=" · Departed" xml:space="preserve">
+      <data name=" · Departed" xml:space="preserve">
     <value>· 已离职</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· 休息不足</value>
   </data>
   <data name=" · includes next week" xml:space="preserve">
     <value>· 包含下周</value>
@@ -30,38 +30,8 @@
   <data name=" · includes previous week" xml:space="preserve">
     <value>· 包含前一周</value>
   </data>
-  <data name=" · Insufficient rest" xml:space="preserve">
-    <value>· 休息不足</value>
-  </data>
-  <data name="{0} · {1}" xml:space="preserve">
-    <value>{0} · {1}</value>
-  </data>
-  <data name="{0} · {1} · {2}" xml:space="preserve">
-    <value>{0} · {1} · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0}（只读）</value>
-  </data>
-  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
-    <value>{0}仅有{1}名员工，低于最低要求{2}人。仍可手动保存。</value>
-  </data>
-  <data name="{0} hours" xml:space="preserve">
-    <value>{0} 小时</value>
-  </data>
-  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
-    <value>{0} 个班次（{1} · {2}）尚未保存；你可以撤销此操作。</value>
-  </data>
-  <data name="{0} shifts / {1} hours" xml:space="preserve">
-    <value>{0} 个班次 / {1} 小时</value>
-  </data>
-  <data name="{0}: {1} · {2}" xml:space="preserve">
-    <value>{0}：{1} · {2}</value>
-  </data>
-  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
-    <value>{0}：{2} 和 {3} 之间仅休息了 {1} 小时，最低要求为 {4} 小时。</value>
-  </data>
-  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
-    <value>{0}{1}{2} · 8小时 · {3}{4}</value>
+  <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · 相邻周（只读）</value>
   </data>
   <data name="Action not completed" xml:space="preserve">
     <value>操作未完成</value>
@@ -156,11 +126,11 @@
   <data name="Move / swap shifts" xml:space="preserve">
     <value>移动 / 交换班次</value>
   </data>
-  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
-    <value>移动已取消；排班未变。</value>
-  </data>
   <data name="Move cancelled." xml:space="preserve">
     <value>移动已取消。</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>移动已取消；排班未变。</value>
   </data>
   <data name="Move down" xml:space="preserve">
     <value>下移</value>
@@ -177,9 +147,6 @@
   <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
     <value>网络错误；暂时无法确认操作结果。请先核实状态，再重新提交，以避免重复操作。</value>
   </data>
-  <data name="next" xml:space="preserve">
-    <value>下一个</value>
-  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>没有已分配的班次。</value>
   </data>
@@ -195,20 +162,17 @@
   <data name="No shifts to delete in this cell." xml:space="preserve">
     <value>此单元格中没有可删除的班次。</value>
   </data>
-  <data name="Page {0}" xml:space="preserve">
-    <value>第 {0} 页</value>
-  </data>
   <data name="Page information updated" xml:space="preserve">
     <value>页面信息已更新</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>第 {0} 页</value>
   </data>
   <data name="Please check the CC email format." xml:space="preserve">
     <value>请检查抄送邮箱格式。</value>
   </data>
   <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
     <value>按 Ctrl+C 复制所选键。</value>
-  </data>
-  <data name="previous" xml:space="preserve">
-    <value>上一步</value>
   </data>
   <data name="Previous step undone." xml:space="preserve">
     <value>上一步已撤销。</value>
@@ -228,11 +192,11 @@
   <data name="Remove " xml:space="preserve">
     <value>移除</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>移除 {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>移除权限</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>移除 {0}</value>
   </data>
   <data name="Removed" xml:space="preserve">
     <value>已移除</value>
@@ -261,9 +225,6 @@
   <data name="Select Role" xml:space="preserve">
     <value>选择角色</value>
   </data>
-  <data name="Select up to 200 employees per team." xml:space="preserve">
-    <value>每个团队最多选择 200 名员工。</value>
-  </data>
   <data name="Select User" xml:space="preserve">
     <value>选择用户</value>
   </data>
@@ -273,11 +234,14 @@
   <data name="Select User Group" xml:space="preserve">
     <value>选择用户组</value>
   </data>
-  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
-    <value>已选择 {0} · {1}。拖动到色块上或点击色块进行交换，按空格键移动；按 Esc 取消。</value>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>每个团队最多选择 200 名员工。</value>
   </data>
   <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
     <value>已选择 {0} 个用户；每页最多 20 个。</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>已选择 {0} · {1}。拖动到色块上或点击色块进行交换，按空格键移动；按 Esc 取消。</value>
   </data>
   <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
     <value>已选择 {0} 的整周排班。拖动到另一位工程师上，或点击另一位工程师。</value>
@@ -350,6 +314,42 @@
   </data>
   <data name="You do not have permission to perform this action." xml:space="preserve">
     <value>您没有权限执行此操作。</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>下一个</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>上一步</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0}（只读）</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0}仅有{1}名员工，低于最低要求{2}人。仍可手动保存。</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} 小时</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} 个班次（{1} · {2}）尚未保存；你可以撤销此操作。</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} 个班次 / {1} 小时</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}：{2} 和 {3} 之间仅休息了 {1} 小时，最低要求为 {4} 小时。</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}：{1} · {2}</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8小时 · {3}{4}</value>
   </data>
 
 </root>

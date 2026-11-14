@@ -27,27 +27,6 @@
   <data name=" · On duty" xml:space="preserve">
     <value>· Na służbie</value>
   </data>
-  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
-    <value>{0} · {1} · Przenieś wybrany dyżur tutaj</value>
-  </data>
-  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
-    <value>{0} · {1} · Inny zespół (tylko do odczytu) · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (Tylko do odczytu)</value>
-  </data>
-  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
-    <value>Liczba zmian: {0} / {1:0.##} godz.</value>
-  </data>
-  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
-    <value>Dyżury pod telefonem użytkownika {0}</value>
-  </data>
-  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
-    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} godz. · {5}</value>
-  </data>
-  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
-    <value>{0}{1} · {2} · Sąsiedni tydzień (tylko do odczytu) · {3}</value>
-  </data>
   <data name="36 hours after this week (read-only)" xml:space="preserve">
     <value>36 godzin po tym tygodniu (tylko do odczytu)</value>
   </data>
@@ -80,12 +59,6 @@
   </data>
   <data name="From " xml:space="preserve">
     <value>Od</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>godziny</value>
-  </data>
-  <data name="hours · " xml:space="preserve">
-    <value>godzin ·</value>
   </data>
   <data name="How to read this timeline" xml:space="preserve">
     <value>Jak czytać tę oś czasu</value>
@@ -125,6 +98,33 @@
   </data>
   <data name="Until " xml:space="preserve">
     <value>Do</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>godziny</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>godzin ·</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Tylko do odczytu)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>Liczba zmian: {0} / {1:0.##} godz.</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · Przenieś wybrany dyżur tutaj</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · Inny zespół (tylko do odczytu) · {2}</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>Dyżury pod telefonem użytkownika {0}</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} godz. · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · Sąsiedni tydzień (tylko do odczytu) · {3}</value>
   </data>
 
 </root>

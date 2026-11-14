@@ -18,8 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>{0} applicazioni</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>Gestione chiavi API</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Azioni</value>
@@ -33,14 +33,11 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Modifica le parole chiave di ricerca oppure cancella la ricerca per visualizzare tutte le app.</value>
   </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>Gestione chiavi API</value>
+  <data name="App ID" xml:space="preserve">
+    <value>ID app</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>App collegate</value>
-  </data>
-  <data name="App ID" xml:space="preserve">
-    <value>ID app</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>Informazioni sull&apos;app</value>
@@ -69,14 +66,14 @@
   <data name="Confirm app deletion" xml:space="preserve">
     <value>Conferma eliminazione app</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>Crea un&apos;app aziendale sopra ed emetti una chiave API dedicata.</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>Crea applicazione</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Crea incidente</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Crea un&apos;app aziendale sopra ed emetti una chiave API dedicata.</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Crea una nuova app di integrazione</value>
@@ -176,6 +173,9 @@
   </data>
   <data name="View incidents" xml:space="preserve">
     <value>Visualizza incidenti</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>{0} applicazioni</value>
   </data>
 
 </root>

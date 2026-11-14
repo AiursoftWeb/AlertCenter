@@ -18,11 +18,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
-    <value>· {0} · Minggu berdekatan (hanya-baca)</value>
-  </data>
-  <data name=" · Departed" xml:space="preserve">
+      <data name=" · Departed" xml:space="preserve">
     <value>· Berhenti</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Waktu istirahat tidak mencukupi</value>
   </data>
   <data name=" · includes next week" xml:space="preserve">
     <value>· termasuk minggu depan</value>
@@ -30,38 +30,8 @@
   <data name=" · includes previous week" xml:space="preserve">
     <value>· termasuk minggu sebelumnya</value>
   </data>
-  <data name=" · Insufficient rest" xml:space="preserve">
-    <value>· Waktu istirahat tidak mencukupi</value>
-  </data>
-  <data name="{0} · {1}" xml:space="preserve">
-    <value>{0} · {1}</value>
-  </data>
-  <data name="{0} · {1} · {2}" xml:space="preserve">
-    <value>{0} · {1} · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (Hanya-baca)</value>
-  </data>
-  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
-    <value>{0} hanya memiliki {1} staf, di bawah jumlah minimum {2}. Penyimpanan manual tetap diizinkan.</value>
-  </data>
-  <data name="{0} hours" xml:space="preserve">
-    <value>{0} jam</value>
-  </data>
-  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
-    <value>Perubahan shift {0} untuk {1} · {2}; belum disimpan. Anda dapat membatalkannya.</value>
-  </data>
-  <data name="{0} shifts / {1} hours" xml:space="preserve">
-    <value>{0} shift / {1} jam</value>
-  </data>
-  <data name="{0}: {1} · {2}" xml:space="preserve">
-    <value>{0}: {1} · {2}</value>
-  </data>
-  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
-    <value>{0}: Waktu istirahat antara {2} dan {3} hanya {1} jam. Minimal yang diwajibkan adalah {4} jam.</value>
-  </data>
-  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
-    <value>{0}{1}{2} · 8 jam · {3}{4}</value>
+  <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Minggu berdekatan (hanya-baca)</value>
   </data>
   <data name="Action not completed" xml:space="preserve">
     <value>Tindakan belum selesai</value>
@@ -156,11 +126,11 @@
   <data name="Move / swap shifts" xml:space="preserve">
     <value>Pindahkan / tukar shift</value>
   </data>
-  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
-    <value>Pemindahan dibatalkan; jadwal tidak berubah.</value>
-  </data>
   <data name="Move cancelled." xml:space="preserve">
     <value>Pemindahan dibatalkan.</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Pemindahan dibatalkan; jadwal tidak berubah.</value>
   </data>
   <data name="Move down" xml:space="preserve">
     <value>Pindah ke bawah</value>
@@ -177,9 +147,6 @@
   <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
     <value>Terjadi kesalahan jaringan; hasil operasi belum dapat dipastikan. Harap periksa statusnya sebelum mengirim ulang untuk menghindari duplikasi.</value>
   </data>
-  <data name="next" xml:space="preserve">
-    <value>berikutnya</value>
-  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>Tidak ada shift yang ditugaskan.</value>
   </data>
@@ -195,20 +162,17 @@
   <data name="No shifts to delete in this cell." xml:space="preserve">
     <value>Tidak ada shift yang dapat dihapus di sel ini.</value>
   </data>
-  <data name="Page {0}" xml:space="preserve">
-    <value>Halaman {0}</value>
-  </data>
   <data name="Page information updated" xml:space="preserve">
     <value>Informasi halaman diperbarui</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Halaman {0}</value>
   </data>
   <data name="Please check the CC email format." xml:space="preserve">
     <value>Silakan periksa format email CC.</value>
   </data>
   <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
     <value>Tekan Ctrl+C untuk menyalin kunci yang dipilih.</value>
-  </data>
-  <data name="previous" xml:space="preserve">
-    <value>sebelumnya</value>
   </data>
   <data name="Previous step undone." xml:space="preserve">
     <value>Langkah sebelumnya dibatalkan.</value>
@@ -228,11 +192,11 @@
   <data name="Remove " xml:space="preserve">
     <value>Hapus</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Hapus {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Hapus izin</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Hapus {0}</value>
   </data>
   <data name="Removed" xml:space="preserve">
     <value>Dihapus</value>
@@ -261,9 +225,6 @@
   <data name="Select Role" xml:space="preserve">
     <value>Pilih Peran</value>
   </data>
-  <data name="Select up to 200 employees per team." xml:space="preserve">
-    <value>Pilih hingga 200 karyawan per tim.</value>
-  </data>
   <data name="Select User" xml:space="preserve">
     <value>Pilih Pengguna</value>
   </data>
@@ -273,11 +234,14 @@
   <data name="Select User Group" xml:space="preserve">
     <value>Pilih Grup Pengguna</value>
   </data>
-  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
-    <value>Dipilih {0} · {1}. Seret ke blok warna atau klik blok warna untuk menukar, tekan Space untuk memindahkan; tekan Esc untuk membatalkan.</value>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Pilih hingga 200 karyawan per tim.</value>
   </data>
   <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
     <value>{0} pengguna dipilih; maksimal 20 per halaman.</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Dipilih {0} · {1}. Seret ke blok warna atau klik blok warna untuk menukar, tekan Space untuk memindahkan; tekan Esc untuk membatalkan.</value>
   </data>
   <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
     <value>Jadwal satu minggu penuh {0} dipilih. Seret ke atau klik teknisi lain.</value>
@@ -350,6 +314,42 @@
   </data>
   <data name="You do not have permission to perform this action." xml:space="preserve">
     <value>Anda tidak memiliki izin untuk melakukan tindakan ini.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>berikutnya</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>sebelumnya</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Hanya-baca)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} hanya memiliki {1} staf, di bawah jumlah minimum {2}. Penyimpanan manual tetap diizinkan.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} jam</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>Perubahan shift {0} untuk {1} · {2}; belum disimpan. Anda dapat membatalkannya.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} shift / {1} jam</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Waktu istirahat antara {2} dan {3} hanya {1} jam. Minimal yang diwajibkan adalah {4} jam.</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 jam · {3}{4}</value>
   </data>
 
 </root>

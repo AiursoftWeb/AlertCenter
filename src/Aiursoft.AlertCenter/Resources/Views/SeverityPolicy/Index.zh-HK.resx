@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>應用程式內</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>可以儲存 SMS 政策，但尚未安裝 SMS 傳送渠道。選取 SMS 並不會傳送文字訊息。</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>儲存政策</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>「在清單中顯示」會控制預設事故清單、儀表板及應用程式中的數量。明確指定嚴重程度的篩選條件仍可找到隱藏的事故。系統一律會強制執行存取權限。</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>可以儲存 SMS 政策，但尚未安裝 SMS 傳送渠道。選取 SMS 並不會傳送文字訊息。</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>這是全域通知上限。應用程式亦必須啟用通知渠道，並訂閱相關嚴重程度。值班電郵通知會使用「電郵」欄。</value>

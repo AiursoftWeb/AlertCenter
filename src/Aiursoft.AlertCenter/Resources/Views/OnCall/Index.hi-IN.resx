@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>संपादित करें</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>घंटे</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>एकाधिक टीमों द्वारा साझा किए जाने वाले नियम टेम्पलेट प्रबंधित करें। किसी टेम्पलेट में बदलाव करने से पहले से सहेजी गई शिफ़्ट फिर से नहीं बनतीं।</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>केवल वे टेम्पलेट हटाए जा सकते हैं जो किसी टीम से जुड़े नहीं हैं। टीमों की सहेजी गई शिफ़्ट और हिस्ट्री नहीं हटाई जाएँगी; हटाए गए टेम्पलेट वापस नहीं लाए जा सकते।</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>लोग</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>लोग · लक्ष्य</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>कृपया पहले सभी टीमों से टेम्पलेट का बंधन हटाएँ।</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>नियम देखें</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>घंटे</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>लोग</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>लोग · लक्ष्य</value>
   </data>
 
 </root>

@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>{0} przypomnienia o obsadzie · można zapisać grafik poniżej minimum</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>{0} nieprzypisane dyżury · wypełnij dyżur</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7-dniowy harmonogram dyżurów</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>Pierwsza zmiana o</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>godzin</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>godz. · Punkt odniesienia</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>godz. · min. na zmianę</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>godzin · Min. tygodniowo</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>godzin.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>Ostrzeżenie o niewystarczającej obsadzie (zapis ręczny dozwolony, z wyjątkiem pustych zmian)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>Uczestniczący pracownicy</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>osób · Najkrótszy odpoczynek w tym tygodniu</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>osób · Rotacja przedziałów czasowych:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>osoby, cel</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>Na zmianę</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Wkrótce się rozpocznie</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>Status zależy od czasu wczytania strony.</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Stan jest określany na podstawie czasu wczytania strony)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Status zależy od czasu wczytania strony.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>Zaproponowane lub ręczne przydziały nie są aktywne, dopóki nie zostaną zapisane.</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>Wyświetlasz niezapisany projekt. Powiadomienia nadal są wysyłane zgodnie z zapisanym harmonogramem.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>godzin</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>godz. · Punkt odniesienia</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>godz. · min. na zmianę</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>godzin · Min. tygodniowo</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>godzin.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>osób · Najkrótszy odpoczynek w tym tygodniu</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>osób · Rotacja przedziałów czasowych:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>osoby, cel</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} przypomnienia o obsadzie · można zapisać grafik poniżej minimum</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} nieprzypisane dyżury · wypełnij dyżur</value>
   </data>
 
 </root>

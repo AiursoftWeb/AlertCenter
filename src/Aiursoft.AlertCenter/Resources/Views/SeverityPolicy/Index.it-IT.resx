@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>Nell’app</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>È possibile salvare la policy SMS, ma non è installato alcun canale di invio SMS. Selezionare SMS non invia messaggi di testo.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Salva criterio</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Mostra negli elenchi determina l’elenco predefinito degli incidenti, i conteggi nella dashboard e quelli delle applicazioni. I filtri espliciti per gravità possono comunque trovare gli incidenti nascosti. Le autorizzazioni di accesso vengono sempre applicate.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>È possibile salvare la policy SMS, ma non è installato alcun canale di invio SMS. Selezionare SMS non invia messaggi di testo.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Questo è il limite massimo globale delle notifiche. Un&apos;applicazione deve anche avere un canale abilitato e essere iscritta al livello di gravità. Le email di reperibilità utilizzano la colonna Email.</value>

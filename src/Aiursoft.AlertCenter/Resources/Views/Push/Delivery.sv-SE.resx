@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Skapad den</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Leverans slutförd med framgång</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Leveransinnehåll</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Leveransdetaljer</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Leveransdetaljer - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Leverans misslyckades</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Leverans misslyckades permanent</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>Leverans-ID</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>Leverans-ID:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Leverans slutförd med framgång</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Leveransdetaljer - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Leverans misslyckades permanent</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Leveransuppgift skapad</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Den här aviseringen har undertryckts av allvarlighetsgradspolicyn och kommer inte att skickas.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>gånger</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Totala försök:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Visa återöppnad händelse</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>gånger</value>
   </data>
 
 </root>

@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Редактировать</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>часов</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Управляйте шаблонами правил, используемыми несколькими командами. Изменение шаблона не приводит к повторной генерации сохранённых смен.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Можно удалять только шаблоны, не привязанные к командам. Сохранённые смены и история команд не удаляются; удалённые шаблоны нельзя восстановить.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>чел.</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>чел. · Цель</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Сначала отвяжите шаблон от всех команд.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Просмотреть правила</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>часов</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>чел.</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>чел. · Цель</value>
   </data>
 
 </root>

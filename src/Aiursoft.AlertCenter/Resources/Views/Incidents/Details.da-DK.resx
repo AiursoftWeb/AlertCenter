@@ -66,11 +66,11 @@
   <data name="Confirmation note (optional)" xml:space="preserve">
     <value>Bekræftelsesnote (valgfrit)</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>Kopiér indhold</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>Kopiér JSON</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Kopiér indhold</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>Aktuel OCE på vagt</value>
@@ -102,20 +102,20 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>Jeg bekræfter, at denne hændelse er fuldt ud løst og ikke vil gentage sig.</value>
   </data>
-  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
-    <value>Incident-e-mails bruger dette originale OCE-snapshot, selv efter at vagtskiftet er ændret. Bekræftelse tildeler incident-ejer; det ændrer ikke e-mailmodtagere.</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Hændelses-id</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Incidentkriseledelse - {0}</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Incident-e-mails bruger dette originale OCE-snapshot, selv efter at vagtskiftet er ændret. Bekræftelse tildeler incident-ejer; det ændrer ikke e-mailmodtagere.</value>
   </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>Incident-ejer:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>Incidenttitel</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>Incidentkriseledelse - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>Uafhængige hændelser</value>
@@ -150,11 +150,11 @@
   <data name="Not acknowledged" xml:space="preserve">
     <value>Ikke kvitteret</value>
   </data>
-  <data name="Occurred at" xml:space="preserve">
-    <value>Skete</value>
-  </data>
   <data name="OCE at incident occurrence" xml:space="preserve">
     <value>OCE ved hændelsens opståen</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Skete</value>
   </data>
   <data name="Permanently Delete" xml:space="preserve">
     <value>Slet permanent</value>
@@ -210,6 +210,15 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>Beskrivelse af responsmekanisme</value>
   </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Dette sletter hændelsen og dens historik permanent. Indtast den nøjagtige titel for at bekræfte.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Ikke tildelt</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Udholdt</value>
+  </data>
   <data name="sev0 · Critical (P0)" xml:space="preserve">
     <value>sev0 · Kritisk (P0)</value>
   </data>
@@ -224,15 +233,6 @@
   </data>
   <data name="sev4 · Info (P4)" xml:space="preserve">
     <value>sev4 · Info (P4)</value>
-  </data>
-  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
-    <value>Dette sletter hændelsen og dens historik permanent. Indtast den nøjagtige titel for at bekræfte.</value>
-  </data>
-  <data name="Unassigned" xml:space="preserve">
-    <value>Ikke tildelt</value>
-  </data>
-  <data name="Unmitigated" xml:space="preserve">
-    <value>Udholdt</value>
   </data>
 
 </root>

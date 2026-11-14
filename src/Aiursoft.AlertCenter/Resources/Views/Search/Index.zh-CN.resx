@@ -18,10 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} matching incidents you can access" xml:space="preserve">
-    <value>您可访问的事件中有 {0} 个匹配结果</value>
-  </data>
-  <data name="Enter up to 200 characters to search incidents." xml:space="preserve">
+      <data name="Enter up to 200 characters to search incidents." xml:space="preserve">
     <value>输入不超过 200 个字符以搜索事件。</value>
   </data>
   <data name="Incident search" xml:space="preserve">
@@ -86,6 +83,9 @@
   </data>
   <data name="Unmitigated" xml:space="preserve">
     <value>未缓解</value>
+  </data>
+  <data name="{0} matching incidents you can access" xml:space="preserve">
+    <value>您可访问的事件中有 {0} 个匹配结果</value>
   </data>
 
 </root>

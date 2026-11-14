@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Supporto &quot;fire-and-forget&quot; per attività a lungo termine (come email o IA), con interfaccia grafica per la gestione della coda, elaborazione parallela e annullamento.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>{0} assegnati in totale</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Un sistema RBAC (Role-Based Access Control) integrato per la gestione granulare delle autorizzazioni.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Una base moderna, ricca di funzionalità e altamente estensibile per la tua prossima applicazione web.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Preso in carico</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Traduzioni Basate sull&apos;Intelligenza Artificiale</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Preso in carico</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter Centro di allertamento e operazioni · Stato globale e tracciamento a ciclo chiuso</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Iniezione Automatica delle Dipendenze</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Consegna automatica dei messaggi e risoluzione dei problemi</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Gestione automatica dell&apos;ora locale</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Consegna automatica dei messaggi e risoluzione dei problemi</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Traduzione automatica basata su intelligenza artificiale in 28 lingue per una portata globale.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Traduzione automatica, guidata dall&apos;IA, in 28 lingue.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>canali disponibili ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Elaborazione dei processi in background</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Copia</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Crea l&apos;applicazione e ottieni la chiave</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Crea un alert per la tua applicazione e notifica i destinatari configurati.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Crea un’applicazione</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Crea l&apos;applicazione e ottieni la chiave</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>Crea il primo incidente tramite l’API o l’SDK. Apparirà qui.</value>
@@ -315,6 +309,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Instrada in base a Sev0-Sev4 nelle impostazioni di notifica push dell&apos;app.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Canale Email SMTP</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Gestione dei compiti pianificati</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Modalità scura intelligente che si adatta automaticamente alle impostazioni di sistema dell&apos;utente.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>Canale Email SMTP</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Origine</value>
@@ -401,6 +395,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>È necessario avere accesso create-alert a un&apos;applicazione abilitata.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>canali disponibili ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} assegnati in totale</value>
   </data>
 
 </root>

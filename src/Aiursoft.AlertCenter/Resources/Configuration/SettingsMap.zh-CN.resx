@@ -78,6 +78,12 @@
   <data name="Project Name" xml:space="preserve">
     <value>项目名称</value>
   </data>
+  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
+    <value>中国大陆用户使用的 ICP 备案号。留空以隐藏。</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>用于生成事件及查询嵌入（向量搜索）的 Ollama API 基础地址。仅使用主机地址，自动追加 /api/embed。例如 https://ollama.example.com</value>
+  </data>
   <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
     <value>用于嵌入 Ollama 实例身份验证的 Bearer 令牌，例如 5a0fbdefa19f....</value>
   </data>
@@ -87,17 +93,11 @@
   <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
     <value>嵌入模型名称，例如 bge-m3:latest。必须在嵌入 Ollama 实例中可用。仅用于向量搜索。</value>
   </data>
-  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
-    <value>中国大陆用户使用的 ICP 备案号。留空以隐藏。</value>
-  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>项目在导航栏和页脚中显示的logo。支持jpg、png、svg格式。</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>项目在前端显示的名称。</value>
-  </data>
-  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
-    <value>用于生成事件及查询嵌入（向量搜索）的 Ollama API 基础地址。仅使用主机地址，自动追加 /api/embed。例如 https://ollama.example.com</value>
   </data>
 
 </root>

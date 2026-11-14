@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="· Disabled, not dispatching" xml:space="preserve">
-    <value>· 已停用，不會派送</value>
-  </data>
-  <data name="{0} - Push Routing Settings" xml:space="preserve">
-    <value>{0} - 推送路由設定</value>
-  </data>
-  <data name="Application Push Routing" xml:space="preserve">
+      <data name="Application Push Routing" xml:space="preserve">
     <value>應用程式推送路由</value>
   </data>
   <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
@@ -35,9 +29,6 @@
   </data>
   <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
     <value>自動啟用 · 不能單獨停用</value>
-  </data>
-  <data name="available channels" xml:space="preserve">
-    <value>可用通道</value>
   </data>
   <data name="Back to Connected Apps" xml:space="preserve">
     <value>返回已連接的應用程式</value>
@@ -107,6 +98,15 @@
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>你可按需要建立 Webhook、電郵或應用程式內通知渠道作補充。與值班群組綁定的應用程式，即使沒有自訂渠道，也會發送內置值班電郵。</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>可用通道</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - 推送路由設定</value>
+  </data>
+  <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· 已停用，不會派送</value>
   </data>
 
 </root>

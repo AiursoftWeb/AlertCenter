@@ -21,14 +21,14 @@
       <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, dapat digunakan di sisi penerima dengan</value>
   </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Pilih jenis kanal</value>
+  </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: Mendukung penautan beberapa pengguna dan grup pengguna (peran) sekaligus. Sistem secara otomatis menghapus duplikasi sehingga setiap anggota hanya menerima satu notifikasi yang belum dibaca.</value>
   </data>
   <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
     <value>: Sistem menggunakan konfigurasi layanan Email global secara seragam. Silakan gunakan</value>
-  </data>
-  <data name="1. Select channel type" xml:space="preserve">
-    <value>1. Pilih jenis kanal</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Tambah</value>
@@ -51,9 +51,6 @@
   <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
     <value>Permintaan Kustom Lanjutan (Header dan Templat Kustom)</value>
   </data>
-  <data name="and" xml:space="preserve">
-    <value>dan</value>
-  </data>
   <data name="Application Binding Authorization" xml:space="preserve">
     <value>Otorisasi Pengikatan Aplikasi</value>
   </data>
@@ -72,14 +69,14 @@
   <data name="Batch enter CC emails" xml:space="preserve">
     <value>Masukkan email CC sekaligus</value>
   </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Daftar CC</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Batal</value>
   </data>
   <data name="Cannot overwrite." xml:space="preserve">
     <value>Tidak dapat ditimpa.</value>
-  </data>
-  <data name="CC List" xml:space="preserve">
-    <value>Daftar CC</value>
   </data>
   <data name="Channel name" xml:space="preserve">
     <value>Nama kanal</value>
@@ -156,20 +153,20 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>Placeholder harus menjadi satu-satunya nilai dalam string JSON.</value>
   </data>
-  <data name="Recipient email" xml:space="preserve">
-    <value>Email penerima</value>
-  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>Jenis Penerima</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Email penerima</value>
   </data>
   <data name="Remove " xml:space="preserve">
     <value>Hapus</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Hapus {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Hapus izin</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Hapus {0}</value>
   </data>
   <data name="Request Body Template (JSON Template)" xml:space="preserve">
     <value>Templat Isi Permintaan (Templat JSON)</value>
@@ -180,17 +177,17 @@
   <data name="Save channel configuration" xml:space="preserve">
     <value>Simpan konfigurasi kanal</value>
   </data>
-  <data name="Search by username or display name..." xml:space="preserve">
-    <value>Cari berdasarkan nama pengguna atau nama tampilan...</value>
-  </data>
   <data name="Search Users" xml:space="preserve">
     <value>Cari Pengguna</value>
   </data>
-  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
-    <value>Pilih jenis kanal notifikasi dan konfigurasikan alamat penerima atau penerima yang dituju.</value>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Cari berdasarkan nama pengguna atau nama tampilan...</value>
   </data>
   <data name="Select User Group" xml:space="preserve">
     <value>Pilih Grup Pengguna</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Pilih jenis kanal notifikasi dan konfigurasikan alamat penerima atau penerima yang dituju.</value>
   </data>
   <data name="Select user group..." xml:space="preserve">
     <value>Pilih grup pengguna...</value>
@@ -222,17 +219,20 @@
   <data name="User Group" xml:space="preserve">
     <value>Grup Pengguna</value>
   </data>
-  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
-    <value>Grup Pengguna · Anggota secara otomatis mewarisi izin yang diberikan</value>
-  </data>
   <data name="User Group (Role)" xml:space="preserve">
     <value>Grup Pengguna (Peran)</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Grup Pengguna · Anggota secara otomatis mewarisi izin yang diberikan</value>
   </data>
   <data name="Webhook Receiver URL" xml:space="preserve">
     <value>URL Penerima Webhook</value>
   </data>
   <data name="Will parse and preserve the original object types." xml:space="preserve">
     <value>Akan mengurai dan mempertahankan tipe objek aslinya.</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>dan</value>
   </data>
 
 </root>

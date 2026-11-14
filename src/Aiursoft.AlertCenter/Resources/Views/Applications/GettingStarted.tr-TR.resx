@@ -18,19 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: API anahtarı, başarıyla oluşturulduktan sonra yalnızca bir kez görüntülenir. Lütfen bunu hemen üretim ortamı değişkenlerinde (ör.</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. İtiş zamanlaması asenkron olarak tetiklendi.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. İlk kaydı koruyun ve mükerrer itme işlemlerini tetiklemeyin.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. Merkez, bu alanı bildirim ve dağıtım ağ gecikmesini tahmin etmek için kullanabilir.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(Kritik, en yüksek öncelik),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -48,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) veya Anahtar Yönetimi Hizmeti (KMS). Ön yüz koduna, günlük kayıtlarına veya kod depolarına sabit kod olarak eklenmesi kesinlikle yasaktır.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. İtiş zamanlaması asenkron olarak tetiklendi.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. İlk kaydı koruyun ve mükerrer itme işlemlerini tetiklemeyin.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Merkez, bu alanı bildirim ve dağıtım ağ gecikmesini tahmin etmek için kullanabilir.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1-200 karakter</value>
   </data>
@@ -59,6 +56,9 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 Kimlik doğrulama başarısız</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API anahtarı, başarıyla oluşturulduktan sonra yalnızca bir kez görüntülenir. Lütfen bunu hemen üretim ortamı değişkenlerinde (ör.</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>Gerçekleştiği gerçek zaman, ör.</value>
@@ -138,9 +138,6 @@
   <data name="Optional" xml:space="preserve">
     <value>İsteğe bağlı</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>veya ortam değişkenlerini içermesi önerilir; bu, ayrıntı sayfasında tek tıkla konum belirleme ve sorun giderme işlemlerini kolaylaştırır.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>Doğrudan test göndermek için önceki adımda oluşturulan uygulama anahtarıyla değiştirin.</value>
   </data>
@@ -168,11 +165,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>Yapılandırılmış iş bağlamı. Şunları dahil etmeniz önerilir</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>İstemcinin küresel olarak benzersiz rapor kimliği. Merkez, bu kimliği kullanır</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDK her raporu yalnızca bir kez gönderir. Bir ağ hatası sonucu belirsiz bırakırsa aynı isteği aynı ReportId ve gerçekleşme zamanıyla yeniden deneyin.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>İstemcinin küresel olarak benzersiz rapor kimliği. Merkez, bu kimliği kullanır</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Tür</value>
@@ -182,6 +179,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>Zaman dilimi ofseti veya Z tanımlayıcısı ile</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>veya ortam değişkenlerini içermesi önerilir; bu, ayrıntı sayfasında tek tıkla konum belirleme ve sorun giderme işlemlerini kolaylaştırır.</value>
   </data>
 
 </root>

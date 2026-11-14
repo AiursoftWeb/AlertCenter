@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>수정</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>시간</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>여러 팀이 공유하는 규칙 템플릿을 관리합니다. 템플릿을 수정해도 저장된 교대 일정은 다시 생성되지 않습니다.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>팀에 연결되지 않은 템플릿만 삭제할 수 있습니다. 팀의 저장된 근무 일정과 이력은 삭제되지 않으며, 삭제한 템플릿은 복구할 수 없습니다.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>명</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>명 · 목표</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>먼저 모든 팀에서 템플릿 연결을 해제해 주세요.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>규칙 보기</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>명</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>명 · 목표</value>
   </data>
 
 </root>

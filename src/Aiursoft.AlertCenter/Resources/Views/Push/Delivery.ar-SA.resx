@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>وقت الإنشاء</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>تم التسليم بنجاح</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>محتوى التسليم</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>تفاصيل التسليم</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>تفاصيل التسليم - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>فشل التسليم</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>تعذّر التسليم نهائيًا</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>معرّف التسليم</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>معرّف التسليم:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>تم التسليم بنجاح</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>تفاصيل التسليم - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>تعذّر التسليم نهائيًا</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>تم إنشاء مهمة التوصيل</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>تم حجب هذا الإشعار وفقًا لسياسة مستوى الخطورة، ولن يتم إرساله.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>مرات</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>إجمالي المحاولات:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>عرض الحادث المعاد فتحه</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>مرات</value>
   </data>
 
 </root>

@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>{0} nhắc nhở về nhân sự · vẫn có thể lưu khi chưa đạt mức tối thiểu</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>{0} ca trực chưa được phân công · điền một ca trực</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>Lịch trực 7 ngày</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>Suất trực đầu tiên lúc</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>giờ</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>giờ · Mốc thời gian</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>giờ · Số nhân viên tối thiểu mỗi ca</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>giờ · Tối thiểu mỗi tuần</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>giờ.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>Cảnh báo thiếu nhân sự (được phép lưu thủ công, trừ ca trống)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>Nhân viên tham gia</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>người · Thời gian nghỉ tối thiểu trong tuần này</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>người · Luân phiên khung giờ:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>người, mục tiêu</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>Mỗi ca</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Sắp bắt đầu</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>Trạng thái được xác định dựa trên thời điểm tải trang.</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Trạng thái được xác định dựa trên thời điểm tải trang)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Trạng thái được xác định dựa trên thời điểm tải trang.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>Các phân công được đề xuất hoặc phân công thủ công sẽ chưa có hiệu lực cho đến khi được lưu.</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>Bạn đang xem bản nháp chưa được lưu. Thông báo vẫn tuân theo lịch đã lưu.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>giờ</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>giờ · Mốc thời gian</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>giờ · Số nhân viên tối thiểu mỗi ca</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>giờ · Tối thiểu mỗi tuần</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>giờ.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>người · Thời gian nghỉ tối thiểu trong tuần này</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>người · Luân phiên khung giờ:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>người, mục tiêu</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} nhắc nhở về nhân sự · vẫn có thể lưu khi chưa đạt mức tối thiểu</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} ca trực chưa được phân công · điền một ca trực</value>
   </data>
 
 </root>

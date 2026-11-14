@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>人員配置に関する注意事項：{0}件 · 最低人数を下回っていても保存できます</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>未割り当てのシフト {0} 件 · シフトを割り当てる</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7日間のオンコールスケジュール</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>最初の担当開始時刻：</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>時間</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>時間 · 基準時刻</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>時間 · シフトの最小人数</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>時間・週間最低人数</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>時間。</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>スタッフ不足の警告（空のシフトを除き、手動保存が可能）</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>参加従業員数</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>人 · 今週の最短休息時間</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>人 · 時間帯のローテーション：</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>人、目標人数</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>シフトあたり</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>まもなく開始</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>ステータスはページの読み込み時点に基づいています。</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>ステータスはページの読み込み時点に基づきます)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>ステータスはページの読み込み時点に基づいています。</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>提案または手動で割り当てた内容は、保存するまで有効になりません。</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>未保存の下書きを表示しています。通知は引き続き保存済みのスケジュールに従います。</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>時間 · 基準時刻</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>時間 · シフトの最小人数</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>時間・週間最低人数</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>時間。</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>人 · 今週の最短休息時間</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>人 · 時間帯のローテーション：</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>人、目標人数</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>人員配置に関する注意事項：{0}件 · 最低人数を下回っていても保存できます</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>未割り当てのシフト {0} 件 · シフトを割り当てる</value>
   </data>
 
 </root>

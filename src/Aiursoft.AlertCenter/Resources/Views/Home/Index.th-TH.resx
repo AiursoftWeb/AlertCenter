@@ -42,6 +42,15 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>พื้นฐานที่ทันสมัย อุดมไปด้วยคุณสมบัติ และสามารถขยายได้สูงสำหรับเว็บแอปพลิเคชันถัดไปของคุณ</value>
   </data>
+  <data name="AI Driven Translation" xml:space="preserve">
+    <value>การแปลที่ขับเคลื่อนด้วย AI</value>
+  </data>
+  <data name="AI Readable" xml:space="preserve">
+    <value>AI อ่านได้</value>
+  </data>
+  <data name="AI-Powered Translations" xml:space="preserve">
+    <value>การแปลด้วยพลัง AI</value>
+  </data>
   <data name="Achieve more with Aiursoft Template" xml:space="preserve">
     <value>บรรลุผลได้มากขึ้นด้วย Aiursoft Template</value>
   </data>
@@ -53,15 +62,6 @@
   </data>
   <data name="Admin site included" xml:space="preserve">
     <value>รวมเว็บไซต์ผู้ดูแลระบบ</value>
-  </data>
-  <data name="AI Driven Translation" xml:space="preserve">
-    <value>การแปลที่ขับเคลื่อนด้วย AI</value>
-  </data>
-  <data name="AI Readable" xml:space="preserve">
-    <value>AI อ่านได้</value>
-  </data>
-  <data name="AI-Powered Translations" xml:space="preserve">
-    <value>การแปลด้วยพลัง AI</value>
   </data>
   <data name="Aiursoft Template" xml:space="preserve">
     <value>Aiursoft Template</value>
@@ -90,11 +90,11 @@
   <data name="Authentik &amp; Okta" xml:space="preserve">
     <value>Authentik &amp; Okta</value>
   </data>
-  <data name="Auto compression and privacy" xml:space="preserve">
-    <value>การบีบอัดอัตโนมัติและความเป็นส่วนตัว</value>
-  </data>
   <data name="Auto Deployment" xml:space="preserve">
     <value>การติดตั้งอัตโนมัติ</value>
+  </data>
+  <data name="Auto compression and privacy" xml:space="preserve">
+    <value>การบีบอัดอัตโนมัติและความเป็นส่วนตัว</value>
   </data>
   <data name="Automatic AI translation into 28 languages." xml:space="preserve">
     <value>การแปลอัตโนมัติด้วยปัญญาประดิษฐ์เป็นภาษา 28 ภาษา</value>
@@ -156,17 +156,11 @@
   <data name="Built-in" xml:space="preserve">
     <value>ในตัว</value>
   </data>
-  <data name="Built-in administration panel" xml:space="preserve">
-    <value>แผงควบคุมการบริหารในตัว</value>
-  </data>
   <data name="Built-in Auth" xml:space="preserve">
     <value>ระบบผู้ใช้ภายใน</value>
   </data>
   <data name="Built-in Job Queue GUI" xml:space="preserve">
     <value>GUI แถวคิวงานในตัว</value>
-  </data>
-  <data name="Built-in method-level security" xml:space="preserve">
-    <value>ความปลอดภัยระดับเมธอดในตัว</value>
   </data>
   <data name="Built-in OAuth2/OIDC client support" xml:space="preserve">
     <value>การรองรับไคลเอนต์ OAuth2/OIDC ในตัว</value>
@@ -180,14 +174,20 @@
   <data name="Built-in Roslyn Analyzers" xml:space="preserve">
     <value>ตัววิเคราะห์ Roslyn ในตัว</value>
   </data>
+  <data name="Built-in User Management" xml:space="preserve">
+    <value>การจัดการผู้ใช้ในตัว</value>
+  </data>
+  <data name="Built-in administration panel" xml:space="preserve">
+    <value>แผงควบคุมการบริหารในตัว</value>
+  </data>
+  <data name="Built-in method-level security" xml:space="preserve">
+    <value>ความปลอดภัยระดับเมธอดในตัว</value>
+  </data>
   <data name="Built-in timezone configuration" xml:space="preserve">
     <value>การกำหนดค่าเขตเวลาแบบในตัว</value>
   </data>
   <data name="Built-in timezone support with USE_TZ" xml:space="preserve">
     <value>รองรับโซนเวลาในตัวพร้อม USE_TZ</value>
-  </data>
-  <data name="Built-in User Management" xml:space="preserve">
-    <value>การจัดการผู้ใช้ในตัว</value>
   </data>
   <data name="Centrally manage sources, incident levels, notification channels, and delivery results so service anomalies are not buried in logs." xml:space="preserve">
     <value>จัดการแหล่งที่มา ระดับเหตุการณ์ ช่องทางแจ้งเตือน และผลการจัดส่งแบบรวมศูนย์ เพื่อให้ความผิดปกติของบริการไม่ถูกซ่อนอยู่ในบันทึก</value>
@@ -216,11 +216,11 @@
   <data name="Concise Docs" xml:space="preserve">
     <value>เอกสารกระชับ</value>
   </data>
-  <data name="Configure independent push channels for sev0 to sev4 to ensure the most urgent issues receive the highest priority response." xml:space="preserve">
-    <value>กำหนดค่าช่องทางแจ้งเตือนอิสระสำหรับระดับความรุนแรง sev0 ถึง sev4 เพื่อให้ปัญหาที่เร่งด่วนที่สุดได้รับการตอบสนองอย่างเร่งด่วนที่สุด</value>
-  </data>
   <data name="Configure Push Channel" xml:space="preserve">
     <value>กำหนดค่าช่องทาง Push</value>
+  </data>
+  <data name="Configure independent push channels for sev0 to sev4 to ensure the most urgent issues receive the highest priority response." xml:space="preserve">
+    <value>กำหนดค่าช่องทางแจ้งเตือนอิสระสำหรับระดับความรุนแรง sev0 ถึง sev4 เพื่อให้ปัญหาที่เร่งด่วนที่สุดได้รับการตอบสนองอย่างเร่งด่วนที่สุด</value>
   </data>
   <data name="Consistency Validation" xml:space="preserve">
     <value>การตรวจสอบความสอดคล้อง</value>
@@ -234,14 +234,14 @@
   <data name="Coverage Report" xml:space="preserve">
     <value>รายงานการครอบคลุม</value>
   </data>
+  <data name="Create Integration App" xml:space="preserve">
+    <value>สร้างแอปพลิเคชันการเชื่อมต่อ</value>
+  </data>
   <data name="Create and handle incidents" xml:space="preserve">
     <value>สร้างและจัดการเหตุการณ์</value>
   </data>
   <data name="Create independent API Keys for each business application to report structured incidents and context via standard HTTP APIs." xml:space="preserve">
     <value>สร้าง API Key แยกสำหรับแต่ละแอปพลิเคชันทางธุรกิจ เพื่อรายงานเหตุการณ์และบริบทในรูปแบบที่มีโครงสร้างผ่าน HTTP API มาตรฐาน</value>
-  </data>
-  <data name="Create Integration App" xml:space="preserve">
-    <value>สร้างแอปพลิเคชันการเชื่อมต่อ</value>
   </data>
   <data name="Create your first integration app, send your first incident, and establish your reliable notification loop." xml:space="preserve">
     <value>สร้างแอปสำหรับเชื่อมต่อแอปแรกของคุณ ส่งเหตุการณ์ขัดข้องครั้งแรก และสร้างวงจรการแจ้งเตือนที่เชื่อถือได้</value>
@@ -261,14 +261,14 @@
   <data name="Custom development required" xml:space="preserve">
     <value>ต้องพัฒนาเพิ่มเติมเอง</value>
   </data>
+  <data name="Dashboard Website" xml:space="preserve">
+    <value>เว็บไซต์แดชบอร์ด</value>
+  </data>
   <data name="Dashboard for background and scheduled tasks" xml:space="preserve">
     <value>แดชบอร์ดสำหรับงานพื้นหลังและงานตามกำหนดเวลา</value>
   </data>
   <data name="Dashboard for background tasks" xml:space="preserve">
     <value>แดชบอร์ดสำหรับงานพื้นหลัง</value>
-  </data>
-  <data name="Dashboard Website" xml:space="preserve">
-    <value>เว็บไซต์แดชบอร์ด</value>
   </data>
   <data name="Database backup completed" xml:space="preserve">
     <value>สำรองฐานข้อมูลเสร็จแล้ว</value>
@@ -303,14 +303,14 @@
   <data name="Dev &amp; Prod" xml:space="preserve">
     <value>Dev &amp; Prod</value>
   </data>
+  <data name="DevOps Native" xml:space="preserve">
+    <value>รองรับ DevOps โดยธรรมชาติ</value>
+  </data>
   <data name="Develop exclusively in UTC while the system automatically converts and displays dates in the user&apos;s local time zone." xml:space="preserve">
     <value>พัฒนาเฉพาะในเวลา UTC ในขณะที่ระบบจะแปลงและแสดงวันที่โดยอัตโนมัติในเขตเวลาท้องถิ่นของผู้ใช้</value>
   </data>
   <data name="Developer Experience" xml:space="preserve">
     <value>ประสบการณ์ของนักพัฒนา</value>
-  </data>
-  <data name="DevOps Native" xml:space="preserve">
-    <value>รองรับ DevOps โดยธรรมชาติ</value>
   </data>
   <data name="Discussions page" xml:space="preserve">
     <value>หน้าห้องสนทนา</value>
@@ -369,9 +369,6 @@
   <data name="FAQ" xml:space="preserve">
     <value>คำถามที่พบบ่อย</value>
   </data>
-  <data name="faster" xml:space="preserve">
-    <value>เร็วขึ้น</value>
-  </data>
   <data name="Feature tests available" xml:space="preserve">
     <value>มีฟีเจอร์เทสต์</value>
   </data>
@@ -396,9 +393,6 @@
   <data name="Flexible API" xml:space="preserve">
     <value>API ที่ยืดหยุ่น</value>
   </data>
-  <data name="for any inquiries or to report issues." xml:space="preserve">
-    <value>สำหรับข้อสงสัยใดๆ หรือเพื่อรายงานปัญหา</value>
-  </data>
   <data name="Founder &amp; Architect at Aiursoft" xml:space="preserve">
     <value>ผู้ก่อตั้งและสถาปนิกที่ Aiursoft</value>
   </data>
@@ -408,11 +402,11 @@
   <data name="Free" xml:space="preserve">
     <value>ฟรี</value>
   </data>
-  <data name="Free for Commercial Use" xml:space="preserve">
-    <value>ฟรีสำหรับการใช้งานเชิงพาณิชย์</value>
-  </data>
   <data name="Free Software" xml:space="preserve">
     <value>ซอฟต์แวร์ฟรี</value>
+  </data>
+  <data name="Free for Commercial Use" xml:space="preserve">
+    <value>ฟรีสำหรับการใช้งานเชิงพาณิชย์</value>
   </data>
   <data name="Frequently asked questions" xml:space="preserve">
     <value>คำถามที่พบบ่อย</value>
@@ -438,11 +432,11 @@
   <data name="Fully Offline" xml:space="preserve">
     <value>ทำงานแบบออฟไลน์ทั้งหมด</value>
   </data>
-  <data name="Generic configuration" xml:space="preserve">
-    <value>การตั้งค่าทั่วไป</value>
-  </data>
   <data name="Generic Dockerfile only" xml:space="preserve">
     <value>มีเฉพาะ Dockerfile แบบทั่วไปเท่านั้น</value>
+  </data>
+  <data name="Generic configuration" xml:space="preserve">
+    <value>การตั้งค่าทั่วไป</value>
   </data>
   <data name="GitLab CI" xml:space="preserve">
     <value>GitLab CI</value>
@@ -468,14 +462,14 @@
   <data name="Handwritten based on Policies" xml:space="preserve">
     <value>เขียนขึ้นเองโดยอิงตาม Policies</value>
   </data>
-  <data name="Health check package available" xml:space="preserve">
-    <value>มีแพ็กเกจตรวจสอบสถานะสุขภาพ</value>
-  </data>
   <data name="Health Checks &amp; Probes" xml:space="preserve">
     <value>การตรวจสอบสุขภาพและการตรวจจับ</value>
   </data>
   <data name="Health Checks middleware available" xml:space="preserve">
     <value>มี Health Checks middleware</value>
+  </data>
+  <data name="Health check package available" xml:space="preserve">
+    <value>มีแพ็กเกจตรวจสอบสถานะสุขภาพ</value>
   </data>
   <data name="Hello World!" xml:space="preserve">
     <value>สวัสดีชาวโลก!</value>
@@ -522,11 +516,11 @@
   <data name="Included" xml:space="preserve">
     <value>รวมไว้แล้ว</value>
   </data>
-  <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
-    <value>ประกอบด้วยเอกสารที่ครอบคลุมและตัวอย่างเชิงปฏิบัติเพื่อให้คุณเริ่มต้นได้อย่างรวดเร็ว</value>
-  </data>
   <data name="Includes Tutorials" xml:space="preserve">
     <value>รวมบทช่วยสอน</value>
+  </data>
+  <data name="Includes extensive documentation and practical examples to get you started quickly." xml:space="preserve">
+    <value>ประกอบด้วยเอกสารที่ครอบคลุมและตัวอย่างเชิงปฏิบัติเพื่อให้คุณเริ่มต้นได้อย่างรวดเร็ว</value>
   </data>
   <data name="Info / Notification" xml:space="preserve">
     <value>ข้อมูล / การแจ้งเตือน</value>
@@ -546,17 +540,11 @@
   <data name="Interoperability" xml:space="preserve">
     <value>ความเข้ากันได้</value>
   </data>
-  <data name="is Free Software" xml:space="preserve">
-    <value>เป็นซอฟต์แวร์เปิด</value>
-  </data>
   <data name="Is it free to use Aiursoft Template?" xml:space="preserve">
     <value>Aiursoft Template ใช้ฟรีหรือไม่?</value>
   </data>
   <data name="Issue dedicated API Keys for services to isolate sources and precisely manage reporting permissions." xml:space="preserve">
     <value>ออก API Keys เฉพาะสำหรับบริการเพื่อแยกแหล่งที่มาและจัดการสิทธิ์การรายงานอย่างแม่นยำ</value>
-  </data>
-  <data name="java.time API available" xml:space="preserve">
-    <value>มี java.time API ให้ใช้</value>
   </data>
   <data name="Job Queue &amp; Scheduling GUI" xml:space="preserve">
     <value>ระบบคิวงานและการจัดตารางเวลา GUI</value>
@@ -585,6 +573,12 @@
   <data name="Lint Check" xml:space="preserve">
     <value>ตรวจสอบลินต์</value>
   </data>
+  <data name="MIT Licence" xml:space="preserve">
+    <value>สัญญาอนุญาต MIT</value>
+  </data>
+  <data name="MIT License" xml:space="preserve">
+    <value>MIT License</value>
+  </data>
   <data name="Maintain High Code Quality" xml:space="preserve">
     <value>รักษาคุณภาพโค้ดให้อยู่ในระดับสูง</value>
   </data>
@@ -599,12 +593,6 @@
   </data>
   <data name="Message Center · 8,420 pending" xml:space="preserve">
     <value>ศูนย์ข้อความ · 8,420 รายการรอดำเนินการ</value>
-  </data>
-  <data name="MIT Licence" xml:space="preserve">
-    <value>สัญญาอนุญาต MIT</value>
-  </data>
-  <data name="MIT License" xml:space="preserve">
-    <value>MIT License</value>
   </data>
   <data name="Models are validated on both client and server sides based on data annotations." xml:space="preserve">
     <value>โมเดลจะได้รับการตรวจสอบความถูกต้องทั้งในด้านไคลเอนต์และเซิร์ฟเวอร์โดยอิงจาก annotation ข้อมูล</value>
@@ -633,15 +621,6 @@
   <data name="Needs Celery + Flower" xml:space="preserve">
     <value>ต้องใช้ Celery + Flower</value>
   </data>
-  <data name="Needs complex authentication logic" xml:space="preserve">
-    <value>ต้องการตรรกะการตรวจสอบสิทธิ์ที่ซับซ้อน</value>
-  </data>
-  <data name="Needs config/plugins" xml:space="preserve">
-    <value>ต้องการการตั้งค่า/ปลั๊กอิน</value>
-  </data>
-  <data name="Needs django-health-check package" xml:space="preserve">
-    <value>จำเป็นต้องใช้แพ็กเกจ django-health-check</value>
-  </data>
   <data name="Needs ESLint/Prettier setup" xml:space="preserve">
     <value>ต้องการการตั้งค่า ESLint/Prettier</value>
   </data>
@@ -650,9 +629,6 @@
   </data>
   <data name="Needs Laravel Sail" xml:space="preserve">
     <value>ต้องการ Laravel Sail</value>
-  </data>
-  <data name="Needs manual configuration" xml:space="preserve">
-    <value>ต้องกำหนดค่าด้วยตนเอง</value>
   </data>
   <data name="Needs Medialibrary" xml:space="preserve">
     <value>ต้องการ Medialibrary</value>
@@ -666,20 +642,35 @@
   <data name="Needs Spring Security config" xml:space="preserve">
     <value>ต้องการการกำหนดค่า Spring Security</value>
   </data>
-  <data name="Needs third-party plugins" xml:space="preserve">
-    <value>ต้องการปลั๊กอินจากบุคคลที่สาม</value>
-  </data>
   <data name="Needs TypeORM or similar" xml:space="preserve">
     <value>ต้องการ TypeORM หรือคล้ายกัน</value>
+  </data>
+  <data name="Needs complex authentication logic" xml:space="preserve">
+    <value>ต้องการตรรกะการตรวจสอบสิทธิ์ที่ซับซ้อน</value>
+  </data>
+  <data name="Needs config/plugins" xml:space="preserve">
+    <value>ต้องการการตั้งค่า/ปลั๊กอิน</value>
+  </data>
+  <data name="Needs django-health-check package" xml:space="preserve">
+    <value>จำเป็นต้องใช้แพ็กเกจ django-health-check</value>
+  </data>
+  <data name="Needs manual configuration" xml:space="preserve">
+    <value>ต้องกำหนดค่าด้วยตนเอง</value>
+  </data>
+  <data name="Needs third-party plugins" xml:space="preserve">
+    <value>ต้องการปลั๊กอินจากบุคคลที่สาม</value>
   </data>
   <data name="No dependency on any cloud vendor. Run anywhere, any time." xml:space="preserve">
     <value>ไม่มีการพึ่งพาผู้ให้บริการคลาวด์ใด ๆ ใช้งานได้ทุกที่ ทุกเวลา</value>
   </data>
-  <data name="Offline Capable" xml:space="preserve">
-    <value>รองรับการทำงานแบบออฟไลน์</value>
-  </data>
   <data name="OIDC &amp; SSO" xml:space="preserve">
     <value>OIDC &amp; SSO</value>
+  </data>
+  <data name="ORM &amp; Migrations" xml:space="preserve">
+    <value>ORM และการย้ายฐานข้อมูล</value>
+  </data>
+  <data name="Offline Capable" xml:space="preserve">
+    <value>รองรับการทำงานแบบออฟไลน์</value>
   </data>
   <data name="One Center, Closed-Loop Handling" xml:space="preserve">
     <value>ศูนย์กลางเดียว จัดการแบบครบวงจร</value>
@@ -705,9 +696,6 @@
   <data name="Order Service · trace-7e9a" xml:space="preserve">
     <value>บริการคำสั่งซื้อ · trace-7e9a</value>
   </data>
-  <data name="ORM &amp; Migrations" xml:space="preserve">
-    <value>ORM และการย้ายฐานข้อมูล</value>
-  </data>
   <data name="Out-of-the-box" xml:space="preserve">
     <value>พร้อมใช้งานทันที</value>
   </data>
@@ -726,11 +714,11 @@
   <data name="Pre-configured /healthz and readiness probes" xml:space="preserve">
     <value>ตั้งค่าล่วงหน้าสำหรับโพรบ /healthz และโพรบความพร้อมใช้งาน</value>
   </data>
-  <data name="Pre-configured and tested" xml:space="preserve">
-    <value>ตั้งค่าล่วงหน้าและผ่านการทดสอบแล้ว</value>
-  </data>
   <data name="Pre-configured CI/CD pipelines specifically for GitLab." xml:space="preserve">
     <value>พื้นที่ที่ตั้งค่าล่วงหน้าสำหรับการจัดการ CI/CD โดยเฉพาะสำหรับ GitLab</value>
+  </data>
+  <data name="Pre-configured and tested" xml:space="preserve">
+    <value>ตั้งค่าล่วงหน้าและผ่านการทดสอบแล้ว</value>
   </data>
   <data name="Pre-configured pipelines for dev/prod" xml:space="preserve">
     <value>ท่อส่งงานที่พร้อมใช้งานสำหรับ dev/prod</value>
@@ -813,23 +801,23 @@
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>โหมดมืดอัจฉริยะที่ปรับเปลี่ยนอัตโนมัติตามการตั้งค่าระบบของผู้ใช้</value>
   </data>
-  <data name="Standard implementation. Switch providers without compilation." xml:space="preserve">
-    <value>การใช้งานมาตรฐาน สามารถสลับผู้ให้บริการได้โดยไม่ต้องคอมไพล์</value>
-  </data>
   <data name="Standard OpenID" xml:space="preserve">
     <value>Standard OpenID</value>
   </data>
-  <data name="Start a new project" xml:space="preserve">
-    <value>เริ่มต้นโปรเจกต์ใหม่</value>
+  <data name="Standard implementation. Switch providers without compilation." xml:space="preserve">
+    <value>การใช้งานมาตรฐาน สามารถสลับผู้ให้บริการได้โดยไม่ต้องคอมไพล์</value>
   </data>
   <data name="Start Integration" xml:space="preserve">
     <value>เริ่มต้นการเชื่อมต่อ</value>
   </data>
-  <data name="Start now" xml:space="preserve">
-    <value>เริ่มต้นเลย</value>
-  </data>
   <data name="Start Shipping Value." xml:space="preserve">
     <value>เริ่มส่งมอบคุณค่า</value>
+  </data>
+  <data name="Start a new project" xml:space="preserve">
+    <value>เริ่มต้นโปรเจกต์ใหม่</value>
+  </data>
+  <data name="Start now" xml:space="preserve">
+    <value>เริ่มต้นเลย</value>
   </data>
   <data name="Start with a single &apos;docker run&apos; command." xml:space="preserve">
     <value>เริ่มต้นด้วยคำสั่ง &apos;docker run&apos; เพียงคำสั่งเดียว</value>
@@ -843,23 +831,23 @@
   <data name="Strict Lint Rules" xml:space="preserve">
     <value>กฎการตรวจสอบโค้ดที่เข้มงวด</value>
   </data>
+  <data name="Strict Unit Testing" xml:space="preserve">
+    <value>การทดสอบหน่วยที่เข้มงวด</value>
+  </data>
   <data name="Strict linting rules and zero warnings by default." xml:space="preserve">
     <value>กฎการตรวจสอบโค้ดอย่างเข้มงวดและไม่มีการแจ้งเตือนใดๆ โดยค่าเริ่มต้น</value>
   </data>
   <data name="Strict linting rules with 0 warnings in the default project." xml:space="preserve">
     <value>กฎการตรวจสอบโค้ดอย่างเข้มงวด โดยไม่มีคำเตือนใดๆ ในโปรเจกต์เริ่มต้น</value>
   </data>
-  <data name="Strict Unit Testing" xml:space="preserve">
-    <value>การทดสอบหน่วยที่เข้มงวด</value>
-  </data>
   <data name="Strongly Consistent Linting" xml:space="preserve">
     <value>การตรวจสอบโค้ดที่เข้มงวดและสม่ำเสมอ</value>
   </data>
-  <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
-    <value>รองรับตัวแปรสภาพแวดล้อมและตั้งค่าที่เก็บไว้ในฐานข้อมูล พร้อมให้ความสำคัญโดยอัตโนมัติแก่ตัวแปรสภาพแวดล้อมเพื่อการแทนที่อย่างราบรื่น</value>
-  </data>
   <data name="Supports JetBrains Rider for easy code style fixes." xml:space="preserve">
     <value>รองรับ JetBrains Rider สำหรับการแก้ไขรูปแบบโค้ดอย่างง่าย</value>
+  </data>
+  <data name="Supports both environment variables and database-backed settings, with automatic priority given to environment variables for seamless overrides." xml:space="preserve">
+    <value>รองรับตัวแปรสภาพแวดล้อมและตั้งค่าที่เก็บไว้ในฐานข้อมูล พร้อมให้ความสำคัญโดยอัตโนมัติแก่ตัวแปรสภาพแวดล้อมเพื่อการแทนที่อย่างราบรื่น</value>
   </data>
   <data name="Synced" xml:space="preserve">
     <value>ซิงค์แล้ว</value>
@@ -885,14 +873,14 @@
   <data name="Testing module available" xml:space="preserve">
     <value>มีโมดูลทดสอบ</value>
   </data>
+  <data name="The Philosophy" xml:space="preserve">
+    <value>ปรัชญา</value>
+  </data>
   <data name="The definitive, battle-tested .NET enterprise foundation. From Auth to AI, we&apos;ve solved the hard parts so you don&apos;t have to." xml:space="preserve">
     <value>พื้นฐานองค์กร .NET ที่เป็นที่สุดและผ่านการทดสอบในสนามรบแล้ว ตั้งแต่การยืนยันตัวตน (Auth) ไปจนถึงปัญญาประดิษฐ์ (AI) เราได้แก้ปัญหาที่ยากลำบากแล้ว เพื่อให้คุณไม่ต้องทำเอง</value>
   </data>
   <data name="The navigation bar automatically adjusts based on user roles and permissions." xml:space="preserve">
     <value>แถบนำทางจะปรับเปลี่ยนโดยอัตโนมัติตามบทบาทและสิทธิ์ของผู้ใช้</value>
-  </data>
-  <data name="The Philosophy" xml:space="preserve">
-    <value>ปรัชญา</value>
   </data>
   <data name="The template is built for easy deployment. It includes full Docker support, so you can containerize your app and run it anywhere. You can also deploy it directly to IIS, Azure App Service, or any server that supports ASP.NET Core." xml:space="preserve">
     <value>เทมเพลตนี้ถูกสร้างขึ้นเพื่อให้การปรับใช้เป็นเรื่องง่าย โดยมีระบบรองรับ Docker เต็มรูปแบบ ทำให้คุณสามารถสร้างคอนเทนเนอร์สำหรับแอปพลิเคชันและรันได้ทุกที่ นอกจากนี้คุณยังสามารถปรับใช้โดยตรงไปยัง IIS, Azure App Service หรือเซิร์ฟเวอร์ใดๆ ที่รองรับ ASP.NET Core ได้อีกด้วย</value>
@@ -906,11 +894,11 @@
   <data name="Tiered Routing" xml:space="preserve">
     <value>การกำหนดเส้นทางแบบแบ่งระดับ</value>
   </data>
-  <data name="Timezone-aware fields" xml:space="preserve">
-    <value>ฟิลด์ที่ตระหนักถึงเขตเวลา</value>
-  </data>
   <data name="TimeZoneInfo API available" xml:space="preserve">
     <value>มี API TimeZoneInfo</value>
+  </data>
+  <data name="Timezone-aware fields" xml:space="preserve">
+    <value>ฟิลด์ที่ตระหนักถึงเขตเวลา</value>
   </data>
   <data name="Track the success, pending, or failure status of every channel." xml:space="preserve">
     <value>ติดตามสถานะของแต่ละช่องทางว่าเสร็จสิ้นแล้ว กำลังรอดำเนินการ หรือล้มเหลว</value>
@@ -989,6 +977,18 @@
   </data>
   <data name="Zero Tolerance Lint" xml:space="preserve">
     <value>การตรวจสอบโค้ดแบบไม่ยอมให้ผิดพลาดเลย</value>
+  </data>
+  <data name="faster" xml:space="preserve">
+    <value>เร็วขึ้น</value>
+  </data>
+  <data name="for any inquiries or to report issues." xml:space="preserve">
+    <value>สำหรับข้อสงสัยใดๆ หรือเพื่อรายงานปัญหา</value>
+  </data>
+  <data name="is Free Software" xml:space="preserve">
+    <value>เป็นซอฟต์แวร์เปิด</value>
+  </data>
+  <data name="java.time API available" xml:space="preserve">
+    <value>มี java.time API ให้ใช้</value>
   </data>
 
 </root>

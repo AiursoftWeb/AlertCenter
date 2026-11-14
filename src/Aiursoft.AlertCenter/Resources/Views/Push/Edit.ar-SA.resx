@@ -21,14 +21,14 @@
       <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>، يمكن استخدامه على جانب الاستقبال مع</value>
   </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>١. اختر نوع القناة</value>
+  </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: يدعم ربط عدة مستخدمين ومجموعات مستخدمين (أدوار) في الوقت نفسه. ويزيل النظام التكرارات تلقائيًا، لضمان تلقي كل عضو إشعارًا واحدًا فقط غير مقروء.</value>
   </data>
   <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
     <value>: يستخدم النظام إعدادات خدمة البريد الإلكتروني العامة بشكل موحّد. يُرجى استخدام</value>
-  </data>
-  <data name="1. Select channel type" xml:space="preserve">
-    <value>١. اختر نوع القناة</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>إضافة</value>
@@ -51,9 +51,6 @@
   <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
     <value>طلب مخصص متقدم (رؤوس وتنسيقات مخصصة)</value>
   </data>
-  <data name="and" xml:space="preserve">
-    <value>و</value>
-  </data>
   <data name="Application Binding Authorization" xml:space="preserve">
     <value>تفويض ربط التطبيق</value>
   </data>
@@ -72,14 +69,14 @@
   <data name="Batch enter CC emails" xml:space="preserve">
     <value>إدخال رسائل البريد الإلكتروني للنسخة إلى دفعة واحدة</value>
   </data>
+  <data name="CC List" xml:space="preserve">
+    <value>قائمة النسخ (CC)</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
   <data name="Cannot overwrite." xml:space="preserve">
     <value>لا يمكن استبداله.</value>
-  </data>
-  <data name="CC List" xml:space="preserve">
-    <value>قائمة النسخ (CC)</value>
   </data>
   <data name="Channel name" xml:space="preserve">
     <value>اسم القناة</value>
@@ -156,20 +153,20 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>يجب أن تكون العناصر النائبة القيمة الوحيدة في سلسلة JSON.</value>
   </data>
-  <data name="Recipient email" xml:space="preserve">
-    <value>البريد الإلكتروني للمستلم</value>
-  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>نوع المستلِم</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>البريد الإلكتروني للمستلم</value>
   </data>
   <data name="Remove " xml:space="preserve">
     <value>إزالة</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>إزالة {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>إزالة الإذن</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>إزالة {0}</value>
   </data>
   <data name="Request Body Template (JSON Template)" xml:space="preserve">
     <value>قالب نص الطلب (قالب JSON)</value>
@@ -180,17 +177,17 @@
   <data name="Save channel configuration" xml:space="preserve">
     <value>حفظ إعدادات القناة</value>
   </data>
-  <data name="Search by username or display name..." xml:space="preserve">
-    <value>البحث بالاسم المستخدم أو الاسم المعروض...</value>
-  </data>
   <data name="Search Users" xml:space="preserve">
     <value>بحث عن المستخدمين</value>
   </data>
-  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
-    <value>اختر نوع قناة الإشعارات وفعّل عنوان المستلم أو المستلمين المستهدفين.</value>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>البحث بالاسم المستخدم أو الاسم المعروض...</value>
   </data>
   <data name="Select User Group" xml:space="preserve">
     <value>اختر مجموعة المستخدمين</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>اختر نوع قناة الإشعارات وفعّل عنوان المستلم أو المستلمين المستهدفين.</value>
   </data>
   <data name="Select user group..." xml:space="preserve">
     <value>اختر مجموعة المستخدمين...</value>
@@ -222,17 +219,20 @@
   <data name="User Group" xml:space="preserve">
     <value>مجموعة مستخدمين</value>
   </data>
-  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
-    <value>مجموعة المستخدمين · يرث الأعضاء الأذونات الممنوحة تلقائيًا</value>
-  </data>
   <data name="User Group (Role)" xml:space="preserve">
     <value>مجموعة المستخدمين (الدور)</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>مجموعة المستخدمين · يرث الأعضاء الأذونات الممنوحة تلقائيًا</value>
   </data>
   <data name="Webhook Receiver URL" xml:space="preserve">
     <value>عنوان URL لمستقبِل Webhook</value>
   </data>
   <data name="Will parse and preserve the original object types." xml:space="preserve">
     <value>سيحلّل أنواع الكائنات الأصلية ويحافظ عليها.</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>و</value>
   </data>
 
 </root>

@@ -18,19 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: يتم عرض مفتاح API مرة واحدة فقط عند الإنشاء بنجاح. يرجى تكوينه فوراً في متغيرات بيئة الإنتاج (على سبيل المثال،</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. تم تشغيل جدولة الإشعارات بشكل غير متزامن.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. احتفظ بالسجل الأول ولا تُطلق دفعات مكررة.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. يمكن للمركز استخدام هذا الحقل لتقدير زمن استجابة الشبكة للإبلاغ والتسليم.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(حرج، أعلى أولوية)،</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -48,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) أو خدمة إدارة المفاتيح (KMS). يُحظر حظرًا تامًا الترميز المباشر في الواجهات الأمامية أو السجلات أو مستودعات الأكواد.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. تم تشغيل جدولة الإشعارات بشكل غير متزامن.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. احتفظ بالسجل الأول ولا تُطلق دفعات مكررة.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. يمكن للمركز استخدام هذا الحقل لتقدير زمن استجابة الشبكة للإبلاغ والتسليم.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>من حرف واحد إلى 200 حرف</value>
   </data>
@@ -59,6 +56,9 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>فشل المصادقة 401</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: يتم عرض مفتاح API مرة واحدة فقط عند الإنشاء بنجاح. يرجى تكوينه فوراً في متغيرات بيئة الإنتاج (على سبيل المثال،</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>وقت حدوث الواقعة الفعلي، على سبيل المثال،</value>
@@ -138,9 +138,6 @@
   <data name="Optional" xml:space="preserve">
     <value>اختياري</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>أو متغيرات البيئة، مما يسهّل تحديد موقعها واستكشاف الأخطاء وإصلاحها بنقرة واحدة من صفحة التفاصيل.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>استبدلها بمفتاح التطبيق الذي تم إنشاؤه في الخطوة السابقة لإرسال اختبار مباشر.</value>
   </data>
@@ -168,11 +165,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>سياق أعمال منظم. يُوصى بتضمين</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>المعرّف الفريد عالميًا للتقرير الخاص بالعميل. يستخدم المركز</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>ترسل SDK كل تقرير مرة واحدة. إذا أدت عطل الشبكة إلى عدم اليقين بشأن النتيجة، أعد محاولة الطلب نفسه باستخدام ReportId ووقت الحدوث نفسه.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>المعرّف الفريد عالميًا للتقرير الخاص بالعميل. يستخدم المركز</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>النوع</value>
@@ -182,6 +179,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>مع إزاحة المنطقة الزمنية أو معرّف Z</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>أو متغيرات البيئة، مما يسهّل تحديد موقعها واستكشاف الأخطاء وإصلاحها بنقرة واحدة من صفحة التفاصيل.</value>
   </data>
 
 </root>

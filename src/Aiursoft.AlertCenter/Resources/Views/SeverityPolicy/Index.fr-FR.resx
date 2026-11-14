@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>Dans l’application</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>La politique SMS peut être enregistrée, mais aucun canal d’envoi de SMS n’est installé. Sélectionner SMS n’envoie pas de SMS.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Enregistrer la stratégie</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>L’option « Afficher dans les listes » détermine les incidents affichés par défaut dans la liste des incidents, le tableau de bord et les compteurs des applications. Les filtres de gravité explicites peuvent toujours retrouver les incidents masqués. Les autorisations d’accès sont toujours appliquées.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>La politique SMS peut être enregistrée, mais aucun canal d’envoi de SMS n’est installé. Sélectionner SMS n’envoie pas de SMS.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Il s’agit du plafond global des notifications. Une application doit également disposer d’un canal activé et être abonnée à ce niveau de gravité. Les e-mails d’astreinte utilisent la colonne « E-mail ».</value>

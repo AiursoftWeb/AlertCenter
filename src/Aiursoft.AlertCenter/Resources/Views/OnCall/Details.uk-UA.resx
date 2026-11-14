@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>{0} нагадувань щодо укомплектування · можна зберегти, навіть якщо кількість нижча за мінімальну</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>{0} незаповнених змін · заповнити зміну</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>Графік чергувань на 7 днів</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>Перше чергування о</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>годин</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>год · Точка відліку</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>год · мін. змін</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>год · Мінімум на тиждень</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>годин.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>Попередження про недостатню кількість персоналу (збереження вручну дозволено, крім порожніх змін)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>Працівники, які беруть участь</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>людей · найкоротший відпочинок цього тижня</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>осіб · Ротація за часовими слотами:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>людей, цільове значення</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>За зміну</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Скоро почнеться</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>Статус визначається на момент завантаження сторінки.</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Статус визначається на момент завантаження сторінки)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Статус визначається на момент завантаження сторінки.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>Запропоновані або призначені вручну зміни не набудуть чинності, доки їх не буде збережено.</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>Ви переглядаєте незбережену чернетку. Сповіщення й надалі надходитимуть за збереженим розкладом.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>годин</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>год · Точка відліку</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>год · мін. змін</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>год · Мінімум на тиждень</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>годин.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>людей · найкоротший відпочинок цього тижня</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>осіб · Ротація за часовими слотами:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>людей, цільове значення</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} нагадувань щодо укомплектування · можна зберегти, навіть якщо кількість нижча за мінімальну</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} незаповнених змін · заповнити зміну</value>
   </data>
 
 </root>

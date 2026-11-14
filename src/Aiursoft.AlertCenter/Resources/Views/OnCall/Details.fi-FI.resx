@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>{0} henkilöstömuistutusta · tallentaminen alle vähimmäismäärän on sallittua</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>{0} miehittämätöntä vuoroa · täytä vuoro</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7 päivän päivystysvuorolista</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>Ensimmäinen vuoro alkaa</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>tuntia</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>tuntia · Aloitus</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>tuntia · vuoron vähimmäismäärä</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>tuntia · Viikkominimi</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>tuntia.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>Varoitus henkilöstön riittämättömyydestä (tallennus manuaalisesti sallittu, paitsi tyhjien vuorojen kohdalla)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>Osallistuvat työntekijät</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>henkilöä · viikon lyhin lepoaika</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>henkilöä · Aikavälien kierto:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>henkilöä, tavoite</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>Vuoroa kohden</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Alkamassa pian</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>Tila perustuu sivun latausaikaan.</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Tila perustuu sivun latausaikaan)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Tila perustuu sivun latausaikaan.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>Ehdotetut tai manuaaliset vuorot eivät ole käytössä ennen tallentamista.</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>Katselet tallentamatonta luonnosta. Ilmoitukset noudattavat edelleen tallennettua aikataulua.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>tuntia</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>tuntia · Aloitus</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>tuntia · vuoron vähimmäismäärä</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>tuntia · Viikkominimi</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>tuntia.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>henkilöä · viikon lyhin lepoaika</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>henkilöä · Aikavälien kierto:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>henkilöä, tavoite</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} henkilöstömuistutusta · tallentaminen alle vähimmäismäärän on sallittua</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} miehittämätöntä vuoroa · täytä vuoro</value>
   </data>
 
 </root>

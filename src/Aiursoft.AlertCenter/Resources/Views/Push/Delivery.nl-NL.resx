@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Aanmaakdatum</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Bezorging succesvol voltooid</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Inhoud van de bezorging</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Bezorgingsgegevens</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Bezorgdetails - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Bezorging mislukt</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Bezorging is definitief mislukt</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>Bezorgings-ID</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>Bezorgings-ID:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Bezorging succesvol voltooid</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Bezorgdetails - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Bezorging is definitief mislukt</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Bezorgtaak aangemaakt</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Deze melding is op basis van het ernstbeleid onderdrukt en wordt niet verzonden.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>keer</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Totaal aantal pogingen:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Heropend incident bekijken</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>keer</value>
   </data>
 
 </root>

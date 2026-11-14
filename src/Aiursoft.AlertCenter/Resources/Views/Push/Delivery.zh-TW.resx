@@ -66,29 +66,29 @@
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>建立時間（UTC）</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>通知已成功送達</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>傳遞內容</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>傳送詳細資料</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>傳送詳細資料 - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>傳送失敗</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>傳送永久失敗</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>派送 ID</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>配送 ID：</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>通知已成功送達</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>傳送詳細資料 - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>傳送永久失敗</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>配送工作已建立</value>
@@ -201,9 +201,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>此通知已依嚴重性政策抑制，不會發送。</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>次</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>總嘗試次數：</value>
   </data>
@@ -218,6 +215,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>查看重新開啟的事件</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>次</value>
   </data>
 
 </root>

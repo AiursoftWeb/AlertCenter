@@ -66,29 +66,29 @@
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>Thời gian tạo (UTC)</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Gửi thành công</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Nội dung gửi đi</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Chi tiết giao hàng</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Chi tiết gửi - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Gửi không thành công</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Gửi không thành công vĩnh viễn</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>Mã giao hàng</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>Mã giao hàng:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Gửi thành công</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Chi tiết gửi - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Gửi không thành công vĩnh viễn</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Đã tạo tác vụ gửi</value>
@@ -201,9 +201,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Thông báo này đã bị chính sách mức độ nghiêm trọng chặn và sẽ không được gửi đi.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>lần</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Tổng số lần thử:</value>
   </data>
@@ -218,6 +215,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Xem sự cố đã được mở lại</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>lần</value>
   </data>
 
 </root>

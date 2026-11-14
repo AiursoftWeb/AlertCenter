@@ -21,14 +21,14 @@
       <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, может использоваться на стороне приёмника вместе с</value>
   </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Выберите тип канала</value>
+  </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: Поддерживается одновременное назначение нескольких пользователей и групп пользователей (ролей). Система автоматически удаляет дубликаты, поэтому каждый участник получает только одно непрочитанное уведомление.</value>
   </data>
   <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
     <value>: Система использует общие настройки глобальной почтовой службы. Используйте</value>
-  </data>
-  <data name="1. Select channel type" xml:space="preserve">
-    <value>1. Выберите тип канала</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Добавить</value>
@@ -51,9 +51,6 @@
   <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
     <value>Расширенная настройка запроса (пользовательские заголовки и шаблоны)</value>
   </data>
-  <data name="and" xml:space="preserve">
-    <value>и</value>
-  </data>
   <data name="Application Binding Authorization" xml:space="preserve">
     <value>Разрешение на привязку приложения</value>
   </data>
@@ -72,14 +69,14 @@
   <data name="Batch enter CC emails" xml:space="preserve">
     <value>Массовый ввод адресов электронной почты в копию</value>
   </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Список получателей в копии</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
   <data name="Cannot overwrite." xml:space="preserve">
     <value>Нельзя перезаписать.</value>
-  </data>
-  <data name="CC List" xml:space="preserve">
-    <value>Список получателей в копии</value>
   </data>
   <data name="Channel name" xml:space="preserve">
     <value>Название канала</value>
@@ -156,20 +153,20 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>Заместители должны быть единственным значением строки JSON.</value>
   </data>
-  <data name="Recipient email" xml:space="preserve">
-    <value>Электронная почта получателя</value>
-  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>Тип получателя</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Электронная почта получателя</value>
   </data>
   <data name="Remove " xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Удалить {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Удалить разрешение</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Удалить {0}</value>
   </data>
   <data name="Request Body Template (JSON Template)" xml:space="preserve">
     <value>Шаблон тела запроса (шаблон JSON)</value>
@@ -180,17 +177,17 @@
   <data name="Save channel configuration" xml:space="preserve">
     <value>Сохранить конфигурацию канала</value>
   </data>
-  <data name="Search by username or display name..." xml:space="preserve">
-    <value>Поиск по имени пользователя или отображаемому имени...</value>
-  </data>
   <data name="Search Users" xml:space="preserve">
     <value>Поиск пользователей</value>
   </data>
-  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
-    <value>Выберите тип канала уведомлений и настройте адрес получателя или целевых получателей.</value>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Поиск по имени пользователя или отображаемому имени...</value>
   </data>
   <data name="Select User Group" xml:space="preserve">
     <value>Выберите группу пользователей</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Выберите тип канала уведомлений и настройте адрес получателя или целевых получателей.</value>
   </data>
   <data name="Select user group..." xml:space="preserve">
     <value>Выберите группу пользователей...</value>
@@ -222,17 +219,20 @@
   <data name="User Group" xml:space="preserve">
     <value>Группа пользователей</value>
   </data>
-  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
-    <value>Группа пользователей · Участники динамически наследуют привязанные разрешения</value>
-  </data>
   <data name="User Group (Role)" xml:space="preserve">
     <value>Группа пользователей (роль)</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Группа пользователей · Участники динамически наследуют привязанные разрешения</value>
   </data>
   <data name="Webhook Receiver URL" xml:space="preserve">
     <value>URL получателя вебхука</value>
   </data>
   <data name="Will parse and preserve the original object types." xml:space="preserve">
     <value>Будет распарсен и сохранён исходный тип объекта.</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>и</value>
   </data>
 
 </root>

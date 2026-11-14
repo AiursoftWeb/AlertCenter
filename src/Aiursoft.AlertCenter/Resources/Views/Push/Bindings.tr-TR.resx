@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="· Disabled, not dispatching" xml:space="preserve">
-    <value>· Devre dışı, yönlendirilmiyor</value>
-  </data>
-  <data name="{0} - Push Routing Settings" xml:space="preserve">
-    <value>{0} - Anında Bildirim Yönlendirme Ayarları</value>
-  </data>
-  <data name="Application Push Routing" xml:space="preserve">
+      <data name="Application Push Routing" xml:space="preserve">
     <value>Uygulama Bildirim Yönlendirmesi</value>
   </data>
   <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
@@ -35,9 +29,6 @@
   </data>
   <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
     <value>Otomatik etkin · Bireysel olarak devre dışı bırakılamaz</value>
-  </data>
-  <data name="available channels" xml:space="preserve">
-    <value>kullanılabilir kanallar</value>
   </data>
   <data name="Back to Connected Apps" xml:space="preserve">
     <value>Bağlı Uygulamalara Geri Dön</value>
@@ -107,6 +98,15 @@
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>Gerekirse tamamlama amacıyla Webhook, e-posta veya uygulama içi bildirim kanalları oluşturabilirsiniz. Vardiya gruplarına bağlı uygulamalar, özel kanallar olmasa bile yerleşik vardiya e-postalarını gönderir.</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>kullanılabilir kanallar</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - Anında Bildirim Yönlendirme Ayarları</value>
+  </data>
+  <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· Devre dışı, yönlendirilmiyor</value>
   </data>
 
 </root>

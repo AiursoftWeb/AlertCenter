@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>Okunmuş</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>Okunmuş bildirim</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>Okunma Durumu</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>Okunmuş bildirim</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>Alınış Bitiş Tarihi (UTC, dâhil)</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>Başlık veya gövde ara...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Kritik (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Önemli (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Hata (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Uyarı (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Bilgi (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>Yalnızca okunanları göster</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>Sistem, site içi kanala bağlı olaylar oluşturduğunda bunlar doğrudan kişisel gelen kutunuza iletilir.</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Kritik (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Önemli (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Hata (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Uyarı (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Bilgi (P4)</value>
   </data>
 
 </root>

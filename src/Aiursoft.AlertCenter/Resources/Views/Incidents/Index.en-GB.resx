@@ -21,15 +21,6 @@
       <data name=" items" xml:space="preserve">
     <value>items</value>
   </data>
-  <data name="{0} incidents on this page" xml:space="preserve">
-    <value>{0} incidents on this page</value>
-  </data>
-  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
-    <value>{0} ongoing incidents across accessible applications</value>
-  </data>
-  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
-    <value>{0} unresolved incidents across applications you can access</value>
-  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>Acknowledged</value>
   </data>
@@ -135,9 +126,6 @@
   <data name="Not recorded" xml:space="preserve">
     <value>Not recorded</value>
   </data>
-  <data name="ongoing incidents" xml:space="preserve">
-    <value>ongoing incidents</value>
-  </data>
   <data name="Original on-call OCE" xml:space="preserve">
     <value>Original on-call OCE</value>
   </data>
@@ -189,21 +177,6 @@
   <data name="Service operating normally · No ongoing incidents" xml:space="preserve">
     <value>Service operating normally · No ongoing incidents</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Critical (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Major (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Error (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Warning (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Information (P4)</value>
-  </data>
   <data name="Source application" xml:space="preserve">
     <value>Source application</value>
   </data>
@@ -236,6 +209,33 @@
   </data>
   <data name="You have no assigned incidents" xml:space="preserve">
     <value>You have no assigned incidents</value>
+  </data>
+  <data name="ongoing incidents" xml:space="preserve">
+    <value>ongoing incidents</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Critical (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Major (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Error (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Warning (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Information (P4)</value>
+  </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} incidents on this page</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0} ongoing incidents across accessible applications</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>{0} unresolved incidents across applications you can access</value>
   </data>
 
 </root>

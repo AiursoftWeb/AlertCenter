@@ -84,11 +84,11 @@
   <data name="Confirmation time (UTC)" xml:space="preserve">
     <value>확인 시간(UTC)</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>내용 복사</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>JSON 복사</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>내용 복사</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>현재 당직 OCE</value>
@@ -120,11 +120,14 @@
   <data name="Full-cycle handling timeline" xml:space="preserve">
     <value>전체 처리 타임라인</value>
   </data>
-  <data name="handling nodes" xml:space="preserve">
-    <value>처리 단계</value>
-  </data>
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>이 인시던트가 완전히 해결되었으며 재발하지 않을 것임을 확인합니다.</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>인시던트 ID</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>장애 대응 상황실 - {0}</value>
   </data>
   <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
     <value>사고 이메일은 온콜(On-call) 교대가 변경된 이후에도 이 원래 OCE 스냅샷을 사용합니다. 확인(Acknowledge)은 사고 소유자를 지정하지만, 이메일 수신자를 변경하지 않습니다.</value>
@@ -132,17 +135,11 @@
   <data name="Incident event" xml:space="preserve">
     <value>인시던트 이벤트</value>
   </data>
-  <data name="Incident ID" xml:space="preserve">
-    <value>인시던트 ID</value>
-  </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>인시던트 담당자:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>인시던트 제목</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>장애 대응 상황실 - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>독립적인 인시던트</value>
@@ -189,14 +186,14 @@
   <data name="Not set" xml:space="preserve">
     <value>설정되지 않음</value>
   </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>사고 발생 시점의 OCE</value>
+  </data>
   <data name="Occurred at" xml:space="preserve">
     <value>발생 시각</value>
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>발생 시각(UTC)</value>
-  </data>
-  <data name="OCE at incident occurrence" xml:space="preserve">
-    <value>사고 발생 시점의 OCE</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>담당자:</value>
@@ -285,21 +282,6 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>대응 메커니즘 설명</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · 치명적 (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · 주요 (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · 오류 (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · 경고(P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · 정보 (P4)</value>
-  </data>
   <data name="Severity: " xml:space="preserve">
     <value>심각도:</value>
   </data>
@@ -329,6 +311,24 @@
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>삭제된 사용자</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>처리 단계</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 치명적 (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 주요 (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · 오류 (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 경고(P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 정보 (P4)</value>
   </data>
 
 </root>

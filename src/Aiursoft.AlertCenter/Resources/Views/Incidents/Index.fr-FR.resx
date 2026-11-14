@@ -18,16 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} incidents on this page" xml:space="preserve">
-    <value>{0} incidents sur cette page</value>
-  </data>
-  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
-    <value>{0} incidents en cours dans les applications accessibles</value>
-  </data>
-  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
-    <value>{0} incidents non atténués dans les applications accessibles</value>
-  </data>
-  <data name="Acknowledged" xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
     <value>Pris en compte</value>
   </data>
   <data name="Acknowledgement" xml:space="preserve">
@@ -168,21 +159,6 @@
   <data name="Search incident titles, content, or applications..." xml:space="preserve">
     <value>Rechercher des titres d&apos;incidents, du contenu ou des applications...</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Critique (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Majeur (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Erreur (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Avertissement (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Informations (P4)</value>
-  </data>
   <data name="Source application" xml:space="preserve">
     <value>Application source</value>
   </data>
@@ -200,6 +176,30 @@
   </data>
   <data name="You have no assigned incidents" xml:space="preserve">
     <value>Aucun incident ne vous a été attribué</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Critique (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Majeur (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Erreur (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Avertissement (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Informations (P4)</value>
+  </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} incidents sur cette page</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0} incidents en cours dans les applications accessibles</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>{0} incidents non atténués dans les applications accessibles</value>
   </data>
 
 </root>

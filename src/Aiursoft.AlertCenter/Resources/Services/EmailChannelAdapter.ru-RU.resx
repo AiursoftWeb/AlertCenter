@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Если кнопка не работает, перейдите по этой ссылке:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Подробности инцидента</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Инцидент эскалирован ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>ID инцидента</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>ID инцидента: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Подробности инцидента</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Инцидент эскалирован ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Инцидент устранён: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Неверный формат адреса электронной почты в копии. Отображаемые имена не поддерживаются.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Неверная конфигурация SMTP. Проверьте настройки электронной почты.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Неверный формат адреса электронной почты получателя. Отображаемые имена не поддерживаются.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Недопустимый адрес получателя или настройки копии для канала электронной почты. Проверьте настройки канала.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Неверная конфигурация SMTP. Проверьте настройки электронной почты.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Mitigated</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>Нет</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Время запроса OCE (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Время возникновения (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Время события (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>Время запроса OCE (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Дежурная группа: {0}</value>

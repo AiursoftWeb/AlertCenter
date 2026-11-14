@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Heure de création</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Livraison effectuée avec succès</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Contenu de la livraison</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Détails de la livraison</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Détails de livraison - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Échec de la livraison</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Échec définitif de la livraison</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>ID de livraison</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>ID de livraison :</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Livraison effectuée avec succès</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Détails de livraison - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Échec définitif de la livraison</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Tâche de livraison créée</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Cette notification a été supprimée par la politique de sévérité et ne sera pas envoyée.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>fois</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Tentatives totales :</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Voir l’incident rouvert</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>fois</value>
   </data>
 
 </root>

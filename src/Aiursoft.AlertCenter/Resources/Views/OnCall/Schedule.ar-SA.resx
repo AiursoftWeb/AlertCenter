@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>إجراء</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>التي تم إنشاؤها في</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>إدارة قواعد الجدولة</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>القاعدة</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>اختر فريقًا لعرض جدول 7 أيام، أو إنشاء أو تعديل المناوبات يدويًا. يمكن أيضًا جدولة الفرق غير المرتبطة بقالب يدويًا؛ المناوبات المحفوظة لا تؤثر حاليًا على توجيه الحوادث.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>اختر فريق الاستدعاء</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>اختر فريقًا لعرض جدول 7 أيام، أو إنشاء أو تعديل المناوبات يدويًا. يمكن أيضًا جدولة الفرق غير المرتبطة بقالب يدويًا؛ المناوبات المحفوظة لا تؤثر حاليًا على توجيه الحوادث.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>الفريق</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>عرض الجدول</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>التي تم إنشاؤها في</value>
   </data>
 
 </root>

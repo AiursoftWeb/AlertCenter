@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Waktu Pembuatan</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Pengiriman berhasil diselesaikan</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Konten Pengiriman</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Detail Pengiriman</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Detail pengiriman - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Pengiriman Gagal</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Pengiriman gagal secara permanen</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>ID Pengiriman</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>ID Pengiriman:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Pengiriman berhasil diselesaikan</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Detail pengiriman - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Pengiriman gagal secara permanen</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Tugas pengiriman dibuat</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Notifikasi ini tidak dikirim karena diblokir oleh kebijakan tingkat keparahan.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>kali</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Total percobaan:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Lihat insiden yang dibuka kembali</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>kali</value>
   </data>
 
 </root>

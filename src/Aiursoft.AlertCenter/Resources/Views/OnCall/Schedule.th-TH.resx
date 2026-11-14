@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>การดำเนินการ</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>สร้างขึ้นใน</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>จัดการกฎการจัดตารางเวร</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>กฎ</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>เลือกทีมเพื่อดูตารางเวร 7 วัน สร้างหรือปรับแต่งเวรด้วยตนเอง ทีมที่ไม่มีเทมเพลตที่ผูกไว้สามารถกำหนดตารางเวรด้วยตนเองได้เช่นกัน เวรที่บันทึกไว้ยังไม่มีผลต่อการกำหนดเส้นทางเหตุการณ์ในขณะนี้</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>เลือกทีมเวร</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>เลือกทีมเพื่อดูตารางเวร 7 วัน สร้างหรือปรับแต่งเวรด้วยตนเอง ทีมที่ไม่มีเทมเพลตที่ผูกไว้สามารถกำหนดตารางเวรด้วยตนเองได้เช่นกัน เวรที่บันทึกไว้ยังไม่มีผลต่อการกำหนดเส้นทางเหตุการณ์ในขณะนี้</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>ทีม</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>ดูตารางเวร</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>สร้างขึ้นใน</value>
   </data>
 
 </root>

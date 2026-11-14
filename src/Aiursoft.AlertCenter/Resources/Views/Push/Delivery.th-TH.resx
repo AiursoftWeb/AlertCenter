@@ -66,29 +66,29 @@
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>เวลาที่สร้าง (UTC)</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>ส่งสำเร็จเรียบร้อยแล้ว</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>เนื้อหาการจัดส่ง</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>รายละเอียดการจัดส่ง</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>รายละเอียดการจัดส่ง - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>การส่งไม่สำเร็จ</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>การส่งไม่สำเร็จอย่างถาวร</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>รหัสการส่ง</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>รหัสการนำส่ง:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>ส่งสำเร็จเรียบร้อยแล้ว</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>รายละเอียดการจัดส่ง - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>การส่งไม่สำเร็จอย่างถาวร</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>สร้างงานจัดส่งแล้ว</value>
@@ -201,9 +201,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>การแจ้งเตือนนี้ถูกระงับตามนโยบายระดับความรุนแรง และจะไม่มีการส่ง</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>ครั้ง</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>จำนวนครั้งทั้งหมด:</value>
   </data>
@@ -218,6 +215,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>ดูเหตุการณ์ที่เปิดอีกครั้ง</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>ครั้ง</value>
   </data>
 
 </root>

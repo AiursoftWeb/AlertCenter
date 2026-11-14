@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Hora de Criação</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Entrega concluída com sucesso</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Conteúdo da Entrega</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Detalhes da Entrega</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Detalhes da entrega - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Falha na entrega</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>A entrega falhou permanentemente</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>ID de entrega</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>ID da Entrega:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Entrega concluída com sucesso</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Detalhes da entrega - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>A entrega falhou permanentemente</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Tarefa de entrega criada</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Esta notificação foi suprimida pela política de gravidade e não será enviada.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>vezes</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Total de tentativas:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Ver incidente reaberto</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>vezes</value>
   </data>
 
 </root>

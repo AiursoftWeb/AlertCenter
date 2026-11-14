@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Tindakan</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>dibuat di</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>Kelola aturan penjadwalan</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>Aturan</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>Pilih tim untuk melihat jadwal 7 hari, membuat atau menyesuaikan giliran kerja secara manual. Tim tanpa templat yang terhubung juga dapat dijadwalkan secara manual; giliran kerja yang disimpan saat ini tidak memengaruhi perutean insiden.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>Pilih Tim On-Call</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Pilih tim untuk melihat jadwal 7 hari, membuat atau menyesuaikan giliran kerja secara manual. Tim tanpa templat yang terhubung juga dapat dijadwalkan secara manual; giliran kerja yang disimpan saat ini tidak memengaruhi perutean insiden.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Tim</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>Lihat jadwal</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>dibuat di</value>
   </data>
 
 </root>

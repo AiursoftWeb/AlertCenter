@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>Αναγνωσμένα</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>Αναγνωσμένες ειδοποιήσεις</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>Κατάσταση ανάγνωσης</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>Αναγνωσμένες ειδοποιήσεις</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>Ημερομηνία λήξης παραλαβής (UTC, συμπεριλαμβανομένης)</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>Αναζήτηση στον τίτλο ή στο κείμενο...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Κρίσιμο (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Μείζον (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Σφάλμα (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Προειδοποίηση (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Πληροφορία (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>Εμφάνιση μόνο των αναγνωσμένων</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>Όταν το σύστημα δημιουργεί περιστατικά που συνδέονται με το εσωτερικό κανάλι, αυτά προωθούνται απευθείας στα προσωπικά σας εισερχόμενα.</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Κρίσιμο (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Μείζον (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Σφάλμα (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Προειδοποίηση (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Πληροφορία (P4)</value>
   </data>
 
 </root>

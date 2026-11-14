@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="· Disabled, not dispatching" xml:space="preserve">
-    <value>· Disattivato, nessuna dispatch</value>
-  </data>
-  <data name="{0} - Push Routing Settings" xml:space="preserve">
-    <value>{0} - Impostazioni di instradamento push</value>
-  </data>
-  <data name="Application Push Routing" xml:space="preserve">
+      <data name="Application Push Routing" xml:space="preserve">
     <value>Routing delle notifiche push dell&apos;applicazione</value>
   </data>
   <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
@@ -35,9 +29,6 @@
   </data>
   <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
     <value>Abilitato automaticamente · Non può essere disabilitato singolarmente</value>
-  </data>
-  <data name="available channels" xml:space="preserve">
-    <value>canali disponibili</value>
   </data>
   <data name="Back to Connected Apps" xml:space="preserve">
     <value>Torna alle app collegate</value>
@@ -107,6 +98,15 @@
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>È possibile creare canali di notifica Webhook, e-mail o in-app secondo le esigenze per integrare le notifiche. Le applicazioni collegate a gruppi on-call invieranno le e-mail on-call integrate anche in assenza di canali personalizzati.</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>canali disponibili</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - Impostazioni di instradamento push</value>
+  </data>
+  <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· Disattivato, nessuna dispatch</value>
   </data>
 
 </root>

@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Se o botão não funcionar, abra esta ligação:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Detalhes do incidente</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Incidente agravado ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>ID do incidente</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>ID do incidente: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Detalhes do incidente</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incidente agravado ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Incidente mitigado: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Formato de e-mail CC inválido. Os nomes de apresentação não são suportados.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Configuração SMTP inválida. Verifique as definições de e-mail.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Formato do endereço de e-mail do destinatário inválido. Não são suportados nomes de apresentação.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Destinatário inválido ou configuração de CC inválida para o canal de e-mail. Verifique as definições do canal.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Configuração SMTP inválida. Verifique as definições de e-mail.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Mitigated</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>Nenhum</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Hora da consulta OCE (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Ocorrido em (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Ocorreu em (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>Hora da consulta OCE (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Grupo de prevenção: {0}</value>

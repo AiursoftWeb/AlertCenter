@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Oprettelsestid</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Levering gennemført med succes</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Leveringsindhold</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Leveringsdetaljer</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Leveringsoplysninger - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Levering fejlede</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Levering fejlede permanent</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>Leverings-ID</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>Leverings-id:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Levering gennemført med succes</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Leveringsoplysninger - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Levering fejlede permanent</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Leveringsopgave oprettet</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Denne notifikation blev undertrykt af alvorlighedspolitikken og vil ikke blive sendt.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>gange</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Samlede forsøg:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Vis genåbent hændelse</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>gange</value>
   </data>
 
 </root>

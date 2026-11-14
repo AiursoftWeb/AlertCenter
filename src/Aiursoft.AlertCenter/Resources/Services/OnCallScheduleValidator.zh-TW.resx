@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0}&apos;s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." xml:space="preserve">
-    <value>{0} 在 {1:yyyy-MM-dd HH:mm} UTC 的班次與其他班次重疊，或休息時間不足（本週至少需休息 {2} 小時，並符合相鄰班次的要求）。</value>
-  </data>
-  <data name="{0}&apos;s shift is outside the designated 8-hour window." xml:space="preserve">
-    <value>{0} 的班次不在指定的 8 小時時段內。</value>
-  </data>
-  <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
+      <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
     <value>於 {0:yyyy-MM-dd HH:mm} UTC 偵測到空班次。至少需要一位員工。</value>
   </data>
   <data name="Includes employees not belonging to the current team." xml:space="preserve">
@@ -32,6 +26,12 @@
   </data>
   <data name="Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." xml:space="preserve">
     <value>{1:yyyy-MM-dd HH:mm} UTC 排定的人員僅有 {0} 名，低於最低人數 {2} 名。即使人力不足，仍可手動儲存，但空班除外。</value>
+  </data>
+  <data name="{0}&apos;s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." xml:space="preserve">
+    <value>{0} 在 {1:yyyy-MM-dd HH:mm} UTC 的班次與其他班次重疊，或休息時間不足（本週至少需休息 {2} 小時，並符合相鄰班次的要求）。</value>
+  </data>
+  <data name="{0}&apos;s shift is outside the designated 8-hour window." xml:space="preserve">
+    <value>{0} 的班次不在指定的 8 小時時段內。</value>
   </data>
 
 </root>

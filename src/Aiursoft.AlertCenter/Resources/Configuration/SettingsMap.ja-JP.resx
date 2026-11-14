@@ -75,6 +75,12 @@
   <data name="Project Name" xml:space="preserve">
     <value>プロジェクト名</value>
   </data>
+  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
+    <value>中国本土ユーザー向けのICPライセンス番号。空欄のままにすると非表示になります。</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>インシデントとクエリの埋め込み（ベクトル検索）の生成に特化して使用されるOllama APIのベースURL。ホスト部分のみが使用され、/api/embed は自動的に付加されます。例: https://ollama.example.com</value>
+  </data>
   <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
     <value>Embedding Ollama Instanceで認証するためのベアラートークン。例: 5a0fbdefa19f....</value>
   </data>
@@ -84,17 +90,11 @@
   <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
     <value>埋め込みモデルの名前。例: bge-m3:latest。埋め込みOllamaインスタンスで利用可能である必要があります。ベクトル検索でのみ使用されます。</value>
   </data>
-  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
-    <value>中国本土ユーザー向けのICPライセンス番号。空欄のままにすると非表示になります。</value>
-  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>ナビゲーションバーとフッターに表示されるプロジェクトのロゴ。jpg、png、svg形式をサポート。</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>フロントエンドに表示されるプロジェクト名</value>
-  </data>
-  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
-    <value>インシデントとクエリの埋め込み（ベクトル検索）の生成に特化して使用されるOllama APIのベースURL。ホスト部分のみが使用され、/api/embed は自動的に付加されます。例: https://ollama.example.com</value>
   </data>
 
 </root>

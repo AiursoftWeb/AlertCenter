@@ -69,11 +69,11 @@
   <data name="Confirmation note (optional)" xml:space="preserve">
     <value>หมายเหตุการยืนยัน (ไม่บังคับ)</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>คัดลอกเนื้อหา</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>คัดลอก JSON</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>คัดลอกเนื้อหา</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>OCE ที่เข้าเวรอยู่ในขณะนี้</value>
@@ -105,20 +105,20 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>ฉันยืนยันว่าเหตุการณ์นี้ได้รับการแก้ไขอย่างสมบูรณ์แล้วและจะไม่เกิดขึ้นอีก</value>
   </data>
-  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
-    <value>อีเมลแจ้งเหตุการณ์จะใช้ข้อมูล OCE ต้นฉบับชุดนี้ แม้จะมีการเปลี่ยนเวรผู้รับผิดชอบแล้วก็ตาม การรับทราบเหตุการณ์จะกำหนดผู้รับผิดชอบเหตุการณ์ แต่จะไม่เปลี่ยนผู้รับอีเมล</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>รหัสเหตุการณ์</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>ห้องปฏิบัติการเหตุการณ์ - {0}</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>อีเมลแจ้งเหตุการณ์จะใช้ข้อมูล OCE ต้นฉบับชุดนี้ แม้จะมีการเปลี่ยนเวรผู้รับผิดชอบแล้วก็ตาม การรับทราบเหตุการณ์จะกำหนดผู้รับผิดชอบเหตุการณ์ แต่จะไม่เปลี่ยนผู้รับอีเมล</value>
   </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>เจ้าของเหตุการณ์:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>ชื่อเหตุการณ์</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>ห้องปฏิบัติการเหตุการณ์ - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>เหตุการณ์ที่แยกจากกัน</value>
@@ -153,11 +153,11 @@
   <data name="Not acknowledged" xml:space="preserve">
     <value>ยังไม่ได้รับทราบ</value>
   </data>
-  <data name="Occurred at" xml:space="preserve">
-    <value>เกิดขึ้นเมื่อ</value>
-  </data>
   <data name="OCE at incident occurrence" xml:space="preserve">
     <value>OCE ณ เวลาที่เกิดเหตุ</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>เกิดขึ้นเมื่อ</value>
   </data>
   <data name="Permanently Delete" xml:space="preserve">
     <value>ลบอย่างถาวร</value>
@@ -213,6 +213,15 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>คำอธิบายกลไกการตอบสนอง</value>
   </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>การดำเนินการนี้จะลบเหตุการณ์และประวัติทั้งหมดอย่างถาวร พิมพ์ชื่อเรื่องให้ตรงทุกประการเพื่อยืนยัน</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>ยังไม่กำหนด</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>ยังไม่ได้รับการบรรเทา</value>
+  </data>
   <data name="sev0 · Critical (P0)" xml:space="preserve">
     <value>sev0 · วิกฤต (P0)</value>
   </data>
@@ -227,15 +236,6 @@
   </data>
   <data name="sev4 · Info (P4)" xml:space="preserve">
     <value>sev4 · ข้อมูล (P4)</value>
-  </data>
-  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
-    <value>การดำเนินการนี้จะลบเหตุการณ์และประวัติทั้งหมดอย่างถาวร พิมพ์ชื่อเรื่องให้ตรงทุกประการเพื่อยืนยัน</value>
-  </data>
-  <data name="Unassigned" xml:space="preserve">
-    <value>ยังไม่กำหนด</value>
-  </data>
-  <data name="Unmitigated" xml:space="preserve">
-    <value>ยังไม่ได้รับการบรรเทา</value>
   </data>
 
 </root>

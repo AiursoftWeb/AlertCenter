@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Als de knop niet werkt, open dan deze link:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Incidentdetails</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Incident geëscaleerd ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Incident-ID</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Incident-ID: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Incidentdetails</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident geëscaleerd ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Incident gemitigeerd: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Ongeldig CC-e-mailformaat. Weergavenamen worden niet ondersteund.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Ongeldige SMTP-configuratie. Controleer de e-mailinstellingen.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Ongeldig e-mailadres van de ontvanger. Weergavenamen worden niet ondersteund.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Ongeldige ontvanger- of CC-configuratie voor het e-mailkanaal. Controleer de kanaalinstellingen.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Ongeldige SMTP-configuratie. Controleer de e-mailinstellingen.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Gemitigeerd</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>Geen</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>OCE-querytijd (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Opgetreden op (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Opgetreden op (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>OCE-querytijd (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Piketgroep: {0}</value>

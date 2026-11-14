@@ -84,11 +84,11 @@
   <data name="Confirmation time (UTC)" xml:space="preserve">
     <value>Confirmation time (UTC)</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>Copy content</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>Copy JSON</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Copy content</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>Current on-call OCE</value>
@@ -120,11 +120,14 @@
   <data name="Full-cycle handling timeline" xml:space="preserve">
     <value>Full incident handling timeline</value>
   </data>
-  <data name="handling nodes" xml:space="preserve">
-    <value>handling steps</value>
-  </data>
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>I confirm that this incident has been fully resolved and will not recur.</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Incident ID</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Incident response room - {0}</value>
   </data>
   <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
     <value>Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients.</value>
@@ -132,17 +135,11 @@
   <data name="Incident event" xml:space="preserve">
     <value>Incident event</value>
   </data>
-  <data name="Incident ID" xml:space="preserve">
-    <value>Incident ID</value>
-  </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>Incident owner:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>Incident title</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>Incident response room - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>Independent incidents</value>
@@ -189,14 +186,14 @@
   <data name="Not set" xml:space="preserve">
     <value>Not set</value>
   </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE at the time of the incident</value>
+  </data>
   <data name="Occurred at" xml:space="preserve">
     <value>Occurred at</value>
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Occurred at (UTC)</value>
-  </data>
-  <data name="OCE at incident occurrence" xml:space="preserve">
-    <value>OCE at the time of the incident</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>Owner:</value>
@@ -285,21 +282,6 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>Response Mechanism Description</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Critical (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Major (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Error (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Warning (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Info (P4)</value>
-  </data>
   <data name="Severity: " xml:space="preserve">
     <value>Severity:</value>
   </data>
@@ -329,6 +311,24 @@
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>User deleted</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>handling steps</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Critical (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Major (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Error (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Warning (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Info (P4)</value>
   </data>
 
 </root>

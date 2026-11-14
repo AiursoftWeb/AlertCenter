@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>{0} bemanningspåminnelser · det går att spara även om bemanningen understiger miniminivån</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>{0} obemannade pass · fyll ett pass</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7-dagars jourplan</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>Första passet kl</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>timmar</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>timmar · Ankartid</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>timmar · minsta antal per skift</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>timmar · Veckomin</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>timmar.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>Varning för otillräcklig personal (manuell sparning tillåten, undantag för tomma pass)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>Deltagande medarbetare</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>personer · Kortaste vilotid den här veckan</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>personer · Tidsintervallsrotation:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>personer, mål</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>Per skift</value>
   </data>
@@ -153,10 +123,10 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Börjar snart</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
+  <data name="Status is based on page load time)" xml:space="preserve">
     <value>Statusen baseras på när sidan laddades.</value>
   </data>
-  <data name="Status is based on page load time)" xml:space="preserve">
+  <data name="Status is based on page load time." xml:space="preserve">
     <value>Statusen baseras på när sidan laddades.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>Du visar ett osparat utkast. Aviseringar följer fortfarande det sparade schemat.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>timmar</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>timmar · Ankartid</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>timmar · minsta antal per skift</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>timmar · Veckomin</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>timmar.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>personer · Kortaste vilotid den här veckan</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>personer · Tidsintervallsrotation:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>personer, mål</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} bemanningspåminnelser · det går att spara även om bemanningen understiger miniminivån</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} obemannade pass · fyll ett pass</value>
   </data>
 
 </root>

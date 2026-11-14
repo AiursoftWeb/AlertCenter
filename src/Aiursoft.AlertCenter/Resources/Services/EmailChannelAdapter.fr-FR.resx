@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Si le bouton ne fonctionne pas, ouvrez ce lien :</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Détails de l’incident</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Incident passé au niveau supérieur ({0} → {1}) : {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>ID de l’incident</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>ID de l’incident : {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Détails de l’incident</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident passé au niveau supérieur ({0} → {1}) : {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Incident atténué : {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Format d’adresse e-mail en copie (CC) invalide. Les noms d’affichage ne sont pas pris en charge.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Configuration SMTP invalide. Veuillez vérifier les paramètres de messagerie.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Format d’adresse e-mail du destinataire invalide. Les noms d’affichage ne sont pas pris en charge.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Configuration du destinataire ou des destinataires en copie (Cc) invalide pour le canal e-mail. Veuillez vérifier les paramètres du canal.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Configuration SMTP invalide. Veuillez vérifier les paramètres de messagerie.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Atténué</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>Aucun</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Heure de la requête OCE (UTC) : {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Survenu le (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Survenu le (UTC) : {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>Heure de la requête OCE (UTC) : {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Groupe d’astreinte : {0}</value>

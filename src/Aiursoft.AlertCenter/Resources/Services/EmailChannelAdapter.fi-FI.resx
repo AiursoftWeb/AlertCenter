@@ -69,17 +69,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Jos painike ei toimi, avaa tämä linkki:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Tapahtuman tiedot</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Incidentti eskaloitu ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Häiriön tunnus</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Tunnuksen ID: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Tapahtuman tiedot</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incidentti eskaloitu ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Onnettomuus lievennetty: {0}</value>
@@ -93,14 +93,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>CC-sähköpostiosoite on virheellisessä muodossa. Näyttönimiä ei tueta.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Virheellinen SMTP-määritys. Tarkista sähköpostiasetukset.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Virheellinen vastaanottajan sähköpostiosoite. Näyttönimiä ei tueta.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Sähköpostikanavan vastaanottaja- tai kopiomääritys on virheellinen. Tarkista kanavan asetukset.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Virheellinen SMTP-määritys. Tarkista sähköpostiasetukset.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Lievennetty</value>
@@ -111,14 +111,14 @@
   <data name="None" xml:space="preserve">
     <value>Ei mitään</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>OCE-kyselyn aika (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Tapahtuma-aika (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Tapahtuma-aika (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>OCE-kyselyn aika (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Päivystysryhmä: {0}</value>

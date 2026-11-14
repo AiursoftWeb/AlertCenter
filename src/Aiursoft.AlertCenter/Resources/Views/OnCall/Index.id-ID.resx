@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>jam</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Kelola templat aturan yang digunakan bersama oleh beberapa tim. Mengubah templat tidak akan membuat ulang jadwal giliran yang telah disimpan.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Hanya templat yang tidak terikat ke tim yang dapat dihapus. Jadwal tersimpan dan riwayat tim tidak akan terhapus; templat yang dihapus tidak dapat dipulihkan.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>orang</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>orang · Sasaran</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Harap lepaskan templat dari semua tim terlebih dahulu.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Lihat aturan</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>jam</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>orang</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>orang · Sasaran</value>
   </data>
 
 </root>

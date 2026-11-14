@@ -21,14 +21,14 @@
       <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, kan bruges på modtagersiden sammen med</value>
   </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Vælg kanaltype</value>
+  </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: Understøtter binding af flere brugere og brugergrupper (roller) samtidigt. Systemet fjerner automatisk duplikater, så hver modtager kun modtager én udlæst notifikation.</value>
   </data>
   <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
     <value>: Systemet bruger globalt konfigurationen for e-mailtjenesten. Brug venligst</value>
-  </data>
-  <data name="1. Select channel type" xml:space="preserve">
-    <value>1. Vælg kanaltype</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Tilføj</value>
@@ -51,9 +51,6 @@
   <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
     <value>Avanceret tilpasset anmodning (Tilpassede headers og skabeloner)</value>
   </data>
-  <data name="and" xml:space="preserve">
-    <value>og</value>
-  </data>
   <data name="Application Binding Authorization" xml:space="preserve">
     <value>Applikationsbindingstilladelse</value>
   </data>
@@ -72,14 +69,14 @@
   <data name="Batch enter CC emails" xml:space="preserve">
     <value>Indtast CC-e-mails i mængde</value>
   </data>
+  <data name="CC List" xml:space="preserve">
+    <value>CC-liste</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuller</value>
   </data>
   <data name="Cannot overwrite." xml:space="preserve">
     <value>Kan ikke overskrives.</value>
-  </data>
-  <data name="CC List" xml:space="preserve">
-    <value>CC-liste</value>
   </data>
   <data name="Channel name" xml:space="preserve">
     <value>Kanalnavn</value>
@@ -156,20 +153,20 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>Pladsholdere skal være den eneste værdi i en JSON-streng.</value>
   </data>
-  <data name="Recipient email" xml:space="preserve">
-    <value>Modtagerens e-mailadresse</value>
-  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>Modtagertype</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Modtagerens e-mailadresse</value>
   </data>
   <data name="Remove " xml:space="preserve">
     <value>Fjern</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Fjern {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Fjern rettighed</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Fjern {0}</value>
   </data>
   <data name="Request Body Template (JSON Template)" xml:space="preserve">
     <value>Anmodningskrop-skabelon (JSON-skabelon)</value>
@@ -180,17 +177,17 @@
   <data name="Save channel configuration" xml:space="preserve">
     <value>Gem kanalindstillinger</value>
   </data>
-  <data name="Search by username or display name..." xml:space="preserve">
-    <value>Søg efter brugernavn eller visningsnavn...</value>
-  </data>
   <data name="Search Users" xml:space="preserve">
     <value>Søg efter brugere</value>
   </data>
-  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
-    <value>Vælg en type notifikationskanal, og konfigurer modtageradressen eller de ønskede modtagere.</value>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Søg efter brugernavn eller visningsnavn...</value>
   </data>
   <data name="Select User Group" xml:space="preserve">
     <value>Vælg brugergruppe</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Vælg en type notifikationskanal, og konfigurer modtageradressen eller de ønskede modtagere.</value>
   </data>
   <data name="Select user group..." xml:space="preserve">
     <value>Vælg brugergruppe...</value>
@@ -222,17 +219,20 @@
   <data name="User Group" xml:space="preserve">
     <value>Brugerguppe</value>
   </data>
-  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
-    <value>Brugergruppe · Medlemmer overtager automatisk de tilknyttede tilladelser</value>
-  </data>
   <data name="User Group (Role)" xml:space="preserve">
     <value>Brugergruppe (rolle)</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Brugergruppe · Medlemmer overtager automatisk de tilknyttede tilladelser</value>
   </data>
   <data name="Webhook Receiver URL" xml:space="preserve">
     <value>Webhook-modtagerens URL</value>
   </data>
   <data name="Will parse and preserve the original object types." xml:space="preserve">
     <value>Vil analysere og bevare de oprindelige objekttyper.</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>og</value>
   </data>
 
 </root>

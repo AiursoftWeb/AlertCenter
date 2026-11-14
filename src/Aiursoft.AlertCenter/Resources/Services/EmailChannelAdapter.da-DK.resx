@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Hvis knappen ikke virker, skal du åbne dette link:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Hændelsesdetaljer</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Incident eskaleret ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Hændelses-id</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Hændelses-id: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Hændelsesdetaljer</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident eskaleret ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Incident dæmpet: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Ugyldigt format på CC-e-mail. Visningsnavne understøttes ikke.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Ugyldig SMTP-konfiguration. Kontrollér e-mailindstillingerne.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Ugyldigt format på modtagerens e-mailadresse. Visningsnavne understøttes ikke.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Ugyldig modtager eller CC-konfiguration for e-mailkanalen. Kontrollér kanalindstillingerne.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Ugyldig SMTP-konfiguration. Kontrollér e-mailindstillingerne.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Afdæmpet</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>Ingen</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>OCE-forespørgselstidspunkt (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Indtruffet den (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Indtruffet den (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>OCE-forespørgselstidspunkt (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Vagtgruppe: {0}</value>

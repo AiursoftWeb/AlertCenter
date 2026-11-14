@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Düzenle</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>saat</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Birden fazla ekip tarafından paylaşılan kural şablonlarını yönetin. Bir şablonu değiştirmek, kaydedilmiş vardiyaları yeniden oluşturmaz.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Yalnızca takımlara bağlı olmayan şablonlar silinebilir. Takımlar için kaydedilmiş vardiyalar ve geçmiş silinmez; silinen şablonlar geri alınamaz.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>kişi</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>kişi · Hedef</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Lütfen önce şablonu tüm ekiplerden ayırın.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Kuralları görüntüle</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>saat</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>kişi</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>kişi · Hedef</value>
   </data>
 
 </root>

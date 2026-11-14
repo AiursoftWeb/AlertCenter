@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} incidents on this page" xml:space="preserve">
-    <value>इस पृष्ठ पर {0} घटनाएँ</value>
-  </data>
-  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
-    <value>सुलभ एप्लिकेशनों में {0} अनसुलझी घटनाएँ</value>
-  </data>
-  <data name="Acknowledged" xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
     <value>स्वीकार किया गया</value>
   </data>
   <data name="Acknowledgement" xml:space="preserve">
@@ -162,21 +156,6 @@
   <data name="Search incident titles, content, or applications..." xml:space="preserve">
     <value>घटना के शीर्षक, सामग्री या एप्लिकेशन खोजें...</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · गंभीर (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · प्रमुख (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · त्रुटि (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · चेतावनी (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · जानकारी (P4)</value>
-  </data>
   <data name="Source application" xml:space="preserve">
     <value>स्रोत अनुप्रयोग</value>
   </data>
@@ -194,6 +173,27 @@
   </data>
   <data name="You have no assigned incidents" xml:space="preserve">
     <value>आपको कोई भी घटना असाइन नहीं की गई है।</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · गंभीर (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · प्रमुख (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · त्रुटि (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · चेतावनी (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · जानकारी (P4)</value>
+  </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>इस पृष्ठ पर {0} घटनाएँ</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>सुलभ एप्लिकेशनों में {0} अनसुलझी घटनाएँ</value>
   </data>
 
 </root>

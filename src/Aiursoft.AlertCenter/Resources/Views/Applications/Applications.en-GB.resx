@@ -18,8 +18,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>{0} applications</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>API Key Management</value>
+  </data>
+  <data name="API Key has been reset" xml:space="preserve">
+    <value>API key has been reset</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Action</value>
@@ -33,20 +36,14 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Adjust the search keywords or clear the search to view all apps.</value>
   </data>
-  <data name="API Key has been reset" xml:space="preserve">
-    <value>API key has been reset</value>
-  </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>API Key Management</value>
-  </data>
-  <data name="App connected" xml:space="preserve">
-    <value>Connected applications</value>
-  </data>
   <data name="App ID" xml:space="preserve">
     <value>App ID</value>
   </data>
   <data name="App ID, historical incident records, push channel bindings, and enable/disable status remain unchanged." xml:space="preserve">
     <value>The app ID, historical incident records, push channel bindings and enabled/disabled status remain unchanged.</value>
+  </data>
+  <data name="App connected" xml:space="preserve">
+    <value>Connected applications</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>App information</value>
@@ -87,14 +84,14 @@
   <data name="Copy API key" xml:space="preserve">
     <value>Copy API key</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>Create a business app above and issue a dedicated API key.</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>Create application</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Create Incident</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Create a business app above and issue a dedicated API key.</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Create new integration app</value>
@@ -195,11 +192,11 @@
   <data name="Reset API Key" xml:space="preserve">
     <value>Reset API Key</value>
   </data>
-  <data name="Reset integration key?" xml:space="preserve">
-    <value>Reset integration key?</value>
-  </data>
   <data name="Reset Key" xml:space="preserve">
     <value>Reset Key</value>
+  </data>
+  <data name="Reset integration key?" xml:space="preserve">
+    <value>Reset integration key?</value>
   </data>
   <data name="Running Status" xml:space="preserve">
     <value>Operational status</value>
@@ -239,6 +236,9 @@
   </data>
   <data name="View integration guide to send the first test message " xml:space="preserve">
     <value>View the integration guide to send your first test message</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>{0} applications</value>
   </data>
 
 </root>

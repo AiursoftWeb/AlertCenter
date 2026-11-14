@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Підтримка «відстрілюй і забудь» для довготривалих завдань (наприклад, електронних листів або штучного інтелекту), із графічним інтерфейсом для управління чергою, паралельною обробкою та скасуванням.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>Усього призначено: {0}</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Вбудована система контролю доступу на основі ролей (RBAC) для деталізованого управління дозволами.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Сучасна, багатофункціональна та високо розширювана основа для вашої наступної веб-програми.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Підтверджено</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Переклади на основі ШІ</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Підтверджено</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter — центр сповіщень та оперативного реагування · Глобальний стан і контроль виконання завдань</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Автоматична Ін&apos;єкція Залежностей</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Автоматичне надсилання повідомлень і усунення несправностей</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Автоматичне управління часовими зонами</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Автоматичне надсилання повідомлень і усунення несправностей</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Автоматичний переклад за допомогою штучного інтелекту на 28 мов для глобального охоплення.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Автоматична, заснована на штучному інтелекті переклад у 28 мовах.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>доступних каналів ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Обробка фонових завдань</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Копіювати</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Створіть застосунок і отримайте ключ</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Створіть сповіщення для своєї програми та повідомте його налаштованих одержувачів.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Створити застосунок</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Створіть застосунок і отримайте ключ</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>Створіть перший інцидент через API або SDK. Він з’явиться тут.</value>
@@ -315,6 +309,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Маршрутизуйте за рівнями Sev0–Sev4 у налаштуваннях push-сповіщень застосунку.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Канал електронної пошти SMTP</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Планування завдань</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Розумний темний режим, який автоматично адаптується до системних налаштувань користувача.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>Канал електронної пошти SMTP</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Джерело</value>
@@ -401,6 +395,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>Щоб створити сповіщення, потрібен доступ до активного застосунку.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>доступних каналів ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>Усього призначено: {0}</value>
   </data>
 
 </root>

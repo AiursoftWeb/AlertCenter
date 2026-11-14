@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>動作</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>建立於</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>管理排班規則</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>規則</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>選擇團隊以查看 7 日排班、生成或手動調整班次。未綁定排班範本的團隊亦可手動排班；已儲存的班次目前不會影響事故派發。</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>選擇值班團隊</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>選擇團隊以查看 7 日排班、生成或手動調整班次。未綁定排班範本的團隊亦可手動排班；已儲存的班次目前不會影響事故派發。</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>團隊</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>查看時間表</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>建立於</value>
   </data>
 
 </root>

@@ -18,22 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: The API key is displayed only once, after it has been successfully created or reset. Please configure it immediately in your production environment variables (e.g.,</value>
-  </data>
-  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: The API key is displayed only once upon successful creation. Please configure it immediately in the production environment variables (e.g.,</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. Push scheduling was triggered asynchronously.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. Retain the first record and do not trigger duplicate pushes.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. The centre can use this field to estimate network latency for reporting and delivery.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(Critical, highest priority),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -51,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) or Key Management Service (KMS). Hard-coding in the frontend, logs or code repositories is strictly prohibited.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Push scheduling was triggered asynchronously.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Retain the first record and do not trigger duplicate pushes.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. The centre can use this field to estimate network latency for reporting and delivery.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1 to 200 characters</value>
   </data>
@@ -62,6 +56,12 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 Authentication failed</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: The API key is displayed only once, after it has been successfully created or reset. Please configure it immediately in your production environment variables (e.g.,</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: The API key is displayed only once upon successful creation. Please configure it immediately in the production environment variables (e.g.,</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>Actual business event time, e.g.,</value>
@@ -144,9 +144,6 @@
   <data name="Optional" xml:space="preserve">
     <value>Optional</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>or environment variables, making it easier to locate and troubleshoot issues with one click on the details page.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>Replace it with the application key generated in the previous step to send a test directly.</value>
   </data>
@@ -174,11 +171,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>Structured business context. It is recommended to include</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>The client&apos;s globally unique report ID. The centre uses</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>The client&apos;s globally unique report ID. The centre uses</value>
   </data>
   <data name="This format identifies the application and lets the server verify its secret hash." xml:space="preserve">
     <value>This format identifies the application and enables the server to verify its secret hash.</value>
@@ -191,6 +188,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>With a time zone offset or Z identifier</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>or environment variables, making it easier to locate and troubleshoot issues with one click on the details page.</value>
   </data>
 
 </root>

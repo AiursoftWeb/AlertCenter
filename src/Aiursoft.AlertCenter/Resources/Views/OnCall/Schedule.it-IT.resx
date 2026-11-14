@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Azioni</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>creato in</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>Gestisci le regole di pianificazione</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>Regola</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>Seleziona un team per visualizzare la pianificazione dei 7 giorni, generare o modificare manualmente i turni. È possibile pianificare manualmente anche i team senza un modello associato; i turni salvati al momento non influiscono sull’instradamento degli incidenti.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>Seleziona il team On-Call</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Seleziona un team per visualizzare la pianificazione dei 7 giorni, generare o modificare manualmente i turni. È possibile pianificare manualmente anche i team senza un modello associato; i turni salvati al momento non influiscono sull’instradamento degli incidenti.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Squadra</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>Visualizza pianificazione</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>creato in</value>
   </data>
 
 </root>

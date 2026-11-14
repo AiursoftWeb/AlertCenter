@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>În aplicație</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>Politica SMS poate fi salvată, dar nu este instalat niciun canal de livrare SMS. Selectarea opțiunii SMS nu trimite mesaje text.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Salvați politica</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>„Afișare în liste” controlează lista implicită de incidente, tabloul de bord și numărul de incidente din aplicații. Filtrele explicite după nivelul de severitate pot găsi în continuare incidentele ascunse. Permisiunile de acces sunt respectate întotdeauna.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>Politica SMS poate fi salvată, dar nu este instalat niciun canal de livrare SMS. Selectarea opțiunii SMS nu trimite mesaje text.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Acesta este plafonul global pentru notificări. O aplicație trebuie să aibă și un canal activat și să se aboneze la nivelul de severitate respectiv. Pentru notificările de gardă se folosește coloana E-mail.</value>

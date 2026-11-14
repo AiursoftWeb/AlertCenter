@@ -21,15 +21,6 @@
       <data name=" items" xml:space="preserve">
     <value>항목</value>
   </data>
-  <data name="{0} incidents on this page" xml:space="preserve">
-    <value>이 페이지에 {0}건의 사고</value>
-  </data>
-  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
-    <value>{0}개의 진행 중 인시던트가 접근 가능한 애플리케이션에 걸쳐 발생 중입니다</value>
-  </data>
-  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
-    <value>접근 가능한 애플리케이션에서 미조치된 인시던트 {0}건</value>
-  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>확인됨</value>
   </data>
@@ -135,9 +126,6 @@
   <data name="Not recorded" xml:space="preserve">
     <value>기록되지 않음</value>
   </data>
-  <data name="ongoing incidents" xml:space="preserve">
-    <value>진행 중인 사고</value>
-  </data>
   <data name="Original on-call OCE" xml:space="preserve">
     <value>원본 온콜 OCE</value>
   </data>
@@ -189,21 +177,6 @@
   <data name="Service operating normally · No ongoing incidents" xml:space="preserve">
     <value>서비스가 정상적으로 운영 중입니다 · 진행 중인 인시던트가 없습니다</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · 심각 (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · 주요 (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · 오류 (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · 경고 (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · 정보 (P4)</value>
-  </data>
   <data name="Source application" xml:space="preserve">
     <value>원본 애플리케이션</value>
   </data>
@@ -236,6 +209,33 @@
   </data>
   <data name="You have no assigned incidents" xml:space="preserve">
     <value>할당이된 사건이 없습니다.</value>
+  </data>
+  <data name="ongoing incidents" xml:space="preserve">
+    <value>진행 중인 사고</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 심각 (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 주요 (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · 오류 (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 경고 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 정보 (P4)</value>
+  </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>이 페이지에 {0}건의 사고</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0}개의 진행 중 인시던트가 접근 가능한 애플리케이션에 걸쳐 발생 중입니다</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>접근 가능한 애플리케이션에서 미조치된 인시던트 {0}건</value>
   </data>
 
 </root>

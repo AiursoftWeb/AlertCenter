@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>已讀</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>已讀通知</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>已讀狀態</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>已讀通知</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>接收結束日期（UTC，含當日）</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>搜尋標題或內容...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · 嚴重（P0）</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · 重大（P1）</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · 錯誤 (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · 警告 (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · 資訊 (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>僅顯示已讀通知</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>系統產生與站內頻道相關的事件時，會直接推送到您的個人收件匣。</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 嚴重（P0）</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 重大（P1）</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · 錯誤 (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 警告 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 資訊 (P4)</value>
   </data>
 
 </root>

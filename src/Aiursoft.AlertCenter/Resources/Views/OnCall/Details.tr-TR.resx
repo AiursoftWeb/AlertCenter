@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>{0} personel hatırlatması · asgari sayının altında kaydetmeye izin verilir</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>{0} atanmamış vardiya · bir vardiyayı doldurun</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7 Günlük Vardiya Programı</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>İlk vardiya saat</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>saat</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>saat · Başlangıç</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>saat · Vardiya alt sınırı</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>saat · Haftalık minimum</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>saat.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>Yetersiz personel uyarısı (boş vardiyalar hariç manuel kayıt yapılabilir)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>Katılan çalışanlar</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>kişi · Bu haftaki en kısa dinlenme</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>kişi · Zaman dilimi rotasyonu:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>kişi, hedef</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>Vardiya başına</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Yakında başlıyor</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>Durum, sayfanın yüklenme zamanına göre belirlenir.</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Durum, sayfanın yüklenme zamanına göre belirlenir)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Durum, sayfanın yüklenme zamanına göre belirlenir.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>Önerilen veya manuel atamalar, kaydedilene kadar etkin değildir.</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>Kaydedilmemiş bir taslağı görüntülüyorsunuz. Bildirimler kaydedilmiş programa göre gönderilmeye devam eder.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>saat</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>saat · Başlangıç</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>saat · Vardiya alt sınırı</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>saat · Haftalık minimum</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>saat.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>kişi · Bu haftaki en kısa dinlenme</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>kişi · Zaman dilimi rotasyonu:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>kişi, hedef</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} personel hatırlatması · asgari sayının altında kaydetmeye izin verilir</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} atanmamış vardiya · bir vardiyayı doldurun</value>
   </data>
 
 </root>

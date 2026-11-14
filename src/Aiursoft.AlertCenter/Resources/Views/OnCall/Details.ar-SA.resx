@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>تذكيرات التغطية الوظيفية ({0}) · يُسمح بالحفظ دون الحد الأدنى</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>{0} مناوبات شاغرة · املأ مناوبة</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>جدول المناوبات لمدة 7 أيام</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>أول نوبة عند الساعة</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>ساعة</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>ساعات · نقطة الارتكاز</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>ساعة · الحد الأدنى لكل مناوبة</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>ساعات · الحد الأدنى الأسبوعي</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>ساعات.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>تحذير نقص في الكوادر (يُسمح بالحفظ اليدوي، باستثناء المناوبات الفارغة)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>الموظفون المشاركون</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>شخص · أقصر فترة راحة هذا الأسبوع</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>أشخاص · التناوب على الفترات الزمنية:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>أشخاص، المستهدف</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>لكل وردية</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>سيبدأ قريبًا</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>تعتمد الحالة على وقت تحميل الصفحة.</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>تعتمد الحالة على وقت تحميل الصفحة)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>تعتمد الحالة على وقت تحميل الصفحة.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>لا يتم تفعيل التعيينات المقترحة أو اليدوية إلا بعد الحفظ.</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>أنت تعرض مسودة غير محفوظة. ستظل الإشعارات مرتبطة بالجدول المحفوظ.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ساعة</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>ساعات · نقطة الارتكاز</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>ساعة · الحد الأدنى لكل مناوبة</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>ساعات · الحد الأدنى الأسبوعي</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>ساعات.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>شخص · أقصر فترة راحة هذا الأسبوع</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>أشخاص · التناوب على الفترات الزمنية:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>أشخاص، المستهدف</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>تذكيرات التغطية الوظيفية ({0}) · يُسمح بالحفظ دون الحد الأدنى</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} مناوبات شاغرة · املأ مناوبة</value>
   </data>
 
 </root>

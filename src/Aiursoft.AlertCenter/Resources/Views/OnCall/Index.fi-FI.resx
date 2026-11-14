@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Muokkaa</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>tuntia</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Hallinnoi useiden tiimien yhteisiä sääntömalleja. Mallin muokkaaminen ei luo tallennettuja työvuoroja uudelleen.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Vain tiimeihin liittämättömät mallipohjat voidaan poistaa. Tiimien tallennettuja vuoroja ja historiaa ei poisteta, eikä poistettuja mallipohjia voi palauttaa.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>henkilöä</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>henkilöä · tavoite</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Poista mallin sidonta ensin kaikista tiimeistä.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Näytä säännöt</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>tuntia</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>henkilöä</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>henkilöä · tavoite</value>
   </data>
 
 </root>

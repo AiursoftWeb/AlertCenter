@@ -84,11 +84,11 @@
   <data name="Confirmation time (UTC)" xml:space="preserve">
     <value>確認時刻（UTC）</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>コンテンツをコピー</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>JSONをコピー</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>コンテンツをコピー</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>現在オンコール中のOCE</value>
@@ -120,11 +120,14 @@
   <data name="Full-cycle handling timeline" xml:space="preserve">
     <value>一連の対応履歴</value>
   </data>
-  <data name="handling nodes" xml:space="preserve">
-    <value>対応履歴項目</value>
-  </data>
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>このインシデントが完全に解決され、再発しないことを確認します。</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>インシデント ID</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>インシデント対応ルーム - {0}</value>
   </data>
   <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
     <value>インシデント発生時のこの元のOCEスナップショットは、オンコールの担当が交代した後も、インシデント通知メールに使用されます。確認応答を行うとインシデントの担当者が割り当てられますが、メールの宛先は変更されません。</value>
@@ -132,17 +135,11 @@
   <data name="Incident event" xml:space="preserve">
     <value>インシデントイベント</value>
   </data>
-  <data name="Incident ID" xml:space="preserve">
-    <value>インシデント ID</value>
-  </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>インシデント担当者:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>インシデントタイトル</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>インシデント対応ルーム - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>独立したインシデント</value>
@@ -189,14 +186,14 @@
   <data name="Not set" xml:space="preserve">
     <value>未設定</value>
   </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>インシデント発生時のOCE</value>
+  </data>
   <data name="Occurred at" xml:space="preserve">
     <value>発生時刻</value>
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>発生日時（UTC）</value>
-  </data>
-  <data name="OCE at incident occurrence" xml:space="preserve">
-    <value>インシデント発生時のOCE</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>所有者：</value>
@@ -285,21 +282,6 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>対応メカニズムの説明</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · 重大（P0）</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · 重大（P1）</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · エラー（P2）</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · 警告 (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · 情報 (P4)</value>
-  </data>
   <data name="Severity: " xml:space="preserve">
     <value>重大度：</value>
   </data>
@@ -329,6 +311,24 @@
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>ユーザーは削除されました</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>対応履歴項目</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 重大（P0）</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 重大（P1）</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · エラー（P2）</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 警告 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 情報 (P4)</value>
   </data>
 
 </root>

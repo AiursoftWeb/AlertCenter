@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} incidents on this page" xml:space="preserve">
-    <value>Bu sayfada {0} olay</value>
-  </data>
-  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
-    <value>{0} erişilebilir uygulamalarda giderilmemiş olay</value>
-  </data>
-  <data name="Acknowledged" xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
     <value>Onaylandı</value>
   </data>
   <data name="Acknowledgement" xml:space="preserve">
@@ -162,21 +156,6 @@
   <data name="Search incident titles, content, or applications..." xml:space="preserve">
     <value>Olay başlıklarını, içeriğini veya uygulamalarını arayın...</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Kritik (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Önemli (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Hata (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Uyarı (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Bilgi (P4)</value>
-  </data>
   <data name="Source application" xml:space="preserve">
     <value>Kaynak uygulama</value>
   </data>
@@ -194,6 +173,27 @@
   </data>
   <data name="You have no assigned incidents" xml:space="preserve">
     <value>Size atanmış bir olay yok</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Kritik (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Önemli (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Hata (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Uyarı (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Bilgi (P4)</value>
+  </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>Bu sayfada {0} olay</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>{0} erişilebilir uygulamalarda giderilmemiş olay</value>
   </data>
 
 </root>

@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>{0} avertizări privind personalul · se poate salva și sub minimul necesar</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>{0} ture neatribuite · completează o tură</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>Programul de gardă pe 7 zile</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>Prima tură la</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>ore</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>ore · Ancoră</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>ore · Min. tura</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>ore · minim săptămânal</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>ore.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>Avertisment privind personalul insuficient (salvarea manuală este permisă, cu excepția turelor neacoperite)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>Angajați participanți</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>persoane · Cel mai scurt odihnă din această săptămână</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>persoane · Rotația intervalelor orare:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>persoane, țintă</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>Per schimb</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Începe în curând</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>Starea se bazează pe momentul încărcării paginii.</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Starea se bazează pe timpul de încărcare al paginii)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Starea se bazează pe momentul încărcării paginii.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>Atribuirile sugerate sau manuale nu sunt active până la salvare.</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>Vizualizați o schiță nesalvată. Notificările respectă în continuare programul salvat.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ore</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>ore · Ancoră</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>ore · Min. tura</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>ore · minim săptămânal</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>ore.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>persoane · Cel mai scurt odihnă din această săptămână</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>persoane · Rotația intervalelor orare:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>persoane, țintă</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} avertizări privind personalul · se poate salva și sub minimul necesar</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} ture neatribuite · completează o tură</value>
   </data>
 
 </root>

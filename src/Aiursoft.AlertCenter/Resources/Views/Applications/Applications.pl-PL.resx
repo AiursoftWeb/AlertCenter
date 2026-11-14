@@ -18,8 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>{0} aplikacji</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>Zarządzanie kluczami API</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Akcja</value>
@@ -33,14 +33,11 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Zmień słowa kluczowe wyszukiwania lub wyczyść wyszukiwanie, aby wyświetlić wszystkie aplikacje.</value>
   </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>Zarządzanie kluczami API</value>
+  <data name="App ID" xml:space="preserve">
+    <value>ID aplikacji</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>Połączone aplikacje</value>
-  </data>
-  <data name="App ID" xml:space="preserve">
-    <value>ID aplikacji</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>Informacje o aplikacji</value>
@@ -69,14 +66,14 @@
   <data name="Confirm app deletion" xml:space="preserve">
     <value>Potwierdź usunięcie aplikacji</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>Utwórz aplikację biznesową powyżej i wydaj dedykowany klucz API.</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>Utwórz aplikację</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Utwórz zgłoszenie</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Utwórz aplikację biznesową powyżej i wydaj dedykowany klucz API.</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Utwórz nową aplikację integracyjną</value>
@@ -176,6 +173,9 @@
   </data>
   <data name="View incidents" xml:space="preserve">
     <value>Zobacz incydenty</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>{0} aplikacji</value>
   </data>
 
 </root>

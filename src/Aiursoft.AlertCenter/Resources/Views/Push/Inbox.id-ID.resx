@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>Dibaca</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>Notifikasi yang sudah dibaca</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>Status Baca</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>Notifikasi yang sudah dibaca</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>Tanggal Akhir Penerimaan (UTC, inklusif)</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>Cari judul atau isi...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Kritis (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Besar (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Kesalahan (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Peringatan (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Info (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>Tampilkan yang sudah dibaca saja</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>Saat sistem membuat insiden yang ditujukan ke kanal dalam situs, insiden tersebut langsung dikirim ke kotak masuk pribadi Anda.</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Kritis (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Besar (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Kesalahan (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Peringatan (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Info (P4)</value>
   </data>
 
 </root>

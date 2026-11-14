@@ -69,17 +69,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Αν το κουμπί δεν λειτουργεί, ανοίξτε αυτόν τον σύνδεσμο:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Λεπτομέρειες συμβάντος</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Επείγος αναβαθμίστηκε ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Αναγνωριστικό περιστατικού</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Αναγνωριστικό συμβάντος: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Λεπτομέρειες συμβάντος</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Επείγος αναβαθμίστηκε ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Επίλυση συμβάντος: {0}</value>
@@ -93,14 +93,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Μη έγκυρη μορφή email κοινοποίησης (CC). Δεν υποστηρίζονται εμφανιζόμενα ονόματα.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Μη έγκυρη διαμόρφωση SMTP. Ελέγξτε τις ρυθμίσεις email.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Μη έγκυρη μορφή διεύθυνσης email παραλήπτη. Δεν υποστηρίζονται εμφανιζόμενα ονόματα.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Μη έγκυρος παραλήπτης ή μη έγκυρη ρύθμιση κοινοποίησης (CC) για το κανάλι email. Ελέγξτε τις ρυθμίσεις του καναλιού.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Μη έγκυρη διαμόρφωση SMTP. Ελέγξτε τις ρυθμίσεις email.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Ελεγχόμενη</value>
@@ -111,14 +111,14 @@
   <data name="None" xml:space="preserve">
     <value>Κανένα</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Ώρα ερωτήματος OCE (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Ώρα συμβάντος (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Συνέβη στις (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>Ώρα ερωτήματος OCE (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Ομάδα επιφυλακής: {0}</value>

@@ -84,11 +84,11 @@
   <data name="Confirmation time (UTC)" xml:space="preserve">
     <value>Thời gian xác nhận (UTC)</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>Sao chép nội dung</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>Sao chép JSON</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Sao chép nội dung</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>Nhân viên OCE trực hiện tại</value>
@@ -120,11 +120,14 @@
   <data name="Full-cycle handling timeline" xml:space="preserve">
     <value>Dòng thời gian xử lý toàn diện</value>
   </data>
-  <data name="handling nodes" xml:space="preserve">
-    <value>các bước xử lý</value>
-  </data>
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>Tôi xác nhận rằng sự cố này đã được giải quyết hoàn toàn và sẽ không tái diễn.</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>Mã sự cố</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Phòng ứng phó sự cố - {0}</value>
   </data>
   <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
     <value>Email sự cố sử dụng ảnh chụp nhanh OCE ban đầu này, ngay cả khi ca trực thay đổi. Việc xác nhận sẽ chỉ định người phụ trách sự cố; thao tác này không thay đổi người nhận email.</value>
@@ -132,17 +135,11 @@
   <data name="Incident event" xml:space="preserve">
     <value>Sự kiện sự cố</value>
   </data>
-  <data name="Incident ID" xml:space="preserve">
-    <value>Mã sự cố</value>
-  </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>Người phụ trách sự cố:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>Tiêu đề sự cố</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>Phòng ứng phó sự cố - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>Các sự cố độc lập</value>
@@ -189,14 +186,14 @@
   <data name="Not set" xml:space="preserve">
     <value>Chưa đặt</value>
   </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>OCE tại thời điểm sự cố xảy ra</value>
+  </data>
   <data name="Occurred at" xml:space="preserve">
     <value>Thời điểm xảy ra</value>
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Thời điểm xảy ra (UTC)</value>
-  </data>
-  <data name="OCE at incident occurrence" xml:space="preserve">
-    <value>OCE tại thời điểm sự cố xảy ra</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>Người phụ trách:</value>
@@ -285,21 +282,6 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>Mô tả cơ chế ứng phó</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Nghiêm trọng (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Nghiêm trọng (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Lỗi (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Cảnh báo (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Thông tin (P4)</value>
-  </data>
   <data name="Severity: " xml:space="preserve">
     <value>Mức độ nghiêm trọng:</value>
   </data>
@@ -329,6 +311,24 @@
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>Người dùng đã bị xóa</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>các bước xử lý</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Nghiêm trọng (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Nghiêm trọng (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Lỗi (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Cảnh báo (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Thông tin (P4)</value>
   </data>
 
 </root>

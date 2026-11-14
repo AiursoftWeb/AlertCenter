@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Действие</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>создано в</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>Управление правилами расписания</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>Правило</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>Выберите команду, чтобы просмотреть расписание на 7 дней, сформировать смены или скорректировать их вручную. Для команд без привязанного шаблона также можно вручную составить расписание; сохранённые смены пока не влияют на маршрутизацию инцидентов.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>Выберите дежурную команду</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Выберите команду, чтобы просмотреть расписание на 7 дней, сформировать смены или скорректировать их вручную. Для команд без привязанного шаблона также можно вручную составить расписание; сохранённые смены пока не влияют на маршрутизацию инцидентов.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Команда</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>Посмотреть расписание</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>создано в</value>
   </data>
 
 </root>

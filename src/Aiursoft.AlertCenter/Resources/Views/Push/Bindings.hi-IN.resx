@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="· Disabled, not dispatching" xml:space="preserve">
-    <value>· अक्षम, भेजा नहीं जा रहा</value>
-  </data>
-  <data name="{0} - Push Routing Settings" xml:space="preserve">
-    <value>{0} - पुश रूटिंग सेटिंग्स</value>
-  </data>
-  <data name="Application Push Routing" xml:space="preserve">
+      <data name="Application Push Routing" xml:space="preserve">
     <value>ऐप्लिकेशन पुश रूटिंग</value>
   </data>
   <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
@@ -35,9 +29,6 @@
   </data>
   <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
     <value>स्वतः सक्षम · अलग से अक्षम नहीं किया जा सकता</value>
-  </data>
-  <data name="available channels" xml:space="preserve">
-    <value>उपलब्ध चैनल</value>
   </data>
   <data name="Back to Connected Apps" xml:space="preserve">
     <value>कनेक्ट किए गए ऐप्स पर वापस जाएँ</value>
@@ -107,6 +98,15 @@
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>आवश्यकतानुसार पूरक सूचनाओं के लिए आप Webhook, ईमेल या इन-ऐप सूचना चैनल बना सकते हैं। ऑन-कॉल समूहों से जुड़ी ऐप्लिकेशन, कस्टम चैनल न होने पर भी अंतर्निहित ऑन-कॉल ईमेल भेजेंगी।</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>उपलब्ध चैनल</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - पुश रूटिंग सेटिंग्स</value>
+  </data>
+  <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· अक्षम, भेजा नहीं जा रहा</value>
   </data>
 
 </root>
