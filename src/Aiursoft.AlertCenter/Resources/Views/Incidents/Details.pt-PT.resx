@@ -66,11 +66,11 @@
   <data name="Confirmation note (optional)" xml:space="preserve">
     <value>Nota de confirmação (opcional)</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>Copiar conteúdo</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>Copiar JSON</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Copiar conteúdo</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>OCE de prevenção atual</value>
@@ -102,20 +102,20 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>Confirmo que este incidente foi totalmente resolvido e não voltará a ocorrer.</value>
   </data>
-  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
-    <value>Os e-mails do incidente utilizam este instantâneo original do OCE, mesmo após a mudança do turno de prevenção. Ao reconhecer o incidente, atribui-se a responsabilidade pelo incidente; os destinatários dos e-mails não são alterados.</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>ID do incidente</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Sala de Guerra de Incidentes - {0}</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Os e-mails do incidente utilizam este instantâneo original do OCE, mesmo após a mudança do turno de prevenção. Ao reconhecer o incidente, atribui-se a responsabilidade pelo incidente; os destinatários dos e-mails não são alterados.</value>
   </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>Proprietário do incidente:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>Título do incidente</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>Sala de Guerra de Incidentes - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>Incidentes independentes</value>
@@ -150,11 +150,11 @@
   <data name="Not acknowledged" xml:space="preserve">
     <value>Não reconhecido</value>
   </data>
-  <data name="Occurred at" xml:space="preserve">
-    <value>Ocorreu em</value>
-  </data>
   <data name="OCE at incident occurrence" xml:space="preserve">
     <value>OCE no momento da ocorrência do incidente</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Ocorreu em</value>
   </data>
   <data name="Permanently Delete" xml:space="preserve">
     <value>Eliminar permanentemente</value>
@@ -210,6 +210,15 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>Descrição do Mecanismo de Resposta</value>
   </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Esta ação elimina permanentemente o incidente e o respetivo histórico. Introduza o título exato para confirmar.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Não atribuído</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Não Mitigado</value>
+  </data>
   <data name="sev0 · Critical (P0)" xml:space="preserve">
     <value>sev0 · Crítico (P0)</value>
   </data>
@@ -224,15 +233,6 @@
   </data>
   <data name="sev4 · Info (P4)" xml:space="preserve">
     <value>sev4 · Informação (P4)</value>
-  </data>
-  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
-    <value>Esta ação elimina permanentemente o incidente e o respetivo histórico. Introduza o título exato para confirmar.</value>
-  </data>
-  <data name="Unassigned" xml:space="preserve">
-    <value>Não atribuído</value>
-  </data>
-  <data name="Unmitigated" xml:space="preserve">
-    <value>Não Mitigado</value>
   </data>
 
 </root>

@@ -27,27 +27,6 @@
   <data name=" · On duty" xml:space="preserve">
     <value>· 值班中</value>
   </data>
-  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
-    <value>{0} · {1} · 将选中的值班班次移至此处</value>
-  </data>
-  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
-    <value>{0} · {1} · 其他团队（只读） · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0}（只读）</value>
-  </data>
-  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
-    <value>{0} 个班次 / {1:0.##} 小时</value>
-  </data>
-  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
-    <value>{0}的值班班次</value>
-  </data>
-  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
-    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} 小时 · {5}</value>
-  </data>
-  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
-    <value>{0}{1} · {2} · 相邻周（只读） · {3}</value>
-  </data>
   <data name="36 hours after this week (read-only)" xml:space="preserve">
     <value>本周之后的36小时（只读）</value>
   </data>
@@ -80,12 +59,6 @@
   </data>
   <data name="From " xml:space="preserve">
     <value>来自</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>小时</value>
-  </data>
-  <data name="hours · " xml:space="preserve">
-    <value>小时 ·</value>
   </data>
   <data name="How to read this timeline" xml:space="preserve">
     <value>如何阅读此时间线</value>
@@ -125,6 +98,33 @@
   </data>
   <data name="Until " xml:space="preserve">
     <value>截至</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>小时 ·</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0}（只读）</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0} 个班次 / {1:0.##} 小时</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · 将选中的值班班次移至此处</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · 其他团队（只读） · {2}</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>{0}的值班班次</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} 小时 · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · 相邻周（只读） · {3}</value>
   </data>
 
 </root>

@@ -18,8 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>Застосунків: {0}</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>Керування ключами API</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Дія</value>
@@ -33,14 +33,11 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Змініть ключові слова пошуку або очистьте пошук, щоб переглянути всі застосунки.</value>
   </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>Керування ключами API</value>
+  <data name="App ID" xml:space="preserve">
+    <value>Ідентифікатор застосунку</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>Підключені застосунки</value>
-  </data>
-  <data name="App ID" xml:space="preserve">
-    <value>Ідентифікатор застосунку</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>Інформація про застосунок</value>
@@ -69,14 +66,14 @@
   <data name="Confirm app deletion" xml:space="preserve">
     <value>Підтвердьте видалення застосунку</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>Створіть бізнес-застосунок вище та згенеруйте для нього окремий ключ API.</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>Створити застосунок</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Створити інцидент</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Створіть бізнес-застосунок вище та згенеруйте для нього окремий ключ API.</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Створити новий застосунок для інтеграції</value>
@@ -176,6 +173,9 @@
   </data>
   <data name="View incidents" xml:space="preserve">
     <value>Переглянути інциденти</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>Застосунків: {0}</value>
   </data>
 
 </root>

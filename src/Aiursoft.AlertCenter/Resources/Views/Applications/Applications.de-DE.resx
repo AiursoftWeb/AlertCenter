@@ -18,8 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>{0} Anwendungen</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>API-Schlüssel-Verwaltung</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Aktion</value>
@@ -33,14 +33,11 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Passen Sie die Suchbegriffe an oder löschen Sie die Suche, um alle Apps anzuzeigen.</value>
   </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>API-Schlüssel-Verwaltung</value>
+  <data name="App ID" xml:space="preserve">
+    <value>App-ID</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>Verbundene App</value>
-  </data>
-  <data name="App ID" xml:space="preserve">
-    <value>App-ID</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>App-Informationen</value>
@@ -69,14 +66,14 @@
   <data name="Confirm app deletion" xml:space="preserve">
     <value>Löschung der App bestätigen</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>Erstellen Sie oben eine Business-App und richten Sie einen eigenen API-Schlüssel ein.</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>Anwendung erstellen</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Vorfall erstellen</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Erstellen Sie oben eine Business-App und richten Sie einen eigenen API-Schlüssel ein.</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Neue Integrations-App erstellen</value>
@@ -176,6 +173,9 @@
   </data>
   <data name="View incidents" xml:space="preserve">
     <value>Incidents anzeigen</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>{0} Anwendungen</value>
   </data>
 
 </root>

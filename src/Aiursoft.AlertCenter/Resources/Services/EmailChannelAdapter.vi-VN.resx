@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Nếu nút không hoạt động, hãy mở liên kết này:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Chi tiết sự cố</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Sự cố được nâng cấp ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Mã sự cố</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Mã sự cố: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Chi tiết sự cố</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Sự cố được nâng cấp ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Sự cố đã được giảm thiểu: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Định dạng email CC không hợp lệ. Không hỗ trợ tên hiển thị.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Cấu hình SMTP không hợp lệ. Vui lòng kiểm tra cài đặt email.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Định dạng email người nhận không hợp lệ. Không hỗ trợ tên hiển thị.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Người nhận không hợp lệ hoặc cấu hình CC của kênh email không đúng. Vui lòng kiểm tra cài đặt kênh.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Cấu hình SMTP không hợp lệ. Vui lòng kiểm tra cài đặt email.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Đã giảm thiểu</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>Không có</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Thời gian truy vấn OCE (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Thời điểm xảy ra (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Thời điểm xảy ra (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>Thời gian truy vấn OCE (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Nhóm trực: {0}</value>

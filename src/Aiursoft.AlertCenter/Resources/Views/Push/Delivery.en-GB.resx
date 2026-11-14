@@ -66,29 +66,29 @@
   <data name="Creation Time (UTC)" xml:space="preserve">
     <value>Creation time (UTC)</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Delivery completed successfully</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Delivery Content</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Delivery details</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Delivery details - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Delivery failed</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Delivery failed permanently</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>Delivery ID</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>Delivery ID:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Delivery completed successfully</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Delivery details - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Delivery failed permanently</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Delivery task created</value>
@@ -201,9 +201,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>This notification was suppressed by the severity policy and will not be sent.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>times</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Total attempts:</value>
   </data>
@@ -218,6 +215,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>View reopened incident</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>times</value>
   </data>
 
 </root>

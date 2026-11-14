@@ -27,27 +27,6 @@
   <data name=" · On duty" xml:space="preserve">
     <value>· ड्यूटी पर</value>
   </data>
-  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
-    <value>{0} · {1} · चुनी गई शिफ्ट को यहाँ ले जाएँ</value>
-  </data>
-  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
-    <value>{0} · {1} · अन्य टीम (केवल पढ़ने के लिए) · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (केवल पढ़ने योग्य)</value>
-  </data>
-  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
-    <value>{0} शिफ़्ट / {1:0.##} घंटे</value>
-  </data>
-  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
-    <value>{0} की ऑन-कॉल शिफ़्टें</value>
-  </data>
-  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
-    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} घंटे · {5}</value>
-  </data>
-  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
-    <value>{0}{1} · {2} · आस-पास का सप्ताह (केवल पढ़ने के लिए) · {3}</value>
-  </data>
   <data name="36 hours after this week (read-only)" xml:space="preserve">
     <value>इस सप्ताह के 36 घंटे बाद (केवल पढ़ने के लिए)</value>
   </data>
@@ -80,12 +59,6 @@
   </data>
   <data name="From " xml:space="preserve">
     <value>से</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>घंटे</value>
-  </data>
-  <data name="hours · " xml:space="preserve">
-    <value>घंटे ·</value>
   </data>
   <data name="How to read this timeline" xml:space="preserve">
     <value>इस समयरेखा को कैसे पढ़ें</value>
@@ -125,6 +98,33 @@
   </data>
   <data name="Until " xml:space="preserve">
     <value>तक</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>घंटे</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>घंटे ·</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (केवल पढ़ने योग्य)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0} शिफ़्ट / {1:0.##} घंटे</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · चुनी गई शिफ्ट को यहाँ ले जाएँ</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · अन्य टीम (केवल पढ़ने के लिए) · {2}</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>{0} की ऑन-कॉल शिफ़्टें</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} घंटे · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · आस-पास का सप्ताह (केवल पढ़ने के लिए) · {3}</value>
   </data>
 
 </root>

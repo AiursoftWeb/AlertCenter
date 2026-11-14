@@ -18,11 +18,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
-    <value>· {0} · Смежная неделя (только чтение)</value>
-  </data>
-  <data name=" · Departed" xml:space="preserve">
+      <data name=" · Departed" xml:space="preserve">
     <value>· Уволен</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Недостаточный отдых</value>
   </data>
   <data name=" · includes next week" xml:space="preserve">
     <value>· включает следующую неделю</value>
@@ -30,38 +30,8 @@
   <data name=" · includes previous week" xml:space="preserve">
     <value>· включает предыдущую неделю</value>
   </data>
-  <data name=" · Insufficient rest" xml:space="preserve">
-    <value>· Недостаточный отдых</value>
-  </data>
-  <data name="{0} · {1}" xml:space="preserve">
-    <value>{0} · {1}</value>
-  </data>
-  <data name="{0} · {1} · {2}" xml:space="preserve">
-    <value>{0} · {1} · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (только чтение)</value>
-  </data>
-  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
-    <value>У {0} только {1} сотрудник(а), ниже минимума {2}. Ручное сохранение всё ещё разрешено.</value>
-  </data>
-  <data name="{0} hours" xml:space="preserve">
-    <value>{0} ч</value>
-  </data>
-  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
-    <value>{0} смена для {1} · {2}; ещё не сохранено. Вы можете отменить это.</value>
-  </data>
-  <data name="{0} shifts / {1} hours" xml:space="preserve">
-    <value>{0} смен / {1} ч</value>
-  </data>
-  <data name="{0}: {1} · {2}" xml:space="preserve">
-    <value>{0}: {1} · {2}</value>
-  </data>
-  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
-    <value>{0}: Между {2} и {3} предусмотрено только {1} ч отдыха. Минимально необходимый отдых — {4} ч.</value>
-  </data>
-  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
-    <value>{0}{1}{2} · 8 часов · {3}{4}</value>
+  <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Смежная неделя (только чтение)</value>
   </data>
   <data name="Action not completed" xml:space="preserve">
     <value>Действие не завершено</value>
@@ -156,11 +126,11 @@
   <data name="Move / swap shifts" xml:space="preserve">
     <value>Перемещение / обмен сменами</value>
   </data>
-  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
-    <value>Перемещение отменено; расписание не изменено.</value>
-  </data>
   <data name="Move cancelled." xml:space="preserve">
     <value>Перемещение отменено.</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Перемещение отменено; расписание не изменено.</value>
   </data>
   <data name="Move down" xml:space="preserve">
     <value>Переместить вниз</value>
@@ -177,9 +147,6 @@
   <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
     <value>Ошибка сети; результат операции пока не подтверждён. Проверьте статус перед повторной отправкой, чтобы избежать дублирования.</value>
   </data>
-  <data name="next" xml:space="preserve">
-    <value>следующий</value>
-  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>Нет назначенных смен.</value>
   </data>
@@ -195,20 +162,17 @@
   <data name="No shifts to delete in this cell." xml:space="preserve">
     <value>В этой ячейке нет смен для удаления.</value>
   </data>
-  <data name="Page {0}" xml:space="preserve">
-    <value>Страница {0}</value>
-  </data>
   <data name="Page information updated" xml:space="preserve">
     <value>Информация о странице обновлена</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Страница {0}</value>
   </data>
   <data name="Please check the CC email format." xml:space="preserve">
     <value>Проверьте правильность формата адреса электронной почты для копии.</value>
   </data>
   <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
     <value>Нажмите Ctrl+C, чтобы скопировать выбранный ключ.</value>
-  </data>
-  <data name="previous" xml:space="preserve">
-    <value>Предыдущий</value>
   </data>
   <data name="Previous step undone." xml:space="preserve">
     <value>Предыдущий шаг отменён.</value>
@@ -228,11 +192,11 @@
   <data name="Remove " xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Удалить {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Отозвать разрешение</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Удалить {0}</value>
   </data>
   <data name="Removed" xml:space="preserve">
     <value>Удалено</value>
@@ -261,9 +225,6 @@
   <data name="Select Role" xml:space="preserve">
     <value>Выберите роль</value>
   </data>
-  <data name="Select up to 200 employees per team." xml:space="preserve">
-    <value>Выберите не более 200 сотрудников в каждой команде.</value>
-  </data>
   <data name="Select User" xml:space="preserve">
     <value>Выбрать пользователя</value>
   </data>
@@ -273,11 +234,14 @@
   <data name="Select User Group" xml:space="preserve">
     <value>Выбрать группу пользователей</value>
   </data>
-  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
-    <value>Выбрано: {0} · {1}. Перетащите на цветной блок или нажмите на него, чтобы поменять местами; нажмите пробел, чтобы переместить, Esc — чтобы отменить.</value>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Выберите не более 200 сотрудников в каждой команде.</value>
   </data>
   <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
     <value>Выбрано пользователей: {0}; максимум — 20 на страницу.</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Выбрано: {0} · {1}. Перетащите на цветной блок или нажмите на него, чтобы поменять местами; нажмите пробел, чтобы переместить, Esc — чтобы отменить.</value>
   </data>
   <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
     <value>Выбрано расписание инженера {0} на всю неделю. Перетащите его к другому инженеру или нажмите на него.</value>
@@ -350,6 +314,42 @@
   </data>
   <data name="You do not have permission to perform this action." xml:space="preserve">
     <value>У вас нет разрешения на выполнение этого действия.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>следующий</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>Предыдущий</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (только чтение)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>У {0} только {1} сотрудник(а), ниже минимума {2}. Ручное сохранение всё ещё разрешено.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} ч</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} смена для {1} · {2}; ещё не сохранено. Вы можете отменить это.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} смен / {1} ч</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Между {2} и {3} предусмотрено только {1} ч отдыха. Минимально необходимый отдых — {4} ч.</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 часов · {3}{4}</value>
   </data>
 
 </root>

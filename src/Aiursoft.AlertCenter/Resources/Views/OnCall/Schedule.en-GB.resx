@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Action</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>created in</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>Manage scheduling rules</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>Rule</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without an assigned template can also be scheduled manually; saved shifts do not currently affect incident routing.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>Select On-Call Team</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without an assigned template can also be scheduled manually; saved shifts do not currently affect incident routing.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Team</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>View schedule</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>created in</value>
   </data>
 
 </root>

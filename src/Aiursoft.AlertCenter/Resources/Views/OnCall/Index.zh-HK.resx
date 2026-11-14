@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>編輯</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>小時</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>管理多個團隊共用的規則範本。修改範本不會重新產生已儲存的輪班。</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>只有未與團隊綁定的範本才可刪除。團隊已儲存的更次及歷史記錄不會被刪除；已刪除的範本無法復原。</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>人</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>人 · 目標</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>請先解除此範本與所有團隊的綁定。</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>查看規則</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>人 · 目標</value>
   </data>
 
 </root>

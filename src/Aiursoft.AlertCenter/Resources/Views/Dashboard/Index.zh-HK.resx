@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>「即發即忘」支援長時間執行的任務（例如電郵或人工智慧），具備用於佇列管理、平行處理及取消的圖形使用者介面。</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>總共已指派 {0} 個</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>內置基於角色嘅存取控制（RBAC）系統，用於精細化權限管理。</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>一個現代化、功能豐富且高度可擴展嘅基礎，為您嘅下一個網頁應用程式提供強大支援。</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>已確認</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>人工智能翻譯</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>已確認</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter 警報與營運中心 · 全球狀態及閉環追蹤</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>自動依賴注入</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>自動訊息傳送及故障排解</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>自動時區處理</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>自動訊息傳送及故障排解</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>自動化、人工智能驅動嘅翻譯，支援 28 種語言，助你拓展全球市場。</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>自動、由人工智能驅動的翻譯，支援 28 種語言。</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>可用渠道 ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>背景工作處理</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>複製</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>建立應用程式並取得金鑰</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>為你的應用程式建立警報，並通知其已設定的接收者。</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>建立應用程式</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>建立應用程式並取得金鑰</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>透過 API 或 SDK 建立第一個事件。它會在這裡顯示。</value>
@@ -321,6 +315,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>在應用程式的推送設定中，按 Sev0 至 Sev4 分流。</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP 電郵頻道</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>定時工作管理</value>
   </data>
@@ -341,9 +338,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>智能深色模式，會自動適應使用者嘅系統設定。</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>SMTP 電郵頻道</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>來源</value>
@@ -407,6 +401,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>你需要擁有已啟用應用程式的建立警示權限。</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>可用渠道 ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>總共已指派 {0} 個</value>
   </data>
 
 </root>

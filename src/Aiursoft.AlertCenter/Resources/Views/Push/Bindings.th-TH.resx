@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="· Disabled, not dispatching" xml:space="preserve">
-    <value>· ปิดใช้งานอยู่ จึงไม่มีการส่ง</value>
-  </data>
-  <data name="{0} - Push Routing Settings" xml:space="preserve">
-    <value>{0} - การตั้งค่าการกำหนดเส้นทางการแจ้งเตือน</value>
-  </data>
-  <data name="Application Push Routing" xml:space="preserve">
+      <data name="Application Push Routing" xml:space="preserve">
     <value>การกำหนดเส้นทางการแจ้งเตือนของแอปพลิเคชัน</value>
   </data>
   <data name="Applies only to new incidents after saving. If a channel is disabled, routing is retained but new incidents will be skipped." xml:space="preserve">
@@ -35,9 +29,6 @@
   </data>
   <data name="Auto-enabled · Cannot be disabled individually" xml:space="preserve">
     <value>เปิดใช้งานโดยอัตโนมัติ · ไม่สามารถปิดใช้งานแยกต่างหากได้</value>
-  </data>
-  <data name="available channels" xml:space="preserve">
-    <value>ช่องทางที่พร้อมใช้งาน</value>
   </data>
   <data name="Back to Connected Apps" xml:space="preserve">
     <value>กลับไปยังแอปที่เชื่อมต่อ</value>
@@ -107,6 +98,15 @@
   </data>
   <data name="You can create Webhook, email, or in-app notification channels as needed for supplementation. Applications bound to on-call groups will send built-in on-call emails even without custom channels." xml:space="preserve">
     <value>คุณสามารถสร้างช่องทางการแจ้งเตือนผ่าน Webhook อีเมล หรือภายในแอปได้ตามต้องการ เพื่อใช้เป็นช่องทางเสริม แอปพลิเคชันที่ผูกกับกลุ่มเวรจะส่งอีเมลแจ้งเตือนเวรที่มีมาให้ในระบบ แม้จะไม่มีช่องทางที่กำหนดเองก็ตาม</value>
+  </data>
+  <data name="available channels" xml:space="preserve">
+    <value>ช่องทางที่พร้อมใช้งาน</value>
+  </data>
+  <data name="{0} - Push Routing Settings" xml:space="preserve">
+    <value>{0} - การตั้งค่าการกำหนดเส้นทางการแจ้งเตือน</value>
+  </data>
+  <data name="· Disabled, not dispatching" xml:space="preserve">
+    <value>· ปิดใช้งานอยู่ จึงไม่มีการส่ง</value>
   </data>
 
 </root>

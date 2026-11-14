@@ -18,22 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: APIキーは作成またはリセットが正常に完了した際に一度だけ表示されます。本番環境の環境変数（例：</value>
-  </data>
-  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>：APIキーは作成に成功した際に一度のみ表示されます。本番環境の環境変数（例：</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>。プッシュのスケジュール設定が非同期で開始されます。</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>最初のレコードを保持し、重複したプッシュを実行しないでください。</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>。センターはこのフィールドを使用して、報告から配信までのネットワーク遅延を推定できます。</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>（重大・最優先）、</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -51,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>）またはキー管理サービス（KMS）。フロントエンド、ログ、またはコードリポジトリへのハードコーディングは固く禁止されています。</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>。プッシュのスケジュール設定が非同期で開始されます。</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>最初のレコードを保持し、重複したプッシュを実行しないでください。</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>。センターはこのフィールドを使用して、報告から配信までのネットワーク遅延を推定できます。</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1～200文字</value>
   </data>
@@ -62,6 +56,12 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 認証に失敗しました</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: APIキーは作成またはリセットが正常に完了した際に一度だけ表示されます。本番環境の環境変数（例：</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>：APIキーは作成に成功した際に一度のみ表示されます。本番環境の環境変数（例：</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>実際の業務発生時刻（例：</value>
@@ -144,9 +144,6 @@
   <data name="Optional" xml:space="preserve">
     <value>任意</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>または環境変数を含めることをお勧めします。詳細ページでワンクリック検索やトラブルシューティングができるようになります。</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>前の手順で生成したアプリケーションキーに置き換えると、テストを直接送信できます。</value>
   </data>
@@ -174,11 +171,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>構造化された業務コンテキストです。次の項目を含めることを推奨します</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>クライアント固有のグローバル一意なレポートIDです。センターではこれを使用して</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDKは各レポートを一度だけ送信します。ネットワーク障害により結果が不確かな場合は、同じReportIdと発生時刻を指定して、同じリクエストを再試行してください。</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>クライアント固有のグローバル一意なレポートIDです。センターではこれを使用して</value>
   </data>
   <data name="This format identifies the application and lets the server verify its secret hash." xml:space="preserve">
     <value>この形式はアプリケーションを識別し、サーバーがシークレットのハッシュを検証できるようにします。</value>
@@ -191,6 +188,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>タイムゾーンオフセットまたはZ識別子を含む</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>または環境変数を含めることをお勧めします。詳細ページでワンクリック検索やトラブルシューティングができるようになります。</value>
   </data>
 
 </root>

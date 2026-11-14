@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Поддержка &quot;fire-and-forget&quot; для длительных задач (например, электронной почты или ИИ), с графическим интерфейсом для управления очередями, параллельной обработки и отмены.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>Всего назначено: {0}</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Встроенная система управления доступом на основе ролей (RBAC) для детального управления разрешениями.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Современная, многофункциональная и легко расширяемая основа для вашего следующего веб-приложения.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Подтверждено</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Переводы на основе ИИ</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Подтверждено</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter: центр оповещений и эксплуатации · глобальный статус и отслеживание замкнутого цикла</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Автоматическое внедрение зависимостей</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Автоматическая доставка сообщений и устранение неполадок</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Автоматическое управление часовым поясом</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Автоматическая доставка сообщений и устранение неполадок</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Автоматический перевод с использованием искусственного интеллекта на 28 языков для глобального охвата.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Автоматический перевод с использованием ИИ на 28 языков.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>доступных каналов ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Обработка фоновых задач</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Копировать</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Создайте приложение и получите ключ</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Создайте оповещение для вашего приложения и уведомите настроенных получателей.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Создать приложение</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Создайте приложение и получите ключ</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>Создайте первое инцидентное событие через API или SDK. Оно появится здесь.</value>
@@ -315,6 +309,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Настройте маршрутизацию по уровням Sev0–Sev4 в параметрах push-уведомлений приложения.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Канал электронной почты SMTP</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Планирование задач</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Умный тёмный режим, который автоматически подстраивается под системные настройки пользователя.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>Канал электронной почты SMTP</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Источник</value>
@@ -401,6 +395,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>Для этого необходимо иметь право создавать оповещения для включённого приложения.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>доступных каналов ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>Всего назначено: {0}</value>
   </data>
 
 </root>

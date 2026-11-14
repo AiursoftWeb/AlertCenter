@@ -18,22 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: Khóa API chỉ được hiển thị một lần sau khi tạo hoặc đặt lại thành công. Vui lòng cấu hình khóa ngay trong các biến môi trường của môi trường production (ví dụ:</value>
-  </data>
-  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: API Key chỉ được hiển thị một lần sau khi tạo thành công. Vui lòng cấu hình ngay lập tức trong biến môi trường của môi trường sản xuất (ví dụ:</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>Lên lịch gửi đẩy được kích hoạt không đồng bộ.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. Giữ lại bản ghi đầu tiên và không kích hoạt gửi thông báo trùng lặp.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. Trung tâm có thể sử dụng trường này để ước tính độ trễ mạng khi gửi báo cáo và chuyển tiếp báo cáo.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(Cực kỳ nghiêm trọng, mức độ ưu tiên cao nhất),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -51,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) hoặc Dịch vụ quản lý khóa (KMS). Nghiêm cấm ghi cứng khóa trong giao diện người dùng, nhật ký hoặc kho lưu trữ mã nguồn.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>Lên lịch gửi đẩy được kích hoạt không đồng bộ.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Giữ lại bản ghi đầu tiên và không kích hoạt gửi thông báo trùng lặp.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Trung tâm có thể sử dụng trường này để ước tính độ trễ mạng khi gửi báo cáo và chuyển tiếp báo cáo.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>Từ 1 đến 200 ký tự</value>
   </data>
@@ -62,6 +56,12 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 Xác thực thất bại</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: Khóa API chỉ được hiển thị một lần sau khi tạo hoặc đặt lại thành công. Vui lòng cấu hình khóa ngay trong các biến môi trường của môi trường production (ví dụ:</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API Key chỉ được hiển thị một lần sau khi tạo thành công. Vui lòng cấu hình ngay lập tức trong biến môi trường của môi trường sản xuất (ví dụ:</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>Thời điểm thực tế phát sinh sự việc kinh doanh, ví dụ:</value>
@@ -144,9 +144,6 @@
   <data name="Optional" xml:space="preserve">
     <value>Không bắt buộc</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>hoặc các biến môi trường, giúp dễ dàng xác định vị trí và khắc phục sự cố chỉ bằng một cú nhấp chuột trên trang chi tiết.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>Hãy thay bằng khóa ứng dụng được tạo ở bước trước để gửi thử trực tiếp.</value>
   </data>
@@ -174,11 +171,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>Ngữ cảnh nghiệp vụ có cấu trúc. Bạn nên bao gồm</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>Mã báo cáo duy nhất trên toàn cầu của ứng dụng khách. Trung tâm sử dụng</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDK chỉ gửi mỗi báo cáo một lần. Nếu sự cố mạng khiến kết quả không thể xác định, hãy gửi lại cùng yêu cầu với cùng ReportId và thời điểm xảy ra.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Mã báo cáo duy nhất trên toàn cầu của ứng dụng khách. Trung tâm sử dụng</value>
   </data>
   <data name="This format identifies the application and lets the server verify its secret hash." xml:space="preserve">
     <value>Định dạng này xác định ứng dụng và cho phép máy chủ xác minh hàm băm bí mật của ứng dụng.</value>
@@ -191,6 +188,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>Có độ lệch múi giờ hoặc ký hiệu Z</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>hoặc các biến môi trường, giúp dễ dàng xác định vị trí và khắc phục sự cố chỉ bằng một cú nhấp chuột trên trang chi tiết.</value>
   </data>
 
 </root>

@@ -18,8 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>{0} uygulama</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>API Anahtar Yönetimi</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Eylem</value>
@@ -33,14 +33,11 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Tüm uygulamaları görüntülemek için arama anahtar kelimelerini ayarlayın veya aramayı temizleyin.</value>
   </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>API Anahtar Yönetimi</value>
+  <data name="App ID" xml:space="preserve">
+    <value>Uygulama Kimliği</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>Bağlı uygulama</value>
-  </data>
-  <data name="App ID" xml:space="preserve">
-    <value>Uygulama Kimliği</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>Uygulama bilgileri</value>
@@ -69,14 +66,14 @@
   <data name="Confirm app deletion" xml:space="preserve">
     <value>Uygulama silme işlemini onaylayın</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>Yukarıdan bir iş uygulaması oluşturun ve özel bir API Anahtarı oluşturun.</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>Uygulama Oluştur</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Olay Oluştur</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Yukarıdan bir iş uygulaması oluşturun ve özel bir API Anahtarı oluşturun.</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Yeni entegrasyon uygulaması oluştur</value>
@@ -176,6 +173,9 @@
   </data>
   <data name="View incidents" xml:space="preserve">
     <value>Olayları Görüntüle</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>{0} uygulama</value>
   </data>
 
 </root>

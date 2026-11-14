@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Editar</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>horas</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Gestiona las plantillas de reglas compartidas por varios equipos. Modificar una plantilla no vuelve a generar los turnos guardados.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Solo se pueden eliminar las plantillas que no estén vinculadas a equipos. Los turnos guardados y el historial de los equipos no se eliminarán; las plantillas eliminadas no se pueden recuperar.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>personas</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>personas · Objetivo</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Por favor, desvincule primero la plantilla de todos los equipos.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Ver reglas</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>horas</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>personas</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>personas · Objetivo</value>
   </data>
 
 </root>

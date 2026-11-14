@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Editează</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>ore</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Gestionați șabloanele de reguli partajate de mai multe echipe. Modificarea unui șablon nu regenerează turele salvate.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Pot fi șterse doar șabloanele care nu sunt asociate echipelor. Turele salvate și istoricul echipelor nu se șterg; șabloanele șterse nu pot fi recuperate.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>persoane</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>persoane · Țintă</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Vă rugăm să dezasociați mai întâi șablonul de la toate echipele.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Vizualizați regulile</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ore</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>persoane</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>persoane · Țintă</value>
   </data>
 
 </root>

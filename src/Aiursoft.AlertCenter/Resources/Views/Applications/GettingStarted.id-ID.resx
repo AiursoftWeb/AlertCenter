@@ -18,19 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: Kunci API hanya ditampilkan sekali setelah berhasil dibuat. Segera atur kunci tersebut di variabel lingkungan produksi (misalnya,</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. Penjadwalan push dipicu secara asinkron.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. Pertahankan catatan pertama dan jangan memicu pengiriman push duplikat.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>Pusat dapat menggunakan kolom ini untuk memperkirakan latensi jaringan pelaporan dan pengiriman.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(Kritis, prioritas tertinggi),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -48,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) atau Layanan Pengelolaan Kunci (KMS). Menyimpan kunci secara langsung di frontend, log, atau repositori kode sangat dilarang.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Penjadwalan push dipicu secara asinkron.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Pertahankan catatan pertama dan jangan memicu pengiriman push duplikat.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>Pusat dapat menggunakan kolom ini untuk memperkirakan latensi jaringan pelaporan dan pengiriman.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1 hingga 200 karakter</value>
   </data>
@@ -59,6 +56,9 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 Autentikasi gagal</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: Kunci API hanya ditampilkan sekali setelah berhasil dibuat. Segera atur kunci tersebut di variabel lingkungan produksi (misalnya,</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>Waktu terjadinya kejadian bisnis yang sebenarnya, misalnya,</value>
@@ -138,9 +138,6 @@
   <data name="Optional" xml:space="preserve">
     <value>Opsional</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>atau variabel lingkungan, sehingga memudahkan pencarian dan pemecahan masalah sekali klik di halaman detail.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>Ganti dengan kunci aplikasi yang dibuat pada langkah sebelumnya untuk langsung mengirimkan pengujian.</value>
   </data>
@@ -168,11 +165,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>Konteks bisnis terstruktur. Sebaiknya sertakan</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>ID laporan unik secara global milik klien. Pusat menggunakan</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDK mengirim setiap laporan satu kali. Jika kegagalan jaringan membuat hasilnya tidak pasti, kirim ulang permintaan yang sama dengan ReportId dan waktu kejadian yang sama.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>ID laporan unik secara global milik klien. Pusat menggunakan</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Jenis</value>
@@ -182,6 +179,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>Dengan offset zona waktu atau penanda Z</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>atau variabel lingkungan, sehingga memudahkan pencarian dan pemecahan masalah sekali klik di halaman detail.</value>
   </data>
 
 </root>

@@ -18,19 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: API-avain näytetään onnistuneen luomisen jälkeen vain kerran. Määritä se heti tuotantoympäristön ympäristömuuttujiin (esim.,</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. Push-ajoitus käynnistetään asynkronisesti.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. Säilytä ensimmäinen tietue äläkä käynnistä päällekkäisiä push-ilmoituksia.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. Keskus voi käyttää tätä kenttää ilmoituksen ja toimituksen verkkoviiveen arvioimiseen.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(Kriittinen, korkein prioriteetti),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -48,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) tai avaintenhallintapalvelussa (KMS). Avainten kovakoodaus käyttöliittymään, lokeihin tai koodivarastoihin on ehdottomasti kielletty.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Push-ajoitus käynnistetään asynkronisesti.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Säilytä ensimmäinen tietue äläkä käynnistä päällekkäisiä push-ilmoituksia.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Keskus voi käyttää tätä kenttää ilmoituksen ja toimituksen verkkoviiveen arvioimiseen.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1–200 merkkiä</value>
   </data>
@@ -59,6 +56,9 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 Todennus epäonnistui</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API-avain näytetään onnistuneen luomisen jälkeen vain kerran. Määritä se heti tuotantoympäristön ympäristömuuttujiin (esim.,</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>Tapahtuman todellinen ajankohta, esim.</value>
@@ -138,9 +138,6 @@
   <data name="Optional" xml:space="preserve">
     <value>Valinnainen</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>tai ympäristömuuttujat, mikä helpottaa niiden paikantamista ja vianmääritystä yhdellä napsautuksella tietosivulla.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>Korvaa edellisessä vaiheessa luodulla sovellusavaimella, jotta voit lähettää testiviestin suoraan.</value>
   </data>
@@ -168,11 +165,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>Jäsennelty liiketoimintakonteksti. Suositeltavaa on sisällyttää</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>Asiakkaan maailmanlaajuisesti yksilöllinen raporttitunnus. Keskus käyttää</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDK lähettää kunkin raportin vain kerran. Jos verkkohäiriön vuoksi lopputulos jää epävarmaksi, lähetä sama pyyntö uudelleen käyttäen samaa ReportId-tunnistetta ja tapahtuma-aikaa.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Asiakkaan maailmanlaajuisesti yksilöllinen raporttitunnus. Keskus käyttää</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -182,6 +179,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>Aikavyöhyke-offsetin tai Z-tunnisteen kanssa</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>tai ympäristömuuttujat, mikä helpottaa niiden paikantamista ja vianmääritystä yhdellä napsautuksella tietosivulla.</value>
   </data>
 
 </root>

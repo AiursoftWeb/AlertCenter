@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Timp de creare</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Livrare finalizată cu succes</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Conținutul livrării</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Detalii de livrare</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Detalii despre livrare - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Livrarea a eșuat</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Livrarea a eșuat definitiv</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>ID-ul livrării</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>ID livrare:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Livrare finalizată cu succes</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Detalii despre livrare - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Livrarea a eșuat definitiv</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Sarcină de livrare creată</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Această notificare a fost suprimată conform politicii de severitate și nu va fi trimisă.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>ori</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Număr total de încercări:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Vizualizați incidentul redeschis</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>ori</value>
   </data>
 
 </root>

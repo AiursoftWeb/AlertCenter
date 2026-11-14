@@ -132,6 +132,9 @@
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>排班起始點 (UTC)</value>
   </data>
+  <data name="Search Employees" xml:space="preserve">
+    <value>搜尋員工</value>
+  </data>
   <data name="Search by name instead" xml:space="preserve">
     <value>改為按姓名搜尋</value>
   </data>
@@ -140,9 +143,6 @@
   </data>
   <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>按時區名稱、城市或 UTC 時差搜尋。排班起始時間以 UTC 儲存，並按團隊時區顯示。</value>
-  </data>
-  <data name="Search Employees" xml:space="preserve">
-    <value>搜尋員工</value>
   </data>
   <data name="Selected members (can be empty, max 200)" xml:space="preserve">
     <value>已選成員（可留空，最多 200 人）</value>

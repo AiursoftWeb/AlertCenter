@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>{0} 条人员配置提醒 · 允许低于最低人数保存</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>还有 {0} 个未分配班次 · 填补一个班次</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7 天值班安排</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>第一班次开始于</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>小时</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>小时 · 锚定时间</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>小时 · 每班最低人数</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>小时 · 每周最低人数</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>小时。</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>人员不足警告（允许手动保存，空班次除外）</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>参与员工</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>人 · 本周最短休息时间</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>人 · 时段轮换：</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>人，目标</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>每班</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>即将开始</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>状态基于页面加载时的时间。</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>状态基于页面加载时间）</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>状态基于页面加载时的时间。</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>建议或手动分配在保存前不会生效。</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>您正在查看未保存的草稿。通知仍按照已保存的排班发送。</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>小时 · 锚定时间</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>小时 · 每班最低人数</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>小时 · 每周最低人数</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>小时。</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>人 · 本周最短休息时间</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>人 · 时段轮换：</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>人，目标</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} 条人员配置提醒 · 允许低于最低人数保存</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>还有 {0} 个未分配班次 · 填补一个班次</value>
   </data>
 
 </root>

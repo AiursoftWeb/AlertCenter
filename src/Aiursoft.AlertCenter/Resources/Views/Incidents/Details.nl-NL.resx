@@ -66,11 +66,11 @@
   <data name="Confirmation note (optional)" xml:space="preserve">
     <value>Bevestigingsnotitie (optioneel)</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>Inhoud kopiëren</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>JSON kopiëren</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Inhoud kopiëren</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>Huidige on-call OCE</value>
@@ -102,20 +102,20 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>Ik bevestig dat deze incident volledig is opgelost en niet zal terugkeren.</value>
   </data>
-  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
-    <value>Incident-e-mails maken gebruik van deze originele OCE-snapshot, zelfs na wijziging van de on-duty-rooster. Erkennen wijst de incident-eigenaar toe; het wijzigt de e-mailontvangers niet.</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Incident-ID</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Incident War Room - {0}</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Incident-e-mails maken gebruik van deze originele OCE-snapshot, zelfs na wijziging van de on-duty-rooster. Erkennen wijst de incident-eigenaar toe; het wijzigt de e-mailontvangers niet.</value>
   </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>Verantwoordelijke voor incident:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>Incidenttitel</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>Incident War Room - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>Onafhankelijke incidenten</value>
@@ -150,11 +150,11 @@
   <data name="Not acknowledged" xml:space="preserve">
     <value>Niet bevestigd</value>
   </data>
-  <data name="Occurred at" xml:space="preserve">
-    <value>Voorgevallen op</value>
-  </data>
   <data name="OCE at incident occurrence" xml:space="preserve">
     <value>OCE bij incidentoptreden</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Voorgevallen op</value>
   </data>
   <data name="Permanently Delete" xml:space="preserve">
     <value>Permanent verwijderen</value>
@@ -210,6 +210,15 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>Beschrijving reactiemechanisme</value>
   </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Hiermee worden het incident en de bijbehorende geschiedenis definitief verwijderd. Voer de exacte titel in ter bevestiging.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Niet toegewezen</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Niet gemitigeerd</value>
+  </data>
   <data name="sev0 · Critical (P0)" xml:space="preserve">
     <value>sev0 · Kritiek (P0)</value>
   </data>
@@ -224,15 +233,6 @@
   </data>
   <data name="sev4 · Info (P4)" xml:space="preserve">
     <value>sev4 · Informatie (P4)</value>
-  </data>
-  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
-    <value>Hiermee worden het incident en de bijbehorende geschiedenis definitief verwijderd. Voer de exacte titel in ter bevestiging.</value>
-  </data>
-  <data name="Unassigned" xml:space="preserve">
-    <value>Niet toegewezen</value>
-  </data>
-  <data name="Unmitigated" xml:space="preserve">
-    <value>Niet gemitigeerd</value>
   </data>
 
 </root>

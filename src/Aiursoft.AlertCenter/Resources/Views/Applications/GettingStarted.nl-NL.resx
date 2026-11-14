@@ -18,19 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: De API-sleutel wordt na succesvolle aanmaak slechts één keer weergegeven. Stel deze onmiddellijk in als productieomgevingsvariabele (bijv.,</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. Het plannen van pushmeldingen wordt asynchroon gestart.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. Behoud het eerste record en verstuur geen dubbele pushmeldingen.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. Het centrum kan dit veld gebruiken om de netwerklatentie voor rapportage en levering te schatten.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(Kritiek, hoogste prioriteit),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -48,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) of Key Management Service (KMS). Het hardcoden in frontends, logs of codeopslagplaatsen is strikt verboden.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Het plannen van pushmeldingen wordt asynchroon gestart.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Behoud het eerste record en verstuur geen dubbele pushmeldingen.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Het centrum kan dit veld gebruiken om de netwerklatentie voor rapportage en levering te schatten.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1 tot 200 tekens</value>
   </data>
@@ -59,6 +56,9 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 Authenticatie mislukt</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: De API-sleutel wordt na succesvolle aanmaak slechts één keer weergegeven. Stel deze onmiddellijk in als productieomgevingsvariabele (bijv.,</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>Het daadwerkelijke tijdstip waarop de zakelijke gebeurtenis plaatsvond, bijvoorbeeld:</value>
@@ -138,9 +138,6 @@
   <data name="Optional" xml:space="preserve">
     <value>Optioneel</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>of omgevingsvariabelen, zodat u op de detailpagina met één klik de locatie kunt achterhalen en problemen kunt oplossen.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>Vervang door de applicatie-sleutel die in de vorige stap is gegenereerd om direct een test te versturen.</value>
   </data>
@@ -168,11 +165,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>Gestructureerde bedrijfscontext. Het wordt aanbevolen om</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>De globaal unieke rapport-ID van de client. Het centrum gebruikt</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>De SDK verzendt elk rapport één keer. Als het resultaat onzeker blijft door een netwerkstoring, herhaal dan dezelfde aanvraag met dezelfde ReportId en gebeurtenistijd.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>De globaal unieke rapport-ID van de client. Het centrum gebruikt</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -182,6 +179,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>Met tijdzone-offset of Z-aanduiding</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>of omgevingsvariabelen, zodat u op de detailpagina met één klik de locatie kunt achterhalen en problemen kunt oplossen.</value>
   </data>
 
 </root>

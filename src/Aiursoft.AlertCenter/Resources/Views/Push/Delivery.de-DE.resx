@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Erstellungszeit</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Zustellung erfolgreich abgeschlossen</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Lieferinhalt</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Lieferungsdetails</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Zustelldetails – {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Zustellung fehlgeschlagen</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Zustellung endgültig fehlgeschlagen</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>Zustellungs-ID</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>Lieferung-ID:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Zustellung erfolgreich abgeschlossen</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Zustelldetails – {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Zustellung endgültig fehlgeschlagen</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Lieferungsauftrag erstellt</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Diese Benachrichtigung wurde aufgrund der Schweregrad-Richtlinie unterdrückt und wird nicht gesendet.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>Mal</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Gesamtzahl der Versuche:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Wiedereröffneten Vorfall anzeigen</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>Mal</value>
   </data>
 
 </root>

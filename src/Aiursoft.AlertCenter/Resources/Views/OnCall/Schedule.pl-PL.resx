@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Akcja</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>utworzonym w</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>Zarządzaj regułami harmonogramu</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>Reguła</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>Wybierz zespół, aby wyświetlić 7-dniowy harmonogram, wygenerować lub ręcznie dostosować zmiany. Zespoły bez przypisanego szablonu również mogą być harmonizowane ręcznie; zapisane zmiany obecnie nie wpływają na routing incydentów.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>Wybierz zespół dyżurny</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Wybierz zespół, aby wyświetlić 7-dniowy harmonogram, wygenerować lub ręcznie dostosować zmiany. Zespoły bez przypisanego szablonu również mogą być harmonizowane ręcznie; zapisane zmiany obecnie nie wpływają na routing incydentów.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Zespół</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>Zobacz grafik</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>utworzonym w</value>
   </data>
 
 </root>

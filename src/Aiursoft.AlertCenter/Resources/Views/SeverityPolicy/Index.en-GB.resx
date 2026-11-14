@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>In-app</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>The SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS will not send text messages.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Save policy</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>&quot;Show in lists&quot; controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>The SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS will not send text messages.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>This is the global notification limit. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column.</value>

@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>ボタンが機能しない場合は、こちらのリンクを開いてください：</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>インシデントの詳細</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>インシデントの重要度が引き上げられました（{0} → {1}）：{2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>インシデントID</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>インシデント ID: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>インシデントの詳細</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>インシデントの重要度が引き上げられました（{0} → {1}）：{2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>インシデント緩和済み: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>CCメールの形式が無効です。表示名には対応していません。</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>SMTPの設定が無効です。メールの設定を確認してください。</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>宛先メールアドレスの形式が正しくありません。表示名には対応していません。</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>メールチャネルの宛先または CC の設定が無効です。チャネルの設定を確認してください。</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>SMTPの設定が無効です。メールの設定を確認してください。</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>軽減済み</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>なし</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>OCE のクエリ時刻（UTC）：{0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>発生日時（UTC）</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>発生日時（UTC）：{0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>OCE のクエリ時刻（UTC）：{0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>オンコールグループ: {0}</value>

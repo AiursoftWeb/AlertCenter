@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Chỉnh sửa</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>giờ</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Quản lý các mẫu quy tắc được nhiều nhóm cùng sử dụng. Việc chỉnh sửa mẫu không tạo lại các ca làm đã lưu.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Chỉ có thể xóa các mẫu chưa được gắn với nhóm. Các ca trực đã lưu và lịch sử của nhóm sẽ không bị xóa; các mẫu đã xóa không thể khôi phục.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>người</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>người · Mục tiêu</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Vui lòng gỡ mẫu khỏi tất cả các nhóm trước.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Xem quy tắc</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>giờ</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>người</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>người · Mục tiêu</value>
   </data>
 
 </root>

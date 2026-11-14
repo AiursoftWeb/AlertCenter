@@ -18,8 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>{0} εφαρμογές</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>Διαχείριση κλειδιών API</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Ενέργεια</value>
@@ -33,14 +33,11 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Προσαρμόστε τις λέξεις-κλειδιά αναζήτησης ή διαγράψτε την αναζήτηση για να δείτε όλες τις εφαρμογές.</value>
   </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>Διαχείριση κλειδιών API</value>
+  <data name="App ID" xml:space="preserve">
+    <value>Αναγνωριστικό εφαρμογής</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>Συνδεδεμένες εφαρμογές</value>
-  </data>
-  <data name="App ID" xml:space="preserve">
-    <value>Αναγνωριστικό εφαρμογής</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>Πληροφορίες εφαρμογής</value>
@@ -69,14 +66,14 @@
   <data name="Confirm app deletion" xml:space="preserve">
     <value>Επιβεβαιώστε τη διαγραφή της εφαρμογής</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>Δημιουργήστε παραπάνω μια επιχειρηματική εφαρμογή και εκδώστε ένα αποκλειστικό κλειδί API.</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>Δημιουργία εφαρμογής</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Δημιουργία περιστατικού</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Δημιουργήστε παραπάνω μια επιχειρηματική εφαρμογή και εκδώστε ένα αποκλειστικό κλειδί API.</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Δημιουργία νέας εφαρμογής ενσωμάτωσης</value>
@@ -176,6 +173,9 @@
   </data>
   <data name="View incidents" xml:space="preserve">
     <value>Προβολή συμβάντων</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>{0} εφαρμογές</value>
   </data>
 
 </root>

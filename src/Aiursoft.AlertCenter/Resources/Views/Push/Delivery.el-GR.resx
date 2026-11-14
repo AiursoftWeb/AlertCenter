@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Ώρα δημιουργίας</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Η παράδοση ολοκληρώθηκε με επιτυχία</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Περιεχόμενο Παράδοσης</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Λεπτομέρειες παράδοσης</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Λεπτομέρειες παράδοσης - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Η παράδοση απέτυχε</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Η παράδοση απέτυχε οριστικά</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>Αναγνωριστικό παράδοσης</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>Αναγνωριστικό παράδοσης:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Η παράδοση ολοκληρώθηκε με επιτυχία</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Λεπτομέρειες παράδοσης - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Η παράδοση απέτυχε οριστικά</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Δημιουργήθηκε εργασία παράδοσης</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Αυτή η ειδοποίηση αποκλείστηκε βάσει της πολιτικής σοβαρότητας και δεν θα αποσταλεί.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>φορές</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Σύνολο προσπαθειών:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Προβολή περιστατικού που άνοιξε ξανά</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>φορές</value>
   </data>
 
 </root>

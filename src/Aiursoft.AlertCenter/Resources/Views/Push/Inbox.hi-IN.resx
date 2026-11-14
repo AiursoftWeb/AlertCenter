@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>पढ़े हुए</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>पढ़ी गई सूचनाएँ</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>पढ़ने की स्थिति</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>पढ़ी गई सूचनाएँ</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>प्राप्ति की अंतिम तिथि (UTC, सम्मिलित)</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>शीर्षक या मुख्य भाग खोजें...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · गंभीर (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · गंभीर (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · त्रुटि (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · चेतावनी (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · जानकारी (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>केवल पढ़े हुए दिखाएँ</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>जब सिस्टम साइट के भीतर वाले चैनल से जुड़ी घटनाएँ उत्पन्न करता है, तो वे सीधे आपके निजी इनबॉक्स में भेज दी जाती हैं।</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · गंभीर (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · गंभीर (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · त्रुटि (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · चेतावनी (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · जानकारी (P4)</value>
   </data>
 
 </root>

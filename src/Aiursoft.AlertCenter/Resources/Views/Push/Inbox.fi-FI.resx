@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>Luettu</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>Luetut ilmoitukset</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>Lukutila</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>Luetut ilmoitukset</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>Vastaanoton päättymispäivä (UTC, mukaan lukien)</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>Hae otsikosta tai sisällöstä...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Kriittinen (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Vakava (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Virhe (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Varoitus (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Tieto (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>Näytä vain luetut</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>Kun järjestelmä luo sivuston sisäiseen kanavaan liittyviä häiriöitä, ne toimitetaan suoraan henkilökohtaiseen saapuneet-kansioosi.</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Kriittinen (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Vakava (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Virhe (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Varoitus (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Tieto (P4)</value>
   </data>
 
 </root>

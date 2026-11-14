@@ -21,15 +21,6 @@
       <data name=" items" xml:space="preserve">
     <value>条目</value>
   </data>
-  <data name="{0} incidents on this page" xml:space="preserve">
-    <value>本页 {0} 个事件</value>
-  </data>
-  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
-    <value>可访问应用中有 {0} 起正在处理的事件</value>
-  </data>
-  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
-    <value>可访问应用中有 {0} 起未缓解事件</value>
-  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>已确认</value>
   </data>
@@ -135,9 +126,6 @@
   <data name="Not recorded" xml:space="preserve">
     <value>未记录</value>
   </data>
-  <data name="ongoing incidents" xml:space="preserve">
-    <value>正在处理的事件</value>
-  </data>
   <data name="Original on-call OCE" xml:space="preserve">
     <value>原始值班 OCE</value>
   </data>
@@ -192,21 +180,6 @@
   <data name="Service operating normally · No ongoing incidents" xml:space="preserve">
     <value>服务运行正常 · 当前没有未处理的事件</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · 严重（P0）</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · 主要（P1）</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · 错误 (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · 警告 (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · 信息 (P4)</value>
-  </data>
   <data name="Source application" xml:space="preserve">
     <value>来源应用程序</value>
   </data>
@@ -239,6 +212,33 @@
   </data>
   <data name="You have no assigned incidents" xml:space="preserve">
     <value>您没有分配的事故</value>
+  </data>
+  <data name="ongoing incidents" xml:space="preserve">
+    <value>正在处理的事件</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 严重（P0）</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 主要（P1）</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · 错误 (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 警告 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 信息 (P4)</value>
+  </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>本页 {0} 个事件</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>可访问应用中有 {0} 起正在处理的事件</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>可访问应用中有 {0} 起未缓解事件</value>
   </data>
 
 </root>

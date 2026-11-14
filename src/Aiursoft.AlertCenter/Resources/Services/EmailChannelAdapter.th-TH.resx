@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>หากปุ่มใช้งานไม่ได้ ให้เปิดลิงก์นี้:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>รายละเอียดเหตุการณ์</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>เหตุการณ์ยกระดับ ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>รหัสเหตุการณ์</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>รหัสเหตุการณ์: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>รายละเอียดเหตุการณ์</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>เหตุการณ์ยกระดับ ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>แก้ไขเหตุขัดข้องแล้ว: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>รูปแบบอีเมล CC ไม่ถูกต้อง ไม่รองรับชื่อที่แสดง</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>การกำหนดค่า SMTP ไม่ถูกต้อง โปรดตรวจสอบการตั้งค่าอีเมล</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>รูปแบบอีเมลผู้รับไม่ถูกต้อง ไม่รองรับชื่อที่แสดง</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>ผู้รับหรือการตั้งค่า CC ของช่องทางอีเมลไม่ถูกต้อง โปรดตรวจสอบการตั้งค่าช่องทาง</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>การกำหนดค่า SMTP ไม่ถูกต้อง โปรดตรวจสอบการตั้งค่าอีเมล</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>บรรเทาแล้ว</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>ไม่มี</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>เวลาในการค้นหา OCE (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>เกิดขึ้นเมื่อ (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>เกิดขึ้นเมื่อ (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>เวลาในการค้นหา OCE (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>กลุ่มเวรรับแจ้งเหตุ: {0}</value>

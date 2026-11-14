@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Ενέργεια</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>δημιουργηθεί σε</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>Διαχείριση κανόνων προγραμματισμού</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>Κανόνας</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>Επιλέξτε μια ομάδα για να δείτε το πρόγραμμα 7 ημερών, να δημιουργήσετε ή να προσαρμόσετε χειροκίνητα τις βάρδιες. Μπορείτε να προγραμματίσετε χειροκίνητα και ομάδες χωρίς συσχετισμένο πρότυπο· οι αποθηκευμένες βάρδιες δεν επηρεάζουν προς το παρόν τη δρομολόγηση περιστατικών.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>Επιλέξτε ομάδα εφημερίας</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Επιλέξτε μια ομάδα για να δείτε το πρόγραμμα 7 ημερών, να δημιουργήσετε ή να προσαρμόσετε χειροκίνητα τις βάρδιες. Μπορείτε να προγραμματίσετε χειροκίνητα και ομάδες χωρίς συσχετισμένο πρότυπο· οι αποθηκευμένες βάρδιες δεν επηρεάζουν προς το παρόν τη δρομολόγηση περιστατικών.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Ομάδα</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>Προβολή προγράμματος</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>δημιουργηθεί σε</value>
   </data>
 
 </root>

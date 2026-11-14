@@ -66,11 +66,11 @@
   <data name="Confirmation note (optional)" xml:space="preserve">
     <value>Bekräftelsenotering (valfri)</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>Kopiera innehåll</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>Kopiera JSON</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>Kopiera innehåll</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>Aktuell vakande OCE</value>
@@ -102,20 +102,20 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>Jag bekräftar att den här incidenten är helt åtgärdad och inte kommer att inträffa igen.</value>
   </data>
-  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
-    <value>Incidentmeddelanden använder den ursprungliga OCE-ögonblicksbilden, även efter att jourpasset har ändrats. När du bekräftar tilldelas du incidenten som ansvarig; det ändrar inte e-postmottagarna.</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Incident-ID</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Incidenthanteringsrum – {0}</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Incidentmeddelanden använder den ursprungliga OCE-ögonblicksbilden, även efter att jourpasset har ändrats. När du bekräftar tilldelas du incidenten som ansvarig; det ändrar inte e-postmottagarna.</value>
   </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>Ansvarig för incidenten:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>Incidentens rubrik</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>Incidenthanteringsrum – {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>Fristående incidenter</value>
@@ -150,11 +150,11 @@
   <data name="Not acknowledged" xml:space="preserve">
     <value>Inte bekräftad</value>
   </data>
-  <data name="Occurred at" xml:space="preserve">
-    <value>Inträffade</value>
-  </data>
   <data name="OCE at incident occurrence" xml:space="preserve">
     <value>OCE vid incidentens inträffande</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Inträffade</value>
   </data>
   <data name="Permanently Delete" xml:space="preserve">
     <value>Ta bort permanent</value>
@@ -210,6 +210,15 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>Beskrivning av svarsmekanismen</value>
   </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Detta raderar ärendet och dess historik permanent. Ange dess exakta titel för att bekräfta.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Ej tilldelad</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Inte begränsad</value>
+  </data>
   <data name="sev0 · Critical (P0)" xml:space="preserve">
     <value>sev0 · Kritisk (P0)</value>
   </data>
@@ -224,15 +233,6 @@
   </data>
   <data name="sev4 · Info (P4)" xml:space="preserve">
     <value>sev4 · Info (P4)</value>
-  </data>
-  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
-    <value>Detta raderar ärendet och dess historik permanent. Ange dess exakta titel för att bekräfta.</value>
-  </data>
-  <data name="Unassigned" xml:space="preserve">
-    <value>Ej tilldelad</value>
-  </data>
-  <data name="Unmitigated" xml:space="preserve">
-    <value>Inte begränsad</value>
   </data>
 
 </root>

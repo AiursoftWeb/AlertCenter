@@ -18,11 +18,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
-    <value>· {0} · Γειτονική εβδομάδα (μόνο για ανάγνωση)</value>
-  </data>
-  <data name=" · Departed" xml:space="preserve">
+      <data name=" · Departed" xml:space="preserve">
     <value>· Αποχώρησε</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Ανεπαρκής χρόνος ανάπαυσης</value>
   </data>
   <data name=" · includes next week" xml:space="preserve">
     <value>· περιλαμβάνει και την επόμενη εβδομάδα</value>
@@ -30,38 +30,8 @@
   <data name=" · includes previous week" xml:space="preserve">
     <value>· περιλαμβάνει την προηγούμενη εβδομάδα</value>
   </data>
-  <data name=" · Insufficient rest" xml:space="preserve">
-    <value>· Ανεπαρκής χρόνος ανάπαυσης</value>
-  </data>
-  <data name="{0} · {1}" xml:space="preserve">
-    <value>{0} · {1}</value>
-  </data>
-  <data name="{0} · {1} · {2}" xml:space="preserve">
-    <value>{0} · {1} · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (Μόνο για ανάγνωση)</value>
-  </data>
-  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
-    <value>Το {0} έχει μόνο {1} εργαζομένους, λιγότερους από το ελάχιστο των {2}. Η χειροκίνητη αποθήκευση εξακολουθεί να επιτρέπεται.</value>
-  </data>
-  <data name="{0} hours" xml:space="preserve">
-    <value>{0} ώρες</value>
-  </data>
-  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
-    <value>Βάρδια {0} για {1} · {2}· δεν έχει αποθηκευτεί ακόμα. Μπορείτε να αναιρέσετε αυτήν την ενέργεια.</value>
-  </data>
-  <data name="{0} shifts / {1} hours" xml:space="preserve">
-    <value>{0} βάρδιες / {1} ώρες</value>
-  </data>
-  <data name="{0}: {1} · {2}" xml:space="preserve">
-    <value>{0}: {1} · {2}</value>
-  </data>
-  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
-    <value>{0}: Μόνο {1} ώρες ανάπαυσης μεταξύ {2} και {3}. Απαιτούνται τουλάχιστον {4} ώρες.</value>
-  </data>
-  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
-    <value>{0}{1}{2} · 8 ώρες · {3}{4}</value>
+  <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Γειτονική εβδομάδα (μόνο για ανάγνωση)</value>
   </data>
   <data name="Action not completed" xml:space="preserve">
     <value>Η ενέργεια δεν ολοκληρώθηκε</value>
@@ -156,11 +126,11 @@
   <data name="Move / swap shifts" xml:space="preserve">
     <value>Μετακίνηση / ανταλλαγή βαρδιών</value>
   </data>
-  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
-    <value>Η μετακίνηση ακυρώθηκε· το πρόγραμμα παραμένει αμετάβλητο.</value>
-  </data>
   <data name="Move cancelled." xml:space="preserve">
     <value>Η μετακίνηση ακυρώθηκε.</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Η μετακίνηση ακυρώθηκε· το πρόγραμμα παραμένει αμετάβλητο.</value>
   </data>
   <data name="Move down" xml:space="preserve">
     <value>Μετακίνηση προς τα κάτω</value>
@@ -177,9 +147,6 @@
   <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
     <value>Σφάλμα δικτύου· δεν είναι ακόμη δυνατό να επιβεβαιωθεί το αποτέλεσμα της ενέργειας. Ελέγξτε την κατάστασή της πριν την υποβάλετε ξανά, για να αποφύγετε διπλές καταχωρίσεις.</value>
   </data>
-  <data name="next" xml:space="preserve">
-    <value>επόμενο</value>
-  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>Δεν έχουν ανατεθεί βάρδιες.</value>
   </data>
@@ -195,20 +162,17 @@
   <data name="No shifts to delete in this cell." xml:space="preserve">
     <value>Δεν υπάρχουν βάρδιες προς διαγραφή σε αυτό το κελί.</value>
   </data>
-  <data name="Page {0}" xml:space="preserve">
-    <value>Σελίδα {0}</value>
-  </data>
   <data name="Page information updated" xml:space="preserve">
     <value>Οι πληροφορίες της σελίδας ενημερώθηκαν</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Σελίδα {0}</value>
   </data>
   <data name="Please check the CC email format." xml:space="preserve">
     <value>Παρακαλώ ελέγξτε τη μορφή της διεύθυνσης email κοινοποίησης (CC).</value>
   </data>
   <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
     <value>Πατήστε Ctrl+C για να αντιγράψετε το επιλεγμένο κλειδί.</value>
-  </data>
-  <data name="previous" xml:space="preserve">
-    <value>προηγούμενο</value>
   </data>
   <data name="Previous step undone." xml:space="preserve">
     <value>Το προηγούμενο βήμα αναιρέθηκε.</value>
@@ -228,11 +192,11 @@
   <data name="Remove " xml:space="preserve">
     <value>Αφαίρεση</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Αφαίρεση {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Αφαίρεση δικαιώματος</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Αφαίρεση {0}</value>
   </data>
   <data name="Removed" xml:space="preserve">
     <value>Αφαιρέθηκε</value>
@@ -261,9 +225,6 @@
   <data name="Select Role" xml:space="preserve">
     <value>Επιλογή ρόλου</value>
   </data>
-  <data name="Select up to 200 employees per team." xml:space="preserve">
-    <value>Επιλέξτε έως 200 εργαζομένους ανά ομάδα.</value>
-  </data>
   <data name="Select User" xml:space="preserve">
     <value>Επιλογή χρήστη</value>
   </data>
@@ -273,11 +234,14 @@
   <data name="Select User Group" xml:space="preserve">
     <value>Επιλογή ομάδας χρηστών</value>
   </data>
-  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
-    <value>Επιλέχθηκε {0} · {1}. Σύρετε σε ένα χρωματιστό πλακίδιο ή κάντε κλικ σε αυτό για εναλλαγή, πατήστε Space για μετακίνηση· Esc για ακύρωση.</value>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Επιλέξτε έως 200 εργαζομένους ανά ομάδα.</value>
   </data>
   <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
     <value>Επιλέχθηκαν {0} χρήστες· έως 20 ανά σελίδα.</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Επιλέχθηκε {0} · {1}. Σύρετε σε ένα χρωματιστό πλακίδιο ή κάντε κλικ σε αυτό για εναλλαγή, πατήστε Space για μετακίνηση· Esc για ακύρωση.</value>
   </data>
   <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
     <value>Επιλέχθηκε το πρόγραμμα ολόκληρης της εβδομάδας του/της {0}. Σύρετε ή κάντε κλικ σε άλλον μηχανικό.</value>
@@ -350,6 +314,42 @@
   </data>
   <data name="You do not have permission to perform this action." xml:space="preserve">
     <value>Δεν έχετε άδεια να εκτελέσετε αυτήν την ενέργεια.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>επόμενο</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>προηγούμενο</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Μόνο για ανάγνωση)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>Το {0} έχει μόνο {1} εργαζομένους, λιγότερους από το ελάχιστο των {2}. Η χειροκίνητη αποθήκευση εξακολουθεί να επιτρέπεται.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} ώρες</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>Βάρδια {0} για {1} · {2}· δεν έχει αποθηκευτεί ακόμα. Μπορείτε να αναιρέσετε αυτήν την ενέργεια.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} βάρδιες / {1} ώρες</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Μόνο {1} ώρες ανάπαυσης μεταξύ {2} και {3}. Απαιτούνται τουλάχιστον {4} ώρες.</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 ώρες · {3}{4}</value>
   </data>
 
 </root>

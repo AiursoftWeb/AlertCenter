@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} incidents on this page" xml:space="preserve">
-    <value>{0} hændelser på denne side</value>
-  </data>
-  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
-    <value>{0} uafhjulpne hændelser på tværs af de applikationer, du har adgang til</value>
-  </data>
-  <data name="Acknowledged" xml:space="preserve">
+      <data name="Acknowledged" xml:space="preserve">
     <value>Kvitteret</value>
   </data>
   <data name="Acknowledgement" xml:space="preserve">
@@ -162,21 +156,6 @@
   <data name="Search incident titles, content, or applications..." xml:space="preserve">
     <value>Søg i hændelsestitler, indhold eller applikationer...</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Kritisk (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Væsentlig (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Fejl (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Advarsel (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Info (P4)</value>
-  </data>
   <data name="Source application" xml:space="preserve">
     <value>Kildeapplikation</value>
   </data>
@@ -194,6 +173,27 @@
   </data>
   <data name="You have no assigned incidents" xml:space="preserve">
     <value>Du har ingen tildelte hændelser</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Kritisk (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Væsentlig (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Fejl (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Advarsel (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Info (P4)</value>
+  </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} hændelser på denne side</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>{0} uafhjulpne hændelser på tværs af de applikationer, du har adgang til</value>
   </data>
 
 </root>

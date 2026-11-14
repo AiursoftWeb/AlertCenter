@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>읽음</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>읽은 알림</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>읽음 상태</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>읽은 알림</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>접수 종료일(UTC, 포함)</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>제목 또는 내용 검색...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · 심각(P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · 주요 (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · 오류(P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · 경고 (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · 정보 (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>읽은 알림만 표시</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>시스템에서 사이트 내 채널과 연결된 인시던트가 생성되면 해당 알림은 사용자의 개인 받은 편지함으로 바로 전송됩니다.</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 심각(P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 주요 (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · 오류(P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 경고 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 정보 (P4)</value>
   </data>
 
 </root>

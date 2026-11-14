@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>Sovelluksessa</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>SMS-käytäntö voidaan tallentaa, mutta SMS-viestien lähetyskanavaa ei ole asennettu. SMS-asetuksen valitseminen ei lähetä tekstiviestejä.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Tallenna käytäntö</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>&quot;Näytä listoissa&quot; hallitsee oletus tapahtumaluettelon, kojelaudan ja sovelluslaskureita. Erityiset vakavuussuodattimet voivat silti löytää piilotetut tapahtumat. Pääsyoikeudet ovat aina voimassa.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>SMS-käytäntö voidaan tallentaa, mutta SMS-viestien lähetyskanavaa ei ole asennettu. SMS-asetuksen valitseminen ei lähetä tekstiviestejä.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Tämä on ilmoitusten yleinen enimmäistaso. Sovelluksella on lisäksi oltava käytössä oleva kanava, ja sen on tilattava kyseinen vakavuustaso. Päivystysilmoitukset sähköpostitse käyttävät Sähköposti-saraketta.</value>

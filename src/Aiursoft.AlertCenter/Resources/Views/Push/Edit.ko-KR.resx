@@ -21,14 +21,14 @@
       <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, 수신 측에서 다음과 함께 사용할 수 있습니다</value>
   </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. 채널 유형 선택</value>
+  </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: 여러 사용자와 사용자 그룹(역할)을 동시에 지정할 수 있습니다. 시스템이 자동으로 중복을 제거하므로 각 구성원은 읽지 않은 알림을 하나만 받습니다.</value>
   </data>
   <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
     <value>: 시스템은 전역 이메일 서비스 구성을 일괄적으로 사용합니다. 인증 정보는</value>
-  </data>
-  <data name="1. Select channel type" xml:space="preserve">
-    <value>1. 채널 유형 선택</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>추가</value>
@@ -51,9 +51,6 @@
   <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
     <value>고급 사용자 지정 요청(사용자 지정 헤더 및 템플릿)</value>
   </data>
-  <data name="and" xml:space="preserve">
-    <value>그리고</value>
-  </data>
   <data name="Application Binding Authorization" xml:space="preserve">
     <value>애플리케이션 바인딩 권한</value>
   </data>
@@ -72,14 +69,14 @@
   <data name="Batch enter CC emails" xml:space="preserve">
     <value>참조(CC) 이메일 일괄 입력</value>
   </data>
+  <data name="CC List" xml:space="preserve">
+    <value>참조 수신자 목록</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
   </data>
   <data name="Cannot overwrite." xml:space="preserve">
     <value>덮어쓸 수 없습니다.</value>
-  </data>
-  <data name="CC List" xml:space="preserve">
-    <value>참조 수신자 목록</value>
   </data>
   <data name="Channel name" xml:space="preserve">
     <value>채널 이름</value>
@@ -156,20 +153,20 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>플레이스홀더는 JSON 문자열의 유일한 값이어야 합니다.</value>
   </data>
-  <data name="Recipient email" xml:space="preserve">
-    <value>수신자 이메일</value>
-  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>수신자 유형</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>수신자 이메일</value>
   </data>
   <data name="Remove " xml:space="preserve">
     <value>제거</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>{0} 제거</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>권한 제거</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>{0} 제거</value>
   </data>
   <data name="Request Body Template (JSON Template)" xml:space="preserve">
     <value>요청 본문 템플릿(JSON 템플릿)</value>
@@ -180,17 +177,17 @@
   <data name="Save channel configuration" xml:space="preserve">
     <value>채널 설정 저장</value>
   </data>
-  <data name="Search by username or display name..." xml:space="preserve">
-    <value>사용자 이름 또는 표시 이름으로 검색...</value>
-  </data>
   <data name="Search Users" xml:space="preserve">
     <value>사용자 검색</value>
   </data>
-  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
-    <value>알림 채널 유형을 선택하고 수신 주소 또는 대상 수신자를 설정하세요.</value>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>사용자 이름 또는 표시 이름으로 검색...</value>
   </data>
   <data name="Select User Group" xml:space="preserve">
     <value>사용자 그룹 선택</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>알림 채널 유형을 선택하고 수신 주소 또는 대상 수신자를 설정하세요.</value>
   </data>
   <data name="Select user group..." xml:space="preserve">
     <value>사용자 그룹을 선택하세요...</value>
@@ -222,17 +219,20 @@
   <data name="User Group" xml:space="preserve">
     <value>사용자 그룹</value>
   </data>
-  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
-    <value>사용자 그룹 · 구성원은 바인딩된 권한을 자동으로 상속합니다</value>
-  </data>
   <data name="User Group (Role)" xml:space="preserve">
     <value>사용자 그룹(역할)</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>사용자 그룹 · 구성원은 바인딩된 권한을 자동으로 상속합니다</value>
   </data>
   <data name="Webhook Receiver URL" xml:space="preserve">
     <value>웹훅 수신 URL</value>
   </data>
   <data name="Will parse and preserve the original object types." xml:space="preserve">
     <value>원래 객체 유형을 파싱하고 그대로 유지합니다.</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>그리고</value>
   </data>
 
 </root>

@@ -18,19 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: Cheia API este afișată o singură dată după crearea cu succes. Configurați-o imediat în variabilele de mediu din producție (de exemplu,</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. Programarea push a fost declanșată asincron.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. Păstrați prima înregistrare și nu declanșați trimiteri duplicate.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. Centrul poate utiliza acest câmp pentru a estima latența rețelei de raportare și livrare.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(Critic, prioritate maximă),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -48,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) sau un serviciu de gestionare a cheilor (KMS). Este strict interzisă includerea directă în frontend, jurnale sau depozite de cod.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Programarea push a fost declanșată asincron.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Păstrați prima înregistrare și nu declanșați trimiteri duplicate.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Centrul poate utiliza acest câmp pentru a estima latența rețelei de raportare și livrare.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1 până la 200 de caractere</value>
   </data>
@@ -59,6 +56,9 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 Autentificare eșuată</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: Cheia API este afișată o singură dată după crearea cu succes. Configurați-o imediat în variabilele de mediu din producție (de exemplu,</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>Momentul efectiv al producerii în activitate, de exemplu,</value>
@@ -138,9 +138,6 @@
   <data name="Optional" xml:space="preserve">
     <value>Opțional</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>sau variabile de mediu, facilitând localizarea cu un singur clic și depanarea pe pagina de detalii.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>Înlocuiți cu cheia aplicației generată în pasul anterior pentru a trimite un test direct.</value>
   </data>
@@ -168,11 +165,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>Context de afaceri structurat. Se recomandă includerea</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>ID-ul unic global al raportului clientului. Centrul utilizează</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDK-ul trimite fiecare raport o singură dată. Dacă o defecțiune de rețea face ca rezultatul să fie incert, retrimiteți aceeași solicitare cu același ReportId și aceeași oră a producerii evenimentului.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>ID-ul unic global al raportului clientului. Centrul utilizează</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Tip</value>
@@ -182,6 +179,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>Cu deplasare de fus orar sau identificator Z</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>sau variabile de mediu, facilitând localizarea cu un singur clic și depanarea pe pagina de detalii.</value>
   </data>
 
 </root>

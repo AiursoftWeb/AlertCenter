@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>If the button doesn&apos;t work, open this link:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Incident details</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Incident escalated ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Incident ID</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Incident ID: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Incident details</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident escalated ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Incident mitigated: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Invalid CC email format. Display names are not supported.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Invalid SMTP configuration. Please check the email settings.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Invalid recipient email format. Display names are not supported.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Invalid recipient or CC configuration for the email channel. Please check the channel settings.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Invalid SMTP configuration. Please check the email settings.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Mitigated</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>None</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>OCE query time (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Occurred at (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Occurred at (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>OCE query time (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>On-call group: {0}</value>

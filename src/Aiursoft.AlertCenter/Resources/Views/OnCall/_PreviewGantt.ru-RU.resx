@@ -27,27 +27,6 @@
   <data name=" · On duty" xml:space="preserve">
     <value>· На смене</value>
   </data>
-  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
-    <value>{0} · {1} · Переместить выбранную смену сюда</value>
-  </data>
-  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
-    <value>{0} · {1} · Другая команда (только чтение) · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (только для чтения)</value>
-  </data>
-  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
-    <value>{0} смен / {1:0.##} ч</value>
-  </data>
-  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
-    <value>дежурные смены {0}</value>
-  </data>
-  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
-    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} ч. · {5}</value>
-  </data>
-  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
-    <value>{0}{1} · {2} · Соседняя неделя (только для чтения) · {3}</value>
-  </data>
   <data name="36 hours after this week (read-only)" xml:space="preserve">
     <value>36 часов после этой недели (только чтение)</value>
   </data>
@@ -80,12 +59,6 @@
   </data>
   <data name="From " xml:space="preserve">
     <value>От</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>часов</value>
-  </data>
-  <data name="hours · " xml:space="preserve">
-    <value>часов ·</value>
   </data>
   <data name="How to read this timeline" xml:space="preserve">
     <value>Как пользоваться этой временной шкалой</value>
@@ -125,6 +98,33 @@
   </data>
   <data name="Until " xml:space="preserve">
     <value>До</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>часов</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>часов ·</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (только для чтения)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0} смен / {1:0.##} ч</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · Переместить выбранную смену сюда</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · Другая команда (только чтение) · {2}</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>дежурные смены {0}</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} ч. · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · Соседняя неделя (только для чтения) · {3}</value>
   </data>
 
 </root>

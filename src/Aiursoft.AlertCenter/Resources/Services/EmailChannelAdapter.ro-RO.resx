@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Dacă butonul nu funcționează, deschideți acest link:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Detalii despre incident</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Incident escalat ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>ID incident</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>ID-ul incidentului: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Detalii despre incident</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Incident escalat ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Incident atenuat: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Format invalid al adresei de e-mail CC. Numele de afișare nu sunt acceptate.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Configurația SMTP este invalidă. Verificați setările de e-mail.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Formatul adresei de e-mail a destinatarului este invalid. Numele afișate nu sunt acceptate.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Destinatar invalid sau configurație CC incorectă pentru canalul de e-mail. Verificați setările canalului.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Configurația SMTP este invalidă. Verificați setările de e-mail.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Atenuat</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>Niciunul</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Ora interogării OCE (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Produs la (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Produs la (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>Ora interogării OCE (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Grupul de permanență: {0}</value>

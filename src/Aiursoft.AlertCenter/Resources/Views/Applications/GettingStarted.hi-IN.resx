@@ -18,19 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: सफलतापूर्वक बनाए जाने पर API Key केवल एक बार दिखाई जाती है। कृपया इसे तुरंत प्रोडक्शन एनवायरनमेंट वेरिएबल्स में कॉन्फ़िगर करें (जैसे,</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. पुश शेड्यूलिंग एसिंक्रोनस रूप से शुरू की जाती है।</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. पहली प्रविष्टि को बनाए रखें और डुप्लिकेट पुश ट्रिगर न करें।</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. केंद्र इस फ़ील्ड का उपयोग रिपोर्टिंग और डिलीवरी नेटवर्क लेटेंसी का अनुमान लगाने के लिए कर सकता है।</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(गंभीर, सर्वोच्च प्राथमिकता),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -48,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) या Key Management Service (KMS)। फ्रंटएंड, लॉग या कोड रिपॉज़िटरी में इसे हार्डकोड करना सख्त मना है।</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. पुश शेड्यूलिंग एसिंक्रोनस रूप से शुरू की जाती है।</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. पहली प्रविष्टि को बनाए रखें और डुप्लिकेट पुश ट्रिगर न करें।</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. केंद्र इस फ़ील्ड का उपयोग रिपोर्टिंग और डिलीवरी नेटवर्क लेटेंसी का अनुमान लगाने के लिए कर सकता है।</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1 से 200 अक्षर</value>
   </data>
@@ -59,6 +56,9 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 प्रमाणीकरण विफल</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: सफलतापूर्वक बनाए जाने पर API Key केवल एक बार दिखाई जाती है। कृपया इसे तुरंत प्रोडक्शन एनवायरनमेंट वेरिएबल्स में कॉन्फ़िगर करें (जैसे,</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>वास्तविक व्यावसायिक घटना का समय, जैसे,</value>
@@ -138,9 +138,6 @@
   <data name="Optional" xml:space="preserve">
     <value>वैकल्पिक</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>या पर्यावरण चर, जिससे विवरण पृष्ठ पर एक क्लिक में खोज और समस्या निवारण करना आसान हो जाता है।</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>सीधे परीक्षण भेजने के लिए इसे पिछले चरण में बनाई गई एप्लिकेशन कुंजी से बदलें।</value>
   </data>
@@ -168,11 +165,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>संरचित व्यावसायिक संदर्भ। इसमें शामिल करने की अनुशंसा की जाती है</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>क्लाइंट की विश्व स्तर पर अद्वितीय रिपोर्ट ID। केंद्र उपयोग करता है</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDK प्रत्येक रिपोर्ट केवल एक बार भेजता है। यदि नेटवर्क विफलता के कारण परिणाम अनिश्चित हो, तो उसी ReportId और घटना के समय के साथ वही अनुरोध दोबारा भेजें।</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>क्लाइंट की विश्व स्तर पर अद्वितीय रिपोर्ट ID। केंद्र उपयोग करता है</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -182,6 +179,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>टाइमज़ोन ऑफ़सेट या Z पहचानकर्ता के साथ</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>या पर्यावरण चर, जिससे विवरण पृष्ठ पर एक क्लिक में खोज और समस्या निवारण करना आसान हो जाता है।</value>
   </data>
 
 </root>

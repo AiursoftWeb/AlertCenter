@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>Przeczytane</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>Przeczytane powiadomienia</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>Status odczytu</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>Przeczytane powiadomienia</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>Data końcowa przyjęcia (UTC, wliczając)</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>Szukaj w tytule lub treści...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Krytyczny (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Poważny (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Błąd (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Ostrzeżenie (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Info (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>Pokaż tylko przeczytane</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>Gdy system wygeneruje incydenty przypisane do kanału w aplikacji, zostaną one wysłane bezpośrednio do Twojej osobistej skrzynki odbiorczej.</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Krytyczny (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Poważny (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Błąd (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Ostrzeżenie (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Info (P4)</value>
   </data>
 
 </root>

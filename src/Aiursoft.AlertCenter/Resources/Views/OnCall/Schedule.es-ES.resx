@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Acción</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>creada en</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>Gestionar reglas de programación</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>Regla</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>Seleccione un equipo para ver el horario de 7 días, generar o ajustar manualmente los turnos. Los equipos sin una plantilla vinculada también pueden programarse manualmente; los turnos guardados no afectan actualmente la enrutación de incidentes.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>Seleccionar equipo de guardia</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Seleccione un equipo para ver el horario de 7 días, generar o ajustar manualmente los turnos. Los equipos sin una plantilla vinculada también pueden programarse manualmente; los turnos guardados no afectan actualmente la enrutación de incidentes.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Equipo</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>Ver calendario</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>creada en</value>
   </data>
 
 </root>

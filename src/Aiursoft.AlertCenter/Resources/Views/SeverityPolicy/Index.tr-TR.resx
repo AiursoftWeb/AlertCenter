@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>Uygulama içi</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>SMS politikası kaydedilebilir, ancak yüklü bir SMS gönderim kanalı yok. SMS&apos;i seçmek kısa mesaj göndermez.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Politikayı kaydet</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Listelerde göster, varsayılan olay listesini, panel ve uygulama sayılarını kontrol eder. Açık önem derecesi filtreleri gizli olayları yine de bulabilir. Erişim izinleri her zaman uygulanır.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>SMS politikası kaydedilebilir, ancak yüklü bir SMS gönderim kanalı yok. SMS&apos;i seçmek kısa mesaj göndermez.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Bu, genel bildirim üst sınırıdır. Bir uygulamanın ayrıca etkin bir kanala sahip olması ve önem düzeyine abone olması gerekir. Nöbetçi e-postaları için E-posta sütunu kullanılır.</value>

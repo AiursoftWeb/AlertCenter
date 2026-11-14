@@ -18,8 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>{0} aplicativos</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>Gerenciamento de Chaves de API</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>Ação</value>
@@ -33,14 +33,11 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>Ajuste as palavras-chave de busca ou limpe a busca para ver todos os aplicativos.</value>
   </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>Gerenciamento de Chaves de API</value>
+  <data name="App ID" xml:space="preserve">
+    <value>ID do aplicativo</value>
   </data>
   <data name="App connected" xml:space="preserve">
     <value>Aplicativo conectado</value>
-  </data>
-  <data name="App ID" xml:space="preserve">
-    <value>ID do aplicativo</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>Informações do aplicativo</value>
@@ -69,14 +66,14 @@
   <data name="Confirm app deletion" xml:space="preserve">
     <value>Confirmar exclusão do aplicativo</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>Crie um aplicativo de negócios acima e emita uma Chave de API dedicada.</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>Criar Aplicação</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>Criar Incidente</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>Crie um aplicativo de negócios acima e emita uma Chave de API dedicada.</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>Criar novo aplicativo de integração</value>
@@ -176,6 +173,9 @@
   </data>
   <data name="View incidents" xml:space="preserve">
     <value>Ver incidentes</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>{0} aplicativos</value>
   </data>
 
 </root>

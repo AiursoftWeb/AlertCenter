@@ -18,8 +18,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>{0} 個應用程式</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>API 金鑰管理</value>
+  </data>
+  <data name="API Key has been reset" xml:space="preserve">
+    <value>API 密鑰已重設</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>操作</value>
@@ -33,20 +36,14 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>調整搜尋關鍵字，或清除搜尋以查看所有應用程式。</value>
   </data>
-  <data name="API Key has been reset" xml:space="preserve">
-    <value>API 密鑰已重設</value>
-  </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>API 金鑰管理</value>
-  </data>
-  <data name="App connected" xml:space="preserve">
-    <value>已連接的應用程式</value>
-  </data>
   <data name="App ID" xml:space="preserve">
     <value>應用程式 ID</value>
   </data>
   <data name="App ID, historical incident records, push channel bindings, and enable/disable status remain unchanged." xml:space="preserve">
     <value>應用程式 ID、歷史事件記錄、推送頻道綁定及啟用／停用狀態均維持不變。</value>
+  </data>
+  <data name="App connected" xml:space="preserve">
+    <value>已連接的應用程式</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>應用程式資訊</value>
@@ -87,14 +84,14 @@
   <data name="Copy API key" xml:space="preserve">
     <value>複製 API 金鑰</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>請在上方建立商業應用程式，並發出專用 API 金鑰。</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>建立應用程式</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>建立事故</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>請在上方建立商業應用程式，並發出專用 API 金鑰。</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>建立新的整合應用程式</value>
@@ -195,11 +192,11 @@
   <data name="Reset API Key" xml:space="preserve">
     <value>重設 API 金鑰</value>
   </data>
-  <data name="Reset integration key?" xml:space="preserve">
-    <value>要重設整合金鑰？</value>
-  </data>
   <data name="Reset Key" xml:space="preserve">
     <value>重設金鑰</value>
+  </data>
+  <data name="Reset integration key?" xml:space="preserve">
+    <value>要重設整合金鑰？</value>
   </data>
   <data name="Running Status" xml:space="preserve">
     <value>運作狀態</value>
@@ -239,6 +236,9 @@
   </data>
   <data name="View integration guide to send the first test message " xml:space="preserve">
     <value>查看整合指南，發送第一則測試訊息</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>{0} 個應用程式</value>
   </data>
 
 </root>

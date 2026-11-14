@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>{0} staffing reminders · saving below minimum is allowed</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>{0} unallocated shifts · fill a shift</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7-day on-call rota</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>First class at</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>hours</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>hours · Anchor</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>hours · Minimum per shift</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>hours · Weekly minimum</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>hours.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>Insufficient staff warning (manual saving allowed, except for empty shifts)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>Employees participating</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>people · Shortest rest this week</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>people · Time-slot rotation:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>people, target</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>Per shift</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>Starting shortly</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>Status is based on the page load time.</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>Status is based on page load time)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>Status is based on the page load time.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>Suggested or manual assignments are not active until saved.</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>You are viewing an unsaved draft. Notifications still follow the saved schedule.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>hours · Anchor</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>hours · Minimum per shift</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>hours · Weekly minimum</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>hours.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>people · Shortest rest this week</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>people · Time-slot rotation:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>people, target</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>{0} staffing reminders · saving below minimum is allowed</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>{0} unallocated shifts · fill a shift</value>
   </data>
 
 </root>

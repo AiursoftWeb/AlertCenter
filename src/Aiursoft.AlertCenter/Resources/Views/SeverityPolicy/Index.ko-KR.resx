@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>앱 내</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>SMS 정책은 저장할 수 있지만, SMS 전송 채널이 설치되어 있지 않습니다. SMS를 선택해도 문자 메시지는 전송되지 않습니다.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>정책 저장</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>목록 표시 설정은 기본 인시던트 목록, 대시보드 및 애플리케이션의 건수를 제어합니다. 심각도를 지정해 필터링하면 목록에서 숨겨진 인시던트도 찾을 수 있습니다. 액세스 권한은 항상 적용됩니다.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>SMS 정책은 저장할 수 있지만, SMS 전송 채널이 설치되어 있지 않습니다. SMS를 선택해도 문자 메시지는 전송되지 않습니다.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>이 설정은 전체 알림의 최대 허용 수준입니다. 애플리케이션에는 활성화된 채널이 있어야 하며 해당 심각도 수준을 구독해야 합니다. 당직 이메일 알림에는 이메일 열 설정이 적용됩니다.</value>

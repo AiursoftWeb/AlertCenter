@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>У застосунку</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>Політику SMS можна зберегти, але канал надсилання SMS не встановлено. Вибір SMS не надсилає текстові повідомлення.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Зберегти політику</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Параметр «Показувати у списках» визначає, чи відображатимуться інциденти за замовчуванням у списку інцидентів, на панелі керування та в лічильниках застосунків. За допомогою явних фільтрів за рівнем критичності можна знайти навіть приховані інциденти. Дозволи доступу завжди застосовуються.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>Політику SMS можна зберегти, але канал надсилання SMS не встановлено. Вибір SMS не надсилає текстові повідомлення.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Це загальне обмеження для сповіщень. У застосунку також має бути ввімкнений канал, а застосунок має підписатися на відповідний рівень важливості. Для чергових сповіщень електронною поштою використовується стовпець «Електронна пошта».</value>

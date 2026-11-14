@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>En la aplicación</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>La política de SMS se puede guardar, pero no hay instalado ningún canal de envío de SMS. Seleccionar SMS no envía mensajes de texto.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Guardar política</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Mostrar en las listas determina la lista de incidencias predeterminada y los recuentos del panel y de las aplicaciones. Los filtros por gravedad explícitos pueden seguir encontrando incidencias ocultas. Los permisos de acceso se aplican siempre.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>La política de SMS se puede guardar, pero no hay instalado ningún canal de envío de SMS. Seleccionar SMS no envía mensajes de texto.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Este es el límite global de notificaciones. La aplicación también debe tener habilitado un canal y estar suscrita al nivel de gravedad. Los correos electrónicos de guardia utilizan la columna «Correo electrónico».</value>

@@ -21,15 +21,6 @@
       <data name=" items" xml:space="preserve">
     <value>รายการ</value>
   </data>
-  <data name="{0} incidents on this page" xml:space="preserve">
-    <value>{0} เหตุการณ์ในหน้านี้</value>
-  </data>
-  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
-    <value>{0} เหตุขัดข้องที่กำลังดำเนินอยู่ในแอปพลิเคชันที่เข้าถึงได้</value>
-  </data>
-  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
-    <value>พบเหตุการณ์ที่ยังไม่ได้แก้ไข {0} รายการในแอปพลิเคชันที่คุณเข้าถึงได้</value>
-  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>รับทราบแล้ว</value>
   </data>
@@ -135,9 +126,6 @@
   <data name="Not recorded" xml:space="preserve">
     <value>ไม่พบข้อมูล</value>
   </data>
-  <data name="ongoing incidents" xml:space="preserve">
-    <value>เหตุการณ์ที่กำลังดำเนินอยู่</value>
-  </data>
   <data name="Original on-call OCE" xml:space="preserve">
     <value>ผู้รับเวร OCE เดิม</value>
   </data>
@@ -189,21 +177,6 @@
   <data name="Service operating normally · No ongoing incidents" xml:space="preserve">
     <value>ระบบทำงานปกติ · ไม่มีเหตุขัดข้องที่กำลังดำเนินอยู่</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · วิกฤต (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · ระดับสำคัญ (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · ข้อผิดพลาด (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · คำเตือน (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · ข้อมูล (P4)</value>
-  </data>
   <data name="Source application" xml:space="preserve">
     <value>แอปพลิเคชันต้นทาง</value>
   </data>
@@ -236,6 +209,33 @@
   </data>
   <data name="You have no assigned incidents" xml:space="preserve">
     <value>คุณไม่มีเหตุการณ์ที่ถูกมอบหมาย</value>
+  </data>
+  <data name="ongoing incidents" xml:space="preserve">
+    <value>เหตุการณ์ที่กำลังดำเนินอยู่</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · วิกฤต (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · ระดับสำคัญ (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · ข้อผิดพลาด (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · คำเตือน (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · ข้อมูล (P4)</value>
+  </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} เหตุการณ์ในหน้านี้</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0} เหตุขัดข้องที่กำลังดำเนินอยู่ในแอปพลิเคชันที่เข้าถึงได้</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>พบเหตุการณ์ที่ยังไม่ได้แก้ไข {0} รายการในแอปพลิเคชันที่คุณเข้าถึงได้</value>
   </data>
 
 </root>

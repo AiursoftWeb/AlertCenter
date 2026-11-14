@@ -18,22 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>：API 密钥仅在成功创建或重置时显示一次。请立即将其配置到生产环境变量中（例如，</value>
-  </data>
-  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>：API 密钥成功创建后仅显示一次。请立即将其配置到生产环境变量中（例如，</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>。推送调度已异步触发。</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>。保留第一条记录，不要触发重复推送。</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>。中心可以使用此字段估算报告上报和送达的网络延迟。</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>（严重，最高优先级），</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -51,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>）或密钥管理服务（KMS）。严禁将其硬编码到前端、日志或代码仓库中。</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>。推送调度已异步触发。</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>。保留第一条记录，不要触发重复推送。</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>。中心可以使用此字段估算报告上报和送达的网络延迟。</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1 至 200 个字符</value>
   </data>
@@ -62,6 +56,12 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 身份验证失败</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation or reset. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>：API 密钥仅在成功创建或重置时显示一次。请立即将其配置到生产环境变量中（例如，</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>：API 密钥成功创建后仅显示一次。请立即将其配置到生产环境变量中（例如，</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>业务实际发生时间，例如：</value>
@@ -144,9 +144,6 @@
   <data name="Optional" xml:space="preserve">
     <value>可选</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>或环境变量，便于在详情页一键定位和排查。</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>将其替换为上一步生成的应用密钥，即可直接发送测试请求。</value>
   </data>
@@ -174,11 +171,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>结构化业务上下文。建议包含</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>客户端的全局唯一报告 ID。中心使用</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDK 对每条报告仅发送一次。如果网络故障导致结果无法确定，请使用相同的 ReportId 和发生时间重试相同的请求。</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>客户端的全局唯一报告 ID。中心使用</value>
   </data>
   <data name="This format identifies the application and lets the server verify its secret hash." xml:space="preserve">
     <value>这种格式用于标识应用程序，并允许服务器验证其密钥哈希值。</value>
@@ -191,6 +188,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>带时区偏移量或 Z 标识符</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>或环境变量，便于在详情页一键定位和排查。</value>
   </data>
 
 </root>

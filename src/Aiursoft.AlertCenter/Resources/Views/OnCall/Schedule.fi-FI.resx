@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Toiminto</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>luotu kohteessa</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>Hallinnoi päivystysaikataulun sääntöjä</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>Sääntö</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>Valitse tiimi nähdäksesi seitsemän päivän työvuorosuunnitelman sekä luodaksesi tai muokataksesi työvuoroja manuaalisesti. Myös tiimeille, joihin ei ole liitetty mallia, voidaan laatia työvuorosuunnitelma manuaalisesti. Tallennetut työvuorot eivät tällä hetkellä vaikuta hälytysten reititykseen.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>Valitse päivystystiimi</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Valitse tiimi nähdäksesi seitsemän päivän työvuorosuunnitelman sekä luodaksesi tai muokataksesi työvuoroja manuaalisesti. Myös tiimeille, joihin ei ole liitetty mallia, voidaan laatia työvuorosuunnitelma manuaalisesti. Tallennetut työvuorot eivät tällä hetkellä vaikuta hälytysten reititykseen.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Tiimi</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>Näytä aikataulu</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>luotu kohteessa</value>
   </data>
 
 </root>

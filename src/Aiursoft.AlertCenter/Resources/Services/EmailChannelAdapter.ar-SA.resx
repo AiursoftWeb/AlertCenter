@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>إذا لم يعمل الزر، افتح هذا الرابط:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>تفاصيل الحادثة</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>تم تصعيد الحادثة ({0} ← {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>معرّف البلاغ</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>معرّف الحادث: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>تفاصيل الحادثة</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>تم تصعيد الحادثة ({0} ← {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>تم التخفيف من الحادثة: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>تنسيق بريد إلكتروني غير صحيح في خانة النسخة (CC). لا تُدعم أسماء العرض.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>إعدادات SMTP غير صالحة. يُرجى التحقق من إعدادات البريد الإلكتروني.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>تنسيق البريد الإلكتروني للمستلم غير صالح. لا يُسمح باستخدام أسماء العرض.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>عنوان المستلم أو إعدادات النسخة إلى (CC) لقناة البريد الإلكتروني غير صالحة. يُرجى التحقق من إعدادات القناة.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>إعدادات SMTP غير صالحة. يُرجى التحقق من إعدادات البريد الإلكتروني.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>مُعالَج</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>لا يوجد</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>وقت استعلام OCE (بالتوقيت العالمي المنسق): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>وقت الحدوث (بالتوقيت العالمي المنسق)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>حدث في (بالتوقيت العالمي المنسق): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>وقت استعلام OCE (بالتوقيت العالمي المنسق): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>مجموعة المناوبة: {0}</value>

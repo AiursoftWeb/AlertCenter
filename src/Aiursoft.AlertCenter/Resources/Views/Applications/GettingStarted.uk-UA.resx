@@ -18,19 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: Ключ API відображається лише один раз після успішного створення. Негайно налаштуйте його у змінних середовища виробничого середовища (наприклад,</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. Планування push-сповіщень запускається асинхронно.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. Збережіть перший запис і не запускайте повторні push-сповіщення.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. Центр може використовувати це поле для оцінки затримок мережі при звітуванні та доставці.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(Критичний, найвищий пріоритет),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -48,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) або службі керування ключами (KMS). Категорично заборонено вбудовувати ключ у фронтенд, журнали чи репозиторії коду.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Планування push-сповіщень запускається асинхронно.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Збережіть перший запис і не запускайте повторні push-сповіщення.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Центр може використовувати це поле для оцінки затримок мережі при звітуванні та доставці.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>від 1 до 200 символів</value>
   </data>
@@ -59,6 +56,9 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 Помилка автентифікації</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: Ключ API відображається лише один раз після успішного створення. Негайно налаштуйте його у змінних середовища виробничого середовища (наприклад,</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>Фактичний час настання події, наприклад,</value>
@@ -138,9 +138,6 @@
   <data name="Optional" xml:space="preserve">
     <value>Необов’язково</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>або змінні середовища, що дає змогу одним клацанням перейти до потрібного місця та усунути несправність на сторінці деталей.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>Замініть на ключ застосунку, згенерований на попередньому кроці, щоб надіслати тестовий запит безпосередньо.</value>
   </data>
@@ -168,11 +165,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>Структурований бізнес-контекст. Рекомендується включити</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>Глобально унікальний ідентифікатор звіту клієнта. Центр використовує</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDK надсилає кожен звіт лише один раз. Якщо через збій мережі результат залишається невизначеним, повторіть той самий запит із тим самим ReportId і часом виникнення.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Глобально унікальний ідентифікатор звіту клієнта. Центр використовує</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Тип</value>
@@ -182,6 +179,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>Зі зміщенням часового поясу або ідентифікатором Z</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>або змінні середовища, що дає змогу одним клацанням перейти до потрібного місця та усунути несправність на сторінці деталей.</value>
   </data>
 
 </root>

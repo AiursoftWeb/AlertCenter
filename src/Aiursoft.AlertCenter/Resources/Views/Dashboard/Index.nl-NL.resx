@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Ondersteuning voor &quot;fire-and-forget&quot; bij langlopende taken (zoals e-mails of AI), met een GUI voor wachtrijbeheer, parallelle verwerking en annulering.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>In totaal {0} toegewezen</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Een ingebouwd Role-Based Access Control (RBAC)-systeem voor gedetailleerd rechtenbeheer.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Een moderne, functierijke en zeer uitbreidbare basis voor uw volgende webapplicatie.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Erkend</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>AI-gestuurde vertalingen</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Erkend</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter meld- en operatiecentrum · Globale status &amp; gesloten-kring tracking</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Automatische Dependency Injection</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Automatische berichtbezorging en probleemoplossing</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Automatische tijdzonebehandeling</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Automatische berichtbezorging en probleemoplossing</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Automatische, AI-gestuurde vertaling in 28 talen voor wereldwijd bereik.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Automatische, AI-gebaseerde vertaling in 28 talen.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>beschikbare kanalen ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Achtergrondtaakverwerking</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Kopiëren</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Applicatie maken en sleutel ophalen</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Maak een melding voor uw applicatie en stel de geconfigureerde ontvangers ervan in kennis.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Een applicatie maken</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Applicatie maken en sleutel ophalen</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>Maak het eerste incident aan via de API of SDK. Het verschijnt hier.</value>
@@ -315,6 +309,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Stel de routering in op basis van Sev0-Sev4 bij de pushinstellingen van de app.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP-e-mailkanaal</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Geplande taakbeheer</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Slimme donkere modus die automatisch aanpast aan de systeeminstellingen van de gebruiker.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>SMTP-e-mailkanaal</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Bron</value>
@@ -401,6 +395,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>U hebt toegang tot het aanmaken van meldingen nodig voor een ingeschakelde applicatie.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>beschikbare kanalen ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>In totaal {0} toegewezen</value>
   </data>
 
 </root>

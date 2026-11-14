@@ -27,27 +27,6 @@
   <data name=" · On duty" xml:space="preserve">
     <value>· في الخدمة</value>
   </data>
-  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
-    <value>{0} · {1} · انقل المناوبة المحددة إلى هنا</value>
-  </data>
-  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
-    <value>{0} · {1} · فريق آخر (للقراءة فقط) · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (قراءة فقط)</value>
-  </data>
-  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
-    <value>{0} مناوبات / {1:0.##} ساعة</value>
-  </data>
-  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
-    <value>ورديات الطوارئ لـ{0}</value>
-  </data>
-  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
-    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} ساعة · {5}</value>
-  </data>
-  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
-    <value>{0}{1} · {2} · الأسبوع المجاور (للقراءة فقط) · {3}</value>
-  </data>
   <data name="36 hours after this week (read-only)" xml:space="preserve">
     <value>36 ساعة بعد هذا الأسبوع (للقراءة فقط)</value>
   </data>
@@ -80,12 +59,6 @@
   </data>
   <data name="From " xml:space="preserve">
     <value>من</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>ساعات</value>
-  </data>
-  <data name="hours · " xml:space="preserve">
-    <value>ساعات ·</value>
   </data>
   <data name="How to read this timeline" xml:space="preserve">
     <value>كيفية قراءة هذا الجدول الزمني</value>
@@ -125,6 +98,33 @@
   </data>
   <data name="Until " xml:space="preserve">
     <value>حتى</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ساعات</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>ساعات ·</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (قراءة فقط)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0} مناوبات / {1:0.##} ساعة</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · انقل المناوبة المحددة إلى هنا</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · فريق آخر (للقراءة فقط) · {2}</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>ورديات الطوارئ لـ{0}</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} ساعة · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · الأسبوع المجاور (للقراءة فقط) · {3}</value>
   </data>
 
 </root>

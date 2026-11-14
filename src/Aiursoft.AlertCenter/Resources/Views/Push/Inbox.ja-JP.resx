@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>既読</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>既読通知</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>既読状況</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>既読通知</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>受信終了日（UTC、当日を含む）</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>タイトルまたは本文を検索...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · 重大（P0）</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · 重大 (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · エラー（P2）</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · 警告 (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · 情報 (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>既読のみを表示</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>システムがサイト内チャンネル向けのインシデントを生成すると、通知はあなたの個人用受信箱に直接届きます。</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 重大（P0）</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 重大 (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · エラー（P2）</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 警告 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 情報 (P4)</value>
   </data>
 
 </root>

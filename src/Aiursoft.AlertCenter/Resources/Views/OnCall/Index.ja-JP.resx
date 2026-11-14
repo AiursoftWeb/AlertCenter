@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>編集</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>時間</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>複数のチームで共有するルールテンプレートを管理します。テンプレートを変更しても、保存済みのシフトは再生成されません。</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>チームに紐づいていないテンプレートのみ削除できます。チームの保存済みシフトや履歴は削除されません。削除したテンプレートは復元できません。</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>人</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>人 · 目標</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>すべてのチームとのテンプレートの紐付けを先に解除してください。</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>ルールを表示</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>人 · 目標</value>
   </data>
 
 </root>

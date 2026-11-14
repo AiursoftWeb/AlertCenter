@@ -18,11 +18,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
-    <value>· {0} · Viereinen viikko (vain luku)</value>
-  </data>
-  <data name=" · Departed" xml:space="preserve">
+      <data name=" · Departed" xml:space="preserve">
     <value>· Lähtenyt</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Riittämätön lepo</value>
   </data>
   <data name=" · includes next week" xml:space="preserve">
     <value>· sisältää ensi viikon</value>
@@ -30,38 +30,8 @@
   <data name=" · includes previous week" xml:space="preserve">
     <value>· sisältää edellisen viikon</value>
   </data>
-  <data name=" · Insufficient rest" xml:space="preserve">
-    <value>· Riittämätön lepo</value>
-  </data>
-  <data name="{0} · {1}" xml:space="preserve">
-    <value>{0} · {1}</value>
-  </data>
-  <data name="{0} · {1} · {2}" xml:space="preserve">
-    <value>{0} · {1} · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (Vain luku)</value>
-  </data>
-  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
-    <value>Kohteessa {0} on vain {1} työntekijää, mikä alittaa vähimmäismäärän {2}. Tallennus manuaalisesti on silti sallittua.</value>
-  </data>
-  <data name="{0} hours" xml:space="preserve">
-    <value>{0} tuntia</value>
-  </data>
-  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
-    <value>{0} vuoro henkilölle {1} · {2}; ei vielä tallennettu. Voit kumota tämän.</value>
-  </data>
-  <data name="{0} shifts / {1} hours" xml:space="preserve">
-    <value>{0} vuoroa / {1} tuntia</value>
-  </data>
-  <data name="{0}: {1} · {2}" xml:space="preserve">
-    <value>{0}: {1} · {2}</value>
-  </data>
-  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
-    <value>{0}: Vain {1} tuntia lepoa ajankohtien {2} ja {3} välillä. Vaadittu vähimmäislepoaika on {4} tuntia.</value>
-  </data>
-  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
-    <value>{0}{1}{2} · 8 tuntia · {3}{4}</value>
+  <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Viereinen viikko (vain luku)</value>
   </data>
   <data name="Action not completed" xml:space="preserve">
     <value>Toimintoa ei suoritettu loppuun</value>
@@ -156,11 +126,11 @@
   <data name="Move / swap shifts" xml:space="preserve">
     <value>Siirrä / vaihda vuoroja</value>
   </data>
-  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
-    <value>Siirto peruutettu; aikataulu ennallaan.</value>
-  </data>
   <data name="Move cancelled." xml:space="preserve">
     <value>Siirto peruutettu.</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Siirto peruutettu; aikataulu ennallaan.</value>
   </data>
   <data name="Move down" xml:space="preserve">
     <value>Siirry alaspäin</value>
@@ -177,9 +147,6 @@
   <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
     <value>Verkkovirhe; toiminnon tulosta ei voida vielä vahvistaa. Tarkista tila ennen uudelleenlähetystä, jotta toiminto ei toistu.</value>
   </data>
-  <data name="next" xml:space="preserve">
-    <value>Seuraava</value>
-  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>Ei määritettyjä työvuoroja.</value>
   </data>
@@ -195,20 +162,17 @@
   <data name="No shifts to delete in this cell." xml:space="preserve">
     <value>Tässä solussa ei ole poistettavia työvuoroja.</value>
   </data>
-  <data name="Page {0}" xml:space="preserve">
-    <value>Sivu {0}</value>
-  </data>
   <data name="Page information updated" xml:space="preserve">
     <value>Sivun tiedot päivitetty</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Sivu {0}</value>
   </data>
   <data name="Please check the CC email format." xml:space="preserve">
     <value>Tarkista CC-sähköpostiosoitteen muoto.</value>
   </data>
   <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
     <value>Kopioi valittu avain painamalla Ctrl+C.</value>
-  </data>
-  <data name="previous" xml:space="preserve">
-    <value>edellinen</value>
   </data>
   <data name="Previous step undone." xml:space="preserve">
     <value>Edellinen vaihe peruttu.</value>
@@ -228,11 +192,11 @@
   <data name="Remove " xml:space="preserve">
     <value>Poista</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Poista {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Poista käyttöoikeus</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Poista {0}</value>
   </data>
   <data name="Removed" xml:space="preserve">
     <value>Poistettu</value>
@@ -261,9 +225,6 @@
   <data name="Select Role" xml:space="preserve">
     <value>Valitse rooli</value>
   </data>
-  <data name="Select up to 200 employees per team." xml:space="preserve">
-    <value>Valitse tiimiä kohden enintään 200 työntekijää.</value>
-  </data>
   <data name="Select User" xml:space="preserve">
     <value>Valitse käyttäjä</value>
   </data>
@@ -273,11 +234,14 @@
   <data name="Select User Group" xml:space="preserve">
     <value>Valitse käyttäjäryhmä</value>
   </data>
-  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
-    <value>Valittu {0} · {1}. Vaihda paikkaa vetämällä värilohkoon tai napsauttamalla sitä, siirrä välilyönnillä ja peruuta Esc-näppäimellä.</value>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Valitse tiimiä kohden enintään 200 työntekijää.</value>
   </data>
   <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
     <value>Valittu {0} käyttäjää; enintään 20 sivua kohden.</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Valittu {0} · {1}. Vaihda paikkaa vetämällä värilohkoon tai napsauttamalla sitä, siirrä välilyönnillä ja peruuta Esc-näppäimellä.</value>
   </data>
   <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
     <value>Valittu {0}:n koko viikon työvuorolista. Vedä toisen insinöörin kohdalle tai napsauta toista insinööriä.</value>
@@ -350,6 +314,42 @@
   </data>
   <data name="You do not have permission to perform this action." xml:space="preserve">
     <value>Sinulla ei ole oikeutta suorittaa tätä toimintoa.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>edellinen</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Vain luku)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>Kohteessa {0} on vain {1} työntekijää, mikä alittaa vähimmäismäärän {2}. Tallennus manuaalisesti on silti sallittua.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} tuntia</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} vuoro henkilölle {1} · {2}; ei vielä tallennettu. Voit kumota tämän.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} vuoroa / {1} tuntia</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Vain {1} tuntia lepoa ajankohtien {2} ja {3} välillä. Vaadittu vähimmäislepoaika on {4} tuntia.</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 tuntia · {3}{4}</value>
   </data>
 
 </root>

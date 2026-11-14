@@ -18,8 +18,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} applications" xml:space="preserve">
-    <value>{0}件のアプリケーション</value>
+      <data name="API Key Management" xml:space="preserve">
+    <value>APIキー管理</value>
+  </data>
+  <data name="API Key has been reset" xml:space="preserve">
+    <value>APIキーがリセットされました</value>
   </data>
   <data name="Action" xml:space="preserve">
     <value>操作</value>
@@ -33,20 +36,14 @@
   <data name="Adjust search keywords or clear the search to view all apps." xml:space="preserve">
     <value>検索キーワードを変更するか、検索をクリアしてすべてのアプリを表示してください。</value>
   </data>
-  <data name="API Key has been reset" xml:space="preserve">
-    <value>APIキーがリセットされました</value>
-  </data>
-  <data name="API Key Management" xml:space="preserve">
-    <value>APIキー管理</value>
-  </data>
-  <data name="App connected" xml:space="preserve">
-    <value>アプリ連携</value>
-  </data>
   <data name="App ID" xml:space="preserve">
     <value>アプリID</value>
   </data>
   <data name="App ID, historical incident records, push channel bindings, and enable/disable status remain unchanged." xml:space="preserve">
     <value>アプリID、過去のインシデント記録、プッシュチャネルの紐付け、および有効／無効の状態は変更されません。</value>
+  </data>
+  <data name="App connected" xml:space="preserve">
+    <value>アプリ連携</value>
   </data>
   <data name="App information" xml:space="preserve">
     <value>アプリ情報</value>
@@ -87,14 +84,14 @@
   <data name="Copy API key" xml:space="preserve">
     <value>APIキーをコピー</value>
   </data>
-  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
-    <value>上記でビジネスアプリを作成し、専用のAPIキーを発行してください。</value>
-  </data>
   <data name="Create Application" xml:space="preserve">
     <value>アプリケーションを作成</value>
   </data>
   <data name="Create Incident" xml:space="preserve">
     <value>インシデントを作成</value>
+  </data>
+  <data name="Create a business app above and issue a dedicated API Key." xml:space="preserve">
+    <value>上記でビジネスアプリを作成し、専用のAPIキーを発行してください。</value>
   </data>
   <data name="Create new integration app" xml:space="preserve">
     <value>新しい連携アプリを作成</value>
@@ -195,11 +192,11 @@
   <data name="Reset API Key" xml:space="preserve">
     <value>APIキーをリセット</value>
   </data>
-  <data name="Reset integration key?" xml:space="preserve">
-    <value>連携キーをリセットしますか？</value>
-  </data>
   <data name="Reset Key" xml:space="preserve">
     <value>キーをリセット</value>
+  </data>
+  <data name="Reset integration key?" xml:space="preserve">
+    <value>連携キーをリセットしますか？</value>
   </data>
   <data name="Running Status" xml:space="preserve">
     <value>稼働状況</value>
@@ -239,6 +236,9 @@
   </data>
   <data name="View integration guide to send the first test message " xml:space="preserve">
     <value>初回のテストメッセージを送信するための連携ガイドを見る</value>
+  </data>
+  <data name="{0} applications" xml:space="preserve">
+    <value>{0}件のアプリケーション</value>
   </data>
 
 </root>

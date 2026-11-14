@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Uzun süre çalışan görevler için &quot;fire-and-forget&quot; desteği (e-postalar veya AI gibi), kuyruk yönetimi, paralel işlem ve iptal için grafik arayüzle birlikte.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>Toplamda {0} atandı</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Hassas izin yönetimi için yerleşik bir Rol Tabanlı Erişim Kontrolü (RBAC) sistemi.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Modern, zengin özelliklere sahip ve bir sonraki web uygulamanız için oldukça genişletilebilir bir temel.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Onaylandı</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Yapay Zeka Destekli Çeviriler</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Onaylandı</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter Uyarı ve Operasyon Merkezi · Küresel Durum ve Kapalı Döngü Takibi</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Otomatik Bağımlılık Enjeksiyonu</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Otomatik mesaj iletimi ve sorun giderme</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Otomatik Saat Dilimi İşleme</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Otomatik mesaj iletimi ve sorun giderme</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Küresel erişim için 28 dile otomatik, yapay zeka destekli çeviri.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Otomatik, yapay zeka destekli 28 dilde çeviri.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>kullanılabilir kanal ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Arka Plan İşlem İşleme</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Kopyala</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Uygulama Oluştur ve Anahtarı Al</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Uygulamanız için bir uyarı oluşturun ve yapılandırılmış alıcılarına bildirim gönderin.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Uygulama oluştur</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Uygulama Oluştur ve Anahtarı Al</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>API veya SDK üzerinden ilk olayı oluşturun. Burada görünecektir.</value>
@@ -315,6 +309,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Uygulamanın push ayarlarında Sev0-Sev4&apos;e göre yönlendirme yapın.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP E-posta Kanalı</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Zamanlanmış Görev Yönetimi</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Kullanıcının sistem ayarlarına otomatik olarak uyum sağlayan akıllı karanlık mod.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>SMTP E-posta Kanalı</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Kaynak</value>
@@ -401,6 +395,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>Etkinleştirilmiş bir uygulamada uyarı oluşturma erişimine sahip olmanız gerekir.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>kullanılabilir kanal ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>Toplamda {0} atandı</value>
   </data>
 
 </root>

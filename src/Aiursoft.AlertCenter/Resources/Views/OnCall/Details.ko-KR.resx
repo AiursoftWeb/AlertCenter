@@ -18,13 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
-    <value>인력 배치 알림 {0}개 · 최소 인원 미달로 저장해도 됩니다</value>
-  </data>
-  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
-    <value>미배정 근무 {0}건 · 근무 배정</value>
-  </data>
-  <data name="7-Day On-Call Schedule" xml:space="preserve">
+      <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7일 온콜 일정</value>
   </data>
   <data name="Auto-assign" xml:space="preserve">
@@ -59,21 +53,6 @@
   </data>
   <data name="First class at " xml:space="preserve">
     <value>첫 번째 수업 시작 시간:</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>시간</value>
-  </data>
-  <data name="hours · Anchor " xml:space="preserve">
-    <value>시간 · 기준 시각</value>
-  </data>
-  <data name="hours · Shift min " xml:space="preserve">
-    <value>시간 · 교대 최소 인원</value>
-  </data>
-  <data name="hours · Weekly min " xml:space="preserve">
-    <value>시간 · 주간 최소 인원</value>
-  </data>
-  <data name="hours." xml:space="preserve">
-    <value>시간.</value>
   </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>인력 부족 경고(교대 근무자가 없는 경우를 제외하고 수동 저장 가능)</value>
@@ -111,15 +90,6 @@
   <data name="Participating employees" xml:space="preserve">
     <value>참여 직원</value>
   </data>
-  <data name="people · Shortest rest this week " xml:space="preserve">
-    <value>명 · 이번 주 최소 휴식 시간</value>
-  </data>
-  <data name="people · Time-slot rotation: " xml:space="preserve">
-    <value>명 · 시간대별 교대 순환:</value>
-  </data>
-  <data name="people, target " xml:space="preserve">
-    <value>명, 목표</value>
-  </data>
   <data name="Per shift " xml:space="preserve">
     <value>교대당</value>
   </data>
@@ -153,11 +123,11 @@
   <data name="Starting soon" xml:space="preserve">
     <value>곧 시작</value>
   </data>
-  <data name="Status is based on page load time." xml:space="preserve">
-    <value>상태는 페이지 로드 시간을 기준으로 합니다.</value>
-  </data>
   <data name="Status is based on page load time)" xml:space="preserve">
     <value>상태는 페이지가 로드된 시점을 기준으로 합니다)</value>
+  </data>
+  <data name="Status is based on page load time." xml:space="preserve">
+    <value>상태는 페이지 로드 시간을 기준으로 합니다.</value>
   </data>
   <data name="Suggested or manual assignments are not active until saved." xml:space="preserve">
     <value>제안되었거나 수동으로 지정한 근무 배정은 저장하기 전까지 적용되지 않습니다.</value>
@@ -188,6 +158,36 @@
   </data>
   <data name="You are viewing an unsaved draft. Notifications still follow the saved schedule." xml:space="preserve">
     <value>저장되지 않은 초안을 보고 있습니다. 알림은 저장된 일정에 따라 전송됩니다.</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="hours · Anchor " xml:space="preserve">
+    <value>시간 · 기준 시각</value>
+  </data>
+  <data name="hours · Shift min " xml:space="preserve">
+    <value>시간 · 교대 최소 인원</value>
+  </data>
+  <data name="hours · Weekly min " xml:space="preserve">
+    <value>시간 · 주간 최소 인원</value>
+  </data>
+  <data name="hours." xml:space="preserve">
+    <value>시간.</value>
+  </data>
+  <data name="people · Shortest rest this week " xml:space="preserve">
+    <value>명 · 이번 주 최소 휴식 시간</value>
+  </data>
+  <data name="people · Time-slot rotation: " xml:space="preserve">
+    <value>명 · 시간대별 교대 순환:</value>
+  </data>
+  <data name="people, target " xml:space="preserve">
+    <value>명, 목표</value>
+  </data>
+  <data name="{0} staffing reminders · saving below minimum is allowed" xml:space="preserve">
+    <value>인력 배치 알림 {0}개 · 최소 인원 미달로 저장해도 됩니다</value>
+  </data>
+  <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
+    <value>미배정 근무 {0}건 · 근무 배정</value>
   </data>
 
 </root>

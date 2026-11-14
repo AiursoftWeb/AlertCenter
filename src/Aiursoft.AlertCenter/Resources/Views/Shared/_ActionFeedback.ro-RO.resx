@@ -18,11 +18,11 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
-    <value>· {0} · Săptămână adiacentă (doar pentru citire)</value>
-  </data>
-  <data name=" · Departed" xml:space="preserve">
+      <data name=" · Departed" xml:space="preserve">
     <value>· Plecat</value>
+  </data>
+  <data name=" · Insufficient rest" xml:space="preserve">
+    <value>· Perioadă de odihnă insuficientă</value>
   </data>
   <data name=" · includes next week" xml:space="preserve">
     <value>· include și săptămâna viitoare</value>
@@ -30,38 +30,8 @@
   <data name=" · includes previous week" xml:space="preserve">
     <value>· include săptămâna precedentă</value>
   </data>
-  <data name=" · Insufficient rest" xml:space="preserve">
-    <value>· Perioadă de odihnă insuficientă</value>
-  </data>
-  <data name="{0} · {1}" xml:space="preserve">
-    <value>{0} · {1}</value>
-  </data>
-  <data name="{0} · {1} · {2}" xml:space="preserve">
-    <value>{0} · {1} · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (Doar pentru citire)</value>
-  </data>
-  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
-    <value>{0} are doar {1} angajați, sub minimul de {2}. Salvarea manuală este permisă în continuare.</value>
-  </data>
-  <data name="{0} hours" xml:space="preserve">
-    <value>{0} ore</value>
-  </data>
-  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
-    <value>{0} schimbare pentru {1} · {2}; nu a fost salvată încă. Puteți anula această acțiune.</value>
-  </data>
-  <data name="{0} shifts / {1} hours" xml:space="preserve">
-    <value>{0} ture / {1} ore</value>
-  </data>
-  <data name="{0}: {1} · {2}" xml:space="preserve">
-    <value>{0}: {1} · {2}</value>
-  </data>
-  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
-    <value>{0}: Doar {1} ore de odihnă între {2} și {3}. Minimul necesar este de {4} ore.</value>
-  </data>
-  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
-    <value>{0}{1}{2} · 8 ore · {3}{4}</value>
+  <data name=" · {0} · Adjacent week (read-only)" xml:space="preserve">
+    <value>· {0} · Săptămână adiacentă (doar pentru citire)</value>
   </data>
   <data name="Action not completed" xml:space="preserve">
     <value>Acțiune ne finalizată</value>
@@ -156,11 +126,11 @@
   <data name="Move / swap shifts" xml:space="preserve">
     <value>Mută / schimbă ture</value>
   </data>
-  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
-    <value>Mutare anulată; programul neschimbat.</value>
-  </data>
   <data name="Move cancelled." xml:space="preserve">
     <value>Mutare anulată.</value>
+  </data>
+  <data name="Move cancelled; schedule unchanged." xml:space="preserve">
+    <value>Mutare anulată; programul neschimbat.</value>
   </data>
   <data name="Move down" xml:space="preserve">
     <value>Mută în jos</value>
@@ -177,9 +147,6 @@
   <data name="Network error; the operation result cannot be confirmed yet. Please verify the status before resubmitting to avoid duplicates." xml:space="preserve">
     <value>Eroare de rețea; rezultatul operațiunii nu poate fi confirmat încă. Verificați starea înainte de a retrimite solicitarea, pentru a evita duplicatele.</value>
   </data>
-  <data name="next" xml:space="preserve">
-    <value>următoarea</value>
-  </data>
   <data name="No assigned shifts." xml:space="preserve">
     <value>Niciun schimb atribuit.</value>
   </data>
@@ -195,20 +162,17 @@
   <data name="No shifts to delete in this cell." xml:space="preserve">
     <value>Nu există ture de șters în această celulă.</value>
   </data>
-  <data name="Page {0}" xml:space="preserve">
-    <value>Pagina {0}</value>
-  </data>
   <data name="Page information updated" xml:space="preserve">
     <value>Informațiile paginii actualizate</value>
+  </data>
+  <data name="Page {0}" xml:space="preserve">
+    <value>Pagina {0}</value>
   </data>
   <data name="Please check the CC email format." xml:space="preserve">
     <value>Vă rugăm să verificați formatul e-mailului CC.</value>
   </data>
   <data name="Press Ctrl+C to copy the selected key." xml:space="preserve">
     <value>Apăsați Ctrl+C pentru a copia tasta selectată.</value>
-  </data>
-  <data name="previous" xml:space="preserve">
-    <value>anterior</value>
   </data>
   <data name="Previous step undone." xml:space="preserve">
     <value>Pasul anterior a fost anulat.</value>
@@ -228,11 +192,11 @@
   <data name="Remove " xml:space="preserve">
     <value>Elimină</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Elimină {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Eliminare permisiune</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Elimină {0}</value>
   </data>
   <data name="Removed" xml:space="preserve">
     <value>Eliminat</value>
@@ -261,9 +225,6 @@
   <data name="Select Role" xml:space="preserve">
     <value>Selectează rolul</value>
   </data>
-  <data name="Select up to 200 employees per team." xml:space="preserve">
-    <value>Selectați maximum 200 de angajați per echipă.</value>
-  </data>
   <data name="Select User" xml:space="preserve">
     <value>Selectați utilizatorul</value>
   </data>
@@ -273,11 +234,14 @@
   <data name="Select User Group" xml:space="preserve">
     <value>Selectați grupul de utilizatori</value>
   </data>
-  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
-    <value>Selectat {0} · {1}. Trageți pe sau faceți clic pe un bloc de culoare pentru a schimba, Spațiu pentru a muta; Esc pentru a anula.</value>
+  <data name="Select up to 200 employees per team." xml:space="preserve">
+    <value>Selectați maximum 200 de angajați per echipă.</value>
   </data>
   <data name="Selected {0} users; maximum 20 per page." xml:space="preserve">
     <value>Au fost selectați {0} utilizatori; maximum 20 per pagină.</value>
+  </data>
+  <data name="Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel." xml:space="preserve">
+    <value>Selectat {0} · {1}. Trageți pe sau faceți clic pe un bloc de culoare pentru a schimba, Spațiu pentru a muta; Esc pentru a anula.</value>
   </data>
   <data name="Selected {0}&apos;s full-week schedule. Drag to or click another engineer." xml:space="preserve">
     <value>Selectat programul pe întreaga săptămână pentru {0}. Trageți sau faceți clic pe alt inginer.</value>
@@ -350,6 +314,42 @@
   </data>
   <data name="You do not have permission to perform this action." xml:space="preserve">
     <value>Nu aveți permisiunea de a efectua această acțiune.</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>următoarea</value>
+  </data>
+  <data name="previous" xml:space="preserve">
+    <value>anterior</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (Doar pentru citire)</value>
+  </data>
+  <data name="{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed." xml:space="preserve">
+    <value>{0} are doar {1} angajați, sub minimul de {2}. Salvarea manuală este permisă în continuare.</value>
+  </data>
+  <data name="{0} hours" xml:space="preserve">
+    <value>{0} ore</value>
+  </data>
+  <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
+    <value>{0} schimbare pentru {1} · {2}; nu a fost salvată încă. Puteți anula această acțiune.</value>
+  </data>
+  <data name="{0} shifts / {1} hours" xml:space="preserve">
+    <value>{0} ture / {1} ore</value>
+  </data>
+  <data name="{0} · {1}" xml:space="preserve">
+    <value>{0} · {1}</value>
+  </data>
+  <data name="{0} · {1} · {2}" xml:space="preserve">
+    <value>{0} · {1} · {2}</value>
+  </data>
+  <data name="{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours." xml:space="preserve">
+    <value>{0}: Doar {1} ore de odihnă între {2} și {3}. Minimul necesar este de {4} ore.</value>
+  </data>
+  <data name="{0}: {1} · {2}" xml:space="preserve">
+    <value>{0}: {1} · {2}</value>
+  </data>
+  <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
+    <value>{0}{1}{2} · 8 ore · {3}{4}</value>
   </data>
 
 </root>

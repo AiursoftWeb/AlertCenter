@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Επεξεργασία</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>ώρες</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Διαχειριστείτε πρότυπα κανόνων που χρησιμοποιούνται από πολλές ομάδες. Η τροποποίηση ενός προτύπου δεν αναδημιουργεί τις αποθηκευμένες βάρδιες.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Μπορούν να διαγραφούν μόνο τα πρότυπα που δεν είναι συνδεδεμένα με ομάδες. Οι αποθηκευμένες βάρδιες και το ιστορικό των ομάδων δεν διαγράφονται· τα διαγραμμένα πρότυπα δεν μπορούν να ανακτηθούν.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>άτομα</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>άτομα · Στόχος</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Αποδεσμεύστε πρώτα το πρότυπο από όλες τις ομάδες.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Προβολή κανόνων</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ώρες</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>άτομα</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>άτομα · Στόχος</value>
   </data>
 
 </root>

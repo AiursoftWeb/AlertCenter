@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Υποστήριξη &quot;Fire-and-forget&quot; για μακροχρόνιες εργασίες (όπως email ή ΤΝ), με GUI για διαχείριση ουράς, παράλληλη επεξεργασία και ακύρωση.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>{0} συνολικά ανατεθειμένα</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Ένα ενσωματωμένο σύστημα Έλεγχου Πρόσβασης Βάσει Ρόλων (RBAC) για λεπτομερή διαχείριση δικαιωμάτων.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Μια σύγχρονη, πλούσια σε λειτουργίες και εξαιρετικά επεκτάσιμη βάση για την επόμενη εφαρμογή σας στον ιστό.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Επιβεβαιώθηκε</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Μεταφράσεις με Τεχνητή Νοημοσύνη</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Επιβεβαιώθηκε</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter Κέντρο Ειδοποιήσεων και Λειτουργιών · Καθολική Κατάσταση και Παρακολούθηση Κλειστού Βρόχου</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Αυτόματη Ενσωμάτωση Εξαρτήσεων</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Αυτόματη αποστολή μηνυμάτων και αντιμετώπιση προβλημάτων</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Αυτόματη Χειρισμός Ζώνης Ώρας</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Αυτόματη αποστολή μηνυμάτων και αντιμετώπιση προβλημάτων</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Αυτόματη μετάφραση με τεχνητή νοημοσύνη σε 28 γλώσσες για παγκόσμια προβολή.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Αυτόματη, προωθούμενη από ΤΝ μετάφραση σε 28 γλώσσες.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>διαθέσιμα κανάλια ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Επεξεργασία εργασιών στο παρασκήνιο</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Αντιγραφή</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Δημιουργήστε εφαρμογή και λάβετε κλειδί</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Δημιουργήστε μια ειδοποίηση για την εφαρμογή σας και ενημερώστε τους παραλήπτες που έχουν οριστεί.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Δημιουργήστε μια εφαρμογή</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Δημιουργήστε εφαρμογή και λάβετε κλειδί</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>Δημιουργήστε το πρώτο περιστατικό μέσω του API ή του SDK. Θα εμφανιστεί εδώ.</value>
@@ -315,6 +309,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Δρομολογήστε ανάλογα με τη σοβαρότητα Sev0-Sev4 στις ρυθμίσεις push της εφαρμογής.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Κανάλι ηλεκτρονικού ταχυδρομείου SMTP</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Διαχείριση Προγραμματισμένων Εργασιών</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Έξυπνη λειτουργία σκούρου θέματος που προσαρμόζεται αυτόματα στις ρυθμίσεις του συστήματος του χρήστη.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>Κανάλι ηλεκτρονικού ταχυδρομείου SMTP</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Πηγή</value>
@@ -401,6 +395,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>Χρειάζεστε δικαίωμα δημιουργίας ειδοποιήσεων για μια ενεργή εφαρμογή.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>διαθέσιμα κανάλια ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} συνολικά ανατεθειμένα</value>
   </data>
 
 </root>

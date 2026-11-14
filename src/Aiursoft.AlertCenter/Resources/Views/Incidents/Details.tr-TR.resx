@@ -66,11 +66,11 @@
   <data name="Confirmation note (optional)" xml:space="preserve">
     <value>Onay notu (isteğe bağlı)</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>İçeriği kopyala</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>JSON&apos;ı kopyala</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>İçeriği kopyala</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>Görevdeki OCE</value>
@@ -102,20 +102,20 @@
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>Bu olayın tamamen çözüldüğünü ve tekrarlanmayacağını onaylıyorum.</value>
   </data>
-  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
-    <value>Olay e-postaları, nöbet değişimi sonrasında bile bu orijinal OCE anlık görüntüsünü kullanır. Onaylama işlemi olay sahibini atar; e-posta alıcılarını değiştirmez.</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Olay Kimliği</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>Olay Savaş Odası - {0}</value>
+  </data>
+  <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
+    <value>Olay e-postaları, nöbet değişimi sonrasında bile bu orijinal OCE anlık görüntüsünü kullanır. Onaylama işlemi olay sahibini atar; e-posta alıcılarını değiştirmez.</value>
   </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>Olay sahibi:</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>Olay başlığı</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>Olay Savaş Odası - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>Bağımsız olaylar</value>
@@ -150,11 +150,11 @@
   <data name="Not acknowledged" xml:space="preserve">
     <value>Onaylanmadı</value>
   </data>
-  <data name="Occurred at" xml:space="preserve">
-    <value>Oluşma zamanı</value>
-  </data>
   <data name="OCE at incident occurrence" xml:space="preserve">
     <value>Olay anındaki OCE</value>
+  </data>
+  <data name="Occurred at" xml:space="preserve">
+    <value>Oluşma zamanı</value>
   </data>
   <data name="Permanently Delete" xml:space="preserve">
     <value>Kalıcı Olarak Sil</value>
@@ -210,6 +210,15 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>Yanıt Mekanizması Açıklaması</value>
   </data>
+  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
+    <value>Bu işlem olayı ve geçmişini kalıcı olarak siler. Onaylamak için başlığını birebir girin.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Atanmamış</value>
+  </data>
+  <data name="Unmitigated" xml:space="preserve">
+    <value>Müdahale Edilmedi</value>
+  </data>
   <data name="sev0 · Critical (P0)" xml:space="preserve">
     <value>sev0 · Kritik (P0)</value>
   </data>
@@ -224,15 +233,6 @@
   </data>
   <data name="sev4 · Info (P4)" xml:space="preserve">
     <value>sev4 · Bilgi (P4)</value>
-  </data>
-  <data name="This permanently deletes the incident and its history. Enter its exact title to confirm." xml:space="preserve">
-    <value>Bu işlem olayı ve geçmişini kalıcı olarak siler. Onaylamak için başlığını birebir girin.</value>
-  </data>
-  <data name="Unassigned" xml:space="preserve">
-    <value>Atanmamış</value>
-  </data>
-  <data name="Unmitigated" xml:space="preserve">
-    <value>Müdahale Edilmedi</value>
   </data>
 
 </root>

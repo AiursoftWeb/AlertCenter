@@ -75,6 +75,12 @@
   <data name="Project Name" xml:space="preserve">
     <value>Numele proiectului</value>
   </data>
+  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
+    <value>Numărul de înregistrare ICP pentru utilizatorii din China continentală. Lăsați gol pentru a ascunde.</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>URL-ul de bază al API-ului Ollama, utilizat specific pentru generarea încorporărilor (embeddings) pentru incidente și interogări (căutare vectorială). Se utilizează doar gazda — /api/embed este adăugat automat. De exemplu: https://ollama.example.com</value>
+  </data>
   <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
     <value>Tokenul bearer pentru autentificare cu instanța Embedding Ollama, de exemplu 5a0fbdefa19f....</value>
   </data>
@@ -84,17 +90,11 @@
   <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
     <value>Numele modelului de încorporare, de exemplu bge-m3:latest. Trebuie să fie disponibil în instanța Ollama pentru încorporare. Folosit exclusiv pentru căutare vectorială.</value>
   </data>
-  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
-    <value>Numărul de înregistrare ICP pentru utilizatorii din China continentală. Lăsați gol pentru a ascunde.</value>
-  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Logoul proiectului afișat în bara de navigare și în subsol. Suportă jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Numele proiectului afișat în interfața frontend</value>
-  </data>
-  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
-    <value>URL-ul de bază al API-ului Ollama, utilizat specific pentru generarea încorporărilor (embeddings) pentru incidente și interogări (căutare vectorială). Se utilizează doar gazda — /api/embed este adăugat automat. De exemplu: https://ollama.example.com</value>
   </data>
 
 </root>

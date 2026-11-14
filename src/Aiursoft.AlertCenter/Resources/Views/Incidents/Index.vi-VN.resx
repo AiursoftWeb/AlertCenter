@@ -21,15 +21,6 @@
       <data name=" items" xml:space="preserve">
     <value>mục</value>
   </data>
-  <data name="{0} incidents on this page" xml:space="preserve">
-    <value>{0} sự cố trên trang này</value>
-  </data>
-  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
-    <value>{0} sự cố đang diễn ra trên các ứng dụng bạn có quyền truy cập</value>
-  </data>
-  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
-    <value>{0} sự cố chưa được khắc phục trong các ứng dụng bạn có thể truy cập</value>
-  </data>
   <data name="Acknowledged" xml:space="preserve">
     <value>Đã tiếp nhận</value>
   </data>
@@ -135,9 +126,6 @@
   <data name="Not recorded" xml:space="preserve">
     <value>Chưa được ghi nhận</value>
   </data>
-  <data name="ongoing incidents" xml:space="preserve">
-    <value>sự cố đang diễn ra</value>
-  </data>
   <data name="Original on-call OCE" xml:space="preserve">
     <value>Nhân viên OCE trực ban ban đầu</value>
   </data>
@@ -189,21 +177,6 @@
   <data name="Service operating normally · No ongoing incidents" xml:space="preserve">
     <value>Dịch vụ đang hoạt động bình thường · Không có sự cố nào đang diễn ra</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · Nghiêm trọng (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · Nghiêm trọng (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · Lỗi (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · Cảnh báo (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · Thông tin (P4)</value>
-  </data>
   <data name="Source application" xml:space="preserve">
     <value>Ứng dụng nguồn</value>
   </data>
@@ -236,6 +209,33 @@
   </data>
   <data name="You have no assigned incidents" xml:space="preserve">
     <value>Bạn không có sự cố nào được phân công.</value>
+  </data>
+  <data name="ongoing incidents" xml:space="preserve">
+    <value>sự cố đang diễn ra</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · Nghiêm trọng (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · Nghiêm trọng (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · Lỗi (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · Cảnh báo (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · Thông tin (P4)</value>
+  </data>
+  <data name="{0} incidents on this page" xml:space="preserve">
+    <value>{0} sự cố trên trang này</value>
+  </data>
+  <data name="{0} ongoing incidents across accessible applications" xml:space="preserve">
+    <value>{0} sự cố đang diễn ra trên các ứng dụng bạn có quyền truy cập</value>
+  </data>
+  <data name="{0} unmitigated incidents across accessible applications" xml:space="preserve">
+    <value>{0} sự cố chưa được khắc phục trong các ứng dụng bạn có thể truy cập</value>
   </data>
 
 </root>

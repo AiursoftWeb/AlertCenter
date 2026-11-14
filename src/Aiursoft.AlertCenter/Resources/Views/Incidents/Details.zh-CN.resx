@@ -84,11 +84,11 @@
   <data name="Confirmation time (UTC)" xml:space="preserve">
     <value>确认时间（UTC）</value>
   </data>
-  <data name="Copy content" xml:space="preserve">
-    <value>复制内容</value>
-  </data>
   <data name="Copy JSON" xml:space="preserve">
     <value>复制 JSON</value>
+  </data>
+  <data name="Copy content" xml:space="preserve">
+    <value>复制内容</value>
   </data>
   <data name="Current On-Call OCE" xml:space="preserve">
     <value>当前值班 OCE</value>
@@ -120,11 +120,14 @@
   <data name="Full-cycle handling timeline" xml:space="preserve">
     <value>全流程处理时间线</value>
   </data>
-  <data name="handling nodes" xml:space="preserve">
-    <value>处理节点</value>
-  </data>
   <data name="I confirm that this incident has been fully resolved and will not recur." xml:space="preserve">
     <value>我确认此事件已彻底解决，且不会再次发生。</value>
+  </data>
+  <data name="Incident ID" xml:space="preserve">
+    <value>事件 ID</value>
+  </data>
+  <data name="Incident War Room - {0}" xml:space="preserve">
+    <value>事件处理中心 - {0}</value>
   </data>
   <data name="Incident emails use this original OCE snapshot, even after the on-call shift changes. Acknowledging assigns the incident owner; it does not change email recipients." xml:space="preserve">
     <value>事件邮件使用此原始 OCE 快照，即使值班轮班发生变化也是如此。确认事件会指定事件负责人，但不会更改邮件收件人。</value>
@@ -132,17 +135,11 @@
   <data name="Incident event" xml:space="preserve">
     <value>事件动态</value>
   </data>
-  <data name="Incident ID" xml:space="preserve">
-    <value>事件 ID</value>
-  </data>
   <data name="Incident owner:" xml:space="preserve">
     <value>事件负责人：</value>
   </data>
   <data name="Incident title" xml:space="preserve">
     <value>事件标题</value>
-  </data>
-  <data name="Incident War Room - {0}" xml:space="preserve">
-    <value>事件处理中心 - {0}</value>
   </data>
   <data name="Independent incidents" xml:space="preserve">
     <value>独立事件</value>
@@ -192,14 +189,14 @@
   <data name="Not set" xml:space="preserve">
     <value>未设置</value>
   </data>
+  <data name="OCE at incident occurrence" xml:space="preserve">
+    <value>事故发生时的 OCE</value>
+  </data>
   <data name="Occurred at" xml:space="preserve">
     <value>发生时间</value>
   </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>发生时间（UTC）</value>
-  </data>
-  <data name="OCE at incident occurrence" xml:space="preserve">
-    <value>事故发生时的 OCE</value>
   </data>
   <data name="Owner: " xml:space="preserve">
     <value>负责人：</value>
@@ -291,21 +288,6 @@
   <data name="Response Mechanism Description" xml:space="preserve">
     <value>响应机制说明</value>
   </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · 严重（P0）</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · 重大（P1）</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · 错误 (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · 警告 (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · 信息（P4）</value>
-  </data>
   <data name="Severity: " xml:space="preserve">
     <value>严重程度：</value>
   </data>
@@ -335,6 +317,24 @@
   </data>
   <data name="User deleted" xml:space="preserve">
     <value>用户已删除</value>
+  </data>
+  <data name="handling nodes" xml:space="preserve">
+    <value>处理节点</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · 严重（P0）</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · 重大（P1）</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · 错误 (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · 警告 (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · 信息（P4）</value>
   </data>
 
 </root>

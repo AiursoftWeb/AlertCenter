@@ -21,9 +21,6 @@
       <data name="Action" xml:space="preserve">
     <value>Aktion</value>
   </data>
-  <data name="created in" xml:space="preserve">
-    <value>erstellt in</value>
-  </data>
   <data name="Manage scheduling rules" xml:space="preserve">
     <value>Planungsregeln verwalten</value>
   </data>
@@ -39,11 +36,11 @@
   <data name="Rule" xml:space="preserve">
     <value>Regel</value>
   </data>
-  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
-    <value>Wählen Sie ein Team aus, um den 7-Tage-Fahrplan anzuzeigen, Schichten zu generieren oder manuell anzupassen. Teams ohne zugewiesene Vorlage können ebenfalls manuell eingeplant werden; gespeicherte Schichten haben derzeit noch keinen Einfluss auf die Weiterleitung von Vorfällen.</value>
-  </data>
   <data name="Select On-Call Team" xml:space="preserve">
     <value>On-Call-Team auswählen</value>
+  </data>
+  <data name="Select a team to view the 7-day schedule, generate or manually adjust shifts. Teams without a bound template can also be scheduled manually; saved shifts do not currently affect incident routing." xml:space="preserve">
+    <value>Wählen Sie ein Team aus, um den 7-Tage-Fahrplan anzuzeigen, Schichten zu generieren oder manuell anzupassen. Teams ohne zugewiesene Vorlage können ebenfalls manuell eingeplant werden; gespeicherte Schichten haben derzeit noch keinen Einfluss auf die Weiterleitung von Vorfällen.</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Team</value>
@@ -56,6 +53,9 @@
   </data>
   <data name="View schedule" xml:space="preserve">
     <value>Plan anzeigen</value>
+  </data>
+  <data name="created in" xml:space="preserve">
+    <value>erstellt in</value>
   </data>
 
 </root>

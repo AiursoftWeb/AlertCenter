@@ -75,6 +75,12 @@
   <data name="Project Name" xml:space="preserve">
     <value>Назва проекту</value>
   </data>
+  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
+    <value>Номер ліцензії ICP для користувачів материкового Китаю. Залиште порожнім, щоб приховати.</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>Базовий URL API Ollama, який використовується спеціально для генерації вбудованих представлень інцидентів і запитів (векторний пошук). Використовується лише хост — /api/embed додається автоматично. Напр., https://ollama.example.com</value>
+  </data>
   <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
     <value>Токен носія для автентифікації з інстансом Ollama для вбудовування, напр. 5a0fbdefa19f....</value>
   </data>
@@ -84,17 +90,11 @@
   <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
     <value>Назва моделі вбудовування, наприклад bge-m3:latest. Має бути доступною на інстанції Ollama для вбудовування. Використовується лише для векторного пошуку.</value>
   </data>
-  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
-    <value>Номер ліцензії ICP для користувачів материкового Китаю. Залиште порожнім, щоб приховати.</value>
-  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>Логотип проекту, який відображається в навбарі та футері. Підтримується jpg, png, svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>Назва проекту, що відображається на фронтенді.</value>
-  </data>
-  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
-    <value>Базовий URL API Ollama, який використовується спеціально для генерації вбудованих представлень інцидентів і запитів (векторний пошук). Використовується лише хост — /api/embed додається автоматично. Напр., https://ollama.example.com</value>
   </data>
 
 </root>

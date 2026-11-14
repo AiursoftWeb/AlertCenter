@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>แก้ไข</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>ชั่วโมง</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>จัดการแม่แบบกฎที่ใช้ร่วมกันระหว่างหลายทีม การแก้ไขแม่แบบจะไม่สร้างกะที่บันทึกไว้ใหม่</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>สามารถลบเทมเพลตที่ไม่ได้ผูกกับทีมเท่านั้น การเปลี่ยนกะที่บันทึกไว้และประวัติของทีมจะไม่ถูกลบ; เทมเพลตที่ถูกลบไม่สามารถกู้คืนได้</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>คน</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>คน · เป้าหมาย</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>กรุณายกเลิกการผูกเทมเพลตกับทุกทีมก่อน</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>ดูข้อกำหนด</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>ชั่วโมง</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>คน</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>คน · เป้าหมาย</value>
   </data>
 
 </root>

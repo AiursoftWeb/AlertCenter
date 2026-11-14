@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>W aplikacji</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>Można zapisać zasady dotyczące SMS-ów, ale nie zainstalowano żadnego kanału dostarczania SMS-ów. Wybór SMS-ów nie powoduje wysyłania wiadomości tekstowych.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Zapisz zasady</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Opcja „Wyświetlaj na listach” określa domyślną listę incydentów oraz liczniki na pulpicie i przy aplikacjach. Incydenty ukryte na listach nadal można znaleźć za pomocą jawnych filtrów ważności. Uprawnienia dostępu są zawsze egzekwowane.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>Można zapisać zasady dotyczące SMS-ów, ale nie zainstalowano żadnego kanału dostarczania SMS-ów. Wybór SMS-ów nie powoduje wysyłania wiadomości tekstowych.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>To globalny limit powiadomień. Aplikacja musi mieć również włączony kanał i subskrybować dany poziom ważności. Wiadomości e-mail dla dyżurujących korzystają z kolumny „E-mail”.</value>

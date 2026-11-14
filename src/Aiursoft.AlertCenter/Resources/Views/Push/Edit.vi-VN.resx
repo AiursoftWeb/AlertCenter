@@ -21,14 +21,14 @@
       <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, có thể được sử dụng ở phía bên nhận cùng với</value>
   </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Chọn loại kênh</value>
+  </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: Hỗ trợ chỉ định đồng thời nhiều người dùng và nhóm người dùng (vai trò). Hệ thống tự động loại bỏ các mục trùng lặp, đảm bảo mỗi thành viên chỉ nhận được một thông báo chưa đọc.</value>
   </data>
   <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
     <value>: Hệ thống sử dụng thống nhất cấu hình dịch vụ Email toàn cục. Vui lòng sử dụng</value>
-  </data>
-  <data name="1. Select channel type" xml:space="preserve">
-    <value>1. Chọn loại kênh</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Thêm</value>
@@ -51,9 +51,6 @@
   <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
     <value>Yêu cầu tùy chỉnh nâng cao (tiêu đề và mẫu tùy chỉnh)</value>
   </data>
-  <data name="and" xml:space="preserve">
-    <value>và</value>
-  </data>
   <data name="Application Binding Authorization" xml:space="preserve">
     <value>Ủy quyền liên kết ứng dụng</value>
   </data>
@@ -72,14 +69,14 @@
   <data name="Batch enter CC emails" xml:space="preserve">
     <value>Nhập hàng loạt email CC</value>
   </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Danh sách CC</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
   <data name="Cannot overwrite." xml:space="preserve">
     <value>Không thể ghi đè.</value>
-  </data>
-  <data name="CC List" xml:space="preserve">
-    <value>Danh sách CC</value>
   </data>
   <data name="Channel name" xml:space="preserve">
     <value>Tên kênh</value>
@@ -156,20 +153,20 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>Các chỗ giữ chỗ phải là giá trị duy nhất của một chuỗi JSON.</value>
   </data>
-  <data name="Recipient email" xml:space="preserve">
-    <value>Email người nhận</value>
-  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>Loại người nhận</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Email người nhận</value>
   </data>
   <data name="Remove " xml:space="preserve">
     <value>Xóa</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Xóa {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Xóa quyền</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Xóa {0}</value>
   </data>
   <data name="Request Body Template (JSON Template)" xml:space="preserve">
     <value>Mẫu nội dung yêu cầu (mẫu JSON)</value>
@@ -180,17 +177,17 @@
   <data name="Save channel configuration" xml:space="preserve">
     <value>Lưu cấu hình kênh</value>
   </data>
-  <data name="Search by username or display name..." xml:space="preserve">
-    <value>Tìm kiếm theo tên người dùng hoặc tên hiển thị...</value>
-  </data>
   <data name="Search Users" xml:space="preserve">
     <value>Tìm kiếm người dùng</value>
   </data>
-  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
-    <value>Chọn loại kênh thông báo và cấu hình địa chỉ người nhận hoặc những người nhận mục tiêu.</value>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Tìm kiếm theo tên người dùng hoặc tên hiển thị...</value>
   </data>
   <data name="Select User Group" xml:space="preserve">
     <value>Chọn nhóm người dùng</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Chọn loại kênh thông báo và cấu hình địa chỉ người nhận hoặc những người nhận mục tiêu.</value>
   </data>
   <data name="Select user group..." xml:space="preserve">
     <value>Chọn nhóm người dùng...</value>
@@ -222,17 +219,20 @@
   <data name="User Group" xml:space="preserve">
     <value>Nhóm người dùng</value>
   </data>
-  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
-    <value>Nhóm người dùng · Thành viên tự động kế thừa quyền liên kết</value>
-  </data>
   <data name="User Group (Role)" xml:space="preserve">
     <value>Nhóm người dùng (Vai trò)</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Nhóm người dùng · Thành viên tự động kế thừa quyền liên kết</value>
   </data>
   <data name="Webhook Receiver URL" xml:space="preserve">
     <value>URL nhận webhook</value>
   </data>
   <data name="Will parse and preserve the original object types." xml:space="preserve">
     <value>Sẽ phân tích cú pháp và giữ nguyên kiểu dữ liệu của các đối tượng gốc.</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>và</value>
   </data>
 
 </root>

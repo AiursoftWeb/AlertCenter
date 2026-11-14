@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Stöd för &quot;fire-and-forget&quot; för långvariga uppgifter (t.ex. e-post eller AI), med en GUI för köhantering, parallell bearbetning och avbrott.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>{0} tilldelade totalt</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Ett inbyggt Role-Based Access Control (RBAC)-system för detaljerad behörighetshantering.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>En modern, funktionsrik och mycket utbyggbar grund för ditt nästa webbprogram.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Bekräftad</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>AI-drivna översättningar</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Bekräftad</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter larm- och driftcentral · global status och sluten uppföljning</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Automatisk beroendeinjektion</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Automatisk meddelandeleverans och felsökning</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Automatisk tidszonshantering</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Automatisk meddelandeleverans och felsökning</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Automatisk, AI-driven översättning till 28 språk för global räckvidd.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Automatisk, AI-driven översättning till 28 språk.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>tillgängliga kanaler ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Bakgrundsjobbshantering</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Kopiera</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Skapa en applikation och hämta en nyckel</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Skapa en avisering för din applikation och meddela dess konfigurerade mottagare.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Skapa en applikation</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Skapa en applikation och hämta en nyckel</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>Skapa den första incidenten via API:t eller SDK:en. Den visas här.</value>
@@ -315,6 +309,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Dirigera efter Sev0–Sev4 i appens pushinställningar.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP e-postkanal</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Schemauppgiftshantering</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Smart mörkt läge som automatiskt anpassar sig efter användarens systeminställningar.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>SMTP e-postkanal</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Källa</value>
@@ -401,6 +395,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>Du behöver create-alert-åtkomst till en aktiverad applikation.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>tillgängliga kanaler ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} tilldelade totalt</value>
   </data>
 
 </root>

@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>I appen</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>SMS-politikken kan gemmes, men der er ikke installeret nogen SMS-kanal. Hvis du vælger SMS, bliver der ikke sendt tekstbeskeder.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Gem politik</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>&quot;Vis på lister&quot; styrer standardlisten over hændelser samt antallene på dashboardet og for applikationer. Filtre for specifikke alvorlighedsgrader kan stadig finde skjulte hændelser. Adgangsrettigheder håndhæves altid.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>SMS-politikken kan gemmes, men der er ikke installeret nogen SMS-kanal. Hvis du vælger SMS, bliver der ikke sendt tekstbeskeder.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Dette er den globale grænse for notifikationer. En applikation skal også have en aktiveret kanal og abonnere på alvorlighedsgraden. Vagt-e-mails bruger kolonnen E-mail.</value>

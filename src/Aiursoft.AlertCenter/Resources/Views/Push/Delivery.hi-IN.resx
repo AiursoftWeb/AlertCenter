@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>निर्माण का समय</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>डिलीवरी सफलतापूर्वक पूरी हुई</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>डिलीवरी की सामग्री</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>डिलीवरी का विवरण</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>डिलीवरी का विवरण - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>डिलीवरी विफल</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>डिलीवरी स्थायी रूप से विफल हुई</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>डिलीवरी आईडी</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>डिलीवरी आईडी:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>डिलीवरी सफलतापूर्वक पूरी हुई</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>डिलीवरी का विवरण - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>डिलीवरी स्थायी रूप से विफल हुई</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>डिलीवरी कार्य बनाया गया</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>इस सूचना को गंभीरता नीति के तहत रोक दिया गया है और इसे भेजा नहीं जाएगा।</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>बार</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>कुल प्रयास:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>फिर से खोई गई घटना देखें</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>बार</value>
   </data>
 
 </root>

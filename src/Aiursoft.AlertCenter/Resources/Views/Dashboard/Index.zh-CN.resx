@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>“火速发送”支持长时间运行的任务（如邮件或AI），配备用于队列管理、并行处理和取消的图形化界面。</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>总计已分配 {0} 项</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>内置基于角色的访问控制（RBAC）系统，用于细粒度权限管理。</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>一个现代化、功能丰富且高度可扩展的基础框架，为您的下一个Web应用程序奠定坚实基础。</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>已确认</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>AI驱动翻译</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>已确认</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter 告警与运营中心 · 全局状态与闭环跟踪</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>自动依赖注入</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>自动消息发送与故障排查</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>自动时区处理</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>自动消息发送与故障排查</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>支持28种语言的自动AI翻译，助力实现全球覆盖。</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>自动、由人工智能驱动的 28 种语言翻译。</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>可用通道 ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>后台任务处理</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>复制</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>创建应用并获取密钥</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>为您的应用创建警报，并通知已配置的接收人。</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>创建应用程序</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>创建应用并获取密钥</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>通过 API 或 SDK 创建第一个事件。它会显示在这里。</value>
@@ -321,6 +315,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>在应用的推送设置中按 Sev0-Sev4 进行路由。</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>SMTP 邮件通道</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>定时任务管理</value>
   </data>
@@ -341,9 +338,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>智能深色模式，可自动适应用户系统设置。</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>SMTP 邮件通道</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>来源</value>
@@ -407,6 +401,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>您需要拥有已启用应用的告警创建权限。</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>可用通道 ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>总计已分配 {0} 项</value>
   </data>
 
 </root>

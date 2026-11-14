@@ -21,14 +21,14 @@
       <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>，可在接收端配合</value>
   </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. 选择渠道类型</value>
+  </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>：支持同时绑定多个用户和用户组（角色）。系统会自动去重，确保每位成员只收到一条未读通知。</value>
   </data>
   <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
     <value>：系统统一使用全局 Email 服务配置。请使用</value>
-  </data>
-  <data name="1. Select channel type" xml:space="preserve">
-    <value>1. 选择渠道类型</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>添加</value>
@@ -51,9 +51,6 @@
   <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
     <value>高级自定义请求（自定义请求头和模板）</value>
   </data>
-  <data name="and" xml:space="preserve">
-    <value>和</value>
-  </data>
   <data name="Application Binding Authorization" xml:space="preserve">
     <value>应用绑定授权</value>
   </data>
@@ -72,14 +69,14 @@
   <data name="Batch enter CC emails" xml:space="preserve">
     <value>批量输入抄送邮箱</value>
   </data>
+  <data name="CC List" xml:space="preserve">
+    <value>抄送名单</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="Cannot overwrite." xml:space="preserve">
     <value>无法覆盖。</value>
-  </data>
-  <data name="CC List" xml:space="preserve">
-    <value>抄送名单</value>
   </data>
   <data name="Channel name" xml:space="preserve">
     <value>渠道名称</value>
@@ -156,20 +153,20 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>占位符必须是 JSON 字符串的唯一值。</value>
   </data>
-  <data name="Recipient email" xml:space="preserve">
-    <value>收件人邮箱</value>
-  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>收件人类型</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>收件人邮箱</value>
   </data>
   <data name="Remove " xml:space="preserve">
     <value>移除</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>移除 {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>移除权限</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>移除 {0}</value>
   </data>
   <data name="Request Body Template (JSON Template)" xml:space="preserve">
     <value>请求正文模板（JSON 模板）</value>
@@ -180,17 +177,17 @@
   <data name="Save channel configuration" xml:space="preserve">
     <value>保存频道配置</value>
   </data>
-  <data name="Search by username or display name..." xml:space="preserve">
-    <value>搜索用户名或显示名称……</value>
-  </data>
   <data name="Search Users" xml:space="preserve">
     <value>搜索用户</value>
   </data>
-  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
-    <value>选择通知渠道类型，并配置接收地址或目标接收对象。</value>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>搜索用户名或显示名称……</value>
   </data>
   <data name="Select User Group" xml:space="preserve">
     <value>选择用户组</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>选择通知渠道类型，并配置接收地址或目标接收对象。</value>
   </data>
   <data name="Select user group..." xml:space="preserve">
     <value>选择用户组...</value>
@@ -222,17 +219,20 @@
   <data name="User Group" xml:space="preserve">
     <value>用户组</value>
   </data>
-  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
-    <value>用户组 · 成员动态继承已绑定的权限</value>
-  </data>
   <data name="User Group (Role)" xml:space="preserve">
     <value>用户组（角色）</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>用户组 · 成员动态继承已绑定的权限</value>
   </data>
   <data name="Webhook Receiver URL" xml:space="preserve">
     <value>Webhook 接收端 URL</value>
   </data>
   <data name="Will parse and preserve the original object types." xml:space="preserve">
     <value>将解析并保留原始对象类型。</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>和</value>
   </data>
 
 </root>

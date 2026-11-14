@@ -18,19 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-      <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
-    <value>: API-nøglen vises kun én gang, når den er oprettet. Konfigurér den straks i produktionsmiljøets miljøvariabler (f.eks.,</value>
-  </data>
-  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
-    <value>. Push-scheduling udløst asynkront.</value>
-  </data>
-  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
-    <value>. Bevar den første optegnelse og udløs ikke duplikerede pushes.</value>
-  </data>
-  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
-    <value>. Centret kan bruge dette felt til at estimere netværkslatens for rapportering og levering.</value>
-  </data>
-  <data name="(Critical, highest priority)," xml:space="preserve">
+      <data name="(Critical, highest priority)," xml:space="preserve">
     <value>(Kritisk, højeste prioritet),</value>
   </data>
   <data name="(Error)," xml:space="preserve">
@@ -48,6 +36,15 @@
   <data name=") or Key Management Service (KMS). Hardcoding into frontend, logs, or code repositories is strictly prohibited." xml:space="preserve">
     <value>) eller Key Management Service (KMS). Hardcoding i frontend, logs eller kodearkiver er strengt forbudt.</value>
   </data>
+  <data name=". Push scheduling triggered asynchronously." xml:space="preserve">
+    <value>. Push-scheduling udløst asynkront.</value>
+  </data>
+  <data name=". Retain the first record and do not trigger duplicate pushes." xml:space="preserve">
+    <value>. Bevar den første optegnelse og udløs ikke duplikerede pushes.</value>
+  </data>
+  <data name=". The center can use this field to estimate reporting and delivery network latency." xml:space="preserve">
+    <value>. Centret kan bruge dette felt til at estimere netværkslatens for rapportering og levering.</value>
+  </data>
   <data name="1 to 200 characters" xml:space="preserve">
     <value>1 til 200 tegn</value>
   </data>
@@ -59,6 +56,9 @@
   </data>
   <data name="401 Authentication failed" xml:space="preserve">
     <value>401 Godkendingsfejl</value>
+  </data>
+  <data name=": The API Key is displayed only once upon successful creation. Please configure it immediately in production environment variables (e.g.," xml:space="preserve">
+    <value>: API-nøglen vises kun én gang, når den er oprettet. Konfigurér den straks i produktionsmiljøets miljøvariabler (f.eks.,</value>
   </data>
   <data name="Actual business occurrence time, e.g.," xml:space="preserve">
     <value>Faktisk tidspunkt for hændelsen, f.eks.</value>
@@ -138,9 +138,6 @@
   <data name="Optional" xml:space="preserve">
     <value>Valgfri</value>
   </data>
-  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
-    <value>eller miljøvariabler, hvilket letter lokalisering og fejlfinding med ét klik på detaljesiden.</value>
-  </data>
   <data name="Replace with the application key generated in the previous step to send a test directly." xml:space="preserve">
     <value>Erstat med applikationsnøglen, der blev genereret i det forrige trin, for at sende en test direkte.</value>
   </data>
@@ -168,11 +165,11 @@
   <data name="Structured business context. It is recommended to include" xml:space="preserve">
     <value>Struktureret forretningskontekst. Det anbefales at inkludere</value>
   </data>
-  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
-    <value>Klientens globalt unikke rapport-ID. Centret bruger</value>
-  </data>
   <data name="The SDK sends each report once. If a network failure leaves the outcome uncertain, retry the same request with the same ReportId and occurrence time." xml:space="preserve">
     <value>SDK&apos;et sender hver rapport én gang. Hvis en netværksfejl gør udfaldet usikkert, skal du prøve den samme anmodning igen med samme ReportId og tidspunkt for hændelsen.</value>
+  </data>
+  <data name="The client&apos;s globally unique report ID. The center uses" xml:space="preserve">
+    <value>Klientens globalt unikke rapport-ID. Centret bruger</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
@@ -182,6 +179,9 @@
   </data>
   <data name="With timezone offset or Z identifier" xml:space="preserve">
     <value>Med tidszoneforskydning eller Z-betegnelse</value>
+  </data>
+  <data name="or environment variables, facilitating one-click location and troubleshooting on the detail page." xml:space="preserve">
+    <value>eller miljøvariabler, hvilket letter lokalisering og fejlfinding med ét klik på detaljesiden.</value>
   </data>
 
 </root>

@@ -60,29 +60,29 @@
   <data name="Creation Time" xml:space="preserve">
     <value>Время создания</value>
   </data>
-  <data name="Delivery completed successfully" xml:space="preserve">
-    <value>Доставка успешно завершена</value>
-  </data>
   <data name="Delivery Content" xml:space="preserve">
     <value>Содержимое доставки</value>
   </data>
   <data name="Delivery Details" xml:space="preserve">
     <value>Детали доставки</value>
   </data>
-  <data name="Delivery details - {0}" xml:space="preserve">
-    <value>Детали доставки - {0}</value>
-  </data>
   <data name="Delivery Failed" xml:space="preserve">
     <value>Ошибка доставки</value>
-  </data>
-  <data name="Delivery failed permanently" xml:space="preserve">
-    <value>Доставка окончательно не выполнена</value>
   </data>
   <data name="Delivery ID" xml:space="preserve">
     <value>ID доставки</value>
   </data>
   <data name="Delivery ID:" xml:space="preserve">
     <value>ID доставки:</value>
+  </data>
+  <data name="Delivery completed successfully" xml:space="preserve">
+    <value>Доставка успешно завершена</value>
+  </data>
+  <data name="Delivery details - {0}" xml:space="preserve">
+    <value>Детали доставки - {0}</value>
+  </data>
+  <data name="Delivery failed permanently" xml:space="preserve">
+    <value>Доставка окончательно не выполнена</value>
   </data>
   <data name="Delivery task created" xml:space="preserve">
     <value>Задача на доставку создана</value>
@@ -183,9 +183,6 @@
   <data name="This notification was suppressed by the severity policy and will not be sent." xml:space="preserve">
     <value>Это уведомление было подавлено политикой уровня критичности и не будет отправлено.</value>
   </data>
-  <data name="times" xml:space="preserve">
-    <value>раз</value>
-  </data>
   <data name="Total attempts: " xml:space="preserve">
     <value>Всего попыток:</value>
   </data>
@@ -200,6 +197,9 @@
   </data>
   <data name="View reopened incident" xml:space="preserve">
     <value>Просмотреть повторно открытую инцидент</value>
+  </data>
+  <data name="times" xml:space="preserve">
+    <value>раз</value>
   </data>
 
 </root>

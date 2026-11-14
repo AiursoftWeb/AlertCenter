@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Redigera</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>timmar</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Hantera mallar för regler som delas av flera team. Ändring av en mall regenererar inte sparade skift.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Endast mallar som inte är kopplade till team kan tas bort. Sparade pass och teamens historik tas inte bort; borttagna mallar kan inte återställas.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>personer</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>personer · Mål</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Ta först bort kopplingen mellan mallen och alla team.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Visa regler</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>timmar</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>personer</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>personer · Mål</value>
   </data>
 
 </root>

@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>ऐप में</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>SMS नीति सहेजी जा सकती है, लेकिन कोई SMS डिलीवरी चैनल इंस्टॉल नहीं है। SMS चुनने से टेक्स्ट संदेश नहीं भेजे जाते।</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>नीति सहेजें</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>सूचियों में दिखाएँ डिफ़ॉल्ट घटना सूची, डैशबोर्ड और एप्लिकेशन की गणनाओं को नियंत्रित करता है। स्पष्ट गंभीरता फ़िल्टर छिपी हुई घटनाओं को भी ढूँढ़ सकते हैं। पहुँच अनुमतियाँ हमेशा लागू की जाती हैं।</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>SMS नीति सहेजी जा सकती है, लेकिन कोई SMS डिलीवरी चैनल इंस्टॉल नहीं है। SMS चुनने से टेक्स्ट संदेश नहीं भेजे जाते।</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>यह वैश्विक सूचना की अधिकतम सीमा है। किसी एप्लिकेशन में संबंधित चैनल सक्षम होना और गंभीरता स्तर के लिए सदस्यता लेना भी आवश्यक है। ऑन-कॉल ईमेल के लिए Email कॉलम का उपयोग होता है।</value>

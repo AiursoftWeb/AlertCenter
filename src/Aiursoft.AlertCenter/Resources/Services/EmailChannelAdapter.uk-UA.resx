@@ -69,17 +69,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Якщо кнопка не працює, відкрийте це посилання:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Деталі інциденту</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Інцидент підвищено ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Ідентифікатор інциденту</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Ідентифікатор інциденту: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Деталі інциденту</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Інцидент підвищено ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Інцидент пом&apos;якшено: {0}</value>
@@ -93,14 +93,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Недійсний формат адреси електронної пошти для копії. Імена відображення не підтримуються.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>Недійсна конфігурація SMTP. Перевірте налаштування електронної пошти.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Недійсний формат адреси електронної пошти одержувача. Відображувані імена не підтримуються.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>Недійсний одержувач або параметри копії (CC) для каналу електронної пошти. Перевірте налаштування каналу.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>Недійсна конфігурація SMTP. Перевірте налаштування електронної пошти.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Мітійовано</value>
@@ -111,14 +111,14 @@
   <data name="None" xml:space="preserve">
     <value>Немає</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>Час запиту OCE (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Час події (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Сталося (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>Час запиту OCE (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Група чергових: {0}</value>

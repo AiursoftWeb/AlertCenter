@@ -27,27 +27,6 @@
   <data name=" · On duty" xml:space="preserve">
     <value>· De guardia</value>
   </data>
-  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
-    <value>{0} · {1} · Mover aquí el turno seleccionado</value>
-  </data>
-  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
-    <value>{0} · {1} · Otro equipo (solo lectura) · {2}</value>
-  </data>
-  <data name="{0} (Read-only)" xml:space="preserve">
-    <value>{0} (solo lectura)</value>
-  </data>
-  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
-    <value>{0} turnos / {1:0.##} horas</value>
-  </data>
-  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
-    <value>turnos de guardia de {0}</value>
-  </data>
-  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
-    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} horas · {5}</value>
-  </data>
-  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
-    <value>{0}{1} · {2} · Semana adyacente (solo lectura) · {3}</value>
-  </data>
   <data name="36 hours after this week (read-only)" xml:space="preserve">
     <value>36 horas después de esta semana (solo lectura)</value>
   </data>
@@ -80,12 +59,6 @@
   </data>
   <data name="From " xml:space="preserve">
     <value>Desde</value>
-  </data>
-  <data name="hours" xml:space="preserve">
-    <value>horas</value>
-  </data>
-  <data name="hours · " xml:space="preserve">
-    <value>horas ·</value>
   </data>
   <data name="How to read this timeline" xml:space="preserve">
     <value>Cómo leer esta cronología</value>
@@ -125,6 +98,33 @@
   </data>
   <data name="Until " xml:space="preserve">
     <value>Hasta</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>horas</value>
+  </data>
+  <data name="hours · " xml:space="preserve">
+    <value>horas ·</value>
+  </data>
+  <data name="{0} (Read-only)" xml:space="preserve">
+    <value>{0} (solo lectura)</value>
+  </data>
+  <data name="{0} shifts / {1:0.##} hours" xml:space="preserve">
+    <value>{0} turnos / {1:0.##} horas</value>
+  </data>
+  <data name="{0} · {1} · Move selected shift here" xml:space="preserve">
+    <value>{0} · {1} · Mover aquí el turno seleccionado</value>
+  </data>
+  <data name="{0} · {1} · Other Team (Read-only) · {2}" xml:space="preserve">
+    <value>{0} · {1} · Otro equipo (solo lectura) · {2}</value>
+  </data>
+  <data name="{0}&apos;s on-call shifts" xml:space="preserve">
+    <value>turnos de guardia de {0}</value>
+  </data>
+  <data name="{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} hours · {5}" xml:space="preserve">
+    <value>{0}{1} · {2:yyyy-MM-dd HH:mm zzz} → {3:yyyy-MM-dd HH:mm zzz} · {4:0.##} horas · {5}</value>
+  </data>
+  <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
+    <value>{0}{1} · {2} · Semana adyacente (solo lectura) · {3}</value>
   </data>
 
 </root>

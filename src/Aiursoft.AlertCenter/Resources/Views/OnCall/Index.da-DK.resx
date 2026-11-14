@@ -51,9 +51,6 @@
   <data name="Edit" xml:space="preserve">
     <value>Rediger</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>timer</value>
-  </data>
   <data name="Manage rule templates shared by multiple teams. Modifying a template does not regenerate saved shifts." xml:space="preserve">
     <value>Administrér regeltemplates, der deles af flere hold. Når en template ændres, oprettes de gemte vagter ikke på ny.</value>
   </data>
@@ -65,12 +62,6 @@
   </data>
   <data name="Only templates not bound to teams can be deleted. Saved shifts and history for teams are not deleted; deleted templates cannot be recovered." xml:space="preserve">
     <value>Kun skabeloner, der ikke er knyttet til teams, kan slettes. Gemte vagter og historik for teams slettes ikke; slettede skabeloner kan ikke gendannes.</value>
-  </data>
-  <data name="people" xml:space="preserve">
-    <value>personer</value>
-  </data>
-  <data name="people · Target " xml:space="preserve">
-    <value>personer · Mål</value>
   </data>
   <data name="Please unbind the template from all teams first." xml:space="preserve">
     <value>Fjern først skabelonens tilknytning til alle teams.</value>
@@ -92,6 +83,15 @@
   </data>
   <data name="View rules" xml:space="preserve">
     <value>Se regler</value>
+  </data>
+  <data name="hours" xml:space="preserve">
+    <value>timer</value>
+  </data>
+  <data name="people" xml:space="preserve">
+    <value>personer</value>
+  </data>
+  <data name="people · Target " xml:space="preserve">
+    <value>personer · Mål</value>
   </data>
 
 </root>

@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>Düğme çalışmazsa bu bağlantıyı açın:</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>Olay ayrıntıları</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>Olay yükseltildi ({0} → {1}): {2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>Olay Kimliği</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>Olay Kimliği: {0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>Olay ayrıntıları</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>Olay yükseltildi ({0} → {1}): {2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>Olay kontrol altına alındı: {0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>Geçersiz CC e-posta biçimi. Görünen adlar desteklenmiyor.</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>SMTP yapılandırması geçersiz. Lütfen e-posta ayarlarını kontrol edin.</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>Alıcının e-posta adresi biçimi geçersiz. Görünen adlar desteklenmiyor.</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>E-posta kanalı için alıcı veya CC yapılandırması geçersiz. Lütfen kanal ayarlarını kontrol edin.</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>SMTP yapılandırması geçersiz. Lütfen e-posta ayarlarını kontrol edin.</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>Giderildi</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>Yok</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>OCE Sorgu Zamanı (UTC): {0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>Gerçekleşme zamanı (UTC)</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>Gerçekleşme zamanı (UTC): {0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>OCE Sorgu Zamanı (UTC): {0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>Nöbetçi grup: {0}</value>

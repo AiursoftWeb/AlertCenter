@@ -21,14 +21,14 @@
       <data name=", can be used on the receiving end with" xml:space="preserve">
     <value>, może być użyty po stronie odbiorczej z</value>
   </data>
+  <data name="1. Select channel type" xml:space="preserve">
+    <value>1. Wybierz typ kanału</value>
+  </data>
   <data name=": Supports binding multiple users and user groups (roles) simultaneously. The system automatically deduplicates, ensuring each member receives only one unread notification." xml:space="preserve">
     <value>: Obsługuje jednoczesne przypisywanie wielu użytkowników i grup użytkowników (ról). System automatycznie usuwa duplikaty, zapewniając, że każdy członek otrzymuje tylko jedno nieprzeczytane powiadomienie.</value>
   </data>
   <data name=": The system uniformly uses the global Email service configuration. Please use" xml:space="preserve">
     <value>: System korzysta ze wspólnej konfiguracji globalnej usługi poczty e-mail. Użyj</value>
-  </data>
-  <data name="1. Select channel type" xml:space="preserve">
-    <value>1. Wybierz typ kanału</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Dodaj</value>
@@ -51,9 +51,6 @@
   <data name="Advanced Custom Request (Custom headers and templates)" xml:space="preserve">
     <value>Zaawansowane dostosowanie żądania (Nagłówki i szablony)</value>
   </data>
-  <data name="and" xml:space="preserve">
-    <value>i</value>
-  </data>
   <data name="Application Binding Authorization" xml:space="preserve">
     <value>Uprawnienia do powiązania aplikacji</value>
   </data>
@@ -72,14 +69,14 @@
   <data name="Batch enter CC emails" xml:space="preserve">
     <value>Wpisz adresy e-mail do CC zbiorczo</value>
   </data>
+  <data name="CC List" xml:space="preserve">
+    <value>Lista DW</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Anuluj</value>
   </data>
   <data name="Cannot overwrite." xml:space="preserve">
     <value>Nadpisywanie jest niemożliwe.</value>
-  </data>
-  <data name="CC List" xml:space="preserve">
-    <value>Lista DW</value>
   </data>
   <data name="Channel name" xml:space="preserve">
     <value>Nazwa kanału</value>
@@ -156,20 +153,20 @@
   <data name="Placeholders must be the sole value of a JSON string." xml:space="preserve">
     <value>Symbole zastępcze muszą stanowić jedyną wartość ciągu znaków JSON.</value>
   </data>
-  <data name="Recipient email" xml:space="preserve">
-    <value>Adres e-mail odbiorcy</value>
-  </data>
   <data name="Recipient Type" xml:space="preserve">
     <value>Typ odbiorcy</value>
+  </data>
+  <data name="Recipient email" xml:space="preserve">
+    <value>Adres e-mail odbiorcy</value>
   </data>
   <data name="Remove " xml:space="preserve">
     <value>Usuń</value>
   </data>
-  <data name="Remove {0}" xml:space="preserve">
-    <value>Usuń {0}</value>
-  </data>
   <data name="Remove permission" xml:space="preserve">
     <value>Usuń uprawnienie</value>
+  </data>
+  <data name="Remove {0}" xml:space="preserve">
+    <value>Usuń {0}</value>
   </data>
   <data name="Request Body Template (JSON Template)" xml:space="preserve">
     <value>Szablon treści żądania (szablon JSON)</value>
@@ -180,17 +177,17 @@
   <data name="Save channel configuration" xml:space="preserve">
     <value>Zapisz konfigurację kanału</value>
   </data>
-  <data name="Search by username or display name..." xml:space="preserve">
-    <value>Szukaj po nazwie użytkownika lub nazwie wyświetlanej...</value>
-  </data>
   <data name="Search Users" xml:space="preserve">
     <value>Wyszukaj użytkowników</value>
   </data>
-  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
-    <value>Wybierz typ kanału powiadomień i skonfiguruj adres odbiorcy lub odbiorców docelowych.</value>
+  <data name="Search by username or display name..." xml:space="preserve">
+    <value>Szukaj po nazwie użytkownika lub nazwie wyświetlanej...</value>
   </data>
   <data name="Select User Group" xml:space="preserve">
     <value>Wybierz grupę użytkowników</value>
+  </data>
+  <data name="Select a notification channel type and configure the recipient address or target recipients." xml:space="preserve">
+    <value>Wybierz typ kanału powiadomień i skonfiguruj adres odbiorcy lub odbiorców docelowych.</value>
   </data>
   <data name="Select user group..." xml:space="preserve">
     <value>Wybierz grupę użytkowników...</value>
@@ -222,17 +219,20 @@
   <data name="User Group" xml:space="preserve">
     <value>Grupa użytkowników</value>
   </data>
-  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
-    <value>Grupa użytkowników · Członkowie automatycznie dziedziczą przypisane uprawnienia</value>
-  </data>
   <data name="User Group (Role)" xml:space="preserve">
     <value>Grupa użytkowników (rola)</value>
+  </data>
+  <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
+    <value>Grupa użytkowników · Członkowie automatycznie dziedziczą przypisane uprawnienia</value>
   </data>
   <data name="Webhook Receiver URL" xml:space="preserve">
     <value>Adres URL odbiornika webhook</value>
   </data>
   <data name="Will parse and preserve the original object types." xml:space="preserve">
     <value>Przeanalizuje i zachowa oryginalne typy obiektów.</value>
+  </data>
+  <data name="and" xml:space="preserve">
+    <value>i</value>
   </data>
 
 </root>

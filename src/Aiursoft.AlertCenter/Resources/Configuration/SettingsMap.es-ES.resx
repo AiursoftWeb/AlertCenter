@@ -75,6 +75,12 @@
   <data name="Project Name" xml:space="preserve">
     <value>Nombre del proyecto</value>
   </data>
+  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
+    <value>El número de licencia ICP para usuarios de la región principal de China. Deje en blanco para ocultarlo.</value>
+  </data>
+  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
+    <value>URL base de la API de Ollama utilizada específicamente para generar incrustaciones (embeddings) de incidentes y consultas (búsqueda vectorial). Solo se utiliza el host; /api/embed se agrega automáticamente. Ej. https://ollama.example.com</value>
+  </data>
   <data name="The bearer token for authenticating with the Embedding Ollama Instance, e.g. 5a0fbdefa19f...." xml:space="preserve">
     <value>El token de portador para autenticarse con la instancia de Ollama de incrustación, p. ej., 5a0fbdefa19f....</value>
   </data>
@@ -84,17 +90,11 @@
   <data name="The embedding model name, e.g. bge-m3:latest. Must be available at the Embedding Ollama Instance. Only used for vector search." xml:space="preserve">
     <value>Nombre del modelo de embedding, p. ej., bge-m3:latest. Debe estar disponible en la Instancia de Ollama para Embeddings. Solo se utiliza para la búsqueda vectorial.</value>
   </data>
-  <data name="The ICP license number for China mainland users. Leave empty to hide." xml:space="preserve">
-    <value>El número de licencia ICP para usuarios de la región principal de China. Deje en blanco para ocultarlo.</value>
-  </data>
   <data name="The logo of the project displayed in the navbar and footer. Support jpg, png, svg." xml:space="preserve">
     <value>El logotipo del proyecto se muestra en la barra de navegación y el pie de página. Se admiten archivos jpg, png y svg.</value>
   </data>
   <data name="The name of the project displayed in the frontend." xml:space="preserve">
     <value>El nombre del proyecto mostrado en la interfaz de usuario.</value>
-  </data>
-  <data name="The Ollama API base URL used specifically for generating incident and query embeddings (vector search). Only the host is used — /api/embed is appended automatically. E.g. https://ollama.example.com" xml:space="preserve">
-    <value>URL base de la API de Ollama utilizada específicamente para generar incrustaciones (embeddings) de incidentes y consultas (búsqueda vectorial). Solo se utiliza el host; /api/embed se agrega automáticamente. Ej. https://ollama.example.com</value>
   </data>
 
 </root>

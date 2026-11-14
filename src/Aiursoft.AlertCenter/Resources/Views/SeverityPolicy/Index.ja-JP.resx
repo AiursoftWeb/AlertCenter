@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>アプリ内</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>SMSポリシーは保存できますが、SMS配信チャネルがインストールされていません。SMSを選択しても、テキストメッセージは送信されません。</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>ポリシーを保存</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>「リストに表示」は、デフォルトのインシデントリスト、ダッシュボード、アプリケーションの件数に適用されます。重要度を明示的に指定したフィルターでは、非表示のインシデントも引き続き検索できます。アクセス権限は常に適用されます。</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>SMSポリシーは保存できますが、SMS配信チャネルがインストールされていません。SMSを選択しても、テキストメッセージは送信されません。</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>これは通知に関する全体的な上限です。アプリケーションでは、チャネルを有効にし、該当する重要度を購読する必要もあります。オンコールメールには「メール」列が適用されます。</value>

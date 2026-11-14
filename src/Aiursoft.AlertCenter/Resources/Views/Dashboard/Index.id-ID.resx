@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Dukungan &quot;fire-and-forget&quot; untuk tugas berjalan lama (seperti email atau AI), dilengkapi antarmuka GUI untuk manajemen antrian, pemrosesan paralel, dan pembatalan.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>{0} ditugaskan secara keseluruhan</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Sistem Role-Based Access Control (RBAC) bawaan untuk manajemen izin yang terperinci.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Sebuah fondasi yang modern, kaya fitur, dan sangat dapat diperluas untuk aplikasi web Anda berikutnya.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Diakui</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Terjemahan Berbasis AI</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Diakui</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>AlertCenter Pusat Peringatan &amp; Operasi · Status Global &amp; Pelacakan Tertutup</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Injeksi Dependensi Otomatis</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Pengiriman pesan otomatis dan pemecahan masalah</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Penanganan Zona Waktu Otomatis</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Pengiriman pesan otomatis dan pemecahan masalah</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Terjemahan otomatis berbasis AI ke dalam 28 bahasa untuk menjangkau audiens global.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Terjemahan otomatis, didorong oleh AI ke dalam 28 bahasa.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>kanal tersedia ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Pemrosesan Tugas Latar Belakang</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Salin</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Buat Aplikasi dan Dapatkan Kunci</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Buat peringatan untuk aplikasi Anda dan beri tahu penerima yang telah dikonfigurasi.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Buat aplikasi</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Buat Aplikasi dan Dapatkan Kunci</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>Buat insiden pertama melalui API atau SDK. Insiden tersebut akan muncul di sini.</value>
@@ -315,6 +309,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Atur perutean berdasarkan Sev0–Sev4 di pengaturan push aplikasi.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Saluran Email SMTP</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Manajemen Tugas yang Dijadwalkan</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Mode gelap yang cerdas yang secara otomatis menyesuaikan dengan pengaturan sistem pengguna.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>Saluran Email SMTP</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Sumber</value>
@@ -401,6 +395,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>Anda memerlukan akses untuk membuat peringatan pada aplikasi yang aktif.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>kanal tersedia ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} ditugaskan secara keseluruhan</value>
   </data>
 
 </root>

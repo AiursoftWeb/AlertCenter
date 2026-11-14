@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>In-app</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>Het sms-beleid kan worden opgeslagen, maar er is geen sms-kanaal voor het versturen van berichten geïnstalleerd. Als u sms selecteert, worden er geen sms-berichten verstuurd.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Beleid opslaan</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Toon in lijsten beheert de standaard incidentenlijst, dashboard- en applicatieaantallen. Expliciete ernstfilters kunnen nog steeds verborgen incidenten vinden. Toegangsrechten worden altijd afgedwongen.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>Het sms-beleid kan worden opgeslagen, maar er is geen sms-kanaal voor het versturen van berichten geïnstalleerd. Als u sms selecteert, worden er geen sms-berichten verstuurd.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Dit is de globale bovengrens voor meldingen. Een applicatie moet ook een ingeschakeld kanaal hebben en zich abonneren op het betreffende ernstniveau. Voor e-mail aan de dienstdoende medewerker wordt de kolom E-mail gebruikt.</value>

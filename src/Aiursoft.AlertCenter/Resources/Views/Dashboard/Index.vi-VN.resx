@@ -27,9 +27,6 @@
   <data name="&quot;Fire-and-forget&quot; support for long-running tasks (like emails or AI), featuring a GUI for queue management, parallel processing, and cancellation." xml:space="preserve">
     <value>Hỗ trợ &quot;Fire-and-forget&quot; cho các tác vụ dài hạn (như email hoặc AI), đi kèm giao diện người dùng (GUI) để quản lý hàng đợi, xử lý song song và hủy bỏ.</value>
   </data>
-  <data name="{0} assigned in total" xml:space="preserve">
-    <value>{0} được phân công tổng cộng</value>
-  </data>
   <data name="A built-in Role-Based Access Control (RBAC) system for fine-grained permission management." xml:space="preserve">
     <value>Hệ thống Kiểm soát Truy cập Dựa trên Vai trò (RBAC) được tích hợp sẵn để quản lý quyền chi tiết.</value>
   </data>
@@ -45,11 +42,11 @@
   <data name="A modern, feature-rich, and highly extensible foundation for your next web application." xml:space="preserve">
     <value>Một nền tảng hiện đại, đầy đủ tính năng và có khả năng mở rộng cao cho ứng dụng web tiếp theo của bạn.</value>
   </data>
-  <data name="Acknowledged" xml:space="preserve">
-    <value>Đã xác nhận</value>
-  </data>
   <data name="AI-Powered Translations" xml:space="preserve">
     <value>Bản dịch hỗ trợ bởi AI</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>Đã xác nhận</value>
   </data>
   <data name="AlertCenter Alerting &amp; Operations Center · Global Status &amp; Closed-Loop Tracking" xml:space="preserve">
     <value>Trung tâm Cảnh báo và Vận hành AlertCenter · Trạng thái toàn cầu &amp; Theo dõi khép kín</value>
@@ -72,20 +69,17 @@
   <data name="Automatic Dependency Injection" xml:space="preserve">
     <value>Tiêm phụ thuộc tự động</value>
   </data>
-  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
-    <value>Gửi tin nhắn tự động và khắc phục sự cố</value>
-  </data>
   <data name="Automatic Time Zone Handling" xml:space="preserve">
     <value>Xử lý múi giờ tự động</value>
+  </data>
+  <data name="Automatic message delivery and troubleshooting" xml:space="preserve">
+    <value>Gửi tin nhắn tự động và khắc phục sự cố</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages for global reach." xml:space="preserve">
     <value>Tự động dịch bằng AI sang 28 ngôn ngữ để tiếp cận toàn cầu.</value>
   </data>
   <data name="Automatic, AI-driven translation into 28 languages." xml:space="preserve">
     <value>Dịch tự động, được hỗ trợ bởi AI sang 28 ngôn ngữ.</value>
-  </data>
-  <data name="available channels · " xml:space="preserve">
-    <value>kênh khả dụng ·</value>
   </data>
   <data name="Background Job Processing" xml:space="preserve">
     <value>Xử lý công việc nền</value>
@@ -114,14 +108,14 @@
   <data name="Copy" xml:space="preserve">
     <value>Sao chép</value>
   </data>
+  <data name="Create Application and Get Key" xml:space="preserve">
+    <value>Tạo ứng dụng và lấy khóa</value>
+  </data>
   <data name="Create an alert for your application and notify its configured recipients." xml:space="preserve">
     <value>Tạo cảnh báo cho ứng dụng của bạn và thông báo cho những người nhận đã được cấu hình.</value>
   </data>
   <data name="Create an application" xml:space="preserve">
     <value>Tạo ứng dụng</value>
-  </data>
-  <data name="Create Application and Get Key" xml:space="preserve">
-    <value>Tạo ứng dụng và lấy khóa</value>
   </data>
   <data name="Create the first incident via the API or SDK. It will appear here." xml:space="preserve">
     <value>Tạo sự cố đầu tiên thông qua API hoặc SDK. Sự cố sẽ xuất hiện tại đây.</value>
@@ -321,6 +315,9 @@
   <data name="Route by Sev0-Sev4 in the app’s push settings." xml:space="preserve">
     <value>Định tuyến theo mức độ nghiêm trọng từ Sev0 đến Sev4 trong phần cài đặt thông báo đẩy của ứng dụng.</value>
   </data>
+  <data name="SMTP Email Channel" xml:space="preserve">
+    <value>Kênh email SMTP</value>
+  </data>
   <data name="Scheduled Task Management" xml:space="preserve">
     <value>Quản lý tác vụ định kỳ</value>
   </data>
@@ -341,9 +338,6 @@
   </data>
   <data name="Smart dark mode that automatically adapts to the user&apos;s system settings." xml:space="preserve">
     <value>Chế độ tối thông minh tự động điều chỉnh theo cài đặt hệ thống của người dùng.</value>
-  </data>
-  <data name="SMTP Email Channel" xml:space="preserve">
-    <value>Kênh email SMTP</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Nguồn</value>
@@ -407,6 +401,12 @@
   </data>
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>Bạn cần quyền truy cập tạo cảnh báo vào một ứng dụng đã được bật.</value>
+  </data>
+  <data name="available channels · " xml:space="preserve">
+    <value>kênh khả dụng ·</value>
+  </data>
+  <data name="{0} assigned in total" xml:space="preserve">
+    <value>{0} được phân công tổng cộng</value>
   </data>
 
 </root>

@@ -72,17 +72,17 @@
   <data name="If the button does not work, open this link:" xml:space="preserve">
     <value>如果按钮无法使用，请打开此链接：</value>
   </data>
-  <data name="Incident details" xml:space="preserve">
-    <value>事件详情</value>
-  </data>
-  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
-    <value>事件级别升级（{0} → {1}）：{2}</value>
-  </data>
   <data name="Incident ID" xml:space="preserve">
     <value>事件 ID</value>
   </data>
   <data name="Incident ID: {0}" xml:space="preserve">
     <value>事件 ID：{0}</value>
+  </data>
+  <data name="Incident details" xml:space="preserve">
+    <value>事件详情</value>
+  </data>
+  <data name="Incident escalated ({0} → {1}): {2}" xml:space="preserve">
+    <value>事件级别升级（{0} → {1}）：{2}</value>
   </data>
   <data name="Incident mitigated: {0}" xml:space="preserve">
     <value>事故已缓解：{0}</value>
@@ -96,14 +96,14 @@
   <data name="Invalid CC email format. Display names are not supported." xml:space="preserve">
     <value>抄送电子邮件格式无效。不支持显示名称。</value>
   </data>
+  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
+    <value>SMTP 配置无效。请检查电子邮件设置。</value>
+  </data>
   <data name="Invalid recipient email format. Display names are not supported." xml:space="preserve">
     <value>收件人电子邮件地址格式无效。不支持显示名称。</value>
   </data>
   <data name="Invalid recipient or CC configuration for the email channel. Please check the channel settings." xml:space="preserve">
     <value>邮件渠道的收件人或抄送配置无效。请检查渠道设置。</value>
-  </data>
-  <data name="Invalid SMTP configuration. Please check Email settings." xml:space="preserve">
-    <value>SMTP 配置无效。请检查电子邮件设置。</value>
   </data>
   <data name="Mitigated" xml:space="preserve">
     <value>已缓解</value>
@@ -114,14 +114,14 @@
   <data name="None" xml:space="preserve">
     <value>无</value>
   </data>
+  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
+    <value>OCE 查询时间（UTC）：{0:O}</value>
+  </data>
   <data name="Occurred at (UTC)" xml:space="preserve">
     <value>发生时间（UTC）</value>
   </data>
   <data name="Occurred at (UTC): {0:O}" xml:space="preserve">
     <value>发生时间（UTC）：{0:O}</value>
-  </data>
-  <data name="OCE Query Time (UTC): {0:O}" xml:space="preserve">
-    <value>OCE 查询时间（UTC）：{0:O}</value>
   </data>
   <data name="On-call group: {0}" xml:space="preserve">
     <value>值班组：{0}</value>

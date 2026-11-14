@@ -33,6 +33,12 @@
   <data name="In-app" xml:space="preserve">
     <value>I appen</value>
   </data>
+  <data name="SMS" xml:space="preserve">
+    <value>SMS</value>
+  </data>
+  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
+    <value>SMS-policyn kan sparas, men ingen SMS-kanal är installerad. Om du väljer SMS skickas inga textmeddelanden.</value>
+  </data>
   <data name="Save policy" xml:space="preserve">
     <value>Spara policy</value>
   </data>
@@ -50,12 +56,6 @@
   </data>
   <data name="Show in lists controls the default incident list, dashboard and application counts. Explicit severity filters can still find hidden incidents. Access permissions are always enforced." xml:space="preserve">
     <value>Visa i listor styr standardlistan över incidenter, antalet incidenter på instrumentpanelen och antalet i programmet. Med uttryckliga allvarlighetsfilter går det fortfarande att hitta dolda incidenter. Åtkomstbehörigheter gäller alltid.</value>
-  </data>
-  <data name="SMS" xml:space="preserve">
-    <value>SMS</value>
-  </data>
-  <data name="SMS policy can be saved, but no SMS delivery channel is installed. Selecting SMS does not send text messages." xml:space="preserve">
-    <value>SMS-policyn kan sparas, men ingen SMS-kanal är installerad. Om du väljer SMS skickas inga textmeddelanden.</value>
   </data>
   <data name="This is the global notification ceiling. An application must also have an enabled channel and subscribe to the severity. On-call email uses the Email column." xml:space="preserve">
     <value>Det här är den globala gränsen för aviseringar. En applikation måste också ha en aktiverad kanal och prenumerera på allvarlighetsgraden. E-post för jour använder kolumnen E-post.</value>

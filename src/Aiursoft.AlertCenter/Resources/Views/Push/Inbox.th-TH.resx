@@ -120,11 +120,11 @@
   <data name="Read" xml:space="preserve">
     <value>อ่านแล้ว</value>
   </data>
-  <data name="Read notification" xml:space="preserve">
-    <value>การแจ้งเตือนที่อ่านแล้ว</value>
-  </data>
   <data name="Read Status" xml:space="preserve">
     <value>สถานะการอ่าน</value>
+  </data>
+  <data name="Read notification" xml:space="preserve">
+    <value>การแจ้งเตือนที่อ่านแล้ว</value>
   </data>
   <data name="Reception End Date (UTC, inclusive)" xml:space="preserve">
     <value>วันสิ้นสุดการรับ (UTC, รวมวันที่ระบุ)</value>
@@ -143,21 +143,6 @@
   </data>
   <data name="Search title or body..." xml:space="preserve">
     <value>ค้นหาจากชื่อเรื่องหรือเนื้อหา...</value>
-  </data>
-  <data name="sev0 · Critical (P0)" xml:space="preserve">
-    <value>sev0 · วิกฤต (P0)</value>
-  </data>
-  <data name="sev1 · Major (P1)" xml:space="preserve">
-    <value>sev1 · ร้ายแรง (P1)</value>
-  </data>
-  <data name="sev2 · Error (P2)" xml:space="preserve">
-    <value>sev2 · ข้อผิดพลาด (P2)</value>
-  </data>
-  <data name="sev3 · Warning (P3)" xml:space="preserve">
-    <value>sev3 · คำเตือน (P3)</value>
-  </data>
-  <data name="sev4 · Info (P4)" xml:space="preserve">
-    <value>sev4 · ข้อมูล (P4)</value>
   </data>
   <data name="Show read only" xml:space="preserve">
     <value>แสดงเฉพาะรายการที่อ่านแล้ว</value>
@@ -185,6 +170,21 @@
   </data>
   <data name="When the system generates incidents bound to the in-site channel, they are pushed directly to your personal inbox." xml:space="preserve">
     <value>เมื่อระบบสร้างเหตุขัดข้องที่เชื่อมโยงกับช่องทางภายในเว็บไซต์ ระบบจะส่งเหตุขัดข้องเหล่านั้นไปยังกล่องข้อความส่วนตัวของคุณโดยตรง</value>
+  </data>
+  <data name="sev0 · Critical (P0)" xml:space="preserve">
+    <value>sev0 · วิกฤต (P0)</value>
+  </data>
+  <data name="sev1 · Major (P1)" xml:space="preserve">
+    <value>sev1 · ร้ายแรง (P1)</value>
+  </data>
+  <data name="sev2 · Error (P2)" xml:space="preserve">
+    <value>sev2 · ข้อผิดพลาด (P2)</value>
+  </data>
+  <data name="sev3 · Warning (P3)" xml:space="preserve">
+    <value>sev3 · คำเตือน (P3)</value>
+  </data>
+  <data name="sev4 · Info (P4)" xml:space="preserve">
+    <value>sev4 · ข้อมูล (P4)</value>
   </data>
 
 </root>
