@@ -11,6 +11,21 @@ AlertCenter is a self-hosted alert management and notification platform built on
 
 A native Android client supports incident browsing and response. See [Android app](docs/android.md) for authentication, building and installation.
 
+![AlertCenter screenshot](./screenshot.png)
+
+On an empty database, the default local account is `admin@default.com` with password `Admin@123456!`. Change the password before exposing the application.
+
+## Overview
+
+### What is AlertCenter?
+
+- Independent API keys, idempotent reporting, and five severity levels (`sev0` through `sev4`).
+- Independent incidents, acknowledgement, ownership, mitigation, resolution, and Markdown discussions.
+- On-call teams, reusable scheduling rules, and an interactive schedule editor with overlap and rest validation.
+- Severity-based notification routing, personal inboxes, and delivery history.
+- Application owners grant users and roles access to incidents, API keys, and application settings. Platform permissions control application creation and shared on-call/push administration; application managers can bind any visible on-call team.
+- SQLite for standalone use, MySQL support, and local or OIDC authentication through [Aiursoft Template](https://github.com/AiursoftWeb/template).
+
 ## CLI & SDK
 
 Install the CLI with the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0):
@@ -26,19 +41,6 @@ Add the SDK to your .NET project:
 ```bash
 dotnet add package Aiursoft.AlertCenter.SDK --source https://nuget.aiursoft.com/v3/index.json
 ```
-
-![AlertCenter screenshot](./screenshot.png)
-
-On an empty database, the default local account is `admin@default.com` with password `Admin@123456!`. Change the password before exposing the application.
-
-## What is AlertCenter?
-
-- Independent API keys, idempotent reporting, and five severity levels (`sev0` through `sev4`).
-- Independent incidents, acknowledgement, ownership, mitigation, resolution, and Markdown discussions.
-- On-call teams, reusable scheduling rules, and an interactive schedule editor with overlap and rest validation.
-- Severity-based notification routing, personal inboxes, and delivery history.
-- Application owners grant users and roles access to incidents, API keys, and application settings. Platform permissions control application creation and shared on-call/push administration; application managers can bind any visible on-call team.
-- SQLite for standalone use, MySQL support, and local or OIDC authentication through [Aiursoft Template](https://github.com/AiursoftWeb/template).
 
 ## Install with Docker
 
@@ -96,7 +98,9 @@ Open `http://localhost:5000`. Keep `/data` persistent for configuration, the SQL
 
 The image copies its default configuration to `/data/appsettings.json` on first start and retains that file on subsequent starts. Environment variables use double underscores, such as `ConnectionStrings__DefaultConnection` or `AppSettings__OIDC__ClientSecret`.
 
-## Integrations
+## Usage
+
+### Integrations
 
 Create an application and API key in the web UI. Its **Integration Guide** provides HTTP API examples for your server.
 
@@ -104,7 +108,7 @@ Install the CLI or SDK using the [commands above](#cli--sdk).
 
 The CLI can query and manage incidents, update metadata, and report GitLab pipeline results. Pass `--server` and `--api-key` with each command; use `alertcenter --help` to explore commands.
 
-## Permissions and on-call response
+### Permissions and on-call response
 
 Platform capabilities use `Permission` claims. Roles collect permissions; the name `Administrators` does not grant privileges by itself.
 
@@ -115,32 +119,6 @@ Platform capabilities use `Permission` claims. Roles collect permissions; the na
 Only the application owner or users explicitly granted incident update permission may handle an incident. OCE duty and incident assignment do not grant access. A view grant alone does not permit incident handling. Default identity initialization runs only when both users and roles are empty; restarting an existing installation does not restore revoked permissions or grant newly introduced permissions.
 
 Applications may bind an on-call team. Each new incident queues built-in email to that team's OCEs at `OccurredAtUtc`, independently of custom severity routes. The initial OCE roster and email addresses are snapshotted; later incident emails retain those recipients even after shift, membership, address or application team changes. Team CC configuration applies regardless of the shift and is captured for each delivery; retries retain that delivery’s recipient and CC snapshot. If the original group has been deleted, its captured CC list is retained. Correcting CC configuration permits later emails when the original OCE addresses are valid; failed delivery history and invalid original OCE addresses are not rewritten. The incident page shows this original roster separately from the current OCEs. ACK assigns the owner without changing the roster. Historical incidents without an original snapshot do not substitute the current OCE; when an on-call team is configured, a visible failed delivery explains the missing snapshot. Missing coverage or invalid recipient configuration produces a visible delivery failure without rejecting the alert. There are no automatic email retries; inspect delivery records before manually retrying an SMTP failure.
-
-## Configuration
-
-See the comments in [appsettings.json](src/Aiursoft.AlertCenter/appsettings.json) for database, storage, authentication, and logging settings. Keep secrets in protected environment variables.
-
-- **OIDC:** set `AppSettings__AuthProvider=OIDC` and the `AppSettings__OIDC__*` values. Register the application's HTTPS `/signin-oidc` callback with your identity provider and assign the required application permissions.
-- **Email:** configure `Email__Host`, `Email__Port`, `Email__From`, and, when required, `Email__UserName` and `Email__Password`. STARTTLS is enabled by default. Both custom channels and built-in on-call email use these settings. Emails include HTML and plain-text alternatives with a direct incident link. Incident email is sent for creation (red), mitigation (yellow), resolution (green), and reopening (red). Each successful transition queues an email, including repeated mitigation and resolution after reopening. Mitigate-and-resolve sends only the green resolution email. Acknowledgement, reassignment, comments, and severity changes do not send email; API resolution follows the same rules. Set `Email__PublicBaseUrl` to your public site address (including any path prefix); it defaults to `https://alertcenter.aiursoft.com`.
-- **Webhook:** custom encrypted request headers require `Webhook__HeaderProtectionKey`, a Base64-encoded 32-byte key generated with `openssl rand -base64 32`. Preserve this key: losing or changing it makes saved custom headers unreadable. Without it, default headers and custom JSON body templates remain available.
-
-### Database migrations
-
-The multiple-key migration removes the old application-level secret hash without migrating credentials. Create new scoped keys and update integration configuration after upgrading. EmployeeCenter audit synchronization needs query, create and resolve permissions.
-
-The application applies pending migrations at startup. Generate future migrations for both providers using the [SQLite guide](src/Aiursoft.AlertCenter.Sqlite/HOW_TO_ADD_MIGRATIONS.md) and [MySQL guide](src/Aiursoft.AlertCenter.MySql/HOW_TO_ADD_MIGRATIONS.md).
-
-## How to contribute
-
-Report bugs and suggestions through the issue tracker. Create a fork and a feature branch, then submit a merge request for review.
-
-After preparing frontend assets, run the existing checks:
-
-```bash
-dotnet test tests/Aiursoft.AlertCenter.Tests.csproj
-node --test tests/Frontend/*.test.cjs
-./lint.sh
-```
 
 ### Application sharing
 
@@ -164,3 +142,39 @@ query/detail responses also expose these fields and the current owner. Legacy
 use `acknowledged=true` or `false` to combine confirmation with a progress filter.
 
 The dashboard links to **My incidents** (`/Incidents/Mine`), showing incidents whose current owner is the signed-in user, within that user's accessible applications. Status, severity, acknowledgement, keyword and date filters remain available; pagination retains the personal scope. Ownership does not grant application access.
+
+## Configuration
+
+See the comments in [appsettings.json](src/Aiursoft.AlertCenter/appsettings.json) for database, storage, authentication, and logging settings. Keep secrets in protected environment variables.
+
+- **OIDC:** set `AppSettings__AuthProvider=OIDC` and the `AppSettings__OIDC__*` values. Register the application's HTTPS `/signin-oidc` callback with your identity provider and assign the required application permissions.
+- **Email:** configure `Email__Host`, `Email__Port`, `Email__From`, and, when required, `Email__UserName` and `Email__Password`. STARTTLS is enabled by default. Both custom channels and built-in on-call email use these settings. Emails include HTML and plain-text alternatives with a direct incident link. Incident email is sent for creation (red), mitigation (yellow), resolution (green), and reopening (red). Each successful transition queues an email, including repeated mitigation and resolution after reopening. Mitigate-and-resolve sends only the green resolution email. Acknowledgement, reassignment, comments, and severity changes do not send email; API resolution follows the same rules. Set `Email__PublicBaseUrl` to your public site address (including any path prefix); it defaults to `https://alertcenter.aiursoft.com`.
+- **Webhook:** custom encrypted request headers require `Webhook__HeaderProtectionKey`, a Base64-encoded 32-byte key generated with `openssl rand -base64 32`. Preserve this key: losing or changing it makes saved custom headers unreadable. Without it, default headers and custom JSON body templates remain available.
+
+### Database migrations
+
+The multiple-key migration removes the old application-level secret hash without migrating credentials. Create new scoped keys and update integration configuration after upgrading. EmployeeCenter audit synchronization needs query, create and resolve permissions.
+
+The application applies pending migrations at startup. Generate future migrations for both providers using the [SQLite guide](src/Aiursoft.AlertCenter.Sqlite/HOW_TO_ADD_MIGRATIONS.md) and [MySQL guide](src/Aiursoft.AlertCenter.MySql/HOW_TO_ADD_MIGRATIONS.md).
+
+## Documentation
+
+- [Android app and OIDC setup](docs/android.md)
+- [Configuration reference](src/Aiursoft.AlertCenter/appsettings.json)
+- [Integrations](#integrations) and [application sharing](#application-sharing)
+
+## How to contribute
+
+Report bugs and suggestions through the issue tracker. Create a fork and a feature branch, then submit a merge request for review.
+
+After preparing frontend assets, run the existing checks:
+
+```bash
+dotnet test tests/Aiursoft.AlertCenter.Tests.csproj
+node --test tests/Frontend/*.test.cjs
+./lint.sh
+```
+
+## License
+
+Licensed under the [MIT License](LICENSE).
