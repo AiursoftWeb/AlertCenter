@@ -9,7 +9,7 @@
 
 AlertCenter is a self-hosted alert management and notification platform built on ASP.NET Core (.NET 10). Business systems create incidents through one HTTP API; teams manage incidents, on-call schedules, and delivery through Webhook, email, and in-app notifications.
 
-![AlertCenter screenshot](https://github.com/aiursoftweb/alertcenter/blob/master/screenshot.png)
+![AlertCenter screenshot](https://raw.githubusercontent.com/aiursoftweb/alertcenter/master/screenshot.png)
 
 On an empty database, the default local account is `admin@default.com` with password `Admin@123456!`. Change the password before exposing the application.
 
