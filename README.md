@@ -160,6 +160,12 @@ use `acknowledged=true` or `false` to combine confirmation with a progress filte
 
 The dashboard links to **My incidents** (`/Incidents/Mine`), showing incidents whose current owner is the signed-in user, within that user's accessible applications. Status, severity, acknowledgement, keyword and date filters remain available; pagination retains the personal scope. Ownership does not grant application access.
 
+### Database migrations
+
+The multiple-key migration removes the old application-level secret hash without migrating credentials. Create new scoped keys and update integration configuration after upgrading. EmployeeCenter audit synchronization needs query, create and resolve permissions.
+
+The application applies pending migrations at startup. Generate future migrations for both providers using the [SQLite guide](https://github.com/aiursoftweb/alertcenter/blob/master/src/Aiursoft.AlertCenter.Sqlite/HOW_TO_ADD_MIGRATIONS.md) and [MySQL guide](https://github.com/aiursoftweb/alertcenter/blob/master/src/Aiursoft.AlertCenter.MySql/HOW_TO_ADD_MIGRATIONS.md).
+
 ## Configuration
 
 <a name="configuration-guide"></a>
@@ -341,12 +347,6 @@ See the comments in [appsettings.json](https://github.com/aiursoftweb/alertcente
 - **OIDC:** set `AppSettings__AuthProvider=OIDC` and the `AppSettings__OIDC__*` values. Register the application's HTTPS `/signin-oidc` callback with your identity provider and assign the required application permissions.
 - **Email:** configure `Email__Host`, `Email__Port`, `Email__From`, and, when required, `Email__UserName` and `Email__Password`. STARTTLS is enabled by default. Both custom channels and built-in on-call email use these settings. Emails include HTML and plain-text alternatives with a direct incident link. Incident email is sent for creation (red), mitigation (yellow), resolution (green), and reopening (red). Each successful transition queues an email, including repeated mitigation and resolution after reopening. Mitigate-and-resolve sends only the green resolution email. Acknowledgement, reassignment, comments, and severity changes do not send email; API resolution follows the same rules. Set `Email__PublicBaseUrl` to your public site address (including any path prefix); it defaults to `https://alertcenter.aiursoft.com`.
 - **Webhook:** custom encrypted request headers require `Webhook__HeaderProtectionKey`, a Base64-encoded 32-byte key generated with `openssl rand -base64 32`. Preserve this key: losing or changing it makes saved custom headers unreadable. Without it, default headers and custom JSON body templates remain available.
-
-### Database migrations
-
-The multiple-key migration removes the old application-level secret hash without migrating credentials. Create new scoped keys and update integration configuration after upgrading. EmployeeCenter audit synchronization needs query, create and resolve permissions.
-
-The application applies pending migrations at startup. Generate future migrations for both providers using the [SQLite guide](https://github.com/aiursoftweb/alertcenter/blob/master/src/Aiursoft.AlertCenter.Sqlite/HOW_TO_ADD_MIGRATIONS.md) and [MySQL guide](https://github.com/aiursoftweb/alertcenter/blob/master/src/Aiursoft.AlertCenter.MySql/HOW_TO_ADD_MIGRATIONS.md).
 
 ## Documentation
 
