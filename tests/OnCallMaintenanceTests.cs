@@ -216,13 +216,75 @@ public class OnCallMaintenanceTests
     }
 
     [TestMethod]
-    public async Task FullyOccupiedHorizonStillAdvancesCursor()
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task IrregularMaintenanceKeepsExtensionsOnTemplateBoundaries(bool weekly)
     {
-        var manual = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(28) };
+        var rule = group.Rule!;
+        rule.StaffPerShift = 2;
+        if (!weekly)
+        {
+            db.RemoveRange(rule.HandoverPoints);
+            rule.HandoverPoints.Clear();
+            rule.ShiftHours = 8;
+        }
+        var start = Now.AddHours(20).AddMinutes(37);
+        // 此手工班完全在首次续排窗口之外，但占用了最后一个模板班的中间。
+        var manual = new OnCallShift { GroupId = group.Id,
+            StartsAtUtc = start.AddDays(28).AddHours(1), EndsAtUtc = start.AddDays(28).AddHours(2) };
         db.Add(manual);
         await db.SaveChangesAsync();
-        await Maintain();
-        Assert.AreEqual(Now.AddDays(28), (await db.OnCallGroups.SingleAsync()).AutoExtendedThroughUtc);
+
+        var ticks = Enumerable.Range(0, 120).Select(minute => start.AddMinutes(minute)).Concat(
+            [start.AddHours(7), start.AddDays(1).AddHours(3).AddMinutes(13), start.AddDays(9)]);
+        var templateEnds = Enumerable.Range(1, 42 * 3).Select(step => Now.AddHours(step * 8))
+            .Where(boundary => !weekly || boundary.Hour == Now.Hour &&
+                boundary.DayOfWeek is DayOfWeek.Monday or DayOfWeek.Friday)
+            .Where(boundary => boundary > start).ToArray();
+        var processed = 0;
+        foreach (var now in ticks)
+        {
+            var version = (await db.OnCallGroups.SingleAsync()).ScheduleVersion;
+            await Maintain(now);
+            var saved = await db.OnCallGroups.SingleAsync();
+            var horizon = now.AddDays(28);
+            var lastBoundary = Array.FindIndex(templateEnds, boundary => boundary >= horizon);
+            Assert.IsTrue(lastBoundary >= 0);
+            Assert.AreEqual(templateEnds[lastBoundary], saved.AutoExtendedThroughUtc);
+            if (processed == lastBoundary + 1) Assert.AreEqual(version, saved.ScheduleVersion);
+            processed = lastBoundary + 1;
+
+            var expected = new List<(DateTime Start, DateTime End, long? Position)>();
+            var from = start;
+            for (var index = 0; index < processed; index++)
+            {
+                var to = templateEnds[index];
+                var position = (long)index * rule.StaffPerShift;
+                if (from < manual.StartsAtUtc && manual.EndsAtUtc < to)
+                {
+                    expected.Add((from, manual.StartsAtUtc, position));
+                    expected.Add((manual.EndsAtUtc, to, position));
+                }
+                else expected.Add((from, to, position));
+                from = to;
+            }
+            var actual = await db.OnCallShifts.Where(shift => shift.Source == OnCallShiftSource.Generated)
+                .OrderBy(shift => shift.StartsAtUtc).ToArrayAsync();
+            CollectionAssert.AreEqual(expected.ToArray(), actual.Select(shift =>
+                (shift.StartsAtUtc, shift.EndsAtUtc, shift.RotationPosition)).ToArray());
+        }
+    }
+
+    [TestMethod]
+    public async Task FullyOccupiedHorizonStillAdvancesCursor()
+    {
+        var start = Now.AddMinutes(-1);
+        var boundary = Now.AddDays(28);
+        var manual = new OnCallShift { GroupId = group.Id, StartsAtUtc = start, EndsAtUtc = boundary };
+        db.Add(manual);
+        await db.SaveChangesAsync();
+        await Maintain(start);
+        Assert.AreEqual(boundary, (await db.OnCallGroups.SingleAsync()).AutoExtendedThroughUtc);
         Assert.AreEqual(manual.Id, (await db.OnCallShifts.SingleAsync()).Id);
         db.Remove(await db.OnCallShifts.SingleAsync());
         await db.SaveChangesAsync();
@@ -315,7 +377,7 @@ public class OnCallMaintenanceTests
 
         Assert.AreEqual(Now.AddDays(36), await db.OnCallShifts.Where(shift => shift.StartsAtUtc >= Now.AddDays(28))
             .MinAsync(shift => shift.StartsAtUtc));
-        Assert.AreEqual(Now.AddDays(64), (await db.OnCallGroups.SingleAsync()).AutoExtendedThroughUtc);
+        Assert.AreEqual(Now.AddDays(67), (await db.OnCallGroups.SingleAsync()).AutoExtendedThroughUtc);
     }
 
     [TestMethod]

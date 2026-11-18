@@ -91,9 +91,6 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         var last = await shifts.Include(shift => shift.Members).Where(shift => shift.EndsAtUtc <= start)
             .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
             .FirstOrDefaultAsync(token);
-        var occupied = await shifts.AsNoTracking().Where(shift =>
-                shift.StartsAtUtc < until && shift.EndsAtUtc > start && shift.StartsAtUtc < shift.EndsAtUtc)
-            .OrderBy(shift => shift.StartsAtUtc).Select(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).ToListAsync(token);
         var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
         var rule = group.Rule!;
         var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
@@ -101,13 +98,28 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         var first = generator.GenerateRange(rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), ids,
             start, 1, zone, RotationHistory(group, last));
         var position = first[0].RotationPosition!.Value;
+        var durationTicks = TimeSpan.FromMinutes(minutes).Ticks;
+        var remainder = (start - group.AnchorUtc).Ticks % durationTicks;
+        if (remainder < 0) remainder += durationTicks;
+        var boundaries = new List<DateTime>();
+        var through = start;
+        while (through < until)
+        {
+            through = rule.HandoverPoints.Count == 0
+                ? through.AddTicks(durationTicks - remainder)
+                : OnCallScheduleGenerator.NextHandover(rule.HandoverPoints, zone, through);
+            boundaries.Add(through);
+            remainder = 0;
+        }
+
+        var occupied = await shifts.AsNoTracking().Where(shift =>
+                shift.StartsAtUtc < through && shift.EndsAtUtc > start && shift.StartsAtUtc < shift.EndsAtUtc)
+            .OrderBy(shift => shift.StartsAtUtc).Select(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).ToListAsync(token);
         var additions = new List<OnCallShift>();
         var index = 0;
-        for (var from = start; from < until;)
+        var from = start;
+        foreach (var to in boundaries)
         {
-            var boundary = rule.HandoverPoints.Count == 0
-                ? from.AddMinutes(minutes) : OnCallScheduleGenerator.NextHandover(rule.HandoverPoints, zone, from);
-            var to = boundary < until ? boundary : until;
             List<GeneratedOnCallShift>? assignments = null;
             var freeFrom = from;
             // 已有班段只用于扣除占用区间；同一模板班的空闲片段共享一次轮换。
@@ -139,7 +151,7 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         if (overlaps.Count > 0) throw new ArgumentException(string.Join(" ", overlaps.Select(overlap => overlap.Message)));
         db.OnCallShifts.AddRange(additions);
         group.ScheduleVersion = Guid.NewGuid();
-        group.AutoExtendedThroughUtc = until;
+        group.AutoExtendedThroughUtc = through;
         await db.SaveChangesAsync(token);
     }
 
