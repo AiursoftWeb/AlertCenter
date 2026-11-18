@@ -206,6 +206,7 @@ function setup(options = {}) {
         const startUtc = body.startUtc || new Date(utcForLocal(body.startLocal, zone)).toISOString();
         const endUtc = body.endUtc || new Date(utcForLocal(body.endLocal, zone)).toISOString();
         const resultSlots = url.includes('generate=true') ? (options.generatedSlots || [{ startsAtUtc: startUtc, endsAtUtc: endUtc, userIds: ['b'], source: 1 }]) : body.slots.map(resolved);
+        if (body.replaceRange) resultSlots.push(...structuredClone(options.boundaryFragments || []));
         if (url === '/preview?clear=true') return {
             version: 'version', startUtc, endUtc, slots: typeof options.clearSlots === 'function' ? options.clearSlots(body.slots.map(resolved), body) : options.clearSlots || [], replacedSlots: options.clearReplacedSlots || body.slots.map(resolved), warnings: [], timelineWarnings: [],
             clearRanges: body.clearRanges.map(range => ({ ...range, clearedAtUtc: range.clearedAtUtc || options.serverNow || '2026-10-12T04:13:45.123Z' })), errors: options.failClear ? ['Clear rejected'] : [], ...options.clearResponse
@@ -641,6 +642,33 @@ test('copy repeats the entire unsaved multi-person draft into an arbitrary parti
     await ui.click('reset-schedule'); assert.equal(ui.get('copy-drafts').children.length, 0); assert.equal(ui.draft()[0].endLocal, '2026-10-13T00:00');
     await ui.click('undo-schedule'); assert.equal(ui.get('copy-drafts').children.length, 1); assert.equal(ui.draft()[0].endLocal, '2026-10-13T00:17');
 });
+test('copy preserves both ends of a crossing shift in confirmation, preview and save', async () => {
+    const crossing = { ...shift(176, 208, ['b'], 'crossing'), source: 1, rotationPosition: 1 };
+    const ui = setup({ slots: [shift(0, 168, ['a'], 'original')], context: [crossing],
+        savedSlots: [shift(0, 168, ['a'], 'original'), crossing], replacedSlots: [crossing],
+        boundaryFragments: [
+            { ...crossing, endsAtUtc: shift(176, 184).endsAtUtc, fragmentOf: 'crossing' },
+            { ...crossing, id: null, startsAtUtc: shift(200, 208).startsAtUtc, fragmentOf: 'crossing' }
+        ] });
+    await ui.flush();
+    await ui.input(ui.get('range-start'), '2026-10-19T16:00');
+    await ui.input(ui.get('range-end'), '2026-10-20T08:00');
+    await ui.click('copy-range');
+    assert.match(ui.get('replaced-shifts').textContent, /Will be clipped.*2026-10-19T08:00 → 2026-10-19T16:00; 2026-10-20T08:00 → 2026-10-20T16:00/);
+    assert.equal(ui.request('/preview?generate=false')[0].body.replaceRange, true);
+    await ui.click('replace-apply');
+    await ui.preview();
+    const preview = ui.request('/preview').at(-1).body;
+    await ui.click('save-schedule');
+    const saved = ui.request('/save').at(-1).body;
+    assert.deepEqual(preview.slots, saved.slots);
+    assert.deepEqual(saved.slots.filter(slot => slot.fragmentOf === 'crossing'), [
+        { ...crossing, endsAtUtc: shift(176, 184).endsAtUtc, fragmentOf: 'crossing' },
+        { ...crossing, id: null, startsAtUtc: shift(200, 208).startsAtUtc, fragmentOf: 'crossing' }
+    ]);
+    assert.equal(saved.slots.length, 4);
+});
+
 test('copy replacement confirmation can cancel and is invalidated by destination or source edits', async () => {
     const ui = setup({ replacedSlots: [shift(168, 180, ['a'])] }); await ui.flush();
     await ui.click('copy-range'); assert.equal(ui.get('replace-confirm').hidden, false); assert.match(ui.get('replaced-shifts').textContent, /Alice <team>/);

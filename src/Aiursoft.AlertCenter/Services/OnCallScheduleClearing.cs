@@ -37,15 +37,23 @@ internal static class OnCallScheduleClearing
                 continue;
             }
             affected?.Add(slot);
-            if (slot.StartsAtUtc < left) result.Add(Fragment(slot, slot.StartsAtUtc, left, slot.Id));
-            if (end > right) result.Add(Fragment(slot, right, end, slot.StartsAtUtc < left ? null : slot.Id));
+            result.AddRange(Outside(slot, left, right));
         }
         return result;
     }
 
-    private static OnCallSlotRequest Fragment(OnCallSlotRequest slot, DateTime start, DateTime end, Guid? id) => new()
+    internal static IEnumerable<OnCallSlotRequest> Outside(OnCallSlotRequest slot, DateTime left, DateTime right, bool replacement = false)
+    {
+        if (slot.StartsAtUtc < left) yield return Fragment(slot, slot.StartsAtUtc, left, slot.Id, replacement);
+        var end = End(slot);
+        if (end > right)
+            yield return Fragment(slot, right, end, !replacement && slot.StartsAtUtc >= left ? slot.Id : null, replacement);
+    }
+
+    private static OnCallSlotRequest Fragment(OnCallSlotRequest slot, DateTime start, DateTime end, Guid? id, bool replacement) => new()
     {
         Id = id, StartsAtUtc = start, EndsAtUtc = end, Source = slot.Source,
+        FragmentOf = replacement ? slot.Id : slot.FragmentOf,
         RotationPosition = slot.RotationPosition, UserIds = slot.UserIds.ToList()
     };
 

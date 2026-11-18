@@ -292,7 +292,16 @@
     }
     function confirmReplacement(candidate, slots, regenerate = false) {
         pending = candidate;
-        list('oncall-replaced-shifts', describeSlots(slots));
+        const range = candidate.range;
+        list('oncall-replaced-shifts', slots.map(slot => {
+            const [description] = describeSlots([slot]);
+            if (!range) return description;
+            const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+            const retained = [];
+            if (left < range.start) retained.push(`${localTime(left, zone)} → ${localTime(range.start, zone)}`);
+            if (right > range.end) retained.push(`${localTime(range.end, zone)} → ${localTime(right, zone)}`);
+            return retained.length ? `${description} · ${text('clipped-shift', 'Will be clipped; retained times:')} ${retained.join('; ')}` : description;
+        }));
         get('oncall-replace-regenerate-hint').hidden = !regenerate;
         get('oncall-replace-confirm').hidden = false;
     }
@@ -453,7 +462,7 @@
             'oncall-total-hours': `${assigned.reduce((sum, slot) => sum + Math.max(0, Math.min(until, Date.parse(slot.endsAtUtc)) - Math.max(from, Date.parse(slot.startsAtUtc))) / hour, 0).toFixed(2)} ${text('oncall-hours-unit', 'hours')}` };
         for (const [id, value] of Object.entries(stats)) if (get(id)) get(id).textContent = value;
         const staged = state.ranges.flatMap(range => range.slots);
-        const history = context.filter(slot => !state.ranges.some(range => Date.parse(slot.startsAtUtc) < range.end && Date.parse(slot.endsAtUtc) > range.start && !slot.external)).concat(staged);
+        const history = teamSlots().slice(state.slots.length).concat(context.filter(slot => slot.external));
         const warnings = reminders(state.slots, history, from, until, members, thresholds, zone).map(warning => ({
             startsAtUtc: warning.left, endsAtUtc: warning.right, message: `${warning.person ? `${members.find(member => member.id === warning.person)?.name || warning.person}: ` : ''}${text(warning.key, warning.key)}`
         })).concat(serverWarnings || []);
@@ -477,7 +486,11 @@
             const count = resolved.filter(slot => slot.userIds.includes(id) && Date.parse(slot.startsAtUtc) < until && Date.parse(slot.endsAtUtc) > from).length;
             row.querySelector('.ac-gantt-hours').textContent = `${count} · ${hoursFor(resolved, id, start, end).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`;
             rowLane.querySelectorAll('.ac-gantt-adjacent:not([data-draft-shift])').forEach(bar => {
-                bar.dataset.replaced = String(state.ranges.some(range => utcForLocal(bar.dataset.start?.slice(0, 16).replace(' ', 'T'), zone) < range.end && utcForLocal(bar.dataset.end?.slice(0, 16).replace(' ', 'T'), zone) > range.start));
+                const left = utcForLocal(bar.dataset.start?.slice(0, 16).replace(' ', 'T'), zone);
+                const right = utcForLocal(bar.dataset.end?.slice(0, 16).replace(' ', 'T'), zone);
+                bar.dataset.replaced = String(state.ranges.some(range => left < range.end && right > range.start) ||
+                    original.slots.some(slot => timeOf(slot, 'start', zone) === left && timeOf(slot, 'end', zone) === right &&
+                        !state.slots.some(item => item.id === slot.id && timeOf(item, 'start', zone) === left && timeOf(item, 'end', zone) === right)));
                 const invalid = [...overlaps].some(slot => peopleOf(slot).includes(id) && localTime(timeOf(slot, 'start', zone), zone) === bar.dataset.start?.slice(0, 16).replace(' ', 'T') && localTime(timeOf(slot, 'end', zone), zone) === bar.dataset.end?.slice(0, 16).replace(' ', 'T'));
                 bar.classList.toggle('ac-gantt-conflict', invalid); bar.setAttribute('aria-invalid', String(invalid));
             });
@@ -525,7 +538,9 @@
     async function preview() {
         const revision = ++sequence;
         try {
-            const data = await request(root.dataset.previewUrl, payload());
+            const body = await assembledDraft();
+            if (revision !== sequence) return;
+            const data = await request(root.dataset.previewUrl, body);
             if (revision !== sequence || gesture) return;
             list('oncall-schedule-errors', data.errors || []);
             if (!state.ranges.length) draw(data.timelineWarnings);
@@ -806,8 +821,27 @@
     }
     function rangeDraft(range) {
         const candidate = structuredClone(state);
-        if (range.start === from && range.end === until) candidate.slots = prepare(range.slots);
-        else { candidate.ranges = candidate.ranges.filter(item => item.start !== range.start || item.end !== range.end); candidate.ranges.push(range); }
+        const sameRange = range.start === from && range.end === until;
+        const prior = candidate.ranges.find(item => item.start === range.start && item.end === range.end);
+        const clip = items => items.flatMap(slot => {
+            const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+            if (!(left < range.end && right > range.start)) return [slot];
+            const fragment = (start, end, id) => ({ ...slot, id, fragmentOf: slot.fragmentOf ?? slot.id,
+                startsAtUtc: new Date(start).toISOString(), endsAtUtc: new Date(end).toISOString(),
+                startLocal: localTime(start, zone), endLocal: localTime(end, zone) });
+            return (left < range.start ? [fragment(left, range.start, slot.id)] : [])
+                .concat(right > range.end ? [fragment(range.end, right, undefined)] : []);
+        });
+        const managed = new Set(original.slots.concat(draftSlots(candidate)).flatMap(slot => [slot.id, slot.fragmentOf]).filter(Boolean));
+        const replacements = prepare(range.slots.filter(slot => !slot.fragmentOf || !managed.has(slot.fragmentOf)));
+        candidate.slots = clip(candidate.slots);
+        for (const item of candidate.ranges) item.slots = clip(item.slots);
+        const staged = prior || { start: range.start, end: range.end, slots: [] };
+        for (const slot of replacements) {
+            if (sameRange || (timeOf(slot, 'start', zone) < until && timeOf(slot, 'end', zone) > from)) candidate.slots.push(slot);
+            else staged.slots.push(slot);
+        }
+        if (!sameRange && !prior) candidate.ranges.push(staged);
         return candidate;
     }
     function stage(range) {
@@ -821,7 +855,7 @@
     async function range(generate) {
         cancelPending();
         const revision = sequence;
-        const body = { groupId: root.dataset.groupId, version: root.dataset.version, startLocal: get('oncall-range-start').value, endLocal: get('oncall-range-end').value, slots: [] };
+        const body = { groupId: root.dataset.groupId, version: root.dataset.version, startLocal: get('oncall-range-start').value, endLocal: get('oncall-range-end').value, slots: [], replaceRange: true };
         if (!(wallTime(body.endLocal) > wallTime(body.startLocal))) throw new Error(text('invalid-range', 'End must be after start.'));
         const left = utcForLocal(body.startLocal, zone), right = utcForLocal(body.endLocal, zone);
         if (!Number.isFinite(left) || !Number.isFinite(right)) throw new Error(text('invalid-local', 'Invalid team local time.'));

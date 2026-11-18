@@ -173,6 +173,55 @@ public class OnCallScheduleServiceTests
     }
 
     [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task RangeReplacementKeepsBoundaryFragmentsAndOpeningReceipt(bool generate)
+    {
+        var from = new DateTime(2026, 10, 11, 16, 0, 0, DateTimeKind.Utc); // Monday 00:00 in Shanghai
+        var until = from.AddHours(8);
+        var left = new OnCallShift { GroupId = group.Id, StartsAtUtc = from.AddHours(-4), EndsAtUtc = until,
+            Source = OnCallShiftSource.Generated, RotationPosition = 1, Members = [new() { UserId = "b" }] };
+        var right = new OnCallShift { GroupId = group.Id, StartsAtUtc = from.AddHours(4), EndsAtUtc = until.AddHours(4),
+            Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.AddRange(left, right);
+        db.AddRange(new OnCallHandoverReceipt { ShiftId = left.Id, UserId = "b", ProcessedAtUtc = left.StartsAtUtc },
+            new OnCallHandoverReceipt { ShiftId = right.Id, UserId = "a", ProcessedAtUtc = right.StartsAtUtc });
+        await db.SaveChangesAsync();
+        var request = new SaveOnCallScheduleRequest { GroupId = group.Id, Version = group.ScheduleVersion,
+            StartUtc = from, EndUtc = until, ReplaceRange = !generate, ConfirmReplace = true,
+            Slots = generate ? [] : [new() { StartsAtUtc = from, EndsAtUtc = until, UserIds = ["a"] }] };
+        Assert.AreEqual(0, (await service.Save(request, generate, default, preview: true)).Count);
+        Assert.AreEqual(0, service.PreviewErrors.Count);
+        Assert.AreEqual(2, service.ReplacedSlots.Count);
+        var preview = service.PreviewSlots.OrderBy(slot => slot.StartsAtUtc).ToArray();
+        Assert.AreEqual(3, preview.Length);
+        Assert.AreEqual(left.Id, preview[0].Id);
+        Assert.AreEqual(from, preview[0].EndsAtUtc);
+        Assert.AreEqual(generate ? "c" : "a", preview[1].UserIds.Single());
+        Assert.AreEqual(until, preview[2].StartsAtUtc);
+        Assert.IsNull(preview[2].Id);
+
+        // Editor copy saves the assembled preview, while direct generation writes the range itself.
+        if (!generate)
+        {
+            request.ReplaceRange = false;
+            request.StartUtc = left.StartsAtUtc;
+            request.EndUtc = right.EndsAtUtc;
+            request.Slots = preview.ToList();
+        }
+        Assert.AreEqual(0, (await service.Save(request, generate, default)).Count);
+        var shifts = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).ToListAsync();
+        CollectionAssert.AreEqual(preview.Select(slot => slot.StartsAtUtc).ToArray(), shifts.Select(shift => shift.StartsAtUtc).ToArray());
+        CollectionAssert.AreEqual(preview.Select(slot => slot.EndsAtUtc!.Value).ToArray(), shifts.Select(shift => shift.EndsAtUtc).ToArray());
+        CollectionAssert.AreEqual(preview.Select(slot => slot.UserIds.Single()).ToArray(), shifts.Select(shift => shift.Members.Single().UserId).ToArray());
+        Assert.AreEqual(left.Id, shifts[0].Id);
+        Assert.AreEqual(OnCallShiftSource.Generated, shifts[0].Source);
+        Assert.AreEqual(1L, shifts[0].RotationPosition);
+        Assert.AreNotEqual(right.Id, shifts[2].Id);
+        Assert.AreEqual(left.Id, (await db.Set<OnCallHandoverReceipt>().SingleAsync()).ShiftId);
+    }
+
+    [TestMethod]
     public async Task CrossTeamOverlapWithoutThresholdsOnlyWarns()
     {
         group.MinimumRestHours = null;

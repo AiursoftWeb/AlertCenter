@@ -75,6 +75,7 @@
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Kopieer huidige week naar volgende week</value>
   </data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>Kopiëren herhaalt het zichtbare concept in het doelbereik. Bestaande diensten worden bij de grenzen afgeknipt; de delen erbuiten blijven behouden. Kopiëren en genereren wijzigen alleen het concept. Sla de roosterwijzigingen op om te publiceren.</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>Kopieer het concept van de huidige week naar de volgende week. Als de volgende week al diensten of wijzigingen bevat, is bevestiging vereist vóór het kopiëren; opslaan is na het kopiëren nog steeds vereist. Met de verticale knoppen aan de zijkanten kunnen de 36 uur vóór en na de huidige week worden uitgebreid; grijze gebieden zijn alleen-lezen. Grafieken en formulieren op deze pagina bewerken alleen de huidige week; schakel naar de bijbehorende week om aangrenzende weken aan te passen. Het concept van de volgende week wordt na het kopiëren eveneens in alleen-lezen-modus weergegeven. Wijzigingen aan de huidige week en kopieën worden uniform opgeslagen, ongedaan gemaakt en hersteld; inklappen leidt niet tot verlies van concepten.</value>
   </data>
@@ -171,4 +172,5 @@
   <data name="Undo last step" xml:space="preserve">
     <value>Ongedaan maken laatste stap</value>
   </data>
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>Wordt afgeknipt; behouden tijden:</value></data>
 </root>

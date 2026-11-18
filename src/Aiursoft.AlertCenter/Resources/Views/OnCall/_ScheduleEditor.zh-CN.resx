@@ -87,8 +87,7 @@
     <value>将本周复制到下周</value>
   </data>
   <data name="Copy or generate into a time range" xml:space="preserve"><value>复制或生成到某个时间范围</value></data>
-  <data name="Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full." xml:space="preserve"><value>复制会在目标范围内重复当前草稿，并裁剪至范围边界。与目标范围相交的已有班段将被整体替换。</value></data>
-  <data name="Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>复制会在目标范围内重复当前草稿，并裁剪至范围边界。与目标范围相交的已有班段将被整体替换。复制和生成仅修改草稿；点击“保存排班调整”后才会发布。</value></data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>复制会在目标范围内重复当前草稿。已有班段将在范围边界处裁剪，范围外的部分将保留。复制和生成仅修改草稿；点击“保存排班调整”后才会发布。</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>将当前周的草稿复制到下一周。如果下一周已有班次或修改内容，复制前需要确认；复制后仍需保存。两侧的垂直按钮可展开当前周前后各 36 小时的内容；灰色区域为只读。本页面的图表和表单仅用于编辑当前周；如需调整相邻周，请切换到对应的周。复制后，下一周的草稿也会以只读模式预览。当前周的修改和复制内容统一保存、撤销和恢复；折叠后草稿不会丢失。</value>
   </data>
@@ -218,4 +217,5 @@
   <data name="Undo last step" xml:space="preserve">
     <value>撤销上一步</value>
   </data>
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>将被裁剪；保留时段：</value></data>
 </root>

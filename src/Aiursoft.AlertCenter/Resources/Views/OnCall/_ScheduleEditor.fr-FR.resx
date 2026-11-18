@@ -75,6 +75,7 @@
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Copier la semaine actuelle vers la semaine suivante</value>
   </data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>La copie répète le brouillon visible sur la plage de destination. Les créneaux existants sont découpés aux limites de la plage ; les parties extérieures sont conservées. La copie et la génération ne modifient que le brouillon ; enregistrez les ajustements du planning pour publier.</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>Copiez le brouillon de la semaine en cours vers la semaine suivante. Si la semaine suivante contient déjà des astreintes ou des modifications, une confirmation est requise avant la copie ; l&apos;enregistrement reste nécessaire après la copie. Les boutons verticaux situés sur les côtés permettent d&apos;élargir de 36 heures avant et après la semaine en cours ; les zones grises sont en lecture seule. Les graphiques et formulaires de cette page ne modifient que la semaine en cours ; pour ajuster les semaines adjacentes, passez à la semaine correspondante. Le brouillon de la semaine suivante après copie est également prévisualisé en mode lecture seule. Les modifications de la semaine en cours et des copies sont enregistrées, annulées et restaurées de manière uniforme ; le repli ne supprime pas les brouillons.</value>
   </data>
@@ -171,4 +172,5 @@
   <data name="Undo last step" xml:space="preserve">
     <value>Annuler la dernière étape</value>
   </data>
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>Sera découpé ; horaires conservés :</value></data>
 </root>

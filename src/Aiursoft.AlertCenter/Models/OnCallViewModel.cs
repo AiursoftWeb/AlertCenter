@@ -133,6 +133,7 @@ public class SaveOnCallScheduleRequest
     public string? StartLocal { get; set; }
     public string? EndLocal { get; set; }
     public bool ConfirmReplace { get; set; }
+    public bool ReplaceRange { get; set; }
     public DateTime? EndUtc { get; set; }
     public Guid GroupId { get; set; }
     public Guid Version { get; set; }
@@ -154,6 +155,7 @@ public class OnCallSlotRequest
     public string? StartLocal { get; set; }
     public string? EndLocal { get; set; }
     public Guid? Id { get; set; }
+    public Guid? FragmentOf { get; set; }
     public DateTime StartsAtUtc { get; set; }
     public DateTime? EndsAtUtc { get; set; }
     public List<string> UserIds { get; set; } = [];

@@ -109,7 +109,7 @@
         </fieldset>
         <details class="border-top pt-3">
             <summary>@viewLocalizer["Copy or generate into a time range"]</summary>
-            <p class="small text-muted mt-2">@viewLocalizer["Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full. Copying and generation only change drafts; use Save schedule adjustments to publish."]</p>
+            <p class="small text-muted mt-2">@viewLocalizer["Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish."]</p>
             <div class="row g-2 mb-2">
                 <div class="col-sm-6"><label for="oncall-range-start" class="form-label">@viewLocalizer["Start"]</label><input id="oncall-range-start" type="datetime-local" step="60" class="form-control" aria-describedby="oncall-timezone-help" /></div>
                 <div class="col-sm-6"><label for="oncall-range-end" class="form-label">@viewLocalizer["End"]</label><input id="oncall-range-end" type="datetime-local" step="60" class="form-control" aria-describedby="oncall-timezone-help" /></div>
@@ -188,6 +188,7 @@
         <span data-schedule-text="read-only">@viewLocalizer["Read-only"]</span>
         <span data-schedule-text="move-hint">@viewLocalizer["Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes."]</span>
         <span data-schedule-text="draft-range">@viewLocalizer["Draft range"]</span>
+        <span data-schedule-text="clipped-shift">@viewLocalizer["Will be clipped; retained times:"]</span>
         <span data-schedule-text="cleared-range">@viewLocalizer["Cleared draft range"]</span>
         <span data-schedule-text="clear-auto-required">@viewLocalizer["Choose whether to disable automatic extension or regenerate cleared gaps."]</span>
         <span data-schedule-text="clear-disable">@viewLocalizer["Disable automatic extension when saving"]</span>

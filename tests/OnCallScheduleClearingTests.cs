@@ -246,7 +246,7 @@ public class OnCallScheduleClearingTests
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
-    public async Task MaintenanceResumesAtNowOrLastRetainedFutureEnd(bool futureRemains)
+    public async Task MaintenanceStartsAtNowRegardlessOfRetainedShift(bool futureRemains)
     {
         group.AutoExtend = true;
         var last = Shift(futureRemains ? 4 : -4, futureRemains ? 8 : -2, user: "b");
@@ -255,8 +255,8 @@ public class OnCallScheduleClearingTests
             TestLocalization.For<OnCallMaintenanceWorker>(), "https://example.com", group.Id, now, default);
         var next = await db.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.Id != last.Id)
             .OrderBy(shift => shift.StartsAtUtc).FirstAsync();
-        Assert.AreEqual(futureRemains ? last.EndsAtUtc : now, next.StartsAtUtc);
-        Assert.AreEqual("c", next.Members.Single().UserId);
+        Assert.AreEqual(now, next.StartsAtUtc);
+        Assert.AreEqual(futureRemains ? "a" : "c", next.Members.Single().UserId);
     }
 
     [TestMethod]

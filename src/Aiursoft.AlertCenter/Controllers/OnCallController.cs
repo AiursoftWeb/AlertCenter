@@ -271,7 +271,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     {
         id = slot.Id, startsAtUtc = DateTime.SpecifyKind(slot.StartsAtUtc, DateTimeKind.Utc),
         endsAtUtc = slot.EndsAtUtc.HasValue ? DateTime.SpecifyKind(slot.EndsAtUtc.Value, DateTimeKind.Utc) : (DateTime?)null,
-        userIds = slot.UserIds, source = slot.Source, rotationPosition = slot.RotationPosition
+        userIds = slot.UserIds, source = slot.Source, rotationPosition = slot.RotationPosition, fragmentOf = slot.FragmentOf
     };
 
     [HttpPost, ValidateAntiForgeryToken]

@@ -75,6 +75,7 @@
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Kopiér den aktuelle uge til næste uge</value>
   </data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>Kopiering gentager den viste kladde i destinationsintervallet. Eksisterende vagter beskæres ved intervallets grænser; dele udenfor bevares. Kopiering og generering ændrer kun kladden. Brug Gem vagtplanjusteringer for at udgive.</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>Kopiér kladden for den aktuelle uge til den næste uge. Hvis der allerede er vagter eller ændringer i den næste uge, skal du bekræfte, før du kopierer; du skal stadig gemme efter kopieringen. Knapperne i siderne kan udvide visningen med de 36 timer før og efter den aktuelle uge; grå områder er skrivebeskyttede. Diagrammer og formularer på denne side redigerer kun den aktuelle uge. Hvis du vil ændre tilstødende uger, skal du skifte til den pågældende uge. Kladden for den næste uge vises også som en skrivebeskyttet forhåndsvisning efter kopiering. Ændringer i den aktuelle uge og kopier gemmes, fortrydes og gendannes på samme måde; kladder går ikke tabt, når visningen skjules.</value>
   </data>
@@ -171,4 +172,5 @@
   <data name="Undo last step" xml:space="preserve">
     <value>Fortryd seneste trin</value>
   </data>
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>Beskæres; bevarede tider:</value></data>
 </root>
