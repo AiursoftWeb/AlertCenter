@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Автосообщения не были сохранены. Смежные расписания будут повторно проверены при генерации; существующие сохранённые расписания не будут перезаписаны.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Автоматическое продление включено. Выберите, что произойдёт при сохранении.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>По умолчанию удаляются только автоматически созданные смены.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Изменения вступят в силу только после сохранения. При сворачивании этих инструментов черновик сохраняется.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Выберите действие для автоматического продления</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Выберите, отключить ли автоматическое продление или заново создать смены в очищенных промежутках.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Очистка изменяет только черновик. Проверьте диаграмму, затем сохраните изменения для публикации.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Очистить диапазон расписания</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Очищенный диапазон черновика</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Подтвердите удаление завершённых смен из прошлого в этом диапазоне. Это может привести к удалению прошлых назначений.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Подтвердить замену черновика</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Подтвердить очистку истории</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Скопировать текущую неделю на следующую</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Сейчас выбран режим перемещения/обмена. Переключите режим выше, прежде чем добавлять или удалять смены.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>По умолчанию диапазон охватывает период от текущего момента до конца последней сохранённой смены или смены в черновике, в часовом поясе команды.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Удалить смену</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Отключить автоматическое продление при сохранении</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Перетащите цветной блок на другой смен, чтобы поменять персонал местами, или на пустой слот, чтобы переместить смен; перетащите «Обмен всей неделей», чтобы обменять недельные графики двух сотрудников. Также можно щёлкнуть для выбора, а затем щёлкнуть по целевому объекту; нажмите Esc для отмены. Изменения отображаются немедленно и могут быть сохранены пакетно после нескольких корректировок.</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Как изменить расписание</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Включить завершённые смены из прошлого</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Включить смены, отредактированные вручную</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Объединить пересекающиеся смены</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Другие действия</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Дежурные сотрудники (можно выбрать нескольких, не менее одного)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>У текущих смен сохраняется уже прошедшая часть, даже если включена история.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Предварительный просмотр очистки</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Красные предупреждения указывают на пустые смены, недостаточный отдых или численность ниже минимальной, но не блокируют дальнейшие корректировки. Сохранение допускается даже при численности ниже минимальной, однако пустые смены и недостаточный отдых сохранить нельзя. При сохранении проверка применяется единообразно к изменённой неделе, соседним неделям и другим командам. Если какая-либо неделя не проходит проверку, ничего не сохраняется. Ушедшие сотрудники могут сохранять только свои первоначальные смены; новые смены для них добавить или скопировать невозможно.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>При сохранении заново создать смены по шаблону в очищенных промежутках</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Повторное создание выполняется только при сохранении. В предварительном просмотре промежутки остаются пустыми, а оставленные смены не перезаписываются.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Заменить черновик на следующую неделю?</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Выберите временные интервалы, чтобы добавить или убрать дежурных сотрудников; график обновится сразу. Для навигации с клавиатуры также можно использовать эту форму. Участников из других групп можно выбрать вручную; серые смены других команд доступны только для чтения и не изменяются. При сохранении также проверяются пересечения смен и периоды отдыха между группами.</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>Отменить последнее действие</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>Очистить диапазон расписания</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>Очистка изменяет только черновик. Проверьте диаграмму, затем сохраните изменения для публикации.</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>По умолчанию диапазон охватывает период от текущего момента до конца последней сохранённой смены или смены в черновике, в часовом поясе команды.</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>По умолчанию удаляются только автоматически созданные смены.</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>Включить смены, отредактированные вручную</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>Включить завершённые смены из прошлого</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>У текущих смен сохраняется уже прошедшая часть, даже если включена история.</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>Автоматическое продление включено. Выберите, что произойдёт при сохранении.</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>Выберите действие для автоматического продления</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>Отключить автоматическое продление при сохранении</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>При сохранении заново создать смены по шаблону в очищенных промежутках</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>Повторное создание выполняется только при сохранении. В предварительном просмотре промежутки остаются пустыми, а оставленные смены не перезаписываются.</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>Предварительный просмотр очистки</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>Подтвердите удаление завершённых смен из прошлого в этом диапазоне. Это может привести к удалению прошлых назначений.</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>Подтвердить очистку истории</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>Выберите, отключить ли автоматическое продление или заново создать смены в очищенных промежутках.</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>Очищенный диапазон черновика</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>Объединить пересекающиеся смены</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>Смены одного сотрудника или в строке неназначенных смен не могут пересекаться. Объедините или скорректируйте их перед сохранением.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Период расписания не должен превышать {0} дней и должен находиться в пределах 10 лет до или после текущего момента.</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Это перемещение привело бы к пересечению с другой сменой того же сотрудника. Черновик не изменён.</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>Период расписания не должен превышать {0} дней и должен находиться в пределах 10 лет до или после текущего момента.</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Отменить последнее действие</value>
   </data>
 </root>

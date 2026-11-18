@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>Редактировать команду</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Введите точное название команды, чтобы подтвердить удаление.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Резервные получатели</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Будущие смены включают также текущие смены. Шаблоны и записи о доставке уведомлений об инцидентах сохраняются. Это действие необратимо.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Управление участниками</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>Далее: назначьте сотрудников на смены</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Резервные получатели не настроены. Оповещения не могут быть доставлены, когда никто не дежурит.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>Нет участников команды.</value>
@@ -63,8 +75,23 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>Письма о дежурстве автоматически отправляются в почтовые ящики (поле «Кому») всех инженеров дежурной смены (OCE), входящих в текущий сохранённый график. В поле «Копия» используются только адреса почтовых ящиков команд или рассылочных списков, явно настроенные администратором; автоматическая отправка копии всем членам команды не выполняется. Настроенные в приложении пользовательские каналы push-уведомлений по-прежнему доставляют дополнительные уведомления.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Дежурные участники (очередь ротации)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>Открыть расписание</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Получают оповещения, когда никто не дежурит; не участвуют в ротации.</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>Начало расписания:</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Сотрудников на смену</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Настройка команды</value>
   </data>
   <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
     <value>Шаблон не привязан; ручное планирование по-прежнему доступно.</value>
@@ -75,17 +102,17 @@
   <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
     <value>Шаблоны не удаляются. Можно удалить только команды без сохранённых смен и привязанных приложений. Это действие необратимо.</value>
   </data>
-  <data name="Scheduling start point: " xml:space="preserve">
-    <value>Начало расписания:</value>
-  </data>
-  <data name="Team configuration" xml:space="preserve">
-    <value>Настройка команды</value>
-  </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Шаблоны могут использоваться несколькими командами; изменение шаблонов или переключение на другие не приводит к повторному созданию сохранённых смен.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Первый участник очереди дежурит первым. Порядок существующих смен не меняется.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>В списке участников указано, кого можно включить в расписание. В сохранённом расписании указано, кто дежурит и получает письма об инцидентах. Получатели копии (CC) получают копию независимо от того, входят ли они в группу.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Название команды не совпадает.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>У этой команды сохранены смены, и она не может быть удалена для сохранения истории планирования.</value>
@@ -99,41 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>Посмотреть график дежурств</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Будут удалены будущие смены ({0}) и прошедшие смены ({1}). Записи о дежурствах для существующих инцидентов сохранятся.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>часов</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>часов · минимальный отдых</value>
-  </data>
-
-  <data name="Staff per shift" xml:space="preserve">
-    <value>Сотрудников на смену</value>
-  </data>
-  <data name="On-call members (rotation queue)" xml:space="preserve">
-    <value>Дежурные участники (очередь ротации)</value>
-  </data>
-  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
-    <value>Первый участник очереди дежурит первым. Порядок существующих смен не меняется.</value>
-  </data>
-  <data name="Fallback recipients" xml:space="preserve">
-    <value>Резервные получатели</value>
-  </data>
-  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
-    <value>Получают оповещения, когда никто не дежурит; не участвуют в ротации.</value>
-  </data>
-  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
-    <value>Резервные получатели не настроены. Оповещения не могут быть доставлены, когда никто не дежурит.</value>
-  </data>
-  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
-    <value>Будут удалены будущие смены ({0}) и прошедшие смены ({1}). Записи о дежурствах для существующих инцидентов сохранятся.</value>
-  </data>
-  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
-    <value>Будущие смены включают также текущие смены. Шаблоны и записи о доставке уведомлений об инцидентах сохраняются. Это действие необратимо.</value>
-  </data>
-  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
-    <value>Введите точное название команды, чтобы подтвердить удаление.</value>
-  </data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>Название команды не совпадает.</value>
   </data>
 </root>

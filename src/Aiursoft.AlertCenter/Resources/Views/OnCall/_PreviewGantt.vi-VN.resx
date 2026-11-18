@@ -39,6 +39,9 @@
   <data name="Departed" xml:space="preserve">
     <value>Đã rời đi</value>
   </data>
+  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
+    <value>Kéo trên vùng trống trong hàng của thành viên để tạo ca trực. Thời gian bám vào ranh giới ca trực, điểm bàn giao của mẫu, nửa đêm theo giờ địa phương và thời điểm hiện tại trong phạm vi 10 pixel; nếu không, thời gian được căn theo khoảng 30 phút. Giữ Alt để chỉnh chính xác đến từng phút. Trên màn hình cảm ứng, nhấn giữ trước khi kéo; cuộn ngang bằng trục thời gian hoặc nền biểu đồ.</value>
+  </data>
   <data name="Drag to another engineer to swap the entire week, or click to select a target employee." xml:space="preserve">
     <value>Kéo đến một kỹ sư khác để đổi lịch trực cả tuần, hoặc nhấp để chọn nhân viên nhận lịch.</value>
   </data>
@@ -84,6 +87,9 @@
   <data name="Shift / Total Duration" xml:space="preserve">
     <value>Ca trực / Tổng thời lượng</value>
   </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
+    <value>Các ca trực của cùng một người hoặc trong hàng chưa phân công không được chồng lấn. Thao tác kéo sẽ dừng tại các ca trực liền kề.</value>
+  </data>
   <data name="Start Time" xml:space="preserve">
     <value>Thời gian bắt đầu</value>
   </data>
@@ -125,12 +131,5 @@
   </data>
   <data name="{0}{1} · {2} · Adjacent week (read-only) · {3}" xml:space="preserve">
     <value>{0}{1} · {2} · Tuần liền kề (chỉ đọc) · {3}</value>
-  </data>
-
-  <data name="Shifts for the same person or unassigned row cannot overlap. Dragging stops at neighboring shifts." xml:space="preserve">
-    <value>Các ca trực của cùng một người hoặc trong hàng chưa phân công không được chồng lấn. Thao tác kéo sẽ dừng tại các ca trực liền kề.</value>
-  </data>
-  <data name="Drag across a blank member row to create a shift. Times snap to shift edges, template handovers, local midnight and now within 10 pixels; otherwise they snap to 30 minutes. Hold Alt for minute precision. On touch screens, hold before dragging; scroll horizontally using the time axis or chart background." xml:space="preserve">
-    <value>Kéo trên vùng trống trong hàng của thành viên để tạo ca trực. Thời gian bám vào ranh giới ca trực, điểm bàn giao của mẫu, nửa đêm theo giờ địa phương và thời điểm hiện tại trong phạm vi 10 pixel; nếu không, thời gian được căn theo khoảng 30 phút. Giữ Alt để chỉnh chính xác đến từng phút. Trên màn hình cảm ứng, nhấn giữ trước khi kéo; cuộn ngang bằng trục thời gian hoặc nền biểu đồ.</value>
   </data>
 </root>

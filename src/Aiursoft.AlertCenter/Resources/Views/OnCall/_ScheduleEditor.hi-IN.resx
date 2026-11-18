@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>स्वतः दिए गए सुझाव अभी तक सहेजे नहीं गए हैं। जनरेट करते समय आस-पास की समय-सारिणियों का फिर से सत्यापन किया जाएगा; पहले से सहेजी गई व्यवस्थाओं को ओवरराइट नहीं किया जाएगा।</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>स्वचालित विस्तार चालू है। चुनें कि सहेजते समय क्या होना चाहिए।</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>डिफ़ॉल्ट रूप से, केवल अपने आप बनाई गई शिफ़्ट हटाई जाती हैं।</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>रद्द करें</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>बदलाव सहेजने के बाद ही लागू होंगे। इन टूल को समेटने पर आपका मसौदा सुरक्षित रहेगा।</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>स्वचालित विस्तार के लिए कार्रवाई चुनें</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>चुनें कि स्वचालित विस्तार बंद करना है या खाली किए गए अंतरालों में शिफ़्ट दोबारा बनानी हैं।</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>खाली करने से केवल ड्राफ़्ट बदलता है। चार्ट की समीक्षा करें, फिर प्रकाशित करने के लिए सहेजें।</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>शेड्यूल की समय सीमा खाली करें</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>ड्राफ़्ट की खाली की गई समय सीमा</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>इस समय सीमा में पहले ही पूरी हो चुकी पुरानी शिफ़्ट हटाने की पुष्टि करें। इससे पिछली ड्यूटी आवंटन प्रविष्टियाँ हट सकती हैं।</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>ड्राफ़्ट बदलने की पुष्टि करें</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>पुरानी शिफ़्ट हटाने की पुष्टि करें</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>वर्तमान सप्ताह को अगले सप्ताह में कॉपी करें</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>वर्तमान में स्थानांतरित/अदला-बदली मोड में हैं। शिफ़्ट जोड़ने या हटाने से पहले ऊपर मोड बदलें।</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>डिफ़ॉल्ट समय सीमा टीम के समय क्षेत्र में अभी से अंतिम सहेजी गई या ड्राफ़्ट में मौजूद शिफ़्ट के अंत तक होती है।</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>शिफ्ट हटाएँ</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>सहेजते समय स्वचालित विस्तार बंद करें</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>कर्मचारियों की अदला-बदली करने के लिए रंगीन ब्लॉक को किसी दूसरी शिफ्ट पर खींचें, या शिफ्ट को स्थानांतरित करने के लिए खाली स्लॉट पर खींचें; दो लोगों के पूरे सप्ताह के शेड्यूल बदलने के लिए &apos;Swap Entire Week&apos; को खींचें। आप चुनने के लिए क्लिक करके, फिर लक्ष्य पर क्लिक भी कर सकते हैं; रद्द करने के लिए Esc दबाएँ। बदलाव तुरंत दिखाई देते हैं और कई समायोजन करने के बाद उन्हें एक साथ सहेजा जा सकता है।</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>समय-सारणी में बदलाव कैसे करें</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>पहले ही पूरी हो चुकी पुरानी शिफ़्ट शामिल करें</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>मैन्युअल रूप से संपादित शिफ़्ट शामिल करें</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>ओवरलैप होने वाली शिफ़्ट मिलाएँ</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>अधिक कार्रवाइयाँ</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>ऑन-कॉल कर्मचारी (एक से अधिक चुन सकते हैं, कम से कम एक)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>जारी शिफ़्ट का बीत चुका हिस्सा बना रहता है, भले ही पुरानी शिफ़्ट शामिल की गई हों।</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>खाली करने का पूर्वावलोकन देखें</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>लाल चेतावनियाँ खाली शिफ़्ट, अपर्याप्त विश्राम या न्यूनतम कर्मचारियों की संख्या से कम होने का संकेत देती हैं, लेकिन आगे बदलाव करने से नहीं रोकतीं। न्यूनतम कर्मचारियों की संख्या से कम होने पर भी शेड्यूल सहेजा जा सकता है, लेकिन खाली शिफ़्ट और अपर्याप्त विश्राम के साथ सहेजना संभव नहीं है। सहेजते समय संशोधित सप्ताह, उससे सटे सप्ताहों और अन्य टीमों पर समान रूप से सत्यापन लागू होता है। यदि कोई भी सप्ताह सत्यापन में विफल होता है, तो कुछ भी सहेजा नहीं जाएगा। टीम छोड़ चुके सदस्य केवल अपनी मूल शिफ़्ट रख सकते हैं; उनके लिए नई शिफ़्टें जोड़ी या कॉपी नहीं की जा सकतीं।</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>सहेजते समय खाली किए गए अंतरालों में टेम्पलेट से शिफ़्ट दोबारा बनाएँ</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>शिफ़्ट केवल सहेजते समय दोबारा बनाई जाती हैं। पूर्वावलोकन में अंतराल खाली रहते हैं और बरकरार रखी गई शिफ़्ट अधिलेखित नहीं होतीं।</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>अगले सप्ताह का ड्राफ़्ट बदलें?</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>ड्यूटी पर मौजूद कर्मचारियों को जोड़ने या हटाने के लिए समय स्लॉट चुनें; चार्ट तुरंत अपडेट हो जाएगा। कीबोर्ड से नेविगेट करने के लिए भी आप इस फ़ॉर्म का उपयोग कर सकते हैं। दूसरे समूहों के सदस्यों को मैन्युअल रूप से चुना जा सकता है; अन्य टीमों की धूसर, केवल-पढ़ने योग्य शिफ़्ट में कोई बदलाव नहीं होगा, और सहेजते समय दूसरे समूहों के साथ समय का टकराव और विश्राम-अवधि की जाँच भी की जाएगी।</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>पिछला चरण पूर्ववत करें</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>शेड्यूल की समय सीमा खाली करें</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>खाली करने से केवल ड्राफ़्ट बदलता है। चार्ट की समीक्षा करें, फिर प्रकाशित करने के लिए सहेजें।</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>डिफ़ॉल्ट समय सीमा टीम के समय क्षेत्र में अभी से अंतिम सहेजी गई या ड्राफ़्ट में मौजूद शिफ़्ट के अंत तक होती है।</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>डिफ़ॉल्ट रूप से, केवल अपने आप बनाई गई शिफ़्ट हटाई जाती हैं।</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>मैन्युअल रूप से संपादित शिफ़्ट शामिल करें</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>पहले ही पूरी हो चुकी पुरानी शिफ़्ट शामिल करें</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>जारी शिफ़्ट का बीत चुका हिस्सा बना रहता है, भले ही पुरानी शिफ़्ट शामिल की गई हों।</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>स्वचालित विस्तार चालू है। चुनें कि सहेजते समय क्या होना चाहिए।</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>स्वचालित विस्तार के लिए कार्रवाई चुनें</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>सहेजते समय स्वचालित विस्तार बंद करें</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>सहेजते समय खाली किए गए अंतरालों में टेम्पलेट से शिफ़्ट दोबारा बनाएँ</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>शिफ़्ट केवल सहेजते समय दोबारा बनाई जाती हैं। पूर्वावलोकन में अंतराल खाली रहते हैं और बरकरार रखी गई शिफ़्ट अधिलेखित नहीं होतीं।</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>खाली करने का पूर्वावलोकन देखें</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>इस समय सीमा में पहले ही पूरी हो चुकी पुरानी शिफ़्ट हटाने की पुष्टि करें। इससे पिछली ड्यूटी आवंटन प्रविष्टियाँ हट सकती हैं।</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>पुरानी शिफ़्ट हटाने की पुष्टि करें</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>चुनें कि स्वचालित विस्तार बंद करना है या खाली किए गए अंतरालों में शिफ़्ट दोबारा बनानी हैं।</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>ड्राफ़्ट की खाली की गई समय सीमा</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>ओवरलैप होने वाली शिफ़्ट मिलाएँ</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>एक ही व्यक्ति की शिफ़्ट या असाइन न की गई पंक्ति की शिफ़्ट के समय आपस में ओवरलैप नहीं हो सकते। सहेजने से पहले उन्हें मिलाएँ या समायोजित करें।</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>ड्यूटी शेड्यूल की अवधि {0} दिनों से अधिक नहीं होनी चाहिए और यह वर्तमान समय से 10 वर्ष पहले या बाद की सीमा में होनी चाहिए।</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>इस बदलाव से उसी व्यक्ति की दूसरी शिफ़्ट के साथ समय ओवरलैप होगा। ड्राफ़्ट नहीं बदला गया।</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>ड्यूटी शेड्यूल की अवधि {0} दिनों से अधिक नहीं होनी चाहिए और यह वर्तमान समय से 10 वर्ष पहले या बाद की सीमा में होनी चाहिए।</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>पिछला चरण पूर्ववत करें</value>
   </data>
 </root>

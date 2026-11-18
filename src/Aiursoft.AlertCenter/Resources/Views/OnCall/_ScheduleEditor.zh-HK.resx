@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>自動建議尚未儲存。產生排班表時會重新驗證相鄰排班表；現有已儲存的安排不會被覆寫。</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>自動延長已啟用。請選擇儲存時的處理方式。</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>預設只清空自動產生的更次。</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>變更只會在儲存後生效。收起這些工具不會清除你的草稿。</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>選擇自動延長操作</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>請選擇停用自動延長，或在已清空的空檔重新產生更次。</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>清空只會修改草稿。請檢查圖表，然後儲存以發佈。</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>清空更表範圍</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>已清空的草稿範圍</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>請確認清空此範圍內已結束的過往更次。這可能會移除過去的當值安排。</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>確認取代草稿</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>確認清空過往更次</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>複製本週至下週</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>目前處於移動／交換模式。新增或移除更次前，請先切換上方的模式。</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>預設範圍為團隊時區的目前時間至已儲存或草稿中最後一個更次的結束時間。</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>刪除更次</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>儲存時停用自動延長</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>將色塊拖曳至另一個班次，即可交換人員；拖曳至空白時段，即可移動班次。拖曳「交換整週」即可交換兩人的整週班表。你亦可先按一下選取，再按一下目標位置；按 Esc 取消。變更會即時顯示，完成多項調整後可一次過儲存。</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>如何調整更表</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>包括已結束的過往更次</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>包括手動編輯的更次</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>合併重疊更次</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>更多操作</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>當值人員（可選多位，至少一位）</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>即使包括過往更次，進行中的更次仍會保留已過去的部分。</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>預覽清空結果</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>紅色警示表示有空班、休息時間不足或人手低於最低要求，但不會阻止進一步調整。即使人手低於最低要求，仍可儲存；但空班及休息時間不足的安排則不能儲存。儲存時會一律驗證已修改的星期、相鄰星期及其他團隊的安排。若任何一星期未能通過驗證，便不會儲存任何內容。已離隊成員只能保留原有班次，不能新增或複製班次。</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>儲存時按範本在已清空的空檔重新產生更次</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>只會在儲存時重新產生。預覽會保留空檔，且不會覆寫保留的更次。</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>取代下星期的草稿？</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>選擇時段以新增或移除當值人員；圖表會即時更新。你亦可以使用此表單以鍵盤操作。你可以手動選擇跨組別成員；其他團隊的灰色唯讀更次不會被修改，而跨組別的時間重疊及休息時間仍會在儲存時進行驗證。</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>復原上一步</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>清空更表範圍</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>清空只會修改草稿。請檢查圖表，然後儲存以發佈。</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>預設範圍為團隊時區的目前時間至已儲存或草稿中最後一個更次的結束時間。</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>預設只清空自動產生的更次。</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>包括手動編輯的更次</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>包括已結束的過往更次</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>即使包括過往更次，進行中的更次仍會保留已過去的部分。</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>自動延長已啟用。請選擇儲存時的處理方式。</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>選擇自動延長操作</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>儲存時停用自動延長</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>儲存時按範本在已清空的空檔重新產生更次</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>只會在儲存時重新產生。預覽會保留空檔，且不會覆寫保留的更次。</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>預覽清空結果</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>請確認清空此範圍內已結束的過往更次。這可能會移除過去的當值安排。</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>確認清空過往更次</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>請選擇停用自動延長，或在已清空的空檔重新產生更次。</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>已清空的草稿範圍</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>合併重疊更次</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>同一人員或未分配列中的更次不能重疊。請在儲存前合併或調整這些更次。</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>排更時間範圍不能超過 {0} 天，且須在目前時間前後 10 年內。</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>此移動會與同一人員的其他更次重疊。草稿未有更改。</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>排更時間範圍不能超過 {0} 天，且須在目前時間前後 10 年內。</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>復原上一步</value>
   </data>
 </root>

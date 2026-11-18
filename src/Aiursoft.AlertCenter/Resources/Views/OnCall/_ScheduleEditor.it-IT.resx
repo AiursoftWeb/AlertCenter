@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>I suggerimenti automatici non sono stati salvati. Al momento della generazione, i turni adiacenti verranno convalidati nuovamente; le assegnazioni già salvate non verranno sovrascritte.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>L’estensione automatica è attiva. Scegli cosa deve accadere al salvataggio.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Per impostazione predefinita, vengono rimossi solo i turni generati automaticamente.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annulla</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Le modifiche hanno effetto solo dopo il salvataggio. Se chiudi questi strumenti, la bozza viene mantenuta.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Scegli un’azione per l’estensione automatica</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Scegli se disattivare l’estensione automatica o rigenerare i turni negli intervalli svuotati.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Lo svuotamento modifica solo la bozza. Controlla il grafico, quindi salva per pubblicare.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Svuota un intervallo del calendario</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Intervallo della bozza svuotato</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Conferma la rimozione dei turni passati già completati in questo intervallo. Questa operazione può rimuovere assegnazioni precedenti.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Conferma sostituzione bozza</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Conferma lo svuotamento della cronologia</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Copia la settimana corrente alla settimana successiva</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Modalità Sposta/Scambia attiva. Cambia la modalità qui sopra prima di aggiungere o rimuovere turni.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>L’intervallo predefinito va da adesso fino alla fine dell’ultimo turno salvato o presente nella bozza, nel fuso orario del team.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Elimina turno</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Disattiva l’estensione automatica al salvataggio</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Trascina un blocco colore su un altro turno per scambiare il personale, oppure su uno slot vuoto per spostare il turno; trascina &apos;Scambia settimana intera&apos; per scambiare i programmi settimanali di due persone. Puoi anche fare clic per selezionare, quindi cliccare sulla destinazione; premi Esc per annullare. Le modifiche vengono visualizzate immediatamente e possono essere salvate in blocco dopo più regolazioni.</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Come modificare il programma</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Includi i turni passati già completati</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Includi i turni modificati manualmente</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Unisci i turni sovrapposti</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Altre azioni</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Personale reperibile (selezione multipla consentita, almeno uno)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>I turni in corso mantengono la parte già trascorsa, anche quando viene inclusa la cronologia.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Anteprima dello svuotamento</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Gli allarmi rossi indicano turni vuoti, riposo insufficiente o un numero di personale inferiore al minimo, ma non bloccano ulteriori regolazioni. Il salvataggio è consentito anche se il personale è inferiore al minimo, ma i turni vuoti e il riposo insufficiente non possono essere salvati. La convalida viene applicata uniformemente alla settimana modificata, alle settimane adiacenti e ad altri team al momento del salvataggio. Se una qualsiasi settimana non supera la convalida, nulla viene salvato. I membri cessati possono solo mantenere i loro turni originali; non è possibile aggiungere o copiare nuovi turni.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Rigenera i turni dal modello negli intervalli svuotati al salvataggio</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>La rigenerazione avviene solo al salvataggio. L’anteprima mantiene gli intervalli vuoti e i turni conservati non vengono sovrascritti.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Sostituire la bozza della prossima settimana?</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Seleziona gli intervalli di tempo per aggiungere o rimuovere il personale in turno; il grafico si aggiornerà in modo sincrono. Puoi anche utilizzare questo modulo per la navigazione tramite tastiera. I membri di gruppi diversi possono essere selezionati manualmente; i turni grigi in sola lettura di altri team non verranno modificati, e le sovrapposizioni e le pause tra gruppi vengono comunque validate al momento del salvataggio.</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>Annulla ultimo passaggio</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>Svuota un intervallo del calendario</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>Lo svuotamento modifica solo la bozza. Controlla il grafico, quindi salva per pubblicare.</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>L’intervallo predefinito va da adesso fino alla fine dell’ultimo turno salvato o presente nella bozza, nel fuso orario del team.</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>Per impostazione predefinita, vengono rimossi solo i turni generati automaticamente.</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>Includi i turni modificati manualmente</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>Includi i turni passati già completati</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>I turni in corso mantengono la parte già trascorsa, anche quando viene inclusa la cronologia.</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>L’estensione automatica è attiva. Scegli cosa deve accadere al salvataggio.</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>Scegli un’azione per l’estensione automatica</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>Disattiva l’estensione automatica al salvataggio</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>Rigenera i turni dal modello negli intervalli svuotati al salvataggio</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>La rigenerazione avviene solo al salvataggio. L’anteprima mantiene gli intervalli vuoti e i turni conservati non vengono sovrascritti.</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>Anteprima dello svuotamento</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>Conferma la rimozione dei turni passati già completati in questo intervallo. Questa operazione può rimuovere assegnazioni precedenti.</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>Conferma lo svuotamento della cronologia</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>Scegli se disattivare l’estensione automatica o rigenerare i turni negli intervalli svuotati.</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>Intervallo della bozza svuotato</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>Unisci i turni sovrapposti</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>I turni della stessa persona o della riga non assegnata non possono sovrapporsi. Uniscili o modificali prima di salvare.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>L’intervallo della pianificazione non deve superare {0} giorni e deve rientrare nei 10 anni precedenti o successivi al momento attuale.</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Questo spostamento si sovrapporrebbe a un altro turno della stessa persona. La bozza non è stata modificata.</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>L’intervallo della pianificazione non deve superare {0} giorni e deve rientrare nei 10 anni precedenti o successivi al momento attuale.</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Annulla ultimo passaggio</value>
   </data>
 </root>

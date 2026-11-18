@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>टीम संपादित करें</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>हटाने की पुष्टि करने के लिए टीम का नाम बिल्कुल सही दर्ज करें।</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>वैकल्पिक प्राप्तकर्ता</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>भविष्य की शिफ़्टों में वर्तमान में चल रही शिफ़्टें भी शामिल हैं। टेम्पलेट और घटना सूचनाओं की डिलीवरी के रिकॉर्ड सुरक्षित रखे जाएँगे। यह कार्रवाई वापस नहीं की जा सकती।</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>सदस्यों को प्रबंधित करें</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>अगला: लोगों को शिफ़्ट में नियुक्त करें</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>कोई वैकल्पिक प्राप्तकर्ता कॉन्फ़िगर नहीं है। जब कोई ऑन-कॉल नहीं होता तब अलर्ट नहीं भेजे जा सकते।</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>टीम के कोई सदस्य नहीं हैं।</value>
@@ -63,8 +75,23 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>ऑन-कॉल ईमेल वर्तमान में सहेजे गए शिफ्ट में सभी ऑन-कॉल इंजीनियरों (OCEs) के उपयोगकर्ता मेलबॉक्स (To) में स्वतः भेजे जाते हैं। CC केवल उस टीम के मेलबॉक्स या मेलिंग सूची पते का उपयोग करता है जिन्हें प्रशासक द्वारा स्पष्ट रूप से कॉन्फ़िगर किया गया है; यह सभी टीम सदस्यों को स्वतः CC नहीं करता है। ऐप्लिकेशन में कॉन्फ़िगर किए गए कस्टम पुश चैनल अतिरिक्त सूचनाएं भेजना जारी रखेंगे।</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>ऑन-कॉल सदस्य (रोटेशन कतार)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>शेड्यूल खोलें</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>जब कोई ऑन-कॉल नहीं होता तब अलर्ट प्राप्त करते हैं; रोटेशन में भाग नहीं लेते।</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>शेड्यूलिंग प्रारंभ बिंदु:</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>प्रति शिफ्ट कर्मचारी</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>टीम कॉन्फ़िगरेशन</value>
   </data>
   <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
     <value>टेम्पलेट जुड़ा नहीं है; मैन्युअल शेड्यूलिंग अभी भी उपलब्ध है।</value>
@@ -75,17 +102,17 @@
   <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
     <value>टेम्पलेट नहीं हटाए जाते। केवल वे टीमें हटाई जा सकती हैं जिनकी कोई शिफ्ट सहेजी नहीं गई है और कोई एप्लिकेशन जुड़ा नहीं है। यह कार्रवाई वापस नहीं ली जा सकती।</value>
   </data>
-  <data name="Scheduling start point: " xml:space="preserve">
-    <value>शेड्यूलिंग प्रारंभ बिंदु:</value>
-  </data>
-  <data name="Team configuration" xml:space="preserve">
-    <value>टीम कॉन्फ़िगरेशन</value>
-  </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>टेम्पलेट कई टीमों के साथ साझा किए जा सकते हैं; टेम्पलेट में बदलाव करने या उसे बदलने से सहेजी गई शिफ़्टें फिर से नहीं बनेंगी।</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>कतार का पहला व्यक्ति पहले ऑन-कॉल होता है। मौजूदा शिफ्टों का क्रम नहीं बदला जाता।</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>सदस्य सूची बताती है कि किसे शेड्यूल किया जा सकता है। सहेजा गया शेड्यूल बताता है कि ड्यूटी पर कौन है और किसे घटना संबंधी ईमेल मिलते हैं। CC प्राप्तकर्ताओं को समूह की सदस्यता से स्वतंत्र रूप से ईमेल की एक प्रति मिलती है।</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>टीम का नाम मेल नहीं खाता।</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>इस टीम की शिफ़्टें सहेजी जा चुकी हैं, इसलिए शेड्यूलिंग का इतिहास सुरक्षित रखने के लिए इसे हटाया नहीं जा सकता।</value>
@@ -99,41 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>ऑन-कॉल शेड्यूल देखें</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>भविष्य की {0} शिफ़्टें और पिछली {1} शिफ़्टें हटा दी जाएँगी। मौजूदा घटनाओं के ऑन-कॉल रिकॉर्ड बने रहेंगे।</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>घंटे</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>घंटे · न्यूनतम विश्राम</value>
-  </data>
-
-  <data name="Staff per shift" xml:space="preserve">
-    <value>प्रति शिफ्ट कर्मचारी</value>
-  </data>
-  <data name="On-call members (rotation queue)" xml:space="preserve">
-    <value>ऑन-कॉल सदस्य (रोटेशन कतार)</value>
-  </data>
-  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
-    <value>कतार का पहला व्यक्ति पहले ऑन-कॉल होता है। मौजूदा शिफ्टों का क्रम नहीं बदला जाता।</value>
-  </data>
-  <data name="Fallback recipients" xml:space="preserve">
-    <value>वैकल्पिक प्राप्तकर्ता</value>
-  </data>
-  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
-    <value>जब कोई ऑन-कॉल नहीं होता तब अलर्ट प्राप्त करते हैं; रोटेशन में भाग नहीं लेते।</value>
-  </data>
-  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
-    <value>कोई वैकल्पिक प्राप्तकर्ता कॉन्फ़िगर नहीं है। जब कोई ऑन-कॉल नहीं होता तब अलर्ट नहीं भेजे जा सकते।</value>
-  </data>
-  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
-    <value>भविष्य की {0} शिफ़्टें और पिछली {1} शिफ़्टें हटा दी जाएँगी। मौजूदा घटनाओं के ऑन-कॉल रिकॉर्ड बने रहेंगे।</value>
-  </data>
-  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
-    <value>भविष्य की शिफ़्टों में वर्तमान में चल रही शिफ़्टें भी शामिल हैं। टेम्पलेट और घटना सूचनाओं की डिलीवरी के रिकॉर्ड सुरक्षित रखे जाएँगे। यह कार्रवाई वापस नहीं की जा सकती।</value>
-  </data>
-  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
-    <value>हटाने की पुष्टि करने के लिए टीम का नाम बिल्कुल सही दर्ज करें।</value>
-  </data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>टीम का नाम मेल नहीं खाता।</value>
   </data>
 </root>

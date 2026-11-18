@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>Edit team</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Enter the exact team name to confirm deletion.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Fallback recipients</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Manage members</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>Next: assign people to shifts</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>No fallback recipients configured. Alerts cannot be delivered when nobody is on call.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>No team members.</value>
@@ -63,11 +75,26 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>On-call members (rotation queue)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>Open schedule</value>
   </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Receive alerts when nobody is on call; do not participate in the rotation.</value>
+  </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>Rotate Members (Sequential)</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>Scheduling start point:</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Staff per shift</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Team configuration</value>
   </data>
   <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
     <value>Template not bound; manual scheduling is still available.</value>
@@ -78,17 +105,17 @@
   <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
     <value>Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible.</value>
   </data>
-  <data name="Scheduling start point: " xml:space="preserve">
-    <value>Scheduling start point:</value>
-  </data>
-  <data name="Team configuration" xml:space="preserve">
-    <value>Team configuration</value>
-  </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Templates can be shared by multiple teams; changing or switching templates will not regenerate saved shifts.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>The first person in the queue is on call first. Existing shifts are not reordered.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>The member list shows who can be scheduled. The saved schedule shows who is on duty and receives incident emails. CC recipients receive a copy regardless of group membership.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>The team name does not match.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>This team has saved shifts and cannot be deleted to preserve the scheduling history.</value>
@@ -102,41 +129,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>View on-call rota</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>hours</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>hours · Minimum rest</value>
-  </data>
-
-  <data name="Staff per shift" xml:space="preserve">
-    <value>Staff per shift</value>
-  </data>
-  <data name="On-call members (rotation queue)" xml:space="preserve">
-    <value>On-call members (rotation queue)</value>
-  </data>
-  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
-    <value>The first person in the queue is on call first. Existing shifts are not reordered.</value>
-  </data>
-  <data name="Fallback recipients" xml:space="preserve">
-    <value>Fallback recipients</value>
-  </data>
-  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
-    <value>Receive alerts when nobody is on call; do not participate in the rotation.</value>
-  </data>
-  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
-    <value>No fallback recipients configured. Alerts cannot be delivered when nobody is on call.</value>
-  </data>
-  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
-    <value>Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records.</value>
-  </data>
-  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
-    <value>Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible.</value>
-  </data>
-  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
-    <value>Enter the exact team name to confirm deletion.</value>
-  </data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>The team name does not match.</value>
   </data>
 </root>

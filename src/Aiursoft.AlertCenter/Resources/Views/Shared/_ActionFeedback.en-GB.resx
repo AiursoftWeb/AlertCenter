@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift.</value>
   </data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>Add on-call members to preview the rotation.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Add on-call shift</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Added</value>
   </data>
+  <data name="Already selected" xml:space="preserve"><value>Already selected</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Back to editing</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Cancel refresh</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>Choose a scheduling template to preview the rotation.</value></data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>End</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>Enter a scheduling start point to preview shifts.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Enter a comment; it cannot contain only whitespace.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>Removed</value>
   </data>
+  <data name="Reorder {0}" xml:space="preserve"><value>Reorder {0}</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>The request is invalid or the page credentials have expired. Check your input and refresh the page to try again if necessary.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Staffing adjusted and chart updated; not saved yet.</value>
   </data>
+  <data name="Start at {0}" xml:space="preserve"><value>Start at {0}</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Copied to the clipboard successfully!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Unable to swap directly: one person is already on the target shift. Please adjust the members of the same shift using &quot;Add/Remove members by shift&quot; first.</value>
   </data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>Unable to update the preview. Please try again.</value></data>
+  <data name="Unassigned" xml:space="preserve"><value>Unassigned</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Unsaved · Adjustment draft</value>
   </data>
+  <data name="Updating shift preview…" xml:space="preserve"><value>Updating shift preview…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>User group · Members automatically inherit assigned permissions</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} hours</value>
   </data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} moved to position {1} of {2}.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} shift for {1} · {2}; not saved yet. You can undo this.</value>
   </data>
@@ -351,15 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 hours · {3}{4}</value>
   </data>
-
-  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} moved to position {1} of {2}.</value></data>
-  <data name="Reorder {0}" xml:space="preserve"><value>Reorder {0}</value></data>
-  <data name="Already selected" xml:space="preserve"><value>Already selected</value></data>
-  <data name="Start at {0}" xml:space="preserve"><value>Start at {0}</value></data>
-  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>Enter a scheduling start point to preview shifts.</value></data>
-  <data name="Updating shift preview…" xml:space="preserve"><value>Updating shift preview…</value></data>
-  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>Unable to update the preview. Please try again.</value></data>
-  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>Add on-call members to preview the rotation.</value></data>
-  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>Choose a scheduling template to preview the rotation.</value></data>
-  <data name="Unassigned" xml:space="preserve"><value>Unassigned</value></data>
 </root>

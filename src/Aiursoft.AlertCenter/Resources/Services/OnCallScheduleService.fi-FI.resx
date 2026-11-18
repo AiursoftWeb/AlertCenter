@@ -36,11 +36,20 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Tiimiin ei voi lisätä työntekijöitä, jotka ovat lähteneet tiimistä tai eivät kuulu siihen.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Valitse, poistetaanko automaattinen jatkaminen käytöstä vai luodaanko vuorot uudelleen tyhjennetylle aikavälille.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Vahvista aiempien vuorojen tyhjennys erikseen.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Olemassa olevan aikataulun aikarajat ovat puutteelliset; sitä ei voi korvata.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Virheellinen viereisten viikkojen työvuoropyynnön muoto; voit lähettää enintään kaksi viikkoa (edellisen ja seuraavan).</value>
+  </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Virheellinen työvuorolistan tyhjennysaikaväli tai toiminto.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Päivystystiimiä ei ole olemassa.</value>
@@ -60,20 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Työvuorolistan lepoajan kesto on virheellinen tai ristiriitainen.</value>
   </data>
-  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
-    <value>Joku toinen ylläpitäjä on muokannut tiimiä tai aikataulua. Päivitä sivu ja yritä uudelleen.</value>
-  </data>
-
-  <data name="Invalid schedule clearing range or action." xml:space="preserve">
-    <value>Virheellinen työvuorolistan tyhjennysaikaväli tai toiminto.</value>
-  </data>
-  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
-    <value>Vahvista aiempien vuorojen tyhjennys erikseen.</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
-    <value>Valitse, poistetaanko automaattinen jatkaminen käytöstä vai luodaanko vuorot uudelleen tyhjennetylle aikavälille.</value>
-  </data>
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Työvuorosuunnittelun ajanjakso ei saa ylittää {0} päivää, ja sen on oltava enintään 10 vuotta nykyhetkeä ennen tai sen jälkeen.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>Joku toinen ylläpitäjä on muokannut tiimiä tai aikataulua. Päivitä sivu ja yritä uudelleen.</value>
   </data>
 </root>

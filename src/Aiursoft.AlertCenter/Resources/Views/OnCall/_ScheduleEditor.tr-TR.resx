@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Otomatik öneriler kaydedilmedi. Komşu takvimler oluşturulurken yeniden doğrulanacaktır; mevcut kaydedilmiş düzenlemeler üzerine yazılmayacaktır.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Otomatik uzatma etkin. Kaydederken ne olacağını seçin.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Varsayılan olarak yalnızca otomatik oluşturulan nöbetler temizlenir.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>İptal</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Değişiklikler yalnızca kaydedildikten sonra geçerli olur. Bu araçları daraltmak taslağınızı korur.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Otomatik uzatma için bir işlem seçin</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Otomatik uzatmayı devre dışı bırakmayı veya temizlenen boşluklarda yeniden nöbet oluşturmayı seçin.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Temizleme yalnızca taslağı değiştirir. Grafiği inceleyin, ardından yayımlamak için kaydedin.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Nöbet çizelgesi aralığını temizle</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Temizlenen taslak aralığı</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Bu aralıkta geçmişte tamamlanmış nöbetlerin temizlenmesini onaylayın. Bu işlem geçmiş atamaları kaldırabilir.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Taslak değişikliğini onayla</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Geçmişi temizlemeyi onayla</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Geçerli Haftayı Sonraki Haftaya Kopyala</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Şu anda Taşıma/Değiştirme modundasınız. Vardiya eklemeden veya kaldırmadan önce yukarıdan modu değiştirin.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Varsayılan aralık, ekibin saat diliminde şu andan kayıtlı veya taslaktaki son nöbetin sonuna kadardır.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Vardiyayı sil</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Kaydederken otomatik uzatmayı devre dışı bırak</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Personeli değiştirmek için renkli bir bloğu başka bir vardiyaya, vardiyayı taşımak için boş bir slota sürükleyin; iki kişinin haftalık programını değiştirmek için “Tüm Haftayı Değiştir” seçeneğini sürükleyin. Bir bloğu seçmek için tıklayıp ardından hedefe tıklayabilir, işlemi iptal etmek için Esc tuşuna basabilirsiniz. Değişiklikler anında görüntülenir ve birden fazla düzenlemeden sonra topluca kaydedilebilir.</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Programı ayarlama</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Geçmişte tamamlanmış nöbetleri dahil et</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Elle düzenlenmiş nöbetleri dahil et</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Çakışan vardiyaları birleştir</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Daha fazla işlem</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Nöbetçi personel (birden fazla seçilebilir, en az bir)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Geçmiş dahil edilse bile devam eden nöbetlerin geçen kısmı korunur.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Temizleme önizlemesi</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Kırmızı uyarılar, boş vardiyaları, yetersiz dinlenme süresini veya minimum personel sayısının altında kalınmasını gösterir, ancak ek ayarlamaları engellemez. Minimum personel sayısının altında kalınması durumunda bile kaydetme işlemine izin verilir, ancak boş vardiyalar ve yetersiz dinlenme süreleri kaydedilemez. Kaydetme sırasında doğrulama, değiştirilen hafta, komşu haftalar ve diğer ekipler için eşit şekilde uygulanır. Herhangi bir hafta doğrulamadan geçemezse hiçbir şey kaydedilmez. Ayrılan üyeler yalnızca orijinal vardiyalarını koruyabilir; yeni vardiyalar eklenemez veya kopyalanamaz.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Kaydederken temizlenen boşluklarda şablondan yeniden nöbet oluştur</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Yeniden oluşturma yalnızca kaydederken gerçekleşir. Önizlemede boşluklar korunur ve korunan nöbetlerin üzerine yazılmaz.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Gelecek haftanın taslağını değiştir?</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Vardiya personeli eklemek veya kaldırmak için zaman dilimlerini seçin; grafik eş zamanlı olarak güncellenecektir. Bu formu klavye navigasyonu için de kullanabilirsiniz. Gruplar arası üyeler manuel olarak seçilebilir; diğer ekiplerin gri okunur-yazılmaz vardiyaları değiştirilmez ve gruplar arası çakışmalar ile mola süreleri, kaydetme sırasında yine doğrulanır.</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>Son adımı geri al</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>Nöbet çizelgesi aralığını temizle</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>Temizleme yalnızca taslağı değiştirir. Grafiği inceleyin, ardından yayımlamak için kaydedin.</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>Varsayılan aralık, ekibin saat diliminde şu andan kayıtlı veya taslaktaki son nöbetin sonuna kadardır.</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>Varsayılan olarak yalnızca otomatik oluşturulan nöbetler temizlenir.</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>Elle düzenlenmiş nöbetleri dahil et</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>Geçmişte tamamlanmış nöbetleri dahil et</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>Geçmiş dahil edilse bile devam eden nöbetlerin geçen kısmı korunur.</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>Otomatik uzatma etkin. Kaydederken ne olacağını seçin.</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>Otomatik uzatma için bir işlem seçin</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>Kaydederken otomatik uzatmayı devre dışı bırak</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>Kaydederken temizlenen boşluklarda şablondan yeniden nöbet oluştur</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>Yeniden oluşturma yalnızca kaydederken gerçekleşir. Önizlemede boşluklar korunur ve korunan nöbetlerin üzerine yazılmaz.</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>Temizleme önizlemesi</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>Bu aralıkta geçmişte tamamlanmış nöbetlerin temizlenmesini onaylayın. Bu işlem geçmiş atamaları kaldırabilir.</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>Geçmişi temizlemeyi onayla</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>Otomatik uzatmayı devre dışı bırakmayı veya temizlenen boşluklarda yeniden nöbet oluşturmayı seçin.</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>Temizlenen taslak aralığı</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>Çakışan vardiyaları birleştir</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>Aynı kişinin vardiyaları veya atanmamış satırdaki vardiyalar çakışamaz. Kaydetmeden önce bunları birleştirin veya düzenleyin.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Nöbet çizelgesinin aralığı {0} günü aşmamalı ve şu andan önceki veya sonraki 10 yıl içinde olmalıdır.</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Bu taşıma, aynı kişinin başka bir vardiyasıyla çakışırdı. Taslak değiştirilmedi.</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>Nöbet çizelgesinin aralığı {0} günü aşmamalı ve şu andan önceki veya sonraki 10 yıl içinde olmalıdır.</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Son adımı geri al</value>
   </data>
 </root>

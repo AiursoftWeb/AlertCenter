@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>編輯團隊</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>請輸入完全相同的團隊名稱以確認刪除。</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>後備收件人</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>未來班次包括正在進行的班次。範本及事件通知傳送紀錄會保留。此操作無法復原。</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>管理成員</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>下一步：為輪班安排人手</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>尚未設定後備收件人。無人值班時將無法傳送警報。</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>沒有團隊成員。</value>
@@ -63,11 +75,26 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>當前已儲存班次中所有值班工程師（OCE）的使用者電郵地址都會自動收到值班電郵（收件者）。副本（CC）只會寄送至管理員明確設定的團隊電郵地址或郵件清單地址，不會自動副本給所有團隊成員。應用程式中設定的自訂推送渠道仍會發送額外通知。</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>值班成員（輪換隊列）</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>開啟值班時間表</value>
   </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>在無人值班時接收警報，不參與輪換。</value>
+  </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>輪流成員（順序）</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>排程開始時間：</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>每段人數</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>團隊設定</value>
   </data>
   <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
     <value>尚未綁定模板，仍可手動排班。</value>
@@ -78,17 +105,17 @@
   <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
     <value>不會刪除模板。只能刪除沒有已儲存班段且未綁定應用程式的團隊。此操作無法復原。</value>
   </data>
-  <data name="Scheduling start point: " xml:space="preserve">
-    <value>排程開始時間：</value>
-  </data>
-  <data name="Team configuration" xml:space="preserve">
-    <value>團隊設定</value>
-  </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>範本可供多個團隊共用；修改或切換範本不會重新產生已儲存的輪班。</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>隊列中的第一位成員最先值班。現有班次不會重新排序。</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>成員列表顯示誰可以被排班。已儲存的時間表顯示誰當值並接收事件電郵。CC 收件人會獨立於群組成員身份而收到副本。</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>團隊名稱不相符。</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>此團隊已有已儲存的值班安排，為保留排班紀錄，不能刪除。</value>
@@ -102,41 +129,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>查看值班時間表</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>將刪除 {0} 個未來班次及 {1} 個過往班次。現有事件會保留其值班紀錄。</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>小時</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>小時 · 最短休息時間</value>
-  </data>
-
-  <data name="Staff per shift" xml:space="preserve">
-    <value>每段人數</value>
-  </data>
-  <data name="On-call members (rotation queue)" xml:space="preserve">
-    <value>值班成員（輪換隊列）</value>
-  </data>
-  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
-    <value>隊列中的第一位成員最先值班。現有班次不會重新排序。</value>
-  </data>
-  <data name="Fallback recipients" xml:space="preserve">
-    <value>後備收件人</value>
-  </data>
-  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
-    <value>在無人值班時接收警報，不參與輪換。</value>
-  </data>
-  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
-    <value>尚未設定後備收件人。無人值班時將無法傳送警報。</value>
-  </data>
-  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
-    <value>將刪除 {0} 個未來班次及 {1} 個過往班次。現有事件會保留其值班紀錄。</value>
-  </data>
-  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
-    <value>未來班次包括正在進行的班次。範本及事件通知傳送紀錄會保留。此操作無法復原。</value>
-  </data>
-  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
-    <value>請輸入完全相同的團隊名稱以確認刪除。</value>
-  </data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>團隊名稱不相符。</value>
   </data>
 </root>

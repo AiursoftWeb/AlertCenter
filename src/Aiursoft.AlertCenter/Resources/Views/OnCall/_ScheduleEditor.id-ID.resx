@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Saran otomatis belum disimpan. Jadwal yang berdekatan akan divalidasi ulang saat dibuat; pengaturan yang sudah disimpan tidak akan ditimpa.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Perpanjangan otomatis diaktifkan. Pilih tindakan saat menyimpan.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Secara default, hanya sif yang dibuat secara otomatis yang dihapus.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Batal</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Perubahan hanya berlaku setelah disimpan. Menutup alat ini akan mempertahankan draf Anda.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Pilih tindakan untuk perpanjangan otomatis</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Pilih apakah akan menonaktifkan perpanjangan otomatis atau membuat ulang sif pada celah yang dikosongkan.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Pengosongan hanya mengubah draf. Tinjau bagan, lalu simpan untuk memublikasikan.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Kosongkan rentang jadwal</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Rentang draf yang dikosongkan</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Konfirmasikan penghapusan sif terdahulu yang sudah selesai dalam rentang ini. Tindakan ini dapat menghapus penugasan sebelumnya.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Konfirmasi penggantian draf</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Konfirmasikan pengosongan riwayat</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Salin Minggu Ini ke Minggu Depan</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Saat ini dalam mode Pindahkan/Tukar. Ganti mode di atas sebelum menambahkan atau menghapus giliran.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Rentang default dimulai dari sekarang hingga akhir sif terakhir yang tersimpan atau ada dalam draf, dalam zona waktu tim.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Hapus giliran</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Nonaktifkan perpanjangan otomatis saat menyimpan</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Seret blok warna ke sif lain untuk menukar petugas, atau ke slot kosong untuk memindahkan sif; seret &apos;Swap Entire Week&apos; untuk menukar jadwal mingguan dua orang. Anda juga dapat mengeklik untuk memilih, lalu mengeklik target; tekan Esc untuk membatalkan. Perubahan langsung ditampilkan dan dapat disimpan sekaligus setelah beberapa penyesuaian.</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Cara menyesuaikan jadwal</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Sertakan sif terdahulu yang sudah selesai</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Sertakan sif yang diedit secara manual</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Gabungkan sif yang tumpang tindih</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Tindakan lainnya</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Petugas siaga (dapat memilih lebih dari satu, minimal satu)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Sif yang sedang berlangsung tetap mempertahankan bagian yang telah berlalu, meskipun riwayat disertakan.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Pratinjau pengosongan</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Peringatan merah menandakan giliran kerja kosong, waktu istirahat yang tidak mencukupi, atau jumlah staf di bawah minimum, tetapi tidak menghalangi penyesuaian lebih lanjut. Perubahan tetap dapat disimpan meskipun jumlah staf di bawah minimum, tetapi giliran kerja kosong dan waktu istirahat yang tidak mencukupi tidak dapat disimpan. Saat disimpan, validasi diterapkan secara seragam pada minggu yang diubah, minggu-minggu yang berdekatan, dan tim lainnya. Jika validasi gagal pada minggu mana pun, tidak ada perubahan yang disimpan. Anggota yang sudah keluar hanya dapat tetap menjalani giliran kerja semula; giliran kerja baru tidak dapat ditambahkan atau disalin.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Buat ulang sif dari templat pada celah yang dikosongkan saat menyimpan</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Pembuatan ulang hanya dilakukan saat menyimpan. Pratinjau tetap menampilkan celah dan sif yang dipertahankan tidak ditimpa.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Ganti draf minggu depan?</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Pilih slot waktu untuk menambahkan atau menghapus personel yang sedang bertugas; grafik akan diperbarui secara langsung. Anda juga dapat menggunakan formulir ini untuk navigasi dengan keyboard. Anggota lintas grup dapat dipilih secara manual; shift berwarna abu-abu yang hanya dapat dibaca dari tim lain tidak akan diubah, dan tumpang tindih serta jeda lintas grup tetap divalidasi saat menyimpan.</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>Batalkan langkah terakhir</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>Kosongkan rentang jadwal</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>Pengosongan hanya mengubah draf. Tinjau bagan, lalu simpan untuk memublikasikan.</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>Rentang default dimulai dari sekarang hingga akhir sif terakhir yang tersimpan atau ada dalam draf, dalam zona waktu tim.</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>Secara default, hanya sif yang dibuat secara otomatis yang dihapus.</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>Sertakan sif yang diedit secara manual</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>Sertakan sif terdahulu yang sudah selesai</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>Sif yang sedang berlangsung tetap mempertahankan bagian yang telah berlalu, meskipun riwayat disertakan.</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>Perpanjangan otomatis diaktifkan. Pilih tindakan saat menyimpan.</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>Pilih tindakan untuk perpanjangan otomatis</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>Nonaktifkan perpanjangan otomatis saat menyimpan</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>Buat ulang sif dari templat pada celah yang dikosongkan saat menyimpan</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>Pembuatan ulang hanya dilakukan saat menyimpan. Pratinjau tetap menampilkan celah dan sif yang dipertahankan tidak ditimpa.</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>Pratinjau pengosongan</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>Konfirmasikan penghapusan sif terdahulu yang sudah selesai dalam rentang ini. Tindakan ini dapat menghapus penugasan sebelumnya.</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>Konfirmasikan pengosongan riwayat</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>Pilih apakah akan menonaktifkan perpanjangan otomatis atau membuat ulang sif pada celah yang dikosongkan.</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>Rentang draf yang dikosongkan</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>Gabungkan sif yang tumpang tindih</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>Sif untuk orang yang sama atau pada baris yang belum ditugaskan tidak boleh tumpang tindih. Gabungkan atau sesuaikan sebelum menyimpan.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Rentang jadwal tidak boleh melebihi {0} hari dan harus berada dalam 10 tahun sebelum atau sesudah saat ini.</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Pemindahan ini akan tumpang tindih dengan sif lain untuk orang yang sama. Draf tidak diubah.</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>Rentang jadwal tidak boleh melebihi {0} hari dan harus berada dalam 10 tahun sebelum atau sesudah saat ini.</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Batalkan langkah terakhir</value>
   </data>
 </root>

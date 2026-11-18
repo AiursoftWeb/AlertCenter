@@ -36,11 +36,20 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>ไม่สามารถเพิ่มพนักงานที่ออกจากทีมหรือไม่ได้เป็นสมาชิกของทีมได้</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>เลือกว่าจะปิดใช้งานการขยายตารางอัตโนมัติหรือสร้างเวรใหม่ในช่วงเวลาที่ล้างไว้</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>ยืนยันการล้างเวรในอดีตแยกต่างหาก</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>ขอบเขตเวลาของตารางเวรที่มีอยู่ไม่ครบถ้วน ไม่สามารถเขียนทับได้</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>รูปแบบคำขอกำหนดตารางเวรสัปดาห์ข้างเคียงไม่ถูกต้อง คุณส่งได้ไม่เกินสองสัปดาห์ (สัปดาห์ก่อนหน้าและสัปดาห์ถัดไป)</value>
+  </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>ช่วงเวลาหรือการดำเนินการล้างตารางเวรไม่ถูกต้อง</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>ไม่มีกลุ่มเวรเรียกนอกเวลางานอยู่</value>
@@ -60,20 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>ระยะเวลาพักในตารางไม่ถูกต้องหรือไม่สอดคล้องกัน</value>
   </data>
-  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
-    <value>ทีมงานหรือตารางเวรถูกแก้ไขโดยผู้ดูแลระบบคนอื่นแล้ว โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
-  </data>
-
-  <data name="Invalid schedule clearing range or action." xml:space="preserve">
-    <value>ช่วงเวลาหรือการดำเนินการล้างตารางเวรไม่ถูกต้อง</value>
-  </data>
-  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
-    <value>ยืนยันการล้างเวรในอดีตแยกต่างหาก</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
-    <value>เลือกว่าจะปิดใช้งานการขยายตารางอัตโนมัติหรือสร้างเวรใหม่ในช่วงเวลาที่ล้างไว้</value>
-  </data>
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>ช่วงเวลาของตารางเวรต้องไม่เกิน {0} วัน และต้องอยู่ภายใน 10 ปีก่อนหรือหลังเวลาปัจจุบัน</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>ทีมงานหรือตารางเวรถูกแก้ไขโดยผู้ดูแลระบบคนอื่นแล้ว โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
   </data>
 </root>

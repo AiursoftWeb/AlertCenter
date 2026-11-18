@@ -27,12 +27,22 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Configurações avançadas de agendamento</value>
   </data>
+  <data name="Advanced settings"><value>Configurações avançadas</value></data>
+  <data name="All scheduling times below use the team time zone."><value>Todos os horários abaixo usam o fuso horário da equipe.</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks"><value>Estender automaticamente o modelo vinculado para as próximas quatro semanas</value></data>
+  <data name="Basic information"><value>Informações básicas</value></data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
+  </data>
+  <data name="Choose a template to enable automatic extension."><value>Escolha um modelo para ativar a extensão automática.</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Defina como os turnos são divididos e alternados para a extensão automática e a geração com um clique pelas equipes. Alterar um modelo não afeta os turnos já programados.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Colaborador excluído</value>
   </data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Não vincular modelo (agendamento manual)</value>
   </data>
@@ -42,12 +52,14 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Insira em UTC; não será convertido automaticamente com base nos fusos horários da equipe. Após salvar uma escala, o ponto inicial da programação não pode ser alterado.</value>
   </data>
+  <data name="Fallback recipients"><value>Destinatários de contingência</value></data>
   <data name="Filter by role" xml:space="preserve">
     <value>Filtrar por função</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Buscar</value>
   </data>
+  <data name="Friday"><value>Sexta-feira</value></data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Ajuda: CC de notificação</value>
   </data>
@@ -66,24 +78,31 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Ajuda: fuso horário da equipe</value>
   </data>
-  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
-    <value>Defina como os turnos são divididos e alternados para a extensão automática e a geração com um clique pelas equipes. Alterar um modelo não afeta os turnos já programados.</value>
-  </data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
+  <data name="Maximum continuous duty reminder (hours)"><value>Lembrete de plantão contínuo máximo (horas)</value></data>
+  <data name="Minimum rest reminder (hours)"><value>Lembrete de descanso mínimo (horas)</value></data>
+  <data name="Minimum staffing reminder"><value>Lembrete de pessoal mínimo</value></data>
+  <data name="Monday"><value>Segunda-feira</value></data>
   <data name="Name or Account" xml:space="preserve">
     <value>Nome ou Conta</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Próxima Página</value>
   </data>
+  <data name="Next four shifts preview"><value>Prévia dos próximos quatro turnos</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Sem destinatários de contingência: não é possível entregar alertas quando ninguém está de plantão.</value></data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Nenhum membro ainda. Abra Adicionar membros para encontrar pessoas.</value>
   </data>
+  <data name="No members yet. Search below to add people."><value>Ainda não há membros. Pesquise abaixo para adicionar pessoas.</value></data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>CC da notificação (opcional)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>CC de e-mail de plantão</value>
   </data>
+  <data name="On-call members (rotation queue)"><value>Membros de plantão (fila de rotação)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
   <data name="Previous Page" xml:space="preserve">
     <value>Página Anterior</value>
   </data>
@@ -93,6 +112,7 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Ordem de rotação</value>
   </data>
+  <data name="Saturday"><value>Sábado</value></data>
   <data name="Save changes" xml:space="preserve">
     <value>Salvar alterações</value>
   </data>
@@ -105,9 +125,11 @@
   <data name="Scheduling Template" xml:space="preserve">
     <value>Modelo de escala</value>
   </data>
+  <data name="Scheduling method"><value>Método de agendamento</value></data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Ponto de início do agendamento (UTC)</value>
   </data>
+  <data name="Scheduling start point (team time)"><value>Início do agendamento (horário da equipe)</value></data>
   <data name="Search Employees" xml:space="preserve">
     <value>Pesquisar Funcionários</value>
   </data>
@@ -117,9 +139,13 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>Pesquise pelo nome ou conta, ou escolha uma função.</value>
   </data>
+  <data name="Search by name or account."><value>Pesquise por nome ou conta.</value></data>
+  <data name="Search fallback recipients"><value>Pesquisar destinatários de contingência</value></data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Selecionar um cargo apenas filtra a busca. Marque as pessoas individuais para adicioná-las; a filiação à equipe não é sincronizada com esse cargo.</value>
   </data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
+  <data name="Sunday"><value>Domingo</value></data>
   <data name="Team members" xml:space="preserve">
     <value>Membros da equipe</value>
   </data>
@@ -129,12 +155,15 @@
   <data name="Team settings" xml:space="preserve">
     <value>Configurações da equipe</value>
   </data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Thursday"><value>Quinta-feira</value></data>
   <data name="Time Zone" xml:space="preserve">
     <value>Fuso horário</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>Para: as pessoas designadas para o turno salvo quando o incidente ocorreu. Os destinatários originais do OCE são mantidos para e-mails futuros de incidentes. CC se aplica a todos os e-mails de incidente, independentemente do turno. Use vírgulas, ponto e vírgula ou novas linhas; até 50 endereços CC.</value>
   </data>
+  <data name="Tuesday"><value>Terça-feira</value></data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Use &quot;Mover para cima&quot; e &quot;Mover para baixo&quot; para escolher a ordem usada no agendamento automático futuro. Turnos existentes não serão reordenados. Selecione até 200 membros.</value>
   </data>
@@ -144,37 +173,7 @@
   <data name="View schedule" xml:space="preserve">
     <value>Ver agenda</value>
   </data>
-
-  <data name="Advanced settings"><value>Configurações avançadas</value></data>
-  <data name="All scheduling times below use the team time zone."><value>Todos os horários abaixo usam o fuso horário da equipe.</value></data>
-  <data name="Automatically extend the bound template to cover the next four weeks"><value>Estender automaticamente o modelo vinculado para as próximas quatro semanas</value></data>
-  <data name="Basic information"><value>Informações básicas</value></data>
-  <data name="Choose a template to enable automatic extension."><value>Escolha um modelo para ativar a extensão automática.</value></data>
-  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
-  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
-  <data name="Fallback recipients"><value>Destinatários de contingência</value></data>
-  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
-  <data name="Maximum continuous duty reminder (hours)"><value>Lembrete de plantão contínuo máximo (horas)</value></data>
-  <data name="Minimum rest reminder (hours)"><value>Lembrete de descanso mínimo (horas)</value></data>
-  <data name="Minimum staffing reminder"><value>Lembrete de pessoal mínimo</value></data>
-  <data name="Next four shifts preview"><value>Prévia dos próximos quatro turnos</value></data>
-  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Sem destinatários de contingência: não é possível entregar alertas quando ninguém está de plantão.</value></data>
-  <data name="No members yet. Search below to add people."><value>Ainda não há membros. Pesquise abaixo para adicionar pessoas.</value></data>
-  <data name="On-call members (rotation queue)"><value>Membros de plantão (fila de rotação)</value></data>
-  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
-  <data name="Scheduling method"><value>Método de agendamento</value></data>
-  <data name="Scheduling start point (team time)"><value>Início do agendamento (horário da equipe)</value></data>
-  <data name="Search by name or account."><value>Pesquise por nome ou conta.</value></data>
-  <data name="Search fallback recipients"><value>Pesquisar destinatários de contingência</value></data>
-  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
-  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Wednesday"><value>Quarta-feira</value></data>
   <data name="Week starts on"><value>Primeiro dia da semana</value></data>
   <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
-  <data name="Sunday"><value>Domingo</value></data>
-  <data name="Monday"><value>Segunda-feira</value></data>
-  <data name="Tuesday"><value>Terça-feira</value></data>
-  <data name="Wednesday"><value>Quarta-feira</value></data>
-  <data name="Thursday"><value>Quinta-feira</value></data>
-  <data name="Friday"><value>Sexta-feira</value></data>
-  <data name="Saturday"><value>Sábado</value></data>
 </root>

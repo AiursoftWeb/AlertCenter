@@ -24,12 +24,15 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>एक सहेजा गया शेड्यूल मौजूद है; टीम शेड्यूल का प्रारंभ बिंदु बदला नहीं जा सकता।</value>
   </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>शिफ्टों का पूर्वावलोकन देखने के लिए रोटेशन कतार में सदस्य जोड़ें।</value></data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>प्रति शिफ्ट कम से कम {0} कर्मचारियों और {1} घंटे के विश्राम की आवश्यकता होती है, इसलिए कम से कम {2} सदस्य होने चाहिए। कई ऑन-कॉल समूहों के सदस्यों को हटाने के बाद, {3} सदस्यों का शेड्यूल अपने-आप बनाया जा सकता है; कृपया एक ही समूह के सदस्य जोड़ें या शेड्यूल की व्यवस्था स्वयं करें।</value>
   </data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>चुने गए टेम्पलेट के लिए स्वचालित विस्तार हेतु रोटेशन कतार में कम से कम {0} सदस्य आवश्यक हैं।</value></data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>प्रतिदिन तीन शिफ्ट निर्धारित हैं, प्रत्येक 8 घंटे की।</value>
   </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>टीम का स्थानीय समय अमान्य है। डेलाइट सेविंग बदलाव के दौरान छोड़े गए समय अमान्य हैं और दोहराए गए समय मानक समय का उपयोग करते हैं।</value></data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>न्यूनतम विश्राम अवधि 0–168 घंटे होनी चाहिए।</value>
   </data>
@@ -39,6 +42,7 @@
   <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
     <value>टीम से अभी कोई टेम्पलेट नहीं जुड़ा है। आप मैन्युअल रूप से शेड्यूल बना सकते हैं।</value>
   </data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>ऑन-कॉल टीम मौजूद नहीं है।</value></data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>कृपया टीम का नाम दर्ज करें।</value>
   </data>
@@ -48,6 +52,7 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>कृपया UTC का एक मान्य प्रारंभ समय चुनें (जो दिनांक सीमा से कम-से-कम 28 दिन दूर हो)।</value>
   </data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>टीम का वैध स्थानीय प्रारंभ समय चुनें (तिथि सीमा से कम से कम 28 दिन दूर होना चाहिए)।</value></data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>कृपया सूची से एक मान्य समय क्षेत्र चुनें।</value>
   </data>
@@ -63,6 +68,7 @@
   <data name="Scheduling template updated." xml:space="preserve">
     <value>शेड्यूलिंग टेम्पलेट अपडेट किया गया।</value>
   </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>प्रति शिफ्ट कर्मचारियों की संख्या स्वचालित विस्तार सक्षम इन टीमों की सदस्य संख्या से अधिक है: {0}।</value></data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>लक्षित कर्मचारियों की संख्या न्यूनतम से कम नहीं हो सकती और 1–200 के बीच होनी चाहिए। स्वचालित रूप से निर्धारित करने के लिए खाली छोड़ें।</value>
   </data>
@@ -84,9 +90,14 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>शिफ्ट अनुरोध का प्रारूप अमान्य है।</value>
   </data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>प्रारंभ समय साप्ताहिक हस्तांतरण समय से मेल नहीं खाता; पहली शिफ्ट आंशिक होगी।</value></data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>टीम का नाम मेल नहीं खाता।</value>
+  </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>टीम या शेड्यूल बदल गया है। कृपया पेज रीफ़्रेश करें और फिर से कोशिश करें।</value>
   </data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>टीम पूर्वावलोकन अनुरोध का प्रारूप अमान्य है।</value></data>
   <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
     <value>टेम्पलेट या टीम बदल गई है। पृष्ठ रीफ़्रेश करके फिर प्रयास करें।</value>
   </data>
@@ -105,16 +116,4 @@
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>पूर्वावलोकन जनरेट नहीं किया जा सका: {0}</value>
   </data>
-
-  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>प्रारंभ समय साप्ताहिक हस्तांतरण समय से मेल नहीं खाता; पहली शिफ्ट आंशिक होगी।</value></data>
-  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>शिफ्टों का पूर्वावलोकन देखने के लिए रोटेशन कतार में सदस्य जोड़ें।</value></data>
-  <data name="The team preview request format is invalid." xml:space="preserve"><value>टीम पूर्वावलोकन अनुरोध का प्रारूप अमान्य है।</value></data>
-  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>टीम का वैध स्थानीय प्रारंभ समय चुनें (तिथि सीमा से कम से कम 28 दिन दूर होना चाहिए)।</value></data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>टीम का स्थानीय समय अमान्य है। डेलाइट सेविंग बदलाव के दौरान छोड़े गए समय अमान्य हैं और दोहराए गए समय मानक समय का उपयोग करते हैं।</value></data>
-  <data name="On-call team does not exist." xml:space="preserve"><value>ऑन-कॉल टीम मौजूद नहीं है।</value></data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>टीम का नाम मेल नहीं खाता।</value>
-  </data>
-  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>चुने गए टेम्पलेट के लिए स्वचालित विस्तार हेतु रोटेशन कतार में कम से कम {0} सदस्य आवश्यक हैं।</value></data>
-  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>प्रति शिफ्ट कर्मचारियों की संख्या स्वचालित विस्तार सक्षम इन टीमों की सदस्य संख्या से अधिक है: {0}।</value></data>
 </root>

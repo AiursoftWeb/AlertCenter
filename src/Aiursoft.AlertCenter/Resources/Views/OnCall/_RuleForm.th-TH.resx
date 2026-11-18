@@ -18,21 +18,14 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>ยกเลิก</value>
-  </data>
-  <data name="Save template" xml:space="preserve">
-    <value>บันทึกเทมเพลต</value>
-  </data>
-  <data name="Template name" xml:space="preserve">
-    <value>ชื่อเทมเพลต</value>
-  </data>
-
   <data name="8-hour three-shift preset" xml:space="preserve">
     <value>ค่าที่ตั้งไว้สำหรับ 3 เวร เวรละ 8 ชั่วโมง</value>
   </data>
   <data name="Add handover point" xml:space="preserve">
     <value>เพิ่มจุดส่งมอบเวร</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
   </data>
   <data name="Day of week" xml:space="preserve">
     <value>วันในสัปดาห์</value>
@@ -64,6 +57,9 @@
   <data name="Saturday" xml:space="preserve">
     <value>วันเสาร์</value>
   </data>
+  <data name="Save template" xml:space="preserve">
+    <value>บันทึกเทมเพลต</value>
+  </data>
   <data name="Shift duration (minutes)" xml:space="preserve">
     <value>ระยะเวลาเวร (นาที)</value>
   </data>
@@ -78,6 +74,9 @@
   </data>
   <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
     <value>สลับสมาชิกที่อยู่ติดกันรอบเว้นรอบสำหรับทีมที่มีสมาชิกจำนวนคู่</value>
+  </data>
+  <data name="Template name" xml:space="preserve">
+    <value>ชื่อเทมเพลต</value>
   </data>
   <data name="Thursday" xml:space="preserve">
     <value>วันพฤหัสบดี</value>

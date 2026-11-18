@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>وضع الإضافة: انقر على المساحة الفارغة في صف المهندس لإضافة وردية مدتها 8 ساعات؛ يمكن مشاركة الوردية بين عدة أشخاص.</value>
   </data>
+  <data name="Add on-call members to preview the rotation."><value>أضف أعضاء المناوبة لمعاينة التناوب.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>إضافة مناوبة الاستدعاء</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>تمت الإضافة</value>
   </data>
+  <data name="Already selected"><value>محدد بالفعل</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>العودة إلى التحرير</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>إلغاء التحديث</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation."><value>اختر قالب جدولة لمعاينة التناوب.</value></data>
   <data name="Close" xml:space="preserve">
     <value>إغلاق</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>نهاية</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts."><value>أدخل بداية الجدولة لمعاينة المناوبات.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>أدخل محتوى التعليق؛ لا يمكن أن يحتوي على مسافات بيضاء فقط.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>تمت الإزالة</value>
   </data>
+  <data name="Reorder {0}"><value>إعادة ترتيب {0}</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>طلب غير صالح أو انتهت صلاحية بيانات اعتماد الصفحة. تحقق من المدخلات وحدّث الصفحة لإعادة المحاولة عند الضرورة.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>تم تعديل التوظيف وتحديث المخطط؛ لم يُحفظ بعد.</value>
   </data>
+  <data name="Start at {0}"><value>البدء عند {0}</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>تم النسخ إلى الحافظة بنجاح!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>تعذر التبديل مباشرةً: يوجد شخص واحد بالفعل في الوردية المستهدفة. يُرجى ضبط أعضاء الوردية نفسها باستخدام &quot;إضافة/إزالة الأعضاء حسب الوردية&quot; أولاً.</value>
   </data>
+  <data name="Unable to update the preview. Please try again."><value>تعذر تحديث المعاينة. حاول مرة أخرى.</value></data>
+  <data name="Unassigned"><value>غير معين</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>غير محفوظ · مسودة التعديل</value>
   </data>
+  <data name="Updating shift preview…"><value>جارٍ تحديث معاينة المناوبات…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>مجموعة المستخدمين · يرث الأعضاء الصلاحيات المرتبطة ديناميكيًا</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} ساعات</value>
   </data>
+  <data name="{0} moved to position {1} of {2}."><value>تم نقل {0} إلى الموضع {1} من {2}.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} وردية لـ {1} · {2}؛ لم يتم الحفظ بعد. يمكنك التراجع عن هذا.</value>
   </data>
@@ -351,15 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 ساعات · {3}{4}</value>
   </data>
-
-  <data name="{0} moved to position {1} of {2}."><value>تم نقل {0} إلى الموضع {1} من {2}.</value></data>
-  <data name="Reorder {0}"><value>إعادة ترتيب {0}</value></data>
-  <data name="Already selected"><value>محدد بالفعل</value></data>
-  <data name="Start at {0}"><value>البدء عند {0}</value></data>
-  <data name="Enter a scheduling start point to preview shifts."><value>أدخل بداية الجدولة لمعاينة المناوبات.</value></data>
-  <data name="Updating shift preview…"><value>جارٍ تحديث معاينة المناوبات…</value></data>
-  <data name="Unable to update the preview. Please try again."><value>تعذر تحديث المعاينة. حاول مرة أخرى.</value></data>
-  <data name="Add on-call members to preview the rotation."><value>أضف أعضاء المناوبة لمعاينة التناوب.</value></data>
-  <data name="Choose a scheduling template to preview the rotation."><value>اختر قالب جدولة لمعاينة التناوب.</value></data>
-  <data name="Unassigned"><value>غير معين</value></data>
 </root>

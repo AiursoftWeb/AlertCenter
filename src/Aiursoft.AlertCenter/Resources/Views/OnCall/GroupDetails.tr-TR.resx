@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>Ekibi düzenle</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Silmeyi onaylamak için ekip adını tam olarak girin.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Yedek alıcılar</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Gelecekteki vardiyalar, devam eden vardiyaları da içerir. Şablonlar ve olay bildirimi teslim kayıtları korunur. Bu işlem geri alınamaz.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Üyeleri Yönet</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>Sıradaki adım: kişileri vardiyalara atayın</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Yedek alıcı yapılandırılmamış. Kimse nöbette değilken uyarılar iletilemez.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>Ekip üyesi yok.</value>
@@ -63,8 +75,23 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>Nöbetçi e-postaları, kayıtlı mevcut vardiyadaki tüm Nöbetçi Mühendislerin (OCE) kullanıcı posta kutularına (To) otomatik olarak gönderilir. CC alanında yalnızca yönetici tarafından açıkça yapılandırılan ekip posta kutuları veya posta listesi adresleri kullanılır; tüm ekip üyeleri otomatik olarak CC&apos;ye eklenmez. Uygulamada yapılandırılan özel anlık bildirim kanalları ek bildirimler göndermeye devam eder.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Nöbetçi üyeler (rotasyon kuyruğu)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>Programı aç</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Kimse nöbette değilken uyarıları alırlar; rotasyona katılmazlar.</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>Zamanlamanın başlangıç noktası:</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Vardiya başına personel</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>Ekip yapılandırması</value>
   </data>
   <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
     <value>Şablon bağlı değil; elle planlama hâlâ kullanılabilir.</value>
@@ -75,17 +102,17 @@
   <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
     <value>Şablonlar silinmez. Yalnızca kaydedilmiş vardiyası ve bağlı uygulaması olmayan ekipler silinebilir. Bu işlem geri alınamaz.</value>
   </data>
-  <data name="Scheduling start point: " xml:space="preserve">
-    <value>Zamanlamanın başlangıç noktası:</value>
-  </data>
-  <data name="Team configuration" xml:space="preserve">
-    <value>Ekip yapılandırması</value>
-  </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Şablonlar birden fazla ekip tarafından paylaşılabilir; şablonların değiştirilmesi veya değiştirilmesi, kaydedilmiş vardiyaları yeniden oluşturmayacaktır.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Kuyruktaki ilk kişi önce nöbet tutar. Mevcut vardiyalar yeniden sıralanmaz.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>Üye listesi, planlanabilecek kişileri belirtir. Kaydedilen vardiya planı, nöbetçi olan ve olay e-postalarını alan kişileri belirtir. CC alıcıları, grup üyeliğinden bağımsız olarak birer kopya alır.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Ekip adı eşleşmiyor.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>Bu ekipte kayıtlı vardiyalar bulunduğundan, planlama geçmişini korumak için ekip silinemez.</value>
@@ -99,41 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>Nöbet çizelgesini görüntüle</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Gelecekteki {0} vardiya ve geçmişteki {1} vardiya silinecek. Mevcut olayların nöbet kayıtları korunacak.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>saat</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>saat · Min dinlenme</value>
-  </data>
-
-  <data name="Staff per shift" xml:space="preserve">
-    <value>Vardiya başına personel</value>
-  </data>
-  <data name="On-call members (rotation queue)" xml:space="preserve">
-    <value>Nöbetçi üyeler (rotasyon kuyruğu)</value>
-  </data>
-  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
-    <value>Kuyruktaki ilk kişi önce nöbet tutar. Mevcut vardiyalar yeniden sıralanmaz.</value>
-  </data>
-  <data name="Fallback recipients" xml:space="preserve">
-    <value>Yedek alıcılar</value>
-  </data>
-  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
-    <value>Kimse nöbette değilken uyarıları alırlar; rotasyona katılmazlar.</value>
-  </data>
-  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
-    <value>Yedek alıcı yapılandırılmamış. Kimse nöbette değilken uyarılar iletilemez.</value>
-  </data>
-  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
-    <value>Gelecekteki {0} vardiya ve geçmişteki {1} vardiya silinecek. Mevcut olayların nöbet kayıtları korunacak.</value>
-  </data>
-  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
-    <value>Gelecekteki vardiyalar, devam eden vardiyaları da içerir. Şablonlar ve olay bildirimi teslim kayıtları korunur. Bu işlem geri alınamaz.</value>
-  </data>
-  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
-    <value>Silmeyi onaylamak için ekip adını tam olarak girin.</value>
-  </data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>Ekip adı eşleşmiyor.</value>
   </data>
 </root>

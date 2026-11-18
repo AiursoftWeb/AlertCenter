@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>As sugestões automáticas não foram salvas. Os horários adjacentes serão revalidados na geração; os arranjos existentes salvos não serão sobrescritos.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>A extensão automática está ativada. Escolha o que acontece ao salvar.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Por padrão, apenas os turnos gerados automaticamente são removidos.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>As alterações só entram em vigor após salvar. Recolher estas ferramentas mantém seu rascunho.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Escolha uma ação para a extensão automática</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Escolha se deseja desativar a extensão automática ou gerar novamente os turnos nas lacunas limpas.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>A limpeza altera apenas o rascunho. Revise o gráfico e salve para publicar.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Limpar intervalo da escala</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Intervalo do rascunho limpo</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Confirme a remoção dos turnos anteriores já concluídos neste intervalo. Isso pode remover atribuições passadas.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Confirmar substituição do rascunho</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Confirmar limpeza do histórico</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Copiar semana atual para a próxima semana</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Atualmente no modo Mover/Trocar. Altere o modo acima antes de adicionar ou remover turnos.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Por padrão, o intervalo vai de agora até o fim do último turno salvo ou no rascunho, no fuso horário da equipe.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Excluir turno</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Desativar a extensão automática ao salvar</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Arraste um bloco colorido para outro turno para trocar os profissionais, ou para um horário vazio para mover o turno; arraste “Trocar semana inteira” para trocar as escalas semanais de duas pessoas. Você também pode clicar para selecionar e, em seguida, clicar no destino; pressione Esc para cancelar. As alterações são exibidas imediatamente e podem ser salvas em lote após vários ajustes.</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Como ajustar a escala</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Incluir turnos anteriores já concluídos</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Incluir turnos editados manualmente</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Mesclar plantões sobrepostos</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Mais ações</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Pessoal de plantão (vários permitidos, no mínimo um)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Os turnos em andamento mantêm a parte já decorrida, mesmo quando o histórico é incluído.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Visualizar limpeza</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Alertas em vermelho indicam turnos vazios, descanso insuficiente ou equipe abaixo do mínimo, mas não bloqueiam ajustes adicionais. A salvaguarda é permitida mesmo abaixo do número mínimo de pessoal, mas turnos vazios e descanso insuficiente não podem ser salvos. A validação é aplicada uniformemente na semana modificada, nas semanas adjacentes e em outras equipes no momento da salvaguarda. Se qualquer semana falhar na validação, nada será salvo. Membros desligados podem apenas reter seus turnos originais; novos turnos não podem ser adicionados ou copiados.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Gerar novamente os turnos a partir do modelo nas lacunas limpas ao salvar</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>A nova geração ocorre apenas ao salvar. A prévia mantém as lacunas, e os turnos mantidos não são sobrescritos.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Substituir o rascunho da próxima semana?</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Selecione os horários para adicionar ou remover profissionais de plantão; o gráfico será atualizado em tempo real. Você também pode usar este formulário para navegar pelo teclado. Membros de outros grupos podem ser selecionados manualmente; os plantões em cinza, somente para leitura, de outras equipes não serão alterados, e sobreposições e intervalos entre plantões de diferentes grupos ainda serão validados ao salvar.</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>Desfazer última etapa</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>Limpar intervalo da escala</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>A limpeza altera apenas o rascunho. Revise o gráfico e salve para publicar.</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>Por padrão, o intervalo vai de agora até o fim do último turno salvo ou no rascunho, no fuso horário da equipe.</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>Por padrão, apenas os turnos gerados automaticamente são removidos.</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>Incluir turnos editados manualmente</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>Incluir turnos anteriores já concluídos</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>Os turnos em andamento mantêm a parte já decorrida, mesmo quando o histórico é incluído.</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>A extensão automática está ativada. Escolha o que acontece ao salvar.</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>Escolha uma ação para a extensão automática</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>Desativar a extensão automática ao salvar</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>Gerar novamente os turnos a partir do modelo nas lacunas limpas ao salvar</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>A nova geração ocorre apenas ao salvar. A prévia mantém as lacunas, e os turnos mantidos não são sobrescritos.</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>Visualizar limpeza</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>Confirme a remoção dos turnos anteriores já concluídos neste intervalo. Isso pode remover atribuições passadas.</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>Confirmar limpeza do histórico</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>Escolha se deseja desativar a extensão automática ou gerar novamente os turnos nas lacunas limpas.</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>Intervalo do rascunho limpo</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>Mesclar plantões sobrepostos</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>Plantões da mesma pessoa ou da linha sem atribuição não podem se sobrepor. Mescle ou ajuste os plantões antes de salvar.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>O período da escala não deve exceder {0} dias e deve estar dentro de 10 anos antes ou depois do momento atual.</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Esta movimentação causaria sobreposição com outro plantão da mesma pessoa. O rascunho não foi alterado.</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>O período da escala não deve exceder {0} dias e deve estar dentro de 10 anos antes ou depois do momento atual.</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Desfazer última etapa</value>
   </data>
 </root>

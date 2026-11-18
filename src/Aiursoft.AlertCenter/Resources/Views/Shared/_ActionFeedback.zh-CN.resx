@@ -39,18 +39,22 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>添加模式：点击工程师所在行的空白处，即可添加一个 8 小时班次；多个员工可以共用一个班次。</value>
   </data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>请添加值班成员以预览轮换。</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>添加值班班次</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>已添加</value>
   </data>
+  <data name="Already selected" xml:space="preserve"><value>已选择</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>返回编辑</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>取消刷新</value>
   </data>
+  <data name="Cannot copy assignments for departed team members." xml:space="preserve"><value>无法复制已离队成员的班段。</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>请选择排班模板以预览轮换。</value></data>
   <data name="Close" xml:space="preserve">
     <value>关闭</value>
   </data>
@@ -90,12 +94,16 @@
   <data name="Delete mode: Click a color block to remove this engineer&apos;s current shift. This action can be undone and takes effect after saving all changes." xml:space="preserve">
     <value>删除模式：点击色块即可移除此工程师当前的班次。此操作可撤销，并在保存所有更改后生效。</value>
   </data>
+  <data name="Delete shift" xml:space="preserve"><value>删除班段</value></data>
+  <data name="Departed" xml:space="preserve"><value>已离队</value></data>
   <data name="Discard input and refresh" xml:space="preserve">
     <value>放弃输入并刷新</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>结束</value>
   </data>
+  <data name="End must be after start." xml:space="preserve"><value>结束时间必须晚于开始时间。</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>请输入排班起始时间以预览班次。</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>请输入评论内容；内容不能全为空白字符。</value>
   </data>
@@ -201,6 +209,7 @@
   <data name="Removed" xml:space="preserve">
     <value>已移除</value>
   </data>
+  <data name="Reorder {0}" xml:space="preserve"><value>调整 {0} 的顺序</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>请求无效或页面凭据已过期。请检查输入内容，并在必要时刷新页面后重试。</value>
   </data>
@@ -216,6 +225,7 @@
   <data name="Save failed. Please refresh the page and try again." xml:space="preserve">
     <value>保存失败。请刷新页面后重试。</value>
   </data>
+  <data name="Save or reset the draft before generating a range." xml:space="preserve"><value>请先保存或重置草稿，再按模板生成。</value></data>
   <data name="Searching for employees…" xml:space="preserve">
     <value>正在搜索员工…</value>
   </data>
@@ -258,6 +268,8 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>人员配置已调整，排班表已更新；尚未保存。</value>
   </data>
+  <data name="Start" xml:space="preserve"><value>开始</value></data>
+  <data name="Start at {0}" xml:space="preserve"><value>从 {0} 开始</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>已成功复制到剪贴板！</value>
   </data>
@@ -300,12 +312,16 @@
   <data name="Unable to query employee." xml:space="preserve">
     <value>无法查询员工。</value>
   </data>
+  <data name="Unable to save schedule. Refresh and try again." xml:space="preserve"><value>无法保存排班，请刷新后重试。</value></data>
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>无法直接交换：目标班次中已有一人。请先使用“按班次添加/移除成员”调整该班次的成员。</value>
   </data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>无法更新预览。请重试。</value></data>
+  <data name="Unassigned" xml:space="preserve"><value>无人值班</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>未保存 · 调整草稿</value>
   </data>
+  <data name="Updating shift preview…" xml:space="preserve"><value>正在更新班次预览…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>用户组 · 成员动态继承已绑定的权限</value>
   </data>
@@ -315,6 +331,7 @@
   <data name="You do not have permission to perform this action." xml:space="preserve">
     <value>您没有权限执行此操作。</value>
   </data>
+  <data name="hours" xml:space="preserve"><value>小时</value></data>
   <data name="next" xml:space="preserve">
     <value>下一个</value>
   </data>
@@ -330,6 +347,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} 小时</value>
   </data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} 已移至第 {1} 位，共 {2} 位。</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} 个班次（{1} · {2}）尚未保存；你可以撤销此操作。</value>
   </data>
@@ -351,23 +369,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8小时 · {3}{4}</value>
   </data>
-
-  <data name="Unable to save schedule. Refresh and try again." xml:space="preserve"><value>无法保存排班，请刷新后重试。</value></data>
-  <data name="Save or reset the draft before generating a range." xml:space="preserve"><value>请先保存或重置草稿，再按模板生成。</value></data>
-  <data name="End must be after start." xml:space="preserve"><value>结束时间必须晚于开始时间。</value></data>
-  <data name="Cannot copy assignments for departed team members." xml:space="preserve"><value>无法复制已离队成员的班段。</value></data>
-  <data name="Unassigned" xml:space="preserve"><value>无人值班</value></data>
-  <data name="Start" xml:space="preserve"><value>开始</value></data>
-  <data name="Delete shift" xml:space="preserve"><value>删除班段</value></data>
-  <data name="hours" xml:space="preserve"><value>小时</value></data>
-  <data name="Departed" xml:space="preserve"><value>已离队</value></data>
-  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} 已移至第 {1} 位，共 {2} 位。</value></data>
-  <data name="Reorder {0}" xml:space="preserve"><value>调整 {0} 的顺序</value></data>
-  <data name="Already selected" xml:space="preserve"><value>已选择</value></data>
-  <data name="Start at {0}" xml:space="preserve"><value>从 {0} 开始</value></data>
-  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>请输入排班起始时间以预览班次。</value></data>
-  <data name="Updating shift preview…" xml:space="preserve"><value>正在更新班次预览…</value></data>
-  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>无法更新预览。请重试。</value></data>
-  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>请添加值班成员以预览轮换。</value></data>
-  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>请选择排班模板以预览轮换。</value></data>
 </root>

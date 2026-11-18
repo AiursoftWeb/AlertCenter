@@ -36,11 +36,20 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>無法新增已離開團隊或不屬於該團隊的員工。</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>請選擇停用自動延長，或在已清空的範圍重新產生班次。</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>請另外確認清空歷史班次。</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>現有排班的時間區間不完整；無法覆寫。</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>相鄰週排程請求格式無效；最多只能提交兩週（前一週與下一週）。</value>
+  </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>排班清空範圍或操作無效。</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>值班團隊不存在。</value>
@@ -60,20 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>排班中的休息時數無效或不一致。</value>
   </data>
-  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
-    <value>團隊或排班已由另一位管理員修改。請重新整理頁面後再試一次。</value>
-  </data>
-
-  <data name="Invalid schedule clearing range or action." xml:space="preserve">
-    <value>排班清空範圍或操作無效。</value>
-  </data>
-  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
-    <value>請另外確認清空歷史班次。</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
-    <value>請選擇停用自動延長，或在已清空的範圍重新產生班次。</value>
-  </data>
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>排班時間範圍不得超過 {0} 天，且須在目前時間前後 10 年內。</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>團隊或排班已由另一位管理員修改。請重新整理頁面後再試一次。</value>
   </data>
 </root>

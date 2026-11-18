@@ -24,12 +24,15 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>Ein gespeicherter Dienstplan existiert; der Startzeitpunkt des Team-Dienstplans kann nicht geändert werden.</value>
   </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Fügen Sie Mitglieder zur Rotationswarteschlange hinzu, um Schichten anzuzeigen.</value></data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>Für die automatische Erstellung sind mindestens {0} Mitarbeitende pro Schicht und {1} Stunden Ruhezeit erforderlich, sodass mindestens {2} Mitglieder benötigt werden. Nach dem Ausschluss von Mitgliedern mit Bereitschaftsdiensten in mehreren Gruppen können {3} automatisch eingeplant werden. Bitte fügen Sie Mitglieder hinzu, die nur einer Gruppe angehören, oder erstellen Sie den Dienstplan manuell.</value>
   </data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>Die automatische Verlängerung erfordert für die ausgewählte Vorlage mindestens {0} Mitglieder in der Rotationsliste.</value></data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>Festgelegt sind drei Schichten pro Tag mit jeweils 8 Stunden.</value>
   </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Ungültige lokale Teamzeit. Bei Zeitumstellungen sind übersprungene Zeiten ungültig; doppelte Zeiten verwenden die Standardzeit.</value></data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>Die Mindestruhezeit muss zwischen 0 und 168 Stunden liegen.</value>
   </data>
@@ -39,6 +42,7 @@
   <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
     <value>Dem Team ist noch keine Vorlage zugewiesen. Sie können einen Dienstplan manuell erstellen.</value>
   </data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Das Bereitschaftsteam existiert nicht.</value></data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Bitte geben Sie den Teamnamen ein.</value>
   </data>
@@ -48,6 +52,7 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Bitte wählen Sie eine gültige UTC-Startzeit aus (sie muss mindestens 28 Tage vom Datumsgrenzwert entfernt liegen).</value>
   </data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Bitte wählen Sie eine gültige lokale Startzeit des Teams (mindestens 28 Tage von den Datumsgrenzen entfernt).</value></data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>Bitte wählen Sie eine gültige Zeitzone aus der Liste aus.</value>
   </data>
@@ -63,6 +68,7 @@
   <data name="Scheduling template updated." xml:space="preserve">
     <value>Dienstplanvorlage aktualisiert.</value>
   </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>Die Personalzahl pro Schicht übersteigt die Mitgliederzahl dieser Teams mit aktivierter automatischer Verlängerung: {0}.</value></data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Die Zielbesetzung darf nicht unter dem Mindestwert liegen und muss zwischen 1 und 200 liegen. Für eine automatische Zuweisung leer lassen.</value>
   </data>
@@ -84,9 +90,14 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>Das Format der Schichtanfrage ist ungültig.</value>
   </data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Die Startzeit stimmt mit keinem wöchentlichen Übergabezeitpunkt überein; die erste Schicht wird ein Teilabschnitt sein.</value></data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Der Teamname stimmt nicht überein.</value>
+  </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>Das Team oder der Dienstplan wurde geändert. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
   </data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Das Format der Teamvorschau-Anfrage ist ungültig.</value></data>
   <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
     <value>Die Vorlage oder das Team wurde geändert. Aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
   </data>
@@ -105,16 +116,4 @@
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>Vorschau kann nicht erstellt werden: {0}</value>
   </data>
-
-  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Die Startzeit stimmt mit keinem wöchentlichen Übergabezeitpunkt überein; die erste Schicht wird ein Teilabschnitt sein.</value></data>
-  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Fügen Sie Mitglieder zur Rotationswarteschlange hinzu, um Schichten anzuzeigen.</value></data>
-  <data name="The team preview request format is invalid." xml:space="preserve"><value>Das Format der Teamvorschau-Anfrage ist ungültig.</value></data>
-  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Bitte wählen Sie eine gültige lokale Startzeit des Teams (mindestens 28 Tage von den Datumsgrenzen entfernt).</value></data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Ungültige lokale Teamzeit. Bei Zeitumstellungen sind übersprungene Zeiten ungültig; doppelte Zeiten verwenden die Standardzeit.</value></data>
-  <data name="On-call team does not exist." xml:space="preserve"><value>Das Bereitschaftsteam existiert nicht.</value></data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>Der Teamname stimmt nicht überein.</value>
-  </data>
-  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>Die automatische Verlängerung erfordert für die ausgewählte Vorlage mindestens {0} Mitglieder in der Rotationsliste.</value></data>
-  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>Die Personalzahl pro Schicht übersteigt die Mitgliederzahl dieser Teams mit aktivierter automatischer Verlängerung: {0}.</value></data>
 </root>

@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>แก้ไขทีม</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>กรอกชื่อทีมให้ตรงทุกตัวอักษรเพื่อยืนยันการลบ</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>ผู้รับสำรอง</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>เวรในอนาคตรวมถึงเวรที่กำลังดำเนินอยู่ด้วย เทมเพลตและบันทึกการส่งการแจ้งเตือนเหตุการณ์จะยังคงถูกเก็บไว้ การดำเนินการนี้ไม่สามารถย้อนกลับได้</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>จัดการสมาชิก</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>ถัดไป: จัดคนเข้ากะ</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>ยังไม่ได้ตั้งค่าผู้รับสำรอง ไม่สามารถส่งการแจ้งเตือนได้เมื่อไม่มีผู้เข้าเวร</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>ไม่มีสมาชิกในทีม</value>
@@ -63,8 +75,23 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>อีเมล On-call จะถูกส่งไปยังกล่องจดหมายของผู้ใช้ (To) ของวิศวกร On-Call (OCEs) ทุกคนในกะที่บันทึกไว้ปัจจุบัน ส่วน CC จะใช้เฉพาะกล่องจดหมายของทีมหรือที่อยู่อีเมลลิสต์ที่ผู้ดูแลระบบกำหนดไว้เท่านั้น โดยจะไม่ CC สมาชิกทุกคนในทีมโดยอัตโนมัติ ช่องทาง Push แบบกำหนดเองที่ตั้งค่าไว้ในแอปพลิเคชันจะยังคงส่งการแจ้งเตือนเพิ่มเติมตามปกติ</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>สมาชิกเวร (คิวหมุนเวียน)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>เปิดตารางเวร</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>รับการแจ้งเตือนเมื่อไม่มีผู้เข้าเวร โดยไม่เข้าร่วมการหมุนเวียนเวร</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>จุดเริ่มต้นการจัดตารางเวร:</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>จำนวนคนต่อเวร</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>การกำหนดค่าทีม</value>
   </data>
   <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
     <value>ยังไม่ได้เชื่อมโยงเทมเพลต แต่ยังจัดเวรด้วยตนเองได้</value>
@@ -75,17 +102,17 @@
   <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
     <value>เทมเพลตจะไม่ถูกลบ ลบได้เฉพาะทีมที่ไม่มีเวรที่บันทึกไว้และไม่มีแอปพลิเคชันที่เชื่อมโยง การดำเนินการนี้ไม่สามารถย้อนกลับได้</value>
   </data>
-  <data name="Scheduling start point: " xml:space="preserve">
-    <value>จุดเริ่มต้นการจัดตารางเวร:</value>
-  </data>
-  <data name="Team configuration" xml:space="preserve">
-    <value>การกำหนดค่าทีม</value>
-  </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>เทมเพลตสามารถใช้งานร่วมกันโดยทีมได้หลายทีม การแก้ไขหรือสลับเทมเพลตจะไม่สร้างกะงานที่บันทึกไว้ใหม่</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>คนแรกในคิวจะเข้าเวรก่อน โดยจะไม่เปลี่ยนลำดับเวรที่มีอยู่</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>รายชื่อสมาชิกระบุว่าใครบ้างที่สามารถจัดเวรได้ ตารางเวรที่บันทึกไว้ระบุว่าใครกำลังเข้าเวรและจะได้รับอีเมลแจ้งเหตุการณ์ ผู้รับสำเนา (CC) จะได้รับสำเนาโดยไม่ขึ้นกับการเป็นสมาชิกของกลุ่ม</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>ชื่อทีมไม่ตรงกัน</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>ทีมนี้มีเวรที่บันทึกไว้แล้ว จึงไม่สามารถลบได้ เพื่อเก็บรักษาประวัติตารางเวร</value>
@@ -99,41 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>ดูตารางเวรปฏิบัติงาน</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>จะลบเวรในอนาคต {0} เวรและเวรที่ผ่านมา {1} เวร เหตุการณ์ที่มีอยู่จะยังคงเก็บบันทึกการเข้าเวรไว้</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>ชั่วโมง</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>ชั่วโมง · พักขั้นต่ำ</value>
-  </data>
-
-  <data name="Staff per shift" xml:space="preserve">
-    <value>จำนวนคนต่อเวร</value>
-  </data>
-  <data name="On-call members (rotation queue)" xml:space="preserve">
-    <value>สมาชิกเวร (คิวหมุนเวียน)</value>
-  </data>
-  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
-    <value>คนแรกในคิวจะเข้าเวรก่อน โดยจะไม่เปลี่ยนลำดับเวรที่มีอยู่</value>
-  </data>
-  <data name="Fallback recipients" xml:space="preserve">
-    <value>ผู้รับสำรอง</value>
-  </data>
-  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
-    <value>รับการแจ้งเตือนเมื่อไม่มีผู้เข้าเวร โดยไม่เข้าร่วมการหมุนเวียนเวร</value>
-  </data>
-  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
-    <value>ยังไม่ได้ตั้งค่าผู้รับสำรอง ไม่สามารถส่งการแจ้งเตือนได้เมื่อไม่มีผู้เข้าเวร</value>
-  </data>
-  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
-    <value>จะลบเวรในอนาคต {0} เวรและเวรที่ผ่านมา {1} เวร เหตุการณ์ที่มีอยู่จะยังคงเก็บบันทึกการเข้าเวรไว้</value>
-  </data>
-  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
-    <value>เวรในอนาคตรวมถึงเวรที่กำลังดำเนินอยู่ด้วย เทมเพลตและบันทึกการส่งการแจ้งเตือนเหตุการณ์จะยังคงถูกเก็บไว้ การดำเนินการนี้ไม่สามารถย้อนกลับได้</value>
-  </data>
-  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
-    <value>กรอกชื่อทีมให้ตรงทุกตัวอักษรเพื่อยืนยันการลบ</value>
-  </data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>ชื่อทีมไม่ตรงกัน</value>
   </data>
 </root>

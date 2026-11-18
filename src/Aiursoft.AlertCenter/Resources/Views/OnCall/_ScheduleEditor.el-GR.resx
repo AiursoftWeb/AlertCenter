@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Οι αυτόματες προτάσεις δεν έχουν αποθηκευτεί. Κατά τη δημιουργία, τα γειτονικά προγράμματα θα επικυρωθούν εκ νέου· οι υπάρχουσες αποθηκευμένες ρυθμίσεις δεν θα αντικατασταθούν.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Η αυτόματη επέκταση είναι ενεργοποιημένη. Επιλέξτε τι θα συμβεί κατά την αποθήκευση.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Από προεπιλογή, εκκαθαρίζονται μόνο οι βάρδιες που δημιουργήθηκαν αυτόματα.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Ακύρωση</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Οι αλλαγές τίθενται σε ισχύ μόνο μετά την αποθήκευση. Αν συμπτύξετε αυτά τα εργαλεία, το πρόχειρό σας διατηρείται.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Επιλέξτε ενέργεια για την αυτόματη επέκταση</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Επιλέξτε αν θα απενεργοποιηθεί η αυτόματη επέκταση ή θα δημιουργηθούν ξανά βάρδιες στα εκκαθαρισμένα κενά.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Η εκκαθάριση αλλάζει μόνο το προσχέδιο. Ελέγξτε το διάγραμμα και έπειτα αποθηκεύστε για δημοσίευση.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Εκκαθάριση χρονικού διαστήματος προγράμματος</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Εκκαθαρισμένο διάστημα προσχεδίου</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Επιβεβαιώστε την εκκαθάριση των ολοκληρωμένων παλαιότερων βαρδιών σε αυτό το διάστημα. Αυτό μπορεί να καταργήσει προηγούμενες αναθέσεις.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Επιβεβαίωση αντικατάστασης του προσχεδίου</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Επιβεβαίωση εκκαθάρισης ιστορικού</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Αντιγραφή της τρέχουσας εβδομάδας στην επόμενη</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Αυτήν τη στιγμή βρίσκεται σε λειτουργία Μετακίνησης/Ανταλλαγής. Αλλάξτε την παραπάνω λειτουργία πριν προσθέσετε ή αφαιρέσετε βάρδιες.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Το προεπιλεγμένο διάστημα εκτείνεται από τώρα έως το τέλος της τελευταίας αποθηκευμένης βάρδιας ή βάρδιας του προσχεδίου, στη ζώνη ώρας της ομάδας.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Διαγραφή βάρδιας</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Απενεργοποίηση της αυτόματης επέκτασης κατά την αποθήκευση</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Σύρετε ένα έγχρωμο πλαίσιο σε άλλη βάρδια για να ανταλλάξετε το προσωπικό ή σε μια κενή θέση για να μετακινήσετε τη βάρδια. Σύρετε την επιλογή «Ανταλλαγή ολόκληρης εβδομάδας» για να ανταλλάξετε τα εβδομαδιαία προγράμματα δύο ατόμων. Μπορείτε επίσης να κάνετε κλικ για επιλογή και έπειτα να κάνετε κλικ στον προορισμό· πατήστε Esc για ακύρωση. Οι αλλαγές εμφανίζονται αμέσως και μπορείτε να τις αποθηκεύσετε όλες μαζί αφού κάνετε πολλαπλές προσαρμογές.</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Πώς να προσαρμόσετε το πρόγραμμα</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Συμπερίληψη ολοκληρωμένων παλαιότερων βαρδιών</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Συμπερίληψη βαρδιών που τροποποιήθηκαν χειροκίνητα</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Συγχώνευση επικαλυπτόμενων βαρδιών</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Περισσότερες ενέργειες</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Προσωπικό εφημερίας (επιτρέπονται πολλαπλές επιλογές, τουλάχιστον μία)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Οι βάρδιες σε εξέλιξη διατηρούν το τμήμα τους που έχει παρέλθει, ακόμη και όταν συμπεριλαμβάνεται το ιστορικό.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Προεπισκόπηση εκκαθάρισης</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Οι κόκκινες ειδοποιήσεις υποδεικνύουν κενές βάρδιες, ανεπαρκή χρόνο ανάπαυσης ή αριθμό εργαζομένων κάτω από το ελάχιστο όριο, αλλά δεν εμποδίζουν περαιτέρω αλλαγές. Επιτρέπεται η αποθήκευση ακόμη και αν ο αριθμός εργαζομένων είναι κάτω από το ελάχιστο όριο, αλλά δεν είναι δυνατή η αποθήκευση κενών βαρδιών ή βαρδιών με ανεπαρκή χρόνο ανάπαυσης. Κατά την αποθήκευση, η επικύρωση εφαρμόζεται με τον ίδιο τρόπο στην εβδομάδα που τροποποιήθηκε, στις γειτονικές εβδομάδες και στις άλλες ομάδες. Αν αποτύχει η επικύρωση για οποιαδήποτε εβδομάδα, δεν αποθηκεύεται τίποτα. Τα μέλη που έχουν αποχωρήσει μπορούν να διατηρήσουν μόνο τις αρχικές τους βάρδιες· δεν είναι δυνατή η προσθήκη ή η αντιγραφή νέων βαρδιών.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Εκ νέου δημιουργία βαρδιών στα εκκαθαρισμένα κενά από το πρότυπο κατά την αποθήκευση</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Η εκ νέου δημιουργία γίνεται μόνο κατά την αποθήκευση. Η προεπισκόπηση διατηρεί τα κενά και οι βάρδιες που διατηρούνται δεν αντικαθίστανται.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Να αντικατασταθεί το πρόχειρο της επόμενης εβδομάδας;</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Επιλέξτε τις χρονικές ζώνες για να προσθέσετε ή να αφαιρέσετε προσωπικό από τις βάρδιες· το διάγραμμα θα ενημερωθεί άμεσα. Μπορείτε επίσης να χρησιμοποιήσετε αυτήν τη φόρμα για πλοήγηση με το πληκτρολόγιο. Μπορείτε να επιλέξετε χειροκίνητα μέλη από άλλες ομάδες· οι γκρι βάρδιες άλλων ομάδων, που είναι μόνο για ανάγνωση, δεν θα τροποποιηθούν, ενώ κατά την αποθήκευση θα ελεγχθούν και πάλι οι επικαλύψεις βαρδιών και τα διαλείμματα μεταξύ ομάδων.</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>Αναίρεση τελευταίου βήματος</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>Εκκαθάριση χρονικού διαστήματος προγράμματος</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>Η εκκαθάριση αλλάζει μόνο το προσχέδιο. Ελέγξτε το διάγραμμα και έπειτα αποθηκεύστε για δημοσίευση.</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>Το προεπιλεγμένο διάστημα εκτείνεται από τώρα έως το τέλος της τελευταίας αποθηκευμένης βάρδιας ή βάρδιας του προσχεδίου, στη ζώνη ώρας της ομάδας.</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>Από προεπιλογή, εκκαθαρίζονται μόνο οι βάρδιες που δημιουργήθηκαν αυτόματα.</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>Συμπερίληψη βαρδιών που τροποποιήθηκαν χειροκίνητα</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>Συμπερίληψη ολοκληρωμένων παλαιότερων βαρδιών</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>Οι βάρδιες σε εξέλιξη διατηρούν το τμήμα τους που έχει παρέλθει, ακόμη και όταν συμπεριλαμβάνεται το ιστορικό.</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>Η αυτόματη επέκταση είναι ενεργοποιημένη. Επιλέξτε τι θα συμβεί κατά την αποθήκευση.</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>Επιλέξτε ενέργεια για την αυτόματη επέκταση</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>Απενεργοποίηση της αυτόματης επέκτασης κατά την αποθήκευση</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>Εκ νέου δημιουργία βαρδιών στα εκκαθαρισμένα κενά από το πρότυπο κατά την αποθήκευση</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>Η εκ νέου δημιουργία γίνεται μόνο κατά την αποθήκευση. Η προεπισκόπηση διατηρεί τα κενά και οι βάρδιες που διατηρούνται δεν αντικαθίστανται.</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>Προεπισκόπηση εκκαθάρισης</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>Επιβεβαιώστε την εκκαθάριση των ολοκληρωμένων παλαιότερων βαρδιών σε αυτό το διάστημα. Αυτό μπορεί να καταργήσει προηγούμενες αναθέσεις.</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>Επιβεβαίωση εκκαθάρισης ιστορικού</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>Επιλέξτε αν θα απενεργοποιηθεί η αυτόματη επέκταση ή θα δημιουργηθούν ξανά βάρδιες στα εκκαθαρισμένα κενά.</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>Εκκαθαρισμένο διάστημα προσχεδίου</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>Συγχώνευση επικαλυπτόμενων βαρδιών</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>Οι βάρδιες του ίδιου ατόμου ή στη γραμμή μη ανατεθειμένων βαρδιών δεν μπορούν να επικαλύπτονται. Συγχωνεύστε ή προσαρμόστε τις πριν από την αποθήκευση.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Το εύρος του προγράμματος δεν πρέπει να υπερβαίνει τις {0} ημέρες και πρέπει να βρίσκεται εντός 10 ετών πριν ή μετά από τώρα.</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Αυτή η μετακίνηση θα προκαλούσε επικάλυψη με άλλη βάρδια του ίδιου ατόμου. Το προσχέδιο δεν άλλαξε.</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>Το εύρος του προγράμματος δεν πρέπει να υπερβαίνει τις {0} ημέρες και πρέπει να βρίσκεται εντός 10 ετών πριν ή μετά από τώρα.</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Αναίρεση τελευταίου βήματος</value>
   </data>
 </root>

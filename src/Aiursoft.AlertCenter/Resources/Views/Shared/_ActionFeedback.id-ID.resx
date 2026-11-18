@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Mode tambah: Klik ruang kosong pada baris teknisi untuk menambahkan shift 8 jam; beberapa orang dapat berbagi shift yang sama.</value>
   </data>
+  <data name="Add on-call members to preview the rotation."><value>Tambahkan anggota piket untuk melihat pratinjau rotasi.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Tambahkan shift siaga</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Ditambahkan</value>
   </data>
+  <data name="Already selected"><value>Sudah dipilih</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Kembali ke Edit</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Batalkan pemuatan ulang</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation."><value>Pilih templat penjadwalan untuk melihat pratinjau rotasi.</value></data>
   <data name="Close" xml:space="preserve">
     <value>Tutup</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>Akhir</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts."><value>Masukkan awal penjadwalan untuk melihat pratinjau sif.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Masukkan isi komentar; tidak boleh hanya berisi spasi kosong.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>Dihapus</value>
   </data>
+  <data name="Reorder {0}"><value>Urutkan ulang {0}</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>Permintaan tidak valid atau kredensial halaman telah kedaluwarsa. Periksa input dan muat ulang halaman untuk mencoba lagi jika perlu.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Penempatan disesuaikan dan grafik diperbarui; belum disimpan.</value>
   </data>
+  <data name="Start at {0}"><value>Mulai pada {0}</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Berhasil disalin ke papan klip!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Tidak dapat menukar secara langsung: satu orang sudah berada di giliran yang dituju. Silakan sesuaikan anggota pada giliran yang sama terlebih dahulu menggunakan &quot;Tambah/Hapus anggota berdasarkan giliran&quot;.</value>
   </data>
+  <data name="Unable to update the preview. Please try again."><value>Tidak dapat memperbarui pratinjau. Coba lagi.</value></data>
+  <data name="Unassigned"><value>Belum ditugaskan</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Belum disimpan · Draf penyesuaian</value>
   </data>
+  <data name="Updating shift preview…"><value>Memperbarui pratinjau sif…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Grup Pengguna · Anggota secara dinamis mewarisi izin yang ditetapkan</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} jam</value>
   </data>
+  <data name="{0} moved to position {1} of {2}."><value>{0} dipindahkan ke posisi {1} dari {2}.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>Perubahan shift {0} untuk {1} · {2}; belum disimpan. Anda dapat membatalkannya.</value>
   </data>
@@ -351,15 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 jam · {3}{4}</value>
   </data>
-
-  <data name="{0} moved to position {1} of {2}."><value>{0} dipindahkan ke posisi {1} dari {2}.</value></data>
-  <data name="Reorder {0}"><value>Urutkan ulang {0}</value></data>
-  <data name="Already selected"><value>Sudah dipilih</value></data>
-  <data name="Start at {0}"><value>Mulai pada {0}</value></data>
-  <data name="Enter a scheduling start point to preview shifts."><value>Masukkan awal penjadwalan untuk melihat pratinjau sif.</value></data>
-  <data name="Updating shift preview…"><value>Memperbarui pratinjau sif…</value></data>
-  <data name="Unable to update the preview. Please try again."><value>Tidak dapat memperbarui pratinjau. Coba lagi.</value></data>
-  <data name="Add on-call members to preview the rotation."><value>Tambahkan anggota piket untuk melihat pratinjau rotasi.</value></data>
-  <data name="Choose a scheduling template to preview the rotation."><value>Pilih templat penjadwalan untuk melihat pratinjau rotasi.</value></data>
-  <data name="Unassigned"><value>Belum ditugaskan</value></data>
 </root>

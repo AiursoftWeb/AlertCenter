@@ -18,6 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
+  <data name="Automatic extension cannot proceed: the member count is below the template staff per shift." xml:space="preserve"><value>Nie można kontynuować automatycznego przedłużania: liczba członków jest mniejsza niż liczba pracowników na zmianę określona w szablonie.</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Nie można zapisać nakładających się dyżurów dla {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC i {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
       <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
     <value>Wykryto pustą zmianę o {0:yyyy-MM-dd HH:mm} UTC. Wymagany jest co najmniej jeden pracownik.</value>
   </data>
@@ -27,14 +29,11 @@
   <data name="Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." xml:space="preserve">
     <value>O {0} pracowników zaplanowano na {1:yyyy-MM-dd HH:mm} UTC, poniżej wymaganego minimum wynoszącego {2}. Ręczny zapis jest nadal dozwolony mimo niewystarczającej obsady, z wyjątkiem pustych zmian.</value>
   </data>
+  <data name="Unassigned" xml:space="preserve"><value>Nieprzypisany</value></data>
   <data name="{0}&apos;s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." xml:space="preserve">
     <value>Zmiana {0} o {1:yyyy-MM-dd HH:mm} UTC pokrywa się z inną zmianą lub nie zapewnia wystarczającego odpoczynku (minimum {2} godzin w tym tygodniu, z uwzględnieniem wymagań dotyczących sąsiednich zmian).</value>
   </data>
   <data name="{0}&apos;s shift is outside the designated 8-hour window." xml:space="preserve">
     <value>Zmiana pracownika {0} wykracza poza wyznaczone 8-godzinne okno.</value>
   </data>
-
-  <data name="Unassigned" xml:space="preserve"><value>Nieprzypisany</value></data>
-  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>Nie można zapisać nakładających się dyżurów dla {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC i {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
-  <data name="Automatic extension cannot proceed: the member count is below the template staff per shift." xml:space="preserve"><value>Nie można kontynuować automatycznego przedłużania: liczba członków jest mniejsza niż liczba pracowników na zmianę określona w szablonie.</value></data>
 </root>

@@ -27,12 +27,22 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Pengaturan penjadwalan lanjutan</value>
   </data>
+  <data name="Advanced settings"><value>Pengaturan lanjutan</value></data>
+  <data name="All scheduling times below use the team time zone."><value>Semua waktu penjadwalan di bawah menggunakan zona waktu tim.</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks"><value>Perpanjang templat terikat secara otomatis untuk empat minggu berikutnya</value></data>
+  <data name="Basic information"><value>Informasi dasar</value></data>
   <data name="Cancel" xml:space="preserve">
     <value>Batal</value>
+  </data>
+  <data name="Choose a template to enable automatic extension."><value>Pilih templat untuk mengaktifkan perpanjangan otomatis.</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Tentukan pembagian dan rotasi sif untuk perpanjangan otomatis dan pembuatan dengan satu klik oleh tim. Perubahan templat tidak memengaruhi sif yang sudah dijadwalkan.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Karyawan dihapus</value>
   </data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Jangan gunakan template (penjadwalan manual)</value>
   </data>
@@ -42,12 +52,14 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Masukkan dalam UTC; waktu ini tidak akan dikonversi secara otomatis berdasarkan zona waktu tim. Setelah sif disimpan, titik awal penjadwalan tidak dapat diubah.</value>
   </data>
+  <data name="Fallback recipients"><value>Penerima cadangan</value></data>
   <data name="Filter by role" xml:space="preserve">
     <value>Filter berdasarkan peran</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Cari</value>
   </data>
+  <data name="Friday"><value>Jumat</value></data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Bantuan: CC notifikasi</value>
   </data>
@@ -66,24 +78,31 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Bantuan: zona waktu tim</value>
   </data>
-  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
-    <value>Tentukan pembagian dan rotasi sif untuk perpanjangan otomatis dan pembuatan dengan satu klik oleh tim. Perubahan templat tidak memengaruhi sif yang sudah dijadwalkan.</value>
-  </data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
+  <data name="Maximum continuous duty reminder (hours)"><value>Pengingat durasi piket berkelanjutan maksimum (jam)</value></data>
+  <data name="Minimum rest reminder (hours)"><value>Pengingat istirahat minimum (jam)</value></data>
+  <data name="Minimum staffing reminder"><value>Pengingat staf minimum</value></data>
+  <data name="Monday"><value>Senin</value></data>
   <data name="Name or Account" xml:space="preserve">
     <value>Nama atau Akun</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Halaman Berikutnya</value>
   </data>
+  <data name="Next four shifts preview"><value>Pratinjau empat sif berikutnya</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Tidak ada penerima cadangan: peringatan tidak dapat dikirim saat tidak ada yang piket.</value></data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Belum ada anggota. Buka Tambahkan anggota untuk mencari orang.</value>
   </data>
+  <data name="No members yet. Search below to add people."><value>Belum ada anggota. Cari di bawah untuk menambahkan orang.</value></data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>CC Notifikasi (opsional)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>CC email petugas piket</value>
   </data>
+  <data name="On-call members (rotation queue)"><value>Anggota piket (antrean rotasi)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
   <data name="Previous Page" xml:space="preserve">
     <value>Halaman Sebelumnya</value>
   </data>
@@ -93,6 +112,7 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Urutan rotasi</value>
   </data>
+  <data name="Saturday"><value>Sabtu</value></data>
   <data name="Save changes" xml:space="preserve">
     <value>Simpan perubahan</value>
   </data>
@@ -105,9 +125,11 @@
   <data name="Scheduling Template" xml:space="preserve">
     <value>Templat Jadwal</value>
   </data>
+  <data name="Scheduling method"><value>Metode penjadwalan</value></data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Titik awal penjadwalan (UTC)</value>
   </data>
+  <data name="Scheduling start point (team time)"><value>Awal penjadwalan (waktu tim)</value></data>
   <data name="Search Employees" xml:space="preserve">
     <value>Cari Karyawan</value>
   </data>
@@ -117,9 +139,13 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>Cari berdasarkan nama atau akun, atau pilih peran.</value>
   </data>
+  <data name="Search by name or account."><value>Cari berdasarkan nama atau akun.</value></data>
+  <data name="Search fallback recipients"><value>Cari penerima cadangan</value></data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Memilih peran hanya memfilter pencarian. Centang orang satu per satu untuk menambahkannya; keanggotaan tim tidak disinkronkan dengan peran tersebut.</value>
   </data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
+  <data name="Sunday"><value>Minggu</value></data>
   <data name="Team members" xml:space="preserve">
     <value>Anggota tim</value>
   </data>
@@ -129,12 +155,15 @@
   <data name="Team settings" xml:space="preserve">
     <value>Pengaturan tim</value>
   </data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Thursday"><value>Kamis</value></data>
   <data name="Time Zone" xml:space="preserve">
     <value>Zona Waktu</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>Kepada: orang-orang yang ditugaskan pada giliran kerja yang tersimpan saat insiden terjadi. Penerima OCE asli tetap disertakan dalam email insiden berikutnya. CC berlaku untuk setiap email insiden, terlepas dari giliran kerjanya. Gunakan koma, titik koma, atau baris baru; maksimal 50 alamat CC.</value>
   </data>
+  <data name="Tuesday"><value>Selasa</value></data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Gunakan Pindah ke atas dan Pindah ke bawah untuk menentukan urutan penjadwalan otomatis berikutnya. Giliran yang sudah ada tidak akan diurutkan ulang. Pilih hingga 200 anggota.</value>
   </data>
@@ -144,37 +173,7 @@
   <data name="View schedule" xml:space="preserve">
     <value>Lihat jadwal</value>
   </data>
-
-  <data name="Advanced settings"><value>Pengaturan lanjutan</value></data>
-  <data name="All scheduling times below use the team time zone."><value>Semua waktu penjadwalan di bawah menggunakan zona waktu tim.</value></data>
-  <data name="Automatically extend the bound template to cover the next four weeks"><value>Perpanjang templat terikat secara otomatis untuk empat minggu berikutnya</value></data>
-  <data name="Basic information"><value>Informasi dasar</value></data>
-  <data name="Choose a template to enable automatic extension."><value>Pilih templat untuk mengaktifkan perpanjangan otomatis.</value></data>
-  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
-  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
-  <data name="Fallback recipients"><value>Penerima cadangan</value></data>
-  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
-  <data name="Maximum continuous duty reminder (hours)"><value>Pengingat durasi piket berkelanjutan maksimum (jam)</value></data>
-  <data name="Minimum rest reminder (hours)"><value>Pengingat istirahat minimum (jam)</value></data>
-  <data name="Minimum staffing reminder"><value>Pengingat staf minimum</value></data>
-  <data name="Next four shifts preview"><value>Pratinjau empat sif berikutnya</value></data>
-  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Tidak ada penerima cadangan: peringatan tidak dapat dikirim saat tidak ada yang piket.</value></data>
-  <data name="No members yet. Search below to add people."><value>Belum ada anggota. Cari di bawah untuk menambahkan orang.</value></data>
-  <data name="On-call members (rotation queue)"><value>Anggota piket (antrean rotasi)</value></data>
-  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
-  <data name="Scheduling method"><value>Metode penjadwalan</value></data>
-  <data name="Scheduling start point (team time)"><value>Awal penjadwalan (waktu tim)</value></data>
-  <data name="Search by name or account."><value>Cari berdasarkan nama atau akun.</value></data>
-  <data name="Search fallback recipients"><value>Cari penerima cadangan</value></data>
-  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
-  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Wednesday"><value>Rabu</value></data>
   <data name="Week starts on"><value>Awal minggu</value></data>
   <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
-  <data name="Sunday"><value>Minggu</value></data>
-  <data name="Monday"><value>Senin</value></data>
-  <data name="Tuesday"><value>Selasa</value></data>
-  <data name="Wednesday"><value>Rabu</value></data>
-  <data name="Thursday"><value>Kamis</value></data>
-  <data name="Friday"><value>Jumat</value></data>
-  <data name="Saturday"><value>Sabtu</value></data>
 </root>

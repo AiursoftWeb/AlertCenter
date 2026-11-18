@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Les suggestions automatiques n&apos;ont pas été enregistrées. Les plannings adjacents seront re-validés lors de la génération ; les arrangements existants enregistrés ne seront pas écrasés.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>La prolongation automatique est activée. Choisissez ce qui doit se passer lors de l’enregistrement.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Par défaut, seuls les créneaux générés automatiquement sont supprimés.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Les modifications ne prennent effet qu’après l’enregistrement. Réduire ces outils conserve votre brouillon.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Choisissez une action pour la prolongation automatique</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Choisissez de désactiver la prolongation automatique ou de régénérer les créneaux supprimés.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Le vidage ne modifie que le brouillon. Vérifiez le graphique, puis enregistrez pour publier.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Vider une période du planning</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Période du brouillon vidée</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Confirmez la suppression des créneaux passés déjà terminés dans cette période. Cela peut supprimer des affectations passées.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Confirmer le remplacement du brouillon</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Confirmer le vidage de l’historique</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Copier la semaine actuelle vers la semaine suivante</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Actuellement en mode Déplacer/Échanger. Changez de mode ci-dessus avant d&apos;ajouter ou de supprimer des gardes.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Par défaut, la période s’étend de maintenant jusqu’à la fin du dernier créneau enregistré ou du brouillon, dans le fuseau horaire de l’équipe.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Supprimer le service</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Désactiver la prolongation automatique lors de l’enregistrement</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Faites glisser un bloc de couleur vers un autre créneau pour échanger les membres du personnel, ou vers un créneau vide pour déplacer le poste ; faites glisser « Échanger toute la semaine » pour intervertir les plannings hebdomadaires de deux personnes. Vous pouvez également cliquer pour sélectionner, puis cliquer sur la destination ; appuyez sur Échap pour annuler. Les modifications s’affichent immédiatement et peuvent être enregistrées en une seule fois après plusieurs ajustements.</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Comment ajuster le planning</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Inclure les créneaux passés déjà terminés</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Inclure les créneaux modifiés manuellement</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Fusionner les gardes qui se chevauchent</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Autres actions</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Personnel d’astreinte (plusieurs choix possibles, au moins un)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Les créneaux en cours conservent leur partie écoulée, même lorsque l’historique est inclus.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Aperçu du vidage</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Les alertes rouges indiquent des vacations vides, un repos insuffisant ou un effectif inférieur au minimum requis, mais ne bloquent pas les ajustements supplémentaires. La sauvegarde est autorisée même en cas d&apos;effectif insuffisant, mais les vacations vides et le repos insuffisant ne peuvent pas être sauvegardés. La validation est appliquée de manière uniforme à la semaine modifiée, aux semaines adjacentes et aux autres équipes lors de la sauvegarde. Si une semaine échoue à la validation, rien n&apos;est sauvegardé. Les membres partis ne peuvent conserver que leurs vacations d&apos;origine ; aucune nouvelle vacation ne peut être ajoutée ni copiée.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Régénérer les créneaux supprimés à partir du modèle lors de l’enregistrement</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>La régénération n’a lieu qu’à l’enregistrement. L’aperçu conserve les périodes vides et les créneaux conservés ne sont pas écrasés.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Remplacer le brouillon de la semaine prochaine ?</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Sélectionnez les créneaux à ajouter ou à retirer pour le personnel de permanence ; le graphique sera mis à jour en conséquence. Vous pouvez également utiliser ce formulaire pour naviguer au clavier. Les membres d’autres groupes peuvent être sélectionnés manuellement ; les créneaux grisés en lecture seule des autres équipes ne seront pas modifiés, et les chevauchements et temps de repos entre groupes seront tout de même vérifiés lors de l’enregistrement.</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>Annuler la dernière étape</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>Vider une période du planning</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>Le vidage ne modifie que le brouillon. Vérifiez le graphique, puis enregistrez pour publier.</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>Par défaut, la période s’étend de maintenant jusqu’à la fin du dernier créneau enregistré ou du brouillon, dans le fuseau horaire de l’équipe.</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>Par défaut, seuls les créneaux générés automatiquement sont supprimés.</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>Inclure les créneaux modifiés manuellement</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>Inclure les créneaux passés déjà terminés</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>Les créneaux en cours conservent leur partie écoulée, même lorsque l’historique est inclus.</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>La prolongation automatique est activée. Choisissez ce qui doit se passer lors de l’enregistrement.</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>Choisissez une action pour la prolongation automatique</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>Désactiver la prolongation automatique lors de l’enregistrement</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>Régénérer les créneaux supprimés à partir du modèle lors de l’enregistrement</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>La régénération n’a lieu qu’à l’enregistrement. L’aperçu conserve les périodes vides et les créneaux conservés ne sont pas écrasés.</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>Aperçu du vidage</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>Confirmez la suppression des créneaux passés déjà terminés dans cette période. Cela peut supprimer des affectations passées.</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>Confirmer le vidage de l’historique</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>Choisissez de désactiver la prolongation automatique ou de régénérer les créneaux supprimés.</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>Période du brouillon vidée</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>Fusionner les gardes qui se chevauchent</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>Les gardes d’une même personne ou de la ligne non attribuée ne peuvent pas se chevaucher. Fusionnez-les ou ajustez-les avant d’enregistrer.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>La période du planning ne doit pas dépasser {0} jours et doit se situer dans les 10 années précédant ou suivant le moment présent.</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Ce déplacement chevaucherait une autre garde de la même personne. Le brouillon n’a pas été modifié.</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>La période du planning ne doit pas dépasser {0} jours et doit se situer dans les 10 années précédant ou suivant le moment présent.</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Annuler la dernière étape</value>
   </data>
 </root>

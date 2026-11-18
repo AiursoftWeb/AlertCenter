@@ -36,11 +36,20 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Impossible d’ajouter des employés qui ont quitté l’équipe ou qui n’en font pas partie.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Choisissez de désactiver la prolongation automatique ou de régénérer la période vidée.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Confirmez séparément la suppression des créneaux passés.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Les plages horaires du planning existant sont incomplètes ; impossible de les remplacer.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Format de la demande de planning des semaines adjacentes invalide ; vous pouvez soumettre au maximum deux semaines (la précédente et la suivante).</value>
+  </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>La période ou l’action de vidage du planning n’est pas valide.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>L’équipe d’astreinte n’existe pas.</value>
@@ -60,20 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>La durée de repos du planning est invalide ou incohérente.</value>
   </data>
-  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
-    <value>L’équipe ou le planning a été modifié par un autre administrateur. Veuillez actualiser la page et réessayer.</value>
-  </data>
-
-  <data name="Invalid schedule clearing range or action." xml:space="preserve">
-    <value>La période ou l’action de vidage du planning n’est pas valide.</value>
-  </data>
-  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
-    <value>Confirmez séparément la suppression des créneaux passés.</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
-    <value>Choisissez de désactiver la prolongation automatique ou de régénérer la période vidée.</value>
-  </data>
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>La période de planification ne doit pas dépasser {0} jours et doit se situer dans les 10 années précédant ou suivant le moment présent.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>L’équipe ou le planning a été modifié par un autre administrateur. Veuillez actualiser la page et réessayer.</value>
   </data>
 </root>

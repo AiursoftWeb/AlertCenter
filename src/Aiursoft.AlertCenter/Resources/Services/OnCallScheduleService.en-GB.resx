@@ -36,11 +36,20 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Cannot add employees who have left the team or do not belong to the team.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Choose whether to disable automatic extension or regenerate the cleared range.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Confirm clearing historical shifts separately.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>The existing schedule’s time boundaries are incomplete; it cannot be overwritten.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next).</value>
+  </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Invalid schedule clearing range or action.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>The on-call team does not exist.</value>
@@ -60,20 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>The rest period in the schedule is invalid or inconsistent.</value>
   </data>
-  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
-    <value>The team or schedule was changed by another administrator. Please refresh the page and try again.</value>
-  </data>
-
-  <data name="Invalid schedule clearing range or action." xml:space="preserve">
-    <value>Invalid schedule clearing range or action.</value>
-  </data>
-  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
-    <value>Confirm clearing historical shifts separately.</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
-    <value>Choose whether to disable automatic extension or regenerate the cleared range.</value>
-  </data>
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>The schedule range must not exceed {0} days and must be within 10 years of now.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>The team or schedule was changed by another administrator. Please refresh the page and try again.</value>
   </data>
 </root>

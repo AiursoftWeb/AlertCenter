@@ -24,12 +24,15 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>Υπάρχει αποθηκευμένο πρόγραμμα· δεν είναι δυνατή η τροποποίηση της ώρας έναρξης του προγράμματος της ομάδας.</value>
   </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Προσθέστε μέλη στη σειρά εναλλαγής για προεπισκόπηση βαρδιών.</value></data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>Η αυτόματη δημιουργία προγράμματος απαιτεί τουλάχιστον {0} άτομα ανά βάρδια και {1} ώρες ανάπαυσης, επομένως χρειάζονται τουλάχιστον {2} μέλη. Μετά την εξαίρεση των μελών που συμμετέχουν σε ομάδες εφημερίας πολλαπλών ομάδων, μπορούν να προγραμματιστούν αυτόματα {3} μέλη. Προσθέστε μέλη που ανήκουν σε μία μόνο ομάδα ή καταρτίστε το πρόγραμμα χειροκίνητα.</value>
   </data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>Η αυτόματη επέκταση απαιτεί τουλάχιστον {0} μέλη στη σειρά εναλλαγής για το επιλεγμένο πρότυπο.</value></data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>Καθορισμένες τρεις βάρδιες την ημέρα, 8 ώρες η καθεμία.</value>
   </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Μη έγκυρη τοπική ώρα ομάδας. Στις αλλαγές θερινής ώρας, οι παραλειπόμενες ώρες είναι μη έγκυρες και οι επαναλαμβανόμενες χρησιμοποιούν την κανονική ώρα.</value></data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>Η ελάχιστη ανάπαυση πρέπει να είναι 0–168 ώρες.</value>
   </data>
@@ -39,6 +42,7 @@
   <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
     <value>Δεν έχει συνδεθεί ακόμη πρότυπο με την ομάδα. Μπορείτε να δημιουργήσετε πρόγραμμα χειροκίνητα.</value>
   </data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Η ομάδα εφημερίας δεν υπάρχει.</value></data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Παρακαλώ εισαγάγετε το όνομα της ομάδας.</value>
   </data>
@@ -48,6 +52,7 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Επιλέξτε μια έγκυρη ώρα έναρξης UTC (πρέπει να απέχει τουλάχιστον 28 ημέρες από το όριο της ημερομηνίας).</value>
   </data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Επιλέξτε έγκυρη τοπική ώρα έναρξης της ομάδας (τουλάχιστον 28 ημέρες από τα όρια ημερομηνιών).</value></data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>Επιλέξτε μια έγκυρη ζώνη ώρας από τη λίστα.</value>
   </data>
@@ -63,6 +68,7 @@
   <data name="Scheduling template updated." xml:space="preserve">
     <value>Το πρότυπο βαρδιών ενημερώθηκε.</value>
   </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>Το προσωπικό ανά βάρδια υπερβαίνει τον αριθμό μελών των ακόλουθων ομάδων με ενεργοποιημένη την αυτόματη επέκταση: {0}.</value></data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Ο επιθυμητός αριθμός ατόμων δεν μπορεί να είναι μικρότερος από τον ελάχιστο και πρέπει να κυμαίνεται από 1 έως 200. Αφήστε το κενό για αυτόματη κατανομή.</value>
   </data>
@@ -84,9 +90,14 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>Η μορφή του αιτήματος βάρδιας δεν είναι έγκυρη.</value>
   </data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Η ώρα έναρξης δεν αντιστοιχεί σε εβδομαδιαία παράδοση· η πρώτη βάρδια θα είναι μερική.</value></data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Το όνομα της ομάδας δεν ταιριάζει.</value>
+  </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>Η ομάδα ή το πρόγραμμα έχει αλλάξει. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
   </data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Η μορφή του αιτήματος προεπισκόπησης ομάδας δεν είναι έγκυρη.</value></data>
   <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
     <value>Το πρότυπο ή η ομάδα έχει αλλάξει. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
   </data>
@@ -105,16 +116,4 @@
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>Δεν είναι δυνατή η δημιουργία προεπισκόπησης: {0}</value>
   </data>
-
-  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Η ώρα έναρξης δεν αντιστοιχεί σε εβδομαδιαία παράδοση· η πρώτη βάρδια θα είναι μερική.</value></data>
-  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Προσθέστε μέλη στη σειρά εναλλαγής για προεπισκόπηση βαρδιών.</value></data>
-  <data name="The team preview request format is invalid." xml:space="preserve"><value>Η μορφή του αιτήματος προεπισκόπησης ομάδας δεν είναι έγκυρη.</value></data>
-  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Επιλέξτε έγκυρη τοπική ώρα έναρξης της ομάδας (τουλάχιστον 28 ημέρες από τα όρια ημερομηνιών).</value></data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Μη έγκυρη τοπική ώρα ομάδας. Στις αλλαγές θερινής ώρας, οι παραλειπόμενες ώρες είναι μη έγκυρες και οι επαναλαμβανόμενες χρησιμοποιούν την κανονική ώρα.</value></data>
-  <data name="On-call team does not exist." xml:space="preserve"><value>Η ομάδα εφημερίας δεν υπάρχει.</value></data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>Το όνομα της ομάδας δεν ταιριάζει.</value>
-  </data>
-  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>Η αυτόματη επέκταση απαιτεί τουλάχιστον {0} μέλη στη σειρά εναλλαγής για το επιλεγμένο πρότυπο.</value></data>
-  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>Το προσωπικό ανά βάρδια υπερβαίνει τον αριθμό μελών των ακόλουθων ομάδων με ενεργοποιημένη την αυτόματη επέκταση: {0}.</value></data>
 </root>

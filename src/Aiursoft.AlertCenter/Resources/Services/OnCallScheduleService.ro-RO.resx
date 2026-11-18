@@ -36,11 +36,20 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Nu se pot adăuga angajați care au părăsit echipa sau nu fac parte din aceasta.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Alegeți dacă dezactivați prelungirea automată sau regenerați turele în intervalul golit.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Confirmați separat eliminarea turelor anterioare.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Limitele intervalelor orare ale programului existent sunt incomplete; acesta nu poate fi suprascris.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Format nevalid al cererii privind programarea săptămânilor adiacente; puteți trimite cel mult două săptămâni (precedenta și următoarea).</value>
+  </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Intervalul sau acțiunea de golire a programului nu este validă.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Echipa de gardă nu există.</value>
@@ -60,20 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Durata perioadei de repaus din program este invalidă sau inconsistentă.</value>
   </data>
-  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
-    <value>Echipa sau programul a fost modificat de un alt administrator. Reîmprospătați pagina și încercați din nou.</value>
-  </data>
-
-  <data name="Invalid schedule clearing range or action." xml:space="preserve">
-    <value>Intervalul sau acțiunea de golire a programului nu este validă.</value>
-  </data>
-  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
-    <value>Confirmați separat eliminarea turelor anterioare.</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
-    <value>Alegeți dacă dezactivați prelungirea automată sau regenerați turele în intervalul golit.</value>
-  </data>
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Perioada planificării nu trebuie să depășească {0} zile și trebuie să se încadreze în cei 10 ani dinaintea sau de după momentul actual.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>Echipa sau programul a fost modificat de un alt administrator. Reîmprospătați pagina și încercați din nou.</value>
   </data>
 </root>

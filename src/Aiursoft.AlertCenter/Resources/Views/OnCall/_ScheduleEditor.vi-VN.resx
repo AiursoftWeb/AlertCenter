@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Các đề xuất tự động chưa được lưu. Khi tạo lịch, các lịch liền kề sẽ được xác thực lại; các lịch đã lưu hiện có sẽ không bị ghi đè.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Tính năng tự động gia hạn đang bật. Hãy chọn hành động khi lưu.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Theo mặc định, chỉ xóa các ca trực được tạo tự động.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Các thay đổi chỉ có hiệu lực sau khi lưu. Thu gọn các công cụ này sẽ giữ nguyên bản nháp của bạn.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Chọn hành động cho tính năng tự động gia hạn</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Chọn tắt tự động gia hạn hoặc tạo lại ca trực trong các khoảng trống đã xóa.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Thao tác xóa chỉ thay đổi bản nháp. Hãy kiểm tra biểu đồ, rồi lưu để công bố.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Xóa lịch trong khoảng thời gian</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Khoảng thời gian đã xóa trong bản nháp</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Xác nhận xóa các ca trực trong quá khứ đã hoàn tất trong khoảng thời gian này. Thao tác này có thể xóa các phân công trước đây.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Xác nhận thay thế bản nháp</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Xác nhận xóa lịch sử</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Sao chép tuần hiện tại sang tuần tiếp theo</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Hiện đang ở chế độ Di chuyển/Đổi chỗ. Hãy chuyển đổi chế độ ở trên trước khi thêm hoặc xóa ca trực.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Khoảng thời gian mặc định bắt đầu từ hiện tại đến khi kết thúc ca trực cuối cùng đã lưu hoặc trong bản nháp, theo múi giờ của nhóm.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Xóa ca trực</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Tắt tự động gia hạn khi lưu</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Kéo một khối màu sang ca khác để đổi nhân sự, hoặc kéo vào ô trống để chuyển ca; kéo “Đổi cả tuần” để hoán đổi lịch làm việc trong tuần của hai người. Bạn cũng có thể nhấp để chọn, rồi nhấp vào vị trí đích; nhấn Esc để hủy. Các thay đổi được hiển thị ngay lập tức và có thể lưu hàng loạt sau khi thực hiện nhiều điều chỉnh.</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Cách điều chỉnh lịch</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Bao gồm các ca trực trong quá khứ đã hoàn tất</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Bao gồm các ca trực đã chỉnh sửa thủ công</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Gộp các ca trực chồng lấn</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Thao tác khác</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Nhân sự trực (có thể chọn nhiều người, ít nhất một người)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Các ca trực đang diễn ra vẫn giữ lại phần thời gian đã trôi qua, ngay cả khi bao gồm cả lịch sử.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Xem trước kết quả xóa</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Cảnh báo màu đỏ cho biết ca trực còn trống, thời gian nghỉ không đủ hoặc số nhân sự ít hơn mức tối thiểu, nhưng không ngăn bạn tiếp tục điều chỉnh. Bạn vẫn có thể lưu khi số nhân sự ít hơn mức tối thiểu, nhưng không thể lưu nếu còn ca trực trống hoặc thời gian nghỉ không đủ. Khi lưu, việc xác thực được áp dụng đồng nhất cho tuần đã chỉnh sửa, các tuần liền kề và các nhóm khác. Nếu bất kỳ tuần nào không đạt yêu cầu xác thực, sẽ không có thay đổi nào được lưu. Thành viên đã rời nhóm chỉ có thể giữ lại các ca trực ban đầu; không thể thêm hoặc sao chép ca trực mới.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Tạo lại ca trực từ mẫu trong các khoảng trống đã xóa khi lưu</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Việc tạo lại chỉ diễn ra khi lưu. Bản xem trước vẫn giữ các khoảng trống và không ghi đè các ca trực được giữ lại.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Thay thế bản nháp của tuần tới?</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Chọn các khung giờ để thêm hoặc xóa nhân sự trực; biểu đồ sẽ được cập nhật ngay lập tức. Bạn cũng có thể dùng biểu mẫu này để điều hướng bằng bàn phím. Có thể chọn thủ công thành viên thuộc nhóm khác; các ca trực chỉ đọc có màu xám của nhóm khác sẽ không bị thay đổi, và các ca trùng giờ cũng như thời gian nghỉ giữa các nhóm vẫn được kiểm tra khi lưu.</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>Hoàn tác bước cuối</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>Xóa lịch trong khoảng thời gian</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>Thao tác xóa chỉ thay đổi bản nháp. Hãy kiểm tra biểu đồ, rồi lưu để công bố.</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>Khoảng thời gian mặc định bắt đầu từ hiện tại đến khi kết thúc ca trực cuối cùng đã lưu hoặc trong bản nháp, theo múi giờ của nhóm.</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>Theo mặc định, chỉ xóa các ca trực được tạo tự động.</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>Bao gồm các ca trực đã chỉnh sửa thủ công</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>Bao gồm các ca trực trong quá khứ đã hoàn tất</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>Các ca trực đang diễn ra vẫn giữ lại phần thời gian đã trôi qua, ngay cả khi bao gồm cả lịch sử.</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>Tính năng tự động gia hạn đang bật. Hãy chọn hành động khi lưu.</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>Chọn hành động cho tính năng tự động gia hạn</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>Tắt tự động gia hạn khi lưu</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>Tạo lại ca trực từ mẫu trong các khoảng trống đã xóa khi lưu</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>Việc tạo lại chỉ diễn ra khi lưu. Bản xem trước vẫn giữ các khoảng trống và không ghi đè các ca trực được giữ lại.</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>Xem trước kết quả xóa</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>Xác nhận xóa các ca trực trong quá khứ đã hoàn tất trong khoảng thời gian này. Thao tác này có thể xóa các phân công trước đây.</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>Xác nhận xóa lịch sử</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>Chọn tắt tự động gia hạn hoặc tạo lại ca trực trong các khoảng trống đã xóa.</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>Khoảng thời gian đã xóa trong bản nháp</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>Gộp các ca trực chồng lấn</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>Các ca trực của cùng một người hoặc trong hàng chưa phân công không được chồng lấn. Hãy gộp hoặc điều chỉnh trước khi lưu.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Khoảng thời gian của lịch trực không được vượt quá {0} ngày và phải nằm trong vòng 10 năm trước hoặc sau thời điểm hiện tại.</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>Việc di chuyển này sẽ chồng lấn với ca trực khác của cùng một người. Bản nháp không bị thay đổi.</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>Khoảng thời gian của lịch trực không được vượt quá {0} ngày và phải nằm trong vòng 10 năm trước hoặc sau thời điểm hiện tại.</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>Hoàn tác bước cuối</value>
   </data>
 </root>

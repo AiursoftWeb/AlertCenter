@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Lisäystila: Lisää 8 tunnin työvuoro napsauttamalla työntekijän rivin tyhjää kohtaa; sama työvuoro voidaan jakaa usean henkilön kesken.</value>
   </data>
+  <data name="Add on-call members to preview the rotation."><value>Lisää päivystäviä jäseniä kierron esikatseluun.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Lisää päivystysvuoro</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Lisätty</value>
   </data>
+  <data name="Already selected"><value>Jo valittu</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Takaisin muokkaamaan</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Peruuta päivitys</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation."><value>Valitse ajoitusmalli kierron esikatseluun.</value></data>
   <data name="Close" xml:space="preserve">
     <value>Sulje</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>Loppu</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts."><value>Anna aloitusaika vuorojen esikatselua varten.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Kirjoita kommentti; se ei voi sisältää pelkästään välilyöntejä.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>Poistettu</value>
   </data>
+  <data name="Reorder {0}"><value>Järjestä {0} uudelleen</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>Pyyntö on virheellinen tai sivun tunnistetiedot ovat vanhentuneet. Tarkista syöte ja päivitä sivu, jotta voit yrittää uudelleen tarvittaessa.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Henkilöstömäärää on muutettu ja kaavio päivitetty; muutoksia ei ole vielä tallennettu.</value>
   </data>
+  <data name="Start at {0}"><value>Aloita {0}</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Kopioitu leikepöydälle!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Suoraa vaihtoa ei voi tehdä: toinen henkilö on jo kohdevuorossa. Muokkaa saman vuoron jäseniä ensin toiminnolla ”Lisää tai poista jäseniä vuoron mukaan”.</value>
   </data>
+  <data name="Unable to update the preview. Please try again."><value>Esikatselua ei voitu päivittää. Yritä uudelleen.</value></data>
+  <data name="Unassigned"><value>Ei määritetty</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Tallentamaton · Muokkausluonnos</value>
   </data>
+  <data name="Updating shift preview…"><value>Päivitetään vuorojen esikatselua…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Käyttäjäryhmä · Jäsenet perivät dynaamisesti niille määritetyt käyttöoikeudet</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} tuntia</value>
   </data>
+  <data name="{0} moved to position {1} of {2}."><value>{0} siirrettiin sijalle {1}/{2}.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} vuoro henkilölle {1} · {2}; ei vielä tallennettu. Voit kumota tämän.</value>
   </data>
@@ -351,15 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 tuntia · {3}{4}</value>
   </data>
-
-  <data name="{0} moved to position {1} of {2}."><value>{0} siirrettiin sijalle {1}/{2}.</value></data>
-  <data name="Reorder {0}"><value>Järjestä {0} uudelleen</value></data>
-  <data name="Already selected"><value>Jo valittu</value></data>
-  <data name="Start at {0}"><value>Aloita {0}</value></data>
-  <data name="Enter a scheduling start point to preview shifts."><value>Anna aloitusaika vuorojen esikatselua varten.</value></data>
-  <data name="Updating shift preview…"><value>Päivitetään vuorojen esikatselua…</value></data>
-  <data name="Unable to update the preview. Please try again."><value>Esikatselua ei voitu päivittää. Yritä uudelleen.</value></data>
-  <data name="Add on-call members to preview the rotation."><value>Lisää päivystäviä jäseniä kierron esikatseluun.</value></data>
-  <data name="Choose a scheduling template to preview the rotation."><value>Valitse ajoitusmalli kierron esikatseluun.</value></data>
-  <data name="Unassigned"><value>Ei määritetty</value></data>
 </root>

@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>لم يتم حفظ الاقتراحات التلقائية. ستُعاد عملية التحقق من الجداول المجاورة عند إنشاء الجدول؛ ولن تُستبدل الترتيبات المحفوظة الحالية.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>التمديد التلقائي مفعّل. اختر ما يحدث عند الحفظ.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>افتراضيًا، يتم إفراغ المناوبات المنشأة تلقائيًا فقط.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
@@ -42,8 +48,29 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>لا تُطبَّق التغييرات إلا بعد الحفظ. يؤدي طيّ هذه الأدوات إلى الاحتفاظ بمسودتك.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>اختر إجراءً للتمديد التلقائي</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>اختر ما إذا كنت تريد تعطيل التمديد التلقائي أو إعادة إنشاء المناوبات في الفجوات التي تم إفراغها.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>يؤثر الإفراغ في المسودة فقط. راجع المخطط، ثم احفظ للنشر.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>إفراغ نطاق الجدول</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>نطاق المسودة الذي تم إفراغه</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>أكّد إفراغ المناوبات السابقة المكتملة في هذا النطاق. قد يؤدي ذلك إلى إزالة التكليفات السابقة.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>تأكيد استبدال المسودة</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>تأكيد إفراغ المناوبات السابقة</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>نسخ الأسبوع الحالي إلى الأسبوع التالي</value>
@@ -57,8 +84,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>الوضع الحالي هو النقل/التبديل. غيّر الوضع أعلاه قبل إضافة الورديات أو حذفها.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>يمتد النطاق الافتراضي من الآن حتى نهاية آخر مناوبة محفوظة أو في المسودة، وفق المنطقة الزمنية للفريق.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>حذف المناوبة</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>تعطيل التمديد التلقائي عند الحفظ</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>اسحب كتلة الألوان إلى وردية أخرى لتبديل الموظفين، أو إلى خانة فارغة لنقل الوردية؛ اسحب &apos;تبديل الأسبوع بالكامل&apos; لتبادل الجداول الأسبوعية لشخصين. يمكنك أيضًا النقر للاختيار، ثم النقر على الهدف؛ اضغط Esc للإلغاء. تُعرض التغييرات فورًا ويمكن حفظها دفعة واحدة بعد عدة تعديلات.</value>
@@ -72,6 +105,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>كيفية تعديل الجدول</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>تضمين المناوبات السابقة المكتملة</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>تضمين المناوبات المعدّلة يدويًا</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>دمج المناوبات المتداخلة</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>إجراءات أخرى</value>
   </data>
@@ -84,8 +126,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>أفراد المناوبة (يُسمح بأكثر من فرد، على الأقل واحد)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>تحتفظ المناوبات الجارية بالجزء المنقضي منها، حتى عند تضمين السجل السابق.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>معاينة الإفراغ</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>تشير التنبيهات الحمراء إلى فترات مناوبة فارغة، أو قلة ساعات الراحة، أو انخفاض العدد الأدنى من الموظفين، لكنها لا تمنع إجراء مزيد من التعديلات. يُسمح بالحفظ حتى في حالة انخفاض العدد الأدنى من الموظفين، لكن لا يمكن حفظ الفترات الفارغة أو قلة ساعات الراحة. تُطبَّق التحققات بشكل موحد على الأسبوع المُعدَّل والأسابيع المجاورة والفِرق الأخرى عند الحفظ. إذا فشل أي أسبوع في التحقق، فلن يتم حفظ أي شيء. يمكن للأعضاء الذين غادروا الاحتفاظ بفترات مناوبتهم الأصلية فقط؛ لا يمكن إضافة فترات جديدة أو نسخها.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>إعادة إنشاء المناوبات في الفجوات التي تم إفراغها من القالب عند الحفظ</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>تتم إعادة الإنشاء عند الحفظ فقط. تبقى الفجوات في المعاينة ولا يتم استبدال المناوبات المحتفظ بها.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>هل تريد استبدال مسودة الأسبوع القادم؟</value>
@@ -105,71 +159,16 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>حدد فترات الوقت لإضافة أو إزالة الموظفين المناوبين؛ سيتم تحديث المخطط بشكل متزامن. يمكنك أيضًا استخدام هذا النموذج للتنقل عبر لوحة المفاتيح. يمكن اختيار أعضاء المجموعات الأخرى يدويًا؛ لن يتم تعديل المناوبات الرمادية للقراءة فقط من الفرق الأخرى، ولا تزال التداخلات والفواصل بين المجموعات تخضع للتحقق عند الحفظ.</value>
   </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>التراجع عن الخطوة الأخيرة</value>
-  </data>
-
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>إفراغ نطاق الجدول</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>يؤثر الإفراغ في المسودة فقط. راجع المخطط، ثم احفظ للنشر.</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>يمتد النطاق الافتراضي من الآن حتى نهاية آخر مناوبة محفوظة أو في المسودة، وفق المنطقة الزمنية للفريق.</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>افتراضيًا، يتم إفراغ المناوبات المنشأة تلقائيًا فقط.</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>تضمين المناوبات المعدّلة يدويًا</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>تضمين المناوبات السابقة المكتملة</value>
-  </data>
-  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
-    <value>تحتفظ المناوبات الجارية بالجزء المنقضي منها، حتى عند تضمين السجل السابق.</value>
-  </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>التمديد التلقائي مفعّل. اختر ما يحدث عند الحفظ.</value>
-  </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>اختر إجراءً للتمديد التلقائي</value>
-  </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>تعطيل التمديد التلقائي عند الحفظ</value>
-  </data>
-  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
-    <value>إعادة إنشاء المناوبات في الفجوات التي تم إفراغها من القالب عند الحفظ</value>
-  </data>
-  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
-    <value>تتم إعادة الإنشاء عند الحفظ فقط. تبقى الفجوات في المعاينة ولا يتم استبدال المناوبات المحتفظ بها.</value>
-  </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>معاينة الإفراغ</value>
-  </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>أكّد إفراغ المناوبات السابقة المكتملة في هذا النطاق. قد يؤدي ذلك إلى إزالة التكليفات السابقة.</value>
-  </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>تأكيد إفراغ المناوبات السابقة</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>اختر ما إذا كنت تريد تعطيل التمديد التلقائي أو إعادة إنشاء المناوبات في الفجوات التي تم إفراغها.</value>
-  </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>نطاق المسودة الذي تم إفراغه</value>
-  </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>دمج المناوبات المتداخلة</value>
-  </data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>لا يمكن أن تتداخل مناوبات الشخص نفسه أو صف المناوبات غير المسندة. ادمجها أو عدّلها قبل الحفظ.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>يجب ألا تتجاوز فترة جدول المناوبات {0} يومًا، ويجب أن تقع ضمن 10 سنوات قبل الوقت الحالي أو بعده.</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>سيؤدي هذا النقل إلى تداخل مع مناوبة أخرى للشخص نفسه. لم يتم تغيير المسودة.</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>يجب ألا تتجاوز فترة جدول المناوبات {0} يومًا، ويجب أن تقع ضمن 10 سنوات قبل الوقت الحالي أو بعده.</value>
+  <data name="Undo last step" xml:space="preserve">
+    <value>التراجع عن الخطوة الأخيرة</value>
   </data>
 </root>

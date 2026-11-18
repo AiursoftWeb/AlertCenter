@@ -27,12 +27,22 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Avancerede planlægningsindstillinger</value>
   </data>
+  <data name="Advanced settings"><value>Avancerede indstillinger</value></data>
+  <data name="All scheduling times below use the team time zone."><value>Alle planlægningstider nedenfor bruger teamets tidszone.</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks"><value>Udvid automatisk den tilknyttede skabelon til de næste fire uger</value></data>
+  <data name="Basic information"><value>Grundlæggende oplysninger</value></data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuller</value>
+  </data>
+  <data name="Choose a template to enable automatic extension."><value>Vælg en skabelon for at aktivere automatisk udvidelse.</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Definer, hvordan vagter opdeles og roteres, så hold kan forlænge planen automatisk og generere vagter med ét klik. Ændringer i en skabelon påvirker ikke planlagte vagter.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Slettet ansat</value>
   </data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Tilknyt ikke en skabelon (manuel planlægning)</value>
   </data>
@@ -42,12 +52,14 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Indtast i UTC; den konverteres ikke automatisk baseret på holdets tidszoner. Når en vagt er gemt, kan startpunktet for planlægningen ikke ændres.</value>
   </data>
+  <data name="Fallback recipients"><value>Reservemodtagere</value></data>
   <data name="Filter by role" xml:space="preserve">
     <value>Filtrer efter rolle</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Find</value>
   </data>
+  <data name="Friday"><value>Fredag</value></data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Hjælp: meddelelses-CC</value>
   </data>
@@ -66,24 +78,31 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Hjælp: teamets tidszone</value>
   </data>
-  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
-    <value>Definer, hvordan vagter opdeles og roteres, så hold kan forlænge planen automatisk og generere vagter med ét klik. Ændringer i en skabelon påvirker ikke planlagte vagter.</value>
-  </data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
+  <data name="Maximum continuous duty reminder (hours)"><value>Påmindelse om maksimal sammenhængende vagt (timer)</value></data>
+  <data name="Minimum rest reminder (hours)"><value>Påmindelse om minimumshvile (timer)</value></data>
+  <data name="Minimum staffing reminder"><value>Påmindelse om minimumsbemanding</value></data>
+  <data name="Monday"><value>Mandag</value></data>
   <data name="Name or Account" xml:space="preserve">
     <value>Navn eller konto</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Næste side</value>
   </data>
+  <data name="Next four shifts preview"><value>Forhåndsvisning af de næste fire vagter</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Ingen reservemodtagere: Alarmer kan ikke leveres, når ingen har vagt.</value></data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Ingen medlemmer endnu. Åbn Tilføj medlemmer for at finde personer.</value>
   </data>
+  <data name="No members yet. Search below to add people."><value>Ingen medlemmer endnu. Søg nedenfor for at tilføje personer.</value></data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>Notificerings-CC (valgfri)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>On-call e-mail CC</value>
   </data>
+  <data name="On-call members (rotation queue)"><value>Vagtmedlemmer (rotationskø)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
   <data name="Previous Page" xml:space="preserve">
     <value>Forrige side</value>
   </data>
@@ -93,6 +112,7 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Rotationsrækkefølge</value>
   </data>
+  <data name="Saturday"><value>Lørdag</value></data>
   <data name="Save changes" xml:space="preserve">
     <value>Gem ændringer</value>
   </data>
@@ -105,9 +125,11 @@
   <data name="Scheduling Template" xml:space="preserve">
     <value>Vagtplanskabelon</value>
   </data>
+  <data name="Scheduling method"><value>Planlægningsmetode</value></data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Planlagt starttidspunkt (UTC)</value>
   </data>
+  <data name="Scheduling start point (team time)"><value>Planlægningsstart (teamtid)</value></data>
   <data name="Search Employees" xml:space="preserve">
     <value>Søg medarbejdere</value>
   </data>
@@ -117,9 +139,13 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>Søg efter navn eller konto, eller vælg en rolle.</value>
   </data>
+  <data name="Search by name or account."><value>Søg efter navn eller konto.</value></data>
+  <data name="Search fallback recipients"><value>Søg efter reservemodtagere</value></data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Vælgelse af en rolle filtrerer kun søgningen. Markér enkelte personer for at tilføje dem; holdmedlemskab synkroniseres ikke med den rolle.</value>
   </data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
+  <data name="Sunday"><value>Søndag</value></data>
   <data name="Team members" xml:space="preserve">
     <value>Teammedlemmer</value>
   </data>
@@ -129,12 +155,15 @@
   <data name="Team settings" xml:space="preserve">
     <value>Teamindstillinger</value>
   </data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Thursday"><value>Torsdag</value></data>
   <data name="Time Zone" xml:space="preserve">
     <value>Tidssone</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>Til: de personer, der var tildelt det gemte vagtskift, da hændelsen indtraf. De oprindelige OCE-modtagere bevares til senere e-mails om hændelsen. CC gælder for alle e-mails om hændelsen, uanset vagtskift. Brug kommaer, semikolon eller linjeskift; op til 50 CC-adresser.</value>
   </data>
+  <data name="Tuesday"><value>Tirsdag</value></data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Brug Flyt op og Flyt ned til at vælge rækkefølgen, der bruges til fremtidig automatisk planlægning. Eksisterende vagter bliver ikke omplaceret. Vælg op til 200 medlemmer.</value>
   </data>
@@ -144,37 +173,7 @@
   <data name="View schedule" xml:space="preserve">
     <value>Vis tidplan</value>
   </data>
-
-  <data name="Advanced settings"><value>Avancerede indstillinger</value></data>
-  <data name="All scheduling times below use the team time zone."><value>Alle planlægningstider nedenfor bruger teamets tidszone.</value></data>
-  <data name="Automatically extend the bound template to cover the next four weeks"><value>Udvid automatisk den tilknyttede skabelon til de næste fire uger</value></data>
-  <data name="Basic information"><value>Grundlæggende oplysninger</value></data>
-  <data name="Choose a template to enable automatic extension."><value>Vælg en skabelon for at aktivere automatisk udvidelse.</value></data>
-  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
-  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
-  <data name="Fallback recipients"><value>Reservemodtagere</value></data>
-  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
-  <data name="Maximum continuous duty reminder (hours)"><value>Påmindelse om maksimal sammenhængende vagt (timer)</value></data>
-  <data name="Minimum rest reminder (hours)"><value>Påmindelse om minimumshvile (timer)</value></data>
-  <data name="Minimum staffing reminder"><value>Påmindelse om minimumsbemanding</value></data>
-  <data name="Next four shifts preview"><value>Forhåndsvisning af de næste fire vagter</value></data>
-  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Ingen reservemodtagere: Alarmer kan ikke leveres, når ingen har vagt.</value></data>
-  <data name="No members yet. Search below to add people."><value>Ingen medlemmer endnu. Søg nedenfor for at tilføje personer.</value></data>
-  <data name="On-call members (rotation queue)"><value>Vagtmedlemmer (rotationskø)</value></data>
-  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
-  <data name="Scheduling method"><value>Planlægningsmetode</value></data>
-  <data name="Scheduling start point (team time)"><value>Planlægningsstart (teamtid)</value></data>
-  <data name="Search by name or account."><value>Søg efter navn eller konto.</value></data>
-  <data name="Search fallback recipients"><value>Søg efter reservemodtagere</value></data>
-  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
-  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Wednesday"><value>Onsdag</value></data>
   <data name="Week starts on"><value>Ugen starter på</value></data>
   <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
-  <data name="Sunday"><value>Søndag</value></data>
-  <data name="Monday"><value>Mandag</value></data>
-  <data name="Tuesday"><value>Tirsdag</value></data>
-  <data name="Wednesday"><value>Onsdag</value></data>
-  <data name="Thursday"><value>Torsdag</value></data>
-  <data name="Friday"><value>Fredag</value></data>
-  <data name="Saturday"><value>Lørdag</value></data>
 </root>

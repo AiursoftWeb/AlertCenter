@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>تعديل الفريق</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>أدخل اسم الفريق المطابق تمامًا لتأكيد الحذف.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>المستلمون الاحتياطيون</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>تشمل الورديات المستقبلية أي ورديات جارية. يتم الاحتفاظ بالقوالب وسجلات تسليم إشعارات الحوادث. لا يمكن التراجع عن هذا الإجراء.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>إدارة الأعضاء</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>التالي: إسناد الأشخاص إلى المناوبات</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>لم يتم إعداد مستلمين احتياطيين. لا يمكن إيصال التنبيهات عندما لا يوجد أحد في المناوبة.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>لا يوجد أعضاء في الفريق.</value>
@@ -63,8 +75,23 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>تُرسل رسائل البريد الإلكتروني الخاصة بالمناوبة تلقائيًا إلى عناوين البريد الإلكتروني للمستخدمين (في خانة «إلى») لجميع مهندسي المناوبة (OCEs) ضمن المناوبة المحفوظة حاليًا. تُستخدم في خانة «نسخة إلى» عناوين صناديق البريد الخاصة بالفريق أو عناوين القوائم البريدية التي ضبطها المسؤول صراحةً فقط؛ ولا تتم إضافة جميع أعضاء الفريق تلقائيًا إلى نسخة البريد. وستواصل قنوات الإشعارات الفورية المخصصة التي تم ضبطها في التطبيق إرسال إشعارات إضافية.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>أعضاء المناوبة (قائمة التناوب)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>فتح الجدول</value>
+  </data>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>يتلقون التنبيهات عندما لا يوجد أحد في المناوبة؛ ولا يشاركون في التناوب.</value>
+  </data>
+  <data name="Scheduling start point: " xml:space="preserve">
+    <value>نقطة بداية الجدولة:</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>عدد الأفراد في كل مناوبة</value>
+  </data>
+  <data name="Team configuration" xml:space="preserve">
+    <value>إعدادات الفريق</value>
   </data>
   <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
     <value>لم يتم ربط قالب؛ لا تزال الجدولة اليدوية متاحة.</value>
@@ -75,17 +102,17 @@
   <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
     <value>لا تُحذف القوالب. لا يمكن حذف إلا الفرق التي ليس لديها مناوبات محفوظة أو تطبيقات مرتبطة. هذا الإجراء غير قابل للتراجع.</value>
   </data>
-  <data name="Scheduling start point: " xml:space="preserve">
-    <value>نقطة بداية الجدولة:</value>
-  </data>
-  <data name="Team configuration" xml:space="preserve">
-    <value>إعدادات الفريق</value>
-  </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>يمكن مشاركة القوالب بين عدة فرق، ولن يؤدي تعديل القوالب أو التبديل بينها إلى إعادة توليد الورديات المحفوظة.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>يبدأ أول شخص في القائمة المناوبة أولاً. لا يُعاد ترتيب المناوبات الحالية.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>قائمة الأعضاء تحدد من يمكن جدولة عمله. الجدول المحفوظ يحدد من هو على النوبة ويتلقى رسائل بريد الأحداث. المستلمون في الحقل &quot;إلى&quot; (CC) يتلقون نسخة بشكل مستقل عن عضويتهم في الفريق.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>اسم الفريق غير مطابق.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>هذا الفريق لديه ورديات محفوظة ولا يمكن حذفه للحفاظ على سجل الجدولة.</value>
@@ -99,41 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>عرض جدول المناوبات</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>سيتم حذف {0} من الورديات المستقبلية و{1} من الورديات السابقة. ستحتفظ الحوادث الموجودة بسجلات المناوبة الخاصة بها.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>ساعات</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>ساعات · الحد الأدنى للراحة</value>
-  </data>
-
-  <data name="Staff per shift" xml:space="preserve">
-    <value>عدد الأفراد في كل مناوبة</value>
-  </data>
-  <data name="On-call members (rotation queue)" xml:space="preserve">
-    <value>أعضاء المناوبة (قائمة التناوب)</value>
-  </data>
-  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
-    <value>يبدأ أول شخص في القائمة المناوبة أولاً. لا يُعاد ترتيب المناوبات الحالية.</value>
-  </data>
-  <data name="Fallback recipients" xml:space="preserve">
-    <value>المستلمون الاحتياطيون</value>
-  </data>
-  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
-    <value>يتلقون التنبيهات عندما لا يوجد أحد في المناوبة؛ ولا يشاركون في التناوب.</value>
-  </data>
-  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
-    <value>لم يتم إعداد مستلمين احتياطيين. لا يمكن إيصال التنبيهات عندما لا يوجد أحد في المناوبة.</value>
-  </data>
-  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
-    <value>سيتم حذف {0} من الورديات المستقبلية و{1} من الورديات السابقة. ستحتفظ الحوادث الموجودة بسجلات المناوبة الخاصة بها.</value>
-  </data>
-  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
-    <value>تشمل الورديات المستقبلية أي ورديات جارية. يتم الاحتفاظ بالقوالب وسجلات تسليم إشعارات الحوادث. لا يمكن التراجع عن هذا الإجراء.</value>
-  </data>
-  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
-    <value>أدخل اسم الفريق المطابق تمامًا لتأكيد الحذف.</value>
-  </data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>اسم الفريق غير مطابق.</value>
   </data>
 </root>

@@ -36,11 +36,20 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Kan ikke tilføje medarbejdere, der har forladt teamet eller ikke er en del af teamet.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Vælg, om automatisk forlængelse skal deaktiveres, eller vagter skal genereres på ny i den ryddede periode.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Bekræft rydning af historiske vagter separat.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>De eksisterende tidsgrænser for vagtplanen er ufuldstændige; kan ikke overskrive.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Ugyldigt format for anmodning om tilstødende uger; du kan indsende højst to uger (den foregående og den næste).</value>
+  </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Ugyldig periode eller handling til rydning af vagtplanen.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Vagtteamet findes ikke.</value>
@@ -60,20 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Hviletiden i vagtplanen er ugyldig eller inkonsistent.</value>
   </data>
-  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
-    <value>Teamet eller vagtplanen er blevet ændret af en anden administrator. Opdater siden, og prøv igen.</value>
-  </data>
-
-  <data name="Invalid schedule clearing range or action." xml:space="preserve">
-    <value>Ugyldig periode eller handling til rydning af vagtplanen.</value>
-  </data>
-  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
-    <value>Bekræft rydning af historiske vagter separat.</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
-    <value>Vælg, om automatisk forlængelse skal deaktiveres, eller vagter skal genereres på ny i den ryddede periode.</value>
-  </data>
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Planlægningsperioden må ikke overstige {0} dage og skal ligge inden for 10 år før eller efter det aktuelle tidspunkt.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>Teamet eller vagtplanen er blevet ændret af en anden administrator. Opdater siden, og prøv igen.</value>
   </data>
 </root>

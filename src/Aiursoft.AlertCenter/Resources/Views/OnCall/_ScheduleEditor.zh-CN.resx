@@ -21,17 +21,31 @@
       <data name=" · Departed" xml:space="preserve">
     <value>· 已离职</value>
   </data>
+  <data name="Actions" xml:space="preserve"><value>操作</value></data>
   <data name="Add or remove personnel by shift" xml:space="preserve">
     <value>按班次添加或移除人员</value>
   </data>
   <data name="Add shift" xml:space="preserve">
     <value>添加班次</value>
   </data>
+  <data name="Adjust end" xml:space="preserve"><value>调整结束时间</value></data>
+  <data name="Adjust handover" xml:space="preserve"><value>调整交接时间</value></data>
   <data name="Adjust schedule" xml:space="preserve">
     <value>调整排班</value>
   </data>
+  <data name="Adjust start" xml:space="preserve"><value>调整开始时间</value></data>
+  <data name="An engineer exceeds the continuous on-call threshold." xml:space="preserve"><value>有工程师的连续值班时间超过提醒阈值。</value></data>
+  <data name="An engineer has insufficient rest between shifts." xml:space="preserve"><value>有工程师的班次间休息时间不足。</value></data>
+  <data name="Apply to draft" xml:space="preserve"><value>应用到草稿</value></data>
+  <data name="Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes." xml:space="preserve"><value>方向键调整时间或人员；Shift + 方向键调整边界；Enter 编辑；Delete 删除。</value></data>
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>自动建议尚未保存。生成时将重新验证相邻排班；不会覆盖已保存的安排。</value>
+  </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>自动延长已启用。请选择保存时的处理方式。</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>默认仅清空自动生成的班次。</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
@@ -42,35 +56,88 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>更改仅在保存后生效。折叠这些工具不会丢失草稿。</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>选择自动延长操作</value>
+  </data>
+  <data name="Choose two different current team members." xml:space="preserve"><value>请选择两名不同的在队成员。</value></data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>请选择禁用自动延长，或重新生成已清空的空缺时段。</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>清空仅修改草稿。请检查图表，然后保存以发布。</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>清空排班范围</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>已清空的草稿范围</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>请确认清空此范围内已结束的历史班次。这可能会移除过去的值班安排。</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>确认替换草稿</value>
   </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>确认清空历史班次</value>
+  </data>
+  <data name="Confirm replacement" xml:space="preserve"><value>确认替换</value></data>
+  <data name="Copied range is a draft. Save to publish." xml:space="preserve"><value>已复制的范围仍为草稿，保存后才会发布。</value></data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>将本周复制到下周</value>
   </data>
+  <data name="Copy or generate into a time range" xml:space="preserve"><value>复制或生成到某个时间范围</value></data>
+  <data name="Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full." xml:space="preserve"><value>复制会在目标范围内重复当前草稿，并裁剪至范围边界。与目标范围相交的已有班段将被整体替换。</value></data>
+  <data name="Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>复制会在目标范围内重复当前草稿，并裁剪至范围边界。与目标范围相交的已有班段将被整体替换。复制和生成仅修改草稿；点击“保存排班调整”后才会发布。</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>将当前周的草稿复制到下一周。如果下一周已有班次或修改内容，复制前需要确认；复制后仍需保存。两侧的垂直按钮可展开当前周前后各 36 小时的内容；灰色区域为只读。本页面的图表和表单仅用于编辑当前周；如需调整相邻周，请切换到对应的周。复制后，下一周的草稿也会以只读模式预览。当前周的修改和复制内容统一保存、撤销和恢复；折叠后草稿不会丢失。</value>
   </data>
+  <data name="Copy to time range" xml:space="preserve"><value>复制到时间范围</value></data>
+  <data name="Coverage, staffing and rest issues are reminders and do not prevent saving. Invalid time intervals, non-team assignees and version conflicts prevent saving. Departed members may retain their original assignments." xml:space="preserve"><value>覆盖、人数和休息问题仅作提醒，不阻止保存。无效时间、非团队值班人和版本冲突会阻止保存。离队成员可保留原安排。</value></data>
   <data name="Currently in Mobile/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>当前处于移动/交换模式。添加或删除班次前，请先切换上方的模式。</value>
   </data>
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>当前处于移动/交换模式。添加或删除班次前，请先切换上方的模式。</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>默认范围为团队时区的当前时间至已保存或草稿中最后一个班次的结束时间。</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>删除班次</value>
   </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>保存时禁用自动延长</value>
+  </data>
+  <data name="Draft range" xml:space="preserve"><value>草稿范围</value></data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>将一个彩色方块拖到另一个班次上可交换人员，拖到空班次上可移动班次；拖动“交换整周”可互换两人的整周排班。也可以点击选择，再点击目标位置；按 Esc 取消。更改会立即显示，多次调整后可一次性保存。</value>
   </data>
+  <data name="Edit shift" xml:space="preserve"><value>编辑班次</value></data>
+  <data name="End" xml:space="preserve"><value>结束</value></data>
+  <data name="Enter times in the team time zone. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>请按团队时区输入。夏令时切换期间，跳过的时刻无效，重复的时刻采用标准时间。</value></data>
+  <data name="Exchange two current team members across all shifts in the visible range." xml:space="preserve"><value>交换当前显示范围内两名在队成员的所有班次。</value></data>
+  <data name="First team member" xml:space="preserve"><value>第一名成员</value></data>
+  <data name="Future shift includes a departed team member." xml:space="preserve"><value>未来班次包含已离队成员。</value></data>
   <data name="Generate and save applies a new automatic schedule immediately." xml:space="preserve">
     <value>点击“生成并保存”后，将立即应用新的自动排班。</value>
   </data>
   <data name="Generate and save this week&apos;s schedule" xml:space="preserve">
     <value>生成并保存本周的排班</value>
   </data>
+  <data name="Generate from template" xml:space="preserve"><value>按模板生成</value></data>
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>如何调整排班</value>
+  </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>包含已结束的历史班次</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>包含手动编辑的班次</value>
+  </data>
+  <data name="Invalid team local time." xml:space="preserve"><value>团队本地时间无效。</value></data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>合并重叠班次</value>
   </data>
   <data name="More actions" xml:space="preserve">
     <value>更多操作</value>
@@ -78,145 +145,77 @@
   <data name="Move / Swap" xml:space="preserve">
     <value>移动 / 交换</value>
   </data>
+  <data name="Move selected shift" xml:space="preserve"><value>移动选中班次</value></data>
   <data name="Next week already has a saved schedule or unsaved changes. Copying will replace the full 21 shifts of next week with the current draft of this week. You can still undo after confirmation; changes are only written when you click Save." xml:space="preserve">
     <value>下周已经有已保存的排班或未保存的更改。复制后，下周的全部 21 个班次都将被本周当前的草稿替换。确认后仍可撤销；只有点击“保存”后，更改才会写入。</value>
   </data>
+  <data name="On-call personnel" xml:space="preserve"><value>值班人员</value></data>
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>值班人员（可多选，至少选择一人）</value>
   </data>
-  <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
-    <value>红色警告表示存在空班次、休息时间不足或人数低于最低要求，但不会阻止继续调整。即使人数低于最低要求，也可以保存；但空班次和休息时间不足时无法保存。保存时会统一校验已修改的周、相邻周以及其他团队的排班。任何一周未通过校验，所有内容都不会保存。已离职成员只能保留原有班次，不能为其添加或复制新班次。</value>
-  </data>
-  <data name="Replace next week&apos;s draft?" xml:space="preserve">
-    <value>要替换下周的草稿吗？</value>
-  </data>
-  <data name="Reset All" xml:space="preserve">
-    <value>全部重置</value>
-  </data>
-  <data name="Save schedule adjustments" xml:space="preserve">
-    <value>保存排班调整</value>
-  </data>
-  <data name="Scheduling Operation Mode" xml:space="preserve">
-    <value>排班操作模式</value>
-  </data>
-  <data name="Select Shift" xml:space="preserve">
-    <value>选择班次</value>
-  </data>
-  <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
-    <value>选择要添加或移除值班人员的时间段；图表将同步更新。您也可以使用此表单通过键盘进行操作。可以手动选择跨组成员；其他团队的灰色只读班次不会被修改，保存时仍会校验跨组时间冲突和休息时间。</value>
-  </data>
-  <data name="Undo last step" xml:space="preserve">
-    <value>撤销上一步</value>
-  </data>
-
-  <data name="Coverage, staffing and rest issues are reminders and do not prevent saving. Invalid time intervals, non-team assignees and version conflicts prevent saving. Departed members may retain their original assignments." xml:space="preserve"><value>覆盖、人数和休息问题仅作提醒，不阻止保存。无效时间、非团队值班人和版本冲突会阻止保存。离队成员可保留原安排。</value></data>
   <data name="On-call personnel (zero or more)" xml:space="preserve"><value>值班人（允许无人或多人）</value></data>
-  <data name="Enter times in the team time zone. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>请按团队时区输入。夏令时切换期间，跳过的时刻无效，重复的时刻采用标准时间。</value></data>
-  <data name="Start" xml:space="preserve"><value>开始</value></data>
-  <data name="End" xml:space="preserve"><value>结束</value></data>
-  <data name="On-call personnel" xml:space="preserve"><value>值班人员</value></data>
-  <data name="Actions" xml:space="preserve"><value>操作</value></data>
-  <data name="Reset draft" xml:space="preserve"><value>重置草稿</value></data>
-  <data name="Copy or generate into a time range" xml:space="preserve"><value>复制或生成到某个时间范围</value></data>
-  <data name="Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full." xml:space="preserve"><value>复制会在目标范围内重复当前草稿，并裁剪至范围边界。与目标范围相交的已有班段将被整体替换。</value></data>
-  <data name="Copy to time range" xml:space="preserve"><value>复制到时间范围</value></data>
-  <data name="Generate from template" xml:space="preserve"><value>按模板生成</value></data>
-  <data name="The following shifts will be replaced. Confirm to write the new schedule." xml:space="preserve"><value>以下班段将被替换。确认后写入新排班。</value></data>
-  <data name="Confirm replacement" xml:space="preserve"><value>确认替换</value></data>
-  <data name="Redo last step" xml:space="preserve"><value>重做上一步</value></data>
-  <data name="Precise editing / bulk operations" xml:space="preserve"><value>精确编辑 / 批量操作</value></data>
-  <data name="Move selected shift" xml:space="preserve"><value>移动选中班次</value></data>
-  <data name="Select a shift in the chart, then choose a team member and start time. Its duration stays the same." xml:space="preserve"><value>先在图中选择班次，再选择团队成员和开始时间。班次时长保持不变。</value></data>
-  <data name="Team member" xml:space="preserve"><value>团队成员</value></data>
-  <data name="Swap full week" xml:space="preserve"><value>交换整周</value></data>
-  <data name="Exchange two current team members across all shifts in the visible range." xml:space="preserve"><value>交换当前显示范围内两名在队成员的所有班次。</value></data>
-  <data name="First team member" xml:space="preserve"><value>第一名成员</value></data>
-  <data name="Second team member" xml:space="preserve"><value>第二名成员</value></data>
-  <data name="Copy repeats the visible draft across the destination range, clipping at its boundaries. Existing intersecting shifts are replaced in full. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>复制会在目标范围内重复当前草稿，并裁剪至范围边界。与目标范围相交的已有班段将被整体替换。复制和生成仅修改草稿；点击“保存排班调整”后才会发布。</value></data>
-  <data name="The following shifts will be replaced in the draft. Confirm to update the draft; saved schedules change only when you save." xml:space="preserve"><value>以下班段将在草稿中被替换。确认后仅更新草稿；点击保存后才会修改已发布的排班。</value></data>
-  <data name="Edit shift" xml:space="preserve"><value>编辑班次</value></data>
-  <data name="Apply to draft" xml:space="preserve"><value>应用到草稿</value></data>
-  <data name="Adjust start" xml:space="preserve"><value>调整开始时间</value></data>
-  <data name="Adjust end" xml:space="preserve"><value>调整结束时间</value></data>
-  <data name="Adjust handover" xml:space="preserve"><value>调整交接时间</value></data>
-  <data name="Read-only" xml:space="preserve"><value>只读</value></data>
-  <data name="Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes." xml:space="preserve"><value>方向键调整时间或人员；Shift + 方向键调整边界；Enter 编辑；Delete 删除。</value></data>
-  <data name="Draft range" xml:space="preserve"><value>草稿范围</value></data>
-  <data name="Schedule contains a coverage gap." xml:space="preserve"><value>排班存在未覆盖时段。</value></data>
-  <data name="Schedule contains overlapping shifts." xml:space="preserve"><value>排班存在重叠班次。</value></data>
-  <data name="Shift has no on-duty engineers." xml:space="preserve"><value>班次未安排值班工程师。</value></data>
-  <data name="An engineer has insufficient rest between shifts." xml:space="preserve"><value>有工程师的班次间休息时间不足。</value></data>
-  <data name="An engineer exceeds the continuous on-call threshold." xml:space="preserve"><value>有工程师的连续值班时间超过提醒阈值。</value></data>
-  <data name="Shift staffing is below the team threshold." xml:space="preserve"><value>班次人数低于团队提醒阈值。</value></data>
-  <data name="Future shift includes a departed team member." xml:space="preserve"><value>未来班次包含已离队成员。</value></data>
-  <data name="Remove departed members before changing shift times." xml:space="preserve"><value>请先移除已离队成员，再修改班次时间。</value></data>
-  <data name="Invalid team local time." xml:space="preserve"><value>团队本地时间无效。</value></data>
-  <data name="The destination must not overlap the visible range or another copied range." xml:space="preserve"><value>目标范围不能与当前显示范围或其他已复制范围重叠。</value></data>
-  <data name="Choose two different current team members." xml:space="preserve"><value>请选择两名不同的在队成员。</value></data>
-  <data name="Unassigned" xml:space="preserve"><value>未分配</value></data>
-  <data name="Copied range is a draft. Save to publish." xml:space="preserve"><value>已复制的范围仍为草稿，保存后才会发布。</value></data>
-  <data name="Select a shift first." xml:space="preserve"><value>请先选择一个班次。</value></data>
-  <data name="Clear schedule range" xml:space="preserve">
-    <value>清空排班范围</value>
-  </data>
-  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
-    <value>清空仅修改草稿。请检查图表，然后保存以发布。</value>
-  </data>
-  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
-    <value>默认范围为团队时区的当前时间至已保存或草稿中最后一个班次的结束时间。</value>
-  </data>
-  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
-    <value>默认仅清空自动生成的班次。</value>
-  </data>
-  <data name="Include manually edited shifts" xml:space="preserve">
-    <value>包含手动编辑的班次</value>
-  </data>
-  <data name="Include completed historical shifts" xml:space="preserve">
-    <value>包含已结束的历史班次</value>
-  </data>
   <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
     <value>即使包含历史班次，进行中的班次也会保留已过去的部分。</value>
   </data>
-  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
-    <value>自动延长已启用。请选择保存时的处理方式。</value>
+  <data name="Precise editing / bulk operations" xml:space="preserve"><value>精确编辑 / 批量操作</value></data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>预览清空结果</value>
   </data>
-  <data name="Choose an automatic extension action" xml:space="preserve">
-    <value>选择自动延长操作</value>
+  <data name="Read-only" xml:space="preserve"><value>只读</value></data>
+  <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
+    <value>红色警告表示存在空班次、休息时间不足或人数低于最低要求，但不会阻止继续调整。即使人数低于最低要求，也可以保存；但空班次和休息时间不足时无法保存。保存时会统一校验已修改的周、相邻周以及其他团队的排班。任何一周未通过校验，所有内容都不会保存。已离职成员只能保留原有班次，不能为其添加或复制新班次。</value>
   </data>
-  <data name="Disable automatic extension when saving" xml:space="preserve">
-    <value>保存时禁用自动延长</value>
-  </data>
+  <data name="Redo last step" xml:space="preserve"><value>重做上一步</value></data>
   <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
     <value>保存时按模板重新生成已清空的空缺时段</value>
   </data>
   <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
     <value>仅在保存时重新生成。预览会保留空缺，且不会覆盖保留的班次。</value>
   </data>
-  <data name="Preview clear" xml:space="preserve">
-    <value>预览清空结果</value>
+  <data name="Remove departed members before changing shift times." xml:space="preserve"><value>请先移除已离队成员，再修改班次时间。</value></data>
+  <data name="Replace next week&apos;s draft?" xml:space="preserve">
+    <value>要替换下周的草稿吗？</value>
   </data>
-  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
-    <value>请确认清空此范围内已结束的历史班次。这可能会移除过去的值班安排。</value>
+  <data name="Reset All" xml:space="preserve">
+    <value>全部重置</value>
   </data>
-  <data name="Confirm historical clear" xml:space="preserve">
-    <value>确认清空历史班次</value>
+  <data name="Reset draft" xml:space="preserve"><value>重置草稿</value></data>
+  <data name="Save schedule adjustments" xml:space="preserve">
+    <value>保存排班调整</value>
   </data>
-  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
-    <value>请选择禁用自动延长，或重新生成已清空的空缺时段。</value>
+  <data name="Schedule contains a coverage gap." xml:space="preserve"><value>排班存在未覆盖时段。</value></data>
+  <data name="Schedule contains overlapping shifts." xml:space="preserve"><value>排班存在重叠班次。</value></data>
+  <data name="Scheduling Operation Mode" xml:space="preserve">
+    <value>排班操作模式</value>
   </data>
-  <data name="Cleared draft range" xml:space="preserve">
-    <value>已清空的草稿范围</value>
+  <data name="Second team member" xml:space="preserve"><value>第二名成员</value></data>
+  <data name="Select Shift" xml:space="preserve">
+    <value>选择班次</value>
   </data>
-  <data name="Merge overlapping shifts" xml:space="preserve">
-    <value>合并重叠班次</value>
+  <data name="Select a shift first." xml:space="preserve"><value>请先选择一个班次。</value></data>
+  <data name="Select a shift in the chart, then choose a team member and start time. Its duration stays the same." xml:space="preserve"><value>先在图中选择班次，再选择团队成员和开始时间。班次时长保持不变。</value></data>
+  <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
+    <value>选择要添加或移除值班人员的时间段；图表将同步更新。您也可以使用此表单通过键盘进行操作。可以手动选择跨组成员；其他团队的灰色只读班次不会被修改，保存时仍会校验跨组时间冲突和休息时间。</value>
   </data>
+  <data name="Shift has no on-duty engineers." xml:space="preserve"><value>班次未安排值班工程师。</value></data>
+  <data name="Shift staffing is below the team threshold." xml:space="preserve"><value>班次人数低于团队提醒阈值。</value></data>
   <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
     <value>同一人员或未分配行中的班次不能重叠。请在保存前合并或调整这些班次。</value>
+  </data>
+  <data name="Start" xml:space="preserve"><value>开始</value></data>
+  <data name="Swap full week" xml:space="preserve"><value>交换整周</value></data>
+  <data name="Team member" xml:space="preserve"><value>团队成员</value></data>
+  <data name="The destination must not overlap the visible range or another copied range." xml:space="preserve"><value>目标范围不能与当前显示范围或其他已复制范围重叠。</value></data>
+  <data name="The following shifts will be replaced in the draft. Confirm to update the draft; saved schedules change only when you save." xml:space="preserve"><value>以下班段将在草稿中被替换。确认后仅更新草稿；点击保存后才会修改已发布的排班。</value></data>
+  <data name="The following shifts will be replaced. Confirm to write the new schedule." xml:space="preserve"><value>以下班段将被替换。确认后写入新排班。</value></data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>排班时间范围不能超过 {0} 天，且须在当前时间前后 10 年内。</value>
   </data>
   <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
     <value>此移动会与同一人员的其他班次重叠。草稿未作更改。</value>
   </data>
-  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
-    <value>排班时间范围不能超过 {0} 天，且须在当前时间前后 10 年内。</value>
+  <data name="Unassigned" xml:space="preserve"><value>未分配</value></data>
+  <data name="Undo last step" xml:space="preserve">
+    <value>撤销上一步</value>
   </data>
 </root>

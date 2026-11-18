@@ -24,12 +24,15 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>Сохранённое расписание уже существует; изменить начальную точку расписания команды нельзя.</value>
   </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Добавьте участников в очередь ротации для предварительного просмотра смен.</value></data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>Для автоматического составления расписания необходимо не менее {0} сотрудников на смену и {1} часов отдыха, то есть как минимум {2} участников. После исключения участников нескольких дежурных групп автоматически можно составить расписание для {3}; добавьте участников только одной группы или составьте расписание вручную.</value>
   </data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>Для автоматического продления по выбранному шаблону требуется не менее {0} участников в очереди ротации.</value></data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>Фиксированный график: три смены в день по 8 часов.</value>
   </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Недопустимое местное время команды. При переходе на летнее время пропущенные часы недопустимы, а повторяющиеся используют стандартное время.</value></data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>Минимальный период отдыха должен составлять от 0 до 168 часов.</value>
   </data>
@@ -39,6 +42,7 @@
   <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
     <value>К команде ещё не привязан шаблон. Вы можете создать расписание вручную.</value>
   </data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>Дежурная команда не существует.</value></data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Введите название команды.</value>
   </data>
@@ -48,6 +52,7 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Выберите корректное время начала в UTC (не менее чем за 28 дней до предельной даты).</value>
   </data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Выберите допустимое местное время начала команды (не менее 28 дней от границ диапазона дат).</value></data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>Пожалуйста, выберите допустимый часовой пояс из списка.</value>
   </data>
@@ -63,6 +68,7 @@
   <data name="Scheduling template updated." xml:space="preserve">
     <value>Шаблон расписания обновлён.</value>
   </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>Число сотрудников в смене превышает число участников следующих команд с включённым автоматическим продлением: {0}.</value></data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Целевое количество сотрудников не может быть меньше минимального и должно составлять от 1 до 200. Оставьте поле пустым для автоматического назначения.</value>
   </data>
@@ -84,9 +90,14 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>Формат запроса на смену недействителен.</value>
   </data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Время начала не совпадает с еженедельной передачей дежурства; первая смена будет неполной.</value></data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Название команды не совпадает.</value>
+  </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>Состав команды или расписание изменились. Обновите страницу и попробуйте снова.</value>
   </data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>Неверный формат запроса предварительного просмотра команды.</value></data>
   <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
     <value>Шаблон или команда изменились. Обновите страницу и повторите попытку.</value>
   </data>
@@ -105,16 +116,4 @@
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>Не удалось создать предварительный просмотр: {0}</value>
   </data>
-
-  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Время начала не совпадает с еженедельной передачей дежурства; первая смена будет неполной.</value></data>
-  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Добавьте участников в очередь ротации для предварительного просмотра смен.</value></data>
-  <data name="The team preview request format is invalid." xml:space="preserve"><value>Неверный формат запроса предварительного просмотра команды.</value></data>
-  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Выберите допустимое местное время начала команды (не менее 28 дней от границ диапазона дат).</value></data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Недопустимое местное время команды. При переходе на летнее время пропущенные часы недопустимы, а повторяющиеся используют стандартное время.</value></data>
-  <data name="On-call team does not exist." xml:space="preserve"><value>Дежурная команда не существует.</value></data>
-  <data name="The team name does not match." xml:space="preserve">
-    <value>Название команды не совпадает.</value>
-  </data>
-  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>Для автоматического продления по выбранному шаблону требуется не менее {0} участников в очереди ротации.</value></data>
-  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>Число сотрудников в смене превышает число участников следующих команд с включённым автоматическим продлением: {0}.</value></data>
 </root>

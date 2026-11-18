@@ -36,11 +36,20 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>لا يمكن إضافة الموظفين الذين غادروا الفريق أو لا ينتمون إليه.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>اختر ما إذا كنت تريد تعطيل التمديد التلقائي أو إعادة إنشاء المناوبات في النطاق الذي تم إفراغه.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>أكّد إفراغ المناوبات السابقة بشكل منفصل.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>الحدود الزمنية للجدول الحالي غير مكتملة؛ لا يمكن استبداله.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>تنسيق طلب جدول الأسابيع المجاورة غير صالح؛ يمكنك إرسال أسبوعين كحد أقصى (الأسبوع السابق والأسبوع التالي).</value>
+  </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>نطاق إفراغ الجدول أو الإجراء غير صالح.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>فريق المناوبة غير موجود.</value>
@@ -60,20 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>مدة الراحة في الجدول غير صالحة أو غير متسقة.</value>
   </data>
-  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
-    <value>تم تعديل الفريق أو الجدول بواسطة مسؤول آخر. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
-  </data>
-
-  <data name="Invalid schedule clearing range or action." xml:space="preserve">
-    <value>نطاق إفراغ الجدول أو الإجراء غير صالح.</value>
-  </data>
-  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
-    <value>أكّد إفراغ المناوبات السابقة بشكل منفصل.</value>
-  </data>
-  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
-    <value>اختر ما إذا كنت تريد تعطيل التمديد التلقائي أو إعادة إنشاء المناوبات في النطاق الذي تم إفراغه.</value>
-  </data>
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>يجب ألا تتجاوز فترة الجدول {0} يومًا، ويجب أن تقع ضمن السنوات العشر السابقة أو التالية للوقت الحالي.</value>
+  </data>
+  <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
+    <value>تم تعديل الفريق أو الجدول بواسطة مسؤول آخر. يُرجى تحديث الصفحة والمحاولة مرة أخرى.</value>
   </data>
 </root>
