@@ -203,7 +203,9 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                     (!slot.Id.HasValue || slot.Id == item.Id && slot.StartsAtUtc == item.StartsAtUtc) &&
                     item.StartsAtUtc <= slot.StartsAtUtc && OnCallScheduleClearing.End(item) >= OnCallScheduleClearing.End(slot) &&
                     item.UserIds.ToHashSet(StringComparer.Ordinal).SetEquals(slot.UserIds)) : null;
-                if (slot.UserIds.Any(id => !validUsers.Contains(id) && !((original ?? fragment)?.UserIds.Contains(id, StringComparer.Ordinal) ?? false)))
+                if (slot.UserIds.Any(id => !validUsers.Contains(id, StringComparer.Ordinal) &&
+                    !canonical.Any(item => item.StartsAtUtc < OnCallScheduleClearing.End(slot) &&
+                        OnCallScheduleClearing.End(item) > slot.StartsAtUtc && item.UserIds.Contains(id, StringComparer.Ordinal))))
                     return [localizer["Cannot add employees who have left the team or do not belong to the team."].Value];
                 var preserved = original != null && OnCallScheduleClearing.SameAssignment(original, slot) ? original : fragment;
                 slot.Source = generate || preserved?.Source == OnCallShiftSource.Generated ||

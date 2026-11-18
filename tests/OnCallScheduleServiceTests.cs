@@ -390,17 +390,28 @@ public class OnCallScheduleServiceTests
     }
 
     [TestMethod]
-    public async Task DepartedMembersRemainOnOriginalShiftsWithWarningButCannotBeAddedElsewhere()
+    public async Task DepartedMembersCanBeKeptWhenMergingButCannotBeAddedElsewhere()
     {
-        Assert.AreEqual(0, (await service.Save(Request(Slot(0, 60, "a")), false, default)).Count);
+        db.OnCallShifts.AddRange(
+            new OnCallShift { GroupId = group.Id, StartsAtUtc = Anchor, EndsAtUtc = Anchor.AddHours(1),
+                Members = [new() { UserId = "a" }, new() { UserId = "b" }] },
+            new OnCallShift { GroupId = group.Id, StartsAtUtc = Anchor.AddMinutes(30), EndsAtUtc = Anchor.AddHours(2),
+                Members = [new() { UserId = "a" }] });
+        await db.SaveChangesAsync();
         var departing = group.Members.Single(member => member.UserId == "a");
         db.OnCallGroupMembers.Remove(departing);
         group.Members.Remove(departing);
         await db.SaveChangesAsync();
-        Assert.AreEqual(0, (await service.Save(Request(Slot(0, 60, "a")), false, default)).Count);
+        var merged = Slot(0, 120, "a");
+        var retained = Slot(0, 60, "b");
+        Assert.AreEqual(0, (await service.Save(Request(merged, retained), false, default)).Count);
         Assert.IsTrue(service.Warnings.Any(warning => warning.Contains("departed")));
-        Assert.IsTrue((await service.Save(Request(Slot(0, 60, "a"), Slot(120, 30, "a")), false, default)).Count > 0);
-        Assert.AreEqual(1, await db.OnCallShifts.CountAsync());
+        var saved = await db.OnCallShifts.Include(shift => shift.Members)
+            .SingleAsync(shift => shift.Members.Any(member => member.UserId == "a"));
+        Assert.AreEqual(Anchor.AddHours(2), saved.EndsAtUtc);
+        Assert.AreEqual("a", saved.Members.Single().UserId);
+        Assert.IsTrue((await service.Save(Request(merged, retained, Slot(120, 30, "a")), false, default)).Count > 0);
+        Assert.AreEqual(2, await db.OnCallShifts.CountAsync());
     }
 
     [TestMethod]

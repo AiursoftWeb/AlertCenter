@@ -1314,6 +1314,20 @@ test('legacy overlaps are red, block save, merge per person without changing cov
     assert.equal(hoursFor(merged.filter(slot => slot.id !== 'untouched'), 'b', start, end), hoursFor(slots, 'b', start, end));
 });
 
+test('one-click merge submits the departed member and retains their warning', async () => {
+    const slots = [shift(0, 8, ['gone', 'b']), shift(4, 12, ['gone'])];
+    const ui = setup({ slots, members: [...members, { id: 'gone', name: 'Former engineer', departed: true }] }); await ui.flush();
+    await ui.click('merge-overlaps');
+    assert(warnings(ui).includes(warningText['departed-warning']));
+    await ui.click('save-schedule');
+    const saved = ui.request('/save')[0].body.slots;
+    assert.equal(overlappingSlots(saved, 'Asia/Shanghai').size, 0);
+    const departed = saved.filter(slot => slot.userIds.includes('gone'));
+    assert.equal(departed.length, 1);
+    assert.equal(timeOf(departed[0], 'start', 'Asia/Shanghai'), Date.parse(start));
+    assert.equal(timeOf(departed[0], 'end', 'Asia/Shanghai'), Date.parse(start) + 12 * hour);
+});
+
 test('merge repairs overlaps across the visible boundary while preserving adjacent schedules and can undo', async () => {
     const saved = [shift(-8, 4, ['a'], 'crossing'), shift(-12, -4, ['a'], 'prior'), shift(170, 178, ['b'], 'later'), shift(-16, -10, ['b'], 'unseen')];
     const ui = setup({ slots: [saved[0]], context: saved.slice(1, 3), savedSlots: saved }); await ui.flush();
