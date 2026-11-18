@@ -28,7 +28,7 @@ public static class OnCallScheduleValidator
                     var name = person.Key.UserId.Length == 0 ? localizer?["Unassigned"].Value ?? "Unassigned"
                         : names?.GetValueOrDefault(person.Key.UserId) ?? person.Key.UserId;
                     const string format = "Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.";
-                    var message = string.Format(System.Globalization.CultureInfo.InvariantCulture, localizer?[format].Value ?? format,
+                    var message = string.Format(CultureInfo.InvariantCulture, localizer?[format].Value ?? format,
                         name, previous.Shift.StartsAtUtc, previous.Shift.EndsAtUtc, current.Shift.StartsAtUtc, current.Shift.EndsAtUtc);
                     result.Add(new(current.Shift.StartsAtUtc,
                         previous.Shift.EndsAtUtc < current.Shift.EndsAtUtc ? previous.Shift.EndsAtUtc : current.Shift.EndsAtUtc, message));

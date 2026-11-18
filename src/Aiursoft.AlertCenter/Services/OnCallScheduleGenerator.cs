@@ -1,4 +1,3 @@
-using System.Globalization;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.Extensions.Localization;
 
