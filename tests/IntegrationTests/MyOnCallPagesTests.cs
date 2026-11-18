@@ -160,6 +160,39 @@ public class MyOnCallPagesTests : TestBase
     }
 
     [TestMethod]
+    public async Task CalendarSubscriptionIsHiddenDuringActiveLockoutAndRecoversWithoutTokenReset()
+    {
+        var token = Convert.ToHexString(System.Security.Cryptography.RandomNumberGenerator.GetBytes(32));
+        var url = new Uri(Http.BaseAddress!, "/OnCall/Calendar.ics?token=" + token);
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var now = DateTimeOffset.UtcNow;
+        var user = new User { UserName = "lockout-calendar-" + Guid.NewGuid(), DisplayName = "Calendar subscriber",
+            OnCallSubscriptionTokenHash = OnCallCalendar.Hash(token), LockoutEnabled = true };
+        userIds.Add(user.Id);
+        db.Users.Add(user);
+        await db.SaveChangesAsync();
+        Assert.AreEqual(HttpStatusCode.OK, (await Anonymous.GetAsync(url)).StatusCode);
+
+        user.LockoutEnd = now.AddMinutes(15).ToOffset(TimeSpan.FromHours(-8));
+        await db.SaveChangesAsync();
+        using var locked = await Anonymous.GetAsync(url);
+        using var invalid = await Anonymous.GetAsync(new Uri(Http.BaseAddress!, "/OnCall/Calendar.ics?token=" + new string('0', 64)));
+        Assert.AreEqual(HttpStatusCode.NotFound, locked.StatusCode);
+        Assert.AreEqual(invalid.StatusCode, locked.StatusCode);
+        Assert.AreEqual(invalid.Content.Headers.ContentType, locked.Content.Headers.ContentType);
+
+        user.LockoutEnd = now.AddMinutes(-15).ToOffset(TimeSpan.FromHours(8));
+        await db.SaveChangesAsync();
+        Assert.AreEqual(HttpStatusCode.OK, (await Anonymous.GetAsync(url)).StatusCode);
+
+        user.LockoutEnd = now.AddMinutes(15);
+        user.LockoutEnabled = false;
+        await db.SaveChangesAsync();
+        Assert.AreEqual(HttpStatusCode.OK, (await Anonymous.GetAsync(url)).StatusCode);
+    }
+
+    [TestMethod]
     public async Task CurrentBannerMergesOverlapsShowsAllTeamsAndFallbacksAndBadgeOnlyForDuty()
     {
         await LoginAsAdmin();

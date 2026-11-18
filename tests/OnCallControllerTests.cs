@@ -45,6 +45,26 @@ public class OnCallControllerTests
     };
 
     [TestMethod]
+    public async Task CalendarComparesSqliteLockoutOffsetsAsUtcInstants()
+    {
+        await using var db = await CreateDb();
+        var user = await db.Users.SingleAsync(person => person.Id == "a");
+        var token = OnCallCalendar.NewToken();
+        var now = DateTimeOffset.UtcNow;
+        var settings = Microsoft.Extensions.Options.Options.Create(new Configuration.EmailSettings());
+        var controller = Controller(db);
+        user.OnCallSubscriptionTokenHash = OnCallCalendar.Hash(token);
+        user.LockoutEnabled = true;
+        user.LockoutEnd = now.AddMinutes(10).ToOffset(TimeSpan.FromHours(-8));
+        await db.SaveChangesAsync();
+        Assert.IsInstanceOfType<NotFoundResult>(await controller.Calendar(token, settings, default));
+
+        user.LockoutEnd = now.AddMinutes(-10).ToOffset(TimeSpan.FromHours(8));
+        await db.SaveChangesAsync();
+        Assert.IsInstanceOfType<FileContentResult>(await controller.Calendar(token, settings, default));
+    }
+
+    [TestMethod]
     public async Task UnsavedWeeklyPreviewContinuesLatestHistoricalAssignment()
     {
         await using var db = await CreateDb();

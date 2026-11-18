@@ -48,10 +48,19 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     {
         if (token is null || token.Length != 64 || !token.All(Uri.IsHexDigit)) return NotFound();
         var hash = OnCallCalendar.Hash(token);
-        var userId = await db.Users.AsNoTracking().Where(user => user.OnCallSubscriptionTokenHash == hash)
-            .Select(user => user.Id).SingleOrDefaultAsync(cancellationToken);
-        if (userId == null) return NotFound();
         var now = DateTime.UtcNow;
+        var lockoutCheckTime = new DateTimeOffset(now);
+        // SQLite stores offsets as text and cannot translate DateTimeOffset comparisons.
+        var users = db.Database.IsSqlite()
+            ? db.Users.FromSql($"""
+                SELECT * FROM AspNetUsers
+                WHERE OnCallSubscriptionTokenHash = {hash}
+                  AND (NOT LockoutEnabled OR LockoutEnd IS NULL OR julianday(LockoutEnd) <= julianday({lockoutCheckTime}))
+                """)
+            : db.Users.Where(user => user.OnCallSubscriptionTokenHash == hash &&
+                (!user.LockoutEnabled || user.LockoutEnd == null || user.LockoutEnd <= lockoutCheckTime));
+        var userId = await users.AsNoTracking().Select(user => user.Id).SingleOrDefaultAsync(cancellationToken);
+        if (userId == null) return NotFound();
         var from = now.AddDays(-30);
         var until = now.AddDays(84);
         var shifts = await db.OnCallShifts.AsNoTracking().AsSingleQuery().Include(shift => shift.Group)
