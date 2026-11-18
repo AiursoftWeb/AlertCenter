@@ -82,33 +82,64 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
     private static async Task ExtendAsync(TemplateDbContext db, OnCallScheduleGenerator generator, OnCallGroup group,
         DateTime now, CancellationToken token, IStringLocalizer? validatorLocalizer)
     {
-        var last = await db.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.GroupId == group.Id)
-            .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
-            .FirstOrDefaultAsync(token);
-        var start = DateTime.SpecifyKind(last == null ? (group.AnchorUtc > now ? group.AnchorUtc : now) :
-            (last.EndsAtUtc > now ? last.EndsAtUtc : now), DateTimeKind.Utc);
-        var rule = group.Rule!;
+        var shifts = db.OnCallShifts.Where(shift => shift.GroupId == group.Id);
+        var baseline = group.AutoExtendedThroughUtc ?? (group.AnchorUtc > now && !await shifts.AnyAsync(token) ? group.AnchorUtc : now);
+        var start = DateTime.SpecifyKind(baseline > now ? baseline : now, DateTimeKind.Utc);
         var until = now.AddDays(28);
         if (start >= until) return;
+
+        var last = await shifts.Include(shift => shift.Members).Where(shift => shift.EndsAtUtc <= start)
+            .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
+            .FirstOrDefaultAsync(token);
+        var occupied = await shifts.AsNoTracking().Where(shift =>
+                shift.StartsAtUtc < until && shift.EndsAtUtc > start && shift.StartsAtUtc < shift.EndsAtUtc)
+            .OrderBy(shift => shift.StartsAtUtc).Select(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).ToListAsync(token);
         var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
-        var history = RotationHistory(group, last);
-        var count = rule.HandoverPoints.Count == 0
-            ? (int)Math.Ceiling((until - start).TotalMinutes / (rule.ShiftMinutes ?? rule.ShiftHours * 60))
-            : ((int)Math.Ceiling((until - start).TotalDays / 7) + 2) * rule.HandoverPoints.Count;
-        var generated = generator.GenerateRange(rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), ids,
-            start, count, TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId), history);
-        var additions = generated.Where(shift => shift.StartsAtUtc < until).GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc })
-            .Select(batch => new OnCallShift
+        var rule = group.Rule!;
+        var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+        var minutes = rule.ShiftMinutes ?? checked(rule.ShiftHours * 60);
+        var first = generator.GenerateRange(rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), ids,
+            start, 1, zone, RotationHistory(group, last));
+        var position = first[0].RotationPosition!.Value;
+        var additions = new List<OnCallShift>();
+        var index = 0;
+        for (var from = start; from < until;)
+        {
+            var boundary = rule.HandoverPoints.Count == 0
+                ? from.AddMinutes(minutes) : OnCallScheduleGenerator.NextHandover(rule.HandoverPoints, zone, from);
+            var to = boundary < until ? boundary : until;
+            List<GeneratedOnCallShift>? assignments = null;
+            var freeFrom = from;
+            // 已有班段只用于扣除占用区间；同一模板班的空闲片段共享一次轮换。
+            while (index < occupied.Count && occupied[index].StartsAtUtc < to)
             {
-                GroupId = group.Id, StartsAtUtc = batch.Key.StartsAtUtc, EndsAtUtc = batch.Key.EndsAtUtc,
-                Source = OnCallShiftSource.Generated, RotationPosition = batch.First().RotationPosition,
-                Members = batch.Select(shift => new OnCallShiftMember { UserId = shift.UserId }).ToList()
-            }).ToList();
-        // 续排从所有已有班段的最晚结束时刻之后开始；旧数据中的冲突留给管理员修正。
-        var overlaps = OnCallScheduleValidator.OverlapErrors(additions, last == null ? [] : [last], validatorLocalizer);
+                var block = occupied[index];
+                AddFragment(freeFrom, block.StartsAtUtc);
+                if (block.EndsAtUtc > freeFrom) freeFrom = block.EndsAtUtc;
+                if (freeFrom >= to) break;
+                index++;
+            }
+            AddFragment(freeFrom, to);
+            if (assignments != null) position = assignments[^1].RotationPosition!.Value + 1;
+            from = to;
+
+            void AddFragment(DateTime fragmentStart, DateTime fragmentEnd)
+            {
+                if (fragmentStart >= fragmentEnd) return;
+                assignments ??= OnCallScheduleGenerator.AssignShift(rule, ids, position, rule.StaffPerShift, fragmentStart, fragmentEnd);
+                additions.Add(new OnCallShift
+                {
+                    GroupId = group.Id, StartsAtUtc = fragmentStart, EndsAtUtc = fragmentEnd,
+                    Source = OnCallShiftSource.Generated, RotationPosition = assignments[0].RotationPosition,
+                    Members = assignments.Select(shift => new OnCallShiftMember { UserId = shift.UserId }).ToList()
+                });
+            }
+        }
+        var overlaps = OnCallScheduleValidator.OverlapErrors(additions, [], validatorLocalizer);
         if (overlaps.Count > 0) throw new ArgumentException(string.Join(" ", overlaps.Select(overlap => overlap.Message)));
         db.OnCallShifts.AddRange(additions);
         group.ScheduleVersion = Guid.NewGuid();
+        group.AutoExtendedThroughUtc = until;
         await db.SaveChangesAsync(token);
     }
 

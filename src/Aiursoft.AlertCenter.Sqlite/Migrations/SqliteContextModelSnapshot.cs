@@ -15,7 +15,7 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.14");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.15");
 
             modelBuilder.Entity("Aiursoft.AlertCenter.Entities.ApplicationApiKey", b =>
                 {
@@ -534,6 +534,9 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
 
                     b.Property<bool>("AutoExtend")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("AutoExtendedThroughUtc")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("EmailCcRecipients")
                         .HasMaxLength(8000)

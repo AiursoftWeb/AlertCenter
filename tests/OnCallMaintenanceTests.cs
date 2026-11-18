@@ -135,35 +135,127 @@ public class OnCallMaintenanceTests
     }
 
     [TestMethod]
-    public async Task ExtensionOnlyAppendsAfterLatestManualShiftAndContinuesQueueAcrossReruns()
+    [DataRow(42)]
+    [DataRow(10)]
+    public async Task ExtensionFillsUnoccupiedDaysWithoutConsumingCoveredRotations(int manualStartDay)
     {
-        var manual = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(-1), EndsAtUtc = Now.AddDays(4),
+        db.RemoveRange(group.Rule!.HandoverPoints);
+        group.Rule.HandoverPoints.Clear();
+        group.Rule.ShiftHours = 24;
+        var manual = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(manualStartDay), EndsAtUtc = Now.AddDays(manualStartDay + 2),
             Source = OnCallShiftSource.Manual, Members = [new() { UserId = "b" }] };
         db.OnCallShifts.Add(manual);
         await db.SaveChangesAsync();
         var version = group.ScheduleVersion;
+
         await Maintain();
+
         var shifts = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).ToListAsync();
-        Assert.AreEqual(manual.Id, shifts[0].Id);
-        Assert.AreEqual(Now.AddDays(-1), shifts[0].StartsAtUtc);
-        Assert.AreEqual(Now.AddDays(4), shifts[0].EndsAtUtc);
-        Assert.AreEqual("b", shifts[0].Members.Single().UserId);
-        Assert.AreEqual(OnCallShiftSource.Manual, shifts[0].Source);
-        Assert.AreEqual("c", shifts[1].Members.Single().UserId);
-        Assert.AreEqual(shifts[0].EndsAtUtc, shifts[1].StartsAtUtc);
-        Assert.IsTrue(shifts[^1].EndsAtUtc >= Now.AddDays(28));
-        Assert.IsTrue(shifts.Skip(1).All(shift => shift.Source == OnCallShiftSource.Generated));
-        var ids = shifts.Select(shift => shift.Id).ToArray();
-        Assert.AreNotEqual(version, (await db.OnCallGroups.SingleAsync()).ScheduleVersion);
+        var savedManual = shifts.Single(shift => shift.Source == OnCallShiftSource.Manual);
+        Assert.AreEqual(manual.Id, savedManual.Id);
+        Assert.AreEqual(manual.StartsAtUtc, savedManual.StartsAtUtc);
+        Assert.AreEqual(manual.EndsAtUtc, savedManual.EndsAtUtc);
+        Assert.AreEqual("b", savedManual.Members.Single().UserId);
+        var generated = shifts.Where(shift => shift.Source == OnCallShiftSource.Generated).ToArray();
+        var freeDays = Enumerable.Range(0, 28).Where(day => day < manualStartDay || day >= manualStartDay + 2).ToArray();
+        CollectionAssert.AreEqual(freeDays.Select(day => Now.AddDays(day)).ToArray(), generated.Select(shift => shift.StartsAtUtc).ToArray());
+        CollectionAssert.AreEqual(freeDays.Select(day => Now.AddDays(day + 1)).ToArray(), generated.Select(shift => shift.EndsAtUtc).ToArray());
+        string[] rotation = ["a", "b", "c"];
+        CollectionAssert.AreEqual(freeDays.Select((_, index) => rotation[index % rotation.Length]).ToArray(),
+            generated.Select(shift => shift.Members.Single().UserId).ToArray());
+        var savedGroup = await db.OnCallGroups.SingleAsync();
+        Assert.AreNotEqual(version, savedGroup.ScheduleVersion);
+        Assert.AreEqual(Now.AddDays(28), savedGroup.AutoExtendedThroughUtc);
+    }
+
+    [TestMethod]
+    public async Task ExtensionDoesNotRefillDeletedShiftsAndOnlyAddsNewDay()
+    {
+        db.RemoveRange(group.Rule!.HandoverPoints);
+        group.Rule.HandoverPoints.Clear();
+        group.Rule.ShiftHours = 24;
+        await db.SaveChangesAsync();
         await Maintain();
-        CollectionAssert.AreEqual(ids, await db.OnCallShifts.OrderBy(shift => shift.StartsAtUtc).Select(shift => shift.Id).ToArrayAsync());
-        await Maintain(Now.AddDays(7));
-        var extended = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).ToListAsync();
-        CollectionAssert.AreEqual(ids, extended.Take(ids.Length).Select(shift => shift.Id).ToArray());
-        Assert.IsTrue(extended[^1].EndsAtUtc >= Now.AddDays(35));
-        var users = new[] { "a", "b", "c" };
-        var previous = Array.IndexOf(users, shifts[^1].Members.Single().UserId);
-        Assert.AreEqual(users[(previous + 1) % users.Length], extended[ids.Length].Members.Single().UserId);
+        var deleted = await db.OnCallShifts.SingleAsync(shift => shift.StartsAtUtc == Now.AddDays(4));
+        db.Remove(deleted);
+        await db.SaveChangesAsync();
+        var original = await db.OnCallShifts.OrderBy(shift => shift.StartsAtUtc).Select(shift => shift.Id).ToArrayAsync();
+
+        await Maintain(Now.AddDays(1));
+
+        var shifts = await db.OnCallShifts.OrderBy(shift => shift.StartsAtUtc).ToArrayAsync();
+        Assert.HasCount(original.Length + 1, shifts);
+        CollectionAssert.AreEqual(original, shifts[..^1].Select(shift => shift.Id).ToArray());
+        Assert.AreEqual(Now.AddDays(28), shifts[^1].StartsAtUtc);
+        Assert.AreEqual(Now.AddDays(29), shifts[^1].EndsAtUtc);
+        Assert.AreEqual(Now.AddDays(29), (await db.OnCallGroups.SingleAsync()).AutoExtendedThroughUtc);
+    }
+
+    [TestMethod]
+    public async Task WeeklyShiftSplitAroundAnEmptyManualShiftSharesOneRotation()
+    {
+        var manual = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddMinutes(10), EndsAtUtc = Now.AddMinutes(20) };
+        db.Add(manual);
+        await db.SaveChangesAsync();
+        var boundary = OnCallScheduleGenerator.NextHandover(group.Rule!.HandoverPoints,
+            TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId), Now);
+
+        await Maintain();
+
+        var first = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).Take(4).ToArrayAsync();
+        Assert.AreEqual(Now, first[0].StartsAtUtc);
+        Assert.AreEqual(manual.StartsAtUtc, first[0].EndsAtUtc);
+        Assert.AreEqual(manual.Id, first[1].Id);
+        Assert.IsEmpty(first[1].Members);
+        Assert.AreEqual(manual.EndsAtUtc, first[2].StartsAtUtc);
+        Assert.AreEqual(boundary, first[2].EndsAtUtc);
+        Assert.AreEqual("a", first[0].Members.Single().UserId);
+        Assert.AreEqual("a", first[2].Members.Single().UserId);
+        Assert.AreEqual(boundary, first[3].StartsAtUtc);
+        Assert.AreEqual("b", first[3].Members.Single().UserId);
+    }
+
+    [TestMethod]
+    public async Task FullyOccupiedHorizonStillAdvancesCursor()
+    {
+        var manual = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(28) };
+        db.Add(manual);
+        await db.SaveChangesAsync();
+        await Maintain();
+        Assert.AreEqual(Now.AddDays(28), (await db.OnCallGroups.SingleAsync()).AutoExtendedThroughUtc);
+        Assert.AreEqual(manual.Id, (await db.OnCallShifts.SingleAsync()).Id);
+        db.Remove(await db.OnCallShifts.SingleAsync());
+        await db.SaveChangesAsync();
+        await Maintain();
+        Assert.IsFalse(await db.OnCallShifts.AnyAsync());
+    }
+
+    [TestMethod]
+    public async Task MigrationBackfillsOnlyLatestGeneratedEndAndManualOnlyTeamExtendsFromNow()
+    {
+        var generatedTeam = new OnCallGroup { Name = "Generated" };
+        db.Add(generatedTeam);
+        var manual = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(1), EndsAtUtc = Now.AddHours(2) };
+        db.AddRange(manual,
+            new OnCallShift { GroupId = generatedTeam.Id, StartsAtUtc = Now.AddDays(-2), EndsAtUtc = Now.AddDays(-1), Source = OnCallShiftSource.Generated },
+            new OnCallShift { GroupId = generatedTeam.Id, StartsAtUtc = Now.AddDays(-1), EndsAtUtc = Now.AddDays(1), Source = OnCallShiftSource.Generated },
+            new OnCallShift { GroupId = generatedTeam.Id, StartsAtUtc = Now.AddDays(2), EndsAtUtc = Now.AddDays(3) });
+        await db.SaveChangesAsync();
+        db.ChangeTracker.Clear();
+
+        await db.Database.MigrateAsync("20261108145044_OnCallWeekStart");
+        await db.Database.MigrateAsync();
+
+        var groups = await db.OnCallGroups.AsNoTracking().ToDictionaryAsync(item => item.Id);
+        Assert.AreEqual(Now.AddDays(1), groups[generatedTeam.Id].AutoExtendedThroughUtc);
+        Assert.IsNull(groups[group.Id].AutoExtendedThroughUtc);
+        await Maintain();
+        var first = await db.OnCallShifts.Where(shift => shift.GroupId == group.Id)
+            .OrderBy(shift => shift.StartsAtUtc).Take(3).ToArrayAsync();
+        Assert.AreEqual(Now, first[0].StartsAtUtc);
+        Assert.AreEqual(manual.StartsAtUtc, first[0].EndsAtUtc);
+        Assert.AreEqual(manual.Id, first[1].Id);
+        Assert.AreEqual(manual.EndsAtUtc, first[2].StartsAtUtc);
     }
 
     [TestMethod]
@@ -214,6 +306,16 @@ public class OnCallMaintenanceTests
         await db.SaveChangesAsync();
         await Maintain(Now.AddDays(35));
         Assert.AreEqual(count, await db.OnCallShifts.CountAsync());
+        var savedGroup = await db.OnCallGroups.SingleAsync();
+        Assert.AreEqual(Now.AddDays(28), savedGroup.AutoExtendedThroughUtc);
+        savedGroup.AutoExtend = true;
+        await db.SaveChangesAsync();
+
+        await Maintain(Now.AddDays(36));
+
+        Assert.AreEqual(Now.AddDays(36), await db.OnCallShifts.Where(shift => shift.StartsAtUtc >= Now.AddDays(28))
+            .MinAsync(shift => shift.StartsAtUtc));
+        Assert.AreEqual(Now.AddDays(64), (await db.OnCallGroups.SingleAsync()).AutoExtendedThroughUtc);
     }
 
     [TestMethod]

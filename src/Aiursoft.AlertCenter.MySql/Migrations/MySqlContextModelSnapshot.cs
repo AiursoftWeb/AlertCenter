@@ -17,7 +17,7 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.14")
+                .HasAnnotation("ProductVersion", "10.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -539,6 +539,9 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
 
                     b.Property<bool>("AutoExtend")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("AutoExtendedThroughUtc")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("EmailCcRecipients")
                         .HasMaxLength(8000)

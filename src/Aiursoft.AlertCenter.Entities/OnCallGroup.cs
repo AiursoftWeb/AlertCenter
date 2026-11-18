@@ -17,6 +17,7 @@ public class OnCallGroup
     public double? MaximumContinuousHours { get; set; }
     public int? MinimumShiftStaff { get; set; }
     public bool AutoExtend { get; set; }
+    public DateTime? AutoExtendedThroughUtc { get; set; }
     public DateTime? HandoverCheckedThroughUtc { get; set; }
     public ICollection<OnCallFallbackRecipient> FallbackRecipients { get; set; } = [];
     public ICollection<OnCallGroupMember> Members { get; set; } = [];
