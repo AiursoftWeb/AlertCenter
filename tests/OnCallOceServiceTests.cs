@@ -9,6 +9,28 @@ namespace Aiursoft.AlertCenter.Tests;
 public class OnCallOceServiceTests
 {
     [TestMethod]
+    public async Task OverlappingShiftsWithIdenticalStartsMergeAndDeduplicateAllMembers()
+    {
+        await using var db = new SqliteContext(new DbContextOptionsBuilder<SqliteContext>().UseSqlite("DataSource=:memory:").Options);
+        await db.Database.OpenConnectionAsync();
+        await db.Database.MigrateAsync();
+        db.Users.AddRange(new[] { "a", "b", "c" }.Select(id => new User { Id = id, UserName = id, DisplayName = id, Email = $"{id}@example.com" }));
+        var group = new OnCallGroup { Name = "Team" };
+        var start = new DateTime(2026, 11, 1, 0, 0, 0, DateTimeKind.Utc);
+        db.OnCallShifts.AddRange(new OnCallShift { Group = group, StartsAtUtc = start, EndsAtUtc = start.AddHours(8),
+            Members = [new() { UserId = "a" }, new() { UserId = "b" }] },
+            new OnCallShift { Group = group, StartsAtUtc = start, EndsAtUtc = start.AddHours(10), Members = [new() { UserId = "b" }] },
+            new OnCallShift { Group = group, StartsAtUtc = start.AddHours(1), EndsAtUtc = start.AddHours(12), Members = [new() { UserId = "c" }] });
+        await db.SaveChangesAsync();
+        var result = await new OnCallOceService(db).QueryAsync(group.Id, start.AddHours(2));
+        Assert.IsNull(result.Error);
+        Assert.IsFalse(result.IsFallback);
+        CollectionAssert.AreEqual(new[] { "a", "b", "c" }, result.Engineers.Select(person => person.UserId).ToArray());
+        Assert.AreEqual(start.AddHours(1), result.StartsAtUtc);
+        Assert.AreEqual(start.AddHours(8), result.EndsAtUtc);
+    }
+
+    [TestMethod]
     [DataRow("UTC")]
     [DataRow("Asia/Shanghai")]
     [DataRow("America/New_York")]

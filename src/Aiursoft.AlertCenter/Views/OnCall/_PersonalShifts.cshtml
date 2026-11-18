@@ -1,0 +1,13 @@
+@inject IHtmlLocalizerFactory OnCallViewLocalizerFactory
+@{ var viewLocalizer = OnCallViewLocalizerFactory.Create("Views.OnCall._PersonalShifts", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
+@model (List<Aiursoft.AlertCenter.Entities.OnCallShift> Shifts, string UserId)
+@if (Model.Shifts.Count == 0) { <p class="text-muted">@viewLocalizer["No shifts in this period."]</p> }
+@foreach (var shift in Model.Shifts)
+{
+    <article class="border-bottom pb-3 mb-3 text-break" data-personal-shift="@shift.Id">
+        <a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@shift.GroupId" class="fw-bold">@shift.Group.Name</a>
+        <div>@viewLocalizer["Starts"]: @await Html.PartialAsync("_OnCallTime", (shift.StartsAtUtc, shift.Group.TimeZoneId))</div>
+        <div>@viewLocalizer["Ends"]: @await Html.PartialAsync("_OnCallTime", (shift.EndsAtUtc, shift.Group.TimeZoneId))</div>
+        <div>@((shift.EndsAtUtc - shift.StartsAtUtc).TotalHours.ToString("0.##")) @viewLocalizer["hours"] · @viewLocalizer["Others on this shift"]: @string.Join(", ", shift.Members.Where(member => member.UserId != Model.UserId).OrderBy(member => member.User.DisplayName).Select(member => member.User.DisplayName))</div>
+    </article>
+}

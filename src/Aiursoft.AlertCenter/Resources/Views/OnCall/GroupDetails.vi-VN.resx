@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>Chỉnh sửa nhóm</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Nhập chính xác tên nhóm để xác nhận xóa.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Người nhận dự phòng</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Các ca trực sắp tới bao gồm cả những ca đang diễn ra. Các mẫu và bản ghi gửi thông báo sự cố sẽ được giữ lại. Không thể hoàn tác hành động này.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Quản lý thành viên</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>Tiếp theo: phân công người vào ca trực</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Chưa cấu hình người nhận dự phòng. Không thể gửi cảnh báo khi không có ai trực.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>Không có thành viên nào trong nhóm.</value>
@@ -63,35 +75,47 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>Email trực ca sẽ được tự động gửi đến hộp thư người dùng (To) của tất cả Kỹ sư trực (OCE) trong ca trực đã lưu hiện tại. CC chỉ sử dụng hộp thư của nhóm hoặc địa chỉ danh sách gửi thư được quản trị viên cấu hình rõ ràng; hệ thống không tự động CC tất cả thành viên nhóm. Các kênh thông báo đẩy tùy chỉnh được cấu hình trong ứng dụng vẫn sẽ gửi thêm thông báo.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Thành viên trực (hàng đợi luân phiên)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>Mở lịch</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Mỗi ca</value>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Nhận cảnh báo khi không có ai trực; không tham gia luân phiên.</value>
   </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>Luân phiên thành viên (theo thứ tự)</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Chưa gán mẫu quy tắc; vẫn có thể lập lịch thủ công.</value>
-  </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Mẫu quy tắc:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Không thể xóa các mẫu quy tắc. Chỉ có thể xóa những nhóm không có ca trực đã lưu và không liên kết với ứng dụng nào. Hành động này không thể hoàn tác.</value>
-  </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Thời điểm bắt đầu lịch:</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Nhân sự mỗi ca</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Cấu hình nhóm</value>
   </data>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Chưa liên kết mẫu; vẫn có thể xếp lịch thủ công.</value>
+  </data>
+  <data name="Template:" xml:space="preserve">
+    <value>Mẫu:</value>
+  </data>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Mẫu không bị xóa. Chỉ có thể xóa nhóm không có ca đã lưu và không có ứng dụng liên kết. Không thể hoàn tác thao tác này.</value>
+  </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Các mẫu có thể được nhiều nhóm dùng chung; việc chỉnh sửa hoặc chuyển đổi mẫu sẽ không tạo lại các ca trực đã lưu.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Người đầu hàng đợi sẽ trực trước. Các ca hiện có không được sắp xếp lại.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>Danh sách thành viên cho biết ai có thể được xếp lịch. Lịch đã lưu cho biết ai đang trực và nhận email thông báo sự cố. Người nhận CC sẽ nhận được bản sao, независимо với tư cách thành viên nhóm.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Tên nhóm không khớp.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>Nhóm này đã có các ca trực được lưu nên không thể xóa để bảo toàn lịch sử phân ca.</value>
@@ -105,11 +129,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>Xem lịch trực</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Sẽ xóa {0} ca trực sắp tới và {1} ca trực đã qua. Hồ sơ trực của các sự cố hiện có sẽ được giữ lại.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>giờ</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>giờ · Thời gian nghỉ tối thiểu</value>
   </data>
-
 </root>

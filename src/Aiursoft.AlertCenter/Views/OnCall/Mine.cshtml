@@ -1,0 +1,108 @@
+@inject IHtmlLocalizerFactory OnCallViewLocalizerFactory
+@{ var viewLocalizer = OnCallViewLocalizerFactory.Create("Views.OnCall.Mine", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
+@using System.Security.Claims
+@model Aiursoft.AlertCenter.Models.MyOnCallViewModel
+@using System.Text.Json
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var calendarShifts = Model.Upcoming.Select(shift => new
+    {
+        id = shift.Id,
+        groupId = shift.GroupId,
+        groupName = shift.Group.Name,
+        startsAtUtc = DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc),
+        endsAtUtc = DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc)
+    });
+}
+@section styles {
+    <link rel="stylesheet" href="~/styles/alertcenter.css" asp-append-version="true" />
+}
+@section scripts {
+    <script src="~/scripts/oncall-personal-calendar.js" asp-append-version="true" defer></script>
+}
+<h1 class="h3 mb-3">@viewLocalizer["My on-call"]</h1>
+<section class="card mb-4"><div class="card-body">
+    @if (Model.Current.Count > 0)
+    {
+        <h2 class="h5 text-success">@viewLocalizer["On duty"]</h2>
+        @foreach (var shift in Model.Current)
+        {
+            <p>@shift.Group.Name · @viewLocalizer["Ends"] @await Html.PartialAsync("_OnCallTime", (shift.EndsAtUtc, shift.Group.TimeZoneId))
+                · <span data-countdown="@DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc).ToString("O")" data-label="@viewLocalizer["Remaining"]"></span></p>
+        }
+    }
+    else if (Model.Next != null)
+    {
+        <h2 class="h5">@viewLocalizer["Next shift"] · @Model.Next.Group.Name</h2>
+        <p>@await Html.PartialAsync("_OnCallTime", (Model.Next.StartsAtUtc, Model.Next.Group.TimeZoneId))
+            · <span data-countdown="@DateTime.SpecifyKind(Model.Next.StartsAtUtc, DateTimeKind.Utc).ToString("O")" data-label="@viewLocalizer["Starts in"]"></span></p>
+    }
+    else { <p class="mb-0">@viewLocalizer["No upcoming shift"]</p> }
+</div></section>
+<div class="row g-3 mb-4">
+    <div class="col-sm-6"><div class="card h-100"><div class="card-body"><h2 class="h6">@viewLocalizer["Past 30 days"]</h2><strong>@Model.PastHours.ToString("0.##") @viewLocalizer["hours"]</strong></div></div></div>
+    <div class="col-sm-6"><div class="card h-100"><div class="card-body"><h2 class="h6">@viewLocalizer["Next 4 weeks"]</h2><strong>@Model.FutureHours.ToString("0.##") @viewLocalizer["hours"]</strong></div></div></div>
+</div>
+<p class="small text-muted">@viewLocalizer["Totals count overlapping time once and include only time inside each period."]</p>
+@if (Model.Warnings.Count > 0)
+{
+    <section class="alert alert-warning"><h2 class="h5">@viewLocalizer["My schedule reminders"]</h2><ul class="mb-0">@foreach (var warning in Model.Warnings) { <li>@warning</li> }</ul></section>
+}
+<section class="card mb-4"><div class="card-header"><h2 class="h5 mb-0">@viewLocalizer["Shifts in the next 8 weeks"]</h2></div>
+    <div class="card-body">
+        <div id="oncall-personal-calendar" class="ac-personal-calendar" hidden
+             data-shifts="@JsonSerializer.Serialize(calendarShifts)"
+             data-today="@viewLocalizer["Today"]" data-all-day="@viewLocalizer["All day"]"
+             data-starts="@viewLocalizer["Starts"]" data-ends="@viewLocalizer["Ends"]" data-on-duty="@viewLocalizer["On duty"]"
+             data-empty="@viewLocalizer["No shifts in this period."]" data-show-all="@viewLocalizer["Show all {0} shifts"].Value"
+             data-more="@viewLocalizer["+{0} more"].Value" data-shifts-on="@viewLocalizer["Shifts on {0}"].Value">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <h3 id="personal-calendar-month" class="h5 mb-0" aria-live="polite"></h3>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-outline-secondary" data-calendar-previous aria-label="@viewLocalizer["Previous month"]">@viewLocalizer["Previous month"]</button>
+                    <button type="button" class="btn btn-outline-primary" data-calendar-today>@viewLocalizer["Today"]</button>
+                    <button type="button" class="btn btn-outline-secondary" data-calendar-next aria-label="@viewLocalizer["Next month"]">@viewLocalizer["Next month"]</button>
+                </div>
+            </div>
+            <p class="small text-muted">@viewLocalizer["Times are shown in your local time zone."] <span data-calendar-zone></span></p>
+            <p data-calendar-empty class="text-muted" hidden>@viewLocalizer["No shifts in this period."]</p>
+            <table class="ac-personal-month" aria-labelledby="personal-calendar-month">
+                <thead></thead><tbody></tbody>
+            </table>
+            <div class="d-flex flex-wrap align-items-center gap-3 my-3" role="list" aria-label="@viewLocalizer["Teams"]" data-calendar-legend></div>
+            <p class="small text-muted">@viewLocalizer["Choose a date or shift to see details."]</p>
+            <section data-calendar-details aria-labelledby="personal-calendar-details-title" hidden>
+                <h3 id="personal-calendar-details-title" class="h5" tabindex="-1"></h3>
+                <div data-calendar-detail-items></div>
+            </section>
+        </div>
+        <div id="personal-calendar-fallback">@await Html.PartialAsync("_PersonalShifts", (Model.Upcoming, userId!))</div>
+    </div>
+</section>
+<section class="card mb-4"><div class="card-header"><h2 class="h5 mb-0">@viewLocalizer["Shift history"]</h2></div>
+    <div class="card-body">
+        @await Html.PartialAsync("_PersonalShifts", (Model.History, userId!))
+        <nav class="d-flex flex-wrap align-items-center gap-3" aria-label="@viewLocalizer["Shift history"]">
+            @if (Model.HistoryPage > 1) { <a asp-action="Mine" asp-route-page="@(Model.HistoryPage - 1)" class="btn btn-outline-secondary">@viewLocalizer["Previous"]</a> }
+            <span>@viewLocalizer["Page"] @Model.HistoryPage</span>
+            @if (Model.HasMoreHistory) { <a asp-action="Mine" asp-route-page="@(Model.HistoryPage + 1)" class="btn btn-outline-secondary">@viewLocalizer["Next"]</a> }
+        </nav>
+    </div>
+</section>
+<section class="card mb-4"><div class="card-body">
+    <h2 class="h5">@viewLocalizer["Private calendar subscription"]</h2>
+    <p>@viewLocalizer["Includes the past 30 days and next 12 weeks. Anyone with this link can read your shifts. Resetting immediately invalidates the old link. The link is only shown when generated."]</p>
+    <form asp-action="ResetSubscription" method="post" class="mb-3">
+        <button type="submit" class="btn btn-primary">@(Model.HasSubscription ? viewLocalizer["Reset subscription link"] : viewLocalizer["Generate subscription link"])</button>
+    </form>
+    @if (Model.SubscriptionUrl != null)
+    {
+        <label for="oncall-subscription" class="form-label">@viewLocalizer["Subscription link"]</label>
+        <div class="input-group mb-2">
+            <input id="oncall-subscription" type="text" class="form-control" readonly value="@Model.SubscriptionUrl" autocomplete="off" />
+            <button class="btn btn-outline-primary" type="button" data-copy-subscription data-copied="@viewLocalizer["Copied"]" data-copy-failed="@viewLocalizer["Select and copy the link manually."]">@viewLocalizer["Copy link"]</button>
+        </div>
+        <p role="status" id="oncall-copy-status" class="small"></p>
+    }
+    <p class="small mb-0">@viewLocalizer["On iPhone, add a subscribed calendar in Calendar accounts; on Android, add the URL in Google Calendar on the web. In Outlook, choose Add calendar, then Subscribe from web, and paste this link. Subscribe rather than importing a file to receive updates; refresh timing depends on your calendar app."]</p>
+</div></section>

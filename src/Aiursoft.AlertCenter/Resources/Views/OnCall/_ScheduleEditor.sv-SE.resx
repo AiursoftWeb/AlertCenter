@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Automatiska förslag har inte sparats. Nablåggande scheman kommer att valideras på nytt vid generering; befintliga sparade arrangemang kommer inte att skrivas över.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automatisk förlängning är aktiverad. Välj vad som ska hända när du sparar.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Som standard rensas bara automatiskt genererade pass.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Avbryt</value>
   </data>
@@ -42,12 +48,34 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Ändringarna träder i kraft först när du sparar. Om du fäller ihop de här verktygen finns ditt utkast kvar.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Välj en åtgärd för automatisk förlängning</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Välj om automatisk förlängning ska inaktiveras eller om pass ska genereras på nytt i rensade luckor.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Rensningen ändrar bara utkastet. Granska diagrammet och spara sedan för att publicera.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Rensa en period i schemat</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Rensad period i utkastet</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Bekräfta rensning av avslutade historiska pass under den här perioden. Detta kan ta bort tidigare tilldelningar.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Bekräfta ersättning av utkast</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Bekräfta rensning av historik</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Kopiera innevarande vecka till nästa vecka</value>
   </data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>Kopiering upprepar det synliga utkastet i målintervallet. Befintliga pass kapas vid intervallets gränser; delar utanför behålls. Kopiering och generering ändrar bara utkastet. Spara schemaändringarna för att publicera.</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>Kopiera utkastet för den aktuella veckan till nästa vecka. Om nästa vecka redan innehåller pass eller ändringar måste du bekräfta innan kopieringen; även efter kopieringen måste du spara. Med de vertikala knapparna på sidorna kan du visa de 36 timmarna före och efter den aktuella veckan; grå områden är skrivskyddade. Diagram och formulär på den här sidan redigerar bara den aktuella veckan. Om du vill ändra intilliggande veckor byter du till den aktuella veckan. Utkastet för nästa vecka visas också i skrivskyddat läge efter kopieringen. Ändringar i den aktuella veckan och kopior sparas, ångras och återställs på samma sätt; utkast går inte förlorade när du fäller ihop vyn.</value>
   </data>
@@ -57,8 +85,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>För närvarande i läget Flytta/Byt. Byt läge ovan innan du lägger till eller tar bort pass.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Standardperioden sträcker sig från nu till slutet av det sista sparade passet eller passet i utkastet, i teamets tidszon.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Ta bort pass</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Inaktivera automatisk förlängning när du sparar</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Dra en färgblock till en annan pass för att byta personal, eller till en tom slot för att flytta passen; dra &apos;Byt hel vecka&apos; för att utbyta två personers veckoscheman. Du kan också klicka för att markera och sedan klicka på målet; tryck på Esc för att avbryta. Ändringar visas direkt och kan sparas i bulk efter flera justeringar.</value>
@@ -72,6 +106,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Så här justerar du schemat</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Inkludera avslutade historiska pass</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Inkludera manuellt redigerade pass</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Slå samman överlappande pass</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Fler åtgärder</value>
   </data>
@@ -84,8 +127,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Jourpersonal (flera tillåtna, minst en)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Pågående pass behåller den del som redan har förflutit, även när historik inkluderas.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Förhandsvisa rensning</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Röda varningar indikerar tomma pass, otillräcklig vila eller färre personer än miniminivån, men hindrar inte ytterligare justeringar. Spara är tillåtet även om antalet personer är under miniminivån, men tomma pass och otillräcklig vila kan inte sparas. Validering tillämpas enhetligt över den modifierade veckan, intilliggande veckor och andra team vid sparande. Om någon vecka misslyckas med valideringen sparas ingenting. Avtalade medlemmar kan endast behålla sina ursprungliga pass; nya pass kan inte läggas till eller kopieras.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Generera pass på nytt från mallen i rensade luckor när du sparar</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Pass genereras på nytt först när du sparar. Förhandsvisningen behåller luckorna och bevarade pass skrivs inte över.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Ersätta nästa veckas utkast?</value>
@@ -105,8 +160,17 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Välj tidsperioder för att lägga till eller ta bort personal på pass; diagrammet uppdateras synkront. Du kan också använda detta formulär för tangentbordsnavigering. Medlemmar från andra grupper kan väljas manuellt; gråa skrivskyddade pass från andra team ändras inte, och överlappningar och vilopaus mellan grupper valideras fortfarande vid sparande.</value>
   </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Pass för samma person eller på raden för otilldelade pass får inte överlappa. Slå samman eller justera dem innan du sparar.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Schemaperioden får inte överstiga {0} dagar och måste ligga inom 10 år före eller efter nu.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Den här flytten skulle överlappa ett annat pass för samma person. Utkastet ändrades inte.</value>
+  </data>
   <data name="Undo last step" xml:space="preserve">
     <value>Ångra senaste steget</value>
   </data>
-
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>Kapas; tider som behålls:</value></data>
 </root>

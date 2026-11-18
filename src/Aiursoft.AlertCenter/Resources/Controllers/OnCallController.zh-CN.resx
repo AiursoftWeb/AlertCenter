@@ -24,45 +24,58 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>已存在已保存的排班；无法修改团队排班的起始点。</value>
   </data>
+  <data name="Add at least one weekly handover point." xml:space="preserve"><value>请至少添加一个每周交接点。</value></data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>请添加轮换队列成员以预览班次。</value></data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>自动排班要求每个班次至少安排 {0} 名值班人员，且休息时间为 {1} 小时，因此至少需要 {2} 名成员。排除同时属于多个值班组的成员后，可自动排班的成员有 {3} 名；请添加仅属于一个值班组的成员，或手动安排。</value>
   </data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>所选模板的自动续排要求轮值队列至少有 {0} 名成员。</value></data>
+  <data name="Fallback recipients must be existing system users." xml:space="preserve"><value>兜底接收人必须是已存在的系统用户。</value></data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>每天固定三班，每班8小时。</value>
   </data>
+  <data name="Invalid team local time." xml:space="preserve"><value>团队本地时间无效。</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>团队本地时间无效。夏令时切换期间，跳过的时刻无效，重复的时刻采用标准时间。</value></data>
+  <data name="Invalid week start." xml:space="preserve"><value>每周起始日无效。</value></data>
+  <data name="Invalid weekly handover point." xml:space="preserve"><value>每周交接点无效。</value></data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>最短休息时间必须为 0–168 小时。</value>
   </data>
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>每班次最少人数必须为 1–200。</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>该团队尚未设置规则。您可以手动创建排班表。</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>团队尚未绑定模板。您可以手动创建排班。</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>请输入规则名称。</value>
-  </data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>值班团队不存在。</value></data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>请输入团队名称。</value>
+  </data>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>请输入模板名称。</value>
   </data>
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>请选择有效的 UTC 开始时间（必须至少距离日期边界 28 天）。</value>
   </data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>请选择有效的团队本地开始时间（距离日期范围边界必须至少为 28 天）。</value></data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>请从列表中选择一个有效的时区。</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>请选择一个现有的值班规则。</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>请选择现有的排班模板。</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>排班规则创建成功。</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>排班模板创建成功。</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>排班规则已删除。</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>排班模板已删除。</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>排班规则已更新。</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>排班模板已更新。</value>
   </data>
+  <data name="Shift duration must be positive." xml:space="preserve"><value>班段时长必须为正数。</value></data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>每班人数超过了以下已启用自动续排团队的成员数量：{0}。</value></data>
+  <data name="Staff per shift must not exceed the rotation queue size." xml:space="preserve"><value>每段人数不能超过轮换队列人数。</value></data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>目标人数不能低于最低人数，且必须在 1–200 之间。留空则自动分配。</value>
   </data>
@@ -75,9 +88,6 @@
   <data name="Team updated." xml:space="preserve">
     <value>团队已更新。</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>规则或团队已发生变更。请刷新页面后重试。</value>
-  </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>排班已发生变化或保存时发生冲突。请刷新页面后重试。</value>
   </data>
@@ -87,14 +97,19 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>轮班请求格式无效。</value>
   </data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>开始时间与每周交接点不一致；第一个班次将是不完整的时段。</value></data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>团队名称不匹配。</value>
+  </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>团队或日程安排已发生变更。请刷新页面后重试。</value>
   </data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>团队预览请求格式无效。</value></data>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>模板或团队已更改。请刷新页面后重试。</value>
+  </data>
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>本周有 {0} 个班次尚未分配。请手动填写值班人员。</value>
-  </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>此规则仍绑定到某个团队。请先更新该团队的规则绑定。</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>该团队已有已保存的排班记录，无法删除该团队及其历史记录。</value>
@@ -102,8 +117,10 @@
   <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
     <value>该团队已绑定到集成应用。请先重新分配或解绑该应用的值班组。</value>
   </data>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>此模板仍绑定到团队。请先更新团队的模板绑定。</value>
+  </data>
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>无法生成预览：{0}</value>
   </data>
-
 </root>

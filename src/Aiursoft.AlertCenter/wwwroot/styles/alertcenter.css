@@ -1,5 +1,9 @@
 /* Aiursoft AlertCenter - Modern UIStack Design System Enhancements */
 
+html {
+    scrollbar-gutter: stable;
+}
+
 .ac-create-alert {
     display: flex;
     flex-wrap: wrap;
@@ -117,6 +121,7 @@
 
 .ac-gantt-scroll {
     overflow-x: auto;
+    scrollbar-gutter: stable;
 }
 
 .ac-gantt {
@@ -147,6 +152,9 @@
 }
 
 .ac-gantt-name {
+    width: var(--ac-gantt-name-width);
+    min-width: 0;
+    box-sizing: border-box;
     position: sticky;
     left: 0;
     z-index: 3;
@@ -154,6 +162,18 @@
     background: var(--bs-body-bg);
     border-right: 1px solid var(--bs-border-color);
     overflow-wrap: anywhere;
+}
+
+.ac-gantt-name strong,
+.ac-gantt-hours {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ac-gantt-hours {
+    display: block;
 }
 
 .ac-gantt-axis,
@@ -228,6 +248,25 @@
     background: var(--bs-danger);
     font-size: 0.75rem;
     white-space: nowrap;
+}
+
+.ac-gantt-snap-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    border-left: 2px dashed var(--bs-primary);
+    pointer-events: none;
+}
+
+.ac-gantt-snap-line span {
+    display: block;
+    padding: 0 0.25rem;
+    color: #fff;
+    background: var(--bs-primary);
+    font-size: 0.75rem;
+    white-space: nowrap;
+    pointer-events: none;
 }
 
 .ac-gantt-lane {
@@ -305,6 +344,21 @@
 .ac-gantt-dragging { cursor: grabbing; }
 .ac-gantt-dragging * { cursor: grabbing !important; }
 
+.ac-gantt-drop-invalid {
+    outline: 3px solid var(--bs-danger) !important;
+    outline-offset: -3px;
+}
+
+#oncall-gantt.ac-gantt-drop-invalid {
+    outline-width: 1px !important;
+    outline-offset: -1px;
+}
+
+.ac-gantt-drop-invalid,
+.ac-gantt-drop-invalid * {
+    cursor: not-allowed !important;
+}
+
 .ac-gantt-drag-label {
     position: fixed;
     z-index: 1080;
@@ -330,6 +384,8 @@
     text-overflow: ellipsis;
     font-size: 0.75rem;
     cursor: pointer;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .ac-gantt-adjacent {
@@ -346,7 +402,8 @@
     touch-action: manipulation;
 }
 
-.ac-gantt [hidden] {
+.ac-gantt [hidden],
+#oncall-merge-overlaps[hidden] {
     display: none !important;
 }
 
@@ -360,6 +417,14 @@
 
 .ac-gantt-time-end {
     border-top: 1px solid currentColor;
+}
+
+#oncall-shift-summary {
+    height: 4.5rem;
+    overflow: auto;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+    scrollbar-gutter: stable;
 }
 
 .ac-gantt-detail-time {
@@ -1009,4 +1074,303 @@
 #oncall-gantt:not(.ac-gantt-editable) .ac-gantt-week,
 #oncall-gantt:not(.ac-gantt-editable) .ac-gantt-cell {
     display: none;
+}
+
+#oncall-gantt.ac-gantt-editable {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+}
+
+.ac-gantt-editable [data-user-id] .ac-gantt-lane {
+    touch-action: none;
+}
+
+.ac-gantt-editable .ac-gantt-shift:not([data-readonly]) {
+    padding-inline: 12px;
+}
+
+.ac-gantt-editable .ac-gantt-shift .ac-gantt-resize {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    z-index: 1;
+    cursor: ew-resize;
+    touch-action: none;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.ac-gantt-editable .ac-gantt-resize[data-resize="start"] {
+    left: 0;
+    border-right: 1px solid currentColor;
+}
+
+.ac-gantt-editable .ac-gantt-resize[data-resize="end"] {
+    right: 0;
+    border-left: 1px solid currentColor;
+}
+
+.ac-gantt-editable .ac-gantt-handover {
+    position: absolute;
+    top: 0;
+    width: 14px;
+    height: 100%;
+    padding: 0;
+    transform: translateX(-50%);
+    border: 1px solid var(--bs-primary);
+    border-radius: var(--bs-border-radius-sm);
+    background: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
+    cursor: ew-resize;
+    touch-action: none;
+    z-index: 2;
+}
+
+.ac-gantt-editable .ac-gantt-handover::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    left: 50%;
+    border-left: 2px solid currentColor;
+}
+
+.ac-gantt-warning-row,
+#oncall-warning-lane {
+    height: 72px;
+    min-height: 72px;
+    max-height: 72px;
+}
+
+.ac-gantt-warning-row .ac-gantt-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ac-gantt .ac-gantt-warning {
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    color: #111;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.ac-gantt-warning-count {
+    flex: 0 0 auto;
+}
+
+.ac-gantt-warning-text {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#oncall-drag-tooltip {
+    max-width: min(24rem, 95vw);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+#oncall-shift-dialog {
+    width: 40rem;
+    max-width: 95vw;
+    max-height: 85vh;
+    overflow: auto;
+    padding: 1.5rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.25);
+}
+
+#oncall-shift-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#oncall-dialog-members {
+    overflow-wrap: anywhere;
+}
+
+.ac-personal-calendar {
+    --ac-team-lightness: 36%;
+    min-width: 0;
+    color: var(--bs-body-color);
+    overflow-wrap: anywhere;
+}
+
+[data-bs-theme="dark"] .ac-personal-calendar {
+    --ac-team-lightness: 72%;
+}
+
+.ac-personal-month {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.ac-personal-month th {
+    padding: 0.5rem 0.15rem;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.ac-personal-day {
+    height: 9rem;
+    padding: 0.25rem;
+    border: 1px solid var(--bs-border-color);
+    vertical-align: top;
+}
+
+.ac-personal-day.is-outside,
+.ac-personal-day.is-past {
+    background: var(--bs-tertiary-bg);
+    color: var(--bs-secondary-color);
+}
+
+.ac-personal-day.is-past .ac-personal-entries {
+    opacity: 0.65;
+}
+
+.ac-personal-day.is-today {
+    box-shadow: inset 0 0 0 2px var(--bs-primary);
+}
+
+.ac-personal-date,
+.ac-personal-more {
+    display: block;
+    width: 100%;
+    padding: 0.2rem;
+    border: 0;
+    border-radius: var(--bs-border-radius-sm);
+    background: transparent;
+    color: inherit;
+    text-align: start;
+}
+
+.ac-personal-date[aria-current="date"],
+.ac-personal-date[aria-pressed="true"] {
+    background: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
+    font-weight: 700;
+}
+
+.ac-personal-entry {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    padding: 0.3rem;
+    border: 1px solid var(--bs-border-color);
+    border-inline-start: 4px solid hsl(var(--ac-team-hue), 65%, var(--ac-team-lightness));
+    border-radius: var(--bs-border-radius-sm);
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    font-size: 0.75rem;
+    text-align: start;
+}
+
+.ac-personal-entry > span {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ac-personal-entry-time {
+    color: var(--bs-secondary-color);
+}
+
+.ac-personal-team {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.ac-personal-team::before,
+.ac-personal-dot {
+    content: "";
+    display: inline-block;
+    flex: 0 0 0.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: hsl(var(--ac-team-hue), 65%, var(--ac-team-lightness));
+}
+
+.ac-personal-dot.is-current {
+    border-radius: 0;
+    outline: 1px solid var(--bs-body-color);
+    outline-offset: 1px;
+}
+
+.ac-personal-dots {
+    display: none;
+}
+
+.ac-personal-detail {
+    padding-inline-start: 0.75rem;
+    border-inline-start: 4px solid hsl(var(--ac-team-hue), 65%, var(--ac-team-lightness));
+}
+
+.ac-personal-calendar button:hover {
+    background: var(--bs-secondary-bg);
+}
+
+.ac-personal-calendar :focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 1px;
+}
+
+@media (max-width: 575.98px) {
+    .ac-personal-entries {
+        display: none;
+    }
+
+    .ac-personal-day {
+        height: 4rem;
+        padding: 0.1rem;
+    }
+
+    .ac-personal-date {
+        min-height: 3.5rem;
+        text-align: center;
+    }
+
+    .ac-personal-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.2rem;
+        min-height: 1rem;
+        font-size: 0.65rem;
+    }
+}
+
+#oncall-shift-dialog :focus-visible,
+#oncall-schedule summary:focus-visible,
+.ac-gantt-editable .ac-gantt-handover:focus-visible,
+.ac-gantt-editable .ac-gantt-resize:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+@media (max-width: 575.98px) {
+    .ac-gantt-frame {
+        --ac-gantt-name-width: 7rem;
+    }
+
+    .ac-gantt-name {
+        padding: 0.75rem 0.5rem;
+    }
+
+    #oncall-shift-dialog {
+        padding: 1rem;
+    }
 }

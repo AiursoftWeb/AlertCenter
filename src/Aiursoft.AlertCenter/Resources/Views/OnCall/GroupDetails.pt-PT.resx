@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>Editar equipa</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Introduza o nome exato da equipa para confirmar a eliminação.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Destinatários de recurso</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Os turnos futuros incluem os turnos em curso. Os modelos e os registos de entrega de notificações de incidentes serão mantidos. Esta ação é irreversível.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Gerir membros</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>A seguir: atribuir pessoas aos turnos</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Nenhum destinatário de recurso configurado. Não é possível entregar alertas quando ninguém está de prevenção.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>Sem membros da equipa.</value>
@@ -63,32 +75,44 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>Os e-mails de prevenção são enviados automaticamente para as caixas de correio dos utilizadores (Para) de todos os Engenheiros de Prevenção (OCEs) no turno atualmente guardado. O campo CC utiliza apenas caixas de correio da equipa ou endereços de listas de distribuição configurados explicitamente pelo administrador; não coloca automaticamente todos os membros da equipa em CC. Os canais de notificações push personalizados configurados na aplicação continuarão a enviar notificações adicionais.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Membros de prevenção (fila de rotação)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>Abrir o horário</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Por turno</value>
-  </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>O modelo de regra não está associado; continua a ser possível agendar manualmente.</value>
-  </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Modelo de regra:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Os modelos de regras não podem ser eliminados. Apenas as equipas sem turnos guardados e sem aplicações vinculadas podem ser eliminadas. Esta ação é irreversível.</value>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Recebem alertas quando ninguém está de prevenção; não participam na rotação.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Ponto de início do agendamento:</value>
   </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Pessoas por turno</value>
+  </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Configuração da equipa</value>
+  </data>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Nenhum modelo associado; o agendamento manual continua disponível.</value>
+  </data>
+  <data name="Template:" xml:space="preserve">
+    <value>Modelo:</value>
+  </data>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Os modelos não são eliminados. Apenas equipas sem turnos guardados e sem aplicações associadas podem ser eliminadas. Esta ação é irreversível.</value>
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>As plantillas podem ser partilhadas por várias equipas; a modificação ou troca de plantillas não regenerará as turnos guardadas.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>A primeira pessoa da fila fica de prevenção primeiro. Os turnos existentes não são reordenados.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>A lista de membros indica quem pode ser escalado. O horário guardado indica quem está de serviço e recebe os e-mails de incidentes. Os destinatários em CC recebem uma cópia, independentemente de pertencerem ou não ao grupo.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>O nome da equipa não corresponde.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>Esta equipa tem turnos guardados e não pode ser eliminada para preservar o histórico de agendamento.</value>
@@ -102,11 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>Ver escala de prevenção</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Serão eliminados {0} turnos futuros e {1} turnos anteriores. Os incidentes existentes manterão os respetivos registos de prevenção.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>horas</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>horas · Descanso mín.</value>
   </data>
-
 </root>

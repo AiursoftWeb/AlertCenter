@@ -44,6 +44,60 @@ public partial class PushCenterTests
         .ThenInclude(snapshot => snapshot!.Recipients).SingleAsync(delivery => delivery.OnCallEmail != null);
 
     [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task MissingCoverageQueuesFallbackSnapshotAndRetainsOriginalRecipientsForLaterEvents(bool emptyShift)
+    {
+        var application = await Application();
+        var group = await OnCallTeam(application);
+        group.FallbackRecipients.Add(new() { UserId = "off-duty" });
+        var shift = await _db.OnCallShifts.Include(item => item.Members).SingleAsync();
+        if (emptyShift) _db.OnCallShiftMembers.RemoveRange(shift.Members);
+        else shift.EndsAtUtc = DateTime.UtcNow.AddMinutes(-1);
+        await _db.SaveChangesAsync();
+        await Report(application, Guid.NewGuid());
+        var delivery = await BuiltInDelivery();
+        Assert.IsTrue(delivery.OnCallEmail!.IsFallback);
+        Assert.IsNull(delivery.OnCallEmail.ValidationError);
+        Assert.AreEqual("off-duty", delivery.OnCallEmail.Recipients.Single().UserId);
+        await _processor.ProcessAsync(delivery.Id, default);
+        Assert.AreEqual("off@example.com", _email.Messages.Single().Recipients.Single());
+        group.FallbackRecipients.Clear();
+        var incident = await _db.Incidents.SingleAsync();
+        var entry = new IncidentTimelineEntry { Incident = incident, Type = IncidentTimelineEntry.Resolved };
+        await OnCallEmailQueue.CreateEventAsync(_db, entry, default);
+        await _db.SaveChangesAsync();
+        var later = await _db.PushDeliveries.Include(item => item.OnCallEmail).ThenInclude(snapshot => snapshot!.Recipients)
+            .SingleAsync(item => item.IncidentEventId == entry.Id);
+        Assert.IsTrue(later.OnCallEmail!.IsFallback);
+        Assert.AreEqual("off-duty", later.OnCallEmail.Recipients.Single().UserId);
+    }
+
+    [TestMethod]
+    public async Task HandoverSummaryUsesExistingDeliveryProcessorAndStableNotificationId()
+    {
+        var application = await Application();
+        var group = await OnCallTeam(application);
+        var now = DateTime.UtcNow;
+        var incident = new Incident { ApplicationId = application.Id, Title = "Open outage", Level = "sev1", Status = Incident.Mitigated };
+        _db.Incidents.Add(incident);
+        await _db.SaveChangesAsync();
+        await OnCallMaintenanceWorker.MaintainGroupAsync(_db, TestLocalization.For<OnCallScheduleGenerator>(),
+            TestLocalization.For<OnCallMaintenanceWorker>(), "https://example.com", group.Id, now, default);
+        var deliveries = await _db.PushDeliveries.Where(delivery => delivery.OnCallEmail!.HandoverKey != null).ToListAsync();
+        Assert.AreEqual(2, deliveries.Count);
+        foreach (var delivery in deliveries) await _processor.ProcessAsync(delivery.Id, default);
+        Assert.AreEqual(2, _email.Messages.Count);
+        Assert.IsTrue(_email.Messages.All(message => message.Subject.Contains("Unresolved incident handover") &&
+            message.Body.Contains("Open outage") && message.Body.Contains($"/Incidents/Details/{incident.Id}")));
+        CollectionAssert.AreEquivalent(deliveries.Select(delivery => delivery.Id).ToArray(), _email.Messages.Select(message => message.NotificationId).ToArray());
+        await OnCallMaintenanceWorker.MaintainGroupAsync(_db, TestLocalization.For<OnCallScheduleGenerator>(),
+            TestLocalization.For<OnCallMaintenanceWorker>(), "https://example.com", group.Id, now, default);
+        Assert.AreEqual(2, await _db.PushDeliveries.CountAsync());
+        Assert.IsTrue(await _db.PushDeliveries.AllAsync(delivery => delivery.Status == PushDelivery.Succeeded));
+    }
+
+    [TestMethod]
     public async Task SilentIncidentKeepsRosterAndOnlyEscalationStartsNotifications()
     {
         var application = await Application();
@@ -356,6 +410,14 @@ public partial class PushCenterTests
         await _db.SaveChangesAsync();
         await Report(application, Guid.NewGuid());
         var failed = await BuiltInDelivery();
+        if (scenario == "overlap")
+        {
+            Assert.AreEqual(PushDelivery.Pending, failed.Status);
+            Assert.IsNull(failed.OnCallEmail!.ValidationError);
+            CollectionAssert.AreEquivalent(new[] { "oce-alice", "oce-bob", "off-duty" },
+                failed.OnCallEmail.Recipients.Select(person => person.UserId).ToArray());
+            return;
+        }
         Assert.AreEqual(PushDelivery.Failed, failed.Status);
         Assert.IsNotNull(failed.OnCallEmail!.ValidationError);
         Assert.IsNotNull(failed.CompletedAtUtc);

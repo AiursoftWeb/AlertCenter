@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>自動提案はまだ保存されていません。生成時に隣接するスケジュールが再検証されますが、既存の保存済みの割り当ては上書きされません。</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>自動延長が有効です。保存時の動作を選択してください。</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>既定では、自動生成されたシフトのみがクリアされます。</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
@@ -42,12 +48,34 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>変更は保存後にのみ反映されます。これらのツールを折りたたんでも、下書きは保持されます。</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>自動延長の動作を選択</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>自動延長を無効にするか、クリアした空き時間のシフトを再生成するかを選択してください。</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>クリアで変更されるのは下書きのみです。チャートを確認し、保存して公開してください。</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>スケジュールの範囲をクリア</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>クリアされた下書きの範囲</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>この範囲の完了した過去のシフトをクリアすることを確認してください。過去の割り当てが削除される可能性があります。</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>下書きの置き換えを確定</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>過去のシフトのクリアを確認</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>今週を翌週にコピー</value>
   </data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>コピーすると表示中の下書きがコピー先の範囲で繰り返されます。既存のシフトは範囲の境界で切り詰められ、範囲外の部分は保持されます。コピーと生成は下書きだけを変更します。公開するにはスケジュールの調整を保存してください。</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>今週の下書きを翌週にコピーします。翌週にすでにシフトや変更がある場合は、コピーする前に確認が必要です。コピー後も保存が必要です。左右の縦ボタンで、今週の前後36時間を展開できます。グレーの領域は読み取り専用です。このページのカレンダーとフォームで編集できるのは今週のみです。隣接する週を調整するには、該当する週に切り替えてください。コピー後の翌週の下書きも、読み取り専用モードでプレビューされます。今週への変更とコピー内容は、まとめて保存、取り消し、復元されます。折りたたんでも下書きは失われません。</value>
   </data>
@@ -57,8 +85,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>現在は移動／入れ替えモードです。シフトを追加または削除する前に、上のモードを切り替えてください。</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>既定の範囲は、チームのタイムゾーンで現在から保存済みまたは下書きの最後のシフトの終了までです。</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>シフトを削除</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>保存時に自動延長を無効にする</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>色付きのブロックを別のシフトにドラッグすると担当者を入れ替え、空き枠にドラッグするとシフトを移動できます。「Swap Entire Week」をドラッグすると、2人の週間スケジュールを入れ替えます。クリックして選択し、移動先をクリックすることもできます。Escキーを押すとキャンセルできます。変更はすぐに表示され、複数の調整を行った後にまとめて保存できます。</value>
@@ -72,6 +106,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>スケジュールの調整方法</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>完了した過去のシフトを含める</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>手動で編集したシフトを含める</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>重複するシフトを統合</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>その他の操作</value>
   </data>
@@ -84,8 +127,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>オンコール担当者（複数選択可、1名以上）</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>過去のシフトを含めても、進行中のシフトの経過済み部分は保持されます。</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>クリア結果をプレビュー</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>赤色の警告は、シフトが空いている、休息時間が不足している、または最低必要人数を下回っていることを示しますが、その後の調整を妨げるものではありません。最低必要人数を下回っていても保存できますが、シフトが空いている場合や休息時間が不足している場合は保存できません。保存時には、変更した週、前後の週、および他チームのシフトにも一律に検証が適用されます。いずれかの週で検証に失敗すると、何も保存されません。退職したメンバーは元のシフトのみ保持でき、新しいシフトの追加やコピーはできません。</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>保存時にクリアした空き時間のシフトをテンプレートから再生成する</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>再生成は保存時にのみ行われます。プレビューでは空き時間が維持され、保持されたシフトは上書きされません。</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>来週の下書きを置き換えますか？</value>
@@ -105,8 +160,17 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>勤務担当者を追加または削除する時間枠を選択してください。チャートはリアルタイムで更新されます。キーボードで操作する場合も、このフォームを使用できます。グループ外のメンバーは手動で選択できます。他チームの灰色で表示された読み取り専用のシフトは変更されませんが、保存時にはグループをまたぐ重複や休憩時間も検証されます。</value>
   </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>同じ担当者のシフトや未割り当て行のシフトは重複できません。保存する前に統合または調整してください。</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>スケジュールの期間は {0} 日以内で、現在から前後 10 年以内である必要があります。</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>この移動では同じ担当者の別のシフトと重複します。下書きは変更されませんでした。</value>
+  </data>
   <data name="Undo last step" xml:space="preserve">
     <value>直前の操作を元に戻す</value>
   </data>
-
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>切り詰め予定。保持される時間帯：</value></data>
 </root>

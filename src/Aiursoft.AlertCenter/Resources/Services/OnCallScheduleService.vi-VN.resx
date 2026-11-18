@@ -36,17 +36,26 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Không thể thêm nhân viên đã rời khỏi nhóm hoặc không thuộc nhóm.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Chọn tắt tự động gia hạn hoặc tạo lại ca trực trong khoảng thời gian đã xóa.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Xác nhận riêng việc xóa các ca trực trong quá khứ.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Các mốc thời gian của lịch hiện tại chưa đầy đủ; không thể ghi đè.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Định dạng yêu cầu lịch tuần liền kề không hợp lệ; bạn chỉ có thể gửi tối đa hai tuần (tuần trước và tuần sau).</value>
   </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Khoảng thời gian hoặc hành động xóa lịch không hợp lệ.</value>
+  </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Đội trực không tồn tại.</value>
   </data>
-  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
-    <value>Vui lòng gán quy tắc lập lịch cho nhóm trước.</value>
+  <data name="Please bind a scheduling template to the team first." xml:space="preserve">
+    <value>Vui lòng liên kết mẫu lịch trực với nhóm trước.</value>
   </data>
   <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
     <value>Vui lòng chọn một chu kỳ trực theo ca đầy đủ bảy ngày, bắt đầu từ mốc thời gian của nhóm.</value>
@@ -60,8 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Thời gian nghỉ trong lịch không hợp lệ hoặc không nhất quán.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Khoảng thời gian xếp lịch không được vượt quá {0} ngày và phải nằm trong vòng 10 năm trước hoặc sau thời điểm hiện tại.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Nhóm hoặc lịch đã được một quản trị viên khác chỉnh sửa. Vui lòng làm mới trang và thử lại.</value>
   </data>
-
 </root>

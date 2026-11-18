@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Λειτουργία προσθήκης: Κάντε κλικ στο κενό σημείο στη γραμμή του μηχανικού για να προσθέσετε μια βάρδια 8 ωρών· την ίδια βάρδια μπορούν να μοιραστούν πολλά άτομα.</value>
   </data>
+  <data name="Add on-call members to preview the rotation."><value>Προσθέστε μέλη εφημερίας για προεπισκόπηση εναλλαγής.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Προσθήκη εφημερίας</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Προστέθηκε</value>
   </data>
+  <data name="Already selected"><value>Ήδη επιλεγμένο</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Επιστροφή στην επεξεργασία</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Ακύρωση ανανέωσης</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation."><value>Επιλέξτε πρότυπο για προεπισκόπηση εναλλαγής.</value></data>
   <data name="Close" xml:space="preserve">
     <value>Κλείσιμο</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>Τέλος</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts."><value>Ορίστε έναρξη για προεπισκόπηση βαρδιών.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Εισαγάγετε το περιεχόμενο του σχολίου· δεν μπορεί να περιέχει μόνο κενά διαστήματα.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>Αφαιρέθηκε</value>
   </data>
+  <data name="Reorder {0}"><value>Αναδιάταξη {0}</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>Το αίτημα δεν είναι έγκυρο ή τα διαπιστευτήρια της σελίδας έχουν λήξει. Ελέγξτε τα στοιχεία εισαγωγής και ανανεώστε τη σελίδα για να δοκιμάσετε ξανά, αν χρειάζεται.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Έγινε προσαρμογή της στελέχωσης και ενημέρωση του γραφήματος· δεν έχει αποθηκευτεί ακόμη.</value>
   </data>
+  <data name="Start at {0}"><value>Έναρξη στις {0}</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Αντιγράφηκε με επιτυχία στο πρόχειρο!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Δεν είναι δυνατή η απευθείας ανταλλαγή: ένα άτομο βρίσκεται ήδη στη βάρδια-στόχο. Αλλάξτε πρώτα τα μέλη της ίδιας βάρδιας χρησιμοποιώντας την επιλογή «Προσθήκη/Αφαίρεση μελών ανά βάρδια».</value>
   </data>
+  <data name="Unable to update the preview. Please try again."><value>Αδυναμία ενημέρωσης προεπισκόπησης. Δοκιμάστε ξανά.</value></data>
+  <data name="Unassigned"><value>Χωρίς ανάθεση</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Μη αποθηκευμένο · Πρόχειρο προσαρμογής</value>
   </data>
+  <data name="Updating shift preview…"><value>Ενημέρωση προεπισκόπησης βαρδιών…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Ομάδα χρηστών · Τα μέλη κληρονομούν δυναμικά τα συσχετισμένα δικαιώματα</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} ώρες</value>
   </data>
+  <data name="{0} moved to position {1} of {2}."><value>Ο χρήστης {0} μετακινήθηκε στη θέση {1} από {2}.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>Βάρδια {0} για {1} · {2}· δεν έχει αποθηκευτεί ακόμα. Μπορείτε να αναιρέσετε αυτήν την ενέργεια.</value>
   </data>
@@ -351,5 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 ώρες · {3}{4}</value>
   </data>
-
 </root>

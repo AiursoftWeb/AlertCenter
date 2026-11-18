@@ -51,14 +51,15 @@ public class OnCallRulePagesTests : TestBase
         Assert.DoesNotContain("id=\"oncall-schedule\"", scheduleList);
 
         var create = await Http.GetStringAsync("/OnCall/Create");
-        Assert.Contains("Create Scheduling Rule", create);
+        Assert.Contains("Create Scheduling Template", create);
         Assert.Contains("action=\"/OnCall/SaveRule\"", create);
         Assert.Contains("name=\"RuleInput.Name\"", create);
-        Assert.Contains("name=\"RuleInput.MinimumStaff\"", create);
-        Assert.Contains("name=\"RuleInput.TargetStaff\"", create);
-        Assert.Contains("Fixed time slots take priority", WebUtility.HtmlDecode(create));
-        Assert.Contains("Balance early, middle, and late shifts as evenly as possible", WebUtility.HtmlDecode(create));
-        Assert.Contains("Target staff", WebUtility.HtmlDecode(create));
+        Assert.Contains("name=\"RuleInput.StaffPerShift\"", create);
+        Assert.Contains("name=\"RuleInput.ShiftMinutes\"", create);
+        Assert.Contains("Pure queue", WebUtility.HtmlDecode(create));
+        Assert.Contains("Swap adjacent members on alternate rounds", WebUtility.HtmlDecode(create));
+        Assert.Contains("Weekly handover points", WebUtility.HtmlDecode(create));
+        Assert.Contains("oncall-template.js", create);
         Assert.DoesNotContain("7-day on-call preview", create);
         Assert.DoesNotContain("RuleInput.GroupId", create);
         Assert.DoesNotContain("RuleInput.AnchorUtc", create);
@@ -66,7 +67,7 @@ public class OnCallRulePagesTests : TestBase
         Assert.DoesNotContain("oncall-member-search.js", create);
 
         var edit = await Http.GetStringAsync($"/OnCall/Edit/{ruleId}");
-        Assert.Contains("Edit scheduling rules", edit);
+        Assert.Contains("Edit scheduling template", edit);
         Assert.Contains("action=\"/OnCall/SaveRule\"", edit);
         Assert.Contains("name=\"RuleInput.Id\"", edit);
         Assert.Contains("Day shift", edit);
@@ -74,7 +75,9 @@ public class OnCallRulePagesTests : TestBase
 
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/Details/{ruleId}"));
         Assert.Contains("Day shift", details);
-        Assert.Contains("Rule configuration", details);
+        Assert.Contains("Template configuration", details);
+        Assert.Contains("Fixed duration: 480 minutes", details);
+        Assert.DoesNotContain("Min rest", details);
         Assert.Contains($"/OnCall/ScheduleDetails/{groupId}", details);
         Assert.Contains("Teams using this template", details);
         Assert.DoesNotContain("7-day on-call preview", details);
@@ -142,7 +145,7 @@ public class OnCallRulePagesTests : TestBase
         Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/OnCall/DeleteRule", new() { ["id"] = ruleId.ToString() }, includeToken: false)).StatusCode);
         Assert.AreEqual(HttpStatusCode.NotFound, (await PostForm("/OnCall/DeleteRule", new() { ["id"] = Guid.NewGuid().ToString() }, "/OnCall/Index")).StatusCode);
         Assert.AreEqual(HttpStatusCode.Conflict, (await PostForm("/OnCall/DeleteRule", new() { ["id"] = ruleId.ToString() }, "/OnCall/Index")).StatusCode);
-        Assert.AreEqual(HttpStatusCode.Conflict, (await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, "/OnCall/GroupCreate")).StatusCode);
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, "/OnCall/GroupCreate")).StatusCode);
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -221,11 +224,12 @@ public class OnCallRulePagesTests : TestBase
             groupId = group.Id;
         }
 
-        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}"));
+        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(anchor.ToString("O"))}"));
         Assert.DoesNotContain("Starting soon", html);
         Assert.Contains("Unsaved · Auto-suggested", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);
-        Assert.AreEqual(3, Regex.Matches(html, "class=\"ac-gantt-row\" role=\"group\"").Count);
+        Assert.AreEqual(4, Regex.Matches(html, "class=\"ac-gantt-row\" role=\"group\"").Count);
+        Assert.Contains("id=\"oncall-unassigned-row\"", html);
         Assert.AreEqual(21, Regex.Matches(html, "class=\"ac-gantt-shift ").Count);
         Assert.Contains($"Alice · {anchor.AddHours(8):yyyy-MM-dd HH:mm} +08:00 → {anchor.AddHours(16):yyyy-MM-dd HH:mm} +08:00 · 8 hours · Asia/Shanghai", html);
         Assert.Contains("left: 0%; width: 4.761905%", html);

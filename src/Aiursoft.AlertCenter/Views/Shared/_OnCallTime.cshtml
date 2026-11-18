@@ -1,0 +1,7 @@
+@model (DateTime Time, string Zone)
+@{
+    var utc = DateTime.SpecifyKind(Model.Time, DateTimeKind.Utc);
+    var zone = TimeZoneInfo.FindSystemTimeZoneById(Model.Zone);
+    var local = TimeZoneInfo.ConvertTime(new DateTimeOffset(utc), zone);
+}
+<time datetime="@utc.ToString("O")" data-oncall-time data-zone="@Model.Zone">@local.ToString("yyyy-MM-dd HH:mm zzz") (@Model.Zone)</time>

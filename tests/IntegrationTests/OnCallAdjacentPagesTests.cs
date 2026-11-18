@@ -138,22 +138,15 @@ public class OnCallAdjacentPagesTests : TestBase
         Assert.IsTrue(adjacent.Any(shift => shift.Contains("-04:00")) && adjacent.Any(shift => shift.Contains("-05:00")));
         if (administrator)
         {
-            Assert.Contains("id=\"oncall-copy-confirm\"", html);
-            Assert.Contains("id=\"oncall-copy-next\"", html);
+            Assert.Contains("id=\"oncall-replace-confirm\"", html);
+            Assert.Contains("id=\"oncall-copy-range\"", html);
             var root = Regex.Match(rawHtml, "<div id=\"oncall-schedule\"[^>]*>").Value;
             Assert.Contains("data-group-name=\"Adjacent team\"", root);
-            using var weeks = JsonDocument.Parse(WebUtility.HtmlDecode(Regex.Match(root, "data-weeks=\"([^\"]*)\"").Groups[1].Value));
-            Assert.AreEqual(3, weeks.RootElement.GetArrayLength());
-            Assert.IsTrue(weeks.RootElement[0].GetProperty("saved").GetBoolean());
-            Assert.AreEqual(0, weeks.RootElement[0].GetProperty("restHours").GetInt32());
-            Assert.AreEqual(8, weeks.RootElement[2].GetProperty("restHours").GetInt32());
-            Assert.AreEqual(2, weeks.RootElement[2].GetProperty("minimumStaff").GetInt32());
             using var slots = JsonDocument.Parse(WebUtility.HtmlDecode(Regex.Match(root, "data-slots=\"([^\"]*)\"").Groups[1].Value));
-            Assert.AreEqual(63, slots.RootElement.GetArrayLength());
+            Assert.AreEqual(0, slots.RootElement.GetArrayLength());
             AssertCurrentFormSlots(html);
             var cells = Regex.Matches(html, "<button[^>]*class=\"ac-gantt-cell\"[^>]*>").Select(match => match.Value).ToArray();
-            Assert.AreEqual(21, cells.Length);
-            Assert.IsTrue(cells.All(cell => int.Parse(Regex.Match(cell, "data-slot=\"([0-9]+)\"").Groups[1].Value) is >= 21 and < 42));
+            Assert.AreEqual(0, cells.Length);
         }
         else
         {
@@ -178,11 +171,9 @@ public class OnCallAdjacentPagesTests : TestBase
 
     private static void AssertCurrentFormSlots(string html)
     {
-        var select = Regex.Match(html, "<select id=\"oncall-edit-slot\"[^>]*>(.*?)</select>", RegexOptions.Singleline).Groups[1].Value;
-        var values = Regex.Matches(select, "<option value=\"([0-9]+)\"").Select(match => int.Parse(match.Groups[1].Value)).ToArray();
-        CollectionAssert.AreEqual(Enumerable.Range(21, 21).ToArray(), values);
-        Assert.DoesNotContain("<optgroup label=\"Previous week\"", select);
-        Assert.DoesNotContain("<optgroup label=\"Next week\"", select);
+        Assert.Contains("id=\"oncall-shift-rows\"", html);
+        Assert.Contains("data-preview-url=\"/OnCall/PreviewSchedule\"", html);
+        Assert.DoesNotContain("id=\"oncall-edit-slot\"", html);
     }
 
     private static void AssertEdgeFrame(string html)

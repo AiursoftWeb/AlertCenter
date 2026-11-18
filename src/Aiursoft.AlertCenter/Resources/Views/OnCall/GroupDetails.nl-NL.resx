@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>Team bewerken</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Voer de exacte teamnaam in om de verwijdering te bevestigen.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Reserveontvangers</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Toekomstige diensten omvatten ook lopende diensten. Sjablonen en afleveringsgegevens van incidentmeldingen blijven behouden. Deze actie kan niet ongedaan worden gemaakt.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Leden beheren</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>Volgende stap: wijs mensen aan diensten toe</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Geen reserveontvangers ingesteld. Meldingen kunnen niet worden afgeleverd als niemand dienst heeft.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>Geen teamleden.</value>
@@ -63,32 +75,44 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>On-call e-mails worden automatisch verzonden naar de gebruikerspostvakken (Aan) van alle On-Call Engineers (OCE&apos;s) in de momenteel opgeslagen ploeg. CC gebruikt alleen teampostvakken of mailinglijstadressen die expliciet zijn geconfigureerd door de beheerder; het CC&apos;t niet automatisch alle teamleden. Aangepaste pushkanalen die in de applicatie zijn geconfigureerd, leveren nog steeds aanvullende meldingen.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Wachtdienstleden (rotatiewachtrij)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>Rooster openen</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Per dienst</value>
-  </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Geen regelsjabloon gekoppeld; handmatig plannen is nog steeds mogelijk.</value>
-  </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Regelsjabloon:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Regelsjablonen kunnen niet worden verwijderd. Alleen teams zonder opgeslagen diensten en zonder gekoppelde applicaties kunnen worden verwijderd. Deze actie kan niet ongedaan worden gemaakt.</value>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Ontvangen meldingen als niemand dienst heeft; nemen niet deel aan de rotatie.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Beginpunt van het rooster:</value>
   </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Medewerkers per dienst</value>
+  </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Teamconfiguratie</value>
+  </data>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Geen sjabloon gekoppeld; handmatig plannen is nog steeds mogelijk.</value>
+  </data>
+  <data name="Template:" xml:space="preserve">
+    <value>Sjabloon:</value>
+  </data>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Sjablonen worden niet verwijderd. Alleen teams zonder opgeslagen diensten en gekoppelde applicaties kunnen worden verwijderd. Deze actie kan niet ongedaan worden gemaakt.</value>
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Sjablonen kunnen door meerdere teams worden gedeeld; het wijzigen of verwisselen van sjablonen genereert opgeslagen diensten niet opnieuw.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>De eerste persoon in de wachtrij heeft als eerste dienst. Bestaande diensten worden niet opnieuw gerangschikt.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>De ledenlijst geeft aan wie kan worden ingeroosterd. In het opgeslagen rooster staat wie dienst heeft en incidentmeldingen ontvangt. CC-ontvangers ontvangen een kopie, ongeacht of ze lid zijn van de groep.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>De teamnaam komt niet overeen.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>Dit team heeft opgeslagen diensten en kan niet worden verwijderd, om de roostergeschiedenis te behouden.</value>
@@ -102,11 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>Dienstrooster bekijken</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Er worden {0} toekomstige diensten en {1} eerdere diensten verwijderd. Bestaande incidenten behouden hun registraties van de bereikbaarheidsdienst.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>uren</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>uur · Minimale rust</value>
   </data>
-
 </root>

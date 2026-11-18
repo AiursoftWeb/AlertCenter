@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>Rediger team</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Indtast teamets nøjagtige navn for at bekræfte sletningen.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Reservemodtagere</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Fremtidige vagter omfatter også igangværende vagter. Skabeloner og leveringsregistreringer for hændelser bevares. Denne handling kan ikke fortrydes.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Administrér medlemmer</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>Næste: tildel personer til vagter</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Ingen reservemodtagere er konfigureret. Alarmer kan ikke leveres, når ingen har vagt.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>Ingen teammedlemmer.</value>
@@ -63,32 +75,44 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>Vagtemails sendes automatisk til brugerpostkasserne (Til) for alle vagtingeniører (OCE&apos;er) på den aktuelt gemte vagt. CC bruger kun teampostkasser eller mailinglisteadresser, der er konfigureret eksplicit af administratoren; alle teammedlemmer sættes ikke automatisk på CC. Brugerdefinerede pushkanaler, der er konfigureret i applikationen, sender stadig yderligere notifikationer.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Vagtmedlemmer (rotationskø)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>Åbn vagtplanen</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Pr. vagt</value>
-  </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Regelskabelon ikke tilknyttet; manuel planlægning er stadig mulig.</value>
-  </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Regelskabelon:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Regelmalinger kan ikke slettes. Kun hold uden gemte vagter og uden bundede applikationer kan slettes. Denne handling er uomvendelig.</value>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Modtager alarmer, når ingen har vagt; deltager ikke i rotationen.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Planlægningsstartpunkt:</value>
   </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Personer pr. vagt</value>
+  </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Teamkonfiguration</value>
+  </data>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Ingen skabelon tilknyttet; manuel planlægning er stadig mulig.</value>
+  </data>
+  <data name="Template:" xml:space="preserve">
+    <value>Skabelon:</value>
+  </data>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Skabeloner slettes ikke. Kun hold uden gemte vagter og tilknyttede applikationer kan slettes. Handlingen kan ikke fortrydes.</value>
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Skabeloner kan deles mellem flere teams; ændringer af eller skift til andre skabeloner genskaber ikke gemte vagter.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Den første person i køen har vagt først. Eksisterende vagter omarrangeres ikke.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>Medlemslisten viser, hvem der kan sættes på vagt. Den gemte vagtplan viser, hvem der er på vagt og modtager e-mails om hændelser. CC-modtagere modtager en kopi uafhængigt af gruppemedlemskab.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Teamnavnet stemmer ikke overens.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>Dette team har gemte vagter og kan ikke slettes, da det vil bevare vagtplanens historik.</value>
@@ -102,11 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>Se vagtplanen for tilkaldevagt</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Vil slette {0} fremtidige vagter og {1} tidligere vagter. Eksisterende hændelser beholder deres vagtregistreringer.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>timer</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>timer · Min hvile</value>
   </data>
-
 </root>

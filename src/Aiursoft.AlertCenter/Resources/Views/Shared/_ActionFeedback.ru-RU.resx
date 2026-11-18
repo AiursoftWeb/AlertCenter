@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Режим добавления: нажмите на пустое место в строке инженера, чтобы добавить смену продолжительностью 8 часов; несколько человек могут работать в одну смену.</value>
   </data>
+  <data name="Add on-call members to preview the rotation."><value>Добавьте дежурных участников для предпросмотра ротации.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Добавить дежурную смену</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Добавлено</value>
   </data>
+  <data name="Already selected"><value>Уже выбрано</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Вернуться к редактированию</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Отменить обновление</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation."><value>Выберите шаблон планирования для предпросмотра ротации.</value></data>
   <data name="Close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>Конец</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts."><value>Укажите начало планирования для предпросмотра смен.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Введите текст комментария; он не может состоять только из пробелов.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>Удалено</value>
   </data>
+  <data name="Reorder {0}"><value>Изменить порядок: {0}</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>Запрос недействителен или срок действия учетных данных страницы истек. Проверьте введенные данные и при необходимости обновите страницу, чтобы повторить попытку.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Штатирование скорректировано, график обновлён; изменения ещё не сохранены.</value>
   </data>
+  <data name="Start at {0}"><value>Начать в {0}</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Успешно скопировано в буфер обмена!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Не удаётся выполнить обмен напрямую: один из сотрудников уже назначен на целевую смену. Сначала измените состав этой смены с помощью команды «Добавить/удалить участников по смене».</value>
   </data>
+  <data name="Unable to update the preview. Please try again."><value>Не удалось обновить предпросмотр. Повторите попытку.</value></data>
+  <data name="Unassigned"><value>Не назначено</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Не сохранено · Черновик корректировки</value>
   </data>
+  <data name="Updating shift preview…"><value>Обновление предпросмотра смен…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Группа пользователей · Участники автоматически наследуют связанные разрешения</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} ч</value>
   </data>
+  <data name="{0} moved to position {1} of {2}."><value>{0}: перемещено на позицию {1} из {2}.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} смена для {1} · {2}; ещё не сохранено. Вы можете отменить это.</value>
   </data>
@@ -351,5 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 часов · {3}{4}</value>
   </data>
-
 </root>

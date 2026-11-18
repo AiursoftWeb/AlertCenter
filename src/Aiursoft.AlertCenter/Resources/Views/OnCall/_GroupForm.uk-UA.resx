@@ -27,12 +27,22 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Розширені налаштування планування</value>
   </data>
+  <data name="Advanced settings"><value>Додаткові налаштування</value></data>
+  <data name="All scheduling times below use the team time zone."><value>Усі години нижче використовують часовий пояс команди.</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks"><value>Автоматично продовжувати пов’язаний шаблон на наступні чотири тижні</value></data>
+  <data name="Basic information"><value>Основна інформація</value></data>
   <data name="Cancel" xml:space="preserve">
     <value>Скасувати</value>
+  </data>
+  <data name="Choose a template to enable automatic extension."><value>Виберіть шаблон для автоматичного продовження.</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Визначте поділ і чергування змін для автоматичного продовження розкладу команд і створення одним натисканням. Зміна шаблону не впливає на вже заплановані зміни.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Видаленого працівника</value>
   </data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Не прив’язувати шаблон (планування вручну)</value>
   </data>
@@ -42,12 +52,14 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Введіть значення в UTC; його не буде автоматично перетворено відповідно до часових поясів команди. Після збереження зміни початковий момент планування змінити неможливо.</value>
   </data>
+  <data name="Fallback recipients"><value>Резервні одержувачі</value></data>
   <data name="Filter by role" xml:space="preserve">
     <value>Фільтрувати за роллю</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Знайти</value>
   </data>
+  <data name="Friday"><value>П’ятниця</value></data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Довідка: копія сповіщення</value>
   </data>
@@ -66,24 +78,31 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Довідка: часовий пояс команди</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>Кілька команд можуть використовувати один шаблон. Зміна шаблону або перемикання на інший не призведе до повторного створення збережених змін.</value>
-  </data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
+  <data name="Maximum continuous duty reminder (hours)"><value>Нагадування про максимальне безперервне чергування (години)</value></data>
+  <data name="Minimum rest reminder (hours)"><value>Нагадування про мінімальний відпочинок (години)</value></data>
+  <data name="Minimum staffing reminder"><value>Нагадування про мінімальний склад</value></data>
+  <data name="Monday"><value>Понеділок</value></data>
   <data name="Name or Account" xml:space="preserve">
     <value>Ім&apos;я або обліковий запис</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Наступна сторінка</value>
   </data>
+  <data name="Next four shifts preview"><value>Попередній перегляд наступних чотирьох змін</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Немає резервних одержувачів: сповіщення не доставляються, коли ніхто не чергує.</value></data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Учасників ще немає. Відкрийте розділ «Додати учасників», щоб знайти людей.</value>
   </data>
+  <data name="No members yet. Search below to add people."><value>Учасників ще немає. Знайдіть і додайте людей нижче.</value></data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>Копія сповіщень (необов’язково)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>Копія до електронного листа черговим</value>
   </data>
+  <data name="On-call members (rotation queue)"><value>Чергові учасники (черга ротації)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
   <data name="Previous Page" xml:space="preserve">
     <value>Попередня сторінка</value>
   </data>
@@ -93,6 +112,7 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Порядок чергування</value>
   </data>
+  <data name="Saturday"><value>Субота</value></data>
   <data name="Save changes" xml:space="preserve">
     <value>Зберегти зміни</value>
   </data>
@@ -102,12 +122,14 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>Після збереження цих учасників буде вилучено зі змін, які ще не розпочалися. Перевірте розклад на наявність прогалин.</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>Шаблон правила планування</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>Шаблон розкладу</value>
   </data>
+  <data name="Scheduling method"><value>Спосіб планування</value></data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Початкова точка планування (UTC)</value>
   </data>
+  <data name="Scheduling start point (team time)"><value>Початок планування (час команди)</value></data>
   <data name="Search Employees" xml:space="preserve">
     <value>Пошук працівників</value>
   </data>
@@ -117,9 +139,13 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>Шукайте за ім’ям або обліковим записом чи виберіть роль.</value>
   </data>
+  <data name="Search by name or account."><value>Пошук за ім’ям або обліковим записом.</value></data>
+  <data name="Search fallback recipients"><value>Пошук резервних одержувачів</value></data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Вибір ролі лише фільтрує результати пошуку. Позначте окремих людей, щоб додати їх; членство в команді не синхронізується з цією роллю.</value>
   </data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
+  <data name="Sunday"><value>Неділя</value></data>
   <data name="Team members" xml:space="preserve">
     <value>Учасники команди</value>
   </data>
@@ -129,12 +155,15 @@
   <data name="Team settings" xml:space="preserve">
     <value>Налаштування команди</value>
   </data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Thursday"><value>Четвер</value></data>
   <data name="Time Zone" xml:space="preserve">
     <value>Часовий пояс</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>Кому: людям, призначеним на збережену зміну на момент інциденту. Початкових отримувачів OCE буде збережено для подальших листів щодо інциденту. Копія надсилається в кожному листі щодо інциденту незалежно від зміни. Розділяйте адреси комами, крапками з комою або переносами рядка; можна вказати до 50 адрес у копії.</value>
   </data>
+  <data name="Tuesday"><value>Вівторок</value></data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Використовуйте кнопки «Перемістити вгору» та «Перемістити вниз», щоб вибрати порядок для майбутнього автоматичного планування. Наявні зміни не змінюються. Виберіть до 200 учасників.</value>
   </data>
@@ -144,5 +173,7 @@
   <data name="View schedule" xml:space="preserve">
     <value>Переглянути розклад</value>
   </data>
-
+  <data name="Wednesday"><value>Середа</value></data>
+  <data name="Week starts on"><value>Перший день тижня</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
 </root>
