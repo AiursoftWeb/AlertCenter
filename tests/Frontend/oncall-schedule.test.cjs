@@ -173,7 +173,7 @@ function setup(options = {}) {
         if (member.id && !member.departed) { const week = new Element('button'); week.dataset.weekUser = member.id; week.className = 'ac-gantt-week'; row.append(week); }
         grid.append(row); rows.set(member.id, row);
     }
-    const readonly = contextSlots.map(slot => {
+    const readonly = contextSlots.filter(slot => slot.external).map(slot => {
         const bar = new Element('button'); bar.className = `ac-gantt-shift ${slot.external ? 'ac-gantt-external' : 'ac-gantt-adjacent'}`;
         Object.assign(bar.dataset, { readonly: 'true', start: localTime(slot.startsAtUtc, zone), end: localTime(slot.endsAtUtc, zone), summary: slot.external ? 'Other team' : 'Adjacent saved shift' });
         bar.style.left = `${(Date.parse(slot.startsAtUtc) - Date.parse(rangeStart)) / (Date.parse(rangeEnd) - Date.parse(rangeStart)) * 100}%`;
@@ -201,7 +201,7 @@ function setup(options = {}) {
         if (url.startsWith('/saved?')) {
             const query = new URL(url, 'https://example.invalid').searchParams;
             const left = Date.parse(query.get('startUtc')), right = Date.parse(query.get('endUtc'));
-            return { version: options.savedVersion || 'version', saved: options.saved !== false, autoExtend: options.autoExtend || false, lastShiftEndUtc: options.lastShiftEnd || null, slots: structuredClone(options.savedSlots || slots).filter(slot => Date.parse(slot.startsAtUtc) < right && Date.parse(slot.endsAtUtc) > left) };
+            return { version: options.savedVersion || 'version', saved: options.saved !== false, autoExtend: options.autoExtend || false, lastShiftEndUtc: options.lastShiftEnd || null, slots: structuredClone(options.savedSlots || slots.concat(contextSlots.filter(slot => !slot.external))).filter(slot => Date.parse(slot.startsAtUtc) < right && Date.parse(slot.endsAtUtc) > left) };
         }
         const generating = url.includes('generate=true');
         const startUtc = (generating && options.generatedRange?.startUtc) || body.startUtc || new Date(utcForLocal(body.startLocal, zone)).toISOString();
@@ -443,7 +443,7 @@ test('expanded horizontal context preserves time coordinate mapping and cancels 
     assert.equal(ui.draft()[0].startLocal, '2026-10-12T14:00'); assert.deepEqual(ui.draft()[0].userIds, ['b']);
 });
 
-test('adjacent and cross-team bars cannot be edited or targeted, survive redraw, and never enter stats or requests', async () => {
+test('cross-team bars cannot be edited or targeted, survive redraw, and never enter stats or requests', async () => {
     const external = { ...shift(8, 30, ['a'], 'external'), external: true }, adjacent = shift(-12, 0, ['a'], 'adjacent');
     const ui = setup({ slots: [shift(12, 20)], context: [external, adjacent] }); await ui.flush();
     const original = ui.draft();
@@ -458,7 +458,8 @@ test('adjacent and cross-team bars cannot be edited or targeted, survive redraw,
     assert.equal(ui.rows.get('a').querySelector('.ac-gantt-hours').textContent, '0 · 0.00 hours');
     assert.equal(ui.rows.get('b').querySelector('.ac-gantt-hours').textContent, '1 · 8.00 hours');
     await ui.click('save-schedule');
-    for (const request of ui.requests.filter(item => item.body)) assert(request.body.slots.every(slot => slot.id !== 'external' && slot.id !== 'adjacent'));
+    for (const request of ui.requests.filter(item => item.body)) assert(request.body.slots.every(slot => slot.id !== 'external'));
+    assert(ui.request('/save')[0].body.slots.some(slot => slot.id === 'adjacent'));
 });
 test('departed members cannot receive drops, resize or copy, and removing them restores normal editing', async () => {
     const ui = setup({ slots: [shift(12, 20, ['gone'])], members: [...members, { id: 'gone', name: 'Former engineer', departed: true }] }); await ui.flush();
@@ -909,13 +910,18 @@ test('selected shift moves through the precise controls and legacy blank click w
     assert.deepEqual(ui.draft()[0], { startLocal: '2026-10-13T16:13', endLocal: '2026-10-14T00:13', userIds: ['a'] });
     assert.equal(ui.request('/save').length, 0);
 });
-test('staged next-range bars remain read-only and participate in undo without contributing current-week statistics', async () => {
+test('staged next-range bars can be reassigned and deleted without contributing to weekly statistics', async () => {
     const ui = setup({ slots: [shift(0, 8)] }); await ui.flush(); await ui.click('copy-range');
-    const staged = ui.lane('a').querySelector('[data-edge="next"]'); assert(staged); assert.equal(staged.dataset.readonly, 'true'); assert.equal(staged.hidden, false);
-    const original = ui.draft(); await ui.drag(staged, 170, 172, ui.lane('b')); await ui.click(staged); await ui.fire(staged, 'keydown', { key: 'Delete' });
-    assert.deepEqual(ui.draft(), original); assert(!ui.get('shift-dialog').open); assert.equal(ui.get('copy-drafts').children.length, 1);
+    const staged = ui.lane('a').querySelector('[data-edge="next"]'); assert(staged && !staged.hidden);
+    await ui.drag(staged, 170, 173, ui.lane('b'), { altKey: true });
+    const moved = ui.lane('b').querySelector('[data-edge="next"]'); assert(moved);
+    assert.deepEqual(ui.draft()[1].userIds, ['b']);
+    await ui.fire(moved, 'keydown', { key: 'Delete' }); assert.equal(ui.draft().length, 1);
+    assert.equal(ui.get('copy-drafts').children.length, 1);
     assert.equal(ui.get('total-hours').textContent, '8.00 hours'); assert.equal(ui.get('total-shifts').textContent, '1');
     assert.equal(ui.rows.get('a').querySelector('.ac-gantt-hours').textContent, '1 · 8.00 hours');
+    await ui.click('undo-schedule'); assert(ui.lane('b').querySelector('[data-edge="next"]'));
+    await ui.click('undo-schedule'); assert(ui.lane('a').querySelector('[data-edge="next"]'));
     await ui.click('undo-schedule'); assert.equal(ui.lane('a').querySelector('[data-edge="next"]'), null);
 });
 test('short pointer taps open a shift once, while foreign pointer ids and lost capture cannot commit a drag', async () => {
@@ -953,39 +959,69 @@ test('copy replacement never hides external context from rest validation and inv
     await ui.input(ui.get('range-start'), '2026-10-25T00:00'); await ui.input(ui.get('range-end'), '2026-11-01T00:00');
     await ui.click('copy-range'); assert.equal(ui.get('copy-drafts').children.length, 1); assert.match(ui.get('schedule-errors').textContent, /overlap/);
 });
-test('cross-week shift renders read-only adjacent fragments and saves expanded bounds without duplicating its saved id', async () => {
-    const crossing = shift(-2, 8, ['a'], 'crossing'), adjacent = shift(-8, -3, ['b'], 'untouched');
-    const ui = setup({ slots: [crossing], savedSlots: [crossing, adjacent] }); await ui.flush();
-    assert.equal(ui.bar().querySelector('[data-resize="start"]'), null);
-    await ui.click(ui.toggles.previous); const fragment = ui.lane('a').querySelector('[data-edge="previous"]');
-    assert(fragment); assert.equal(fragment.dataset.readonly, 'true'); assert.equal(fragment.hidden, false);
-    await ui.fire(fragment, 'keydown', { key: 'Delete' }); assert.equal(ui.draft().length, 1);
-    await ui.input(tableInput(ui, 0, 'end'), '2026-10-12T09:00'); await ui.click('save-schedule');
+test('cross-week shifts share their indices and expose their true endpoints when expanded', async () => {
+    const crossing = shift(-8, 8, ['a'], 'crossing'), trailing = shift(160, 180, ['b'], 'trailing');
+    const ui = setup({ slots: [crossing, trailing] }); await ui.flush();
+    const previous = () => ui.lane('a').querySelector('[data-edge="previous"]');
+    const next = () => ui.lane('b').querySelector('[data-edge="next"]');
+    assert(previous().hidden && next().hidden);
+    await ui.click(ui.toggles.previous); await ui.click(ui.toggles.next);
+    assert.equal(previous().dataset.slotIndex, '0'); assert.equal(next().dataset.slotIndex, '1');
+    const current = ui.lane('a').querySelector('[data-slot-index="0"]:not([data-edge])');
+    assert(current.querySelector('[data-resize="end"]'));
+    assert.equal(current.querySelector('[data-resize="start"]'), null);
+    assert(ui.bar(1, 'b').querySelector('[data-resize="start"]'));
+    await ui.drag(previous().querySelector('[data-resize="start"]'), -8, -10, ui.lane('a'), { altKey: true });
+    await ui.drag(next().querySelector('[data-resize="end"]'), 180, 183, ui.lane('b'), { altKey: true });
+    await ui.drag(previous(), -4, -6, ui.lane('a'), { altKey: true });
+    assert.equal(previous().dataset.start, '2026-10-11T12:00');
+    assert.equal(previous().dataset.end, '2026-10-12T06:00');
+    await ui.click('save-schedule');
     const saved = ui.request('/save')[0].body;
-    assert.equal(saved.startUtc, '2026-10-11T14:00:00.000Z'); assert.equal(saved.slots.filter(slot => slot.id === 'crossing').length, 1);
-    assert.equal(saved.slots.find(slot => slot.id === 'crossing').endLocal, '2026-10-12T09:00');
+    assert.equal(saved.startUtc, shift(-12, 6).startsAtUtc);
+    assert.equal(saved.endUtc, shift(160, 183).endsAtUtc);
+    for (const id of ['crossing', 'trailing']) assert.equal(saved.slots.filter(slot => slot.id === id).length, 1);
 });
-test('expanded blank adjacent context cannot start creation or receive a moved or newly created shift', async () => {
-    const ui = setup({ slots: [shift(12, 20)] }); await ui.flush();
-    await ui.click(ui.toggles.previous); await ui.click(ui.toggles.next); const original = ui.draft();
-    for (const outside of [-4, 168.5, 172]) {
-        await ui.drag(ui.lane('b'), outside, 30, ui.lane('b'));
-        assert.deepEqual(ui.draft(), original, `Creation cannot begin outside the current week at ${outside}`);
-        await ui.drag(ui.lane('b'), 30, outside, ui.lane('b'));
-        assert.deepEqual(ui.draft(), original, `Creation cannot finish outside the current week at ${outside}`);
-        await ui.drag(ui.bar(), 14, outside, ui.lane('b'));
-        assert.deepEqual(ui.draft(), original, `Existing shift cannot target adjacent blank space at ${outside}`);
+test('both expanded edges support creation, keyboard changes, history, and reset without affecting weekly stats', async () => {
+    const ui = setup({ slots: [] }); await ui.flush();
+    for (const [edge, left] of [['previous', -14], ['next', 174]]) {
+        await ui.click(ui.toggles[edge]);
+        await ui.drag(ui.lane('b'), left, left + 4, ui.lane('b'), { altKey: true });
+        const bar = () => ui.lane('b').querySelector(`[data-edge="${edge}"]`);
+        await ui.fire(bar(), 'keydown', { key: 'ArrowRight' });
+        const moved = ui.draft();
+        await ui.click(ui.toggles[edge]); assert(bar().hidden); assert.deepEqual(ui.draft(), moved);
+        await ui.click('undo-schedule'); assert.notDeepEqual(ui.draft(), moved);
+        await ui.click('redo-schedule'); assert.deepEqual(ui.draft(), moved);
+        await ui.click(ui.toggles[edge]); assert(!bar().hidden);
+        await ui.fire(bar(), 'keydown', { key: 'Delete' }); assert.equal(ui.draft().length, 0);
+        await ui.pointer('pointerdown', ui.lane('a'), left); await ui.pointer('pointerup', ui.lane('a'), left);
+        assert.equal(ui.draft().length, 1);
+        assert.equal(ui.get('total-hours').textContent, '0.00 hours');
+        await ui.click('reset-schedule'); assert.equal(ui.draft().length, 0);
     }
-    await ui.drag(ui.lane('b'), 168, 30, ui.lane('b'));
-    assert.deepEqual(ui.draft(), original, 'Creation cannot begin at the exclusive end boundary');
-    await ui.drag(ui.bar(), 14, 168, ui.lane('b'));
-    assert.deepEqual(ui.draft(), original, 'Existing shifts cannot target the exclusive end boundary');
-    assert.equal(ui.get('undo-schedule').disabled, true); assert.equal(ui.request('/save').length, 0);
-    await ui.click(ui.bar()); await ui.click('dialog-cancel');
-    for (const outside of [168, 172]) {
-        await ui.pointer('pointerdown', ui.lane('b'), outside); await ui.pointer('pointerup', ui.lane('b'), outside);
-        assert.deepEqual(ui.draft(), original);
-    }
+});
+test('adjacent edits move handovers, detect overlaps, and save deletions without losing unseen neighbors', async () => {
+    const first = shift(-42, -12, ['a'], 'first'), second = shift(-12, -6, ['b'], 'second');
+    const neighbor = shift(-41, -37, ['b'], 'neighbor'), next = shift(172, 178, ['b'], 'next');
+    const ui = setup({ slots: [], context: [first, second, neighbor, next] }); await ui.flush();
+    await ui.click(ui.toggles.previous); await ui.click(ui.toggles.next);
+    const marker = ui.get('handover-lane').querySelector('[data-first]'); assert(marker && !marker.hidden);
+    await ui.drag(marker, -12, -10, ui.get('handover-lane'), { altKey: true });
+    assert.equal(ui.draft()[0].endLocal, ui.draft()[1].startLocal);
+    const following = () => ui.lane('b').querySelector('[data-edge="next"]');
+    await ui.click(following());
+    await ui.input(ui.get('dialog-start'), '2026-10-11T15:00');
+    await ui.click('dialog-apply');
+    assert.match(ui.get('dialog-errors').textContent, /overlap/i);
+    assert.equal(ui.draft()[2].startLocal, localTime(next.startsAtUtc, 'Asia/Shanghai'));
+    await ui.click('dialog-cancel');
+    await ui.fire(following(), 'keydown', { key: 'Delete' });
+    await ui.click('save-schedule');
+    const body = ui.request('/save')[0].body;
+    assert.equal(body.endUtc, next.endsAtUtc);
+    assert(body.slots.some(slot => slot.id === 'neighbor'));
+    assert(!body.slots.some(slot => slot.id === 'next'));
 });
 test('blank creation may end exactly at the week boundary with adjacent context expanded', async () => {
     const ui = setup({ slots: [] }); await ui.flush();
@@ -1166,7 +1202,7 @@ test('clear keeps server split fragments once across the view and preserves save
     const fragments = [{ ...shift(156, 164, ['a'], 'crossing'), source: 1 }, { ...shift(180, 200), source: 1 }, long];
     const ui = setup({ now: start, slots: [crossing], savedSlots: [crossing, long, neighbor], clearSlots: fragments }); await ui.flush();
     await ui.input(ui.get('clear-start'), '2026-10-18T20:00'); await ui.input(ui.get('clear-end'), '2026-10-29T00:00'); await ui.click('clear-range');
-    assert.equal(ui.draft().length, 1); assert.equal(ui.bar().dataset.end, '2026-10-18T20:00');
+    assert.equal(ui.draft().length, 2); assert.equal(ui.bar().dataset.end, '2026-10-18T20:00');
     await ui.click('save-schedule'); const saved = ui.request('/save')[0].body;
     assert.equal(saved.slots.filter(slot => slot.id === 'crossing').length, 1);
     assert.equal(saved.slots.filter(slot => slot.id === 'long').length, 1);
@@ -1385,9 +1421,10 @@ test('one-click merge submits the departed member and retains their warning', as
 test('merge repairs overlaps across the visible boundary while preserving adjacent schedules and can undo', async () => {
     const saved = [shift(-8, 4, ['a'], 'crossing'), shift(-12, -4, ['a'], 'prior'), shift(170, 178, ['b'], 'later'), shift(-16, -10, ['b'], 'unseen')];
     const ui = setup({ slots: [saved[0]], context: saved.slice(1, 3), savedSlots: saved }); await ui.flush();
-    assert(ui.get('save-schedule').disabled); assert(ui.readonly[0].classList.contains('ac-gantt-conflict')); await ui.click('merge-overlaps');
-    assert(!ui.readonly[0].classList.contains('ac-gantt-conflict'));
-    assert.equal(ui.draft()[0].startLocal, '2026-10-11T12:00'); assert.equal(ui.draft()[0].endLocal, '2026-10-12T04:00');
+    await ui.click(ui.toggles.previous);
+    assert(ui.get('save-schedule').disabled); assert(ui.bar(1).classList.contains('ac-gantt-conflict')); await ui.click('merge-overlaps');
+    assert.equal(ui.lane('a').querySelector('.ac-gantt-conflict'), null);
+    assert(ui.draft().some(slot => slot.startLocal === '2026-10-11T12:00' && slot.endLocal === '2026-10-12T04:00' && slot.userIds.includes('a')));
     assert(!ui.get('save-schedule').disabled);
     await ui.click('save-schedule');
     const slots = ui.request('/save')[0].body.slots;

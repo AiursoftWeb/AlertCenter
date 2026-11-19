@@ -16,7 +16,7 @@
     var selectedShift = Model.Preview.FirstOrDefault(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc) ?? Model.Preview.FirstOrDefault();
     var selectedStart = selectedShift == null ? "" : TimeZoneInfo.ConvertTime(new DateTimeOffset(selectedShift.StartsAtUtc), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
     var selectedEnd = selectedShift == null ? "" : TimeZoneInfo.ConvertTime(new DateTimeOffset(selectedShift.EndsAtUtc), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
-    var adjacent = Model.AdjacentShifts.Where(shift => shift.EndsAtUtc > start.AddHours(-36) && shift.StartsAtUtc < end.AddHours(36))
+    var adjacent = Model.AdjacentShifts.Where(shift => !Model.CanManageOnCall && shift.EndsAtUtc > start.AddHours(-36) && shift.StartsAtUtc < end.AddHours(36))
         .SelectMany(shift => shift.Members.Select(member => new Aiursoft.AlertCenter.Services.GeneratedOnCallShift(member.UserId,
             DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc)))).ToList();
     var contextDays = new[] { (Edge: "previous", Start: start.AddHours(-36)), (Edge: "next", Start: end) }
@@ -63,7 +63,7 @@
     {
         <p class="mt-2">@viewLocalizer["This timeline is read-only."]</p>
     }
-    <p class="mb-0">@viewLocalizer["Adjacent weeks and other teams are read-only. Warning markers include gaps, overlaps and team reminders; select a marker for details. Statistics count only time within the visible range and merge overlapping assignments for each person."]</p>
+    <p class="mb-0">@(Model.CanManageOnCall ? viewLocalizer["Expand either side to edit this team’s shifts. Other teams are read-only. Select warning markers for details. Statistics count only the current week and merge overlapping assignments for each person."] : viewLocalizer["Adjacent weeks and other teams are read-only. Warning markers include gaps, overlaps and team reminders; select a marker for details. Statistics count only time within the visible range and merge overlapping assignments for each person."])</p>
 </details>
 <div class="ac-gantt-frame">
 <button type="button" class="btn btn-sm btn-outline-secondary ac-gantt-edge-toggle" data-oncall-edge="previous" aria-expanded="false" aria-controls="oncall-gantt">@viewLocalizer["Expand previous 36 hours"]</button>
@@ -109,9 +109,14 @@
                         var dayStart = day.Segments[0].StartsAtUtc;
                         var dayEnd = day.Segments[^1].EndsAtUtc;
                         <div class="ac-gantt-date ac-gantt-adjacent" data-edge="@context.Edge" hidden style="left: @Position(dayStart); width: @Percent((dayEnd - dayStart).TotalHours)"
-                             title="@(context.Edge == "previous" ? @viewLocalizer["36 hours before this week (read-only)"].Value : @viewLocalizer["36 hours after this week (read-only)"].Value) · @LocalTime(context.Start) → @LocalTime(context.Start.AddHours(36))">
+                             title="@(context.Edge == "previous"
+                                 ? viewLocalizer[Model.CanManageOnCall ? "Expand previous 36 hours" : "36 hours before this week (read-only)"].Value
+                                 : viewLocalizer[Model.CanManageOnCall ? "Expand next 36 hours" : "36 hours after this week (read-only)"].Value) · @LocalTime(context.Start) → @LocalTime(context.Start.AddHours(36))">
                             <strong>@day.Date.ToString("MM/dd", CultureInfo.InvariantCulture)</strong>
-                            <span class="small d-block">@day.Date.ToString("ddd", CultureInfo.CurrentUICulture) · @viewLocalizer["Read-only"]</span>
+                            <span class="small d-block">@day.Date.ToString("ddd", CultureInfo.CurrentUICulture)@if (!Model.CanManageOnCall)
+                                {
+                                    <text> · @viewLocalizer["Read-only"]</text>
+                                }</span>
                         </div>
                     }
                     @for (var tick = context.Start; tick < context.Start.AddHours(36); tick = tick.AddHours(6))

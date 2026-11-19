@@ -228,9 +228,19 @@
     const members = JSON.parse(root.dataset.members), context = JSON.parse(root.dataset.context || '[]');
     const zone = root.dataset.zone, start = root.dataset.start, end = root.dataset.end;
     const from = Date.parse(start), until = Date.parse(end), duration = until - from;
+    const edgeStart = from - 36 * hour, edgeEnd = until + 36 * hour;
+    const visibleBounds = () => [from - Number(chart.dataset.beforeHours || 0) * hour, until + Number(chart.dataset.afterHours || 0) * hour];
+    const intersects = (left, right, low = from, high = until) => left < high && right > low;
+    const inWeek = slot => intersects(timeOf(slot, 'start', zone), timeOf(slot, 'end', zone));
+    const inEditor = slot => intersects(timeOf(slot, 'start', zone), timeOf(slot, 'end', zone), edgeStart, edgeEnd);
+    const regionAt = time => time < from ? 'previous' : time >= until ? 'next' : 'current';
+    const regions = [['previous', edgeStart, from], ['current', from, until], ['next', until, edgeEnd]];
     const chart = get('oncall-gantt'), dialog = get('oncall-shift-dialog');
     const prepare = items => items.map(slot => ({ ...slot, source: slot.source ?? 0, userIds: [...slot.userIds], startLocal: localTime(slot.startsAtUtc, zone), endLocal: localTime(slot.endsAtUtc, zone) }));
-    const original = { slots: prepare(JSON.parse(root.dataset.slots)), ranges: [], clearRanges: [] };
+    const weekSlots = prepare(JSON.parse(root.dataset.slots));
+    const adjacent = prepare(context.filter(slot => !slot.external && inEditor(slot) && !weekSlots.some(item => item.id && item.id === slot.id)));
+    const adjacentIds = new Set(adjacent.map(slot => slot.id).filter(Boolean));
+    const original = { slots: weekSlots.concat(adjacent), ranges: [], clearRanges: [] };
     let state = structuredClone(original), dirty = false, busy = false, sequence = 0, timer, pending = null, historyPending = null, selected = null, weekSelection = null, editing = null, gesture = null, suppressClick = false, clearEndEdited = false;
     const undo = [], redo = [];
     const threshold = key => root.dataset[key] == null || root.dataset[key] === '' ? null : Number(root.dataset[key]);
@@ -247,7 +257,7 @@
     function draftSlots(candidate = state) { return candidate.slots.concat(candidate.ranges.flatMap(range => range.slots)); }
     function teamSlots(candidate = state) {
         const slots = draftSlots(candidate), ranges = [{ start: from, end: until }, ...candidate.ranges];
-        return slots.concat(context.filter(slot => !slot.external && !ranges.some(range => Date.parse(slot.startsAtUtc) < range.end && Date.parse(slot.endsAtUtc) > range.start) && !slots.some(item => item.id && item.id === slot.id)));
+        return slots.concat(context.filter(slot => !slot.external && !adjacentIds.has(slot.id) && !ranges.some(range => Date.parse(slot.startsAtUtc) < range.end && Date.parse(slot.endsAtUtc) > range.start) && !slots.some(item => item.id && item.id === slot.id)));
     }
     const conflicts = (candidate = state) => overlappingSlots(teamSlots(candidate), zone);
     function submitted(items) {
@@ -261,7 +271,8 @@
     }
     function payload(extraRange) {
         const slots = state.slots.concat(state.ranges.flatMap(range => range.slots));
-        const bounds = normalized(slots);
+        // Replacing an extended range must also cover the old location of a moved or deleted adjacent shift.
+        const bounds = normalized(slots).concat(adjacent);
         const low = Math.min(from, extraRange ? Date.parse(extraRange.startUtc) : Infinity, ...state.ranges.map(range => range.start), ...state.clearRanges.map(range => Date.parse(range.startUtc)), ...bounds.map(slot => Date.parse(slot.startsAtUtc)));
         const high = Math.max(until, extraRange ? Date.parse(extraRange.endUtc) : -Infinity, ...state.ranges.map(range => range.end), ...state.clearRanges.map(range => Date.parse(range.endUtc)), ...bounds.map(slot => Date.parse(slot.endsAtUtc)));
         if (high - low > Number(root.dataset.maxRangeDays) * 24 * hour) {
@@ -406,17 +417,15 @@
         }
         lane.style.minHeight = `${Math.max(1, tracks.length) * 72}px`;
     }
-    function updateShift(bar, row, slot, editable) {
+    function updateShift(bar, row, slot, leftClip, rightClip) {
         const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
-        describe(bar, `${row.dataset.name}${hasDeparted(slot) ? ` · ${text('oncall-departed-label', 'Departed')}` : ''}${editable ? '' : ` · ${text('read-only', 'Read-only')}`} · ${((right - left) / hour).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`, left, right);
+        describe(bar, `${row.dataset.name}${hasDeparted(slot) ? ` · ${text('oncall-departed-label', 'Departed')}` : ''} · ${((right - left) / hour).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`, left, right);
         bar.textContent = `${localTime(left, zone).replace('T', ' ')} → ${localTime(right, zone).replace('T', ' ')}`;
-        if (editable) {
-            bar.setAttribute('aria-label', `${bar.title}. ${text('move-hint', 'Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes.')}`);
-            if (!hasDeparted(slot)) for (const edge of ['start', 'end']) {
-                if ((edge === 'start' && left < from) || (edge === 'end' && right > until)) continue;
-                const handle = document.createElement('span'); handle.className = 'ac-gantt-resize'; handle.dataset.resize = edge;
-                handle.title = text(`resize-${edge}`, edge === 'start' ? 'Adjust start' : 'Adjust end'); handle.setAttribute('aria-hidden', 'true'); bar.append(handle);
-            }
+        bar.setAttribute('aria-label', `${bar.title}. ${text('move-hint', 'Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes.')}`);
+        if (!hasDeparted(slot)) for (const edge of ['start', 'end']) {
+            if ((edge === 'start' && left !== leftClip) || (edge === 'end' && right !== rightClip)) continue;
+            const handle = document.createElement('span'); handle.className = 'ac-gantt-resize'; handle.dataset.resize = edge;
+            handle.title = text(`resize-${edge}`, edge === 'start' ? 'Adjust start' : 'Adjust end'); handle.setAttribute('aria-hidden', 'true'); bar.append(handle);
         }
     }
     function drawGesture() {
@@ -427,19 +436,22 @@
             if (JSON.stringify(slot) === JSON.stringify(previous.slots[index])) continue;
             for (const row of chart.querySelectorAll('[data-user-id]')) {
                 const lane = row.querySelector('.ac-gantt-lane'), id = row.dataset.userId;
-                let bar = findBar(index, id);
-                if (!slot || !valid(slot) || !(slot.userIds.includes(id) || (id === '' && !slot.userIds.length))) { bar?.remove(); continue; }
-                const left = Math.max(from, timeOf(slot, 'start', zone)), right = Math.min(until, timeOf(slot, 'end', zone));
-                if (right <= left) { bar?.remove(); continue; }
-                if (!bar) {
-                    bar = document.createElement('button'); bar.type = 'button';
-                    bar.className = `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
-                    bar.dataset.draftShift = 'true'; bar.dataset.slotIndex = String(index);
-                    bar.style.top = '8px'; bar.style.transform = 'none';
-                    bar.setAttribute('aria-pressed', String(selected?.index === index && selected?.person === id));
-                    lane.append(bar);
+                const bars = [...lane.querySelectorAll(`[data-slot-index="${index}"]`)];
+                const assigned = slot && valid(slot) && peopleOf(slot).includes(id);
+                for (const [region, low, high] of regions) {
+                    let bar = bars.find(item => (item.dataset.edge || 'current') === region);
+                    const left = assigned ? Math.max(low, timeOf(slot, 'start', zone)) : Infinity;
+                    const right = assigned ? Math.min(high, timeOf(slot, 'end', zone)) : -Infinity;
+                    if (right <= left) { bar?.remove(); continue; }
+                    if (!bar) {
+                        bar = shiftBar(row, index, region);
+                        bar.style.top = '8px'; bar.style.transform = 'none';
+                        const [visibleStart, visibleEnd] = visibleBounds();
+                        bar.hidden = !intersects(left, right, visibleStart, visibleEnd);
+                        lane.append(bar);
+                    }
+                    position(bar, left, right); updateShift(bar, row, slot, left, right);
                 }
-                position(bar, left, right); updateShift(bar, row, slot, true);
             }
         }
         if (gesture.mode === 'handover') {
@@ -452,6 +464,15 @@
         }
         gesture.rendered = structuredClone(state);
     }
+    function shiftBar(row, index, region) {
+        const bar = document.createElement('button'); bar.type = 'button';
+        bar.className = `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
+        bar.dataset.draftShift = 'true'; bar.dataset.slotIndex = String(index);
+        const chosen = selected?.index === index && selected?.person === row.dataset.userId;
+        bar.classList.toggle('ac-gantt-selected', chosen); bar.setAttribute('aria-pressed', String(chosen));
+        if (region !== 'current') { bar.dataset.edge = region; bar.hidden = true; }
+        return bar;
+    }
     function draw(serverWarnings) {
         if (gesture) { drawGesture(); return; }
         const focus = document.activeElement;
@@ -461,58 +482,30 @@
         const stats = { 'oncall-total-shifts': assigned.length, 'oncall-total-staff': new Set(assigned.flatMap(slot => slot.userIds)).size,
             'oncall-total-hours': `${assigned.reduce((sum, slot) => sum + Math.max(0, Math.min(until, Date.parse(slot.endsAtUtc)) - Math.max(from, Date.parse(slot.startsAtUtc))) / hour, 0).toFixed(2)} ${text('oncall-hours-unit', 'hours')}` };
         for (const [id, value] of Object.entries(stats)) if (get(id)) get(id).textContent = value;
-        const staged = state.ranges.flatMap(range => range.slots);
         const history = teamSlots().slice(state.slots.length).concat(context.filter(slot => slot.external));
-        const warnings = reminders(state.slots, history, from, until, members, thresholds, zone).map(warning => ({
+        const warnings = reminders(state.slots, history, edgeStart, edgeEnd, members, thresholds, zone).map(warning => ({
             startsAtUtc: warning.left, endsAtUtc: warning.right, message: `${warning.person ? `${members.find(member => member.id === warning.person)?.name || warning.person}: ` : ''}${text(warning.key, warning.key)}`
         })).concat(serverWarnings || []);
         const overlaps = conflicts();
         get('oncall-save-schedule').disabled = overlaps.size > 0;
         get('oncall-merge-overlaps').hidden = !overlaps.size;
-        list('oncall-schedule-warnings', [...new Set(warnings.map(warning => warning.message).concat(overlaps.size ? [overlapMessage()] : []))]);
-        const lane = get('oncall-warning-lane'); lane.replaceChildren();
-        for (const warning of warningSegments(warnings, from, until)) {
-            const message = warning.messages.join('\n');
-            const marker = document.createElement('button'); marker.type = 'button'; marker.className = 'ac-gantt-shift ac-gantt-warning bg-warning text-dark';
-            marker.dataset.readonly = 'true';
-            const count = document.createElement('span'), label = document.createElement('span');
-            count.className = 'badge bg-dark ac-gantt-warning-count'; count.textContent = String(warning.messages.length);
-            label.className = 'ac-gantt-warning-text'; label.textContent = message;
-            count.setAttribute('aria-hidden', 'true'); label.setAttribute('aria-hidden', 'true'); marker.append(count, label);
-            position(marker, warning.left, warning.right); describe(marker, message, warning.left, warning.right); lane.append(marker);
-        }
+        timelineWarnings = warnings;
+        drawWarnings(overlaps.size > 0);
         for (const row of chart.querySelectorAll('[data-user-id]')) {
             const id = row.dataset.userId, rowLane = row.querySelector('.ac-gantt-lane');
             const count = resolved.filter(slot => slot.userIds.includes(id) && Date.parse(slot.startsAtUtc) < until && Date.parse(slot.endsAtUtc) > from).length;
             row.querySelector('.ac-gantt-hours').textContent = `${count} · ${hoursFor(resolved, id, start, end).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`;
-            rowLane.querySelectorAll('.ac-gantt-adjacent:not([data-draft-shift])').forEach(bar => {
-                const left = utcForLocal(bar.dataset.start?.slice(0, 16).replace(' ', 'T'), zone);
-                const right = utcForLocal(bar.dataset.end?.slice(0, 16).replace(' ', 'T'), zone);
-                bar.dataset.replaced = String(state.ranges.some(range => left < range.end && right > range.start) ||
-                    original.slots.some(slot => timeOf(slot, 'start', zone) === left && timeOf(slot, 'end', zone) === right &&
-                        !state.slots.some(item => item.id === slot.id && timeOf(item, 'start', zone) === left && timeOf(item, 'end', zone) === right)));
-                const invalid = [...overlaps].some(slot => peopleOf(slot).includes(id) && localTime(timeOf(slot, 'start', zone), zone) === bar.dataset.start?.slice(0, 16).replace(' ', 'T') && localTime(timeOf(slot, 'end', zone), zone) === bar.dataset.end?.slice(0, 16).replace(' ', 'T'));
-                bar.classList.toggle('ac-gantt-conflict', invalid); bar.setAttribute('aria-invalid', String(invalid));
-            });
-            const entries = state.slots.map((slot, index) => ({ slot, index })).concat(staged.map(slot => ({ slot, index: -1 })));
+            const entries = state.slots.map((slot, index) => ({ slot, index }));
             for (const { slot, index } of entries) {
                 if (!valid(slot) || !(slot.userIds.includes(id) || (id === '' && !slot.userIds.length))) continue;
                 const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
-                for (const region of ['previous', 'current', 'next']) {
-                    const low = region === 'previous' ? from - 36 * hour : region === 'next' ? until : from;
-                    const high = region === 'previous' ? from : region === 'next' ? until + 36 * hour : until;
-                    if (right <= low || left >= high) continue;
-                    const editable = index >= 0 && region === 'current';
-                    const bar = document.createElement('button'); bar.type = 'button';
-                    bar.className = `ac-gantt-shift ${editable ? `ac-oncall-color-${row.dataset.color}` : 'ac-gantt-adjacent'}`;
-                    bar.dataset.draftShift = 'true';
-                    if (!editable) bar.dataset.readonly = 'true';
-                    else { bar.dataset.slotIndex = String(index); bar.setAttribute('aria-pressed', String(selected?.index === index && selected?.person === id)); }
-                    if (region !== 'current') { bar.dataset.edge = region; bar.hidden = true; }
-                    if (editable && selected?.index === index && selected?.person === id) bar.classList.add('ac-gantt-selected');
+                for (const [region, low, high] of regions) {
+                    if (!intersects(left, right, low, high)) continue;
+                    const bar = shiftBar(row, index, region);
                     if (!dirty && left <= Date.now() && Date.now() < right) bar.classList.add('ac-gantt-current');
-                    position(bar, Math.max(left, low), Math.min(right, high));
-                    updateShift(bar, row, slot, editable);
+                    const leftClip = Math.max(left, low), rightClip = Math.min(right, high);
+                    position(bar, leftClip, rightClip);
+                    updateShift(bar, row, slot, leftClip, rightClip);
                     if (overlaps.has(slot)) { bar.classList.add('ac-gantt-conflict'); bar.setAttribute('aria-invalid', 'true'); bar.title += ` · ${overlapMessage()}`; }
                     rowLane.append(bar);
                 }
@@ -522,18 +515,38 @@
         state.slots.forEach((first, index) => {
             if (!valid(first) || hasDeparted(first)) return;
             const boundary = timeOf(first, 'end', zone);
-            if (boundary <= from || boundary >= until) return;
+            if (boundary <= edgeStart || boundary >= edgeEnd) return;
             const next = state.slots.map((slot, other) => ({ slot, other })).filter(item => item.other !== index && valid(item.slot) && timeOf(item.slot, 'start', zone) === boundary);
             if (next.length !== 1 || hasDeparted(next[0].slot) || state.slots.filter(slot => timeOf(slot, 'end', zone) === boundary).length !== 1) return;
             const marker = document.createElement('button'); marker.type = 'button'; marker.className = 'ac-gantt-handover'; marker.dataset.first = String(index); marker.dataset.second = String(next[0].other);
-            marker.style.left = `${(boundary - from) / duration * 100}%`;
+            const region = regionAt(boundary);
+            if (region !== 'current') { marker.dataset.edge = region; marker.hidden = true; }
+            position(marker, boundary, boundary); marker.style.width = '';
             marker.title = `${text('handover', 'Adjust handover')} · ${localTime(boundary, zone)} · ${zone}`; marker.setAttribute('aria-label', marker.title); handovers.append(marker);
         });
         chart.dispatchEvent(new Event('oncall-layout'));
-        if (focusIndex != null) findBar(Number(focusIndex), focusPerson)?.focus({ preventScroll: true });
+        if (focusIndex != null) findBar(Number(focusIndex), focusPerson, focus.dataset.edge)?.focus({ preventScroll: true });
     }
-    function findBar(index, person) {
-        return [...chart.querySelectorAll('[data-slot-index]')].find(bar => Number(bar.dataset.slotIndex) === index && (person == null || bar.closest('[data-user-id]').dataset.userId === person));
+    let timelineWarnings = [];
+    function drawWarnings(overlap) {
+        const [low, high] = visibleBounds();
+        const visible = warningSegments(timelineWarnings, low, high);
+        list('oncall-schedule-warnings', [...new Set(visible.flatMap(warning => warning.messages).concat(overlap ? [overlapMessage()] : []))]);
+        const lane = get('oncall-warning-lane'); lane.replaceChildren();
+        for (const warning of visible) {
+            const message = warning.messages.join('\n');
+            const marker = document.createElement('button'); marker.type = 'button'; marker.className = 'ac-gantt-shift ac-gantt-warning bg-warning text-dark';
+            marker.dataset.readonly = 'true';
+            const count = document.createElement('span'), label = document.createElement('span');
+            count.className = 'badge bg-dark ac-gantt-warning-count'; count.textContent = String(warning.messages.length);
+            label.className = 'ac-gantt-warning-text'; label.textContent = message;
+            count.setAttribute('aria-hidden', 'true'); label.setAttribute('aria-hidden', 'true'); marker.append(count, label);
+            position(marker, warning.left, warning.right); describe(marker, message, warning.left, warning.right); lane.append(marker);
+        }
+    }
+    function findBar(index, person, edge) {
+        const matches = [...chart.querySelectorAll('[data-slot-index]')].filter(bar => !bar.hidden && Number(bar.dataset.slotIndex) === index && (person == null || bar.closest('[data-user-id]').dataset.userId === person));
+        return matches.find(bar => bar.dataset.edge === edge) || matches[0];
     }
     async function preview() {
         const revision = ++sequence;
@@ -607,7 +620,8 @@
         if (!element || element.closest('[data-readonly]')) return null;
         const lane = element.closest('.ac-gantt-lane'), row = lane?.closest('[data-user-id]');
         const time = lane ? pointTime(event, lane, true) : NaN;
-        return row && time >= from && (time < until || (time === until && gesture?.mode === 'create')) && activeMember(row.dataset.userId) ? { lane, row, bar: element.closest('[data-slot-index]') } : null;
+        const [low, high] = visibleBounds();
+        return row && time >= low && (time < high || (time === high && gesture?.mode === 'create')) && activeMember(row.dataset.userId) ? { lane, row, bar: element.closest('[data-slot-index]') } : null;
     }
     function weekTarget(event) {
         const element = document.elementFromPoint(event.clientX, event.clientY);
@@ -645,7 +659,7 @@
             if (occupied >= 0) { select(occupied, person); suppressClick = true; event.preventDefault(); return; }
         }
         const second = handover ? Number(handover.dataset.second) : null;
-        const candidates = snapCandidates(teamSlots().filter(slot => slot !== state.slots[index] && slot !== state.slots[second]), JSON.parse(root.dataset.handovers || '[]'), from - 36 * hour, until + 36 * hour, zone, Date.now());
+        const candidates = snapCandidates(teamSlots().filter(slot => slot !== state.slots[index] && slot !== state.slots[second]), JSON.parse(root.dataset.handovers || '[]'), ...visibleBounds(), zone, Date.now());
         gesture = { index, second, mode, person, lane, x: event.clientX, y: event.clientY, origin, candidates, before: structuredClone(state), pointerId: event.pointerId, ready: event.pointerType !== 'touch', moved: false };
         if (mode === 'create') {
             const anchor = { userIds: person ? [person] : [], startsAtUtc: new Date(origin).toISOString(), endsAtUtc: new Date(origin).toISOString() };
@@ -673,7 +687,7 @@
         let slot = state.slots[drag.index];
         if (drag.mode === 'week') {
             const person = weekTarget(event);
-            if (person && person !== drag.person) swapPeople(state.slots, drag.person, person);
+            if (person && person !== drag.person) swapPeople(state.slots.filter(inWeek), drag.person, person);
             drag.invalid = conflicts().size > 0;
             const tip = get('oncall-drag-tooltip'); tip.hidden = false; tip.style.left = `${Math.max(0, event.clientX - 100)}px`; tip.style.top = `${Math.max(0, event.clientY - 70)}px`;
             tip.textContent = drag.invalid ? overlapMessage() : `${members.find(member => member.id === drag.person)?.name} ↔ ${members.find(member => member.id === person)?.name || '—'}`;
@@ -683,7 +697,8 @@
         }
         if (drag.mode === 'create') {
             if (!target) { draw(); showGuide(); return; }
-            const low = Math.max(from, drag.bounds.low), high = Math.min(until, drag.bounds.high);
+            const [leftBound, rightBound] = visibleBounds();
+            const low = Math.max(leftBound, drag.bounds.low), high = Math.min(rightBound, drag.bounds.high);
             const anchor = Math.max(low, Math.min(high, snapGesture(drag.origin, event)));
             const anchorGuide = drag.guide === anchor ? drag.guide : null;
             const boundary = Math.max(low, Math.min(high, snapGesture(time, event)));
@@ -743,14 +758,24 @@
         if (drag.invalid) { draw(); error(text('drop-conflict', 'This move would overlap another shift for the same person. The draft was not changed.')); suppressClick = true; return; }
         if (!drag.moved) {
             if (weekSelection && weekTarget(event)) {
-                commit(() => swapPeople(state.slots, weekSelection, weekTarget(event))); selectWeek(weekSelection); suppressClick = true;
+                commit(() => swapPeople(state.slots.filter(inWeek), weekSelection, weekTarget(event))); selectWeek(weekSelection); suppressClick = true;
             } else if (drag.mode === 'week') { selectWeek(drag.person); suppressClick = true; }
             else if (drag.index >= 0 && drag.mode === 'move') { suppressClick = true; openEditor(drag.index, drag.person); }
-            else if (drag.mode === 'create' && selected && target) {
-                const slot = state.slots[selected.index], time = pointTime(event, target.lane);
-                if (slot && time >= from && time < until && canChangeTime(slot)) {
-                    if (commit(() => { shiftTimes(slot, time - timeOf(slot, 'start', zone), zone); movePerson(slot, selected.person, target.row.dataset.userId); })) select(selected.index, target.row.dataset.userId);
+            else if (drag.mode === 'create' && target) {
+                const [low, high] = visibleBounds();
+                const time = Math.max(low, Math.min(high - minute, pointTime(event, target.lane)));
+                const slot = selected && state.slots[selected.index];
+                if (slot) {
+                    if (canChangeTime(slot) && commit(() => { shiftTimes(slot, time - timeOf(slot, 'start', zone), zone); movePerson(slot, selected.person, target.row.dataset.userId); })) select(selected.index, target.row.dataset.userId);
+                } else {
+                    const left = Math.max(drag.bounds.low, time), right = Math.min(high, drag.bounds.high, left + 30 * minute);
+                    if (right > left) {
+                        const created = { userIds: drag.person ? [drag.person] : [] };
+                        setTime(created, 'start', left, zone); setTime(created, 'end', right, zone);
+                        commit(() => state.slots.push(created));
+                    }
                 }
+                suppressClick = true;
             }
             return;
         }
@@ -763,13 +788,14 @@
     chart.addEventListener('pointercancel', cancelGesture);
     chart.addEventListener('lostpointercapture', cancelGesture);
     chart.addEventListener('oncall-edge-change', cancelGesture);
+    chart.addEventListener('oncall-edge-layout', () => drawWarnings(conflicts().size > 0));
     chart.addEventListener('click', event => {
         if (suppressClick && event.detail !== 0) { suppressClick = false; return; }
         suppressClick = false;
         if (busy || event.target.closest('[data-readonly]')) return;
         const week = event.target.closest('[data-week-user]'), row = event.target.closest('[data-user-id]');
         if (weekSelection && row?.dataset.userId && activeMember(row.dataset.userId)) {
-            commit(() => swapPeople(state.slots, weekSelection, row.dataset.userId)); selectWeek(weekSelection); return;
+            commit(() => swapPeople(state.slots.filter(inWeek), weekSelection, row.dataset.userId)); selectWeek(weekSelection); return;
         }
         if (week) { selectWeek(week.dataset.weekUser); return; }
         const bar = event.target.closest('[data-slot-index]');
@@ -830,7 +856,7 @@
                 startsAtUtc: new Date(start).toISOString(), endsAtUtc: new Date(end).toISOString(),
                 startLocal: localTime(start, zone), endLocal: localTime(end, zone) });
             return (left < range.start ? [fragment(left, range.start, slot.id)] : [])
-                .concat(right > range.end ? [fragment(range.end, right, undefined)] : []);
+                .concat(right > range.end ? [fragment(range.end, right, null)] : []);
         });
         const managed = new Set(original.slots.concat(draftSlots(candidate)).flatMap(slot => [slot.id, slot.fragmentOf]).filter(Boolean));
         const replacements = prepare(range.slots.filter(slot => !slot.fragmentOf || !managed.has(slot.fragmentOf)));
@@ -838,7 +864,7 @@
         for (const item of candidate.ranges) item.slots = clip(item.slots);
         const staged = prior || { start: range.start, end: range.end, slots: [] };
         for (const slot of replacements) {
-            if (sameRange || (timeOf(slot, 'start', zone) < until && timeOf(slot, 'end', zone) > from)) candidate.slots.push(slot);
+            if (sameRange || inEditor(slot)) candidate.slots.push(slot);
             else staged.slots.push(slot);
         }
         if (!sameRange && !prior) candidate.ranges.push(staged);
@@ -862,7 +888,7 @@
         if (!Number.isFinite(left) || !Number.isFinite(right)) throw new Error(text('invalid-local', 'Invalid team local time.'));
         payload({ startUtc: new Date(left).toISOString(), endUtc: new Date(right).toISOString() });
         if (!generate) {
-            try { body.slots = copyRange(state.slots, localTime(start, zone), localTime(end, zone), body.startLocal, body.endLocal, members); }
+            try { body.slots = copyRange(state.slots.filter(inWeek), localTime(start, zone), localTime(end, zone), body.startLocal, body.endLocal, members); }
             catch (failure) { throw new Error(failure.message === 'departed' ? text('cannot-copy-departed', 'Cannot copy assignments for departed team members.') : text('invalid-range', 'End must be after start.')); }
         }
         const data = await request(`${root.dataset.previewUrl}?generate=${generate}`, body);
@@ -882,7 +908,7 @@
         list('oncall-schedule-warnings', data.warnings);
         const replaced = data.replacedSlots.length ? data.replacedSlots : generate
             ? normalized(draftSlots()).filter(slot => intersects(Date.parse(slot.startsAtUtc), Date.parse(slot.endsAtUtc)))
-            : sameRange ? normalized(state.slots) : sameStaged?.slots || [];
+            : sameRange || sameStaged ? normalized(draftSlots()).filter(slot => intersects(Date.parse(slot.startsAtUtc), Date.parse(slot.endsAtUtc))) : [];
         if (replaced.length || sameRange || sameStaged) confirmReplacement({ range: destination, generate }, replaced);
         else stage(destination);
     }
@@ -895,7 +921,7 @@
             const saved = await request(`${root.dataset.getUrl}?${query}`);
             if (saved.version !== root.dataset.version) throw new Error(text('schedule-save-failed', 'Unable to save schedule. Refresh and try again.'));
             const ranges = [{ start: from, end: until }, ...state.ranges];
-            const preserved = (saved.saved ? saved.slots : []).filter(slot => !ranges.some(range => Date.parse(slot.startsAtUtc) < range.end && Date.parse(slot.endsAtUtc) > range.start) && !body.slots.some(item => item.id && item.id === slot.id));
+            const preserved = (saved.saved ? saved.slots : []).filter(slot => !adjacentIds.has(slot.id) && !ranges.some(range => Date.parse(slot.startsAtUtc) < range.end && Date.parse(slot.endsAtUtc) > range.start) && !body.slots.some(item => item.id && item.id === slot.id));
             body.slots.push(...submitted(preserved));
         }
         return body;
@@ -927,7 +953,7 @@
         // Keep crossing shifts whole and in one draft bucket so their saved IDs are never duplicated.
         for (const slot of slots) {
             const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
-            if (left < until && right > from) candidate.slots.push(slot);
+            if (inEditor(slot)) candidate.slots.push(slot);
             else candidate.ranges.find(range => left < range.end && right > range.start)?.slots.push(slot);
         }
         if (conflicts(candidate).size) throw new Error(overlapMessage());
@@ -991,15 +1017,15 @@
             low = nextLow; high = nextHigh;
         }
         const slots = prepare(normalized(mergeOverlaps(body.slots, zone)));
-        const candidate = { slots: slots.filter(slot => timeOf(slot, 'start', zone) < until && timeOf(slot, 'end', zone) > from), ranges: [], clearRanges: state.clearRanges };
-        if (low < from) candidate.ranges.push({ start: low, end: from, slots: slots.filter(slot => timeOf(slot, 'end', zone) <= from) });
-        if (high > until) candidate.ranges.push({ start: until, end: high, slots: slots.filter(slot => timeOf(slot, 'start', zone) >= until) });
+        const candidate = { slots: slots.filter(inEditor), ranges: [], clearRanges: state.clearRanges };
+        if (low < from) candidate.ranges.push({ start: low, end: from, slots: slots.filter(slot => !inEditor(slot) && timeOf(slot, 'end', zone) <= from) });
+        if (high > until) candidate.ranges.push({ start: until, end: high, slots: slots.filter(slot => !inEditor(slot) && timeOf(slot, 'start', zone) >= until) });
         stageClear(candidate);
     }));
     get('oncall-swap-week').addEventListener('click', () => {
         const first = get('oncall-swap-first').value, second = get('oncall-swap-second').value;
         if (!first || !second || first === second || !activeMember(first) || !activeMember(second)) { error(text('swap-invalid', 'Choose two different current team members.')); return; }
-        commit(() => swapPeople(state.slots, first, second));
+        commit(() => swapPeople(state.slots.filter(inWeek), first, second));
     });
     get('oncall-move-selected').addEventListener('click', () => {
         if (!selected || !state.slots[selected.index]) { error(text('select-shift', 'Select a shift first.')); return; }

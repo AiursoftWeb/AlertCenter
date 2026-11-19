@@ -1127,6 +1127,72 @@ public class OnCallScheduleApiTests : TestBase
     }
 
     [TestMethod]
+    public async Task ExtendedSaveEditsBoth36HourEdgesAndPreservesCrossingAndOutsideShifts()
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup(withTemplate: false);
+        DateTime start;
+        Guid version;
+        string[] users;
+        OnCallShift[] original;
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.Include(group => group.Members).SingleAsync(group => group.Id == id);
+            start = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
+            version = group.ScheduleVersion;
+            users = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
+            original = new (int Start, int End)[] { (-48, -36), (-40, -32), (-30, -22), (0, 8), (194, 202), (202, 208), (204, 212) }
+                .Select((range, index) => new OnCallShift
+                {
+                    GroupId = id, StartsAtUtc = start.AddHours(range.Start), EndsAtUtc = start.AddHours(range.End),
+                    Source = index is 1 or 5 ? OnCallShiftSource.Generated : OnCallShiftSource.Manual,
+                    RotationPosition = index is 1 or 5 ? index : null,
+                    Members = [new OnCallShiftMember { UserId = users[index is 1 or 5 ? 1 : 0] }]
+                }).ToArray();
+            db.OnCallShifts.AddRange(original);
+            await db.SaveChangesAsync();
+        }
+
+        var payload = new SaveOnCallScheduleRequest
+        {
+            GroupId = id, Version = version, StartUtc = start.AddHours(-36), EndUtc = start.AddHours(204),
+            Slots = original.Skip(1).Take(5).Select((shift, index) => new OnCallSlotRequest
+            {
+                Id = shift.Id, StartsAtUtc = shift.StartsAtUtc, EndsAtUtc = shift.EndsAtUtc,
+                UserIds = [index is 1 or 3 ? users[2] : shift.Members.Single().UserId]
+            }).ToList()
+        };
+        using var preview = await Save("PreviewSchedule", payload);
+        Assert.AreEqual(HttpStatusCode.OK, preview.StatusCode);
+        Assert.AreEqual(version, (await preview.Content.ReadFromJsonAsync<SaveOnCallScheduleRequest>())!.Version);
+        using var saved = await Save("SaveSchedule", payload);
+        Assert.AreEqual(HttpStatusCode.OK, saved.StatusCode, await saved.Content.ReadAsStringAsync());
+        var newVersion = (await saved.Content.ReadFromJsonAsync<SaveOnCallScheduleRequest>())!.Version;
+        Assert.AreNotEqual(version, newVersion);
+        Assert.AreNotEqual(Guid.Empty, newVersion);
+
+        payload.Slots[1].UserIds = [users[3]];
+        using var stale = await Save("SaveSchedule", payload);
+        Assert.AreEqual(HttpStatusCode.Conflict, stale.StatusCode);
+
+        using var verification = Server!.Services.CreateScope();
+        var persisted = verification.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        Assert.AreEqual(newVersion, (await persisted.OnCallGroups.SingleAsync(group => group.Id == id)).ScheduleVersion);
+        var shifts = await persisted.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.GroupId == id).ToDictionaryAsync(shift => shift.Id);
+        Assert.AreEqual(original.Length, shifts.Count);
+        foreach (var (shift, index) in original.Select((shift, index) => (shift, index)))
+        {
+            var actual = shifts[shift.Id];
+            Assert.AreEqual(shift.StartsAtUtc, actual.StartsAtUtc);
+            Assert.AreEqual(shift.EndsAtUtc, actual.EndsAtUtc);
+            Assert.AreEqual(shift.Source, actual.Source);
+            Assert.AreEqual(shift.RotationPosition, actual.RotationPosition);
+            Assert.AreEqual(index is 2 or 4 ? users[2] : shift.Members.Single().UserId, actual.Members.Single().UserId);
+        }
+    }
+
+    [TestMethod]
     public async Task NonAdministratorCanViewButCannotReadOrModifyAdministratorApi()
     {
         var id = await SeedGroup();
@@ -1136,11 +1202,30 @@ public class OnCallScheduleApiTests : TestBase
         Assert.DoesNotContain("class=\"ac-gantt-cell\"", details);
         Assert.DoesNotContain("ac-gantt-week\"", details);
         Assert.DoesNotContain("data-schedule-mode=", details);
+        Guid version;
+        DateTime weekStart;
+        using (var fixture = Server!.Services.CreateScope())
+        {
+            var db = fixture.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.SingleAsync(group => group.Id == id);
+            version = group.ScheduleVersion;
+            weekStart = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
+        }
+        var extendedDraft = new SaveOnCallScheduleRequest
+        {
+            GroupId = id, Version = version,
+            StartUtc = weekStart.AddHours(-36), EndUtc = weekStart.AddDays(7).AddHours(36),
+            Slots =
+            [
+                new() { StartsAtUtc = weekStart.AddHours(-24), EndsAtUtc = weekStart.AddHours(-16) },
+                new() { StartsAtUtc = weekStart.AddDays(8), EndsAtUtc = weekStart.AddDays(8).AddHours(8) }
+            ]
+        };
         var endpoints = new[] { "GetSchedule", "GenerateSchedule", "SaveSchedule", "PreviewSchedule" };
         foreach (var endpoint in endpoints)
         {
             var response = endpoint == "GetSchedule" ? await Http.GetAsync($"/OnCall/{endpoint}?id={id}")
-                : await Save(endpoint, new SaveOnCallScheduleRequest { GroupId = id }, "/Manage/ChangePassword");
+                : await Save(endpoint, extendedDraft, "/Manage/ChangePassword");
             Assert.IsTrue(response.StatusCode is HttpStatusCode.Forbidden or HttpStatusCode.Found);
             if (response.StatusCode == HttpStatusCode.Found)
                 Assert.Contains("/Error/Code403", response.Headers.Location!.OriginalString);

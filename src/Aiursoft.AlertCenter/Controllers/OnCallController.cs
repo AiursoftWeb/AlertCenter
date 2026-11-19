@@ -738,7 +738,8 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 .Where(shift => shift.GroupId == group.Id &&
                     !(shift.EndsAtUtc > startUtc && shift.StartsAtUtc < endUtc) &&
                     ((shift.StartsAtUtc >= startUtc.AddDays(-7) && shift.StartsAtUtc < startUtc) ||
-                     (shift.StartsAtUtc >= endUtc && shift.StartsAtUtc < endUtc.AddDays(7))))
+                     (shift.StartsAtUtc >= endUtc && shift.StartsAtUtc < endUtc.AddDays(7)) ||
+                     (model.CanManageOnCall && shift.EndsAtUtc > startUtc.AddHours(-36) && shift.StartsAtUtc < endUtc.AddHours(36))))
                 .OrderBy(shift => shift.StartsAtUtc).ToListAsync(cancellationToken);
             var previewIds = userIds.Concat(saved.Concat(model.AdjacentShifts)
                 .SelectMany(shift => shift.Members.Select(member => member.UserId))).Distinct().ToArray();

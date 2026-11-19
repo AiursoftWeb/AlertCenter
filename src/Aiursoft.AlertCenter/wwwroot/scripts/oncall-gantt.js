@@ -29,7 +29,7 @@
             item.style.left = `${(Number(item.dataset.layoutLeft) * duration + before * 100) / hours}%`;
             if (item.dataset.layoutWidth) item.style.width = `${Number(item.dataset.layoutWidth) * duration / hours}%`;
         });
-        chart.querySelectorAll('[data-edge="previous"], [data-edge="next"]').forEach(item => item.hidden = !edges[item.dataset.edge] || item.dataset.replaced === 'true');
+        chart.querySelectorAll('[data-edge="previous"], [data-edge="next"]').forEach(item => item.hidden = !edges[item.dataset.edge]);
         chart.dispatchEvent(new Event('oncall-packed'));
         toggles.forEach(button => {
             const edge = button.dataset.oncallEdge;
@@ -42,6 +42,7 @@
         edges[edge] = !edges[edge];
         chart.dispatchEvent(new Event('oncall-edge-change'));
         layout();
+        chart.dispatchEvent(new Event('oncall-edge-layout'));
         if (edges[edge]) chart.scrollLeft = edge === 'previous' ? 0 : Math.max(0, chart.scrollWidth - chart.clientWidth);
     }));
     chart.addEventListener('oncall-layout', layout);
