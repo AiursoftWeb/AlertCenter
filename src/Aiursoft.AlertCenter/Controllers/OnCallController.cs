@@ -1,4 +1,5 @@
 using Aiursoft.AlertCenter.Authorization;
+using System.Globalization;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Configuration;
 using Aiursoft.AlertCenter.Entities;
@@ -795,7 +796,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or TimeZoneNotFoundException or InvalidTimeZoneException or OverflowException)
         {
-            model.PreviewError = string.Format(localizer["Unable to generate preview: {0}"].Value, ex.Message);
+            model.PreviewError = string.Format(CultureInfo.CurrentCulture, localizer["Unable to generate preview: {0}"].Value, ex.Message);
         }
     }
 }

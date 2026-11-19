@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
@@ -57,7 +58,7 @@ public class OnCallScheduleApiTests : TestBase
         };
         string Query(DateTime start, DateTime? end) => local
             ? $"startLocal={start:yyyy-MM-ddTHH:mm}" + (end.HasValue ? $"&endLocal={end:yyyy-MM-ddTHH:mm}" : "")
-            : $"startUtc={Uri.EscapeDataString(start.ToString("O"))}" + (end.HasValue ? $"&endUtc={Uri.EscapeDataString(end.Value.ToString("O"))}" : "");
+            : $"startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}" + (end.HasValue ? $"&endUtc={Uri.EscapeDataString(end.Value.ToString("O", CultureInfo.InvariantCulture))}" : "");
         foreach (var (start, end) in ranges)
         {
             using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(5));
@@ -135,7 +136,7 @@ public class OnCallScheduleApiTests : TestBase
                 new OnCallShift { GroupId = id, StartsAtUtc = start.AddHours(1), EndsAtUtc = start.AddHours(3), Members = [new() { UserId = userId }] });
             await db.SaveChangesAsync();
         }
-        var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}&endUtc={Uri.EscapeDataString(start.AddDays(1).ToString("O"))}";
+        var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}&endUtc={Uri.EscapeDataString(start.AddDays(1).ToString("O", CultureInfo.InvariantCulture))}";
         var loaded = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>(path);
         Assert.IsTrue(loaded.GetProperty("saved").GetBoolean());
         Assert.AreEqual(2, loaded.GetProperty("slots").GetArrayLength());
@@ -184,7 +185,7 @@ public class OnCallScheduleApiTests : TestBase
                 Members = group.Members.Select(member => new OnCallShiftMember { UserId = member.UserId }).ToList() });
             await db.SaveChangesAsync();
         }
-        var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}&endUtc={Uri.EscapeDataString(end.ToString("O"))}";
+        var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}&endUtc={Uri.EscapeDataString(end.ToString("O", CultureInfo.InvariantCulture))}";
         var request = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(path))!;
         Assert.AreEqual(1, request.Slots.Count);
         Assert.AreEqual(start.Date, request.Slots[0].StartsAtUtc);
@@ -225,7 +226,7 @@ public class OnCallScheduleApiTests : TestBase
             await db.SaveChangesAsync();
         }
 
-        var html = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}&endUtc={Uri.EscapeDataString(end.ToString("O"))}");
+        var html = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}&endUtc={Uri.EscapeDataString(end.ToString("O", CultureInfo.InvariantCulture))}");
         string Attribute(string name) => WebUtility.HtmlDecode(System.Text.RegularExpressions.Regex.Match(html, $"data-{name}=\"([^\"]*)\"").Groups[1].Value);
         var handovers = System.Text.Json.JsonSerializer.Deserialize<DateTime[]>(Attribute("handovers"))!;
         var duration = TimeSpan.FromMinutes(shiftMinutes == 0 ? 480 : shiftMinutes);
@@ -260,7 +261,7 @@ public class OnCallScheduleApiTests : TestBase
             db.OnCallShifts.Add(new() { GroupId = id, StartsAtUtc = now.AddDays(1), EndsAtUtc = now.AddDays(2), Source = OnCallShiftSource.Generated });
             await db.SaveChangesAsync();
         }
-        var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(now.ToString("O"))}&endUtc={Uri.EscapeDataString(now.AddDays(3).ToString("O"))}";
+        var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(now.ToString("O", CultureInfo.InvariantCulture))}&endUtc={Uri.EscapeDataString(now.AddDays(3).ToString("O", CultureInfo.InvariantCulture))}";
         var metadata = await Http.GetFromJsonAsync<System.Text.Json.JsonElement>(path);
         Assert.IsTrue(metadata.GetProperty("autoExtend").GetBoolean());
         Assert.AreEqual(now.AddDays(2), metadata.GetProperty("lastShiftEndUtc").GetDateTime());
@@ -408,7 +409,7 @@ public class OnCallScheduleApiTests : TestBase
         using var scope = Server!.Services.CreateScope();
         Assert.AreEqual(20, await scope.ServiceProvider.GetRequiredService<TemplateDbContext>().OnCallShiftMembers.CountAsync(member => member.Shift.GroupId == id));
         var nextStart = edited.StartUtc.AddDays(7);
-        var next = await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(nextStart.ToString("O"))}");
+        var next = await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(nextStart.ToString("O", CultureInfo.InvariantCulture))}");
         Assert.AreEqual(nextStart, next!.StartUtc);
         Assert.AreEqual(21, next.Slots.Count);
     }
@@ -434,7 +435,7 @@ public class OnCallScheduleApiTests : TestBase
                 new() { GroupId = id, StartsAtUtc = start, EndsAtUtc = start.AddHours(2), Members = [new() { UserId = userId }] });
             await db.SaveChangesAsync();
         }
-        foreach (var path in new[] { "/Dashboard/Index", $"/OnCall/GroupDetails/{id}", $"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}" })
+        foreach (var path in new[] { "/Dashboard/Index", $"/OnCall/GroupDetails/{id}", $"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}" })
         {
             var response = await Http.GetAsync(path);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, path);
@@ -537,7 +538,7 @@ public class OnCallScheduleApiTests : TestBase
             await db.SaveChangesAsync();
         }
 
-        var rawHtml = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
+        var rawHtml = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}");
         Assert.Contains("class=\"ac-gantt-row ac-gantt-warning-row\"", rawHtml);
         var buttons = System.Text.RegularExpressions.Regex.Matches(rawHtml,
             "<button[^>]*class=\"ac-gantt-shift ac-gantt-warning bg-warning text-dark\"[^>]*>.*?</button>",
@@ -564,8 +565,8 @@ public class OnCallScheduleApiTests : TestBase
             string Attribute(string name) => WebUtility.HtmlDecode(System.Text.RegularExpressions.Regex.Match(
                 button, $"{name}=\"([^\"]*)\"").Groups[1].Value);
             var summary = string.Join("\n", expectedMessages[index]);
-            var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(boundaries[index]), zone).ToString("yyyy-MM-dd HH:mm zzz");
-            var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(boundaries[index + 1]), zone).ToString("yyyy-MM-dd HH:mm zzz");
+            var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(boundaries[index]), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
+            var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(boundaries[index + 1]), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
             var details = $"{summary} · {localStart} → {localEnd} · Asia/Shanghai";
             Assert.AreEqual(summary, Attribute("data-summary"));
             Assert.AreEqual(localStart, Attribute("data-start"));
@@ -576,7 +577,7 @@ public class OnCallScheduleApiTests : TestBase
             Assert.AreEqual("oncall-shift-detail", Attribute("aria-describedby"));
             var left = (boundaries[index] - start).TotalHours / 168 * 100;
             var width = (boundaries[index + 1] - boundaries[index]).TotalHours / 168 * 100;
-            Assert.AreEqual($"left: {left.ToString("0.######", System.Globalization.CultureInfo.InvariantCulture)}%; width: {width.ToString("0.######", System.Globalization.CultureInfo.InvariantCulture)}%", Attribute("style"));
+            Assert.AreEqual($"left: {left.ToString("0.######", CultureInfo.InvariantCulture)}%; width: {width.ToString("0.######", CultureInfo.InvariantCulture)}%", Attribute("style"));
             Assert.Contains($"<span class=\"badge bg-dark ac-gantt-warning-count\" aria-hidden=\"true\">{expectedMessages[index].Length}</span>", button);
             Assert.Contains($"<span class=\"ac-gantt-warning-text\" aria-hidden=\"true\">{summary}</span>", WebUtility.HtmlDecode(button));
         }
@@ -646,7 +647,7 @@ public class OnCallScheduleApiTests : TestBase
         await LoginAsAdmin();
         var id = await SeedGroup();
         var future = DateTime.UtcNow.Date.AddDays(7);
-        var scheduleUrl = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(future.ToString("O"))}";
+        var scheduleUrl = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(future.ToString("O", CultureInfo.InvariantCulture))}";
         var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(scheduleUrl))!;
         Assert.AreEqual(HttpStatusCode.OK, (await Save("GenerateSchedule", draft)).StatusCode);
         var saved = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(scheduleUrl))!;
@@ -661,7 +662,7 @@ public class OnCallScheduleApiTests : TestBase
             var update = new Dictionary<string, string>
             {
                 ["id"] = id.ToString(), ["GroupInput.Name"] = group.Name, ["GroupInput.TimeZoneId"] = group.TimeZoneId,
-                ["GroupInput.AnchorUtc"] = group.AnchorUtc.ToString("O"), ["GroupInput.RuleId"] = group.RuleId.ToString()!,
+                ["GroupInput.AnchorUtc"] = group.AnchorUtc.ToString("O", CultureInfo.InvariantCulture), ["GroupInput.RuleId"] = group.RuleId.ToString()!,
                 ["GroupInput.Version"] = group.ScheduleVersion.ToString()
             };
             var retained = ordered.Where(userId => userId != departed).ToArray();
@@ -678,7 +679,7 @@ public class OnCallScheduleApiTests : TestBase
         Assert.IsTrue(metadata.GetProperty("warnings").EnumerateArray().Any(warning => warning.GetString()!.Contains("departed")));
         Assert.IsTrue(metadata.GetProperty("members").EnumerateArray()
             .Single(member => member.GetProperty("id").GetString() == departed).GetProperty("departed").GetBoolean());
-        var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(future.ToString("O"))}"));
+        var details = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(future.ToString("O", CultureInfo.InvariantCulture))}"));
         Assert.Contains("Departed", details);
         Assert.Contains("id=\"oncall-schedule\"", details);
         Assert.Contains("id=\"oncall-gantt\"", details);
@@ -700,7 +701,7 @@ public class OnCallScheduleApiTests : TestBase
         await LoginAsAdmin();
         var id = await SeedGroup();
         var start = DateTime.UtcNow.Date;
-        var url = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}";
+        var url = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}";
         var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(url))!;
         var users = draft.Slots.SelectMany(slot => slot.UserIds).Distinct().Take(2).ToArray();
         draft.Slots = [new() { StartsAtUtc = start.AddDays(-2).AddMinutes(17), EndsAtUtc = start.AddDays(2), UserIds = [users[0]] },
@@ -714,7 +715,7 @@ public class OnCallScheduleApiTests : TestBase
         Assert.IsTrue(saved.Slots.Any(slot => slot.UserIds.Count == 0 && slot.EndsAtUtc - slot.StartsAtUtc == TimeSpan.FromMinutes(37)));
         Assert.IsTrue(saved.Slots.Any(slot => slot.StartsAtUtc < start));
         Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", saved)).StatusCode);
-        var page = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
+        var page = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{id}?startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}");
         Assert.DoesNotContain("Flexible shifts are read-only", WebUtility.HtmlDecode(page));
         Assert.Contains("id=\"oncall-schedule\"", page);
         Assert.Contains("id=\"oncall-editor\"", page);
@@ -757,7 +758,7 @@ public class OnCallScheduleApiTests : TestBase
             update = new()
             {
                 ["id"] = id.ToString(), ["GroupInput.Name"] = group.Name, ["GroupInput.TimeZoneId"] = "Asia/Shanghai",
-                ["GroupInput.AnchorUtc"] = group.AnchorUtc.ToString("O"), ["GroupInput.Version"] = group.ScheduleVersion.ToString(),
+                ["GroupInput.AnchorUtc"] = group.AnchorUtc.ToString("O", CultureInfo.InvariantCulture), ["GroupInput.Version"] = group.ScheduleVersion.ToString(),
                 ["GroupInput.RuleId"] = ruleId.ToString(), ["GroupInput.WeekStartsOn"] = "5", ["GroupInput.MinimumRestHours"] = "1.5",
                 ["GroupInput.MaximumContinuousHours"] = "96", ["GroupInput.MinimumShiftStaff"] = "2", ["GroupInput.AutoExtend"] = "true",
                 ["GroupInput.FallbackSelectionSubmitted"] = "true", ["GroupInput.FallbackUserIds[0]"] = fallback

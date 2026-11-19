@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text.Json;
 using Aiursoft.AlertCenter.Entities;
@@ -92,7 +93,7 @@ public class OnCallGroupFormApiTests : TestBase
         json = await (await Preview(request)).Content.ReadFromJsonAsync<JsonElement>();
         Assert.AreEqual(0, json.GetProperty("slots").GetArrayLength());
         Assert.AreEqual(0, json.GetProperty("errors").GetArrayLength());
-        Assert.IsTrue(DateTime.ParseExact(json.GetProperty("anchorLocal").GetString()!, "yyyy-MM-ddTHH:mm", null).Minute == 0);
+        Assert.IsTrue(DateTime.ParseExact(json.GetProperty("anchorLocal").GetString()!, "yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture).Minute == 0);
         using var checkScope = Server!.Services.CreateScope();
         var check = checkScope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         Assert.AreEqual(0, await check.OnCallGroups.CountAsync());

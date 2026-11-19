@@ -1,3 +1,4 @@
+@using System.Globalization
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @section scripts {
     <script src="~/scripts/oncall-group-delete.js" asp-append-version="true"></script>
@@ -46,7 +47,7 @@
 <div class="card mb-4">
     <div class="card-header"><h2 class="card-title mb-0">@Localizer["Team configuration"]</h2></div>
     <div class="card-body">
-        <p>@Localizer["Scheduling start point: "]@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("yyyy-MM-dd HH:mm") @group.TimeZoneId</p>
+        <p>@Localizer["Scheduling start point: "]@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId)).ToString("yyyy-MM-dd HH:mm", CultureInfo.CurrentCulture) @group.TimeZoneId</p>
         @if (group.Rule != null)
         {
             <p>@Localizer["Template:"]<a asp-action="Details" asp-route-id="@group.Rule.Id">@group.Rule.Name</a> · @Localizer["Staff per shift"]: @group.Rule.StaffPerShift</p>
@@ -106,7 +107,7 @@
         else
         {
             <ul class="mb-0">
-                @foreach (var recipient in group.FallbackRecipients.OrderBy(item => item.User.DisplayName))
+                @foreach (var recipient in group.FallbackRecipients.OrderBy(item => item.User.DisplayName, StringComparer.CurrentCulture))
                 {
                     <li class="text-break">@recipient.User.DisplayName (@(recipient.User.UserName ?? recipient.UserId))</li>
                 }

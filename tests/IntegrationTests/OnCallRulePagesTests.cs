@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
@@ -156,7 +157,7 @@ public class OnCallRulePagesTests : TestBase
             var unbind = new Dictionary<string, string>
             {
                 ["id"] = groupId.ToString(), ["GroupInput.Name"] = group.Name,
-                ["GroupInput.TimeZoneId"] = group.TimeZoneId, ["GroupInput.AnchorUtc"] = group.AnchorUtc.ToString("O"),
+                ["GroupInput.TimeZoneId"] = group.TimeZoneId, ["GroupInput.AnchorUtc"] = group.AnchorUtc.ToString("O", CultureInfo.InvariantCulture),
                 ["GroupInput.Version"] = group.ScheduleVersion.ToString(), ["GroupInput.UserIds[0]"] = userId
             };
             AssertRedirect(await PostForm("/OnCall/UpdateGroup", unbind, $"/OnCall/GroupEdit/{groupId}"), $"/OnCall/GroupDetails/{groupId}");
@@ -226,7 +227,7 @@ public class OnCallRulePagesTests : TestBase
             groupId = group.Id;
         }
 
-        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(anchor.ToString("O"))}"));
+        var html = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(anchor.ToString("O", CultureInfo.InvariantCulture))}"));
         Assert.DoesNotContain("Starting soon", html);
         Assert.Contains("Unsaved · Auto-suggested", html);
         Assert.DoesNotContain("class=\"ac-gantt-now\"", html);

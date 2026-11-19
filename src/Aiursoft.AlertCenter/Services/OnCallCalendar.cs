@@ -40,7 +40,7 @@ public static class OnCallCalendar
             Line($"DTSTART:{Utc(shift.StartsAtUtc)}");
             Line($"DTEND:{Utc(shift.EndsAtUtc)}");
             Line($"SUMMARY:{Escape($"On-call: {shift.Group.Name}")}");
-            Line($"DESCRIPTION:{Escape(string.Join(", ", shift.Members.OrderBy(member => member.UserId).Select(member => member.User.DisplayName)) + "\n" + publicBaseUrl.TrimEnd('/') + "/OnCall/ScheduleDetails/" + shift.GroupId)}");
+            Line($"DESCRIPTION:{Escape(string.Join(", ", shift.Members.OrderBy(member => member.UserId, StringComparer.Ordinal).Select(member => member.User.DisplayName)) + "\n" + publicBaseUrl.TrimEnd('/') + "/OnCall/ScheduleDetails/" + shift.GroupId)}");
             Line("END:VEVENT");
         }
         Line("END:VCALENDAR");

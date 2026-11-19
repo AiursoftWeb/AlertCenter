@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using Aiursoft.AlertCenter.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -97,7 +98,7 @@ public class OnCallGroupPagesTests : TestBase
         var update = new Dictionary<string, string>
         {
             ["id"] = id.ToString(), ["GroupInput.Name"] = "Ops", ["GroupInput.TimeZoneId"] = "Asia/Shanghai",
-            ["GroupInput.Version"] = version.ToString(), ["GroupInput.AnchorUtc"] = anchor.ToString("O"),
+            ["GroupInput.Version"] = version.ToString(), ["GroupInput.AnchorUtc"] = anchor.ToString("O", CultureInfo.InvariantCulture),
             ["GroupInput.RuleId"] = templateId.ToString(), ["GroupInput.UserIds[0]"] = memberId
         };
         AssertRedirect(await PostForm("/OnCall/UpdateGroup", update, $"/OnCall/GroupEdit/{id}"), location);

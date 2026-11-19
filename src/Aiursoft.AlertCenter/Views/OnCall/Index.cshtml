@@ -1,3 +1,4 @@
+@using System.Globalization
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @inject IHtmlLocalizerFactory OnCallLocalizerFactory
 @{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall.Index", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
@@ -38,7 +39,7 @@
                                 <ul class="mb-0">
                                     @foreach (var point in rule.HandoverPoints.OrderBy(point => point.DayOfWeek).ThenBy(point => point.MinuteOfDay))
                                     {
-                                        <li>@viewLocalizer[point.DayOfWeek.ToString()] @TimeOnly.MinValue.AddMinutes(point.MinuteOfDay).ToString("HH:mm")</li>
+                                        <li>@viewLocalizer[point.DayOfWeek.ToString()] @TimeOnly.MinValue.AddMinutes(point.MinuteOfDay).ToString("HH:mm", CultureInfo.CurrentCulture)</li>
                                     }
                                 </ul>
                             }

@@ -1,3 +1,4 @@
+using System.Globalization;
 using Aiursoft.AlertCenter.Configuration;
 using Microsoft.Extensions.Options;
 using Aiursoft.AiurProtocol.Models;
@@ -251,7 +252,7 @@ public partial class PushCenterTests
         Assert.AreEqual(original.ShiftId, later.OnCallEmail.ShiftId);
         await _processor.ProcessAsync(later.Id, default);
         CollectionAssert.AreEqual(new[] { "off@example.com" }, _email.Messages.Single().Recipients.ToArray());
-        Assert.Contains(incident.OccurredAtUtc.ToString("O"), _email.Messages.Single().Body);
+        Assert.Contains(incident.OccurredAtUtc.ToString("O", CultureInfo.InvariantCulture), _email.Messages.Single().Body);
         CollectionAssert.AreEqual(new[] { "changed-cc@example.com" }, _email.Messages.Single().CcRecipients.ToArray());
         Assert.IsNull((await _db.SourceApplications.SingleAsync()).OnCallGroupId);
     }

@@ -1,3 +1,4 @@
+@using System.Globalization
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @inject IHtmlLocalizerFactory OnCallLocalizerFactory
 @{
@@ -143,7 +144,7 @@
         <label asp-for="GroupInput.AnchorLocal" class="form-label">@viewLocalizer["Scheduling start point (team time)"]</label>
         @if (Model.GroupHasSavedSchedule)
         {
-            <input name="GroupInput.AnchorUtc" type="hidden" value="@Model.GroupInput.AnchorUtc?.ToString("O")" />
+            <input name="GroupInput.AnchorUtc" type="hidden" value="@Model.GroupInput.AnchorUtc?.ToString("O", CultureInfo.InvariantCulture)" />
             <input id="GroupInput_AnchorLocal" type="datetime-local" class="form-control" readonly value="@Model.GroupInput.AnchorLocal" aria-describedby="oncall-anchor-help oncall-anchor-notice" />
         }
         else

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
@@ -172,7 +173,7 @@ public partial class IncidentPagesTests
             await db.SaveChangesAsync();
             groupId = group.Id;
         }
-        var html = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
+        var html = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}");
         var alerts = AssertUiStackAlerts(html);
         var staffing = alerts.Single(alert => WebUtility.HtmlDecode(alert.Message).Contains("staffing reminders"));
         Assert.Contains("alert-warning", staffing.Classes);

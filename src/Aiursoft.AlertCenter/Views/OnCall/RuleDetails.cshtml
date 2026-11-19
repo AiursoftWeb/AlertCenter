@@ -1,3 +1,4 @@
+@using System.Globalization
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @inject IHtmlLocalizerFactory OnCallLocalizerFactory
 @{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall.RuleDetails", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
@@ -31,7 +32,7 @@
         @if (rule.HandoverPoints.Count > 0)
         {
             <p>@viewLocalizer["Split mode"]: @viewLocalizer["Weekly handover points"]</p>
-            <ul>@foreach (var point in rule.HandoverPoints.OrderBy(point => point.DayOfWeek).ThenBy(point => point.MinuteOfDay)) { <li>@viewLocalizer[point.DayOfWeek.ToString()] @TimeOnly.MinValue.AddMinutes(point.MinuteOfDay).ToString("HH:mm")</li> }</ul>
+            <ul>@foreach (var point in rule.HandoverPoints.OrderBy(point => point.DayOfWeek).ThenBy(point => point.MinuteOfDay)) { <li>@viewLocalizer[point.DayOfWeek.ToString()] @TimeOnly.MinValue.AddMinutes(point.MinuteOfDay).ToString("HH:mm", CultureInfo.CurrentCulture)</li> }</ul>
         }
         else
         {

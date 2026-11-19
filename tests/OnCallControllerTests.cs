@@ -1,3 +1,4 @@
+using System.Globalization;
 using Aiursoft.AlertCenter.Authorization;
 using System.Security.Claims;
 using Aiursoft.AlertCenter.Controllers;
@@ -179,13 +180,13 @@ public class OnCallControllerTests
         };
         Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).CreateGroup(request, default));
         var group = await db.OnCallGroups.SingleAsync();
-        Assert.AreEqual(DateTime.Parse(expectedUtc, null, System.Globalization.DateTimeStyles.AdjustToUniversal), group.AnchorUtc);
+        Assert.AreEqual(DateTime.Parse(expectedUtc, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal), group.AnchorUtc);
         Assert.IsFalse(group.AutoExtend);
         var edit = EditGroup(group);
         edit.AnchorLocal = local;
         edit.AnchorUtc = DateTime.UtcNow;
         Assert.IsInstanceOfType<RedirectToActionResult>(await Controller(db).UpdateGroup(group.Id, edit, default));
-        Assert.AreEqual(DateTime.Parse(expectedUtc, null, System.Globalization.DateTimeStyles.AdjustToUniversal), group.AnchorUtc);
+        Assert.AreEqual(DateTime.Parse(expectedUtc, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal), group.AnchorUtc);
     }
 
     [TestMethod]

@@ -26,7 +26,7 @@ public class CurrentOnCall(TemplateDbContext db) : ViewComponent
         var mergedNext = next.GroupBy(shift => shift.GroupId).ToDictionary(group => group.Key, group => new OnCallShift
         {
             GroupId = group.Key, StartsAtUtc = group.First().StartsAtUtc,
-            Members = group.SelectMany(shift => shift.Members).DistinctBy(member => member.UserId).OrderBy(member => member.UserId).ToList()
+            Members = group.SelectMany(shift => shift.Members).DistinctBy(member => member.UserId).OrderBy(member => member.UserId, StringComparer.Ordinal).ToList()
         });
         return View(groups.Select(group => new CurrentOnCallTeam(group, current[group.Id], mergedNext.GetValueOrDefault(group.Id))).ToList());
     }

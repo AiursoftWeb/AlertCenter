@@ -1,3 +1,4 @@
+@using System.Globalization
 @inject IHtmlLocalizerFactory OnCallViewLocalizerFactory
 @{ var viewLocalizer = OnCallViewLocalizerFactory.Create("Views.OnCall.Mine", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
 @using System.Security.Claims
@@ -28,20 +29,20 @@
         @foreach (var shift in Model.Current)
         {
             <p>@shift.Group.Name · @viewLocalizer["Ends"] @await Html.PartialAsync("_OnCallTime", (shift.EndsAtUtc, shift.Group.TimeZoneId))
-                · <span data-countdown="@DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc).ToString("O")" data-label="@viewLocalizer["Remaining"]"></span></p>
+                · <span data-countdown="@DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc).ToString("O", CultureInfo.InvariantCulture)" data-label="@viewLocalizer["Remaining"]"></span></p>
         }
     }
     else if (Model.Next != null)
     {
         <h2 class="h5">@viewLocalizer["Next shift"] · @Model.Next.Group.Name</h2>
         <p>@await Html.PartialAsync("_OnCallTime", (Model.Next.StartsAtUtc, Model.Next.Group.TimeZoneId))
-            · <span data-countdown="@DateTime.SpecifyKind(Model.Next.StartsAtUtc, DateTimeKind.Utc).ToString("O")" data-label="@viewLocalizer["Starts in"]"></span></p>
+            · <span data-countdown="@DateTime.SpecifyKind(Model.Next.StartsAtUtc, DateTimeKind.Utc).ToString("O", CultureInfo.InvariantCulture)" data-label="@viewLocalizer["Starts in"]"></span></p>
     }
     else { <p class="mb-0">@viewLocalizer["No upcoming shift"]</p> }
 </div></section>
 <div class="row g-3 mb-4">
-    <div class="col-sm-6"><div class="card h-100"><div class="card-body"><h2 class="h6">@viewLocalizer["Past 30 days"]</h2><strong>@Model.PastHours.ToString("0.##") @viewLocalizer["hours"]</strong></div></div></div>
-    <div class="col-sm-6"><div class="card h-100"><div class="card-body"><h2 class="h6">@viewLocalizer["Next 4 weeks"]</h2><strong>@Model.FutureHours.ToString("0.##") @viewLocalizer["hours"]</strong></div></div></div>
+    <div class="col-sm-6"><div class="card h-100"><div class="card-body"><h2 class="h6">@viewLocalizer["Past 30 days"]</h2><strong>@Model.PastHours.ToString("0.##", CultureInfo.CurrentCulture) @viewLocalizer["hours"]</strong></div></div></div>
+    <div class="col-sm-6"><div class="card h-100"><div class="card-body"><h2 class="h6">@viewLocalizer["Next 4 weeks"]</h2><strong>@Model.FutureHours.ToString("0.##", CultureInfo.CurrentCulture) @viewLocalizer["hours"]</strong></div></div></div>
 </div>
 <p class="small text-muted">@viewLocalizer["Totals count overlapping time once and include only time inside each period."]</p>
 @if (Model.Warnings.Count > 0)

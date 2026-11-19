@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.ComponentModel.DataAnnotations;
 using Aiursoft.AlertCenter.Controllers;
 using Aiursoft.AlertCenter.Entities;
@@ -104,7 +105,7 @@ public class OnCallGroupFormServiceTests
     public void FixedAndNoTemplateSuggestionsUseFutureWholeTeamLocalHour(string zoneId, string nowText, string expected)
     {
         var zone = TimeZoneInfo.FindSystemTimeZoneById(zoneId);
-        var now = DateTime.Parse(nowText, null, System.Globalization.DateTimeStyles.AdjustToUniversal);
+        var now = DateTime.Parse(nowText, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
         var manual = Service().Preview(null, zone, null, [], now);
         Assert.AreEqual(expected, manual.SuggestedAnchorLocal);
         Assert.AreEqual(0, manual.Slots.Count);

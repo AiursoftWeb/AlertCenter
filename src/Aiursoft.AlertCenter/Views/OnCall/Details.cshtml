@@ -1,3 +1,4 @@
+@using System.Globalization
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @inject IHtmlLocalizerFactory OnCallLocalizerFactory
 @{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall.Details", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
@@ -34,8 +35,8 @@
             var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
             <form asp-action="ScheduleDetails" method="get" class="row g-2 mb-3">
                 <input type="hidden" name="id" value="@group.Id" />
-                <div class="col-sm-5"><label for="oncall-view-start" class="form-label">@viewLocalizer["Range start (team time)"]</label><input id="oncall-view-start" name="startLocal" type="datetime-local" required class="form-control" value="@TimeZoneInfo.ConvertTimeFromUtc(Model.WeekStartUtc, zone).ToString("yyyy-MM-ddTHH:mm")" /></div>
-                <div class="col-sm-5"><label for="oncall-view-end" class="form-label">@viewLocalizer["Range end (team time)"]</label><input id="oncall-view-end" name="endLocal" type="datetime-local" required class="form-control" value="@TimeZoneInfo.ConvertTimeFromUtc(Model.WeekEndUtc, zone).ToString("yyyy-MM-ddTHH:mm")" /></div>
+                <div class="col-sm-5"><label for="oncall-view-start" class="form-label">@viewLocalizer["Range start (team time)"]</label><input id="oncall-view-start" name="startLocal" type="datetime-local" required class="form-control" value="@TimeZoneInfo.ConvertTimeFromUtc(Model.WeekStartUtc, zone).ToString("yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture)" /></div>
+                <div class="col-sm-5"><label for="oncall-view-end" class="form-label">@viewLocalizer["Range end (team time)"]</label><input id="oncall-view-end" name="endLocal" type="datetime-local" required class="form-control" value="@TimeZoneInfo.ConvertTimeFromUtc(Model.WeekEndUtc, zone).ToString("yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture)" /></div>
                 <div class="col-sm-2 align-self-end"><button type="submit" class="btn btn-outline-primary">@viewLocalizer["View range"]</button></div>
             </form>
             var now = DateTime.UtcNow;
@@ -44,12 +45,12 @@
             <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
                 @if (Model.WeekStartUtc > DateTime.MinValue.AddDays(7))
                 {
-                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.PreviousWeekUtc.ToString("O")" class="btn btn-outline-secondary btn-sm">@viewLocalizer["Previous Week"]</a>
+                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.PreviousWeekUtc.ToString("O", CultureInfo.InvariantCulture)" class="btn btn-outline-secondary btn-sm">@viewLocalizer["Previous Week"]</a>
                 }
                 <a asp-action="ScheduleDetails" asp-route-id="@group.Id" class="btn btn-outline-secondary btn-sm">@viewLocalizer["Current Week"]</a>
                 @if (Model.WeekStartUtc < DateTime.MaxValue.AddDays(-35))
                 {
-                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.NextWeekUtc.ToString("O")" class="btn btn-outline-secondary btn-sm">@viewLocalizer["Next Week"]</a>
+                    <a asp-action="ScheduleDetails" asp-route-id="@group.Id" asp-route-startUtc="@Model.NextWeekUtc.ToString("O", CultureInfo.InvariantCulture)" class="btn btn-outline-secondary btn-sm">@viewLocalizer["Next Week"]</a>
                 }
                 <span id="oncall-save-state" class="badge @(Model.ScheduleSaved ? "bg-success" : "bg-secondary")">@(Model.ScheduleSaved ? @viewLocalizer["Saved"].Value : Model.CanGenerateSchedule ? @viewLocalizer["Unsaved · Auto-suggested"].Value : @viewLocalizer["Unsaved · Manual schedule"].Value)</span>
             </div>
@@ -63,7 +64,7 @@
                 <div class="alert alert-warning" role="alert" data-oncall-saved-warning>
                     <div class="alert-message">
                         <details>
-                            <summary class="fw-semibold">@string.Format(@viewLocalizer["{0} staffing reminders · saving below minimum is allowed"].Value, Model.StaffingWarnings.Count)</summary>
+                            <summary class="fw-semibold">@string.Format(CultureInfo.CurrentCulture, @viewLocalizer["{0} staffing reminders · saving below minimum is allowed"].Value, Model.StaffingWarnings.Count)</summary>
                             <ul class="mt-2 mb-0">@foreach (var warning in Model.StaffingWarnings) { <li>@warning</li> }</ul>
                         </details>
                     </div>
@@ -91,13 +92,13 @@
                         {
                             <span class="badge bg-primary">@viewLocalizer["Current On-Call"]</span>
                             <strong class="text-break">@string.Join("、", Model.Preview.Where(shift => shift.StartsAtUtc <= now && now < shift.EndsAtUtc).Select(shift => staffNames.GetValueOrDefault(shift.UserId, @viewLocalizer["Employee deleted"].Value)).Distinct())</strong>
-                            <span>@viewLocalizer["This shift ends at "]@TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm")</span>
+                            <span>@viewLocalizer["This shift ends at "]@TimeZoneInfo.ConvertTimeFromUtc(currentShift.EndsAtUtc, zone).ToString("MM-dd HH:mm", CultureInfo.CurrentCulture)</span>
                         }
                         else
                         {
                             <span class="badge bg-primary">@(firstShift.StartsAtUtc > now ? @viewLocalizer["Starting soon"].Value : @viewLocalizer["This week's schedule"].Value)</span>
                             <strong class="text-break">@staffNames.GetValueOrDefault(firstShift.UserId, @viewLocalizer["Employee deleted"].Value)</strong>
-                            <span>@viewLocalizer["First class at "]@TimeZoneInfo.ConvertTimeFromUtc(firstShift.StartsAtUtc, zone).ToString("MM-dd HH:mm") @viewLocalizer["Start"]</span>
+                            <span>@viewLocalizer["First class at "]@TimeZoneInfo.ConvertTimeFromUtc(firstShift.StartsAtUtc, zone).ToString("MM-dd HH:mm", CultureInfo.CurrentCulture) @viewLocalizer["Start"]</span>
                         }
                         <span class="small">@viewLocalizer["Status is based on page load time."]</span>
                     </div>
@@ -110,7 +111,7 @@
             <div class="d-flex flex-wrap gap-3 small text-muted mb-3">
                 <span>@viewLocalizer["Shift covered"]: <strong id="oncall-total-shifts" data-oncall-stat="shifts">@Model.Preview.Select(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Distinct().Count()</strong></span>
                 <span>@viewLocalizer["Participating employees"]: <strong id="oncall-total-staff" data-oncall-stat="staff">@Model.Preview.Select(shift => shift.UserId).Distinct().Count()</strong></span>
-                <span>@viewLocalizer["Scheduled hours"]: <strong id="oncall-total-hours" data-oncall-stat="hours">@totalHours.ToString("0.##") @viewLocalizer["hours"]</strong></span>
+                <span>@viewLocalizer["Scheduled hours"]: <strong id="oncall-total-hours" data-oncall-stat="hours">@totalHours.ToString("0.##", CultureInfo.CurrentCulture) @viewLocalizer["hours"]</strong></span>
             </div>
             @await Html.PartialAsync("_PreviewGantt", Model)
             @if (Model.CanManageOnCall)
@@ -124,7 +125,7 @@
                     <div class="table-responsive mt-2"><table class="table"><thead><tr><th scope="col">@viewLocalizer["Start"]</th><th scope="col">@viewLocalizer["End"]</th><th scope="col">@viewLocalizer["On-call personnel"]</th></tr></thead><tbody>
                     @foreach (var shift in Model.SavedShifts)
                     {
-                        <tr><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm")</td><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm")</td><td>@string.Join(", ", shift.Members.Select(member => staffNames.GetValueOrDefault(member.UserId, member.UserId)))</td></tr>
+                        <tr><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm", CultureInfo.CurrentCulture)</td><td>@TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc), zone).ToString("yyyy-MM-dd HH:mm", CultureInfo.CurrentCulture)</td><td>@string.Join(", ", shift.Members.Select(member => staffNames.GetValueOrDefault(member.UserId, member.UserId)))</td></tr>
                     }
                     </tbody></table></div>
                 </details>

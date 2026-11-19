@@ -1,3 +1,4 @@
+@using System.Globalization
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @inject IHtmlLocalizerFactory OnCallLocalizerFactory
 @{ var viewLocalizer = OnCallLocalizerFactory.Create("Views.OnCall._RuleForm", typeof(Aiursoft.AlertCenter.Startup).Assembly.GetName().Name!); }
@@ -26,7 +27,7 @@
             {
                 <div class="d-flex flex-wrap gap-2 mb-2" data-handover-point>
                     <select class="form-select w-auto" data-point-day aria-label="@viewLocalizer["Day of week"]">@foreach (var day in Enum.GetValues<DayOfWeek>()) { <option value="@((int)day)" selected="@(day == point.DayOfWeek)">@viewLocalizer[day.ToString()]</option> }</select>
-                    <input type="time" class="form-control w-auto" data-point-time value="@(TimeOnly.MinValue.AddMinutes(point.MinuteOfDay).ToString("HH:mm"))" aria-label="@viewLocalizer["Handover time"]" required />
+                    <input type="time" class="form-control w-auto" data-point-time value="@(TimeOnly.MinValue.AddMinutes(point.MinuteOfDay).ToString("HH:mm", CultureInfo.InvariantCulture))" aria-label="@viewLocalizer["Handover time"]" required />
                     <button type="button" class="btn btn-outline-danger" data-remove-point>@viewLocalizer["Remove"]</button>
                 </div>
             }
