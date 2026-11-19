@@ -29,6 +29,7 @@
         }).ToList();
     string Percent(double hours) => (hours / duration * 100).ToString("0.######", CultureInfo.InvariantCulture) + "%";
     string Position(DateTime time) => Percent((time - start).TotalHours);
+    string ShiftHour(DateTime time) => (time - start).TotalHours.ToString(CultureInfo.InvariantCulture);
     string LocalTime(DateTime time) => TimeZoneInfo.ConvertTimeFromUtc(time, zone).ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
 }
 <div class="d-flex flex-wrap justify-content-between gap-2 mb-2">
@@ -220,6 +221,7 @@
                                 data-summary="@name@(departed ? @viewLocalizer[" · Departed"].Value : "") · @shiftHours.ToString("0.##", CultureInfo.CurrentCulture) @viewLocalizer["hours"] · @group.TimeZoneId@(isCurrent ? @viewLocalizer[" · On call"].Value : "")"
                                 data-start="@localStart.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)" data-end="@localEnd.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)"
                                 data-readonly="true" data-draft-shift="true"
+                                data-shift-start-hour="@ShiftHour(shift.StartsAtUtc)" data-shift-end-hour="@ShiftHour(shift.EndsAtUtc)"
                                 aria-label="@details@(isCurrent ? @viewLocalizer[" · On call"].Value : "")" title="@details" aria-describedby="oncall-shift-detail">
                             <span class="ac-gantt-time" aria-hidden="true">@viewLocalizer["From "]@localStart.ToString("HH:mm", CultureInfo.CurrentCulture)</span>
                             <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">@viewLocalizer["Until "]@localEnd.ToString("HH:mm", CultureInfo.CurrentCulture)</span>
@@ -249,24 +251,18 @@
                         var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc)), zone);
                         var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc)), zone);
                         var details = string.Format(@viewLocalizer["{0} · {1} · Other Team (Read-only) · {2}"].Value, name, shift.Group.Name, group.TimeZoneId);
-                        @foreach (var region in new[] { "previous", "current", "next" })
-                        {
-                            var regionStart = region == "previous" ? start.AddHours(-36) : region == "next" ? end : start;
-                            var regionEnd = region == "previous" ? start : region == "next" ? end.AddHours(36) : end;
-                            var clippedStart = shift.StartsAtUtc > regionStart ? shift.StartsAtUtc : regionStart;
-                            var clippedEnd = shift.EndsAtUtc < regionEnd ? shift.EndsAtUtc : regionEnd;
-                            if (clippedEnd <= clippedStart) { continue; }
-                            var edge = region == "current" ? null : region;
-                            <button type="button" class="ac-gantt-shift ac-gantt-external" data-readonly="true" data-group-id="@shift.GroupId"
-                                    data-edge="@edge" hidden="@(edge != null)" style="left: @Position(clippedStart); width: @Percent((clippedEnd - clippedStart).TotalHours)"
-                                    data-summary="@details" data-start="@localStart.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)" data-end="@localEnd.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)"
-                                    aria-label="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture) → @localEnd.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)"
-                                    title="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture) → @localEnd.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)" aria-describedby="oncall-shift-detail">
-                                <span class="ac-gantt-time">@(string.Format(@viewLocalizer["{0} (Read-only)"].Value, shift.Group.Name))</span>
-                                <span class="ac-gantt-time" aria-hidden="true">@viewLocalizer["From "]@localStart.ToString("HH:mm", CultureInfo.CurrentCulture)</span>
-                                <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">@viewLocalizer["Until "]@localEnd.ToString("HH:mm", CultureInfo.CurrentCulture)</span>
-                            </button>
-                        }
+                        var clippedStart = shift.StartsAtUtc > start ? shift.StartsAtUtc : start;
+                        var clippedEnd = shift.EndsAtUtc < end ? shift.EndsAtUtc : end;
+                        <button type="button" class="ac-gantt-shift ac-gantt-external" data-readonly="true" data-group-id="@shift.GroupId"
+                                data-shift-start-hour="@ShiftHour(shift.StartsAtUtc)" data-shift-end-hour="@ShiftHour(shift.EndsAtUtc)"
+                                hidden="@(clippedEnd <= clippedStart)" style="left: @Position(clippedStart); width: @Percent(Math.Max(0, (clippedEnd - clippedStart).TotalHours))"
+                                data-summary="@details" data-start="@localStart.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)" data-end="@localEnd.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)"
+                                aria-label="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture) → @localEnd.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)"
+                                title="@details · @localStart.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture) → @localEnd.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture)" aria-describedby="oncall-shift-detail">
+                            <span class="ac-gantt-time">@(string.Format(@viewLocalizer["{0} (Read-only)"].Value, shift.Group.Name))</span>
+                            <span class="ac-gantt-time" aria-hidden="true">@viewLocalizer["From "]@localStart.ToString("HH:mm", CultureInfo.CurrentCulture)</span>
+                            <span class="ac-gantt-time ac-gantt-time-end" aria-hidden="true">@viewLocalizer["Until "]@localEnd.ToString("HH:mm", CultureInfo.CurrentCulture)</span>
+                        </button>
                     }
                 </div>
             </div>

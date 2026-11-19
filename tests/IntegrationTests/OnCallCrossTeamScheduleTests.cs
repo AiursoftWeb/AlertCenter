@@ -191,7 +191,7 @@ public class OnCallCrossTeamScheduleTests : TestBase
     }
 
     [TestMethod]
-    public async Task ExternalShiftsAreFilteredReadOnlyAndSplitAcrossDisplayRegionsWithoutEnteringOwnSlotsOrTotals()
+    public async Task ExternalShiftsAreFilteredReadOnlyAndStayInOneBlockWithoutEnteringOwnSlotsOrTotals()
     {
         await LoginAsAdmin();
         var id = await SeedGroup(false);
@@ -258,7 +258,7 @@ public class OnCallCrossTeamScheduleTests : TestBase
         Assert.Contains("id=\"oncall-shared-members\"", html);
         var buttons = Regex.Matches(rawHtml, "<button\\b[^>]*class=\"ac-gantt-shift ac-gantt-external\"[^>]*>")
             .Select(match => WebUtility.HtmlDecode(match.Value)).ToArray();
-        Assert.AreEqual(6, buttons.Length);
+        Assert.AreEqual(4, buttons.Length);
         Assert.AreEqual(metadata.GetProperty("members").GetArrayLength() + 1, Regex.Matches(rawHtml, "<div class=\"ac-gantt-lane\">").Count);
         Assert.Contains("id=\"oncall-unassigned-row\"", rawHtml);
         var sharedLane = Regex.Match(rawHtml,
@@ -267,20 +267,19 @@ public class OnCallCrossTeamScheduleTests : TestBase
         Assert.Contains("class=\"ac-gantt-shift ac-gantt-external\"", sharedLane);
         Assert.Contains("id=\"oncall-shift-rows\"", rawHtml);
         Assert.IsTrue(buttons.All(button => button.Contains("data-readonly=\"true\"") && button.Contains($"data-group-id=\"{otherId}\"") && !button.Contains("data-slot=")));
-        Assert.AreEqual(1, buttons.Count(button => button.Contains("data-edge=\"previous\"")));
-        Assert.AreEqual(1, buttons.Count(button => button.Contains("data-edge=\"next\"")));
-        Assert.IsTrue(buttons.Where(button => button.Contains("data-edge=\"previous\"") || button.Contains("data-edge=\"next\""))
-            .All(button => button.Contains("hidden=\"hidden\"")));
+        Assert.IsTrue(buttons.All(button => !button.Contains("data-edge=") && !button.Contains("hidden=")));
         var zone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai");
         foreach (var interval in intervals.Take(3))
         {
             var localStart = TimeZoneInfo.ConvertTime(new DateTimeOffset(interval.Start), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
             var localEnd = TimeZoneInfo.ConvertTime(new DateTimeOffset(interval.End), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
-            Assert.IsTrue(buttons.Any(button => button.Contains($"data-start=\"{localStart}\"") && button.Contains($"data-end=\"{localEnd}\"") && button.Contains("Secondary team")));
+            var button = buttons.Single(button => button.Contains($"data-start=\"{localStart}\"") && button.Contains($"data-end=\"{localEnd}\"") && button.Contains("Secondary team"));
+            Assert.Contains($"data-shift-start-hour=\"{(interval.Start - start).TotalHours.ToString(CultureInfo.InvariantCulture)}\"", button);
+            Assert.Contains($"data-shift-end-hour=\"{(interval.End - start).TotalHours.ToString(CultureInfo.InvariantCulture)}\"", button);
         }
         var spans = buttons.Select(button => Regex.Match(button, "style=\"left: ([^%;]+)%; width: ([^%;]+)%\""))
             .Select(match => (Left: double.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture), Width: double.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture))).ToArray();
-        var expected = new[] { (-36.0, 36.0), (0.0, 2.5), (5.25, 5.5), (166.5, 1.5), (168.0, 36.0), (40.0, 8.0) };
+        var expected = new[] { (0.0, 2.5), (5.25, 5.5), (166.5, 1.5), (40.0, 8.0) };
         foreach (var (left, width) in expected)
             Assert.IsTrue(spans.Any(span => Math.Abs(span.Left - left / 168 * 100) < 0.000001 && Math.Abs(span.Width - width / 168 * 100) < 0.000001));
         var root = Regex.Match(rawHtml, "<div id=\"oncall-schedule\"[^>]*>").Value;

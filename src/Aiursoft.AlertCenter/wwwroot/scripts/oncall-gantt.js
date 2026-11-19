@@ -24,6 +24,13 @@
         chart.querySelector('.ac-gantt').style.minWidth = `calc(var(--ac-gantt-name-width) + var(--ac-gantt-toggle-width) + ${hours * 160 / 24}px)`;
         chart.querySelectorAll('[style]').forEach(item => {
             if (!item.style.left || !item.style.left.endsWith('%')) return;
+            if (item.dataset.shiftStartHour != null) {
+                const left = Math.max(-before, Number(item.dataset.shiftStartHour));
+                const right = Math.min(hours - before, Number(item.dataset.shiftEndHour));
+                item.hidden = right <= left;
+                item.dataset.layoutLeft = String(left / duration * 100);
+                item.dataset.layoutWidth = String(Math.max(0, right - left) / duration * 100);
+            }
             item.dataset.layoutLeft ??= item.style.left.slice(0, -1);
             if (item.style.width?.endsWith('%')) item.dataset.layoutWidth ??= item.style.width.slice(0, -1);
             item.style.left = `${(Number(item.dataset.layoutLeft) * duration + before * 100) / hours}%`;

@@ -234,7 +234,6 @@
     const inWeek = slot => intersects(timeOf(slot, 'start', zone), timeOf(slot, 'end', zone));
     const inEditor = slot => intersects(timeOf(slot, 'start', zone), timeOf(slot, 'end', zone), edgeStart, edgeEnd);
     const regionAt = time => time < from ? 'previous' : time >= until ? 'next' : 'current';
-    const regions = [['previous', edgeStart, from], ['current', from, until], ['next', until, edgeEnd]];
     const chart = get('oncall-gantt'), dialog = get('oncall-shift-dialog');
     const prepare = items => items.map(slot => ({ ...slot, source: slot.source ?? 0, userIds: [...slot.userIds], startLocal: localTime(slot.startsAtUtc, zone), endLocal: localTime(slot.endsAtUtc, zone) }));
     const weekSlots = prepare(JSON.parse(root.dataset.slots));
@@ -417,12 +416,19 @@
         }
         lane.style.minHeight = `${Math.max(1, tracks.length) * 72}px`;
     }
-    function updateShift(bar, row, slot, leftClip, rightClip) {
+    function updateShift(bar, row, slot, overlap = bar.classList.contains('ac-gantt-conflict')) {
         const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+        const [low, high] = visibleBounds();
+        const leftClip = Math.max(left, low), rightClip = Math.min(right, high);
+        bar.hidden = rightClip <= leftClip;
+        position(bar, leftClip, Math.max(leftClip, rightClip));
         describe(bar, `${row.dataset.name}${hasDeparted(slot) ? ` · ${text('oncall-departed-label', 'Departed')}` : ''} · ${((right - left) / hour).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`, left, right);
         bar.textContent = `${localTime(left, zone).replace('T', ' ')} → ${localTime(right, zone).replace('T', ' ')}`;
         bar.setAttribute('aria-label', `${bar.title}. ${text('move-hint', 'Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes.')}`);
-        if (!hasDeparted(slot)) for (const edge of ['start', 'end']) {
+        if (overlap) {
+            bar.classList.add('ac-gantt-conflict'); bar.setAttribute('aria-invalid', 'true'); bar.title += ` · ${overlapMessage()}`;
+        }
+        if (!bar.hidden && !hasDeparted(slot)) for (const edge of ['start', 'end']) {
             if ((edge === 'start' && left !== leftClip) || (edge === 'end' && right !== rightClip)) continue;
             const handle = document.createElement('span'); handle.className = 'ac-gantt-resize'; handle.dataset.resize = edge;
             handle.title = text(`resize-${edge}`, edge === 'start' ? 'Adjust start' : 'Adjust end'); handle.setAttribute('aria-hidden', 'true'); bar.append(handle);
@@ -436,22 +442,14 @@
             if (JSON.stringify(slot) === JSON.stringify(previous.slots[index])) continue;
             for (const row of chart.querySelectorAll('[data-user-id]')) {
                 const lane = row.querySelector('.ac-gantt-lane'), id = row.dataset.userId;
-                const bars = [...lane.querySelectorAll(`[data-slot-index="${index}"]`)];
-                const assigned = slot && valid(slot) && peopleOf(slot).includes(id);
-                for (const [region, low, high] of regions) {
-                    let bar = bars.find(item => (item.dataset.edge || 'current') === region);
-                    const left = assigned ? Math.max(low, timeOf(slot, 'start', zone)) : Infinity;
-                    const right = assigned ? Math.min(high, timeOf(slot, 'end', zone)) : -Infinity;
-                    if (right <= left) { bar?.remove(); continue; }
-                    if (!bar) {
-                        bar = shiftBar(row, index, region);
-                        bar.style.top = '8px'; bar.style.transform = 'none';
-                        const [visibleStart, visibleEnd] = visibleBounds();
-                        bar.hidden = !intersects(left, right, visibleStart, visibleEnd);
-                        lane.append(bar);
-                    }
-                    position(bar, left, right); updateShift(bar, row, slot, left, right);
+                let bar = lane.querySelector(`[data-slot-index="${index}"]`);
+                if (!slot || !valid(slot) || !peopleOf(slot).includes(id)) { bar?.remove(); continue; }
+                if (!bar) {
+                    bar = shiftBar(row, index);
+                    bar.style.top = '8px'; bar.style.transform = 'none';
+                    lane.append(bar);
                 }
+                updateShift(bar, row, slot);
             }
         }
         if (gesture.mode === 'handover') {
@@ -464,13 +462,12 @@
         }
         gesture.rendered = structuredClone(state);
     }
-    function shiftBar(row, index, region) {
+    function shiftBar(row, index) {
         const bar = document.createElement('button'); bar.type = 'button';
         bar.className = `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
         bar.dataset.draftShift = 'true'; bar.dataset.slotIndex = String(index);
         const chosen = selected?.index === index && selected?.person === row.dataset.userId;
         bar.classList.toggle('ac-gantt-selected', chosen); bar.setAttribute('aria-pressed', String(chosen));
-        if (region !== 'current') { bar.dataset.edge = region; bar.hidden = true; }
         return bar;
     }
     function draw(serverWarnings) {
@@ -499,16 +496,11 @@
             for (const { slot, index } of entries) {
                 if (!valid(slot) || !(slot.userIds.includes(id) || (id === '' && !slot.userIds.length))) continue;
                 const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
-                for (const [region, low, high] of regions) {
-                    if (!intersects(left, right, low, high)) continue;
-                    const bar = shiftBar(row, index, region);
-                    if (!dirty && left <= Date.now() && Date.now() < right) bar.classList.add('ac-gantt-current');
-                    const leftClip = Math.max(left, low), rightClip = Math.min(right, high);
-                    position(bar, leftClip, rightClip);
-                    updateShift(bar, row, slot, leftClip, rightClip);
-                    if (overlaps.has(slot)) { bar.classList.add('ac-gantt-conflict'); bar.setAttribute('aria-invalid', 'true'); bar.title += ` · ${overlapMessage()}`; }
-                    rowLane.append(bar);
-                }
+                if (!intersects(left, right, edgeStart, edgeEnd)) continue;
+                const bar = shiftBar(row, index);
+                if (!dirty && left <= Date.now() && Date.now() < right) bar.classList.add('ac-gantt-current');
+                updateShift(bar, row, slot, overlaps.has(slot));
+                rowLane.append(bar);
             }
         }
         const handovers = get('oncall-handover-lane'); handovers.replaceChildren();
@@ -525,7 +517,7 @@
             marker.title = `${text('handover', 'Adjust handover')} · ${localTime(boundary, zone)} · ${zone}`; marker.setAttribute('aria-label', marker.title); handovers.append(marker);
         });
         chart.dispatchEvent(new Event('oncall-layout'));
-        if (focusIndex != null) findBar(Number(focusIndex), focusPerson, focus.dataset.edge)?.focus({ preventScroll: true });
+        if (focusIndex != null) findBar(Number(focusIndex), focusPerson)?.focus({ preventScroll: true });
     }
     let timelineWarnings = [];
     function drawWarnings(overlap) {
@@ -544,9 +536,8 @@
             position(marker, warning.left, warning.right); describe(marker, message, warning.left, warning.right); lane.append(marker);
         }
     }
-    function findBar(index, person, edge) {
-        const matches = [...chart.querySelectorAll('[data-slot-index]')].filter(bar => !bar.hidden && Number(bar.dataset.slotIndex) === index && (person == null || bar.closest('[data-user-id]').dataset.userId === person));
-        return matches.find(bar => bar.dataset.edge === edge) || matches[0];
+    function findBar(index, person) {
+        return [...chart.querySelectorAll(`[data-slot-index="${index}"]`)].find(bar => !bar.hidden && (person == null || bar.closest('[data-user-id]').dataset.userId === person));
     }
     async function preview() {
         const revision = ++sequence;
@@ -788,7 +779,14 @@
     chart.addEventListener('pointercancel', cancelGesture);
     chart.addEventListener('lostpointercapture', cancelGesture);
     chart.addEventListener('oncall-edge-change', cancelGesture);
-    chart.addEventListener('oncall-edge-layout', () => drawWarnings(conflicts().size > 0));
+    chart.addEventListener('oncall-edge-layout', () => {
+        for (const row of chart.querySelectorAll('[data-user-id]')) {
+            const lane = row.querySelector('.ac-gantt-lane');
+            lane.querySelectorAll('[data-slot-index]').forEach(bar => updateShift(bar, row, state.slots[Number(bar.dataset.slotIndex)]));
+            pack(lane);
+        }
+        drawWarnings(conflicts().size > 0);
+    });
     chart.addEventListener('click', event => {
         if (suppressClick && event.detail !== 0) { suppressClick = false; return; }
         suppressClick = false;

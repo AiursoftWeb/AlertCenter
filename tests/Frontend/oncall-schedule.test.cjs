@@ -178,8 +178,8 @@ function setup(options = {}) {
         Object.assign(bar.dataset, { readonly: 'true', start: localTime(slot.startsAtUtc, zone), end: localTime(slot.endsAtUtc, zone), summary: slot.external ? 'Other team' : 'Adjacent saved shift' });
         bar.style.left = `${(Date.parse(slot.startsAtUtc) - Date.parse(rangeStart)) / (Date.parse(rangeEnd) - Date.parse(rangeStart)) * 100}%`;
         bar.style.width = `${(Date.parse(slot.endsAtUtc) - Date.parse(slot.startsAtUtc)) / (Date.parse(rangeEnd) - Date.parse(rangeStart)) * 100}%`;
-        if (Date.parse(slot.endsAtUtc) <= Date.parse(rangeStart)) bar.dataset.edge = 'previous';
-        if (Date.parse(slot.startsAtUtc) >= Date.parse(rangeEnd)) bar.dataset.edge = 'next';
+        bar.dataset.shiftStartHour = String((Date.parse(slot.startsAtUtc) - Date.parse(rangeStart)) / hour);
+        bar.dataset.shiftEndHour = String((Date.parse(slot.endsAtUtc) - Date.parse(rangeStart)) / hour);
         (rows.get(slot.userIds[0]) || rows.get('')).querySelector('.ac-gantt-lane').append(bar); return bar;
     });
     const toggles = {};
@@ -912,17 +912,17 @@ test('selected shift moves through the precise controls and legacy blank click w
 });
 test('staged next-range bars can be reassigned and deleted without contributing to weekly statistics', async () => {
     const ui = setup({ slots: [shift(0, 8)] }); await ui.flush(); await ui.click('copy-range');
-    const staged = ui.lane('a').querySelector('[data-edge="next"]'); assert(staged && !staged.hidden);
+    const staged = ui.bar(1); assert(staged && !staged.hidden);
     await ui.drag(staged, 170, 173, ui.lane('b'), { altKey: true });
-    const moved = ui.lane('b').querySelector('[data-edge="next"]'); assert(moved);
+    const moved = ui.bar(1, 'b'); assert(moved && !moved.hidden);
     assert.deepEqual(ui.draft()[1].userIds, ['b']);
     await ui.fire(moved, 'keydown', { key: 'Delete' }); assert.equal(ui.draft().length, 1);
     assert.equal(ui.get('copy-drafts').children.length, 1);
     assert.equal(ui.get('total-hours').textContent, '8.00 hours'); assert.equal(ui.get('total-shifts').textContent, '1');
     assert.equal(ui.rows.get('a').querySelector('.ac-gantt-hours').textContent, '1 · 8.00 hours');
-    await ui.click('undo-schedule'); assert(ui.lane('b').querySelector('[data-edge="next"]'));
-    await ui.click('undo-schedule'); assert(ui.lane('a').querySelector('[data-edge="next"]'));
-    await ui.click('undo-schedule'); assert.equal(ui.lane('a').querySelector('[data-edge="next"]'), null);
+    await ui.click('undo-schedule'); assert(ui.bar(1, 'b'));
+    await ui.click('undo-schedule'); assert(ui.bar(1));
+    await ui.click('undo-schedule'); assert.equal(ui.bar(1), null);
 });
 test('short pointer taps open a shift once, while foreign pointer ids and lost capture cannot commit a drag', async () => {
     const ui = setup({ slots: [shift(12, 20)] }); await ui.flush(); const original = ui.draft();
@@ -959,21 +959,46 @@ test('copy replacement never hides external context from rest validation and inv
     await ui.input(ui.get('range-start'), '2026-10-25T00:00'); await ui.input(ui.get('range-end'), '2026-11-01T00:00');
     await ui.click('copy-range'); assert.equal(ui.get('copy-drafts').children.length, 1); assert.match(ui.get('schedule-errors').textContent, /overlap/);
 });
-test('cross-week shifts share their indices and expose their true endpoints when expanded', async () => {
+function assertShiftBar(ui, index, person, left, right, handles) {
+    const bars = ui.lane(person).querySelectorAll(`[data-slot-index="${index}"]`);
+    assert.equal(bars.length, 1);
+    const [bar] = bars;
+    assert(!bar.hidden);
+    const before = Number(ui.chart.dataset.beforeHours), hours = 168 + before + Number(ui.chart.dataset.afterHours);
+    assert(Math.abs(parseFloat(bar.style.left) * hours / 100 - before - left) < 0.000001);
+    assert(Math.abs(parseFloat(bar.style.width) * hours / 100 - (right - left)) < 0.000001);
+    assert(Math.abs(Number(bar.dataset.layoutLeft) * 168 / 100 - left) < 0.000001);
+    assert(Math.abs(Number(bar.dataset.layoutWidth) * 168 / 100 - (right - left)) < 0.000001);
+    assert.deepEqual(bar.querySelectorAll('[data-resize]').map(handle => handle.dataset.resize), handles);
+    return bar;
+}
+test('cross-week shifts extend in place and expose only visible true endpoints', async () => {
     const crossing = shift(-8, 8, ['a'], 'crossing'), trailing = shift(160, 180, ['b'], 'trailing');
     const ui = setup({ slots: [crossing, trailing] }); await ui.flush();
-    const previous = () => ui.lane('a').querySelector('[data-edge="previous"]');
-    const next = () => ui.lane('b').querySelector('[data-edge="next"]');
-    assert(previous().hidden && next().hidden);
+    assertShiftBar(ui, 0, 'a', 0, 8, ['end']);
+    const trailingBar = assertShiftBar(ui, 1, 'b', 160, 168, ['start']);
+    await ui.click(ui.toggles.next);
+    assert.equal(assertShiftBar(ui, 1, 'b', 160, 180, ['start', 'end']), trailingBar);
+    await ui.click(ui.toggles.next);
+    assert.equal(assertShiftBar(ui, 1, 'b', 160, 168, ['start']), trailingBar);
     await ui.click(ui.toggles.previous); await ui.click(ui.toggles.next);
-    assert.equal(previous().dataset.slotIndex, '0'); assert.equal(next().dataset.slotIndex, '1');
-    const current = ui.lane('a').querySelector('[data-slot-index="0"]:not([data-edge])');
-    assert(current.querySelector('[data-resize="end"]'));
-    assert.equal(current.querySelector('[data-resize="start"]'), null);
-    assert(ui.bar(1, 'b').querySelector('[data-resize="start"]'));
-    await ui.drag(previous().querySelector('[data-resize="start"]'), -8, -10, ui.lane('a'), { altKey: true });
-    await ui.drag(next().querySelector('[data-resize="end"]'), 180, 183, ui.lane('b'), { altKey: true });
-    await ui.drag(previous(), -4, -6, ui.lane('a'), { altKey: true });
+    const previous = () => ui.bar(0, 'a');
+    const next = () => ui.bar(1, 'b');
+    assertShiftBar(ui, 0, 'a', -8, 8, ['start', 'end']);
+    const alt = { altKey: true };
+    await ui.pointer('pointerdown', previous().querySelector('[data-resize="start"]'), -8, alt);
+    await ui.pointer('pointermove', ui.lane('a'), 2, alt);
+    assertShiftBar(ui, 0, 'a', 2, 8, ['start', 'end']);
+    await ui.pointer('pointermove', ui.lane('a'), -10, alt);
+    assertShiftBar(ui, 0, 'a', -10, 8, ['start', 'end']);
+    await ui.pointer('pointerup', ui.lane('a'), -10, alt);
+    await ui.drag(next().querySelector('[data-resize="end"]'), 180, 183, ui.lane('b'), alt);
+    await ui.pointer('pointerdown', previous(), -4, alt);
+    await ui.pointer('pointermove', ui.lane('a'), -14, alt);
+    assertShiftBar(ui, 0, 'a', -20, -2, ['start', 'end']);
+    await ui.pointer('pointermove', ui.lane('a'), -6, alt);
+    assertShiftBar(ui, 0, 'a', -12, 6, ['start', 'end']);
+    await ui.pointer('pointerup', ui.lane('a'), -6, alt);
     assert.equal(previous().dataset.start, '2026-10-11T12:00');
     assert.equal(previous().dataset.end, '2026-10-12T06:00');
     await ui.click('save-schedule');
@@ -982,12 +1007,42 @@ test('cross-week shifts share their indices and expose their true endpoints when
     assert.equal(saved.endUtc, shift(160, 183).endsAtUtc);
     for (const id of ['crossing', 'trailing']) assert.equal(saved.slots.filter(slot => slot.id === id).length, 1);
 });
+test('a shift spanning both expanded edges remains one clipped bar per member', async () => {
+    const ui = setup({ slots: [shift(-40, 210, ['a', 'b'])] }); await ui.flush();
+    await ui.click(ui.toggles.previous); await ui.click(ui.toggles.next);
+    for (const person of ['a', 'b']) assertShiftBar(ui, 0, person, -36, 204, []);
+    await ui.fire(ui.chart, 'oncall-layout');
+    for (const person of ['a', 'b']) assertShiftBar(ui, 0, person, -36, 204, []);
+});
+test('a read-only cross-week shift extends the same button when expanded', async () => {
+    const ui = setup({ slots: [], context: [{ ...shift(160, 180), external: true }] }); await ui.flush();
+    const [bar] = ui.readonly;
+    assert.equal(ui.lane('a').querySelectorAll('.ac-gantt-external').length, 1);
+    assert(Math.abs(parseFloat(bar.style.width) * 168 / 100 - 8) < 0.000001);
+    await ui.click(ui.toggles.next);
+    assert.equal(ui.lane('a').querySelector('.ac-gantt-external'), bar);
+    assert(Math.abs(parseFloat(bar.style.width) * 204 / 100 - 20) < 0.000001);
+    await ui.click(bar);
+    assert(!ui.get('shift-dialog').open);
+});
+test('a shift entirely in the next edge is hidden until expanded and then editable', async () => {
+    const ui = setup({ slots: [shift(174, 180)] }); await ui.flush();
+    assert(ui.bar().hidden);
+    await ui.click(ui.toggles.next);
+    const bar = assertShiftBar(ui, 0, 'a', 174, 180, ['start', 'end']);
+    await ui.click(bar);
+    assert(ui.get('shift-dialog').open);
+    await ui.click('dialog-cancel');
+    assert.equal(ui.document.activeElement, bar);
+    await ui.fire(bar, 'keydown', { key: 'Delete' });
+    assert.equal(ui.draft().length, 0);
+});
 test('both expanded edges support creation, keyboard changes, history, and reset without affecting weekly stats', async () => {
     const ui = setup({ slots: [] }); await ui.flush();
     for (const [edge, left] of [['previous', -14], ['next', 174]]) {
         await ui.click(ui.toggles[edge]);
         await ui.drag(ui.lane('b'), left, left + 4, ui.lane('b'), { altKey: true });
-        const bar = () => ui.lane('b').querySelector(`[data-edge="${edge}"]`);
+        const bar = () => ui.bar(0, 'b');
         await ui.fire(bar(), 'keydown', { key: 'ArrowRight' });
         const moved = ui.draft();
         await ui.click(ui.toggles[edge]); assert(bar().hidden); assert.deepEqual(ui.draft(), moved);
@@ -1009,7 +1064,7 @@ test('adjacent edits move handovers, detect overlaps, and save deletions without
     const marker = ui.get('handover-lane').querySelector('[data-first]'); assert(marker && !marker.hidden);
     await ui.drag(marker, -12, -10, ui.get('handover-lane'), { altKey: true });
     assert.equal(ui.draft()[0].endLocal, ui.draft()[1].startLocal);
-    const following = () => ui.lane('b').querySelector('[data-edge="next"]');
+    const following = () => ui.bar(2, 'b');
     await ui.click(following());
     await ui.input(ui.get('dialog-start'), '2026-10-11T15:00');
     await ui.click('dialog-apply');
