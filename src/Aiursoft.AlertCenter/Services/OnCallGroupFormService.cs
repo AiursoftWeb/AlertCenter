@@ -54,7 +54,7 @@ public sealed class OnCallGroupFormService(IOnCallScheduleGenerator generator, I
         };
         if (rule == null) return result;
         if (IsUnaligned(rule, zone, anchor))
-            result.Warnings.Add(localizer["The start time does not match a weekly handover point; the preview uses full template shifts."].Value);
+            result.Warnings.Add(localizer["The start time does not match a weekly handover point; the first shift will be a partial segment."].Value);
         if (userIds.Count == 0)
         {
             result.Errors.Add(localizer["Add rotation queue members to preview shifts."].Value);
@@ -62,11 +62,10 @@ public sealed class OnCallGroupFormService(IOnCallScheduleGenerator generator, I
         }
         try
         {
-            var start = OnCallScheduleGenerator.BoundaryAtOrBefore(rule, anchor, zone, lastShift?.EndsAtUtc ?? anchor);
-            IReadOnlyList<GeneratedOnCallShift> history = LastShiftHistory(rule, userIds, lastShift);
-            if (lastShift != null && lastShift.StartsAtUtc >= start)
-                history = OnCallScheduleGenerator.HistoryBeforeBoundary(history, start);
-            result.Slots = generator.GenerateRange(rule, anchor, userIds, start, 4, zone, history)
+            var start = OnCallScheduleGenerator.GenerationStart(rule, anchor, zone, lastShift?.EndsAtUtc ?? anchor);
+            var history = OnCallScheduleGenerator.RotationHistory(rule, userIds, lastShift);
+            result.Slots = generator.GenerateRange(rule, anchor, userIds, start, 4, zone, history,
+                    OnCallScheduleGenerator.FragmentPosition(history, start))
                 .GroupBy(shift => (shift.StartsAtUtc, shift.EndsAtUtc))
                 .Select(batch => new OnCallSlotRequest
                 {
@@ -84,23 +83,5 @@ public sealed class OnCallGroupFormService(IOnCallScheduleGenerator generator, I
             result.Errors.Add(localizer["The team preview request format is invalid."].Value);
         }
         return result;
-    }
-
-    private static List<GeneratedOnCallShift> LastShiftHistory(OnCallRule rule, IReadOnlyList<string> userIds, OnCallShift? last)
-    {
-        if (last == null) return [];
-        var ids = userIds.ToArray();
-        var history = last.Members.OrderBy(member => Array.IndexOf(ids, member.UserId))
-            .Select(member => new GeneratedOnCallShift(member.UserId, last.StartsAtUtc, last.EndsAtUtc)).ToList();
-        if (last.Members.Count == 0) history.Add(new(string.Empty, last.StartsAtUtc, last.EndsAtUtc));
-        // Match automatic extension: preserve the cursor only while its assignments still match the current queue.
-        if (last.RotationPosition is { } cursor && last.Members.Count > 0 && last.Members.Count <= ids.Length)
-        {
-            var expected = OnCallScheduleGenerator.AssignShift(rule, ids, cursor, last.Members.Count,
-                last.StartsAtUtc, last.EndsAtUtc);
-            if (expected.Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal).SetEquals(last.Members.Select(member => member.UserId)))
-                history = expected;
-        }
-        return history;
     }
 }

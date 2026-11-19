@@ -151,6 +151,19 @@ public class OnCallMaintenanceTests
     }
 
     [TestMethod]
+    public async Task FirstExtensionAfterSeveralWeeksUsesAnchorPosition()
+    {
+        var start = Now.AddDays(18).AddHours(1);
+        await Maintain(start);
+
+        var first = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).FirstAsync();
+        Assert.AreEqual(start, first.StartsAtUtc);
+        Assert.AreEqual(Now.AddDays(21), first.EndsAtUtc);
+        Assert.AreEqual(5L, first.RotationPosition);
+        Assert.AreEqual("c", first.Members.Single().UserId);
+    }
+
+    [TestMethod]
     [DataRow(42)]
     [DataRow(10)]
     public async Task ExtensionFillsUnoccupiedDaysWithoutConsumingCoveredRotations(int manualStartDay)
@@ -275,7 +288,7 @@ public class OnCallMaintenanceTests
             for (var index = 0; index < processed; index++)
             {
                 var to = templateEnds[index];
-                var position = (long)index * rule.StaffPerShift;
+                var position = (long)(index + (weekly ? 0 : 2)) * rule.StaffPerShift;
                 if (from < manual.StartsAtUtc && manual.EndsAtUtc < to)
                 {
                     expected.Add((from, manual.StartsAtUtc, position));

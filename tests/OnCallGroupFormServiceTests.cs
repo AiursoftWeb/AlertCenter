@@ -116,7 +116,7 @@ public class OnCallGroupFormServiceTests
     }
 
     [TestMethod]
-    public void WeeklySuggestionsUseGeneratorsDstHandlingAndUnalignedAnchorPreviewsFullShift()
+    public void WeeklySuggestionsUseGeneratorsDstHandlingAndUnalignedAnchorPreviewsPartialFirstShift()
     {
         var zone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
         var rule = new OnCallRule { HandoverPoints = [new() { DayOfWeek = DayOfWeek.Sunday, MinuteOfDay = 150 }] };
@@ -126,9 +126,9 @@ public class OnCallGroupFormServiceTests
         Assert.AreEqual(0, automatic.Warnings.Count);
         var manual = Service().Preview(rule, zone, now, ["a"], now);
         Assert.AreEqual(4, manual.Slots.Count);
-        Assert.AreEqual("2026-03-01T02:30", manual.Slots[0].StartLocal);
+        Assert.AreEqual("2026-03-08T00:00", manual.Slots[0].StartLocal);
         Assert.AreEqual("2026-03-08T03:00", manual.Slots[0].EndLocal);
-        Assert.Contains("full template shifts", manual.Warnings.Single());
+        Assert.Contains("partial segment", manual.Warnings.Single());
         Assert.AreEqual(0, manual.Errors.Count);
     }
 
@@ -184,10 +184,8 @@ public class OnCallGroupFormServiceTests
         var rule = new OnCallRule { ShiftMinutes = 60, StaffPerShift = 4, SwapAlternateRounds = true };
         var last = new OnCallShift { StartsAtUtc = now, EndsAtUtc = now.AddHours(1), RotationPosition = 1,
             Members = new[] { "b", "c", "d", "a" }.Select(id => new OnCallShiftMember { UserId = id }).ToList() };
-        var group = new OnCallGroup { Rule = rule,
-            Members = new[] { "a", "b", "c", "d" }.Select((id, index) => new OnCallGroupMember { UserId = id, RotationOrder = index }).ToList() };
         var expected = Generator().GenerateRange(rule, now, ["a", "b", "c", "d"], last.EndsAtUtc, 4,
-            TimeZoneInfo.Utc, OnCallMaintenanceWorker.RotationHistory(group, last));
+            TimeZoneInfo.Utc, OnCallScheduleGenerator.RotationHistory(rule, ["a", "b", "c", "d"], last));
         var preview = Service().Preview(rule, TimeZoneInfo.Utc, now, ["a", "b", "c", "d"], now, true, last);
         Assert.AreEqual("d", preview.Slots[0].UserIds[0]);
         CollectionAssert.AreEqual(expected.Select(shift => shift.UserId).ToArray(), preview.Slots.SelectMany(slot => slot.UserIds).ToArray());

@@ -240,7 +240,7 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                 RotationPosition = shift.RotationPosition, UserIds = shift.Members.Select(member => member.UserId).ToList() })
             : model.Preview.GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc }).Select(batch => new OnCallSlotRequest {
                     StartsAtUtc = batch.Key.StartsAtUtc, EndsAtUtc = batch.Key.EndsAtUtc, Source = OnCallShiftSource.Generated,
-                    UserIds = batch.Select(shift => shift.UserId).ToList() });
+                    RotationPosition = batch.First().RotationPosition, UserIds = batch.Select(shift => shift.UserId).ToList() });
         return Json(new
         {
             groupId = id, version = group.ScheduleVersion, startUtc = model.WeekStartUtc, saved = model.ScheduleSaved,
@@ -783,15 +783,13 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
             }
             var rule = group.Rule!;
             var anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
-            var alignedStart = OnCallScheduleGenerator.BoundaryAtOrBefore(rule, anchor, zone, startUtc);
+            if (endUtc <= anchor) return;
+            var alignedStart = OnCallScheduleGenerator.GenerationStart(rule, anchor, zone, startUtc);
             var alignedEnd = OnCallScheduleGenerator.BoundaryAtOrAfter(rule, anchor, zone, endUtc);
-            var last = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
-                .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc <= alignedStart)
-                .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
-                .FirstOrDefaultAsync(cancellationToken);
+            var rotationHistory = await OnCallScheduleGenerator.LoadHistory(db.OnCallShifts.Where(shift => shift.GroupId == group.Id),
+                rule, automaticIds, alignedStart, alignedStart, cancellationToken);
             model.Preview = generator.GenerateRange(rule, anchor, automaticIds, alignedStart,
-                    OnCallScheduleGenerator.ShiftCount(rule, alignedStart, alignedEnd), zone,
-                    OnCallMaintenanceWorker.RotationHistory(group, last))
+                    OnCallScheduleGenerator.ShiftCount(rule, alignedStart, alignedEnd), zone, rotationHistory)
                 .Where(shift => shift.StartsAtUtc < alignedEnd).ToList();
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or TimeZoneNotFoundException or InvalidTimeZoneException or OverflowException)

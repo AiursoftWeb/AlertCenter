@@ -23,9 +23,11 @@ public class OnCallRulePagesTests : TestBase
             var third = new User { UserName = "third", DisplayName = "Third" };
             db.Users.AddRange(second, third);
             var rule = new OnCallRule { Name = "Day shift" };
+            var today = DateTime.UtcNow.Date;
+            var monday = today.AddDays(-((int)today.DayOfWeek + 6) % 7);
             var group = new OnCallGroup
             {
-                Name = "Platform", TimeZoneId = "UTC", Rule = rule, AnchorUtc = DateTime.UtcNow.Date.AddDays(-1),
+                Name = "Platform", TimeZoneId = "UTC", Rule = rule, AnchorUtc = monday,
                 Members = [new OnCallGroupMember { UserId = member.Id, RotationOrder = 0 },
                     new OnCallGroupMember { UserId = second.Id, RotationOrder = 1 },
                     new OnCallGroupMember { UserId = third.Id, RotationOrder = 2 }]

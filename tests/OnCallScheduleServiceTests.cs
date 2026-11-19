@@ -198,7 +198,7 @@ public class OnCallScheduleServiceTests
         Assert.AreEqual(3, preview.Length);
         Assert.AreEqual(left.Id, preview[0].Id);
         Assert.AreEqual(from, preview[0].EndsAtUtc);
-        Assert.AreEqual("a", preview[1].UserIds.Single());
+        Assert.AreEqual(generate ? "c" : "a", preview[1].UserIds.Single());
         Assert.AreEqual(until, preview[2].StartsAtUtc);
         Assert.IsNull(preview[2].Id);
 

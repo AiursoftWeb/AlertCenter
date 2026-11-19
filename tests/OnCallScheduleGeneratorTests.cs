@@ -87,7 +87,7 @@ public class OnCallScheduleGeneratorTests
             Assert.AreEqual(shift with { StartsAtUtc = start },
                 generator.GenerateRange(rule, anchor, ["a", "b", "c"], start, 1, zone)[0]);
         }
-        Assert.AreEqual(0L, generator.GenerateRange(rule, anchor, ["a", "b", "c"], anchor.AddDays(-14), 1, zone)[0].RotationPosition);
+        Assert.AreEqual(complete[0], generator.GenerateRange(rule, anchor, ["a", "b", "c"], anchor.AddDays(-14), 1, zone)[0]);
     }
 
     [TestMethod]
@@ -181,6 +181,21 @@ public class OnCallScheduleGeneratorTests
     }
 
     [TestMethod]
+    public void FixedDurationRangesMatchContinuousRotationAcrossAGap()
+    {
+        var rule = new OnCallRule { ShiftHours = 12 };
+        string[] users = ["a", "b", "c"];
+        var complete = generator.Generate(rule, Anchor, users, Anchor, 12);
+        var start = Anchor.AddHours(84);
+        var expected = complete.Skip(7).Take(4).ToArray();
+        CollectionAssert.AreEqual(expected, generator.Generate(rule, Anchor, users, start, 4).ToArray());
+        CollectionAssert.AreEqual(expected, generator.Generate(rule, Anchor, users, start, 4, complete.Take(2).ToArray()).ToArray());
+        var shifted = new GeneratedOnCallShift("c", Anchor.AddHours(12), Anchor.AddHours(24), 2);
+        CollectionAssert.AreEqual(complete.Skip(8).Take(4).Select(shift => shift.UserId).ToArray(),
+            generator.Generate(rule, Anchor, users, start, 4, [shifted]).Select(shift => shift.UserId).ToArray());
+    }
+
+    [TestMethod]
     public void MultipleStaffConsumeConsecutiveQueuePositionsAndWrap()
     {
         var result = generator.Generate(new OnCallRule { StaffPerShift = 2 }, Anchor, ["a", "b", "c"], Anchor, 3);
@@ -204,10 +219,8 @@ public class OnCallScheduleGeneratorTests
         var first = batches[0].First();
         var last = new OnCallShift { StartsAtUtc = first.StartsAtUtc, EndsAtUtc = first.EndsAtUtc,
             RotationPosition = first.RotationPosition, Members = batches[0].Select(shift => new OnCallShiftMember { UserId = shift.UserId }).ToList() };
-        var group = new OnCallGroup { Rule = rule,
-            Members = new[] { "a", "b", "c", "d" }.Select((id, index) => new OnCallGroupMember { UserId = id, RotationOrder = index }).ToList() };
         var continuation = generator.Generate(rule, Anchor, ["a", "b", "c", "d"], last.EndsAtUtc, 7,
-            OnCallMaintenanceWorker.RotationHistory(group, last));
+            OnCallScheduleGenerator.RotationHistory(rule, ["a", "b", "c", "d"], last));
         CollectionAssert.AreEqual(result.Skip(4).ToArray(), continuation.ToArray());
     }
 

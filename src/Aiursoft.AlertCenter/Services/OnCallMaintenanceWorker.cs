@@ -84,33 +84,27 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         DateTime now, CancellationToken token, IStringLocalizer? validatorLocalizer)
     {
         var shifts = db.OnCallShifts.Where(shift => shift.GroupId == group.Id);
-        var baseline = group.AutoExtendedThroughUtc ?? (group.AnchorUtc > now && !await shifts.AnyAsync(token) ? group.AnchorUtc : now);
+        var anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
+        var baseline = group.AutoExtendedThroughUtc ?? now;
         var start = DateTime.SpecifyKind(baseline > now ? baseline : now, DateTimeKind.Utc);
+        if (start < anchor) start = anchor;
         var until = now.AddDays(28);
         if (start >= until) return;
 
-        var last = await shifts.Include(shift => shift.Members).Where(shift => shift.EndsAtUtc <= start)
-            .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
-            .FirstOrDefaultAsync(token);
         var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
         var rule = group.Rule!;
         var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
-        var minutes = rule.ShiftMinutes ?? checked(rule.ShiftHours * 60);
-        var first = generator.GenerateRange(rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), ids,
-            start, 1, zone, RotationHistory(group, last));
+        var boundary = OnCallScheduleGenerator.GenerationStart(rule, anchor, zone, start);
+        var history = await OnCallScheduleGenerator.LoadHistory(shifts, rule, ids, boundary, start, token);
+        var first = generator.GenerateRange(rule, anchor, ids, boundary, 1, zone, history,
+            OnCallScheduleGenerator.FragmentPosition(history, boundary));
         var position = first[0].RotationPosition!.Value;
-        var durationTicks = TimeSpan.FromMinutes(minutes).Ticks;
-        var remainder = (start - group.AnchorUtc).Ticks % durationTicks;
-        if (remainder < 0) remainder += durationTicks;
         var boundaries = new List<DateTime>();
         var through = start;
         while (through < until)
         {
-            through = rule.HandoverPoints.Count == 0
-                ? through.AddTicks(durationTicks - remainder)
-                : OnCallScheduleGenerator.NextHandover(rule.HandoverPoints, zone, through);
+            through = boundaries.Count == 0 ? first[0].EndsAtUtc : OnCallScheduleGenerator.NextBoundary(rule, zone, through);
             boundaries.Add(through);
-            remainder = 0;
         }
 
         var occupied = await shifts.AsNoTracking().Where(shift =>
@@ -154,23 +148,6 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         group.ScheduleVersion = Guid.NewGuid();
         group.AutoExtendedThroughUtc = through;
         await db.SaveChangesAsync(token);
-    }
-
-    internal static List<GeneratedOnCallShift> RotationHistory(OnCallGroup group, OnCallShift? last)
-    {
-        if (last == null) return [new(string.Empty, group.AnchorUtc, group.AnchorUtc)];
-        var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
-        var history = last.Members.OrderBy(member => Array.IndexOf(ids, member.UserId)).Select(member =>
-            new GeneratedOnCallShift(member.UserId, last.StartsAtUtc, last.EndsAtUtc)).ToList();
-        if (last.Members.Count == 0) history.Add(new(string.Empty, last.StartsAtUtc, last.EndsAtUtc));
-        if (last.RotationPosition is { } cursor && last.Members.Count > 0 && last.Members.Count <= ids.Length)
-        {
-            var expected = OnCallScheduleGenerator.AssignShift(group.Rule!, ids, cursor, last.Members.Count,
-                last.StartsAtUtc, last.EndsAtUtc);
-            if (expected.Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal).SetEquals(last.Members.Select(member => member.UserId)))
-                history = expected;
-        }
-        return history;
     }
 
     private static async Task QueueHandoversAsync(TemplateDbContext db, OnCallGroup group, DateTime now, string baseUrl,

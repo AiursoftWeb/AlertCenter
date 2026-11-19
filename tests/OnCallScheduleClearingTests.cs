@@ -256,7 +256,7 @@ public class OnCallScheduleClearingTests
         var next = await db.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.Id != last.Id)
             .OrderBy(shift => shift.StartsAtUtc).FirstAsync();
         Assert.AreEqual(now, next.StartsAtUtc);
-        Assert.AreEqual(futureRemains ? "a" : "c", next.Members.Single().UserId);
+        Assert.AreEqual("a", next.Members.Single().UserId);
     }
 
     [TestMethod]
@@ -276,7 +276,7 @@ public class OnCallScheduleClearingTests
         var next = await db.OnCallShifts.Include(shift => shift.Members).Where(shift => shift.Id != previous.Id)
             .OrderBy(shift => shift.StartsAtUtc).FirstAsync();
         Assert.AreEqual(now, next.StartsAtUtc);
-        Assert.AreEqual("c", next.Members.Single().UserId);
+        Assert.AreEqual("a", next.Members.Single().UserId);
     }
 
     [TestMethod]

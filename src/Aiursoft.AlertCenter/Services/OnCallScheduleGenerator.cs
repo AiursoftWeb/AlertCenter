@@ -1,16 +1,21 @@
 using Aiursoft.AlertCenter.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public sealed record GeneratedOnCallShift(string UserId, DateTime StartsAtUtc, DateTime EndsAtUtc, long? RotationPosition = null);
+public sealed record GeneratedOnCallShift(string UserId, DateTime StartsAtUtc, DateTime EndsAtUtc, long? RotationPosition = null)
+{
+    internal long? SavedShiftPosition { get; init; }
+}
 
 public interface IOnCallScheduleGenerator
 {
     IReadOnlyList<GeneratedOnCallShift> Generate(OnCallRule rule, DateTime anchorUtc, IReadOnlyList<string> orderedUserIds,
         DateTime startUtc, int shiftCount, IReadOnlyList<GeneratedOnCallShift>? existing = null);
     IReadOnlyList<GeneratedOnCallShift> GenerateRange(OnCallRule rule, DateTime anchorUtc, IReadOnlyList<string> orderedUserIds,
-        DateTime startUtc, int shiftCount, TimeZoneInfo zone, IReadOnlyList<GeneratedOnCallShift>? existing = null);
+        DateTime startUtc, int shiftCount, TimeZoneInfo zone, IReadOnlyList<GeneratedOnCallShift>? existing = null,
+        long? initialPosition = null);
 }
 
 public sealed class OnCallScheduleGenerator(IStringLocalizer<OnCallScheduleGenerator> localizer) : IOnCallScheduleGenerator
@@ -21,7 +26,7 @@ public sealed class OnCallScheduleGenerator(IStringLocalizer<OnCallScheduleGener
 
     public IReadOnlyList<GeneratedOnCallShift> GenerateRange(OnCallRule rule, DateTime anchorUtc,
         IReadOnlyList<string> orderedUserIds, DateTime startUtc, int shiftCount, TimeZoneInfo zone,
-        IReadOnlyList<GeneratedOnCallShift>? existing = null)
+        IReadOnlyList<GeneratedOnCallShift>? existing = null, long? initialPosition = null)
     {
         if (anchorUtc.Kind != DateTimeKind.Utc || startUtc.Kind != DateTimeKind.Utc)
             throw new ArgumentException(localizer["The shift start time must be in UTC."].Value);
@@ -33,17 +38,8 @@ public sealed class OnCallScheduleGenerator(IStringLocalizer<OnCallScheduleGener
             throw new ArgumentException(localizer["Staff per shift must not exceed the rotation queue size."].Value);
         var minutes = rule.ShiftMinutes ?? checked(rule.ShiftHours * 60);
         if (minutes <= 0) throw new ArgumentOutOfRangeException(nameof(rule));
-        long cursor;
-        if (existing is { Count: > 0 })
-        {
-            var last = existing.OrderBy(shift => shift.EndsAtUtc).ThenBy(shift => shift.StartsAtUtc).Last();
-            var lastIndex = orderedUserIds.ToList().IndexOf(last.UserId);
-            cursor = lastIndex < 0 ? 0 : last.RotationPosition.HasValue ? last.RotationPosition.Value + 1 : lastIndex + 1;
-        }
-        else if (rule.HandoverPoints.Count == 0)
-            cursor = Math.Max(0, (startUtc - anchorUtc).Ticks / TimeSpan.FromMinutes(minutes).Ticks) * rule.StaffPerShift;
-        else
-            cursor = ElapsedHandovers(rule.HandoverPoints, zone, anchorUtc, startUtc) * rule.StaffPerShift;
+        if (startUtc < anchorUtc) startUtc = anchorUtc;
+        var cursor = initialPosition ?? RotationPositionAt(rule, anchorUtc, zone, orderedUserIds, startUtc, existing);
         var result = new List<GeneratedOnCallShift>();
         var startsAt = startUtc;
         for (var index = 0; index < shiftCount; index++)
@@ -90,14 +86,67 @@ public sealed class OnCallScheduleGenerator(IStringLocalizer<OnCallScheduleGener
         ? (int)Math.Ceiling((end - start).TotalMinutes / (rule.ShiftMinutes ?? checked(rule.ShiftHours * 60)))
         : ((int)Math.Ceiling((end - start).TotalDays / 7) + 2) * rule.HandoverPoints.Count;
 
-    internal static IReadOnlyList<GeneratedOnCallShift> HistoryBeforeBoundary(
-        IReadOnlyList<GeneratedOnCallShift> history, DateTime boundary)
+    internal static DateTime GenerationStart(OnCallRule rule, DateTime anchor, TimeZoneInfo zone, DateTime instant)
     {
-        var first = history.FirstOrDefault();
-        if (first?.RotationPosition is not { } position || first.EndsAtUtc <= boundary) return history;
-        // 续填同一个模板班时，游标从该班的首位开始，而不是从其最后一位之后开始。
-        return position == 0 ? [first with { UserId = string.Empty }] : [first with { RotationPosition = position - 1 }];
+        if (instant <= anchor) return anchor;
+        var boundary = BoundaryAtOrBefore(rule, anchor, zone, instant);
+        return boundary < anchor ? anchor : boundary;
     }
+
+    private static long RotationPositionAt(OnCallRule rule, DateTime anchor, TimeZoneInfo zone,
+        IReadOnlyList<string> ids, DateTime start, IReadOnlyList<GeneratedOnCallShift>? history)
+    {
+        var boundary = history is { Count: > 0 } ? GenerationStart(rule, anchor, zone, start) : start;
+        var preceding = history?.Where(shift => shift.StartsAtUtc < start).ToArray();
+        var adjacent = preceding?.Where(shift => shift.EndsAtUtc >= boundary)
+            .OrderBy(shift => shift.EndsAtUtc).ThenBy(shift => shift.StartsAtUtc).LastOrDefault();
+        if (adjacent != null)
+        {
+            var index = ids.ToList().IndexOf(adjacent.UserId);
+            return index < 0 ? 0 : (adjacent.RotationPosition ?? index) + 1;
+        }
+
+        long BasePosition(DateTime instant) => (rule.HandoverPoints.Count == 0
+            ? Math.Max(0, (instant - anchor).Ticks / TimeSpan.FromMinutes(rule.ShiftMinutes ?? checked(rule.ShiftHours * 60)).Ticks)
+            : ElapsedHandovers(rule.HandoverPoints, zone, anchor, instant)) * rule.StaffPerShift;
+
+        var position = BasePosition(start);
+        var earlier = preceding?.Where(shift => shift.SavedShiftPosition.HasValue || shift.RotationPosition.HasValue)
+            .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc)
+            .ThenBy(shift => shift.RotationPosition).FirstOrDefault();
+        return (earlier?.SavedShiftPosition ?? earlier?.RotationPosition) is { } saved && earlier != null
+            ? position + saved - BasePosition(DateTime.SpecifyKind(earlier.StartsAtUtc, DateTimeKind.Utc)) : position;
+    }
+
+    internal static async Task<List<GeneratedOnCallShift>> LoadHistory(IQueryable<OnCallShift> shifts, OnCallRule rule,
+        IReadOnlyList<string> ids, DateTime boundary, DateTime cutoff, CancellationToken token)
+    {
+        var preceding = shifts.AsNoTracking().Include(shift => shift.Members).Where(shift => shift.StartsAtUtc < cutoff)
+            .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id);
+        var last = await preceding.FirstOrDefaultAsync(shift => shift.EndsAtUtc >= boundary, token)
+                   ?? await preceding.FirstOrDefaultAsync(shift => shift.RotationPosition.HasValue, token);
+        return RotationHistory(rule, ids, last);
+    }
+
+    internal static List<GeneratedOnCallShift> RotationHistory(OnCallRule rule, IReadOnlyList<string> userIds, OnCallShift? last)
+    {
+        if (last == null) return [];
+        var ids = userIds.ToArray();
+        if (last.RotationPosition is { } cursor && last.Members.Count > 0 && last.Members.Count <= ids.Length)
+        {
+            var expected = AssignShift(rule, ids, cursor, last.Members.Count, last.StartsAtUtc, last.EndsAtUtc);
+            if (expected.Select(shift => shift.UserId).ToHashSet(StringComparer.Ordinal).SetEquals(last.Members.Select(member => member.UserId)))
+                return expected;
+        }
+        if (last.Members.Count == 0)
+            return [new(string.Empty, last.StartsAtUtc, last.EndsAtUtc) { SavedShiftPosition = last.RotationPosition }];
+        return last.Members.OrderBy(member => Array.IndexOf(ids, member.UserId))
+            .Select(member => new GeneratedOnCallShift(member.UserId, last.StartsAtUtc, last.EndsAtUtc)
+                { SavedShiftPosition = last.RotationPosition }).ToList();
+    }
+
+    internal static long? FragmentPosition(IReadOnlyList<GeneratedOnCallShift> history, DateTime boundary) =>
+        history.FirstOrDefault(shift => shift.StartsAtUtc >= boundary && shift.EndsAtUtc > boundary)?.RotationPosition;
 
     private static long ElapsedHandovers(IEnumerable<OnCallHandoverPoint> handoverPoints, TimeZoneInfo zone,
         DateTime anchorUtc, DateTime startUtc)
@@ -107,18 +156,18 @@ public sealed class OnCallScheduleGenerator(IStringLocalizer<OnCallScheduleGener
         var anchorDate = TimeZoneInfo.ConvertTimeFromUtc(anchorUtc, zone).Date;
         var startDate = TimeZoneInfo.ConvertTimeFromUtc(startUtc, zone).Date;
         var elapsedDays = (startDate - anchorDate).Days;
-        var weeks = elapsedDays / 7;
-        var remainder = elapsedDays % 7;
-        // 只统计 (anchorUtc, startUtc] 内的交接；班段内部开始仍属于原来的轮换位置。
-        long count = (long)weeks * points.Length;
+        // 按交接点统计 (anchorUtc, startUtc] 内的周数，不需要生成中间的班段。
+        long count = 0;
         foreach (var point in points)
         {
             if (point.MinuteOfDay is < 0 or >= 1440 || !Enum.IsDefined(point.DayOfWeek))
                 throw new ArgumentException("Invalid weekly handover point.");
             var day = ((int)point.DayOfWeek - (int)anchorDate.DayOfWeek + 7) % 7;
-            if (day <= remainder) count++;
-            if (day == 0 && HandoverUtc(anchorDate, point.MinuteOfDay, zone) <= anchorUtc) count--;
-            if (point.DayOfWeek == startDate.DayOfWeek && HandoverUtc(startDate, point.MinuteOfDay, zone) > startUtc) count--;
+            if (day > elapsedDays) continue;
+            var first = day == 0 && HandoverUtc(anchorDate, point.MinuteOfDay, zone) <= anchorUtc ? 7 : day;
+            var last = day + (elapsedDays - day) / 7 * 7;
+            if (last == elapsedDays && HandoverUtc(startDate, point.MinuteOfDay, zone) > startUtc) last -= 7;
+            if (last >= first) count += (last - first) / 7 + 1;
         }
         if (zone.SupportsDaylightSavingTime && points.GroupBy(point => point.DayOfWeek).Any(day => day.Count() > 1))
         {

@@ -131,7 +131,8 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             if (generate)
             {
                 if (group.Rule == null) return [localizer["Please bind a scheduling template to the team first."].Value];
-                from = OnCallScheduleGenerator.BoundaryAtOrBefore(group.Rule, anchor, zone, from);
+                if (until <= anchor) return [];
+                from = OnCallScheduleGenerator.GenerationStart(group.Rule, anchor, zone, from);
                 until = OnCallScheduleGenerator.BoundaryAtOrAfter(group.Rule, anchor, zone, until);
                 rangeError = ValidateRange(from, until);
                 if (rangeError != null) return [rangeError];
@@ -179,12 +180,10 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
             if (generate)
             {
                 var rule = group.Rule!;
-                var last = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
-                    .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc <= from)
-                    .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
-                    .FirstOrDefaultAsync(token);
+                var rotationHistory = await OnCallScheduleGenerator.LoadHistory(db.OnCallShifts.Where(shift => shift.GroupId == group.Id),
+                    rule, ids, from, from, token);
                 var assignments = generator.GenerateRange(rule, anchor, ids, from,
-                    OnCallScheduleGenerator.ShiftCount(rule, from, until), zone, OnCallMaintenanceWorker.RotationHistory(group, last));
+                    OnCallScheduleGenerator.ShiftCount(rule, from, until), zone, rotationHistory);
                 rotationPositions = assignments.GroupBy(shift => shift.StartsAtUtc)
                     .ToDictionary(batch => batch.Key, batch => batch.First().RotationPosition);
                 slots = assignments.Where(shift => shift.StartsAtUtc < until).GroupBy(shift => new { shift.StartsAtUtc, shift.EndsAtUtc })
@@ -215,7 +214,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                     rule.StaffPerShift >= 1 && rule.StaffPerShift <= ids.Length && slot.StartsAtUtc >= from &&
                     OnCallScheduleClearing.End(slot) <= until)
                 {
-                    var boundary = OnCallScheduleGenerator.BoundaryAtOrBefore(rule, anchor, zone, slot.StartsAtUtc);
+                    var boundary = OnCallScheduleGenerator.GenerationStart(rule, anchor, zone, slot.StartsAtUtc);
                     var end = OnCallScheduleGenerator.NextBoundary(rule, zone, boundary);
                     var assignment = OnCallScheduleGenerator.AssignShift(rule, ids, slot.RotationPosition.Value, rule.StaffPerShift, boundary, end);
                     if (OnCallScheduleClearing.End(slot) <= end && assignment.Select(shift => shift.UserId)
@@ -327,29 +326,35 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
     private async Task RegenerateClearedRanges(OnCallGroup group, List<OnCallSlotRequest> slots,
         List<ClearOnCallScheduleRequest> ranges, DateTime from, CancellationToken token)
     {
-        var previous = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
-            .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc <= from)
-            .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
-            .FirstOrDefaultAsync(token);
+        var previous = db.OnCallShifts.Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc <= from);
         var rule = group.Rule!;
         var ids = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
         var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+        var anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
         foreach (var range in ranges.Where(range => range.AutoExtendAction == "regenerate").OrderBy(range => range.StartUtc))
         {
             var start = range.IncludeHistory || range.StartUtc > range.ClearedAtUtc!.Value ? range.StartUtc : range.ClearedAtUtc.Value;
+            if (start < anchor) start = anchor;
+            if (start >= range.EndUtc) continue;
             foreach (var gap in OnCallScheduleClearing.Gaps(slots, start, range.EndUtc))
             {
-                var last = slots.Where(slot => OnCallScheduleClearing.End(slot) <= gap.Start)
-                    .OrderByDescending(OnCallScheduleClearing.End).ThenByDescending(slot => slot.StartsAtUtc).ThenBy(slot => slot.Id).FirstOrDefault();
-                var lastShift = last == null ? previous : new OnCallShift { StartsAtUtc = last.StartsAtUtc,
-                    EndsAtUtc = OnCallScheduleClearing.End(last), RotationPosition = last.RotationPosition,
-                    Members = last.UserIds.Select(id => new OnCallShiftMember { UserId = id }).ToList() };
-                var anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
-                var boundary = OnCallScheduleGenerator.BoundaryAtOrBefore(rule, anchor, zone, gap.Start);
-                var history = OnCallMaintenanceWorker.RotationHistory(group, lastShift);
+                var boundary = OnCallScheduleGenerator.GenerationStart(rule, anchor, zone, gap.Start);
+                var history = await OnCallScheduleGenerator.LoadHistory(previous, rule, ids, boundary, gap.Start, token);
+                var preceding = slots.Where(slot => OnCallScheduleClearing.End(slot) <= gap.Start)
+                    .OrderByDescending(OnCallScheduleClearing.End).ThenByDescending(slot => slot.StartsAtUtc).ThenBy(slot => slot.Id)
+                    .ToList();
+                var last = preceding.FirstOrDefault(slot => OnCallScheduleClearing.End(slot) >= boundary)
+                    ?? preceding.FirstOrDefault(slot => slot.RotationPosition.HasValue);
+                if (last != null)
+                    history.AddRange(OnCallScheduleGenerator.RotationHistory(rule, ids, new OnCallShift
+                    {
+                        StartsAtUtc = last.StartsAtUtc, EndsAtUtc = OnCallScheduleClearing.End(last),
+                        RotationPosition = last.RotationPosition,
+                        Members = last.UserIds.Select(id => new OnCallShiftMember { UserId = id }).ToList()
+                    }));
                 var generated = generator.GenerateRange(rule, anchor, ids, boundary,
-                    OnCallScheduleGenerator.ShiftCount(rule, boundary, gap.End), zone,
-                    OnCallScheduleGenerator.HistoryBeforeBoundary(history, boundary));
+                    OnCallScheduleGenerator.ShiftCount(rule, boundary, gap.End), zone, history,
+                    OnCallScheduleGenerator.FragmentPosition(history, boundary));
                 foreach (var batch in generated.Where(shift => shift.StartsAtUtc < gap.End)
                              .GroupBy(shift => (shift.StartsAtUtc, shift.EndsAtUtc)))
                 {

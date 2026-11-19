@@ -14,10 +14,12 @@ public class OnCallScheduleApiTests : TestBase
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var users = Enumerable.Range(0, 4).Select(index => new User { UserName = $"api-staff-{index}", DisplayName = $"Staff {index}" }).ToArray();
         db.Users.AddRange(users);
+        var today = DateTime.UtcNow.Date;
+        var monday = today.AddDays(-((int)today.DayOfWeek + 6) % 7);
         var group = new OnCallGroup
         {
             Name = "API team", Rule = withTemplate ? new OnCallRule { Name = "Three shifts" } : null,
-            AnchorUtc = DateTime.UtcNow.Date.AddDays(-1),
+            AnchorUtc = monday,
             Members = users.Select((user, index) => new OnCallGroupMember { UserId = user.Id, RotationOrder = index }).ToList()
         };
         db.OnCallGroups.Add(group);
@@ -161,7 +163,7 @@ public class OnCallScheduleApiTests : TestBase
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
-    public async Task EmptyRangeSuggestionShowsWholeAlignedShiftWithoutChangingRetainedNeighbour(bool weekly)
+    public async Task EmptyRangeSuggestionStartsAtAnchorWithoutChangingRetainedNeighbour(bool weekly)
     {
         await LoginAsAdmin();
         var id = await SeedGroup();
@@ -185,7 +187,7 @@ public class OnCallScheduleApiTests : TestBase
         var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}&endUtc={Uri.EscapeDataString(end.ToString("O"))}";
         var request = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(path))!;
         Assert.AreEqual(1, request.Slots.Count);
-        Assert.AreEqual(weekly ? start.Date.AddHours(-2) : start.Date, request.Slots[0].StartsAtUtc);
+        Assert.AreEqual(start.Date, request.Slots[0].StartsAtUtc);
         Assert.AreEqual(alignedEnd, request.Slots[0].EndsAtUtc);
         var neighbour = (await ReadPersistedSlots(id)).Single();
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("SaveSchedule", request)).StatusCode);
@@ -796,11 +798,13 @@ public class OnCallScheduleApiTests : TestBase
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
             var group = await db.OnCallGroups.SingleAsync(item => item.Id == id);
             group.TimeZoneId = "Asia/Shanghai";
+            group.AnchorUtc = new DateTime(2026, 11, 8, 16, 0, 0, DateTimeKind.Utc);
             group.MinimumShiftStaff = 2;
             group.MaximumContinuousHours = 24;
             await db.SaveChangesAsync();
         }
-        var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>($"/OnCall/GetSchedule?id={id}"))!;
+        var draft = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(
+            $"/OnCall/GetSchedule?id={id}&startLocal=2026-11-09T00:00&endLocal=2026-11-16T00:00"))!;
         var user = draft.Slots[0].UserIds[0];
         draft.StartLocal = "2026-11-09T00:00";
         draft.EndLocal = "2026-11-16T00:00";
@@ -834,7 +838,8 @@ public class OnCallScheduleApiTests : TestBase
         Assert.AreEqual(HttpStatusCode.Conflict, (await Save("GenerateSchedule", saved)).StatusCode);
     }
 
-    private async Task<(SaveOnCallScheduleRequest Request, string[] Users)> SeedGenerationGroup(DateTime anchor, bool weekly)
+    private async Task<(SaveOnCallScheduleRequest Request, string[] Users)> SeedGenerationGroup(DateTime anchor, bool weekly,
+        bool swapAlternateRounds = false, string[]? names = null)
     {
         await LoginAsAdmin();
         var id = await SeedGroup();
@@ -844,6 +849,13 @@ public class OnCallScheduleApiTests : TestBase
             .SingleAsync(item => item.Id == id);
         group.TimeZoneId = "Asia/Shanghai";
         group.AnchorUtc = anchor;
+        group.Rule!.SwapAlternateRounds = swapAlternateRounds;
+        if (names != null)
+        {
+            var orderedIds = group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray();
+            foreach (var user in await db.Users.Where(user => orderedIds.Contains(user.Id)).ToListAsync())
+                user.DisplayName = names[Array.IndexOf(orderedIds, user.Id)];
+        }
         if (weekly)
             db.AddRange(OnCallScheduleGeneratorTests.WeeklyRule().HandoverPoints.Select(point =>
             {
@@ -878,6 +890,115 @@ public class OnCallScheduleApiTests : TestBase
         IEnumerable<OnCallSlotRequest> slots) => slots.OrderBy(slot => slot.StartsAtUtc)
         .Select(slot => (slot.StartsAtUtc, slot.EndsAtUtc, slot.Source, slot.RotationPosition,
             string.Join(",", slot.UserIds.Order(StringComparer.Ordinal)))).ToArray();
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task ShanghaiWeeklyEditorAndGetScheduleUseOneAnchoredRotationAcrossFourWeeks(bool swapAlternateRounds)
+    {
+        var anchor = new DateTime(2026, 11, 20, 14, 0, 0, DateTimeKind.Utc);
+        var (request, users) = await SeedGenerationGroup(anchor, weekly: true, swapAlternateRounds: swapAlternateRounds,
+            names: ["Liu", "Zhou", "Xu", "Wang"]);
+        int[][] offsets = [[0], [0, 3, 7], [7, 10, 14], [14, 17, 21]];
+        int[][] assignments = swapAlternateRounds
+            ? [[0], [0, 1, 2], [2, 3, 1], [1, 0, 3]]
+            : [[0], [0, 1, 2], [2, 3, 0], [0, 1, 2]];
+        string[] weeks = ["2026-11-16", "2026-11-23", "2026-11-30", "2026-12-07", "2026-12-14"];
+        for (var week = 0; week < offsets.Length; week++)
+        {
+            var range = $"startLocal={weeks[week]}T00:00&endLocal={weeks[week + 1]}T00:00";
+            var api = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(
+                $"/OnCall/GetSchedule?id={request.GroupId}&{range}"))!;
+            var html = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{request.GroupId}?{range}");
+            var attribute = System.Text.RegularExpressions.Regex.Match(html, "data-slots=\"([^\"]*)\"");
+            Assert.IsTrue(attribute.Success, $"Missing editor draft for {weeks[week]}");
+            var editor = System.Text.Json.JsonSerializer.Deserialize<OnCallSlotRequest[]>(WebUtility.HtmlDecode(attribute.Groups[1].Value),
+                System.Text.Json.JsonSerializerOptions.Web)!;
+            var expected = offsets[week].Select((offset, index) =>
+                (anchor.AddDays(offset), (DateTime?)anchor.AddDays(offset + (offset % 7 == 0 ? 3 : 4)),
+                    users[assignments[week][index]])).ToArray();
+            CollectionAssert.AreEqual(expected, DraftAssignments(api.Slots), $"GetSchedule for {weeks[week]}");
+            CollectionAssert.AreEqual(expected, DraftAssignments(editor), $"Editor draft for {weeks[week]}");
+        }
+        Assert.AreEqual(0, (await ReadPersistedSlots(request.GroupId)).Length);
+    }
+
+    private static (DateTime Start, DateTime? End, string User)[] DraftAssignments(IEnumerable<OnCallSlotRequest> slots) =>
+        slots.Select(slot => (slot.StartsAtUtc, slot.EndsAtUtc, slot.UserIds.Single())).ToArray();
+
+    [TestMethod]
+    public async Task ShanghaiWeeklyGenerationAdvancesAcrossGapAndResumesFromManualReplacement()
+    {
+        var anchor = new DateTime(2026, 11, 20, 14, 0, 0, DateTimeKind.Utc);
+        var (request, users) = await SeedGenerationGroup(anchor, weekly: true);
+        request.StartLocal = "2026-11-23T00:00";
+        request.EndLocal = "2026-11-30T00:00";
+        request.Version = (await ReadGenerationResponse("GenerateSchedule", request)).Version;
+        var initial = await ReadPersistedSlots(request.GroupId);
+        CollectionAssert.AreEqual(users[..3], initial.Select(slot => slot.UserIds.Single()).ToArray());
+
+        request.StartLocal = "2026-12-07T00:00";
+        request.EndLocal = "2026-12-14T00:00";
+        request.Version = (await ReadGenerationResponse("GenerateSchedule", request)).Version;
+        var afterGap = await ReadPersistedSlots(request.GroupId);
+        CollectionAssert.AreEqual(SlotDetails(initial), SlotDetails(afterGap[..3]));
+        CollectionAssert.AreEqual(users[..3], afterGap[3..].Select(slot => slot.UserIds.Single()).ToArray());
+        CollectionAssert.AreEqual(new long?[] { 4, 5, 6 }, afterGap[3..].Select(slot => slot.RotationPosition).ToArray());
+
+        var manual = afterGap[^1];
+        manual.UserIds = [users[0]];
+        request.StartLocal = "2026-12-11T22:00";
+        request.EndLocal = "2026-12-14T22:00";
+        request.Slots = [manual];
+        request.Version = (await ReadGenerationResponse("SaveSchedule", request)).Version;
+        manual = (await ReadPersistedSlots(request.GroupId))[^1];
+        Assert.AreEqual(OnCallShiftSource.Manual, manual.Source);
+        Assert.IsNull(manual.RotationPosition);
+        Assert.AreEqual(users[0], manual.UserIds.Single());
+
+        const string nextRange = "startLocal=2026-12-14T22:00&endLocal=2026-12-21T22:00";
+        var suggestion = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(
+            $"/OnCall/GetSchedule?id={request.GroupId}&{nextRange}"))!;
+        CollectionAssert.AreEqual(users[1..3], suggestion.Slots.Select(slot => slot.UserIds.Single()).ToArray());
+        request.StartLocal = "2026-12-14T22:00";
+        request.EndLocal = "2026-12-21T22:00";
+        request.Slots = [];
+        await ReadGenerationResponse("GenerateSchedule", request);
+        var final = await ReadPersistedSlots(request.GroupId);
+        CollectionAssert.AreEqual(SlotDetails(afterGap[..^1].Append(manual)), SlotDetails(final[..6]));
+        CollectionAssert.AreEqual(DraftAssignments(suggestion.Slots), DraftAssignments(final[6..]));
+        CollectionAssert.AreEqual(new long?[] { 1, 2 }, final[6..].Select(slot => slot.RotationPosition).ToArray());
+    }
+
+    [TestMethod]
+    [DataRow(false, 32, 1, 4L)]
+    [DataRow(true, 8, 3, 3L)]
+    public async Task OneClickGenerationUsesElapsedGapOrAnAdjacentManualAssignment(
+        bool manual, int startHour, int firstUser, long rotationPosition)
+    {
+        var anchor = new DateTime(2026, 11, 20, 14, 0, 0, DateTimeKind.Utc);
+        var (request, users) = await SeedGenerationGroup(anchor, weekly: false, swapAlternateRounds: true);
+        request.StartUtc = anchor;
+        request.EndUtc = anchor.AddHours(8);
+        if (manual)
+            request.Slots = [new() { StartsAtUtc = anchor, EndsAtUtc = anchor.AddHours(8), UserIds = [users[2]] }];
+        request.Version = (await ReadGenerationResponse(manual ? "SaveSchedule" : "GenerateSchedule", request)).Version;
+        var previous = (await ReadPersistedSlots(request.GroupId)).Single();
+
+        request.StartUtc = anchor.AddHours(startHour);
+        request.EndUtc = request.StartUtc.AddHours(8);
+        request.Slots = [];
+        await ReadGenerationResponse("GenerateSchedule", request);
+        var saved = await ReadPersistedSlots(request.GroupId);
+        Assert.HasCount(2, saved);
+        Assert.AreEqual(previous.Id, saved[0].Id);
+        CollectionAssert.AreEqual(SlotDetails([previous]), SlotDetails([saved[0]]));
+        Assert.AreEqual(request.StartUtc, saved[1].StartsAtUtc);
+        Assert.AreEqual(request.EndUtc, saved[1].EndsAtUtc);
+        Assert.AreEqual(OnCallShiftSource.Generated, saved[1].Source);
+        Assert.AreEqual(rotationPosition, saved[1].RotationPosition);
+        Assert.AreEqual(users[firstUser], saved[1].UserIds.Single());
+    }
 
     [TestMethod]
     public async Task ShanghaiConsecutiveWeeksUseWholeHandoversAndContinueRotation()
@@ -937,7 +1058,7 @@ public class OnCallScheduleApiTests : TestBase
             slots.Select(slot => slot.EndsAtUtc).ToArray());
         Assert.AreEqual(before[1].Id, slots[0].FragmentOf);
         Assert.AreEqual(before[1].Id, slots[3].FragmentOf);
-        CollectionAssert.AreEqual(new[] { users[2], users[1], users[2], users[2] }, slots.Select(slot => slot.UserIds.Single()).ToArray());
+        CollectionAssert.AreEqual(new[] { users[2], users[3], users[0], users[2] }, slots.Select(slot => slot.UserIds.Single()).ToArray());
         Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("GenerateSchedule", request)).StatusCode);
         CollectionAssert.AreEqual(SlotDetails(before), SlotDetails(await ReadPersistedSlots(request.GroupId)));
         request.ConfirmReplace = true;
