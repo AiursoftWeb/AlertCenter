@@ -58,6 +58,47 @@ public sealed class OnCallScheduleGenerator(IStringLocalizer<OnCallScheduleGener
         return result;
     }
 
+    internal static DateTime BoundaryAtOrBefore(OnCallRule rule, DateTime anchorUtc, TimeZoneInfo zone, DateTime instant)
+    {
+        instant = DateTime.SpecifyKind(instant, DateTimeKind.Utc);
+        if (rule.HandoverPoints.Count == 0)
+        {
+            var ticks = TimeSpan.FromMinutes(rule.ShiftMinutes ?? checked(rule.ShiftHours * 60)).Ticks;
+            var remainder = (instant - anchorUtc).Ticks % ticks;
+            return instant.AddTicks(-(remainder < 0 ? remainder + ticks : remainder));
+        }
+        var boundary = NextHandover(rule.HandoverPoints, zone, instant.AddDays(-9));
+        while (true)
+        {
+            var next = NextHandover(rule.HandoverPoints, zone, boundary);
+            if (next > instant) return boundary;
+            boundary = next;
+        }
+    }
+
+    internal static DateTime BoundaryAtOrAfter(OnCallRule rule, DateTime anchorUtc, TimeZoneInfo zone, DateTime instant)
+    {
+        var before = BoundaryAtOrBefore(rule, anchorUtc, zone, instant);
+        return before == instant ? before : NextBoundary(rule, zone, before);
+    }
+
+    internal static DateTime NextBoundary(OnCallRule rule, TimeZoneInfo zone, DateTime boundary) =>
+        rule.HandoverPoints.Count == 0 ? boundary.AddMinutes(rule.ShiftMinutes ?? checked(rule.ShiftHours * 60))
+            : NextHandover(rule.HandoverPoints, zone, boundary);
+
+    internal static int ShiftCount(OnCallRule rule, DateTime start, DateTime end) => rule.HandoverPoints.Count == 0
+        ? (int)Math.Ceiling((end - start).TotalMinutes / (rule.ShiftMinutes ?? checked(rule.ShiftHours * 60)))
+        : ((int)Math.Ceiling((end - start).TotalDays / 7) + 2) * rule.HandoverPoints.Count;
+
+    internal static IReadOnlyList<GeneratedOnCallShift> HistoryBeforeBoundary(
+        IReadOnlyList<GeneratedOnCallShift> history, DateTime boundary)
+    {
+        var first = history.FirstOrDefault();
+        if (first?.RotationPosition is not { } position || first.EndsAtUtc <= boundary) return history;
+        // 续填同一个模板班时，游标从该班的首位开始，而不是从其最后一位之后开始。
+        return position == 0 ? [first with { UserId = string.Empty }] : [first with { RotationPosition = position - 1 }];
+    }
+
     private static long ElapsedHandovers(IEnumerable<OnCallHandoverPoint> handoverPoints, TimeZoneInfo zone,
         DateTime anchorUtc, DateTime startUtc)
     {

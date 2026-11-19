@@ -57,6 +57,22 @@ internal static class OnCallScheduleClearing
         RotationPosition = slot.RotationPosition, UserIds = slot.UserIds.ToList()
     };
 
+    internal static List<OnCallSlotRequest> MergeGenerated(IEnumerable<OnCallSlotRequest> slots)
+    {
+        var merged = new List<OnCallSlotRequest>();
+        foreach (var slot in slots.OrderBy(slot => slot.StartsAtUtc))
+        {
+            var last = merged.LastOrDefault();
+            if (last is { Source: OnCallShiftSource.Generated, RotationPosition: not null } &&
+                slot.Source == OnCallShiftSource.Generated && last.RotationPosition == slot.RotationPosition &&
+                End(last) == slot.StartsAtUtc && last.UserIds.ToHashSet(StringComparer.Ordinal).SetEquals(slot.UserIds))
+                last.EndsAtUtc = End(slot);
+            else
+                merged.Add(slot);
+        }
+        return merged;
+    }
+
     internal static List<(DateTime Start, DateTime End)> Gaps(IEnumerable<OnCallSlotRequest> slots, DateTime start, DateTime end)
     {
         var result = new List<(DateTime, DateTime)>();

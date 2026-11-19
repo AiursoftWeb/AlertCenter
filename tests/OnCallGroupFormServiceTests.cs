@@ -116,7 +116,7 @@ public class OnCallGroupFormServiceTests
     }
 
     [TestMethod]
-    public void WeeklySuggestionsUseGeneratorsDstHandlingAndManualStartOnlyWarns()
+    public void WeeklySuggestionsUseGeneratorsDstHandlingAndUnalignedAnchorPreviewsFullShift()
     {
         var zone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
         var rule = new OnCallRule { HandoverPoints = [new() { DayOfWeek = DayOfWeek.Sunday, MinuteOfDay = 150 }] };
@@ -126,7 +126,9 @@ public class OnCallGroupFormServiceTests
         Assert.AreEqual(0, automatic.Warnings.Count);
         var manual = Service().Preview(rule, zone, now, ["a"], now);
         Assert.AreEqual(4, manual.Slots.Count);
-        Assert.AreEqual(1, manual.Warnings.Count);
+        Assert.AreEqual("2026-03-01T02:30", manual.Slots[0].StartLocal);
+        Assert.AreEqual("2026-03-08T03:00", manual.Slots[0].EndLocal);
+        Assert.Contains("full template shifts", manual.Warnings.Single());
         Assert.AreEqual(0, manual.Errors.Count);
     }
 
@@ -152,6 +154,27 @@ public class OnCallGroupFormServiceTests
         last.Members = [];
         preview = Service().Preview(rule, TimeZoneInfo.Utc, now.AddDays(-7), ["a", "b", "c", "d"], now, true, last);
         CollectionAssert.AreEqual(new[] { "a", "b", "c", "d" }, preview.Slots.Select(slot => slot.UserIds.Single()).ToArray());
+    }
+
+    [TestMethod]
+    [DataRow(0, "a", "b")]
+    [DataRow(4, "b", "a")]
+    public void SavedFragmentPreviewsItsFullTemplateShiftAtTheSameRotationPosition(int cursor, string member, string nextMember)
+    {
+        var boundary = new DateTime(2026, 11, 9, 14, 0, 0, DateTimeKind.Utc);
+        var rule = new OnCallRule { ShiftMinutes = 60, SwapAlternateRounds = true };
+        var last = new OnCallShift
+        {
+            StartsAtUtc = boundary.AddMinutes(15), EndsAtUtc = boundary.AddMinutes(30), RotationPosition = cursor,
+            Members = [new() { UserId = member }]
+        };
+        var preview = Service().Preview(rule, TimeZoneInfo.Utc, boundary.AddDays(-7), ["a", "b", "c", "d"], boundary, true, last);
+        Assert.AreEqual(0, preview.Errors.Count);
+        Assert.AreEqual(4, preview.Slots.Count);
+        Assert.AreEqual(boundary, preview.Slots[0].StartsAtUtc);
+        Assert.AreEqual(boundary.AddHours(1), preview.Slots[0].EndsAtUtc);
+        Assert.AreEqual(member, preview.Slots[0].UserIds.Single());
+        Assert.AreEqual(nextMember, preview.Slots[1].UserIds.Single());
     }
 
     [TestMethod]

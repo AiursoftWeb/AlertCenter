@@ -844,9 +844,10 @@
         if (!sameRange && !prior) candidate.ranges.push(staged);
         return candidate;
     }
-    function stage(range) {
+    function stage(range, confirmedGeneration = false) {
         const candidate = rangeDraft(range);
         if (conflicts(candidate).size) { error(overlapMessage()); return; }
+        if (confirmedGeneration) candidate.confirmedGeneration = true;
         undo.push(structuredClone(state)); redo.length = 0; state = candidate;
         changed();
         const toggle = document.querySelector('[data-oncall-edge="next"]');
@@ -869,15 +870,25 @@
         if (data.errors?.length) throw new Error(data.errors.join('\n'));
         const destination = { start: Date.parse(data.startUtc), end: Date.parse(data.endUtc), slots: data.slots };
         const sameRange = destination.start === from && destination.end === until;
-        if ((!sameRange && destination.start < until && destination.end > from) || state.ranges.some(item => item.start < destination.end && item.end > destination.start && !(item.start === destination.start && item.end === destination.end))) throw new Error(text('copy-overlap', 'The destination must not overlap the visible range or another copied range.'));
+        const sameStaged = state.ranges.find(item => item.start === destination.start && item.end === destination.end);
+        const intersects = (left, right) => left < destination.end && right > destination.start;
+        if (generate) {
+            if (!(destination.end > destination.start)) throw new Error(text('invalid-range', 'End must be after start.'));
+            payload(data);
+        } else if ((!sameRange && intersects(from, until)) || state.ranges.some(item => item !== sameStaged && intersects(item.start, item.end))) {
+            throw new Error(text('copy-overlap', 'The destination must not overlap the visible range or another copied range.'));
+        }
         if (conflicts(rangeDraft(destination)).size) throw new Error(overlapMessage());
         list('oncall-schedule-warnings', data.warnings);
-        const replacing = data.replacedSlots.length || sameRange || state.ranges.some(item => item.start === destination.start && item.end === destination.end);
-        if (replacing) confirmReplacement({ range: destination }, data.replacedSlots.length ? data.replacedSlots : sameRange ? normalized(state.slots) : state.ranges.find(item => item.start === destination.start).slots);
+        const replaced = data.replacedSlots.length ? data.replacedSlots : generate
+            ? normalized(draftSlots()).filter(slot => intersects(Date.parse(slot.startsAtUtc), Date.parse(slot.endsAtUtc)))
+            : sameRange ? normalized(state.slots) : sameStaged?.slots || [];
+        if (replaced.length || sameRange || sameStaged) confirmReplacement({ range: destination, generate }, replaced);
         else stage(destination);
     }
     async function assembledDraft(extraRange) {
         const body = payload(extraRange);
+        if (state.confirmedGeneration) body.confirmReplace = true;
         const low = Date.parse(body.startUtc), high = Date.parse(body.endUtc);
         if (low !== from || high !== until || state.ranges.length) {
             const query = new URLSearchParams({ id: root.dataset.groupId, startUtc: body.startUtc, endUtc: body.endUtc });
@@ -910,7 +921,7 @@
                 !(Date.parse(range.startUtc) >= low && Date.parse(range.endUtc) <= high && Date.parse(range.endUtc) > Date.parse(range.startUtc)))) {
             throw new Error(text('schedule-save-failed', 'Unable to save schedule. Refresh and try again.'));
         }
-        const candidate = { slots: [], ranges: [], clearRanges: data.clearRanges };
+        const candidate = { ...state, slots: [], ranges: [], clearRanges: data.clearRanges };
         if (low < from) candidate.ranges.push({ start: low, end: from, slots: [] });
         if (high > until) candidate.ranges.push({ start: until, end: high, slots: [] });
         // Keep crossing shifts whole and in one draft bucket so their saved IDs are never duplicated.
@@ -1004,7 +1015,7 @@
     get('oncall-replace-apply').addEventListener('click', () => {
         if (pending && !busy) {
             if (pending.state) stageClear(pending.state);
-            else stage(pending.range);
+            else stage(pending.range, pending.generate);
         }
     });
     get('oncall-clear-range').addEventListener('click', beginClear);

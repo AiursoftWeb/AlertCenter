@@ -179,6 +179,7 @@ public class OnCallScheduleServiceTests
     {
         var from = new DateTime(2026, 10, 11, 16, 0, 0, DateTimeKind.Utc); // Monday 00:00 in Shanghai
         var until = from.AddHours(8);
+        group.AnchorUtc = from;
         var left = new OnCallShift { GroupId = group.Id, StartsAtUtc = from.AddHours(-4), EndsAtUtc = until,
             Source = OnCallShiftSource.Generated, RotationPosition = 1, Members = [new() { UserId = "b" }] };
         var right = new OnCallShift { GroupId = group.Id, StartsAtUtc = from.AddHours(4), EndsAtUtc = until.AddHours(4),
@@ -197,7 +198,7 @@ public class OnCallScheduleServiceTests
         Assert.AreEqual(3, preview.Length);
         Assert.AreEqual(left.Id, preview[0].Id);
         Assert.AreEqual(from, preview[0].EndsAtUtc);
-        Assert.AreEqual(generate ? "c" : "a", preview[1].UserIds.Single());
+        Assert.AreEqual("a", preview[1].UserIds.Single());
         Assert.AreEqual(until, preview[2].StartsAtUtc);
         Assert.IsNull(preview[2].Id);
 
@@ -307,7 +308,7 @@ public class OnCallScheduleServiceTests
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
-    public async Task GenerationClipsPartialPeriodsAndPreservesTouchingNeighbours(bool weekly)
+    public async Task GenerationFillsAlignedPeriodsAndPreservesTouchingNeighbours(bool weekly)
     {
         if (weekly)
         {
@@ -316,10 +317,11 @@ public class OnCallScheduleServiceTests
         }
         var start = Anchor.AddMinutes(17);
         var end = Anchor.AddHours(9);
+        var alignedEnd = weekly ? Anchor.AddDays(4) : Anchor.AddHours(16);
         var neighbours = new[]
         {
-            new OnCallShift { GroupId = group.Id, StartsAtUtc = Anchor, EndsAtUtc = start, Members = [new() { UserId = "a" }] },
-            new OnCallShift { GroupId = group.Id, StartsAtUtc = end, EndsAtUtc = end.AddHours(1), Members = [new() { UserId = "a" }] }
+            new OnCallShift { GroupId = group.Id, StartsAtUtc = Anchor.AddHours(-1), EndsAtUtc = Anchor, Members = [new() { UserId = "a" }] },
+            new OnCallShift { GroupId = group.Id, StartsAtUtc = alignedEnd, EndsAtUtc = alignedEnd.AddHours(1), Members = [new() { UserId = "a" }] }
         };
         db.OnCallShifts.AddRange(neighbours);
         await db.SaveChangesAsync();
@@ -330,8 +332,10 @@ public class OnCallScheduleServiceTests
         var saved = await db.OnCallShifts.Include(shift => shift.Members).OrderBy(shift => shift.StartsAtUtc).ToListAsync();
         Assert.AreEqual(neighbours[0].Id, saved[0].Id);
         Assert.AreEqual(neighbours[1].Id, saved[^1].Id);
-        Assert.AreEqual(start, saved[1].StartsAtUtc);
-        Assert.AreEqual(end, saved[^2].EndsAtUtc);
+        Assert.AreEqual(weekly ? 3 : 4, saved.Count);
+        Assert.AreEqual(Anchor, saved[1].StartsAtUtc);
+        Assert.AreEqual(alignedEnd, saved[^2].EndsAtUtc);
+        Assert.AreEqual("b", saved[1].Members.Single().UserId);
         Assert.AreEqual(0, OnCallScheduleValidator.OverlapErrors(saved, []).Count);
     }
 

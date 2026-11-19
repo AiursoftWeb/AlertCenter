@@ -781,17 +781,18 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
                     : localizer["Staff per shift must not exceed the rotation queue size."].Value;
                 return;
             }
-            var count = group.Rule!.HandoverPoints.Count == 0
-                ? (int)Math.Ceiling((endUtc - startUtc).TotalMinutes / (group.Rule.ShiftMinutes ?? group.Rule.ShiftHours * 60))
-                : ((int)Math.Ceiling((endUtc - startUtc).TotalDays / 7) + 2) * group.Rule.HandoverPoints.Count;
+            var rule = group.Rule!;
+            var anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
+            var alignedStart = OnCallScheduleGenerator.BoundaryAtOrBefore(rule, anchor, zone, startUtc);
+            var alignedEnd = OnCallScheduleGenerator.BoundaryAtOrAfter(rule, anchor, zone, endUtc);
             var last = await db.OnCallShifts.AsNoTracking().Include(shift => shift.Members)
-                .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc <= startUtc)
+                .Where(shift => shift.GroupId == group.Id && shift.EndsAtUtc <= alignedStart)
                 .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id)
                 .FirstOrDefaultAsync(cancellationToken);
-            model.Preview = generator.GenerateRange(group.Rule, DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc), automaticIds, startUtc, count, zone,
+            model.Preview = generator.GenerateRange(rule, anchor, automaticIds, alignedStart,
+                    OnCallScheduleGenerator.ShiftCount(rule, alignedStart, alignedEnd), zone,
                     OnCallMaintenanceWorker.RotationHistory(group, last))
-                .Where(shift => shift.StartsAtUtc < endUtc)
-                .Select(shift => shift.EndsAtUtc > endUtc ? shift with { EndsAtUtc = endUtc } : shift).ToList();
+                .Where(shift => shift.StartsAtUtc < alignedEnd).ToList();
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or TimeZoneNotFoundException or InvalidTimeZoneException or OverflowException)
         {

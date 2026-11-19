@@ -161,12 +161,13 @@ public class OnCallScheduleApiTests : TestBase
     [TestMethod]
     [DataRow(false)]
     [DataRow(true)]
-    public async Task EmptyRangeGenerationPreviewClipsFinalPartialShiftBeforeRetainedNeighbour(bool weekly)
+    public async Task EmptyRangeSuggestionShowsWholeAlignedShiftWithoutChangingRetainedNeighbour(bool weekly)
     {
         await LoginAsAdmin();
         var id = await SeedGroup();
-        var start = DateTime.UtcNow.AddDays(2).Date.AddMinutes(17);
+        var start = new DateTime(2026, 11, 21, 0, 17, 0, DateTimeKind.Utc);
         var end = start.AddMinutes(37);
+        var alignedEnd = weekly ? start.Date.AddDays(2).AddHours(22) : start.Date.AddHours(8);
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -176,6 +177,7 @@ public class OnCallScheduleApiTests : TestBase
                 group.Rule!.HandoverPoints = OnCallScheduleGeneratorTests.WeeklyRule().HandoverPoints;
                 db.AddRange(group.Rule.HandoverPoints);
             }
+            group.AnchorUtc = start.Date;
             db.OnCallShifts.Add(new() { GroupId = id, StartsAtUtc = end, EndsAtUtc = end.AddDays(7),
                 Members = group.Members.Select(member => new OnCallShiftMember { UserId = member.UserId }).ToList() });
             await db.SaveChangesAsync();
@@ -183,9 +185,13 @@ public class OnCallScheduleApiTests : TestBase
         var path = $"/OnCall/GetSchedule?id={id}&startUtc={Uri.EscapeDataString(start.ToString("O"))}&endUtc={Uri.EscapeDataString(end.ToString("O"))}";
         var request = (await Http.GetFromJsonAsync<SaveOnCallScheduleRequest>(path))!;
         Assert.AreEqual(1, request.Slots.Count);
-        Assert.AreEqual(start, request.Slots[0].StartsAtUtc);
-        Assert.AreEqual(end, request.Slots[0].EndsAtUtc);
-        Assert.AreEqual(HttpStatusCode.OK, (await Save("SaveSchedule", request)).StatusCode);
+        Assert.AreEqual(weekly ? start.Date.AddHours(-2) : start.Date, request.Slots[0].StartsAtUtc);
+        Assert.AreEqual(alignedEnd, request.Slots[0].EndsAtUtc);
+        var neighbour = (await ReadPersistedSlots(id)).Single();
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("SaveSchedule", request)).StatusCode);
+        var saved = await ReadPersistedSlots(id);
+        Assert.AreEqual(neighbour.Id, saved.Single().Id);
+        CollectionAssert.AreEqual(SlotDetails([neighbour]), SlotDetails(saved));
     }
 
     [TestMethod]
@@ -826,6 +832,152 @@ public class OnCallScheduleApiTests : TestBase
         saved.ConfirmReplace = true;
         Assert.AreEqual(HttpStatusCode.OK, (await Save("GenerateSchedule", saved)).StatusCode);
         Assert.AreEqual(HttpStatusCode.Conflict, (await Save("GenerateSchedule", saved)).StatusCode);
+    }
+
+    private async Task<(SaveOnCallScheduleRequest Request, string[] Users)> SeedGenerationGroup(DateTime anchor, bool weekly)
+    {
+        await LoginAsAdmin();
+        var id = await SeedGroup();
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        var group = await db.OnCallGroups.Include(item => item.Rule).Include(item => item.Members)
+            .SingleAsync(item => item.Id == id);
+        group.TimeZoneId = "Asia/Shanghai";
+        group.AnchorUtc = anchor;
+        if (weekly)
+            db.AddRange(OnCallScheduleGeneratorTests.WeeklyRule().HandoverPoints.Select(point =>
+            {
+                point.Rule = group.Rule!;
+                return point;
+            }));
+        else
+            group.Rule!.ShiftMinutes = 480;
+        await db.SaveChangesAsync();
+        return (new() { GroupId = id, Version = group.ScheduleVersion },
+            group.Members.OrderBy(member => member.RotationOrder).Select(member => member.UserId).ToArray());
+    }
+
+    private async Task<SaveOnCallScheduleRequest> ReadGenerationResponse(string action, SaveOnCallScheduleRequest request)
+    {
+        using var response = await Save(action, request);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, await response.Content.ReadAsStringAsync());
+        return (await response.Content.ReadFromJsonAsync<SaveOnCallScheduleRequest>())!;
+    }
+
+    private async Task<OnCallSlotRequest[]> ReadPersistedSlots(Guid groupId)
+    {
+        using var scope = Server!.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+        return await db.OnCallShifts.Where(shift => shift.GroupId == groupId).OrderBy(shift => shift.StartsAtUtc)
+            .Select(shift => new OnCallSlotRequest { Id = shift.Id, StartsAtUtc = shift.StartsAtUtc, EndsAtUtc = shift.EndsAtUtc,
+                Source = shift.Source, RotationPosition = shift.RotationPosition,
+                UserIds = shift.Members.Select(member => member.UserId).ToList() }).ToArrayAsync();
+    }
+
+    private static (DateTime Start, DateTime? End, OnCallShiftSource Source, long? Position, string Users)[] SlotDetails(
+        IEnumerable<OnCallSlotRequest> slots) => slots.OrderBy(slot => slot.StartsAtUtc)
+        .Select(slot => (slot.StartsAtUtc, slot.EndsAtUtc, slot.Source, slot.RotationPosition,
+            string.Join(",", slot.UserIds.Order(StringComparer.Ordinal)))).ToArray();
+
+    [TestMethod]
+    public async Task ShanghaiConsecutiveWeeksUseWholeHandoversAndContinueRotation()
+    {
+        var monday = new DateTime(2026, 11, 9, 14, 0, 0, DateTimeKind.Utc);
+        var (request, users) = await SeedGenerationGroup(monday.AddDays(-3), weekly: true);
+        request.StartLocal = "2026-11-09T00:00";
+        request.EndLocal = "2026-11-16T00:00";
+        var first = await ReadGenerationResponse("PreviewSchedule?generate=true", request);
+        Assert.AreEqual(monday.AddDays(-3), first.StartUtc);
+        Assert.AreEqual(monday.AddDays(7), first.EndUtc);
+        CollectionAssert.AreEqual(new[] { monday.AddDays(-3), monday, monday.AddDays(4) },
+            first.Slots.Select(slot => slot.StartsAtUtc).ToArray());
+        Assert.AreEqual(0, (await ReadPersistedSlots(request.GroupId)).Length);
+        request.Version = (await ReadGenerationResponse("GenerateSchedule", request)).Version;
+
+        request.StartLocal = "2026-11-16T00:00";
+        request.EndLocal = "2026-11-23T00:00";
+        var second = await ReadGenerationResponse("PreviewSchedule?generate=true", request);
+        Assert.AreEqual(monday.AddDays(4), second.StartUtc);
+        Assert.AreEqual(monday.AddDays(14), second.EndUtc);
+        CollectionAssert.AreEqual(new[] { users[2], users[3], users[0] }, second.Slots.Select(slot => slot.UserIds.Single()).ToArray());
+        CollectionAssert.AreEqual(SlotDetails(first.Slots), SlotDetails(await ReadPersistedSlots(request.GroupId)));
+        request.ConfirmReplace = true;
+        var saved = await ReadGenerationResponse("GenerateSchedule", request);
+        Assert.AreEqual(second.StartUtc, saved.StartUtc);
+        Assert.AreEqual(second.EndUtc, saved.EndUtc);
+        CollectionAssert.AreEqual(SlotDetails(first.Slots.Take(2).Concat(second.Slots)), SlotDetails(await ReadPersistedSlots(request.GroupId)));
+    }
+
+    [TestMethod]
+    public async Task AlignedGenerationRequiresConfirmationAndPreservesBothManualFragments()
+    {
+        var anchor = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        var (request, users) = await SeedGenerationGroup(anchor, weekly: false);
+        request.StartUtc = anchor;
+        request.EndUtc = anchor.AddHours(32);
+        request.Slots = [new() { StartsAtUtc = anchor, EndsAtUtc = anchor.AddHours(4), UserIds = [users[0]] },
+            new() { StartsAtUtc = anchor.AddHours(4), EndsAtUtc = anchor.AddHours(28), UserIds = [users[2]] }];
+        request.Version = (await ReadGenerationResponse("SaveSchedule", request)).Version;
+        var before = await ReadPersistedSlots(request.GroupId);
+        request.Slots = [];
+        request.StartUtc = anchor.AddHours(9);
+        request.EndUtc = anchor.AddHours(23);
+        using var preview = await Save("PreviewSchedule?generate=true", request);
+        Assert.AreEqual(HttpStatusCode.OK, preview.StatusCode);
+        var data = await preview.Content.ReadFromJsonAsync<System.Text.Json.JsonElement>();
+        Assert.AreEqual(before[1].Id, data.GetProperty("replacedSlots")[0].GetProperty("id").GetGuid());
+        Assert.AreEqual(1, data.GetProperty("replacedSlots").GetArrayLength());
+        Assert.AreEqual(anchor.AddHours(8), data.GetProperty("startUtc").GetDateTime());
+        Assert.AreEqual(anchor.AddHours(24), data.GetProperty("endUtc").GetDateTime());
+        var slots = System.Text.Json.JsonSerializer.Deserialize<OnCallSlotRequest[]>(data.GetProperty("slots"), System.Text.Json.JsonSerializerOptions.Web)!
+            .OrderBy(slot => slot.StartsAtUtc).ToArray();
+        CollectionAssert.AreEqual(new[] { anchor.AddHours(4), anchor.AddHours(8), anchor.AddHours(16), anchor.AddHours(24) },
+            slots.Select(slot => slot.StartsAtUtc).ToArray());
+        CollectionAssert.AreEqual(new DateTime?[] { anchor.AddHours(8), anchor.AddHours(16), anchor.AddHours(24), anchor.AddHours(28) },
+            slots.Select(slot => slot.EndsAtUtc).ToArray());
+        Assert.AreEqual(before[1].Id, slots[0].FragmentOf);
+        Assert.AreEqual(before[1].Id, slots[3].FragmentOf);
+        CollectionAssert.AreEqual(new[] { users[2], users[1], users[2], users[2] }, slots.Select(slot => slot.UserIds.Single()).ToArray());
+        Assert.AreEqual(HttpStatusCode.BadRequest, (await Save("GenerateSchedule", request)).StatusCode);
+        CollectionAssert.AreEqual(SlotDetails(before), SlotDetails(await ReadPersistedSlots(request.GroupId)));
+        request.ConfirmReplace = true;
+        await ReadGenerationResponse("GenerateSchedule", request);
+        CollectionAssert.AreEqual(SlotDetails(before.Take(1).Concat(slots)), SlotDetails(await ReadPersistedSlots(request.GroupId)));
+    }
+
+    [TestMethod]
+    public async Task SavingPreviewedGapMergesWithNeighboursAndPersistsGeneratedRotation()
+    {
+        var anchor = new DateTime(2026, 11, 9, 0, 0, 0, DateTimeKind.Utc);
+        var (request, users) = await SeedGenerationGroup(anchor, weekly: false);
+        request.StartUtc = anchor;
+        request.EndUtc = anchor.AddHours(32);
+        request.Slots = [new() { StartsAtUtc = anchor, EndsAtUtc = anchor.AddHours(8), UserIds = [users[0]] },
+            new() { StartsAtUtc = anchor.AddHours(24), EndsAtUtc = anchor.AddHours(32), UserIds = [users[3]] }];
+        request.Version = (await ReadGenerationResponse("SaveSchedule", request)).Version;
+        var neighbours = await ReadPersistedSlots(request.GroupId);
+        request.StartUtc = anchor.AddHours(9);
+        request.EndUtc = anchor.AddHours(23);
+        request.Slots = [];
+        var preview = await ReadGenerationResponse("PreviewSchedule?generate=true", request);
+        Assert.AreEqual(2, preview.Slots.Count);
+        CollectionAssert.AreEqual(new[] { users[1], users[2] }, preview.Slots.Select(slot => slot.UserIds.Single()).ToArray());
+        CollectionAssert.AreEqual(SlotDetails(neighbours), SlotDetails(await ReadPersistedSlots(request.GroupId)));
+
+        request.StartUtc = preview.StartUtc;
+        request.EndUtc = preview.EndUtc;
+        var first = preview.Slots[0];
+        var split = first.StartsAtUtc.AddHours(4);
+        request.Slots = [new() { StartsAtUtc = first.StartsAtUtc, EndsAtUtc = split, Source = first.Source,
+                RotationPosition = first.RotationPosition, UserIds = first.UserIds },
+            new() { StartsAtUtc = split, EndsAtUtc = first.EndsAtUtc, Source = first.Source,
+                RotationPosition = first.RotationPosition, UserIds = first.UserIds }, preview.Slots[1]];
+        await ReadGenerationResponse("SaveSchedule", request);
+        var merged = await ReadPersistedSlots(request.GroupId);
+        CollectionAssert.AreEqual(SlotDetails(neighbours.Concat(preview.Slots)), SlotDetails(merged));
+        Assert.IsTrue(merged.Skip(1).Take(2).All(slot => slot.Source == OnCallShiftSource.Generated && slot.RotationPosition.HasValue));
+        Assert.AreEqual(neighbours[0].Id, merged[0].Id);
+        Assert.AreEqual(neighbours[1].Id, merged[^1].Id);
     }
 
     [TestMethod]

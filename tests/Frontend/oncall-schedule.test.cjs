@@ -203,9 +203,10 @@ function setup(options = {}) {
             const left = Date.parse(query.get('startUtc')), right = Date.parse(query.get('endUtc'));
             return { version: options.savedVersion || 'version', saved: options.saved !== false, autoExtend: options.autoExtend || false, lastShiftEndUtc: options.lastShiftEnd || null, slots: structuredClone(options.savedSlots || slots).filter(slot => Date.parse(slot.startsAtUtc) < right && Date.parse(slot.endsAtUtc) > left) };
         }
-        const startUtc = body.startUtc || new Date(utcForLocal(body.startLocal, zone)).toISOString();
-        const endUtc = body.endUtc || new Date(utcForLocal(body.endLocal, zone)).toISOString();
-        const resultSlots = url.includes('generate=true') ? (options.generatedSlots || [{ startsAtUtc: startUtc, endsAtUtc: endUtc, userIds: ['b'], source: 1 }]) : body.slots.map(resolved);
+        const generating = url.includes('generate=true');
+        const startUtc = (generating && options.generatedRange?.startUtc) || body.startUtc || new Date(utcForLocal(body.startLocal, zone)).toISOString();
+        const endUtc = (generating && options.generatedRange?.endUtc) || body.endUtc || new Date(utcForLocal(body.endLocal, zone)).toISOString();
+        const resultSlots = generating ? (options.generatedSlots || [{ startsAtUtc: startUtc, endsAtUtc: endUtc, userIds: ['b'], source: 1 }]) : body.slots.map(resolved);
         if (body.replaceRange) resultSlots.push(...structuredClone(options.boundaryFragments || []));
         if (url === '/preview?clear=true') return {
             version: 'version', startUtc, endUtc, slots: typeof options.clearSlots === 'function' ? options.clearSlots(body.slots.map(resolved), body) : options.clearSlots || [], replacedSlots: options.clearReplacedSlots || body.slots.map(resolved), warnings: [], timelineWarnings: [],
@@ -687,6 +688,59 @@ test('template generation stages confirmed draft only; cancelling and undo never
     await ui.click('redo-schedule'); await ui.click('save-schedule'); assert.equal(ui.request('/save').length, 1);
     assert(ui.request('/save')[0].body.slots.some(slot => slot.userIds.includes('b')));
 });
+test('outward-aligned generation replaces visible and staged shifts and saves full slots', async () => {
+    const visible = shift(156, 166, ['a'], 'visible');
+    const generated = { ...shift(160, 184, ['b']), source: 1, rotationPosition: 7 };
+    const ui = setup({ slots: [visible], generatedSlots: [generated], generatedRange: {
+        startUtc: generated.startsAtUtc, endUtc: generated.endsAtUtc
+    } }); await ui.flush();
+    await ui.input(ui.get('range-end'), '2026-10-19T12:00');
+    await ui.click('copy-range');
+    assert.equal(ui.get('copy-drafts').children.length, 1);
+    const original = ui.draft();
+    await ui.input(ui.get('range-end'), '2026-10-19T07:00');
+    await ui.click('generate');
+    assert.equal(ui.get('replace-confirm').hidden, false);
+    assert.match(ui.get('replaced-shifts').textContent, /Alice/);
+    assert.deepEqual(ui.draft(), original);
+    await ui.click('replace-cancel');
+    assert.equal(ui.get('copy-drafts').children.length, 1);
+    await ui.preview();
+    assert.equal(ui.request('/preview').at(-1).body.confirmReplace, undefined);
+    await ui.click('generate'); await ui.click('replace-apply');
+    await ui.preview();
+    assert.equal(ui.request('/preview').at(-1).body.confirmReplace, true);
+    assert.equal(ui.get('copy-drafts').children.length, 2);
+    assert.match(ui.get('copy-drafts').textContent, /2026-10-18T16:00 → 2026-10-19T16:00/);
+    await ui.click('undo-schedule');
+    assert.deepEqual(ui.draft(), original);
+    assert.equal(ui.get('copy-drafts').children.length, 1);
+    await ui.preview();
+    assert.equal(ui.request('/preview').at(-1).body.confirmReplace, undefined);
+    await ui.click('redo-schedule');
+    await ui.preview();
+    assert.equal(ui.request('/preview').at(-1).body.confirmReplace, true);
+    assert.equal(ui.request('/save').length, 0);
+    await ui.click('save-schedule');
+    const saved = ui.request('/save')[0].body;
+    assert.equal(saved.confirmReplace, true);
+    assert.equal(saved.replaceRange, undefined);
+    assert.equal(saved.endUtc, generated.endsAtUtc);
+    assert.deepEqual(saved.slots.filter(slot => slot.source === 1), [generated]);
+    assert.equal(saved.slots.find(slot => slot.id === 'visible').endsAtUtc, generated.startsAtUtc);
+});
+
+test('generation checks the merged range limit again after outward alignment', async () => {
+    const limit = Date.parse(start) + 92 * 24 * hour;
+    const ui = setup({ generatedRange: { startUtc: end, endUtc: new Date(limit + hour).toISOString() } }); await ui.flush();
+    await ui.input(ui.get('range-end'), localTime(limit, 'Asia/Shanghai'));
+    await ui.click('generate');
+    assert.equal(ui.request('/preview?generate=true').length, 1);
+    assert.match(ui.get('schedule-errors').textContent, /92 days/);
+    assert.equal(ui.get('replace-confirm').hidden, true);
+    assert.equal(ui.get('copy-drafts').children.length, 0);
+});
+
 test('copy rejects invalid or partially overlapping ranges without changing the draft', async () => {
     const ui = setup(); await ui.flush();
     await ui.input(ui.get('range-start'), '2026-10-20T00:00'); await ui.input(ui.get('range-end'), '2026-10-19T00:00');

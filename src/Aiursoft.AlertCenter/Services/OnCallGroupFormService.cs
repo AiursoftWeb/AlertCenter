@@ -54,7 +54,7 @@ public sealed class OnCallGroupFormService(IOnCallScheduleGenerator generator, I
         };
         if (rule == null) return result;
         if (IsUnaligned(rule, zone, anchor))
-            result.Warnings.Add(localizer["The start time does not match a weekly handover point; the first shift will be a partial segment."].Value);
+            result.Warnings.Add(localizer["The start time does not match a weekly handover point; the preview uses full template shifts."].Value);
         if (userIds.Count == 0)
         {
             result.Errors.Add(localizer["Add rotation queue members to preview shifts."].Value);
@@ -62,8 +62,10 @@ public sealed class OnCallGroupFormService(IOnCallScheduleGenerator generator, I
         }
         try
         {
-            var start = DateTime.SpecifyKind(lastShift?.EndsAtUtc ?? anchor, DateTimeKind.Utc);
-            var history = LastShiftHistory(rule, userIds, lastShift);
+            var start = OnCallScheduleGenerator.BoundaryAtOrBefore(rule, anchor, zone, lastShift?.EndsAtUtc ?? anchor);
+            IReadOnlyList<GeneratedOnCallShift> history = LastShiftHistory(rule, userIds, lastShift);
+            if (lastShift != null && lastShift.StartsAtUtc >= start)
+                history = OnCallScheduleGenerator.HistoryBeforeBoundary(history, start);
             result.Slots = generator.GenerateRange(rule, anchor, userIds, start, 4, zone, history)
                 .GroupBy(shift => (shift.StartsAtUtc, shift.EndsAtUtc))
                 .Select(batch => new OnCallSlotRequest
