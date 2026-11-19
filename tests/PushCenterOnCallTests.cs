@@ -89,7 +89,9 @@ public partial class PushCenterTests
         foreach (var delivery in deliveries) await _processor.ProcessAsync(delivery.Id, default);
         Assert.AreEqual(2, _email.Messages.Count);
         Assert.IsTrue(_email.Messages.All(message => message.Subject.Contains("Unresolved incident handover") &&
-            message.Body.Contains("Open outage") && message.Body.Contains($"/Incidents/Details/{incident.Id}")));
+            message.Body.Contains("1 total (SEV1 1), 1 unacknowledged") &&
+            message.Body.Contains($"/Incidents?ApplicationId={application.Id}") &&
+            !message.Body.Contains("Open outage") && !message.Body.Contains("/Incidents/Details/")));
         CollectionAssert.AreEquivalent(deliveries.Select(delivery => delivery.Id).ToArray(), _email.Messages.Select(message => message.NotificationId).ToArray());
         await OnCallMaintenanceWorker.MaintainGroupAsync(_db, TestLocalization.For<OnCallScheduleGenerator>(),
             TestLocalization.For<OnCallMaintenanceWorker>(), "https://example.com", group.Id, now, default);

@@ -1,4 +1,5 @@
 using System.Data;
+using System.Globalization;
 using System.Text;
 using Aiursoft.AlertCenter.Configuration;
 using Aiursoft.AlertCenter.Entities;
@@ -189,16 +190,13 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         var shiftIds = shifts.Select(shift => shift.Id).ToArray();
         var receipts = await db.Set<OnCallHandoverReceipt>().AsNoTracking().Where(receipt => shiftIds.Contains(receipt.ShiftId)).ToListAsync(token);
         var sent = receipts.Select(receipt => $"{receipt.ShiftId:N}:{receipt.UserId}").ToHashSet(StringComparer.Ordinal);
-        var incidents = await db.Incidents.AsNoTracking().Where(incident => incident.Application.OnCallGroupId == group.Id &&
-            incident.Status != Incident.Resolved).OrderBy(incident => incident.Level).ThenBy(incident => incident.OccurredAtUtc)
-            .ToListAsync(token);
-        var body = new StringBuilder().AppendLine(localizer["Unresolved incident handover"].Value).AppendLine(group.Name);
-        foreach (var incident in incidents)
-            body.AppendLine($"{incident.Level.ToUpperInvariant()} | {incident.Title} | {incident.Status} | ACK: {incident.IsAcknowledged} | {incident.OwnerDisplayName ?? incident.OwnerId ?? localizer["None"].Value}")
-                .AppendLine($"{baseUrl.TrimEnd('/')}/Incidents/Details/{incident.Id}");
+        List<HandoverIncident>? incidents = null;
+        string? summary = null;
+        baseUrl = baseUrl.TrimEnd('/');
         var notified = new HashSet<string>(StringComparer.Ordinal);
         foreach (var shift in shifts)
         {
+            string? body = null;
             var expired = shift.EndsAtUtc <= now;
             var previousIds = previous.Where(old => old.StartsAtUtc < shift.StartsAtUtc && old.EndsAtUtc >= shift.StartsAtUtc)
                 .SelectMany(old => old.Members.Select(member => member.UserId)).ToHashSet(StringComparer.Ordinal);
@@ -207,7 +205,14 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                 var key = $"{shift.Id:N}:{person.UserId}";
                 if (sent.Contains(key)) continue;
                 db.Add(new OnCallHandoverReceipt { ShiftId = shift.Id, UserId = person.UserId, ProcessedAtUtc = now });
-                if (expired || previousIds.Contains(person.UserId) || incidents.Count == 0 || !notified.Add(person.UserId)) continue;
+                if (expired || previousIds.Contains(person.UserId)) continue;
+                incidents ??= await db.Incidents.Where(incident => incident.Application.OnCallGroupId == group.Id &&
+                        incident.Status != Incident.Resolved)
+                    .Select(incident => new HandoverIncident(incident.ApplicationId, incident.Application.Name,
+                        incident.Level, incident.AcknowledgedAtUtc.HasValue)).ToListAsync(token);
+                if (incidents.Count == 0 || !notified.Add(person.UserId)) continue;
+                summary ??= BuildHandoverSummary(incidents, baseUrl, localizer);
+                body ??= BuildHandoverBody(group, shift, summary, baseUrl, localizer);
                 db.PushDeliveries.Add(new PushDelivery
                 {
                     CreatedAtUtc = now,
@@ -216,12 +221,59 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                         GroupId = group.Id, GroupName = group.Name, ShiftId = shift.Id, StartsAtUtc = shift.StartsAtUtc,
                         // 十六进制时间戳区分重新加入的交接，并在最长 UserId 下保持 key 不超过 500 字符。
                         EndsAtUtc = shift.EndsAtUtc, NotificationAtUtc = shift.StartsAtUtc, HandoverKey = $"{key}:{now.Ticks:x}",
-                        HandoverContent = body.ToString(), Recipients = [new OnCallEmailRecipient
+                        HandoverContent = body, Recipients = [new OnCallEmailRecipient
                             { UserId = person.UserId, DisplayName = person.User.DisplayName, Email = person.User.Email }]
                     }
                 });
             }
         }
+    }
+
+    private sealed record HandoverIncident(Guid ApplicationId, string ApplicationName, string Level, bool IsAcknowledged);
+
+    private const int HandoverApplicationLimit = 20;
+
+    private static string BuildHandoverSummary(List<HandoverIncident> incidents, string baseUrl, IStringLocalizer localizer)
+    {
+        var levels = string.Join(" · ", incidents.GroupBy(incident => incident.Level)
+            .OrderBy(level => level.Key, StringComparer.Ordinal)
+            .Select(level => $"{level.Key.ToUpperInvariant()} {level.Count()}"));
+        var applications = incidents.GroupBy(incident => new { incident.ApplicationId, incident.ApplicationName })
+            .Select(application => new { application.Key, Count = application.Count() })
+            .OrderByDescending(application => application.Count)
+            .ThenBy(application => application.Key.ApplicationName, StringComparer.Ordinal)
+            .ThenBy(application => application.Key.ApplicationId).ToList();
+        var summary = new StringBuilder()
+            .AppendLine(localizer["Unresolved incidents: {0} total ({1}), {2} unacknowledged",
+                incidents.Count, levels, incidents.Count(incident => !incident.IsAcknowledged)].Value)
+            .AppendLine()
+            .AppendLine(localizer["View by application:"].Value);
+        foreach (var application in applications.Take(HandoverApplicationLimit))
+        {
+            var label = localizer["{0} ({1} incidents)", application.Key.ApplicationName, application.Count].Value;
+            summary.AppendLine($"  {label}  {baseUrl}/Incidents?ApplicationId={application.Key.ApplicationId}");
+        }
+        if (applications.Count > HandoverApplicationLimit)
+            summary.AppendLine(localizer["{0} more applications", applications.Count - HandoverApplicationLimit].Value);
+        return summary.ToString();
+    }
+
+    private static string BuildHandoverBody(OnCallGroup group, OnCallShift shift, string summary, string baseUrl,
+        IStringLocalizer localizer)
+    {
+        // 无效时区不应阻断交接；改用 UTC 并在正文中标明。
+        var zone = TimeZoneInfo.TryFindSystemTimeZoneById(group.TimeZoneId, out var teamZone) ? teamZone : TimeZoneInfo.Utc;
+        var zoneId = teamZone == null ? zone.Id : group.TimeZoneId;
+        string LocalTime(DateTime utc) => TimeZoneInfo.ConvertTimeFromUtc(DateTime.SpecifyKind(utc, DateTimeKind.Utc), zone)
+            .ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+        return new StringBuilder()
+            .AppendLine(localizer["You are now on call: {0}", group.Name].Value)
+            .AppendLine(localizer["Shift: {0} – {1} ({2})", LocalTime(shift.StartsAtUtc), LocalTime(shift.EndsAtUtc), zoneId].Value)
+            .Append(summary)
+            .AppendLine()
+            .AppendLine(localizer["My on-call shifts: {0}", $"{baseUrl}/OnCall/Mine"].Value)
+            .AppendLine(localizer["Team schedule: {0}", $"{baseUrl}/OnCall/ScheduleDetails/{group.Id}"].Value)
+            .ToString();
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

@@ -1,3 +1,4 @@
+using System.Data.Common;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
@@ -13,6 +14,7 @@ public class OnCallMaintenanceTests
     private SqliteContext db = null!;
     private OnCallGroup group = null!;
     private SaveFailure saveFailure = null!;
+    private IncidentReads incidentReads = null!;
     private MaintenanceLogger logger = null!;
     private static readonly DateTime Now = new(2026, 9, 28, 14, 0, 0, DateTimeKind.Utc);
 
@@ -20,9 +22,10 @@ public class OnCallMaintenanceTests
     public async Task Setup()
     {
         saveFailure = new();
+        incidentReads = new();
         logger = new();
         db = new(new DbContextOptionsBuilder<SqliteContext>().UseSqlite("DataSource=:memory:")
-            .AddInterceptors(saveFailure).Options);
+            .AddInterceptors(saveFailure, incidentReads).Options);
         await db.Database.OpenConnectionAsync();
         await db.Database.MigrateAsync();
         db.Users.AddRange(new[] { "a", "b", "c", "d" }.Select(id => new User
@@ -49,6 +52,19 @@ public class OnCallMaintenanceTests
         var errors = await service.Save(new() { GroupId = group.Id, Version = savedGroup.ScheduleVersion,
             StartUtc = Now.AddDays(-1), Slots = slots.ToList() }, false, default);
         Assert.AreEqual(0, errors.Count, string.Join(" ", errors));
+    }
+
+    private sealed class IncidentReads : DbCommandInterceptor
+    {
+        public int Count { get; private set; }
+
+        public override ValueTask<InterceptionResult<DbDataReader>> ReaderExecutingAsync(DbCommand command,
+            CommandEventData eventData, InterceptionResult<DbDataReader> result, CancellationToken cancellationToken = default)
+        {
+            if (command.CommandText.Contains("FROM \"Incidents\"", StringComparison.OrdinalIgnoreCase) ||
+                command.CommandText.Contains("JOIN \"Incidents\"", StringComparison.OrdinalIgnoreCase)) Count++;
+            return base.ReaderExecutingAsync(command, eventData, result, cancellationToken);
+        }
     }
 
     private sealed class SaveFailure : SaveChangesInterceptor
@@ -503,10 +519,12 @@ public class OnCallMaintenanceTests
         Assert.AreEqual("c", delivery.OnCallEmail!.Recipients.Single().UserId);
         Assert.AreEqual(current.Id, delivery.OnCallEmail.ShiftId);
         var content = delivery.OnCallEmail.HandoverContent!;
-        foreach (var text in new[] { "SEV1", "Unresolved outage", "mitigated", "ACK: True", "Original owner", $"https://example.com/alerts/Incidents/Details/{open.Id}" })
+        foreach (var text in new[] { $"You are now on call: {group.Name}", "1 total (SEV1 1), 0 unacknowledged",
+            "App (1 incidents)", $"https://example.com/alerts/Incidents?ApplicationId={application.Id}",
+            "https://example.com/alerts/OnCall/Mine", $"https://example.com/alerts/OnCall/ScheduleDetails/{group.Id}" })
             Assert.Contains(text, content);
-        Assert.DoesNotContain("Resolved outage", content);
-        Assert.DoesNotContain("Foreign outage", content);
+        foreach (var text in new[] { "Unresolved outage", "Resolved outage", "Foreign outage", "Original owner", "/Incidents/Details/" })
+            Assert.DoesNotContain(text, content);
         db.ChangeTracker.Clear();
         await Maintain();
         Assert.AreEqual(1, await db.PushDeliveries.CountAsync());
@@ -514,6 +532,96 @@ public class OnCallMaintenanceTests
         db.OnCallEmailSnapshots.Add(new() { Delivery = new(), GroupId = group.Id, HandoverKey = delivery.OnCallEmail.HandoverKey });
         await Assert.ThrowsAsync<DbUpdateException>(() => db.SaveChangesAsync());
     }
+
+    [TestMethod]
+    public async Task HandoverSummarySortsLevelsAndApplicationsWithCounts()
+    {
+        AddSummaryShift();
+        var zebra = new SourceApplication { Name = "Zebra", OnCallGroupId = group.Id };
+        var beta = new SourceApplication { Name = "Beta", OnCallGroupId = group.Id };
+        var alpha = new SourceApplication { Name = "Alpha", OnCallGroupId = group.Id };
+        db.Incidents.AddRange(
+            new() { Application = zebra, Level = "sev2" },
+            new() { Application = zebra, Level = "sev3", AcknowledgedAtUtc = Now },
+            new() { Application = beta, Level = "sev2" },
+            new() { Application = alpha, Level = "sev1" });
+        await db.SaveChangesAsync();
+        await Maintain();
+
+        var content = (await db.OnCallEmailSnapshots.SingleAsync()).HandoverContent!;
+        Assert.Contains("4 total (SEV1 1 · SEV2 2 · SEV3 1), 3 unacknowledged", content);
+        CollectionAssert.AreEqual(new[] { AppLine(zebra, 2), AppLine(alpha, 1), AppLine(beta, 1) }, ApplicationLines(content));
+    }
+
+    [TestMethod]
+    public async Task HandoverSummaryListsOnlyFirstTwentyApplications()
+    {
+        AddSummaryShift();
+        var applications = Enumerable.Range(1, 22)
+            .Select(index => new SourceApplication { Name = $"App {index:D2}", OnCallGroupId = group.Id }).ToArray();
+        db.Incidents.AddRange(applications.Reverse().Select(application => new Incident { Application = application, Level = "sev1" }));
+        await db.SaveChangesAsync();
+        await Maintain();
+
+        var content = (await db.OnCallEmailSnapshots.SingleAsync()).HandoverContent!;
+        Assert.Contains("22 total (SEV1 22), 22 unacknowledged", content);
+        CollectionAssert.AreEqual(applications.Take(20).Select(application => AppLine(application, 1)).ToArray(), ApplicationLines(content));
+        Assert.Contains("2 more applications", content);
+    }
+
+    [TestMethod]
+    public async Task HandoverDoesNotReadIncidentsWhenNobodyNeedsAnEmail()
+    {
+        var current = AddSummaryShift();
+        group.HandoverCheckedThroughUtc = Now.AddHours(-3);
+        var expired = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-2), EndsAtUtc = Now,
+            Members = [new() { UserId = "b" }] };
+        current.Members.Add(new() { UserId = "b" });
+        db.OnCallShifts.Add(expired);
+        db.Add(new OnCallHandoverReceipt { ShiftId = current.Id, UserId = "a", ProcessedAtUtc = Now });
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id } });
+        await db.SaveChangesAsync();
+        var readsBefore = incidentReads.Count;
+        await Maintain();
+
+        Assert.AreEqual(readsBefore, incidentReads.Count);
+        Assert.AreEqual(0, await db.OnCallEmailSnapshots.CountAsync());
+        Assert.AreEqual(3, await db.Set<OnCallHandoverReceipt>().CountAsync());
+    }
+
+    [TestMethod]
+    public async Task HandoverSummaryShowsEachShiftInTeamTimeZone()
+    {
+        var first = AddSummaryShift();
+        var second = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-1), EndsAtUtc = Now.AddHours(4),
+            Members = [new() { UserId = "b" }] };
+        db.OnCallShifts.Add(second);
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id } });
+        await db.SaveChangesAsync();
+        var readsBefore = incidentReads.Count;
+        await Maintain();
+
+        var summaries = await db.OnCallEmailSnapshots.ToDictionaryAsync(snapshot => snapshot.ShiftId!.Value, snapshot => snapshot.HandoverContent!);
+        Assert.AreEqual(2, summaries.Count);
+        Assert.AreEqual(readsBefore + 1, incidentReads.Count);
+        Assert.Contains("Shift: 2026-09-28 22:00 – 2026-09-29 02:00 (Asia/Shanghai)", summaries[first.Id]);
+        Assert.Contains("Shift: 2026-09-28 21:00 – 2026-09-29 02:00 (Asia/Shanghai)", summaries[second.Id]);
+    }
+
+    private OnCallShift AddSummaryShift()
+    {
+        group.AutoExtend = false;
+        var shift = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddHours(4),
+            Members = [new() { UserId = "a" }] };
+        db.OnCallShifts.Add(shift);
+        return shift;
+    }
+
+    private static string AppLine(SourceApplication app, int count) =>
+        $"  {app.Name} ({count} incidents)  https://example.com/alerts/Incidents?ApplicationId={app.Id}";
+
+    private static string[] ApplicationLines(string content) => content.Split(Environment.NewLine)
+        .Where(line => line.Contains("/Incidents?ApplicationId=", StringComparison.Ordinal)).ToArray();
 
     [TestMethod]
     [DataRow(false)]
