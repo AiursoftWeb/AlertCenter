@@ -225,11 +225,51 @@ public class OnCallScheduleGeneratorTests
     }
 
     [TestMethod]
-    public void ContinuationStartsAfterLastAssigneeOrAtHeadIfTheyLeft()
+    public void ContinuationStartsAfterManualAssigneeStillInQueue()
     {
         var history = new[] { new GeneratedOnCallShift("b", Anchor.AddDays(-4), Anchor) };
         Assert.AreEqual("c", generator.Generate(new(), Anchor, ["a", "b", "c"], Anchor, 1, history)[0].UserId);
-        Assert.AreEqual("a", generator.Generate(new(), Anchor, ["a", "c"], Anchor, 1, history)[0].UserId);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public void ContinuationPreservesGeneratedPositionAfterAssigneeLeaves(bool useSavedShiftPosition)
+    {
+        var rule = new OnCallRule { ShiftHours = 12 };
+        string[] users = ["a", "b", "c"];
+        var previous = generator.GenerateRange(rule, Anchor, ["a", "departed", "b", "c"], Anchor, 1,
+            TimeZoneInfo.Utc, initialPosition: 1)[0];
+        var history = useSavedShiftPosition
+            ? OnCallScheduleGenerator.RotationHistory(rule, users, new OnCallShift
+            {
+                StartsAtUtc = previous.StartsAtUtc, EndsAtUtc = previous.EndsAtUtc,
+                RotationPosition = previous.RotationPosition, Members = [new OnCallShiftMember { UserId = previous.UserId }]
+            })
+            : [previous];
+
+        var next = generator.Generate(rule, Anchor, users, previous.EndsAtUtc, 1, history)[0];
+        Assert.AreEqual("c", next.UserId);
+        Assert.AreEqual(2L, next.RotationPosition);
+    }
+
+    [TestMethod]
+    [DataRow("", false)]
+    [DataRow("", true)]
+    [DataRow("departed", false)]
+    [DataRow("departed", true)]
+    public void ContinuationFallsBackWhenManualShiftHasNoQueuedAssignee(string assignee, bool hasEarlierOffset)
+    {
+        var rule = new OnCallRule { ShiftHours = 12 };
+        var start = Anchor.AddHours(24);
+        var adjacent = new GeneratedOnCallShift(assignee, Anchor.AddHours(12), start);
+        GeneratedOnCallShift[] history = hasEarlierOffset
+            ? [new("b", Anchor, Anchor.AddHours(12), 1), adjacent]
+            : [adjacent];
+
+        var next = generator.Generate(rule, Anchor, ["a", "b", "c", "d"], start, 1, history)[0];
+        Assert.AreEqual(hasEarlierOffset ? "d" : "c", next.UserId);
+        Assert.AreEqual(hasEarlierOffset ? 3L : 2L, next.RotationPosition);
     }
 
     [TestMethod]

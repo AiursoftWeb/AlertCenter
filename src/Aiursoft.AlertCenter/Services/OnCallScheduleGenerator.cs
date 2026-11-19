@@ -100,22 +100,26 @@ public sealed class OnCallScheduleGenerator(IStringLocalizer<OnCallScheduleGener
         var preceding = history?.Where(shift => shift.StartsAtUtc < start).ToArray();
         var adjacent = preceding?.Where(shift => shift.EndsAtUtc >= boundary)
             .OrderBy(shift => shift.EndsAtUtc).ThenBy(shift => shift.StartsAtUtc).LastOrDefault();
-        if (adjacent != null)
-        {
-            var index = ids.ToList().IndexOf(adjacent.UserId);
-            return index < 0 ? 0 : (adjacent.RotationPosition ?? index) + 1;
-        }
-
         long BasePosition(DateTime instant) => (rule.HandoverPoints.Count == 0
             ? Math.Max(0, (instant - anchor).Ticks / TimeSpan.FromMinutes(rule.ShiftMinutes ?? checked(rule.ShiftHours * 60)).Ticks)
             : ElapsedHandovers(rule.HandoverPoints, zone, anchor, instant)) * rule.StaffPerShift;
 
-        var position = BasePosition(start);
+        long ContinueFromSavedPosition(GeneratedOnCallShift shift, long savedPosition) =>
+            BasePosition(start) + savedPosition - BasePosition(DateTime.SpecifyKind(shift.StartsAtUtc, DateTimeKind.Utc));
+
+        if (adjacent != null)
+        {
+            if (adjacent.RotationPosition is { } rotationPosition) return rotationPosition + 1;
+            if (adjacent.SavedShiftPosition is { } savedPosition) return ContinueFromSavedPosition(adjacent, savedPosition);
+            var index = ids.ToList().IndexOf(adjacent.UserId);
+            if (index >= 0) return index + 1;
+        }
+
         var earlier = preceding?.Where(shift => shift.SavedShiftPosition.HasValue || shift.RotationPosition.HasValue)
             .OrderByDescending(shift => shift.EndsAtUtc).ThenByDescending(shift => shift.StartsAtUtc)
             .ThenBy(shift => shift.RotationPosition).FirstOrDefault();
         return (earlier?.SavedShiftPosition ?? earlier?.RotationPosition) is { } saved && earlier != null
-            ? position + saved - BasePosition(DateTime.SpecifyKind(earlier.StartsAtUtc, DateTimeKind.Utc)) : position;
+            ? ContinueFromSavedPosition(earlier, saved) : BasePosition(start);
     }
 
     internal static async Task<List<GeneratedOnCallShift>> LoadHistory(IQueryable<OnCallShift> shifts, OnCallRule rule,

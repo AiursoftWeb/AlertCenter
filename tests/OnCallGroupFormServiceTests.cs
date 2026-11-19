@@ -133,7 +133,7 @@ public class OnCallGroupFormServiceTests
     }
 
     [TestMethod]
-    public void SavedPreviewContinuesLastShiftCursorAndFallsBackForDepartedMembers()
+    public void SavedPreviewContinuesLastShiftCursorEvenWhenAssigneeIsMissing()
     {
         var now = new DateTime(2026, 11, 9, 14, 0, 0, DateTimeKind.Utc);
         var rule = new OnCallRule { ShiftMinutes = 60, SwapAlternateRounds = true };
@@ -150,10 +150,10 @@ public class OnCallGroupFormServiceTests
         CollectionAssert.AreEqual(expected.Select(shift => shift.UserId).ToArray(), preview.Slots.Select(slot => slot.UserIds.Single()).ToArray());
         last.Members = [new() { UserId = "departed" }];
         preview = Service().Preview(rule, TimeZoneInfo.Utc, now.AddDays(-7), ["a", "b", "c", "d"], now, true, last);
-        CollectionAssert.AreEqual(new[] { "a", "b", "c", "d" }, preview.Slots.Select(slot => slot.UserIds.Single()).ToArray());
+        CollectionAssert.AreEqual(expected.Select(shift => shift.UserId).ToArray(), preview.Slots.Select(slot => slot.UserIds.Single()).ToArray());
         last.Members = [];
         preview = Service().Preview(rule, TimeZoneInfo.Utc, now.AddDays(-7), ["a", "b", "c", "d"], now, true, last);
-        CollectionAssert.AreEqual(new[] { "a", "b", "c", "d" }, preview.Slots.Select(slot => slot.UserIds.Single()).ToArray());
+        CollectionAssert.AreEqual(expected.Select(shift => shift.UserId).ToArray(), preview.Slots.Select(slot => slot.UserIds.Single()).ToArray());
     }
 
     [TestMethod]
