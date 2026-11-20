@@ -16,6 +16,8 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         await using var scope = scopes.CreateAsyncScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
         var groupIds = await db.OnCallGroups.AsNoTracking().Select(group => group.Id).ToListAsync(token);
+        if (groupIds.Count == 0) return;
+        var policy = await new SeverityPolicyStore(db).LoadAsync(token);
         foreach (var groupId in groupIds)
         {
             await using var groupScope = scopes.CreateAsyncScope();
@@ -27,7 +29,7 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                     groupScope.ServiceProvider.GetRequiredService<IStringLocalizer<OnCallMaintenanceWorker>>(),
                     groupScope.ServiceProvider.GetRequiredService<IOptions<EmailSettings>>().Value.PublicBaseUrl,
                     groupId, now, token, groupScope.ServiceProvider.GetRequiredService<IStringLocalizerFactory>()
-                        .Create(typeof(OnCallScheduleValidator)), logger);
+                        .Create(typeof(OnCallScheduleValidator)), logger, policy);
             }
             catch (DbUpdateException exception)
             {
@@ -43,7 +45,8 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
 
     internal static async Task MaintainGroupAsync(TemplateDbContext db, IStringLocalizer<OnCallScheduleGenerator> generatorLocalizer,
         IStringLocalizer<OnCallMaintenanceWorker> localizer, string baseUrl, Guid groupId, DateTime now, CancellationToken token,
-        IStringLocalizer? validatorLocalizer = null, ILogger<OnCallMaintenanceWorker>? logger = null)
+        IStringLocalizer? validatorLocalizer = null, ILogger<OnCallMaintenanceWorker>? logger = null,
+        IncidentSeverityPolicy? policy = null)
     {
         await db.Database.CreateExecutionStrategy().ExecuteAsync(async () =>
         {
@@ -72,7 +75,7 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                 }
                 if (transaction != null) await transaction.ReleaseSavepointAsync("OnCallExtension", token);
             }
-            await QueueHandoversAsync(db, group, now, baseUrl, localizer, token);
+            await QueueHandoversAsync(db, group, now, baseUrl, localizer, policy, token);
             if (!group.HandoverCheckedThroughUtc.HasValue || group.HandoverCheckedThroughUtc < now)
                 group.HandoverCheckedThroughUtc = now;
             await db.SaveChangesAsync(token);
@@ -151,7 +154,7 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
     }
 
     private static async Task QueueHandoversAsync(TemplateDbContext db, OnCallGroup group, DateTime now, string baseUrl,
-        IStringLocalizer localizer, CancellationToken token)
+        IStringLocalizer localizer, IncidentSeverityPolicy? policy, CancellationToken token)
     {
         // 当前班段每轮按回执检查，覆盖手动换人和补建；游标补齐轮询间隔或重启期间已结束的班段。
         var checkedThrough = group.HandoverCheckedThroughUtc;
@@ -168,12 +171,11 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
         var receipts = await db.Set<OnCallHandoverReceipt>().AsNoTracking().Where(receipt => shiftIds.Contains(receipt.ShiftId)).ToListAsync(token);
         var sent = receipts.Select(receipt => $"{receipt.ShiftId:N}:{receipt.UserId}").ToHashSet(StringComparer.Ordinal);
         List<HandoverIncident>? incidents = null;
-        string? summary = null;
+        var access = new ApplicationAccessService(db);
         baseUrl = baseUrl.TrimEnd('/');
-        var notified = new HashSet<string>(StringComparer.Ordinal);
+        var considered = new HashSet<string>(StringComparer.Ordinal);
         foreach (var shift in shifts)
         {
-            string? body = null;
             var expired = shift.EndsAtUtc <= now;
             var previousIds = previous.Where(old => old.StartsAtUtc < shift.StartsAtUtc && old.EndsAtUtc >= shift.StartsAtUtc)
                 .SelectMany(old => old.Members.Select(member => member.UserId)).ToHashSet(StringComparer.Ordinal);
@@ -182,14 +184,25 @@ public class OnCallMaintenanceWorker(IServiceScopeFactory scopes, ILogger<OnCall
                 var key = $"{shift.Id:N}:{person.UserId}";
                 if (sent.Contains(key)) continue;
                 db.Add(new OnCallHandoverReceipt { ShiftId = shift.Id, UserId = person.UserId, ProcessedAtUtc = now });
-                if (expired || previousIds.Contains(person.UserId)) continue;
-                incidents ??= await db.Incidents.Where(incident => incident.Application.OnCallGroupId == group.Id &&
-                        incident.Status != Incident.Resolved)
-                    .Select(incident => new HandoverIncident(incident.ApplicationId, incident.Application.Name,
-                        incident.Level, incident.AcknowledgedAtUtc.HasValue)).ToListAsync(token);
-                if (incidents.Count == 0 || !notified.Add(person.UserId)) continue;
-                summary ??= BuildHandoverSummary(incidents, baseUrl, localizer);
-                body ??= BuildHandoverBody(group, shift, summary, baseUrl, localizer);
+                if (expired || previousIds.Contains(person.UserId) || !considered.Add(person.UserId)) continue;
+                if (incidents is { Count: 0 }) continue;
+                var applicationIds = await access.AccessibleApplicationIds(person.UserId, ApplicationPermission.ViewIncidents)
+                    .Where(id => db.SourceApplications.Any(application => application.Id == id && application.OnCallGroupId == group.Id))
+                    .ToHashSetAsync(token);
+                if (applicationIds.Count == 0) continue;
+                if (incidents == null)
+                {
+                    var severityPolicy = policy ?? await new SeverityPolicyStore(db).LoadAsync(token);
+                    var unresolved = await db.Incidents.Where(incident => incident.Application.OnCallGroupId == group.Id &&
+                            incident.Status != Incident.Resolved)
+                        .Select(incident => new HandoverIncident(incident.ApplicationId, incident.Application.Name,
+                            incident.Level, incident.AcknowledgedAtUtc.HasValue)).ToListAsync(token);
+                    incidents = unresolved.Where(incident => severityPolicy.Allows(incident.Level, "email")).ToList();
+                }
+                var visible = incidents.Where(incident => applicationIds.Contains(incident.ApplicationId)).ToList();
+                if (visible.Count == 0) continue;
+                var summary = BuildHandoverSummary(visible, baseUrl, localizer);
+                var body = BuildHandoverBody(group, shift, summary, baseUrl, localizer);
                 db.PushDeliveries.Add(new PushDelivery
                 {
                     CreatedAtUtc = now,

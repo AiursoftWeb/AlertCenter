@@ -80,6 +80,9 @@ public partial class PushCenterTests
         var application = await Application();
         var group = await OnCallTeam(application);
         var now = DateTime.UtcNow;
+        _db.ApplicationUserAccesses.AddRange(
+            new ApplicationUserAccess { ApplicationId = application.Id, UserId = "oce-alice", CanViewIncidents = true },
+            new ApplicationUserAccess { ApplicationId = application.Id, UserId = "oce-bob", CanViewIncidents = true });
         var incident = new Incident { ApplicationId = application.Id, Title = "Open outage", Level = "sev1", Status = Incident.Mitigated };
         _db.Incidents.Add(incident);
         await _db.SaveChangesAsync();

@@ -1,8 +1,10 @@
 using System.Data.Common;
+using System.Globalization;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Models;
 using Aiursoft.AlertCenter.Services;
 using Aiursoft.AlertCenter.Sqlite;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -39,6 +41,15 @@ public class OnCallMaintenanceTests
 
     [TestCleanup]
     public async Task Cleanup() => await db.DisposeAsync();
+
+    private SourceApplication HandoverApplication(string name, string ownerId = "a", params string[] viewers)
+    {
+        var application = new SourceApplication { Name = name, OnCallGroupId = group.Id, OwnerId = ownerId };
+        db.SourceApplications.Add(application);
+        db.ApplicationUserAccesses.AddRange(viewers.Select(userId => new ApplicationUserAccess
+            { ApplicationId = application.Id, UserId = userId, CanViewIncidents = true }));
+        return application;
+    }
 
     private Task Maintain(DateTime? now = null) => OnCallMaintenanceWorker.MaintainGroupAsync(db,
         TestLocalization.For<OnCallScheduleGenerator>(), TestLocalization.For<OnCallMaintenanceWorker>(),
@@ -122,7 +133,7 @@ public class OnCallMaintenanceTests
         var current = new OnCallShift { GroupId = healthyGroupId, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1),
             Members = [new() { UserId = "a" }] };
         db.OnCallShifts.Add(current);
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = healthyGroupId }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = healthyGroupId, OwnerId = "a" }, Title = "Open outage" });
         await db.SaveChangesAsync();
         var failure = new InvalidOperationException("Injected team maintenance failure.");
         saveFailure.Failure = failure;
@@ -421,7 +432,7 @@ public class OnCallMaintenanceTests
         var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1),
             Members = [new() { UserId = "a" }] };
         db.OnCallShifts.Add(current);
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App"), Title = "Open outage" });
         await db.SaveChangesAsync();
         var version = group.ScheduleVersion;
 
@@ -455,7 +466,7 @@ public class OnCallMaintenanceTests
         var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1),
             Source = OnCallShiftSource.Manual, Members = [new() { UserId = "a" }] };
         db.OnCallShifts.Add(current);
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App"), Title = "Open outage" });
         await db.SaveChangesAsync();
         var version = group.ScheduleVersion;
         var failure = (Exception)Activator.CreateInstance(exceptionType, "Injected extension failure.")!;
@@ -496,7 +507,7 @@ public class OnCallMaintenanceTests
         group.AutoExtend = false;
         db.OnCallShifts.Add(new() { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1),
             Members = [new() { UserId = "a" }] });
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App"), Title = "Open outage" });
         await db.SaveChangesAsync();
         var failure = new InvalidOperationException("Injected handover failure.");
         saveFailure.Failure = failure;
@@ -520,7 +531,7 @@ public class OnCallMaintenanceTests
         var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(4),
             Members = [new() { UserId = "b" }, new() { UserId = "c" }] };
         db.OnCallShifts.AddRange(previous, current);
-        var application = new SourceApplication { Name = "App", OnCallGroupId = group.Id };
+        var application = HandoverApplication("App", "c");
         var open = new Incident { Application = application, Title = "Unresolved outage", Level = "sev1", Status = Incident.Mitigated,
             AcknowledgedAtUtc = Now.AddHours(-1), OwnerId = "a", OwnerDisplayName = "Original owner" };
         db.Incidents.AddRange(open, new() { Application = application, Title = "Resolved outage", Status = Incident.Resolved },
@@ -547,12 +558,70 @@ public class OnCallMaintenanceTests
     }
 
     [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task HandoverSummaryOnlyCountsSeveritiesAllowedByEmailPolicy(bool includeAllowedIncident)
+    {
+        AddSummaryShift();
+        var application = HandoverApplication("App");
+        var blockedRule = await db.SeverityRules.SingleAsync(rule => rule.Level == "sev2");
+        blockedRule.Email = false;
+        db.Incidents.AddRange(new Incident { Application = application, Level = "sev2" },
+            new Incident { Application = application, Level = "sev4" });
+        if (includeAllowedIncident) db.Incidents.Add(new Incident { Application = application, Level = "sev1" });
+        await db.SaveChangesAsync();
+
+        await Maintain();
+        await Maintain(Now.AddMinutes(1));
+
+        Assert.AreEqual(1, await db.Set<OnCallHandoverReceipt>().CountAsync());
+        Assert.AreEqual(includeAllowedIncident ? 1 : 0, await db.OnCallEmailSnapshots.CountAsync());
+        if (!includeAllowedIncident) return;
+        var content = (await db.OnCallEmailSnapshots.SingleAsync()).HandoverContent!;
+        Assert.Contains("1 total (SEV1 1), 1 unacknowledged", content);
+        CollectionAssert.AreEqual(new[] { AppLine(application, 1) }, ApplicationLines(content));
+    }
+
+    [TestMethod]
+    public async Task HandoverSummaryOnlyCountsApplicationsEachRecipientCanView()
+    {
+        var shift = AddSummaryShift();
+        shift.Members.Add(new() { UserId = "b" });
+        shift.Members.Add(new() { UserId = "c" });
+        var owned = HandoverApplication("Owned by A");
+        var direct = HandoverApplication("Direct grant to A", "d", "a");
+        var roleGranted = HandoverApplication("Role grant to B", "d");
+        var role = new IdentityRole("Handover viewer");
+        db.Roles.Add(role);
+        db.UserRoles.Add(new() { UserId = "b", RoleId = role.Id });
+        db.ApplicationRoleAccesses.Add(new() { ApplicationId = roleGranted.Id, RoleId = role.Id, CanViewIncidents = true });
+        db.ApplicationUserAccesses.Add(new() { ApplicationId = roleGranted.Id, UserId = "c", CanManageApplication = true });
+        db.Incidents.AddRange(new Incident { Application = owned, Level = "sev1" },
+            new Incident { Application = direct, Level = "sev1" },
+            new Incident { Application = roleGranted, Level = "sev2", AcknowledgedAtUtc = Now });
+        await db.SaveChangesAsync();
+
+        await Maintain();
+        await Maintain(Now.AddMinutes(1));
+
+        var snapshots = await db.OnCallEmailSnapshots.Include(snapshot => snapshot.Recipients).ToListAsync();
+        var summaries = snapshots.ToDictionary(snapshot => snapshot.Recipients.Single().UserId,
+            snapshot => snapshot.HandoverContent!, StringComparer.Ordinal);
+        CollectionAssert.AreEquivalent(new[] { "a", "b" }, summaries.Keys.ToArray());
+        Assert.Contains("2 total (SEV1 2), 2 unacknowledged", summaries["a"]);
+        CollectionAssert.AreEqual(new[] { AppLine(direct, 1), AppLine(owned, 1) }, ApplicationLines(summaries["a"]));
+        Assert.Contains("1 total (SEV2 1), 0 unacknowledged", summaries["b"]);
+        CollectionAssert.AreEqual(new[] { AppLine(roleGranted, 1) }, ApplicationLines(summaries["b"]));
+        Assert.AreEqual(3, await db.Set<OnCallHandoverReceipt>().CountAsync());
+    }
+
+    [TestMethod]
     public async Task HandoverSummarySortsLevelsAndApplicationsWithCounts()
     {
         AddSummaryShift();
-        var zebra = new SourceApplication { Name = "Zebra", OnCallGroupId = group.Id };
-        var beta = new SourceApplication { Name = "Beta", OnCallGroupId = group.Id };
-        var alpha = new SourceApplication { Name = "Alpha", OnCallGroupId = group.Id };
+        var zebra = HandoverApplication("Zebra");
+        var beta = HandoverApplication("Beta");
+        var alpha = HandoverApplication("Alpha");
         db.Incidents.AddRange(
             new() { Application = zebra, Level = "sev2" },
             new() { Application = zebra, Level = "sev3", AcknowledgedAtUtc = Now },
@@ -571,7 +640,7 @@ public class OnCallMaintenanceTests
     {
         AddSummaryShift();
         var applications = Enumerable.Range(1, 22)
-            .Select(index => new SourceApplication { Name = $"App {index:D2}", OnCallGroupId = group.Id }).ToArray();
+            .Select(index => HandoverApplication(string.Create(CultureInfo.InvariantCulture, $"App {index:D2}"))).ToArray();
         db.Incidents.AddRange(applications.Reverse().Select(application => new Incident { Application = application, Level = "sev1" }));
         await db.SaveChangesAsync();
         await Maintain();
@@ -592,7 +661,7 @@ public class OnCallMaintenanceTests
         current.Members.Add(new() { UserId = "b" });
         db.OnCallShifts.Add(expired);
         db.Add(new OnCallHandoverReceipt { ShiftId = current.Id, UserId = "a", ProcessedAtUtc = Now });
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id } });
+        db.Incidents.Add(new() { Application = HandoverApplication("App") });
         await db.SaveChangesAsync();
         var readsBefore = incidentReads.Count;
         await Maintain();
@@ -609,7 +678,7 @@ public class OnCallMaintenanceTests
         var second = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-1), EndsAtUtc = Now.AddHours(4),
             Members = [new() { UserId = "b" }] };
         db.OnCallShifts.Add(second);
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id } });
+        db.Incidents.Add(new() { Application = HandoverApplication("App", "a", "b") });
         await db.SaveChangesAsync();
         var readsBefore = incidentReads.Count;
         await Maintain();
@@ -645,7 +714,7 @@ public class OnCallMaintenanceTests
         var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-1), EndsAtUtc = Now.AddHours(4),
             Members = [new() { UserId = "a" }] };
         db.OnCallShifts.Add(current);
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App", "a", "b"), Title = "Open outage" });
         await db.SaveChangesAsync();
         await Maintain();
 
@@ -670,7 +739,7 @@ public class OnCallMaintenanceTests
     public async Task BackdatedOngoingShiftNotifiesMembersDespiteCheckpoint()
     {
         group.AutoExtend = false;
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App", "b"), Title = "Open outage" });
         await db.SaveChangesAsync();
         await Maintain();
         Assert.AreEqual(Now, (await db.OnCallGroups.SingleAsync()).HandoverCheckedThroughUtc);
@@ -701,7 +770,7 @@ public class OnCallMaintenanceTests
             Members = [new() { UserId = "a" }, new() { UserId = "b" }] };
         db.OnCallShifts.AddRange(previous, current);
         db.Add(new OnCallHandoverReceipt { ShiftId = previous.Id, UserId = "b", ProcessedAtUtc = previous.StartsAtUtc });
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App", "a", "b"), Title = "Open outage" });
         await db.SaveChangesAsync();
         await Maintain();
         Assert.AreEqual(2, await db.PushDeliveries.CountAsync());
@@ -747,7 +816,7 @@ public class OnCallMaintenanceTests
         var current = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddHours(-1), EndsAtUtc = Now.AddHours(4),
             Members = [new() { UserId = "a" }] };
         db.OnCallShifts.AddRange(previous, current);
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App"), Title = "Open outage" });
         await db.SaveChangesAsync();
         await Maintain();
         var deliveryCount = await db.PushDeliveries.CountAsync();
@@ -772,7 +841,7 @@ public class OnCallMaintenanceTests
         db.OnCallShifts.AddRange(first, second);
         await db.SaveChangesAsync();
         await Maintain();
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App"), Title = "Open outage" });
         await db.SaveChangesAsync();
         db.ChangeTracker.Clear();
         await Maintain(Now.AddMinutes(3));
@@ -802,7 +871,7 @@ public class OnCallMaintenanceTests
         var ongoing = new OnCallShift { GroupId = group.Id, StartsAtUtc = Now.AddDays(-1), EndsAtUtc = Now.AddDays(1),
             Members = [new() { UserId = "a" }, new() { UserId = "c" }] };
         db.OnCallShifts.AddRange(expired, endingNow, ongoing);
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App", "a", "c"), Title = "Open outage" });
         await db.SaveChangesAsync();
         db.ChangeTracker.Clear();
 
@@ -876,7 +945,7 @@ public class OnCallMaintenanceTests
         group.AutoExtend = false;
         db.OnCallShifts.AddRange(new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1), Members = [new() { UserId = "a" }] },
             new OnCallShift { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(2), Members = [new() { UserId = "a" }] });
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Title = "Open outage" });
+        db.Incidents.Add(new() { Application = HandoverApplication("App"), Title = "Open outage" });
         await db.SaveChangesAsync();
         await Maintain();
         Assert.AreEqual(1, await db.PushDeliveries.CountAsync());
@@ -890,12 +959,12 @@ public class OnCallMaintenanceTests
     {
         group.AutoExtend = false;
         db.OnCallShifts.Add(new() { GroupId = group.Id, StartsAtUtc = Now, EndsAtUtc = Now.AddDays(1), Members = [new() { UserId = "a" }] });
-        db.Incidents.Add(new() { Application = new() { Name = "App", OnCallGroupId = group.Id }, Status = Incident.Resolved });
+        db.Incidents.Add(new() { Application = HandoverApplication("App"), Status = Incident.Resolved });
         await db.SaveChangesAsync();
         await Maintain();
         Assert.AreEqual(0, await db.PushDeliveries.CountAsync());
         Assert.AreEqual(1, await db.Set<OnCallHandoverReceipt>().CountAsync());
-        db.Incidents.Add(new() { Application = new() { Name = "Later app", OnCallGroupId = group.Id }, Title = "Later incident" });
+        db.Incidents.Add(new() { Application = HandoverApplication("Later app"), Title = "Later incident" });
         await db.SaveChangesAsync();
         await Maintain(Now.AddMinutes(1));
         Assert.AreEqual(0, await db.PushDeliveries.CountAsync());
