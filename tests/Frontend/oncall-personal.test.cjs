@@ -102,8 +102,7 @@ test('day overflow shows at most three shifts without losing the full ordered li
     }
 });
 
-function setup({ teamZone = 'UTC', browserZone = 'UTC', instant = '2026-11-09T00:00:00Z', clipboard } = {}) {
-    const time = { dateTime: instant, dataset: { zone: teamZone }, appended: [], append(value) { this.appended.push(value); } };
+function setup({ clipboard } = {}) {
     const countdown = { dataset: { countdown: '2026-11-10T02:05:00Z', label: 'Starts in' } };
     let click;
     let selected = false;
@@ -113,34 +112,20 @@ function setup({ teamZone = 'UTC', browserZone = 'UTC', instant = '2026-11-09T00
     const status = {};
     class FixedDate extends Date { static now() { return Date.parse('2026-11-09T00:00:00Z'); } }
     const international = {
-        DateTimeFormat: function (_, options = {}) { return new Intl.DateTimeFormat('en-US', { ...options, timeZone: options.timeZone || browserZone }); },
         NumberFormat: Intl.NumberFormat
     };
     vm.runInNewContext(script, {
         Intl: international, Date: FixedDate,
         document: {
-            querySelectorAll: selector => selector === '[data-oncall-time]' ? [time] : [countdown],
+            querySelectorAll: selector => { assert.equal(selector, '[data-countdown]'); return [countdown]; },
             querySelector: selector => selector === '[data-countdown]' ? countdown : button,
             getElementById: id => id === 'oncall-subscription' ? input : status
         },
         window: { setInterval(handler, milliseconds) { assert.equal(milliseconds, 30000); interval = handler; } },
         navigator: clipboard ? { clipboard } : {}
     });
-    return { time, countdown, click, status, input, interval, selected: () => selected };
+    return { countdown, click, status, input, interval, selected: () => selected };
 }
-
-test('team and browser times appear once when equal, including equivalent zone names', () => {
-    assert.equal(setup().time.appended.length, 0);
-    assert.equal(setup({ teamZone: 'Etc/UTC' }).time.appended.length, 0);
-    assert.equal(setup({ teamZone: 'Asia/Shanghai', browserZone: 'Asia/Singapore' }).time.appended.length, 0);
-});
-
-test('different browser zones show local times and offsets across DST', () => {
-    const winter = setup({ teamZone: 'UTC', browserZone: 'America/New_York' });
-    assert.match(winter.time.appended[0], /GMT-5.*America\/New_York/);
-    const summer = setup({ teamZone: 'UTC', browserZone: 'America/New_York', instant: '2026-07-09T00:00:00Z' });
-    assert.match(summer.time.appended[0], /GMT-4/);
-});
 
 test('countdown works without DurationFormat and never displays a negative duration', () => {
     const ui = setup();

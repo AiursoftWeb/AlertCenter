@@ -1,13 +1,5 @@
 (function () {
     'use strict';
-    const browserZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    document.querySelectorAll('[data-oncall-time]').forEach(function (element) {
-        const date = new Date(element.dateTime);
-        const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', timeZoneName: 'shortOffset' };
-        const team = new Intl.DateTimeFormat(undefined, Object.assign({}, options, { timeZone: element.dataset.zone })).format(date);
-        const local = new Intl.DateTimeFormat(undefined, options).format(date);
-        if (team !== local) element.append(' · ' + local + ' (' + browserZone + ')');
-    });
     function updateCountdowns() {
         document.querySelectorAll('[data-countdown]').forEach(function (element) {
             const minutes = Math.max(0, Math.ceil((new Date(element.dataset.countdown).getTime() - Date.now()) / 60000));
