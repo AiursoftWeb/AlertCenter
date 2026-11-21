@@ -24,14 +24,14 @@
                     }
                     @if (!vacant && team.Current.EndsAtUtc.HasValue)
                     {
-                        <span> · @viewLocalizer["Ends"] @await Html.PartialAsync("_OnCallTime", team.Current.EndsAtUtc.Value)</span>
+                        <span> · @viewLocalizer["Ends"] @await Html.PartialAsync("_OnCallTime", (team.Current.EndsAtUtc.Value, team.Group.TimeZoneId))</span>
                     }
                     <div class="small mt-1">@viewLocalizer["Next shift"]:
                         @if (team.Next != null)
                         {
                             @string.Join(", ", team.Next.Members.Select(member => member.User.DisplayName))
                             @if (team.Next.Members.Count == 0) { <span>@viewLocalizer["Nobody on duty"]</span> }
-                            <span> · @await Html.PartialAsync("_OnCallTime", team.Next.StartsAtUtc)</span>
+                            <span> · @await Html.PartialAsync("_OnCallTime", (team.Next.StartsAtUtc, team.Group.TimeZoneId))</span>
                         }
                         else { <span>@viewLocalizer["No upcoming shift"]</span> }
                     </div>

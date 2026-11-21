@@ -247,7 +247,9 @@ public class MyOnCallPagesTests : TestBase
         Assert.AreEqual(1, Regex.Matches(activeRow, "mailto:banner@example.com").Count);
         Assert.AreEqual(2, Regex.Matches(activeRow, "Banner coworker").Count);
         Assert.Contains("Next shift", activeRow);
-        Assert.AreEqual(2, Regex.Matches(activeRow, "data-utc-time=").Count);
+        Assert.AreEqual(2, Regex.Matches(activeRow, "data-oncall-time").Count);
+        Assert.AreEqual(2, Regex.Matches(activeRow, "data-zone=\"Asia/Shanghai\"").Count);
+        Assert.AreEqual(2, Regex.Matches(activeRow, "data-lucide=\"globe\"").Count);
         var otherRow = TeamRow(otherId);
         Assert.Contains("data-on-duty=\"false\"", otherRow);
         Assert.Contains("No upcoming shift", otherRow);
@@ -262,7 +264,7 @@ public class MyOnCallPagesTests : TestBase
         Assert.DoesNotContain($"data-team-id=\"{activeId}\"", detail);
         var mine = WebUtility.HtmlDecode(await Http.GetStringAsync("/OnCall/Mine"));
         Assert.Contains("On duty", mine);
-        Assert.Contains("data-utc-time=", mine);
+        Assert.Contains("data-oncall-time", mine);
         Assert.Contains("data-countdown=", mine);
         using (var scope = Server.Services.CreateScope())
         {
