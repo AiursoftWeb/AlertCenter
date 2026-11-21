@@ -1,8 +1,3 @@
-@using System.Globalization
-@model (DateTime Time, string Zone)
-@{
-    var utc = DateTime.SpecifyKind(Model.Time, DateTimeKind.Utc);
-    var zone = TimeZoneInfo.FindSystemTimeZoneById(Model.Zone);
-    var local = TimeZoneInfo.ConvertTime(new DateTimeOffset(utc), zone);
-}
-<time datetime="@utc.ToString("O", CultureInfo.InvariantCulture)" data-oncall-time data-zone="@Model.Zone">@local.ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.CurrentCulture) (@Model.Zone)</time>
+@using Aiursoft.WebTools
+@model DateTime
+<span data-utc-time="@Model.ToHtmlDateTime()"></span>

@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Services;
+using Aiursoft.WebTools;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
@@ -81,12 +82,13 @@ public class MyOnCallPagesTests : TestBase
             var article = Regex.Match(rawHtml, $"<article[^>]*data-personal-shift=\"{id}\".*?</article>", RegexOptions.Singleline).Value;
             Assert.Contains("Calendar coworker &lt;Chen&gt;", article);
             Assert.Contains("href=\"/OnCall/GroupDetails/", article);
-            Assert.AreEqual(2, Regex.Matches(article, "data-oncall-time").Count);
+            var shift = shifts.Single(value => value.GetProperty("id").GetGuid() == id);
+            Assert.AreEqual(2, Regex.Matches(article, "data-utc-time=").Count);
+            Assert.Contains($"data-utc-time=\"{shift.GetProperty("startsAtUtc").GetDateTime().ToHtmlDateTime()}\"", article);
+            Assert.Contains($"data-utc-time=\"{shift.GetProperty("endsAtUtc").GetDateTime().ToHtmlDateTime()}\"", article);
             Assert.Contains("48 hours", article);
         }
         Assert.Contains("id=\"personal-calendar-fallback\"", rawHtml);
-        Assert.Contains("data-zone=\"Asia/Shanghai\"", rawHtml);
-        Assert.Contains("data-zone=\"America/New_York\"", rawHtml);
         Assert.Contains($"data-personal-shift=\"{historyId}\"", rawHtml);
         Assert.DoesNotContain(unrelatedId.ToString(), rawHtml);
         Assert.DoesNotContain(outsideWindowId.ToString(), rawHtml);
@@ -237,12 +239,13 @@ public class MyOnCallPagesTests : TestBase
         Assert.AreEqual(1, Regex.Matches(activeRow, "mailto:banner@example.com").Count);
         Assert.AreEqual(2, Regex.Matches(activeRow, "Banner coworker").Count);
         Assert.Contains("Next shift", activeRow);
+        Assert.AreEqual(2, Regex.Matches(activeRow, "data-utc-time=").Count);
         var detail = WebUtility.HtmlDecode(await Http.GetStringAsync($"/OnCall/GroupDetails/{gapId}"));
         Assert.Contains("Alerts will go to fallback recipients", detail);
         Assert.DoesNotContain($"data-team-id=\"{activeId}\"", detail);
         var mine = WebUtility.HtmlDecode(await Http.GetStringAsync("/OnCall/Mine"));
         Assert.Contains("On duty", mine);
-        Assert.Contains("data-zone=\"Asia/Shanghai\"", mine);
+        Assert.Contains("data-utc-time=", mine);
         Assert.Contains("data-countdown=", mine);
         using (var scope = Server.Services.CreateScope())
         {

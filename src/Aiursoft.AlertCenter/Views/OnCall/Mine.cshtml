@@ -28,14 +28,14 @@
         <h2 class="h5 text-success">@viewLocalizer["On duty"]</h2>
         @foreach (var shift in Model.Current)
         {
-            <p>@shift.Group.Name · @viewLocalizer["Ends"] @await Html.PartialAsync("_OnCallTime", (shift.EndsAtUtc, shift.Group.TimeZoneId))
+            <p>@shift.Group.Name · @viewLocalizer["Ends"] @await Html.PartialAsync("_OnCallTime", shift.EndsAtUtc)
                 · <span data-countdown="@DateTime.SpecifyKind(shift.EndsAtUtc, DateTimeKind.Utc).ToString("O", CultureInfo.InvariantCulture)" data-label="@viewLocalizer["Remaining"]"></span></p>
         }
     }
     else if (Model.Next != null)
     {
         <h2 class="h5">@viewLocalizer["Next shift"] · @Model.Next.Group.Name</h2>
-        <p>@await Html.PartialAsync("_OnCallTime", (Model.Next.StartsAtUtc, Model.Next.Group.TimeZoneId))
+        <p>@await Html.PartialAsync("_OnCallTime", Model.Next.StartsAtUtc)
             · <span data-countdown="@DateTime.SpecifyKind(Model.Next.StartsAtUtc, DateTimeKind.Utc).ToString("O", CultureInfo.InvariantCulture)" data-label="@viewLocalizer["Starts in"]"></span></p>
     }
     else { <p class="mb-0">@viewLocalizer["No upcoming shift"]</p> }
