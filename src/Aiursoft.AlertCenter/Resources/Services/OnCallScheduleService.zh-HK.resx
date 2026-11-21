@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>請另行確認清空過往更次。</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>請確認替換現有排班後再進行生成。</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>現有排班的時段界線不完整；無法覆寫。</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>清空更表的範圍或操作無效。</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>團隊當地時間無效。在夏令時轉換期間，被跳過的時間為無效，而重複的時間使用標準時間。</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>待命團隊不存在。</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>請使用 UTC 時間指定排程時段。</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>輪班結束時間必須晚於開始時間。</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>排班表中的最低人數無效或不一致。</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>排班時間範圍不能超過 {0} 天，且須在目前時間前後 10 年內。</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>輪班請求格式無效。</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>團隊或排班已由另一位管理員修改。請重新整理頁面後再試一次。</value>
   </data>
+
 </root>

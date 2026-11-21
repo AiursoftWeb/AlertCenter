@@ -42,7 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>请单独确认清空历史班次。</value>
   </data>
-  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve"><value>请先确认要替换的已有班段，再生成排班。</value></data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>请先确认要替换的已有班段，再生成排班。</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>现有排班的时间边界不完整，无法覆盖。</value>
   </data>
@@ -52,7 +54,9 @@
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>排班清空范围或操作无效。</value>
   </data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>团队本地时间无效。夏令时切换期间，跳过的时刻无效，重复的时刻采用标准时间。</value></data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>团队本地时间无效。夏令时切换期间，跳过的时刻无效，重复的时刻采用标准时间。</value>
+  </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>值班团队不存在。</value>
   </data>
@@ -65,7 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>请使用 UTC 时间指定排班周期。</value>
   </data>
-  <data name="Shift end must be after its start." xml:space="preserve"><value>班段结束时间必须晚于开始时间。</value></data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>班段结束时间必须晚于开始时间。</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>排班中的最低人数无效或不一致。</value>
   </data>
@@ -75,8 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>排班时间范围不能超过 {0} 天，且须在当前时间前后 10 年内。</value>
   </data>
-  <data name="The shift request format is invalid." xml:space="preserve"><value>班段请求格式无效。</value></data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>班段请求格式无效。</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>团队或排班已被其他管理员修改。请刷新页面后重试。</value>
   </data>
+
 </root>
