@@ -18,30 +18,53 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-  <data name="An engineer exceeds the continuous on-call threshold." xml:space="preserve"><value>成员连续值班时长超过提醒阈值。</value></data>
-  <data name="An engineer has insufficient rest between shifts." xml:space="preserve"><value>成员在班段之间的休息时间不足。</value></data>
-  <data name="Automatic extension cannot proceed: the member count is below the template staff per shift." xml:space="preserve"><value>无法自动续排：成员数量少于模板规定的每班人数。</value></data>
-  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>无法保存{0}的重叠班段：{1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC 与 {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC。</value></data>
-      <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
+      <data name="An engineer exceeds the continuous on-call threshold." xml:space="preserve">
+    <value>成员连续值班时长超过提醒阈值。</value>
+  </data>
+  <data name="An engineer has insufficient rest between shifts." xml:space="preserve">
+    <value>成员在班段之间的休息时间不足。</value>
+  </data>
+  <data name="Automatic extension cannot proceed: the member count is below the template staff per shift." xml:space="preserve">
+    <value>无法自动续排：成员数量少于模板规定的每班人数。</value>
+  </data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve">
+    <value>无法保存{0}的重叠班段：{1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC 与 {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC。</value>
+  </data>
+  <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
     <value>在 {0:yyyy-MM-dd HH:mm} UTC 检测到空班次。至少需要安排一名员工。</value>
   </data>
-  <data name="Future shift includes a departed team member." xml:space="preserve"><value>未来班段中仍有已离队的成员。</value></data>
+  <data name="Future shift includes a departed team member." xml:space="preserve">
+    <value>未来班段中仍有已离队的成员。</value>
+  </data>
   <data name="Includes employees not belonging to the current team." xml:space="preserve">
     <value>包含不属于当前团队的员工。</value>
   </data>
   <data name="Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." xml:space="preserve">
     <value>{1:yyyy-MM-dd HH:mm} UTC 时安排的员工仅有 {0} 人，低于最低要求 {2} 人。尽管人员不足，仍允许手动保存，但空班次除外。</value>
   </data>
-  <data name="Schedule contains a coverage gap." xml:space="preserve"><value>排班存在无人覆盖的空档。</value></data>
-  <data name="Schedule contains overlapping shifts." xml:space="preserve"><value>排班存在重叠班段。</value></data>
-  <data name="Shift end must be after its start." xml:space="preserve"><value>班段结束时间必须晚于开始时间。</value></data>
-  <data name="Shift has no on-duty engineers." xml:space="preserve"><value>班段尚未安排值班人。</value></data>
-  <data name="Shift staffing is below the team threshold." xml:space="preserve"><value>班段人数低于团队提醒阈值。</value></data>
-  <data name="Unassigned" xml:space="preserve"><value>未分配人员</value></data>
+  <data name="Schedule contains a coverage gap." xml:space="preserve">
+    <value>排班存在无人覆盖的空档。</value>
+  </data>
+  <data name="Schedule contains overlapping shifts." xml:space="preserve">
+    <value>排班存在重叠班段。</value>
+  </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>班段结束时间必须晚于开始时间。</value>
+  </data>
+  <data name="Shift has no on-duty engineers." xml:space="preserve">
+    <value>班段尚未安排值班人。</value>
+  </data>
+  <data name="Shift staffing is below the team threshold." xml:space="preserve">
+    <value>班段人数低于团队提醒阈值。</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未分配人员</value>
+  </data>
   <data name="{0}&apos;s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." xml:space="preserve">
     <value>{0}在 {1:yyyy-MM-dd HH:mm} UTC 的班次与其他班次重叠，或休息时间不足（本周最少休息 {2} 小时，同时满足相邻班次要求）。</value>
   </data>
   <data name="{0}&apos;s shift is outside the designated 8-hour window." xml:space="preserve">
     <value>{0}的班次不在指定的 8 小时时间段内。</value>
   </data>
+
 </root>
