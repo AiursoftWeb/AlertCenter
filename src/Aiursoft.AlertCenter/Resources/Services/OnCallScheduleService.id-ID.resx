@@ -36,17 +36,26 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Tidak dapat menambahkan karyawan yang telah keluar dari tim atau bukan anggota tim.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Pilih apakah akan menonaktifkan perpanjangan otomatis atau membuat ulang sif dalam rentang yang dikosongkan.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Konfirmasikan penghapusan sif terdahulu secara terpisah.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Batas waktu jadwal yang ada tidak lengkap; tidak dapat ditimpa.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Format permintaan jadwal minggu berdekatan tidak valid; Anda dapat mengirimkan maksimal dua minggu (minggu sebelumnya dan berikutnya).</value>
   </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Rentang atau tindakan pengosongan jadwal tidak valid.</value>
+  </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Tim piket tidak ada.</value>
   </data>
-  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
-    <value>Harap tetapkan aturan penjadwalan ke tim terlebih dahulu.</value>
+  <data name="Please bind a scheduling template to the team first." xml:space="preserve">
+    <value>Tautkan templat jadwal ke tim terlebih dahulu.</value>
   </data>
   <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
     <value>Silakan pilih siklus piket lengkap selama tujuh hari yang dimulai dari titik acuan tim.</value>
@@ -60,8 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Durasi istirahat dalam jadwal tidak valid atau tidak konsisten.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Rentang jadwal tidak boleh melebihi {0} hari dan harus berada dalam batas 10 tahun sebelum atau sesudah waktu saat ini.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Tim atau jadwal telah diubah oleh administrator lain. Silakan muat ulang halaman dan coba lagi.</value>
   </data>
-
 </root>

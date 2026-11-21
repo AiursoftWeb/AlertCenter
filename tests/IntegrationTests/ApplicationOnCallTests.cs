@@ -225,8 +225,13 @@ public partial class IncidentPagesTests
         var details = WebUtility.HtmlDecode(await Http.GetStringAsync(detailsUrl));
         Assert.Contains("bound to an integrated app", details);
         Assert.DoesNotContain("action=\"/OnCall/DeleteGroup\"", details);
-        using var blocked = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, $"/Applications/OnCall/{id}");
+        using var blocked = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString(), ["confirmationName"] = "Protected team" }, $"/Applications/OnCall/{id}");
         Assert.AreEqual(HttpStatusCode.Conflict, blocked.StatusCode);
+        Assert.Contains("Other bound application", details);
+        Assert.Contains($"/Applications/OnCall/{otherId}", details);
+        var conflict = await blocked.Content.ReadAsStringAsync();
+        Assert.Contains("Other bound application", conflict);
+        Assert.Contains($"/Applications/OnCall/{otherId}", conflict);
         using (var scope = Server!.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -239,14 +244,14 @@ public partial class IncidentPagesTests
         {
             ["ApplicationId"] = id.ToString(), ["OnCallGroupId"] = string.Empty
         }, $"/Applications/OnCall/{id}"), $"/Applications/OnCall/{id}");
-        using var stillBound = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, $"/Applications/OnCall/{id}");
+        using var stillBound = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString(), ["confirmationName"] = "Protected team" }, $"/Applications/OnCall/{id}");
         Assert.AreEqual(HttpStatusCode.Conflict, stillBound.StatusCode);
         AssertRedirect(await PostForm("/Applications/DeleteApplication", new()
         {
             ["id"] = otherId.ToString(), ["confirmationName"] = "Other bound application"
         }, "/Applications/Applications"), "/Applications/Applications");
         Assert.AreEqual(HttpStatusCode.OK, (await Http.GetAsync(detailsUrl)).StatusCode);
-        AssertRedirect(await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, detailsUrl), "/OnCall/Groups");
+        AssertRedirect(await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString(), ["confirmationName"] = "Protected team" }, detailsUrl), "/OnCall/Groups");
         Assert.IsNull(await ApplicationTeam(id));
         Assert.AreEqual(HttpStatusCode.NotFound, (await Http.GetAsync(detailsUrl)).StatusCode);
     }

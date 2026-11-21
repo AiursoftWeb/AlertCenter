@@ -14,19 +14,30 @@
     }
 
     const edges = { previous: false, next: false };
+    const duration = Number(chart.dataset.duration || 168);
     const toggles = [...document.querySelectorAll('[data-oncall-edge]')];
     function layout() {
         const before = edges.previous ? 36 : 0;
-        const hours = 168 + before + (edges.next ? 36 : 0);
+        const hours = duration + before + (edges.next ? 36 : 0);
+        chart.dataset.beforeHours = String(before);
+        chart.dataset.afterHours = String(edges.next ? 36 : 0);
         chart.querySelector('.ac-gantt').style.minWidth = `calc(var(--ac-gantt-name-width) + var(--ac-gantt-toggle-width) + ${hours * 160 / 24}px)`;
         chart.querySelectorAll('[style]').forEach(item => {
             if (!item.style.left || !item.style.left.endsWith('%')) return;
+            if (item.dataset.shiftStartHour != null) {
+                const left = Math.max(-before, Number(item.dataset.shiftStartHour));
+                const right = Math.min(hours - before, Number(item.dataset.shiftEndHour));
+                item.hidden = right <= left;
+                item.dataset.layoutLeft = String(left / duration * 100);
+                item.dataset.layoutWidth = String(Math.max(0, right - left) / duration * 100);
+            }
             item.dataset.layoutLeft ??= item.style.left.slice(0, -1);
             if (item.style.width?.endsWith('%')) item.dataset.layoutWidth ??= item.style.width.slice(0, -1);
-            item.style.left = `${(Number(item.dataset.layoutLeft) * 168 + before * 100) / hours}%`;
-            if (item.dataset.layoutWidth) item.style.width = `${Number(item.dataset.layoutWidth) * 168 / hours}%`;
+            item.style.left = `${(Number(item.dataset.layoutLeft) * duration + before * 100) / hours}%`;
+            if (item.dataset.layoutWidth) item.style.width = `${Number(item.dataset.layoutWidth) * duration / hours}%`;
         });
         chart.querySelectorAll('[data-edge="previous"], [data-edge="next"]').forEach(item => item.hidden = !edges[item.dataset.edge]);
+        chart.dispatchEvent(new Event('oncall-packed'));
         toggles.forEach(button => {
             const edge = button.dataset.oncallEdge;
             button.setAttribute('aria-expanded', String(edges[edge]));
@@ -38,6 +49,7 @@
         edges[edge] = !edges[edge];
         chart.dispatchEvent(new Event('oncall-edge-change'));
         layout();
+        chart.dispatchEvent(new Event('oncall-edge-layout'));
         if (edges[edge]) chart.scrollLeft = edge === 'previous' ? 0 : Math.max(0, chart.scrollWidth - chart.clientWidth);
     }));
     chart.addEventListener('oncall-layout', layout);

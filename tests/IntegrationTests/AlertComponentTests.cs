@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
@@ -172,7 +173,7 @@ public partial class IncidentPagesTests
             await db.SaveChangesAsync();
             groupId = group.Id;
         }
-        var html = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(start.ToString("O"))}");
+        var html = await Http.GetStringAsync($"/OnCall/ScheduleDetails/{groupId}?startUtc={Uri.EscapeDataString(start.ToString("O", CultureInfo.InvariantCulture))}");
         var alerts = AssertUiStackAlerts(html);
         var staffing = alerts.Single(alert => WebUtility.HtmlDecode(alert.Message).Contains("staffing reminders"));
         Assert.Contains("alert-warning", staffing.Classes);
@@ -182,9 +183,9 @@ public partial class IncidentPagesTests
         Assert.IsFalse(Regex.IsMatch(staffing.Message, "<details\\b[^>]*\\bopen", RegexOptions.Singleline));
         var rules = Regex.Match(html, "<details class=\"card mt-3\">(.*?)</details>", RegexOptions.Singleline).Groups[1].Value;
         Assert.Contains("id=\"oncall-shared-members\"", rules);
-        Assert.Contains("Cross-on-call-group members require manual scheduling", WebUtility.HtmlDecode(rules));
+        Assert.Contains("Members shared with other on-call teams", WebUtility.HtmlDecode(rules));
         Assert.IsFalse(alerts.Any(alert => alert.Root.Contains("id=\"oncall-shared-members\"")));
-        Assert.IsTrue(alerts.Any(alert => WebUtility.HtmlDecode(alert.Message).Contains("unassigned shifts")));
+        Assert.IsTrue(alerts.Any(alert => WebUtility.HtmlDecode(alert.Message).Contains("coverage gap")));
         var summary = alerts.Single(alert => alert.Classes.Contains("alert-primary"));
         Assert.Contains("role=\"status\"", summary.Root);
         Assert.Contains("Starting soon", WebUtility.HtmlDecode(summary.Message));
@@ -192,7 +193,7 @@ public partial class IncidentPagesTests
         Assert.IsTrue(alerts.Where(alert => alert.Classes.Contains("alert-warning"))
             .All(alert => alert.Root.Contains("role=\"alert\"") && !alert.Root.Contains("data-bs-dismiss=\"alert\"")));
         var groupDetails = AssertUiStackAlerts(await Http.GetStringAsync($"/OnCall/GroupDetails/{groupId}"));
-        Assert.IsTrue(groupDetails.Any(alert => alert.Classes.Contains("alert-info")));
+        Assert.IsTrue(groupDetails.Any(alert => alert.Root.Contains("id=\"delete-oncall-group-description\"")));
     }
 
     [TestMethod]
@@ -208,7 +209,7 @@ public partial class IncidentPagesTests
         var groupId = Guid.Parse(groupLocation.Split('/').Last());
         var groupAlerts = AssertDismissibleSuccess(await Http.GetStringAsync(groupLocation));
         Assert.IsTrue(groupAlerts.Any(alert => alert.Root.Contains("id=\"delete-oncall-group-description\"")));
-        using var groupDeleted = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString() }, groupLocation);
+        using var groupDeleted = await PostForm("/OnCall/DeleteGroup", new() { ["id"] = groupId.ToString(), ["confirmationName"] = "Alert success team" }, groupLocation);
         AssertRedirect(groupDeleted, "/OnCall/Groups");
         AssertDismissibleSuccess(await Http.GetStringAsync(groupDeleted.Headers.Location));
 

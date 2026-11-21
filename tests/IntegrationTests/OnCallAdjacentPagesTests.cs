@@ -35,7 +35,7 @@ public class OnCallAdjacentPagesTests : TestBase
     [DataRow(true, 2026, 10, 24)]
     [DataRow(false, 2026, 3, 8)]
     [DataRow(false, 2026, 10, 24)]
-    public async Task Adjacent36HoursStayReadOnlyAcrossDstAndKeepSavedWeekMetadataAndDepartedMembers(bool administrator, int year, int month, int day)
+    public async Task Adjacent36HoursRespectPermissionsAcrossDstAndKeepSavedWeekMetadataAndDepartedMembers(bool administrator, int year, int month, int day)
     {
         if (administrator) await LoginAsAdmin();
         else await RegisterAndLoginAsync();
@@ -82,31 +82,34 @@ public class OnCallAdjacentPagesTests : TestBase
         Assert.Contains("data-departed=\"true\"", html);
         var adjacent = Regex.Matches(rawHtml, "<button[^>]*class=\"ac-gantt-shift ac-gantt-adjacent\"[^>]*>")
             .Select(match => WebUtility.HtmlDecode(match.Value)).ToArray();
-        Assert.AreEqual(10, adjacent.Length);
+        Assert.AreEqual(administrator ? 0 : 10, adjacent.Length);
         Assert.IsTrue(adjacent.All(shift => shift.Contains("data-readonly=\"true\"") && shift.Contains("hidden=\"hidden\"") && !shift.Contains("data-slot=")));
         Assert.IsTrue(adjacent.All(shift => shift.Contains($"data-group-id=\"{id}\"") && shift.Contains("Adjacent team")));
         var adjacentContents = Regex.Matches(html, "<button[^>]*class=\"ac-gantt-shift ac-gantt-adjacent\"[^>]*>(.*?)</button>", RegexOptions.Singleline)
             .Select(match => match.Groups[1].Value).ToArray();
-        Assert.AreEqual(10, adjacentContents.Length);
+        Assert.AreEqual(administrator ? 0 : 10, adjacentContents.Length);
         Assert.IsTrue(adjacentContents.All(content => content.Contains("Adjacent team (Read-only)")));
         var zone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
         string LocalTime(DateTime time) => TimeZoneInfo.ConvertTime(new DateTimeOffset(time), zone).ToString("yyyy-MM-dd HH:mm zzz", CultureInfo.InvariantCulture);
         var end = start.AddDays(7);
         foreach (var edge in new[] { "previous", "next" })
         {
-            var bars = adjacent.Where(shift => shift.Contains($"data-edge=\"{edge}\"")).ToArray();
-            Assert.AreEqual(5, bars.Length);
-            var hours = bars.Select(Geometry).ToArray();
-            Assert.AreEqual(1, hours.Count(span => Math.Abs(span.Width - 4) < 0.000001));
-            Assert.AreEqual(4, hours.Count(span => Math.Abs(span.Width - 8) < 0.000001));
-            Assert.AreEqual(36, hours.Sum(span => span.Width), 0.000001);
-            var boundary = edge == "previous" ? -36 : 168;
-            Assert.AreEqual(boundary, hours.Min(span => span.Left), 0.000001);
-            Assert.AreEqual(boundary + 36, hours.Max(span => span.Left + span.Width), 0.000001);
-            var fullStart = edge == "previous" ? start.AddHours(-40) : end.AddHours(32);
-            var clipped = bars.Single(shift => shift.Contains($"data-start=\"{LocalTime(fullStart)}\""));
-            Assert.Contains($"data-end=\"{LocalTime(fullStart.AddHours(8))}\"", clipped);
-            Assert.AreEqual(4, Geometry(clipped).Width, 0.000001);
+            if (!administrator)
+            {
+                var bars = adjacent.Where(shift => shift.Contains($"data-edge=\"{edge}\"")).ToArray();
+                Assert.AreEqual(5, bars.Length);
+                var hours = bars.Select(Geometry).ToArray();
+                Assert.AreEqual(1, hours.Count(span => Math.Abs(span.Width - 4) < 0.000001));
+                Assert.AreEqual(4, hours.Count(span => Math.Abs(span.Width - 8) < 0.000001));
+                Assert.AreEqual(36, hours.Sum(span => span.Width), 0.000001);
+                var boundary = edge == "previous" ? -36 : 168;
+                Assert.AreEqual(boundary, hours.Min(span => span.Left), 0.000001);
+                Assert.AreEqual(boundary + 36, hours.Max(span => span.Left + span.Width), 0.000001);
+                var fullStart = edge == "previous" ? start.AddHours(-40) : end.AddHours(32);
+                var clipped = bars.Single(shift => shift.Contains($"data-start=\"{LocalTime(fullStart)}\""));
+                Assert.Contains($"data-end=\"{LocalTime(fullStart.AddHours(8))}\"", clipped);
+                Assert.AreEqual(4, Geometry(clipped).Width, 0.000001);
+            }
             var edgeStart = edge == "previous" ? start.AddHours(-36) : end;
             Assert.Contains($"{LocalTime(edgeStart)[..16]} → {LocalTime(edgeStart.AddHours(36))[..16]}", html);
             var gridTicks = Regex.Matches(html, $"<div class=\"ac-gantt-grid-tick\" data-edge=\"{edge}\"[^>]*>")
@@ -131,29 +134,36 @@ public class OnCallAdjacentPagesTests : TestBase
             Assert.AreEqual(dateHeaders.Length, dayGrid.Length);
             Assert.IsTrue(dateHeaders.Length >= 2);
             Assert.AreEqual(36, dayGrid.Sum(bar => Geometry(bar).Width), 0.000001);
-            Assert.IsTrue(dateHeaders.All(header => header.Contains("<strong>") && header.Contains(" · Read-only") && header.Contains("hidden")));
+            Assert.IsTrue(dateHeaders.All(header => header.Contains("<strong>") && header.Contains(" · Read-only") != administrator && header.Contains("hidden")));
         }
-        Assert.Contains("36 hours before this week (read-only)", html);
-        Assert.Contains("36 hours after this week (read-only)", html);
-        Assert.IsTrue(adjacent.Any(shift => shift.Contains("-04:00")) && adjacent.Any(shift => shift.Contains("-05:00")));
+        if (!administrator)
+        {
+            Assert.Contains("36 hours before this week (read-only)", html);
+            Assert.Contains("36 hours after this week (read-only)", html);
+            Assert.IsTrue(adjacent.Any(shift => shift.Contains("-04:00")) && adjacent.Any(shift => shift.Contains("-05:00")));
+        }
         if (administrator)
         {
-            Assert.Contains("id=\"oncall-copy-confirm\"", html);
-            Assert.Contains("id=\"oncall-copy-next\"", html);
+            Assert.Contains("id=\"oncall-replace-confirm\"", html);
+            Assert.Contains("id=\"oncall-copy-range\"", html);
             var root = Regex.Match(rawHtml, "<div id=\"oncall-schedule\"[^>]*>").Value;
             Assert.Contains("data-group-name=\"Adjacent team\"", root);
-            using var weeks = JsonDocument.Parse(WebUtility.HtmlDecode(Regex.Match(root, "data-weeks=\"([^\"]*)\"").Groups[1].Value));
-            Assert.AreEqual(3, weeks.RootElement.GetArrayLength());
-            Assert.IsTrue(weeks.RootElement[0].GetProperty("saved").GetBoolean());
-            Assert.AreEqual(0, weeks.RootElement[0].GetProperty("restHours").GetInt32());
-            Assert.AreEqual(8, weeks.RootElement[2].GetProperty("restHours").GetInt32());
-            Assert.AreEqual(2, weeks.RootElement[2].GetProperty("minimumStaff").GetInt32());
             using var slots = JsonDocument.Parse(WebUtility.HtmlDecode(Regex.Match(root, "data-slots=\"([^\"]*)\"").Groups[1].Value));
-            Assert.AreEqual(63, slots.RootElement.GetArrayLength());
+            Assert.AreEqual(0, slots.RootElement.GetArrayLength());
+            using var context = JsonDocument.Parse(WebUtility.HtmlDecode(Regex.Match(root, "data-context=\"([^\"]*)\"").Groups[1].Value));
+            var draft = context.RootElement.EnumerateArray().Where(slot => !slot.GetProperty("external").GetBoolean()).ToArray();
+            Assert.AreEqual(42, draft.Length);
+            foreach (var edgeStart in new[] { start.AddHours(-36), end })
+            {
+                var edgeEnd = edgeStart.AddHours(36);
+                var intersecting = draft.Where(slot => slot.GetProperty("startsAtUtc").GetDateTime() < edgeEnd &&
+                    slot.GetProperty("endsAtUtc").GetDateTime() > edgeStart).ToArray();
+                Assert.AreEqual(5, intersecting.Length);
+                Assert.IsTrue(intersecting.All(slot => slot.GetProperty("id").GetGuid() != Guid.Empty));
+            }
             AssertCurrentFormSlots(html);
             var cells = Regex.Matches(html, "<button[^>]*class=\"ac-gantt-cell\"[^>]*>").Select(match => match.Value).ToArray();
-            Assert.AreEqual(21, cells.Length);
-            Assert.IsTrue(cells.All(cell => int.Parse(Regex.Match(cell, "data-slot=\"([0-9]+)\"").Groups[1].Value) is >= 21 and < 42));
+            Assert.AreEqual(0, cells.Length);
         }
         else
         {
@@ -178,11 +188,9 @@ public class OnCallAdjacentPagesTests : TestBase
 
     private static void AssertCurrentFormSlots(string html)
     {
-        var select = Regex.Match(html, "<select id=\"oncall-edit-slot\"[^>]*>(.*?)</select>", RegexOptions.Singleline).Groups[1].Value;
-        var values = Regex.Matches(select, "<option value=\"([0-9]+)\"").Select(match => int.Parse(match.Groups[1].Value)).ToArray();
-        CollectionAssert.AreEqual(Enumerable.Range(21, 21).ToArray(), values);
-        Assert.DoesNotContain("<optgroup label=\"Previous week\"", select);
-        Assert.DoesNotContain("<optgroup label=\"Next week\"", select);
+        Assert.Contains("id=\"oncall-shift-rows\"", html);
+        Assert.Contains("data-preview-url=\"/OnCall/PreviewSchedule\"", html);
+        Assert.DoesNotContain("id=\"oncall-edit-slot\"", html);
     }
 
     private static void AssertEdgeFrame(string html)

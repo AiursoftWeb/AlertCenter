@@ -36,17 +36,26 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Не можна додавати працівників, які залишили команду або не належать до неї.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Виберіть, чи вимкнути автоматичне продовження, чи повторно створити зміни в очищеному діапазоні.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Окремо підтвердьте видалення минулих змін.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Межі часу в наявному розкладі неповні; перезаписати неможливо.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Неприпустимий формат запиту на розклад суміжних тижнів; можна надіслати не більше двох тижнів (попередній і наступний).</value>
   </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Неприпустимий діапазон або дія очищення розкладу.</value>
+  </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Команда чергування не існує.</value>
   </data>
-  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
-    <value>Спочатку прив’яжіть до команди правило планування.</value>
+  <data name="Please bind a scheduling template to the team first." xml:space="preserve">
+    <value>Спочатку прив’яжіть шаблон розкладу до команди.</value>
   </data>
   <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
     <value>Виберіть повний семиденний цикл чергування, що починається з початкової дати команди.</value>
@@ -60,8 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Тривалість відпочинку в розкладі недійсна або не узгоджується.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Період розкладу не повинен перевищувати {0} днів і має бути в межах 10 років до або після поточного моменту.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Команда або розклад були змінені іншим адміністратором. Оновіть сторінку та спробуйте ще раз.</value>
   </data>
-
 </root>

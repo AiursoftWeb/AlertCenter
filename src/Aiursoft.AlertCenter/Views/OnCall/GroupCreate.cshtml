@@ -6,6 +6,10 @@
 <p class="text-muted">@Localizer["Manage team settings and the people available for on-call scheduling."]</p>
 <div class="card"><div class="card-body"><partial name="_GroupForm" model="Model" /></div></div>
 
+@section styles {
+    <link rel="stylesheet" href="~/styles/oncall-group-form.css" asp-append-version="true" />
+}
+
 @section scripts {
     <script src="~/scripts/oncall-group-form.js" asp-append-version="true"></script>
     <script src="~/scripts/oncall-member-search.js" asp-append-version="true"></script>

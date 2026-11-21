@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>Edit tim</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Masukkan nama tim secara persis untuk mengonfirmasi penghapusan.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Penerima cadangan</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Giliran kerja mendatang mencakup giliran kerja yang sedang berlangsung. Templat dan catatan pengiriman notifikasi insiden tetap disimpan. Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Kelola anggota</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>Berikutnya: tugaskan orang ke giliran kerja</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Belum ada penerima cadangan yang dikonfigurasi. Peringatan tidak dapat dikirim saat tidak ada yang piket.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>Tidak ada anggota tim.</value>
@@ -63,32 +75,44 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>Email piket otomatis dikirim ke kotak surat pengguna (Kepada) milik semua Insinyur Piket (OCE) yang tercantum dalam jadwal giliran yang saat ini tersimpan. CC hanya menggunakan kotak surat tim atau alamat milis yang secara eksplisit dikonfigurasi oleh administrator; semua anggota tim tidak otomatis di-CC. Kanal push khusus yang dikonfigurasi dalam aplikasi tetap akan mengirimkan notifikasi tambahan.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Anggota piket (antrean rotasi)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>Buka jadwal</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Per giliran</value>
-  </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Templat aturan belum ditautkan; penjadwalan manual masih tersedia.</value>
-  </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Templat aturan:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Templat aturan tidak dapat dihapus. Hanya tim tanpa shift tersimpan dan tanpa aplikasi tertaut yang dapat dihapus. Tindakan ini tidak dapat dibatalkan.</value>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Menerima peringatan saat tidak ada yang piket; tidak ikut dalam rotasi.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Titik awal penjadwalan:</value>
   </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Staf per sif</value>
+  </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Konfigurasi Tim</value>
+  </data>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Templat belum ditautkan; penjadwalan manual tetap tersedia.</value>
+  </data>
+  <data name="Template:" xml:space="preserve">
+    <value>Templat:</value>
+  </data>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Templat tidak dihapus. Hanya tim tanpa sif tersimpan dan aplikasi tertaut yang dapat dihapus. Tindakan ini tidak dapat dibatalkan.</value>
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Templat dapat digunakan bersama oleh beberapa tim; mengubah atau mengganti templat tidak akan membuat ulang giliran kerja yang sudah tersimpan.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Orang pertama dalam antrean mendapat giliran piket pertama. Sif yang ada tidak diurutkan ulang.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>Daftar anggota menunjukkan siapa yang dapat dijadwalkan. Jadwal yang tersimpan menunjukkan siapa yang sedang bertugas dan menerima email insiden. Penerima CC menerima salinan terlepas dari keanggotaan grup.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Nama tim tidak cocok.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>Tim ini memiliki jadwal giliran kerja tersimpan dan tidak dapat dihapus demi menjaga riwayat penjadwalan.</value>
@@ -102,11 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>Lihat jadwal piket</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Sebanyak {0} giliran kerja mendatang dan {1} giliran kerja sebelumnya akan dihapus. Insiden yang sudah ada tetap menyimpan catatan petugas siaganya.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>jam</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>jam · Istirahat minimum</value>
   </data>
-
 </root>

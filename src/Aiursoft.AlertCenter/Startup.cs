@@ -72,6 +72,7 @@ public class Startup : IWebStartup
         services.AddHttpClient("PushWebhook", client => client.Timeout = TimeSpan.FromSeconds(10))
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { AllowAutoRedirect = false, UseCookies = false });
         services.AddHostedService<PushDeliveryWorker>();
+        services.AddHostedService<OnCallMaintenanceWorker>();
         services.AddAssemblyDependencies(typeof(Startup).Assembly);
         services.AddSingleton<NavigationState<Startup>>();
         services.AddSingleton<IncidentEmbeddingCache>();

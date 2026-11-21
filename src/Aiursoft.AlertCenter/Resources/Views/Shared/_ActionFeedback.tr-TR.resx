@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Ekleme modu: 8 saatlik bir vardiya eklemek için mühendisin satırındaki boş alana tıklayın; bir vardiyayı birden fazla kişi paylaşabilir.</value>
   </data>
+  <data name="Add on-call members to preview the rotation."><value>Rotasyonu önizlemek için nöbetçi üyeler ekleyin.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Acil çağrı vardiyası ekle</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Eklendi</value>
   </data>
+  <data name="Already selected"><value>Zaten seçili</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Düzenlemeye Dön</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Yenilemeyi iptal et</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation."><value>Rotasyonu önizlemek için bir planlama şablonu seçin.</value></data>
   <data name="Close" xml:space="preserve">
     <value>Kapat</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>Bitiş</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts."><value>Vardiyaları önizlemek için planlama başlangıcını girin.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Yorum içeriği girin; yalnızca boşluk içeremez.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>Kaldırıldı</value>
   </data>
+  <data name="Reorder {0}"><value>{0} sırasını değiştir</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>İstek geçersiz veya sayfa kimlik bilgileri geçersiz. Gerekirse yeniden denemek için girdileri kontrol edip sayfayı yenileyin.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Personel düzenlemesi yapıldı ve grafik güncellendi; henüz kaydedilmedi.</value>
   </data>
+  <data name="Start at {0}"><value>{0} saatinde başlat</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Panoya başarıyla kopyalandı!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Doğrudan takas yapılamıyor: bir kişi zaten hedef vardiyada. Önce aynı vardiyadaki üyeleri &quot;Vardiya üzerinden üye ekleme/kaldırma&quot; kullanarak ayarlayın.</value>
   </data>
+  <data name="Unable to update the preview. Please try again."><value>Önizleme güncellenemedi. Tekrar deneyin.</value></data>
+  <data name="Unassigned"><value>Atanmamış</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Kaydedilmedi · Düzenleme taslağı</value>
   </data>
+  <data name="Updating shift preview…"><value>Vardiya önizlemesi güncelleniyor…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Kullanıcı Grubu · Üyeler, bağlı izinleri dinamik olarak devralır</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} saat</value>
   </data>
+  <data name="{0} moved to position {1} of {2}."><value>{0}, {2} kişiden {1}. sıraya taşındı.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0}, {1} için vardiya · {2}; henüz kaydedilmedi. Bunu geri alabilirsiniz.</value>
   </data>
@@ -351,5 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 saat · {3}{4}</value>
   </data>
-
 </root>

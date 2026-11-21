@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Modo de adición: haz clic en el espacio vacío de la fila del ingeniero para añadir un turno de 8 horas; varias personas pueden compartir un turno.</value>
   </data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>Añada miembros de guardia para previsualizar la rotación.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Añadir turno de guardia</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Añadido</value>
   </data>
+  <data name="Already selected" xml:space="preserve"><value>Ya seleccionado</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Volver a editar</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Cancelar actualización</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>Elija una plantilla para previsualizar la rotación.</value></data>
   <data name="Close" xml:space="preserve">
     <value>Cerrar</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>Fin</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>Introduzca el inicio de la planificación para previsualizar los turnos.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Introduce el contenido del comentario; no puede contener solo espacios en blanco.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>Eliminado</value>
   </data>
+  <data name="Reorder {0}" xml:space="preserve"><value>Reordenar {0}</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>Solicitud no válida o credenciales de la página caducadas. Comprueba la entrada y actualiza la página para reintentar si es necesario.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Personal ajustado y gráfico actualizado; aún no guardado.</value>
   </data>
+  <data name="Start at {0}" xml:space="preserve"><value>Empezar a las {0}</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>¡Copiado correctamente al portapapeles!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>No se puede intercambiar directamente: una persona ya está en el turno de destino. Ajuste primero los miembros del mismo turno usando &quot;Añadir/quitar miembros por turno&quot;.</value>
   </data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>No se puede actualizar la vista previa. Inténtelo de nuevo.</value></data>
+  <data name="Unassigned" xml:space="preserve"><value>Sin asignar</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Sin guardar · Borrador de ajustes</value>
   </data>
+  <data name="Updating shift preview…" xml:space="preserve"><value>Actualizando la vista previa…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Grupo de usuarios · Los miembros heredan dinámicamente los permisos vinculados</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} horas</value>
   </data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} movido a la posición {1} de {2}.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} turno para {1} · {2}; aún no guardado. Puedes deshacer esto.</value>
   </data>
@@ -351,5 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 horas · {3}{4}</value>
   </data>
-
 </root>

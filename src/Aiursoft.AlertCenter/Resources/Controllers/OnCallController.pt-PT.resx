@@ -24,45 +24,51 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>Já existe um horário guardado; não é possível alterar o ponto de início do horário da equipa.</value>
   </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Adicione membros à fila de rotação para pré-visualizar os turnos.</value></data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>A geração automática requer pelo menos {0} elementos por turno e {1} horas de descanso, o que implica um mínimo de {2} membros. Após excluir os membros pertencentes a vários grupos de prevenção, é possível criar automaticamente a escala de {3} membros; adicione membros pertencentes a um único grupo ou organize a escala manualmente.</value>
   </data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>A extensão automática requer pelo menos {0} membros na fila de rotação para o modelo selecionado.</value></data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>Três turnos fixos por dia, com 8 horas cada.</value>
   </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Hora local da equipa inválida. Nas mudanças da hora de verão, as horas ignoradas são inválidas e as repetidas usam a hora padrão.</value></data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>O período mínimo de descanso deve ser de 0–168 horas.</value>
   </data>
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>O número mínimo de funcionários por turno tem de ser entre 1 e 200.</value>
   </data>
-  <data name="No rules bound to the team yet. You can manually create a schedule." xml:space="preserve">
-    <value>Ainda não existem regras associadas à equipa. Pode criar um horário manualmente.</value>
+  <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
+    <value>Ainda não foi associado nenhum modelo à equipa. Pode criar uma escala manualmente.</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>Introduza o nome da regra.</value>
-  </data>
+  <data name="On-call team does not exist." xml:space="preserve"><value>A equipa de prevenção não existe.</value></data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Introduza o nome da equipa.</value>
+  </data>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>Introduza o nome do modelo.</value>
   </data>
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Selecione uma hora de início UTC válida (tem de estar a pelo menos 28 dias dos limites do intervalo de datas).</value>
   </data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Selecione uma hora de início local válida da equipa (pelo menos 28 dias dos limites de data).</value></data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>Selecione um fuso horário válido da lista.</value>
   </data>
-  <data name="Please select an existing on-call rule." xml:space="preserve">
-    <value>Selecione uma regra de prevenção de serviço existente.</value>
+  <data name="Please select an existing scheduling template." xml:space="preserve">
+    <value>Selecione um modelo de escala existente.</value>
   </data>
-  <data name="Scheduling rule created successfully." xml:space="preserve">
-    <value>Regra de agendamento criada com sucesso.</value>
+  <data name="Scheduling template created successfully." xml:space="preserve">
+    <value>Modelo de escala criado com sucesso.</value>
   </data>
-  <data name="Scheduling rule deleted." xml:space="preserve">
-    <value>Regra de agendamento eliminada.</value>
+  <data name="Scheduling template deleted." xml:space="preserve">
+    <value>Modelo de escala eliminado.</value>
   </data>
-  <data name="Scheduling rule updated." xml:space="preserve">
-    <value>Regra de agendamento atualizada.</value>
+  <data name="Scheduling template updated." xml:space="preserve">
+    <value>Modelo de escala atualizado.</value>
   </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>O número de funcionários por turno excede o número de membros destas equipas com a extensão automática ativada: {0}.</value></data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>O número de pessoas pretendido não pode ser inferior ao mínimo e tem de estar entre 1 e 200. Deixe em branco para atribuição automática.</value>
   </data>
@@ -75,9 +81,6 @@
   <data name="Team updated." xml:space="preserve">
     <value>Equipa atualizada.</value>
   </data>
-  <data name="The rule or team has changed. Refresh the page and try again." xml:space="preserve">
-    <value>A regra ou a equipa foi alterada. Atualize a página e tente novamente.</value>
-  </data>
   <data name="The schedule has changed or a save conflict occurred. Please refresh the page and try again." xml:space="preserve">
     <value>A agenda foi alterada ou ocorreu um conflito ao guardar. Atualize a página e tente novamente.</value>
   </data>
@@ -87,14 +90,19 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>O formato do pedido de turno é inválido.</value>
   </data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>A hora de início não corresponde a uma passagem semanal; o primeiro turno será parcial.</value></data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>O nome da equipa não corresponde.</value>
+  </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>A equipa ou o horário foi alterado. Atualize a página e tente novamente.</value>
   </data>
+  <data name="The team preview request format is invalid." xml:space="preserve"><value>O formato do pedido de pré-visualização da equipa é inválido.</value></data>
+  <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
+    <value>O modelo ou a equipa mudou. Atualize a página e tente novamente.</value>
+  </data>
   <data name="There are {0} unassigned shifts this week. Please fill in on-call personnel manually." xml:space="preserve">
     <value>Há {0} turnos por atribuir esta semana. Atribua manualmente os elementos de prevenção.</value>
-  </data>
-  <data name="This rule is still bound to a team. Please update the team&apos;s rule binding first." xml:space="preserve">
-    <value>Esta regra continua associada a uma equipa. Atualize primeiro a associação da regra à equipa.</value>
   </data>
   <data name="This team has saved schedules and cannot be deleted along with its history." xml:space="preserve">
     <value>Esta equipa tem horários guardados e não pode ser eliminada juntamente com o respetivo histórico.</value>
@@ -102,8 +110,10 @@
   <data name="This team is bound to an integrated app. Please reassign or unbind the app&apos;s on-call group first." xml:space="preserve">
     <value>Esta equipa está associada a uma aplicação integrada. Reatribua ou desvincule primeiro o grupo de prevenção da aplicação.</value>
   </data>
+  <data name="This template is still bound to a team. Please update the team&apos;s template binding first." xml:space="preserve">
+    <value>Este modelo ainda está associado a uma equipa. Atualize primeiro a associação do modelo da equipa.</value>
+  </data>
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>Não foi possível gerar a pré-visualização: {0}</value>
   </data>
-
 </root>

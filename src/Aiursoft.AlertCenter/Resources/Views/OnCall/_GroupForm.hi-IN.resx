@@ -27,12 +27,22 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>उन्नत शेड्यूलिंग सेटिंग्स</value>
   </data>
+  <data name="Advanced settings"><value>उन्नत सेटिंग्स</value></data>
+  <data name="All scheduling times below use the team time zone."><value>नीचे सभी शेड्यूल समय टीम के समय क्षेत्र का उपयोग करते हैं।</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks"><value>जुड़े टेम्पलेट को अगले चार सप्ताह तक अपने आप बढ़ाएँ</value></data>
+  <data name="Basic information"><value>मूल जानकारी</value></data>
   <data name="Cancel" xml:space="preserve">
     <value>रद्द करें</value>
+  </data>
+  <data name="Choose a template to enable automatic extension."><value>स्वचालित विस्तार सक्षम करने के लिए टेम्पलेट चुनें।</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>टीम के शेड्यूल का स्वचालित विस्तार और एक क्लिक में निर्माण करने के लिए शिफ्ट का विभाजन और रोटेशन तय करें। टेम्पलेट बदलने से पहले से निर्धारित शिफ्ट प्रभावित नहीं होतीं।</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>हटाया गया कर्मचारी</value>
   </data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>टेम्पलेट न जोड़ें (मैन्युअल शेड्यूलिंग)</value>
   </data>
@@ -42,12 +52,14 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>UTC में दर्ज करें; इसे टीम के समय क्षेत्रों के आधार पर अपने आप परिवर्तित नहीं किया जाएगा। एक शिफ़्ट सहेजने के बाद, शेड्यूलिंग का प्रारंभ बिंदु बदला नहीं जा सकता।</value>
   </data>
+  <data name="Fallback recipients"><value>वैकल्पिक प्राप्तकर्ता</value></data>
   <data name="Filter by role" xml:space="preserve">
     <value>भूमिका के अनुसार फ़िल्टर करें</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>खोजें</value>
   </data>
+  <data name="Friday"><value>शुक्रवार</value></data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>सहायता: सूचना CC</value>
   </data>
@@ -66,24 +78,31 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>मदद: टीम का समय क्षेत्र</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>कई टीमें एक ही टेम्पलेट साझा कर सकती हैं। टेम्पलेट बदलने या उसमें संशोधन करने से पहले से सहेजी गई शिफ़्टें दोबारा नहीं बनेंगी।</value>
-  </data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
+  <data name="Maximum continuous duty reminder (hours)"><value>अधिकतम निरंतर ड्यूटी अनुस्मारक (घंटे)</value></data>
+  <data name="Minimum rest reminder (hours)"><value>न्यूनतम विश्राम अनुस्मारक (घंटे)</value></data>
+  <data name="Minimum staffing reminder"><value>न्यूनतम कर्मचारी अनुस्मारक</value></data>
+  <data name="Monday"><value>सोमवार</value></data>
   <data name="Name or Account" xml:space="preserve">
     <value>नाम या खाता</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>अगला पृष्ठ</value>
   </data>
+  <data name="Next four shifts preview"><value>अगली चार शिफ्टों का पूर्वावलोकन</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>वैकल्पिक प्राप्तकर्ता नहीं हैं: किसी के ऑन-कॉल न होने पर अलर्ट नहीं भेजे जा सकते।</value></data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>अभी तक कोई सदस्य नहीं है। लोगों को खोजने के लिए “सदस्य जोड़ें” खोलें।</value>
   </data>
+  <data name="No members yet. Search below to add people."><value>अभी कोई सदस्य नहीं है। लोगों को जोड़ने के लिए नीचे खोजें।</value></data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>सूचना CC (वैकल्पिक)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>ऑन-कॉल ईमेल में प्रतिलिपि</value>
   </data>
+  <data name="On-call members (rotation queue)"><value>ऑन-कॉल सदस्य (रोटेशन कतार)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
   <data name="Previous Page" xml:space="preserve">
     <value>पिछला पृष्ठ</value>
   </data>
@@ -93,6 +112,7 @@
   <data name="Rotation order" xml:space="preserve">
     <value>क्रम निर्धारण</value>
   </data>
+  <data name="Saturday"><value>शनिवार</value></data>
   <data name="Save changes" xml:space="preserve">
     <value>परिवर्तन सहेजें</value>
   </data>
@@ -102,12 +122,14 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>सेव करने पर इन सदस्यों को उन शिफ़्टों से हटा दिया जाएगा जो अभी शुरू नहीं हुई हैं। शेड्यूल में खाली जगहों की जाँच करें।</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>शेड्यूलिंग नियम टेम्पलेट</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>शेड्यूलिंग टेम्पलेट</value>
   </data>
+  <data name="Scheduling method"><value>शेड्यूल विधि</value></data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>शेड्यूलिंग प्रारंभ बिंदु (UTC)</value>
   </data>
+  <data name="Scheduling start point (team time)"><value>शेड्यूल का प्रारंभ (टीम समय)</value></data>
   <data name="Search Employees" xml:space="preserve">
     <value>कर्मचारियों को खोजें</value>
   </data>
@@ -117,9 +139,13 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>नाम या खाते के आधार पर खोजें, या कोई भूमिका चुनें।</value>
   </data>
+  <data name="Search by name or account."><value>नाम या खाते से खोजें।</value></data>
+  <data name="Search fallback recipients"><value>वैकल्पिक प्राप्तकर्ता खोजें</value></data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>भूमिका का चयन करने से केवल खोज को फ़िल्टर किया जाता है। उन्हें जोड़ने के लिए व्यक्तिगत लोगों पर टिक लगाएं; टीम सदस्यता उस भूमिका के साथ समकालिक नहीं होती है।</value>
   </data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
+  <data name="Sunday"><value>रविवार</value></data>
   <data name="Team members" xml:space="preserve">
     <value>टीम के सदस्य</value>
   </data>
@@ -129,12 +155,15 @@
   <data name="Team settings" xml:space="preserve">
     <value>टीम सेटिंग्स</value>
   </data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Thursday"><value>गुरुवार</value></data>
   <data name="Time Zone" xml:space="preserve">
     <value>समय क्षेत्र</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>प्रति: घटना के समय सहेजी गई शिफ्ट में नियुक्त लोगों को। मूल OCE प्राप्तकर्ताओं को बाद के घटना-संबंधी ईमेल के लिए बनाए रखा जाता है। CC हर घटना-संबंधी ईमेल पर लागू होता है, चाहे शिफ्ट कोई भी हो। CC पतों को अल्पविराम, अर्धविराम या नई पंक्तियों से अलग करें; अधिकतम 50 CC पते।</value>
   </data>
+  <data name="Tuesday"><value>मंगलवार</value></data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>आगामी स्वचालित शेड्यूलिंग के लिए क्रम चुनने हेतु ऊपर ले जाएँ और नीचे ले जाएँ का उपयोग करें। मौजूदा शिफ़्ट का क्रम नहीं बदला जाएगा। अधिकतम 200 सदस्यों को चुनें।</value>
   </data>
@@ -144,5 +173,7 @@
   <data name="View schedule" xml:space="preserve">
     <value>शेड्यूल देखें</value>
   </data>
-
+  <data name="Wednesday"><value>बुधवार</value></data>
+  <data name="Week starts on"><value>सप्ताह का पहला दिन</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
 </root>

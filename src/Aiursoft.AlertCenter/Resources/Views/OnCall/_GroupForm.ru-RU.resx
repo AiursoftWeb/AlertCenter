@@ -27,12 +27,22 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Расширенные настройки расписания</value>
   </data>
+  <data name="Advanced settings"><value>Дополнительные настройки</value></data>
+  <data name="All scheduling times below use the team time zone."><value>Все часы ниже указаны в часовом поясе команды.</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks"><value>Автоматически продлевать связанный шаблон на следующие четыре недели</value></data>
+  <data name="Basic information"><value>Основная информация</value></data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
+  </data>
+  <data name="Choose a template to enable automatic extension."><value>Выберите шаблон для автоматического продления.</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Задайте разделение и чередование смен для автоматического продления расписания команд и генерации одним нажатием. Изменение шаблона не влияет на уже запланированные смены.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Удалённый сотрудник</value>
   </data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Не привязывать шаблон (ручное планирование)</value>
   </data>
@@ -42,12 +52,14 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Введите в формате UTC; автоматическое преобразование на основе часовых поясов команд не выполняется. После сохранения смены точка начала расписания не может быть изменена.</value>
   </data>
+  <data name="Fallback recipients"><value>Резервные получатели</value></data>
   <data name="Filter by role" xml:space="preserve">
     <value>Фильтр по роли</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Найти</value>
   </data>
+  <data name="Friday"><value>Пятница</value></data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Справка: копия уведомления</value>
   </data>
@@ -66,24 +78,31 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Справка: часовой пояс команды</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>Несколько команд могут использовать один и тот же шаблон. Переключение на другой шаблон или его изменение не приведёт к повторному созданию сохранённых смен.</value>
-  </data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
+  <data name="Maximum continuous duty reminder (hours)"><value>Напоминание о максимальном непрерывном дежурстве (часы)</value></data>
+  <data name="Minimum rest reminder (hours)"><value>Напоминание о минимальном отдыхе (часы)</value></data>
+  <data name="Minimum staffing reminder"><value>Напоминание о минимальном составе</value></data>
+  <data name="Monday"><value>Понедельник</value></data>
   <data name="Name or Account" xml:space="preserve">
     <value>Имя или учётная запись</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Следующая страница</value>
   </data>
+  <data name="Next four shifts preview"><value>Предпросмотр следующих четырёх смен</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Нет резервных получателей: оповещения не доставляются, когда никто не дежурит.</value></data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Пока нет участников. Откройте «Добавить участников», чтобы найти людей.</value>
   </data>
+  <data name="No members yet. Search below to add people."><value>Участников пока нет. Найдите и добавьте их ниже.</value></data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>Копия уведомления (необязательно)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>Копия (CC) на e-mail дежурного</value>
   </data>
+  <data name="On-call members (rotation queue)"><value>Дежурные участники (очередь ротации)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
   <data name="Previous Page" xml:space="preserve">
     <value>Предыдущая страница</value>
   </data>
@@ -93,6 +112,7 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Порядок ротации</value>
   </data>
+  <data name="Saturday"><value>Суббота</value></data>
   <data name="Save changes" xml:space="preserve">
     <value>Сохранить изменения</value>
   </data>
@@ -102,12 +122,14 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>Сохранение удалит этих участников из смен, которые ещё не начались. Проверьте расписание на наличие пропусков.</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>Шаблон правила расписания</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>Шаблон расписания</value>
   </data>
+  <data name="Scheduling method"><value>Способ планирования</value></data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Точка начала расписания (UTC)</value>
   </data>
+  <data name="Scheduling start point (team time)"><value>Начало планирования (время команды)</value></data>
   <data name="Search Employees" xml:space="preserve">
     <value>Поиск сотрудников</value>
   </data>
@@ -117,9 +139,13 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>Поиск по имени или учетной записи, или выбор роли.</value>
   </data>
+  <data name="Search by name or account."><value>Поиск по имени или учётной записи.</value></data>
+  <data name="Search fallback recipients"><value>Поиск резервных получателей</value></data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Выбор роли только фильтрует результаты поиска. Чтобы добавить людей в команду, отметьте каждого из них отдельно; состав команды не синхронизируется с этой ролью.</value>
   </data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
+  <data name="Sunday"><value>Воскресенье</value></data>
   <data name="Team members" xml:space="preserve">
     <value>Участники команды</value>
   </data>
@@ -129,12 +155,15 @@
   <data name="Team settings" xml:space="preserve">
     <value>Настройки команды</value>
   </data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Thursday"><value>Четверг</value></data>
   <data name="Time Zone" xml:space="preserve">
     <value>Часовой пояс</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>Кому: лицам, назначенным на сохранённую смену в момент возникновения инцидента. Изначальные получатели OCE сохраняются для последующих писем об инцидентах. Копия (CC) отправляется на все письма об инцидентах независимо от смены. Используйте запятые, точки с запятой или переносы строк; не более 50 адресов CC.</value>
   </data>
+  <data name="Tuesday"><value>Вторник</value></data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Используйте кнопки «Переместить вверх» и «Переместить вниз», чтобы задать порядок для будущего автоматического планирования. Порядок существующих смен не изменится. Выберите не более 200 участников.</value>
   </data>
@@ -144,5 +173,7 @@
   <data name="View schedule" xml:space="preserve">
     <value>Просмотреть расписание</value>
   </data>
-
+  <data name="Wednesday"><value>Среда</value></data>
+  <data name="Week starts on"><value>Первый день недели</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
 </root>

@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Toevoegmodus: Klik op de lege ruimte in de rij van de engineer om een 8-urige shift toe te voegen; meerdere personen kunnen een shift delen.</value>
   </data>
+  <data name="Add on-call members to preview the rotation."><value>Voeg wachtdienstleden toe om de rotatie vooraf te bekijken.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Piketdienst toevoegen</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Toegevoegd</value>
   </data>
+  <data name="Already selected"><value>Al geselecteerd</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Terug naar bewerken</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Vernieuwing annuleren</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation."><value>Kies een planningssjabloon om de rotatie vooraf te bekijken.</value></data>
   <data name="Close" xml:space="preserve">
     <value>Sluiten</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>Einde</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts."><value>Voer een planningsstart in om diensten vooraf te bekijken.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Voer commentaar in; dit mag niet alleen uit witruimte bestaan.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>Verwijderd</value>
   </data>
+  <data name="Reorder {0}"><value>{0} opnieuw rangschikken</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>Verzoek ongeldig of de paginagegevens zijn verlopen. Controleer de invoer en vernieuw de pagina om het opnieuw te proberen, indien nodig.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Bemanning aangepast en grafiek bijgewerkt; nog niet opgeslagen.</value>
   </data>
+  <data name="Start at {0}"><value>Begin om {0}</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Met succes naar klembord gekopieerd!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Direct ruilen niet mogelijk: één persoon staat al in de doelshift. Pas eerst de leden van dezelfde shift aan met &quot;Leden toevoegen/verwijderen per shift&quot;.</value>
   </data>
+  <data name="Unable to update the preview. Please try again."><value>Het voorbeeld kan niet worden bijgewerkt. Probeer opnieuw.</value></data>
+  <data name="Unassigned"><value>Niet toegewezen</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Niet opgeslagen · Conceptaanpassing</value>
   </data>
+  <data name="Updating shift preview…"><value>Dienstvoorbeeld bijwerken…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Gebruikersgroep · Leden erven automatisch de gekoppelde machtigingen</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} uur</value>
   </data>
+  <data name="{0} moved to position {1} of {2}."><value>{0} verplaatst naar positie {1} van {2}.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} shift voor {1} · {2}; nog niet opgeslagen. Je kunt dit ongedaan maken.</value>
   </data>
@@ -351,5 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 uur · {3}{4}</value>
   </data>
-
 </root>

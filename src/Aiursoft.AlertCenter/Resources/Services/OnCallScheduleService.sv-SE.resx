@@ -36,17 +36,26 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Det går inte att lägga till anställda som har lämnat teamet eller inte tillhör teamet.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Välj om automatisk förlängning ska inaktiveras eller om pass ska genereras på nytt under den rensade perioden.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Bekräfta rensning av historiska pass separat.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>De befintliga tidsgränserna i schemat är ofullständiga; det går inte att skriva över.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Ogiltigt format för begäran om angränsande veckoschema; du kan skicka in högst två veckor (föregående och nästkommande).</value>
   </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Ogiltig period eller åtgärd för schemarensning.</value>
+  </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Jourteamet finns inte.</value>
   </data>
-  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
-    <value>Koppla först en schemaläggningsregel till teamet.</value>
+  <data name="Please bind a scheduling template to the team first." xml:space="preserve">
+    <value>Koppla först en schemamall till teamet.</value>
   </data>
   <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
     <value>Välj en fullständig sjudagarsjourcykel som börjar vid teamets ankardatum.</value>
@@ -60,8 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Viloperioden i schemat är ogiltig eller inkonsekvent.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Schemaperioden får inte överstiga {0} dagar och måste ligga inom 10 år före eller efter den aktuella tidpunkten.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Teamet eller schemat har ändrats av en annan administratör. Uppdatera sidan och försök igen.</value>
   </data>
-
 </root>

@@ -12,6 +12,9 @@ public class OnCallEmailSnapshot
     public DateTime? StartsAtUtc { get; set; }
     public DateTime? EndsAtUtc { get; set; }
     public DateTime NotificationAtUtc { get; set; }
+    public bool IsFallback { get; set; }
+    public string? HandoverContent { get; set; }
+    [MaxLength(500)] public string? HandoverKey { get; set; }
     [MaxLength(8000)] public string? CcRecipients { get; set; }
     [MaxLength(2000)] public string? ValidationError { get; set; }
     public ICollection<OnCallEmailRecipient> Recipients { get; set; } = [];

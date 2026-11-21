@@ -190,7 +190,7 @@ test('uses injected localized copy feedback without interpreting markup', async 
 
 test('every JavaScript localization key has a literal server-rendered span', () => {
     const markup = fs.readFileSync(path.join(root, 'Views/Shared/_ActionFeedback.cshtml'), 'utf8');
-    const supplied = new Map([...markup.matchAll(/<span data-key="([^"]+)">@Localizer\[("(?:\\.|[^"\\])*")\](?:\.Value)?<\/span>/g)]
+    const supplied = new Map([...markup.matchAll(/<span data-key="([^"]+)">@(?:Localizer|viewLocalizer)\[("(?:\\.|[^"\\])*")\](?:\.Value)?<\/span>/g)]
         .map(match => [match[1], JSON.parse(match[2])]));
     assert(supplied.size > 0);
     assert.match(markup, /<div id="loc-data" hidden>/);

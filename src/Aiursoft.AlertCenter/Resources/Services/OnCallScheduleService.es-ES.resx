@@ -36,17 +36,26 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>No se pueden añadir empleados que hayan abandonado el equipo o que no pertenezcan a él.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Elige si deseas desactivar la ampliación automática o volver a generar turnos en el intervalo vaciado.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Confirma por separado la eliminación de los turnos anteriores.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Los límites horarios del calendario existente están incompletos; no se puede sobrescribir.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Formato no válido para la solicitud de semanas adyacentes; solo puedes enviar dos semanas como máximo (la anterior y la siguiente).</value>
   </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>El intervalo o la acción de vaciado del calendario no son válidos.</value>
+  </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>El equipo de guardia no existe.</value>
   </data>
-  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
-    <value>Vincula primero una regla de planificación al equipo, por favor.</value>
+  <data name="Please bind a scheduling template to the team first." xml:space="preserve">
+    <value>Vincula primero una plantilla de turnos al equipo.</value>
   </data>
   <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
     <value>Selecciona un ciclo completo de guardia de siete días que comience en la fecha de referencia del equipo.</value>
@@ -60,8 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>La duración del descanso en el horario no es válida o es incoherente.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>El período de planificación no debe superar los {0} días y debe estar dentro de los 10 años anteriores o posteriores al momento actual.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>El equipo o el horario han sido modificados por otro administrador. Actualiza la página e inténtalo de nuevo.</value>
   </data>
-
 </root>

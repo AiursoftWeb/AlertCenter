@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Sugestiile automate nu au fost salvate. La generare, programele adiacente vor fi validate din nou; aranjamentele salvate existente nu vor fi suprascrise.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Prelungirea automată este activată. Alegeți ce se întâmplă la salvare.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>În mod implicit, sunt eliminate doar turele generate automat.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Anulează</value>
   </data>
@@ -42,12 +48,34 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Modificările intră în vigoare numai după salvare. Restrângerea acestor instrumente păstrează schița.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Alegeți o acțiune pentru prelungirea automată</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Alegeți dacă dezactivați prelungirea automată sau regenerați turele în golurile create prin ștergere.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Golirea modifică doar ciorna. Verificați graficul, apoi salvați pentru a publica.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Golește un interval din program</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Interval golit în ciornă</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Confirmați eliminarea turelor anterioare încheiate din acest interval. Aceasta poate elimina repartizări din trecut.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Confirmă înlocuirea ciornei</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Confirmă golirea istoricului</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Copiază săptămâna curentă în săptămâna următoare</value>
   </data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>Copierea repetă schița vizibilă în intervalul de destinație. Turele existente sunt tăiate la limitele intervalului; părțile din afara lui sunt păstrate. Copierea și generarea modifică doar schița; salvați ajustările programului pentru a publica.</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>Copiați schița săptămânii curente în săptămâna următoare. Dacă săptămâna următoare conține deja ture sau modificări, este necesară confirmarea înainte de copiere; după copiere, salvarea este în continuare necesară. Butoanele verticale laterale pot extinde intervalul cu 36 de ore înainte și după săptămâna curentă; zonele gri sunt doar pentru citire. Graficele și formularele de pe această pagină permit editarea doar a săptămânii curente; pentru a modifica săptămânile adiacente, comutați la săptămâna corespunzătoare. Schița săptămânii următoare este, de asemenea, afișată în previzualizare, în modul doar pentru citire, după copiere. Modificările săptămânii curente și copiile sunt salvate, anulate și restaurate în același mod; restrângerea nu duce la pierderea schițelor.</value>
   </data>
@@ -57,8 +85,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>În prezent, modul Mutare/Schimbare este activ. Schimbați modul de mai sus înainte de a adăuga sau elimina ture.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>În mod implicit, intervalul se întinde de acum până la sfârșitul ultimei ture salvate sau din ciornă, în fusul orar al echipei.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Șterge tura</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Dezactivează prelungirea automată la salvare</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Trageți un bloc colorat pe o altă tură pentru a schimba personalul sau pe un interval liber pentru a muta tura; trageți „Swap Entire Week” pentru a schimba între ele programele săptămânale a două persoane. De asemenea, puteți face clic pentru a selecta, apoi clic pe destinație; apăsați Esc pentru a anula. Modificările sunt afișate imediat și pot fi salvate în bloc după efectuarea mai multor ajustări.</value>
@@ -72,6 +106,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Cum se ajustează programul</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Include turele anterioare încheiate</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Include turele editate manual</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Îmbină turele suprapuse</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Mai multe acțiuni</value>
   </data>
@@ -84,8 +127,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Personal de gardă (se pot selecta mai multe persoane, cel puțin una)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Turele în desfășurare își păstrează partea deja scursă, chiar și atunci când este inclus istoricul.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Previzualizează golirea</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Alertele roșii indică ture goale, odihnă insuficientă sau sub nivelul minim de personal, dar nu blochează ajustările ulterioare. Salvarea este permisă chiar și sub nivelul minim de personal, dar turele goale și odihna insuficientă nu pot fi salvate. Validarea este aplicată uniform pe săptămâna modificată, săptămânile adiacente și alte echipe la salvare. Dacă o săptămână eșuează validarea, nimic nu este salvat. Membrii părăsiți pot păstra doar turele lor originale; nu pot fi adăugate sau copiate ture noi.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Regenerează turele din șablon în golurile create prin ștergere, la salvare</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Regenerarea are loc doar la salvare. Previzualizarea păstrează golurile, iar turele păstrate nu sunt suprascrise.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Înlocuiești schița pentru săptămâna viitoare?</value>
@@ -105,8 +160,17 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Selectați intervalele orare pentru a adăuga sau elimina personalul de serviciu; graficul se va actualiza în timp real. Puteți folosi acest formular și pentru navigarea cu tastatura. Membrii din alte grupuri pot fi selectați manual; turele gri, cu acces doar în citire, ale altor echipe nu vor fi modificate, iar suprapunerile și pauzele dintre grupuri vor fi validate în continuare la salvare.</value>
   </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Turele aceleiași persoane sau de pe rândul nealocat nu se pot suprapune. Îmbină-le sau ajustează-le înainte de salvare.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Intervalul programului nu trebuie să depășească {0} zile și trebuie să se încadreze în cei 10 ani anteriori sau ulteriori momentului actual.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Această mutare s-ar suprapune cu o altă tură a aceleiași persoane. Ciorna nu a fost modificată.</value>
+  </data>
   <data name="Undo last step" xml:space="preserve">
     <value>Anulează ultimul pas</value>
   </data>
-
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>Va fi scurtată; intervale păstrate:</value></data>
 </root>

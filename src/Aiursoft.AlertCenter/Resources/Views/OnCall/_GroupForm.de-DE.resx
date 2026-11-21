@@ -27,12 +27,22 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Erweiterte Planungseinstellungen</value>
   </data>
+  <data name="Advanced settings" xml:space="preserve"><value>Erweiterte Einstellungen</value></data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve"><value>Alle folgenden Planungszeiten verwenden die Zeitzone des Teams.</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve"><value>Gebundene Vorlage automatisch auf die nächsten vier Wochen erweitern</value></data>
+  <data name="Basic information" xml:space="preserve"><value>Grundinformationen</value></data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
+  </data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve"><value>Wählen Sie eine Vorlage, um die automatische Erweiterung zu aktivieren.</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve"><value>Wählen Sie Systembenutzer, die Warnmeldungen erhalten, wenn niemand Bereitschaft hat. Ersatzempfänger nehmen nicht an der Rotation teil.</value></data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Legen Sie die Aufteilung und Rotation von Schichten für die automatische Verlängerung und die Erstellung per Klick fest. Änderungen an einer Vorlage beeinflussen bereits geplante Schichten nicht.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Gelöschter Mitarbeiter</value>
   </data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve"><value>Ausgeschiedene Mitglieder behalten gespeicherte Schichten. Prüfen Sie künftige Zuweisungen nach dem Speichern.</value></data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Keine Vorlage zuweisen (manuelle Planung)</value>
   </data>
@@ -42,12 +52,14 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Geben Sie den Wert in UTC ein; er wird nicht automatisch basierend auf den Zeitzonen der Teams umgerechnet. Sobald eine Schicht gespeichert wurde, kann der Planungsstartzeitpunkt nicht mehr geändert werden.</value>
   </data>
+  <data name="Fallback recipients" xml:space="preserve"><value>Ersatzempfänger</value></data>
   <data name="Filter by role" xml:space="preserve">
     <value>Nach Rolle filtern</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Suchen</value>
   </data>
+  <data name="Friday" xml:space="preserve"><value>Freitag</value></data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Hilfe: Benachrichtigungs-CC</value>
   </data>
@@ -66,24 +78,31 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Hilfe: Zeitzone des Teams</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>Mehrere Teams können dieselbe Vorlage teilen. Das Wechseln oder Ändern der Vorlage regeneriert nicht die gespeicherten Schichten.</value>
-  </data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve"><value>Leere Grenzwerte deaktivieren die jeweilige Erinnerung. Erinnerungen verhindern das Speichern nicht.</value></data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve"><value>Erinnerung an maximale durchgehende Dienstzeit (Stunden)</value></data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve"><value>Erinnerung an Mindestruhezeit (Stunden)</value></data>
+  <data name="Minimum staffing reminder" xml:space="preserve"><value>Erinnerung an Mindestbesetzung</value></data>
+  <data name="Monday" xml:space="preserve"><value>Montag</value></data>
   <data name="Name or Account" xml:space="preserve">
     <value>Name oder Konto</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Nächste Seite</value>
   </data>
+  <data name="Next four shifts preview" xml:space="preserve"><value>Vorschau der nächsten vier Schichten</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve"><value>Keine Ersatzempfänger: Ohne Bereitschaft können Warnmeldungen nicht zugestellt werden.</value></data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Noch keine Mitglieder. Öffnen Sie „Mitglieder hinzufügen“, um Personen zu finden.</value>
   </data>
+  <data name="No members yet. Search below to add people." xml:space="preserve"><value>Noch keine Mitglieder. Suchen Sie unten nach Personen.</value></data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>Benachrichtigungs-Kopie (optional)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>E-Mail-Kopie (Bereitschaftsdienst)</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve"><value>Bereitschaftsmitglieder (Rotationsreihenfolge)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve"><value>Die Vorschau beginnt am Planungsstart oder nach gespeicherten Schichten. Zeiten gelten in der Teamzeitzone. Gespeicherte Schichten bleiben unverändert.</value></data>
   <data name="Previous Page" xml:space="preserve">
     <value>Vorherige Seite</value>
   </data>
@@ -93,6 +112,7 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Reihenfolge der Rotation</value>
   </data>
+  <data name="Saturday" xml:space="preserve"><value>Samstag</value></data>
   <data name="Save changes" xml:space="preserve">
     <value>Änderungen speichern</value>
   </data>
@@ -102,12 +122,14 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>Beim Speichern werden diese Mitglieder aus Schichten entfernt, die noch nicht begonnen haben. Prüfen Sie den Dienstplan auf Lücken.</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>Vorlagen für Planungsregeln</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>Dienstplanvorlage</value>
   </data>
+  <data name="Scheduling method" xml:space="preserve"><value>Planungsmethode</value></data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Startzeitpunkt der Planung (UTC)</value>
   </data>
+  <data name="Scheduling start point (team time)" xml:space="preserve"><value>Planungsbeginn (Teamzeit)</value></data>
   <data name="Search Employees" xml:space="preserve">
     <value>Mitarbeitende suchen</value>
   </data>
@@ -117,9 +139,13 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>Suche nach Name oder Konto oder wähle eine Rolle.</value>
   </data>
+  <data name="Search by name or account." xml:space="preserve"><value>Nach Name oder Konto suchen.</value></data>
+  <data name="Search fallback recipients" xml:space="preserve"><value>Ersatzempfänger suchen</value></data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Die Auswahl einer Rolle filtert nur die Suche. Haken Sie einzelne Personen an, um sie hinzuzufügen; die Teammitgliedschaft wird nicht mit dieser Rolle synchronisiert.</value>
   </data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve"><value>Die Startzeit wurde automatisch in der Teamzeitzone gesetzt. Sie können sie vor dem Speichern ändern.</value></data>
+  <data name="Sunday" xml:space="preserve"><value>Sonntag</value></data>
   <data name="Team members" xml:space="preserve">
     <value>Teammitglieder</value>
   </data>
@@ -129,6 +155,8 @@
   <data name="Team settings" xml:space="preserve">
     <value>Teameinstellungen</value>
   </data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve"><value>Die erste Person hat zuerst Bereitschaft. Ziehen Sie den Griff oder halten Sie ihn auf dem Touchscreen gedrückt. Nutzen Sie alternativ die Pfeiltasten am Griff oder die Verschiebeschaltflächen. Bestehende Schichten bleiben unverändert.</value></data>
+  <data name="Thursday" xml:space="preserve"><value>Donnerstag</value></data>
   <data name="Time Zone" xml:space="preserve">
     <value>Zeitzone</value>
   </data>
@@ -138,6 +166,7 @@
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>An: die Personen, die zum Zeitpunkt des Vorfalls der gespeicherten Schicht zugewiesen waren. Die ursprünglichen OCE-Empfänger bleiben für spätere Vorfall-E-Mails erhalten. CC gilt für alle Vorfall-E-Mails, unabhängig von der Schicht. Verwenden Sie Kommas, Semikolons oder Zeilenumbrüche; bis zu 50 CC-Adressen.</value>
   </data>
+  <data name="Tuesday" xml:space="preserve"><value>Dienstag</value></data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Verwenden Sie „Nach oben“ und „Nach unten“, um die Reihenfolge für die zukünftige automatische Planung festzulegen. Bestehende Schichten werden nicht neu sortiert. Wählen Sie bis zu 200 Mitglieder aus.</value>
   </data>
@@ -147,5 +176,7 @@
   <data name="View schedule" xml:space="preserve">
     <value>Zeiteinteilung anzeigen</value>
   </data>
-
+  <data name="Wednesday" xml:space="preserve"><value>Mittwoch</value></data>
+  <data name="Week starts on" xml:space="preserve"><value>Wochenbeginn</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve"><value>Wöchentliche Vorlagen beginnen bei der nächsten ersten Übergabe, Vorlagen mit fester Dauer zur nächsten vollen Stunde. Nach dem Speichern von Schichten ist der Beginn gesperrt.</value></data>
 </root>

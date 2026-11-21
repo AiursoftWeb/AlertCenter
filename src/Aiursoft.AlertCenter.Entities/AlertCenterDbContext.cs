@@ -93,9 +93,23 @@ public abstract class TemplateDbContext(DbContextOptions options) : IdentityDbCo
         builder.Entity<OnCallGroup>().HasOne(group => group.Rule).WithMany()
             .HasForeignKey(group => group.RuleId).OnDelete(DeleteBehavior.Restrict);
         builder.Entity<OnCallGroup>().Property(group => group.ScheduleVersion).IsConcurrencyToken();
+        // 周日的枚举值为 0，不能把它当作“未设置”而替换为周一。
+        builder.Entity<OnCallGroup>().Property(group => group.WeekStartsOn).HasDefaultValue(DayOfWeek.Monday).HasSentinel((DayOfWeek)(-1));
         builder.Entity<OnCallShift>().HasOne(shift => shift.Group).WithMany()
             .HasForeignKey(shift => shift.GroupId).OnDelete(DeleteBehavior.Cascade);
-        builder.Entity<OnCallShift>().HasIndex(shift => new { shift.GroupId, shift.StartsAtUtc }).IsUnique();
+        // MySQL 外键需要以该列开头的索引。
+        builder.Entity<OnCallShift>().HasIndex(shift => shift.GroupId);
+        builder.Entity<OnCallShift>().HasIndex(shift => new { shift.GroupId, shift.StartsAtUtc });
+        builder.Entity<OnCallHandoverPoint>().HasOne(point => point.Rule).WithMany(rule => rule.HandoverPoints)
+            .HasForeignKey(point => point.RuleId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<OnCallFallbackRecipient>().HasKey(person => new { person.GroupId, person.UserId });
+        builder.Entity<OnCallFallbackRecipient>().HasOne(person => person.Group).WithMany(group => group.FallbackRecipients)
+            .HasForeignKey(person => person.GroupId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<OnCallFallbackRecipient>().HasOne(person => person.User).WithMany()
+            .HasForeignKey(person => person.UserId).OnDelete(DeleteBehavior.Cascade);
+        builder.Entity<OnCallEmailSnapshot>().HasIndex(snapshot => snapshot.HandoverKey).IsUnique();
+        builder.Entity<OnCallHandoverReceipt>().HasKey(receipt => new { receipt.ShiftId, receipt.UserId });
+        builder.Entity<OnCallHandoverReceipt>().Property(receipt => receipt.UserId).HasMaxLength(450);
         builder.Entity<OnCallShiftMember>().HasKey(member => new { member.ShiftId, member.UserId });
         builder.Entity<OnCallShiftMember>().HasOne(member => member.Shift).WithMany(shift => shift.Members)
             .HasForeignKey(member => member.ShiftId).OnDelete(DeleteBehavior.Cascade);
