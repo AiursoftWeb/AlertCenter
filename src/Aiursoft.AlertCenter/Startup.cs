@@ -16,7 +16,6 @@ using Aiursoft.AlertCenter.Services.Authentication;
 using Aiursoft.AlertCenter.Services.BackgroundJobs;
 using Aiursoft.AlertCenter.Sqlite;
 using Aiursoft.AlertCenter.Services;
-using Aiursoft.UiStack;
 using Aiursoft.UiStack.Layout;
 using Aiursoft.UiStack.Navigation;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -136,7 +135,6 @@ public class Startup : IWebStartup
             }
         });
         app.UseStatusCodePagesWithReExecute("/Error/Code{0}");
-        app.UseUIStack();
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthentication();
