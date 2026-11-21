@@ -27,12 +27,22 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>การตั้งค่าการกำหนดตารางเวลาขั้นสูง</value>
   </data>
+  <data name="Advanced settings"><value>การตั้งค่าขั้นสูง</value></data>
+  <data name="All scheduling times below use the team time zone."><value>เวลาจัดเวรทั้งหมดด้านล่างใช้เขตเวลาของทีม</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks"><value>ขยายแม่แบบที่ผูกไว้โดยอัตโนมัติให้ครอบคลุมสี่สัปดาห์ถัดไป</value></data>
+  <data name="Basic information"><value>ข้อมูลพื้นฐาน</value></data>
   <data name="Cancel" xml:space="preserve">
     <value>ยกเลิก</value>
+  </data>
+  <data name="Choose a template to enable automatic extension."><value>เลือกแม่แบบเพื่อเปิดใช้การขยายอัตโนมัติ</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>กำหนดวิธีแบ่งและหมุนเวียนเวรสำหรับการต่ออายุตารางอัตโนมัติและการสร้างด้วยคลิกเดียวของทีม การเปลี่ยนเทมเพลตไม่กระทบเวรที่จัดไว้แล้ว</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>พนักงานที่ถูกลบ</value>
   </data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>ไม่ผูกกับแม่แบบ (จัดตารางเวลาด้วยตนเอง)</value>
   </data>
@@ -42,12 +52,14 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>กรอกเวลาเป็น UTC โดยระบบจะไม่แปลงเวลาอัตโนมัติตามเขตเวลาของทีม เมื่อบันทึกกะแล้ว จะไม่สามารถเปลี่ยนเวลาเริ่มต้นการจัดตารางได้</value>
   </data>
+  <data name="Fallback recipients"><value>ผู้รับสำรอง</value></data>
   <data name="Filter by role" xml:space="preserve">
     <value>กรองตามบทบาท</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>ค้นหา</value>
   </data>
+  <data name="Friday"><value>วันศุกร์</value></data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>วิธีใช้: สำเนาถึงในการแจ้งเตือน</value>
   </data>
@@ -66,24 +78,31 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>ช่วยเหลือ: เขตเวลาของทีม</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>หลายทีมสามารถใช้เทมเพลตเดียวกันได้ การเปลี่ยนหรือแก้ไขเทมเพลตจะไม่สร้างกะที่บันทึกไว้ใหม่</value>
-  </data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
+  <data name="Maximum continuous duty reminder (hours)"><value>เตือนระยะเวลาเข้าเวรต่อเนื่องสูงสุด (ชั่วโมง)</value></data>
+  <data name="Minimum rest reminder (hours)"><value>เตือนเวลาพักขั้นต่ำ (ชั่วโมง)</value></data>
+  <data name="Minimum staffing reminder"><value>เตือนจำนวนคนขั้นต่ำ</value></data>
+  <data name="Monday"><value>วันจันทร์</value></data>
   <data name="Name or Account" xml:space="preserve">
     <value>ชื่อหรือบัญชี</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>หน้าถัดไป</value>
   </data>
+  <data name="Next four shifts preview"><value>ตัวอย่างสี่เวรถัดไป</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>ไม่มีผู้รับสำรอง: ไม่สามารถส่งการแจ้งเตือนเมื่อไม่มีผู้เข้าเวร</value></data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>ยังไม่มีสมาชิก เปิด &quot;เพิ่มสมาชิก&quot; เพื่อค้นหาผู้คน</value>
   </data>
+  <data name="No members yet. Search below to add people."><value>ยังไม่มีสมาชิก ค้นหาด้านล่างเพื่อเพิ่มบุคคล</value></data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>CC สำหรับแจ้งการแจ้งเตือน (ไม่บังคับ)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>อีเมลสำเนาถึงสำหรับเวรรับแจ้งเหตุ</value>
   </data>
+  <data name="On-call members (rotation queue)"><value>สมาชิกเวร (คิวหมุนเวียน)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
   <data name="Previous Page" xml:space="preserve">
     <value>หน้าก่อนหน้า</value>
   </data>
@@ -93,6 +112,7 @@
   <data name="Rotation order" xml:space="preserve">
     <value>ลำดับการหมุนเวียน</value>
   </data>
+  <data name="Saturday"><value>วันเสาร์</value></data>
   <data name="Save changes" xml:space="preserve">
     <value>บันทึกการเปลี่ยนแปลง</value>
   </data>
@@ -102,12 +122,14 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>เมื่อบันทึก ระบบจะนำสมาชิกเหล่านี้ออกจากเวรที่ยังไม่เริ่มต้น โปรดตรวจสอบตารางเวรว่ามีช่วงที่ไม่มีผู้ปฏิบัติงานหรือไม่</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>เทมเพลตกฎการจัดตารางเวลา</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>เทมเพลตการจัดเวร</value>
   </data>
+  <data name="Scheduling method"><value>วิธีจัดเวร</value></data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>จุดเริ่มต้นตารางเวร (UTC)</value>
   </data>
+  <data name="Scheduling start point (team time)"><value>จุดเริ่มต้นจัดเวร (เวลาทีม)</value></data>
   <data name="Search Employees" xml:space="preserve">
     <value>ค้นหาพนักงาน</value>
   </data>
@@ -117,9 +139,13 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>ค้นหาด้วยชื่อหรือบัญชี หรือเลือกบทบาท</value>
   </data>
+  <data name="Search by name or account."><value>ค้นหาตามชื่อหรือบัญชี</value></data>
+  <data name="Search fallback recipients"><value>ค้นหาผู้รับสำรอง</value></data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>การเลือกบทบาทจะใช้ในการกรองการค้นหาเท่านั้น ติ๊กชื่อแต่ละบุคคลเพื่อเพิ่มสมาชิก การเป็นสมาชิกของทีมจะไม่ซิงค์กับบทบาทนั้น</value>
   </data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
+  <data name="Sunday"><value>วันอาทิตย์</value></data>
   <data name="Team members" xml:space="preserve">
     <value>สมาชิกในทีม</value>
   </data>
@@ -129,6 +155,8 @@
   <data name="Team settings" xml:space="preserve">
     <value>การตั้งค่าทีม</value>
   </data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Thursday"><value>วันพฤหัสบดี</value></data>
   <data name="Time Zone" xml:space="preserve">
     <value>เขตเวลา</value>
   </data>
@@ -138,6 +166,7 @@
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>ถึง: บุคคลที่ถูกกำหนดให้รับผิดชอบในกะที่บันทึกไว้เมื่อเกิดเหตุการณ์ ผู้รับ OCE เดิมยังคงถูกเก็บไว้สำหรับอีเมลเหตุการณ์ในภายหลัง CC ใช้กับอีเมลเหตุการณ์ทุกฉบับโดยไม่ขึ้นกับกะ ใช้เครื่องหมายจุลภาค เครื่องหมายเซมิโคลอน หรือบรรทัดใหม่; สูงสุด 50 ที่อยู่อีเมล CC</value>
   </data>
+  <data name="Tuesday"><value>วันอังคาร</value></data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>ใช้ปุ่มเลื่อนขึ้นและเลื่อนลงเพื่อเลือกลำดับที่ใช้สำหรับการจัดตารางเวลาอัตโนมัติในอนาคต หน้าที่การงานที่มีอยู่เดิมจะไม่ถูกลำดับใหม่ เลือกสมาชิกได้สูงสุด 200 คน</value>
   </data>
@@ -147,5 +176,7 @@
   <data name="View schedule" xml:space="preserve">
     <value>ดูตารางเวลา</value>
   </data>
-
+  <data name="Wednesday"><value>วันพุธ</value></data>
+  <data name="Week starts on"><value>วันเริ่มต้นสัปดาห์</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
 </root>

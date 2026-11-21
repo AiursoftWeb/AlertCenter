@@ -36,17 +36,26 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Δεν είναι δυνατή η προσθήκη υπαλλήλων που έχουν αποχωρήσει από την ομάδα ή δεν ανήκουν σε αυτήν.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Επιλέξτε αν θα απενεργοποιηθεί η αυτόματη επέκταση ή θα δημιουργηθούν ξανά βάρδιες στο εκκαθαρισμένο διάστημα.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Επιβεβαιώστε ξεχωριστά την εκκαθάριση παλαιότερων βαρδιών.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Τα χρονικά όρια του υπάρχοντος προγράμματος είναι ελλιπή· δεν είναι δυνατή η αντικατάστασή του.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Μη έγκυρη μορφή αιτήματος προγράμματος για γειτονικές εβδομάδες· μπορείτε να υποβάλετε έως δύο εβδομάδες (την προηγούμενη και την επόμενη).</value>
   </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Μη έγκυρο διάστημα ή ενέργεια εκκαθάρισης προγράμματος.</value>
+  </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Η ομάδα εφημερίας δεν υπάρχει.</value>
   </data>
-  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
-    <value>Παρακαλώ συνδέστε πρώτα έναν κανόνα προγραμματισμού με την ομάδα.</value>
+  <data name="Please bind a scheduling template to the team first." xml:space="preserve">
+    <value>Συνδέστε πρώτα ένα πρότυπο βαρδιών με την ομάδα.</value>
   </data>
   <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
     <value>Επιλέξτε έναν πλήρη επταήμερο κύκλο εφημερίας που ξεκινά από την ημερομηνία αναφοράς της ομάδας.</value>
@@ -60,8 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Η διάρκεια ανάπαυσης στο πρόγραμμα είναι μη έγκυρη ή ασυνεπής.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Η περίοδος του προγράμματος δεν πρέπει να υπερβαίνει τις {0} ημέρες και πρέπει να βρίσκεται εντός 10 ετών πριν ή μετά την τρέχουσα χρονική στιγμή.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Η ομάδα ή το πρόγραμμα τροποποιήθηκε από άλλον διαχειριστή. Ανανεώστε τη σελίδα και δοκιμάστε ξανά.</value>
   </data>
-
 </root>

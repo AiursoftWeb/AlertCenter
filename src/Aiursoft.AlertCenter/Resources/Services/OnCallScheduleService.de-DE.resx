@@ -36,17 +36,26 @@
   <data name="Cannot add employees who have left the team or do not belong to the team." xml:space="preserve">
     <value>Mitarbeiter, die das Team verlassen haben oder nicht zum Team gehören, können nicht hinzugefügt werden.</value>
   </data>
+  <data name="Choose whether to disable automatic extension or regenerate the cleared range." xml:space="preserve">
+    <value>Wählen Sie, ob die automatische Verlängerung deaktiviert oder der geleerte Zeitraum neu befüllt werden soll.</value>
+  </data>
+  <data name="Confirm clearing historical shifts separately." xml:space="preserve">
+    <value>Bestätigen Sie das Entfernen vergangener Schichten gesondert.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Die Zeitgrenzen des bestehenden Dienstplans sind unvollständig; ein Überschreiben ist nicht möglich.</value>
   </data>
   <data name="Invalid adjacent week schedule request format; you can submit at most two weeks (previous and next)." xml:space="preserve">
     <value>Ungültiges Format der Anfrage für benachbarte Wochenpläne; Sie können höchstens zwei Wochen übermitteln (die vorherige und die nächste).</value>
   </data>
+  <data name="Invalid schedule clearing range or action." xml:space="preserve">
+    <value>Ungültiger Zeitraum oder ungültige Aktion zum Leeren des Dienstplans.</value>
+  </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Das Bereitschaftsteam existiert nicht.</value>
   </data>
-  <data name="Please bind a scheduling rule to the team first." xml:space="preserve">
-    <value>Bitte ordnen Sie dem Team zuerst eine Planungsregel zu.</value>
+  <data name="Please bind a scheduling template to the team first." xml:space="preserve">
+    <value>Bitte weisen Sie dem Team zuerst eine Dienstplanvorlage zu.</value>
   </data>
   <data name="Please select a complete seven-day on-call cycle starting from the team anchor." xml:space="preserve">
     <value>Bitte wählen Sie einen vollständigen siebentägigen Bereitschaftszyklus aus, der mit dem Anker des Teams beginnt.</value>
@@ -60,8 +69,10 @@
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Die Ruhezeit im Zeitplan ist ungültig oder inkonsistent.</value>
   </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Der Planungszeitraum darf {0} Tage nicht überschreiten und muss innerhalb von 10 Jahren vor oder nach dem aktuellen Zeitpunkt liegen.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Das Team oder der Dienstplan wurde von einem anderen Administrator geändert. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.</value>
   </data>
-
 </root>

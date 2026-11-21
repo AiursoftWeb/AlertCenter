@@ -35,9 +35,11 @@ public sealed class ApplicationAccessService(TemplateDbContext db) : IApplicatio
         CancellationToken cancellationToken = default) =>
         AccessibleApplicationIds(user, permission).AnyAsync(id => id == applicationId, cancellationToken);
 
-    private IQueryable<Guid> AccessibleApplicationIds(ClaimsPrincipal user, ApplicationPermission permission)
+    private IQueryable<Guid> AccessibleApplicationIds(ClaimsPrincipal user, ApplicationPermission permission) =>
+        AccessibleApplicationIds(user.FindFirstValue(ClaimTypes.NameIdentifier), permission);
+
+    internal IQueryable<Guid> AccessibleApplicationIds(string? userId, ApplicationPermission permission)
     {
-        var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId == null) return db.SourceApplications.Where(application => false).Select(application => application.Id);
         var roleIds = db.UserRoles.Where(link => link.UserId == userId).Select(link => link.RoleId);
         var grants = db.ApplicationUserAccesses.Where(access => access.UserId == userId).Select(access => new

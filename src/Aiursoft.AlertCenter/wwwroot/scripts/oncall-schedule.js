@@ -1,470 +1,1068 @@
 (() => {
-
+    const formatters = new Map();
+    const localTime = (utc, zone) => {
+        if (!formatters.has(zone)) formatters.set(zone, new Intl.DateTimeFormat('sv-SE', { timeZone: zone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }));
+        const parts = formatters.get(zone).formatToParts(new Date(utc));
+        const get = type => parts.find(part => part.type === type).value;
+        return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}`;
+    };
+    const wallTime = value => Date.parse(`${value}:00Z`);
+    const wallString = value => new Date(value).toISOString().slice(0, 16);
+    function copyRange(slots, sourceStart, sourceEnd, start, end, members) {
+        const period = wallTime(sourceEnd) - wallTime(sourceStart);
+        const from = wallTime(start), until = wallTime(end);
+        if (!(period > 0 && until > from)) throw new Error('range');
+        if (slots.some(slot => !(wallTime(slot.endLocal) > wallTime(slot.startLocal)))) throw new Error('range');
+        if (slots.some(slot => slot.userIds.some(id => !members.some(member => member.id === id && !member.departed)))) throw new Error('departed');
+        const copies = [];
+        for (let cycle = from; cycle < until; cycle += period) {
+            for (const slot of slots) {
+                const left = Math.max(wallTime(slot.startLocal), wallTime(sourceStart));
+                const right = Math.min(wallTime(slot.endLocal), wallTime(sourceEnd));
+                const copyStart = cycle + left - wallTime(sourceStart);
+                const copyEnd = Math.min(until, cycle + right - wallTime(sourceStart));
+                if (copyEnd > copyStart) copies.push({ startLocal: wallString(copyStart), endLocal: wallString(copyEnd), userIds: [...slot.userIds], source: 0 });
+            }
+        }
+        return copies;
+    }
+    function hoursFor(slots, id, start, end) {
+        const intervals = slots.filter(slot => slot.userIds.includes(id)).map(slot => [Math.max(Date.parse(start), Date.parse(slot.startsAtUtc)), Math.min(Date.parse(end), Date.parse(slot.endsAtUtc))])
+            .filter(([left, right]) => right > left).sort((a, b) => a[0] - b[0]);
+        let total = 0, covered = -Infinity;
+        for (const [left, right] of intervals) {
+            total += Math.max(0, right - Math.max(left, covered));
+            covered = Math.max(covered, right);
+        }
+        return total / 3600000;
+    }
+    const minute = 60000, hour = 60 * minute;
+    function utcForLocal(value, zone) {
+        const wall = wallTime(value);
+        if (!Number.isFinite(wall)) return NaN;
+        const offsets = new Set([-36, 0, 36].map(offset => {
+            const utc = wall + offset * hour;
+            return wallTime(localTime(utc, zone)) - utc;
+        }));
+        const matches = [...offsets].map(offset => wall - offset).filter(utc => localTime(utc, zone) === value);
+        return matches.length ? Math.max(...matches) : NaN;
+    }
+    function timeOf(slot, edge, zone) {
+        const utc = slot[edge === 'start' ? 'startsAtUtc' : 'endsAtUtc'];
+        const local = slot[`${edge}Local`];
+        return utc && (!local || localTime(utc, zone) === local) ? Date.parse(utc) : utcForLocal(local, zone);
+    }
+    function markManual(slot) {
+        slot.source = 0;
+        slot.rotationPosition = null;
+    }
+    function setTime(slot, edge, utc, zone) {
+        if (timeOf(slot, edge, zone) !== utc) markManual(slot);
+        slot[edge === 'start' ? 'startsAtUtc' : 'endsAtUtc'] = new Date(utc).toISOString();
+        slot[`${edge}Local`] = localTime(utc, zone);
+    }
+    function snapTime(utc, zone, free = false) {
+        const step = (free ? 1 : 30) * minute;
+        return utc + Math.round(wallTime(localTime(utc, zone)) / step) * step - wallTime(localTime(utc, zone)) - (utc % minute);
+    }
+    function shiftTimes(slot, delta, zone) {
+        const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+        setTime(slot, 'start', left + delta, zone); setTime(slot, 'end', right + delta, zone);
+    }
+    function samePeople(first, second) {
+        return JSON.stringify([...new Set(first)].sort()) === JSON.stringify([...new Set(second)].sort());
+    }
+    function movePerson(slot, from, to) {
+        if (from === to) return;
+        const people = to === '' ? [] : [...new Set(slot.userIds.filter(id => id !== from).concat(to))];
+        if (!samePeople(slot.userIds, people)) markManual(slot);
+        slot.userIds = people;
+    }
+    function swapPeople(slots, first, second) {
+        for (const slot of slots) {
+            if (slot.userIds.includes(first) !== slot.userIds.includes(second)) markManual(slot);
+            slot.userIds = slot.userIds.map(id => id === first ? second : id === second ? first : id);
+        }
+    }
+    const peopleOf = slot => slot.userIds.length ? slot.userIds : [''];
+    const sharesPerson = (first, second) => peopleOf(first).some(id => peopleOf(second).includes(id));
+    function overlappingSlots(slots, zone) {
+        const conflicts = new Set();
+        const ordered = slots.map(slot => ({ slot, left: timeOf(slot, 'start', zone), right: timeOf(slot, 'end', zone) }))
+            .filter(item => item.right > item.left).sort((a, b) => a.left - b.left);
+        for (let i = 0; i < ordered.length; i++) {
+            for (let j = i + 1; j < ordered.length && ordered[j].left < ordered[i].right; j++) {
+                if (sharesPerson(ordered[i].slot, ordered[j].slot)) { conflicts.add(ordered[i].slot); conflicts.add(ordered[j].slot); }
+            }
+        }
+        return conflicts;
+    }
+    function freeBounds(slots, slot, zone, excluded = []) {
+        const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+        let low = -Infinity, high = Infinity;
+        for (const other of slots) {
+            if (other === slot || excluded.includes(other) || !sharesPerson(slot, other)) continue;
+            const start = timeOf(other, 'start', zone), end = timeOf(other, 'end', zone);
+            if (end <= left) low = Math.max(low, end);
+            if (start >= right) high = Math.min(high, start);
+        }
+        return { low, high };
+    }
+    function clampMove(slots, slot, delta, zone) {
+        const { low, high } = freeBounds(slots, slot, zone);
+        return Math.max(low - timeOf(slot, 'start', zone), Math.min(high - timeOf(slot, 'end', zone), delta));
+    }
+    function clampEdge(slots, slot, edge, time, zone, excluded = []) {
+        const { low, high } = freeBounds(slots, slot, zone, excluded);
+        return edge === 'start' ? Math.max(low, Math.min(timeOf(slot, 'end', zone) - minute, time)) : Math.min(high, Math.max(timeOf(slot, 'start', zone) + minute, time));
+    }
+    function mergeOverlaps(slots, zone) {
+        const affected = slots.filter(slot => slots.some(other => other !== slot && sharesPerson(slot, other) && timeOf(slot, 'start', zone) <= timeOf(other, 'end', zone) && timeOf(other, 'start', zone) <= timeOf(slot, 'end', zone)));
+        const merged = structuredClone(slots.filter(slot => !affected.includes(slot)));
+        // 按成员合并，避免多人班段的部分重叠改变其他成员的值班时长。
+        for (const person of new Set(affected.flatMap(peopleOf))) {
+            const ordered = affected.filter(slot => peopleOf(slot).includes(person)).sort((a, b) => timeOf(a, 'start', zone) - timeOf(b, 'start', zone));
+            let current = null;
+            for (const slot of ordered) {
+                if (current && timeOf(slot, 'start', zone) <= timeOf(current, 'end', zone)) {
+                    setTime(current, 'end', Math.max(timeOf(current, 'end', zone), timeOf(slot, 'end', zone)), zone);
+                } else {
+                    current = { ...structuredClone(slot), userIds: person ? [person] : [] };
+                    delete current.id; markManual(current); merged.push(current);
+                }
+            }
+        }
+        return merged;
+    }
+    function snapCandidates(slots, handovers, start, end, zone, now) {
+        const candidates = slots.flatMap(slot => [timeOf(slot, 'start', zone), timeOf(slot, 'end', zone)]).concat(handovers.map(value => new Date(value).getTime()), Math.floor(now / minute) * minute);
+        for (let day = wallTime(`${localTime(start, zone).slice(0, 10)}T00:00`); day <= wallTime(localTime(end, zone)); day += 24 * hour) {
+            candidates.push(utcForLocal(wallString(day), zone));
+        }
+        return [...new Set(candidates.filter(Number.isFinite))];
+    }
+    function snapBoundary(time, zone, candidates, tolerance, free = false, length = 0) {
+        if (free) return { time: snapTime(time, zone, true), guide: null };
+        let best = null, distance = Infinity, snapped = time;
+        for (const candidate of candidates) for (const offset of length ? [0, length] : [0]) {
+            const difference = Math.abs(time + offset - candidate);
+            if (difference <= tolerance && difference < distance) { distance = difference; best = candidate; snapped = candidate - offset; }
+        }
+        return best == null ? { time: snapTime(time, zone), guide: null } : { time: snapped, guide: best };
+    }
+    function reminders(slots, context, start, end, members, thresholds, zone) {
+        const own = slots.map(slot => ({ ...slot, left: timeOf(slot, 'start', zone), right: timeOf(slot, 'end', zone) }))
+            .filter(slot => slot.right > slot.left).sort((a, b) => a.left - b.left);
+        const result = [];
+        const add = (key, left, right, person = '') => {
+            left = Math.max(start, left); right = Math.min(end, right);
+            if (right > left) result.push({ key, left, right, person });
+        };
+        let covered = start;
+        for (const slot of own) {
+            if (slot.userIds.length) {
+                if (slot.left > covered) add('gap', covered, slot.left);
+                covered = Math.max(covered, slot.right);
+            } else add('unassigned-warning', slot.left, slot.right);
+            if (thresholds.staff != null && slot.userIds.length < thresholds.staff) add('staff-warning', slot.left, slot.right);
+            if (slot.userIds.some(id => !members.some(member => member.id === id && !member.departed))) add('departed-warning', slot.left, slot.right);
+            if (own.some(other => other !== slot && other.left < slot.right && other.right > slot.left)) add('overlap', slot.left, slot.right);
+        }
+        if (covered < end) add('gap', covered, end);
+        const all = own.concat(context.map(slot => ({ ...slot, left: Date.parse(slot.startsAtUtc), right: Date.parse(slot.endsAtUtc) })));
+        for (const id of new Set(own.flatMap(slot => slot.userIds))) {
+            let previous = null, continuous = null, previousOwn = null, continuousOwn = [];
+            for (const slot of all.filter(item => item.userIds.includes(id)).sort((a, b) => a.left - b.left)) {
+                const isOwn = own.includes(slot);
+                if (previous != null && slot.left < previous && (isOwn || previousOwn)) add('overlap', slot.left, Math.min(slot.right, previous), id);
+                if (previous != null && thresholds.rest != null && slot.left - previous < thresholds.rest * hour && (isOwn || previousOwn)) {
+                    const target = isOwn ? slot : previousOwn;
+                    add('rest-warning', target.left, target.right, id);
+                }
+                if (previous == null || slot.left > previous) { continuous = slot.left; continuousOwn = []; }
+                if (isOwn) continuousOwn.push(slot);
+                previous = Math.max(previous ?? -Infinity, slot.right);
+                if (thresholds.continuous != null && previous - continuous > thresholds.continuous * hour) {
+                    for (const ownSlot of continuousOwn) add('continuous-warning', ownSlot.left, ownSlot.right, id);
+                }
+                previousOwn = isOwn ? slot : null;
+            }
+        }
+        return result;
+    }
+    function warningSegments(warnings, start, end) {
+        const events = new Map();
+        const add = (time, message, delta) => {
+            if (!events.has(time)) events.set(time, new Map());
+            const changes = events.get(time);
+            changes.set(message, (changes.get(message) || 0) + delta);
+        };
+        for (const warning of warnings) {
+            const left = Math.max(start, new Date(warning.startsAtUtc).getTime()), right = Math.min(end, new Date(warning.endsAtUtc).getTime());
+            if (!(right > left)) continue;
+            add(left, warning.message, 1); add(right, warning.message, -1);
+        }
+        const active = new Map(), segments = [];
+        let previous = start;
+        for (const [time, changes] of [...events].sort((a, b) => a[0] - b[0])) {
+            if (time > previous && active.size) {
+                const messages = [...active.keys()].sort(), last = segments.at(-1);
+                if (last?.right === previous && JSON.stringify(last.messages) === JSON.stringify(messages)) last.right = time;
+                else segments.push({ left: previous, right: time, messages });
+            }
+            for (const [message, delta] of changes) {
+                const count = (active.get(message) || 0) + delta;
+                if (count) active.set(message, count);
+                else active.delete(message);
+            }
+            previous = time;
+        }
+        return segments;
+    }
+    if (typeof module !== 'undefined') module.exports = { localTime, copyRange, hoursFor, utcForLocal, timeOf, snapTime, movePerson, swapPeople, reminders, warningSegments, overlappingSlots, freeBounds, clampMove, clampEdge, mergeOverlaps, snapCandidates, snapBoundary };
+    if (typeof document === 'undefined') return;
     const root = document.getElementById('oncall-schedule');
     if (!root) return;
-    const tools = document.getElementById('oncall-adjustments');
-    let editing = tools.open;
-    const original = JSON.parse(root.dataset.slots);
-    const weeks = JSON.parse(root.dataset.weeks);
-    const departedIds = new Set([...root.querySelectorAll('.oncall-edit-member')].filter(input => input.dataset.departed === 'true').map(input => input.value));
-    const weekSlots = (items, week) => items.slice(week * 21, (week + 1) * 21);
-    const editableSlot = index => Number.isInteger(index) && index >= 21 && index < 42;
-    const slotChanged = index => [...slots[index].userIds].sort().join(',') !== [...original[index].userIds].sort().join(',');
-    const weekChanged = week => weekSlots(slots, week).some((_, index) => slotChanged(week * 21 + index));
-    let slots = structuredClone(original);
-    const errors = document.getElementById('oncall-schedule-errors');
-    const select = document.getElementById('oncall-edit-slot');
-    const members = [...root.querySelectorAll('.oncall-edit-member')];
-    const chart = document.getElementById('oncall-gantt');
-    const rows = [...(chart?.querySelectorAll('[data-user-id]') || [])];
-    const status = document.getElementById('oncall-drag-status');
-    const badge = document.getElementById('oncall-save-state');
-    const originalBadge = badge?.textContent;
-    const originalBadgeClass = badge?.className;
-    const loadedAt = Date.now();
-    const history = [];
-    const modeButtons = [...root.querySelectorAll('[data-schedule-mode]')];
-    let mode = 'move';
-    let selected = null;
-    let pointer = null;
-    let suppressClick = false;
-    let dirty = false;
-    let saving = false;
-
-    function renderForm() {
-        if (!select) return;
-        const index = Number(select.value);
-        const editable = editableSlot(index);
-        const assigned = new Set(editable ? slots[index].userIds : []);
-        members.forEach(input => {
-            input.checked = assigned.has(input.value);
-            input.disabled = !editing || saving || !editable || input.dataset.departed === 'true';
+    const get = id => document.getElementById(id);
+    const text = (key, fallback) => root.querySelector(`[data-schedule-text="${key}"]`)?.textContent || getLocalizedText(key, fallback);
+    const members = JSON.parse(root.dataset.members), context = JSON.parse(root.dataset.context || '[]');
+    const zone = root.dataset.zone, start = root.dataset.start, end = root.dataset.end;
+    const from = Date.parse(start), until = Date.parse(end), duration = until - from;
+    const edgeStart = from - 36 * hour, edgeEnd = until + 36 * hour;
+    const visibleBounds = () => [from - Number(chart.dataset.beforeHours || 0) * hour, until + Number(chart.dataset.afterHours || 0) * hour];
+    const intersects = (left, right, low = from, high = until) => left < high && right > low;
+    const inWeek = slot => intersects(timeOf(slot, 'start', zone), timeOf(slot, 'end', zone));
+    const inEditor = slot => intersects(timeOf(slot, 'start', zone), timeOf(slot, 'end', zone), edgeStart, edgeEnd);
+    const regionAt = time => time < from ? 'previous' : time >= until ? 'next' : 'current';
+    const chart = get('oncall-gantt'), dialog = get('oncall-shift-dialog');
+    const prepare = items => items.map(slot => ({ ...slot, source: slot.source ?? 0, userIds: [...slot.userIds], startLocal: localTime(slot.startsAtUtc, zone), endLocal: localTime(slot.endsAtUtc, zone) }));
+    const weekSlots = prepare(JSON.parse(root.dataset.slots));
+    const adjacent = prepare(context.filter(slot => !slot.external && inEditor(slot) && !weekSlots.some(item => item.id && item.id === slot.id)));
+    const adjacentIds = new Set(adjacent.map(slot => slot.id).filter(Boolean));
+    const original = { slots: weekSlots.concat(adjacent), ranges: [], clearRanges: [] };
+    let state = structuredClone(original), dirty = false, busy = false, sequence = 0, timer, pending = null, historyPending = null, selected = null, weekSelection = null, editing = null, gesture = null, suppressClick = false, clearEndEdited = false;
+    const undo = [], redo = [];
+    const threshold = key => root.dataset[key] == null || root.dataset[key] === '' ? null : Number(root.dataset[key]);
+    const thresholds = { rest: threshold('minimumRest'), continuous: threshold('maximumContinuous'), staff: threshold('minimumStaff') };
+    const activeMember = id => id === '' || members.some(member => member.id === id && !member.departed);
+    const hasDeparted = slot => slot.userIds.some(id => !activeMember(id));
+    const valid = slot => timeOf(slot, 'end', zone) > timeOf(slot, 'start', zone);
+    const normalized = items => items.filter(valid).map(slot => ({ ...slot, startsAtUtc: new Date(timeOf(slot, 'start', zone)).toISOString(), endsAtUtc: new Date(timeOf(slot, 'end', zone)).toISOString() }));
+    function list(id, values) {
+        get(id).replaceChildren(...values.map(value => { const item = document.createElement('li'); item.textContent = value; return item; }));
+    }
+    function error(message) { list('oncall-schedule-errors', [message]); }
+    const overlapMessage = () => text('same-person-overlap', 'Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving.');
+    function draftSlots(candidate = state) { return candidate.slots.concat(candidate.ranges.flatMap(range => range.slots)); }
+    function teamSlots(candidate = state) {
+        const slots = draftSlots(candidate), ranges = [{ start: from, end: until }, ...candidate.ranges];
+        return slots.concat(context.filter(slot => !slot.external && !adjacentIds.has(slot.id) && !ranges.some(range => Date.parse(slot.startsAtUtc) < range.end && Date.parse(slot.endsAtUtc) > range.start) && !slots.some(item => item.id && item.id === slot.id)));
+    }
+    const conflicts = (candidate = state) => overlappingSlots(teamSlots(candidate), zone);
+    function submitted(items) {
+        return items.map(slot => {
+            const copy = structuredClone(slot);
+            copy.source ??= 0;
+            if (copy.startsAtUtc && copy.startLocal === localTime(copy.startsAtUtc, zone)) delete copy.startLocal;
+            if (copy.endsAtUtc && copy.endLocal === localTime(copy.endsAtUtc, zone)) delete copy.endLocal;
+            return copy;
         });
-        const changed = slots.filter((_, index) => slotChanged(index)).length;
-        dirty = changed > 0;
-        const generate = document.getElementById('oncall-generate');
-        if (generate) generate.disabled = dirty || saving;
-        document.getElementById('oncall-undo-schedule').disabled = !history.length || saving;
-        document.getElementById('oncall-reset-schedule').disabled = !dirty || saving;
-        document.getElementById('oncall-edit-count').textContent = getLocalizedText("modified-shifts", "Modified {0} shifts{1}{2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(changed), String(weekChanged(0) ? getLocalizedText("includes-previous-week", " · includes previous week") : ''), String(weekChanged(2) ? getLocalizedText("includes-next-week", " · includes next week") : '')][Number(index)] ?? placeholder);
-        if (badge) {
-            badge.textContent = dirty ? getLocalizedText("unsaved-adjustment-draft", "Unsaved · Adjustment draft") : originalBadge;
-            badge.className = dirty ? 'badge bg-warning text-dark' : originalBadgeClass;
+    }
+    function payload(extraRange) {
+        const slots = state.slots.concat(state.ranges.flatMap(range => range.slots));
+        // Replacing an extended range must also cover the old location of a moved or deleted adjacent shift.
+        const bounds = normalized(slots).concat(adjacent);
+        const low = Math.min(from, extraRange ? Date.parse(extraRange.startUtc) : Infinity, ...state.ranges.map(range => range.start), ...state.clearRanges.map(range => Date.parse(range.startUtc)), ...bounds.map(slot => Date.parse(slot.startsAtUtc)));
+        const high = Math.max(until, extraRange ? Date.parse(extraRange.endUtc) : -Infinity, ...state.ranges.map(range => range.end), ...state.clearRanges.map(range => Date.parse(range.endUtc)), ...bounds.map(slot => Date.parse(slot.endsAtUtc)));
+        if (high - low > Number(root.dataset.maxRangeDays) * 24 * hour) {
+            throw new Error(text('range-limit', 'The schedule range must not exceed {0} days and must be within 10 years of now.').replace('{0}', root.dataset.maxRangeDays));
         }
-        document.getElementById('oncall-draft-notice').hidden = !dirty;
-        const published = document.getElementById('oncall-published-status');
-        if (published) published.hidden = dirty;
-        document.querySelectorAll('[data-oncall-saved-warning]').forEach(warning => warning.hidden = dirty);
-        syncMode();
+        return { groupId: root.dataset.groupId, version: root.dataset.version, startUtc: new Date(low).toISOString(), endUtc: new Date(high).toISOString(), slots: submitted(slots), clearRanges: structuredClone(state.clearRanges) };
     }
-
-    function syncMode() {
-        if (!chart) return;
-        chart.classList.toggle('ac-gantt-editable', editing);
-        chart.dataset.editMode = mode;
-        modeButtons.forEach(button => {
-            const active = button.dataset.scheduleMode === mode;
-            button.classList.toggle('active', active);
-            button.setAttribute('aria-pressed', String(active));
-        });
-        rows.forEach(row => {
-            row.querySelectorAll('.ac-gantt-shift:not([data-readonly])').forEach(shift => shift.disabled = saving);
-            const weekButton = row.querySelector('.ac-gantt-week');
-            if (weekButton) weekButton.disabled = !editing || saving || mode !== 'move' || row.dataset.departed === 'true';
-            row.querySelectorAll('.ac-gantt-cell').forEach(cell => {
-                const index = Number(cell.dataset.slot);
-                const assigned = slots[index].userIds.includes(row.dataset.userId);
-                cell.tabIndex = editing && !saving && mode === 'add' && !assigned && row.dataset.departed !== 'true' ? 0 : -1;
-                cell.setAttribute('aria-label', getLocalizedText("message-2", "{0} · {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(slots[index].localStart), String(mode === 'add' ? getLocalizedText("add-on-call-shift", "Add on-call shift") : getLocalizedText("move-selected-shift-here", "Move selected shift here"))][Number(index)] ?? placeholder));
+    async function request(url, body) {
+        const response = await fetch(url, body ? { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', RequestVerificationToken: root.querySelector('[name="__RequestVerificationToken"]').value }, body: JSON.stringify(body) } : { credentials: 'same-origin' });
+        const data = await response.json();
+        if (!response.ok) throw new Error((data.errors || [text('schedule-save-failed', 'Unable to save schedule. Refresh and try again.')]).join('\n'));
+        return data;
+    }
+    function cancelPending() {
+        pending = null; historyPending = null;
+        get('oncall-replace-confirm').hidden = true;
+        get('oncall-clear-history-confirm').hidden = true;
+    }
+    function clearDefaults() {
+        if (clearEndEdited) return;
+        const ends = normalized(state.slots.concat(state.ranges.flatMap(range => range.slots))).map(slot => Date.parse(slot.endsAtUtc));
+        const savedEnd = Date.parse(root.dataset.lastShiftEnd);
+        const latest = Math.max(Number.isFinite(savedEnd) ? savedEnd : -Infinity, ...ends, ...state.ranges.map(range => range.end), ...state.clearRanges.map(range => Date.parse(range.endUtc)));
+        get('oncall-clear-end').value = Number.isFinite(latest) ? localTime(Math.ceil(latest / minute) * minute, zone) : '';
+    }
+    function describeSlots(slots) {
+        return slots.map(slot => `${localTime(slot.startsAtUtc, zone)} → ${localTime(slot.endsAtUtc, zone)} · ${slot.userIds.map(id => members.find(member => member.id === id)?.name || id).join(', ') || text('unassigned', 'Unassigned')}`);
+    }
+    function confirmReplacement(candidate, slots, regenerate = false) {
+        pending = candidate;
+        const range = candidate.range;
+        list('oncall-replaced-shifts', slots.map(slot => {
+            const [description] = describeSlots([slot]);
+            if (!range) return description;
+            const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+            const retained = [];
+            if (left < range.start) retained.push(`${localTime(left, zone)} → ${localTime(range.start, zone)}`);
+            if (right > range.end) retained.push(`${localTime(range.end, zone)} → ${localTime(right, zone)}`);
+            return retained.length ? `${description} · ${text('clipped-shift', 'Will be clipped; retained times:')} ${retained.join('; ')}` : description;
+        }));
+        get('oncall-replace-regenerate-hint').hidden = !regenerate;
+        get('oncall-replace-confirm').hidden = false;
+    }
+    function changed(rows = true) {
+        sequence++;
+        cancelPending();
+        dirty = JSON.stringify(state) !== JSON.stringify(original);
+        get('oncall-draft-notice').hidden = !dirty;
+        get('oncall-undo-schedule').disabled = !undo.length;
+        get('oncall-redo-schedule').disabled = !redo.length;
+        document.querySelectorAll('[data-oncall-saved-warning]').forEach(item => item.hidden = dirty);
+        if (get('oncall-published-status')) get('oncall-published-status').hidden = dirty;
+        if (get('oncall-save-state')) {
+            get('oncall-save-state').dataset.originalText ??= get('oncall-save-state').textContent;
+            get('oncall-save-state').textContent = dirty ? text('draft-range', 'Draft range') : get('oncall-save-state').dataset.originalText;
+        }
+        list('oncall-schedule-errors', []);
+        list('oncall-copy-drafts', state.ranges.map(range => `${text('draft-range', 'Draft range')}: ${localTime(range.start, zone)} → ${localTime(range.end, zone)} · ${zone}`)
+            .concat(state.clearRanges.map(range => `${text('cleared-range', 'Cleared draft range')}: ${localTime(range.startUtc, zone)} → ${localTime(range.endUtc, zone)} · ${zone}${range.autoExtendAction ? ` · ${text(`clear-${range.autoExtendAction}`, range.autoExtendAction === 'disable' ? 'Disable automatic extension when saving' : 'Regenerate cleared gaps from the template when saving')}` : ''}`)));
+        get('oncall-clear-auto-action').value = state.clearRanges.at(-1)?.autoExtendAction || '';
+        clearDefaults();
+        if (rows) renderRows();
+        draw();
+        clearTimeout(timer);
+        timer = setTimeout(preview, 250);
+    }
+    function commit(action, rows = true, allowExisting = false, errorTarget = 'oncall-schedule-errors') {
+        if (busy) return false;
+        const before = structuredClone(state);
+        action();
+        if (!allowExisting && conflicts().size) {
+            state = before; sequence++; clearTimeout(timer); renderRows(); draw(); list(errorTarget, [overlapMessage()]); return false;
+        }
+        if (JSON.stringify(before) === JSON.stringify(state)) return true;
+        undo.push(before); redo.length = 0;
+        changed(rows); return true;
+    }
+    function memberInputs(container, slot, update) {
+        container.replaceChildren();
+        for (const member of members) {
+            if (member.departed && !slot.userIds.includes(member.id)) continue;
+            const label = document.createElement('label'), checkbox = document.createElement('input');
+            label.className = 'd-block text-nowrap'; checkbox.type = 'checkbox'; checkbox.className = 'form-check-input me-2';
+            checkbox.value = member.id; checkbox.checked = slot.userIds.includes(member.id);
+            checkbox.addEventListener('change', () => {
+                if (member.departed && checkbox.checked) { checkbox.checked = false; return; }
+                update(member.id, checkbox.checked);
             });
-        });
+            label.append(checkbox, document.createTextNode(member.name + (member.departed ? ` (${text('oncall-departed-label', 'Departed')})` : ''))); container.append(label);
+        }
     }
-
-    function setMode(value) {
-        if (!editing || saving) return;
-        mode = value;
-        clearSelection();
-        suppressClick = false;
-        const help = document.getElementById('oncall-mode-help');
-        if (help) help.textContent = mode === 'add' ? getLocalizedText("add-mode-click-the-empty-space-in-the", "Add mode: Click the empty space in the engineer's row to add an 8-hour shift; multiple people can share a shift.")
-            : mode === 'remove' ? getLocalizedText("delete-mode-click-a-color-block-to-remove", "Delete mode: Click a color block to remove this engineer's current shift. This action can be undone and takes effect after saving all changes.")
-            : getLocalizedText("currently-in-move-swap-mode-switch-the-mode", "Currently in Move/Swap mode. Switch the mode above before adding or removing shifts.");
-        status.textContent = '';
-        syncMode();
-    }
-    modeButtons.forEach(button => button.addEventListener('click', () => setMode(button.dataset.scheduleMode)));
-
-    function editAssignment(target) {
-        if (target.slot === null || target.week) return;
-        const assigned = slots[target.slot].userIds;
-        const index = assigned.indexOf(target.user);
-        if (mode === 'add' && index !== -1) { status.textContent = getLocalizedText("this-engineer-is-already-assigned-to-this-shift", "This engineer is already assigned to this shift. No need to add them again."); return; }
-        if (mode === 'remove' && index === -1) { status.textContent = getLocalizedText("no-shifts-to-delete-in-this-cell", "No shifts to delete in this cell."); return; }
-        history.push(structuredClone(slots));
-        if (mode === 'add') assigned.push(target.user);
-        else assigned.splice(index, 1);
-        select.value = target.slot;
-        changed(getLocalizedText("shift-for-not-saved-yet-you-can-undo", "{0} shift for {1} · {2}; not saved yet. You can undo this.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(mode === 'add' ? getLocalizedText("added", "Added") : getLocalizedText("removed", "Removed")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder));
-    }
-
-    function showMessages(container, messages) {
-        container.replaceChildren(...messages.map(message => {
-            const item = document.createElement('li');
-            if (typeof message === 'string') item.textContent = message;
-            else if (editableSlot(message.slot)) {
-                const button = document.createElement('button');
-                button.type = 'button';
-                button.className = 'btn btn-link text-start text-danger p-0';
-                button.textContent = message.text;
-                button.addEventListener('click', () => locateSlot(message.slot));
-                item.append(button);
-            } else item.textContent = message.text;
-            return item;
+    function renderRows() {
+        get('oncall-shift-rows').replaceChildren(...state.slots.map((slot, index) => {
+            const row = document.createElement('tr');
+            for (const [key, label] of [['startLocal', 'Start'], ['endLocal', 'End']]) {
+                const cell = document.createElement('td'), input = document.createElement('input');
+                input.type = 'datetime-local'; input.className = 'form-control'; input.value = slot[key];
+                input.setAttribute('aria-label', text(label.toLowerCase(), label));
+                input.disabled = hasDeparted(slot);
+                input.addEventListener('input', () => commit(() => {
+                    if (state.slots[index][key] !== input.value) markManual(state.slots[index]);
+                    state.slots[index][key] = input.value;
+                }, false));
+                cell.append(input); row.append(cell);
+            }
+            const people = document.createElement('td');
+            memberInputs(people, slot, (id, checked) => commit(() => {
+                if (state.slots[index].userIds.includes(id) !== checked) markManual(state.slots[index]);
+                state.slots[index].userIds = checked ? [...new Set([...state.slots[index].userIds, id])] : state.slots[index].userIds.filter(value => value !== id);
+            }));
+            row.append(people);
+            const actions = document.createElement('td'), remove = document.createElement('button');
+            remove.type = 'button'; remove.className = 'btn btn-sm btn-outline-danger'; remove.textContent = text('delete-shift', 'Delete shift');
+            remove.addEventListener('click', () => commit(() => { state.slots.splice(index, 1); selected = null; }, true, true));
+            actions.append(remove); row.append(actions); return row;
         }));
     }
-
-    function renderChart() {
-        const warnings = [];
-        const active = index => Math.floor(index / 21) === 1 || weekChanged(Math.floor(index / 21));
-        const empty = slots.flatMap((slot, index) => !slot.userIds.length && active(index) ? [index] : []);
-        empty.forEach(index => warnings.push({ slot: index, text: getLocalizedText("gap-detected-at-please-add-staff-the-week", "Gap detected at {0}. Please add staff (the week requires a full 21 shifts).").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slots[index].localStart)][Number(index)] ?? placeholder) }));
-        slots.forEach((slot, index) => {
-            const minimum = weeks[Math.floor(index / 21)].minimumStaff;
-            if (active(index) && slot.userIds.length > 0 && slot.userIds.length < minimum)
-                warnings.push({ slot: index, text: getLocalizedText("has-only-staff-below-the-minimum-of-manual", "{0} has only {1} staff, below the minimum of {2}. Manual save is still allowed.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(slot.localStart), String(slot.userIds.length), String(minimum)][Number(index)] ?? placeholder) });
-        });
-        rows.forEach(row => {
-            const assigned = slots.flatMap((slot, index) => slot.userIds.includes(row.dataset.userId) ? [index] : []);
-            const conflicts = new Set();
-            assigned.forEach((index, position) => {
-                if (!position) return;
-                const previous = assigned[position - 1];
-                const rest = (index - previous - 1) * 8;
-                const requiredRest = Math.max(weeks[Math.floor(index / 21)].restHours, weeks[Math.floor(previous / 21)].restHours);
-                if ((active(index) || active(previous)) && rest < requiredRest) {
-                    conflicts.add(index);
-                    conflicts.add(previous);
-                    warnings.push({ slot: editableSlot(index) ? index : previous, text: getLocalizedText("only-hours-rest-between-and-minimum-required-is", "{0}: Only {1} hours rest between {2} and {3}. Minimum required is {4} hours.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(rest), String(slots[previous].localStart), String(slots[index].localStart), String(requiredRest)][Number(index)] ?? placeholder) });
+    function position(element, left, right) {
+        const before = Number(chart.dataset.beforeHours || 0) * hour, after = Number(chart.dataset.afterHours || 0) * hour;
+        element.dataset.layoutLeft = String((left - from) / duration * 100);
+        element.dataset.layoutWidth = String((right - left) / duration * 100);
+        element.style.left = `${(left - from + before) / (duration + before + after) * 100}%`;
+        element.style.width = `${(right - left) / (duration + before + after) * 100}%`;
+    }
+    function describe(element, summary, left, right) {
+        element.dataset.summary = summary; element.dataset.start = localTime(left, zone); element.dataset.end = localTime(right, zone);
+        element.title = `${summary} · ${element.dataset.start} → ${element.dataset.end} · ${zone}`;
+        element.setAttribute('aria-label', element.title);
+        element.setAttribute('aria-describedby', 'oncall-shift-detail');
+    }
+    function pack(lane) {
+        if (gesture || lane.id === 'oncall-warning-lane') return;
+        const tracks = [];
+        const bars = [...lane.querySelectorAll('.ac-gantt-shift')].filter(bar => !bar.hidden);
+        bars.sort((a, b) => parseFloat(a.dataset.layoutLeft ?? a.style.left) - parseFloat(b.dataset.layoutLeft ?? b.style.left));
+        for (const bar of bars) {
+            const left = parseFloat(bar.dataset.layoutLeft ?? bar.style.left), right = left + parseFloat(bar.dataset.layoutWidth ?? bar.style.width);
+            let track = tracks.findIndex(value => value <= left + 0.000001);
+            if (track < 0) track = tracks.length;
+            tracks[track] = right;
+            bar.style.top = `${track * 72 + 8}px`; bar.style.transform = 'none';
+        }
+        lane.style.minHeight = `${Math.max(1, tracks.length) * 72}px`;
+    }
+    function updateShift(bar, row, slot, overlap = bar.classList.contains('ac-gantt-conflict')) {
+        const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+        const [low, high] = visibleBounds();
+        const leftClip = Math.max(left, low), rightClip = Math.min(right, high);
+        bar.hidden = rightClip <= leftClip;
+        position(bar, leftClip, Math.max(leftClip, rightClip));
+        describe(bar, `${row.dataset.name}${hasDeparted(slot) ? ` · ${text('oncall-departed-label', 'Departed')}` : ''} · ${((right - left) / hour).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`, left, right);
+        bar.textContent = `${localTime(left, zone).replace('T', ' ')} → ${localTime(right, zone).replace('T', ' ')}`;
+        bar.setAttribute('aria-label', `${bar.title}. ${text('move-hint', 'Arrow keys move time or person; Shift + arrows resize; Enter edits; Delete removes.')}`);
+        if (overlap) {
+            bar.classList.add('ac-gantt-conflict'); bar.setAttribute('aria-invalid', 'true'); bar.title += ` · ${overlapMessage()}`;
+        }
+        if (!bar.hidden && !hasDeparted(slot)) for (const edge of ['start', 'end']) {
+            if ((edge === 'start' && left !== leftClip) || (edge === 'end' && right !== rightClip)) continue;
+            const handle = document.createElement('span'); handle.className = 'ac-gantt-resize'; handle.dataset.resize = edge;
+            handle.title = text(`resize-${edge}`, edge === 'start' ? 'Adjust start' : 'Adjust end'); handle.setAttribute('aria-hidden', 'true'); bar.append(handle);
+        }
+    }
+    function drawGesture() {
+        const previous = gesture.rendered || gesture.before;
+        // 保留未编辑的 DOM 和轨道，避免手势过程中命中目标随重绘改变。
+        for (let index = 0; index < Math.max(previous.slots.length, state.slots.length); index++) {
+            const slot = state.slots[index];
+            if (JSON.stringify(slot) === JSON.stringify(previous.slots[index])) continue;
+            for (const row of chart.querySelectorAll('[data-user-id]')) {
+                const lane = row.querySelector('.ac-gantt-lane'), id = row.dataset.userId;
+                let bar = lane.querySelector(`[data-slot-index="${index}"]`);
+                if (!slot || !valid(slot) || !peopleOf(slot).includes(id)) { bar?.remove(); continue; }
+                if (!bar) {
+                    bar = shiftBar(row, index);
+                    bar.style.top = '8px'; bar.style.transform = 'none';
+                    lane.append(bar);
                 }
-            });
-            const currentCount = assigned.filter(index => index >= 21 && index < 42).length;
-            row.querySelector('.ac-gantt-hours').textContent = getLocalizedText("shifts-hours", "{0} shifts / {1} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(currentCount), String(currentCount * 8)][Number(index)] ?? placeholder);
-            row.querySelectorAll('.ac-gantt-shift:not(.ac-gantt-external)').forEach(shift => shift.remove());
-            row.querySelectorAll('.ac-gantt-cell').forEach(cell => cell.classList.toggle('ac-gantt-empty', empty.includes(Number(cell.dataset.slot))));
-            assigned.filter(index => index >= 16 && index < 47).forEach(index => {
-                const slot = slots[index];
-                const edge = index < 21 ? 'previous' : index >= 42 ? 'next' : null;
-                const shift = document.createElement('button');
-                shift.type = 'button';
-                shift.className = edge ? 'ac-gantt-shift' : `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
-                if (edge) {
-                    shift.classList.add('ac-gantt-adjacent');
-                    shift.dataset.edge = edge;
-                    shift.dataset.readonly = 'true';
-                    shift.dataset.groupId = root.dataset.groupId;
-                    shift.hidden = true;
-                }
-                shift.classList.toggle('ac-gantt-conflict', conflicts.has(index));
-                const startsAt = Date.parse(slot.startsAtUtc);
-                shift.classList.toggle('ac-gantt-current', weeks[Math.floor(index / 21)].saved && !weekChanged(Math.floor(index / 21)) && startsAt <= loadedAt && loadedAt < startsAt + 8 * 3600000);
-                const visibleStart = Math.max(-36, (index - 21) * 8);
-                const visibleEnd = Math.min(204, (index - 20) * 8);
-                shift.style.left = `${visibleStart / 168 * 100}%`;
-                shift.style.width = `${(visibleEnd - visibleStart) / 168 * 100}%`;
-                if (!edge) shift.dataset.slot = index;
-                shift.dataset.summary = getLocalizedText("8-hours", "{0}{1}{2} · 8 hours · {3}{4}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(row.dataset.name), String(row.dataset.departed === 'true' ? getLocalizedText("departed", " · Departed") : ''), String(edge ? getLocalizedText("adjacent-week-read-only", " · {0} · Adjacent week (read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder) : ''), String(root.dataset.zone), String(conflicts.has(index) ? getLocalizedText("insufficient-rest", " · Insufficient rest") : '')][Number(index)] ?? placeholder);
-                shift.dataset.start = slot.localStart;
-                shift.dataset.end = slot.localEnd;
-                shift.title = `${shift.dataset.summary} · ${slot.localStart} → ${slot.localEnd}`;
-                shift.setAttribute('aria-label', shift.title);
-                shift.setAttribute('aria-describedby', 'oncall-shift-detail');
-                if (edge) {
-                    const team = document.createElement('span');
-                    team.className = 'ac-gantt-time';
-                    team.textContent = getLocalizedText("read-only", "{0} (Read-only)").replace(/\{(\d+)\}/g, (placeholder, index) => [String(root.dataset.groupName)][Number(index)] ?? placeholder);
-                    shift.append(team);
-                }
-                [[getLocalizedText("from", "From"), slot.localStart], [getLocalizedText("end", "End"), slot.localEnd]].forEach(([label, time], position) => {
-                    const span = document.createElement('span');
-                    span.className = `ac-gantt-time${position ? ' ac-gantt-time-end' : ''}`;
-                    span.textContent = `${label} ${time.slice(11, 16)}`;
-                    span.setAttribute('aria-hidden', 'true');
-                    shift.append(span);
-                });
-                row.querySelector('.ac-gantt-lane').append(shift);
-            });
-        });
-        showMessages(document.getElementById('oncall-draft-errors'), warnings);
-        document.getElementById('oncall-draft-validation').hidden = warnings.length === 0;
-        document.getElementById('oncall-draft-summary').textContent = getLocalizedText("the-schedule-has-unresolved-issues-expand-to-view", "The schedule has {0} unresolved issues (expand to view); you can continue adjusting.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(warnings.length)][Number(index)] ?? placeholder);
-        const stats = document.querySelectorAll('[data-oncall-stat]');
-        const current = weekSlots(slots, 1);
-        const covered = current.filter(slot => slot.userIds.length).length;
-        const gapButton = document.querySelector('[data-oncall-find-gap]');
-        if (gapButton) {
-            gapButton.hidden = covered === 21;
-            gapButton.textContent = gapButton.dataset.gapLabel.replace('{0}', String(21 - covered));
-        }
-        const values = { shifts: covered, staff: new Set(current.flatMap(slot => slot.userIds)).size, hours: getLocalizedText("hours", "{0} hours").replace(/\{(\d+)\}/g, (placeholder, index) => [String(covered * 8)][Number(index)] ?? placeholder) };
-        stats.forEach(stat => stat.textContent = values[stat.dataset.oncallStat]);
-        syncMode();
-        chart?.dispatchEvent(new Event('oncall-layout'));
-    }
-
-    function clearSelection() {
-        selected = null;
-        chart?.querySelectorAll('.ac-gantt-selected').forEach(item => item.classList.remove('ac-gantt-selected'));
-    }
-
-    function changed(message) {
-        clearSelection();
-        errors.replaceChildren();
-        status.textContent = message;
-        renderForm();
-        renderChart();
-        const detailShift = chart?.querySelector(`.ac-gantt-shift[data-slot="${select.value}"]`) || chart?.querySelector('.ac-gantt-shift:not([hidden])');
-        if (detailShift) detailShift.dispatchEvent(new Event('pointerover', { bubbles: true }));
-        else {
-            document.getElementById('oncall-shift-summary')?.replaceChildren(document.createTextNode(getLocalizedText("no-assigned-shifts", "No assigned shifts.")));
-            for (const id of ['oncall-shift-start', 'oncall-shift-end']) document.getElementById(id)?.replaceChildren();
-        }
-    }
-
-    select?.addEventListener('change', renderForm);
-    members.forEach(input => input.addEventListener('change', () => {
-        if (!editing || saving || input.dataset.departed === 'true' || !editableSlot(Number(select.value))) { renderForm(); return; }
-        history.push(structuredClone(slots));
-        const assigned = slots[Number(select.value)].userIds;
-        if (input.checked) {
-            if (!assigned.includes(input.value)) assigned.push(input.value);
-        } else {
-            slots[Number(select.value)].userIds = assigned.filter(id => id !== input.value);
-        }
-        changed(getLocalizedText("staffing-adjusted-and-chart-updated-not-saved-yet", "Staffing adjusted and chart updated; not saved yet."));
-    }));
-    document.getElementById('oncall-undo-schedule').addEventListener('click', () => {
-        if (!history.length || saving) return;
-        slots = history.pop();
-        changed(getLocalizedText("previous-step-undone", "Previous step undone."));
-    });
-    document.getElementById('oncall-reset-schedule')?.addEventListener('click', () => {
-        history.push(structuredClone(slots));
-        slots = structuredClone(original);
-        changed(getLocalizedText("restored-to-the-schedule-from-when-the-page", "Restored to the schedule from when the page was opened."));
-    });
-
-    function targetAt(element) {
-        const row = element?.closest('[data-user-id]');
-        if (!row || !chart.contains(row) || row.dataset.departed === 'true' || element.closest('[data-readonly="true"]')) return null;
-        const item = element.closest('.ac-gantt-shift, .ac-gantt-cell, .ac-gantt-week');
-        if (!item && !element.closest('.ac-gantt-name')) return null;
-        if (item?.hidden) return null;
-        if (item?.dataset.slot !== undefined && !editableSlot(Number(item.dataset.slot))) return null;
-        return { user: row.dataset.userId, name: row.dataset.name, slot: item?.dataset.slot === undefined ? null : Number(item.dataset.slot),
-            week: item?.classList.contains('ac-gantt-week'), occupied: item?.classList.contains('ac-gantt-shift'), element: item || row };
-    }
-
-    function pick(target) {
-        clearSelection();
-        selected = target;
-        target.element.classList.add('ac-gantt-selected');
-        status.textContent = target.week ? getLocalizedText("selected-s-full-week-schedule-drag-to-or", "Selected {0}'s full-week schedule. Drag to or click another engineer.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name)][Number(index)] ?? placeholder)
-            : getLocalizedText("selected-drag-to-or-click-a-color-block", "Selected {0} · {1}. Drag to or click a color block to swap, Space to move; Esc to cancel.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
-        if (!target.week) { select.value = target.slot; renderForm(); }
-    }
-
-    function drop(source, target) {
-        clearSelection();
-        if (!target || (!source.week && (target.slot === null || target.week))) {
-            status.textContent = getLocalizedText("move-cancelled-schedule-unchanged", "Move cancelled; schedule unchanged.");
-            return;
-        }
-        const draft = structuredClone(slots);
-        if (source.week) {
-            if (source.user === target.user) { status.textContent = getLocalizedText("swap-cancelled", "Swap cancelled."); return; }
-            weekSlots(draft, 1).forEach(slot => slot.userIds = slot.userIds.map(id => id === source.user ? target.user : id === target.user ? source.user : id));
-        } else {
-            if (source.slot === target.slot && source.user === target.user) { status.textContent = getLocalizedText("move-cancelled", "Move cancelled."); return; }
-            const from = draft[source.slot].userIds;
-            const to = draft[target.slot].userIds;
-            const swap = to.includes(target.user);
-            if (swap && (source.slot === target.slot || source.user === target.user)) { status.textContent = getLocalizedText("two-locations-already-have-the-same-arrangement-no", "Two locations already have the same arrangement; no need to swap."); return; }
-            if (swap && (from.includes(target.user) || to.includes(source.user))) {
-                status.textContent = getLocalizedText("unable-to-swap-directly-one-person-is-already", "Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using \"Add/Remove members by shift\" first.");
-                return;
+                updateShift(bar, row, slot);
             }
-            from.splice(from.indexOf(source.user), 1);
-            if (swap) { to.splice(to.indexOf(target.user), 1); from.push(target.user); to.push(source.user); }
-            else to.push(target.user);
         }
-        history.push(structuredClone(slots));
-        slots = draft;
-        changed(source.week ? getLocalizedText("swapped-the-full-week-schedule-for-and-not", "Swapped the full-week schedule for {0} and {1}. Not saved yet.").replace(/\{(\d+)\}/g, (placeholder, index) => [String(source.name), String(target.name)][Number(index)] ?? placeholder) : getLocalizedText("shift-adjusted-you-can-continue-dragging-to-resolve", "Shift adjusted; you can continue dragging to resolve red warnings, then save all changes."));
-    }
-
-    tools.addEventListener('toggle', () => {
-        editing = tools.open;
-        if (pointer) endPointer({ pointerId: pointer.id }, true);
-        clearSelection();
-        suppressClick = false;
-        renderForm();
-    });
-    function locateSlot(index) {
-        if (!editableSlot(index)) return;
-        tools.open = true;
-        editing = true;
-        document.getElementById('oncall-editor').open = true;
-        select.value = index;
-        renderForm();
-        select.focus();
-    }
-    document.querySelector('[data-oncall-find-gap]')?.addEventListener('click', () => {
-        const index = slots.findIndex((slot, index) => editableSlot(index) && !slot.userIds.length);
-        if (index !== -1) locateSlot(index);
-    });
-    chart?.addEventListener('click', event => {
-        if (!editing || saving || (suppressClick && event.detail !== 0)) return;
-        const target = targetAt(event.target);
-        if (!target) return;
-        if (mode !== 'move') editAssignment(target);
-        else if (selected) drop(selected, target);
-        else if (target.occupied || target.week) pick(target);
-    });
-    const ghost = document.createElement('div');
-    ghost.className = 'ac-gantt-drag-label';
-    ghost.hidden = true;
-    document.body.append(ghost);
-    chart?.addEventListener('pointerdown', event => {
-        suppressClick = false;
-        if (!editing || saving || mode !== 'move' || !event.isPrimary || event.button !== 0) return;
-        const source = targetAt(event.target);
-        if (!source || (!source.occupied && !source.week)) return;
-        pointer = { source, id: event.pointerId, x: event.clientX, y: event.clientY, dragging: false };
-        chart.setPointerCapture(event.pointerId);
-    });
-    chart?.addEventListener('pointermove', event => {
-        if (!pointer || event.pointerId !== pointer.id) return;
-        if (!pointer.dragging && Math.hypot(event.clientX - pointer.x, event.clientY - pointer.y) < 6) return;
-        if (!pointer.dragging) { pointer.dragging = true; pick(pointer.source); }
-        chart.classList.add('ac-gantt-dragging');
-        ghost.hidden = false;
-        ghost.textContent = getLocalizedText("message", "{0} · {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(pointer.source.week ? getLocalizedText("swap-whole-week", "Swap whole week") : getLocalizedText("move-swap-shifts", "Move / swap shifts"))][Number(index)] ?? placeholder);
-        ghost.style.left = `${Math.min(event.clientX + 12, window.innerWidth - ghost.offsetWidth)}px`;
-        ghost.style.top = `${Math.min(event.clientY + 12, window.innerHeight - ghost.offsetHeight)}px`;
-        const bounds = chart.getBoundingClientRect();
-        const namesEnd = chart.querySelector('.ac-gantt-name').getBoundingClientRect().right;
-        if (!pointer.source.week && event.clientX > bounds.right - 12) chart.scrollLeft += 12;
-        if (!pointer.source.week && event.clientX < namesEnd + 12) chart.scrollLeft -= 12;
-        chart.querySelectorAll('.ac-gantt-drop-target').forEach(item => item.classList.remove('ac-gantt-drop-target'));
-        const target = targetAt(document.elementFromPoint(event.clientX, event.clientY));
-        if (target && (pointer.source.week || target.slot !== null)) {
-            target.element.classList.add('ac-gantt-drop-target');
-            ghost.textContent = pointer.source.week ? getLocalizedText("swap-full-week", "Swap full week: {0} ↔ {1}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(pointer.source.name), String(target.name)][Number(index)] ?? placeholder)
-                : getLocalizedText("message-3", "{0}: {1} · {2}").replace(/\{(\d+)\}/g, (placeholder, index) => [String(target.occupied ? getLocalizedText("swap", "Swap") : getLocalizedText("move-to", "Move to")), String(target.name), String(slots[target.slot].localStart)][Number(index)] ?? placeholder);
+        if (gesture.mode === 'handover') {
+            const marker = chart.querySelector(`[data-first="${gesture.index}"]`), boundary = timeOf(state.slots[gesture.index], 'end', zone);
+            if (marker) {
+                position(marker, boundary, boundary); marker.style.width = '';
+                marker.title = `${text('handover', 'Adjust handover')} · ${localTime(boundary, zone)} · ${zone}`;
+                marker.setAttribute('aria-label', marker.title);
+            }
         }
-    });
-    function endPointer(event, cancel = false) {
-        if (!pointer || event.pointerId !== pointer.id) return;
-        const finished = pointer;
-        pointer = null;
-        if (chart.hasPointerCapture(finished.id)) chart.releasePointerCapture(finished.id);
-        ghost.hidden = true;
-        chart.classList.remove('ac-gantt-dragging');
-        chart.querySelectorAll('.ac-gantt-drop-target').forEach(item => item.classList.remove('ac-gantt-drop-target'));
-        const target = cancel ? null : targetAt(document.elementFromPoint(event.clientX, event.clientY));
-        const apply = () => {
-            if (cancel) { clearSelection(); status.textContent = getLocalizedText("move-cancelled-schedule-unchanged", "Move cancelled; schedule unchanged."); }
-            else if (finished.dragging) drop(finished.source, target);
-            else if (selected) drop(selected, finished.source);
-            else pick(finished.source);
-        };
-        suppressClick = true;
-        // 保留触摸目标直到 touchend 分发完毕，避免重绘移除目标后影响后续点击。
-        if (event.pointerType === 'touch' && !cancel) requestAnimationFrame(apply);
-        else apply();
+        gesture.rendered = structuredClone(state);
     }
-    chart?.addEventListener('pointerup', event => endPointer(event));
-    chart?.addEventListener('pointercancel', event => endPointer(event, true));
-    document.addEventListener('keydown', event => {
-        if (!editing || event.key !== 'Escape') return;
-        if (pointer) endPointer({ pointerId: pointer.id }, true);
-        setMode('move');
-        clearSelection();
-        status.textContent = getLocalizedText("selection-cancelled", "Selection cancelled.");
-    });
-    chart?.addEventListener('oncall-edge-change', () => {
-        if (pointer) endPointer({ pointerId: pointer.id }, true);
-        clearSelection();
-    });
-
-    const copyDialog = document.getElementById('oncall-copy-confirm');
-    const copyModal = window.bootstrap?.Modal.getOrCreateInstance(copyDialog);
-    function copyNext() {
-        if (!editing || saving || !weeks[2].available) return;
-        if (weekSlots(slots, 1).some(slot => slot.userIds.some(id => departedIds.has(id)))) {
-            showMessages(errors, [getLocalizedText("this-week-includes-members-who-have-left-please", "This week includes members who have left. Please replace them in this week's draft before copying to the next week.")]);
-            return;
+    function shiftBar(row, index) {
+        const bar = document.createElement('button'); bar.type = 'button';
+        bar.className = `ac-gantt-shift ac-oncall-color-${row.dataset.color}`;
+        bar.dataset.draftShift = 'true'; bar.dataset.slotIndex = String(index);
+        const chosen = selected?.index === index && selected?.person === row.dataset.userId;
+        bar.classList.toggle('ac-gantt-selected', chosen); bar.setAttribute('aria-pressed', String(chosen));
+        return bar;
+    }
+    function draw(serverWarnings) {
+        if (gesture) { drawGesture(); return; }
+        const focus = document.activeElement;
+        const focusIndex = focus?.dataset.slotIndex, focusPerson = focus?.closest('[data-user-id]')?.dataset.userId;
+        chart.querySelectorAll('[data-draft-shift]').forEach(bar => bar.remove());
+        const resolved = normalized(state.slots), assigned = resolved.filter(slot => slot.userIds.length && Date.parse(slot.endsAtUtc) > from && Date.parse(slot.startsAtUtc) < until);
+        const stats = { 'oncall-total-shifts': assigned.length, 'oncall-total-staff': new Set(assigned.flatMap(slot => slot.userIds)).size,
+            'oncall-total-hours': `${assigned.reduce((sum, slot) => sum + Math.max(0, Math.min(until, Date.parse(slot.endsAtUtc)) - Math.max(from, Date.parse(slot.startsAtUtc))) / hour, 0).toFixed(2)} ${text('oncall-hours-unit', 'hours')}` };
+        for (const [id, value] of Object.entries(stats)) if (get(id)) get(id).textContent = value;
+        const history = teamSlots().slice(state.slots.length).concat(context.filter(slot => slot.external));
+        const warnings = reminders(state.slots, history, edgeStart, edgeEnd, members, thresholds, zone).map(warning => ({
+            startsAtUtc: warning.left, endsAtUtc: warning.right, message: `${warning.person ? `${members.find(member => member.id === warning.person)?.name || warning.person}: ` : ''}${text(warning.key, warning.key)}`
+        })).concat(serverWarnings || []);
+        const overlaps = conflicts();
+        get('oncall-save-schedule').disabled = overlaps.size > 0;
+        get('oncall-merge-overlaps').hidden = !overlaps.size;
+        timelineWarnings = warnings;
+        drawWarnings(overlaps.size > 0);
+        for (const row of chart.querySelectorAll('[data-user-id]')) {
+            const id = row.dataset.userId, rowLane = row.querySelector('.ac-gantt-lane');
+            const count = resolved.filter(slot => slot.userIds.includes(id) && Date.parse(slot.startsAtUtc) < until && Date.parse(slot.endsAtUtc) > from).length;
+            row.querySelector('.ac-gantt-hours').textContent = `${count} · ${hoursFor(resolved, id, start, end).toFixed(2)} ${text('oncall-hours-unit', 'hours')}`;
+            const entries = state.slots.map((slot, index) => ({ slot, index }));
+            for (const { slot, index } of entries) {
+                if (!valid(slot) || !(slot.userIds.includes(id) || (id === '' && !slot.userIds.length))) continue;
+                const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+                if (!intersects(left, right, edgeStart, edgeEnd)) continue;
+                const bar = shiftBar(row, index);
+                if (!dirty && left <= Date.now() && Date.now() < right) bar.classList.add('ac-gantt-current');
+                updateShift(bar, row, slot, overlaps.has(slot));
+                rowLane.append(bar);
+            }
         }
-        history.push(structuredClone(slots));
-        weekSlots(slots, 1).forEach((slot, index) => slots[42 + index].userIds = [...slot.userIds]);
-        changed(getLocalizedText("copied-the-current-draft-for-this-week-to", "Copied the current draft for this week to all 21 shifts in the next week. Not saved yet; you can undo. You can expand the next 36 hours for a read-only preview; after saving, switch to the next week to view or edit the full week."));
-        const toggle = document.querySelector('[data-oncall-edge="next"]');
-        if (toggle?.getAttribute('aria-expanded') === 'false') toggle.click();
+        const handovers = get('oncall-handover-lane'); handovers.replaceChildren();
+        state.slots.forEach((first, index) => {
+            if (!valid(first) || hasDeparted(first)) return;
+            const boundary = timeOf(first, 'end', zone);
+            if (boundary <= edgeStart || boundary >= edgeEnd) return;
+            const next = state.slots.map((slot, other) => ({ slot, other })).filter(item => item.other !== index && valid(item.slot) && timeOf(item.slot, 'start', zone) === boundary);
+            if (next.length !== 1 || hasDeparted(next[0].slot) || state.slots.filter(slot => timeOf(slot, 'end', zone) === boundary).length !== 1) return;
+            const marker = document.createElement('button'); marker.type = 'button'; marker.className = 'ac-gantt-handover'; marker.dataset.first = String(index); marker.dataset.second = String(next[0].other);
+            const region = regionAt(boundary);
+            if (region !== 'current') { marker.dataset.edge = region; marker.hidden = true; }
+            position(marker, boundary, boundary); marker.style.width = '';
+            marker.title = `${text('handover', 'Adjust handover')} · ${localTime(boundary, zone)} · ${zone}`; marker.setAttribute('aria-label', marker.title); handovers.append(marker);
+        });
+        chart.dispatchEvent(new Event('oncall-layout'));
+        if (focusIndex != null) findBar(Number(focusIndex), focusPerson)?.focus({ preventScroll: true });
     }
-    document.getElementById('oncall-copy-next')?.addEventListener('click', () => {
-        if (saving) return;
-        if (weeks[2].saved || weekChanged(2)) {
-            if (copyModal) copyModal.show();
-            else showMessages(errors, [getLocalizedText("unable-to-display-replacement-confirmation-please-refresh-the", "Unable to display replacement confirmation. Please refresh the page and try again. The next week's draft remains unchanged.")]);
-        } else copyNext();
-    });
-    document.getElementById('oncall-copy-apply')?.addEventListener('click', () => {
-        copyModal?.hide();
-        copyNext();
-    });
-    async function save(generate) {
-        if (!editing || saving) return;
-        saving = true;
-        let reloading = false;
-        clearSelection();
-        chart?.querySelectorAll('button').forEach(button => button.disabled = true);
-        root.querySelectorAll('button, input, select').forEach(input => input.disabled = true);
-        errors.replaceChildren();
+    let timelineWarnings = [];
+    function drawWarnings(overlap) {
+        const [low, high] = visibleBounds();
+        const visible = warningSegments(timelineWarnings, low, high);
+        list('oncall-schedule-warnings', [...new Set(visible.flatMap(warning => warning.messages).concat(overlap ? [overlapMessage()] : []))]);
+        const lane = get('oncall-warning-lane'); lane.replaceChildren();
+        for (const warning of visible) {
+            const message = warning.messages.join('\n');
+            const marker = document.createElement('button'); marker.type = 'button'; marker.className = 'ac-gantt-shift ac-gantt-warning bg-warning text-dark';
+            marker.dataset.readonly = 'true';
+            const count = document.createElement('span'), label = document.createElement('span');
+            count.className = 'badge bg-dark ac-gantt-warning-count'; count.textContent = String(warning.messages.length);
+            label.className = 'ac-gantt-warning-text'; label.textContent = message;
+            count.setAttribute('aria-hidden', 'true'); label.setAttribute('aria-hidden', 'true'); marker.append(count, label);
+            position(marker, warning.left, warning.right); describe(marker, message, warning.left, warning.right); lane.append(marker);
+        }
+    }
+    function findBar(index, person) {
+        return [...chart.querySelectorAll(`[data-slot-index="${index}"]`)].find(bar => !bar.hidden && (person == null || bar.closest('[data-user-id]').dataset.userId === person));
+    }
+    async function preview() {
+        const revision = ++sequence;
         try {
-            const response = await fetch(generate ? root.dataset.generateUrl : root.dataset.saveUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', RequestVerificationToken: root.querySelector('input[name="__RequestVerificationToken"]').value },
-                body: JSON.stringify({ groupId: root.dataset.groupId, version: root.dataset.version, startUtc: root.dataset.start,
-                    slots: weekSlots(slots, 1).map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds })),
-                    adjacentWeeks: generate ? [] : [0, 2].filter(week => weekChanged(week)).map(week => ({
-                        startUtc: weeks[week].startUtc,
-                        slots: weekSlots(slots, week).map(({ startsAtUtc, userIds }) => ({ startsAtUtc, userIds }))
-                    })) })
-            });
-            if (!response.ok) {
-                const result = await response.json();
-                throw new Error((result.errors || [getLocalizedText("save-failed-please-refresh-the-page-and-try", "Save failed. Please refresh the page and try again.")]).join('\n'));
-            }
-            dirty = false;
-            reloading = true;
-            window.location.reload();
-        } catch (error) {
-            tools.open = true;
-            editing = true;
-            showMessages(errors, error.message.split('\n'));
-            errors.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } finally {
-            if (!reloading) {
-                saving = false;
-                root.querySelectorAll('button, input, select').forEach(input => input.disabled = input.dataset.departed === 'true');
-                chart?.querySelectorAll('button').forEach(button => button.disabled = false);
-                renderForm();
-            }
+            const body = await assembledDraft();
+            if (revision !== sequence) return;
+            const data = await request(root.dataset.previewUrl, body);
+            if (revision !== sequence || gesture) return;
+            list('oncall-schedule-errors', data.errors || []);
+            if (!state.ranges.length) draw(data.timelineWarnings);
+        } catch (failure) { if (revision === sequence) error(failure.message); }
+    }
+    function select(index, person) {
+        selected = { index, person };
+        get('oncall-move-member').value = activeMember(person) ? person : members.find(member => !member.departed)?.id || '';
+        get('oncall-move-start').value = state.slots[index].startLocal;
+        chart.querySelectorAll('[data-slot-index]').forEach(bar => {
+            const chosen = Number(bar.dataset.slotIndex) === index && bar.closest('[data-user-id]').dataset.userId === person;
+            bar.classList.toggle('ac-gantt-selected', chosen); bar.setAttribute('aria-pressed', String(chosen));
+        });
+    }
+    function openEditor(index, person) {
+        select(index, person); editing = { index, person, slot: structuredClone(state.slots[index]) };
+        get('oncall-dialog-start').value = editing.slot.startLocal; get('oncall-dialog-end').value = editing.slot.endLocal;
+        list('oncall-dialog-errors', []);
+        memberInputs(get('oncall-dialog-members'), editing.slot, (id, checked) => {
+            editing.slot.userIds = checked ? [...new Set([...editing.slot.userIds, id])] : editing.slot.userIds.filter(value => value !== id);
+        });
+        dialog.showModal(); get('oncall-dialog-start').focus();
+    }
+    function closeEditor() { dialog.close(); if (selected) findBar(selected.index, selected.person)?.focus({ preventScroll: true }); editing = null; }
+    function canChangeTime(slot) {
+        if (!hasDeparted(slot)) return true;
+        error(text('departed-edit', 'Remove departed members before changing shift times.')); return false;
+    }
+    function rawPointTime(event, lane) {
+        const rect = lane.getBoundingClientRect(), before = Number(chart.dataset.beforeHours || 0) * hour, after = Number(chart.dataset.afterHours || 0) * hour;
+        return from - before + (event.clientX - rect.left) / rect.width * (duration + before + after);
+    }
+    function pointTime(event, lane, free = event.altKey) {
+        return snapTime(rawPointTime(event, lane), zone, free);
+    }
+    function snapGesture(time, event, length = 0) {
+        const drag = gesture, rect = drag.lane.getBoundingClientRect();
+        const total = duration + (Number(chart.dataset.beforeHours || 0) + Number(chart.dataset.afterHours || 0)) * hour;
+        const snapped = snapBoundary(time, zone, drag.candidates, total / rect.width * 10, event.altKey, length);
+        drag.guide = snapped.guide;
+        return snapped.time;
+    }
+    function showGuide() {
+        const line = get('oncall-snap-line');
+        line.hidden = gesture?.guide == null || gesture.invalid;
+        if (!line.hidden) {
+            position(line, gesture.guide, gesture.guide); line.style.width = '';
+            line.querySelector('span').textContent = `${localTime(gesture.guide, zone)} · ${zone}`;
         }
     }
-    document.getElementById('oncall-generate')?.addEventListener('click', () => save(true));
-    document.getElementById('oncall-save-schedule')?.addEventListener('click', () => save(false));
+    function handoverTime(first, second, time) {
+        const slots = teamSlots(), firstBounds = freeBounds(slots, first, zone, [second]), secondBounds = freeBounds(slots, second, zone, [first]);
+        const low = Math.max(timeOf(first, 'start', zone) + minute, secondBounds.low);
+        const high = Math.min(timeOf(second, 'end', zone) - minute, firstBounds.high);
+        return Math.max(low, Math.min(high, time));
+    }
+    function finishDragStyle() {
+        get('oncall-drag-tooltip').hidden = true; get('oncall-snap-line').hidden = true;
+        chart.classList.remove('ac-gantt-dragging', 'ac-gantt-drop-invalid');
+        chart.querySelectorAll('.ac-gantt-drop-invalid').forEach(bar => bar.classList.remove('ac-gantt-drop-invalid'));
+    }
+    function targetAt(event) {
+        const element = document.elementFromPoint(event.clientX, event.clientY);
+        if (!element || element.closest('[data-readonly]')) return null;
+        const lane = element.closest('.ac-gantt-lane'), row = lane?.closest('[data-user-id]');
+        const time = lane ? pointTime(event, lane, true) : NaN;
+        const [low, high] = visibleBounds();
+        return row && time >= low && (time < high || (time === high && gesture?.mode === 'create')) && activeMember(row.dataset.userId) ? { lane, row, bar: element.closest('[data-slot-index]') } : null;
+    }
+    function weekTarget(event) {
+        const element = document.elementFromPoint(event.clientX, event.clientY);
+        const row = element?.closest('[data-user-id]');
+        return element && !element.closest('[data-readonly]') && row?.dataset.userId && activeMember(row.dataset.userId) ? row.dataset.userId : null;
+    }
+    function selectWeek(person) {
+        weekSelection = weekSelection === person ? null : person;
+        chart.querySelectorAll('[data-week-user]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.weekUser === weekSelection)));
+    }
+    function cancelGesture() {
+        if (!gesture) return;
+        clearTimeout(gesture.hold);
+        state = gesture.before;
+        const pointerId = gesture.pointerId;
+        gesture = null; finishDragStyle();
+        if (chart.hasPointerCapture(pointerId)) chart.releasePointerCapture(pointerId);
+        draw();
+    }
+    chart.classList.add('ac-gantt-editable');
+    chart.addEventListener('pointerdown', event => {
+        if (busy || event.button !== 0 || gesture || event.target.closest('[data-readonly]')) return;
+        const bar = event.target.closest('[data-slot-index]'), handover = event.target.closest('[data-first]'), week = event.target.closest('[data-week-user]');
+        const target = targetAt(event);
+        if (!bar && !handover && !target && !week) return;
+        const index = bar ? Number(bar.dataset.slotIndex) : handover ? Number(handover.dataset.first) : -1;
+        const mode = week ? 'week' : handover ? 'handover' : event.target.dataset.resize || (bar ? 'move' : 'create');
+        if (index >= 0 && mode !== 'move' && !canChangeTime(state.slots[index])) return;
+        const lane = (bar || handover)?.closest('.ac-gantt-lane') || week?.closest('[data-user-id]').querySelector('.ac-gantt-lane') || target.lane;
+        const person = week?.dataset.weekUser ?? bar?.closest('[data-user-id]').dataset.userId ?? target?.row.dataset.userId ?? '';
+        if (bar) select(index, person);
+        const origin = rawPointTime(event, lane);
+        if (mode === 'create') {
+            const occupied = state.slots.findIndex(slot => peopleOf(slot).includes(person) && timeOf(slot, 'start', zone) <= origin && origin < timeOf(slot, 'end', zone));
+            if (occupied >= 0) { select(occupied, person); suppressClick = true; event.preventDefault(); return; }
+        }
+        const second = handover ? Number(handover.dataset.second) : null;
+        const candidates = snapCandidates(teamSlots().filter(slot => slot !== state.slots[index] && slot !== state.slots[second]), JSON.parse(root.dataset.handovers || '[]'), ...visibleBounds(), zone, Date.now());
+        gesture = { index, second, mode, person, lane, x: event.clientX, y: event.clientY, origin, candidates, before: structuredClone(state), pointerId: event.pointerId, ready: event.pointerType !== 'touch', moved: false };
+        if (mode === 'create') {
+            const anchor = { userIds: person ? [person] : [], startsAtUtc: new Date(origin).toISOString(), endsAtUtc: new Date(origin).toISOString() };
+            gesture.bounds = freeBounds(teamSlots(), anchor, zone);
+        }
+        if (!gesture.ready) gesture.hold = setTimeout(() => { if (gesture) { gesture.ready = true; chart.classList.add('ac-gantt-dragging'); } }, 400);
+        chart.setPointerCapture(event.pointerId);
+        if (event.pointerType !== 'touch') event.preventDefault();
+    });
+    chart.addEventListener('pointermove', event => {
+        const drag = gesture;
+        if (!drag || drag.pointerId !== event.pointerId) return;
+        const distance = Math.hypot(event.clientX - drag.x, event.clientY - drag.y);
+        if (!drag.ready) { if (distance > 8) cancelGesture(); return; }
+        if (distance < 5 && !drag.moved) return;
+        event.preventDefault(); drag.moved = true;
+        sequence++; clearTimeout(timer);
+        const rect = chart.getBoundingClientRect();
+        if (event.clientX > rect.right - 28) chart.scrollLeft += 20;
+        else if (event.clientX < rect.left + 28) chart.scrollLeft -= 20;
+        const target = targetAt(event), time = rawPointTime(event, drag.lane);
+        state = structuredClone(drag.before); drag.invalid = false; drag.guide = null;
+        chart.classList.remove('ac-gantt-drop-invalid');
+        chart.querySelectorAll('.ac-gantt-drop-invalid').forEach(bar => bar.classList.remove('ac-gantt-drop-invalid'));
+        let slot = state.slots[drag.index];
+        if (drag.mode === 'week') {
+            const person = weekTarget(event);
+            if (person && person !== drag.person) swapPeople(state.slots.filter(inWeek), drag.person, person);
+            drag.invalid = conflicts().size > 0;
+            const tip = get('oncall-drag-tooltip'); tip.hidden = false; tip.style.left = `${Math.max(0, event.clientX - 100)}px`; tip.style.top = `${Math.max(0, event.clientY - 70)}px`;
+            tip.textContent = drag.invalid ? overlapMessage() : `${members.find(member => member.id === drag.person)?.name} ↔ ${members.find(member => member.id === person)?.name || '—'}`;
+            if (drag.invalid) state = structuredClone(drag.before);
+            chart.classList.toggle('ac-gantt-drop-invalid', drag.invalid);
+            draw(); showGuide(); return;
+        }
+        if (drag.mode === 'create') {
+            if (!target) { draw(); showGuide(); return; }
+            const [leftBound, rightBound] = visibleBounds();
+            const low = Math.max(leftBound, drag.bounds.low), high = Math.min(rightBound, drag.bounds.high);
+            const anchor = Math.max(low, Math.min(high, snapGesture(drag.origin, event)));
+            const anchorGuide = drag.guide === anchor ? drag.guide : null;
+            const boundary = Math.max(low, Math.min(high, snapGesture(time, event)));
+            const left = Math.min(anchor, boundary), right = Math.max(anchor, boundary);
+            if (right - left < minute) { draw(); showGuide(); return; }
+            if (drag.guide !== boundary) drag.guide = anchorGuide;
+            slot = { userIds: drag.person ? [drag.person] : [] };
+            setTime(slot, 'start', left, zone); setTime(slot, 'end', right, zone); state.slots.push(slot);
+        } else if (drag.mode === 'move') {
+            if (!target) { draw(); showGuide(); return; }
+            const originalSlot = drag.before.slots[drag.index];
+            const targetIndex = target.bar ? Number(target.bar.dataset.slotIndex) : -1;
+            if (targetIndex >= 0 && targetIndex !== drag.index && !hasDeparted(slot) && !hasDeparted(state.slots[targetIndex]) && target.row.dataset.userId !== drag.person) {
+                const other = state.slots[targetIndex];
+                if (!slot.userIds.includes(target.row.dataset.userId) && !other.userIds.includes(drag.person)) {
+                    movePerson(slot, drag.person, target.row.dataset.userId); movePerson(other, target.row.dataset.userId, drag.person);
+                }
+            } else {
+                const originalStart = timeOf(originalSlot, 'start', zone), length = timeOf(originalSlot, 'end', zone) - originalStart;
+                let delta = Math.abs(event.clientX - drag.x) < 5 ? 0 : snapGesture(originalStart + time - drag.origin, event, length) - originalStart;
+                if (delta !== 0 && hasDeparted(slot)) { draw(); showGuide(); return; }
+                if (target.row.dataset.userId === drag.person) delta = clampMove(teamSlots(), slot, delta, zone);
+                else {
+                    const retained = slot.userIds.filter(id => id !== drag.person);
+                    if (target.row.dataset.userId && retained.length) delta = clampMove(teamSlots().filter(item => item !== slot), { ...slot, userIds: retained }, delta, zone);
+                }
+                shiftTimes(slot, delta, zone); movePerson(slot, drag.person, target.row.dataset.userId);
+                if (![timeOf(slot, 'start', zone), timeOf(slot, 'end', zone)].includes(drag.guide)) drag.guide = null;
+            }
+        } else if (drag.mode === 'handover') {
+            const second = state.slots[drag.second];
+            const boundary = handoverTime(slot, second, snapGesture(time, event));
+            setTime(slot, 'end', boundary, zone); setTime(second, 'start', boundary, zone);
+            if (drag.guide !== boundary) drag.guide = null;
+        } else {
+            const boundary = clampEdge(teamSlots(), slot, drag.mode, snapGesture(time, event), zone);
+            setTime(slot, drag.mode, boundary, zone);
+            if (drag.guide !== boundary) drag.guide = null;
+        }
+        drag.invalid = conflicts().size > 0;
+        const tip = get('oncall-drag-tooltip'); tip.hidden = false; tip.style.left = `${Math.max(0, event.clientX - 100)}px`; tip.style.top = `${Math.max(0, event.clientY - 70)}px`;
+        tip.textContent = drag.invalid ? text('drop-conflict', 'This move would overlap another shift for the same person. The draft was not changed.') : `${slot.startLocal} → ${slot.endLocal} · ${zone}`;
+        if (drag.invalid) state = structuredClone(drag.before);
+        chart.classList.toggle('ac-gantt-drop-invalid', drag.invalid);
+        chart.classList.add('ac-gantt-dragging'); draw(); showGuide();
+        if (drag.invalid) findBar(drag.index, drag.person)?.classList.add('ac-gantt-drop-invalid');
+    });
+    chart.addEventListener('pointerup', event => {
+        const drag = gesture;
+        if (!drag || drag.pointerId !== event.pointerId) return;
+        clearTimeout(drag.hold);
+        const target = targetAt(event);
+        const result = structuredClone(state);
+        state = drag.before; gesture = null;
+        finishDragStyle();
+        if (chart.hasPointerCapture(event.pointerId)) chart.releasePointerCapture(event.pointerId);
+        if (drag.invalid) { draw(); error(text('drop-conflict', 'This move would overlap another shift for the same person. The draft was not changed.')); suppressClick = true; return; }
+        if (!drag.moved) {
+            if (weekSelection && weekTarget(event)) {
+                commit(() => swapPeople(state.slots.filter(inWeek), weekSelection, weekTarget(event))); selectWeek(weekSelection); suppressClick = true;
+            } else if (drag.mode === 'week') { selectWeek(drag.person); suppressClick = true; }
+            else if (drag.index >= 0 && drag.mode === 'move') { suppressClick = true; openEditor(drag.index, drag.person); }
+            else if (drag.mode === 'create' && target) {
+                const [low, high] = visibleBounds();
+                const time = Math.max(low, Math.min(high - minute, pointTime(event, target.lane)));
+                const slot = selected && state.slots[selected.index];
+                if (slot) {
+                    if (canChangeTime(slot) && commit(() => { shiftTimes(slot, time - timeOf(slot, 'start', zone), zone); movePerson(slot, selected.person, target.row.dataset.userId); })) select(selected.index, target.row.dataset.userId);
+                } else {
+                    const left = Math.max(drag.bounds.low, time), right = Math.min(high, drag.bounds.high, left + 30 * minute);
+                    if (right > left) {
+                        const created = { userIds: drag.person ? [drag.person] : [] };
+                        setTime(created, 'start', left, zone); setTime(created, 'end', right, zone);
+                        commit(() => state.slots.push(created));
+                    }
+                }
+                suppressClick = true;
+            }
+            return;
+        }
+        suppressClick = true;
+        if (((drag.mode === 'move' || drag.mode === 'create') && !target) || (drag.mode === 'week' && !weekTarget(event))) { draw(); return; }
+        if (JSON.stringify(state) === JSON.stringify(result)) draw();
+        else commit(() => { state = result; });
+        if (selected) findBar(selected.index)?.focus({ preventScroll: true });
+    });
+    chart.addEventListener('pointercancel', cancelGesture);
+    chart.addEventListener('lostpointercapture', cancelGesture);
+    chart.addEventListener('oncall-edge-change', cancelGesture);
+    chart.addEventListener('oncall-edge-layout', () => {
+        for (const row of chart.querySelectorAll('[data-user-id]')) {
+            const lane = row.querySelector('.ac-gantt-lane');
+            lane.querySelectorAll('[data-slot-index]').forEach(bar => updateShift(bar, row, state.slots[Number(bar.dataset.slotIndex)]));
+            pack(lane);
+        }
+        drawWarnings(conflicts().size > 0);
+    });
+    chart.addEventListener('click', event => {
+        if (suppressClick && event.detail !== 0) { suppressClick = false; return; }
+        suppressClick = false;
+        if (busy || event.target.closest('[data-readonly]')) return;
+        const week = event.target.closest('[data-week-user]'), row = event.target.closest('[data-user-id]');
+        if (weekSelection && row?.dataset.userId && activeMember(row.dataset.userId)) {
+            commit(() => swapPeople(state.slots.filter(inWeek), weekSelection, row.dataset.userId)); selectWeek(weekSelection); return;
+        }
+        if (week) { selectWeek(week.dataset.weekUser); return; }
+        const bar = event.target.closest('[data-slot-index]');
+        if (bar && !event.target.dataset.resize) openEditor(Number(bar.dataset.slotIndex), bar.closest('[data-user-id]').dataset.userId);
+    });
+    chart.addEventListener('keydown', event => {
+        if (busy) return;
+        const bar = event.target.closest('[data-slot-index]'), handover = event.target.closest('[data-first]');
+        if (!bar && !handover) return;
+        const index = Number((bar || handover).dataset[bar ? 'slotIndex' : 'first']), slot = state.slots[index];
+        const person = bar?.closest('[data-user-id]').dataset.userId;
+        if (bar) select(index, person);
+        if (event.key === 'Enter' && bar) { event.preventDefault(); openEditor(index, person); return; }
+        if (event.key === 'Delete' && bar) { event.preventDefault(); commit(() => state.slots.splice(index, 1), true, true); selected = null; chart.focus(); return; }
+        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+        event.preventDefault();
+        const delta = (event.altKey ? 1 : 30) * minute * (['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 1);
+        if (handover) {
+            const second = state.slots[Number(handover.dataset.second)], boundary = handoverTime(slot, second, timeOf(slot, 'end', zone) + delta);
+            if (boundary > timeOf(slot, 'start', zone) && boundary < timeOf(second, 'end', zone)) commit(() => { setTime(slot, 'end', boundary, zone); setTime(second, 'start', boundary, zone); });
+            chart.querySelector(`[data-first="${index}"]`)?.focus(); return;
+        }
+        if (!event.shiftKey && ['ArrowUp', 'ArrowDown'].includes(event.key)) {
+            const people = ['', ...members.filter(member => !member.departed).map(member => member.id)];
+            const target = people[people.indexOf(person) + (event.key === 'ArrowUp' ? -1 : 1)];
+            if (target != null && commit(() => movePerson(slot, person, target))) { select(index, target); findBar(index, target)?.focus(); }
+        } else if (canChangeTime(slot)) {
+            const edge = ['ArrowUp', 'ArrowDown'].includes(event.key) ? 'start' : 'end';
+            if (event.shiftKey) {
+                const candidate = structuredClone(slot); setTime(candidate, edge, clampEdge(teamSlots(), slot, edge, timeOf(slot, edge, zone) + delta, zone), zone);
+                if (valid(candidate)) commit(() => { state.slots[index] = candidate; });
+            } else commit(() => shiftTimes(slot, clampMove(teamSlots(), slot, delta, zone), zone));
+        }
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') { cancelGesture(); selectWeek(weekSelection); selected = null; chart.querySelectorAll('.ac-gantt-selected').forEach(bar => { bar.classList.remove('ac-gantt-selected'); bar.setAttribute('aria-pressed', 'false'); }); }
+        if (event.target.closest('input, textarea, select, dialog') || busy) return;
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') { event.preventDefault(); travel(event.shiftKey ? redo : undo, event.shiftKey ? undo : redo); }
+    });
+    function travel(source, destination) {
+        if (!source.length || busy) return;
+        cancelGesture(); destination.push(structuredClone(state)); state = source.pop(); selected = null; changed();
+    }
+    async function operation(action) {
+        if (busy) return;
+        cancelGesture(); busy = true; sequence++; clearTimeout(timer); root.inert = true; chart.inert = true;
+        try { await action(); } catch (failure) { error(failure.message); }
+        finally { busy = false; root.inert = false; chart.inert = false; }
+    }
+    function rangeDraft(range) {
+        const candidate = structuredClone(state);
+        const sameRange = range.start === from && range.end === until;
+        const prior = candidate.ranges.find(item => item.start === range.start && item.end === range.end);
+        const clip = items => items.flatMap(slot => {
+            const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+            if (!(left < range.end && right > range.start)) return [slot];
+            const fragment = (start, end, id) => ({ ...slot, id, fragmentOf: slot.fragmentOf ?? slot.id,
+                startsAtUtc: new Date(start).toISOString(), endsAtUtc: new Date(end).toISOString(),
+                startLocal: localTime(start, zone), endLocal: localTime(end, zone) });
+            return (left < range.start ? [fragment(left, range.start, slot.id)] : [])
+                .concat(right > range.end ? [fragment(range.end, right, null)] : []);
+        });
+        const managed = new Set(original.slots.concat(draftSlots(candidate)).flatMap(slot => [slot.id, slot.fragmentOf]).filter(Boolean));
+        const replacements = prepare(range.slots.filter(slot => !slot.fragmentOf || !managed.has(slot.fragmentOf)));
+        candidate.slots = clip(candidate.slots);
+        for (const item of candidate.ranges) item.slots = clip(item.slots);
+        const staged = prior || { start: range.start, end: range.end, slots: [] };
+        for (const slot of replacements) {
+            if (sameRange || inEditor(slot)) candidate.slots.push(slot);
+            else staged.slots.push(slot);
+        }
+        if (!sameRange && !prior) candidate.ranges.push(staged);
+        return candidate;
+    }
+    function stage(range, confirmedGeneration = false) {
+        const candidate = rangeDraft(range);
+        if (conflicts(candidate).size) { error(overlapMessage()); return; }
+        if (confirmedGeneration) candidate.confirmedGeneration = true;
+        undo.push(structuredClone(state)); redo.length = 0; state = candidate;
+        changed();
+        const toggle = document.querySelector('[data-oncall-edge="next"]');
+        if (toggle && range.start >= until && toggle.getAttribute('aria-expanded') !== 'true') toggle.click();
+    }
+    async function range(generate) {
+        cancelPending();
+        const revision = sequence;
+        const body = { groupId: root.dataset.groupId, version: root.dataset.version, startLocal: get('oncall-range-start').value, endLocal: get('oncall-range-end').value, slots: [], replaceRange: true };
+        if (!(wallTime(body.endLocal) > wallTime(body.startLocal))) throw new Error(text('invalid-range', 'End must be after start.'));
+        const left = utcForLocal(body.startLocal, zone), right = utcForLocal(body.endLocal, zone);
+        if (!Number.isFinite(left) || !Number.isFinite(right)) throw new Error(text('invalid-local', 'Invalid team local time.'));
+        payload({ startUtc: new Date(left).toISOString(), endUtc: new Date(right).toISOString() });
+        if (!generate) {
+            try { body.slots = copyRange(state.slots.filter(inWeek), localTime(start, zone), localTime(end, zone), body.startLocal, body.endLocal, members); }
+            catch (failure) { throw new Error(failure.message === 'departed' ? text('cannot-copy-departed', 'Cannot copy assignments for departed team members.') : text('invalid-range', 'End must be after start.')); }
+        }
+        const data = await request(`${root.dataset.previewUrl}?generate=${generate}`, body);
+        if (revision !== sequence) return;
+        if (data.errors?.length) throw new Error(data.errors.join('\n'));
+        const destination = { start: Date.parse(data.startUtc), end: Date.parse(data.endUtc), slots: data.slots };
+        const sameRange = destination.start === from && destination.end === until;
+        const sameStaged = state.ranges.find(item => item.start === destination.start && item.end === destination.end);
+        const intersects = (left, right) => left < destination.end && right > destination.start;
+        if (generate) {
+            if (!(destination.end > destination.start)) throw new Error(text('invalid-range', 'End must be after start.'));
+            payload(data);
+        } else if ((!sameRange && intersects(from, until)) || state.ranges.some(item => item !== sameStaged && intersects(item.start, item.end))) {
+            throw new Error(text('copy-overlap', 'The destination must not overlap the visible range or another copied range.'));
+        }
+        if (conflicts(rangeDraft(destination)).size) throw new Error(overlapMessage());
+        list('oncall-schedule-warnings', data.warnings);
+        const replaced = data.replacedSlots.length ? data.replacedSlots : generate
+            ? normalized(draftSlots()).filter(slot => intersects(Date.parse(slot.startsAtUtc), Date.parse(slot.endsAtUtc)))
+            : sameRange || sameStaged ? normalized(draftSlots()).filter(slot => intersects(Date.parse(slot.startsAtUtc), Date.parse(slot.endsAtUtc))) : [];
+        if (replaced.length || sameRange || sameStaged) confirmReplacement({ range: destination, generate }, replaced);
+        else stage(destination);
+    }
+    async function assembledDraft(extraRange) {
+        const body = payload(extraRange);
+        if (state.confirmedGeneration) body.confirmReplace = true;
+        const low = Date.parse(body.startUtc), high = Date.parse(body.endUtc);
+        if (low !== from || high !== until || state.ranges.length) {
+            const query = new URLSearchParams({ id: root.dataset.groupId, startUtc: body.startUtc, endUtc: body.endUtc });
+            const saved = await request(`${root.dataset.getUrl}?${query}`);
+            if (saved.version !== root.dataset.version) throw new Error(text('schedule-save-failed', 'Unable to save schedule. Refresh and try again.'));
+            const ranges = [{ start: from, end: until }, ...state.ranges];
+            const preserved = (saved.saved ? saved.slots : []).filter(slot => !adjacentIds.has(slot.id) && !ranges.some(range => Date.parse(slot.startsAtUtc) < range.end && Date.parse(slot.endsAtUtc) > range.start) && !body.slots.some(item => item.id && item.id === slot.id));
+            body.slots.push(...submitted(preserved));
+        }
+        return body;
+    }
+    function clearOperation() {
+        const left = utcForLocal(get('oncall-clear-start').value, zone), right = utcForLocal(get('oncall-clear-end').value, zone);
+        if (!Number.isFinite(left) || !Number.isFinite(right)) throw new Error(text('invalid-local', 'Invalid team local time.'));
+        if (right <= left) throw new Error(text('invalid-range', 'End must be after start.'));
+        const autoExtendAction = get('oncall-clear-auto-action').value || null;
+        if (root.dataset.autoExtend === 'true' && !['disable', 'regenerate'].includes(autoExtendAction)) throw new Error(text('clear-auto-required', 'Choose whether to disable automatic extension or regenerate cleared gaps.'));
+        return { startUtc: new Date(left).toISOString(), endUtc: new Date(right).toISOString(), includeManual: get('oncall-clear-manual').checked, includeHistory: get('oncall-clear-history').checked, confirmHistory: false, autoExtendAction };
+    }
+    async function clearRange(clear) {
+        cancelPending();
+        const body = await assembledDraft(clear);
+        body.clearRanges.push(clear);
+        const data = await request(`${root.dataset.previewUrl}?clear=true`, body);
+        if (data.errors?.length) throw new Error(data.errors.join('\n'));
+        const slots = prepare(data.slots);
+        const low = Date.parse(data.startUtc), high = Date.parse(data.endUtc);
+        if (!(Number.isFinite(low) && Number.isFinite(high) && high > low) || !Array.isArray(data.clearRanges) ||
+            data.clearRanges.some(range => !range || !Number.isFinite(Date.parse(range.clearedAtUtc)) ||
+                !(Date.parse(range.startUtc) >= low && Date.parse(range.endUtc) <= high && Date.parse(range.endUtc) > Date.parse(range.startUtc)))) {
+            throw new Error(text('schedule-save-failed', 'Unable to save schedule. Refresh and try again.'));
+        }
+        const candidate = { ...state, slots: [], ranges: [], clearRanges: data.clearRanges };
+        if (low < from) candidate.ranges.push({ start: low, end: from, slots: [] });
+        if (high > until) candidate.ranges.push({ start: until, end: high, slots: [] });
+        // Keep crossing shifts whole and in one draft bucket so their saved IDs are never duplicated.
+        for (const slot of slots) {
+            const left = timeOf(slot, 'start', zone), right = timeOf(slot, 'end', zone);
+            if (inEditor(slot)) candidate.slots.push(slot);
+            else candidate.ranges.find(range => left < range.end && right > range.start)?.slots.push(slot);
+        }
+        if (conflicts(candidate).size) throw new Error(overlapMessage());
+        if (clear.autoExtendAction === 'regenerate') confirmReplacement({ state: candidate }, data.replacedSlots, true);
+        else stageClear(candidate);
+        list('oncall-schedule-warnings', data.warnings || []);
+        draw(data.timelineWarnings);
+    }
+    function stageClear(candidate) {
+        if (conflicts(candidate).size) { error(overlapMessage()); return; }
+        undo.push(structuredClone(state)); redo.length = 0;
+        state = candidate; selected = null; changed();
+    }
+    function beginClear() {
+        if (busy) return;
+        cancelPending();
+        try {
+            const clear = clearOperation();
+            if (clear.includeHistory) {
+                historyPending = clear;
+                get('oncall-clear-history-range').textContent = `${localTime(clear.startUtc, zone)} → ${localTime(clear.endUtc, zone)} · ${zone}`;
+                get('oncall-clear-history-confirm').hidden = false;
+            } else return operation(() => clearRange(clear));
+        } catch (failure) { error(failure.message); }
+    }
+    async function save() {
+        if (conflicts().size) throw new Error(overlapMessage());
+        const body = await assembledDraft();
+        if (overlappingSlots(body.slots, zone).size) throw new Error(overlapMessage());
+        if (body.clearRanges.some(range => range.autoExtendAction === 'regenerate')) body.confirmReplace = true;
+        await request(root.dataset.saveUrl, body);
+        dirty = false; window.location.reload();
+    }
+    get('oncall-dialog-apply').addEventListener('click', () => {
+        const slot = structuredClone(editing.slot);
+        slot.startLocal = get('oncall-dialog-start').value; slot.endLocal = get('oncall-dialog-end').value;
+        if (!valid(slot)) { list('oncall-dialog-errors', [text('invalid-range', 'End must be after start.'), text('invalid-local', 'Invalid team local time.')]); return; }
+        if (hasDeparted(slot) && (slot.startLocal !== state.slots[editing.index].startLocal || slot.endLocal !== state.slots[editing.index].endLocal)) { list('oncall-dialog-errors', [text('departed-edit', 'Remove departed members before changing shift times.')]); return; }
+        const previous = state.slots[editing.index];
+        if (slot.startLocal !== previous.startLocal || slot.endLocal !== previous.endLocal || !samePeople(slot.userIds, previous.userIds)) markManual(slot);
+        if (commit(() => { state.slots[editing.index] = slot; }, true, false, 'oncall-dialog-errors')) closeEditor();
+    });
+    get('oncall-dialog-delete').addEventListener('click', () => { commit(() => state.slots.splice(editing.index, 1), true, true); selected = null; closeEditor(); chart.focus(); });
+    get('oncall-dialog-cancel').addEventListener('click', closeEditor);
+    dialog.addEventListener('cancel', event => { event.preventDefault(); closeEditor(); });
+    get('oncall-add-shift').addEventListener('click', () => commit(() => state.slots.push({ startLocal: localTime(start, zone), endLocal: localTime(end, zone), userIds: [], source: 0 })));
+    get('oncall-undo-schedule').addEventListener('click', () => travel(undo, redo));
+    get('oncall-redo-schedule').addEventListener('click', () => travel(redo, undo));
+    get('oncall-reset-schedule').addEventListener('click', () => commit(() => { state = structuredClone(original); selected = null; }, true, true));
+    get('oncall-merge-overlaps').addEventListener('click', () => operation(async () => {
+        const known = teamSlots();
+        let low = Math.min(from, ...state.ranges.map(range => range.start), ...known.map(slot => timeOf(slot, 'start', zone)));
+        let high = Math.max(until, ...state.ranges.map(range => range.end), ...known.map(slot => timeOf(slot, 'end', zone)));
+        let body;
+        // 扩大替换范围前读取完整排班，避免未显示的相邻班段被遗漏删除。
+        while (true) {
+            body = await assembledDraft({ startUtc: new Date(low).toISOString(), endUtc: new Date(high).toISOString() });
+            const nextLow = Math.min(low, ...body.slots.map(slot => timeOf(slot, 'start', zone)));
+            const nextHigh = Math.max(high, ...body.slots.map(slot => timeOf(slot, 'end', zone)));
+            if (nextLow === low && nextHigh === high) break;
+            low = nextLow; high = nextHigh;
+        }
+        const slots = prepare(normalized(mergeOverlaps(body.slots, zone)));
+        const candidate = { slots: slots.filter(inEditor), ranges: [], clearRanges: state.clearRanges };
+        if (low < from) candidate.ranges.push({ start: low, end: from, slots: slots.filter(slot => !inEditor(slot) && timeOf(slot, 'end', zone) <= from) });
+        if (high > until) candidate.ranges.push({ start: until, end: high, slots: slots.filter(slot => !inEditor(slot) && timeOf(slot, 'start', zone) >= until) });
+        stageClear(candidate);
+    }));
+    get('oncall-swap-week').addEventListener('click', () => {
+        const first = get('oncall-swap-first').value, second = get('oncall-swap-second').value;
+        if (!first || !second || first === second || !activeMember(first) || !activeMember(second)) { error(text('swap-invalid', 'Choose two different current team members.')); return; }
+        commit(() => swapPeople(state.slots.filter(inWeek), first, second));
+    });
+    get('oncall-move-selected').addEventListener('click', () => {
+        if (!selected || !state.slots[selected.index]) { error(text('select-shift', 'Select a shift first.')); return; }
+        const slot = state.slots[selected.index], target = get('oncall-move-member').value, time = utcForLocal(get('oncall-move-start').value, zone);
+        if (!Number.isFinite(time)) { error(text('invalid-local', 'Invalid team local time.')); return; }
+        if (!activeMember(target) || !canChangeTime(slot)) return;
+        if (commit(() => { shiftTimes(slot, time - timeOf(slot, 'start', zone), zone); movePerson(slot, selected.person, target); })) select(selected.index, target);
+    });
+    get('oncall-save-schedule').addEventListener('click', () => operation(save));
+    get('oncall-copy-range').addEventListener('click', () => operation(() => range(false)));
+    get('oncall-generate')?.addEventListener('click', () => operation(() => range(true)));
+    get('oncall-replace-cancel').addEventListener('click', cancelPending);
+    get('oncall-replace-apply').addEventListener('click', () => {
+        if (pending && !busy) {
+            if (pending.state) stageClear(pending.state);
+            else stage(pending.range, pending.generate);
+        }
+    });
+    get('oncall-clear-range').addEventListener('click', beginClear);
+    get('oncall-clear-history-cancel').addEventListener('click', cancelPending);
+    get('oncall-clear-history-apply').addEventListener('click', () => {
+        if (!historyPending || busy) return;
+        const clear = { ...historyPending, confirmHistory: true };
+        return operation(() => clearRange(clear));
+    });
+    for (const id of ['oncall-range-start', 'oncall-range-end', 'oncall-clear-start', 'oncall-clear-end', 'oncall-clear-manual', 'oncall-clear-history', 'oncall-clear-auto-action']) {
+        get(id).addEventListener(id.endsWith('manual') || id.endsWith('history') || id.endsWith('action') ? 'change' : 'input', () => {
+            sequence++; cancelPending();
+            if (id === 'oncall-clear-end') clearEndEdited = true;
+        });
+    }
+    get('oncall-range-start').value = localTime(end, zone);
+    get('oncall-range-end').value = wallString(wallTime(localTime(end, zone)) + 7 * 86400000);
+    get('oncall-clear-start').value = localTime(Date.now(), zone);
+    get('oncall-clear-auto-options').hidden = root.dataset.autoExtend !== 'true';
+    clearDefaults();
     window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
-    renderForm();
-    renderChart();
+    chart.addEventListener('oncall-packed', () => chart.querySelectorAll('.ac-gantt-lane:not(#oncall-warning-lane)').forEach(pack));
+    renderRows(); draw();
+    get('oncall-undo-schedule').disabled = true; get('oncall-redo-schedule').disabled = true;
+    preview();
 })();

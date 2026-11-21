@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Automatic suggestions have not been saved. Adjacent schedules will be revalidated when generated; existing saved arrangements will not be overwritten.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automatic extension is enabled. Choose what happens when saving.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>By default, only automatically generated shifts are cleared.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -42,12 +48,34 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Changes only take effect once saved. Collapsing these tools preserves your draft.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Choose an automatic extension action</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Choose whether to disable automatic extension or regenerate cleared gaps.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Clear only changes the draft. Review the chart, then save to publish.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Clear schedule range</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Cleared draft range</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Confirm clearing completed historical shifts in this range. This can remove past assignments.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Confirm draft replacement</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Confirm historical clear</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Copy the current week to the next week</value>
   </data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish.</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>Copy the current week&apos;s draft to the following week. If the following week already contains shifts or changes, you must confirm before copying. You must still save after copying. Use the vertical buttons at the sides to expand the view to include the 36 hours before and after the current week; grey areas are read-only. The charts and forms on this page only allow you to edit the current week. To adjust adjacent weeks, switch to the relevant week. The following week&apos;s draft is also shown as a read-only preview after copying. Changes to the current week and copies are saved, undone and restored together; collapsing the view does not discard drafts.</value>
   </data>
@@ -57,8 +85,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Currently in Move/Swap mode. Switch the mode above before adding or removing shifts.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Defaults to now through the final saved or draft shift, in the team time zone.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Delete shift</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Disable automatic extension when saving</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Drag a coloured block to another shift to swap personnel, or to an empty slot to move the shift; drag ‘Swap Entire Week’ to exchange two people’s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes are displayed immediately and can be saved in bulk after multiple adjustments.</value>
@@ -72,6 +106,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>How to adjust the schedule</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Include completed historical shifts</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Include manually edited shifts</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Merge overlapping shifts</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>More actions</value>
   </data>
@@ -84,8 +127,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>On-call staff (multiple allowed, at least one)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Ongoing shifts keep their elapsed portion, even when history is included.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Preview clear</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Red alerts indicate empty shifts, insufficient rest or staffing below the minimum, but do not prevent further adjustments. Saving is allowed even if staffing is below the minimum, but empty shifts and insufficient rest cannot be saved. Validation is applied consistently to the modified week, adjacent weeks and other teams when saving. If any week fails validation, nothing is saved. Departed members can only keep their original shifts; new shifts cannot be added or copied.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Regenerate cleared gaps from the template when saving</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Replace next week&apos;s draft?</value>
@@ -105,8 +160,17 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Select time slots to add or remove on-duty staff; the chart will update immediately. You can also use this form to navigate using the keyboard. Members from other groups can be selected manually; grey read-only shifts from other teams will not be modified, and overlaps and breaks across groups will still be checked when saving.</value>
   </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>The schedule range must not exceed {0} days and must be within 10 years of now.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>This move would overlap another shift for the same person. The draft was not changed.</value>
+  </data>
   <data name="Undo last step" xml:space="preserve">
     <value>Undo last step</value>
   </data>
-
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>Will be clipped; retained times:</value></data>
 </root>

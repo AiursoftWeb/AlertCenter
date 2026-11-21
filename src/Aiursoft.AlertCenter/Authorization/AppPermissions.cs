@@ -30,7 +30,7 @@ public class AppPermissions
                 localizer["Allows creating applications. Access to existing applications requires ownership or an explicit grant."]),
             new(AppPermissionNames.CanManageOnCall,
                 localizer["Manage On-Call"],
-                localizer["Allows managing on-call teams, scheduling rules, and schedules."]),
+                localizer["Allows managing on-call teams, scheduling templates, and schedules."]),
             new(AppPermissionNames.CanManagePush,
                 localizer["Manage Push Channels"],
                 localizer["Allows configuring push channels and recipients, application bindings, and delivery records."]),

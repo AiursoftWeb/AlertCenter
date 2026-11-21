@@ -160,7 +160,7 @@ public class RetryingTransactionTests
                 result = await controller.UpdateGroup(group.Id, request, default);
                 break;
             case "delete-group":
-                result = await controller.DeleteGroup(group.Id, default);
+                result = await controller.DeleteGroup(group.Id, group.Name, default);
                 break;
             case "save-rule":
                 result = await controller.SaveRule(new SaveOnCallRuleRequest { Name = "New rule" }, default);
@@ -194,7 +194,7 @@ public class RetryingTransactionTests
         Assert.AreEqual(operation == "save-rule" ? 2 : 1, await db.OnCallRules.CountAsync());
         Assert.AreEqual(operation == "delete-application" ? 0 : 1, await db.SourceApplications.CountAsync());
         Assert.AreEqual(operation == "save-schedule" ? 21 : 0, await db.OnCallShifts.CountAsync());
-        Assert.AreEqual(operation == "save-schedule" ? 28 : 0, await db.OnCallShiftMembers.CountAsync());
+        Assert.AreEqual(operation == "save-schedule" ? 21 : 0, await db.OnCallShiftMembers.CountAsync());
         Assert.AreEqual(operation == "delete-application" ? 0 : 1, await db.Incidents.CountAsync());
         if (operation == "update-rule")
         {

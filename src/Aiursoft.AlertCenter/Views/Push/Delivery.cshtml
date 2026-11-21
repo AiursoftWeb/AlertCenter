@@ -1,3 +1,4 @@
+@using System.Globalization
 @using Aiursoft.WebTools
 @model Aiursoft.AlertCenter.Models.PushViewModel
 @using Aiursoft.AlertCenter.Entities
@@ -256,7 +257,7 @@ else
                         <i data-lucide="@(typeKey == "webhook" ? "webhook" : typeKey == "email" ? "mail" : "bell")" style="width: 22px; height: 22px;" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <h3 class="h6 mb-0">@(snapshot != null ? string.Format(@Localizer["Built-in On-call Email · {0}"].Value, snapshot.GroupName) : delivery.Channel?.Name)</h3>
+                        <h3 class="h6 mb-0">@(snapshot != null ? string.Format(CultureInfo.CurrentCulture, @Localizer["Built-in On-call Email · {0}"].Value, snapshot.GroupName) : delivery.Channel?.Name)</h3>
                         <small class="text-muted">@(snapshot != null ? @Localizer["Built-in system · Cannot be disabled individually"].Value : channelType?.Name ?? typeKey)</small>
                     </div>
                 </div>
@@ -277,6 +278,8 @@ else
                 </div>
                 @if (snapshot != null)
                 {
+                    @if (snapshot.IsFallback) { <p class="text-warning">@Localizer["Delivered to fallback recipients"]</p> }
+                    @if (snapshot.HandoverContent != null) { <pre class="text-wrap">@snapshot.HandoverContent</pre> }
                     <div class="border-top pt-3 small">
                         <p class="mb-1">@Localizer["Snapshot time"]: <span data-utc-time="@snapshot.NotificationAtUtc.ToHtmlDateTime()"></span></p>
                         <p class="mb-1">@Localizer["Shift: "]<span data-utc-time="@snapshot.StartsAtUtc?.ToHtmlDateTime()"></span> — <span data-utc-time="@snapshot.EndsAtUtc?.ToHtmlDateTime()"></span></p>

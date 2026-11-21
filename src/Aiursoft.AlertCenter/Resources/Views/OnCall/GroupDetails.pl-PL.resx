@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>Edytuj zespół</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>Wprowadź dokładną nazwę zespołu, aby potwierdzić usunięcie.</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Odbiorcy rezerwowi</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>Przyszłe dyżury obejmują również dyżury trwające. Szablony i rejestry dostarczenia powiadomień o incydentach zostaną zachowane. Tej operacji nie można cofnąć.</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>Zarządzaj członkami</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>Dalej: przypisz osoby do zmian</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Nie skonfigurowano odbiorców rezerwowych. Nie można dostarczać alertów, gdy nikt nie dyżuruje.</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>Brak członków zespołu.</value>
@@ -63,32 +75,44 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>Wiadomości e-mail dotyczące dyżuru są automatycznie wysyłane na skrzynki pocztowe (Do) wszystkich inżynierów dyżurnych (OCE) przypisanych do aktualnie zapisanego dyżuru. W polu DW uwzględniane są wyłącznie skrzynki zespołowe lub adresy list mailingowych skonfigurowane przez administratora; wiadomości nie są automatycznie wysyłane do wszystkich członków zespołu. Skonfigurowane w aplikacji niestandardowe kanały powiadomień push nadal będą wysyłać dodatkowe powiadomienia.</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Członkowie dyżuru (kolejka rotacji)</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>Otwórz harmonogram</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>Za zmianę</value>
-  </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>Szablon reguły nie jest przypisany; nadal można planować ręcznie.</value>
-  </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>Szablon reguły:</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>Szablonów reguł nie można usunąć. Tylko zespoły bez zapisanych zmian i bez przypisanych aplikacji mogą zostać usunięte. To działanie jest nieodwracalne.</value>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>Otrzymują alerty, gdy nikt nie dyżuruje; nie uczestniczą w rotacji.</value>
   </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>Początek harmonogramu:</value>
   </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>Osoby na zmianę</value>
+  </data>
   <data name="Team configuration" xml:space="preserve">
     <value>Konfiguracja zespołu</value>
+  </data>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>Nie przypisano szablonu; ręczne planowanie jest nadal dostępne.</value>
+  </data>
+  <data name="Template:" xml:space="preserve">
+    <value>Szablon:</value>
+  </data>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>Szablony nie są usuwane. Można usunąć tylko zespoły bez zapisanych zmian i przypisanych aplikacji. Ta czynność jest nieodwracalna.</value>
   </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>Szablony mogą być współdzielone przez wiele zespołów; modyfikacja lub zmiana szablonu nie spowoduje ponownego wygenerowania zapisanych zmian.</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>Pierwsza osoba w kolejce dyżuruje jako pierwsza. Kolejność istniejących zmian nie jest zmieniana.</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>Lista członków wskazuje, kto może zostać uwzględniony w grafiku. Zapisany grafik określa, kto pełni dyżur i otrzymuje e-maile o incydentach. Odbiorcy DW otrzymują kopię niezależnie od przynależności do zespołu.</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>Nazwa zespołu nie jest zgodna.</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>Tego zespołu nie można usunąć, ponieważ ma zapisane dyżury, a ich historia musi zostać zachowana.</value>
@@ -102,11 +126,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>Wyświetl grafik dyżurów</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>Zostaną usunięte przyszłe dyżury ({0}) i wcześniejsze dyżury ({1}). Istniejące incydenty zachowają swoje zapisy dotyczące dyżurów.</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>godzin</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>godziny · min. odpoczynku</value>
   </data>
-
 </root>

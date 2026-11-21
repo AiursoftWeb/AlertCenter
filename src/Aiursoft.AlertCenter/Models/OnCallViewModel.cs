@@ -28,17 +28,33 @@ public class OnCallViewModel : UiStackLayoutViewModel
     public DateTime WeekStartUtc { get; set; }
     public bool ScheduleSaved { get; set; }
     public bool GroupHasSavedSchedule { get; set; }
-    public bool GroupHasBoundApplications { get; set; }
+    public int FutureShiftCount { get; set; }
+    public int HistoricalShiftCount { get; set; }
+    public List<SourceApplication> BoundApplications { get; set; } = [];
     public bool CanGenerateSchedule { get; set; }
     public int ScheduleRestHours { get; set; } = 16;
     public int ScheduleMinimumStaff { get; set; } = 1;
     public List<string> StaffingWarnings { get; set; } = [];
+    public List<OnCallScheduleValidator.TimelineWarning> TimelineWarnings { get; set; } = [];
+    public List<OnCallShift> SavedShifts { get; set; } = [];
+    public List<OnCallTeamIssues> UpcomingIssues { get; set; } = [];
+    public DateTime? LastShiftEndUtc { get; set; }
+    public DateTime WeekEndUtc { get; set; }
+    public DateTime PreviousWeekUtc { get; set; }
+    public DateTime NextWeekUtc { get; set; }
     public CreateOnCallGroupRequest GroupInput { get; set; } = new();
     public SaveOnCallRuleRequest RuleInput { get; set; } = new();
 }
 
 public class CreateOnCallGroupRequest
 {
+    public DayOfWeek WeekStartsOn { get; set; } = DayOfWeek.Monday;
+    public bool FallbackSelectionSubmitted { get; set; }
+    [Range(0d, 720d, ErrorMessage = "Minimum rest must be 0–720 hours.")] public double? MinimumRestHours { get; set; }
+    [Range(0d, 720d, ErrorMessage = "Maximum continuous duty must be 0–720 hours.")] public double? MaximumContinuousHours { get; set; }
+    [Range(0, 200)] public int? MinimumShiftStaff { get; set; }
+    public bool? AutoExtend { get; set; }
+    public List<string>? FallbackUserIds { get; set; }
     [Required(ErrorMessage = "Please enter the team name."), StringLength(100, ErrorMessage = "Team name cannot exceed 100 characters.")]
     public string? Name { get; set; } = string.Empty;
 
@@ -47,18 +63,43 @@ public class CreateOnCallGroupRequest
     [MaxLength(8000, ErrorMessage = "The on-call email CC configuration must not exceed 8,000 characters.")]
     public string? EmailCcRecipients { get; set; }
     public Guid? RuleId { get; set; }
-    [Required(ErrorMessage = "Please select a UTC start time.")]
+    public string? AnchorLocal { get; set; }
     public DateTime? AnchorUtc { get; set; } = DateTime.UtcNow.Date;
     public Guid Version { get; set; }
     public List<string>? UserIds { get; set; } = [];
 }
 
+public class OnCallGroupFormPreviewRequest
+{
+    public Guid? GroupId { get; set; }
+    public Guid? RuleId { get; set; }
+    public string? TimeZoneId { get; set; }
+    public string? AnchorLocal { get; set; }
+    public List<string>? UserIds { get; set; } = [];
+}
+
+public class OnCallGroupFormPreviewResult
+{
+    public string AnchorLocal { get; set; } = string.Empty;
+    public string SuggestedAnchorLocal { get; set; } = string.Empty;
+    public bool AnchorLocked { get; set; }
+    public List<string> Suggestions { get; set; } = [];
+    public List<OnCallSlotRequest> Slots { get; set; } = [];
+    public List<string> Warnings { get; set; } = [];
+    public List<string> Errors { get; set; } = [];
+}
+
 public class SaveOnCallRuleRequest
 {
+    public string? SplitMode { get; set; }
+    [Range(1, int.MaxValue)] public int? ShiftMinutes { get; set; }
+    [Range(1, 200)] public int? StaffPerShift { get; set; }
+    public bool? SwapAlternateRounds { get; set; }
+    public List<OnCallHandoverPointRequest>? HandoverPoints { get; set; }
     public Guid? Id { get; set; }
-    [Required(ErrorMessage = "Please enter the rule name."), StringLength(100, ErrorMessage = "Rule name must not exceed 100 characters.")]
+    [Required(ErrorMessage = "Please enter the template name."), StringLength(100, ErrorMessage = "Template name must not exceed 100 characters.")]
     public string? Name { get; set; } = string.Empty;
-    [Range(8, 8, ErrorMessage = "Fixed three shifts per day, 8 hours each.")]
+    [Range(1, int.MaxValue)]
     public int ShiftHours { get; set; } = 8;
     public bool BalanceShiftTimes { get; set; }
     [Range(0, 168, ErrorMessage = "Minimum rest must be 0–168 hours.")]
@@ -69,8 +110,31 @@ public class SaveOnCallRuleRequest
     public int? TargetStaff { get; set; } = 1;
 }
 
+public class OnCallHandoverPointRequest
+{
+    public DayOfWeek DayOfWeek { get; set; }
+    [Range(0, 1439)] public int MinuteOfDay { get; set; }
+}
+
+public class ClearOnCallScheduleRequest
+{
+    public DateTime StartUtc { get; set; }
+    public DateTime EndUtc { get; set; }
+    public bool IncludeManual { get; set; }
+    public bool IncludeHistory { get; set; }
+    public bool ConfirmHistory { get; set; }
+    public string? AutoExtendAction { get; set; }
+    public DateTime? ClearedAtUtc { get; set; }
+}
+
 public class SaveOnCallScheduleRequest
 {
+    public List<ClearOnCallScheduleRequest> ClearRanges { get; set; } = [];
+    public string? StartLocal { get; set; }
+    public string? EndLocal { get; set; }
+    public bool ConfirmReplace { get; set; }
+    public bool ReplaceRange { get; set; }
+    public DateTime? EndUtc { get; set; }
     public Guid GroupId { get; set; }
     public Guid Version { get; set; }
     public DateTime StartUtc { get; set; }
@@ -86,6 +150,13 @@ public class OnCallScheduleWeekRequest
 
 public class OnCallSlotRequest
 {
+    public OnCallShiftSource Source { get; set; }
+    public long? RotationPosition { get; set; }
+    public string? StartLocal { get; set; }
+    public string? EndLocal { get; set; }
+    public Guid? Id { get; set; }
+    public Guid? FragmentOf { get; set; }
     public DateTime StartsAtUtc { get; set; }
+    public DateTime? EndsAtUtc { get; set; }
     public List<string> UserIds { get; set; } = [];
 }

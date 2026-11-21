@@ -45,6 +45,15 @@
   <data name="Edit team" xml:space="preserve">
     <value>チームを編集</value>
   </data>
+  <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
+    <value>削除を確認するには、チーム名を正確に入力してください。</value>
+  </data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>フォールバック受信者</value>
+  </data>
+  <data name="Future shifts include any ongoing shifts. Templates and incident delivery records are retained. This action is irreversible." xml:space="preserve">
+    <value>今後のシフトには、現在進行中のシフトも含まれます。テンプレートとインシデント通知の配信記録は保持されます。この操作は取り消せません。</value>
+  </data>
   <data name="Manage members" xml:space="preserve">
     <value>メンバー管理</value>
   </data>
@@ -53,6 +62,9 @@
   </data>
   <data name="Next: assign people to shifts" xml:space="preserve">
     <value>次のステップ：シフトに担当者を割り当てる</value>
+  </data>
+  <data name="No fallback recipients configured. Alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>フォールバック受信者が設定されていません。当番がいないときはアラートを配信できません。</value>
   </data>
   <data name="No team members." xml:space="preserve">
     <value>チームメンバーはいません。</value>
@@ -63,35 +75,47 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured by the administrator; it does not automatically CC all team members. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>現在保存されているシフトのオンコールエンジニア（OCE）全員のユーザーメールボックス（To）に、オンコールメールが自動送信されます。CCには、管理者が明示的に設定したチームのメールボックスまたはメーリングリストのアドレスのみが使用され、チームメンバー全員が自動的にCCに追加されることはありません。アプリケーションで設定されたカスタムのプッシュ通知チャネルからも、追加の通知が送信されます。</value>
   </data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>オンコールメンバー（ローテーション順）</value>
+  </data>
   <data name="Open schedule" xml:space="preserve">
     <value>スケジュールを開く</value>
   </data>
-  <data name="Per shift " xml:space="preserve">
-    <value>1シフトあたり</value>
+  <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
+    <value>当番がいないときにアラートを受信します。ローテーションには参加しません。</value>
   </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>メンバーの順次ローテーション</value>
   </data>
-  <data name="Rule template not bound; manual scheduling is still available." xml:space="preserve">
-    <value>ルールテンプレートは紐付けられていません。手動でのスケジュール設定は引き続き可能です。</value>
-  </data>
-  <data name="Rule template:" xml:space="preserve">
-    <value>ルールテンプレート：</value>
-  </data>
-  <data name="Rule templates cannot be deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
-    <value>ルールテンプレートは削除できません。保存済みのシフトがなく、連携アプリが紐付けられていないチームのみ削除できます。この操作は取り消せません。</value>
-  </data>
   <data name="Scheduling start point: " xml:space="preserve">
     <value>スケジュールの開始日時：</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>シフトごとの人数</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>チーム設定</value>
   </data>
+  <data name="Template not bound; manual scheduling is still available." xml:space="preserve">
+    <value>テンプレートが関連付けられていません。手動でのスケジュール作成は可能です。</value>
+  </data>
+  <data name="Template:" xml:space="preserve">
+    <value>テンプレート：</value>
+  </data>
+  <data name="Templates are not deleted. Only teams with no saved shifts and no bound applications can be deleted. This action is irreversible." xml:space="preserve">
+    <value>テンプレートは削除されません。保存済みシフトも関連付けられたアプリもないチームのみ削除できます。この操作は取り消せません。</value>
+  </data>
   <data name="Templates can be shared by multiple teams; modifying or switching templates will not regenerate saved shifts." xml:space="preserve">
     <value>テンプレートは複数のチームで共有できます。テンプレートを変更または切り替えても、保存済みのシフトは再生成されません。</value>
   </data>
+  <data name="The first person in the queue is on call first. Existing shifts are not reordered." xml:space="preserve">
+    <value>キューの先頭のメンバーが最初に当番になります。既存のシフトの順序は変更されません。</value>
+  </data>
   <data name="The member list says who can be scheduled. The saved schedule says who is on duty and receives incident emails. CC recipients receive a copy independently of group membership." xml:space="preserve">
     <value>メンバーリストにはシフトに割り当て可能なメンバーが記載されています。保存されたスケジュールには当直のメンバーとインシデントメールの受信者が記載されています。CC受信者はグループメンバーシップに関係なく、メールの副本を受信します。</value>
+  </data>
+  <data name="The team name does not match." xml:space="preserve">
+    <value>チーム名が一致しません。</value>
   </data>
   <data name="This team has saved shifts and cannot be deleted to preserve scheduling history." xml:space="preserve">
     <value>このチームには保存済みのシフトがあるため、スケジュール履歴を保持する目的で削除できません。</value>
@@ -105,11 +129,13 @@
   <data name="View on-call schedule" xml:space="preserve">
     <value>オンコールスケジュールを表示</value>
   </data>
+  <data name="Will delete {0} future shifts and {1} historical shifts. Existing incidents retain their on-call records." xml:space="preserve">
+    <value>今後のシフト {0} 件と過去のシフト {1} 件が削除されます。既存のインシデントのオンコール記録は保持されます。</value>
+  </data>
   <data name="hours" xml:space="preserve">
     <value>時間</value>
   </data>
   <data name="hours · Min rest " xml:space="preserve">
     <value>時間 · 最低休息時間</value>
   </data>
-
 </root>

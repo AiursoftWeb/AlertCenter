@@ -27,11 +27,11 @@
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>จำนวนพนักงานขั้นต่ำต่อกะต้องอยู่ระหว่าง 1–200 คน</value>
   </data>
-  <data name="Please enter the rule name." xml:space="preserve">
-    <value>โปรดป้อนชื่อกฎ</value>
-  </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>กรุณาป้อนชื่อทีม</value>
+  </data>
+  <data name="Please enter the template name." xml:space="preserve">
+    <value>โปรดระบุชื่อเทมเพลต</value>
   </data>
   <data name="Please select a UTC start time." xml:space="preserve">
     <value>โปรดเลือกเวลาเริ่มต้นตาม UTC</value>
@@ -39,14 +39,14 @@
   <data name="Please select a time zone." xml:space="preserve">
     <value>โปรดเลือกเขตเวลา</value>
   </data>
-  <data name="Rule name must not exceed 100 characters." xml:space="preserve">
-    <value>ชื่อกฎต้องมีความยาวไม่เกิน 100 อักขระ</value>
-  </data>
   <data name="Target staff per shift must be 1–200." xml:space="preserve">
     <value>จำนวนพนักงานเป้าหมายต่อกะต้องอยู่ระหว่าง 1–200 คน</value>
   </data>
   <data name="Team name cannot exceed 100 characters." xml:space="preserve">
     <value>ชื่อทีมต้องมีความยาวไม่เกิน 100 อักขระ</value>
+  </data>
+  <data name="Template name must not exceed 100 characters." xml:space="preserve">
+    <value>ชื่อเทมเพลตต้องไม่เกิน 100 อักขระ</value>
   </data>
   <data name="The on-call email CC configuration must not exceed 8,000 characters." xml:space="preserve">
     <value>การกำหนดค่าอีเมล CC สำหรับเวรรับสายต้องมีความยาวไม่เกิน 8,000 อักขระ</value>

@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Automaattisia ehdotuksia ei ole tallennettu. Vierekkäiset työvuorolistat tarkistetaan uudelleen luonnin yhteydessä; olemassa olevia tallennettuja järjestelyjä ei korvata.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automaattinen jatkaminen on käytössä. Valitse, mitä tallennettaessa tapahtuu.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Oletusarvoisesti tyhjennetään vain automaattisesti luodut vuorot.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Peruuta</value>
   </data>
@@ -42,12 +48,34 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Muutokset tulevat voimaan vasta tallentamisen jälkeen. Työkalujen sulkeminen säilyttää luonnoksesi.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Valitse automaattisen jatkamisen toiminto</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Valitse, poistetaanko automaattinen jatkaminen käytöstä vai luodaanko vuorot uudelleen tyhjennettyihin aukkoihin.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Tyhjennys muuttaa vain luonnosta. Tarkista kaavio ja julkaise muutokset tallentamalla.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Tyhjennä työvuorolistan aikaväli</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Tyhjennetty luonnoksen aikaväli</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Vahvista tämän aikavälin päättyneiden aiempien vuorojen tyhjennys. Tämä voi poistaa aiempia vuoromäärityksiä.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Vahvista luonnoksen korvaaminen</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Vahvista aiempien vuorojen tyhjennys</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Kopioi kuluva viikko seuraavalle viikolle</value>
   </data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>Kopiointi toistaa näkyvän luonnoksen kohdealueella. Nykyiset vuorot rajataan alueen rajoilta; ulkopuoliset osuudet säilyvät. Kopiointi ja luonti muuttavat vain luonnosta. Julkaise tallentamalla työvuoroluettelon muutokset.</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>Kopioi kuluvan viikon luonnos seuraavalle viikolle. Jos seuraavalle viikolle on jo lisätty vuoroja tai tehty muutoksia, kopiointi edellyttää vahvistusta. Kopioinnin jälkeen muutokset on silti tallennettava. Viikon sivuilla olevilla pystypainikkeilla voi laajentaa näkymää 36 tuntia kuluvan viikon alkuun ja loppuun. Harmaat alueet ovat vain luku -tilassa. Tämän sivun kaavioilla ja lomakkeilla voi muokata vain kuluvaa viikkoa. Voit muokata viereisiä viikkoja siirtymällä kyseiselle viikolle. Kopioinnin jälkeen seuraavan viikon luonnos näkyy myös vain luku -tilassa. Kuluvan viikon muutokset ja kopiot tallennetaan, kumotaan ja palautetaan samalla tavalla. Näkymän kutistaminen ei poista luonnoksia.</value>
   </data>
@@ -57,8 +85,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Käytössä on parhaillaan siirto-/vaihtotila. Vaihda yllä oleva tila ennen vuorojen lisäämistä tai poistamista.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>Oletusaikaväli alkaa nykyhetkestä ja päättyy viimeisen tallennetun tai luonnoksessa olevan vuoron loppuun tiimin aikavyöhykkeellä.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Poista vuoro</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Poista automaattinen jatkaminen käytöstä tallennettaessa</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Vaihda henkilöstöä vetämällä värillinen lohko toiseen vuoroon tai siirrä vuoro tyhjään kohtaan. Vaihda kahden henkilön viikoittaiset aikataulut vetämällä ”Swap Entire Week”. Voit myös valita kohteen napsauttamalla ja napsauttaa sitten kohdetta; peruuta painamalla Esc-näppäintä. Muutokset näkyvät heti, ja voit tallentaa ne kerralla useiden muutosten jälkeen.</value>
@@ -72,6 +106,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Aikataulun muokkausohjeet</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Sisällytä päättyneet aiemmat vuorot</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Sisällytä käsin muokatut vuorot</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Yhdistä päällekkäiset vuorot</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Lisää toimintoja</value>
   </data>
@@ -84,8 +127,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>Päivystävät henkilöt (useita voi valita, vähintään yksi)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Käynnissä olevien vuorojen jo kulunut osuus säilytetään, vaikka aiemmat vuorot sisällytettäisiin.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Esikatsele tyhjennystä</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Punaiset varoitukset ilmoittavat tyhjistä vuoroista, riittämättömästä lepoajasta tai vähimmäishenkilöstömäärän alittumisesta, mutta eivät estä muutosten tekemistä. Tallentaminen on sallittua, vaikka vähimmäishenkilöstömäärä alittuisi, mutta tyhjiä vuoroja tai riittämätöntä lepoaikaa ei voi tallentaa. Tallennuksen yhteydessä muutetun viikon, viereisten viikkojen ja muiden tiimien validointi suoritetaan samalla tavalla. Jos yksikin viikko ei läpäise validointia, mitään ei tallenneta. Lähteneet jäsenet voivat säilyttää vain alkuperäiset vuoronsa; uusia vuoroja ei voi lisätä tai kopioida.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Luo vuorot uudelleen mallin pohjalta tyhjennettyihin aukkoihin tallennettaessa</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Vuorot luodaan uudelleen vasta tallennettaessa. Esikatselu säilyttää aukot, eikä säilytettyjä vuoroja korvata.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Korvataanko ensi viikon luonnos?</value>
@@ -105,8 +160,17 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Valitse vuorot, joihin lisätään tai joista poistetaan työvuorossa olevia henkilöitä. Kaavio päivittyy samanaikaisesti. Voit käyttää tätä lomaketta myös näppäimistöllä liikkumiseen. Muiden ryhmien jäseniä voi valita manuaalisesti. Muiden tiimien harmaita, vain luku -vuoroja ei muuteta, ja ryhmien väliset päällekkäisyydet sekä lepoajat tarkistetaan edelleen tallennettaessa.</value>
   </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Saman henkilön vuorot tai kohdistamattomien vuorojen rivillä olevat vuorot eivät saa olla päällekkäisiä. Yhdistä tai muokkaa niitä ennen tallentamista.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>Päivystysaikataulun aikaväli saa olla enintään {0} päivää, ja sen on oltava enintään 10 vuotta nykyhetkestä menneisyyteen tai tulevaisuuteen.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Tämä siirto menisi päällekkäin saman henkilön toisen vuoron kanssa. Luonnosta ei muutettu.</value>
+  </data>
   <data name="Undo last step" xml:space="preserve">
     <value>Kumoa viimeisin vaihe</value>
   </data>
-
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>Rajataan; säilyvät ajat:</value></data>
 </root>

@@ -39,18 +39,21 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Lägg till-läge: Klicka på det tomma området i ingenjörens rad för att lägga till en 8-timmarsskift; flera personer kan dela ett skift.</value>
   </data>
+  <data name="Add on-call members to preview the rotation."><value>Lägg till jourmedlemmar för att förhandsvisa rotationen.</value></data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Lägg till jourpass</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Lagd till</value>
   </data>
+  <data name="Already selected"><value>Redan vald</value></data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Tillbaka till redigering</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Avbryt uppdatering</value>
   </data>
+  <data name="Choose a scheduling template to preview the rotation."><value>Välj en schemamall för att förhandsvisa rotationen.</value></data>
   <data name="Close" xml:space="preserve">
     <value>Stäng</value>
   </data>
@@ -96,6 +99,7 @@
   <data name="End" xml:space="preserve">
     <value>Slut</value>
   </data>
+  <data name="Enter a scheduling start point to preview shifts."><value>Ange en schemastart för att förhandsvisa pass.</value></data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Ange kommentarsinnehåll; det får inte bara innehålla blanksteg.</value>
   </data>
@@ -201,6 +205,7 @@
   <data name="Removed" xml:space="preserve">
     <value>Borttagen</value>
   </data>
+  <data name="Reorder {0}"><value>Ändra ordning för {0}</value></data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>Ogiltig begäran eller sidans inloggningsuppgifter har löpt ut. Kontrollera inmatningen och uppdatera sidan för att försöka igen vid behov.</value>
   </data>
@@ -258,6 +263,7 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Personalbemanning justerad och diagram uppdaterat; inte sparad ännu.</value>
   </data>
+  <data name="Start at {0}"><value>Börja vid {0}</value></data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Kopierades till urklipp!</value>
   </data>
@@ -303,9 +309,12 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Det går inte att byta direkt: en person finns redan på målpassets skift. Justera först medlemmarna på samma skift via ”Lägg till/ta bort medlemmar efter skift”.</value>
   </data>
+  <data name="Unable to update the preview. Please try again."><value>Kunde inte uppdatera förhandsvisningen. Försök igen.</value></data>
+  <data name="Unassigned"><value>Ej tilldelad</value></data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Osparat · Utkast till ändring</value>
   </data>
+  <data name="Updating shift preview…"><value>Uppdaterar förhandsvisning av pass…</value></data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Användargrupp · Medlemmar ärver dynamiskt tilldelade behörigheter</value>
   </data>
@@ -330,6 +339,7 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} timmar</value>
   </data>
+  <data name="{0} moved to position {1} of {2}."><value>{0} flyttades till plats {1} av {2}.</value></data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} pass för {1} · {2}; ej sparad ännu. Du kan ångra detta.</value>
   </data>
@@ -351,5 +361,4 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 timmar · {3}{4}</value>
   </data>
-
 </root>

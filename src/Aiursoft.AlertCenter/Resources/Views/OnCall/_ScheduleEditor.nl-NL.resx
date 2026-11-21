@@ -33,6 +33,12 @@
   <data name="Auto-suggestions have not been saved. Adjacent schedules will be re-validated upon generation; existing saved arrangements will not be overwritten." xml:space="preserve">
     <value>Automatische suggesties zijn niet opgeslagen. Aanliggende roosters worden bij genereren opnieuw gevalideerd; bestaande opgeslagen regelingen worden niet overschreven.</value>
   </data>
+  <data name="Automatic extension is enabled. Choose what happens when saving." xml:space="preserve">
+    <value>Automatisch verlengen is ingeschakeld. Kies wat er bij het opslaan gebeurt.</value>
+  </data>
+  <data name="By default, only automatically generated shifts are cleared." xml:space="preserve">
+    <value>Standaard worden alleen automatisch gegenereerde diensten verwijderd.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>
@@ -42,12 +48,34 @@
   <data name="Changes take effect only after saving. Collapsing these tools keeps your draft." xml:space="preserve">
     <value>Wijzigingen worden pas van kracht nadat je hebt opgeslagen. Als je deze hulpmiddelen inklapt, blijft je concept behouden.</value>
   </data>
+  <data name="Choose an automatic extension action" xml:space="preserve">
+    <value>Kies een actie voor automatisch verlengen</value>
+  </data>
+  <data name="Choose whether to disable automatic extension or regenerate cleared gaps." xml:space="preserve">
+    <value>Kies of je automatisch verlengen wilt uitschakelen of opnieuw diensten wilt genereren in de leeggemaakte gaten.</value>
+  </data>
+  <data name="Clear only changes the draft. Review the chart, then save to publish." xml:space="preserve">
+    <value>Leegmaken wijzigt alleen het concept. Controleer de grafiek en sla vervolgens op om te publiceren.</value>
+  </data>
+  <data name="Clear schedule range" xml:space="preserve">
+    <value>Roosterperiode leegmaken</value>
+  </data>
+  <data name="Cleared draft range" xml:space="preserve">
+    <value>Leeggemaakte conceptperiode</value>
+  </data>
+  <data name="Confirm clearing completed historical shifts in this range. This can remove past assignments." xml:space="preserve">
+    <value>Bevestig het verwijderen van afgeronde diensten uit het verleden in deze periode. Hierdoor kunnen eerdere toewijzingen worden verwijderd.</value>
+  </data>
   <data name="Confirm draft replacement" xml:space="preserve">
     <value>Bevestig vervanging concept</value>
+  </data>
+  <data name="Confirm historical clear" xml:space="preserve">
+    <value>Leegmaken van het verleden bevestigen</value>
   </data>
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Kopieer huidige week naar volgende week</value>
   </data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>Kopiëren herhaalt het zichtbare concept in het doelbereik. Bestaande diensten worden bij de grenzen afgeknipt; de delen erbuiten blijven behouden. Kopiëren en genereren wijzigen alleen het concept. Sla de roosterwijzigingen op om te publiceren.</value></data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>Kopieer het concept van de huidige week naar de volgende week. Als de volgende week al diensten of wijzigingen bevat, is bevestiging vereist vóór het kopiëren; opslaan is na het kopiëren nog steeds vereist. Met de verticale knoppen aan de zijkanten kunnen de 36 uur vóór en na de huidige week worden uitgebreid; grijze gebieden zijn alleen-lezen. Grafieken en formulieren op deze pagina bewerken alleen de huidige week; schakel naar de bijbehorende week om aangrenzende weken aan te passen. Het concept van de volgende week wordt na het kopiëren eveneens in alleen-lezen-modus weergegeven. Wijzigingen aan de huidige week en kopieën worden uniform opgeslagen, ongedaan gemaakt en hersteld; inklappen leidt niet tot verlies van concepten.</value>
   </data>
@@ -57,8 +85,14 @@
   <data name="Currently in Move/Swap mode. Switch the mode above before adding or removing shifts." xml:space="preserve">
     <value>Je bevindt je momenteel in de modus Verplaatsen/Wisselen. Schakel hierboven van modus voordat je diensten toevoegt of verwijdert.</value>
   </data>
+  <data name="Defaults to now through the final saved or draft shift, in the team time zone." xml:space="preserve">
+    <value>De standaardperiode loopt van nu tot het einde van de laatste opgeslagen dienst of conceptdienst, in de tijdzone van het team.</value>
+  </data>
   <data name="Delete shift" xml:space="preserve">
     <value>Dienst verwijderen</value>
+  </data>
+  <data name="Disable automatic extension when saving" xml:space="preserve">
+    <value>Automatisch verlengen uitschakelen bij het opslaan</value>
   </data>
   <data name="Drag a color block to another shift to swap personnel, or to an empty slot to move the shift; drag &apos;Swap Entire Week&apos; to exchange two people&apos;s weekly schedules. You can also click to select, then click the target; press Esc to cancel. Changes display immediately and can be saved in bulk after multiple adjustments." xml:space="preserve">
     <value>Sleep een kleurblok op een andere shift om personeel te verwisselen, of op een leeg slot om de shift te verplaatsen; sleep &apos;Verwissel Hele Week&apos; om de wekelijkse roosters van twee personen te ruilen. U kunt ook klikken om te selecteren en vervolgens op het doel klikken; druk op Esc om te annuleren. Wijzigingen worden direct weergegeven en kunnen na meerdere aanpassingen in bulk worden opgeslagen.</value>
@@ -72,6 +106,15 @@
   <data name="How to adjust the schedule" xml:space="preserve">
     <value>Zo pas je het rooster aan</value>
   </data>
+  <data name="Include completed historical shifts" xml:space="preserve">
+    <value>Afgeronde diensten uit het verleden meenemen</value>
+  </data>
+  <data name="Include manually edited shifts" xml:space="preserve">
+    <value>Handmatig bewerkte diensten meenemen</value>
+  </data>
+  <data name="Merge overlapping shifts" xml:space="preserve">
+    <value>Overlappende diensten samenvoegen</value>
+  </data>
   <data name="More actions" xml:space="preserve">
     <value>Meer acties</value>
   </data>
@@ -84,8 +127,20 @@
   <data name="On-call personnel (multiple allowed, at least one)" xml:space="preserve">
     <value>On-call personeel (meerdere toegestaan, minimaal één)</value>
   </data>
+  <data name="Ongoing shifts keep their elapsed portion, even when history is included." xml:space="preserve">
+    <value>Lopende diensten behouden het reeds verstreken deel, ook wanneer het verleden wordt meegenomen.</value>
+  </data>
+  <data name="Preview clear" xml:space="preserve">
+    <value>Voorbeeld van leegmaken</value>
+  </data>
   <data name="Red alerts indicate empty shifts, insufficient rest, or below minimum headcount, but do not block further adjustments. Saving is allowed even if below minimum headcount, but empty shifts and insufficient rest cannot be saved. Validation is applied uniformly across the modified week, adjacent weeks, and other teams upon saving. If any week fails validation, nothing is saved. Departed members can only retain their original shifts; new shifts cannot be added or copied." xml:space="preserve">
     <value>Rode meldingen geven aan dat diensten onbezet zijn, er onvoldoende rusttijd is of het minimumaantal medewerkers niet wordt gehaald, maar verhinderen verdere aanpassingen niet. Opslaan is toegestaan als het minimumaantal medewerkers niet wordt gehaald, maar onbezet gelaten diensten en onvoldoende rusttijd kunnen niet worden opgeslagen. Bij het opslaan wordt de validatie uniform toegepast op de aangepaste week, aangrenzende weken en andere teams. Als een week niet aan de validatie voldoet, wordt er niets opgeslagen. Vertrokken medewerkers kunnen alleen hun oorspronkelijke diensten behouden; er kunnen geen nieuwe diensten worden toegevoegd of gekopieerd.</value>
+  </data>
+  <data name="Regenerate cleared gaps from the template when saving" xml:space="preserve">
+    <value>Bij het opslaan opnieuw diensten genereren op basis van de sjabloon in de leeggemaakte gaten</value>
+  </data>
+  <data name="Regeneration happens only when saving. The preview keeps gaps and retained shifts are not overwritten." xml:space="preserve">
+    <value>Opnieuw genereren gebeurt alleen bij het opslaan. In het voorbeeld blijven de gaten behouden en behouden diensten worden niet overschreven.</value>
   </data>
   <data name="Replace next week&apos;s draft?" xml:space="preserve">
     <value>Vervang de conceptversie van volgende week?</value>
@@ -105,8 +160,17 @@
   <data name="Select time slots to add or remove on-shift personnel; the chart will update synchronously. You can also use this form for keyboard navigation. Cross-group members can be selected manually; gray read-only shifts from other teams will not be modified, and cross-group overlaps and breaks are still validated upon saving." xml:space="preserve">
     <value>Selecteer tijdsblokken om personeel toe te voegen of te verwijderen; de grafiek wordt synchroon bijgewerkt. U kunt dit formulier ook gebruiken voor navigatie met het toetsenbord. Leden van andere groepen kunnen handmatig worden geselecteerd; grijze alleen-lezen diensten van andere teams worden niet gewijzigd, en overlappenden en pauzes tussen groepen worden nog steeds gevalideerd bij het opslaan.</value>
   </data>
+  <data name="Shifts for the same person or unassigned row cannot overlap. Merge or adjust them before saving." xml:space="preserve">
+    <value>Diensten voor dezelfde persoon of in de rij met niet-toegewezen diensten mogen niet overlappen. Voeg ze samen of pas ze aan voordat je opslaat.</value>
+  </data>
+  <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
+    <value>De roosterperiode mag niet langer zijn dan {0} dagen en moet binnen 10 jaar vóór of na het huidige tijdstip vallen.</value>
+  </data>
+  <data name="This move would overlap another shift for the same person. The draft was not changed." xml:space="preserve">
+    <value>Deze verplaatsing zou overlappen met een andere dienst van dezelfde persoon. Het concept is niet gewijzigd.</value>
+  </data>
   <data name="Undo last step" xml:space="preserve">
     <value>Ongedaan maken laatste stap</value>
   </data>
-
+  <data name="Will be clipped; retained times:" xml:space="preserve"><value>Wordt afgeknipt; behouden tijden:</value></data>
 </root>

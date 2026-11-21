@@ -18,6 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
+  <data name="Automatic extension cannot proceed: the member count is below the template staff per shift." xml:space="preserve"><value>لا يمكن متابعة التمديد التلقائي: عدد الأعضاء أقل من عدد الأفراد لكل مناوبة المحدد في القالب.</value></data>
+  <data name="Cannot save overlapping shifts for {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC and {3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC." xml:space="preserve"><value>لا يمكن حفظ مناوبات متداخلة لـ {0}: {1:yyyy-MM-dd HH:mm}–{2:yyyy-MM-dd HH:mm} UTC و{3:yyyy-MM-dd HH:mm}–{4:yyyy-MM-dd HH:mm} UTC.</value></data>
       <data name="Empty shift detected at {0:yyyy-MM-dd HH:mm} UTC. At least one staff member is required." xml:space="preserve">
     <value>تم اكتشاف مناوبة شاغرة في {0:yyyy-MM-dd HH:mm} UTC. يلزم وجود موظف واحد على الأقل.</value>
   </data>
@@ -27,11 +29,11 @@
   <data name="Only {0} staff scheduled at {1:yyyy-MM-dd HH:mm} UTC, below the minimum of {2}. Manual save is still allowed despite insufficient staffing, except for empty shifts." xml:space="preserve">
     <value>تمت جدولة {0} فقط من الموظفين في {1:yyyy-MM-dd HH:mm} بالتوقيت العالمي المنسق (UTC)، وهو أقل من الحد الأدنى البالغ {2}. لا يزال الحفظ اليدوي مسموحًا رغم عدم كفاية عدد الموظفين، باستثناء الورديات الخالية.</value>
   </data>
+  <data name="Unassigned" xml:space="preserve"><value>غير معيّن</value></data>
   <data name="{0}&apos;s shift at {1:yyyy-MM-dd HH:mm} UTC overlaps with another shift or has insufficient rest (minimum {2} hours this week, while meeting adjacent shift requirements)." xml:space="preserve">
     <value>يتعارض دوام {0} عند {1:yyyy-MM-dd HH:mm} UTC مع دوام آخر، أو لا تتوفر فترة راحة كافية (الحد الأدنى {2} ساعات هذا الأسبوع، مع استيفاء متطلبات الدوامات المتجاورة).</value>
   </data>
   <data name="{0}&apos;s shift is outside the designated 8-hour window." xml:space="preserve">
     <value>وردية {0} خارج نطاق الثماني ساعات المحدد.</value>
   </data>
-
 </root>

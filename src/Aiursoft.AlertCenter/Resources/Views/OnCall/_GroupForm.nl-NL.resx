@@ -27,12 +27,22 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Geavanceerde planningsinstellingen</value>
   </data>
+  <data name="Advanced settings"><value>Geavanceerde instellingen</value></data>
+  <data name="All scheduling times below use the team time zone."><value>Alle onderstaande planningstijden gebruiken de tijdzone van het team.</value></data>
+  <data name="Automatically extend the bound template to cover the next four weeks"><value>Gekoppeld sjabloon automatisch uitbreiden naar de komende vier weken</value></data>
+  <data name="Basic information"><value>Basisinformatie</value></data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
+  </data>
+  <data name="Choose a template to enable automatic extension."><value>Kies een sjabloon om automatische uitbreiding in te schakelen.</value></data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>Bepaal hoe diensten worden opgesplitst en gerouleerd voor automatische verlenging en generatie met één klik door teams. Het wijzigen van een sjabloon heeft geen invloed op geplande diensten.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Gewist werknemer</value>
   </data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Geen sjabloon koppelen (handmatige planning)</value>
   </data>
@@ -42,12 +52,14 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Voer de tijd in UTC in; deze wordt niet automatisch aangepast aan de tijdzones van het team. Zodra een dienst is opgeslagen, kan het beginpunt van de planning niet meer worden gewijzigd.</value>
   </data>
+  <data name="Fallback recipients"><value>Reserveontvangers</value></data>
   <data name="Filter by role" xml:space="preserve">
     <value>Filter op rol</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Zoeken</value>
   </data>
+  <data name="Friday"><value>Vrijdag</value></data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Hulp: melding CC</value>
   </data>
@@ -66,24 +78,31 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Help: teamtime zone</value>
   </data>
-  <data name="Multiple teams can share the same template. Switching or modifying the template will not regenerate saved shifts." xml:space="preserve">
-    <value>Meerdere teams kunnen dezelfde sjabloon delen. Het wisselen of wijzigen van de sjabloon zal opgeslagen ploegendiensten niet opnieuw genereren.</value>
-  </data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
+  <data name="Maximum continuous duty reminder (hours)"><value>Herinnering maximale aaneengesloten dienst (uren)</value></data>
+  <data name="Minimum rest reminder (hours)"><value>Herinnering minimale rust (uren)</value></data>
+  <data name="Minimum staffing reminder"><value>Herinnering minimale bezetting</value></data>
+  <data name="Monday"><value>Maandag</value></data>
   <data name="Name or Account" xml:space="preserve">
     <value>Naam of account</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Volgende pagina</value>
   </data>
+  <data name="Next four shifts preview"><value>Voorbeeld van de volgende vier diensten</value></data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Geen reserveontvangers: meldingen kunnen niet worden afgeleverd als niemand dienst heeft.</value></data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Nog geen leden. Open Leden toevoegen om mensen te zoeken.</value>
   </data>
+  <data name="No members yet. Search below to add people."><value>Nog geen leden. Zoek hieronder om mensen toe te voegen.</value></data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>Melding CC (optioneel)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>On-call e-mail CC</value>
   </data>
+  <data name="On-call members (rotation queue)"><value>Wachtdienstleden (rotatiewachtrij)</value></data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
   <data name="Previous Page" xml:space="preserve">
     <value>Vorige pagina</value>
   </data>
@@ -93,6 +112,7 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Rotatievolgorde</value>
   </data>
+  <data name="Saturday"><value>Zaterdag</value></data>
   <data name="Save changes" xml:space="preserve">
     <value>Wijzigingen opslaan</value>
   </data>
@@ -102,12 +122,14 @@
   <data name="Saving will remove these members from shifts that have not started. Review the schedule for gaps." xml:space="preserve">
     <value>Bij het opslaan worden deze leden verwijderd uit shifts die nog niet zijn gestart. Controleer de planning op gaten.</value>
   </data>
-  <data name="Scheduling Rule Template" xml:space="preserve">
-    <value>Schedulingsjabloon</value>
+  <data name="Scheduling Template" xml:space="preserve">
+    <value>Roostersjabloon</value>
   </data>
+  <data name="Scheduling method"><value>Planningsmethode</value></data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Startpunt van de planning (UTC)</value>
   </data>
+  <data name="Scheduling start point (team time)"><value>Planningsstart (teamtijd)</value></data>
   <data name="Search Employees" xml:space="preserve">
     <value>Zoek medewerkers</value>
   </data>
@@ -117,9 +139,13 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>Zoek op naam of account, of kies een rol.</value>
   </data>
+  <data name="Search by name or account."><value>Zoek op naam of account.</value></data>
+  <data name="Search fallback recipients"><value>Reserveontvangers zoeken</value></data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Het selecteren van een rol filtert alleen de zoekopdracht. Vink individuele personen aan om ze toe te voegen; teamledenstatus wordt niet gesynchroniseerd met die rol.</value>
   </data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
+  <data name="Sunday"><value>Zondag</value></data>
   <data name="Team members" xml:space="preserve">
     <value>Teamleden</value>
   </data>
@@ -129,12 +155,15 @@
   <data name="Team settings" xml:space="preserve">
     <value>Teaminstellingen</value>
   </data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
+  <data name="Thursday"><value>Donderdag</value></data>
   <data name="Time Zone" xml:space="preserve">
     <value>Tijdzone</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>Aan: de personen die waren toegewezen aan de opgeslagen dienst op het moment van het incident. De oorspronkelijke OCE-ontvangers blijven behouden voor latere incidentmails. CC is van toepassing op elke incidentmail, ongeacht de dienst. Gebruik komma&apos;s, puntkomma&apos;s of nieuwe regels; maximaal 50 CC-adressen.</value>
   </data>
+  <data name="Tuesday"><value>Dinsdag</value></data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Gebruik Omhoog en Omlaag om de volgorde voor toekomstige automatische planning te bepalen. Bestaande diensten worden niet opnieuw gerangschikt. Selecteer maximaal 200 teamleden.</value>
   </data>
@@ -144,5 +173,7 @@
   <data name="View schedule" xml:space="preserve">
     <value>Rooster bekijken</value>
   </data>
-
+  <data name="Wednesday"><value>Woensdag</value></data>
+  <data name="Week starts on"><value>Eerste dag van de week</value></data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
 </root>
