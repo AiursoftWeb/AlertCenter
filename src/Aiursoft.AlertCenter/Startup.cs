@@ -136,7 +136,6 @@ public class Startup : IWebStartup
             }
         });
         app.UseStatusCodePagesWithReExecute("/Error/Code{0}");
-        app.UseUIStack();
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthentication();

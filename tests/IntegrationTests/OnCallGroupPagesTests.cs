@@ -20,8 +20,8 @@ public class OnCallGroupPagesTests : TestBase
         Assert.Contains("id=\"GroupInput_TimeZoneId\"", create);
         Assert.Contains("name=\"GroupInput.TimeZoneId\"", create);
         Assert.Contains("selected=\"selected\" value=\"UTC\"", create);
-        Assert.Contains("/UIStack/dist/js/app.js", create);
-        Assert.IsTrue(create.IndexOf("/UIStack/dist/js/app.js", StringComparison.Ordinal) <
+        Assert.Contains("/node_modules/@aiursoft/uistack/dist/js/app.js", create);
+        Assert.IsTrue(create.IndexOf("/node_modules/@aiursoft/uistack/dist/js/app.js", StringComparison.Ordinal) <
             create.IndexOf("/scripts/oncall-group-form.js", StringComparison.Ordinal));
         var invalid = await PostForm("/OnCall/CreateGroup", new()
         {
