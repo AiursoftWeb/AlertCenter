@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Aiursoft.AlertCenter.Services;
 
-public sealed record OnCallOce(string UserId, string DisplayName, string? Email);
+public sealed record OnCallOce(string UserId, string DisplayName, string? Email, string AvatarRelativePath = User.DefaultAvatarPath);
 public sealed record OnCallOceResult(Guid? ShiftId, DateTime? StartsAtUtc, DateTime? EndsAtUtc,
     IReadOnlyList<OnCallOce> Engineers, string? Error, bool IsFallback = false);
 
@@ -26,13 +26,13 @@ public class OnCallOceService(TemplateDbContext db, IStringLocalizer<OnCallOceSe
         var fallbacks = missing.Length == 0 ? [] : await db.Set<OnCallFallbackRecipient>().AsNoTracking().Include(person => person.User)
             .Where(person => missing.Contains(person.GroupId)).OrderBy(person => person.UserId).ToListAsync(cancellationToken);
         return groupIds.ToDictionary(id => id, id => Resolve(shifts.Where(shift => shift.GroupId == id).ToList(),
-            fallbacks.Where(person => person.GroupId == id).Select(person => new OnCallOce(person.UserId, person.User.DisplayName, person.User.Email)).ToList()));
+            fallbacks.Where(person => person.GroupId == id).Select(person => new OnCallOce(person.UserId, person.User.DisplayName, person.User.Email, person.User.AvatarRelativePath)).ToList()));
     }
 
     private OnCallOceResult Resolve(List<OnCallShift> shifts, List<OnCallOce> fallback)
     {
         var engineers = shifts.SelectMany(shift => shift.Members).DistinctBy(member => member.UserId).OrderBy(member => member.UserId, StringComparer.Ordinal)
-            .Select(member => new OnCallOce(member.UserId, member.User.DisplayName, member.User.Email)).ToList();
+            .Select(member => new OnCallOce(member.UserId, member.User.DisplayName, member.User.Email, member.User.AvatarRelativePath)).ToList();
         if (engineers.Count == 0)
         {
             if (fallback.Count > 0) return new(null, null, null, fallback, null, true);
