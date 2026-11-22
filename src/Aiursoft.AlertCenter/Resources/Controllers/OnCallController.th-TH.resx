@@ -24,15 +24,36 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>มีตารางเวรที่บันทึกไว้แล้ว ไม่สามารถแก้ไขเวลาเริ่มต้นตารางเวรของทีมได้</value>
   </data>
-  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>เพิ่มสมาชิกในคิวหมุนเวียนเพื่อดูตัวอย่างเวร</value></data>
+  <data name="Add at least one weekly handover point." xml:space="preserve">
+    <value>เพิ่มจุดส่งมอบงานรายสัปดาห์อย่างน้อยหนึ่งจุด</value>
+  </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve">
+    <value>เพิ่มสมาชิกในคิวหมุนเวียนเพื่อดูตัวอย่างเวร</value>
+  </data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>การสร้างตารางเวรอัตโนมัติต้องมีเจ้าหน้าที่อย่างน้อย {0} คนต่อกะ และมีเวลาพัก {1} ชั่วโมง จึงต้องมีสมาชิกอย่างน้อย {2} คน หลังจากไม่นับสมาชิกที่อยู่ในกลุ่มเวรหลายกลุ่มแล้ว จะสามารถจัดตารางอัตโนมัติให้ได้ {3} คน โปรดเพิ่มสมาชิกที่อยู่เพียงกลุ่มเดียว หรือจัดตารางด้วยตนเอง</value>
   </data>
-  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>การขยายตารางอัตโนมัติต้องมีสมาชิกในคิวหมุนเวียนอย่างน้อย {0} คนสำหรับแม่แบบที่เลือก</value></data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve">
+    <value>การขยายตารางอัตโนมัติต้องมีสมาชิกในคิวหมุนเวียนอย่างน้อย {0} คนสำหรับแม่แบบที่เลือก</value>
+  </data>
+  <data name="Fallback recipients must be existing system users." xml:space="preserve">
+    <value>ผู้รับสำรองต้องเป็นผู้ใช้ระบบที่มีอยู่จริง</value>
+  </data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>กำหนดให้มี 3 กะต่อวัน กะละ 8 ชั่วโมง</value>
   </data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>เวลาท้องถิ่นของทีมไม่ถูกต้อง ในช่วงเปลี่ยนเวลาออมแสง เวลาที่ถูกข้ามจะไม่ถูกต้อง และเวลาที่ซ้ำจะใช้เวลามาตรฐาน</value></data>
+  <data name="Invalid team local time." xml:space="preserve">
+    <value>เวลาท้องถิ่นของทีมไม่ถูกต้อง</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>เวลาท้องถิ่นของทีมไม่ถูกต้อง ในช่วงเปลี่ยนเวลาออมแสง เวลาที่ถูกข้ามจะไม่ถูกต้อง และเวลาที่ซ้ำจะใช้เวลามาตรฐาน</value>
+  </data>
+  <data name="Invalid week start." xml:space="preserve">
+    <value>วันเริ่มต้นสัปดาห์ไม่ถูกต้อง</value>
+  </data>
+  <data name="Invalid weekly handover point." xml:space="preserve">
+    <value>จุดส่งมอบงานรายสัปดาห์ไม่ถูกต้อง</value>
+  </data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>เวลาพักขั้นต่ำต้องอยู่ระหว่าง 0–168 ชั่วโมง</value>
   </data>
@@ -42,7 +63,9 @@
   <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
     <value>ทีมยังไม่มีเทมเพลตที่เชื่อมโยง คุณสามารถสร้างตารางเวรด้วยตนเองได้</value>
   </data>
-  <data name="On-call team does not exist." xml:space="preserve"><value>ไม่มีทีมเวรนี้</value></data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>ไม่มีทีมเวรนี้</value>
+  </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>โปรดกรอกชื่อทีม</value>
   </data>
@@ -52,7 +75,9 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>โปรดเลือกเวลาเริ่มต้น UTC ที่ถูกต้อง (ต้องอยู่ห่างจากขอบเขตวันที่อย่างน้อย 28 วัน)</value>
   </data>
-  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>เลือกเวลาเริ่มท้องถิ่นของทีมที่ถูกต้อง (ห่างจากขอบเขตวันที่อย่างน้อย 28 วัน)</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>เลือกเวลาเริ่มท้องถิ่นของทีมที่ถูกต้อง (ห่างจากขอบเขตวันที่อย่างน้อย 28 วัน)</value>
+  </data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>โปรดเลือกเขตเวลาที่ถูกต้องจากรายการ</value>
   </data>
@@ -68,7 +93,18 @@
   <data name="Scheduling template updated." xml:space="preserve">
     <value>อัปเดตเทมเพลตการจัดเวรแล้ว</value>
   </data>
-  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>จำนวนเจ้าหน้าที่ต่อกะเกินจำนวนสมาชิกของทีมที่เปิดใช้การขยายตารางอัตโนมัติเหล่านี้: {0}</value></data>
+  <data name="Shift duration must be positive." xml:space="preserve">
+    <value>ระยะเวลาเวรต้องเป็นค่าบวก</value>
+  </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>เวลาสิ้นสุดกะต้องอยู่หลังเวลาเริ่มต้นกะ</value>
+  </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve">
+    <value>จำนวนเจ้าหน้าที่ต่อกะเกินจำนวนสมาชิกของทีมที่เปิดใช้การขยายตารางอัตโนมัติเหล่านี้: {0}</value>
+  </data>
+  <data name="Staff per shift must not exceed the rotation queue size." xml:space="preserve">
+    <value>จำนวนพนักงานต่อกะต้องไม่เกินขนาดคิวการหมุนเวียน</value>
+  </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>จำนวนเป้าหมายต้องไม่น้อยกว่าจำนวนขั้นต่ำ และต้องอยู่ระหว่าง 1–200 เว้นว่างไว้เพื่อกำหนดจำนวนโดยอัตโนมัติ</value>
   </data>
@@ -90,14 +126,18 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>รูปแบบคำขอจัดกะไม่ถูกต้อง</value>
   </data>
-  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>เวลาเริ่มไม่ตรงกับเวลาส่งมอบงานรายสัปดาห์ เวรแรกจึงเป็นเพียงช่วงเวลาบางส่วน</value></data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve">
+    <value>เวลาเริ่มไม่ตรงกับเวลาส่งมอบงานรายสัปดาห์ เวรแรกจึงเป็นเพียงช่วงเวลาบางส่วน</value>
+  </data>
   <data name="The team name does not match." xml:space="preserve">
     <value>ชื่อทีมไม่ตรงกัน</value>
   </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>ทีมหรือตารางเวรมีการเปลี่ยนแปลง โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
   </data>
-  <data name="The team preview request format is invalid." xml:space="preserve"><value>รูปแบบคำขอดูตัวอย่างทีมไม่ถูกต้อง</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve">
+    <value>รูปแบบคำขอดูตัวอย่างทีมไม่ถูกต้อง</value>
+  </data>
   <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
     <value>เทมเพลตหรือทีมมีการเปลี่ยนแปลง โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
   </data>
@@ -116,4 +156,5 @@
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>ไม่สามารถสร้างตัวอย่างล่วงหน้าได้: {0}</value>
   </data>
+
 </root>
