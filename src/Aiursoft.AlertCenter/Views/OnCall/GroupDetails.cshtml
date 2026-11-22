@@ -2,6 +2,7 @@
 @model Aiursoft.AlertCenter.Models.OnCallViewModel
 @section scripts {
     <script src="~/scripts/oncall-group-delete.js" asp-append-version="true"></script>
+    <script src="~/scripts/oncall-group-reset.js" asp-append-version="true"></script>
 }
 <vc:current-on-call group-id="@Model.SelectedGroupId"></vc:current-on-call>
 @{
@@ -117,6 +118,53 @@
 </div>
 @if (Model.CanManageOnCall)
 {
+    var regenerateUnavailable = group.Rule == null
+        ? Localizer["Bind a scheduling template before regenerating shifts."]
+        : group.Members.Count < group.Rule.StaffPerShift
+            ? Localizer["Regeneration requires at least {0} rotation queue members.", group.Rule.StaffPerShift]
+            : null;
+    <div class="card mb-4" id="group-reset-schedule">
+        <div class="card-header"><h2 class="card-title mb-0">@Localizer["Reset saved schedule"]</h2></div>
+        <div class="card-body">
+            <p>@Localizer["Preview the changes to future shifts before resetting the saved schedule."]</p>
+            <form id="group-reset-form" asp-action="ResetSchedule" method="post" data-version="@group.ScheduleVersion"
+                  data-failed="@Localizer["Unable to reset the schedule. Refresh the page and try again."]"
+                  data-enabled="@Localizer["Enabled"]" data-disabled="@Localizer["Disabled"]" data-no-range="@Localizer["Not applicable"]">
+                <input type="hidden" name="id" value="@group.Id" />
+                @if (group.AutoExtend)
+                {
+                    <div class="alert alert-warning" role="alert"><div class="alert-message">@Localizer["Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute."]</div></div>
+                }
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="group-reset-include-manual" name="includeManual" />
+                    <label class="form-check-label" for="group-reset-include-manual">@Localizer["Also delete manually scheduled shifts"]</label>
+                </div>
+                <div class="alert alert-danger" role="alert" id="group-reset-errors" hidden><div class="alert-message"></div></div>
+                <div role="status" aria-live="polite">
+                    <dl class="mb-3" id="group-reset-summary" hidden>
+                        <dt>@Localizer["Shifts to delete"]</dt><dd data-result="deletedCount"></dd>
+                        <dt>@Localizer["Shifts to generate"]</dt><dd data-result="generatedCount"></dd>
+                        <dt>@Localizer["Start (UTC)"]</dt><dd data-result="startUtc"></dd>
+                        <dt>@Localizer["End (UTC)"]</dt><dd data-result="endUtc"></dd>
+                        <dt>@Localizer["Automatic extension after reset"]</dt><dd data-result="autoExtend"></dd>
+                    </dl>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-outline-danger" id="group-reset-clear" disabled>@Localizer["Clear future shifts"]</button>
+                    <button type="button" class="btn btn-outline-primary" id="group-reset-regenerate" disabled
+                            data-unavailable="@(regenerateUnavailable != null ? "true" : null)"
+                            aria-describedby="@(regenerateUnavailable != null ? "group-reset-regenerate-reason" : null)">@Localizer["Regenerate schedule"]</button>
+                    <button type="button" class="btn btn-danger" id="group-reset-confirm" disabled hidden
+                            data-clear="@Localizer["Confirm clearing future shifts"]"
+                            data-regenerate="@Localizer["Confirm schedule regeneration"]"></button>
+                </div>
+                @if (regenerateUnavailable != null)
+                {
+                    <p class="form-text mb-0" id="group-reset-regenerate-reason">@regenerateUnavailable</p>
+                }
+            </form>
+        </div>
+    </div>
     if (Model.BoundApplications.Count > 0)
     {
         <div class="alert alert-info" role="alert">

@@ -37,6 +37,69 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 .ExecuteUpdateAsync(update => update.SetProperty(group => group.ScheduleVersion, group => group.ScheduleVersion), token);
     }
 
+    internal sealed record ResetResult(int DeletedCount, int GeneratedCount, DateTime? StartUtc, DateTime? EndUtc,
+        bool AutoExtend, Guid Version);
+
+    internal Task<ResetResult?> ResetAsync(Guid id, bool regenerate, bool includeManual, bool preview, Guid version,
+        CancellationToken token) => db.Database.CreateExecutionStrategy().ExecuteAsync(async () =>
+    {
+        db.ChangeTracker.Clear();
+        await using var transaction = db.Database.IsRelational()
+            ? await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, token) : null;
+        await LockGroupAsync(db, id, token);
+        var group = await db.OnCallGroups.Include(item => item.Rule).ThenInclude(rule => rule!.HandoverPoints)
+            .Include(item => item.Members).SingleOrDefaultAsync(item => item.Id == id, token);
+        if (group == null) return null;
+        if (group.ScheduleVersion != version) throw new DbUpdateConcurrencyException();
+
+        var now = DateTime.UtcNow;
+        var shifts = db.OnCallShifts.Where(shift => shift.GroupId == id);
+        var removed = shifts.Where(shift => shift.StartsAtUtc >= now && (includeManual || shift.Source == OnCallShiftSource.Generated));
+        var retained = shifts.Where(shift => shift.StartsAtUtc < now || (!includeManual && shift.Source != OnCallShiftSource.Generated));
+        var through = now;
+        List<OnCallShift> additions = [];
+        if (regenerate)
+        {
+            var rule = group.Rule ?? throw new ArgumentException(localizer["Please bind a scheduling template to the team first."].Value);
+            var error = new OnCallGroupFormService(generator, localizer).AutomaticExtensionError(rule, true, group.Members.Count);
+            if (error != null) throw new ArgumentException(error);
+
+            var anchor = DateTime.SpecifyKind(group.AnchorUtc, DateTimeKind.Utc);
+            var activeUntil = await retained.Where(shift => shift.StartsAtUtc < now && shift.EndsAtUtc > now)
+                .MaxAsync(shift => (DateTime?)shift.EndsAtUtc, token);
+            var start = anchor > now ? anchor : now;
+            if (activeUntil > start) start = DateTime.SpecifyKind(activeUntil.Value, DateTimeKind.Utc);
+            var zone = TimeZoneInfo.FindSystemTimeZoneById(group.TimeZoneId);
+            through = OnCallScheduleGenerator.BoundaryAtOrAfter(rule, anchor, zone, now.AddDays(28));
+            if (start < through)
+                (additions, through) = await OnCallMaintenanceWorker.PlanExtensionAsync(generator, group, retained,
+                    start, through, token, localizerFactory.Create(typeof(OnCallScheduleValidator)));
+        }
+
+        int deletedCount;
+        if (preview)
+        {
+            deletedCount = await removed.CountAsync(token);
+        }
+        else
+        {
+            var deleted = await removed.ToListAsync(token);
+            deletedCount = deleted.Count;
+            var ids = deleted.Select(shift => shift.Id).ToArray();
+            var receipts = await db.Set<OnCallHandoverReceipt>().Where(receipt => ids.Contains(receipt.ShiftId)).ToListAsync(token);
+            db.RemoveRange(receipts);
+            db.OnCallShifts.RemoveRange(deleted);
+            db.OnCallShifts.AddRange(additions);
+            group.AutoExtendedThroughUtc = through;
+            group.ScheduleVersion = Guid.NewGuid();
+            await db.SaveChangesAsync(token);
+            if (transaction != null) await transaction.CommitAsync(token);
+        }
+
+        return new ResetResult(deletedCount, additions.Count, additions.FirstOrDefault()?.StartsAtUtc,
+            additions.LastOrDefault()?.EndsAtUtc, group.AutoExtend, group.ScheduleVersion);
+    });
+
     public static DateTime LocalToUtc(string value, TimeZoneInfo zone)
     {
         var local = DateTime.ParseExact(value, "yyyy-MM-ddTHH:mm", System.Globalization.CultureInfo.InvariantCulture);

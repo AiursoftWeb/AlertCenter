@@ -21,8 +21,20 @@
       <data name=" members" xml:space="preserve">
     <value>成员</value>
   </data>
+  <data name="Also delete manually scheduled shifts" xml:space="preserve">
+    <value>同时删除手动安排的班次</value>
+  </data>
+  <data name="Automatic extension after reset" xml:space="preserve">
+    <value>重置后的自动扩展状态</value>
+  </data>
+  <data name="Automatic extension is enabled. After clearing future shifts, shifts will be regenerated from the current template within about one minute." xml:space="preserve">
+    <value>已开启自动续排。清空未来班段后，约 1 分钟内会按当前模板自动重新生成。</value>
+  </data>
   <data name="Back to Team List" xml:space="preserve">
     <value>返回团队列表</value>
+  </data>
+  <data name="Bind a scheduling template before regenerating shifts." xml:space="preserve">
+    <value>重新生成班次前，请先绑定排班模板。</value>
   </data>
   <data name="CC address not configured." xml:space="preserve">
     <value>未配置抄送地址。</value>
@@ -30,8 +42,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Clear future shifts" xml:space="preserve">
+    <value>清除未来班次</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>关闭</value>
+  </data>
+  <data name="Confirm clearing future shifts" xml:space="preserve">
+    <value>确认清除未来班次</value>
+  </data>
+  <data name="Confirm schedule regeneration" xml:space="preserve">
+    <value>确认重新生成排班</value>
   </data>
   <data name="Confirm team deletion" xml:space="preserve">
     <value>确认删除团队</value>
@@ -42,8 +63,17 @@
   <data name="Delete team" xml:space="preserve">
     <value>删除团队</value>
   </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
   <data name="Edit team" xml:space="preserve">
     <value>编辑团队</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="End (UTC)" xml:space="preserve">
+    <value>结束时间（UTC）</value>
   </data>
   <data name="Enter the exact team name to confirm deletion." xml:space="preserve">
     <value>请输入完全一致的团队名称以确认删除。</value>
@@ -69,6 +99,9 @@
   <data name="No team members." xml:space="preserve">
     <value>没有团队成员。</value>
   </data>
+  <data name="Not applicable" xml:space="preserve">
+    <value>不适用</value>
+  </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>值班邮件抄送</value>
   </data>
@@ -81,8 +114,20 @@
   <data name="Open schedule" xml:space="preserve">
     <value>打开排班表</value>
   </data>
+  <data name="Preview the changes to future shifts before resetting the saved schedule." xml:space="preserve">
+    <value>重置已保存的排班前，请先预览对未来班次的更改。</value>
+  </data>
   <data name="Receive alerts when nobody is on call; do not participate in the rotation." xml:space="preserve">
     <value>在无人值班时接收告警，不参与轮换。</value>
+  </data>
+  <data name="Regenerate schedule" xml:space="preserve">
+    <value>重新生成排班</value>
+  </data>
+  <data name="Regeneration requires at least {0} rotation queue members." xml:space="preserve">
+    <value>重新生成排班至少需要 {0} 位轮值成员。</value>
+  </data>
+  <data name="Reset saved schedule" xml:space="preserve">
+    <value>重置已保存的排班</value>
   </data>
   <data name="Rotate Members (Sequential)" xml:space="preserve">
     <value>按顺序轮换成员</value>
@@ -90,8 +135,17 @@
   <data name="Scheduling start point: " xml:space="preserve">
     <value>排班起始时间：</value>
   </data>
+  <data name="Shifts to delete" xml:space="preserve">
+    <value>将删除的班次数</value>
+  </data>
+  <data name="Shifts to generate" xml:space="preserve">
+    <value>将生成的班次数</value>
+  </data>
   <data name="Staff per shift" xml:space="preserve">
     <value>每段人数</value>
+  </data>
+  <data name="Start (UTC)" xml:space="preserve">
+    <value>开始时间（UTC）</value>
   </data>
   <data name="Team configuration" xml:space="preserve">
     <value>团队配置</value>
@@ -125,6 +179,9 @@
   </data>
   <data name="Time zone: " xml:space="preserve">
     <value>时区：</value>
+  </data>
+  <data name="Unable to reset the schedule. Refresh the page and try again." xml:space="preserve">
+    <value>无法重置排班。请刷新页面后重试。</value>
   </data>
   <data name="View on-call schedule" xml:space="preserve">
     <value>查看值班安排</value>
