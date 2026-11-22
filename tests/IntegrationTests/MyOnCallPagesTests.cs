@@ -231,6 +231,9 @@ public class MyOnCallPagesTests : TestBase
         }
         var home = WebUtility.HtmlDecode(await Http.GetStringAsync("/Dashboard/Index"));
         Assert.Contains("id=\"current-oncall\"", home);
+        Assert.IsTrue(home.IndexOf("Monitoring Dashboard", StringComparison.Ordinal) < home.IndexOf("id=\"current-oncall\"", StringComparison.Ordinal));
+        Assert.IsTrue(home.IndexOf("Push Success Rate", StringComparison.Ordinal) < home.IndexOf("id=\"current-oncall\"", StringComparison.Ordinal));
+        Assert.IsTrue(home.IndexOf("id=\"current-oncall\"", StringComparison.Ordinal) < home.IndexOf("id=\"my-incidents-card\"", StringComparison.Ordinal));
         Assert.Contains("id=\"my-oncall-card\"", home);
         Assert.Contains("id=\"on-duty-badge\"", home);
         Assert.Contains("href=\"/OnCall/Mine\"", home);
