@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Confirmez séparément la suppression des créneaux passés.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Confirmez le remplacement de l&apos;horaire existant avant de générer.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Les plages horaires du planning existant sont incomplètes ; impossible de les remplacer.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>La période ou l’action de vidage du planning n’est pas valide.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Heure locale de l&apos;équipe invalide. Lors des transitions de l&apos;heure d&apos;été, les heures sautées sont invalides et les heures répétées utilisent l&apos;heure standard.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>L’équipe d’astreinte n’existe pas.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Veuillez indiquer la période de planification en heure UTC.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>La fin du service doit être postérieure à son début.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Le nombre minimal de personnes prévu dans le planning est invalide ou incohérent.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>La période de planification ne doit pas dépasser {0} jours et doit se situer dans les 10 années précédant ou suivant le moment présent.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Le format de la demande de service est invalide.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>L’équipe ou le planning a été modifié par un autre administrateur. Veuillez actualiser la page et réessayer.</value>
   </data>
+
 </root>
