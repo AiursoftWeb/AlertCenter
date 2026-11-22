@@ -24,15 +24,36 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>保存済みのスケジュールが存在するため、チームのスケジュール開始日時は変更できません。</value>
   </data>
-  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>シフトをプレビューするにはローテーションにメンバーを追加してください。</value></data>
+  <data name="Add at least one weekly handover point." xml:space="preserve">
+    <value>少なくとも1つの週次引き継ぎポイントを追加してください。</value>
+  </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve">
+    <value>シフトをプレビューするにはローテーションにメンバーを追加してください。</value>
+  </data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>シフトごとに最低 {0} 人のスタッフと {1} 時間の休息が必要なため、自動生成には少なくとも {2} 人が必要です。複数のオンコールグループに所属するメンバーを除くと、自動スケジュール可能なメンバーは {3} 人です。単一グループに所属するメンバーを追加するか、手動で調整してください。</value>
   </data>
-  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>選択したテンプレートで自動延長するには、ローテーションキューに少なくとも {0} 人のメンバーが必要です。</value></data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve">
+    <value>選択したテンプレートで自動延長するには、ローテーションキューに少なくとも {0} 人のメンバーが必要です。</value>
+  </data>
+  <data name="Fallback recipients must be existing system users." xml:space="preserve">
+    <value>フォールバック受信者は、既存のシステムユーザーである必要があります。</value>
+  </data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>1日3交代制、各8時間に固定されています。</value>
   </data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>チームの現地時刻が無効です。夏時間の切り替えでは、存在しない時刻は無効となり、重複する時刻には標準時を使用します。</value></data>
+  <data name="Invalid team local time." xml:space="preserve">
+    <value>無効なチームローカル時間です。</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>チームの現地時刻が無効です。夏時間の切り替えでは、存在しない時刻は無効となり、重複する時刻には標準時を使用します。</value>
+  </data>
+  <data name="Invalid week start." xml:space="preserve">
+    <value>無効な週の開始日です。</value>
+  </data>
+  <data name="Invalid weekly handover point." xml:space="preserve">
+    <value>無効な週次引き継ぎポイントです。</value>
+  </data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>最低休息時間は0～168時間である必要があります。</value>
   </data>
@@ -42,7 +63,9 @@
   <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
     <value>チームにテンプレートがまだ関連付けられていません。手動でスケジュールを作成できます。</value>
   </data>
-  <data name="On-call team does not exist." xml:space="preserve"><value>オンコールチームが存在しません。</value></data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>オンコールチームが存在しません。</value>
+  </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>チーム名を入力してください。</value>
   </data>
@@ -52,7 +75,9 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>有効なUTC開始時刻を選択してください（日付の境界から少なくとも28日離れている必要があります）。</value>
   </data>
-  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>有効なチーム現地開始時刻を選択してください（日付範囲の境界から28日以上離れている必要があります）。</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>有効なチーム現地開始時刻を選択してください（日付範囲の境界から28日以上離れている必要があります）。</value>
+  </data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>リストから有効なタイムゾーンを選択してください。</value>
   </data>
@@ -68,7 +93,18 @@
   <data name="Scheduling template updated." xml:space="preserve">
     <value>シフトテンプレートを更新しました。</value>
   </data>
-  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>シフトあたりの人数が、自動延長が有効な次のチームのメンバー数を超えています: {0}。</value></data>
+  <data name="Shift duration must be positive." xml:space="preserve">
+    <value>シフト時間は正数である必要があります。</value>
+  </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>シフトの終了時刻は開始時刻より後に設定する必要があります。</value>
+  </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve">
+    <value>シフトあたりの人数が、自動延長が有効な次のチームのメンバー数を超えています: {0}。</value>
+  </data>
+  <data name="Staff per shift must not exceed the rotation queue size." xml:space="preserve">
+    <value>シフトごとのスタッフ数は、ローテーションキューのサイズを超えてはなりません。</value>
+  </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>目標人数は最低人数を下回ることはできず、1～200人の範囲で指定してください。自動割り当てにする場合は空欄にしてください。</value>
   </data>
@@ -90,14 +126,18 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>シフトリクエストの形式が無効です。</value>
   </data>
-  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>開始時刻が毎週の引き継ぎ時刻と一致しないため、最初のシフトは一部の時間帯のみになります。</value></data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve">
+    <value>開始時刻が毎週の引き継ぎ時刻と一致しないため、最初のシフトは一部の時間帯のみになります。</value>
+  </data>
   <data name="The team name does not match." xml:space="preserve">
     <value>チーム名が一致しません。</value>
   </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>チームまたはスケジュールが変更されました。ページを更新して、もう一度お試しください。</value>
   </data>
-  <data name="The team preview request format is invalid." xml:space="preserve"><value>チームのプレビューリクエストの形式が無効です。</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve">
+    <value>チームのプレビューリクエストの形式が無効です。</value>
+  </data>
   <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
     <value>テンプレートまたはチームが変更されました。ページを更新して再試行してください。</value>
   </data>
@@ -116,4 +156,5 @@
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>プレビューを生成できません: {0}</value>
   </data>
+
 </root>
