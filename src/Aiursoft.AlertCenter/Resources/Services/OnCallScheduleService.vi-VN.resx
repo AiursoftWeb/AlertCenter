@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Xác nhận riêng việc xóa các ca trực trong quá khứ.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Xác nhận thay thế lịch hiện có trước khi tạo.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Các mốc thời gian của lịch hiện tại chưa đầy đủ; không thể ghi đè.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>Khoảng thời gian hoặc hành động xóa lịch không hợp lệ.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Thời gian địa phương của nhóm không hợp lệ. Trong các lần chuyển đổi giờ tiết kiệm ánh sáng ban ngày, các thời điểm bị bỏ qua là không hợp lệ và các thời điểm bị lặp lại sử dụng giờ tiêu chuẩn.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Đội trực không tồn tại.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Vui lòng chỉ định khoảng thời gian lập lịch theo giờ UTC.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Thời gian kết thúc ca làm việc phải sau thời gian bắt đầu của nó.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Số nhân sự tối thiểu trong lịch không hợp lệ hoặc không nhất quán.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Khoảng thời gian xếp lịch không được vượt quá {0} ngày và phải nằm trong vòng 10 năm trước hoặc sau thời điểm hiện tại.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Định dạng yêu cầu ca trực không hợp lệ.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Nhóm hoặc lịch đã được một quản trị viên khác chỉnh sửa. Vui lòng làm mới trang và thử lại.</value>
   </data>
+
 </root>

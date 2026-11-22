@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>ยืนยันการล้างเวรในอดีตแยกต่างหาก</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>ยืนยันการแทนที่ตารางเวลาที่มีอยู่ก่อนสร้างใหม่</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>ขอบเขตเวลาของตารางเวรที่มีอยู่ไม่ครบถ้วน ไม่สามารถเขียนทับได้</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>ช่วงเวลาหรือการดำเนินการล้างตารางเวรไม่ถูกต้อง</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>เวลาท้องถิ่นของทีมไม่ถูกต้อง ในช่วงเปลี่ยนผ่านเวลาออมแสง เวลาที่ถูกละเว้นจะไม่ถูกต้อง และเวลาที่ซ้ำกันจะใช้เวลาตามมาตรฐาน</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>ไม่มีกลุ่มเวรเรียกนอกเวลางานอยู่</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>โปรดระบุช่วงเวลาการจัดตารางโดยใช้เวลา UTC</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>เวลาสิ้นสุดกะต้องอยู่หลังเวลาเริ่มต้นกะ</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>จำนวนพนักงานขั้นต่ำในตารางเวรไม่ถูกต้องหรือไม่สอดคล้องกัน</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>ช่วงเวลาของตารางเวรต้องไม่เกิน {0} วัน และต้องอยู่ภายใน 10 ปีก่อนหรือหลังเวลาปัจจุบัน</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>รูปแบบคำขอเปลี่ยนกะไม่ถูกต้อง</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>ทีมงานหรือตารางเวรถูกแก้ไขโดยผู้ดูแลระบบคนอื่นแล้ว โปรดรีเฟรชหน้าแล้วลองอีกครั้ง</value>
   </data>
+
 </root>
