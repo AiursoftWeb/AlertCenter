@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Подтвердите удаление прошлых смен отдельно.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Подтвердите замену существующего расписания перед генерацией.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Границы временных интервалов в существующем расписании неполные; перезапись невозможна.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>Недопустимый диапазон или действие очистки расписания.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Неверное местное время команды. Во время перехода на летнее/зимнее время пропущенные времена считаются недействительными, а повторяющиеся времена используют стандартное время.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Команды дежурства не существует.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Пожалуйста, укажите период расписания по времени UTC.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Конец смены должен быть позже её начала.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Минимальное количество сотрудников в расписании указано неверно или противоречиво.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Период расписания не должен превышать {0} дней и должен находиться в пределах 10 лет до или после текущего момента.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Формат запроса смены недействителен.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Команда или расписание были изменены другим администратором. Обновите страницу и попробуйте снова.</value>
   </data>
+
 </root>
