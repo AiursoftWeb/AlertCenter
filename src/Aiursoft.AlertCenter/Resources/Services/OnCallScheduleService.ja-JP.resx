@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>過去のシフトのクリアを別途確認してください。</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>生成する前に、既存のスケジュールの置き換えを確認してください。</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>既存のスケジュールの時間境界が不完全なため、上書きできません。</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>スケジュールのクリア範囲または操作が無効です。</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>チームのローカル時刻が無効です。夏時間移行中、スキップされた時刻は無効となり、繰り返される時刻は標準時間として扱われます。</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>オンコールチームが存在しません。</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>スケジュール期間はUTC時刻で指定してください。</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>シフトの終了時刻は開始時刻より後に設定する必要があります。</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>スケジュールの最低必要人数が無効、または一貫していません。</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>スケジュールの期間は {0} 日以内で、現在から前後 10 年以内である必要があります。</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>シフトリクエストの形式が無効です。</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>チームまたはスケジュールが別の管理者によって変更されました。ページを更新して、もう一度お試しください。</value>
   </data>
+
 </root>
