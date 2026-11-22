@@ -65,14 +65,25 @@
                 reloading = true;
                 return;
             }
-            if (!data?.version || !Number.isInteger(data.deletedCount) || !Number.isInteger(data.generatedCount) || typeof data.autoExtend !== 'boolean') {
+            if (!data?.version || !Number.isInteger(data.deletedCount) || !Number.isInteger(data.generatedCount)) {
                 showErrors([form.dataset.failed]);
                 return;
             }
-            for (const name of ['deletedCount', 'generatedCount', 'startUtc', 'endUtc']) {
-                summary.querySelector(`[data-result="${name}"]`).textContent = data[name] ?? form.dataset.noRange;
+            const formatter = new Intl.DateTimeFormat('en-GB', {
+                timeZone: form.dataset.timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+            });
+            const formatTime = utc => {
+                if (utc == null) return form.dataset.noRange;
+                const parts = Object.fromEntries(formatter.formatToParts(new Date(utc)).map(({ type, value }) => [type, value]));
+                return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}`;
+            };
+            for (const name of ['deletedCount', 'generatedCount']) {
+                summary.querySelector(`[data-result="${name}"]`).textContent = data[name];
             }
-            summary.querySelector('[data-result="autoExtend"]').textContent = data.autoExtend ? form.dataset.enabled : form.dataset.disabled;
+            for (const name of ['startUtc', 'endUtc']) {
+                summary.querySelector(`[data-result="${name}"]`).textContent = formatTime(data[name]);
+            }
             approved = { ...selection, version: data.version };
             summary.hidden = false;
             confirm.textContent = regenerateShifts ? confirm.dataset.regenerate : confirm.dataset.clear;
