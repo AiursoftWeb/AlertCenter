@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Окремо підтвердьте видалення минулих змін.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Підтвердіть заміну наявного розкладу перед генерацією.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Межі часу в наявному розкладі неповні; перезаписати неможливо.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>Неприпустимий діапазон або дія очищення розкладу.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Некоректний локальний час команди. Під час переходу на літній/зимовий час пропущені часові інтервали є некоректними, а повторювані інтервали використовують стандартний час.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Команда чергування не існує.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Будь ласка, вкажіть період розкладу за часом UTC.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Кінець зміни має бути після її початку.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Мінімальна кількість працівників у розкладі некоректна або неузгоджена.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Період розкладу не повинен перевищувати {0} днів і має бути в межах 10 років до або після поточного моменту.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Формат запиту на зміну є некоректним.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Команда або розклад були змінені іншим адміністратором. Оновіть сторінку та спробуйте ще раз.</value>
   </data>
+
 </root>

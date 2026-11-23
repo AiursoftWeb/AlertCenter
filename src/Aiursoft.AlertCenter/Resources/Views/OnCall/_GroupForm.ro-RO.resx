@@ -27,22 +27,36 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Setări avansate de planificare</value>
   </data>
-  <data name="Advanced settings"><value>Setări avansate</value></data>
-  <data name="All scheduling times below use the team time zone."><value>Toate orele de mai jos folosesc fusul orar al echipei.</value></data>
-  <data name="Automatically extend the bound template to cover the next four weeks"><value>Extinde automat șablonul asociat pentru următoarele patru săptămâni</value></data>
-  <data name="Basic information"><value>Informații de bază</value></data>
+  <data name="Advanced settings" xml:space="preserve">
+    <value>Setări avansate</value>
+  </data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve">
+    <value>Toate orele de mai jos folosesc fusul orar al echipei.</value>
+  </data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve">
+    <value>Extinde automat șablonul asociat pentru următoarele patru săptămâni</value>
+  </data>
+  <data name="Basic information" xml:space="preserve">
+    <value>Informații de bază</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Anulare</value>
   </data>
-  <data name="Choose a template to enable automatic extension."><value>Alegeți un șablon pentru a activa extinderea automată.</value></data>
-  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve">
+    <value>Alegeți un șablon pentru a activa extinderea automată.</value>
+  </data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve">
+    <value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value>
+  </data>
   <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
     <value>Definește împărțirea și rotația turelor pentru extinderea automată și generarea cu un clic pentru echipe. Modificarea unui șablon nu afectează turele deja planificate.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Angajat șters</value>
   </data>
-  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve">
+    <value>Departed members keep their saved shifts. Review future assignments after saving.</value>
+  </data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Nu asociați un șablon (programare manuală)</value>
   </data>
@@ -52,14 +66,18 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Introduceți ora în UTC; aceasta nu va fi convertită automat în funcție de fusurile orare ale echipei. După salvarea unei ture, punctul de început al programării nu mai poate fi modificat.</value>
   </data>
-  <data name="Fallback recipients"><value>Destinatari de rezervă</value></data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Destinatari de rezervă</value>
+  </data>
   <data name="Filter by role" xml:space="preserve">
     <value>Filtrează după rol</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Caută</value>
   </data>
-  <data name="Friday"><value>Vineri</value></data>
+  <data name="Friday" xml:space="preserve">
+    <value>Vineri</value>
+  </data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Ajutor: CC notificări</value>
   </data>
@@ -78,31 +96,51 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Ajutor: fusul orar al echipei</value>
   </data>
-  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
-  <data name="Maximum continuous duty reminder (hours)"><value>Memento durată maximă continuă (ore)</value></data>
-  <data name="Minimum rest reminder (hours)"><value>Memento odihnă minimă (ore)</value></data>
-  <data name="Minimum staffing reminder"><value>Memento personal minim</value></data>
-  <data name="Monday"><value>Luni</value></data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve">
+    <value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value>
+  </data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve">
+    <value>Memento durată maximă continuă (ore)</value>
+  </data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve">
+    <value>Memento odihnă minimă (ore)</value>
+  </data>
+  <data name="Minimum staffing reminder" xml:space="preserve">
+    <value>Memento personal minim</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Luni</value>
+  </data>
   <data name="Name or Account" xml:space="preserve">
     <value>Nume sau cont</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Pagina următoare</value>
   </data>
-  <data name="Next four shifts preview"><value>Previzualizarea următoarelor patru ture</value></data>
-  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Fără destinatari de rezervă: alertele nu pot fi livrate când nimeni nu este de gardă.</value></data>
+  <data name="Next four shifts preview" xml:space="preserve">
+    <value>Previzualizarea următoarelor patru ture</value>
+  </data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Fără destinatari de rezervă: alertele nu pot fi livrate când nimeni nu este de gardă.</value>
+  </data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Nu există încă membri. Deschideți „Adăugați membri” pentru a găsi persoane.</value>
   </data>
-  <data name="No members yet. Search below to add people."><value>Încă nu există membri. Căutați mai jos pentru a adăuga persoane.</value></data>
+  <data name="No members yet. Search below to add people." xml:space="preserve">
+    <value>Încă nu există membri. Căutați mai jos pentru a adăuga persoane.</value>
+  </data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>Notificare CC (opțional)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>CC e-mail de gardă</value>
   </data>
-  <data name="On-call members (rotation queue)"><value>Membri de gardă (coadă de rotație)</value></data>
-  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Membri de gardă (coadă de rotație)</value>
+  </data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve">
+    <value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value>
+  </data>
   <data name="Previous Page" xml:space="preserve">
     <value>Pagina anterioară</value>
   </data>
@@ -112,7 +150,9 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Ordinea rotației</value>
   </data>
-  <data name="Saturday"><value>Sâmbătă</value></data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sâmbătă</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Salvează modificările</value>
   </data>
@@ -125,11 +165,15 @@
   <data name="Scheduling Template" xml:space="preserve">
     <value>Șablon de planificare</value>
   </data>
-  <data name="Scheduling method"><value>Metodă de planificare</value></data>
+  <data name="Scheduling method" xml:space="preserve">
+    <value>Metodă de planificare</value>
+  </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Punct de start al programării (UTC)</value>
   </data>
-  <data name="Scheduling start point (team time)"><value>Începutul planificării (ora echipei)</value></data>
+  <data name="Scheduling start point (team time)" xml:space="preserve">
+    <value>Începutul planificării (ora echipei)</value>
+  </data>
   <data name="Search Employees" xml:space="preserve">
     <value>Cautare angajați</value>
   </data>
@@ -139,13 +183,21 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>Căutați după nume sau cont, sau alegeți un rol.</value>
   </data>
-  <data name="Search by name or account."><value>Căutați după nume sau cont.</value></data>
-  <data name="Search fallback recipients"><value>Căutați destinatari de rezervă</value></data>
+  <data name="Search by name or account." xml:space="preserve">
+    <value>Căutați după nume sau cont.</value>
+  </data>
+  <data name="Search fallback recipients" xml:space="preserve">
+    <value>Căutați destinatari de rezervă</value>
+  </data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Selectarea unui rol filtrează doar căutarea. Bifați persoane individuale pentru a le adăuga; apartenența la echipă nu este sincronizată cu acel rol.</value>
   </data>
-  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
-  <data name="Sunday"><value>Duminică</value></data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve">
+    <value>Start time set automatically in the team time zone. You can change it before saving.</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Duminică</value>
+  </data>
   <data name="Team members" xml:space="preserve">
     <value>Membrii echipei</value>
   </data>
@@ -155,15 +207,21 @@
   <data name="Team settings" xml:space="preserve">
     <value>Setări echipă</value>
   </data>
-  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
-  <data name="Thursday"><value>Joi</value></data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve">
+    <value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Joi</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>Fus orar</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>Către: persoanele atribuite turei salvate în momentul producerii incidentului. Destinatarii OCE originali sunt păstrați pentru e-mailurile ulterioare privind incidentul. CC se aplică tuturor e-mailurilor privind incidentul, indiferent de tură. Folosiți virgule, punct și virgulă sau linii noi; maximum 50 de adrese CC.</value>
   </data>
-  <data name="Tuesday"><value>Marți</value></data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Marți</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Folosiți Mișcare sus și Mișcare jos pentru a alege ordinea utilizată pentru programarea automată viitoare. Turele existente nu sunt rearanjate. Selectați până la 200 de membri.</value>
   </data>
@@ -173,7 +231,14 @@
   <data name="View schedule" xml:space="preserve">
     <value>Vezi programul</value>
   </data>
-  <data name="Wednesday"><value>Miercuri</value></data>
-  <data name="Week starts on"><value>Prima zi a săptămânii</value></data>
-  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Miercuri</value>
+  </data>
+  <data name="Week starts on" xml:space="preserve">
+    <value>Prima zi a săptămânii</value>
+  </data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve">
+    <value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value>
+  </data>
+
 </root>

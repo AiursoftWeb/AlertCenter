@@ -24,15 +24,36 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>Tallennettu työvuorolista on olemassa; tiimin työvuorolistan aloituskohtaa ei voi muuttaa.</value>
   </data>
-  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Lisää jäseniä kiertojonoon nähdäksesi vuorojen esikatselun.</value></data>
+  <data name="Add at least one weekly handover point." xml:space="preserve">
+    <value>Lisää vähintään yksi viikkovaihdon piste.</value>
+  </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve">
+    <value>Lisää jäseniä kiertojonoon nähdäksesi vuorojen esikatselun.</value>
+  </data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>Automaattinen luonti edellyttää vähintään {0} työntekijää vuoroa kohden ja {1} tunnin lepoaikaa, joten jäseniä tarvitaan vähintään {2}. Kun useaan päivystysryhmään kuuluvat jäsenet jätetään pois, {3} voidaan ajoittaa automaattisesti. Lisää yhden ryhmän jäseniä tai laadi aikataulu manuaalisesti.</value>
   </data>
-  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>Automaattinen jatkaminen edellyttää valitulle mallille vähintään {0} jäsentä kiertojonossa.</value></data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve">
+    <value>Automaattinen jatkaminen edellyttää valitulle mallille vähintään {0} jäsentä kiertojonossa.</value>
+  </data>
+  <data name="Fallback recipients must be existing system users." xml:space="preserve">
+    <value>Vaihtoehtoisten vastaanottajien on oltava olemassa olevia järjestelmän käyttäjiä.</value>
+  </data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>Kiinteästi kolme työvuoroa päivässä, 8 tuntia kussakin.</value>
   </data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Virheellinen tiimin paikallinen aika. Kesäajan vaihdoissa ohitetut ajat ovat virheellisiä ja toistuvat ajat käyttävät normaaliaikaa.</value></data>
+  <data name="Invalid team local time." xml:space="preserve">
+    <value>Virheellinen tiimin paikallinen aika.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Virheellinen tiimin paikallinen aika. Kesäajan vaihdoissa ohitetut ajat ovat virheellisiä ja toistuvat ajat käyttävät normaaliaikaa.</value>
+  </data>
+  <data name="Invalid week start." xml:space="preserve">
+    <value>Virheellinen viikon aloitus.</value>
+  </data>
+  <data name="Invalid weekly handover point." xml:space="preserve">
+    <value>Virheellinen viikkovaihdon piste.</value>
+  </data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>Vähimmäislepoajan on oltava 0–168 tuntia.</value>
   </data>
@@ -42,7 +63,9 @@
   <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
     <value>Tiimiin ei ole vielä liitetty mallia. Voit luoda työvuorolistan käsin.</value>
   </data>
-  <data name="On-call team does not exist." xml:space="preserve"><value>Päivystystiimiä ei ole olemassa.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Päivystystiimiä ei ole olemassa.</value>
+  </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Anna ryhmälle nimi.</value>
   </data>
@@ -52,7 +75,9 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Valitse kelvollinen UTC-aloitusaika (sen on oltava vähintään 28 päivän päässä päivämäärärajoista).</value>
   </data>
-  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Valitse kelvollinen tiimin paikallinen aloitusaika (vähintään 28 päivää päivämäärärajoista).</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Valitse kelvollinen tiimin paikallinen aloitusaika (vähintään 28 päivää päivämäärärajoista).</value>
+  </data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>Valitse luettelosta kelvollinen aikavyöhyke.</value>
   </data>
@@ -68,7 +93,18 @@
   <data name="Scheduling template updated." xml:space="preserve">
     <value>Työvuoromalli päivitetty.</value>
   </data>
-  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>Vuoron henkilöstömäärä ylittää jäsenmäärän näissä tiimeissä, joissa automaattinen jatkaminen on käytössä: {0}.</value></data>
+  <data name="Shift duration must be positive." xml:space="preserve">
+    <value>Vartion keston on oltava positiivinen.</value>
+  </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Vuoron päättymisen on tapahduttava sen alkamisen jälkeen.</value>
+  </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve">
+    <value>Vuoron henkilöstömäärä ylittää jäsenmäärän näissä tiimeissä, joissa automaattinen jatkaminen on käytössä: {0}.</value>
+  </data>
+  <data name="Staff per shift must not exceed the rotation queue size." xml:space="preserve">
+    <value>Henkilökunnan määrä vuorossa ei saa ylittää rotaatiojonoa.</value>
+  </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Tavoitemäärä ei voi olla vähimmäismäärää pienempi, ja sen on oltava välillä 1–200. Jätä tyhjäksi automaattista määrittämistä varten.</value>
   </data>
@@ -90,14 +126,18 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>Vuoropyynnön muoto on virheellinen.</value>
   </data>
-  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Aloitusaika ei vastaa viikoittaista vaihtoaikaa; ensimmäinen vuoro on osittainen.</value></data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve">
+    <value>Aloitusaika ei vastaa viikoittaista vaihtoaikaa; ensimmäinen vuoro on osittainen.</value>
+  </data>
   <data name="The team name does not match." xml:space="preserve">
     <value>Tiimin nimi ei täsmää.</value>
   </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>Tiimi tai aikataulu on muuttunut. Päivitä sivu ja yritä uudelleen.</value>
   </data>
-  <data name="The team preview request format is invalid." xml:space="preserve"><value>Tiimin esikatselupyynnön muoto on virheellinen.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve">
+    <value>Tiimin esikatselupyynnön muoto on virheellinen.</value>
+  </data>
   <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
     <value>Malli tai tiimi on muuttunut. Päivitä sivu ja yritä uudelleen.</value>
   </data>
@@ -116,4 +156,5 @@
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>Esikatselun luominen epäonnistui: {0}</value>
   </data>
+
 </root>

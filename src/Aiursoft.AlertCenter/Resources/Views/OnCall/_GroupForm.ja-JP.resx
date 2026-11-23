@@ -27,28 +27,42 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>スケジュールの詳細設定</value>
   </data>
-  <data name="Advanced settings" xml:space="preserve"><value>詳細設定</value></data>
+  <data name="Advanced settings" xml:space="preserve">
+    <value>詳細設定</value>
+  </data>
   <data name="All roles" xml:space="preserve">
     <value>すべての役割</value>
   </data>
-  <data name="All scheduling times below use the team time zone." xml:space="preserve"><value>以下の排班時刻にはチームのタイムゾーンを使用します。</value></data>
-  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve"><value>紐付けたテンプレートを今後4週間まで自動延長する</value></data>
-  <data name="Basic information" xml:space="preserve"><value>基本情報</value></data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve">
+    <value>以下の排班時刻にはチームのタイムゾーンを使用します。</value>
+  </data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve">
+    <value>紐付けたテンプレートを今後4週間まで自動延長する</value>
+  </data>
+  <data name="Basic information" xml:space="preserve">
+    <value>基本情報</value>
+  </data>
   <data name="Browse all employees by role" xml:space="preserve">
     <value>役割別に全従業員を表示</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
-  <data name="Choose a template to enable automatic extension." xml:space="preserve"><value>自動延長を有効にするにはテンプレートを選択してください。</value></data>
-  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve"><value>当番がいないときにアラートを受信するシステムユーザーを選択してください。フォールバック受信者はローテーションに参加しません。</value></data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve">
+    <value>自動延長を有効にするにはテンプレートを選択してください。</value>
+  </data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve">
+    <value>当番がいないときにアラートを受信するシステムユーザーを選択してください。フォールバック受信者はローテーションに参加しません。</value>
+  </data>
   <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
     <value>チームの自動延長とワンクリック生成に使用するシフトの分割方法とローテーションを定義します。テンプレートを変更しても、割り当て済みのシフトには影響しません。</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>削除された従業員</value>
   </data>
-  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve"><value>離脱したメンバーの保存済みシフトは維持されます。保存後に今後の割り当てを確認してください。</value></data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve">
+    <value>離脱したメンバーの保存済みシフトは維持されます。保存後に今後の割り当てを確認してください。</value>
+  </data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>テンプレートを適用しない（手動スケジュール）</value>
   </data>
@@ -64,14 +78,18 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>UTCで入力してください。チームのタイムゾーンに基づいて自動変換されることはありません。シフトを保存すると、スケジュールの開始時点は変更できません。</value>
   </data>
-  <data name="Fallback recipients" xml:space="preserve"><value>フォールバック受信者</value></data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>フォールバック受信者</value>
+  </data>
   <data name="Filter by role" xml:space="preserve">
     <value>ロールで絞り込み</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>検索</value>
   </data>
-  <data name="Friday" xml:space="preserve"><value>金曜日</value></data>
+  <data name="Friday" xml:space="preserve">
+    <value>金曜日</value>
+  </data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>ヘルプ: 通知CC</value>
   </data>
@@ -90,26 +108,42 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>チームのタイムゾーンに関するヘルプ</value>
   </data>
-  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve"><value>しきい値を空欄にすると対応するリマインダーが無効になります。リマインダーは保存を妨げません。</value></data>
-  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve"><value>最大連続勤務リマインダー（時間）</value></data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve">
+    <value>しきい値を空欄にすると対応するリマインダーが無効になります。リマインダーは保存を妨げません。</value>
+  </data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve">
+    <value>最大連続勤務リマインダー（時間）</value>
+  </data>
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>メンバーはいつでも追加・削除できます。メンバーを削除すると、開始前の予定シフトのみが解除され、開始済みのシフトや過去のシフトは保持されます。その結果、担当者が不在となったシフトには、手動で担当者を割り当てる必要があります。</value>
   </data>
-  <data name="Minimum rest reminder (hours)" xml:space="preserve"><value>最小休息リマインダー（時間）</value></data>
-  <data name="Minimum staffing reminder" xml:space="preserve"><value>最小人数リマインダー</value></data>
-  <data name="Monday" xml:space="preserve"><value>月曜日</value></data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve">
+    <value>最小休息リマインダー（時間）</value>
+  </data>
+  <data name="Minimum staffing reminder" xml:space="preserve">
+    <value>最小人数リマインダー</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>月曜日</value>
+  </data>
   <data name="Name or Account" xml:space="preserve">
     <value>名前またはアカウント</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>次のページ</value>
   </data>
-  <data name="Next four shifts preview" xml:space="preserve"><value>次の4シフトのプレビュー</value></data>
-  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve"><value>フォールバック受信者がいないため、当番不在時にアラートを配信できません。</value></data>
+  <data name="Next four shifts preview" xml:space="preserve">
+    <value>次の4シフトのプレビュー</value>
+  </data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>フォールバック受信者がいないため、当番不在時にアラートを配信できません。</value>
+  </data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>メンバーはまだいません。「メンバーを追加」を開いて、人を探してください。</value>
   </data>
-  <data name="No members yet. Search below to add people." xml:space="preserve"><value>メンバーがいません。下で検索して追加してください。</value></data>
+  <data name="No members yet. Search below to add people." xml:space="preserve">
+    <value>メンバーがいません。下で検索して追加してください。</value>
+  </data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>通知用CC（任意）</value>
   </data>
@@ -119,8 +153,12 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured here; it does not automatically CC all team members. Supports line breaks, commas, or semicolons as separators, up to 50 addresses; leave blank to omit CC. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>現在保存されているシフトのオンコールエンジニア（OCE）全員のユーザーメールボックス（To）に、オンコールメールが自動送信されます。CCには、ここで明示的に設定したチームのメールボックスまたはメーリングリストのアドレスのみが使用され、チームメンバー全員が自動的にCCに追加されることはありません。区切り文字には改行、カンマ、セミコロンを使用でき、最大50件のアドレスを指定できます。CCを省略する場合は空欄にしてください。アプリケーションで設定されたカスタムプッシュチャネルからは、引き続き追加の通知が送信されます。</value>
   </data>
-  <data name="On-call members (rotation queue)" xml:space="preserve"><value>オンコールメンバー（ローテーション順）</value></data>
-  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve"><value>プレビューはスケジュール開始時点または保存済みシフトの後から始まります。チームのタイムゾーンを使用します。保存済みシフトは変更されません。</value></data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>オンコールメンバー（ローテーション順）</value>
+  </data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve">
+    <value>プレビューはスケジュール開始時点または保存済みシフトの後から始まります。チームのタイムゾーンを使用します。保存済みシフトは変更されません。</value>
+  </data>
   <data name="Previous Page" xml:space="preserve">
     <value>前のページ</value>
   </data>
@@ -133,7 +171,9 @@
   <data name="Rotation order" xml:space="preserve">
     <value>ローテーション順序</value>
   </data>
-  <data name="Saturday" xml:space="preserve"><value>土曜日</value></data>
+  <data name="Saturday" xml:space="preserve">
+    <value>土曜日</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>変更を保存</value>
   </data>
@@ -149,11 +189,15 @@
   <data name="Scheduling Template" xml:space="preserve">
     <value>シフトテンプレート</value>
   </data>
-  <data name="Scheduling method" xml:space="preserve"><value>スケジュール方式</value></data>
+  <data name="Scheduling method" xml:space="preserve">
+    <value>スケジュール方式</value>
+  </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>スケジューリング開始点 (UTC)</value>
   </data>
-  <data name="Scheduling start point (team time)" xml:space="preserve"><value>スケジュール開始時点（チーム時刻）</value></data>
+  <data name="Scheduling start point (team time)" xml:space="preserve">
+    <value>スケジュール開始時点（チーム時刻）</value>
+  </data>
   <data name="Search Employees" xml:space="preserve">
     <value>従業員を検索</value>
   </data>
@@ -163,11 +207,15 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>名前またはアカウントで検索するか、役割を選択してください。</value>
   </data>
-  <data name="Search by name or account." xml:space="preserve"><value>名前またはアカウントで検索。</value></data>
+  <data name="Search by name or account." xml:space="preserve">
+    <value>名前またはアカウントで検索。</value>
+  </data>
   <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>タイムゾーン名、都市名、またはUTCオフセットで検索できます。スケジュールの基準時刻はUTCで保存され、チームのタイムゾーンで表示されます。</value>
   </data>
-  <data name="Search fallback recipients" xml:space="preserve"><value>フォールバック受信者を検索</value></data>
+  <data name="Search fallback recipients" xml:space="preserve">
+    <value>フォールバック受信者を検索</value>
+  </data>
   <data name="Selected members (can be empty, max 200)" xml:space="preserve">
     <value>選択済みメンバー（空でも可、最大200人）</value>
   </data>
@@ -177,8 +225,12 @@
   <data name="Shift Start Time (UTC)" xml:space="preserve">
     <value>シフト開始時刻（UTC）</value>
   </data>
-  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve"><value>チームのタイムゾーンで開始時刻を自動設定しました。保存前に変更できます。</value></data>
-  <data name="Sunday" xml:space="preserve"><value>日曜日</value></data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve">
+    <value>チームのタイムゾーンで開始時刻を自動設定しました。保存前に変更できます。</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>日曜日</value>
+  </data>
   <data name="Team members" xml:space="preserve">
     <value>チームメンバー</value>
   </data>
@@ -188,8 +240,12 @@
   <data name="Team settings" xml:space="preserve">
     <value>チーム設定</value>
   </data>
-  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve"><value>先頭のメンバーが最初に当番になります。ハンドルをドラッグするか、タッチ画面で長押しして並べ替えます。ハンドル上の上下キーや移動ボタンも使えます。既存のシフトは変更されません。</value></data>
-  <data name="Thursday" xml:space="preserve"><value>木曜日</value></data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve">
+    <value>先頭のメンバーが最初に当番になります。ハンドルをドラッグするか、タッチ画面で長押しして並べ替えます。ハンドル上の上下キーや移動ボタンも使えます。既存のシフトは変更されません。</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>木曜日</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>タイムゾーン</value>
   </data>
@@ -199,7 +255,9 @@
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>宛先: インシデント発生時に保存されたシフトに割り当てられた方々。元のOCE受信者は、後日のインシデントメールのために保持されます。CCは、シフトに関係なく、すべてのインシデントメールに適用されます。カンマ、セミコロン、または改行を使用してください。最大50件のCCアドレスまで。</value>
   </data>
-  <data name="Tuesday" xml:space="preserve"><value>火曜日</value></data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>火曜日</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>「上へ移動」と「下へ移動」を使用して、将来の自動スケジューリングで使用する順序を選択します。既存のシフトは並べ替えられません。最大200人のメンバーを選択できます。</value>
   </data>
@@ -209,7 +267,14 @@
   <data name="View schedule" xml:space="preserve">
     <value>スケジュールを表示</value>
   </data>
-  <data name="Wednesday" xml:space="preserve"><value>水曜日</value></data>
-  <data name="Week starts on" xml:space="preserve"><value>週の開始日</value></data>
-  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve"><value>週単位テンプレートは次の最初の引き継ぎ時刻から、固定時間テンプレートは次の正時から開始します。シフト保存後は開始時点が固定されます。</value></data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>水曜日</value>
+  </data>
+  <data name="Week starts on" xml:space="preserve">
+    <value>週の開始日</value>
+  </data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve">
+    <value>週単位テンプレートは次の最初の引き継ぎ時刻から、固定時間テンプレートは次の正時から開始します。シフト保存後は開始時点が固定されます。</value>
+  </data>
+
 </root>

@@ -27,28 +27,42 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>進階排程設定</value>
   </data>
-  <data name="Advanced settings" xml:space="preserve"><value>進階設定</value></data>
+  <data name="Advanced settings" xml:space="preserve">
+    <value>進階設定</value>
+  </data>
   <data name="All roles" xml:space="preserve">
     <value>所有角色</value>
   </data>
-  <data name="All scheduling times below use the team time zone." xml:space="preserve"><value>以下所有排班時間均使用團隊時區。</value></data>
-  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve"><value>自動延展綁定的範本以涵蓋未來四週</value></data>
-  <data name="Basic information" xml:space="preserve"><value>基本資料</value></data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve">
+    <value>以下所有排班時間均使用團隊時區。</value>
+  </data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve">
+    <value>自動延展綁定的範本以涵蓋未來四週</value>
+  </data>
+  <data name="Basic information" xml:space="preserve">
+    <value>基本資料</value>
+  </data>
   <data name="Browse all employees by role" xml:space="preserve">
     <value>按職位瀏覽所有員工</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="Choose a template to enable automatic extension." xml:space="preserve"><value>選擇範本後即可啟用自動延展。</value></data>
-  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve"><value>可選擇任何系統用戶在無人值班時接收警報。後備收件人不加入輪換隊列。</value></data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve">
+    <value>選擇範本後即可啟用自動延展。</value>
+  </data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve">
+    <value>可選擇任何系統用戶在無人值班時接收警報。後備收件人不加入輪換隊列。</value>
+  </data>
   <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
     <value>定義班段如何切分及輪換，供團隊自動延續排班和一鍵產生使用；修改模板不影響已排好的班段。</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>已刪除的員工</value>
   </data>
-  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve"><value>離開的成員會保留已儲存的班次。儲存後請檢查未來的排班。</value></data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve">
+    <value>離開的成員會保留已儲存的班次。儲存後請檢查未來的排班。</value>
+  </data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>不要綁定範本（手動排程）</value>
   </data>
@@ -64,14 +78,18 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>請以 UTC 輸入；系統不會根據團隊時區自動轉換。儲存班次後，便無法更改排程的開始時間。</value>
   </data>
-  <data name="Fallback recipients" xml:space="preserve"><value>後備收件人</value></data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>後備收件人</value>
+  </data>
   <data name="Filter by role" xml:space="preserve">
     <value>按角色篩選</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>搜尋</value>
   </data>
-  <data name="Friday" xml:space="preserve"><value>星期五</value></data>
+  <data name="Friday" xml:space="preserve">
+    <value>星期五</value>
+  </data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>說明：通知 CC</value>
   </data>
@@ -90,26 +108,42 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>說明：團隊時區</value>
   </data>
-  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve"><value>將門檻留空即可停用對應提醒。提醒不會阻止儲存。</value></data>
-  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve"><value>最長連續值班提醒（小時）</value></data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve">
+    <value>將門檻留空即可停用對應提醒。提醒不會阻止儲存。</value>
+  </data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve">
+    <value>最長連續值班提醒（小時）</value>
+  </data>
   <data name="Members can be added or removed at any time; removing a member only clears scheduled shifts that have not started, while started and historical shifts are retained. Any resulting vacant shifts must be manually staffed." xml:space="preserve">
     <value>成員可隨時新增或移除；移除成員只會清除尚未開始的已排班次，已開始及過往的班次則會保留。因此而出現的空缺班次必須由人手安排。</value>
   </data>
-  <data name="Minimum rest reminder (hours)" xml:space="preserve"><value>最短休息提醒（小時）</value></data>
-  <data name="Minimum staffing reminder" xml:space="preserve"><value>最低值班人數提醒</value></data>
-  <data name="Monday" xml:space="preserve"><value>星期一</value></data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve">
+    <value>最短休息提醒（小時）</value>
+  </data>
+  <data name="Minimum staffing reminder" xml:space="preserve">
+    <value>最低值班人數提醒</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>星期一</value>
+  </data>
   <data name="Name or Account" xml:space="preserve">
     <value>名稱或帳戶</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>下一頁</value>
   </data>
-  <data name="Next four shifts preview" xml:space="preserve"><value>接下來四個班次預覽</value></data>
-  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve"><value>沒有後備收件人：無人值班時將無法傳送警報。</value></data>
+  <data name="Next four shifts preview" xml:space="preserve">
+    <value>接下來四個班次預覽</value>
+  </data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>沒有後備收件人：無人值班時將無法傳送警報。</value>
+  </data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>目前還沒有成員。開啟「新增成員」以尋找人員。</value>
   </data>
-  <data name="No members yet. Search below to add people." xml:space="preserve"><value>尚無成員。請在下方搜尋並新增人員。</value></data>
+  <data name="No members yet. Search below to add people." xml:space="preserve">
+    <value>尚無成員。請在下方搜尋並新增人員。</value>
+  </data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>通知副本（可選）</value>
   </data>
@@ -119,8 +153,12 @@
   <data name="On-call emails are automatically sent to the user mailboxes (To) of all On-Call Engineers (OCEs) in the currently saved shift. CC only uses team mailboxes or mailing list addresses explicitly configured here; it does not automatically CC all team members. Supports line breaks, commas, or semicolons as separators, up to 50 addresses; leave blank to omit CC. Custom push channels configured in the application will still deliver additional notifications." xml:space="preserve">
     <value>目前已儲存的輪值班次中，所有當值工程師（OCE）的電郵都會自動寄送至其用戶郵箱（收件者）。副本（CC）只會使用在此明確設定的團隊郵箱或郵寄清單地址，不會自動將所有團隊成員加入副本。地址可用換行、逗號或分號分隔，最多 50 個；留空即可不寄送副本。應用程式中設定的自訂推送渠道仍會額外發送通知。</value>
   </data>
-  <data name="On-call members (rotation queue)" xml:space="preserve"><value>值班成員（輪換隊列）</value></data>
-  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve"><value>預覽從排班起始時間開始，或從已儲存班次之後繼續。時間使用團隊時區。不會更改現有已儲存班次。</value></data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>值班成員（輪換隊列）</value>
+  </data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve">
+    <value>預覽從排班起始時間開始，或從已儲存班次之後繼續。時間使用團隊時區。不會更改現有已儲存班次。</value>
+  </data>
   <data name="Previous Page" xml:space="preserve">
     <value>上一頁</value>
   </data>
@@ -133,7 +171,9 @@
   <data name="Rotation order" xml:space="preserve">
     <value>輪值順序</value>
   </data>
-  <data name="Saturday" xml:space="preserve"><value>星期六</value></data>
+  <data name="Saturday" xml:space="preserve">
+    <value>星期六</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>儲存變更</value>
   </data>
@@ -149,11 +189,15 @@
   <data name="Scheduling Template" xml:space="preserve">
     <value>排班模板</value>
   </data>
-  <data name="Scheduling method" xml:space="preserve"><value>排班方式</value></data>
+  <data name="Scheduling method" xml:space="preserve">
+    <value>排班方式</value>
+  </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>排班起始點 (UTC)</value>
   </data>
-  <data name="Scheduling start point (team time)" xml:space="preserve"><value>排班起始時間（團隊時間）</value></data>
+  <data name="Scheduling start point (team time)" xml:space="preserve">
+    <value>排班起始時間（團隊時間）</value>
+  </data>
   <data name="Search Employees" xml:space="preserve">
     <value>搜尋員工</value>
   </data>
@@ -163,11 +207,15 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>按姓名或帳戶搜尋，或選擇角色。</value>
   </data>
-  <data name="Search by name or account." xml:space="preserve"><value>按姓名或帳戶搜尋。</value></data>
+  <data name="Search by name or account." xml:space="preserve">
+    <value>按姓名或帳戶搜尋。</value>
+  </data>
   <data name="Search by timezone name, city, or UTC offset. Schedule anchors are stored in UTC and displayed using the team&apos;s timezone." xml:space="preserve">
     <value>按時區名稱、城市或 UTC 時差搜尋。排班起始時間以 UTC 儲存，並按團隊時區顯示。</value>
   </data>
-  <data name="Search fallback recipients" xml:space="preserve"><value>搜尋後備收件人</value></data>
+  <data name="Search fallback recipients" xml:space="preserve">
+    <value>搜尋後備收件人</value>
+  </data>
   <data name="Selected members (can be empty, max 200)" xml:space="preserve">
     <value>已選成員（可留空，最多 200 人）</value>
   </data>
@@ -177,8 +225,12 @@
   <data name="Shift Start Time (UTC)" xml:space="preserve">
     <value>輪班開始時間（UTC）</value>
   </data>
-  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve"><value>已按範本自動設定團隊時區下的起點，儲存前可手動修改。</value></data>
-  <data name="Sunday" xml:space="preserve"><value>星期日</value></data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve">
+    <value>已按範本自動設定團隊時區下的起點，儲存前可手動修改。</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>星期日</value>
+  </data>
   <data name="Team members" xml:space="preserve">
     <value>團隊成員</value>
   </data>
@@ -188,8 +240,12 @@
   <data name="Team settings" xml:space="preserve">
     <value>團隊設定</value>
   </data>
-  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve"><value>第一位成員最先值班。拖動控制柄或在觸控螢幕上長按控制柄可調整順序。也可在控制柄上使用上下方向鍵或移動按鈕。現有班次不會改變。</value></data>
-  <data name="Thursday" xml:space="preserve"><value>星期四</value></data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve">
+    <value>第一位成員最先值班。拖動控制柄或在觸控螢幕上長按控制柄可調整順序。也可在控制柄上使用上下方向鍵或移動按鈕。現有班次不會改變。</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>星期四</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>時區</value>
   </data>
@@ -199,7 +255,9 @@
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>致：事件發生時被指派到已儲存輪班的人員。原有的 OCE 收件人會保留，用於後續的事件電郵。CC 適用於所有事件電郵，不論輪班情況。請使用逗號、分號或新行分隔；最多 50 個 CC 地址。</value>
   </data>
-  <data name="Tuesday" xml:space="preserve"><value>星期二</value></data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>星期二</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>使用「向上移動」及「向下移動」來選擇日後自動排班的順序。現有班次不會重新排序。最多可選擇 200 名成員。</value>
   </data>
@@ -209,7 +267,14 @@
   <data name="View schedule" xml:space="preserve">
     <value>查看時間表</value>
   </data>
-  <data name="Wednesday" xml:space="preserve"><value>星期三</value></data>
-  <data name="Week starts on" xml:space="preserve"><value>每週起始日</value></data>
-  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve"><value>每週範本從下一次首個交接點開始；固定時長範本從下一個整點開始。儲存班次後，起始時間將鎖定。</value></data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>星期三</value>
+  </data>
+  <data name="Week starts on" xml:space="preserve">
+    <value>每週起始日</value>
+  </data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve">
+    <value>每週範本從下一次首個交接點開始；固定時長範本從下一個整點開始。儲存班次後，起始時間將鎖定。</value>
+  </data>
+
 </root>

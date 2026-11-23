@@ -24,15 +24,36 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>Există un program salvat; punctul de început al programului echipei nu poate fi modificat.</value>
   </data>
-  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Adăugați membri în coada de rotație pentru a previzualiza turele.</value></data>
+  <data name="Add at least one weekly handover point." xml:space="preserve">
+    <value>Adăugați cel puțin un punct de predare săptămânal.</value>
+  </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve">
+    <value>Adăugați membri în coada de rotație pentru a previzualiza turele.</value>
+  </data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>Generarea automată necesită cel puțin {0} persoane de serviciu pe tură și {1} ore de repaus, ceea ce înseamnă că sunt necesari cel puțin {2} membri. După excluderea membrilor care fac parte din mai multe grupuri de permanență, {3} pot fi programați automat; adăugați membri care aparțin unui singur grup sau efectuați programarea manual.</value>
   </data>
-  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>Prelungirea automată necesită cel puțin {0} membri în coada de rotație pentru șablonul selectat.</value></data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve">
+    <value>Prelungirea automată necesită cel puțin {0} membri în coada de rotație pentru șablonul selectat.</value>
+  </data>
+  <data name="Fallback recipients must be existing system users." xml:space="preserve">
+    <value>Destinatarii de rezervă trebuie să fie utilizatori existenți ai sistemului.</value>
+  </data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>Trei schimburi fixe pe zi, de câte 8 ore.</value>
   </data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Oră locală a echipei invalidă. La schimbarea orei de vară, orele omise sunt invalide, iar cele repetate folosesc ora standard.</value></data>
+  <data name="Invalid team local time." xml:space="preserve">
+    <value>Timp local invalid pentru echipă.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Oră locală a echipei invalidă. La schimbarea orei de vară, orele omise sunt invalide, iar cele repetate folosesc ora standard.</value>
+  </data>
+  <data name="Invalid week start." xml:space="preserve">
+    <value>Început de săptămână invalid.</value>
+  </data>
+  <data name="Invalid weekly handover point." xml:space="preserve">
+    <value>Punct de preluare săptămânală invalid.</value>
+  </data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>Perioada minimă de repaus trebuie să fie între 0 și 168 de ore.</value>
   </data>
@@ -42,7 +63,9 @@
   <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
     <value>Echipa nu are încă un șablon asociat. Poți crea manual un program.</value>
   </data>
-  <data name="On-call team does not exist." xml:space="preserve"><value>Echipa de gardă nu există.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Echipa de gardă nu există.</value>
+  </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Vă rugăm să introduceți numele echipei.</value>
   </data>
@@ -52,7 +75,9 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Selectați o oră de început UTC validă (trebuie să fie la cel puțin 28 de zile de limita datei).</value>
   </data>
-  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Selectați o oră de început locală validă a echipei (la cel puțin 28 de zile de limitele de dată).</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Selectați o oră de început locală validă a echipei (la cel puțin 28 de zile de limitele de dată).</value>
+  </data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>Vă rugăm să selectați un fus orar valid din listă.</value>
   </data>
@@ -68,7 +93,18 @@
   <data name="Scheduling template updated." xml:space="preserve">
     <value>Șablonul de planificare a fost actualizat.</value>
   </data>
-  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>Numărul de angajați pe tură depășește numărul de membri ai acestor echipe cu prelungirea automată activată: {0}.</value></data>
+  <data name="Shift duration must be positive." xml:space="preserve">
+    <value>Durata turei trebuie să fie pozitivă.</value>
+  </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Sfârșitul turei trebuie să fie după începutul acesteia.</value>
+  </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve">
+    <value>Numărul de angajați pe tură depășește numărul de membri ai acestor echipe cu prelungirea automată activată: {0}.</value>
+  </data>
+  <data name="Staff per shift must not exceed the rotation queue size." xml:space="preserve">
+    <value>Numărul de personal pe schimb nu trebuie să depășească dimensiunea cozii de rotație.</value>
+  </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Numărul țintă de persoane nu poate fi mai mic decât numărul minim și trebuie să fie între 1 și 200. Lăsați necompletat pentru alocarea automată.</value>
   </data>
@@ -90,14 +126,18 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>Formatul solicitării de tură este invalid.</value>
   </data>
-  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Ora de început nu corespunde unei predări săptămânale; prima tură va fi parțială.</value></data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve">
+    <value>Ora de început nu corespunde unei predări săptămânale; prima tură va fi parțială.</value>
+  </data>
   <data name="The team name does not match." xml:space="preserve">
     <value>Numele echipei nu se potrivește.</value>
   </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>Echipa sau programul s-a modificat. Reîmprospătați pagina și încercați din nou.</value>
   </data>
-  <data name="The team preview request format is invalid." xml:space="preserve"><value>Formatul cererii de previzualizare a echipei este invalid.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve">
+    <value>Formatul cererii de previzualizare a echipei este invalid.</value>
+  </data>
   <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
     <value>Șablonul sau echipa s-a modificat. Reîncarcă pagina și încearcă din nou.</value>
   </data>
@@ -116,4 +156,5 @@
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>Nu se poate genera previzualizarea: {0}</value>
   </data>
+
 </root>

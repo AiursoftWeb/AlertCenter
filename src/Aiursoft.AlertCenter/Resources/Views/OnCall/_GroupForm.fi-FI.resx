@@ -27,22 +27,36 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Edistyneet ajoitusasetukset</value>
   </data>
-  <data name="Advanced settings"><value>Lisäasetukset</value></data>
-  <data name="All scheduling times below use the team time zone."><value>Kaikki alla olevat ajat käyttävät tiimin aikavyöhykettä.</value></data>
-  <data name="Automatically extend the bound template to cover the next four weeks"><value>Laajenna liitettyä mallia automaattisesti seuraaville neljälle viikolle</value></data>
-  <data name="Basic information"><value>Perustiedot</value></data>
+  <data name="Advanced settings" xml:space="preserve">
+    <value>Lisäasetukset</value>
+  </data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve">
+    <value>Kaikki alla olevat ajat käyttävät tiimin aikavyöhykettä.</value>
+  </data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve">
+    <value>Laajenna liitettyä mallia automaattisesti seuraaville neljälle viikolle</value>
+  </data>
+  <data name="Basic information" xml:space="preserve">
+    <value>Perustiedot</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Peruuta</value>
   </data>
-  <data name="Choose a template to enable automatic extension."><value>Valitse malli automaattisen laajennuksen käyttöön ottamiseksi.</value></data>
-  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve">
+    <value>Valitse malli automaattisen laajennuksen käyttöön ottamiseksi.</value>
+  </data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve">
+    <value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value>
+  </data>
   <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
     <value>Määritä vuorojen jako ja kierto tiimien automaattista jatkamista ja yhdellä napsautuksella luontia varten. Mallin muuttaminen ei vaikuta jo suunniteltuihin vuoroihin.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Poistettu työntekijä</value>
   </data>
-  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve">
+    <value>Departed members keep their saved shifts. Review future assignments after saving.</value>
+  </data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Älä liitä mallia (manuaalinen aikataulutus)</value>
   </data>
@@ -52,14 +66,18 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>Anna aika UTC-aikavyöhykkeessä; aikaa ei muunnetaan automaattisesti tiimin aikavyöhykkeiden mukaan. Kun työvuoro on tallennettu, aikataulun aloitusajankohtaa ei voi muuttaa.</value>
   </data>
-  <data name="Fallback recipients"><value>Varavastaanottajat</value></data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Varavastaanottajat</value>
+  </data>
   <data name="Filter by role" xml:space="preserve">
     <value>Suodata roolin mukaan</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Etsi</value>
   </data>
-  <data name="Friday"><value>Perjantai</value></data>
+  <data name="Friday" xml:space="preserve">
+    <value>Perjantai</value>
+  </data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Ohje: ilmoitusten kopio</value>
   </data>
@@ -78,31 +96,51 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Ohje: tiimin aikavyöhyke</value>
   </data>
-  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
-  <data name="Maximum continuous duty reminder (hours)"><value>Yhtäjaksoisen päivystyksen enimmäiskeston muistutus (tuntia)</value></data>
-  <data name="Minimum rest reminder (hours)"><value>Vähimmäislevon muistutus (tuntia)</value></data>
-  <data name="Minimum staffing reminder"><value>Vähimmäishenkilöstön muistutus</value></data>
-  <data name="Monday"><value>Maanantai</value></data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve">
+    <value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value>
+  </data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve">
+    <value>Yhtäjaksoisen päivystyksen enimmäiskeston muistutus (tuntia)</value>
+  </data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve">
+    <value>Vähimmäislevon muistutus (tuntia)</value>
+  </data>
+  <data name="Minimum staffing reminder" xml:space="preserve">
+    <value>Vähimmäishenkilöstön muistutus</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maanantai</value>
+  </data>
   <data name="Name or Account" xml:space="preserve">
     <value>Nimi tai tili</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Seuraava sivu</value>
   </data>
-  <data name="Next four shifts preview"><value>Seuraavien neljän vuoron esikatselu</value></data>
-  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Ei varavastaanottajia: hälytyksiä ei voida toimittaa, kun kukaan ei päivystä.</value></data>
+  <data name="Next four shifts preview" xml:space="preserve">
+    <value>Seuraavien neljän vuoron esikatselu</value>
+  </data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Ei varavastaanottajia: hälytyksiä ei voida toimittaa, kun kukaan ei päivystä.</value>
+  </data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Jäseniä ei vielä ole. Avaa Lisää jäseniä löytääksesi henkilöitä.</value>
   </data>
-  <data name="No members yet. Search below to add people."><value>Ei vielä jäseniä. Etsi alta lisättäviä henkilöitä.</value></data>
+  <data name="No members yet. Search below to add people." xml:space="preserve">
+    <value>Ei vielä jäseniä. Etsi alta lisättäviä henkilöitä.</value>
+  </data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>Ilmoitusten kopio (valinnainen)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>Päivystysvuoron sähköpostin kopio</value>
   </data>
-  <data name="On-call members (rotation queue)"><value>Päivystävät jäsenet (kiertojono)</value></data>
-  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Päivystävät jäsenet (kiertojono)</value>
+  </data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve">
+    <value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value>
+  </data>
   <data name="Previous Page" xml:space="preserve">
     <value>Edellinen sivu</value>
   </data>
@@ -112,7 +150,9 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Vuorottelujärjestys</value>
   </data>
-  <data name="Saturday"><value>Lauantai</value></data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Lauantai</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Tallenna muutokset</value>
   </data>
@@ -125,11 +165,15 @@
   <data name="Scheduling Template" xml:space="preserve">
     <value>Työvuoromalli</value>
   </data>
-  <data name="Scheduling method"><value>Ajoitusmenetelmä</value></data>
+  <data name="Scheduling method" xml:space="preserve">
+    <value>Ajoitusmenetelmä</value>
+  </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Aikataulutuksen aloitusajankohta (UTC)</value>
   </data>
-  <data name="Scheduling start point (team time)"><value>Ajoituksen alku (tiimin aika)</value></data>
+  <data name="Scheduling start point (team time)" xml:space="preserve">
+    <value>Ajoituksen alku (tiimin aika)</value>
+  </data>
   <data name="Search Employees" xml:space="preserve">
     <value>Hae työntekijöitä</value>
   </data>
@@ -139,13 +183,21 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>Hae nimellä tai käyttäjätilillä tai valitse rooli.</value>
   </data>
-  <data name="Search by name or account."><value>Hae nimellä tai tilillä.</value></data>
-  <data name="Search fallback recipients"><value>Hae varavastaanottajia</value></data>
+  <data name="Search by name or account." xml:space="preserve">
+    <value>Hae nimellä tai tilillä.</value>
+  </data>
+  <data name="Search fallback recipients" xml:space="preserve">
+    <value>Hae varavastaanottajia</value>
+  </data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Roolin valitseminen vain suodattaa hakutuloksia. Lisää henkilöitä valitsemalla heidät yksitellen; tiimin jäsenyyttä ei synkronoida roolin kanssa.</value>
   </data>
-  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
-  <data name="Sunday"><value>Sunnuntai</value></data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve">
+    <value>Start time set automatically in the team time zone. You can change it before saving.</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunnuntai</value>
+  </data>
   <data name="Team members" xml:space="preserve">
     <value>Ryhmän jäsenet</value>
   </data>
@@ -155,15 +207,21 @@
   <data name="Team settings" xml:space="preserve">
     <value>Tiimin asetukset</value>
   </data>
-  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
-  <data name="Thursday"><value>Torstai</value></data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve">
+    <value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Torstai</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>Aikavyöhyke</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>Vastaanottaja: tapauksen sattuessa tallennettuun vuoroon nimetyt henkilöt. Alkuperäiset OCE-vastaanottajat säilytetään myöhempiä tapaukseen liittyviä sähköposteja varten. Kopio lähetetään kaikkiin tapaussähköposteihin vuorosta riippumatta. Erota osoitteet pilkuilla, puolipisteillä tai rivinvaihdoilla; enintään 50 kopiovastaanottajan osoitetta.</value>
   </data>
-  <data name="Tuesday"><value>Tiistai</value></data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tiistai</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Valitse järjestys tulevaa automaattista vuorosuunnittelua varten painikkeilla Siirrä ylös ja Siirrä alas. Aiemmin suunniteltujen vuorojen järjestys ei muutu. Valitse enintään 200 jäsentä.</value>
   </data>
@@ -173,7 +231,14 @@
   <data name="View schedule" xml:space="preserve">
     <value>Näytä aikataulu</value>
   </data>
-  <data name="Wednesday"><value>Keskiviikko</value></data>
-  <data name="Week starts on"><value>Viikon alkamispäivä</value></data>
-  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Keskiviikko</value>
+  </data>
+  <data name="Week starts on" xml:space="preserve">
+    <value>Viikon alkamispäivä</value>
+  </data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve">
+    <value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value>
+  </data>
+
 </root>

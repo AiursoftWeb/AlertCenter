@@ -21,7 +21,9 @@
       <data name="7-Day On-Call Schedule" xml:space="preserve">
     <value>7 天值班安排</value>
   </data>
-  <data name="Add arbitrary shifts in the chart or precise editor." xml:space="preserve"><value>可在甘特图或精确编辑器中添加任意班段。</value></data>
+  <data name="Add arbitrary shifts in the chart or precise editor." xml:space="preserve">
+    <value>可在甘特图或精确编辑器中添加任意班段。</value>
+  </data>
   <data name="Auto-assign" xml:space="preserve">
     <value>自动分配</value>
   </data>
@@ -52,15 +54,21 @@
   <data name="Employee deleted" xml:space="preserve">
     <value>员工已删除</value>
   </data>
-  <data name="End" xml:space="preserve"><value>结束</value></data>
+  <data name="End" xml:space="preserve">
+    <value>结束</value>
+  </data>
   <data name="First class at " xml:space="preserve">
     <value>第一班次开始于</value>
   </data>
-  <data name="Flexible shifts are read-only on this page. Use the schedule API until the new editor is available." xml:space="preserve"><value>此页面仅展示自由班段；新编辑器上线前请通过排班 API 管理。</value></data>
+  <data name="Flexible shifts are read-only on this page. Use the schedule API until the new editor is available." xml:space="preserve">
+    <value>此页面仅展示自由班段；新编辑器上线前请通过排班 API 管理。</value>
+  </data>
   <data name="Insufficient staff warning (manual save allowed, except for empty shifts)" xml:space="preserve">
     <value>人员不足警告（允许手动保存，空班次除外）</value>
   </data>
-  <data name="Members shared with other on-call teams" xml:space="preserve"><value>同时加入其他值班团队的成员</value></data>
+  <data name="Members shared with other on-call teams" xml:space="preserve">
+    <value>同时加入其他值班团队的成员</value>
+  </data>
   <data name="Minimum template cooldown " xml:space="preserve">
     <value>模板最短冷却时间</value>
   </data>
@@ -70,20 +78,30 @@
   <data name="Next Week" xml:space="preserve">
     <value>下周</value>
   </data>
-  <data name="No shifts are currently assigned this week." xml:space="preserve"><value>本周目前尚未安排任何班次。</value></data>
+  <data name="No shifts are currently assigned this week." xml:space="preserve">
+    <value>本周目前尚未安排任何班次。</value>
+  </data>
   <data name="No shifts are currently assigned this week. You can add personnel manually." xml:space="preserve">
     <value>本周目前尚未安排任何班次。您可以手动添加人员。</value>
   </data>
-  <data name="No team members." xml:space="preserve"><value>暂无团队成员。</value></data>
+  <data name="No team members." xml:space="preserve">
+    <value>暂无团队成员。</value>
+  </data>
   <data name="No team members. Please edit the team to add members before manually filling empty shifts." xml:space="preserve">
     <value>暂无团队成员。请编辑团队并添加成员，然后再手动填补空班次。</value>
   </data>
-  <data name="No template bound." xml:space="preserve"><value>尚未绑定模板。</value></data>
-  <data name="No template bound. Add arbitrary shifts in the table." xml:space="preserve"><value>尚未绑定模板，可在表格中添加任意班段。</value></data>
+  <data name="No template bound." xml:space="preserve">
+    <value>尚未绑定模板。</value>
+  </data>
+  <data name="No template bound. Add arbitrary shifts in the table." xml:space="preserve">
+    <value>尚未绑定模板，可在表格中添加任意班段。</value>
+  </data>
   <data name="No valid scheduling weeks. Please check the team&apos;s scheduling start point." xml:space="preserve">
     <value>没有有效的排班周。请检查团队的排班起始日期。</value>
   </data>
-  <data name="On-call personnel" xml:space="preserve"><value>值班人</value></data>
+  <data name="On-call personnel" xml:space="preserve">
+    <value>值班人</value>
+  </data>
   <data name="On-call schedule" xml:space="preserve">
     <value>值班排班表</value>
   </data>
@@ -102,9 +120,15 @@
   <data name="Previous Week" xml:space="preserve">
     <value>上一周</value>
   </data>
-  <data name="Range end (team time)" xml:space="preserve"><value>范围结束（团队时间）</value></data>
-  <data name="Range start (team time)" xml:space="preserve"><value>范围开始（团队时间）</value></data>
-  <data name="Reminder thresholds (blank means disabled)" xml:space="preserve"><value>提醒阈值（空表示不检查）</value></data>
+  <data name="Range end (team time)" xml:space="preserve">
+    <value>范围结束（团队时间）</value>
+  </data>
+  <data name="Range start (team time)" xml:space="preserve">
+    <value>范围开始（团队时间）</value>
+  </data>
+  <data name="Reminder thresholds (blank means disabled)" xml:space="preserve">
+    <value>提醒阈值（空表示不检查）</value>
+  </data>
   <data name="Rotate Members" xml:space="preserve">
     <value>轮换成员</value>
   </data>
@@ -120,12 +144,18 @@
   <data name="Scheduling template and members" xml:space="preserve">
     <value>排班模板和成员</value>
   </data>
-  <data name="Shared members participate in the rotation queue. Cross-team overlaps and short breaks produce reminders." xml:space="preserve"><value>跨团队成员正常参与轮换队列；跨团队重叠和休息不足仅产生提醒。</value></data>
+  <data name="Shared members participate in the rotation queue. Cross-team overlaps and short breaks produce reminders." xml:space="preserve">
+    <value>跨团队成员正常参与轮换队列；跨团队重叠和休息不足仅产生提醒。</value>
+  </data>
   <data name="Shift covered" xml:space="preserve">
     <value>已覆盖班次</value>
   </data>
-  <data name="Shift details" xml:space="preserve"><value>班次详情</value></data>
-  <data name="Staff per shift" xml:space="preserve"><value>每段人数</value></data>
+  <data name="Shift details" xml:space="preserve">
+    <value>班次详情</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>每段人数</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>开始</value>
   </data>
@@ -144,7 +174,9 @@
   <data name="Team configuration" xml:space="preserve">
     <value>团队配置</value>
   </data>
-  <data name="Template and membership changes preserve saved shifts, including future assignments for departed members." xml:space="preserve"><value>修改模板或成员不会改变已保存的班段，离队成员的未来安排也会保留。</value></data>
+  <data name="Template and membership changes preserve saved shifts, including future assignments for departed members." xml:space="preserve">
+    <value>修改模板或成员不会改变已保存的班段，离队成员的未来安排也会保留。</value>
+  </data>
   <data name="Template:" xml:space="preserve">
     <value>模板：</value>
   </data>
@@ -166,7 +198,9 @@
   <data name="Unsaved · Manual schedule" xml:space="preserve">
     <value>未保存 · 手动排班</value>
   </data>
-  <data name="View range" xml:space="preserve"><value>查看范围</value></data>
+  <data name="View range" xml:space="preserve">
+    <value>查看范围</value>
+  </data>
   <data name="View team" xml:space="preserve">
     <value>查看团队</value>
   </data>
@@ -203,4 +237,5 @@
   <data name="{0} unassigned shifts · fill a shift" xml:space="preserve">
     <value>还有 {0} 个未分配班次 · 填补一个班次</value>
   </data>
+
 </root>

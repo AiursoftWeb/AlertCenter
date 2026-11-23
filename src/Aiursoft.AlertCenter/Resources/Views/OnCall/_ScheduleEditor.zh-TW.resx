@@ -75,7 +75,9 @@
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>複製本週至下週</value>
   </data>
-  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>複製會在目標範圍內重複目前的草稿。現有班次將在範圍邊界裁切，範圍外的部分會保留。複製和產生只會變更草稿；請儲存排班調整以發佈。</value></data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve">
+    <value>複製會在目標範圍內重複目前的草稿。現有班次將在範圍邊界裁切，範圍外的部分會保留。複製和產生只會變更草稿；請儲存排班調整以發佈。</value>
+  </data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>將本週的草稿複製到下週。如果下週已有班次或修改內容，複製前須先確認；複製後仍須儲存。兩側的垂直按鈕可展開本週前後各 36 小時的範圍；灰色區域為唯讀。本頁的圖表和表單僅能編輯本週；如要調整相鄰週，請切換至對應週。複製後的下週草稿也會以唯讀模式預覽。本週的變更和複製內容會一併儲存、復原及還原；收合後草稿仍會保留。</value>
   </data>
@@ -172,5 +174,8 @@
   <data name="Undo last step" xml:space="preserve">
     <value>復原上一步</value>
   </data>
-  <data name="Will be clipped; retained times:" xml:space="preserve"><value>將被裁切；保留時段：</value></data>
+  <data name="Will be clipped; retained times:" xml:space="preserve">
+    <value>將被裁切；保留時段：</value>
+  </data>
+
 </root>

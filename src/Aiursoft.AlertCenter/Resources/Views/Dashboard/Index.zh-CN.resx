@@ -243,7 +243,9 @@
   <data name="My incidents" xml:space="preserve">
     <value>我的事件</value>
   </data>
-  <data name="My on-call" xml:space="preserve"><value>我的值班</value></data>
+  <data name="My on-call" xml:space="preserve">
+    <value>我的值班</value>
+  </data>
   <data name="New alert" xml:space="preserve">
     <value>新建告警</value>
   </data>
@@ -403,11 +405,14 @@
   <data name="You need create-alert access to an enabled application." xml:space="preserve">
     <value>您需要拥有已启用应用的告警创建权限。</value>
   </data>
-  <data name="Your shifts, on-call hours and private calendar subscription." xml:space="preserve"><value>查看班段、值班时长和私密日历订阅。</value></data>
+  <data name="Your shifts, on-call hours and private calendar subscription." xml:space="preserve">
+    <value>查看班段、值班时长和私密日历订阅。</value>
+  </data>
   <data name="available channels · " xml:space="preserve">
     <value>可用通道 ·</value>
   </data>
   <data name="{0} assigned in total" xml:space="preserve">
     <value>总计已分配 {0} 项</value>
   </data>
+
 </root>

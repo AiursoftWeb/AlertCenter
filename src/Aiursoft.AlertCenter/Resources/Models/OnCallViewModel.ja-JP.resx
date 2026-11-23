@@ -21,8 +21,14 @@
       <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>1日3交代制（各8時間固定）。</value>
   </data>
+  <data name="Maximum continuous duty must be 0–720 hours." xml:space="preserve">
+    <value>最大連続勤務時間は0〜720時間である必要があります。</value>
+  </data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>最低休息時間は0～168時間である必要があります。</value>
+  </data>
+  <data name="Minimum rest must be 0–720 hours." xml:space="preserve">
+    <value>最小休息時間は0〜720時間である必要があります。</value>
   </data>
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>1シフトあたりの最低スタッフ数は1～200人である必要があります。</value>

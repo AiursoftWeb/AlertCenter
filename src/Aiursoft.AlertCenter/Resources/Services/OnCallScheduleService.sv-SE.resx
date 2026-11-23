@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Bekräfta rensning av historiska pass separat.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Bekräfta ersättningen av den befintliga schemat innan generering.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>De befintliga tidsgränserna i schemat är ofullständiga; det går inte att skriva över.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>Ogiltig period eller åtgärd för schemarensning.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Ogiltig lokal tid för teamet. Under dygnsskiften är överhoppade tider ogiltiga och upprepad tider använder standardtid.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Jourteamet finns inte.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Ange schemaläggningsperioden i UTC-tid.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Slutet på skiftet måste vara efter dess start.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Minimiantalet personer i schemat är ogiltigt eller inkonsekvent.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Schemaperioden får inte överstiga {0} dagar och måste ligga inom 10 år före eller efter den aktuella tidpunkten.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Skiftansökan har ogiltigt format.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Teamet eller schemat har ändrats av en annan administratör. Uppdatera sidan och försök igen.</value>
   </data>
+
 </root>

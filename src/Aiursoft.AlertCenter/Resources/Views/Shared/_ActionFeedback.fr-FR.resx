@@ -39,21 +39,27 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Mode d’ajout : cliquez sur l’espace vide de la ligne de l’ingénieur pour ajouter un poste de 8 heures ; plusieurs personnes peuvent partager un même poste.</value>
   </data>
-  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>Ajoutez des membres d’astreinte pour prévisualiser la rotation.</value></data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve">
+    <value>Ajoutez des membres d’astreinte pour prévisualiser la rotation.</value>
+  </data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Ajouter un poste de garde</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Ajouté</value>
   </data>
-  <data name="Already selected" xml:space="preserve"><value>Déjà sélectionné</value></data>
+  <data name="Already selected" xml:space="preserve">
+    <value>Déjà sélectionné</value>
+  </data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Retour à l&apos;édition</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Annuler la mise à jour</value>
   </data>
-  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>Choisissez un modèle pour prévisualiser la rotation.</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve">
+    <value>Choisissez un modèle pour prévisualiser la rotation.</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Fermer</value>
   </data>
@@ -99,7 +105,9 @@
   <data name="End" xml:space="preserve">
     <value>Fin</value>
   </data>
-  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>Indiquez un début pour prévisualiser les vacations.</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve">
+    <value>Indiquez un début pour prévisualiser les vacations.</value>
+  </data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Saisissez un commentaire ; il ne peut pas être composé uniquement d’espaces blancs.</value>
   </data>
@@ -205,7 +213,9 @@
   <data name="Removed" xml:space="preserve">
     <value>Supprimé</value>
   </data>
-  <data name="Reorder {0}" xml:space="preserve"><value>Réordonner {0}</value></data>
+  <data name="Reorder {0}" xml:space="preserve">
+    <value>Réordonner {0}</value>
+  </data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>La requête est invalide ou les identifiants de la page ont expiré. Vérifiez les informations saisies et actualisez la page pour réessayer si nécessaire.</value>
   </data>
@@ -263,7 +273,9 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Effectifs ajustés et graphique mis à jour ; non enregistré pour le moment.</value>
   </data>
-  <data name="Start at {0}" xml:space="preserve"><value>Commencer à {0}</value></data>
+  <data name="Start at {0}" xml:space="preserve">
+    <value>Commencer à {0}</value>
+  </data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Copié avec succès dans le presse-papiers !</value>
   </data>
@@ -309,12 +321,18 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Impossible d&apos;effectuer l&apos;échange directement : une personne est déjà dans le créneau cible. Veuillez d&apos;abord ajuster les membres du même créneau à l&apos;aide de « Ajouter/Supprimer des membres par créneau ».</value>
   </data>
-  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>Impossible de mettre à jour l’aperçu. Réessayez.</value></data>
-  <data name="Unassigned" xml:space="preserve"><value>Non affecté</value></data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve">
+    <value>Impossible de mettre à jour l’aperçu. Réessayez.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Non affecté</value>
+  </data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Non enregistré · Brouillon de modification</value>
   </data>
-  <data name="Updating shift preview…" xml:space="preserve"><value>Mise à jour de l’aperçu…</value></data>
+  <data name="Updating shift preview…" xml:space="preserve">
+    <value>Mise à jour de l’aperçu…</value>
+  </data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Groupe d’utilisateurs · Les membres héritent dynamiquement des autorisations associées</value>
   </data>
@@ -339,7 +357,9 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} heures</value>
   </data>
-  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} déplacé à la position {1} sur {2}.</value></data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve">
+    <value>{0} déplacé à la position {1} sur {2}.</value>
+  </data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} créneau pour {1} · {2} ; non enregistré. Vous pouvez annuler cette action.</value>
   </data>
@@ -361,4 +381,5 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 heures · {3}{4}</value>
   </data>
+
 </root>

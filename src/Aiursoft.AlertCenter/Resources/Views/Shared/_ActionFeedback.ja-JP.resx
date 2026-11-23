@@ -39,21 +39,27 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>追加モード：エンジニアの行の空欄をクリックすると、8時間のシフトを追加できます。1つのシフトを複数人で共有できます。</value>
   </data>
-  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>ローテーションのプレビューにはメンバーを追加してください。</value></data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve">
+    <value>ローテーションのプレビューにはメンバーを追加してください。</value>
+  </data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>オンコールシフトを追加</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>追加済み</value>
   </data>
-  <data name="Already selected" xml:space="preserve"><value>選択済み</value></data>
+  <data name="Already selected" xml:space="preserve">
+    <value>選択済み</value>
+  </data>
   <data name="Back to Edit" xml:space="preserve">
     <value>編集に戻る</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>更新をキャンセル</value>
   </data>
-  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>ローテーションのプレビューにはテンプレートを選択してください。</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve">
+    <value>ローテーションのプレビューにはテンプレートを選択してください。</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>閉じる</value>
   </data>
@@ -99,7 +105,9 @@
   <data name="End" xml:space="preserve">
     <value>終了</value>
   </data>
-  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>シフトのプレビューには開始時点を入力してください。</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve">
+    <value>シフトのプレビューには開始時点を入力してください。</value>
+  </data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>コメントを入力してください。空白文字のみは入力できません。</value>
   </data>
@@ -205,7 +213,9 @@
   <data name="Removed" xml:space="preserve">
     <value>削除済み</value>
   </data>
-  <data name="Reorder {0}" xml:space="preserve"><value>{0} の順序を変更</value></data>
+  <data name="Reorder {0}" xml:space="preserve">
+    <value>{0} の順序を変更</value>
+  </data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>リクエストが無効か、ページの認証情報の有効期限が切れています。入力内容を確認し、必要に応じてページを更新して再試行してください。</value>
   </data>
@@ -263,7 +273,9 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>人員配置を調整し、勤務表を更新しました。まだ保存されていません。</value>
   </data>
-  <data name="Start at {0}" xml:space="preserve"><value>{0} から開始</value></data>
+  <data name="Start at {0}" xml:space="preserve">
+    <value>{0} から開始</value>
+  </data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>クリップボードにコピーしました！</value>
   </data>
@@ -309,12 +321,18 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>直接入れ替えできません：対象のシフトにすでにメンバーがいます。まず「シフトごとにメンバーを追加／削除」で、同じシフトのメンバーを調整してください。</value>
   </data>
-  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>プレビューを更新できません。再試行してください。</value></data>
-  <data name="Unassigned" xml:space="preserve"><value>未割り当て</value></data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve">
+    <value>プレビューを更新できません。再試行してください。</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未割り当て</value>
+  </data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>未保存 · 調整下書き</value>
   </data>
-  <data name="Updating shift preview…" xml:space="preserve"><value>シフトのプレビューを更新中…</value></data>
+  <data name="Updating shift preview…" xml:space="preserve">
+    <value>シフトのプレビューを更新中…</value>
+  </data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>ユーザーグループ · メンバーは紐付けられた権限を動的に継承します</value>
   </data>
@@ -339,7 +357,9 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0}時間</value>
   </data>
-  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} を全 {2} 人中 {1} 番目に移動しました。</value></data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve">
+    <value>{0} を全 {2} 人中 {1} 番目に移動しました。</value>
+  </data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0}の{1}のシフト · {2}。まだ保存されていません。この操作は取り消せます。</value>
   </data>
@@ -361,4 +381,5 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8時間 · {3}{4}</value>
   </data>
+
 </root>

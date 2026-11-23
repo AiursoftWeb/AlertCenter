@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Confirmați separat eliminarea turelor anterioare.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Confirmați înlocuirea programului existent înainte de generare.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Limitele intervalelor orare ale programului existent sunt incomplete; acesta nu poate fi suprascris.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>Intervalul sau acțiunea de golire a programului nu este validă.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Ora locală a echipei este invalidă. În timpul tranzițiilor de oră de vară, orele sărite sunt invalide, iar orele repetate folosesc ora standard.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Echipa de gardă nu există.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Vă rugăm să specificați perioada de programare folosind ora UTC.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Finalizația turei trebuie să fie după începerea acesteia.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Numărul minim de persoane din program este invalid sau inconsistent.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Perioada planificării nu trebuie să depășească {0} zile și trebuie să se încadreze în cei 10 ani dinaintea sau de după momentul actual.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Formatul cererii de tur este invalid.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Echipa sau programul a fost modificat de un alt administrator. Reîmprospătați pagina și încercați din nou.</value>
   </data>
+
 </root>

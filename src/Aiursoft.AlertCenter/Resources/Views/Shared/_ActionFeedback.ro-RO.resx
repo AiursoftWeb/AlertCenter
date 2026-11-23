@@ -39,21 +39,27 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Mod de adăugare: Faceți clic pe spațiul gol din rândul inginerului pentru a adăuga o turație de 8 ore; mai multe persoane pot împărți o turație.</value>
   </data>
-  <data name="Add on-call members to preview the rotation."><value>Adăugați membri de gardă pentru a previzualiza rotația.</value></data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve">
+    <value>Adăugați membri de gardă pentru a previzualiza rotația.</value>
+  </data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Adăugare schimb de gardă</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Adăugat</value>
   </data>
-  <data name="Already selected"><value>Deja selectat</value></data>
+  <data name="Already selected" xml:space="preserve">
+    <value>Deja selectat</value>
+  </data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Înapoi la editare</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Anulare reîmprospătare</value>
   </data>
-  <data name="Choose a scheduling template to preview the rotation."><value>Alegeți un șablon pentru a previzualiza rotația.</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve">
+    <value>Alegeți un șablon pentru a previzualiza rotația.</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Închide</value>
   </data>
@@ -99,7 +105,9 @@
   <data name="End" xml:space="preserve">
     <value>Sfârșit</value>
   </data>
-  <data name="Enter a scheduling start point to preview shifts."><value>Introduceți începutul planificării pentru a previzualiza turele.</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve">
+    <value>Introduceți începutul planificării pentru a previzualiza turele.</value>
+  </data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Introduceți conținutul comentariului; acesta nu poate conține doar spații albe.</value>
   </data>
@@ -205,7 +213,9 @@
   <data name="Removed" xml:space="preserve">
     <value>Eliminat</value>
   </data>
-  <data name="Reorder {0}"><value>Reordonați {0}</value></data>
+  <data name="Reorder {0}" xml:space="preserve">
+    <value>Reordonați {0}</value>
+  </data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>Solicitarea este nevalidă sau acreditările paginii au expirat. Verificați datele introduse și reîmprospătați pagina pentru a încerca din nou, dacă este necesar.</value>
   </data>
@@ -263,7 +273,9 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Personalul ajustat și graficul actualizat; nesalvat încă.</value>
   </data>
-  <data name="Start at {0}"><value>Începe la {0}</value></data>
+  <data name="Start at {0}" xml:space="preserve">
+    <value>Începe la {0}</value>
+  </data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Copiat cu succes în clipboard!</value>
   </data>
@@ -309,12 +321,18 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Imposibil de a face schimbare direct: o persoană este deja în tura țintă. Vă rugăm să ajustați membrii aceleiași ture folosind mai întâi „Adăugare/Ștergere membrii după tură”.</value>
   </data>
-  <data name="Unable to update the preview. Please try again."><value>Previzualizarea nu poate fi actualizată. Încercați din nou.</value></data>
-  <data name="Unassigned"><value>Neatribuit</value></data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve">
+    <value>Previzualizarea nu poate fi actualizată. Încercați din nou.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Neatribuit</value>
+  </data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Nesalvat · Schiță de ajustare</value>
   </data>
-  <data name="Updating shift preview…"><value>Se actualizează previzualizarea turelor…</value></data>
+  <data name="Updating shift preview…" xml:space="preserve">
+    <value>Se actualizează previzualizarea turelor…</value>
+  </data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Grup de utilizatori · Membrii moștenesc dinamic permisiunile asociate</value>
   </data>
@@ -339,7 +357,9 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} ore</value>
   </data>
-  <data name="{0} moved to position {1} of {2}."><value>{0} a fost mutat pe poziția {1} din {2}.</value></data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve">
+    <value>{0} a fost mutat pe poziția {1} din {2}.</value>
+  </data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} schimbare pentru {1} · {2}; nu a fost salvată încă. Puteți anula această acțiune.</value>
   </data>
@@ -361,4 +381,5 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 ore · {3}{4}</value>
   </data>
+
 </root>
