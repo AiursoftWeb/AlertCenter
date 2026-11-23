@@ -3,7 +3,6 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using Aiursoft.AlertCenter.Entities;
 using Aiursoft.AlertCenter.Services;
-using Aiursoft.WebTools;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
@@ -83,9 +82,9 @@ public class MyOnCallPagesTests : TestBase
             Assert.Contains("Calendar coworker &lt;Chen&gt;", article);
             Assert.Contains("href=\"/OnCall/GroupDetails/", article);
             var shift = shifts.Single(value => value.GetProperty("id").GetGuid() == id);
-            Assert.AreEqual(2, Regex.Matches(article, "data-utc-time=").Count);
-            Assert.Contains($"data-utc-time=\"{shift.GetProperty("startsAtUtc").GetDateTime().ToHtmlDateTime()}\"", article);
-            Assert.Contains($"data-utc-time=\"{shift.GetProperty("endsAtUtc").GetDateTime().ToHtmlDateTime()}\"", article);
+            Assert.AreEqual(2, Regex.Matches(article, "data-oncall-time").Count);
+            Assert.Contains($"<time datetime=\"{shift.GetProperty("startsAtUtc").GetDateTime():O}\" data-oncall-time", article);
+            Assert.Contains($"<time datetime=\"{shift.GetProperty("endsAtUtc").GetDateTime():O}\" data-oncall-time", article);
             Assert.Contains("48 hours", article);
         }
         Assert.Contains("id=\"personal-calendar-fallback\"", rawHtml);
