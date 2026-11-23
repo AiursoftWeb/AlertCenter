@@ -289,13 +289,14 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> ResetSchedule(Guid id, bool regenerate, bool includeManual, [BindRequired] bool preview,
-        Guid version, string? planId, CancellationToken cancellationToken)
+        Guid version, string? planId, CancellationToken cancellationToken, DateTime? startUtc = null)
     {
         if (!ModelState.IsValid || id == Guid.Empty || version == Guid.Empty)
             return BadRequest(new { errors = new[] { localizer["The shift request format is invalid."].Value } });
         try
         {
-            var result = await schedules.ResetAsync(id, regenerate, includeManual, preview, version, planId, cancellationToken);
+            var previewStartUtc = startUtc.HasValue ? DateTime.SpecifyKind(startUtc.Value, DateTimeKind.Utc) : (DateTime?)null;
+            var result = await schedules.ResetAsync(id, regenerate, includeManual, preview, version, planId, cancellationToken, previewStartUtc);
             if (result == null) return NotFound(new { errors = new[] { localizer["On-call team does not exist."].Value } });
             if (!preview)
                 TempData["OnCallGroupSuccess"] = localizer[regenerate ? "Schedule regenerated." : "Future shifts cleared."].Value;

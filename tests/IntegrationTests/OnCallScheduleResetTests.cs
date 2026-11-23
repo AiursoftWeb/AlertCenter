@@ -18,7 +18,7 @@ public class OnCallScheduleResetTests : TestBase
         public override DateTimeOffset GetUtcNow() => Now;
     }
 
-    private async Task<(Guid Id, Guid Version)> SeedGroup(bool withRule = true)
+    private async Task<(Guid Id, Guid Version)> SeedGroup(bool withRule = true, bool withCoverageGap = false)
     {
         using var scope = Server!.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
@@ -36,7 +36,7 @@ public class OnCallScheduleResetTests : TestBase
         var shifts = new[]
         {
             Shift(today.AddDays(-4), today.AddDays(-3), OnCallShiftSource.Generated),
-            Shift(today.AddDays(-1), today.AddDays(1), OnCallShiftSource.Generated),
+            Shift(today.AddDays(-1), withCoverageGap ? today : today.AddDays(1), OnCallShiftSource.Generated),
             Shift(today.AddDays(2), today.AddDays(2).AddHours(8), OnCallShiftSource.Generated),
             Shift(today.AddDays(3), today.AddDays(3).AddHours(8), OnCallShiftSource.Manual)
         };
@@ -57,12 +57,17 @@ public class OnCallScheduleResetTests : TestBase
     }
 
     private Task<HttpResponseMessage> Reset(Guid id, Guid version, bool preview, bool regenerate = false,
-        bool includeManual = false, bool includeToken = true, string? planId = null) => PostForm("/OnCall/ResetSchedule", new()
+        bool includeManual = false, bool includeToken = true, string? planId = null, string? startUtc = null)
+    {
+        var form = new Dictionary<string, string>
         {
             ["id"] = id.ToString(), ["version"] = version.ToString(),
             ["preview"] = preview.ToString(), ["regenerate"] = regenerate.ToString(),
             ["includeManual"] = includeManual.ToString(), ["planId"] = planId ?? ""
-        }, $"/OnCall/GroupDetails/{id}", includeToken);
+        };
+        if (startUtc != null) form["startUtc"] = startUtc;
+        return PostForm("/OnCall/ResetSchedule", form, $"/OnCall/GroupDetails/{id}", includeToken);
+    }
 
     private sealed record State(Guid Version, bool AutoExtend, DateTime? ExtensionCursor, DateTime? HandoverCursor,
         ShiftSnapshot[] Shifts, Guid[] Receipts);
@@ -178,7 +183,7 @@ public class OnCallScheduleResetTests : TestBase
         Assert.DoesNotContain("Schedule regenerated.", await Http.GetStringAsync($"/OnCall/GroupDetails/{id}"));
 
         using var execute = await Reset(id, version, preview: false, regenerate: true, includeManual: includeManual,
-            planId: plan.GetProperty("planId").GetString());
+            planId: plan.GetProperty("planId").GetString(), startUtc: "2000-01-01T00:00:01Z");
         var result = await ReadPlan(execute);
         foreach (var field in new[] { "deletedCount", "generatedCount", "startUtc", "endUtc", "autoExtend" })
             Assert.AreEqual(plan.GetProperty(field).GetRawText(), result.GetProperty(field).GetRawText(), field);
@@ -295,7 +300,7 @@ public class OnCallScheduleResetTests : TestBase
         clock.Now = clock.Now.AddSeconds(regenerate ? 2 : 1);
 
         await Assert.ThrowsExactlyAsync<OnCallScheduleService.ResetPlanChangedException>(
-            () => service.ResetAsync(id, regenerate, false, false, version, preview.PlanId, token));
+            () => service.ResetAsync(id, regenerate, false, false, version, preview.PlanId, token, preview.StartUtc));
         await AssertUnchanged(id, before);
         var refreshed = await service.ResetAsync(id, regenerate, false, true, version, null, token);
         Assert.IsNotNull(refreshed);
@@ -311,20 +316,66 @@ public class OnCallScheduleResetTests : TestBase
         var (id, version) = await SeedGroup();
         var before = await ReadState(id);
         var nextStart = DateTime.SpecifyKind(before.Shifts[1].End.AddHours(1), DateTimeKind.Utc);
-        var clock = new ResetClock(new DateTimeOffset(nextStart.AddSeconds(-30)));
+        var clock = new ResetClock(new DateTimeOffset(nextStart.AddSeconds(-10)));
         using var scope = Server!.Services.CreateScope();
         var service = ActivatorUtilities.CreateInstance<OnCallScheduleService>(scope.ServiceProvider, clock);
         var token = TestContext.CancellationToken;
         var preview = await service.ResetAsync(id, true, false, true, version, null, token);
         Assert.IsNotNull(preview);
         Assert.AreEqual(nextStart, preview.StartUtc);
-        clock.Now = clock.Now.AddSeconds(10);
+        clock.Now = clock.Now.AddSeconds(15);
 
-        var result = await service.ResetAsync(id, true, false, false, version, preview.PlanId, token);
+        var result = await service.ResetAsync(id, true, false, false, version, preview.PlanId, token, preview.StartUtc);
         Assert.IsNotNull(result);
         Assert.AreEqual(preview.StartUtc, result.StartUtc);
         var after = await ReadState(id);
         Assert.AreEqual(nextStart, after.Shifts[2].Start);
+    }
+
+    [TestMethod]
+    [DataRow(601, 0)]
+    [DataRow(5, -60)]
+    [DataRow(5, 60)]
+    [DataRow(5, 1)]
+    public async Task RegenerationDuringACoverageGapRejectsExpiredOrModifiedStarts(int secondsAfterStart, int startOffsetSeconds)
+    {
+        var (id, version) = await SeedGroup();
+        var before = await ReadState(id);
+        var nextStart = DateTime.SpecifyKind(before.Shifts[1].End.AddHours(1), DateTimeKind.Utc);
+        var clock = new ResetClock(new DateTimeOffset(nextStart.AddSeconds(-10)));
+        using var scope = Server!.Services.CreateScope();
+        var service = ActivatorUtilities.CreateInstance<OnCallScheduleService>(scope.ServiceProvider, clock);
+        var token = TestContext.CancellationToken;
+        var preview = await service.ResetAsync(id, true, false, true, version, null, token);
+        Assert.IsNotNull(preview);
+        Assert.AreEqual(nextStart, preview.StartUtc);
+        clock.Now = new DateTimeOffset(nextStart.AddSeconds(secondsAfterStart));
+
+        await Assert.ThrowsExactlyAsync<OnCallScheduleService.ResetPlanChangedException>(
+            () => service.ResetAsync(id, true, false, false, version, preview.PlanId, token, nextStart.AddSeconds(startOffsetSeconds)));
+        await AssertUnchanged(id, before);
+    }
+
+    [TestMethod]
+    public async Task GapResetBindsThePreviewedUtcStartFromTheForm()
+    {
+        await LoginAsAdmin();
+        var (id, version) = await SeedGroup(withCoverageGap: true);
+        using var preview = await Reset(id, version, preview: true, regenerate: true);
+        var plan = await ReadPlan(preview);
+        var start = plan.GetProperty("startUtc");
+        Assert.AreEqual(DateTimeKind.Utc, start.GetDateTime().Kind);
+        var planId = plan.GetProperty("planId").GetString();
+
+        var modifiedStart = start.GetDateTime().AddSeconds(1).ToString("O");
+        using var rejected = await Reset(id, version, preview: false, regenerate: true, planId: planId, startUtc: modifiedStart);
+        Assert.AreEqual(HttpStatusCode.Conflict, rejected.StatusCode);
+
+        using var confirmed = await Reset(id, version, preview: false, regenerate: true, planId: planId, startUtc: start.GetString());
+        var result = await ReadPlan(confirmed);
+        Assert.AreEqual(start.GetString(), result.GetProperty("startUtc").GetString());
+        var after = await ReadState(id);
+        Assert.AreEqual(start.GetDateTime(), after.Shifts[2].Start);
     }
 
     [TestMethod]

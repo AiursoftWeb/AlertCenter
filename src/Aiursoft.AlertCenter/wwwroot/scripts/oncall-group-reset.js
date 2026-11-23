@@ -45,13 +45,17 @@
         }
         const version = isPreview ? form.dataset.version : approved.version;
         const planId = approved?.planId;
+        const startUtc = approved?.startUtc;
         invalidate();
         setBusy(true);
         showErrors([]);
         let reloading = false;
         try {
             const body = new URLSearchParams({ id: field('id').value, ...selection, preview: isPreview, version });
-            if (!isPreview) body.set('planId', planId);
+            if (!isPreview) {
+                body.set('planId', planId);
+                if (startUtc != null) body.set('startUtc', startUtc);
+            }
             const response = await fetch(form.action, {
                 method: 'POST', credentials: 'same-origin',
                 headers: { RequestVerificationToken: field('__RequestVerificationToken').value }, body
@@ -87,7 +91,7 @@
             for (const name of ['startUtc', 'endUtc']) {
                 summary.querySelector(`[data-result="${name}"]`).textContent = formatTime(data[name]);
             }
-            approved = { ...selection, version: data.version, planId: data.planId };
+            approved = { ...selection, version: data.version, planId: data.planId, startUtc: data.startUtc };
             summary.hidden = false;
             confirm.textContent = regenerateShifts ? confirm.dataset.regenerate : confirm.dataset.clear;
             confirm.hidden = false;

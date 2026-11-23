@@ -13,6 +13,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
     TimeProvider? timeProvider = null)
 {
     public const int MaxRangeDays = 92;
+    private const int ResetStartToleranceMinutes = 10;
 
     public string? ValidateRange(DateTime start, DateTime end)
     {
@@ -46,7 +47,7 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
     internal sealed class ResetPlanChangedException : Exception;
 
     internal Task<ResetResult?> ResetAsync(Guid id, bool regenerate, bool includeManual, bool preview, Guid version,
-        string? planId, CancellationToken token) => db.Database.CreateExecutionStrategy().ExecuteAsync(async () =>
+        string? planId, CancellationToken token, DateTime? previewStartUtc = null) => db.Database.CreateExecutionStrategy().ExecuteAsync(async () =>
     {
         db.ChangeTracker.Clear();
         await using var transaction = db.Database.IsRelational()
@@ -82,9 +83,18 @@ public class OnCallScheduleService(TemplateDbContext db, IOnCallScheduleGenerato
                 throw new ArgumentException(localizer["The next available shift starts outside the regeneration window."].Value);
             }
 
-            // 无进行中班段时，使用下一分钟作为可确认的开始时间，避免预览后立即过期。
+            // 空档预览从下一整分钟开始，确认时可沿用容差范围内的预览起点。
             if (start == now)
+            {
                 start = new DateTime(now.Ticks - now.Ticks % TimeSpan.TicksPerMinute, DateTimeKind.Utc).AddMinutes(1);
+                if (!preview && previewStartUtc is { } previewStart)
+                {
+                    if (previewStart.Ticks % TimeSpan.TicksPerMinute != 0 || previewStart < anchor ||
+                        previewStart < now.AddMinutes(-ResetStartToleranceMinutes) || previewStart > start)
+                        throw new ResetPlanChangedException();
+                    start = previewStart;
+                }
+            }
             (additions, through) = await OnCallMaintenanceWorker.PlanExtensionAsync(generator, group, retained,
                 start, through, token, localizerFactory.Create(typeof(OnCallScheduleValidator)));
         }

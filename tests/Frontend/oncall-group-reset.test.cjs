@@ -24,7 +24,10 @@ function setup(unavailable = false) {
         window: { location: { reload: () => reloads++ } },
         fetch: async (_, options) => {
             requests.push(Object.fromEntries(options.body));
-            return ui.response ?? { ok: true, json: async () => ({ version: 'preview', planId: 'plan', deletedCount: 2, generatedCount: 1 }) };
+            return ui.response ?? { ok: true, json: async () => ({
+                version: 'preview', planId: 'plan', deletedCount: 2, generatedCount: 1,
+                startUtc: options.body.get('regenerate') === 'true' ? '2026-03-08T05:05:00Z' : null
+            }) };
         }
     });
     return ui;
@@ -46,8 +49,17 @@ test('each action previews first and confirmation uses the selected action, vers
     assert.deepEqual(ui.requests, [
         { id: 'team', regenerate: 'false', includeManual: 'false', preview: 'true', version: 'page' },
         { id: 'team', regenerate: 'true', includeManual: 'true', preview: 'true', version: 'page' },
-        { id: 'team', regenerate: 'true', includeManual: 'true', preview: 'false', version: 'preview', planId: 'plan' }
+        { id: 'team', regenerate: 'true', includeManual: 'true', preview: 'false', version: 'preview', planId: 'plan', startUtc: '2026-03-08T05:05:00Z' }
     ]);
+    assert.equal(ui.reloads(), 1);
+});
+
+test('clear confirmation omits the null preview start', async () => {
+    const ui = setup();
+    await ui.clear.click();
+    await ui.confirm.click();
+    assert.deepEqual(ui.requests[1],
+        { id: 'team', regenerate: 'false', includeManual: 'false', preview: 'false', version: 'preview', planId: 'plan' });
     assert.equal(ui.reloads(), 1);
 });
 
