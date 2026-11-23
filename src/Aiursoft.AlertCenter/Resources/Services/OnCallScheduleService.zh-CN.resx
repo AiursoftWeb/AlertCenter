@@ -76,6 +76,9 @@
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>排班中的最低人数无效或不一致。</value>
   </data>
+  <data name="The next available shift starts outside the regeneration window." xml:space="preserve">
+    <value>下一个可排班段的开始时间超出重新排班范围。</value>
+  </data>
   <data name="The rest duration in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>排班中的休息时长无效或不一致。</value>
   </data>

@@ -24,13 +24,13 @@ function setup(unavailable = false) {
         window: { location: { reload: () => reloads++ } },
         fetch: async (_, options) => {
             requests.push(Object.fromEntries(options.body));
-            return ui.response ?? { ok: true, json: async () => ({ version: 'preview', deletedCount: 2, generatedCount: 1 }) };
+            return ui.response ?? { ok: true, json: async () => ({ version: 'preview', planId: 'plan', deletedCount: 2, generatedCount: 1 }) };
         }
     });
     return ui;
 }
 
-test('each action previews first and confirmation uses the selected action and preview version', async () => {
+test('each action previews first and confirmation uses the selected action, version and plan', async () => {
     const ui = setup();
     await ui.confirm.click();
     assert.equal(ui.requests.length, 0);
@@ -46,7 +46,7 @@ test('each action previews first and confirmation uses the selected action and p
     assert.deepEqual(ui.requests, [
         { id: 'team', regenerate: 'false', includeManual: 'false', preview: 'true', version: 'page' },
         { id: 'team', regenerate: 'true', includeManual: 'true', preview: 'true', version: 'page' },
-        { id: 'team', regenerate: 'true', includeManual: 'true', preview: 'false', version: 'preview' }
+        { id: 'team', regenerate: 'true', includeManual: 'true', preview: 'false', version: 'preview', planId: 'plan' }
     ]);
     assert.equal(ui.reloads(), 1);
 });
@@ -59,7 +59,7 @@ test('preview displays team-local times across a DST change and handles an absen
     assert.equal(result('endUtc'), 'N/A');
 
     ui.response = { ok: true, json: async () => ({
-        version: 'preview', deletedCount: 2, generatedCount: 1,
+        version: 'preview', planId: 'plan', deletedCount: 2, generatedCount: 1,
         startUtc: '2026-03-08T05:05:00Z', endUtc: '2026-03-08T07:15:00Z'
     }) };
     await ui.regenerate.click();

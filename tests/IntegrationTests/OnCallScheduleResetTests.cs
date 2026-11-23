@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text.Json;
 using Aiursoft.AlertCenter.Entities;
+using Aiursoft.AlertCenter.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
@@ -8,6 +9,15 @@ namespace Aiursoft.AlertCenter.Tests.IntegrationTests;
 [TestClass]
 public class OnCallScheduleResetTests : TestBase
 {
+    public TestContext TestContext { get; set; } = null!;
+
+    private sealed class ResetClock(DateTimeOffset now) : TimeProvider
+    {
+        public DateTimeOffset Now { get; set; } = now;
+
+        public override DateTimeOffset GetUtcNow() => Now;
+    }
+
     private async Task<(Guid Id, Guid Version)> SeedGroup(bool withRule = true)
     {
         using var scope = Server!.Services.CreateScope();
@@ -47,11 +57,11 @@ public class OnCallScheduleResetTests : TestBase
     }
 
     private Task<HttpResponseMessage> Reset(Guid id, Guid version, bool preview, bool regenerate = false,
-        bool includeManual = false, bool includeToken = true) => PostForm("/OnCall/ResetSchedule", new()
+        bool includeManual = false, bool includeToken = true, string? planId = null) => PostForm("/OnCall/ResetSchedule", new()
         {
             ["id"] = id.ToString(), ["version"] = version.ToString(),
             ["preview"] = preview.ToString(), ["regenerate"] = regenerate.ToString(),
-            ["includeManual"] = includeManual.ToString()
+            ["includeManual"] = includeManual.ToString(), ["planId"] = planId ?? ""
         }, $"/OnCall/GroupDetails/{id}", includeToken);
 
     private sealed record State(Guid Version, bool AutoExtend, DateTime? ExtensionCursor, DateTime? HandoverCursor,
@@ -96,7 +106,7 @@ public class OnCallScheduleResetTests : TestBase
     {
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, await response.Content.ReadAsStringAsync());
         var result = await response.Content.ReadFromJsonAsync<JsonElement>();
-        foreach (var field in new[] { "deletedCount", "generatedCount", "startUtc", "endUtc", "autoExtend", "version" })
+        foreach (var field in new[] { "deletedCount", "generatedCount", "startUtc", "endUtc", "autoExtend", "version", "planId" })
             Assert.IsTrue(result.TryGetProperty(field, out _), $"Missing '{field}' in {result.GetRawText()}");
         return result;
     }
@@ -119,8 +129,12 @@ public class OnCallScheduleResetTests : TestBase
         Assert.AreEqual(version, plan.GetProperty("version").GetGuid());
         await AssertUnchanged(id, before);
 
+        using var missingPlan = await Reset(id, version, preview: false, includeManual: includeManual);
+        Assert.AreEqual(HttpStatusCode.Conflict, missingPlan.StatusCode);
+        await AssertUnchanged(id, before);
+
         var clearedAfter = DateTime.UtcNow;
-        using var execute = await Reset(id, version, preview: false, includeManual: includeManual);
+        using var execute = await Reset(id, version, preview: false, includeManual: includeManual, planId: plan.GetProperty("planId").GetString());
         var result = await ReadPlan(execute);
         foreach (var field in new[] { "deletedCount", "generatedCount", "startUtc", "endUtc", "autoExtend" })
             Assert.AreEqual(plan.GetProperty(field).GetRawText(), result.GetProperty(field).GetRawText(), field);
@@ -132,7 +146,7 @@ public class OnCallScheduleResetTests : TestBase
         AssertRetainedReceipts(before, after);
         CollectionAssert.AreEqual(includeManual ? before.Shifts[..2] : [.. before.Shifts[..2], before.Shifts[3]], after.Shifts);
 
-        using var staleExecute = await Reset(id, version, preview: false, includeManual: includeManual);
+        using var staleExecute = await Reset(id, version, preview: false, includeManual: includeManual, planId: plan.GetProperty("planId").GetString());
         Assert.AreEqual(HttpStatusCode.Conflict, staleExecute.StatusCode);
         await AssertUnchanged(id, after);
     }
@@ -163,7 +177,8 @@ public class OnCallScheduleResetTests : TestBase
         await AssertUnchanged(id, before);
         Assert.DoesNotContain("Schedule regenerated.", await Http.GetStringAsync($"/OnCall/GroupDetails/{id}"));
 
-        using var execute = await Reset(id, version, preview: false, regenerate: true, includeManual: includeManual);
+        using var execute = await Reset(id, version, preview: false, regenerate: true, includeManual: includeManual,
+            planId: plan.GetProperty("planId").GetString());
         var result = await ReadPlan(execute);
         foreach (var field in new[] { "deletedCount", "generatedCount", "startUtc", "endUtc", "autoExtend" })
             Assert.AreEqual(plan.GetProperty(field).GetRawText(), result.GetProperty(field).GetRawText(), field);
@@ -214,7 +229,10 @@ public class OnCallScheduleResetTests : TestBase
         }
         var before = await ReadState(id);
         var earliest = DateTime.UtcNow.AddDays(28);
-        using var response = await Reset(id, version, preview: false, regenerate: true, includeManual: true);
+        using var preview = await Reset(id, version, preview: true, regenerate: true, includeManual: true);
+        var previewPlan = await ReadPlan(preview);
+        using var response = await Reset(id, version, preview: false, regenerate: true, includeManual: true,
+            planId: previewPlan.GetProperty("planId").GetString());
         var plan = await ReadPlan(response);
         var latest = DateTime.UtcNow.AddDays(28);
         var start = plan.GetProperty("startUtc").GetDateTime();
@@ -229,6 +247,84 @@ public class OnCallScheduleResetTests : TestBase
         var after = await ReadState(id);
         Assert.AreEqual(end, after.ExtensionCursor);
         Assert.AreEqual(end, after.Shifts[^1].End);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task RegenerationOutsideWindowPreservesExistingFutureShifts(bool preview)
+    {
+        await LoginAsAdmin();
+        var (id, version) = await SeedGroup();
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var group = await db.OnCallGroups.SingleAsync(group => group.Id == id);
+            group.AnchorUtc = DateTime.UtcNow.Date.AddDays(60);
+            group.AutoExtend = false;
+            var futureShifts = await db.OnCallShifts.Where(shift => shift.GroupId == id && shift.StartsAtUtc > DateTime.UtcNow).ToListAsync();
+            foreach (var shift in futureShifts)
+            {
+                shift.StartsAtUtc = shift.StartsAtUtc.AddDays(60);
+                shift.EndsAtUtc = shift.EndsAtUtc.AddDays(60);
+            }
+            await db.SaveChangesAsync();
+        }
+        var before = await ReadState(id);
+        using var response = await Reset(id, version, preview, regenerate: true, includeManual: true);
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        var result = await response.Content.ReadFromJsonAsync<JsonElement>();
+        Assert.AreEqual("The next available shift starts outside the regeneration window.", result.GetProperty("errors")[0].GetString());
+        await AssertUnchanged(id, before);
+    }
+
+    [TestMethod]
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task ConfirmationRejectsPlanThatCrossesAShiftOrGenerationBoundary(bool regenerate)
+    {
+        var (id, version) = await SeedGroup();
+        var before = await ReadState(id);
+        var boundary = regenerate ? before.Shifts[2].Start.Date.AddHours(8).AddDays(-2) : before.Shifts[2].Start;
+        var clock = new ResetClock(new DateTimeOffset(DateTime.SpecifyKind(boundary.AddSeconds(-1), DateTimeKind.Utc)));
+        using var scope = Server!.Services.CreateScope();
+        var service = ActivatorUtilities.CreateInstance<OnCallScheduleService>(scope.ServiceProvider, clock);
+        var token = TestContext.CancellationToken;
+        var preview = await service.ResetAsync(id, regenerate, false, true, version, null, token);
+        Assert.IsNotNull(preview);
+        clock.Now = clock.Now.AddSeconds(regenerate ? 2 : 1);
+
+        await Assert.ThrowsExactlyAsync<OnCallScheduleService.ResetPlanChangedException>(
+            () => service.ResetAsync(id, regenerate, false, false, version, preview.PlanId, token));
+        await AssertUnchanged(id, before);
+        var refreshed = await service.ResetAsync(id, regenerate, false, true, version, null, token);
+        Assert.IsNotNull(refreshed);
+        if (regenerate)
+            Assert.AreEqual(preview.GeneratedCount + 1, refreshed.GeneratedCount);
+        else
+            Assert.AreEqual(preview.DeletedCount - 1, refreshed.DeletedCount);
+    }
+
+    [TestMethod]
+    public async Task RegenerationDuringACoverageGapCanConfirmThePreviewedStart()
+    {
+        var (id, version) = await SeedGroup();
+        var before = await ReadState(id);
+        var nextStart = DateTime.SpecifyKind(before.Shifts[1].End.AddHours(1), DateTimeKind.Utc);
+        var clock = new ResetClock(new DateTimeOffset(nextStart.AddSeconds(-30)));
+        using var scope = Server!.Services.CreateScope();
+        var service = ActivatorUtilities.CreateInstance<OnCallScheduleService>(scope.ServiceProvider, clock);
+        var token = TestContext.CancellationToken;
+        var preview = await service.ResetAsync(id, true, false, true, version, null, token);
+        Assert.IsNotNull(preview);
+        Assert.AreEqual(nextStart, preview.StartUtc);
+        clock.Now = clock.Now.AddSeconds(10);
+
+        var result = await service.ResetAsync(id, true, false, false, version, preview.PlanId, token);
+        Assert.IsNotNull(result);
+        Assert.AreEqual(preview.StartUtc, result.StartUtc);
+        var after = await ReadState(id);
+        Assert.AreEqual(nextStart, after.Shifts[2].Start);
     }
 
     [TestMethod]

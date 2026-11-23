@@ -289,18 +289,23 @@ public class OnCallController(TemplateDbContext db, IOnCallScheduleGenerator gen
     [HttpPost, ValidateAntiForgeryToken]
     [Authorize(Policy = AppPermissionNames.CanManageOnCall)]
     public async Task<IActionResult> ResetSchedule(Guid id, bool regenerate, bool includeManual, [BindRequired] bool preview,
-        Guid version, CancellationToken cancellationToken)
+        Guid version, string? planId, CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid || id == Guid.Empty || version == Guid.Empty)
             return BadRequest(new { errors = new[] { localizer["The shift request format is invalid."].Value } });
         try
         {
-            var result = await schedules.ResetAsync(id, regenerate, includeManual, preview, version, cancellationToken);
+            var result = await schedules.ResetAsync(id, regenerate, includeManual, preview, version, planId, cancellationToken);
             if (result == null) return NotFound(new { errors = new[] { localizer["On-call team does not exist."].Value } });
             if (!preview)
                 TempData["OnCallGroupSuccess"] = localizer[regenerate ? "Schedule regenerated." : "Future shifts cleared."].Value;
             return Ok(new { deletedCount = result.DeletedCount, generatedCount = result.GeneratedCount,
-                startUtc = result.StartUtc, endUtc = result.EndUtc, autoExtend = result.AutoExtend, version = result.Version });
+                startUtc = result.StartUtc, endUtc = result.EndUtc, autoExtend = result.AutoExtend,
+                version = result.Version, planId = result.PlanId });
+        }
+        catch (OnCallScheduleService.ResetPlanChangedException)
+        {
+            return Conflict(new { errors = new[] { localizer["The reset plan has changed. Preview the changes again before confirming."].Value } });
         }
         catch (DbUpdateException)
         {
