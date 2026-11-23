@@ -49,6 +49,7 @@ public partial class IncidentPagesTests
             Assert.AreEqual(id - 1, current["metadata"]!["ci"]!.Value<int>("consecutiveFailures"));
             Assert.AreEqual(id == 4 ? "sev2" : "sev3", current.Value<string>("level"));
             Assert.IsTrue(current["metadata"]!["ci"]!.Value<bool>("applied"));
+            Assert.AreEqual("https://gitlab.example.com/aiursoft/example/-/pipelines/2", current.Value<string>("investigateUrl"));
         }
         CliJson(await ReportPipeline(key, 5, "success"));
         var recovered = (await ReportedIncidents(key)).Single();

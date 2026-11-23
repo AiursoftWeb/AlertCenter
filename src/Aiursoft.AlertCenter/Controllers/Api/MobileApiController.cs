@@ -223,7 +223,8 @@ public sealed class MobileApiController(
         var incident = new Incident
         {
             ApplicationId = request.ApplicationId, Title = request.Title.Trim(), Content = request.Content,
-            Level = request.Level, OccurredAtUtc = now, ReceivedAtUtc = now
+            Level = request.Level, OccurredAtUtc = now, ReceivedAtUtc = now,
+            InvestigateUrl = string.IsNullOrWhiteSpace(request.InvestigateUrl) ? null : request.InvestigateUrl.Trim()
         };
         db.Incidents.Add(incident);
         db.IncidentTimelineEntries.Add(new IncidentTimelineEntry
@@ -254,6 +255,7 @@ public sealed class MobileApiController(
         ApplicationId = item.ApplicationId, ApplicationName = item.Application.Name,
         Title = item.Title, Content = item.Content, ContextJson = item.ContextJson, MetadataJson = item.MetadataJson,
         Level = item.Level, Status = item.Status, OwnerName = item.Owner?.DisplayName ?? item.OwnerDisplayName,
+        InvestigateUrl = item.InvestigateUrl,
         OccurredAtUtc = Utc(item.OccurredAtUtc), ReceivedAtUtc = Utc(item.ReceivedAtUtc),
         AcknowledgedAtUtc = Utc(item.AcknowledgedAtUtc), MitigatedAtUtc = Utc(item.MitigatedAtUtc), ResolvedAtUtc = Utc(item.ResolvedAtUtc)
     };

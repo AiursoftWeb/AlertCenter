@@ -765,6 +765,55 @@ public partial class PushCenterTests
     }
 
     [TestMethod]
+    [DataRow("https://gitlab.aiursoft.com/aiursoft/badgeproxy/-/pipelines/82988")]
+    [DataRow(null)]
+    public async Task EmailRendersInvestigateButtonWhenProvided(string? investigateUrl)
+    {
+        var application = new SourceApplication { Name = "BadgeProxy" };
+        _db.SourceApplications.Add(application);
+        var incident = new Incident
+        {
+            Application = application,
+            Title = "GitLab pipeline failing: BadgeProxy (master)",
+            Content = "Pipeline failed",
+            Level = "sev4",
+            InvestigateUrl = investigateUrl
+        };
+        var delivery = new PushDelivery
+        {
+            Channel = new PushChannel { EmailRecipient = "oncall@example.com" },
+            Incident = incident
+        };
+        var adapter = new EmailChannelAdapter(_email, TestLocalization.For<EmailChannelAdapter>(),
+            Options.Create(new EmailSettings { PublicBaseUrl = "https://alerts.example.com/portal/" }));
+        var result = await adapter.DeliverAsync(delivery);
+        Assert.IsTrue(result.Succeeded, result.ErrorMessage);
+        var mail = _email.Messages.Single();
+        var url = $"https://alerts.example.com/portal/Incidents/Details/{incident.Id}";
+
+        Assert.Contains("Open in AlertCenter", mail.Body);
+        Assert.Contains(url, mail.Body);
+        Assert.Contains("Acknowledge", mail.Body);
+        Assert.Contains(url + "?ack=true", mail.Body);
+        Assert.IsNotNull(mail.HtmlBody);
+        Assert.Contains($"href=\"{url}\"", mail.HtmlBody);
+        Assert.Contains($"href=\"{url}?ack=true\"", mail.HtmlBody);
+
+        if (investigateUrl != null)
+        {
+            Assert.Contains("Investigate", mail.Body);
+            Assert.Contains(investigateUrl, mail.Body);
+            Assert.Contains($"href=\"{investigateUrl}\"", mail.HtmlBody);
+            Assert.Contains("Investigate link:", mail.HtmlBody);
+        }
+        else
+        {
+            Assert.DoesNotContain("Investigate", mail.Body);
+            Assert.DoesNotContain("Investigate link:", mail.HtmlBody);
+        }
+    }
+
+    [TestMethod]
     [DataRow("javascript:alert(1)")]
     [DataRow("https://user:password@example.com")]
     [DataRow("https://example.com?redirect=other")]

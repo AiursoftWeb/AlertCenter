@@ -144,6 +144,37 @@ public partial class IncidentPagesTests : TestBase
     }
 
     [TestMethod]
+    public async Task IncidentDetailsPageRendersInvestigateButtonWhenProvided()
+    {
+        await LoginAsAdmin();
+        var withUrl = new Incident
+        {
+            Application = new SourceApplication { Name = "App with investigate link" },
+            ReportId = Guid.NewGuid(),
+            Title = "Incident with investigate URL",
+            OccurredAtUtc = DateTime.UtcNow,
+            InvestigateUrl = "https://gitlab.aiursoft.com/aiursoft/badgeproxy/-/pipelines/82988"
+        };
+        await CreateInboxNotification(withUrl);
+        var htmlWithUrl = await Http.GetStringAsync($"/Incidents/Details/{withUrl.Id}");
+        Assert.Contains("href=\"https://gitlab.aiursoft.com/aiursoft/badgeproxy/-/pipelines/82988\"", htmlWithUrl);
+        Assert.Contains("Investigate", htmlWithUrl);
+        Assert.Contains("Investigate URL", htmlWithUrl);
+
+        var withoutUrl = new Incident
+        {
+            Application = new SourceApplication { Name = "App without investigate link" },
+            ReportId = Guid.NewGuid(),
+            Title = "Incident without investigate URL",
+            OccurredAtUtc = DateTime.UtcNow,
+            InvestigateUrl = null
+        };
+        await CreateInboxNotification(withoutUrl);
+        var htmlWithoutUrl = await Http.GetStringAsync($"/Incidents/Details/{withoutUrl.Id}");
+        Assert.DoesNotContain("Investigate URL", htmlWithoutUrl);
+    }
+
+    [TestMethod]
     public async Task FreshDatabaseHasNoApplicationsOrMessages()
     {
         using var scope = Server!.Services.CreateScope();

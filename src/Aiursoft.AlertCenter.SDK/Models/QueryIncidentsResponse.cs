@@ -21,6 +21,7 @@ public sealed class IncidentDetails
     public string? Content { get; set; }
     public string Level { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
+    public string? InvestigateUrl { get; set; }
     public DateTimeOffset? AcknowledgedAtUtc { get; set; }
     public DateTimeOffset? MitigatedAtUtc { get; set; }
     public DateTimeOffset? ResolvedAtUtc { get; set; }

@@ -45,7 +45,8 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
             ReceivedAtUtc = receivedAtUtc,
             Content = request.Content, Level = request.Level,
             OccurredAtUtc = request.OccurredAtUtc.UtcDateTime, ContextJson = request.Context?.ToString(Formatting.None),
-            MetadataJson = request.Metadata?.ToString(Formatting.None)
+            MetadataJson = request.Metadata?.ToString(Formatting.None),
+            InvestigateUrl = string.IsNullOrWhiteSpace(request.InvestigateUrl) ? null : request.InvestigateUrl.Trim()
         };
 
         db.Incidents.Add(incident);
@@ -138,6 +139,7 @@ public class IncidentReportsController(TemplateDbContext db, IIncidentDispatcher
     {
         IncidentId = incident.Id, ReportId = incident.ReportId, Version = incident.Version,
         Title = incident.Title, Content = incident.Content, Level = incident.Level, Status = incident.Status,
+        InvestigateUrl = incident.InvestigateUrl,
         OccurredAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.OccurredAtUtc, DateTimeKind.Utc)),
         ReceivedAtUtc = new DateTimeOffset(DateTime.SpecifyKind(incident.ReceivedAtUtc, DateTimeKind.Utc)),
         AcknowledgedAtUtc = incident.AcknowledgedAtUtc is { } acknowledgedAt

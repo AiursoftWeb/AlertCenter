@@ -13,4 +13,5 @@ public class CreateIncidentViewModel : UiStackLayoutViewModel
     [Required, StringLength(200)] public string Title { get; set; } = string.Empty;
     [StringLength(4000)] public string? Content { get; set; }
     [Required, RegularExpression("^sev[0-4]$")] public string Level { get; set; } = "sev4";
+    [MaxLength(2048), Url] public string? InvestigateUrl { get; set; }
 }

@@ -14,6 +14,7 @@ public sealed class CreateIncidentRequest : IValidatableObject
     public JObject? Context { get; set; }
     [JsonConverter(typeof(IncidentMetadataConverter))]
     public JObject? Metadata { get; set; }
+    [MaxLength(2048), Url] public string? InvestigateUrl { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
@@ -23,5 +24,8 @@ public sealed class CreateIncidentRequest : IValidatableObject
             yield return new ValidationResult("A non-empty report ID is required.", [nameof(ReportId)]);
         if (OccurredAtUtc == default)
             yield return new ValidationResult("The occurrence time is required.", [nameof(OccurredAtUtc)]);
+        if (!string.IsNullOrWhiteSpace(InvestigateUrl) &&
+            (!Uri.TryCreate(InvestigateUrl, UriKind.Absolute, out var uri) || (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps)))
+            yield return new ValidationResult("The investigate URL must be a valid HTTP or HTTPS URL.", [nameof(InvestigateUrl)]);
     }
 }

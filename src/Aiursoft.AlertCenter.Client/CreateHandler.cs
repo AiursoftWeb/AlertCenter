@@ -17,7 +17,8 @@ public sealed class CreateHandler : IncidentCommandHandler
     private readonly Option<string?> _content = new("--content") { Description = "Markdown incident content." };
     private readonly Option<string?> _context = new("--context") { Description = "Context as a JSON object." };
     private readonly Option<string?> _metadata = new("--metadata") { Description = "Initial incident metadata as a JSON object." };
-    protected override IEnumerable<Option> IncidentOptions() => [_reportId, _title, _level, _occurredAt, _content, _context, _metadata];
+    private readonly Option<string?> _investigateUrl = new("--investigate-url") { Description = "URL for engineers to investigate the incident." };
+    protected override IEnumerable<Option> IncidentOptions() => [_reportId, _title, _level, _occurredAt, _content, _context, _metadata, _investigateUrl];
     protected override async Task<AiurResponse> InvokeAsync(AlertCenterApiClient client, ParseResult context)
     {
         var json = context.GetValue(_context);
@@ -26,7 +27,8 @@ public sealed class CreateHandler : IncidentCommandHandler
             ReportId = context.GetValue(_reportId), Title = context.GetValue(_title)!, Level = context.GetValue(_level)!,
             OccurredAtUtc = context.GetValue(_occurredAt), Content = context.GetValue(_content),
             Context = json == null ? null : JObject.Parse(json),
-            Metadata = context.GetValue(_metadata) is { } metadata ? IncidentMetadata.Read(metadata) : null
+            Metadata = context.GetValue(_metadata) is { } metadata ? IncidentMetadata.Read(metadata) : null,
+            InvestigateUrl = context.GetValue(_investigateUrl)
         });
     }
 }

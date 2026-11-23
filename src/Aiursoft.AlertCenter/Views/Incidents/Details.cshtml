@@ -60,6 +60,12 @@
 
         <!-- War Room Action Forms -->
         <div class="d-flex flex-wrap align-items-center gap-2">
+            @if (!string.IsNullOrWhiteSpace(incident.InvestigateUrl))
+            {
+                <a href="@incident.InvestigateUrl" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info text-nowrap">
+                    <i class="align-middle me-1" data-lucide="external-link" aria-hidden="true"></i>@Localizer["Investigate"]
+                </a>
+            }
             @if (Model.CanManage)
             {
                 <form id="acknowledge-incident" asp-action="Acknowledge" method="post" data-action-feedback class="d-flex flex-wrap gap-2">
@@ -197,6 +203,10 @@
                 <dl>
                     <dt>@Localizer["Incident ID"]</dt><dd class="text-break">@incident.Id</dd>
                     <dt>@Localizer["Report ID"]</dt><dd class="text-break">@incident.ReportId</dd>
+                    @if (!string.IsNullOrWhiteSpace(incident.InvestigateUrl))
+                    {
+                        <dt>@Localizer["Investigate URL"]</dt><dd class="text-break"><a href="@incident.InvestigateUrl" target="_blank" rel="noopener noreferrer">@incident.InvestigateUrl</a></dd>
+                    }
                     <dt>@Localizer["Occurred at"]</dt><dd><span data-utc-time="@incident.OccurredAtUtc.ToHtmlDateTime()"></span></dd>
                     <dt>@Localizer["Received at"]</dt><dd><span data-utc-time="@incident.ReceivedAtUtc.ToHtmlDateTime()"></span></dd>
                 </dl>
