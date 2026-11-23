@@ -254,6 +254,10 @@ namespace Aiursoft.AlertCenter.MySql.Migrations
                     b.Property<byte[]>("Embedding")
                         .HasColumnType("longblob");
 
+                    b.Property<string>("InvestigateUrl")
+                        .HasMaxLength(2048)
+                        .HasColumnType("varchar(2048)");
+
                     b.Property<DateTime>("LastEmbeddedAt")
                         .HasColumnType("datetime(6)");
 

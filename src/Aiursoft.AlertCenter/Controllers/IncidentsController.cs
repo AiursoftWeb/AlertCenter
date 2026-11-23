@@ -187,7 +187,8 @@ public class IncidentsController(TemplateDbContext db, IApplicationAccessService
         var now = DateTime.UtcNow;
         now = now.AddTicks(-(now.Ticks % 10));
         var incident = new Incident { ApplicationId = request.ApplicationId, Title = request.Title.Trim(), Content = request.Content,
-            Level = request.Level, OccurredAtUtc = now, ReceivedAtUtc = now };
+            Level = request.Level, OccurredAtUtc = now, ReceivedAtUtc = now,
+            InvestigateUrl = string.IsNullOrWhiteSpace(request.InvestigateUrl) ? null : request.InvestigateUrl.Trim() };
         db.Incidents.Add(incident);
         db.IncidentTimelineEntries.Add(new IncidentTimelineEntry { Incident = incident, Type = IncidentTimelineEntry.Created,
             ActorId = User.FindFirstValue(ClaimTypes.NameIdentifier), ActorName = User.Identity?.Name ?? "User",

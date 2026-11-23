@@ -241,6 +241,8 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
         body.AppendLine().AppendLine(localizer["Open in AlertCenter"].Value).AppendLine(url);
         if (incidentId.HasValue)
             body.AppendLine().AppendLine(localizer["Acknowledge"].Value).AppendLine(url + "?ack=true");
+        if (!string.IsNullOrWhiteSpace(incident?.InvestigateUrl))
+            body.AppendLine().AppendLine(localizer["Investigate"].Value).AppendLine(incident.InvestigateUrl);
         return new(recipients, ccRecipients, subject, body.ToString(),
             RenderHtml(delivery, title, level, url, localizer, context))
         {
@@ -318,6 +320,16 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
                 <a href="{{Encode(url + "?ack=true")}}" style="display:inline-block;border:1px solid #526579;padding:13px 16px;color:#334155;background-color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Acknowledge"].Value)}}</a>
             </td>
             """ : string.Empty;
+                var investigateButton = !string.IsNullOrWhiteSpace(incident?.InvestigateUrl) ? $$"""
+            <td style="padding-left:12px;">
+                <a href="{{Encode(incident.InvestigateUrl)}}" style="display:inline-block;border:1px solid #526579;padding:13px 16px;color:#334155;background-color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Investigate"].Value)}}</a>
+            </td>
+            """ : string.Empty;
+        var investigateFallback = !string.IsNullOrWhiteSpace(incident?.InvestigateUrl) ? $$"""
+                <p style="margin:12px 0 8px;font-size:12px;line-height:1.6;color:#526579;">{{Encode(localizer["Investigate link:"].Value)}}<br>
+                    <a href="{{Encode(incident.InvestigateUrl)}}" style="color:{{linkColor}};overflow-wrap:anywhere;word-break:break-all;">{{Encode(incident.InvestigateUrl)}}</a>
+                </p>
+            """ : string.Empty;
         var incidentReference = incident != null ? $" #{incident.ShortId}" : string.Empty;
         // Tables and inline styles also work when email clients strip stylesheets.
         // Encode every external value; only the markup in this renderer is trusted.
@@ -334,12 +346,13 @@ public class EmailChannelAdapter(IEmailSender sender, IStringLocalizer<EmailChan
                 <p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:#526579;">{{Encode(introduction)}}</p>
                 <table role="presentation" cellspacing="0" cellpadding="0"><tr><td bgcolor="{{color}}" style="border-radius:6px;">
                     <a href="{{Encode(url)}}" style="display:inline-block;border:1px solid {{color}};padding:13px 22px;color:{{accentForeground}};text-decoration:none;font-size:15px;font-weight:bold;border-radius:6px;">{{Encode(localizer["Open in AlertCenter"].Value)}}</a>
-                </td>{{acknowledgeButton}}</tr></table>
+                </td>{{acknowledgeButton}}{{investigateButton}}</tr></table>
                 <p style="margin:20px 0 0;font-size:12px;line-height:1.6;color:#526579;">{{Encode(localizer["Occurred at (UTC)"].Value)}}: {{occurredAt:yyyy-MM-dd HH:mm:ss}}</p>
                 {{sections}}
                 <p style="margin:24px 0 8px;font-size:12px;line-height:1.6;color:#526579;">{{Encode(localizer["If the button does not work, open this link:"].Value)}}<br>
                     <a href="{{Encode(url)}}" style="color:{{linkColor}};overflow-wrap:anywhere;word-break:break-all;">{{Encode(url)}}</a>
                 </p>
+                {{investigateFallback}}
             </td></tr>
             <tr><td style="padding:18px 28px;background-color:#f8fafc;border-top:1px solid #e2e8f0;font-size:11px;line-height:1.8;color:#526579;overflow-wrap:anywhere;word-break:break-all;">
                 {{Encode(reference)}}<br>{{Encode(localizer["Delivery ID"].Value)}}: {{delivery.Id}}

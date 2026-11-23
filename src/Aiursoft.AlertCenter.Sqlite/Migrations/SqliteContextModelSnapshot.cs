@@ -249,6 +249,10 @@ namespace Aiursoft.AlertCenter.Sqlite.Migrations
                     b.Property<byte[]>("Embedding")
                         .HasColumnType("BLOB");
 
+                    b.Property<string>("InvestigateUrl")
+                        .HasMaxLength(2048)
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("LastEmbeddedAt")
                         .HasColumnType("TEXT");
 

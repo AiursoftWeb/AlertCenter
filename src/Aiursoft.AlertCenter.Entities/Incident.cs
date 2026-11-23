@@ -37,6 +37,7 @@ public class Incident
     [Required, MaxLength(200)] public string Title { get; set; } = string.Empty;
     [Required, MaxLength(4)] public string Level { get; set; } = "sev3";
     [Required, MaxLength(20)] public string Status { get; set; } = New;
+    [MaxLength(2048)] public string? InvestigateUrl { get; set; }
     [MaxLength(450)] public string? OwnerId { get; set; }
     public User? Owner { get; set; }
     [MaxLength(30)] public string? OwnerDisplayName { get; set; }

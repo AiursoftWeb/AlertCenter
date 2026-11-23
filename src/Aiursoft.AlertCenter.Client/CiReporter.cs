@@ -117,6 +117,7 @@ internal sealed class CiReporter(AlertCenterApiClient client)
         {
             ReportId = pipeline.ReportId(), Title = pipeline.Title, Level = "sev3", OccurredAtUtc = pipeline.CreatedAt,
             Content = $"Pipeline: {pipeline.Url}\n\nCommit: {pipeline.Commit}",
-            Metadata = new JObject { ["source"] = pipeline.Source, ["ci"] = state }
+            Metadata = new JObject { ["source"] = pipeline.Source, ["ci"] = state },
+            InvestigateUrl = pipeline.Url
         });
 }

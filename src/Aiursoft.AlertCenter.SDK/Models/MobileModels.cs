@@ -100,6 +100,7 @@ public sealed class MobileIncident
     public string Level { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public string? OwnerName { get; set; }
+    public string? InvestigateUrl { get; set; }
     public DateTimeOffset OccurredAtUtc { get; set; }
     public DateTimeOffset ReceivedAtUtc { get; set; }
     public DateTimeOffset? AcknowledgedAtUtc { get; set; }
@@ -140,6 +141,7 @@ public sealed class MobileCreateIncidentRequest
     [Required, StringLength(200)] public string Title { get; set; } = string.Empty;
     [StringLength(4000)] public string? Content { get; set; }
     [Required, RegularExpression("^sev[0-4]$")] public string Level { get; set; } = "sev4";
+    [MaxLength(2048), Url] public string? InvestigateUrl { get; set; }
 }
 
 public sealed class MobileCreatedIncidentResponse : AiurResponse

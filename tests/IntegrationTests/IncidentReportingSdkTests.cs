@@ -490,4 +490,42 @@ public partial class IncidentPagesTests
         Assert.IsFalse(string.IsNullOrWhiteSpace(error.Value<string>("ProtocolVersion")));
         Assert.IsTrue(error["Items"] is JArray { Count: > 0 });
     }
+
+    [TestMethod]
+    public async Task SdkPersistsInvestigateUrlAndRejectsInvalidUrl()
+    {
+        var key = await CreateApplication();
+        await using var services = ReportingClient(key);
+        var client = services.GetRequiredService<AlertCenterApiClient>();
+        var request = new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(),
+            Title = "Pipeline failure",
+            Content = "CI failed",
+            Level = "sev4",
+            OccurredAtUtc = DateTimeOffset.UtcNow,
+            InvestigateUrl = "https://gitlab.aiursoft.com/aiursoft/badgeproxy/-/pipelines/82988"
+        };
+        var receipt = await client.CreateIncidentAsync(request);
+        var response = await client.GetIncidentAsync(receipt.IncidentId);
+        Assert.AreEqual(Code.JobDone, response.Code);
+        Assert.AreEqual("https://gitlab.aiursoft.com/aiursoft/badgeproxy/-/pipelines/82988", response.Incident.InvestigateUrl);
+
+        using (var scope = Server!.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<TemplateDbContext>();
+            var saved = await db.Incidents.SingleAsync(i => i.Id == receipt.IncidentId);
+            Assert.AreEqual("https://gitlab.aiursoft.com/aiursoft/badgeproxy/-/pipelines/82988", saved.InvestigateUrl);
+        }
+
+        var invalidUrlRequest = new CreateIncidentRequest
+        {
+            ReportId = Guid.NewGuid(),
+            Title = "Bad url incident",
+            OccurredAtUtc = DateTimeOffset.UtcNow,
+            InvestigateUrl = "not-a-valid-http-url"
+        };
+        var ex = await Assert.ThrowsAsync<AiurBadApiInputException>(() => client.CreateIncidentAsync(invalidUrlRequest));
+        Assert.IsNotEmpty(ex.Reasons);
+    }
 }
