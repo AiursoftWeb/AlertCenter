@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Bevestig het verwijderen van diensten uit het verleden afzonderlijk.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Bevestig de vervanging van het bestaande schema voordat het wordt gegenereerd.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>De tijdsgrenzen van het bestaande rooster zijn onvolledig; overschrijven is niet mogelijk.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>Ongeldige periode of actie voor het leegmaken van het rooster.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Ongeldige lokale teamtijd. Tijdens zomer-/winterovergangen zijn overgeslagen tijden ongeldig en herhaalde tijden gebruiken de standaardtijd.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Het team voor oproepdiensten bestaat niet.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Geef de planningsperiode op in UTC-tijd.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Het einde van de ploeg moet na het begin liggen.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Het minimale aantal medewerkers in het rooster is ongeldig of inconsistent.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>De roosterperiode mag niet langer zijn dan {0} dagen en moet binnen 10 jaar vóór of na het huidige tijdstip liggen.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Het formaat van het ploegverzoek is ongeldig.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Het team of het rooster is gewijzigd door een andere beheerder. Vernieuw de pagina en probeer het opnieuw.</value>
   </data>
+
 </root>

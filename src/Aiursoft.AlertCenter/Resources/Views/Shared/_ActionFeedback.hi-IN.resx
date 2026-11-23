@@ -39,21 +39,27 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>जोड़ने का मोड: 8 घंटे की शिफ़्ट जोड़ने के लिए इंजीनियर की पंक्ति में खाली जगह पर क्लिक करें; एक ही शिफ़्ट कई लोग साझा कर सकते हैं।</value>
   </data>
-  <data name="Add on-call members to preview the rotation."><value>रोटेशन पूर्वावलोकन के लिए ऑन-कॉल सदस्य जोड़ें।</value></data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve">
+    <value>रोटेशन पूर्वावलोकन के लिए ऑन-कॉल सदस्य जोड़ें।</value>
+  </data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>ऑन-कॉल शिफ्ट जोड़ें</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>जोड़ा गया</value>
   </data>
-  <data name="Already selected"><value>पहले से चयनित</value></data>
+  <data name="Already selected" xml:space="preserve">
+    <value>पहले से चयनित</value>
+  </data>
   <data name="Back to Edit" xml:space="preserve">
     <value>संपादन पर वापस जाएँ</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>रिफ़्रेश रद्द करें</value>
   </data>
-  <data name="Choose a scheduling template to preview the rotation."><value>रोटेशन पूर्वावलोकन के लिए शेड्यूल टेम्पलेट चुनें।</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve">
+    <value>रोटेशन पूर्वावलोकन के लिए शेड्यूल टेम्पलेट चुनें।</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>बंद करें</value>
   </data>
@@ -99,7 +105,9 @@
   <data name="End" xml:space="preserve">
     <value>समाप्त</value>
   </data>
-  <data name="Enter a scheduling start point to preview shifts."><value>शिफ्ट पूर्वावलोकन के लिए शेड्यूल प्रारंभ दर्ज करें।</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve">
+    <value>शिफ्ट पूर्वावलोकन के लिए शेड्यूल प्रारंभ दर्ज करें।</value>
+  </data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>टिप्पणी की सामग्री दर्ज करें; इसमें केवल रिक्त स्थान नहीं होने चाहिए।</value>
   </data>
@@ -205,7 +213,9 @@
   <data name="Removed" xml:space="preserve">
     <value>हटाया गया</value>
   </data>
-  <data name="Reorder {0}"><value>{0} का क्रम बदलें</value></data>
+  <data name="Reorder {0}" xml:space="preserve">
+    <value>{0} का क्रम बदलें</value>
+  </data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>अनुरोध अमान्य है या पेज के क्रेडेंशियल की समय-सीमा समाप्त हो गई है। इनपुट जाँचें और आवश्यकता होने पर पुनः प्रयास करने के लिए पेज रीफ़्रेश करें।</value>
   </data>
@@ -263,7 +273,9 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>स्टाफ़िंग समायोजित की गई और चार्ट अपडेट किया गया; अभी तक सहेजा नहीं गया है।</value>
   </data>
-  <data name="Start at {0}"><value>{0} से शुरू करें</value></data>
+  <data name="Start at {0}" xml:space="preserve">
+    <value>{0} से शुरू करें</value>
+  </data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>क्लिपबोर्ड पर सफलतापूर्वक कॉपी किया गया!</value>
   </data>
@@ -309,12 +321,18 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>सीधे अदला-बदली नहीं की जा सकती: एक व्यक्ति पहले से ही लक्षित शिफ्ट में है। कृपया पहले &quot;शिफ्ट के अनुसार सदस्य जोड़ें/हटाएँ&quot; का उपयोग करके उसी शिफ्ट के सदस्यों को समायोजित करें।</value>
   </data>
-  <data name="Unable to update the preview. Please try again."><value>पूर्वावलोकन अपडेट नहीं हो सका। फिर से प्रयास करें।</value></data>
-  <data name="Unassigned"><value>अनिर्दिष्ट</value></data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve">
+    <value>पूर्वावलोकन अपडेट नहीं हो सका। फिर से प्रयास करें।</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>अनिर्दिष्ट</value>
+  </data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>सहेजा नहीं गया · समायोजन का मसौदा</value>
   </data>
-  <data name="Updating shift preview…"><value>शिफ्ट पूर्वावलोकन अपडेट हो रहा है…</value></data>
+  <data name="Updating shift preview…" xml:space="preserve">
+    <value>शिफ्ट पूर्वावलोकन अपडेट हो रहा है…</value>
+  </data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>उपयोगकर्ता समूह · सदस्य संबद्ध अनुमतियाँ अपने आप प्राप्त करते हैं</value>
   </data>
@@ -339,7 +357,9 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} घंटे</value>
   </data>
-  <data name="{0} moved to position {1} of {2}."><value>{0} को {2} में से स्थान {1} पर ले जाया गया।</value></data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve">
+    <value>{0} को {2} में से स्थान {1} पर ले जाया गया।</value>
+  </data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} शिफ्ट {1} के लिए · {2}; अभी तक सेव नहीं हुआ है। आप इसे पूर्ववत कर सकते हैं।</value>
   </data>
@@ -361,4 +381,5 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 घंटे · {3}{4}</value>
   </data>
+
 </root>

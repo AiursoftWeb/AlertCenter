@@ -21,8 +21,14 @@
       <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>每天固定三班，每班 8 小时。</value>
   </data>
+  <data name="Maximum continuous duty must be 0–720 hours." xml:space="preserve">
+    <value>最长连续值班时间必须在 0–720 小时之间。</value>
+  </data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>最短休息时间必须为 0–168 小时。</value>
+  </data>
+  <data name="Minimum rest must be 0–720 hours." xml:space="preserve">
+    <value>最小休息时间必须在 0–720 小时之间。</value>
   </data>
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>每班最低人员数必须为 1–200 人。</value>

@@ -39,21 +39,27 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>新增模式：點選工程師列中的空白處，即可新增一個 8 小時班次；多人可以共用同一個班次。</value>
   </data>
-  <data name="Add on-call members to preview the rotation." xml:space="preserve"><value>請新增值班成員以預覽輪替。</value></data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve">
+    <value>請新增值班成員以預覽輪替。</value>
+  </data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>新增待命班次</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>已新增</value>
   </data>
-  <data name="Already selected" xml:space="preserve"><value>已選取</value></data>
+  <data name="Already selected" xml:space="preserve">
+    <value>已選取</value>
+  </data>
   <data name="Back to Edit" xml:space="preserve">
     <value>返回編輯</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>取消重新整理</value>
   </data>
-  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve"><value>請選擇排班模板以預覽輪替。</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve">
+    <value>請選擇排班模板以預覽輪替。</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>關閉</value>
   </data>
@@ -99,7 +105,9 @@
   <data name="End" xml:space="preserve">
     <value>結束</value>
   </data>
-  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve"><value>請輸入排班起始時間以預覽班次。</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve">
+    <value>請輸入排班起始時間以預覽班次。</value>
+  </data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>請輸入留言內容；不得只包含空白字元。</value>
   </data>
@@ -205,7 +213,9 @@
   <data name="Removed" xml:space="preserve">
     <value>已移除</value>
   </data>
-  <data name="Reorder {0}" xml:space="preserve"><value>調整 {0} 的順序</value></data>
+  <data name="Reorder {0}" xml:space="preserve">
+    <value>調整 {0} 的順序</value>
+  </data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>要求無效或頁面憑證已過期。請檢查輸入內容，並視需要重新整理後再試一次。</value>
   </data>
@@ -263,7 +273,9 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>人力配置已調整，圖表已更新；尚未儲存。</value>
   </data>
-  <data name="Start at {0}" xml:space="preserve"><value>從 {0} 開始</value></data>
+  <data name="Start at {0}" xml:space="preserve">
+    <value>從 {0} 開始</value>
+  </data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>已成功複製到剪貼簿！</value>
   </data>
@@ -309,12 +321,18 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>無法直接交換：其中一人已在目標班次中。請先使用「依班次新增／移除成員」調整同一班次的成員。</value>
   </data>
-  <data name="Unable to update the preview. Please try again." xml:space="preserve"><value>無法更新預覽。請再試一次。</value></data>
-  <data name="Unassigned" xml:space="preserve"><value>未指派</value></data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve">
+    <value>無法更新預覽。請再試一次。</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>未指派</value>
+  </data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>未儲存 · 調整草稿</value>
   </data>
-  <data name="Updating shift preview…" xml:space="preserve"><value>正在更新班次預覽…</value></data>
+  <data name="Updating shift preview…" xml:space="preserve">
+    <value>正在更新班次預覽…</value>
+  </data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>使用者群組 · 成員會動態繼承已綁定的權限</value>
   </data>
@@ -339,7 +357,9 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} 小時</value>
   </data>
-  <data name="{0} moved to position {1} of {2}." xml:space="preserve"><value>{0} 已移至第 {1} 位，共 {2} 位。</value></data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve">
+    <value>{0} 已移至第 {1} 位，共 {2} 位。</value>
+  </data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} 個班次（{1} · {2}）；尚未儲存。您可以復原此操作。</value>
   </data>
@@ -361,4 +381,5 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 小時 · {3}{4}</value>
   </data>
+
 </root>

@@ -39,21 +39,27 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>Tilføjelses tilstand: Klik på det tomme område i ingeniørens række for at tilføje en 8-timers vagt; flere personer kan dele en vagt.</value>
   </data>
-  <data name="Add on-call members to preview the rotation."><value>Tilføj vagtmedlemmer for at forhåndsvise rotationen.</value></data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve">
+    <value>Tilføj vagtmedlemmer for at forhåndsvise rotationen.</value>
+  </data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>Tilføj tilkaldevagt</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>Tilføjet</value>
   </data>
-  <data name="Already selected"><value>Allerede valgt</value></data>
+  <data name="Already selected" xml:space="preserve">
+    <value>Allerede valgt</value>
+  </data>
   <data name="Back to Edit" xml:space="preserve">
     <value>Tilbage til redigering</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>Annuller opdatering</value>
   </data>
-  <data name="Choose a scheduling template to preview the rotation."><value>Vælg en planlægningsskabelon for at forhåndsvise rotationen.</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve">
+    <value>Vælg en planlægningsskabelon for at forhåndsvise rotationen.</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Luk</value>
   </data>
@@ -99,7 +105,9 @@
   <data name="End" xml:space="preserve">
     <value>Slut</value>
   </data>
-  <data name="Enter a scheduling start point to preview shifts."><value>Angiv en planlægningsstart for at forhåndsvise vagter.</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve">
+    <value>Angiv en planlægningsstart for at forhåndsvise vagter.</value>
+  </data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>Indtast kommentarindhold; må ikke kun indeholde mellemrum.</value>
   </data>
@@ -205,7 +213,9 @@
   <data name="Removed" xml:space="preserve">
     <value>Fjernet</value>
   </data>
-  <data name="Reorder {0}"><value>Omarranger {0}</value></data>
+  <data name="Reorder {0}" xml:space="preserve">
+    <value>Omarranger {0}</value>
+  </data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>Anmodningen er ugyldig, eller sidens loginoplysninger er udløbet. Kontrollér inputtet, og opdatér siden for at prøve igen, hvis det er nødvendigt.</value>
   </data>
@@ -263,7 +273,9 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>Bemandingen er justeret, og skemaet er opdateret; ændringerne er ikke gemt endnu.</value>
   </data>
-  <data name="Start at {0}"><value>Start ved {0}</value></data>
+  <data name="Start at {0}" xml:space="preserve">
+    <value>Start ved {0}</value>
+  </data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>Kopieret til udklipsholderen!</value>
   </data>
@@ -309,12 +321,18 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>Kan ikke bytte direkte: en person er allerede i den målrettede vagt. Justér venligst medlemmer i samme vagt ved hjælp af &quot;Tilføj/fjern medlemmer pr. vagt&quot; først.</value>
   </data>
-  <data name="Unable to update the preview. Please try again."><value>Forhåndsvisningen kunne ikke opdateres. Prøv igen.</value></data>
-  <data name="Unassigned"><value>Ikke tildelt</value></data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve">
+    <value>Forhåndsvisningen kunne ikke opdateres. Prøv igen.</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Ikke tildelt</value>
+  </data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>Ikke gemt · Justeringskaste</value>
   </data>
-  <data name="Updating shift preview…"><value>Opdaterer vagtforhåndsvisning…</value></data>
+  <data name="Updating shift preview…" xml:space="preserve">
+    <value>Opdaterer vagtforhåndsvisning…</value>
+  </data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>Brugergruppe · Medlemmer arver dynamisk tilknyttede tilladelser</value>
   </data>
@@ -339,7 +357,9 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} timer</value>
   </data>
-  <data name="{0} moved to position {1} of {2}."><value>{0} blev flyttet til position {1} af {2}.</value></data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve">
+    <value>{0} blev flyttet til position {1} af {2}.</value>
+  </data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>{0} vagt for {1} · {2}; ikke gemt endnu. Du kan fortryde dette.</value>
   </data>
@@ -361,4 +381,5 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 timer · {3}{4}</value>
   </data>
+
 </root>

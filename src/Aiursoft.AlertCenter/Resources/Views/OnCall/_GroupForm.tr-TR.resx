@@ -27,22 +27,36 @@
   <data name="Advanced scheduling settings" xml:space="preserve">
     <value>Gelişmiş zamanlama ayarları</value>
   </data>
-  <data name="Advanced settings"><value>Gelişmiş ayarlar</value></data>
-  <data name="All scheduling times below use the team time zone."><value>Aşağıdaki tüm planlama saatleri takımın saat dilimini kullanır.</value></data>
-  <data name="Automatically extend the bound template to cover the next four weeks"><value>Bağlı şablonu sonraki dört haftayı kapsayacak şekilde otomatik uzat</value></data>
-  <data name="Basic information"><value>Temel bilgiler</value></data>
+  <data name="Advanced settings" xml:space="preserve">
+    <value>Gelişmiş ayarlar</value>
+  </data>
+  <data name="All scheduling times below use the team time zone." xml:space="preserve">
+    <value>Aşağıdaki tüm planlama saatleri takımın saat dilimini kullanır.</value>
+  </data>
+  <data name="Automatically extend the bound template to cover the next four weeks" xml:space="preserve">
+    <value>Bağlı şablonu sonraki dört haftayı kapsayacak şekilde otomatik uzat</value>
+  </data>
+  <data name="Basic information" xml:space="preserve">
+    <value>Temel bilgiler</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>İptal</value>
   </data>
-  <data name="Choose a template to enable automatic extension."><value>Otomatik uzatmayı etkinleştirmek için bir şablon seçin.</value></data>
-  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue."><value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value></data>
+  <data name="Choose a template to enable automatic extension." xml:space="preserve">
+    <value>Otomatik uzatmayı etkinleştirmek için bir şablon seçin.</value>
+  </data>
+  <data name="Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue." xml:space="preserve">
+    <value>Choose any system users to receive alerts when nobody is on call. Fallback recipients do not join the rotation queue.</value>
+  </data>
   <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
     <value>Ekiplerin otomatik uzatma ve tek tıkla oluşturma işlemleri için vardiyaların nasıl bölünüp dönüşümlü atanacağını tanımlayın. Şablon değişiklikleri önceden planlanmış vardiyaları etkilemez.</value>
   </data>
   <data name="Deleted employee" xml:space="preserve">
     <value>Silinmiş çalışan</value>
   </data>
-  <data name="Departed members keep their saved shifts. Review future assignments after saving."><value>Departed members keep their saved shifts. Review future assignments after saving.</value></data>
+  <data name="Departed members keep their saved shifts. Review future assignments after saving." xml:space="preserve">
+    <value>Departed members keep their saved shifts. Review future assignments after saving.</value>
+  </data>
   <data name="Do not bind template (manual scheduling)" xml:space="preserve">
     <value>Şablonu bağlama (manuel zamanlama)</value>
   </data>
@@ -52,14 +66,18 @@
   <data name="Enter in UTC; it will not be automatically converted based on team time zones. Once a shift is saved, the scheduling start point cannot be changed." xml:space="preserve">
     <value>UTC olarak girin; takımın saat dilimlerine göre otomatik olarak dönüştürülmez. Bir vardiya kaydedildikten sonra planlama başlangıç noktası değiştirilemez.</value>
   </data>
-  <data name="Fallback recipients"><value>Yedek alıcılar</value></data>
+  <data name="Fallback recipients" xml:space="preserve">
+    <value>Yedek alıcılar</value>
+  </data>
   <data name="Filter by role" xml:space="preserve">
     <value>Rolüne göre filtrele</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Bul</value>
   </data>
-  <data name="Friday"><value>Cuma</value></data>
+  <data name="Friday" xml:space="preserve">
+    <value>Cuma</value>
+  </data>
   <data name="Help: notification CC" xml:space="preserve">
     <value>Yardım: bildirim CC</value>
   </data>
@@ -78,31 +96,51 @@
   <data name="Help: team time zone" xml:space="preserve">
     <value>Yardım: ekip saat dilimi</value>
   </data>
-  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving."><value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value></data>
-  <data name="Maximum continuous duty reminder (hours)"><value>En uzun kesintisiz görev hatırlatıcısı (saat)</value></data>
-  <data name="Minimum rest reminder (hours)"><value>En az dinlenme hatırlatıcısı (saat)</value></data>
-  <data name="Minimum staffing reminder"><value>En az personel hatırlatıcısı</value></data>
-  <data name="Monday"><value>Pazartesi</value></data>
+  <data name="Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving." xml:space="preserve">
+    <value>Leave thresholds blank to disable the corresponding reminder. Reminders do not block saving.</value>
+  </data>
+  <data name="Maximum continuous duty reminder (hours)" xml:space="preserve">
+    <value>En uzun kesintisiz görev hatırlatıcısı (saat)</value>
+  </data>
+  <data name="Minimum rest reminder (hours)" xml:space="preserve">
+    <value>En az dinlenme hatırlatıcısı (saat)</value>
+  </data>
+  <data name="Minimum staffing reminder" xml:space="preserve">
+    <value>En az personel hatırlatıcısı</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Pazartesi</value>
+  </data>
   <data name="Name or Account" xml:space="preserve">
     <value>Ad veya Hesap</value>
   </data>
   <data name="Next Page" xml:space="preserve">
     <value>Sonraki Sayfa</value>
   </data>
-  <data name="Next four shifts preview"><value>Sonraki dört vardiyanın önizlemesi</value></data>
-  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call."><value>Yedek alıcı yok: kimse nöbette değilken uyarılar iletilemez.</value></data>
+  <data name="Next four shifts preview" xml:space="preserve">
+    <value>Sonraki dört vardiyanın önizlemesi</value>
+  </data>
+  <data name="No fallback recipients: alerts cannot be delivered when nobody is on call." xml:space="preserve">
+    <value>Yedek alıcı yok: kimse nöbette değilken uyarılar iletilemez.</value>
+  </data>
   <data name="No members yet. Open Add members to find people." xml:space="preserve">
     <value>Henüz üye yok. Kişileri bulmak için Üye ekle bölümünü açın.</value>
   </data>
-  <data name="No members yet. Search below to add people."><value>Henüz üye yok. Kişi eklemek için aşağıda arayın.</value></data>
+  <data name="No members yet. Search below to add people." xml:space="preserve">
+    <value>Henüz üye yok. Kişi eklemek için aşağıda arayın.</value>
+  </data>
   <data name="Notification CC (optional)" xml:space="preserve">
     <value>Bildirim CC (isteğe bağlı)</value>
   </data>
   <data name="On-call email CC" xml:space="preserve">
     <value>Nöbet e-postası BCC</value>
   </data>
-  <data name="On-call members (rotation queue)"><value>Nöbetçi üyeler (rotasyon kuyruğu)</value></data>
-  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed."><value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value></data>
+  <data name="On-call members (rotation queue)" xml:space="preserve">
+    <value>Nöbetçi üyeler (rotasyon kuyruğu)</value>
+  </data>
+  <data name="Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed." xml:space="preserve">
+    <value>Preview starts at the scheduling start point, or continues after saved shifts. Times use the team time zone. Existing saved shifts are not changed.</value>
+  </data>
   <data name="Previous Page" xml:space="preserve">
     <value>Önceki Sayfa</value>
   </data>
@@ -112,7 +150,9 @@
   <data name="Rotation order" xml:space="preserve">
     <value>Döngü sırası</value>
   </data>
-  <data name="Saturday"><value>Cumartesi</value></data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Cumartesi</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Değişiklikleri kaydet</value>
   </data>
@@ -125,11 +165,15 @@
   <data name="Scheduling Template" xml:space="preserve">
     <value>Vardiya Şablonu</value>
   </data>
-  <data name="Scheduling method"><value>Planlama yöntemi</value></data>
+  <data name="Scheduling method" xml:space="preserve">
+    <value>Planlama yöntemi</value>
+  </data>
   <data name="Scheduling start point (UTC)" xml:space="preserve">
     <value>Planlama başlangıç noktası (UTC)</value>
   </data>
-  <data name="Scheduling start point (team time)"><value>Planlama başlangıcı (takım saati)</value></data>
+  <data name="Scheduling start point (team time)" xml:space="preserve">
+    <value>Planlama başlangıcı (takım saati)</value>
+  </data>
   <data name="Search Employees" xml:space="preserve">
     <value>Çalışanları Ara</value>
   </data>
@@ -139,13 +183,21 @@
   <data name="Search by name or account, or choose a role." xml:space="preserve">
     <value>İsme veya hesaba göre arama yapın veya bir rol seçin.</value>
   </data>
-  <data name="Search by name or account."><value>Ad veya hesapla arayın.</value></data>
-  <data name="Search fallback recipients"><value>Yedek alıcıları ara</value></data>
+  <data name="Search by name or account." xml:space="preserve">
+    <value>Ad veya hesapla arayın.</value>
+  </data>
+  <data name="Search fallback recipients" xml:space="preserve">
+    <value>Yedek alıcıları ara</value>
+  </data>
   <data name="Selecting a role only filters the search. Tick individual people to add them; team membership is not synchronized with that role." xml:space="preserve">
     <value>Rol seçmek yalnızca aramayı filtreler. Ekleme işlemi için kişileri tek tek işaretleyin; ekip üyeliği bu rolle senkronize edilmez.</value>
   </data>
-  <data name="Start time set automatically in the team time zone. You can change it before saving."><value>Start time set automatically in the team time zone. You can change it before saving.</value></data>
-  <data name="Sunday"><value>Pazar</value></data>
+  <data name="Start time set automatically in the team time zone. You can change it before saving." xml:space="preserve">
+    <value>Start time set automatically in the team time zone. You can change it before saving.</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Pazar</value>
+  </data>
   <data name="Team members" xml:space="preserve">
     <value>Takım üyeleri</value>
   </data>
@@ -155,15 +207,21 @@
   <data name="Team settings" xml:space="preserve">
     <value>Ekip ayarları</value>
   </data>
-  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged."><value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value></data>
-  <data name="Thursday"><value>Perşembe</value></data>
+  <data name="The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged." xml:space="preserve">
+    <value>The first person is on call first. Drag the handle, or long-press it on a touchscreen, to reorder. Use Up and Down arrow keys on the handle or the Move buttons. Existing shifts are unchanged.</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Perşembe</value>
+  </data>
   <data name="Time Zone" xml:space="preserve">
     <value>Saat Dilimi</value>
   </data>
   <data name="To: the people assigned to the saved shift when the incident occurred. The original OCE recipients are retained for later incident emails. CC applies to every incident email regardless of the shift. Use commas, semicolons or new lines; up to 50 CC addresses." xml:space="preserve">
     <value>Kime: Olay meydana geldiğinde kayıtlı vardiyaya atanmış kişiler. İlk OCE alıcıları, sonraki olay e-postaları için korunur. CC, vardiyadan bağımsız olarak tüm olay e-postaları için geçerlidir. Virgül, noktalı virgül veya yeni satır kullanın; en fazla 50 CC adresi.</value>
   </data>
-  <data name="Tuesday"><value>Salı</value></data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Salı</value>
+  </data>
   <data name="Use Move up and Move down to choose the order used for future automatic scheduling. Existing shifts are not reordered. Select up to 200 members." xml:space="preserve">
     <value>Gelecekteki otomatik planlamada kullanılacak sırayı seçmek için Yukarı Taşı ve Aşağı Taşı&apos;yı kullanın. Mevcut vardiyalar yeniden sıralanmaz. En fazla 200 üye seçin.</value>
   </data>
@@ -173,7 +231,14 @@
   <data name="View schedule" xml:space="preserve">
     <value>Zamanlamayı görüntüle</value>
   </data>
-  <data name="Wednesday"><value>Çarşamba</value></data>
-  <data name="Week starts on"><value>Haftanın ilk günü</value></data>
-  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked."><value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value></data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Çarşamba</value>
+  </data>
+  <data name="Week starts on" xml:space="preserve">
+    <value>Haftanın ilk günü</value>
+  </data>
+  <data name="Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked." xml:space="preserve">
+    <value>Weekly templates start at the next first handover; fixed-duration templates start at the next full hour. Once shifts are saved, the start point is locked.</value>
+  </data>
+
 </root>

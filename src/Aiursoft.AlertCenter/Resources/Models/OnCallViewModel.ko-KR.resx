@@ -21,8 +21,14 @@
       <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>하루 3교대, 각 교대 8시간으로 고정됩니다.</value>
   </data>
+  <data name="Maximum continuous duty must be 0–720 hours." xml:space="preserve">
+    <value>최대 연속 근무 시간은 0~720시간이어야 합니다.</value>
+  </data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>최소 휴식 시간은 0~168시간이어야 합니다.</value>
+  </data>
+  <data name="Minimum rest must be 0–720 hours." xml:space="preserve">
+    <value>최소 휴식 시간은 0~720시간이어야 합니다.</value>
   </data>
   <data name="Minimum staff per shift must be 1–200." xml:space="preserve">
     <value>교대당 최소 인원은 1~200명이어야 합니다.</value>

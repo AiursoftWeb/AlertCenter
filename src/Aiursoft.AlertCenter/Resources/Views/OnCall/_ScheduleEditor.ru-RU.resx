@@ -75,7 +75,9 @@
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>Скопировать текущую неделю на следующую</value>
   </data>
-  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>При копировании видимый черновик повторяется в целевом интервале. Существующие смены обрезаются по границам интервала, а части за его пределами сохраняются. Копирование и генерация изменяют только черновик; для публикации сохраните изменения расписания.</value></data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve">
+    <value>При копировании видимый черновик повторяется в целевом интервале. Существующие смены обрезаются по границам интервала, а части за его пределами сохраняются. Копирование и генерация изменяют только черновик; для публикации сохраните изменения расписания.</value>
+  </data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>Скопируйте черновик текущей недели на следующую неделю. Если на следующей неделе уже есть смены или изменения, перед копированием потребуется подтверждение; после копирования изменения всё равно нужно сохранить. С помощью вертикальных кнопок по краям можно развернуть область за 36 часов до и после текущей недели; серые области доступны только для чтения. Диаграммы и формы на этой странице позволяют редактировать только текущую неделю; чтобы изменить соседние недели, перейдите к нужной неделе. Черновик следующей недели после копирования также отображается в режиме только для чтения. Изменения текущей недели и копии сохраняются, отменяются и восстанавливаются одинаково; при сворачивании черновики не теряются.</value>
   </data>
@@ -172,5 +174,8 @@
   <data name="Undo last step" xml:space="preserve">
     <value>Отменить последнее действие</value>
   </data>
-  <data name="Will be clipped; retained times:" xml:space="preserve"><value>Будет обрезана; сохранённые интервалы:</value></data>
+  <data name="Will be clipped; retained times:" xml:space="preserve">
+    <value>Будет обрезана; сохранённые интервалы:</value>
+  </data>
+
 </root>

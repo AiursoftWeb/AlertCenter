@@ -39,21 +39,27 @@
   <data name="Add mode: Click the empty space in the engineer&apos;s row to add an 8-hour shift; multiple people can share a shift." xml:space="preserve">
     <value>โหมดเพิ่ม: คลิกพื้นที่ว่างในแถวของวิศวกรเพื่อเพิ่มกะ 8 ชั่วโมง โดยหลายคนสามารถทำงานกะเดียวกันได้</value>
   </data>
-  <data name="Add on-call members to preview the rotation."><value>เพิ่มสมาชิกเวรเพื่อดูตัวอย่างการหมุนเวียน</value></data>
+  <data name="Add on-call members to preview the rotation." xml:space="preserve">
+    <value>เพิ่มสมาชิกเวรเพื่อดูตัวอย่างการหมุนเวียน</value>
+  </data>
   <data name="Add on-call shift" xml:space="preserve">
     <value>เพิ่มกะเฝ้าระวัง</value>
   </data>
   <data name="Added" xml:space="preserve">
     <value>เพิ่มแล้ว</value>
   </data>
-  <data name="Already selected"><value>เลือกแล้ว</value></data>
+  <data name="Already selected" xml:space="preserve">
+    <value>เลือกแล้ว</value>
+  </data>
   <data name="Back to Edit" xml:space="preserve">
     <value>กลับไปแก้ไข</value>
   </data>
   <data name="Cancel refresh" xml:space="preserve">
     <value>ยกเลิกการรีเฟรช</value>
   </data>
-  <data name="Choose a scheduling template to preview the rotation."><value>เลือกแม่แบบจัดเวรเพื่อดูตัวอย่างการหมุนเวียน</value></data>
+  <data name="Choose a scheduling template to preview the rotation." xml:space="preserve">
+    <value>เลือกแม่แบบจัดเวรเพื่อดูตัวอย่างการหมุนเวียน</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>ปิด</value>
   </data>
@@ -99,7 +105,9 @@
   <data name="End" xml:space="preserve">
     <value>สิ้นสุด</value>
   </data>
-  <data name="Enter a scheduling start point to preview shifts."><value>ระบุจุดเริ่มต้นจัดเวรเพื่อดูตัวอย่าง</value></data>
+  <data name="Enter a scheduling start point to preview shifts." xml:space="preserve">
+    <value>ระบุจุดเริ่มต้นจัดเวรเพื่อดูตัวอย่าง</value>
+  </data>
   <data name="Enter comment content; cannot contain only whitespace." xml:space="preserve">
     <value>กรุณากรอกเนื้อหาความคิดเห็น โดยต้องไม่เว้นว่างหรือมีเพียงช่องว่าง</value>
   </data>
@@ -205,7 +213,9 @@
   <data name="Removed" xml:space="preserve">
     <value>ถูกลบ</value>
   </data>
-  <data name="Reorder {0}"><value>จัดลำดับ {0} ใหม่</value></data>
+  <data name="Reorder {0}" xml:space="preserve">
+    <value>จัดลำดับ {0} ใหม่</value>
+  </data>
   <data name="Request invalid or page credentials expired. Check input and refresh to retry if necessary." xml:space="preserve">
     <value>คำขอไม่ถูกต้องหรือข้อมูลรับรองของหน้านี้หมดอายุ โปรดตรวจสอบข้อมูลที่กรอก แล้วรีเฟรชเพื่อลองอีกครั้งหากจำเป็น</value>
   </data>
@@ -263,7 +273,9 @@
   <data name="Staffing adjusted and chart updated; not saved yet." xml:space="preserve">
     <value>ปรับการจัดสรรกำลังคนและอัปเดตแผนภาพแล้ว; ยังไม่ได้บันทึก</value>
   </data>
-  <data name="Start at {0}"><value>เริ่มที่ {0}</value></data>
+  <data name="Start at {0}" xml:space="preserve">
+    <value>เริ่มที่ {0}</value>
+  </data>
   <data name="Successfully copied to clipboard!" xml:space="preserve">
     <value>คัดลอกไปยังคลิปบอร์ดเรียบร้อยแล้ว!</value>
   </data>
@@ -309,12 +321,18 @@
   <data name="Unable to swap directly: one person is already in the target shift. Please adjust members of the same shift using &quot;Add/Remove members by shift&quot; first." xml:space="preserve">
     <value>ไม่สามารถสลับได้โดยตรง: มีบุคคลหนึ่งอยู่ในกะเป้าหมายแล้ว โปรดปรับสมาชิกในกะเดียวกันโดยใช้ &quot;เพิ่ม/นำสมาชิกออกตามกะ&quot; ก่อน</value>
   </data>
-  <data name="Unable to update the preview. Please try again."><value>ไม่สามารถอัปเดตตัวอย่างได้ โปรดลองอีกครั้ง</value></data>
-  <data name="Unassigned"><value>ยังไม่มอบหมาย</value></data>
+  <data name="Unable to update the preview. Please try again." xml:space="preserve">
+    <value>ไม่สามารถอัปเดตตัวอย่างได้ โปรดลองอีกครั้ง</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>ยังไม่มอบหมาย</value>
+  </data>
   <data name="Unsaved · Adjustment draft" xml:space="preserve">
     <value>ยังไม่ได้บันทึก · ร่างการปรับแต่ง</value>
   </data>
-  <data name="Updating shift preview…"><value>กำลังอัปเดตตัวอย่างเวร…</value></data>
+  <data name="Updating shift preview…" xml:space="preserve">
+    <value>กำลังอัปเดตตัวอย่างเวร…</value>
+  </data>
   <data name="User Group · Members dynamically inherit bound permissions" xml:space="preserve">
     <value>กลุ่มผู้ใช้ · สมาชิกจะได้รับสิทธิ์ที่ผูกไว้โดยอัตโนมัติ</value>
   </data>
@@ -339,7 +357,9 @@
   <data name="{0} hours" xml:space="preserve">
     <value>{0} ชั่วโมง</value>
   </data>
-  <data name="{0} moved to position {1} of {2}."><value>ย้าย {0} ไปยังตำแหน่ง {1} จาก {2}</value></data>
+  <data name="{0} moved to position {1} of {2}." xml:space="preserve">
+    <value>ย้าย {0} ไปยังตำแหน่ง {1} จาก {2}</value>
+  </data>
   <data name="{0} shift for {1} · {2}; not saved yet. You can undo this." xml:space="preserve">
     <value>กะ {0} สำหรับ {1} · {2}; ยังไม่ได้บันทึก คุณสามารถเลิกทำได้</value>
   </data>
@@ -361,4 +381,5 @@
   <data name="{0}{1}{2} · 8 hours · {3}{4}" xml:space="preserve">
     <value>{0}{1}{2} · 8 ชั่วโมง · {3}{4}</value>
   </data>
+
 </root>

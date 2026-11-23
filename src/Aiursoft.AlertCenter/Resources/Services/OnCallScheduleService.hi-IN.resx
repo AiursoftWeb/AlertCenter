@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>पुरानी शिफ़्ट हटाने की अलग से पुष्टि करें।</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>जनरेट करने से पहले मौजूदा शेड्यूल की प्रतिस्थापन की पुष्टि करें।</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>मौजूदा शेड्यूल की समय-सीमाएँ अधूरी हैं; इन्हें ओवरराइट नहीं किया जा सकता।</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>शेड्यूल खाली करने की समय सीमा या कार्रवाई अमान्य है।</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>अमान्य टीम स्थानीय समय। दिन-प्रकाश बचत (DST) संक्रमण के दौरान, छोड़े गए समय अमान्य होते हैं और दोहराए गए समय मानक समय का उपयोग करते हैं।</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>ऑन-कॉल टीम मौजूद नहीं है।</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>कृपया शेड्यूलिंग अवधि UTC समय के अनुसार निर्दिष्ट करें।</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>शिफ्ट का अंत उसके प्रारंभ के बाद होना चाहिए।</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>शेड्यूल में न्यूनतम कर्मचारियों की संख्या अमान्य या असंगत है।</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>शेड्यूल की अवधि {0} दिनों से अधिक नहीं होनी चाहिए और वर्तमान समय से 10 वर्ष पहले या बाद की सीमा के भीतर होनी चाहिए।</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>शिफ्ट अनुरोध प्रारूप अमान्य है।</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>टीम या शेड्यूल को किसी अन्य व्यवस्थापक ने संशोधित किया है। कृपया पेज को रीफ़्रेश करें और फिर से कोशिश करें।</value>
   </data>
+
 </root>

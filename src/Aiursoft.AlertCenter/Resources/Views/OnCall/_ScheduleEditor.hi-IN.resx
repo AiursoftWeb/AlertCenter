@@ -75,7 +75,9 @@
   <data name="Copy Current Week to Next Week" xml:space="preserve">
     <value>वर्तमान सप्ताह को अगले सप्ताह में कॉपी करें</value>
   </data>
-  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve"><value>कॉपी करने पर दिखाई देने वाला मसौदा लक्ष्य समयावधि में दोहराया जाता है। मौजूदा शिफ़्टें समयावधि की सीमाओं पर काटी जाती हैं; बाहर के हिस्से बने रहते हैं। कॉपी करने और बनाने से केवल मसौदा बदलता है; प्रकाशित करने के लिए शेड्यूल के बदलाव सहेजें।</value></data>
+  <data name="Copy repeats the visible draft across the destination range. Existing shifts are clipped at the range boundaries; portions outside the range are kept. Copying and generation only change drafts; use Save schedule adjustments to publish." xml:space="preserve">
+    <value>कॉपी करने पर दिखाई देने वाला मसौदा लक्ष्य समयावधि में दोहराया जाता है। मौजूदा शिफ़्टें समयावधि की सीमाओं पर काटी जाती हैं; बाहर के हिस्से बने रहते हैं। कॉपी करने और बनाने से केवल मसौदा बदलता है; प्रकाशित करने के लिए शेड्यूल के बदलाव सहेजें।</value>
+  </data>
   <data name="Copy the current week&apos;s draft to the next week. If the next week already has shifts or modifications, confirmation is required before copying; saving is still required after copying. Vertical buttons on the sides can expand the 36 hours before and after the current week; gray areas are read-only. Charts and forms on this page only edit the current week; to adjust adjacent weeks, switch to the corresponding week. The next week&apos;s draft after copying is also previewed in read-only mode. Changes to the current week and copies are saved, undone, and restored uniformly; collapsing does not lose drafts." xml:space="preserve">
     <value>वर्तमान सप्ताह के ड्राफ़्ट को अगले सप्ताह में कॉपी करें। यदि अगले सप्ताह में पहले से शिफ़्ट या बदलाव मौजूद हैं, तो कॉपी करने से पहले पुष्टि आवश्यक है; कॉपी करने के बाद भी सेव करना होगा। किनारों पर मौजूद ऊर्ध्वाधर बटन वर्तमान सप्ताह से पहले और बाद के 36 घंटों को विस्तृत कर सकते हैं; धूसर क्षेत्र केवल पढ़ने के लिए हैं। इस पृष्ठ के चार्ट और फ़ॉर्म केवल वर्तमान सप्ताह में बदलाव करते हैं; आस-पास के सप्ताहों में बदलाव करने के लिए संबंधित सप्ताह पर जाएँ। कॉपी करने के बाद अगले सप्ताह का ड्राफ़्ट भी केवल पढ़ने के लिए पूर्वावलोकन के रूप में दिखाया जाता है। वर्तमान सप्ताह और उसकी प्रतियों में किए गए बदलावों को एकसमान रूप से सेव, पूर्ववत और रीसेट किया जाता है; संक्षिप्त करने पर ड्राफ़्ट नहीं मिटते।</value>
   </data>
@@ -172,5 +174,8 @@
   <data name="Undo last step" xml:space="preserve">
     <value>पिछला चरण पूर्ववत करें</value>
   </data>
-  <data name="Will be clipped; retained times:" xml:space="preserve"><value>काटा जाएगा; बरकरार समय:</value></data>
+  <data name="Will be clipped; retained times:" xml:space="preserve">
+    <value>काटा जाएगा; बरकरार समय:</value>
+  </data>
+
 </root>

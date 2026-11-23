@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Osobno potwierdź usunięcie dyżurów z przeszłości.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Potwierdź zastąpienie istniejącego harmonogramu przed wygenerowaniem.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Istniejący harmonogram ma niekompletne granice czasowe; nie można go nadpisać.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>Nieprawidłowy przedział lub działanie czyszczenia grafiku.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Nieprawidłowy lokalny czas zespołu. W trakcie przechodzenia na czas letni lub zimowy pominięte godziny są nieprawidłowe, a powtórzone godziny są interpretowane jako czas standardowy.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Zespół dyżurny nie istnieje.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Proszę określić okres harmonogramu w czasie UTC.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Koniec zmiany musi nastąpić po jego początku.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Minimalna liczba osób w grafiku jest nieprawidłowa lub niespójna.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Okres harmonogramu nie może przekraczać {0} dni i musi mieścić się w przedziale 10 lat przed obecną chwilą lub po niej.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Format żądania zmiany jest nieprawidłowy.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Zespół lub harmonogram został zmodyfikowany przez innego administratora. Odśwież stronę i spróbuj ponownie.</value>
   </data>
+
 </root>

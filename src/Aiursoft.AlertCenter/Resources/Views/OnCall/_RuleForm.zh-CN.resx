@@ -18,34 +18,77 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-  <data name="8-hour three-shift preset" xml:space="preserve"><value>8 小时三班预设</value></data>
-  <data name="Add handover point" xml:space="preserve"><value>添加交接点</value></data>
+      <data name="8-hour three-shift preset" xml:space="preserve">
+    <value>8 小时三班预设</value>
+  </data>
+  <data name="Add handover point" xml:space="preserve">
+    <value>添加交接点</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
-  <data name="Day of week" xml:space="preserve"><value>星期</value></data>
-  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve"><value>定义班段怎么切、怎么轮换，供团队自动续排和一键生成使用；修改模板不影响已排好的班段。</value></data>
-  <data name="Fixed duration" xml:space="preserve"><value>固定时长</value></data>
-  <data name="Friday" xml:space="preserve"><value>星期五</value></data>
-  <data name="Handover time" xml:space="preserve"><value>交接时间</value></data>
-  <data name="Monday" xml:space="preserve"><value>星期一</value></data>
-  <data name="Pure queue" xml:space="preserve"><value>纯队列</value></data>
-  <data name="Remove" xml:space="preserve"><value>移除</value></data>
-  <data name="Rotation strategy" xml:space="preserve"><value>轮换策略</value></data>
-  <data name="Saturday" xml:space="preserve"><value>星期六</value></data>
+  <data name="Day of week" xml:space="preserve">
+    <value>星期</value>
+  </data>
+  <data name="Define how shifts are split and rotated for teams&apos; automatic extension and one-click generation. Changing a template does not affect scheduled shifts." xml:space="preserve">
+    <value>定义班段怎么切、怎么轮换，供团队自动续排和一键生成使用；修改模板不影响已排好的班段。</value>
+  </data>
+  <data name="Fixed duration" xml:space="preserve">
+    <value>固定时长</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>星期五</value>
+  </data>
+  <data name="Handover time" xml:space="preserve">
+    <value>交接时间</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>星期一</value>
+  </data>
+  <data name="Pure queue" xml:space="preserve">
+    <value>纯队列</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Rotation strategy" xml:space="preserve">
+    <value>轮换策略</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>星期六</value>
+  </data>
   <data name="Save template" xml:space="preserve">
     <value>保存模板</value>
   </data>
-  <data name="Shift duration (minutes)" xml:space="preserve"><value>班段时长（分钟）</value></data>
-  <data name="Split mode" xml:space="preserve"><value>切分方式</value></data>
-  <data name="Staff per shift" xml:space="preserve"><value>每段人数</value></data>
-  <data name="Sunday" xml:space="preserve"><value>星期日</value></data>
-  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve"><value>偶数人数隔轮对调</value></data>
+  <data name="Shift duration (minutes)" xml:space="preserve">
+    <value>班段时长（分钟）</value>
+  </data>
+  <data name="Split mode" xml:space="preserve">
+    <value>切分方式</value>
+  </data>
+  <data name="Staff per shift" xml:space="preserve">
+    <value>每段人数</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>星期日</value>
+  </data>
+  <data name="Swap adjacent members on alternate rounds for even-sized teams" xml:space="preserve">
+    <value>偶数人数隔轮对调</value>
+  </data>
   <data name="Template name" xml:space="preserve">
     <value>模板名称</value>
   </data>
-  <data name="Thursday" xml:space="preserve"><value>星期四</value></data>
-  <data name="Tuesday" xml:space="preserve"><value>星期二</value></data>
-  <data name="Wednesday" xml:space="preserve"><value>星期三</value></data>
-  <data name="Weekly handover points" xml:space="preserve"><value>每周交接点</value></data>
+  <data name="Thursday" xml:space="preserve">
+    <value>星期四</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>星期二</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>星期三</value>
+  </data>
+  <data name="Weekly handover points" xml:space="preserve">
+    <value>每周交接点</value>
+  </data>
+
 </root>

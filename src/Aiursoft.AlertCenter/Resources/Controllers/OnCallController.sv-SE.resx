@@ -24,15 +24,36 @@
   <data name="A saved schedule exists; the team schedule start point cannot be modified." xml:space="preserve">
     <value>Ett sparat schema finns; startpunkten för teamets schema kan inte ändras.</value>
   </data>
-  <data name="Add rotation queue members to preview shifts." xml:space="preserve"><value>Lägg till medlemmar i rotationskön för att förhandsvisa pass.</value></data>
+  <data name="Add at least one weekly handover point." xml:space="preserve">
+    <value>Lägg till minst en veckovis överlämningspunkt.</value>
+  </data>
+  <data name="Add rotation queue members to preview shifts." xml:space="preserve">
+    <value>Lägg till medlemmar i rotationskön för att förhandsvisa pass.</value>
+  </data>
   <data name="Auto-generation requires at least {0} staff per shift and {1} hours of rest, necessitating at least {2} members. After skipping multi-on-call group members, {3} can be auto-scheduled; please add single-group members or arrange manually." xml:space="preserve">
     <value>Automatisk schemaläggning kräver minst {0} personer per skift och {1} timmars vila, vilket innebär att det behövs minst {2} medlemmar. När medlemmar som tillhör flera jourgrupper har räknats bort kan {3} schemaläggas automatiskt. Lägg till medlemmar som bara tillhör en grupp eller planera manuellt.</value>
   </data>
-  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve"><value>Automatisk förlängning kräver minst {0} medlemmar i rotationskön för den valda mallen.</value></data>
+  <data name="Automatic extension requires at least {0} rotation queue members for the selected template." xml:space="preserve">
+    <value>Automatisk förlängning kräver minst {0} medlemmar i rotationskön för den valda mallen.</value>
+  </data>
+  <data name="Fallback recipients must be existing system users." xml:space="preserve">
+    <value>Resepts must be existing system users.</value>
+  </data>
   <data name="Fixed three shifts per day, 8 hours each." xml:space="preserve">
     <value>Fast tre skift per dag, 8 timmar vardera.</value>
   </data>
-  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve"><value>Ogiltig lokal teamtid. Vid sommartidsomställning är överhoppade tider ogiltiga och upprepade tider använder normaltid.</value></data>
+  <data name="Invalid team local time." xml:space="preserve">
+    <value>Ogiltig lokal tid för teamet.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Ogiltig lokal teamtid. Vid sommartidsomställning är överhoppade tider ogiltiga och upprepade tider använder normaltid.</value>
+  </data>
+  <data name="Invalid week start." xml:space="preserve">
+    <value>Ogiltig veckostart.</value>
+  </data>
+  <data name="Invalid weekly handover point." xml:space="preserve">
+    <value>Ogiltig veckovis överlämningspunkt.</value>
+  </data>
   <data name="Minimum rest must be 0–168 hours." xml:space="preserve">
     <value>Minsta viloperiod måste vara 0–168 timmar.</value>
   </data>
@@ -42,7 +63,9 @@
   <data name="No template bound to the team yet. You can manually create a schedule." xml:space="preserve">
     <value>Ingen mall har kopplats till teamet ännu. Du kan skapa ett schema manuellt.</value>
   </data>
-  <data name="On-call team does not exist." xml:space="preserve"><value>Jourteamet finns inte.</value></data>
+  <data name="On-call team does not exist." xml:space="preserve">
+    <value>Jourteamet finns inte.</value>
+  </data>
   <data name="Please enter the team name." xml:space="preserve">
     <value>Ange teamnamnet.</value>
   </data>
@@ -52,7 +75,9 @@
   <data name="Please select a valid UTC start time (must be at least 28 days from the date boundary)." xml:space="preserve">
     <value>Välj en giltig starttid i UTC (måste ligga minst 28 dagar från datumgränsen).</value>
   </data>
-  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve"><value>Välj en giltig lokal starttid för teamet (minst 28 dagar från datumgränserna).</value></data>
+  <data name="Please select a valid team local start time (must be at least 28 days from the date boundary)." xml:space="preserve">
+    <value>Välj en giltig lokal starttid för teamet (minst 28 dagar från datumgränserna).</value>
+  </data>
   <data name="Please select a valid time zone from the list." xml:space="preserve">
     <value>Välj en giltig tidszon i listan.</value>
   </data>
@@ -68,7 +93,18 @@
   <data name="Scheduling template updated." xml:space="preserve">
     <value>Schemamallen har uppdaterats.</value>
   </data>
-  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve"><value>Antalet medarbetare per pass överstiger medlemsantalet i dessa team med automatisk förlängning aktiverad: {0}.</value></data>
+  <data name="Shift duration must be positive." xml:space="preserve">
+    <value>Skiftets varaktighet måste vara positiv.</value>
+  </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Skiftets slut måste vara efter dess start.</value>
+  </data>
+  <data name="Staff per shift exceeds the member count of these teams with automatic extension enabled: {0}." xml:space="preserve">
+    <value>Antalet medarbetare per pass överstiger medlemsantalet i dessa team med automatisk förlängning aktiverad: {0}.</value>
+  </data>
+  <data name="Staff per shift must not exceed the rotation queue size." xml:space="preserve">
+    <value>Antal personal per skift får inte överstiga storleken på rotationskön.</value>
+  </data>
   <data name="Target headcount cannot be lower than the minimum and must be between 1–200. Leave blank for automatic assignment." xml:space="preserve">
     <value>Målantalet får inte vara lägre än minimantalet och måste vara mellan 1 och 200. Lämna tomt för automatisk tilldelning.</value>
   </data>
@@ -90,14 +126,18 @@
   <data name="The shift request format is invalid." xml:space="preserve">
     <value>Formatet för skiftbegäran är ogiltigt.</value>
   </data>
-  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve"><value>Starttiden motsvarar inte en veckovis överlämning; det första passet blir partiellt.</value></data>
+  <data name="The start time does not match a weekly handover point; the first shift will be a partial segment." xml:space="preserve">
+    <value>Starttiden motsvarar inte en veckovis överlämning; det första passet blir partiellt.</value>
+  </data>
   <data name="The team name does not match." xml:space="preserve">
     <value>Teamnamnet stämmer inte överens.</value>
   </data>
   <data name="The team or schedule has changed. Please refresh the page and try again." xml:space="preserve">
     <value>Teamet eller schemat har ändrats. Uppdatera sidan och försök igen.</value>
   </data>
-  <data name="The team preview request format is invalid." xml:space="preserve"><value>Formatet på begäran om teamförhandsvisning är ogiltigt.</value></data>
+  <data name="The team preview request format is invalid." xml:space="preserve">
+    <value>Formatet på begäran om teamförhandsvisning är ogiltigt.</value>
+  </data>
   <data name="The template or team has changed. Refresh the page and try again." xml:space="preserve">
     <value>Mallen eller teamet har ändrats. Uppdatera sidan och försök igen.</value>
   </data>
@@ -116,4 +156,5 @@
   <data name="Unable to generate preview: {0}" xml:space="preserve">
     <value>Det går inte att generera en förhandsgranskning: {0}</value>
   </data>
+
 </root>

@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Geçmiş nöbetlerin temizlenmesini ayrıca onaylayın.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Oluşturmadan önce mevcut zaman çizelgesinin değiştirilmesini onaylayın.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Mevcut programın zaman sınırları eksik; üzerine yazılamaz.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>Nöbet çizelgesini temizleme aralığı veya işlemi geçersiz.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Geçersiz ekip yerel saati. Yaz saati geçişleri sırasında atlanan saatler geçersizdir ve tekrarlanan saatler standart saati kullanır.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Nöbetçi ekip mevcut değil.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Lütfen zamanlama dönemini UTC saatine göre belirtin.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Vardiya bitişi, başlangıcından sonra olmalıdır.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Çizelgedeki asgari personel sayısı geçersiz veya tutarsız.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Vardiya planlama dönemi {0} günü aşmamalı ve şu andan en fazla 10 yıl önce veya sonra olmalıdır.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Vardiya isteği biçimi geçersizdir.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Ekip veya program başka bir yönetici tarafından değiştirildi. Lütfen sayfayı yenileyip tekrar deneyin.</value>
   </data>
+
 </root>

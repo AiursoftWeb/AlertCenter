@@ -42,6 +42,9 @@
   <data name="Confirm clearing historical shifts separately." xml:space="preserve">
     <value>Konfirmasikan penghapusan sif terdahulu secara terpisah.</value>
   </data>
+  <data name="Confirm replacement of the existing schedule before generating." xml:space="preserve">
+    <value>Konfirmasi penggantian jadwal yang ada sebelum menghasilkan.</value>
+  </data>
   <data name="Existing schedule time boundaries are incomplete; cannot overwrite." xml:space="preserve">
     <value>Batas waktu jadwal yang ada tidak lengkap; tidak dapat ditimpa.</value>
   </data>
@@ -50,6 +53,9 @@
   </data>
   <data name="Invalid schedule clearing range or action." xml:space="preserve">
     <value>Rentang atau tindakan pengosongan jadwal tidak valid.</value>
+  </data>
+  <data name="Invalid team local time. During daylight saving transitions, skipped times are invalid and repeated times use standard time." xml:space="preserve">
+    <value>Waktu lokal tim tidak valid. Selama transisi waktu siang hari, waktu yang dilewati tidak valid dan waktu yang berulang menggunakan waktu standar.</value>
   </data>
   <data name="On-call team does not exist." xml:space="preserve">
     <value>Tim piket tidak ada.</value>
@@ -63,6 +69,9 @@
   <data name="Please specify the scheduling period using UTC time." xml:space="preserve">
     <value>Harap tentukan periode penjadwalan menggunakan waktu UTC.</value>
   </data>
+  <data name="Shift end must be after its start." xml:space="preserve">
+    <value>Akhir shift harus setelah permulaannya.</value>
+  </data>
   <data name="The minimum headcount in the schedule is invalid or inconsistent." xml:space="preserve">
     <value>Jumlah minimum personel dalam jadwal tidak valid atau tidak konsisten.</value>
   </data>
@@ -72,7 +81,11 @@
   <data name="The schedule range must not exceed {0} days and must be within 10 years of now." xml:space="preserve">
     <value>Rentang jadwal tidak boleh melebihi {0} hari dan harus berada dalam batas 10 tahun sebelum atau sesudah waktu saat ini.</value>
   </data>
+  <data name="The shift request format is invalid." xml:space="preserve">
+    <value>Format permintaan shift tidak valid.</value>
+  </data>
   <data name="The team or schedule was modified by another administrator. Please refresh the page and try again." xml:space="preserve">
     <value>Tim atau jadwal telah diubah oleh administrator lain. Silakan muat ulang halaman dan coba lagi.</value>
   </data>
+
 </root>
