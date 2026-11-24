@@ -56,11 +56,11 @@
                                         <div class="small text-muted mt-1">
                                             @if (next && team.Next != null)
                                             {
-                                                @await Html.PartialAsync("_OnCallTime", team.Next.StartsAtUtc)<span> – </span>@await Html.PartialAsync("_OnCallTime", team.Next.EndsAtUtc)
+                                                @await Html.PartialAsync("_OnCallTime", (team.Next.StartsAtUtc, team.Group.TimeZoneId))<span> – </span>@await Html.PartialAsync("_OnCallTime", (team.Next.EndsAtUtc, team.Group.TimeZoneId))
                                             }
                                             else if (!next && !vacant && team.Current.StartsAtUtc.HasValue && team.Current.EndsAtUtc.HasValue)
                                             {
-                                                @await Html.PartialAsync("_OnCallTime", team.Current.StartsAtUtc.Value)<span> – </span>@await Html.PartialAsync("_OnCallTime", team.Current.EndsAtUtc.Value)
+                                                @await Html.PartialAsync("_OnCallTime", (team.Current.StartsAtUtc.Value, team.Group.TimeZoneId))<span> – </span>@await Html.PartialAsync("_OnCallTime", (team.Current.EndsAtUtc.Value, team.Group.TimeZoneId))
                                             }
                                         </div>
                                     </div>
@@ -94,15 +94,15 @@
                             @foreach (var shift in current)
                             {
                                 <a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@shift.GroupId" class="d-block h4 text-primary my-2">@shift.Group.Name</a>
-                                <div class="small">@Localizer["Ends"] @await Html.PartialAsync("_OnCallTime", shift.EndsAtUtc)</div>
+                                <div class="small">@Localizer["Ends"] @await Html.PartialAsync("_OnCallTime", (shift.EndsAtUtc, shift.Group.TimeZoneId))</div>
                             }
                         }
                         @if (Model.Next != null)
                         {
                             <span class="small d-block mt-2">@Localizer["Your next shift"]</span>
-                            <strong class="ac-oncall-countdown" data-next-oncall="@DateTime.SpecifyKind(Model.Next.StartsAtUtc, DateTimeKind.Utc).ToString("O", CultureInfo.InvariantCulture)" data-today="@Localizer["Today"]" data-tomorrow="@Localizer["Tomorrow"]" data-days="@Localizer["In {0} days"].Value">@await Html.PartialAsync("_OnCallTime", Model.Next.StartsAtUtc)</strong>
+                            <strong class="ac-oncall-countdown" data-next-oncall="@DateTime.SpecifyKind(Model.Next.StartsAtUtc, DateTimeKind.Utc).ToString("O", CultureInfo.InvariantCulture)" data-today="@Localizer["Today"]" data-tomorrow="@Localizer["Tomorrow"]" data-days="@Localizer["In {0} days"].Value">@await Html.PartialAsync("_OnCallTime", (Model.Next.StartsAtUtc, Model.Next.Group.TimeZoneId))</strong>
                             <a asp-controller="OnCall" asp-action="GroupDetails" asp-route-id="@Model.Next.GroupId" class="d-block fw-semibold text-primary mt-1">@Model.Next.Group.Name</a>
-                            <div class="small mt-1">@await Html.PartialAsync("_OnCallTime", Model.Next.StartsAtUtc)<span> – </span>@await Html.PartialAsync("_OnCallTime", Model.Next.EndsAtUtc)</div>
+                            <div class="small mt-1">@await Html.PartialAsync("_OnCallTime", (Model.Next.StartsAtUtc, Model.Next.Group.TimeZoneId))<span> – </span>@await Html.PartialAsync("_OnCallTime", (Model.Next.EndsAtUtc, Model.Next.Group.TimeZoneId))</div>
                         }
                         else if (current.Count == 0) { <p class="mb-0">@Localizer["No upcoming shift"]</p> }
                     </div>
