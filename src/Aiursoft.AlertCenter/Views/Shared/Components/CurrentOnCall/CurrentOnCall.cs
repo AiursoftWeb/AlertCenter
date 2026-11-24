@@ -35,13 +35,15 @@ public class CurrentOnCall(TemplateDbContext db) : ViewComponent
         });
         var teams = groups.Select(group => new CurrentOnCallTeam(group, current[group.Id], mergedNext.GetValueOrDefault(group.Id))).ToList();
         if (!dashboard) return View(teams);
-        // Load complete visible months, including past dates and shifts crossing month boundaries.
+        // The browser may be in the previous/next month relative to UTC. Include those
+        // complete months and their surrounding calendar weeks in every time zone.
+        var from = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc).AddMonths(-1).AddDays(-7);
         var lastMonth = now.AddDays(56);
-        var until = new DateTime(lastMonth.Year, lastMonth.Month, 1, 0, 0, 0, DateTimeKind.Utc).AddMonths(1).AddDays(2);
+        var until = new DateTime(lastMonth.Year, lastMonth.Month, 1, 0, 0, 0, DateTimeKind.Utc).AddMonths(2).AddDays(7);
         var personal = db.OnCallShifts.AsNoTracking().AsSingleQuery().Include(shift => shift.Group)
             .Include(shift => shift.Members).ThenInclude(member => member.User)
             .Where(shift => shift.Members.Any(member => member.UserId == userId));
-        var shifts = await personal.Where(shift => shift.EndsAtUtc > now.AddDays(-32) && shift.StartsAtUtc < until)
+        var shifts = await personal.Where(shift => shift.EndsAtUtc > from && shift.StartsAtUtc < until)
             .OrderBy(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id).ToListAsync(token);
         var upcoming = await personal.Where(shift => shift.StartsAtUtc > now)
             .OrderBy(shift => shift.StartsAtUtc).ThenBy(shift => shift.Id).FirstOrDefaultAsync(token);
