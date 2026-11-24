@@ -10,6 +10,13 @@ public sealed class SmsTemplateSettings
     public string Mitigated { get; set; } = string.Empty;
     public string Resolved { get; set; } = string.Empty;
     public string Reopened { get; set; } = string.Empty;
+
+    public bool AreAllConfigured() =>
+        !string.IsNullOrWhiteSpace(NewIncident) &&
+        !string.IsNullOrWhiteSpace(Escalated) &&
+        !string.IsNullOrWhiteSpace(Mitigated) &&
+        !string.IsNullOrWhiteSpace(Resolved) &&
+        !string.IsNullOrWhiteSpace(Reopened);
 }
 
 public sealed class SmsSettings
@@ -18,39 +25,33 @@ public sealed class SmsSettings
     public string SecretKey { get; set; } = string.Empty;
     public string SmsSdkAppId { get; set; } = string.Empty;
     public string SignName { get; set; } = string.Empty;
-    public string TemplateId { get; set; } = string.Empty;
     public SmsTemplateSettings Templates { get; set; } = new();
     public string Region { get; set; } = "ap-guangzhou";
     public string Endpoint { get; set; } = "sms.tencentcloudapi.com";
 
-    public string ResolveTemplateId(string? incidentEventType)
+    public string ResolveTemplateId(string? incidentEventType) => (incidentEventType switch
     {
-        var specific = incidentEventType switch
-        {
-            IncidentTimelineEntry.LevelChanged => Templates.Escalated,
-            IncidentTimelineEntry.Mitigated => Templates.Mitigated,
-            IncidentTimelineEntry.Resolved => Templates.Resolved,
-            IncidentTimelineEntry.Reopened => Templates.Reopened,
-            _ => Templates.NewIncident
-        };
-        if (!string.IsNullOrWhiteSpace(specific)) return specific.Trim();
-        return TemplateId.Trim();
-    }
+        IncidentTimelineEntry.LevelChanged => Templates.Escalated,
+        IncidentTimelineEntry.Mitigated => Templates.Mitigated,
+        IncidentTimelineEntry.Resolved => Templates.Resolved,
+        IncidentTimelineEntry.Reopened => Templates.Reopened,
+        _ => Templates.NewIncident
+    }).Trim();
 
-    public bool TryValidate(out string? error, string? templateId = null, IStringLocalizer? localizer = null)
+    public bool TryValidate(out string? error, IStringLocalizer? localizer = null)
     {
         error = null;
-        var effectiveTemplateId = string.IsNullOrWhiteSpace(templateId) ? ResolveTemplateId(null) : templateId.Trim();
         if (string.IsNullOrWhiteSpace(SecretId) ||
             string.IsNullOrWhiteSpace(SecretKey) ||
             string.IsNullOrWhiteSpace(SmsSdkAppId) ||
             string.IsNullOrWhiteSpace(SignName) ||
-            string.IsNullOrWhiteSpace(effectiveTemplateId) ||
-            string.IsNullOrWhiteSpace(Region))
+            string.IsNullOrWhiteSpace(Region) ||
+            Templates is null ||
+            !Templates.AreAllConfigured())
         {
             error = localizer is null
-                ? "Please configure Sms:SecretId, Sms:SecretKey, Sms:SmsSdkAppId, Sms:SignName, Sms:Templates, and Sms:Region."
-                : localizer["Please configure Sms:SecretId, Sms:SecretKey, Sms:SmsSdkAppId, Sms:SignName, Sms:Templates, and Sms:Region."].Value;
+                ? "Please configure Sms:SecretId, Sms:SecretKey, Sms:SmsSdkAppId, Sms:SignName, Sms:Region, and all five template IDs under Sms:Templates (NewIncident, Escalated, Mitigated, Resolved, Reopened)."
+                : localizer["Please configure Sms:SecretId, Sms:SecretKey, Sms:SmsSdkAppId, Sms:SignName, Sms:Region, and all five template IDs under Sms:Templates (NewIncident, Escalated, Mitigated, Resolved, Reopened)."].Value;
             return false;
         }
 

@@ -29,7 +29,7 @@ public sealed class TencentCloudSmsSender(IOptions<SmsSettings> options) : ISmsS
     public async Task SendAsync(SmsMessage message, CancellationToken cancellationToken = default)
     {
         var settings = options.Value;
-        if (!settings.TryValidate(out var error, message.TemplateId))
+        if (!settings.TryValidate(out var error))
         {
             throw new InvalidOperationException(error);
         }

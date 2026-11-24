@@ -64,6 +64,26 @@ public class SmsChannelAdapterTests
         Assert.AreEqual("tpl-mitigated", _settings.ResolveTemplateId(IncidentTimelineEntry.Mitigated));
         Assert.AreEqual("tpl-resolved", _settings.ResolveTemplateId(IncidentTimelineEntry.Resolved));
         Assert.AreEqual("tpl-reopened", _settings.ResolveTemplateId(IncidentTimelineEntry.Reopened));
+
+        // Missing any single one of the 5 templates must fail validation.
+        var missingOne = new SmsSettings
+        {
+            SecretId = "AKID-test",
+            SecretKey = "secret-test",
+            SmsSdkAppId = "1401224081",
+            SignName = "TestSign",
+            Templates = new SmsTemplateSettings
+            {
+                NewIncident = "tpl-new",
+                Escalated = "tpl-escalated",
+                Mitigated = "tpl-mitigated",
+                Resolved = "tpl-resolved",
+                Reopened = ""
+            },
+            Region = "ap-guangzhou"
+        };
+        Assert.IsFalse(missingOne.TryValidate(out var missingError));
+        Assert.IsNotNull(missingError);
     }
 
     [TestMethod]
